@@ -71,7 +71,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Property\ProjectPropertiesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CommonToolsPluginTest.cs" />
   </ItemGroup>

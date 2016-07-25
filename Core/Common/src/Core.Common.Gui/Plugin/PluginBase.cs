@@ -39,7 +39,7 @@ namespace Core.Common.Gui.Plugin
         public virtual IGui Gui { get; set; }
 
         /// <summary>
-        /// Ribbon command handler (adding tabs, groups, buttons, etc.) which can be provided by the gui plugin.
+        /// Ribbon command handler (adding tabs, groups, buttons, etc.) which can be provided by the plugin.
         /// </summary>
         public virtual IRibbonCommandHandler RibbonCommandHandler
         {
@@ -73,15 +73,6 @@ namespace Core.Common.Gui.Plugin
         /// </summary>
         /// <returns>The enumeration of <see cref="IFileExporter"/> provided by the <see cref="PluginBase"/>.</returns>
         public virtual IEnumerable<IFileExporter> GetFileExporters()
-        {
-            yield break;
-        }
-
-        /// <summary>
-        /// This method returns an enumeration of <see cref="DataItemInfo"/>.
-        /// </summary>
-        /// <returns>The enumeration of <see cref="DataItemInfo"/> provided by the <see cref="PluginBase"/>.</returns>
-        public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
         {
             yield break;
         }

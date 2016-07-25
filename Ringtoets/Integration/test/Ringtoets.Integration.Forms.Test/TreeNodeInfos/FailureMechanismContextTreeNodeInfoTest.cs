@@ -484,7 +484,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         /* Used in ChildNodeObjects_FailureMechanismIsRelevantWithDifferentFailureMechanismSectionResults_OutputNodeAdded(Type) */
-
         public void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
         {
             // Setup

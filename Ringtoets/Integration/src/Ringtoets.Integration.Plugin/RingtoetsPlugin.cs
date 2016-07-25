@@ -371,32 +371,6 @@ namespace Ringtoets.Integration.Plugin
             yield return new FailureMechanismSectionsImporter();
         }
 
-        public override IEnumerable<DataItemInfo> GetDataItemInfos()
-        {
-            IAssessmentSection assessmentSection = GetAssessmentSectionFromFile();
-
-            if (assessmentSection == null)
-            {
-                return Enumerable.Empty<DataItemInfo>();
-            }
-
-            return new DataItemInfo[]
-            {
-                new DataItemInfo<IAssessmentSection>
-                {
-                    Name = RingtoetsFormsResources.AssessmentSection_DisplayName,
-                    Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                    Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
-                    CreateData = owner =>
-                    {
-                        var project = (RingtoetsProject) owner;
-                        assessmentSection.Name = GetUniqueForAssessmentSectionName(project.AssessmentSections, assessmentSection.Name);
-                        return assessmentSection;
-                    }
-                }
-            };
-        }
-
         /// <summary>
         /// Gets the child data instances that have <see cref="ViewInfo"/> definitions of some parent data object.
         /// </summary>

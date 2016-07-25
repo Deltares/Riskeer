@@ -120,17 +120,16 @@ namespace Core.Plugins.ProjectExplorer.Test
                 }
             };
 
+            var projectStub = mocks.Stub<IProject>();
             mocks.ReplayAll();
-
-            var project = new Project();
 
             using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos))
             {
                 // Call
-                explorer.Data = project;
+                explorer.Data = projectStub;
 
                 // Assert
-                Assert.AreSame(project, explorer.TreeViewControl.Data);
+                Assert.AreSame(projectStub, explorer.TreeViewControl.Data);
             }
             mocks.VerifyAll();
         }
@@ -151,9 +150,9 @@ namespace Core.Plugins.ProjectExplorer.Test
                 }
             };
 
-            var project = new Project();
+            var projectStub = mocks.Stub<IProject>();
 
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(project));
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(projectStub));
 
             mocks.ReplayAll();
 
@@ -165,11 +164,11 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
             {
-                Data = project
+                Data = projectStub
             })
             {
                 // Call
-                explorer.TreeViewControl.TryRemoveNodeForData(project);
+                explorer.TreeViewControl.TryRemoveNodeForData(projectStub);
             }
             // Assert
             mocks.VerifyAll();
@@ -184,7 +183,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
 
-            var project = new Project();
+            var projectStub = mocks.Stub<IProject>();
             var stringA = "testA";
             var stringB = "testB";
 
@@ -207,7 +206,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (mocks.Ordered())
             {
-                applicationSelection.Expect(a => a.Selection = project);
+                applicationSelection.Expect(a => a.Selection = projectStub);
                 applicationSelection.Expect(a => a.Selection = stringA);
                 applicationSelection.Expect(a => a.Selection = null);
             }
@@ -216,7 +215,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
             {
-                Data = project
+                Data = projectStub
             })
             {
                 WindowsFormsTestHelper.Show(explorer.TreeViewControl);
@@ -245,7 +244,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
 
-            var project = new Project();
+            var projectStub = mocks.Stub<IProject>();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
@@ -264,7 +263,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
             {
-                Data = project
+                Data = projectStub
             })
             {
                 var form = new Form
@@ -277,7 +276,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 TypeUtils.GetField<TreeView>(explorer.TreeViewControl, "treeView").Name = treeIdentifier;
 
                 // Precondition
-                Assert.AreSame(explorer.TreeViewControl.SelectedData, project);
+                Assert.AreSame(explorer.TreeViewControl.SelectedData, projectStub);
 
                 var tester = new TreeViewTester(treeIdentifier);
 

@@ -658,53 +658,6 @@ namespace Ringtoets.Integration.Plugin.Test
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void GetDataItemInfos_ReturnsExpectedDataItemDefinitions()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var windows = mockRepository.Stub<IMainWindow>();
-            var guiMock = mockRepository.StrictMock<IGui>();
-            guiMock.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            guiMock.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
-            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            guiMock.Expect(g => g.MainWindow).Return(windows);
-            mockRepository.ReplayAll();
-
-            string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                plugin.Gui = guiMock;
-
-                SetShapeFileDirectory(plugin, pathValidFolder);
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
-                    var dataGridView = grid.Controls.OfType<DataGridView>().First();
-                    dataGridView[0, 0].Selected = true;
-                    new ButtonTester("Ok", selectionDialog).Click();
-                };
-
-                // Call
-                var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, dataItemDefinitions.Length);
-
-                DataItemInfo assessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(IAssessmentSection));
-                Assert.AreEqual("Traject", assessmentSectionDataItemDefinition.Name);
-                Assert.AreEqual("Algemeen", assessmentSectionDataItemDefinition.Category);
-                TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.AssessmentSectionFolderIcon, assessmentSectionDataItemDefinition.Image);
-                Assert.IsNull(assessmentSectionDataItemDefinition.AdditionalOwnerCheck);
-                Assert.IsInstanceOf<AssessmentSection>(assessmentSectionDataItemDefinition.CreateData(new RingtoetsProject()));
-            }
-            mockRepository.VerifyAll();
-        }
-
         private static void SetShapeFileDirectory(RingtoetsPlugin plugin, string nonExistingFolder)
         {
             string privateShapeFileDirectoryName = "shapeFileDirectory";

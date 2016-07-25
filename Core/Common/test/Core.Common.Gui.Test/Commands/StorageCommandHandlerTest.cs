@@ -144,16 +144,16 @@ namespace Core.Common.Gui.Test.Commands
         {
             // Setup
             const string someValidFilePath = "<some valid file path>";
-            var project = new Project();
+            var projectMock = mocks.Stub<IProject>();
 
             const string exceptionMessage = "<some descriptive exception message>";
 
             var projectStorage = mocks.StrictMock<IStoreProject>();
-            projectStorage.Expect(ps => ps.SaveProject(someValidFilePath, project)).
+            projectStorage.Expect(ps => ps.SaveProject(someValidFilePath, projectMock)).
                            Throw(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
             var mainWindowController = mocks.StrictMock<IWin32Window>();
             var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Project = project;
+            projectOwner.Project = projectMock;
             projectOwner.ProjectFilePath = someValidFilePath;
             mocks.ReplayAll();
 
@@ -182,14 +182,14 @@ namespace Core.Common.Gui.Test.Commands
         public void SaveProject_SavingProjectIsSuccessful_LogSuccessAndReturnTrue()
         {
             // Setup
-            var project = new Project("<some cool name>");
+            var projectMock = mocks.Stub<IProject>();
             const string someValidFilePath = "<some valid filepath>";
 
             var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.SaveProject(someValidFilePath, project));
+            projectStorage.Expect(ps => ps.SaveProject(someValidFilePath, projectMock));
             var mainWindowController = mocks.StrictMock<IWin32Window>();
             var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Project = project;
+            projectOwner.Project = projectMock;
             projectOwner.ProjectFilePath = someValidFilePath;
             mocks.ReplayAll();
 
@@ -204,7 +204,7 @@ namespace Core.Common.Gui.Test.Commands
 
             // Assert
             var expectedMessage = string.Format("Het Ringtoetsproject '{0}' is succesvol opgeslagen.",
-                                                project.Name);
+                                                projectMock.Name);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsTrue(result);
 
@@ -288,7 +288,7 @@ namespace Core.Common.Gui.Test.Commands
             const string fileName = "newProject";
             string pathToSomeInvalidFile = string.Format("C://folder/directory/{0}.rtd",
                                                          fileName);
-            var loadedProject = new Project();
+            var loadedProject = mocks.Stub<IProject>();
 
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
@@ -317,7 +317,7 @@ namespace Core.Common.Gui.Test.Commands
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);
 
-            Assert.IsInstanceOf<Project>(projectOwner.Project);
+            Assert.IsInstanceOf<IProject>(projectOwner.Project);
             Assert.AreEqual(pathToSomeInvalidFile, projectOwner.ProjectFilePath);
             Assert.AreEqual(fileName, projectOwner.Project.Name);
             mocks.VerifyAll();
@@ -330,8 +330,8 @@ namespace Core.Common.Gui.Test.Commands
             const string fileName = "newProject";
             string pathToSomeValidFile = string.Format("C://folder/directory/{0}.rtd",
                                                        fileName);
-            var loadedProject = new Project();
-            var originalProject = new Project("Original");
+            var loadedProject = mocks.Stub<IProject>();
+            var originalProject = mocks.Stub<IProject>();
 
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeValidFile))
@@ -365,7 +365,7 @@ namespace Core.Common.Gui.Test.Commands
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
             Assert.IsTrue(result);
 
-            Assert.IsInstanceOf<Project>(projectOwner.Project);
+            Assert.IsInstanceOf<IProject>(projectOwner.Project);
             Assert.AreEqual(pathToSomeValidFile, projectOwner.ProjectFilePath);
             Assert.AreEqual(fileName, projectOwner.Project.Name);
             mocks.VerifyAll();

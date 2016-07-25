@@ -20,24 +20,17 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
-using Core.Plugins.CommonTools.Property;
 
 namespace Core.Plugins.CommonTools
 {
     /// <summary>
-    /// This class configures general GUI components.
+    /// This class configures general plugin components.
     /// </summary>
     public class CommonToolsPlugin : PluginBase
     {
-        public override IEnumerable<PropertyInfo> GetPropertyInfos()
-        {
-            yield return new PropertyInfo<IProject, ProjectProperties>();
-        }
-
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<RichTextFile, RichTextView>

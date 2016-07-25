@@ -130,6 +130,12 @@ namespace Core.Common.Gui
 
         public IPropertyResolver PropertyResolver { get; private set; }
 
+        #region Implementation: ISettingsOwner
+
+        public GuiCoreSettings FixedSettings { get; private set; }
+
+        #endregion
+
         public void Dispose()
         {
             Dispose(true);
@@ -668,13 +674,7 @@ namespace Core.Common.Gui
 
         #endregion
 
-        #region Implementation: ISettingsOwner
-
-        public GuiCoreSettings FixedSettings { get; private set; }
-
-        #endregion
-
-        #region Implementation: IGuiPluginHost
+        #region Implementation: IPluginHost
 
         public IList<PluginBase> Plugins { get; private set; }
 

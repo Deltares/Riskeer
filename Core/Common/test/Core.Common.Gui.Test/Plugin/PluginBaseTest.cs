@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -234,19 +233,6 @@ namespace Core.Common.Gui.Test.Plugin
                 CollectionAssert.IsEmpty(infos);
             }
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetDataItemInfos_ReturnEmptyEnumerable()
-        {
-            // Setup
-            var plugin = new SimplePlugin();
-
-            // Call
-            var dataItemInfos = plugin.GetDataItemInfos().ToArray();
-
-            // Assert
-            CollectionAssert.IsEmpty(dataItemInfos);
         }
 
         [Test]

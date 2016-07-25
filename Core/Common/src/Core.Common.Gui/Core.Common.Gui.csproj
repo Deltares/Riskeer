@@ -136,7 +136,6 @@
     <Compile Include="IPluginsHost.cs" />
     <Compile Include="IMainWindowController.cs" />
     <Compile Include="IProjectOwner.cs" />
-    <Compile Include="Plugin\DataItemInfo.cs" />
     <Compile Include="Plugin\PluginBase.cs" />
     <Compile Include="Plugin\PropertyInfo.cs" />
     <Compile Include="Plugin\PropertyInfoExtensions.cs" />

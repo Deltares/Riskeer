@@ -108,7 +108,6 @@
       <DependentUpon>TestView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ViewHost\DocumentViewControllerTest.cs" />
-    <Compile Include="Plugin\DataItemInfoTest.cs" />
     <Compile Include="Plugin\PluginBaseTest.cs" />
     <Compile Include="Plugin\PropertyInfoExtensionsTest.cs" />
     <Compile Include="Plugin\PropertyInfoTest.cs" />

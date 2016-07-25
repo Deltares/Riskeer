@@ -228,6 +228,8 @@ namespace Core.Plugins.ProjectExplorer.Test
             var mocks = new MockRepository();
             var guiStub = mocks.Stub<IGui>();
             var viewHost = mocks.StrictMock<IViewHost>();
+            var initialProjectMock = mocks.Stub<IProject>();
+            var newProjectMock = mocks.Stub<IProject>();
             guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.GetTreeNodeInfos()).Return(new[]
@@ -258,21 +260,19 @@ namespace Core.Plugins.ProjectExplorer.Test
                 Gui = guiStub
             })
             {
-                var initialProject = new Project();
-                guiStub.Project = initialProject;
+                guiStub.Project = initialProjectMock;
                 plugin.Activate();
 
                 // Precondition
                 Assert.AreEqual(1, toolViews.Count);
-                Assert.AreSame(initialProject, toolViews[0].Data);
+                Assert.AreSame(initialProjectMock, toolViews[0].Data);
 
                 // Call
-                var newProject = new Project();
-                guiStub.Project = newProject;
-                guiStub.Raise(s => s.ProjectOpened += null, newProject);
+                guiStub.Project = newProjectMock;
+                guiStub.Raise(s => s.ProjectOpened += null, newProjectMock);
 
                 // Assert
-                Assert.AreSame(newProject, toolViews[0].Data);
+                Assert.AreSame(newProjectMock, toolViews[0].Data);
             }
         }
     }
