@@ -22,12 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Utils;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
@@ -103,7 +100,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
+        internal void Register(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
         {
             Register(grassCoverErosionInwardsCalculations, entity, model);
         }
@@ -121,7 +118,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(GrassCoverErosionInwardsOutputEntity entity, GrassCoverErosionInwardsOutput model)
+        internal void Register(GrassCoverErosionInwardsOutputEntity entity, GrassCoverErosionInwardsOutput model)
         {
             Register(grassCoverErosionInwardsOutputs, entity, model);
         }
@@ -139,7 +136,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="entity"/> is <c>null</c></item>
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
-        public void Register(ProbabilisticOutputEntity entity, ProbabilityAssessmentOutput model)
+        internal void Register(ProbabilisticOutputEntity entity, ProbabilityAssessmentOutput model)
         {
             Register(probabilisticAssessmentOutputs, entity, model);
         }
