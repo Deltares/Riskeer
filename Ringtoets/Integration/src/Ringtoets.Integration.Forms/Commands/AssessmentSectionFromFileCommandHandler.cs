@@ -81,11 +81,11 @@ namespace Ringtoets.Integration.Forms.Commands
                     return null;
                 }
                 var selectedItem = dialog.SelectedReferenceLineMeta;
-                return selectedItem == null ? null : CreateAssessmentSection(selectedItem, dialog.SelectedLimitValue);
+                return selectedItem == null ? null : CreateAssessmentSection(selectedItem, dialog.SelectedNorm);
             }
         }
 
-        private IAssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, int? selectedLimitValue)
+        private IAssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, int? norm)
         {
             IAssessmentSection assessmentSection;
             var settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
@@ -109,15 +109,15 @@ namespace Ringtoets.Integration.Forms.Commands
                 log.Warn(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_ReferenceLineFailed);
             }
 
-            if (selectedLimitValue.HasValue)
+            if (norm.HasValue)
             {
                 try
                 {
-                    assessmentSection.FailureMechanismContribution.Norm = selectedLimitValue.Value;
+                    assessmentSection.FailureMechanismContribution.Norm = norm.Value;
                 }
                 catch (ArgumentOutOfRangeException exception)
                 {
-                    log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, selectedLimitValue.Value), exception);
+                    log.Warn(string.Format(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Unable_to_set_Value_0, norm.Value), exception);
                 }
             }
             return assessmentSection;

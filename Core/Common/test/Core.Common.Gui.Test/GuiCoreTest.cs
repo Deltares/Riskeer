@@ -82,46 +82,44 @@ namespace Core.Common.Gui.Test
 
             // Call
             using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
             {
-                using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
+                // Assert
+                Assert.AreEqual(null, gui.PropertyResolver);
+
+                Assert.AreEqual(null, gui.ProjectFilePath);
+                Assert.AreEqual(null, gui.Project);
+
+                Assert.AreEqual(null, gui.Selection);
+
+                Assert.IsInstanceOf<StorageCommandHandler>(gui.StorageCommands);
+                Assert.IsInstanceOf<ViewCommandHandler>(gui.ViewCommands);
+                Assert.AreEqual(null, gui.ApplicationCommands);
+
+                Assert.AreEqual(null, gui.ViewHost);
+                Assert.AreEqual(null, gui.DocumentViewController);
+
+                Assert.AreSame(guiCoreSettings, gui.FixedSettings);
+
+                CollectionAssert.IsEmpty(gui.Plugins);
+
+                Assert.AreEqual(mainWindow, gui.MainWindow);
+
+                Assert.AreSame(ViewPropertyEditor.ViewCommands, gui.ViewCommands);
+
+                // Check for OS settings that allow visual styles to be rendered in the first place:
+                if (VisualStyleInformation.IsSupportedByOS && VisualStyleInformation.IsEnabledByUser &&
+                    (Application.VisualStyleState == VisualStyleState.ClientAreaEnabled ||
+                     Application.VisualStyleState == VisualStyleState.ClientAndNonClientAreasEnabled))
                 {
-                    // Assert
-                    Assert.AreEqual(null, gui.PropertyResolver);
-
-                    Assert.AreEqual(null, gui.ProjectFilePath);
-                    Assert.AreEqual(null, gui.Project);
-
-                    Assert.AreEqual(null, gui.Selection);
-
-                    Assert.IsInstanceOf<StorageCommandHandler>(gui.StorageCommands);
-                    Assert.IsInstanceOf<ViewCommandHandler>(gui.ViewCommands);
-                    Assert.AreEqual(null, gui.ApplicationCommands);
-
-                    Assert.AreEqual(null, gui.ViewHost);
-                    Assert.AreEqual(null, gui.DocumentViewController);
-
-                    Assert.AreSame(guiCoreSettings, gui.FixedSettings);
-
-                    CollectionAssert.IsEmpty(gui.Plugins);
-
-                    Assert.AreEqual(mainWindow, gui.MainWindow);
-
-                    Assert.AreSame(ViewPropertyEditor.ViewCommands, gui.ViewCommands);
-
-                    // Check for OS settings that allow visual styles to be rendered in the first place:
-                    if (VisualStyleInformation.IsSupportedByOS && VisualStyleInformation.IsEnabledByUser &&
-                        (Application.VisualStyleState == VisualStyleState.ClientAreaEnabled ||
-                         Application.VisualStyleState == VisualStyleState.ClientAndNonClientAreasEnabled))
-                    {
-                        Assert.IsTrue(Application.RenderWithVisualStyles,
-                                      "OS configured to support visual styles, therefore GUI should enable this rendering style.");
-                    }
-                    else
-                    {
-                        // 
-                        Assert.IsFalse(Application.RenderWithVisualStyles,
-                                       "OS not supporting visual styles, therefore application shouldn't be render with visual styles.");
-                    }
+                    Assert.IsTrue(Application.RenderWithVisualStyles,
+                                  "OS configured to support visual styles, therefore GUI should enable this rendering style.");
+                }
+                else
+                {
+                    // 
+                    Assert.IsFalse(Application.RenderWithVisualStyles,
+                                   "OS not supporting visual styles, therefore application shouldn't be render with visual styles.");
                 }
             }
             mocks.VerifyAll();
@@ -170,17 +168,11 @@ namespace Core.Common.Gui.Test
 
             // Call
             using (var mainWindow = new MainWindow())
-            {
-                using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
-                {
-                    // Call
-                    using (var gui2 = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
-                    {
-                        // Assert
-                        Assert.Fail("Expected an InvalidOperationException to be thrown.");
-                    }
-                }
-            }
+            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
+                // Call
+            using (var gui2 = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
+                // Assert
+                Assert.Fail("Expected an InvalidOperationException to be thrown.");
             mocks.VerifyAll();
         }
 
@@ -356,20 +348,18 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var toolView = new TestView())
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
-                {
-                    gui.Run();
+                gui.Run();
 
-                    gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left);
+                gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left);
 
-                    // Call
-                    gui.Dispose();
+                // Call
+                gui.Dispose();
 
-                    // Assert
-                    Assert.IsEmpty(gui.ViewHost.ToolViews);
-                    Assert.IsTrue(toolView.IsDisposed);
-                }
+                // Assert
+                Assert.IsEmpty(gui.ViewHost.ToolViews);
+                Assert.IsTrue(toolView.IsDisposed);
             }
             mocks.VerifyAll();
         }
@@ -385,21 +375,19 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var documentView = new TestView())
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
-                {
-                    gui.Run();
+                gui.Run();
 
-                    gui.ViewHost.AddDocumentView(documentView);
+                gui.ViewHost.AddDocumentView(documentView);
 
-                    // Call
-                    gui.Dispose();
+                // Call
+                gui.Dispose();
 
-                    // Assert
-                    Assert.IsEmpty(gui.ViewHost.DocumentViews);
-                    Assert.IsNull(gui.DocumentViewController);
-                    Assert.IsTrue(documentView.IsDisposed);
-                }
+                // Assert
+                Assert.IsEmpty(gui.ViewHost.DocumentViews);
+                Assert.IsNull(gui.DocumentViewController);
+                Assert.IsTrue(documentView.IsDisposed);
             }
             mocks.VerifyAll();
         }
@@ -512,28 +500,26 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, fixedSettings))
             {
-                using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, fixedSettings))
+                // Call
+                Action call = () => gui.Run(testFile);
+
+                // Assert
+                var expectedMessages = new[]
                 {
-                    // Call
-                    Action call = () => gui.Run(testFile);
+                    "Openen van bestaand Ringtoetsproject.",
+                    "Bestaand Ringtoetsproject succesvol geopend."
+                };
+                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+                Assert.AreEqual(testFile, gui.ProjectFilePath);
+                Assert.AreSame(deserializedProject, gui.Project);
+                Assert.AreEqual(fileName, gui.Project.Name,
+                                "Project name should be updated to the name of the file.");
 
-                    // Assert
-                    var expectedMessages = new[]
-                    {
-                        "Openen van bestaand Ringtoetsproject.",
-                        "Bestaand Ringtoetsproject succesvol geopend."
-                    };
-                    TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-                    Assert.AreEqual(testFile, gui.ProjectFilePath);
-                    Assert.AreSame(deserializedProject, gui.Project);
-                    Assert.AreEqual(fileName, gui.Project.Name,
-                                    "Project name should be updated to the name of the file.");
-
-                    var expectedTitle = string.Format("{0} - {1} {2}",
-                                                      fileName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
-                    Assert.AreEqual(expectedTitle, mainWindow.Title);
-                }
+                var expectedTitle = string.Format("{0} - {1} {2}",
+                                                  fileName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
         }
@@ -564,27 +550,25 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, fixedSettings))
             {
-                using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, fixedSettings))
+                // Call
+                Action call = () => gui.Run(testFile);
+
+                // Assert
+                var expectedMessages = new[]
                 {
-                    // Call
-                    Action call = () => gui.Run(testFile);
+                    "Openen van bestaand Ringtoetsproject.",
+                    storageExceptionText,
+                    "Het is niet gelukt om het Ringtoetsproject te laden.",
+                    "Nieuw project aanmaken..."
+                };
+                TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
 
-                    // Assert
-                    var expectedMessages = new[]
-                    {
-                        "Openen van bestaand Ringtoetsproject.",
-                        storageExceptionText,
-                        "Het is niet gelukt om het Ringtoetsproject te laden.",
-                        "Nieuw project aanmaken..."
-                    };
-                    TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
-
-                    Assert.IsNull(gui.ProjectFilePath);
-                    var expectedTitle = string.Format("{0} - {1} {2}",
-                                                      expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
-                    Assert.AreEqual(expectedTitle, mainWindow.Title);
-                }
+                Assert.IsNull(gui.ProjectFilePath);
+                var expectedTitle = string.Format("{0} - {1} {2}",
+                                                  expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
         }
@@ -613,19 +597,17 @@ namespace Core.Common.Gui.Test
             };
 
             using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, fixedSettings))
             {
-                using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, fixedSettings))
-                {
-                    // Call
-                    Action call = () => gui.Run(path);
+                // Call
+                Action call = () => gui.Run(path);
 
-                    // Assert
-                    TestHelper.AssertLogMessageIsGenerated(call, "Nieuw project aanmaken...");
-                    Assert.IsNull(gui.ProjectFilePath);
-                    var expectedTitle = string.Format("{0} - {1} {2}",
-                                                      expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
-                    Assert.AreEqual(expectedTitle, mainWindow.Title);
-                }
+                // Assert
+                TestHelper.AssertLogMessageIsGenerated(call, "Nieuw project aanmaken...");
+                Assert.IsNull(gui.ProjectFilePath);
+                var expectedTitle = string.Format("{0} - {1} {2}",
+                                                  expectedProjectName, fixedSettings.MainWindowTitle, SettingsHelper.ApplicationVersion);
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
             mocks.VerifyAll();
         }
@@ -956,16 +938,14 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
-                {
-                    // Call
-                    TestDelegate call = () => gui.Get(new object(), treeView);
+                // Call
+                TestDelegate call = () => gui.Get(new object(), treeView);
 
-                    // Assert
-                    var message = Assert.Throws<InvalidOperationException>(call).Message;
-                    Assert.AreEqual("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.", message);
-                }
+                // Assert
+                var message = Assert.Throws<InvalidOperationException>(call).Message;
+                Assert.AreEqual("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.", message);
             }
             mocks.VerifyAll();
         }
@@ -981,27 +961,25 @@ namespace Core.Common.Gui.Test
             mocks.ReplayAll();
 
             using (var treeView = new TreeViewControl())
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectFactory, new GuiCoreSettings()))
-                {
-                    gui.Run();
+                gui.Run();
 
-                    // Call
-                    IContextMenuBuilder builder = gui.Get(new object(), treeView);
+                // Call
+                IContextMenuBuilder builder = gui.Get(new object(), treeView);
 
-                    // Assert
-                    ContextMenuStrip contextMenu = builder.AddRenameItem()
-                                                          .AddCollapseAllItem()
-                                                          .AddDeleteItem()
-                                                          .AddExpandAllItem()
-                                                          .AddImportItem()
-                                                          .AddExportItem()
-                                                          .AddOpenItem()
-                                                          .AddSeparator()
-                                                          .AddPropertiesItem()
-                                                          .Build();
-                    Assert.AreEqual(9, contextMenu.Items.Count);
-                }
+                // Assert
+                ContextMenuStrip contextMenu = builder.AddRenameItem()
+                                                      .AddCollapseAllItem()
+                                                      .AddDeleteItem()
+                                                      .AddExpandAllItem()
+                                                      .AddImportItem()
+                                                      .AddExportItem()
+                                                      .AddOpenItem()
+                                                      .AddSeparator()
+                                                      .AddPropertiesItem()
+                                                      .Build();
+                Assert.AreEqual(9, contextMenu.Items.Count);
             }
             mocks.VerifyAll();
         }

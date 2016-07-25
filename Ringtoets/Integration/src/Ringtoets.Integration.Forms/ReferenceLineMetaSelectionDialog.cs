@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -60,9 +61,15 @@ namespace Ringtoets.Integration.Forms
             InitializeReferenceLineMetaDataGridViewControl(referenceLineMetas);
         }
 
+        /// <summary>
+        /// Gets the <see cref="ReferenceLineMeta"/> from the selected row in the <see cref="DataGridViewControl"/>.
+        /// </summary>
         public ReferenceLineMeta SelectedReferenceLineMeta { get; private set; }
 
-        public int? SelectedLimitValue { get; private set; }
+        /// <summary>
+        /// Gets the norm value from the selected row in the <see cref="DataGridViewControl"/> and selected item in the <see cref="ComboBox"/>.
+        /// </summary>
+        public int? SelectedNorm { get; private set; }
 
         protected override Button GetCancelButton()
         {
@@ -103,7 +110,7 @@ namespace Ringtoets.Integration.Forms
             if (referenceLineMetaSelectionRow != null)
             {
                 SelectedReferenceLineMeta = referenceLineMetaSelectionRow.ReferenceLineMeta;
-                SelectedLimitValue = GetSelectedLimitValue();
+                SelectedNorm = GetSelectedLimitValue();
             }
         }
 
@@ -134,14 +141,14 @@ namespace Ringtoets.Integration.Forms
             public ReferenceLineMetaSelectionRow(ReferenceLineMeta referenceLineMeta)
             {
                 AssessmentSectionId = referenceLineMeta.AssessmentSectionId;
-                SignalingValue = referenceLineMeta.SignalingValue ?? 0;
-                LowerLimitValue = referenceLineMeta.LowerLimitValue ?? 0;
+                SignalingValue = referenceLineMeta.SignalingValue;
+                LowerLimitValue = referenceLineMeta.LowerLimitValue;
                 ReferenceLineMeta = referenceLineMeta;
             }
 
             public string AssessmentSectionId { get; private set; }
-            public int SignalingValue { get; private set; }
-            public int LowerLimitValue { get; private set; }
+            public int? SignalingValue { get; private set; }
+            public int? LowerLimitValue { get; private set; }
             public ReferenceLineMeta ReferenceLineMeta { get; private set; }
         }
     }

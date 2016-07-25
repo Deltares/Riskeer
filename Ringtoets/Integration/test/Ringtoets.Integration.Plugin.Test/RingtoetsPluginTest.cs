@@ -92,18 +92,16 @@ namespace Ringtoets.Integration.Plugin.Test
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var plugin = new RingtoetsPlugin())
             {
-                using (var plugin = new RingtoetsPlugin())
-                {
-                    plugin.Gui = gui;
-                    gui.Run();
+                plugin.Gui = gui;
+                gui.Run();
 
-                    // When
-                    Action action = () => gui.Project = new RingtoetsProject();
+                // When
+                Action action = () => gui.Project = new RingtoetsProject();
 
-                    // Then
-                    TestHelper.AssertLogMessagesCount(action, 0);
-                }
+                // Then
+                TestHelper.AssertLogMessagesCount(action, 0);
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -119,31 +117,29 @@ namespace Ringtoets.Integration.Plugin.Test
             mocks.ReplayAll();
 
             var testDataDir = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
-            var testDataPath = Path.Combine(testDataDir, "complete.sqlite");
+            var testFilePath = Path.Combine(testDataDir, "complete.sqlite");
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var plugin = new RingtoetsPlugin())
             {
-                using (var plugin = new RingtoetsPlugin())
+                plugin.Gui = gui;
+                gui.Run();
+
+                var project = new RingtoetsProject();
+                var section = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    plugin.Gui = gui;
-                    gui.Run();
-
-                    var project = new RingtoetsProject();
-                    var section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                     {
-                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                        {
-                            FilePath = testDataPath
-                        }
-                    };
-                    project.AssessmentSections.Add(section);
+                        FilePath = testFilePath
+                    }
+                };
+                project.AssessmentSections.Add(section);
 
-                    // When
-                    Action action = () => { gui.Project = project; };
+                // When
+                Action action = () => { gui.Project = project; };
 
-                    // Then
-                    TestHelper.AssertLogMessagesCount(action, 0);
-                }
+                // Then
+                TestHelper.AssertLogMessagesCount(action, 0);
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -159,34 +155,32 @@ namespace Ringtoets.Integration.Plugin.Test
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, new RingtoetsProjectFactory(), new GuiCoreSettings()))
+            using (var plugin = new RingtoetsPlugin())
             {
-                using (var plugin = new RingtoetsPlugin())
+                var project = new RingtoetsProject();
+                const string nonExistingFileExistingFile = "not_existing_file";
+
+                var section = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    var project = new RingtoetsProject();
-                    var notExistingFile = "not_existing_file";
-
-                    var section = new AssessmentSection(AssessmentSectionComposition.Dike)
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                     {
-                        HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                        {
-                            FilePath = notExistingFile
-                        }
-                    };
-                    project.AssessmentSections.Add(section);
+                        FilePath = nonExistingFileExistingFile
+                    }
+                };
+                project.AssessmentSections.Add(section);
 
-                    plugin.Gui = gui;
-                    gui.Run();
+                plugin.Gui = gui;
+                gui.Run();
 
-                    // When
-                    Action action = () => { gui.Project = project; };
+                // When
+                Action action = () => { gui.Project = project; };
 
-                    // Then
-                    var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", notExistingFile);
-                    string message = string.Format(
-                        RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
-                        fileMissingMessage);
-                    TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
-                }
+                // Then
+                var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", nonExistingFileExistingFile);
+                string message = string.Format(
+                    RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
+                    fileMissingMessage);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
