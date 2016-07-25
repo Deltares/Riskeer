@@ -385,7 +385,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherSFailureMechanismSectionAdded_False()
+        public void Contains_OtherFailureMechanismSectionAdded_False()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -459,6 +459,67 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             bool result = registry.Contains(dikeProfile);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_WithoutGrassCoverErosionInwardsCalculation_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Contains((GrassCoverErosionInwardsCalculation)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_GrassCoverErosionInwardsCalculationAdded_True()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var registry = new PersistenceRegistry();
+            registry.Register(new GrassCoverErosionInwardsCalculationEntity(), calculation);
+
+            // Call
+            bool result = registry.Contains(calculation);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_OtherGrassCoverErosionInwardsCalculationAdded_False()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            var otherCalculation = new GrassCoverErosionInwardsCalculation();
+            var registry = new PersistenceRegistry();
+            registry.Register(new GrassCoverErosionInwardsCalculationEntity(), otherCalculation);
+
+            // Call
+            bool result = registry.Contains(calculation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_NoGrassCoverErosionInwardsCalculationAdded_False()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            bool result = registry.Contains(calculation);
 
             // Assert
             Assert.IsFalse(result);
@@ -906,6 +967,68 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreSame(registeredEntity, retrievedEntity);
         }
 
+        [Test]
+        public void Get_WithoutGrassCoverErosionInwardsCalculation_ArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get((GrassCoverErosionInwardsCalculation)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_NoGrassCoverErosionInwardsCalculationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get(calculation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_OtherGrassCoverErosionInwardsCalculationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var registeredCalculation = new GrassCoverErosionInwardsCalculation();
+            var registeredEntity = new GrassCoverErosionInwardsCalculationEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, registeredCalculation);
+
+            // Call
+            TestDelegate call = () => registry.Get(calculation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_GrassCoverErosionInwardsCalculationAdded_ReturnsEntity()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var registeredEntity = new GrassCoverErosionInwardsCalculationEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, calculation);
+
+            // Call
+            GrassCoverErosionInwardsCalculationEntity retrievedEntity = registry.Get(calculation);
+
+            // Assert
+            Assert.AreSame(registeredEntity, retrievedEntity);
+        }
         #endregion
 
         #region Register methods

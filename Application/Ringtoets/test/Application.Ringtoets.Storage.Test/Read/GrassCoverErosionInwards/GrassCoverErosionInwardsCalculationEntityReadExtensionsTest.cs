@@ -106,6 +106,28 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_RegisterEntity()
+        {
+            // Setup
+            var entity = new GrassCoverErosionInwardsCalculationEntity
+            {
+                GrassCoverErosionInwardsCalculationEntityId = 457,
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+            Assert.AreSame(calculation, collector.Get(entity));
+        }
+
+        [Test]
         public void Read_EntityWithNullValues_ReturnCalculationWithNaNOrNull()
         {
             // Setup
@@ -144,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_ValidEntityWithAlreadyReadDikeProfileEntity_ReturnCalculationWithReadDikeProfile()
+        public void Read_ValidEntityWithAlreadyReadDikeProfileEntity_ReturnCalculationWithReadDikeProfile()
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
@@ -169,7 +191,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_ValidEntityWithUnreadDikeProfileEntity_ReturnCalculationWithNewDikeProfile()
+        public void Read_ValidEntityWithUnreadDikeProfileEntity_ReturnCalculationWithNewDikeProfile()
         {
             // Setup
             var dikeProfileEntity = new DikeProfileEntity
@@ -194,7 +216,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_ValidEntityWithAlreadyReadHydraulicLocationEntity_ReturnCalculationWithReadHydraulicBoundaryLocation()
+        public void Read_ValidEntityWithAlreadyReadHydraulicLocationEntity_ReturnCalculationWithReadHydraulicBoundaryLocation()
         {
             // Setup
             var hydroLocation = new HydraulicBoundaryLocation(1, "A", 0, 0);
@@ -215,7 +237,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_ValidEntityWithUnreadHydraulicLocationEntity_ReturnCalculationWithNewHydraulicBoundaryLocation()
+        public void Read_ValidEntityWithUnreadHydraulicLocationEntity_ReturnCalculationWithNewHydraulicBoundaryLocation()
         {
             // Setup
             var hydroLocationEntity = new HydraulicLocationEntity
@@ -261,6 +283,35 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.IsTrue(calculation.HasOutput);
+        }
+
+        [Test]
+        public void Read_CalculationEntityAlreadyRead_ReturnReadCalculation()
+        {
+            // Setup
+            var entity = new GrassCoverErosionInwardsCalculationEntity
+            {
+                GrassCoverErosionInwardsCalculationEntityId = 456,
+                GrassCoverErosionInwardsOutputEntity = new GrassCoverErosionInwardsOutputEntity
+                {
+                    GrassCoverErosionInwardsOutputId = 9745,
+                    ProbabilisticOutputEntity = new ProbabilisticOutputEntity
+                    {
+                        ProbabilisticOutputEntityId = 3245
+                    }
+                }
+            };
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(entity, calculation);
+
+            // Call
+            GrassCoverErosionInwardsCalculation returnedCalculation = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(calculation, returnedCalculation);
         }
     }
 }

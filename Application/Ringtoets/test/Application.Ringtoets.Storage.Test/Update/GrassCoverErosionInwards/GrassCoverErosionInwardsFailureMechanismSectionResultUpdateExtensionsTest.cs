@@ -162,7 +162,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_WithNaNResult_ReturnsEntityWithNullResult()
+        public void Update_WithNaNResult_ReturnsEntityWithNullResult()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -191,6 +191,74 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNull(sectionResultEntity.LayerThree);
+        }
+
+        [Test]
+        public void Update_WithNewCalculation_EntityHasCalculationEntitySet()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationEntity = new GrassCoverErosionInwardsCalculationEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(calculationEntity, calculation);
+
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = 4534,
+                Calculation = calculation
+            };
+            var entity = new GrassCoverErosionInwardsSectionResultEntity
+            {
+                GrassCoverErosionInwardsSectionResultEntityId = sectionResult.StorageId,
+                GrassCoverErosionInwardsCalculationEntity = null
+            };
+
+            ringtoetsEntities.GrassCoverErosionInwardsSectionResultEntities.Add(entity);
+
+            // Call
+            sectionResult.Update(registry, ringtoetsEntities);
+
+            // Assert
+            Assert.AreSame(calculationEntity, entity.GrassCoverErosionInwardsCalculationEntity);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Update_WithDeletedCalculation_EntityHasCalculationEntitySetToNulll()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
+            mocks.ReplayAll();
+
+            var calculationEntity = new GrassCoverErosionInwardsCalculationEntity();
+
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                StorageId = 4534,
+                Calculation = null
+            };
+            var entity = new GrassCoverErosionInwardsSectionResultEntity
+            {
+                GrassCoverErosionInwardsSectionResultEntityId = sectionResult.StorageId,
+                GrassCoverErosionInwardsCalculationEntity = calculationEntity
+            };
+
+            ringtoetsEntities.GrassCoverErosionInwardsSectionResultEntities.Add(entity);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            sectionResult.Update(registry, ringtoetsEntities);
+
+            // Assert
+            Assert.IsNull(entity.GrassCoverErosionInwardsCalculationEntity);
+            mocks.VerifyAll();
         }
     }
 }

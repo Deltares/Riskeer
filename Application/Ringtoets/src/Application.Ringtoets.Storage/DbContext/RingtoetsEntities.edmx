@@ -149,6 +149,7 @@
           </Key>
           <Property Name="GrassCoverErosionInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="integer" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
         </EntityType>
@@ -682,6 +683,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GrassCoverErosionInwardsSectionResultEntity_0_0">
+          <End Role="GrassCoverErosionInwardsCalculationEntity" Type="Self.GrassCoverErosionInwardsCalculationEntity" Multiplicity="0..1" />
+          <End Role="GrassCoverErosionInwardsSectionResultEntity" Type="Self.GrassCoverErosionInwardsSectionResultEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrassCoverErosionInwardsCalculationEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsCalculationEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionInwardsSectionResultEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionInwardsSectionResultEntity_1_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
           <End Role="GrassCoverErosionInwardsSectionResultEntity" Type="Self.GrassCoverErosionInwardsSectionResultEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1175,6 +1188,10 @@
             <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionInwardsSectionResultEntity_0_0" Association="Self.FK_GrassCoverErosionInwardsSectionResultEntity_0_0">
+            <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntity" />
+            <End Role="GrassCoverErosionInwardsSectionResultEntity" EntitySet="GrassCoverErosionInwardsSectionResultEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionInwardsSectionResultEntity_1_0" Association="Self.FK_GrassCoverErosionInwardsSectionResultEntity_1_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="GrassCoverErosionInwardsSectionResultEntity" EntitySet="GrassCoverErosionInwardsSectionResultEntity" />
           </AssociationSet>
@@ -1428,7 +1445,7 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="FailureMechanismSectionPointEntity" EntitySet="FailureMechanismSectionPointEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_GrassCoverErosionInwardsSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0">
+          <AssociationSet Name="FK_GrassCoverErosionInwardsSectionResultEntity_1_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_1_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="GrassCoverErosionInwardsSectionResultEntity" EntitySet="GrassCoverErosionInwardsSectionResultEntities" />
           </AssociationSet>
@@ -1499,6 +1516,10 @@
           <AssociationSet Name="FK_GrassCoverErosionInwardsCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0">
             <End Role="GrassCoverErosionInwardsOutputEntity" EntitySet="GrassCoverErosionInwardsOutputEntities" />
             <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrassCoverErosionInwardsSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0">
+            <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntities" />
+            <End Role="GrassCoverErosionInwardsSectionResultEntity" EntitySet="GrassCoverErosionInwardsSectionResultEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionInwardsOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsOutputEntity_0_0">
             <End Role="ProbabilisticOutputEntity" EntitySet="ProbabilisticOutputEntities" />
@@ -1657,7 +1678,7 @@
           <NavigationProperty Name="DuneErosionSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_DuneErosionSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="DuneErosionSectionResultEntity" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="FailureMechanismSectionPointEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionPointEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="FailureMechanismSectionPointEntity" />
-          <NavigationProperty Name="GrassCoverErosionInwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverErosionInwardsSectionResultEntity" />
+          <NavigationProperty Name="GrassCoverErosionInwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_1_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverErosionInwardsSectionResultEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverErosionOutwardsSectionResultEntity" />
           <NavigationProperty Name="GrassCoverSlipOffInwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffInwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverSlipOffInwardsSectionResultEntity" />
           <NavigationProperty Name="GrassCoverSlipOffOutwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverSlipOffOutwardsSectionResultEntity" />
@@ -1710,6 +1731,7 @@
           <NavigationProperty Name="DikeProfileEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="DikeProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsOutputEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_1_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="GrassCoverErosionInwardsOutputEntity" />
+          <NavigationProperty Name="GrassCoverErosionInwardsSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0" FromRole="GrassCoverErosionInwardsCalculationEntity" ToRole="GrassCoverErosionInwardsSectionResultEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsFailureMechanismMetaEntity">
           <Key>
@@ -1739,9 +1761,11 @@
           </Key>
           <Property Name="GrassCoverErosionInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="Int64" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
-          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0" FromRole="GrassCoverErosionInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_1_0" FromRole="GrassCoverErosionInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+          <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0" FromRole="GrassCoverErosionInwardsSectionResultEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsSectionResultEntity">
           <Key>
@@ -2353,7 +2377,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GrassCoverErosionInwardsSectionResultEntity_0_0">
+        <Association Name="FK_GrassCoverErosionInwardsSectionResultEntity_1_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" Role="GrassCoverErosionInwardsSectionResultEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2566,6 +2590,18 @@
             </Principal>
             <Dependent Role="GrassCoverErosionInwardsCalculationEntity">
               <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrassCoverErosionInwardsSectionResultEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Role="GrassCoverErosionInwardsCalculationEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" Role="GrassCoverErosionInwardsSectionResultEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrassCoverErosionInwardsCalculationEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsCalculationEntityId" />
+            </Principal>
+            <Dependent Role="GrassCoverErosionInwardsSectionResultEntity">
+              <PropertyRef Name="GrassCoverErosionInwardsCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2862,6 +2898,7 @@
               <MappingFragment StoreEntitySet="GrassCoverErosionInwardsSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="GrassCoverErosionInwardsCalculationEntityId" ColumnName="GrassCoverErosionInwardsCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="GrassCoverErosionInwardsSectionResultEntityId" ColumnName="GrassCoverErosionInwardsSectionResultEntityId" />
               </MappingFragment>

@@ -69,9 +69,9 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
             mechanism.GeneralInput.Update(registry, context);
             UpdateDikeProfiles(mechanism, registry, entity, context);
             mechanism.UpdateFailureMechanismSections(registry, entity, context);
-            UpdateSectionResults(mechanism, registry, context);
             mechanism.CalculationsGroup.Update(registry, context, 0);
-
+            UpdateSectionResults(mechanism, registry, context);
+            
             registry.Register(entity, mechanism);
         }
 

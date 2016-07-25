@@ -959,7 +959,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         #endregion
 
-        #region FailureMechanismSectionEntity: Read, Contains, Get
+        #region DikeProfileEntity: Read, Contains, Get
 
         [Test]
         public void Contains_WithoutDikeProfileEntity_ArgumentNullException()
@@ -1034,7 +1034,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_DikeProfileEntityAdded_ReturnsHydraulicBoundaryLocation()
+        public void Get_DikeProfileEntityAdded_ReturnsDikeProfile()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -1043,7 +1043,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(entity, dikeProfile);
 
             // Call
-            var result = collector.Get(entity);
+            DikeProfile result = collector.Get(entity);
 
             // Assert
             Assert.AreSame(dikeProfile, result);
@@ -1106,6 +1106,155 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             TestDelegate test = () => collector.Read(new DikeProfileEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
+
+        #region GrassCoverErosionInwardsCalculationEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutGrassCoverErosionInwardsCalculationEntity_ArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((GrassCoverErosionInwardsCalculationEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_GrassCoverErosionInwardsCalculationEntityAdded_True()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionInwardsCalculationEntity();
+            collector.Read(entity, new GrassCoverErosionInwardsCalculation());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoGrassCoverErosionInwardsCalculationEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionInwardsCalculationEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherGrassCoverErosionInwardsCalculationEntityAdded_False()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionInwardsCalculationEntity();
+            collector.Read(new GrassCoverErosionInwardsCalculationEntity(), new GrassCoverErosionInwardsCalculation());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutGrassCoverErosionInwardsCalculationEntity_ThrowArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((GrassCoverErosionInwardsCalculationEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_GrassCoverErosionInwardsCalculationEntityAdded_ReturnsGrassCoverErosionInwardsCalculation()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var entity = new GrassCoverErosionInwardsCalculationEntity();
+            collector.Read(entity, calculation);
+
+            // Call
+            var result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(calculation, result);
+        }
+
+        [Test]
+        public void Get_NoGrassCoverErosionInwardsCalculationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionInwardsCalculationEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherGrassCoverErosionInwardsCalculationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionInwardsCalculationEntity();
+            collector.Read(new GrassCoverErosionInwardsCalculationEntity(), new GrassCoverErosionInwardsCalculation());
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullGrassCoverErosionInwardsCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new GrassCoverErosionInwardsCalculation());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullGrassCoverErosionInwardsCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new GrassCoverErosionInwardsCalculationEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

@@ -45,9 +45,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             var entity = mechanism.Create(FailureMechanismType.GrassRevetmentTopErosionAndInwards, registry);
             AddEntitiesForGeneralInput(mechanism, registry, entity);
             AddEntitiesForDikeProfiles(mechanism, registry, entity);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             registry.Register(entity, mechanism);
             return entity;

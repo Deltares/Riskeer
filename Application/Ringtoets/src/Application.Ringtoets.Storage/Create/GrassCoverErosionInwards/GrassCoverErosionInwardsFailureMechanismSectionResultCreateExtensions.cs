@@ -51,6 +51,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal()
             };
+            if (result.Calculation != null)
+            {
+                sectionResultEntity.GrassCoverErosionInwardsCalculationEntity = registry.Get(result.Calculation);
+            }
 
             registry.Register(sectionResultEntity, result);
             return sectionResultEntity;

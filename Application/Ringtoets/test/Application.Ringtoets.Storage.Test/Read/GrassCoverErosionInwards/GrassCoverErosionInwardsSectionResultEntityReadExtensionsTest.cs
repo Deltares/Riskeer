@@ -93,6 +93,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(entityId, sectionResult.StorageId);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+
+            Assert.IsNull(sectionResult.Calculation);
         }
 
         [Test]
@@ -117,6 +119,37 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
-        } 
+        }
+
+        [Test]
+        public void Read_CalculationEntitySet_ReturnGrassCoverErosionInwardsSectionResultWithCalculation()
+        {
+            // Setup
+            var random = new Random(21);
+            var entityId = random.Next(1, 502);
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
+            var calculationEntity = new GrassCoverErosionInwardsCalculationEntity();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            collector.Read(calculationEntity, calculation);
+
+            var entity = new GrassCoverErosionInwardsSectionResultEntity
+            {
+                GrassCoverErosionInwardsSectionResultEntityId = entityId,
+                FailureMechanismSectionEntity = failureMechanismSectionEntity,
+                GrassCoverErosionInwardsCalculationEntity = calculationEntity
+            };
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            entity.Read(sectionResult, collector);
+
+            // Assert
+            Assert.AreSame(calculation, sectionResult.Calculation);
+        }
     }
 }

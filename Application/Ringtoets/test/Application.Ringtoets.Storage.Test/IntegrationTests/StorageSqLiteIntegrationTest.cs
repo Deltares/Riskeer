@@ -330,6 +330,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+                if (expectedSection.Calculation == null)
+                {
+                    Assert.IsNull(actualSection.Calculation);
+                }
+                else
+                {
+                    AssertGrassCoverErosionInwardsCalculation(expectedSection.Calculation, actualSection.Calculation);
+                }
             }
         }
 

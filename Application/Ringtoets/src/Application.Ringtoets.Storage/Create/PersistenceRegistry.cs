@@ -757,6 +757,18 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         /// <summary>
+        /// Checks whether a create or update operations has been registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(GrassCoverErosionInwardsCalculation model)
+        {
+            return ContainsValue(grassCoverErosionInwardsCalculations, model);
+        }
+
+        /// <summary>
         /// Obtains the <see cref="StochasticSoilModelEntity"/> which was registered for
         /// the given <paramref name="model"/>.
         /// </summary>
@@ -873,6 +885,23 @@ namespace Application.Ringtoets.Storage.Create
         internal DikeProfileEntity Get(DikeProfile model)
         {
             return Get(dikeProfiles, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="GrassCoverErosionInwardsCalculationEntity"/> which was
+        /// registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> for
+        /// which a read/update operation has been registered.</param>
+        /// <returns>The constructed <see cref="GrassCoverErosionInwardsCalculationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(GrassCoverErosionInwardsCalculation)"/> to find out
+        /// whether a create/update operation has been registered for <paramref name="model"/>.</remarks>
+        internal GrassCoverErosionInwardsCalculationEntity Get(GrassCoverErosionInwardsCalculation model)
+        {
+            return Get(grassCoverErosionInwardsCalculations, model);
         }
 
         /// <summary>

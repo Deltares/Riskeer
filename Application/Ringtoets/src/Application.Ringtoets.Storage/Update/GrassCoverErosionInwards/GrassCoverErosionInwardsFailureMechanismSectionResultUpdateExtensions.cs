@@ -66,8 +66,14 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal();
+            entity.GrassCoverErosionInwardsCalculationEntity = GetCalculationEntity(result.Calculation, registry);
 
             registry.Register(entity, result);
+        }
+
+        private static GrassCoverErosionInwardsCalculationEntity GetCalculationEntity(GrassCoverErosionInwardsCalculation calculation, PersistenceRegistry registry)
+        {
+            return calculation != null ? registry.Get(calculation) : null;
         }
     }
 }

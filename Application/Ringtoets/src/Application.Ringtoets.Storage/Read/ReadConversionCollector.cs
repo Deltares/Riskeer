@@ -39,14 +39,20 @@ namespace Application.Ringtoets.Storage.Read
     /// </summary>
     internal class ReadConversionCollector
     {
-        private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = new Dictionary<StochasticSoilModelEntity, StochasticSoilModel>(new ReferenceEqualityComparer<StochasticSoilModelEntity>());
-        private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = new Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile>(new ReferenceEqualityComparer<StochasticSoilProfileEntity>());
-        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = new Dictionary<SoilProfileEntity, PipingSoilProfile>(new ReferenceEqualityComparer<SoilProfileEntity>());
-        private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = new Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>(new ReferenceEqualityComparer<SurfaceLineEntity>());
-        private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLineGeometryPoints = new Dictionary<SurfaceLinePointEntity, Point3D>(new ReferenceEqualityComparer<SurfaceLinePointEntity>());
-        private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations = new Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>(new ReferenceEqualityComparer<HydraulicLocationEntity>());
-        private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = new Dictionary<FailureMechanismSectionEntity, FailureMechanismSection>(new ReferenceEqualityComparer<FailureMechanismSectionEntity>());
-        private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = new Dictionary<DikeProfileEntity, DikeProfile>(new ReferenceEqualityComparer<DikeProfileEntity>());
+        private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = CreateDictionary<StochasticSoilModelEntity, StochasticSoilModel>();
+        private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = CreateDictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
+        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
+        private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
+        private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLineGeometryPoints = CreateDictionary<SurfaceLinePointEntity, Point3D>();
+        private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations = CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
+        private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
+        private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = CreateDictionary<DikeProfileEntity, DikeProfile>();
+        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations = CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
+
+        private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
+        {
+            return new Dictionary<TEntity, TModel>(new ReferenceEqualityComparer<TEntity>());
+        }
 
         #region StochasticSoilModelEntity: Read, Contains, Get
 
@@ -550,7 +556,7 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region FailureMechanismSectionEntity: Read, Contains, Get
+        #region DikeProfileEntity: Read, Contains, Get
 
         /// <summary>
         /// Registers a read operation for <see cref="DikeProfileEntity"/> and the
@@ -613,6 +619,81 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return dikeProfiles[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region GrassCoverErosionInwardsCalculationEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="GrassCoverErosionInwardsCalculationEntity"/>
+        /// and the <see cref="GrassCoverErosionInwardsCalculation"/> that was constructed
+        /// with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
+        /// that was read.</param>
+        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> that
+        /// was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Read(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            grassCoverErosionInwardsCalculations[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="GrassCoverErosionInwardsCalculationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(GrassCoverErosionInwardsCalculationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            return grassCoverErosionInwardsCalculations.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="GrassCoverErosionInwardsCalculation"/> which was read
+        /// for the given <see cref="GrassCoverErosionInwardsCalculationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/> for which a read
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="GrassCoverErosionInwardsCalculation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(GrassCoverErosionInwardsCalculationEntity)"/>
+        /// to find out whether a read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal GrassCoverErosionInwardsCalculation Get(GrassCoverErosionInwardsCalculationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            try
+            {
+                return grassCoverErosionInwardsCalculations[entity];
             }
             catch (KeyNotFoundException e)
             {

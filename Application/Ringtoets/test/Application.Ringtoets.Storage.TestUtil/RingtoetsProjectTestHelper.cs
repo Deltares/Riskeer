@@ -65,7 +65,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism, assessmentSection);
             AddSections(grassCoverErosionInwardsFailureMechanism);
-            SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults);
+            SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults,
+                              grassCoverErosionInwardsFailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
 
             AddSections(assessmentSection.MacrostabilityInwards);
             SetSectionResults(assessmentSection.MacrostabilityInwards.SectionResults);
@@ -358,13 +359,19 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
+        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             var random = new Random(21);
+            bool firstSectionResultHasCalculation = false;
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+                if (!firstSectionResultHasCalculation)
+                {
+                    sectionResult.Calculation = calculations.First();
+                    firstSectionResultHasCalculation = true;
+                }
             }
         }
 

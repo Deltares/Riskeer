@@ -23,6 +23,7 @@ using System;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 
 using Core.Common.Base.Data;
@@ -62,12 +63,15 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
             };
 
+            var registry = new PersistenceRegistry();
+
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(registry);
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(Convert.ToDecimal(assessmentLayerThreeResult), result.LayerThree);
+            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), entity.LayerOne);
+            Assert.AreEqual(Convert.ToDecimal(assessmentLayerThreeResult), entity.LayerThree);
+            Assert.IsNull(entity.GrassCoverErosionInwardsCalculationEntity);
         }
 
         [Test]
@@ -79,11 +83,34 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 AssessmentLayerThree = (RoundedDouble) double.NaN
             };
 
+            var registry = new PersistenceRegistry();
+
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(registry);
 
             // Assert
-            Assert.IsNull(result.LayerThree);
+            Assert.IsNull(entity.LayerThree);
+        }
+
+        [Test]
+        public void Create_CalculationSet_ReturnEntityWithCalculationEntity()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                Calculation = calculation
+            };
+
+            var registry = new PersistenceRegistry();
+            var entity = new GrassCoverErosionInwardsCalculationEntity();
+            registry.Register(entity, calculation);
+
+            // Call
+            GrassCoverErosionInwardsSectionResultEntity result = sectionResult.Create(registry);
+
+            // Assert
+            Assert.AreSame(entity, result.GrassCoverErosionInwardsCalculationEntity);
         }
     }
 }

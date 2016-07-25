@@ -50,6 +50,10 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             {
                 throw new ArgumentNullException("collector");
             }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
 
             var calculation = new GrassCoverErosionInwardsCalculation
             {
@@ -78,11 +82,13 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                 }
             };
 
-
             if (entity.GrassCoverErosionInwardsOutputEntity != null)
             {
                 calculation.Output = entity.GrassCoverErosionInwardsOutputEntity.Read();
             }
+
+            collector.Read(entity, calculation);
+
             return calculation;
         }
 

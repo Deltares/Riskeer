@@ -58,6 +58,10 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             sectionResult.StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId;
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble();
+            if (entity.GrassCoverErosionInwardsCalculationEntity != null)
+            {
+                sectionResult.Calculation = entity.GrassCoverErosionInwardsCalculationEntity.Read(collector);
+            }
         }
     }
 }
