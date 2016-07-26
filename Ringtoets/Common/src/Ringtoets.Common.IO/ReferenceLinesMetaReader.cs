@@ -210,7 +210,7 @@ namespace Ringtoets.Common.IO
         private static IEnumerable<Point2D> GetSectionGeometry(MapFeature lineFeature)
         {
             var mapGeometries = lineFeature.MapGeometries.ToArray();
-            if (mapGeometries.Length > 1)
+            if (mapGeometries.Length != 1)
             {
                 return Enumerable.Empty<Point2D>();
             }

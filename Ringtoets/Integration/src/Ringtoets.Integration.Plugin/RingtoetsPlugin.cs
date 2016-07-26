@@ -48,7 +48,6 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO;
-using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
@@ -58,7 +57,6 @@ using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -202,7 +200,7 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        private readonly string shapeFileDirectory = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
+        private AssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -226,61 +224,10 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        /// <summary>
-        /// Returns a new <see cref="IAssessmentSection"/>, based upon the in a dialog selected <see cref="ReferenceLineMeta"/>.
-        /// </summary>
-        /// <returns>The newly created <see cref="IAssessmentSection"/>.</returns>
-        /// <exception cref="InvalidOperationException">Thrown when <see cref="Gui"/> is <c>null</c>.</exception>
-        public IAssessmentSection GetAssessmentSectionFromFile()
+        public override void Activate()
         {
-            if (Gui == null)
-            {
-                throw new InvalidOperationException("Gui must be set.");
-            }
-
-            IAssessmentSection assessmentSection = null;
-            try
-            {
-                var assessmentSectionHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow);
-                assessmentSection = assessmentSectionHandler.CreateAssessmentSectionFromFile(shapeFileDirectory);
-            }
-            catch (CriticalFileValidationException exception)
-            {
-                MessageBox.Show(exception.Message, BaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                log.Warn(exception.Message, exception.InnerException);
-            }
-            catch (CriticalFileReadException exception)
-            {
-                log.Error(exception.Message, exception.InnerException);
-            }
-
-            return assessmentSection;
-        }
-
-        /// <summary>
-        /// Adds <paramref name="assessmentSection"/> to <paramref name="ringtoetsProject"/> and ensures a unique name.
-        /// </summary>
-        /// <param name="ringtoetsProject">The <see cref="RingtoetsProject"/> to add the <paramref name="assessmentSection"/> to.</param>
-        /// <param name="assessmentSection">The <paramref name="assessmentSection"/> to add.</param>
-        public void SetAssessmentSectionToProject(RingtoetsProject ringtoetsProject, AssessmentSection assessmentSection)
-        {
-            if (ringtoetsProject == null)
-            {
-                throw new ArgumentNullException("ringtoetsProject");
-            }
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException("assessmentSection");
-            }
-
-            assessmentSection.Name = GetUniqueForAssessmentSectionName(ringtoetsProject.AssessmentSections, assessmentSection.Name);
-            ringtoetsProject.AssessmentSections.Add(assessmentSection);
-            ringtoetsProject.NotifyObservers();
-
-            if (Gui != null)
-            {
-                Gui.DocumentViewController.OpenViewForData(assessmentSection);
-            }
+            base.Activate();
+            assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
         }
 
         /// <summary>
@@ -526,7 +473,7 @@ namespace Ringtoets.Integration.Plugin
                         RingtoetsCommonFormsResources.RingtoetsProject_DisplayName,
                         RingtoetsCommonFormsResources.RingtoetsProject_ToolTip,
                         GuiResources.PlusIcon,
-                        (s, e) => SetAssessmentSectionFromFileToProject(nodeData));
+                        (s, e) => assessmentSectionFromFileCommandHandler.CreateAssessmentSectionFromFile());
 
                     return Gui.Get(nodeData, treeViewControl)
                               .AddCustomItem(addItem)
@@ -541,16 +488,6 @@ namespace Ringtoets.Integration.Plugin
                               .Build();
                 }
             };
-        }
-
-        private void SetAssessmentSectionFromFileToProject(RingtoetsProject ringtoetsProject)
-        {
-            var assessmentSection = GetAssessmentSectionFromFile();
-            if (!(assessmentSection is AssessmentSection))
-            {
-                return;
-            }
-            SetAssessmentSectionToProject(ringtoetsProject, (AssessmentSection) assessmentSection);
         }
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<TResult, TView>()

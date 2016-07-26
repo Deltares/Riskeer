@@ -23,13 +23,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;
+using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Commands
 {
@@ -39,8 +44,11 @@ namespace Ringtoets.Integration.Forms.Commands
     public class AssessmentSectionFromFileCommandHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionFromFileCommandHandler));
+        private readonly string shapeFileDirectory = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
 
         private readonly IWin32Window dialogParent;
+        private readonly IProjectOwner projectOwner;
+        private readonly IDocumentViewController viewController;
         private IEnumerable<AssessmentSectionSettings> settings;
         private IEnumerable<ReferenceLineMeta> referenceLineMetas = new List<ReferenceLineMeta>();
 
@@ -48,46 +56,117 @@ namespace Ringtoets.Integration.Forms.Commands
         /// Initializes a new instance of the <see cref="AssessmentSectionFromFileCommandHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
-        public AssessmentSectionFromFileCommandHandler(IWin32Window dialogParent)
+        /// <param name="projectOwner">The class owning the application project.</param>
+        /// <param name="viewController">The document view controller.</param>
+        public AssessmentSectionFromFileCommandHandler(IWin32Window dialogParent, IProjectOwner projectOwner, IDocumentViewController viewController)
         {
+            if (dialogParent == null)
+            {
+                throw new ArgumentNullException("dialogParent");
+            }
+            if (projectOwner == null)
+            {
+                throw new ArgumentNullException("projectOwner");
+            }
+            if (viewController == null)
+            {
+                throw new ArgumentNullException("viewController");
+            }
             this.dialogParent = dialogParent;
+            this.projectOwner = projectOwner;
+            this.viewController = viewController;
         }
 
         /// <summary>
-        /// Creates a new <see cref="IAssessmentSection"/>, based upon the in a dialog selected <see cref="ReferenceLineMeta"/>, which is derived from the shape file in <paramref name="folderpath"/>.
+        /// Creates an
         /// </summary>
-        /// <param name="folderpath">The path to the folder where a shape file should be read.</param>
-        /// <returns>The newly created <see cref="IAssessmentSection"/>.</returns>
-        /// <exception cref="CriticalFileValidationException">Thrown when:
-        /// <list type="bullet">
-        /// <item>The shape file does not contain any polylines.</item>
-        /// <item>The shape file does not contain the required attributes.</item>
-        /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
-        /// </list></exception>
-        /// <exception cref="CriticalFileReadException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="folderpath"/> points to an invalid directory.</item>
-        /// <item>The path <paramref name="folderpath"/> does not contain any shape files.</item>
-        /// </list></exception>
-        public IAssessmentSection CreateAssessmentSectionFromFile(string folderpath)
+        public void CreateAssessmentSectionFromFile()
         {
-            ValidateAssessmentSectionSettings();
-            ValidateReferenceLineMetas(folderpath);
+            if (!TryValidate())
+            {
+                return;
+            }
 
+            var assessmentSection = GetAssessmentSectionFromDialog();
+            if (assessmentSection == null || !(projectOwner.Project is RingtoetsProject))
+            {
+                return;
+            }
+
+            SetAssessmentSectionToProject((RingtoetsProject) projectOwner.Project, assessmentSection);
+        }
+
+        #region Dialog
+
+        private AssessmentSection GetAssessmentSectionFromDialog()
+        {
             using (var dialog = CreateReferenceLineMetaSelectionDialogWithItems())
             {
                 if (dialog.ShowDialog() != DialogResult.OK)
                 {
                     return null;
                 }
+
                 var selectedItem = dialog.SelectedReferenceLineMeta;
                 return selectedItem == null ? null : CreateAssessmentSection(selectedItem, dialog.SelectedNorm);
             }
         }
 
-        private IAssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, int? norm)
+        private ReferenceLineMetaSelectionDialog CreateReferenceLineMetaSelectionDialogWithItems()
         {
-            IAssessmentSection assessmentSection;
+            return new ReferenceLineMetaSelectionDialog(dialogParent, referenceLineMetas);
+        }
+
+        #endregion
+
+        #region Set AssessmentSection to Project
+
+        private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
+        {
+                assessmentSection.GrassCoverErosionInwards.GeneralInput.N = n;
+                assessmentSection.HeightStructures.GeneralInput.N = n;
+
+        }
+
+        private void SetAssessmentSectionToProject(RingtoetsProject ringtoetsProject, AssessmentSection assessmentSection)
+        {
+            assessmentSection.Name = GetUniqueForAssessmentSectionName(ringtoetsProject.AssessmentSections, assessmentSection.Name);
+            ringtoetsProject.AssessmentSections.Add(assessmentSection);
+            ringtoetsProject.NotifyObservers();
+
+            viewController.OpenViewForData(assessmentSection);
+        }
+
+        private static string GetUniqueForAssessmentSectionName(IEnumerable<IAssessmentSection> assessmentSections, string baseName)
+        {
+            return NamingHelper.GetUniqueName(assessmentSections, baseName, a => a.Name);
+        }
+
+        #endregion
+
+        #region Create AssessmentSection
+
+        private static AssessmentSection CreateDikeAssessmentSection()
+        {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            return assessmentSection;
+        }
+
+        private static AssessmentSection CreateDikeAssessmentSection(AssessmentSectionSettings settings)
+        {
+            var assessmentSection = CreateDikeAssessmentSection();
+            SetFailureMechanismsValueN(assessmentSection, settings.N);
+            return assessmentSection;
+        }
+
+        private static AssessmentSection CreateDuneAssessmentSection()
+        {
+            return new AssessmentSection(AssessmentSectionComposition.Dune);
+        }
+
+        private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, int? norm)
+        {
+            AssessmentSection assessmentSection;
             var settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
             if (settingOfSelectedAssessmentSection == null)
             {
@@ -123,44 +202,35 @@ namespace Ringtoets.Integration.Forms.Commands
             return assessmentSection;
         }
 
-        private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
-        {
-            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = n;
-            assessmentSection.HeightStructures.GeneralInput.N = n;
-        }
-
-        private ReferenceLineMetaSelectionDialog CreateReferenceLineMetaSelectionDialogWithItems()
-        {
-            return new ReferenceLineMetaSelectionDialog(dialogParent, referenceLineMetas);
-        }
-
-        #region Create AssessmentSection
-
-        private static AssessmentSection CreateDikeAssessmentSection()
-        {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            return assessmentSection;
-        }
-
-        private static AssessmentSection CreateDikeAssessmentSection(AssessmentSectionSettings settings)
-        {
-            var assessmentSection = CreateDikeAssessmentSection();
-            SetFailureMechanismsValueN(assessmentSection, settings.N);
-            return assessmentSection;
-        }
-
-        private static IAssessmentSection CreateDuneAssessmentSection()
-        {
-            return new AssessmentSection(AssessmentSectionComposition.Dune);
-        }
-
         #endregion
 
         #region Validators
 
-        private void ValidateReferenceLineMetas(string folderpath)
+        private bool TryValidate()
         {
-            var importer = new ReferenceLineMetaImporter(folderpath);
+            ValidateAssessmentSectionSettings();
+
+            try
+            {
+                ValidateReferenceLineMetas();
+            }
+            catch (CriticalFileValidationException exception)
+            {
+                MessageBox.Show(exception.Message, BaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.Warn(exception.Message, exception.InnerException);
+                return false;
+            }
+            catch (CriticalFileReadException exception)
+            {
+                log.Error(exception.Message, exception.InnerException);
+                return false;
+            }
+            return true;
+        }
+
+        private void ValidateReferenceLineMetas()
+        {
+            var importer = new ReferenceLineMetaImporter(shapeFileDirectory);
             referenceLineMetas = importer.GetReferenceLineMetas();
 
             if (!referenceLineMetas.Any())

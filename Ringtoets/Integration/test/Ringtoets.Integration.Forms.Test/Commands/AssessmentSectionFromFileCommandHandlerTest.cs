@@ -20,18 +20,22 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.IO.Exceptions;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO.Exceptions;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Commands;
 
@@ -43,54 +47,127 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "ReferenceLineMetaImporter");
 
         [Test]
-        public void CreateAssessmentSectionFromFile_InvalidDirectory_ThrowsCriticalFileReadException()
+        public void Constructor_ParentDialogNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.StrictMock<IWin32Window>();
+            var parentDialogMock = mockRepository.StrictMock<IProjectOwner>();
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
-            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+
+            // Call
+            TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(null, parentDialogMock, viewControllerMock);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("dialogParent", paramName);
+        }
+
+        [Test]
+        public void Constructor_ProjectOwnerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(parentDialogMock, null, viewControllerMock);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("projectOwner", paramName);
+        }
+
+        [Test]
+        public void Constructor_ViewControllerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
+            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(parentDialogMock, projectOwnerMock, null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("viewController", paramName);
+        }
+
+        [Test]
+        public void CreateAssessmentSectionFromFile_InvalidDirectory_LogsWarningProjectOwnerNotUpdated()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
+            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            mockRepository.ReplayAll();
+
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogMock, projectOwnerMock, viewControllerMock);
 
             string pathToNonExistingFolder = Path.Combine(testDataPath, "I do not exist");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathToNonExistingFolder);
 
             // Call
-            TestDelegate call = () => assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathToNonExistingFolder);
+            Action action = () => assessmentSectionFromFile.CreateAssessmentSectionFromFile();
 
             // Assert
-            Assert.Throws<CriticalFileReadException>(call);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De map locatie is ongeldig.", pathToNonExistingFolder);
+            TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void CreateAssessmentSectionFromFile_validDirectoryWithEmptyShapeFile_ThrowsCriticalFileValidationException()
+        public void CreateAssessmentSectionFromFile_validDirectoryWithEmptyShapeFile_LogsWarningProjectOwnerNotUpdated()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.StrictMock<IWin32Window>();
+            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
+            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
-            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogMock, projectOwnerMock, viewControllerMock);
 
             string pathValidFolder = Path.Combine(testDataPath, "EmptyShapeFile");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
+
+            string messageText = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                messageText = messageBox.Text;
+                messageBox.ClickOk();
+            };
 
             // Call
-            TestDelegate call = () => assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+            Action action = () => assessmentSectionFromFile.CreateAssessmentSectionFromFile();
 
             // Assert
-            CriticalFileValidationException exception = Assert.Throws<CriticalFileValidationException>(call);
-            Assert.AreEqual("Er kunnen geen trajecten gelezen worden uit het shape bestand.", exception.Message);
+            const string expectedMessage = "Er kunnen geen trajecten gelezen worden uit het shape bestand.";
+            TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
+            Assert.AreEqual(expectedMessage, messageText);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void CreateAssessmentSectionFromFile_ValidDirectoryUserClicksCancel_ReturnsNull()
+        public void CreateAssessmentSectionFromFile_ValidDirectoryUserClicksCancel_ProjectOwnerNotUpdated()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var parentDialogStub = mockRepository.Stub<IWin32Window>();
+            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerMock, viewControllerMock);
+
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -99,23 +176,28 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             };
 
             // Call
-            IAssessmentSection assessmentSection = assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+            assessmentSectionFromFile.CreateAssessmentSectionFromFile();
 
             // Assert
-            Assert.IsNull(assessmentSection);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void CreateAssessmentSectionFromFile_ValidDirectoryOkClicked_ReturnsFirstReadAssessmentSection()
+        public void CreateAssessmentSectionFromFile_ValidDirectoryOkClicked_SetsFirstReadAssessmentSection()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var parentDialogStub = mockRepository.Stub<IWin32Window>();
+            var project = new RingtoetsProject();
+            var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
             int rowCount = 0;
             DialogBoxHandler = (name, wnd) =>
@@ -127,25 +209,72 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             };
 
             // Call
-            var assessmentSection = (AssessmentSection) assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+            assessmentSectionFromFile.CreateAssessmentSectionFromFile();
 
             // Assert
             Assert.AreEqual(3, rowCount);
+            var assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection1_2(true), assessmentSection);
             mockRepository.VerifyAll();
         }
-
+        
         [Test]
-        public void CreateAssessmentSectionFromFile_ValidDirectoryLowLimitSelectedOkClicked_ReturnsFirstReadAssessmentSectionWithLowLimit()
+        public void CreateAssessmentSectionFromFile_ValidDirectoryOkClickedForDuplicateAssessmentSection_SetsFirstReadAssessmentSectionWithUniqueName()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var parentDialogStub = mockRepository.Stub<IWin32Window>();
+            var project = new RingtoetsProject();
+            var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
+
+            project.AssessmentSections.Add(TestAssessmentSection1_2(true));
+            var expectedAssessmentSectionName = NamingHelper.GetUniqueName(project.AssessmentSections, "1-2", a => a.Name);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                new ButtonTester("Ok", selectionDialog).Click();
+            };
+
+            // Call
+            assessmentSectionFromFile.CreateAssessmentSectionFromFile();
+
+            // Assert
+            Assert.AreEqual(2, project.AssessmentSections.Count);
+            var assessmentSection = project.AssessmentSections[1];
+            Assert.IsNotNull(assessmentSection);
+
+            var expectedAssessmentSection = TestAssessmentSection1_2(true);
+            expectedAssessmentSection.Name = expectedAssessmentSectionName;
+            AssertAssessmentSection(expectedAssessmentSection, assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CreateAssessmentSectionFromFile_ValidDirectoryLowLimitSelectedOkClicked_SetsFirstReadAssessmentSectionWithLowLimit()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialogStub = mockRepository.Stub<IWin32Window>();
+            var project = new RingtoetsProject();
+            var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            mockRepository.ReplayAll();
+
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
+            string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -156,24 +285,31 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             };
 
             // Call
-            var assessmentSection = (AssessmentSection) assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+            assessmentSectionFromFile.CreateAssessmentSectionFromFile();
 
             // Assert
+            var assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection1_2(false), assessmentSection);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void CreateAssessmentSectionFromFile_SecondRowSelectedOkClicked_ReturnsSecondReadAssessmentSection()
+        public void CreateAssessmentSectionFromFile_SecondRowSelectedOkClicked_SetsSecondReadAssessmentSection()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var parentDialogStub = mockRepository.Stub<IWin32Window>();
+            var project = new RingtoetsProject();
+            var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
             int rowCount = 0;
             DialogBoxHandler = (name, wnd) =>
@@ -188,25 +324,32 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             };
 
             // Call
-            AssessmentSection assessmentSection = (AssessmentSection) assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+            assessmentSectionFromFile.CreateAssessmentSectionFromFile();
 
             // Assert
             Assert.AreEqual(3, rowCount);
+            var assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection2_1(), assessmentSection);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void CreateAssessmentSectionFromFile_ThirdRowSelectedOkClicked_ReturnsThirdReadAssessmentSection()
+        public void CreateAssessmentSectionFromFile_ThirdRowSelectedOkClicked_SetsThirdReadAssessmentSection()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var parentDialogStub = mockRepository.Stub<IWin32Window>();
+            var project = new RingtoetsProject();
+            var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog);
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -218,17 +361,127 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
-            AssessmentSection assessmentSection = null;
-
             // Call
-            Action call = () => assessmentSection = (AssessmentSection) assessmentSectionFromFile.CreateAssessmentSectionFromFile(pathValidFolder);
+            Action call = () => assessmentSectionFromFile.CreateAssessmentSectionFromFile();
 
             // Assert
             const string expectedMessage = @"Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            var assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection3_3(), assessmentSection);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CreateAssessmentSectionFromFile_ShapeWithoutPointsOkClicked_LogsAndSetsAssessmentSectionWithoutReferenceLine()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialogStub = mockRepository.Stub<IWin32Window>();
+            var project = new RingtoetsProject();
+            var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            mockRepository.ReplayAll();
+
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
+            string pathValidFolder = Path.Combine(testDataPath, "ShapeWithoutPoints");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
+                var dataGridView = grid.Controls.OfType<DataGridView>().First();
+                dataGridView[0, 1].Selected = true;
+
+                new ButtonTester("Ok", selectionDialog).Click();
+            };
+
+            // Call
+            Action call = () => assessmentSectionFromFile.CreateAssessmentSectionFromFile();
+
+            // Assert
+            const string expectedMessage = @"Het importeren van de referentielijn is mislukt.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            var assessmentSection = project.AssessmentSections.FirstOrDefault();
+            Assert.IsNotNull(assessmentSection);
+
+            var expectedAssessmentSection = TestAssessmentSection1_2(true);
+            expectedAssessmentSection.ReferenceLine.SetGeometry(new Point2D[]{});
+
+            AssertAssessmentSection(expectedAssessmentSection, assessmentSection);
+            mockRepository.VerifyAll();
+        }
+        
+        [Test]
+        public void CreateAssessmentSectionFromFile_ShapeWithoutInvalidNormOkClicked_LogsAndSetsAssessmentSectionWithoutNorm()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialogStub = mockRepository.Stub<IWin32Window>();
+            var project = new RingtoetsProject();
+            var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            viewControllerMock.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            mockRepository.ReplayAll();
+
+            AssessmentSectionFromFileCommandHandler assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
+            string pathValidFolder = Path.Combine(testDataPath, "ShapeFileWithInvalidNormValue");
+            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
+                var dataGridView = grid.Controls.OfType<DataGridView>().First();
+                dataGridView[0, 0].Selected = true;
+
+                new ButtonTester("Ok", selectionDialog).Click();
+            };
+
+            // Call
+            Action call = () => assessmentSectionFromFile.CreateAssessmentSectionFromFile();
+
+            // Assert
+            string expectedMessage = string.Format("De waarde '{0}' kan niet gezet.", "0");
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            var assessmentSection = project.AssessmentSections.FirstOrDefault();
+            Assert.IsNotNull(assessmentSection);
+
+            var expectedAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Id = "1-2",
+            };
+            expectedAssessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
+            expectedAssessmentSection.HeightStructures.GeneralInput.N = 2;
+            expectedAssessmentSection.ReferenceLine = new ReferenceLine();
+            expectedAssessmentSection.ReferenceLine.SetGeometry(new[]
+            {
+                new Point2D(160679.9250, 475072.583),
+                new Point2D(160892.0751, 474315.4917)
+            });
+
+            AssertAssessmentSection(expectedAssessmentSection, assessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        private static void SetShapeFileDirectory(AssessmentSectionFromFileCommandHandler commandHandler, string nonExistingFolder)
+        {
+            string privateShapeFileDirectoryName = "shapeFileDirectory";
+            Type commandHandlerType = commandHandler.GetType();
+            FieldInfo fieldInfo = commandHandlerType.GetField(privateShapeFileDirectoryName, BindingFlags.NonPublic | BindingFlags.Instance);
+            if (fieldInfo == null)
+            {
+                Assert.Fail("Unable to find private field '{0}'", privateShapeFileDirectoryName);
+            }
+            else
+            {
+                fieldInfo.SetValue(commandHandler, nonExistingFolder);
+            }
         }
 
         #region Test Assessment Sections

@@ -23,18 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Windows.Forms;
 using System.Windows.Threading;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
-using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
@@ -53,13 +48,11 @@ using Ringtoets.Common.IO;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.Plugin.FileImporters;
-using PropertyInfo = Core.Common.Gui.Plugin.PropertyInfo;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -68,8 +61,6 @@ namespace Ringtoets.Integration.Plugin.Test
     [TestFixture]
     public class RingtoetsPluginTest : NUnitFormTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "ReferenceLineMetaImporter");
-
         [Test]
         [STAThread] // For creation of XAML UI component
         public void DefaultConstructor_ExpectedValues()
@@ -459,245 +450,6 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(2, importers.Length);
                 Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
                 Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
-            }
-        }
-
-        [Test]
-        public void SetAssessmentSectionToProject_ProjectIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            using (var plugin = new RingtoetsPlugin())
-            {
-                // Call
-                TestDelegate call = () => plugin.SetAssessmentSectionToProject(null, assessmentSection);
-
-                // Assert
-                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-                Assert.AreEqual("ringtoetsProject", paramName);
-            }
-        }
-
-        [Test]
-        public void SetAssessmentSectionToProject_AssessmentSectionIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var project = new RingtoetsProject();
-            using (var plugin = new RingtoetsPlugin())
-            {
-                // Call
-                TestDelegate call = () => plugin.SetAssessmentSectionToProject(project, null);
-
-                // Assert
-                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-                Assert.AreEqual("assessmentSection", paramName);
-            }
-        }
-
-        [Test]
-        public void SetAssessmentSectionToProject_WithData_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var projectObserver = mockRepository.StrictMock<IObserver>();
-            projectObserver.Expect(o => o.UpdateObserver());
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            var documentViewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
-            documentViewControllerMock.Expect(dvc => dvc.OpenViewForData(assessmentSection)).Return(true);
-            var guiMock = mockRepository.StrictMock<IGui>();
-            guiMock.Expect(g => g.DocumentViewController).Return(documentViewControllerMock);
-            guiMock.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            guiMock.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
-            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            mockRepository.ReplayAll();
-
-            var project = new RingtoetsProject();
-            
-            using (var plugin = new RingtoetsPlugin())
-            {
-                plugin.Gui = guiMock;
-
-                project.Attach(projectObserver);
-
-                // Precondition
-                CollectionAssert.IsEmpty(project.AssessmentSections);
-
-                // Call
-                plugin.SetAssessmentSectionToProject(project, assessmentSection);
-            }
-            // Assert
-            Assert.AreEqual(1, project.AssessmentSections.Count);
-            CollectionAssert.Contains(project.AssessmentSections, assessmentSection);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void WhenAddingAssessmentSection_GivenProjectHasAssessmentSection_ThenAddedAssessmentSectionHasUniqueName()
-        {
-            // Setup
-            var project = new RingtoetsProject();
-            var assessmentSection1 = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var assessmentSection2 = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                plugin.SetAssessmentSectionToProject(project, assessmentSection1);
-
-                // Call
-                plugin.SetAssessmentSectionToProject(project, assessmentSection2);
-            }
-
-            // Assert
-            CollectionAssert.AllItemsAreUnique(project.AssessmentSections.Select(section => section.Name));
-        }
-
-        [Test]
-        public void GetAssessmentSectionFromFile_GuiIsNull_ThrowsInvalidOperationException()
-        {
-            using (var plugin = new RingtoetsPlugin())
-            {
-                SetShapeFileDirectory(plugin, "");
-
-                // Call
-                TestDelegate call = () => plugin.GetAssessmentSectionFromFile();
-
-                // Assert
-                Assert.Throws<InvalidOperationException>(call);
-            }
-        }
-
-        [Test]
-        public void GetAssessmentSectionFromFile_NoShapeFileFound_LogsWarningReturnsNull()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var windows = mockRepository.Stub<IMainWindow>();
-            var guiMock = mockRepository.StrictMock<IGui>();
-            guiMock.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            guiMock.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
-            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            guiMock.Expect(g => g.MainWindow).Return(windows);
-            mockRepository.ReplayAll();
-
-            string nonExistingFolder = @"c:\folderDoesNotExist\";
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                plugin.Gui = guiMock;
-
-                SetShapeFileDirectory(plugin, nonExistingFolder);
-
-                // Call
-                IAssessmentSection assessmentSection = null;
-                Action action = () => assessmentSection = plugin.GetAssessmentSectionFromFile();
-
-                // Assert
-                TestHelper.AssertLogMessageIsGenerated(action, string.Format("Fout bij het lezen van bestand '{0}': De map locatie is ongeldig.", nonExistingFolder));
-                Assert.IsNull(assessmentSection);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GetAssessmentSectionFromFile_validDirectoryWithEmptyShapeFile_LogsWarningShowsMessageReturnsNull()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var windows = mockRepository.Stub<IMainWindow>();
-            var guiMock = mockRepository.StrictMock<IGui>();
-            guiMock.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            guiMock.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
-            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            guiMock.Expect(g => g.MainWindow).Return(windows);
-            mockRepository.ReplayAll();
-
-            string pathValidFolder = Path.Combine(testDataPath, "EmptyShapeFile");
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                plugin.Gui = guiMock;
-                SetShapeFileDirectory(plugin, pathValidFolder);
-
-                string messageText = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
-                    messageText = messageBox.Text;
-                    messageBox.ClickOk();
-                };
-
-                // Call
-                IAssessmentSection assessmentSection = null;
-                Action action = () => assessmentSection = plugin.GetAssessmentSectionFromFile();
-
-                // Assert
-                const string expectedErrorMessage = "Er kunnen geen trajecten gelezen worden uit het shape bestand.";
-                TestHelper.AssertLogMessageIsGenerated(action, expectedErrorMessage);
-                Assert.AreEqual(expectedErrorMessage, messageText);
-                Assert.IsNull(assessmentSection);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GetAssessmentSectionFromFile_validDirectoryOkClicked_ReturnsFirstAssessmentSection()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var windows = mockRepository.Stub<IMainWindow>();
-            var guiMock = mockRepository.StrictMock<IGui>();
-            guiMock.Stub(g => g.SelectionChanged += null).IgnoreArguments();
-            guiMock.Stub(g => g.SelectionChanged -= null).IgnoreArguments();
-            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            guiMock.Expect(g => g.MainWindow).Return(windows);
-            mockRepository.ReplayAll();
-
-            string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                plugin.Gui = guiMock;
-                SetShapeFileDirectory(plugin, pathValidFolder);
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
-                    var dataGridView = grid.Controls.OfType<DataGridView>().First();
-                    dataGridView[0, 0].Selected = true;
-                    new ButtonTester("Ok", selectionDialog).Click();
-                };
-
-                // Call
-                IAssessmentSection assessmentSection = plugin.GetAssessmentSectionFromFile();
-
-                // Assert
-                Assert.IsInstanceOf<IAssessmentSection>(assessmentSection);
-                Assert.AreEqual("1-2", assessmentSection.Id);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        private static void SetShapeFileDirectory(RingtoetsPlugin plugin, string nonExistingFolder)
-        {
-            string privateShapeFileDirectoryName = "shapeFileDirectory";
-            Type ringtoetsPluginType = plugin.GetType();
-            FieldInfo fieldInfo = ringtoetsPluginType.GetField(privateShapeFileDirectoryName, BindingFlags.NonPublic | BindingFlags.Instance);
-            if (fieldInfo == null)
-            {
-                Assert.Fail("Unable to find private field '{0}'", privateShapeFileDirectoryName);
-            }
-            else
-            {
-                fieldInfo.SetValue(plugin, nonExistingFolder);
             }
         }
     }
