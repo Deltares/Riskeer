@@ -156,7 +156,7 @@ namespace Application.Ringtoets.Storage.Test
                 // Assert
                 var message = Assert.Throws<IOException>(test).Message;
                 var expectedMessage = string.Format(
-                    "Er bestaat al een tijdelijk bestand ({0}) dat niet verwijderd kan worden. Het bestaande tijdelijke bestand dient handmatig verwijderd te worden.",
+                    "Er bestaat al een tijdelijk bestand ({0}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.",
                     temporaryFilePath);
                 Assert.AreEqual(message, expectedMessage);
                 temporaryFileStream.Dispose();
