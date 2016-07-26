@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long FailureMechanismSectionEntityId { get; set; }
         public Nullable<long> GrassCoverErosionInwardsCalculationEntityId { get; set; }
         public byte LayerOne { get; set; }
-        public Nullable<decimal> LayerThree { get; set; }
+        public Nullable<double> LayerThree { get; set; }
     
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
         public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }

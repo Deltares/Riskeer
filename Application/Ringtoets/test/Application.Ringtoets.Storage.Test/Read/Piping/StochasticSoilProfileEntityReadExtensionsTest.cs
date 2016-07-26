@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new StochasticSoilProfileEntity
             {
                 StochasticSoilProfileEntityId = entityId,
-                Probability = Convert.ToDecimal(probability),
+                Probability = probability,
                 SoilProfileEntity = new SoilProfileEntity
                 {
                     SoilLayerEntities =
@@ -92,12 +92,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
             var firstEntity = new StochasticSoilProfileEntity
             {
-                Probability = Convert.ToDecimal(probability),
+                Probability = probability,
                 SoilProfileEntity = soilProfileEntity
             };
             var secondEntity = new StochasticSoilProfileEntity
             {
-                Probability = 1- Convert.ToDecimal(probability),
+                Probability = 1 - probability,
                 SoilProfileEntity = soilProfileEntity
             };
             var collector = new ReadConversionCollector();

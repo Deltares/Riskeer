@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <returns>A new <see cref="PipingSoilLayer"/>.</returns>
         internal static PipingSoilLayer Read(this SoilLayerEntity entity)
         {
-            var pipingSoilLayer = new PipingSoilLayer(Convert.ToDouble(entity.Top))
+            var pipingSoilLayer = new PipingSoilLayer(entity.Top.ToNullAsNaN())
             {
                 StorageId = entity.SoilLayerEntityId,
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),

@@ -37,8 +37,8 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long ReferenceLinePointEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
-        public decimal X { get; set; }
-        public decimal Y { get; set; }
+        public Nullable<double> X { get; set; }
+        public Nullable<double> Y { get; set; }
         public int Order { get; set; }
     
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }

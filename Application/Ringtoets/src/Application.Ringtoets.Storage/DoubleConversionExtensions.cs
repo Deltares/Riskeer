@@ -30,38 +30,6 @@ namespace Application.Ringtoets.Storage
     public static class DoubleConversionExtensions
     {
         /// <summary>
-        /// Converts a <see cref="double"/> into a <see cref="decimal"/> that can be null.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns><c>null</c> when <paramref name="value"/> is <see cref="double.NaN"/>,
-        /// or the <see cref="decimal"/> representation of the <paramref name="value"/>
-        /// otherwise.</returns>
-        public static decimal? ToNullableDecimal(this double value)
-        {
-            if (double.IsNaN(value))
-            {
-                return null;
-            }
-            return Convert.ToDecimal(value);
-        }
-
-        /// <summary>
-        /// Converts a nullable <see cref="double"/> into a <see cref="decimal"/> that can be null.
-        /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <returns><c>null</c> when <paramref name="value"/> is <c>null</c>,
-        /// or the <see cref="decimal"/> representation of the <paramref name="value"/>
-        /// otherwise.</returns>
-        public static decimal? ToNullableDecimal(this double? value)
-        {
-            if (value.HasValue)
-            {
-                return Convert.ToDecimal(value);
-            }
-            return null;
-        }
-
-        /// <summary>
         /// Converts a <see cref="double"/> to a <see cref="Nullable{T}"/> <see cref="double"/>. If
         /// <paramref name="value"/> is <see cref="double.NaN"/>, the result is <c>null</c>.
         /// </summary>

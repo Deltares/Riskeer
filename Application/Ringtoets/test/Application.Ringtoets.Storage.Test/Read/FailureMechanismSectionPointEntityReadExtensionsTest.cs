@@ -38,8 +38,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             double y = random.NextDouble();
             var entity = new FailureMechanismSectionPointEntity
             {
-                X = Convert.ToDecimal(x),
-                Y = Convert.ToDecimal(y)
+                X = x,
+                Y = y
             };
 
             // Call

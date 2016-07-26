@@ -110,8 +110,8 @@ namespace Application.Ringtoets.Storage.Update.Piping
             }
             for (int i = 0; i < existingPoints.Length; i++)
             {
-                Point2D existingPoint = new Point2D(Convert.ToDouble(existingPoints[i].X),
-                                                    Convert.ToDouble(existingPoints[i].Y));
+                Point2D existingPoint = new Point2D(existingPoints[i].X.ToNullAsNaN(),
+                                                    existingPoints[i].Y.ToNullAsNaN());
                 if (!Math2D.AreEqualPoints(existingPoint, geometry[i]))
                 {
                     return true;

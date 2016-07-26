@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(Convert.ToDecimal(assessmentLayerThreeResult), result.LayerThree);
+            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
         }
 
         [Test]

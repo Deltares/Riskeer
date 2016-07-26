@@ -38,12 +38,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingCalculationOutputEntity
             {
                 PipingCalculationOutputEntityId = 123,
-                HeaveFactorOfSafety = 9.8m,
-                HeaveZValue = 7.6m,
-                UpliftZValue = 5.4m,
-                UpliftFactorOfSafety = 3.2m,
-                SellmeijerZValue = 1.9m,
-                SellmeijerFactorOfSafety = 8.7m
+                HeaveFactorOfSafety = 9.8,
+                HeaveZValue = 7.6,
+                UpliftZValue = 5.4,
+                UpliftFactorOfSafety = 3.2,
+                SellmeijerZValue = 1.9,
+                SellmeijerFactorOfSafety = 8.7
             };
 
             // Call

@@ -108,8 +108,8 @@ namespace Application.Ringtoets.Storage.Update
             }
             for (int i = 0; i < existingPointEntities.Length; i++)
             {
-                var isXAlmostEqual = Math.Abs(Convert.ToDouble(existingPointEntities[i].X) - otherPointsArray[i].X) < 1e-6;
-                var isYAlmostEqual = Math.Abs(Convert.ToDouble(existingPointEntities[i].Y) - otherPointsArray[i].Y) < 1e-6;
+                var isXAlmostEqual = Math.Abs(existingPointEntities[i].X.ToNullAsNaN() - otherPointsArray[i].X) < 1e-6;
+                var isYAlmostEqual = Math.Abs(existingPointEntities[i].Y.ToNullAsNaN() - otherPointsArray[i].Y) < 1e-6;
                 if (!isXAlmostEqual || !isYAlmostEqual)
                 {
                     return true;

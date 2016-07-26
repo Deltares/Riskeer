@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingSectionResultEntity
             {
                 PipingSectionResultEntityId = entityId,
-                LayerThree = Convert.ToDecimal(layerThree),
+                LayerThree = layerThree,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

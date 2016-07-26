@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="Point2D"/>.</returns>
         internal static Point2D Read(this FailureMechanismSectionPointEntity entity)
         {
-            return new Point2D(Convert.ToDouble(entity.X), Convert.ToDouble(entity.Y));
+            return new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN());
         }
     }
 }

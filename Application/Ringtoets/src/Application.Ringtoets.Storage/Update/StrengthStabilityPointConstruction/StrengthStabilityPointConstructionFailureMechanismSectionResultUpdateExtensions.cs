@@ -64,8 +64,8 @@ namespace Application.Ringtoets.Storage.Update.StrengthStabilityPointConstructio
                 context.StrengthStabilityPointConstructionSectionResultEntities, 
                 s => s.StrengthStabilityPointConstructionSectionResultEntityId);
 
-            entity.LayerTwoA = result.AssessmentLayerTwoA.ToNullableDecimal();
-            entity.LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal();
+            entity.LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull();
+            entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();
 
             registry.Register(entity, result);
         }

@@ -48,8 +48,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var entity = point.CreateReferenceLinePointEntity(order);
 
             // Assert
-            Assert.AreEqual(Convert.ToDecimal(x), entity.X);
-            Assert.AreEqual(Convert.ToDecimal(y), entity.Y);
+            Assert.AreEqual(x, entity.X);
+            Assert.AreEqual(y, entity.Y);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -70,8 +70,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var entity = point.CreateFailureMechanismSectionPointEntity(order);
 
             // Assert
-            Assert.AreEqual(Convert.ToDecimal(x), entity.X);
-            Assert.AreEqual(Convert.ToDecimal(y), entity.Y);
+            Assert.AreEqual(x, entity.X);
+            Assert.AreEqual(y, entity.Y);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -92,8 +92,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             StochasticSoilModelSegmentPointEntity entity = point.CreateStochasticSoilModelSegmentPointEntity(order);
 
             // Assert
-            Assert.AreEqual(Convert.ToDecimal(x), entity.X);
-            Assert.AreEqual(Convert.ToDecimal(y), entity.Y);
+            Assert.AreEqual(x, entity.X);
+            Assert.AreEqual(y, entity.Y);
             Assert.AreEqual(order, entity.Order);
 
             Assert.AreEqual(0, entity.StochasticSoilModelSegmentPointEntityId);

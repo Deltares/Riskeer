@@ -70,8 +70,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverSlipOffInwards
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(Convert.ToDecimal(assessmentLayerTwoAResult), result.LayerTwoA);
-            Assert.AreEqual(Convert.ToDecimal(assessmentLayerThreeResult), result.LayerThree);
+            Assert.AreEqual(Convert.ToByte(assessmentLayerTwoAResult), result.LayerTwoA);
+            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
         }
 
         [Test]

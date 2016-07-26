@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Update.Microstability
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA);
-            entity.LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal();
+            entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();
 
             registry.Register(entity, result);
         }

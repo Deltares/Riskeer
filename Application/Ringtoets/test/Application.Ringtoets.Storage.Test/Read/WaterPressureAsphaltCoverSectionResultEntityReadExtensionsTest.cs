@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new WaterPressureAsphaltCoverSectionResultEntity
             {
                 WaterPressureAsphaltCoverSectionResultEntityId = entityId,
-                LayerThree = Convert.ToDecimal(layerThree),
+                LayerThree = layerThree,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

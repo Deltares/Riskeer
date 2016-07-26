@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
                 context.PipingCalculationEntities,
                 o => o.PipingCalculationEntityId);
             entity.RelevantForScenario = Convert.ToByte(calculation.IsRelevant);
-            entity.ScenarioContribution = Convert.ToDecimal(calculation.Contribution);
+            entity.ScenarioContribution = calculation.Contribution.Value.ToNaNAsNull();
             entity.Name = calculation.Name;
             entity.Comments = calculation.Comments;
             entity.Order = order;
@@ -89,20 +89,22 @@ namespace Application.Ringtoets.Storage.Update.Piping
                                                      null :
                                                      registry.Get(inputParameters.StochasticSoilProfile);
 
-            entity.EntryPointL = inputParameters.EntryPointL.Value.ToNullableDecimal();
-            entity.ExitPointL = inputParameters.ExitPointL.Value.ToNullableDecimal();
+            double tempQualifier = inputParameters.EntryPointL.Value;
+            entity.EntryPointL = tempQualifier.ToNaNAsNull();
+            double tempQualifier1 = inputParameters.ExitPointL.Value;
+            entity.ExitPointL = tempQualifier1.ToNaNAsNull();
 
-            entity.PhreaticLevelExitMean = Convert.ToDecimal(inputParameters.PhreaticLevelExit.Mean);
-            entity.PhreaticLevelExitStandardDeviation = Convert.ToDecimal(inputParameters.PhreaticLevelExit.StandardDeviation);
-            entity.DampingFactorExitMean = Convert.ToDecimal(inputParameters.DampingFactorExit.Mean);
-            entity.DampingFactorExitStandardDeviation = Convert.ToDecimal(inputParameters.DampingFactorExit.StandardDeviation);
-            entity.SaturatedVolumicWeightOfCoverageLayerMean = Convert.ToDecimal(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean);
-            entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation = Convert.ToDecimal(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
-            entity.SaturatedVolumicWeightOfCoverageLayerShift = Convert.ToDecimal(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift);
-            entity.Diameter70Mean = Convert.ToDecimal(inputParameters.Diameter70.Mean);
-            entity.Diameter70StandardDeviation = Convert.ToDecimal(inputParameters.Diameter70.StandardDeviation);
-            entity.DarcyPermeabilityMean = Convert.ToDecimal(inputParameters.DarcyPermeability.Mean);
-            entity.DarcyPermeabilityStandardDeviation = Convert.ToDecimal(inputParameters.DarcyPermeability.StandardDeviation);
+            entity.PhreaticLevelExitMean = inputParameters.PhreaticLevelExit.Mean.Value.ToNaNAsNull();
+            entity.PhreaticLevelExitStandardDeviation = inputParameters.PhreaticLevelExit.StandardDeviation.Value.ToNaNAsNull();
+            entity.DampingFactorExitMean = inputParameters.DampingFactorExit.Mean.Value.ToNaNAsNull();
+            entity.DampingFactorExitStandardDeviation = inputParameters.DampingFactorExit.StandardDeviation.Value.ToNaNAsNull();
+            entity.SaturatedVolumicWeightOfCoverageLayerMean = inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.Value.ToNaNAsNull();
+            entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation = inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value.ToNaNAsNull();
+            entity.SaturatedVolumicWeightOfCoverageLayerShift = inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.Value.ToNaNAsNull();
+            entity.Diameter70Mean = inputParameters.Diameter70.Mean.Value.ToNaNAsNull();
+            entity.Diameter70StandardDeviation = inputParameters.Diameter70.StandardDeviation.Value.ToNaNAsNull();
+            entity.DarcyPermeabilityMean = inputParameters.DarcyPermeability.Mean.Value.ToNaNAsNull();
+            entity.DarcyPermeabilityStandardDeviation = inputParameters.DarcyPermeability.StandardDeviation.Value.ToNaNAsNull();
         }
 
         private static void UpdatePipingCalculationOutputs(PipingCalculationEntity entity, PipingCalculationScenario calculation, PersistenceRegistry registry)

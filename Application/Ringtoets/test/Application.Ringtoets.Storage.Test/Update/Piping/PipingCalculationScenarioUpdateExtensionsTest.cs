@@ -161,14 +161,14 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
 
             // Assert
             Assert.AreEqual(Convert.ToByte(calculation.IsRelevant), entity.RelevantForScenario);
-            Assert.AreEqual(Convert.ToDecimal(calculation.Contribution), entity.ScenarioContribution);
+            Assert.AreEqual(calculation.Contribution.Value, entity.ScenarioContribution);
             Assert.AreEqual(calculation.Name, entity.Name);
             Assert.AreEqual(calculation.Comments, entity.Comments);
             Assert.AreEqual(newOrder, entity.Order);
 
             PipingInput inputParameters = calculation.InputParameters;
-            Assert.AreEqual(inputParameters.EntryPointL.Value.ToNullableDecimal(), entity.EntryPointL);
-            Assert.AreEqual(inputParameters.ExitPointL.Value.ToNullableDecimal(), entity.ExitPointL);
+            Assert.AreEqual(inputParameters.EntryPointL.Value, entity.EntryPointL);
+            Assert.AreEqual(inputParameters.ExitPointL.Value, entity.ExitPointL);
 
             Assert.AreEqual(inputParameters.PhreaticLevelExit.Mean.Value, entity.PhreaticLevelExitMean);
             Assert.AreEqual(inputParameters.PhreaticLevelExit.StandardDeviation.Value, entity.PhreaticLevelExitStandardDeviation);

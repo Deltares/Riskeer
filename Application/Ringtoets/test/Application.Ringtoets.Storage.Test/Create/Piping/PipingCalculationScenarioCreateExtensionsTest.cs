@@ -111,36 +111,25 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.RelevantForScenario);
-            Assert.AreEqual(Convert.ToDecimal(contribution), entity.ScenarioContribution);
+            Assert.AreEqual(contribution, entity.ScenarioContribution);
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
 
-            Assert.AreEqual(exitPoint.ToNullableDecimal(), entity.ExitPointL);
-            Assert.AreEqual(entryPoint.ToNullableDecimal(), entity.EntryPointL);
+            Assert.AreEqual(exitPoint.ToNaNAsNull(), entity.ExitPointL);
+            Assert.AreEqual(entryPoint.ToNaNAsNull(), entity.EntryPointL);
 
             PipingInput input = calculation.InputParameters;
-            Assert.AreEqual(Convert.ToDecimal(input.PhreaticLevelExit.Mean),
-                            entity.PhreaticLevelExitMean);
-            Assert.AreEqual(Convert.ToDecimal(input.PhreaticLevelExit.StandardDeviation),
-                            entity.PhreaticLevelExitStandardDeviation);
-            Assert.AreEqual(Convert.ToDecimal(input.DampingFactorExit.Mean),
-                            entity.DampingFactorExitMean);
-            Assert.AreEqual(Convert.ToDecimal(input.DampingFactorExit.StandardDeviation),
-                            entity.DampingFactorExitStandardDeviation);
-            Assert.AreEqual(Convert.ToDecimal(input.SaturatedVolumicWeightOfCoverageLayer.Mean),
-                            entity.SaturatedVolumicWeightOfCoverageLayerMean);
-            Assert.AreEqual(Convert.ToDecimal(input.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation),
-                            entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation);
-            Assert.AreEqual(Convert.ToDecimal(input.SaturatedVolumicWeightOfCoverageLayer.Shift),
-                            entity.SaturatedVolumicWeightOfCoverageLayerShift);
-            Assert.AreEqual(Convert.ToDecimal(input.Diameter70.Mean),
-                            entity.Diameter70Mean);
-            Assert.AreEqual(Convert.ToDecimal(input.Diameter70.StandardDeviation),
-                            entity.Diameter70StandardDeviation);
-            Assert.AreEqual(Convert.ToDecimal(input.DarcyPermeability.Mean),
-                            entity.DarcyPermeabilityMean);
-            Assert.AreEqual(Convert.ToDecimal(input.DarcyPermeability.StandardDeviation),
-                            entity.DarcyPermeabilityStandardDeviation);
+            Assert.AreEqual(input.PhreaticLevelExit.Mean.Value, entity.PhreaticLevelExitMean);
+            Assert.AreEqual(input.PhreaticLevelExit.StandardDeviation.Value, entity.PhreaticLevelExitStandardDeviation);
+            Assert.AreEqual(input.DampingFactorExit.Mean.Value, entity.DampingFactorExitMean);
+            Assert.AreEqual(input.DampingFactorExit.StandardDeviation.Value, entity.DampingFactorExitStandardDeviation);
+            Assert.AreEqual(input.SaturatedVolumicWeightOfCoverageLayer.Mean.Value, entity.SaturatedVolumicWeightOfCoverageLayerMean);
+            Assert.AreEqual(input.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value, entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation);
+            Assert.AreEqual(input.SaturatedVolumicWeightOfCoverageLayer.Shift.Value, entity.SaturatedVolumicWeightOfCoverageLayerShift);
+            Assert.AreEqual(input.Diameter70.Mean.Value, entity.Diameter70Mean);
+            Assert.AreEqual(input.Diameter70.StandardDeviation.Value, entity.Diameter70StandardDeviation);
+            Assert.AreEqual(input.DarcyPermeability.Mean.Value, entity.DarcyPermeabilityMean);
+            Assert.AreEqual(input.DarcyPermeability.StandardDeviation.Value, entity.DarcyPermeabilityStandardDeviation);
             
             Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(0, entity.PipingCalculationEntityId);

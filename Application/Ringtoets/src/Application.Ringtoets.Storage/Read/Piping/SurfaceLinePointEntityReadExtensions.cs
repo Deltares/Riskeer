@@ -56,9 +56,9 @@ namespace Application.Ringtoets.Storage.Read.Piping
             }
 
             var surfaceLineGeometryPoint = new Point3D(
-                Convert.ToDouble(entity.X),
-                Convert.ToDouble(entity.Y),
-                Convert.ToDouble(entity.Z))
+                entity.X.ToNullAsNaN(),
+                entity.Y.ToNullAsNaN(),
+                entity.Z.ToNullAsNaN())
             {
                 StorageId = entity.SurfaceLinePointEntityId
             };

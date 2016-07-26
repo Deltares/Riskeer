@@ -40,9 +40,9 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <returns>A new <see cref="PipingOutput"/>.</returns>
         internal static PipingOutput Read(this PipingCalculationOutputEntity entity)
         {
-            return new PipingOutput(entity.UpliftZValue.ToNanableDouble(), entity.UpliftFactorOfSafety.ToNanableDouble(),
-                                    entity.HeaveZValue.ToNanableDouble(), entity.HeaveFactorOfSafety.ToNanableDouble(),
-                                    entity.SellmeijerZValue.ToNanableDouble(), entity.SellmeijerFactorOfSafety.ToNanableDouble())
+            return new PipingOutput(entity.UpliftZValue.ToNullAsNaN(), entity.UpliftFactorOfSafety.ToNullAsNaN(),
+                                    entity.HeaveZValue.ToNullAsNaN(), entity.HeaveFactorOfSafety.ToNullAsNaN(),
+                                    entity.SellmeijerZValue.ToNullAsNaN(), entity.SellmeijerFactorOfSafety.ToNullAsNaN())
             {
                 StorageId = entity.PipingCalculationOutputEntityId
             };

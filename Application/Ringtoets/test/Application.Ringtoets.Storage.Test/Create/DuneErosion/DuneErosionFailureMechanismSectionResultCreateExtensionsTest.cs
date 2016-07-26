@@ -67,8 +67,8 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             var result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
-            Assert.AreEqual(Convert.ToDecimal(assessmentLayerTwoAResult), result.LayerTwoA);
-            Assert.AreEqual(Convert.ToDecimal(assessmentLayerThreeResult), result.LayerThree);
+            Assert.AreEqual(Convert.ToByte(assessmentLayerTwoAResult), result.LayerTwoA);
+            Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
         }
 
         [Test]

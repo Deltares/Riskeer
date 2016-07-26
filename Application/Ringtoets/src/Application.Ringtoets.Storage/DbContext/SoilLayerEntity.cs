@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long SoilLayerEntityId { get; set; }
         public long SoilProfileEntityId { get; set; }
-        public double Top { get; set; }
+        public Nullable<double> Top { get; set; }
         public byte IsAquifer { get; set; }
         public long Color { get; set; }
         public string MaterialName { get; set; }

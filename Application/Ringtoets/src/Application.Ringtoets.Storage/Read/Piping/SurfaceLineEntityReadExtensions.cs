@@ -61,8 +61,8 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 StorageId = entity.SurfaceLineEntityId,
                 Name = entity.Name,
                 ReferenceLineIntersectionWorldPoint = new Point2D(
-                    Convert.ToDouble(entity.ReferenceLineIntersectionX),
-                    Convert.ToDouble(entity.ReferenceLineIntersectionY))
+                    entity.ReferenceLineIntersectionX.ToNullAsNaN(),
+                    entity.ReferenceLineIntersectionY.ToNullAsNaN())
             };
             entity.ReadSurfaceLineGeometryAndCharacteristicPoints(surfaceLine, collector);
 

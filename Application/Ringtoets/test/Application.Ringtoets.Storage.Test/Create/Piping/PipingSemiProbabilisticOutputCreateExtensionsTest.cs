@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             CollectionAssert.IsEmpty(entity.PipingCalculationEntities);
         }
 
-        private static void AssertAreEqual(double expectedValue, decimal? actualValue)
+        private static void AssertAreEqual(double expectedValue, double? actualValue)
         {
             if (double.IsNaN(expectedValue))
             {
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(expectedValue, Convert.ToDouble(actualValue));
         }
 
-        private static void AssertAreEqual(RoundedDouble expectedValue, decimal? actualValue)
+        private static void AssertAreEqual(RoundedDouble expectedValue, double? actualValue)
         {
             if (double.IsNaN(expectedValue))
             {

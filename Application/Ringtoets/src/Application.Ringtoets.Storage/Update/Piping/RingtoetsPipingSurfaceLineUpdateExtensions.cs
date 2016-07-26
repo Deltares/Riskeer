@@ -67,8 +67,8 @@ namespace Application.Ringtoets.Storage.Update.Piping
                 o => o.SurfaceLineEntityId);
 
             entity.Name = surfaceLine.Name;
-            entity.ReferenceLineIntersectionX = Convert.ToDecimal(surfaceLine.ReferenceLineIntersectionWorldPoint.X);
-            entity.ReferenceLineIntersectionY = Convert.ToDecimal(surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
+            entity.ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull();
+            entity.ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull();
 
             UpdateGeometry(surfaceLine, entity, registry);
             UpdateCharacteristicPoints(surfaceLine, entity, registry);

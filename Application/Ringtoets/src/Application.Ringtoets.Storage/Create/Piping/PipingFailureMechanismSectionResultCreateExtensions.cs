@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var pipingSectionResultEntity = new PipingSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal()
+                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 
             registry.Register(pipingSectionResultEntity, result);

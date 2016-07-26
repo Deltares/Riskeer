@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test
@@ -29,74 +27,60 @@ namespace Application.Ringtoets.Storage.Test
     public class DoubleConversionExtensionsTest
     {
         [Test]
-        public void ToNullableDecimal_NaN_ReturnNull()
+        public void ToNaNAsNull_ValueIsNaN_ReturnNull()
         {
             // Call
-            decimal? result = double.NaN.ToNullableDecimal();
+            double? value = double.NaN.ToNaNAsNull();
 
             // Assert
-            Assert.IsNull(result);
+            Assert.IsNull(value);
         }
 
         [Test]
-        [TestCase(-154.516)]
-        [TestCase(9684.51)]
-        [TestCase(0.0)]
-        public void ToNullableDecimal_Number_ReturnThatNumberAsDecimal(double value)
-        {
-            // Call
-            decimal? result = value.ToNullableDecimal();
-
-            // Assert
-            Assert.AreEqual(value, Convert.ToDouble(result), 1e-6);
-        }
-
-        [Test]
-        public void ToNullableDecimal_Null_ReturnNull()
-        {
-            // Call
-            decimal? result = ((double?)null).ToNullableDecimal();
-
-            // Assert
-            Assert.IsNull(result);
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
+        [TestCase(1.1)]
+        [TestCase(-2.2)]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
-        [TestCase(double.MaxValue)]
+        public void ToNaNAsNull_NotNaNValue_ReturnThatValue(double original)
+        {
+            // Call
+            double? value = original.ToNaNAsNull();
+
+            // Assert
+            Assert.IsTrue(value.HasValue);
+            Assert.AreEqual(original, value.Value);
+        }
+
+        [Test]
+        public void ToNullAsNaN_NullValue_ReturnNaN()
+        {
+            // Call
+            double value = ((double?)null).ToNullAsNaN();
+
+            // Assert
+            Assert.IsNaN(value);
+        }
+
+        [Test]
+        [TestCase(956.654)]
+        [TestCase(-456.789)]
         [TestCase(double.MinValue)]
-        public void ToNullableDecimal_NullableSpecialDoubleValues_ThrowsOverflowException(double specialDoubleValue)
+        [TestCase(double.MaxValue)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.NaN)]
+        public void ToNullAsNaN_NotNullValue_ReturnThatValue(double value)
         {
+            // Setup
+            double? original = value;
+
             // Call
-            TestDelegate test = () => ((double?)specialDoubleValue).ToNullableDecimal();
+            double convertedValue = original.ToNullAsNaN();
 
             // Assert
-            Assert.Throws<OverflowException>(test);
-        }
-
-        [Test]
-        public void ToNullableDecimal_NullableEpsilon_ReturnsZeroDecimal()
-        {
-            // Call
-            decimal? value = ((double?)double.Epsilon).ToNullableDecimal();
-
-            // Assert
-            Assert.AreEqual(decimal.Zero, value);
-        }
-
-        [Test]
-        [TestCase(-12312.352)]
-        [TestCase(51516.351)]
-        [TestCase(0.0)]
-        public void ToNullableDecimal_NullableNumber_ReturnThatNumberAsDecimal(double value)
-        {
-            // Call
-            decimal? result = ((double?)value).ToNullableDecimal();
-
-            // Assert
-            Assert.AreEqual(value, Convert.ToDouble(result), 1e-6);
+            Assert.AreEqual(value, convertedValue);
         }
     }
 }

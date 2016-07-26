@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingFailureMechanismMetaEntity
             {
                 PipingFailureMechanismMetaEntityId = entityId,
-                A = new decimal(0.95)
+                A = 0.95
             };
 
             // Call

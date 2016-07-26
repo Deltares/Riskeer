@@ -1,6 +1,4 @@
-﻿using System;
-
-using Application.Ringtoets.Storage.DbContext;
+﻿using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.Piping;
 
 using Core.Common.Base.Data;
@@ -22,20 +20,20 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingSemiProbabilisticOutputEntity
             {
                 PipingSemiProbabilisticOutputEntityId = 5867,
-                HeaveFactorOfSafety = 1.1m,
-                HeaveProbability = 0.2m,
-                HeaveReliability = 3.3m,
-                PipingFactorOfSafety = 4.4m,
-                PipingProbability = 0.5m,
-                PipingReliability = 6.6m,
-                UpliftFactorOfSafety = 7.7m,
-                UpliftProbability = 0.8m,
-                UpliftReliability = 9.9m,
-                SellmeijerFactorOfSafety = 10.10m,
-                SellmeijerProbability = 0.11m,
-                SellmeijerReliability = 12.12m,
-                RequiredProbability = 0.13m,
-                RequiredReliability = 14.14m
+                HeaveFactorOfSafety = 1.1,
+                HeaveProbability = 0.2,
+                HeaveReliability = 3.3,
+                PipingFactorOfSafety = 4.4,
+                PipingProbability = 0.5,
+                PipingReliability = 6.6,
+                UpliftFactorOfSafety = 7.7,
+                UpliftProbability = 0.8,
+                UpliftReliability = 9.9,
+                SellmeijerFactorOfSafety = 10.10,
+                SellmeijerProbability = 0.11,
+                SellmeijerReliability = 12.12,
+                RequiredProbability = 0.13,
+                RequiredReliability = 14.14
             };
 
             // Call
@@ -103,14 +101,15 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNaN(pipingSemiProbabilisticOutput.RequiredReliability);
         }
 
-        private static void AssertAreEqual(decimal? expectedParamterValue, double actualParameterValue)
+        private static void AssertAreEqual(double? expectedParamterValue, double actualParameterValue)
         {
-            Assert.AreEqual(Convert.ToDouble(expectedParamterValue), actualParameterValue);
+            Assert.AreEqual(expectedParamterValue, actualParameterValue);
         }
 
-        private static void AssertAreEqual(decimal? expectedParamterValue, RoundedDouble actualParameterValue)
+        private static void AssertAreEqual(double? expectedParamterValue, RoundedDouble actualParameterValue)
         {
-            Assert.AreEqual(Convert.ToDouble(expectedParamterValue), actualParameterValue, actualParameterValue.GetAccuracy());
+            Assert.IsTrue(expectedParamterValue.HasValue);
+            Assert.AreEqual(expectedParamterValue.Value, actualParameterValue, actualParameterValue.GetAccuracy());
         }
     }
 }

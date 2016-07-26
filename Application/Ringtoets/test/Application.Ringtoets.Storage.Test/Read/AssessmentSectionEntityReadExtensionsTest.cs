@@ -99,11 +99,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             double secondY = random.NextDouble();
             entity.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity
             {
-                Order = 2, X = Convert.ToDecimal(firstX), Y = Convert.ToDecimal(firstY)
+                Order = 2, X = firstX, Y = firstY
             });
             entity.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity
             {
-                Order = 1, X = Convert.ToDecimal(secondX), Y = Convert.ToDecimal(secondY)
+                Order = 1, X = secondX, Y = secondY
             });
 
             var collector = new ReadConversionCollector();
@@ -172,9 +172,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Comments = comments,
                 PipingFailureMechanismMetaEntities =
                 {
-                    new PipingFailureMechanismMetaEntity()
+                    new PipingFailureMechanismMetaEntity
                     {
-                        A = new decimal(parameterA)
+                        A = parameterA
                     }
                 }
             };

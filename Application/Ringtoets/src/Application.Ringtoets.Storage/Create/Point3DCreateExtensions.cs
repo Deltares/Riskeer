@@ -54,9 +54,9 @@ namespace Application.Ringtoets.Storage.Create
 
             var entity = new SurfaceLinePointEntity
             {
-                X = Convert.ToDecimal(geometryPoint.X),
-                Y = Convert.ToDecimal(geometryPoint.Y),
-                Z = Convert.ToDecimal(geometryPoint.Z),
+                X = geometryPoint.X.ToNaNAsNull(),
+                Y = geometryPoint.Y.ToNaNAsNull(),
+                Z = geometryPoint.Z.ToNaNAsNull(),
                 Order = order
             };
 

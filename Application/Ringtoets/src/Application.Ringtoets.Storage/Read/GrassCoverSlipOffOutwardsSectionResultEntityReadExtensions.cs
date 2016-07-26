@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Read
             sectionResult.StorageId = entity.GrassCoverSlipOffOutwardsSectionResultEntityId;
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
             sectionResult.AssessmentLayerTwoA = (AssessmentLayerTwoAResult)entity.LayerTwoA;
-            sectionResult.AssessmentLayerThree = (RoundedDouble)entity.LayerThree.ToNanableDouble();
+            sectionResult.AssessmentLayerThree = (RoundedDouble)entity.LayerThree.ToNullAsNaN();
         }
     }
 }

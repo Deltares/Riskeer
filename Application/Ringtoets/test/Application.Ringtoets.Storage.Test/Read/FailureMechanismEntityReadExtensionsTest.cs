@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new PipingFailureMechanismMetaEntity
                     {
                         PipingFailureMechanismMetaEntityId = 3,
-                        A = new decimal(0.95)
+                        A = 0.95
                     }
                 }
             };

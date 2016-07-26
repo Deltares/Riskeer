@@ -145,8 +145,8 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityPointConstr
             var sectionResultEntity = new StrengthStabilityPointConstructionSectionResultEntity
             {
                 StrengthStabilityPointConstructionSectionResultEntityId = sectionResult.StorageId,
-                LayerTwoA = 2.1m,
-                LayerThree = 1.1m,
+                LayerTwoA = 2.1,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.StrengthStabilityPointConstructionSectionResultEntities.Add(sectionResultEntity);
@@ -155,8 +155,8 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityPointConstr
             sectionResult.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(sectionResult.AssessmentLayerTwoA.ToNullableDecimal(), sectionResultEntity.LayerTwoA);
-            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNullableDecimal(), sectionResultEntity.LayerThree);
+            Assert.AreEqual(sectionResult.AssessmentLayerTwoA.ToNaNAsNull(), sectionResultEntity.LayerTwoA);
+            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNaNAsNull(), sectionResultEntity.LayerThree);
 
             mocks.VerifyAll();
         }
@@ -180,8 +180,8 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityPointConstr
             var sectionResultEntity = new StrengthStabilityPointConstructionSectionResultEntity
             {
                 StrengthStabilityPointConstructionSectionResultEntityId = sectionResult.StorageId,
-                LayerTwoA = 2.1m,
-                LayerThree = 1.1m,
+                LayerTwoA = 2.1,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.StrengthStabilityPointConstructionSectionResultEntities.Add(sectionResultEntity);

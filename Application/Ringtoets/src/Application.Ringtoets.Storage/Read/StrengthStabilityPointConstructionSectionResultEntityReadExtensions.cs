@@ -53,8 +53,8 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             sectionResult.StorageId = entity.StrengthStabilityPointConstructionSectionResultEntityId;
-            sectionResult.AssessmentLayerTwoA = (RoundedDouble)entity.LayerTwoA.ToNanableDouble();
-            sectionResult.AssessmentLayerThree = (RoundedDouble)entity.LayerThree.ToNanableDouble();
+            sectionResult.AssessmentLayerTwoA = (RoundedDouble)entity.LayerTwoA.ToNullAsNaN();
+            sectionResult.AssessmentLayerThree = (RoundedDouble)entity.LayerThree.ToNullAsNaN();
         }
     }
 }

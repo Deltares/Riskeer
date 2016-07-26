@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var pipingFailureMechanismMetaEntity = new PipingFailureMechanismMetaEntity
             {
                 PipingFailureMechanismMetaEntityId = probabilityAssessmentInput.StorageId,
-                A = Convert.ToDecimal(0.3)
+                A = 0.3
             };
             ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(pipingFailureMechanismMetaEntity);
 
@@ -149,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             probabilityAssessmentInput.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(Convert.ToDecimal(value), pipingFailureMechanismMetaEntity.A);
+            Assert.AreEqual(value, pipingFailureMechanismMetaEntity.A);
 
             mocks.VerifyAll();
         }

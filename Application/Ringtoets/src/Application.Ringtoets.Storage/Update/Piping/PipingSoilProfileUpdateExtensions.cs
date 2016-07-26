@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
                 o => o.SoilProfileEntityId);
 
             entity.Name = profile.Name;
-            entity.Bottom = Convert.ToDecimal(profile.Bottom);
+            entity.Bottom = profile.Bottom.ToNaNAsNull();
 
             foreach (var pipingSoilLayer in profile.Layers)
             {

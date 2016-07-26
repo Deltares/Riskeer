@@ -45,8 +45,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public long SurfaceLineEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
-        public decimal ReferenceLineIntersectionX { get; set; }
-        public decimal ReferenceLineIntersectionY { get; set; }
+        public Nullable<double> ReferenceLineIntersectionX { get; set; }
+        public Nullable<double> ReferenceLineIntersectionY { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

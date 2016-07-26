@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             {
                 SoilProfileEntityId = entityId,
                 Name = testName,
-                Bottom = Convert.ToDecimal(bottom),
+                Bottom = bottom,
                 SoilLayerEntities =
                 {
                     new SoilLayerEntity{ Top = bottom + 0.5 },
@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new SoilProfileEntity
             {
                 Name = testName,
-                Bottom = Convert.ToDecimal(bottom),
+                Bottom = bottom,
                 SoilLayerEntities =
                 {
                     new SoilLayerEntity{ Top = bottom + 0.5 },

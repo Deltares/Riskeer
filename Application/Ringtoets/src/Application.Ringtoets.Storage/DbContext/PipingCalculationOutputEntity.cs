@@ -42,12 +42,12 @@ namespace Application.Ringtoets.Storage.DbContext
         }
     
         public long PipingCalculationOutputEntityId { get; set; }
-        public Nullable<decimal> HeaveFactorOfSafety { get; set; }
-        public Nullable<decimal> HeaveZValue { get; set; }
-        public Nullable<decimal> UpliftFactorOfSafety { get; set; }
-        public Nullable<decimal> UpliftZValue { get; set; }
-        public Nullable<decimal> SellmeijerFactorOfSafety { get; set; }
-        public Nullable<decimal> SellmeijerZValue { get; set; }
+        public Nullable<double> HeaveFactorOfSafety { get; set; }
+        public Nullable<double> HeaveZValue { get; set; }
+        public Nullable<double> UpliftFactorOfSafety { get; set; }
+        public Nullable<double> UpliftZValue { get; set; }
+        public Nullable<double> SellmeijerFactorOfSafety { get; set; }
+        public Nullable<double> SellmeijerZValue { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }

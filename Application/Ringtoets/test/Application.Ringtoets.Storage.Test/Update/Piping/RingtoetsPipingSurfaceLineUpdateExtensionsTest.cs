@@ -116,8 +116,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
                 Name = "<originalName>",
-                ReferenceLineIntersectionX = 9876.5432m,
-                ReferenceLineIntersectionY = 9182.8374m
+                ReferenceLineIntersectionX = 9876.5432,
+                ReferenceLineIntersectionY = 9182.8374
             };
             context.SurfaceLineEntities.Add(entity);
 
@@ -150,8 +150,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
                 Name = "<name>",
-                ReferenceLineIntersectionX = 91.28m,
-                ReferenceLineIntersectionY = 37.46m
+                ReferenceLineIntersectionX = 91.28,
+                ReferenceLineIntersectionY = 37.46
             };
             context.SurfaceLineEntities.Add(entity);
 
@@ -195,25 +195,25 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             {
                 SurfaceLinePointEntityId = 1,
                 Order = 0,
-                X = 1.0m,
-                Y = 2.0m,
-                Z = 3.0m
+                X = 1.0,
+                Y = 2.0,
+                Z = 3.0
             };
             var pointEntity2 = new SurfaceLinePointEntity
             {
                 SurfaceLinePointEntityId = 2,
                 Order = 1,
-                X = 5.0m,
-                Y = 2.0m,
-                Z = 4.0m
+                X = 5.0,
+                Y = 2.0,
+                Z = 4.0
             };
 
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
                 Name = "<name>",
-                ReferenceLineIntersectionX = 91.28m,
-                ReferenceLineIntersectionY = 37.46m,
+                ReferenceLineIntersectionX = 91.28,
+                ReferenceLineIntersectionY = 37.46,
                 SurfaceLinePointEntities =
                 {
                     pointEntity1,
@@ -444,9 +444,9 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             {
                 SurfaceLinePointEntityId = p.StorageId,
                 Order = index++,
-                X = Convert.ToDecimal(p.X),
-                Y = Convert.ToDecimal(p.Y),
-                Z = Convert.ToDecimal(p.Z),
+                X = p.X,
+                Y = p.Y,
+                Z = p.Z,
             }).ToArray();
 
             var characteristicPointEntity = new CharacteristicPointEntity
@@ -496,9 +496,9 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             {
                 SurfaceLinePointEntityId = p.StorageId,
                 Order = index++,
-                X = Convert.ToDecimal(p.X),
-                Y = Convert.ToDecimal(p.Y),
-                Z = Convert.ToDecimal(p.Z),
+                X = p.X,
+                Y = p.Y,
+                Z = p.Z,
             }).ToArray();
 
             SurfaceLinePointEntity originalGeometryPointMarkedCharacteristic = surfaceLinePointEntities[1];

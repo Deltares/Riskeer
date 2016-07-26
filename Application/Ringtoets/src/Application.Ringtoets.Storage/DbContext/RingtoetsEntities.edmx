@@ -44,8 +44,8 @@
           <Property Name="ClosingStructureSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="real" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="DikeProfileEntity">
           <Key>
@@ -54,15 +54,15 @@
           <Property Name="DikeProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
-          <Property Name="Orientation" Type="real" Nullable="false" />
+          <Property Name="Orientation" Type="real" />
           <Property Name="BreakWaterType" Type="tinyint" />
           <Property Name="BreakWaterHeight" Type="real" />
           <Property Name="ForeShoreData" Type="blob" Nullable="false" />
           <Property Name="DikeGeometryData" Type="blob" Nullable="false" />
-          <Property Name="DikeHeight" Type="real" Nullable="false" />
-          <Property Name="X" Type="real" Nullable="false" />
-          <Property Name="Y" Type="real" Nullable="false" />
-          <Property Name="X0" Type="real" Nullable="false" />
+          <Property Name="DikeHeight" Type="real" />
+          <Property Name="X" Type="real" />
+          <Property Name="Y" Type="real" />
+          <Property Name="X0" Type="real" />
         </EntityType>
         <EntityType Name="DuneErosionSectionResultEntity">
           <Key>
@@ -71,7 +71,7 @@
           <Property Name="DuneErosionSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
@@ -98,8 +98,8 @@
           </Key>
           <Property Name="FailureMechanismSectionPointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="X" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="Y" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="X" Type="real" />
+          <Property Name="Y" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsCalculationEntity">
@@ -151,7 +151,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="integer" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsSectionResultEntity">
           <Key>
@@ -161,7 +161,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="GrassCoverSlipOffInwardsSectionResultEntity">
           <Key>
@@ -171,7 +171,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="GrassCoverSlipOffOutwardsSectionResultEntity">
           <Key>
@@ -181,7 +181,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="HeightStructuresSectionResultEntity">
           <Key>
@@ -190,7 +190,7 @@
           <Property Name="HeightStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
@@ -200,8 +200,8 @@
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LocationId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
-          <Property Name="LocationX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="LocationY" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="LocationX" Type="real" />
+          <Property Name="LocationY" Type="real" />
           <Property Name="DesignWaterLevel" Type="real" />
         </EntityType>
         <EntityType Name="MacrostabilityInwardsSectionResultEntity">
@@ -211,8 +211,8 @@
           <Property Name="MacrostabilityInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="real" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="MacrostabilityOutwardsSectionResultEntity">
           <Key>
@@ -221,8 +221,8 @@
           <Property Name="MacrostabilityOutwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="real" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="MicrostabilitySectionResultEntity">
           <Key>
@@ -232,7 +232,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="PipingCalculationEntity">
           <Key>
@@ -248,33 +248,33 @@
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="EntryPointL" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="ExitPointL" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="PhreaticLevelExitMean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="PhreaticLevelExitStandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="Diameter70Mean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="Diameter70StandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="DarcyPermeabilityMean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="DarcyPermeabilityStandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="DampingFactorExitMean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="DampingFactorExitStandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerMean" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerShift" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="EntryPointL" Type="real" />
+          <Property Name="ExitPointL" Type="real" />
+          <Property Name="PhreaticLevelExitMean" Type="real" />
+          <Property Name="PhreaticLevelExitStandardDeviation" Type="real" />
+          <Property Name="Diameter70Mean" Type="real" />
+          <Property Name="Diameter70StandardDeviation" Type="real" />
+          <Property Name="DarcyPermeabilityMean" Type="real" />
+          <Property Name="DarcyPermeabilityStandardDeviation" Type="real" />
+          <Property Name="DampingFactorExitMean" Type="real" />
+          <Property Name="DampingFactorExitStandardDeviation" Type="real" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerMean" Type="real" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" Type="real" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerShift" Type="real" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="ScenarioContribution" Type="real" />
         </EntityType>
         <EntityType Name="PipingCalculationOutputEntity">
           <Key>
             <PropertyRef Name="PipingCalculationOutputEntityId" />
           </Key>
           <Property Name="PipingCalculationOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="HeaveFactorOfSafety" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="HeaveZValue" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="UpliftFactorOfSafety" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="UpliftZValue" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerFactorOfSafety" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerZValue" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="HeaveFactorOfSafety" Type="real" />
+          <Property Name="HeaveZValue" Type="real" />
+          <Property Name="UpliftFactorOfSafety" Type="real" />
+          <Property Name="UpliftZValue" Type="real" />
+          <Property Name="SellmeijerFactorOfSafety" Type="real" />
+          <Property Name="SellmeijerZValue" Type="real" />
         </EntityType>
         <EntityType Name="PipingFailureMechanismMetaEntity">
           <Key>
@@ -282,7 +282,7 @@
           </Key>
           <Property Name="PipingFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" />
-          <Property Name="A" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="A" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="PipingSectionResultEntity">
           <Key>
@@ -291,27 +291,27 @@
           <Property Name="PipingSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="PipingSemiProbabilisticOutputEntity">
           <Key>
             <PropertyRef Name="PipingSemiProbabilisticOutputEntityId" />
           </Key>
           <Property Name="PipingSemiProbabilisticOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UpliftFactorOfSafety" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="UpliftReliability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="UpliftProbability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="HeaveFactorOfSafety" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="HeaveReliability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="HeaveProbability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerFactorOfSafety" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerReliability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerProbability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="RequiredProbability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="RequiredReliability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="PipingProbability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="PipingReliability" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="PipingFactorOfSafety" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="UpliftFactorOfSafety" Type="real" />
+          <Property Name="UpliftReliability" Type="real" />
+          <Property Name="UpliftProbability" Type="real" />
+          <Property Name="HeaveFactorOfSafety" Type="real" />
+          <Property Name="HeaveReliability" Type="real" />
+          <Property Name="HeaveProbability" Type="real" />
+          <Property Name="SellmeijerFactorOfSafety" Type="real" />
+          <Property Name="SellmeijerReliability" Type="real" />
+          <Property Name="SellmeijerProbability" Type="real" />
+          <Property Name="RequiredProbability" Type="real" />
+          <Property Name="RequiredReliability" Type="real" />
+          <Property Name="PipingProbability" Type="real" />
+          <Property Name="PipingReliability" Type="real" />
+          <Property Name="PipingFactorOfSafety" Type="real" />
         </EntityType>
         <EntityType Name="PipingStructureSectionResultEntity">
           <Key>
@@ -321,7 +321,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="ProbabilisticOutputEntity">
           <Key>
@@ -347,8 +347,8 @@
           </Key>
           <Property Name="ReferenceLinePointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="X" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="Y" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="X" Type="real" />
+          <Property Name="Y" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SoilLayerEntity">
@@ -357,7 +357,7 @@
           </Key>
           <Property Name="SoilLayerEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
-          <Property Name="Top" Type="real" Nullable="false" />
+          <Property Name="Top" Type="real" />
           <Property Name="IsAquifer" Type="tinyint" Nullable="false" />
           <Property Name="Color" Type="integer" Nullable="false" />
           <Property Name="MaterialName" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
@@ -374,7 +374,7 @@
             <PropertyRef Name="SoilProfileEntityId" />
           </Key>
           <Property Name="SoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Bottom" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Bottom" Type="real" />
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverSectionResultEntity">
@@ -384,7 +384,7 @@
           <Property Name="StabilityStoneCoverSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="StochasticSoilModelEntity">
           <Key>
@@ -401,8 +401,8 @@
           </Key>
           <Property Name="StochasticSoilModelSegmentPointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="integer" Nullable="false" />
-          <Property Name="X" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="Y" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="X" Type="real" />
+          <Property Name="Y" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StochasticSoilProfileEntity">
@@ -412,7 +412,7 @@
           <Property Name="StochasticSoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="integer" Nullable="false" />
-          <Property Name="Probability" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Probability" Type="real" />
         </EntityType>
         <EntityType Name="StrengthStabilityLengthwiseConstructionSectionResultEntity">
           <Key>
@@ -421,7 +421,7 @@
           <Property Name="StrengthStabilityLengthwiseConstructionSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="StrengthStabilityPointConstructionSectionResultEntity">
           <Key>
@@ -429,8 +429,8 @@
           </Key>
           <Property Name="StrengthStabilityPointConstructionSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="real" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="SurfaceLineEntity">
           <Key>
@@ -439,8 +439,8 @@
           <Property Name="SurfaceLineEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
-          <Property Name="ReferenceLineIntersectionX" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="ReferenceLineIntersectionY" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="ReferenceLineIntersectionX" Type="real" />
+          <Property Name="ReferenceLineIntersectionY" Type="real" />
         </EntityType>
         <EntityType Name="SurfaceLinePointEntity">
           <Key>
@@ -448,10 +448,10 @@
           </Key>
           <Property Name="SurfaceLinePointEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SurfaceLineEntityId" Type="integer" Nullable="false" />
-          <Property Name="X" Type="decimal" Precision="53" Scale="0" Nullable="false" />
-          <Property Name="Y" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="X" Type="real" />
+          <Property Name="Y" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
-          <Property Name="Z" Type="decimal" Precision="53" Scale="0" Nullable="false" />
+          <Property Name="Z" Type="real" />
         </EntityType>
         <EntityType Name="TechnicalInnovationSectionResultEntity">
           <Key>
@@ -460,7 +460,7 @@
           <Property Name="TechnicalInnovationSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="VersionEntity">
           <Key>
@@ -478,7 +478,7 @@
           <Property Name="WaterPressureAsphaltCoverSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="WaveImpactAsphaltCoverSectionResultEntity">
           <Key>
@@ -487,8 +487,8 @@
           <Property Name="WaveImpactAsphaltCoverSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="real" />
+          <Property Name="LayerThree" Type="real" />
         </EntityType>
         <Association Name="FK_AssessmentSectionEntity_0_0">
           <End Role="ProjectEntity" Type="Self.ProjectEntity" Multiplicity="1" />
@@ -1615,8 +1615,8 @@
           <Property Name="ClosingStructureSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Double" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureSectionResultEntity_0_0" FromRole="ClosingStructureSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="DikeProfileEntity">
@@ -1626,15 +1626,15 @@
           <Property Name="DikeProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
-          <Property Name="Orientation" Type="Double" Nullable="false" />
+          <Property Name="Orientation" Type="Double" />
           <Property Name="BreakWaterType" Type="Byte" />
           <Property Name="BreakWaterHeight" Type="Double" />
           <Property Name="ForeShoreData" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
           <Property Name="DikeGeometryData" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
-          <Property Name="DikeHeight" Type="Double" Nullable="false" />
-          <Property Name="X" Type="Double" Nullable="false" />
-          <Property Name="Y" Type="Double" Nullable="false" />
-          <Property Name="X0" Type="Double" Nullable="false" />
+          <Property Name="DikeHeight" Type="Double" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
+          <Property Name="X0" Type="Double" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_DikeProfileEntity_0_0" FromRole="DikeProfileEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="DikeProfileEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
         </EntityType>
@@ -1645,7 +1645,7 @@
           <Property Name="DuneErosionSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_DuneErosionSectionResultEntity_0_0" FromRole="DuneErosionSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
@@ -1701,8 +1701,8 @@
           </Key>
           <Property Name="FailureMechanismSectionPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="X" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="Y" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionPointEntity_0_0" FromRole="FailureMechanismSectionPointEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -1763,7 +1763,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="Int64" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_1_0" FromRole="GrassCoverErosionInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0" FromRole="GrassCoverErosionInwardsSectionResultEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
         </EntityType>
@@ -1775,7 +1775,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsSectionResultEntity_0_0" FromRole="GrassCoverErosionOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="GrassCoverSlipOffInwardsSectionResultEntity">
@@ -1786,7 +1786,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffInwardsSectionResultEntity_0_0" FromRole="GrassCoverSlipOffInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="GrassCoverSlipOffOutwardsSectionResultEntity">
@@ -1797,7 +1797,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0" FromRole="GrassCoverSlipOffOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="HeightStructuresSectionResultEntity">
@@ -1807,7 +1807,7 @@
           <Property Name="HeightStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresSectionResultEntity_0_0" FromRole="HeightStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
@@ -1818,8 +1818,8 @@
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LocationId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
-          <Property Name="LocationX" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="LocationY" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="LocationX" Type="Double" />
+          <Property Name="LocationY" Type="Double" />
           <Property Name="DesignWaterLevel" Type="Double" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
@@ -1832,8 +1832,8 @@
           <Property Name="MacrostabilityInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Double" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacrostabilityInwardsSectionResultEntity_0_0" FromRole="MacrostabilityInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="MacrostabilityOutwardsSectionResultEntity">
@@ -1843,8 +1843,8 @@
           <Property Name="MacrostabilityOutwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Double" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MacrostabilityOutwardsSectionResultEntity_0_0" FromRole="MacrostabilityOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="MicrostabilitySectionResultEntity">
@@ -1855,7 +1855,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0" FromRole="MicrostabilitySectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="PipingCalculationEntity">
@@ -1872,21 +1872,21 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="EntryPointL" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="ExitPointL" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="PhreaticLevelExitMean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="PhreaticLevelExitStandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="Diameter70Mean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="Diameter70StandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="DarcyPermeabilityMean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="DarcyPermeabilityStandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="DampingFactorExitMean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="DampingFactorExitStandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerMean" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerShift" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="EntryPointL" Type="Double" />
+          <Property Name="ExitPointL" Type="Double" />
+          <Property Name="PhreaticLevelExitMean" Type="Double" />
+          <Property Name="PhreaticLevelExitStandardDeviation" Type="Double" />
+          <Property Name="Diameter70Mean" Type="Double" />
+          <Property Name="Diameter70StandardDeviation" Type="Double" />
+          <Property Name="DarcyPermeabilityMean" Type="Double" />
+          <Property Name="DarcyPermeabilityStandardDeviation" Type="Double" />
+          <Property Name="DampingFactorExitMean" Type="Double" />
+          <Property Name="DampingFactorExitStandardDeviation" Type="Double" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerMean" Type="Double" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" Type="Double" />
+          <Property Name="SaturatedVolumicWeightOfCoverageLayerShift" Type="Double" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
-          <Property Name="ScenarioContribution" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="ScenarioContribution" Type="Double" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_5_0" FromRole="PipingCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_4_0" FromRole="PipingCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="PipingCalculationEntity" ToRole="SurfaceLineEntity" />
@@ -1899,12 +1899,12 @@
             <PropertyRef Name="PipingCalculationOutputEntityId" />
           </Key>
           <Property Name="PipingCalculationOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HeaveFactorOfSafety" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="HeaveZValue" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="UpliftFactorOfSafety" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="UpliftZValue" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerFactorOfSafety" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerZValue" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="HeaveFactorOfSafety" Type="Double" />
+          <Property Name="HeaveZValue" Type="Double" />
+          <Property Name="UpliftFactorOfSafety" Type="Double" />
+          <Property Name="UpliftZValue" Type="Double" />
+          <Property Name="SellmeijerFactorOfSafety" Type="Double" />
+          <Property Name="SellmeijerZValue" Type="Double" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0" FromRole="PipingCalculationOutputEntity" ToRole="PipingCalculationEntity" />
         </EntityType>
         <EntityType Name="PipingFailureMechanismMetaEntity">
@@ -1913,7 +1913,7 @@
           </Key>
           <Property Name="PipingFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" />
-          <Property Name="A" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="A" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="PipingFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="PipingSectionResultEntity">
@@ -1923,7 +1923,7 @@
           <Property Name="PipingSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_PipingSectionResultEntity_0_0" FromRole="PipingSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="PipingSemiProbabilisticOutputEntity">
@@ -1931,20 +1931,20 @@
             <PropertyRef Name="PipingSemiProbabilisticOutputEntityId" />
           </Key>
           <Property Name="PipingSemiProbabilisticOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UpliftFactorOfSafety" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="UpliftReliability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="UpliftProbability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="HeaveFactorOfSafety" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="HeaveReliability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="HeaveProbability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerFactorOfSafety" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerReliability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="SellmeijerProbability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="RequiredProbability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="RequiredReliability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="PipingProbability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="PipingReliability" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="PipingFactorOfSafety" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="UpliftFactorOfSafety" Type="Double" />
+          <Property Name="UpliftReliability" Type="Double" />
+          <Property Name="UpliftProbability" Type="Double" />
+          <Property Name="HeaveFactorOfSafety" Type="Double" />
+          <Property Name="HeaveReliability" Type="Double" />
+          <Property Name="HeaveProbability" Type="Double" />
+          <Property Name="SellmeijerFactorOfSafety" Type="Double" />
+          <Property Name="SellmeijerReliability" Type="Double" />
+          <Property Name="SellmeijerProbability" Type="Double" />
+          <Property Name="RequiredProbability" Type="Double" />
+          <Property Name="RequiredReliability" Type="Double" />
+          <Property Name="PipingProbability" Type="Double" />
+          <Property Name="PipingReliability" Type="Double" />
+          <Property Name="PipingFactorOfSafety" Type="Double" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="PipingSemiProbabilisticOutputEntity" ToRole="PipingCalculationEntity" />
         </EntityType>
         <EntityType Name="PipingStructureSectionResultEntity">
@@ -1955,7 +1955,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_PipingStructureSectionResultEntity_0_0" FromRole="PipingStructureSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="ProbabilisticOutputEntity">
@@ -1984,8 +1984,8 @@
           </Key>
           <Property Name="ReferenceLinePointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="X" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="Y" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ReferenceLinePointEntity_0_0" FromRole="ReferenceLinePointEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
@@ -1995,7 +1995,7 @@
           </Key>
           <Property Name="SoilLayerEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Top" Type="Double" Nullable="false" />
+          <Property Name="Top" Type="Double" />
           <Property Name="IsAquifer" Type="Byte" Nullable="false" />
           <Property Name="Color" Type="Int64" Nullable="false" />
           <Property Name="MaterialName" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -2013,7 +2013,7 @@
             <PropertyRef Name="SoilProfileEntityId" />
           </Key>
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Bottom" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Bottom" Type="Double" />
           <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SoilLayerEntities" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilProfileEntity" ToRole="SoilLayerEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="SoilProfileEntity" ToRole="StochasticSoilProfileEntity" />
@@ -2025,7 +2025,7 @@
           <Property Name="StabilityStoneCoverSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverSectionResultEntity_0_0" FromRole="StabilityStoneCoverSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="StochasticSoilModelEntity">
@@ -2046,8 +2046,8 @@
           </Key>
           <Property Name="StochasticSoilModelSegmentPointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" />
-          <Property Name="X" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="Y" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelSegmentPointEntity_0_0" FromRole="StochasticSoilModelSegmentPointEntity" ToRole="StochasticSoilModelEntity" />
         </EntityType>
@@ -2058,7 +2058,7 @@
           <Property Name="StochasticSoilProfileEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" />
-          <Property Name="Probability" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Probability" Type="Double" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="SoilProfileEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
@@ -2070,7 +2070,7 @@
           <Property Name="StrengthStabilityLengthwiseConstructionSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_StrengthStabilityLengthwiseConstructionSectionResultEntity_0_0" FromRole="StrengthStabilityLengthwiseConstructionSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="StrengthStabilityPointConstructionSectionResultEntity">
@@ -2079,8 +2079,8 @@
           </Key>
           <Property Name="StrengthStabilityPointConstructionSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Double" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_StrengthStabilityPointConstructionSectionResultEntity_0_0" FromRole="StrengthStabilityPointConstructionSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="SurfaceLineEntity">
@@ -2090,8 +2090,8 @@
           <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
-          <Property Name="ReferenceLineIntersectionX" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="ReferenceLineIntersectionY" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="ReferenceLineIntersectionX" Type="Double" />
+          <Property Name="ReferenceLineIntersectionY" Type="Double" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="SurfaceLineEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="SurfaceLineEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="SurfaceLinePointEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLinePointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="SurfaceLinePointEntity" />
@@ -2102,10 +2102,10 @@
           </Key>
           <Property Name="SurfaceLinePointEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SurfaceLineEntityId" Type="Int64" Nullable="false" />
-          <Property Name="X" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
-          <Property Name="Y" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="Z" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="Z" Type="Double" />
           <NavigationProperty Name="CharacteristicPointEntities" Relationship="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0" FromRole="SurfaceLinePointEntity" ToRole="CharacteristicPointEntity" />
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLinePointEntity_0_0" FromRole="SurfaceLinePointEntity" ToRole="SurfaceLineEntity" />
         </EntityType>
@@ -2116,7 +2116,7 @@
           <Property Name="TechnicalInnovationSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_TechnicalInnovationSectionResultEntity_0_0" FromRole="TechnicalInnovationSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="VersionEntity">
@@ -2135,7 +2135,7 @@
           <Property Name="WaterPressureAsphaltCoverSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_WaterPressureAsphaltCoverSectionResultEntity_0_0" FromRole="WaterPressureAsphaltCoverSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="WaveImpactAsphaltCoverSectionResultEntity">
@@ -2145,8 +2145,8 @@
           <Property Name="WaveImpactAsphaltCoverSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Decimal" Precision="53" Scale="0" />
-          <Property Name="LayerThree" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="LayerTwoA" Type="Double" />
+          <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverSectionResultEntity_0_0" FromRole="WaveImpactAsphaltCoverSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <Association Name="FK_AssessmentSectionEntity_0_0">

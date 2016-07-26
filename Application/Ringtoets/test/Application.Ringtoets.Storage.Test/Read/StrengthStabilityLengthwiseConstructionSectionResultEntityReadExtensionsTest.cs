@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new StrengthStabilityLengthwiseConstructionSectionResultEntity
             {
                 StrengthStabilityLengthwiseConstructionSectionResultEntityId = entityId,
-                LayerThree = Convert.ToDecimal(layerThree),
+                LayerThree = layerThree,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

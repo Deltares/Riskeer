@@ -67,22 +67,22 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             {
                 PipingCalculationEntityId = id,
                 RelevantForScenario = Convert.ToByte(isRelevant),
-                ScenarioContribution = Convert.ToDecimal(contribution),
+                ScenarioContribution = contribution.ToNaNAsNull(),
                 Name = name,
                 Comments = comments,
-                EntryPointL = entryPoint.ToNullableDecimal(),
-                ExitPointL = exitPoint.ToNullableDecimal(),
-                PhreaticLevelExitMean = GetRandomDecimalInRange(random, -9999.99, 9999.99),
-                PhreaticLevelExitStandardDeviation = GetRandomDecimalInRange(random, 0, 9999.99),
-                DampingFactorExitMean = GetRandomDecimalInRange(random, 1e-6, 9999.99),
-                DampingFactorExitStandardDeviation = GetRandomDecimalInRange(random, 0, 9999.99),
-                SaturatedVolumicWeightOfCoverageLayerMean = GetRandomDecimalInRange(random, 1e-6, 9999.99),
-                SaturatedVolumicWeightOfCoverageLayerStandardDeviation = GetRandomDecimalInRange(random, 0, 9999.99),
-                SaturatedVolumicWeightOfCoverageLayerShift = GetRandomDecimalInRange(random, -9999.99, 9999.99),
-                Diameter70Mean = GetRandomDecimalInRange(random, 1e-6, 9999.99),
-                Diameter70StandardDeviation = GetRandomDecimalInRange(random, 0.0, 9999.99),
-                DarcyPermeabilityMean = GetRandomDecimalInRange(random, 1e-6, 9999.99),
-                DarcyPermeabilityStandardDeviation = GetRandomDecimalInRange(random, 0.0, 9999.99)
+                EntryPointL = entryPoint.ToNaNAsNull(),
+                ExitPointL = exitPoint.ToNaNAsNull(),
+                PhreaticLevelExitMean = GetRandomNullableDoubleInRange(random, -9999.99, 9999.99),
+                PhreaticLevelExitStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
+                DampingFactorExitMean = GetRandomNullableDoubleInRange(random, 1e-6, 9999.99),
+                DampingFactorExitStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
+                SaturatedVolumicWeightOfCoverageLayerMean = GetRandomNullableDoubleInRange(random, 1e-6, 9999.99),
+                SaturatedVolumicWeightOfCoverageLayerStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
+                SaturatedVolumicWeightOfCoverageLayerShift = GetRandomNullableDoubleInRange(random, -9999.99, 9999.99),
+                Diameter70Mean = GetRandomNullableDoubleInRange(random, 1e-6, 9999.99),
+                Diameter70StandardDeviation = GetRandomNullableDoubleInRange(random, 0.0, 9999.99),
+                DarcyPermeabilityMean = GetRandomNullableDoubleInRange(random, 1e-6, 9999.99),
+                DarcyPermeabilityStandardDeviation = GetRandomNullableDoubleInRange(random, 0.0, 9999.99)
             };
 
             var collector = new ReadConversionCollector();
@@ -146,8 +146,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingCalculationEntity
             {
                 SurfaceLineEntity = surfaceLineEntity,
-                EntryPointL = 1m,
-                ExitPointL = 2m,
+                EntryPointL = 1,
+                ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 SaturatedVolumicWeightOfCoverageLayerMean = 1,
                 Diameter70Mean = 1,
@@ -174,17 +174,17 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             {
                 Order = 0,
                 SurfaceLinePointEntityId = 1,
-                X = 1m,
-                Y = 3m,
-                Z = 4m
+                X = 1,
+                Y = 3,
+                Z = 4
             };
             var pointEntity2 = new SurfaceLinePointEntity
             {
                 Order = 1,
                 SurfaceLinePointEntityId = 2,
-                X = 7m,
-                Y = 10m,
-                Z = 11m
+                X = 7,
+                Y = 10,
+                Z = 11
             };
 
             var surfaceLineEntity = new SurfaceLineEntity
@@ -200,8 +200,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingCalculationEntity
             {
                 SurfaceLineEntity = surfaceLineEntity,
-                EntryPointL = 1m,
-                ExitPointL = 2m,
+                EntryPointL = 1,
+                ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 SaturatedVolumicWeightOfCoverageLayerMean = 1,
                 Diameter70Mean = 1,
@@ -229,8 +229,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
-                EntryPointL = 1m,
-                ExitPointL = 2m,
+                EntryPointL = 1,
+                ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 SaturatedVolumicWeightOfCoverageLayerMean = 1,
                 Diameter70Mean = 1,
@@ -260,8 +260,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
-                EntryPointL = 1m,
-                ExitPointL = 2m,
+                EntryPointL = 1,
+                ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 SaturatedVolumicWeightOfCoverageLayerMean = 1,
                 Diameter70Mean = 1,
@@ -294,8 +294,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingCalculationEntity
             {
                 StochasticSoilProfileEntity = stochasticSoilProfileEntity,
-                EntryPointL = 1m,
-                ExitPointL = 2m,
+                EntryPointL = 1,
+                ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 SaturatedVolumicWeightOfCoverageLayerMean = 1,
                 Diameter70Mean = 1,
@@ -343,8 +343,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingCalculationEntity
             {
                 StochasticSoilProfileEntity = stochasticSoilProfileEntity,
-                EntryPointL = 1m,
-                ExitPointL = 2m,
+                EntryPointL = 1,
+                ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 SaturatedVolumicWeightOfCoverageLayerMean = 1,
                 Diameter70Mean = 1,
@@ -370,8 +370,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             const int outputId = 4578;
             var entity = new PipingCalculationEntity
             {
-                EntryPointL = 1m,
-                ExitPointL = 2m,
+                EntryPointL = 1,
+                ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 SaturatedVolumicWeightOfCoverageLayerMean = 1,
                 Diameter70Mean = 1,
@@ -399,8 +399,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             const int outputId = 675;
             var entity = new PipingCalculationEntity
             {
-                EntryPointL = 1m,
-                ExitPointL = 2m,
+                EntryPointL = 1,
+                ExitPointL = 2,
                 DampingFactorExitMean = 1,
                 SaturatedVolumicWeightOfCoverageLayerMean = 1,
                 Diameter70Mean = 1,
@@ -421,9 +421,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(outputId, calculation.SemiProbabilisticOutput.StorageId);
         }
 
-        private void AssertRoundedDouble(decimal expectedValue, RoundedDouble actualValue)
+        private void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
         {
-            Assert.AreEqual(Convert.ToDouble(expectedValue), actualValue, actualValue.GetAccuracy());
+            Assert.IsTrue(expectedValue.HasValue);
+            Assert.AreEqual(expectedValue.Value, actualValue, actualValue.GetAccuracy());
         }
 
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)
@@ -431,10 +432,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }
 
-        private static decimal GetRandomDecimalInRange(Random random, double lowerLimit, double upperLimit)
+        private static double? GetRandomNullableDoubleInRange(Random random, double lowerLimit, double upperLimit)
         {
             var difference = upperLimit - lowerLimit;
-            return Convert.ToDecimal(lowerLimit + random.NextDouble() * difference);
+            return lowerLimit + random.NextDouble() * difference;
         }
     }
 }

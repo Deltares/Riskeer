@@ -63,8 +63,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
-            Assert.AreEqual(Convert.ToDecimal(coordinateX), entity.LocationX);
-            Assert.AreEqual(Convert.ToDecimal(coordinateY), entity.LocationY);
+            Assert.AreEqual(coordinateX, entity.LocationX);
+            Assert.AreEqual(coordinateY, entity.LocationY);
             Assert.AreEqual(id, entity.LocationId);
             Assert.IsNull(entity.DesignWaterLevel);
         }
@@ -86,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(Convert.ToDecimal(waterLevel), entity.DesignWaterLevel);
+            Assert.AreEqual(waterLevel, entity.DesignWaterLevel);
         }
 
         [Test]

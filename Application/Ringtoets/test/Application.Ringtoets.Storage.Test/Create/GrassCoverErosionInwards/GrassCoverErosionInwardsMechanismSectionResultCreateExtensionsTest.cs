@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), entity.LayerOne);
-            Assert.AreEqual(Convert.ToDecimal(assessmentLayerThreeResult), entity.LayerThree);
+            Assert.AreEqual(assessmentLayerThreeResult, entity.LayerThree);
             Assert.IsNull(entity.GrassCoverErosionInwardsCalculationEntity);
         }
 

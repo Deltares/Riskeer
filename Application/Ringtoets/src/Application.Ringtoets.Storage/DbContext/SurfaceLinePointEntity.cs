@@ -43,10 +43,10 @@ namespace Application.Ringtoets.Storage.DbContext
     
         public long SurfaceLinePointEntityId { get; set; }
         public long SurfaceLineEntityId { get; set; }
-        public decimal X { get; set; }
-        public decimal Y { get; set; }
+        public Nullable<double> X { get; set; }
+        public Nullable<double> Y { get; set; }
         public int Order { get; set; }
-        public decimal Z { get; set; }
+        public Nullable<double> Z { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }

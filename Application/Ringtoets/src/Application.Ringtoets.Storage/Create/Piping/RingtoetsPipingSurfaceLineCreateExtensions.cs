@@ -56,8 +56,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var entity = new SurfaceLineEntity
             {
                 Name = surfaceLine.Name,
-                ReferenceLineIntersectionX = Convert.ToDecimal(surfaceLine.ReferenceLineIntersectionWorldPoint.X),
-                ReferenceLineIntersectionY = Convert.ToDecimal(surfaceLine.ReferenceLineIntersectionWorldPoint.Y)
+                ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull(),
+                ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull()
             };
             CreateSurfaceLinePointEntities(surfaceLine, registry, entity);
             CreateCharacteristicPointEntities(surfaceLine, registry);

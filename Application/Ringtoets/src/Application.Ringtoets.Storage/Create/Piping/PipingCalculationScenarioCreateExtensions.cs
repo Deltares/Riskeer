@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var entity = new PipingCalculationEntity
             {
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
-                ScenarioContribution = Convert.ToDecimal(calculation.Contribution),
+                ScenarioContribution = calculation.Contribution.Value.ToNaNAsNull(),
                 Name = calculation.Name,
                 Comments = calculation.Comments,
                 Order = order
@@ -81,24 +81,26 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 entity.StochasticSoilProfileEntity = registry.Get(inputParameters.StochasticSoilProfile);
             }
 
-            entity.ExitPointL = inputParameters.ExitPointL.Value.ToNullableDecimal();
-            entity.EntryPointL = inputParameters.EntryPointL.Value.ToNullableDecimal();
+            double tempQualifier = inputParameters.ExitPointL.Value;
+            entity.ExitPointL = tempQualifier.ToNaNAsNull();
+            double tempQualifier1 = inputParameters.EntryPointL.Value;
+            entity.EntryPointL = tempQualifier1.ToNaNAsNull();
 
-            entity.PhreaticLevelExitMean = Convert.ToDecimal(inputParameters.PhreaticLevelExit.Mean);
-            entity.PhreaticLevelExitStandardDeviation = Convert.ToDecimal(inputParameters.PhreaticLevelExit.StandardDeviation);
+            entity.PhreaticLevelExitMean = inputParameters.PhreaticLevelExit.Mean.Value.ToNaNAsNull();
+            entity.PhreaticLevelExitStandardDeviation = inputParameters.PhreaticLevelExit.StandardDeviation.Value.ToNaNAsNull();
 
-            entity.DampingFactorExitMean = Convert.ToDecimal(inputParameters.DampingFactorExit.Mean);
-            entity.DampingFactorExitStandardDeviation = Convert.ToDecimal(inputParameters.DampingFactorExit.StandardDeviation);
+            entity.DampingFactorExitMean = inputParameters.DampingFactorExit.Mean.Value.ToNaNAsNull();
+            entity.DampingFactorExitStandardDeviation = inputParameters.DampingFactorExit.StandardDeviation.Value.ToNaNAsNull();
 
-            entity.SaturatedVolumicWeightOfCoverageLayerMean = Convert.ToDecimal(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean);
-            entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation = Convert.ToDecimal(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
-            entity.SaturatedVolumicWeightOfCoverageLayerShift = Convert.ToDecimal(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift);
+            entity.SaturatedVolumicWeightOfCoverageLayerMean = inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.Value.ToNaNAsNull();
+            entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation = inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value.ToNaNAsNull();
+            entity.SaturatedVolumicWeightOfCoverageLayerShift = inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.Value.ToNaNAsNull();
 
-            entity.Diameter70Mean = Convert.ToDecimal(inputParameters.Diameter70.Mean);
-            entity.Diameter70StandardDeviation = Convert.ToDecimal(inputParameters.Diameter70.StandardDeviation);
+            entity.Diameter70Mean = inputParameters.Diameter70.Mean.Value.ToNaNAsNull();
+            entity.Diameter70StandardDeviation = inputParameters.Diameter70.StandardDeviation.Value.ToNaNAsNull();
 
-            entity.DarcyPermeabilityMean = Convert.ToDecimal(inputParameters.DarcyPermeability.Mean);
-            entity.DarcyPermeabilityStandardDeviation = Convert.ToDecimal(inputParameters.DarcyPermeability.StandardDeviation);
+            entity.DarcyPermeabilityMean = inputParameters.DarcyPermeability.Mean.Value.ToNaNAsNull();
+            entity.DarcyPermeabilityStandardDeviation = inputParameters.DarcyPermeability.StandardDeviation.Value.ToNaNAsNull();
         }
 
         private static void CreatePipingOutputEntity(PipingCalculationEntity entity, PipingOutput output, PersistenceRegistry registry)

@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 return collector.Get(entity);
             }
 
-            var profile = new StochasticSoilProfile(Convert.ToDouble(entity.Probability), SoilProfileType.SoilProfile1D, -1)
+            var profile = new StochasticSoilProfile(entity.Probability.ToNullAsNaN(), SoilProfileType.SoilProfile1D, -1)
             {
                 StorageId = entity.StochasticSoilProfileEntityId
             };

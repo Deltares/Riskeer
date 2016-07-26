@@ -177,7 +177,7 @@ namespace Application.Ringtoets.Storage.Update
             }
             for (var i = 0; i < existingPointEntities.Length; i++)
             {
-                var existingPoint = new Point2D(Convert.ToDouble(existingPointEntities[i].X), Convert.ToDouble(existingPointEntities[i].Y));
+                var existingPoint = new Point2D(existingPointEntities[i].X.ToNullAsNaN(), existingPointEntities[i].Y.ToNullAsNaN());
 
                 if (!Math2D.AreEqualPoints(existingPoint, otherPointsArray[i]))
                 {

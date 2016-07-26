@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Read
             }
             sectionResult.StorageId = entity.TechnicalInnovationSectionResultEntityId;
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
-            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNanableDouble();
+            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
             return sectionResult;
         }
     }

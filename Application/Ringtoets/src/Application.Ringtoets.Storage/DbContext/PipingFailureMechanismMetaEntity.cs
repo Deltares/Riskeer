@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long PipingFailureMechanismMetaEntityId { get; set; }
         public Nullable<long> FailureMechanismEntityId { get; set; }
-        public decimal A { get; set; }
+        public double A { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

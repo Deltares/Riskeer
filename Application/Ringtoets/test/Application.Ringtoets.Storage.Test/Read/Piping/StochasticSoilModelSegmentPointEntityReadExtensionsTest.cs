@@ -20,8 +20,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new StochasticSoilModelSegmentPointEntity
             {
-                X = Convert.ToDecimal(x),
-                Y = Convert.ToDecimal(y)
+                X = x,
+                Y = y
             };
 
             // Call

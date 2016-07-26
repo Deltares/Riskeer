@@ -147,8 +147,8 @@ namespace Application.Ringtoets.Storage.Test.Update.WaveImpactAsphaltCover
             {
                 WaveImpactAsphaltCoverSectionResultEntityId = sectionResult.StorageId,
                 LayerOne = Convert.ToByte(false),
-                LayerTwoA = 2.1m,
-                LayerThree = 1.1m,
+                LayerTwoA = 2.1,
+                LayerThree = 1.1,
             };
 
             ringtoetsEntities.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
@@ -158,8 +158,8 @@ namespace Application.Ringtoets.Storage.Test.Update.WaveImpactAsphaltCover
 
             // Assert
             Assert.AreEqual(Convert.ToByte(true), sectionResultEntity.LayerOne);
-            Assert.AreEqual(sectionResult.AssessmentLayerTwoA.Value.ToNullableDecimal(), sectionResultEntity.LayerTwoA);
-            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNullableDecimal(), sectionResultEntity.LayerThree);
+            Assert.AreEqual(sectionResult.AssessmentLayerTwoA.Value.ToNaNAsNull(), sectionResultEntity.LayerTwoA);
+            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNaNAsNull(), sectionResultEntity.LayerThree);
 
             mocks.VerifyAll();
         }
@@ -185,8 +185,8 @@ namespace Application.Ringtoets.Storage.Test.Update.WaveImpactAsphaltCover
             {
                 WaveImpactAsphaltCoverSectionResultEntityId = sectionResult.StorageId,
                 LayerOne = Convert.ToByte(false),
-                LayerTwoA = 2.1m,
-                LayerThree = 1.1m,
+                LayerTwoA = 2.1,
+                LayerThree = 1.1,
             };
 
             ringtoetsEntities.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);

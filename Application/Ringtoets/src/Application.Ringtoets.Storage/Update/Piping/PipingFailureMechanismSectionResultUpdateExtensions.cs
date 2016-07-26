@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
                 o => o.PipingSectionResultEntityId);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
-            entity.LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal();
+            entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();
 
             registry.Register(entity, result);
         }

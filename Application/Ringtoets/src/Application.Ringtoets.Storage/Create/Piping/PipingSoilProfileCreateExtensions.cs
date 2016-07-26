@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var entity = new SoilProfileEntity
             {
                 Name = profile.Name,
-                Bottom = Convert.ToDecimal(profile.Bottom)
+                Bottom = profile.Bottom.ToNaNAsNull()
             };
 
             AddEntitiesForPipingSoilLayers(profile, registry, entity);

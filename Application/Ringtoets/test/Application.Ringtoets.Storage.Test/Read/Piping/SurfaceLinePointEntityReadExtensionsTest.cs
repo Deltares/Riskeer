@@ -55,9 +55,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new SurfaceLinePointEntity
             {
-                X = 1.1m,
-                Y = 3.3m,
-                Z = 5.5m,
+                X = 1.1,
+                Y = 3.3,
+                Z = 5.5,
                 SurfaceLinePointEntityId = 538246839
             };
 
@@ -79,9 +79,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new SurfaceLinePointEntity
             {
-                X = 1.1m,
-                Y = 3.3m,
-                Z = 5.5m,
+                X = 1.1,
+                Y = 3.3,
+                Z = 5.5,
                 SurfaceLinePointEntityId = 538246839
             };
 

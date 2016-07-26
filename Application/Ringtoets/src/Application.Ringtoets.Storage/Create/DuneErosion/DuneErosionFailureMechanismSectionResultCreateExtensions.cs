@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
             var sectionResultEntity = new DuneErosionSectionResultEntity
             {
                 LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA),
-                LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal()
+                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 
             registry.Register(sectionResultEntity, result);

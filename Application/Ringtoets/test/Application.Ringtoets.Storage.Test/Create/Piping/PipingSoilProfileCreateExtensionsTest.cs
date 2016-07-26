@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(Convert.ToDecimal(bottom), entity.Bottom);
+            Assert.AreEqual(bottom, entity.Bottom);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(2, entity.SoilLayerEntities.Count);
         }  

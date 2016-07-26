@@ -46,8 +46,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public long AssessmentSectionEntityId { get; set; }
         public long LocationId { get; set; }
         public string Name { get; set; }
-        public decimal LocationX { get; set; }
-        public decimal LocationY { get; set; }
+        public Nullable<double> LocationX { get; set; }
+        public Nullable<double> LocationY { get; set; }
         public Nullable<double> DesignWaterLevel { get; set; }
     
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }

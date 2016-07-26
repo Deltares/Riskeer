@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             return new PipingProbabilityAssessmentInput
             {
                 StorageId = entity.PipingFailureMechanismMetaEntityId,
-                A = Convert.ToDouble(entity.A)
+                A = entity.A
             };
         }
     }

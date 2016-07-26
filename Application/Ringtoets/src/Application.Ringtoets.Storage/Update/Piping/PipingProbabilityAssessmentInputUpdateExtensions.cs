@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
                 context.PipingFailureMechanismMetaEntities,
                 o => o.PipingFailureMechanismMetaEntityId);
 
-            entity.A = Convert.ToDecimal(probabilityAssessmentInput.A);
+            entity.A = probabilityAssessmentInput.A;
 
             registry.Register(entity, probabilityAssessmentInput);
         }

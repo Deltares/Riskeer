@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
                 context.StochasticSoilProfileEntities,
                 o => o.StochasticSoilProfileEntityId);
 
-            entity.Probability = Convert.ToDecimal(profile.Probability);
+            entity.Probability = profile.Probability.ToNaNAsNull();
 
             if (profile.SoilProfile.IsNew())
             {

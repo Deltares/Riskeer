@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new GrassCoverErosionOutwardsSectionResultEntity
             {
                 GrassCoverErosionOutwardsSectionResultEntityId = entityId,
-                LayerThree = Convert.ToDecimal(layerThree),
+                LayerThree = layerThree,
                 LayerTwoA = Convert.ToByte(layerTwoA),
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity

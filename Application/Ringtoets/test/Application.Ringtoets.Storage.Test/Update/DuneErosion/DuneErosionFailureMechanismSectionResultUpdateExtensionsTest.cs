@@ -147,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Update.DuneErosion
             {
                 DuneErosionSectionResultEntityId = sectionResult.StorageId,
                 LayerTwoA = Convert.ToByte(AssessmentLayerTwoAResult.Successful),
-                LayerThree = 1.1m,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.DuneErosionSectionResultEntities.Add(sectionResultEntity);
@@ -157,7 +157,7 @@ namespace Application.Ringtoets.Storage.Test.Update.DuneErosion
 
             // Assert
             Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerTwoA), sectionResultEntity.LayerTwoA);
-            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNullableDecimal(), sectionResultEntity.LayerThree);
+            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNaNAsNull(), sectionResultEntity.LayerThree);
 
             mocks.VerifyAll();
         }
@@ -180,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.Update.DuneErosion
             var sectionResultEntity = new DuneErosionSectionResultEntity
             {
                 DuneErosionSectionResultEntityId = sectionResult.StorageId,
-                LayerThree = 1.1m,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.DuneErosionSectionResultEntities.Add(sectionResultEntity);

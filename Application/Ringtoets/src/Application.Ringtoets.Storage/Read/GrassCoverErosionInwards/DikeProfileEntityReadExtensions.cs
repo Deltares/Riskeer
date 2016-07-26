@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                 return collector.Get(entity);
             }
 
-            var dikeProfile = new DikeProfile(new Point2D(entity.X, entity.Y),
+            var dikeProfile = new DikeProfile(new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
                                               new RoughnessPointBinaryConverter().ToData(entity.DikeGeometryData),
                                               new Point2DBinaryConverter().ToData(entity.ForeShoreData),
                                               CreateBreakWater(entity),
@@ -73,9 +73,9 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             return new DikeProfile.ConstructionProperties
             {
                 Name = entity.Name,
-                Orientation = entity.Orientation,
-                DikeHeight = entity.DikeHeight,
-                X0 = entity.X0
+                Orientation = entity.Orientation.ToNullAsNaN(),
+                DikeHeight = entity.DikeHeight.ToNullAsNaN(),
+                X0 = entity.X0.ToNullAsNaN()
             };
         }
 

@@ -42,20 +42,20 @@ namespace Application.Ringtoets.Storage.DbContext
         }
     
         public long PipingSemiProbabilisticOutputEntityId { get; set; }
-        public Nullable<decimal> UpliftFactorOfSafety { get; set; }
-        public Nullable<decimal> UpliftReliability { get; set; }
-        public Nullable<decimal> UpliftProbability { get; set; }
-        public Nullable<decimal> HeaveFactorOfSafety { get; set; }
-        public Nullable<decimal> HeaveReliability { get; set; }
-        public Nullable<decimal> HeaveProbability { get; set; }
-        public Nullable<decimal> SellmeijerFactorOfSafety { get; set; }
-        public Nullable<decimal> SellmeijerReliability { get; set; }
-        public Nullable<decimal> SellmeijerProbability { get; set; }
-        public Nullable<decimal> RequiredProbability { get; set; }
-        public Nullable<decimal> RequiredReliability { get; set; }
-        public Nullable<decimal> PipingProbability { get; set; }
-        public Nullable<decimal> PipingReliability { get; set; }
-        public Nullable<decimal> PipingFactorOfSafety { get; set; }
+        public Nullable<double> UpliftFactorOfSafety { get; set; }
+        public Nullable<double> UpliftReliability { get; set; }
+        public Nullable<double> UpliftProbability { get; set; }
+        public Nullable<double> HeaveFactorOfSafety { get; set; }
+        public Nullable<double> HeaveReliability { get; set; }
+        public Nullable<double> HeaveProbability { get; set; }
+        public Nullable<double> SellmeijerFactorOfSafety { get; set; }
+        public Nullable<double> SellmeijerReliability { get; set; }
+        public Nullable<double> SellmeijerProbability { get; set; }
+        public Nullable<double> RequiredProbability { get; set; }
+        public Nullable<double> RequiredReliability { get; set; }
+        public Nullable<double> PipingProbability { get; set; }
+        public Nullable<double> PipingReliability { get; set; }
+        public Nullable<double> PipingFactorOfSafety { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }

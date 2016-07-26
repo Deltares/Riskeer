@@ -49,8 +49,8 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
             var sectionResultEntity = new MacrostabilityOutwardsSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerTwoA = result.AssessmentLayerTwoA.ToNullableDecimal(),
-                LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal()
+                LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull(),
+                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 
             registry.Register(sectionResultEntity, result);

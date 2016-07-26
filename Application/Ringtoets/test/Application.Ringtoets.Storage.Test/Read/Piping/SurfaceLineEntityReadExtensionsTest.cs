@@ -58,8 +58,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             const long id = 5317846874;
             const string name = "nice name!";
-            const decimal intersectionX = 1.1m;
-            const decimal intersectionY = 2.2m;
+            const double intersectionX = 1.1;
+            const double intersectionY = 2.2;
 
             var entity = new SurfaceLineEntity
             {
@@ -96,30 +96,30 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             const long id = 489357;
             const string name = "Better name.";
-            const decimal intersectionX = 3.4m;
-            const decimal intersectionY = 7.5m;
+            const double intersectionX = 3.4;
+            const double intersectionY = 7.5;
             
             var point1Entity = new SurfaceLinePointEntity
             {
-                X = 1.1m,
-                Y = 2.2m,
-                Z = 3.3m,
+                X = 1.1,
+                Y = 2.2,
+                Z = 3.3,
                 Order = 0,
                 SurfaceLinePointEntityId = 1
             };
             var point2Entity = new SurfaceLinePointEntity
             {
-                X = 4.4m,
-                Y = 5.5m,
-                Z = 6.6m,
+                X = 4.4,
+                Y = 5.5,
+                Z = 6.6,
                 Order = 1,
                 SurfaceLinePointEntityId = 2
             };
             var point3Entity = new SurfaceLinePointEntity
             {
-                X = 7.7m,
-                Y = 8.8m,
-                Z = 9.9m,
+                X = 7.7,
+                Y = 8.8,
+                Z = 9.9,
                 Order = 2,
                 SurfaceLinePointEntityId = 3
             };
@@ -180,70 +180,70 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             const long id = 489357;
             const string name = "Better name.";
-            const decimal intersectionX = 3.4m;
-            const decimal intersectionY = 7.5m;
+            const double intersectionX = 3.4;
+            const double intersectionY = 7.5;
 
             var point1Entity = new SurfaceLinePointEntity
             {
-                X = 1.1m,
-                Y = 2.2m,
-                Z = 3.3m,
+                X = 1.1,
+                Y = 2.2,
+                Z = 3.3,
                 Order = 0,
                 SurfaceLinePointEntityId = 1
             };
             var point2Entity = new SurfaceLinePointEntity
             {
-                X = 4.4m,
-                Y = 5.5m,
-                Z = 6.6m,
+                X = 4.4,
+                Y = 5.5,
+                Z = 6.6,
                 Order = 1,
                 SurfaceLinePointEntityId = 2
             };
             var point3Entity = new SurfaceLinePointEntity
             {
-                X = 7.7m,
-                Y = 8.8m,
-                Z = 9.9m,
+                X = 7.7,
+                Y = 8.8,
+                Z = 9.9,
                 Order = 2,
                 SurfaceLinePointEntityId = 3
             };
             var point4Entity = new SurfaceLinePointEntity
             {
-                X = 10.10m,
-                Y = 11.11m,
-                Z = 12.12m,
+                X = 10.10,
+                Y = 11.11,
+                Z = 12.12,
                 Order = 3,
                 SurfaceLinePointEntityId = 4
             };
             var point5Entity = new SurfaceLinePointEntity
             {
-                X = 13.13m,
-                Y = 14.14m,
-                Z = 15.15m,
+                X = 13.13,
+                Y = 14.14,
+                Z = 15.15,
                 Order = 4,
                 SurfaceLinePointEntityId = 5
             };
             var point6Entity = new SurfaceLinePointEntity
             {
-                X = 16.16m,
-                Y = 17.17m,
-                Z = 18.18m,
+                X = 16.16,
+                Y = 17.17,
+                Z = 18.18,
                 Order = 5,
                 SurfaceLinePointEntityId = 6
             };
             var point7Entity = new SurfaceLinePointEntity
             {
-                X = 19.19m,
-                Y = 20.20m,
-                Z = 21.21m,
+                X = 19.19,
+                Y = 20.20,
+                Z = 21.21,
                 Order = 6,
                 SurfaceLinePointEntityId = 7
             };
             var point8Entity = new SurfaceLinePointEntity
             {
-                X = 22.22m,
-                Y = 23.23m,
-                Z = 24.24m,
+                X = 22.22,
+                Y = 23.23,
+                Z = 24.24,
                 Order = 7,
                 SurfaceLinePointEntityId = 8
             };
@@ -339,14 +339,14 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             const long id = 489357;
             const string name = "Better name.";
-            const decimal intersectionX = 3.4m;
-            const decimal intersectionY = 7.5m;
+            const double intersectionX = 3.4;
+            const double intersectionY = 7.5;
 
             var surfaceLinePointEntity1 = new SurfaceLinePointEntity
             {
-                X = 1.0m,
-                Y = 2.0m,
-                Z = 3.0m,
+                X = 1.0,
+                Y = 2.0,
+                Z = 3.0,
                 Order = 0,
                 SurfaceLinePointEntityId = 1,
                 CharacteristicPointEntities =
@@ -387,9 +387,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             }
             var surfaceLinePointEntity2 = new SurfaceLinePointEntity
             {
-                X = 5.0m,
-                Y = 6.0m,
-                Z = 7.0m,
+                X = 5.0,
+                Y = 6.0,
+                Z = 7.0,
                 Order = 1,
                 SurfaceLinePointEntityId = 2
             };

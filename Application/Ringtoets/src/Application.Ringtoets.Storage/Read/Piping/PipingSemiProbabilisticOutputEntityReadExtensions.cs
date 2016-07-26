@@ -41,11 +41,11 @@ namespace Application.Ringtoets.Storage.Read.Piping
         internal static PipingSemiProbabilisticOutput Read(this PipingSemiProbabilisticOutputEntity entity)
         {
             return new PipingSemiProbabilisticOutput(
-                entity.UpliftFactorOfSafety.ToNanableDouble(), entity.UpliftReliability.ToNanableDouble(), entity.UpliftProbability.ToNanableDouble(),
-                entity.HeaveFactorOfSafety.ToNanableDouble(), entity.HeaveReliability.ToNanableDouble(), entity.HeaveProbability.ToNanableDouble(),
-                entity.SellmeijerFactorOfSafety.ToNanableDouble(), entity.SellmeijerReliability.ToNanableDouble(), entity.SellmeijerProbability.ToNanableDouble(),
-                entity.RequiredProbability.ToNanableDouble(), entity.RequiredReliability.ToNanableDouble(),
-                entity.PipingProbability.ToNanableDouble(), entity.PipingReliability.ToNanableDouble(), entity.PipingFactorOfSafety.ToNanableDouble())
+                entity.UpliftFactorOfSafety.ToNullAsNaN(), entity.UpliftReliability.ToNullAsNaN(), entity.UpliftProbability.ToNullAsNaN(),
+                entity.HeaveFactorOfSafety.ToNullAsNaN(), entity.HeaveReliability.ToNullAsNaN(), entity.HeaveProbability.ToNullAsNaN(),
+                entity.SellmeijerFactorOfSafety.ToNullAsNaN(), entity.SellmeijerReliability.ToNullAsNaN(), entity.SellmeijerProbability.ToNullAsNaN(),
+                entity.RequiredProbability.ToNullAsNaN(), entity.RequiredReliability.ToNullAsNaN(),
+                entity.PipingProbability.ToNullAsNaN(), entity.PipingReliability.ToNullAsNaN(), entity.PipingFactorOfSafety.ToNullAsNaN())
             {
                 StorageId = entity.PipingSemiProbabilisticOutputEntityId
             };

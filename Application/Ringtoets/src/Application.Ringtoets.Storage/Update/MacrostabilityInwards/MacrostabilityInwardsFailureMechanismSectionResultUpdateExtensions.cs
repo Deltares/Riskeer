@@ -65,8 +65,8 @@ namespace Application.Ringtoets.Storage.Update.MacrostabilityInwards
                 s => s.MacrostabilityInwardsSectionResultEntityId);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
-            entity.LayerTwoA = result.AssessmentLayerTwoA.ToNullableDecimal();
-            entity.LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal();
+            entity.LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull();
+            entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();
 
             registry.Register(entity, result);
         }

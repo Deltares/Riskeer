@@ -60,8 +60,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 HydraulicLocationEntityId = entityId,
                 LocationId = testId,
                 Name = testName,
-                LocationX = Convert.ToDecimal(x),
-                LocationY = Convert.ToDecimal(y)
+                LocationX = x,
+                LocationY = y
             };
 
             var collector = new ReadConversionCollector();

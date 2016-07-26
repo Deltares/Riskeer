@@ -76,8 +76,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new ClosingStructureSectionResultEntity
             {
                 ClosingStructureSectionResultEntityId = entityId,
-                LayerThree = Convert.ToDecimal(layerThree),
-                LayerTwoA = Convert.ToDecimal(layerTwoA),
+                LayerThree = layerThree,
+                LayerTwoA = layerTwoA,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 LayerOne = Convert.ToByte(layerOne),
                 LayerTwoA = null,
-                LayerThree = Convert.ToDecimal(new Random(21).NextDouble()),
+                LayerThree = new Random(21).NextDouble(),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             var sectionResult = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection()); 
@@ -131,7 +131,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new ClosingStructureSectionResultEntity
             {
                 LayerOne = Convert.ToByte(layerOne),
-                LayerTwoA = Convert.ToDecimal(new Random(21).NextDouble()),
+                LayerTwoA = new Random(21).NextDouble(),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

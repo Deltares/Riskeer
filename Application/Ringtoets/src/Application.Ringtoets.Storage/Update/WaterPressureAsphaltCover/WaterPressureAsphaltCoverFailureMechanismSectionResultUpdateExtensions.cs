@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Update.WaterPressureAsphaltCover
                 o => o.WaterPressureAsphaltCoverSectionResultEntityId);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
-            entity.LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal();
+            entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();
 
             registry.Register(entity, result);
         }

@@ -45,21 +45,21 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public Nullable<decimal> EntryPointL { get; set; }
-        public Nullable<decimal> ExitPointL { get; set; }
-        public decimal PhreaticLevelExitMean { get; set; }
-        public decimal PhreaticLevelExitStandardDeviation { get; set; }
-        public decimal Diameter70Mean { get; set; }
-        public decimal Diameter70StandardDeviation { get; set; }
-        public decimal DarcyPermeabilityMean { get; set; }
-        public decimal DarcyPermeabilityStandardDeviation { get; set; }
-        public decimal DampingFactorExitMean { get; set; }
-        public decimal DampingFactorExitStandardDeviation { get; set; }
-        public decimal SaturatedVolumicWeightOfCoverageLayerMean { get; set; }
-        public decimal SaturatedVolumicWeightOfCoverageLayerStandardDeviation { get; set; }
-        public decimal SaturatedVolumicWeightOfCoverageLayerShift { get; set; }
+        public Nullable<double> EntryPointL { get; set; }
+        public Nullable<double> ExitPointL { get; set; }
+        public Nullable<double> PhreaticLevelExitMean { get; set; }
+        public Nullable<double> PhreaticLevelExitStandardDeviation { get; set; }
+        public Nullable<double> Diameter70Mean { get; set; }
+        public Nullable<double> Diameter70StandardDeviation { get; set; }
+        public Nullable<double> DarcyPermeabilityMean { get; set; }
+        public Nullable<double> DarcyPermeabilityStandardDeviation { get; set; }
+        public Nullable<double> DampingFactorExitMean { get; set; }
+        public Nullable<double> DampingFactorExitStandardDeviation { get; set; }
+        public Nullable<double> SaturatedVolumicWeightOfCoverageLayerMean { get; set; }
+        public Nullable<double> SaturatedVolumicWeightOfCoverageLayerStandardDeviation { get; set; }
+        public Nullable<double> SaturatedVolumicWeightOfCoverageLayerShift { get; set; }
         public byte RelevantForScenario { get; set; }
-        public decimal ScenarioContribution { get; set; }
+        public Nullable<double> ScenarioContribution { get; set; }
     
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }

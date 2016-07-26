@@ -49,12 +49,12 @@ namespace Application.Ringtoets.Storage.Create.Piping
             }
             var entity = new PipingCalculationOutputEntity
             {
-                HeaveFactorOfSafety = output.HeaveFactorOfSafety.ToNullableDecimal(),
-                HeaveZValue = output.HeaveZValue.ToNullableDecimal(),
-                SellmeijerFactorOfSafety = output.SellmeijerFactorOfSafety.ToNullableDecimal(),
-                SellmeijerZValue = output.SellmeijerZValue.ToNullableDecimal(),
-                UpliftFactorOfSafety = output.UpliftFactorOfSafety.ToNullableDecimal(),
-                UpliftZValue = output.UpliftZValue.ToNullableDecimal()
+                HeaveFactorOfSafety = output.HeaveFactorOfSafety.ToNaNAsNull(),
+                HeaveZValue = output.HeaveZValue.ToNaNAsNull(),
+                SellmeijerFactorOfSafety = output.SellmeijerFactorOfSafety.ToNaNAsNull(),
+                SellmeijerZValue = output.SellmeijerZValue.ToNaNAsNull(),
+                UpliftFactorOfSafety = output.UpliftFactorOfSafety.ToNaNAsNull(),
+                UpliftZValue = output.UpliftZValue.ToNaNAsNull()
             };
             registry.Register(entity, output);
             return entity;

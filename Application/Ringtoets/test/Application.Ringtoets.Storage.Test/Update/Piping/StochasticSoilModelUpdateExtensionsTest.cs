@@ -274,8 +274,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             {
                 StochasticSoilModelSegmentPointEntityId = 1,
                 Order = 0,
-                X = 5.5m,
-                Y = 6.6m
+                X = 5.5,
+                Y = 6.6
             };
             var soilModelEntity = new StochasticSoilModelEntity
             {
@@ -333,15 +333,15 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             {
                 StochasticSoilModelSegmentPointEntityId = 1,
                 Order = 0,
-                X = 5.5m,
-                Y = 6.6m
+                X = 5.5,
+                Y = 6.6
             };
             var originalPointEntity2 = new StochasticSoilModelSegmentPointEntity
             {
                 StochasticSoilModelSegmentPointEntityId = 2,
                 Order = 1,
-                X = 7.7m,
-                Y = 8.8m
+                X = 7.7,
+                Y = 8.8
             };
             var soilModelEntity = new StochasticSoilModelEntity
             {
@@ -401,15 +401,15 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             {
                 StochasticSoilModelSegmentPointEntityId = 1,
                 Order = 0,
-                X = Convert.ToDecimal(soilModel.Geometry[0].X),
-                Y = Convert.ToDecimal(soilModel.Geometry[0].Y)
+                X = soilModel.Geometry[0].X,
+                Y = soilModel.Geometry[0].Y
             };
             var originalPointEntity2 = new StochasticSoilModelSegmentPointEntity
             {
                 StochasticSoilModelSegmentPointEntityId = 2,
                 Order = 1,
-                X = Convert.ToDecimal(soilModel.Geometry[1].X),
-                Y = Convert.ToDecimal(soilModel.Geometry[1].Y)
+                X = soilModel.Geometry[1].X,
+                Y = soilModel.Geometry[1].Y
             };
             var soilModelEntity = new StochasticSoilModelEntity
             {

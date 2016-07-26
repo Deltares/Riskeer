@@ -51,15 +51,15 @@ namespace Application.Ringtoets.Storage.Read
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(
                 entity.LocationId,
                 entity.Name,
-                Convert.ToDouble(entity.LocationX),
-                Convert.ToDouble(entity.LocationY))
+                entity.LocationX.ToNullAsNaN(),
+                entity.LocationY.ToNullAsNaN())
             {
                 StorageId = entity.HydraulicLocationEntityId
             };
 
             if (entity.DesignWaterLevel.HasValue)
             {
-                hydraulicBoundaryLocation.DesignWaterLevel = Convert.ToDouble(entity.DesignWaterLevel);
+                hydraulicBoundaryLocation.DesignWaterLevel = entity.DesignWaterLevel.Value;
             }
 
             collector.Read(entity, hydraulicBoundaryLocation);

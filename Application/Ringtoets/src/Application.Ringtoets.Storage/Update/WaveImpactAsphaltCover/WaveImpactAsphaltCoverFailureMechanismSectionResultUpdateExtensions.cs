@@ -65,8 +65,8 @@ namespace Application.Ringtoets.Storage.Update.WaveImpactAsphaltCover
                 s => s.WaveImpactAsphaltCoverSectionResultEntityId);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
-            entity.LayerTwoA = result.AssessmentLayerTwoA.Value.ToNullableDecimal();
-            entity.LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal();
+            entity.LayerTwoA = result.AssessmentLayerTwoA.Value.ToNaNAsNull();
+            entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();
 
             registry.Register(entity, result);
         }

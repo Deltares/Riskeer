@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             var heightStructuresSectionResultEntity = new HeightStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal()
+                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 
             registry.Register(heightStructuresSectionResultEntity, result);

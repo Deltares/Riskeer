@@ -50,20 +50,20 @@ namespace Application.Ringtoets.Storage.Create.Piping
             }
             var entity = new PipingSemiProbabilisticOutputEntity
             {
-                UpliftFactorOfSafety = semiProbabilisticOutput.UpliftFactorOfSafety.Value.ToNullableDecimal(),
-                UpliftReliability = semiProbabilisticOutput.UpliftReliability.Value.ToNullableDecimal(),
-                UpliftProbability = semiProbabilisticOutput.UpliftProbability.ToNullableDecimal(),
-                HeaveFactorOfSafety = semiProbabilisticOutput.HeaveFactorOfSafety.Value.ToNullableDecimal(),
-                HeaveReliability = semiProbabilisticOutput.HeaveReliability.Value.ToNullableDecimal(),
-                HeaveProbability = semiProbabilisticOutput.HeaveProbability.ToNullableDecimal(),
-                SellmeijerFactorOfSafety = semiProbabilisticOutput.SellmeijerFactorOfSafety.Value.ToNullableDecimal(),
-                SellmeijerReliability = semiProbabilisticOutput.SellmeijerReliability.Value.ToNullableDecimal(),
-                SellmeijerProbability = semiProbabilisticOutput.SellmeijerProbability.ToNullableDecimal(),
-                RequiredProbability = semiProbabilisticOutput.RequiredProbability.ToNullableDecimal(),
-                RequiredReliability = semiProbabilisticOutput.RequiredReliability.Value.ToNullableDecimal(),
-                PipingProbability = semiProbabilisticOutput.PipingProbability.ToNullableDecimal(),
-                PipingReliability = semiProbabilisticOutput.PipingReliability.Value.ToNullableDecimal(),
-                PipingFactorOfSafety = semiProbabilisticOutput.PipingFactorOfSafety.Value.ToNullableDecimal(),
+                UpliftFactorOfSafety = semiProbabilisticOutput.UpliftFactorOfSafety.Value.ToNaNAsNull(),
+                UpliftReliability = semiProbabilisticOutput.UpliftReliability.Value.ToNaNAsNull(),
+                UpliftProbability = semiProbabilisticOutput.UpliftProbability.ToNaNAsNull(),
+                HeaveFactorOfSafety = semiProbabilisticOutput.HeaveFactorOfSafety.Value.ToNaNAsNull(),
+                HeaveReliability = semiProbabilisticOutput.HeaveReliability.Value.ToNaNAsNull(),
+                HeaveProbability = semiProbabilisticOutput.HeaveProbability.ToNaNAsNull(),
+                SellmeijerFactorOfSafety = semiProbabilisticOutput.SellmeijerFactorOfSafety.Value.ToNaNAsNull(),
+                SellmeijerReliability = semiProbabilisticOutput.SellmeijerReliability.Value.ToNaNAsNull(),
+                SellmeijerProbability = semiProbabilisticOutput.SellmeijerProbability.ToNaNAsNull(),
+                RequiredProbability = semiProbabilisticOutput.RequiredProbability.ToNaNAsNull(),
+                RequiredReliability = semiProbabilisticOutput.RequiredReliability.Value.ToNaNAsNull(),
+                PipingProbability = semiProbabilisticOutput.PipingProbability.ToNaNAsNull(),
+                PipingReliability = semiProbabilisticOutput.PipingReliability.Value.ToNaNAsNull(),
+                PipingFactorOfSafety = semiProbabilisticOutput.PipingFactorOfSafety.Value.ToNaNAsNull(),
             };
             registry.Register(entity, semiProbabilisticOutput);
             return entity;

@@ -50,7 +50,7 @@ namespace Application.Ringtoets.Storage.Create.PipingStructure
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA),
-                LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal()
+                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 
             registry.Register(sectionResultEntity, result);

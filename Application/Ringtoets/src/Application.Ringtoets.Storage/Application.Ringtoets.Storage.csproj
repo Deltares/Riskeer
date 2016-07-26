@@ -251,7 +251,6 @@
     <Compile Include="DbContext\WaveImpactAsphaltCoverSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DecimalConversionExtensions.cs" />
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Exceptions\CannotDeleteBackupFileException.cs" />
     <Compile Include="IStorableExtensions.cs" />

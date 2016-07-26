@@ -146,7 +146,7 @@ namespace Application.Ringtoets.Storage.Test.Update.WaterPressureAsphaltCover
             {
                 WaterPressureAsphaltCoverSectionResultEntityId = sectionResult.StorageId,
                 LayerOne = Convert.ToByte(false),
-                LayerThree = 1.1m,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.WaterPressureAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
@@ -156,7 +156,7 @@ namespace Application.Ringtoets.Storage.Test.Update.WaterPressureAsphaltCover
 
             // Assert
             Assert.AreEqual(Convert.ToByte(true), sectionResultEntity.LayerOne);
-            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNullableDecimal(), sectionResultEntity.LayerThree);
+            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNaNAsNull(), sectionResultEntity.LayerThree);
 
             mocks.VerifyAll();
         }
@@ -181,7 +181,7 @@ namespace Application.Ringtoets.Storage.Test.Update.WaterPressureAsphaltCover
             {
                 WaterPressureAsphaltCoverSectionResultEntityId = sectionResult.StorageId,
                 LayerOne = Convert.ToByte(false),
-                LayerThree = 1.1m,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.WaterPressureAsphaltCoverSectionResultEntities.Add(sectionResultEntity);

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Application.Ringtoets.Storage.DbContext;
@@ -53,8 +54,8 @@ namespace Application.Ringtoets.Storage.Read.Piping
             {
                 return collector.Get(entity);
             }
-            var layers = entity.SoilLayerEntities.Select(sl => SoilLayerEntityReadExtensions.Read(sl));
-            var pipingSoilProfile = new PipingSoilProfile(entity.Name, Convert.ToDouble(entity.Bottom), layers, SoilProfileType.SoilProfile1D, -1)
+            IEnumerable<PipingSoilLayer> layers = entity.SoilLayerEntities.Select(sl => sl.Read());
+            var pipingSoilProfile = new PipingSoilProfile(entity.Name, entity.Bottom.ToNullAsNaN(), layers, SoilProfileType.SoilProfile1D, -1)
             {
                 StorageId = entity.SoilProfileEntityId
             };

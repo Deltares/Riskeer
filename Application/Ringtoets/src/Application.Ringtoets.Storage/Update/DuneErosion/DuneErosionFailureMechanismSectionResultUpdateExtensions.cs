@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Update.DuneErosion
                 s => s.DuneErosionSectionResultEntityId);
 
             entity.LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA);
-            entity.LayerThree = result.AssessmentLayerThree.Value.ToNullableDecimal();
+            entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();
 
             registry.Register(entity, result);
         }

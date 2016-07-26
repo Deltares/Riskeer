@@ -74,8 +74,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new StrengthStabilityPointConstructionSectionResultEntity
             {
                 StrengthStabilityPointConstructionSectionResultEntityId = entityId,
-                LayerThree = Convert.ToDecimal(layerThree),
-                LayerTwoA = Convert.ToDecimal(layerTwoA),
+                LayerThree = layerThree,
+                LayerTwoA = layerTwoA,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new StrengthStabilityPointConstructionSectionResultEntity
             {
                 LayerTwoA = null,
-                LayerThree = Convert.ToDecimal(new Random(21).NextDouble()),
+                LayerThree = new Random(21).NextDouble(),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection()); 
@@ -121,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new StrengthStabilityPointConstructionSectionResultEntity
             {
-                LayerTwoA = Convert.ToDecimal(new Random(21).NextDouble()),
+                LayerTwoA = new Random(21).NextDouble(),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

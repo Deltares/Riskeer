@@ -149,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverSlipOffInwards
                 GrassCoverSlipOffInwardsSectionResultEntityId = sectionResult.StorageId,
                 LayerOne = Convert.ToByte(false),
                 LayerTwoA = Convert.ToByte(AssessmentLayerTwoAResult.Successful),
-                LayerThree = 1.1m,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.GrassCoverSlipOffInwardsSectionResultEntities.Add(sectionResultEntity);
@@ -160,7 +160,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverSlipOffInwards
             // Assert
             Assert.AreEqual(Convert.ToByte(true), sectionResultEntity.LayerOne);
             Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerTwoA), sectionResultEntity.LayerTwoA);
-            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNullableDecimal(), sectionResultEntity.LayerThree);
+            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNaNAsNull(), sectionResultEntity.LayerThree);
 
             mocks.VerifyAll();
         }
@@ -185,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverSlipOffInwards
             {
                 GrassCoverSlipOffInwardsSectionResultEntityId = sectionResult.StorageId,
                 LayerOne = Convert.ToByte(false),
-                LayerThree = 1.1m,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.GrassCoverSlipOffInwardsSectionResultEntities.Add(sectionResultEntity);

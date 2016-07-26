@@ -62,9 +62,9 @@ namespace Application.Ringtoets.Storage.Update
                 o => o.HydraulicLocationEntityId);
 
             entity.Name = location.Name;
-            entity.LocationX = Convert.ToDecimal(location.Location.X);
-            entity.LocationY = Convert.ToDecimal(location.Location.Y);
-            entity.DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel;
+            entity.LocationX = location.Location.X.ToNaNAsNull();
+            entity.LocationY = location.Location.Y.ToNaNAsNull();
+            entity.DesignWaterLevel = location.DesignWaterLevel.ToNaNAsNull();
 
             registry.Register(entity, location);
         }

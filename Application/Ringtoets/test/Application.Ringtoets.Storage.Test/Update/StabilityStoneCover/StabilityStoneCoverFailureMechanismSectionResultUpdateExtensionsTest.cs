@@ -147,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StabilityStoneCover
             {
                 StabilityStoneCoverSectionResultEntityId = sectionResult.StorageId,
                 LayerTwoA = Convert.ToByte(AssessmentLayerTwoAResult.Successful),
-                LayerThree = 1.1m,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.StabilityStoneCoverSectionResultEntities.Add(sectionResultEntity);
@@ -157,7 +157,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StabilityStoneCover
 
             // Assert
             Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerTwoA), sectionResultEntity.LayerTwoA);
-            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNullableDecimal(), sectionResultEntity.LayerThree);
+            Assert.AreEqual(sectionResult.AssessmentLayerThree.Value.ToNaNAsNull(), sectionResultEntity.LayerThree);
 
             mocks.VerifyAll();
         }
@@ -180,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StabilityStoneCover
             var sectionResultEntity = new StabilityStoneCoverSectionResultEntity
             {
                 StabilityStoneCoverSectionResultEntityId = sectionResult.StorageId,
-                LayerThree = 1.1m,
+                LayerThree = 1.1
             };
 
             ringtoetsEntities.StabilityStoneCoverSectionResultEntities.Add(sectionResultEntity);

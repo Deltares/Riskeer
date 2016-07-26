@@ -40,8 +40,8 @@ namespace Application.Ringtoets.Storage.Create
         {
             var entity = new ReferenceLinePointEntity
             {
-                X = Convert.ToDecimal(point.X),
-                Y = Convert.ToDecimal(point.Y),
+                X = point.X.ToNaNAsNull(),
+                Y = point.Y.ToNaNAsNull(),
                 Order = order
             };
 
@@ -58,8 +58,8 @@ namespace Application.Ringtoets.Storage.Create
         {
             var entity = new FailureMechanismSectionPointEntity
             {
-                X = Convert.ToDecimal(point.X),
-                Y = Convert.ToDecimal(point.Y),
+                X = point.X.ToNaNAsNull(),
+                Y = point.Y.ToNaNAsNull(),
                 Order = order
             };
 
@@ -78,8 +78,8 @@ namespace Application.Ringtoets.Storage.Create
         {
             var entity = new StochasticSoilModelSegmentPointEntity
             {
-                X = Convert.ToDecimal(point.X),
-                Y = Convert.ToDecimal(point.Y),
+                X = point.X.ToNaNAsNull(),
+                Y = point.Y.ToNaNAsNull(),
                 Order = order
             };
 

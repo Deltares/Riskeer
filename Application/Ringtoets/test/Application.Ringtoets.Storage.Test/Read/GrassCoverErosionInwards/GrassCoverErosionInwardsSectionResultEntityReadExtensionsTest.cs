@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsSectionResultEntity
             {
                 GrassCoverErosionInwardsSectionResultEntityId = entityId,
-                LayerThree = Convert.ToDecimal(layerThree),
+                LayerThree = layerThree,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

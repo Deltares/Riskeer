@@ -52,8 +52,8 @@ namespace Application.Ringtoets.Storage.Create
             {
                 LocationId = location.Id,
                 Name = location.Name,
-                LocationX = Convert.ToDecimal(location.Location.X),
-                LocationY = Convert.ToDecimal(location.Location.Y),
+                LocationX = location.Location.X.ToNaNAsNull(),
+                LocationY = location.Location.Y.ToNaNAsNull(),
                 DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel
             };
 

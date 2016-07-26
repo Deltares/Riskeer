@@ -148,8 +148,8 @@ namespace Application.Ringtoets.Storage.Test.Update
                 HydraulicLocationEntityId = 1,
                 DesignWaterLevel = 10,
                 LocationId = 2,
-                LocationX = Convert.ToDecimal(-3.2),
-                LocationY = Convert.ToDecimal(-3.5)
+                LocationX = -3.2,
+                LocationY = -3.5
             };
 
             ringtoetsEntities.HydraulicLocationEntities.Add(hydraulicLocationEntity);
@@ -160,8 +160,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             // Assert
             Assert.AreEqual(newName, hydraulicLocationEntity.Name);
             Assert.AreEqual(newId, hydraulicLocationEntity.LocationId);
-            Assert.AreEqual(newX, Convert.ToDouble(hydraulicLocationEntity.LocationX), 1e-6);
-            Assert.AreEqual(newY, Convert.ToDouble(hydraulicLocationEntity.LocationY), 1e-6);
+            Assert.AreEqual(newX, hydraulicLocationEntity.LocationX, 1e-6);
+            Assert.AreEqual(newY, hydraulicLocationEntity.LocationY, 1e-6);
             Assert.AreEqual(newDesignWaterLevel, hydraulicLocationEntity.DesignWaterLevel, 1e-6);
 
             mocks.VerifyAll();

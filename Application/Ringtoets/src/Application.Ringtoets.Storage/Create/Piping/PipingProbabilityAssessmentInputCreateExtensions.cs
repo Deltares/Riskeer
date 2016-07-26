@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
             var entity = new PipingFailureMechanismMetaEntity
             {
-                A = Convert.ToDecimal(assessmentInput.A)
+                A = assessmentInput.A
             };
 
             registry.Register(entity, assessmentInput);

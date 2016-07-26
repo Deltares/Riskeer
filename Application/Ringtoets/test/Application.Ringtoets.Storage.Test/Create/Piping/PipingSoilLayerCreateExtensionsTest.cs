@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(Convert.ToDecimal(top), entity.Top);
+            Assert.AreEqual(top, entity.Top);
             Assert.AreEqual(Convert.ToByte(isAquifer), entity.IsAquifer);
             Assert.AreEqual(soilLayer.Color.ToArgb(), Convert.ToInt32(entity.Color));
             Assert.AreEqual(soilLayer.BelowPhreaticLevelMean.ToNaNAsNull(), entity.BelowPhreaticLevelMean);

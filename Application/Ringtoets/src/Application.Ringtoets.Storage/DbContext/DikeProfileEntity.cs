@@ -44,15 +44,15 @@ namespace Application.Ringtoets.Storage.DbContext
         public long DikeProfileEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
-        public double Orientation { get; set; }
+        public Nullable<double> Orientation { get; set; }
         public Nullable<byte> BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
         public byte[] ForeShoreData { get; set; }
         public byte[] DikeGeometryData { get; set; }
-        public double DikeHeight { get; set; }
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double X0 { get; set; }
+        public Nullable<double> DikeHeight { get; set; }
+        public Nullable<double> X { get; set; }
+        public Nullable<double> Y { get; set; }
+        public Nullable<double> X0 { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
