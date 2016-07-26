@@ -132,8 +132,8 @@
   <data name="tableLayoutPanelListBox.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="listBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="listBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="listBox.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -145,7 +145,7 @@
     <value>3, 0, 3, 0</value>
   </data>
   <data name="listBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 502</value>
+    <value>153, 195</value>
   </data>
   <data name="listBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -199,7 +199,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanelListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>209, 522</value>
+    <value>159, 215</value>
   </data>
   <data name="tableLayoutPanelListBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -232,7 +232,7 @@
     <value>0</value>
   </data>
   <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
-    <value>200</value>
+    <value>100</value>
   </data>
   <data name="tableLayoutPanelDataGrid.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
@@ -264,14 +264,14 @@
   <data name="&gt;&gt;labelCalculations.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="dataGridViewControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="dataGridViewControl.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="dataGridViewControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 23</value>
   </data>
   <data name="dataGridViewControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>537, 496</value>
+    <value>325, 189</value>
   </data>
   <data name="dataGridViewControl.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -280,7 +280,7 @@
     <value>dataGridViewControl</value>
   </data>
   <data name="&gt;&gt;dataGridViewControl.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=0.5.0.3894, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.1.1.4340, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewControl.Parent" xml:space="preserve">
     <value>tableLayoutPanelDataGrid</value>
@@ -298,7 +298,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanelDataGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>543, 522</value>
+    <value>331, 215</value>
   </data>
   <data name="tableLayoutPanelDataGrid.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -331,13 +331,13 @@
     <value>1</value>
   </data>
   <data name="splitContainer.Panel2MinSize" type="System.Int32, mscorlib">
-    <value>300</value>
+    <value>0</value>
   </data>
   <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>756, 522</value>
+    <value>494, 215</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>209</value>
+    <value>159</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -354,8 +354,8 @@
   <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="buttonGenerateScenarios.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="buttonGenerateScenarios.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Left</value>
@@ -363,11 +363,14 @@
   <data name="buttonGenerateScenarios.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="buttonGenerateScenarios.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonGenerateScenarios.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+    <value>3, 224</value>
   </data>
   <data name="buttonGenerateScenarios.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 20</value>
+    <value>137, 23</value>
   </data>
   <data name="buttonGenerateScenarios.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -382,40 +385,10 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonGenerateScenarios.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;buttonGenerateScenarios.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 531</value>
-  </data>
-  <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>756, 26</value>
-  </data>
-  <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
     <value>tableLayoutPanelUserControl</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanel1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonGenerateScenarios.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="buttonGenerateScenarios" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,Absolute,20" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tableLayoutPanelUserControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -423,14 +396,11 @@
   <data name="tableLayoutPanelUserControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tableLayoutPanelUserControl.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>500, 300</value>
-  </data>
   <data name="tableLayoutPanelUserControl.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tableLayoutPanelUserControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>762, 560</value>
+    <value>500, 250</value>
   </data>
   <data name="tableLayoutPanelUserControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -448,7 +418,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelUserControl.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="splitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="tableLayoutPanel1" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,100,Absolute,32" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="splitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonGenerateScenarios" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,100,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -460,10 +430,10 @@
     <value>True</value>
   </data>
   <data name="$this.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
-    <value>600, 400</value>
+    <value>500, 250</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>762, 560</value>
+    <value>500, 250</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>PipingCalculationsView</value>

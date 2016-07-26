@@ -24,7 +24,6 @@
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonGenerateScenarios = new System.Windows.Forms.Button();
             this.tableLayoutPanelUserControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -33,14 +32,13 @@
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelListBox.SuspendLayout();
             this.tableLayoutPanelDataGrid.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanelUserControl
             // 
             resources.ApplyResources(this.tableLayoutPanelUserControl, "tableLayoutPanelUserControl");
             this.tableLayoutPanelUserControl.Controls.Add(this.splitContainer, 0, 0);
-            this.tableLayoutPanelUserControl.Controls.Add(this.tableLayoutPanel1, 0, 1);
+            this.tableLayoutPanelUserControl.Controls.Add(this.buttonGenerateScenarios, 0, 1);
             this.tableLayoutPanelUserControl.Name = "tableLayoutPanelUserControl";
             // 
             // splitContainer
@@ -90,13 +88,9 @@
             // dataGridViewControl
             // 
             resources.ApplyResources(this.dataGridViewControl, "dataGridViewControl");
+            this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
-            // 
-            // tableLayoutPanel1
-            // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.buttonGenerateScenarios, 0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
             // buttonGenerateScenarios
             // 
@@ -112,6 +106,7 @@
             this.Controls.Add(this.tableLayoutPanelUserControl);
             this.Name = "PipingCalculationsView";
             this.tableLayoutPanelUserControl.ResumeLayout(false);
+            this.tableLayoutPanelUserControl.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
@@ -120,7 +115,6 @@
             this.tableLayoutPanelListBox.PerformLayout();
             this.tableLayoutPanelDataGrid.ResumeLayout(false);
             this.tableLayoutPanelDataGrid.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -134,8 +128,7 @@
         private System.Windows.Forms.Label labelFailureMechanismSections;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDataGrid;
         private System.Windows.Forms.Label labelCalculations;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button buttonGenerateScenarios;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
+        private System.Windows.Forms.Button buttonGenerateScenarios;
     }
 }

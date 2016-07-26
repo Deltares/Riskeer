@@ -16,7 +16,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PipingScenariosView));
-            this.tableLayoutPanelUserControl = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.listBox = new System.Windows.Forms.ListBox();
@@ -24,7 +23,6 @@
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.tableLayoutPanelUserControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -32,12 +30,6 @@
             this.tableLayoutPanelListBox.SuspendLayout();
             this.tableLayoutPanelDataGrid.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tableLayoutPanelUserControl
-            // 
-            resources.ApplyResources(this.tableLayoutPanelUserControl, "tableLayoutPanelUserControl");
-            this.tableLayoutPanelUserControl.Controls.Add(this.splitContainer, 0, 0);
-            this.tableLayoutPanelUserControl.Name = "tableLayoutPanelUserControl";
             // 
             // splitContainer
             // 
@@ -86,15 +78,16 @@
             // dataGridViewControl
             // 
             resources.ApplyResources(this.dataGridViewControl, "dataGridViewControl");
+            this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
+            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
-            // PipingScenarioView
+            // PipingScenariosView
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanelUserControl);
+            this.Controls.Add(this.splitContainer);
             this.Name = "PipingScenariosView";
-            this.tableLayoutPanelUserControl.ResumeLayout(false);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
@@ -109,7 +102,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelUserControl;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelListBox;
         private System.Windows.Forms.ListBox listBox;
