@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         #region Contains methods
 
         [Test]
-        public void Contains_WithoutModel_ThrowsArgumentNullException()
+        public void Contains_WithoutPipingSoilProfile_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();

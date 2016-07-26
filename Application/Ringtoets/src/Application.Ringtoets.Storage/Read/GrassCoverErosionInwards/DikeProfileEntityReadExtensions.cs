@@ -55,10 +55,10 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             }
 
             var dikeProfile = new DikeProfile(new Point2D(entity.X, entity.Y),
-                                                      new RoughnessPointBinaryConverter().ToData(entity.DikeGeometryData),
-                                                      new Point2DBinaryConverter().ToData(entity.ForeShoreData),
-                                                      CreateBreakWater(entity),
-                                                      CreateProperties(entity))
+                                              new RoughnessPointBinaryConverter().ToData(entity.DikeGeometryData),
+                                              new Point2DBinaryConverter().ToData(entity.ForeShoreData),
+                                              CreateBreakWater(entity),
+                                              CreateProperties(entity))
             {
                 StorageId = entity.DikeProfileEntityId
             };

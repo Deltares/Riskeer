@@ -220,8 +220,8 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
                 StorageId = 2,
                 InputParameters =
                 {
-                    DikeProfile = new DikeProfile(new Point2D(0,0), new RoughnessPoint[0], 
-                        new Point2D[0], null, new DikeProfile.ConstructionProperties())
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                                                  new Point2D[0], null, new DikeProfile.ConstructionProperties())
                 }
             };
 
@@ -254,8 +254,8 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
                 StorageId = 2,
                 InputParameters =
                 {
-                    DikeProfile = new DikeProfile(new Point2D(0,0), new RoughnessPoint[0], 
-                        new Point2D[0], null, new DikeProfile.ConstructionProperties())
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                                                  new Point2D[0], null, new DikeProfile.ConstructionProperties())
                     {
                         StorageId = 7657
                     }
@@ -449,7 +449,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
         public void Update_CalculationWithNewOutput_EntityHasOutputEntityAdded()
         {
             // Setup
-            var mocks=  new MockRepository();
+            var mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
