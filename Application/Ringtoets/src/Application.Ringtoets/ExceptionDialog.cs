@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Application.Ringtoets.Properties;
 using Core.Common.Controls.Dialogs;
@@ -51,7 +50,7 @@ namespace Application.Ringtoets
         /// <param name="dialogParent">The owner of the dialog.</param>
         /// <param name="commands">The commands available in the application.</param>
         /// <param name="exception">The exception to show in the dialog.</param>
-        public ExceptionDialog(IWin32Window dialogParent, ICommandsOwner commands, Exception exception) : base(dialogParent, (Icon) Resources.bug__exclamation, 470, 200)
+        public ExceptionDialog(IWin32Window dialogParent, ICommandsOwner commands, Exception exception) : base(dialogParent, Resources.bug__exclamation, 470, 200)
         {
             this.commands = commands;
             InitializeComponent();
@@ -109,8 +108,15 @@ namespace Application.Ringtoets
 
         private void ButtonSaveProjectClick(object sender, EventArgs e)
         {
-            var saved = commands.StorageCommands.SaveProjectAs();
-
+            bool saved;
+            try
+            {
+                saved = commands.StorageCommands.SaveProjectAs();
+            }
+            catch (Exception)
+            {
+                saved = false;
+            }
             ShowMessageDialog(
                 saved ? Resources.ExceptionDialog_ButtonSaveProjectClick_Succesfully_saved_project : Resources.ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed,
                 saved ? Resources.ExceptionDialog_ButtonSaveProjectClick_Succesfully_saved_project_caption : Resources.ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed_caption);

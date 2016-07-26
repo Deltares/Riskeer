@@ -24,23 +24,18 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Update;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-
 using log4net;
-
 using Ringtoets.Integration.Data;
-
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Application.Ringtoets.Storage
@@ -62,21 +57,6 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        /// <summary>
-        /// Converts <paramref name="project"/> to a new <see cref="ProjectEntity"/> in the database.
-        /// </summary>
-        /// <param name="databaseFilePath">Path to database file.</param>
-        /// <param name="project"><see cref="IProject"/> to save.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="StorageException">Thrown when
-        /// <list type="bullet">
-        /// <item>No backup file could be created or restored when overwriting an existing file.</item>
-        /// <item>The file at <paramref name="databaseFilePath"/> cannot be created.</item>
-        /// <item>The connection to the database file failed.</item>
-        /// <item>Saving the <paramref name="project"/> to the database failed.</item>
-        /// </list>
-        /// </exception>
         public void SaveProjectAs(string databaseFilePath, IProject project)
         {
             var ringtoetsProject = project as RingtoetsProject;
@@ -104,24 +84,6 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        /// <summary>
-        /// Converts <paramref name="project"/> to an existing <see cref="ProjectEntity"/> in the database.
-        /// </summary>
-        /// <param name="databaseFilePath">Path to database file.</param>
-        /// <param name="project"><see cref="IProject"/> to save.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="CouldNotConnectException">No file is present at <paramref name="databaseFilePath"/>
-        /// at the time a connection is made.</exception>
-        /// <exception cref="StorageException">Thrown when
-        /// <list type="bullet">
-        /// <item><paramref name="databaseFilePath"/> does not exist.</item>
-        /// <item>The database does not contain the table <c>version</c>.</item>
-        /// <item>Saving the <paramref name="project"/> to the database failed.</item>
-        /// <item>The connection to the database file failed.</item>
-        /// <item>The related entity was not found in the database. Therefore, no update was possible.</item>
-        /// </list>
-        /// </exception>
         public void SaveProject(string databaseFilePath, IProject project)
         {
             var ringtoetsProject = project as RingtoetsProject;
@@ -142,20 +104,6 @@ namespace Application.Ringtoets.Storage
             UpdateProjectInDatabase(databaseFilePath, ringtoetsProject);
         }
 
-        /// <summary>
-        /// Attempts to load the <see cref="IProject"/> from the SQLite database.
-        /// </summary>
-        /// <param name="databaseFilePath">Path to database file.</param>
-        /// <returns>Returns a new instance of <see cref="IProject"/> with the data from the database or <c>null</c> when not found.</returns>
-        /// <exception cref="ArgumentException"><paramref name="databaseFilePath"/> is invalid.</exception>
-        /// <exception cref="StorageException">Thrown when
-        /// <list type="bullet">
-        /// <item><paramref name="databaseFilePath"/> does not exist.</item>
-        /// <item>The database does not contain all requested tables.</item>
-        /// <item>The connection to the database file failed.</item>
-        /// <item>The related entity was not found in the database.</item>
-        /// </list>
-        /// </exception>
         public IProject LoadProject(string databaseFilePath)
         {
             SetConnectionToExistingFile(databaseFilePath);

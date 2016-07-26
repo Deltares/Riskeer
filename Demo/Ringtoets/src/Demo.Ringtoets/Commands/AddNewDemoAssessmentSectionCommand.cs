@@ -1,6 +1,4 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -84,12 +82,10 @@ namespace Demo.Ringtoets.Commands
         private void InitializeDemoHydraulicBoundaryDatabase(AssessmentSection demoAssessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
+            using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
             {
-                using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
-                {
-                    var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
-                    hydraulicBoundaryDatabaseImporter.Import(demoAssessmentSection, filePath);
-                }
+                var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
+                hydraulicBoundaryDatabaseImporter.Import(demoAssessmentSection, filePath);
             }
 
             SetHydraulicBoundaryLocationValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);

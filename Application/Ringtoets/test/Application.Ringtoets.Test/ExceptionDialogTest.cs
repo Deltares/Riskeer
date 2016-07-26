@@ -55,6 +55,8 @@ namespace Application.Ringtoets.Test
                 Assert.IsFalse(dialog.MinimizeBox);
                 Assert.IsNull(dialog.CancelButton);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -82,6 +84,8 @@ namespace Application.Ringtoets.Test
                 Assert.AreEqual(470, dialog.MinimumSize.Width);
                 Assert.AreEqual(200, dialog.MinimumSize.Height);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -114,6 +118,8 @@ namespace Application.Ringtoets.Test
                 // Assert
                 Assert.AreEqual(exception.ToString().Replace(Environment.NewLine, "\n"), exceptionText);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -144,6 +150,8 @@ namespace Application.Ringtoets.Test
                 // Assert
                 Assert.AreEqual("", exceptionText);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -174,6 +182,8 @@ namespace Application.Ringtoets.Test
                 // Assert
                 Assert.IsFalse(buttonOpenLog.Enabled);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -207,6 +217,8 @@ namespace Application.Ringtoets.Test
                 // Assert
                 Assert.IsTrue(buttonOpenLog.Enabled);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -233,6 +245,8 @@ namespace Application.Ringtoets.Test
                 // Assert
                 Assert.AreEqual(DialogResult.OK, dialog.DialogResult);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -259,6 +273,8 @@ namespace Application.Ringtoets.Test
                 // Assert
                 Assert.AreEqual(DialogResult.Cancel, dialog.DialogResult);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -292,6 +308,8 @@ namespace Application.Ringtoets.Test
                 // Assert
                 Assert.AreEqual(1, counter);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]

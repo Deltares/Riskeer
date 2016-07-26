@@ -58,6 +58,7 @@ namespace Core.Common.Base.Storage
         /// <param name="project">The <see cref="IProject"/> to save.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
         /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
+        /// <exception cref="CouldNotConnectException">No file is present at <paramref name="connectionArguments"/></exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item><paramref name="connectionArguments"/> does not exist.</item>
