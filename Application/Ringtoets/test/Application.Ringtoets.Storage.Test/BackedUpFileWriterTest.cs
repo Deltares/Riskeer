@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class BackedUpFileWriterTest
     {
-        private string testWorkDir = Path.Combine(".", "SafeOverwriteFileHelperTest");
+        private readonly string testWorkDir = Path.Combine(".", "SafeOverwriteFileHelperTest");
 
         [TestFixtureSetUp]
         public void SetUpFixture()
@@ -117,10 +117,7 @@ namespace Application.Ringtoets.Storage.Test
             try
             {
                 // Call
-                TestDelegate test = () => writer.Perform(() =>
-                {
-                    throw exception;
-                });
+                TestDelegate test = () => writer.Perform(() => { throw exception; });
 
                 var actualException = Assert.Throws(exception.GetType(), test);
                 Assert.AreSame(exception, actualException);
@@ -142,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test
             var filePath = Path.Combine(testWorkDir, "iDoExist.txt");
             var temporaryFilePath = filePath + "~";
 
-            using (File.Create(filePath)) { }
+            using (File.Create(filePath)) {}
             var temporaryFileStream = File.Create(temporaryFilePath);
 
             var writer = new BackedUpFileWriter(filePath);
@@ -150,19 +147,16 @@ namespace Application.Ringtoets.Storage.Test
             // Precondition
             Assert.IsTrue(File.Exists(filePath));
             Assert.IsTrue(File.Exists(temporaryFilePath));
-            
+
             // Call
-            TestDelegate test = () =>
-            {
-                writer.Perform(() => { });
-            };
+            TestDelegate test = () => { writer.Perform(() => { }); };
 
             try
             {
                 // Assert
                 var message = Assert.Throws<IOException>(test).Message;
                 var expectedMessage = string.Format(
-                    "Er bestaat al een tijdelijk bestand ({0}) dat niet verwijderd kan worden. Het bestaande tijdelijke bestand dient handmatig verwijderd te worden.", 
+                    "Er bestaat al een tijdelijk bestand ({0}) dat niet verwijderd kan worden. Het bestaande tijdelijke bestand dient handmatig verwijderd te worden.",
                     temporaryFilePath);
                 Assert.AreEqual(message, expectedMessage);
                 temporaryFileStream.Dispose();
@@ -183,7 +177,7 @@ namespace Application.Ringtoets.Storage.Test
 
             Directory.CreateDirectory(notWritableDirectory);
             using (File.Create(filePath)) {}
-            DenyDirectoryRight(notWritableDirectory, FileSystemRights.Write); 
+            DenyDirectoryRight(notWritableDirectory, FileSystemRights.Write);
 
             var writer = new BackedUpFileWriter(filePath);
 
@@ -191,16 +185,13 @@ namespace Application.Ringtoets.Storage.Test
             Assert.IsTrue(File.Exists(filePath));
 
             // Call
-            TestDelegate test = () =>
-            {
-                writer.Perform(() => { });
-            };
+            TestDelegate test = () => { writer.Perform(() => { }); };
 
             try
             {
                 // Assert
                 var expectedMessage = string.Format(
-                    "Kan geen tijdelijk bestand maken van het originele bestand ({0}).", 
+                    "Kan geen tijdelijk bestand maken van het originele bestand ({0}).",
                     filePath);
                 var message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
@@ -240,7 +231,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void Perform_TargetFileExistsCannotDeleteFile_ThrowsIOException()
+        public void Perform_TargetFileExistsCannotDeleteFile_ThrowsCannotDeleteBackupFileException()
         {
             // Setup
             var noAccessDirectory = Path.Combine(testWorkDir, "Access");
@@ -257,14 +248,11 @@ namespace Application.Ringtoets.Storage.Test
             try
             {
                 // Call
-                TestDelegate test = () => helper.Perform(() =>
-                {
-                    fileStream = File.Open(temporaryFilePath, FileMode.Open);
-                });
+                TestDelegate test = () => helper.Perform(() => { fileStream = File.Open(temporaryFilePath, FileMode.Open); });
 
                 // Assert
                 var expectedMessage = string.Format(
-                    "Kan het tijdelijke bestand ({0}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.", 
+                    "Kan het tijdelijke bestand ({0}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.",
                     temporaryFilePath);
                 var message = Assert.Throws<CannotDeleteBackupFileException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
@@ -345,7 +333,7 @@ namespace Application.Ringtoets.Storage.Test
 
                 // Assert
                 var expectedMessage = string.Format(
-                    "Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.", 
+                    "Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.",
                     filePath);
                 var message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);

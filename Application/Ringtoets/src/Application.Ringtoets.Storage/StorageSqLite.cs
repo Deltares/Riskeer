@@ -24,12 +24,14 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Update;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Utils;
@@ -38,6 +40,7 @@ using Core.Common.Utils.Builders;
 using log4net;
 
 using Ringtoets.Integration.Data;
+
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Application.Ringtoets.Storage
@@ -47,7 +50,7 @@ namespace Application.Ringtoets.Storage
     /// </summary>
     public class StorageSqLite : IStoreProject
     {
-        private static ILog log = LogManager.GetLogger(typeof(StorageSqLite));
+        private static readonly ILog log = LogManager.GetLogger(typeof(StorageSqLite));
 
         private string connectionString;
 
@@ -97,7 +100,7 @@ namespace Application.Ringtoets.Storage
             }
             catch (CannotDeleteBackupFileException e)
             {
-                log.Warn(e.Message);
+                log.Warn(e.Message, e);
             }
         }
 
