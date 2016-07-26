@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         #region Contains methods
 
         [Test]
-        public void Contains_WithoutModel_ArgumentNullException()
+        public void Contains_WithoutModel_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_SoilProfileAdded_True()
+        public void Contains_SoilProfileAdded_ReturnsTrue()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_NoSoilProfileAdded_False()
+        public void Contains_NoSoilProfileAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherSoilProfileAdded_False()
+        public void Contains_OtherSoilProfileAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -124,7 +124,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_WithoutRingtoetsPipingSurfaceLine_ArgumentNullException()
+        public void Contains_WithoutRingtoetsPipingSurfaceLine_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_RingtoetsPipingSurfaceLineAdded_True()
+        public void Contains_RingtoetsPipingSurfaceLineAdded_ReturnsTrue()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -153,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_NoRingtoetsPipingSurfaceLineAdded_False()
+        public void Contains_NoRingtoetsPipingSurfaceLineAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -167,7 +167,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherRingtoetsPipingSurfaceLineAdded_False()
+        public void Contains_OtherRingtoetsPipingSurfaceLineAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -182,7 +182,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_WithoutHydraulicBoundaryLocation_ArgumentNullException()
+        public void Contains_WithoutHydraulicBoundaryLocation_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -196,7 +196,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_HydraulicBoundaryLocationAdded_True()
+        public void Contains_HydraulicBoundaryLocationAdded_ReturnsTrue()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -211,7 +211,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_NoHydraulicBoundaryLocationAdded_False()
+        public void Contains_NoHydraulicBoundaryLocationAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -225,7 +225,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherHydraulicBoundaryLocationAdded_False()
+        public void Contains_OtherHydraulicBoundaryLocationAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -240,7 +240,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_WithoutStochasticSoilModel_ArgumentNullException()
+        public void Contains_WithoutStochasticSoilModel_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -254,7 +254,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_StochasticSoilModelAdded_True()
+        public void Contains_StochasticSoilModelAdded_ReturnsTrue()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -269,7 +269,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_NoStochasticSoilModelAdded_False()
+        public void Contains_NoStochasticSoilModelAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -283,7 +283,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherStochasticSoilModelAdded_False()
+        public void Contains_OtherStochasticSoilModelAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -298,7 +298,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_WithoutStochasticSoilProfile_ArgumentNullException()
+        public void Contains_WithoutStochasticSoilProfile_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -312,7 +312,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_StochasticSoilProfileAdded_True()
+        public void Contains_StochasticSoilProfileAdded_ReturnsTrue()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -327,7 +327,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_NoStochasticSoilProfileAdded_False()
+        public void Contains_NoStochasticSoilProfileAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -341,7 +341,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherStochasticSoilProfileAdded_False()
+        public void Contains_OtherStochasticSoilProfileAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -356,7 +356,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_FailureMechanismSectionAdded_True()
+        public void Contains_FailureMechanismSectionAdded_ReturnsTrue()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -371,7 +371,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_NoFailureMechanismSectionAdded_False()
+        public void Contains_NoFailureMechanismSectionAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -385,7 +385,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherFailureMechanismSectionAdded_False()
+        public void Contains_OtherFailureMechanismSectionAdded_ReturnsFalse()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -400,13 +400,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_WithoutDikeProfile_ArgumentNullException()
+        public void Contains_WithoutDikeProfile_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => registry.Contains((DikeProfile)null);
+            TestDelegate call = () => registry.Contains((DikeProfile) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -414,7 +414,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_DikeProfileAdded_True()
+        public void Contains_DikeProfileAdded_ReturnsTrue()
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
@@ -430,7 +430,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherDikeProfileAdded_False()
+        public void Contains_OtherDikeProfileAdded_ReturnsFalse()
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
@@ -449,7 +449,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_NoDikeProfileAdded_False()
+        public void Contains_NoDikeProfileAdded_ReturnsFalse()
         {
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
@@ -465,13 +465,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_WithoutGrassCoverErosionInwardsCalculation_ArgumentNullException()
+        public void Contains_WithoutGrassCoverErosionInwardsCalculation_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => registry.Contains((GrassCoverErosionInwardsCalculation)null);
+            TestDelegate call = () => registry.Contains((GrassCoverErosionInwardsCalculation) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -479,7 +479,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_GrassCoverErosionInwardsCalculationAdded_True()
+        public void Contains_GrassCoverErosionInwardsCalculationAdded_ReturnsTrue()
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
@@ -494,7 +494,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_OtherGrassCoverErosionInwardsCalculationAdded_False()
+        public void Contains_OtherGrassCoverErosionInwardsCalculationAdded_ReturnsFalse()
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
@@ -511,7 +511,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Contains_NoGrassCoverErosionInwardsCalculationAdded_False()
+        public void Contains_NoGrassCoverErosionInwardsCalculationAdded_ReturnsFalse()
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
@@ -530,7 +530,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         #region Get methods
 
         [Test]
-        public void Get_WithoutPipingSoilProfile_ArgumentNullException()
+        public void Get_WithoutPipingSoilProfile_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -589,7 +589,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutRingtoetsPipingSurfaceLine_ArgumentNullException()
+        public void Get_WithoutRingtoetsPipingSurfaceLine_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -648,7 +648,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutHydraulicBoundaryLocation_ArgumentNullException()
+        public void Get_WithoutHydraulicBoundaryLocation_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -707,7 +707,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutStochasticSoilModel_ArgumentNullException()
+        public void Get_WithoutStochasticSoilModel_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -766,7 +766,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutStochasticSoilProfileEntity_ArgumentNullException()
+        public void Get_WithoutStochasticSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -825,7 +825,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutFailureMechanismSection_ArgumentNullException()
+        public void Get_WithoutFailureMechanismSection_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -901,13 +901,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutDikeProfile_ArgumentNullException()
+        public void Get_WithoutDikeProfile_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => registry.Get((DikeProfile)null);
+            TestDelegate call = () => registry.Get((DikeProfile) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -968,13 +968,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Get_WithoutGrassCoverErosionInwardsCalculation_ArgumentNullException()
+        public void Get_WithoutGrassCoverErosionInwardsCalculation_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => registry.Get((GrassCoverErosionInwardsCalculation)null);
+            TestDelegate call = () => registry.Get((GrassCoverErosionInwardsCalculation) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -1029,6 +1029,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreSame(registeredEntity, retrievedEntity);
         }
+
         #endregion
 
         #region Register methods

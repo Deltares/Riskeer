@@ -20,19 +20,14 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update.GrassCoverErosionInwards;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
@@ -64,9 +59,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             TestDelegate test = () =>
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
-                {
                     sectionResult.Update(null, ringtoetsEntities);
-                }
             };
 
             // Assert
@@ -84,9 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             TestDelegate test = () =>
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
-                {
                     sectionResult.Update(new PersistenceRegistry(), ringtoetsEntities);
-                }
             };
 
             // Assert
@@ -174,7 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             {
                 StorageId = 1,
                 AssessmentLayerOne = true,
-                AssessmentLayerThree = (RoundedDouble)double.NaN
+                AssessmentLayerThree = (RoundedDouble) double.NaN
             };
 
             var sectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
@@ -229,7 +220,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Update_WithDeletedCalculation_EntityHasCalculationEntitySetToNulll()
+        public void Update_WithDeletedCalculation_EntityHasCalculationEntitySetToNull()
         {
             // Setup
             var mocks = new MockRepository();

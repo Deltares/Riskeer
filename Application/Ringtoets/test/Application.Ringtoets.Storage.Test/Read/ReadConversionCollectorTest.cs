@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
@@ -42,13 +39,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region StochasticSoilProfileEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_WithoutStochasticSoilProfileEntity_ArgumentNullException()
+        public void Contains_WithoutStochasticSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains((StochasticSoilProfileEntity)null);
+            TestDelegate test = () => collector.Contains((StochasticSoilProfileEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -56,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_StochasticSoilProfileEntityAdded_True()
+        public void Contains_StochasticSoilProfileEntityAdded_ReturnsTrue()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -71,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_NoStochasticSoilProfileEntityAdded_False()
+        public void Contains_NoStochasticSoilProfileEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -85,7 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherStochasticSoilProfileEntityAdded_False()
+        public void Contains_OtherStochasticSoilProfileEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -100,13 +97,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_WithoutStochasticSoilProfileEntity_ThrowArgumentNullException()
+        public void Get_WithoutStochasticSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get((StochasticSoilProfileEntity)null);
+            TestDelegate test = () => collector.Get((StochasticSoilProfileEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -191,13 +188,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region SoilProfileEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_WithoutEntity_ArgumentNullException()
+        public void Contains_WithoutEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains((SoilProfileEntity)null);
+            TestDelegate test = () => collector.Contains((SoilProfileEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -205,7 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_SoilProfileAdded_True()
+        public void Contains_SoilProfileAdded_ReturnsTrue()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -220,7 +217,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_NoSoilProfileAdded_False()
+        public void Contains_NoSoilProfileAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -234,7 +231,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherSoilProfileEntityAdded_False()
+        public void Contains_OtherSoilProfileEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -249,13 +246,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_WithoutSoilProfileEntity_ThrowArgumentNullException()
+        public void Get_WithoutSoilProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get((SoilProfileEntity)null);
+            TestDelegate test = () => collector.Get((SoilProfileEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -340,13 +337,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region SurfaceLineEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_SurfaceLineEntityIsNull_ThrowArgumentNullException()
+        public void Contains_SurfaceLineEntityIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate call = () => collector.Contains((SurfaceLineEntity)null);
+            TestDelegate call = () => collector.Contains((SurfaceLineEntity) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -354,7 +351,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_SurfaceLineEntityAdded_True()
+        public void Contains_SurfaceLineEntityAdded_ReturnsTrue()
         {
             // Setup
             var entity = new SurfaceLineEntity();
@@ -371,7 +368,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_SurfaceLineEntityNotAdded_False()
+        public void Contains_SurfaceLineEntityNotAdded_ReturnsFalse()
         {
             // Setup
             var entity = new SurfaceLineEntity();
@@ -386,7 +383,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherSurfaceLineEntityAdded_False()
+        public void Contains_OtherSurfaceLineEntityAdded_ReturnsFalse()
         {
             // Setup
             var registeredEntity = new SurfaceLineEntity();
@@ -405,13 +402,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_SurfaceLineEntityIsNull_ThrowArgumentNullException()
+        public void Get_SurfaceLineEntityIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate call = () => collector.Get((SurfaceLineEntity)null);
+            TestDelegate call = () => collector.Get((SurfaceLineEntity) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -502,13 +499,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region SurfaceLinePointEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_SurfaceLinePointsEntityIsNull_ThrowArgumentNullException()
+        public void Contains_SurfaceLinePointsEntityIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate call = () => collector.Contains((SurfaceLinePointEntity)null);
+            TestDelegate call = () => collector.Contains((SurfaceLinePointEntity) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -516,7 +513,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_SurfaceLinePointEntityAdded_True()
+        public void Contains_SurfaceLinePointEntityAdded_ReturnsTrue()
         {
             // Setup
             var entity = new SurfaceLinePointEntity();
@@ -533,7 +530,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_SurfaceLinePointEntityNotAdded_False()
+        public void Contains_SurfaceLinePointEntityNotAdded_ReturnsFalse()
         {
             // Setup
             var entity = new SurfaceLinePointEntity();
@@ -548,7 +545,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherSurfaceLinePointEntityAdded_False()
+        public void Contains_OtherSurfaceLinePointEntityAdded_ReturnsFalse()
         {
             // Setup
             var registeredEntity = new SurfaceLinePointEntity();
@@ -567,13 +564,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_SurfaceLinePointEntityIsNull_ThrowArgumentNullException()
+        public void Get_SurfaceLinePointEntityIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate call = () => collector.Get((SurfaceLinePointEntity)null);
+            TestDelegate call = () => collector.Get((SurfaceLinePointEntity) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -664,13 +661,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region HydraulicLocationEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_WithoutHydraulicLocationEntity_ArgumentNullException()
+        public void Contains_WithoutHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains((HydraulicLocationEntity)null);
+            TestDelegate test = () => collector.Contains((HydraulicLocationEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -678,7 +675,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_HydraulicLocationEntityAdded_True()
+        public void Contains_HydraulicLocationEntityAdded_ReturnsTrue()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -693,7 +690,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_NoHydraulicLocationEntityAdded_False()
+        public void Contains_NoHydraulicLocationEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -707,7 +704,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherHydraulicLocationEntityAdded_False()
+        public void Contains_OtherHydraulicLocationEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -722,13 +719,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_WithoutHydraulicLocationEntity_ThrowArgumentNullException()
+        public void Get_WithoutHydraulicLocationEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get((HydraulicLocationEntity)null);
+            TestDelegate test = () => collector.Get((HydraulicLocationEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -771,7 +768,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var collector = new ReadConversionCollector();
             var entity = new HydraulicLocationEntity();
-            collector.Read(new HydraulicLocationEntity(), new HydraulicBoundaryLocation(1,"A", 1, 1));
+            collector.Read(new HydraulicLocationEntity(), new HydraulicBoundaryLocation(1, "A", 1, 1));
 
             // Call
             TestDelegate test = () => collector.Get(entity);
@@ -813,13 +810,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region FailureMechanismSectionEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_WithoutFailureMechanismSectionEntity_ArgumentNullException()
+        public void Contains_WithoutFailureMechanismSectionEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains((FailureMechanismSectionEntity)null);
+            TestDelegate test = () => collector.Contains((FailureMechanismSectionEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -827,7 +824,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_FailureMechanismSectionEntityAdded_True()
+        public void Contains_FailureMechanismSectionEntityAdded_ReturnsTrue()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -842,7 +839,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_NoFailureMechanismSectionEntityAdded_False()
+        public void Contains_NoFailureMechanismSectionEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -856,7 +853,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherFailureMechanismSectionEntityAdded_False()
+        public void Contains_OtherFailureMechanismSectionEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -871,13 +868,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_WithoutFailureMechanismSectionEntity_ThrowArgumentNullException()
+        public void Get_WithoutFailureMechanismSectionEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get((FailureMechanismSectionEntity)null);
+            TestDelegate test = () => collector.Get((FailureMechanismSectionEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -962,13 +959,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region DikeProfileEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_WithoutDikeProfileEntity_ArgumentNullException()
+        public void Contains_WithoutDikeProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains((DikeProfileEntity)null);
+            TestDelegate test = () => collector.Contains((DikeProfileEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -976,7 +973,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_DikeProfileEntityAdded_True()
+        public void Contains_DikeProfileEntityAdded_ReturnsTrue()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -991,7 +988,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_NoDikeProfileEntityAdded_False()
+        public void Contains_NoDikeProfileEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -1005,7 +1002,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherDikeProfileEntityAdded_False()
+        public void Contains_OtherDikeProfileEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -1020,13 +1017,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_WithoutDikeProfileEntity_ThrowArgumentNullException()
+        public void Get_WithoutDikeProfileEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get((DikeProfileEntity)null);
+            TestDelegate test = () => collector.Get((DikeProfileEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1051,7 +1048,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         private static DikeProfile CreateDikeProfile()
         {
-            return new DikeProfile(new Point2D(0,0), new RoughnessPoint[0], new Point2D[0], 
+            return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                    null, new DikeProfile.ConstructionProperties());
         }
 
@@ -1117,13 +1114,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         #region GrassCoverErosionInwardsCalculationEntity: Read, Contains, Get
 
         [Test]
-        public void Contains_WithoutGrassCoverErosionInwardsCalculationEntity_ArgumentNullException()
+        public void Contains_WithoutGrassCoverErosionInwardsCalculationEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains((GrassCoverErosionInwardsCalculationEntity)null);
+            TestDelegate test = () => collector.Contains((GrassCoverErosionInwardsCalculationEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1131,7 +1128,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_GrassCoverErosionInwardsCalculationEntityAdded_True()
+        public void Contains_GrassCoverErosionInwardsCalculationEntityAdded_ReturnsTrue()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -1146,7 +1143,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_NoGrassCoverErosionInwardsCalculationEntityAdded_False()
+        public void Contains_NoGrassCoverErosionInwardsCalculationEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -1160,7 +1157,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Contains_OtherGrassCoverErosionInwardsCalculationEntityAdded_False()
+        public void Contains_OtherGrassCoverErosionInwardsCalculationEntityAdded_ReturnsFalse()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -1175,13 +1172,13 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_WithoutGrassCoverErosionInwardsCalculationEntity_ThrowArgumentNullException()
+        public void Get_WithoutGrassCoverErosionInwardsCalculationEntity_ThrowsArgumentNullException()
         {
             // Setup
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get((GrassCoverErosionInwardsCalculationEntity)null);
+            TestDelegate test = () => collector.Get((GrassCoverErosionInwardsCalculationEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
