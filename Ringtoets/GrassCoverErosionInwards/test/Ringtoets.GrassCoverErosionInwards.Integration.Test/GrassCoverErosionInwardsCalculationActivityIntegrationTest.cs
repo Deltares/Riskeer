@@ -392,9 +392,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
-            Assert.AreEqual((RoundedDouble) 0.625, probabilisticAssessmentOutput.FactorOfSafety);
-            Assert.AreEqual(0.002617555933643434d, probabilisticAssessmentOutput.Probability);
-            Assert.AreEqual((RoundedDouble) 2.792, probabilisticAssessmentOutput.Reliability);
+            Assert.AreEqual((RoundedDouble)0.645, probabilisticAssessmentOutput.FactorOfSafety);
+            Assert.AreEqual(0.0020003050479188711, probabilisticAssessmentOutput.Probability);
+            Assert.AreEqual((RoundedDouble)2.878, probabilisticAssessmentOutput.Reliability);
             Assert.AreEqual(1.0 / 250000.0, probabilisticAssessmentOutput.RequiredProbability);
             Assert.AreEqual((RoundedDouble)4.465, probabilisticAssessmentOutput.RequiredReliability);
             Assert.IsNaN(calculation.Output.DikeHeight);
@@ -475,12 +475,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
-            Assert.AreEqual((RoundedDouble) 0.625, probabilisticAssessmentOutput.FactorOfSafety);
-            Assert.AreEqual(0.002617555933643434d, probabilisticAssessmentOutput.Probability);
-            Assert.AreEqual((RoundedDouble)2.792, probabilisticAssessmentOutput.Reliability);
+            Assert.AreEqual((RoundedDouble)0.645, probabilisticAssessmentOutput.FactorOfSafety);
+            Assert.AreEqual(0.0020003050479188711, probabilisticAssessmentOutput.Probability);
+            Assert.AreEqual((RoundedDouble)2.878, probabilisticAssessmentOutput.Reliability);
             Assert.AreEqual(1.0 / 250000.0, probabilisticAssessmentOutput.RequiredProbability);
             Assert.AreEqual((RoundedDouble)4.465, probabilisticAssessmentOutput.RequiredReliability);
-            Assert.AreEqual((RoundedDouble) 6.94, calculation.Output.DikeHeight);
+            Assert.AreEqual((RoundedDouble)5.76, calculation.Output.DikeHeight);
             Assert.IsTrue(calculation.Output.DikeHeightCalculated);
             mocks.VerifyAll();
         }

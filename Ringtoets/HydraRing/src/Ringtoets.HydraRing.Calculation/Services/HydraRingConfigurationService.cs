@@ -26,6 +26,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Defaults;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Providers;
 
@@ -153,7 +154,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             configurationDictionary["AreaPoints"] = new List<OrderedDictionary>();
             configurationDictionary["PresentationSections"] = new List<OrderedDictionary>();
             configurationDictionary["Profiles"] = GetProfilesConfiguration();
-            configurationDictionary["ForelandModels"] = new List<OrderedDictionary>();
+            configurationDictionary["ForelandModels"] = GetForlandModelsConfiguration();
             configurationDictionary["Forelands"] = GetForelandsConfiguration();
             configurationDictionary["ProbabilityAlternatives"] = new List<OrderedDictionary>();
             configurationDictionary["SetUpHeights"] = new List<OrderedDictionary>();
@@ -518,6 +519,28 @@ namespace Ringtoets.HydraRing.Calculation.Services
                 }
             }
 
+            return orderDictionaries;
+        }
+
+        private IList<OrderedDictionary> GetForlandModelsConfiguration()
+        {
+            var orderDictionaries = new List<OrderedDictionary>();
+            foreach (HydraRingCalculationInput input in hydraRingCalculationInputs.Where(i => i.ForelandsPoints.Any()))
+            {
+                FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(input.FailureMechanismType);
+                orderDictionaries.Add(new OrderedDictionary
+                {
+                    {
+                        "SectionId", input.Section.SectionId
+                    },
+                    {
+                        "MechanismId", failureMechanismDefaults.MechanismId
+                    },
+                    {
+                        "Model", 3
+                    }
+                });
+            }
             return orderDictionaries;
         }
 

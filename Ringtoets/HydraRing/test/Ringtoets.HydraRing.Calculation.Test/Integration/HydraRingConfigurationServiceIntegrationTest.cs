@@ -191,6 +191,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [Profiles] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                                         "INSERT INTO [ForelandModels] VALUES (1, 101, 3);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Forelands];" + Environment.NewLine +
                                          "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
@@ -306,6 +307,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [Profiles] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                                         "INSERT INTO [ForelandModels] VALUES (1, 101, 3);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Forelands];" + Environment.NewLine +
                                          "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +

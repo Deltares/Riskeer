@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
     [TestFixture]
     public class HydraRingConfigurationServiceTest
     {
-        private static string hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
+        private static readonly string hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -114,6 +114,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Profiles] VALUES (1, 2, 11.1, 22.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                                         "INSERT INTO [ForelandModels] VALUES (1, 1, 3);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Forelands];" + Environment.NewLine +
                                          "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
@@ -231,6 +232,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Profiles] VALUES (3, 2, 11.1, 22.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                                         "INSERT INTO [ForelandModels] VALUES (1, 1, 3);" + Environment.NewLine +
+                                         "INSERT INTO [ForelandModels] VALUES (2, 1, 3);" + Environment.NewLine +
+                                         "INSERT INTO [ForelandModels] VALUES (3, 1, 3);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Forelands];" + Environment.NewLine +
                                          "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +

@@ -258,7 +258,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void CalculateDikeHeight_CalculationValid_DikeHeightCalculated()
+        [TestCase(true, 15.733)]
+        [TestCase(false, 15.5937)]
+        public void CalculateDikeHeight_CalculationValid_DikeHeightCalculated(bool useForeland, double expectedHeight)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -273,7 +275,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    CalculateDikeHeight = true
+                    CalculateDikeHeight = true,
+                    UseForeshore = useForeland
                 }
             };
 
@@ -281,14 +284,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Call
             double output = GrassCoverErosionInwardsCalculationService.CalculateDikeHeight(calculation,
-                                                                                              assessmentSection,
-                                                                                              testDataPath,
-                                                                                              failureMechanismSection,
-                                                                                              failureMechanismSection.Name,
-                                                                                              assessmentSection.GrassCoverErosionInwards.GeneralInput);
+                                                                                           assessmentSection,
+                                                                                           testDataPath,
+                                                                                           failureMechanismSection,
+                                                                                           failureMechanismSection.Name,
+                                                                                           assessmentSection.GrassCoverErosionInwards.GeneralInput);
 
             // Assert
-            Assert.AreEqual(15.5937, output);
+            Assert.AreEqual(expectedHeight, output);
         }
 
         [Test]
