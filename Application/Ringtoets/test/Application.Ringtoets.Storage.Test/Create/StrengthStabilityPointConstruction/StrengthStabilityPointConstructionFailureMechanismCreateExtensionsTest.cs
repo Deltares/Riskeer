@@ -21,14 +21,11 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.StrengthStabilityPointConstruction;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-
 using NUnit.Framework;
-
 using Ringtoets.Integration.Data.StandAlone;
 
 namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstruction
@@ -53,7 +50,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
+        public void Create_WithCollectorAndPropertiesSet_ReturnsExpectedEntity(bool isRelevant)
         {
             // Setup
             var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism
