@@ -20,19 +20,14 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update.StrengthStabilityLengthwiseConstruction;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityLengthwiseConstruction
@@ -174,7 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityLengthwiseC
             {
                 StorageId = 1,
                 AssessmentLayerOne = true,
-                AssessmentLayerThree = (RoundedDouble)double.NaN
+                AssessmentLayerThree = (RoundedDouble) double.NaN
             };
 
             var sectionResultEntity = new StrengthStabilityLengthwiseConstructionSectionResultEntity

@@ -21,13 +21,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -48,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void DikeProfile_CalculationDikeProfileChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationSet()
+        public void DikeProfile_CalculationDikeProfileChangedToMatchOtherSection_SecondSectionResultCalculationSetFirstSectionResultCalculationNull()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -104,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void DikeProfile_CalculationDikeProfileChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationUnchanged()
+        public void DikeProfile_CalculationDikeProfileChangedToMatchOtherSection_SecondSectionResultCalculationUnchangedFirstSectionResultCalculationNull()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
