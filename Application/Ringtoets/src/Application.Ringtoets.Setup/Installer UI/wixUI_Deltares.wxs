@@ -27,12 +27,9 @@
       <Publish Dialog="BrowseDlgDeltares" Control="OK" Event="DoAction" Value="WixUIValidatePath" Order="1">1</Publish>
       <Publish Dialog="BrowseDlgDeltares" Control="OK" Event="SpawnDialog" Value="InvalidDirDlgDeltares" Order="2"><![CDATA[WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>
 
-      <Publish Dialog="WelcomeDlgDeltares" Control="Next" Event="NewDialog" Value="LicenseAgreementDlgDeltares">1</Publish>
+      <Publish Dialog="WelcomeDlgDeltares" Control="Next" Event="NewDialog" Value="InstallDirDlgDeltares">1</Publish>
 
-      <Publish Dialog="LicenseAgreementDlgDeltares" Control="Back" Event="NewDialog" Value="WelcomeDlgDeltares">1</Publish>
-      <Publish Dialog="LicenseAgreementDlgDeltares" Control="Next" Event="NewDialog" Value="InstallDirDlgDeltares" Order="2">LicenseAccepted = "1"</Publish>
-
-      <Publish Dialog="InstallDirDlgDeltares" Control="Back" Event="NewDialog" Value="LicenseAgreementDlgDeltares">1</Publish>
+      <Publish Dialog="InstallDirDlgDeltares" Control="Back" Event="NewDialog" Value="WelcomeDlgDeltares">1</Publish>
       <Publish Dialog="InstallDirDlgDeltares" Control="Next" Event="SetTargetPath" Value="[WIXUI_INSTALLDIR]" Order="1">1</Publish>
       <Publish Dialog="InstallDirDlgDeltares" Control="Next" Event="DoAction" Value="WixUIValidatePath" Order="2">NOT WIXUI_DONTVALIDATEPATH</Publish>
       <Publish Dialog="InstallDirDlgDeltares" Control="Next" Event="SpawnDialog" Value="InvalidDirDlgDeltares" Order="3"><![CDATA[NOT WIXUI_DONTVALIDATEPATH AND WIXUI_INSTALLDIR_VALID<>"1"]]></Publish>

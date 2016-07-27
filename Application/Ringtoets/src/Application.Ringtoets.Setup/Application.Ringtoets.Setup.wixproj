@@ -45,7 +45,6 @@
     <Compile Include="Installer UI\FilesInUseDeltares.wxs" />
     <Compile Include="Installer UI\InstallDirDlgDeltares.wxs" />
     <Compile Include="Installer UI\InvalidDirDlgDeltares.wxs" />
-    <Compile Include="Installer UI\LicenseAgreementDlgDeltares.wxs" />
     <Compile Include="Installer UI\MaintenanceTypeDlgDeltares.wxs" />
     <Compile Include="Installer UI\MaintenanceWelcomeDlg.wxs" />
     <Compile Include="Installer UI\MsiRMFilesInUseDeltares.wxs" />

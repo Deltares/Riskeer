@@ -30,7 +30,6 @@
   
   <String Id="BackButtonText">&amp;Vorige</String>
   <String Id="NextButtonText">V&amp;olgende</String>
-  <String Id="PrintButtonText">A&amp;fdrukken</String>
   <String Id="CancelButtonText">A&amp;nnuleren</String>
   <String Id="CompleetInstallationButtonText">Vo&amp;lledig</String>
   <String Id="InstallButtonText">&amp;Installeren</String>
@@ -40,5 +39,4 @@
   <String Id="NoButtonText">&amp;Nee</String>
   <String Id="YesButtonText">&amp;Ja</String>
   <String Id="FinishButtonText">&amp;Voltooien</String>
-  <String Id="LicenseAgreementDlgLicenseAcceptedCheckBoxText">Ik ga &amp;akkoord met de voorwaarden in de overeenkomst</String>
 </WixLocalization>
