@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityLengthwiseC
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityLengthwiseConstructionFailureMechanism_ThrowsEntityNotFoundException()
+        public void Update_ContextWithoutEntity_ThrowsEntityNotFoundException()
         {
             // Setup
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityLengthwiseC
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityLengthwiseConstructionFailureMechanismWithId_ThrowsEntityNotFoundException()
+        public void Update_ContextWithOtherEntity_ThrowsEntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();

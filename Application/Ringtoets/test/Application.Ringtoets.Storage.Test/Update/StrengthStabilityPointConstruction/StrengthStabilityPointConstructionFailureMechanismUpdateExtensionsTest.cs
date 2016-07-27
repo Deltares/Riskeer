@@ -21,19 +21,14 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update.StrengthStabilityPointConstruction;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone;
 
@@ -77,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityPointConstr
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityPointConstructionFailureMechanism_ThrowsEntityNotFoundException()
+        public void Update_ContextWithNoEntity_ThrowsEntityNotFoundException()
         {
             // Setup
             var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
@@ -98,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityPointConstr
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityPointConstructionFailureMechanismWithId_ThrowsEntityNotFoundException()
+        public void Update_ContextWithOtherEntity_ThrowsEntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();

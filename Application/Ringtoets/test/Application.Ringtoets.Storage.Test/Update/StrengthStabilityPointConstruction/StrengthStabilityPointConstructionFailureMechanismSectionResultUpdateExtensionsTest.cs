@@ -20,19 +20,14 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update.StrengthStabilityPointConstruction;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityPointConstruction
@@ -75,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityPointConstr
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityPointConstructionSectionResult_EntityNotFoundException()
+        public void Update_ContextWithoutEntityEntityNotFoundException()
         {
             // Setup
             var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -96,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityPointConstr
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityPointConstructionSectionResultWithId_EntityNotFoundException()
+        public void Update_ContextWithOtherEntity_EntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -173,8 +168,8 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityPointConstr
             var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 StorageId = 1,
-                AssessmentLayerTwoA = (RoundedDouble)double.NaN,
-                AssessmentLayerThree = (RoundedDouble)double.NaN
+                AssessmentLayerTwoA = (RoundedDouble) double.NaN,
+                AssessmentLayerThree = (RoundedDouble) double.NaN
             };
 
             var sectionResultEntity = new StrengthStabilityPointConstructionSectionResultEntity

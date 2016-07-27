@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithDoubleValues_ReturnSectionResultWithDoubleParameterValues(bool layerOne)
+        public void Read_WithDoubleValues_ReturnSectionResultWithDoubleValues(bool layerOne)
         {
             // Setup
             var random = new Random(21);
@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullParameterValues_ReturnGrassCoverErosionInwardsSectionResultWithNullParameters(bool layerOne)
+        public void Read_WithNullProperties_ReturnGrassCoverErosionInwardsSectionResultWithNullValues(bool layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();

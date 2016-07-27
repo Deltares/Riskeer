@@ -59,9 +59,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityLengthwiseC
             TestDelegate test = () =>
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
-                {
                     sectionResult.Update(null, ringtoetsEntities);
-                }
             };
 
             // Assert
@@ -70,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityLengthwiseC
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityLengthwiseConstructionSectionResult_EntityNotFoundException()
+        public void Update_ContextWithoutEntity_EntityNotFoundException()
         {
             // Setup
             var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -79,9 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityLengthwiseC
             TestDelegate test = () =>
             {
                 using (var ringtoetsEntities = new RingtoetsEntities())
-                {
                     sectionResult.Update(new PersistenceRegistry(), ringtoetsEntities);
-                }
             };
 
             // Assert
@@ -91,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityLengthwiseC
         }
 
         [Test]
-        public void Update_ContextWithNoStrengthStabilityLengthwiseConstructionSectionResultWithId_EntityNotFoundException()
+        public void Update_ContextWithOtherEntity_EntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();

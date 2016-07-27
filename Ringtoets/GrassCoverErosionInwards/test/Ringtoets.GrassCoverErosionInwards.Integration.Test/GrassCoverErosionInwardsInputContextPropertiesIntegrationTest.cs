@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void DikeProfile_CalculationDikeProfileChangedToMatchOtherSection_SecondSectionResultCalculationSetFirstSectionResultCalculationNull()
+        public void DikeProfile_CalculationDikeProfileSetToOtherSection_SecondSectionResultCalculationSetFirstSectionResultCalculationNull()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void DikeProfile_CalculationDikeProfileChangedToMatchOtherSection_SecondSectionResultCalculationUnchangedFirstSectionResultCalculationNull()
+        public void DikeProfile_CalculationDikeProfileSetToOtherSection_SecondSectionResultCalculationUnchangedFirstSectionResultCalculationNull()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
