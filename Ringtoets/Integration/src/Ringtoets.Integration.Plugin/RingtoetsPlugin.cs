@@ -227,7 +227,13 @@ namespace Ringtoets.Integration.Plugin
         public override void Activate()
         {
             base.Activate();
+
+            if (Gui == null)
+            {
+                throw new InvalidOperationException("Gui cannot be null");
+            }
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
+           
         }
 
         /// <summary>

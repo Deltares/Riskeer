@@ -30,6 +30,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
@@ -451,6 +452,48 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
                 Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
             }
+        }
+
+        [Test]
+        public void Activate_WithoutGui_ThrowsInvalidOperationException()
+        {
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                TestDelegate test = () => plugin.Activate();
+
+                // Assert
+                Assert.Throws<InvalidOperationException>(test);
+            }
+        }
+        
+        [Test]
+        public void Activate_WithGui_DoesNotThrowException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var mainWindowMock = mockRepository.StrictMock<IMainWindow>();
+            var documentViewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            var guiMock = mockRepository.StrictMock<IGui>();
+            guiMock.Expect(g => g.MainWindow).Return(mainWindowMock);
+            guiMock.Expect(g => g.DocumentViewController).Return(documentViewControllerMock);
+            guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            mockRepository.ReplayAll();
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                plugin.Gui = guiMock;
+
+                // Call
+                TestDelegate test = () => plugin.Activate();
+
+                // Assert
+                Assert.DoesNotThrow(test);
+            }
+
+            mockRepository.VerifyAll();
         }
     }
 }
