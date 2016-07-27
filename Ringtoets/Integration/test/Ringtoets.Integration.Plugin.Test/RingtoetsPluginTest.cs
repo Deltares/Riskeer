@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
-                Assert.IsInstanceOf<RingtoetsRibbon>(plugin.RibbonCommandHandler);
+                Assert.IsNull(plugin.RibbonCommandHandler);
             }
         }
 
@@ -469,6 +469,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
         
         [Test]
+        [STAThread] // Due to creating fluent Ribbon
         public void Activate_WithGui_DoesNotThrowException()
         {
             // Setup
@@ -491,6 +492,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 // Assert
                 Assert.DoesNotThrow(test);
+                Assert.IsInstanceOf<RingtoetsRibbon>(plugin.RibbonCommandHandler);
             }
 
             mockRepository.VerifyAll();

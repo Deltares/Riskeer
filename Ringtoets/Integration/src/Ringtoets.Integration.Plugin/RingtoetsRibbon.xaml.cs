@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Fluent;
@@ -39,11 +40,19 @@ namespace Ringtoets.Integration.Plugin
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets the command used to control the add assessment section button.
+        /// </summary>
+        public ICommand AddAssessmentSectionButtonCommand { set; private get; }
+
         public IEnumerable<ICommand> Commands
         {
             get
             {
-                yield break;
+                if (AddAssessmentSectionButtonCommand != null)
+                {
+                    yield return AddAssessmentSectionButtonCommand;
+                }
             }
         }
 
@@ -52,14 +61,18 @@ namespace Ringtoets.Integration.Plugin
             return RingtoetsRibbonControl;
         }
 
-        public void ValidateItems()
-        {
-            // Do nothing
-        }
+        public void ValidateItems() {}
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
         {
             return false;
+        }
+
+        private void ButtonAddAssessmentSectionToolWindowClick(object sender, RoutedEventArgs e)
+        {
+            AddAssessmentSectionButtonCommand.Execute();
+
+            ValidateItems();
         }
     }
 }

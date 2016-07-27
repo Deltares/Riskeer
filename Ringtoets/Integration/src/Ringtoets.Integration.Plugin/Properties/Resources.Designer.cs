@@ -198,5 +198,23 @@ namespace Ringtoets.Integration.Plugin.Properties {
                         "d_0_", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw.
+        /// </summary>
+        public static string RingtoetsRibbon_GroupBox_New {
+            get {
+                return ResourceManager.GetString("RingtoetsRibbon_GroupBox_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string RingtoetsRibbon_TabItem_View {
+            get {
+                return ResourceManager.GetString("RingtoetsRibbon_TabItem_View", resourceCulture);
+            }
+        }
     }
 }

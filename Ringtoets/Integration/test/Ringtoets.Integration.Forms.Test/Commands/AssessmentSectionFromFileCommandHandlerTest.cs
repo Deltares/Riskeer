@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -61,6 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("dialogParent", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -78,6 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("projectOwner", paramName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -95,6 +95,26 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("viewController", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithData_ExpectedValues()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialogMock = mockRepository.StrictMock<IWin32Window>();
+            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
+            var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
+            mockRepository.ReplayAll();
+
+            // Call
+            var assessmentSectionFromFileCommandHandler = 
+                new AssessmentSectionFromFileCommandHandler(parentDialogMock, projectOwnerMock, viewControllerMock);
+
+            // Assert
+            Assert.IsInstanceOf<IAssessmentSectionFromFileCommandHandler>(assessmentSectionFromFileCommandHandler);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -218,7 +238,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             AssertAssessmentSection(TestAssessmentSection1_2(true), assessmentSection);
             mockRepository.VerifyAll();
         }
-        
+
         [Test]
         public void CreateAssessmentSectionFromFile_ValidDirectoryOkClickedForDuplicateAssessmentSection_SetsFirstReadAssessmentSectionWithUniqueName()
         {
@@ -410,12 +430,13 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Assert.IsNotNull(assessmentSection);
 
             var expectedAssessmentSection = TestAssessmentSection1_2(true);
-            expectedAssessmentSection.ReferenceLine.SetGeometry(new Point2D[]{});
+            expectedAssessmentSection.ReferenceLine.SetGeometry(new Point2D[]
+            {});
 
             AssertAssessmentSection(expectedAssessmentSection, assessmentSection);
             mockRepository.VerifyAll();
         }
-        
+
         [Test]
         public void CreateAssessmentSectionFromFile_ShapeWithoutInvalidNormOkClicked_LogsAndSetsAssessmentSectionWithoutNorm()
         {

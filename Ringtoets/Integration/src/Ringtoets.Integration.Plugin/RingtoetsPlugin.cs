@@ -42,7 +42,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -200,13 +199,15 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        private AssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
+        private RingtoetsRibbon ribbonCommandHandler;
+
+        private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get
             {
-                return new RingtoetsRibbon();
+                return ribbonCommandHandler;
             }
         }
 
@@ -233,7 +234,11 @@ namespace Ringtoets.Integration.Plugin
                 throw new InvalidOperationException("Gui cannot be null");
             }
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
-           
+
+            ribbonCommandHandler = new RingtoetsRibbon
+            {
+                AddAssessmentSectionButtonCommand = new AddAssessmentSectionCommand(assessmentSectionFromFileCommandHandler)
+            };
         }
 
         /// <summary>
@@ -703,12 +708,7 @@ namespace Ringtoets.Integration.Plugin
         #endregion
 
         #region AssessmentSection
-
-        private static string GetUniqueForAssessmentSectionName(IEnumerable<IAssessmentSection> assessmentSections, string baseName)
-        {
-            return NamingHelper.GetUniqueName(assessmentSections, baseName, a => a.Name);
-        }
-
+        
         private object[] AssessmentSectionChildNodeObjects(IAssessmentSection nodeData)
         {
             var childNodes = new List<object>
@@ -1020,7 +1020,6 @@ namespace Ringtoets.Integration.Plugin
                 RestoreDirectory = true,
                 CheckFileExists = false
             })
-            {
                 if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
                 {
                     try
@@ -1032,7 +1031,6 @@ namespace Ringtoets.Integration.Plugin
                         log.Error(exception.Message, exception);
                     }
                 }
-            }
         }
 
         /// <summary>
@@ -1058,7 +1056,6 @@ namespace Ringtoets.Integration.Plugin
             }
 
             using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
-            {
                 if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
                 {
                     if (isClearConfirmationGiven)
@@ -1069,7 +1066,6 @@ namespace Ringtoets.Integration.Plugin
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
-            }
         }
 
         private static bool IsClearCalculationConfirmationGiven()

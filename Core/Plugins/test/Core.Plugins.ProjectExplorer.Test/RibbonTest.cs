@@ -93,6 +93,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             // Assert
             CollectionAssert.AreEqual(new[] { command }, result);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -122,6 +123,7 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             // Assert
             Assert.AreEqual(isChecked, toggleProjectExplorerButton.IsChecked);
+            mocks.VerifyAll();
         }
 
         [Test]

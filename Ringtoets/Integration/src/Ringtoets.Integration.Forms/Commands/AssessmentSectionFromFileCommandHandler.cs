@@ -23,12 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.IO.Exceptions;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Exceptions;
@@ -39,9 +39,9 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Integration.Forms.Commands
 {
     /// <summary>
-    /// This class provides concrete implementation for <see cref="AssessmentSection"/>.
+    /// This class is responsible for adding an <see cref="AssessmentSection"/> from a predefined location.
     /// </summary>
-    public class AssessmentSectionFromFileCommandHandler
+    public class AssessmentSectionFromFileCommandHandler : IAssessmentSectionFromFileCommandHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionFromFileCommandHandler));
         private readonly string shapeFileDirectory = RingtoetsSettingsHelper.GetCommonDocumentsRingtoetsShapeFileDirectory();
@@ -77,9 +77,6 @@ namespace Ringtoets.Integration.Forms.Commands
             this.viewController = viewController;
         }
 
-        /// <summary>
-        /// Creates an
-        /// </summary>
         public void CreateAssessmentSectionFromFile()
         {
             if (!TryValidate())
