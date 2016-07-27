@@ -79,8 +79,10 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
 
         private static void UpdateInput(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsInput input, PersistenceRegistry registry, IRingtoetsEntities context)
         {
-            UpdateDikeProfile(entity, input.DikeProfile, registry, context);
-            UpdateHydraulicBoundaryLocation(entity, input.HydraulicBoundaryLocation, registry, context);
+            DikeProfile dikeProfile = input.DikeProfile;
+            entity.DikeProfileEntity = dikeProfile != null ? registry.Get(dikeProfile) : null;
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
+            entity.HydraulicLocationEntity = hydraulicBoundaryLocation != null ? registry.Get(hydraulicBoundaryLocation) : null;
 
             entity.Orientation = input.Orientation.Value.ToNaNAsNull();
             entity.CriticalFlowRateMean = input.CriticalFlowRate.Mean.Value.ToNaNAsNull();
@@ -91,44 +93,6 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
             entity.BreakWaterType = (short)input.BreakWater.Type;
             entity.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();
             entity.CalculateDikeHeight = Convert.ToByte(input.CalculateDikeHeight);
-        }
-
-        private static void UpdateDikeProfile(GrassCoverErosionInwardsCalculationEntity entity, DikeProfile dikeProfile, PersistenceRegistry registry, IRingtoetsEntities context)
-        {
-            if (dikeProfile != null)
-            {
-                if (dikeProfile.IsNew())
-                {
-                    entity.DikeProfileEntity = dikeProfile.Create(registry);
-                }
-                else
-                {
-                    dikeProfile.Update(registry, context);
-                }
-            }
-            else
-            {
-                entity.DikeProfileEntity = null;
-            }
-        }
-
-        private static void UpdateHydraulicBoundaryLocation(GrassCoverErosionInwardsCalculationEntity entity, HydraulicBoundaryLocation hydraulicBoundaryLocation, PersistenceRegistry registry, IRingtoetsEntities context)
-        {
-            if (hydraulicBoundaryLocation != null)
-            {
-                if (hydraulicBoundaryLocation.IsNew())
-                {
-                    entity.HydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry);
-                }
-                else
-                {
-                    hydraulicBoundaryLocation.Update(registry, context);
-                }
-            }
-            else
-            {
-                entity.HydraulicLocationEntity = null;
-            }
         }
 
         private static void UpdateOutput(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation calculation, PersistenceRegistry registry, IRingtoetsEntities context)

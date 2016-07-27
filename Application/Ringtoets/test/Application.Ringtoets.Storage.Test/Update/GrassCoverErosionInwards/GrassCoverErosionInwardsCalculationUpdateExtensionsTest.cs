@@ -208,7 +208,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Update_CalculationWithNewDikeProfile_EntityHasDikeProfileEntityAdded()
+        public void Update_CalculationWithDikeProfile_EntityHasRegisteredDikeProfileEntityAdded()
         {
             // Setup
             var mocks = new MockRepository();
@@ -225,6 +225,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
                 }
             };
 
+            var dikeProfileEntity = new DikeProfileEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 GrassCoverErosionInwardsCalculationEntityId = calculation.StorageId
@@ -232,56 +233,13 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             ringtoetsEntities.GrassCoverErosionInwardsCalculationEntities.Add(entity);
 
             var registry = new PersistenceRegistry();
+            registry.Register(dikeProfileEntity, calculation.InputParameters.DikeProfile);
 
             // Call
             calculation.Update(registry, ringtoetsEntities, 0);
 
             // Assert
-            Assert.IsNotNull(entity.DikeProfileEntity);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Update_CalculationWithSaveDikeProfile_DikeProfileRegistered()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
-            mocks.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                StorageId = 2,
-                InputParameters =
-                {
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
-                                                  new Point2D[0], null, new DikeProfile.ConstructionProperties())
-                    {
-                        StorageId = 7657
-                    }
-                }
-            };
-
-            var dikeProfileEntity = new DikeProfileEntity
-            {
-                DikeProfileEntityId = calculation.InputParameters.DikeProfile.StorageId
-            };
-            var entity = new GrassCoverErosionInwardsCalculationEntity
-            {
-                GrassCoverErosionInwardsCalculationEntityId = calculation.StorageId,
-                DikeProfileEntity = dikeProfileEntity
-            };
-            ringtoetsEntities.GrassCoverErosionInwardsCalculationEntities.Add(entity);
-            ringtoetsEntities.DikeProfileEntities.Add(dikeProfileEntity);
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            calculation.Update(registry, ringtoetsEntities, 0);
-
-            // Assert
-            registry.RemoveUntouched(ringtoetsEntities);
-            CollectionAssert.Contains(ringtoetsEntities.DikeProfileEntities, dikeProfileEntity);
+            Assert.AreSame(dikeProfileEntity, entity.DikeProfileEntity);
             mocks.VerifyAll();
         }
 
@@ -328,7 +286,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Update_CalculationWithNewHydraulicBoundaryLocation_EntityHasHydraulicLocationEntityAdded()
+        public void Update_CalculationWithHydraulicBoundaryLocation_EntityHasRegisteredHydraulicLocationEntityAdded()
         {
             // Setup
             var mocks = new MockRepository();
@@ -344,6 +302,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
                 }
             };
 
+            var hydroLocationEntity = new HydraulicLocationEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 GrassCoverErosionInwardsCalculationEntityId = calculation.StorageId
@@ -351,55 +310,13 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             ringtoetsEntities.GrassCoverErosionInwardsCalculationEntities.Add(entity);
 
             var registry = new PersistenceRegistry();
+            registry.Register(hydroLocationEntity, calculation.InputParameters.HydraulicBoundaryLocation);
 
             // Call
             calculation.Update(registry, ringtoetsEntities, 0);
 
             // Assert
-            Assert.IsNotNull(entity.HydraulicLocationEntity);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Update_CalculationWithSaveHydraulicBoundaryLocation_HydraulicBoundaryLocationRegistered()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
-            mocks.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                StorageId = 2,
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(9, "Z", 0, 0)
-                    {
-                        StorageId = 4353
-                    }
-                }
-            };
-
-            var hydroLocationEntity = new HydraulicLocationEntity
-            {
-                HydraulicLocationEntityId = calculation.InputParameters.HydraulicBoundaryLocation.StorageId
-            };
-            var entity = new GrassCoverErosionInwardsCalculationEntity
-            {
-                GrassCoverErosionInwardsCalculationEntityId = calculation.StorageId,
-                HydraulicLocationEntity = hydroLocationEntity
-            };
-            ringtoetsEntities.GrassCoverErosionInwardsCalculationEntities.Add(entity);
-            ringtoetsEntities.HydraulicLocationEntities.Add(hydroLocationEntity);
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            calculation.Update(registry, ringtoetsEntities, 0);
-
-            // Assert
-            registry.RemoveUntouched(ringtoetsEntities);
-            CollectionAssert.Contains(ringtoetsEntities.HydraulicLocationEntities, hydroLocationEntity);
+            Assert.AreSame(hydroLocationEntity, entity.HydraulicLocationEntity);
             mocks.VerifyAll();
         }
 
