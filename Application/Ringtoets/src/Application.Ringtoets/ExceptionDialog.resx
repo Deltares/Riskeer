@@ -292,7 +292,7 @@
     <value>7</value>
   </data>
   <data name="buttonSaveProject.Text" xml:space="preserve">
-    <value>Opslaan</value>
+    <value>Opslaan als</value>
   </data>
   <data name="&gt;&gt;buttonSaveProject.Name" xml:space="preserve">
     <value>buttonSaveProject</value>
@@ -322,6 +322,6 @@
     <value>ExceptionDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Core.Common.Controls.Dialogs.DialogBase, Core.Common.Controls, Version=16.1.1.4329, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

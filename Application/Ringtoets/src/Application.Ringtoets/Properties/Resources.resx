@@ -131,6 +131,6 @@
     <value>Project opgeslagen</value>
   </data>
   <data name="ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed_caption" xml:space="preserve">
-    <value>Kon project niet opslaan</value>
+    <value>Project niet opgeslagen</value>
   </data>
 </root>
