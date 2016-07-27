@@ -97,15 +97,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets Copyright (C) 2016 Stichting Deltares. Dit programma komt ZONDER ENIGE GARANTIE. Dit programma is gratis en u mag het zelf verder verspreiden en/of aanpassen overeenkomstig de GNU Lesser General Public License versie 3..
-        /// </summary>
-        public static string App_App_Ringtoets_Copyright {
-            get {
-                return ResourceManager.GetString("App_App_Ringtoets_Copyright", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Bevestigen.
         /// </summary>
         public static string Confirm {

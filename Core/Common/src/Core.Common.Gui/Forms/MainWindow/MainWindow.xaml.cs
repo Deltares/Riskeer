@@ -472,18 +472,10 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             FileManualButton.IsEnabled = File.Exists(settings.FixedSettings.ManualFilePath);
 
-            LicenseButton.IsEnabled = File.Exists(settings.FixedSettings.LicenseFilePath);
-
             ButtonQuickAccessOpenProject.IsEnabled = ButtonMenuFileOpenProject.IsEnabled;
             ButtonQuickAccessSaveProject.IsEnabled = ButtonMenuFileSaveProject.IsEnabled;
 
             UpdateRibbonExtensions(gui);
-
-            richTextFile = new RichTextFile
-            {
-                Name = Properties.Resources.MainWindow_LicenseView_Name,
-                FilePath = settings.FixedSettings.LicenseFilePath
-            };
 
             ValidateItems();
         }

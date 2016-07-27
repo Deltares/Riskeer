@@ -79,7 +79,6 @@
                             <fluent:BackstageTabControl>
                                 <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Show_Log}" Icon="/Core.Common.Gui;component\Resources\application_view_list.png" fluent:KeyTip.Keys="O" Click="OnFileHelpShowLog_Clicked" />
                                 <fluent:Button x:Name="FileManualButton" Header="{x:Static Properties:Resources.Ribbon_Open_Manual}" Icon="/Core.Common.Gui;component\Resources\manual.png" fluent:KeyTip.Keys="M" Click="OnFileManual_Clicked" />
-                                <fluent:Button x:Name ="LicenseButton" Header="{x:Static Properties:Resources.Ribbon_License}" Icon="/Core.Common.Gui;component\Resources\key.png" fluent:KeyTip.Keys="L" Click="OnFileHelpLicense_Clicked" />
                                 <fluent:Button x:Name ="AboutButton" Header="{x:Static Properties:Resources.Ribbon_About}" Icon="/Core.Common.Gui;component\Resources\information.png" fluent:KeyTip.Keys="A" Click="OnAboutDialog_Clicked"/>
                             </fluent:BackstageTabControl>
                         </fluent:BackstageTabItem>

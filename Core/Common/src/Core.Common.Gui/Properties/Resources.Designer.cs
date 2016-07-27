@@ -872,15 +872,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licentie.
-        /// </summary>
-        public static string MainWindow_LicenseView_Name {
-            get {
-                return ResourceManager.GetString("MainWindow_LicenseView_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap map {
@@ -1166,15 +1157,6 @@ namespace Core.Common.Gui.Properties {
         public static string Ribbon_GroupBox_Show_Hide {
             get {
                 return ResourceManager.GetString("Ribbon_GroupBox_Show_Hide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Licentie.
-        /// </summary>
-        public static string Ribbon_License {
-            get {
-                return ResourceManager.GetString("Ribbon_License", resourceCulture);
             }
         }
         

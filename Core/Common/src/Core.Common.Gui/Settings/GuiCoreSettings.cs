@@ -52,11 +52,6 @@ namespace Core.Common.Gui.Settings
         public string MainWindowTitle { get; set; }
 
         /// <summary>
-        /// Gets or sets the path of the license file to use in the graphical interface.
-        /// </summary>
-        public string LicenseFilePath { get; set; }
-
-        /// <summary>
         /// Gets or sets the path of the manual file to use in the graphical interface.
         /// </summary>
         public string ManualFilePath { get; set; }

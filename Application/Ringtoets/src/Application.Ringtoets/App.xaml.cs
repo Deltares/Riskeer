@@ -79,8 +79,6 @@ namespace Application.Ringtoets
         {
             SetLanguage();
 
-            log.Info(Core.Common.Base.Properties.Resources.App_App_Ringtoets_Copyright);
-
             log.Info(Core.Common.Gui.Properties.Resources.App_Starting_Ringtoets);
         }
 
@@ -140,7 +138,6 @@ namespace Application.Ringtoets
                 Copyright = "© Deltares 2016",
                 LicenseDescription = "Gratis",
                 MainWindowTitle = "Ringtoets",
-                LicenseFilePath = "..\\Licentie.rtf",
                 ManualFilePath = "Ringtoets_Manual.pdf"
             };
             var mainWindow = new MainWindow();
