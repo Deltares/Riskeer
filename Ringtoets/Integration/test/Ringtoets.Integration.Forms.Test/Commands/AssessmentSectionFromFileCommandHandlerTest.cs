@@ -182,12 +182,14 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var parentDialogStub = mockRepository.Stub<IWin32Window>();
-            var projectOwnerMock = mockRepository.StrictMock<IProjectOwner>();
+            var project = new RingtoetsProject();
+            var projectOwnerStub = mockRepository.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
             var viewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerMock, viewControllerMock);
+                new AssessmentSectionFromFileCommandHandler(parentDialogStub, projectOwnerStub, viewControllerMock);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
