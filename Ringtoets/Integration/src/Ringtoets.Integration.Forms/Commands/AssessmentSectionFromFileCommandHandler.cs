@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Forms.Commands
 
         public void AddAssessmentSectionFromFile()
         {
-            if (!AreSourceFilesValid())
+            if (!TryReadSourceFiles())
             {
                 return;
             }
@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Forms.Commands
 
         #region Validators
 
-        private bool AreSourceFilesValid()
+        private bool TryReadSourceFiles()
         {
             ReadAssessmentSectionSettings();
 
