@@ -558,6 +558,8 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 new Point2D(155556.9191, 464341.1281),
                 new Point2D(155521.4761, 464360.7401)
             });
+            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 3;
+            assessmentSection.HeightStructures.GeneralInput.N = 3;
 
             return assessmentSection;
         }

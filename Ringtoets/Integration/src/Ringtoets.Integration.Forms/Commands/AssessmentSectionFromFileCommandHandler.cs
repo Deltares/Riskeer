@@ -154,9 +154,11 @@ namespace Ringtoets.Integration.Forms.Commands
             return assessmentSection;
         }
 
-        private static AssessmentSection CreateDuneAssessmentSection()
+        private static AssessmentSection CreateDuneAssessmentSection(int n)
         {
-            return new AssessmentSection(AssessmentSectionComposition.Dune);
+            var duneAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune);
+            SetFailureMechanismsValueN(duneAssessmentSection, n);
+            return duneAssessmentSection;
         }
 
         private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem, int? norm)
@@ -171,7 +173,7 @@ namespace Ringtoets.Integration.Forms.Commands
             else
             {
                 assessmentSection = settingOfSelectedAssessmentSection.IsDune ?
-                                        CreateDuneAssessmentSection() :
+                                        CreateDuneAssessmentSection(settingOfSelectedAssessmentSection.N) :
                                         CreateDikeAssessmentSection(settingOfSelectedAssessmentSection.N);
             }
 
