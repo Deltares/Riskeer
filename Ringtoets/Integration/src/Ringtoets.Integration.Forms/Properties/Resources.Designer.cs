@@ -509,24 +509,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrens.
-        /// </summary>
-        public static string ReferenceLineMetaSelectionView_LowerLimitValue_DisplayName {
-            get {
-                return ResourceManager.GetString("ReferenceLineMetaSelectionView_LowerLimitValue_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Signaleringswaarde.
-        /// </summary>
-        public static string ReferenceLineMetaSelectionView_SignalingValue_DisplayName {
-            get {
-                return ResourceManager.GetString("ReferenceLineMetaSelectionView_SignalingValue_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Database op pad &apos;{0}&apos; gekoppeld..
         /// </summary>
         public static string RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked {

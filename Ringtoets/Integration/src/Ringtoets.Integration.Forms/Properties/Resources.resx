@@ -254,12 +254,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssessmentSection_Id_DisplayName" xml:space="preserve">
     <value>Id</value>
   </data>
-  <data name="ReferenceLineMetaSelectionView_SignalingValue_DisplayName" xml:space="preserve">
-    <value>Signaleringswaarde</value>
-  </data>
-  <data name="ReferenceLineMetaSelectionView_LowerLimitValue_DisplayName" xml:space="preserve">
-    <value>Ondergrens</value>
-  </data>
   <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue" xml:space="preserve">
     <value>Signaleringswaarde</value>
   </data>

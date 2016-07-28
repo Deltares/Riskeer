@@ -33,13 +33,14 @@
             this.Cancel = new System.Windows.Forms.Button();
             this.Ok = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.SelectValueLabel = new System.Windows.Forms.Label();
-            this.SignalingLowerLimitComboBox = new System.Windows.Forms.ComboBox();
+            this.LowLimitValueRadioButton = new System.Windows.Forms.RadioButton();
+            this.SignallingValueRadioButton = new System.Windows.Forms.RadioButton();
             this.ReferenceLineMetaDataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.SelectAssessmentSectionLabel = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -68,29 +69,25 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.SelectAssessmentSectionLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.ReferenceLineMetaDataGridViewControl, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
-            // panel1
+            // LowLimitValueRadioButton
             // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.SelectValueLabel);
-            this.panel1.Controls.Add(this.SignalingLowerLimitComboBox);
-            this.panel1.Name = "panel1";
+            resources.ApplyResources(this.LowLimitValueRadioButton, "LowLimitValueRadioButton");
+            this.LowLimitValueRadioButton.Name = "LowLimitValueRadioButton";
+            this.LowLimitValueRadioButton.UseVisualStyleBackColor = true;
             // 
-            // SelectValueLabel
+            // SignallingValueRadioButton
             // 
-            resources.ApplyResources(this.SelectValueLabel, "SelectValueLabel");
-            this.SelectValueLabel.Name = "SelectValueLabel";
-            // 
-            // SignalingLowerLimitComboBox
-            // 
-            this.SignalingLowerLimitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SignalingLowerLimitComboBox.FormattingEnabled = true;
-            resources.ApplyResources(this.SignalingLowerLimitComboBox, "SignalingLowerLimitComboBox");
-            this.SignalingLowerLimitComboBox.Name = "SignalingLowerLimitComboBox";
+            resources.ApplyResources(this.SignallingValueRadioButton, "SignallingValueRadioButton");
+            this.SignallingValueRadioButton.Checked = true;
+            this.SignallingValueRadioButton.Name = "SignallingValueRadioButton";
+            this.SignallingValueRadioButton.TabStop = true;
+            this.SignallingValueRadioButton.UseVisualStyleBackColor = true;
             // 
             // ReferenceLineMetaDataGridViewControl
             // 
@@ -98,6 +95,19 @@
             this.ReferenceLineMetaDataGridViewControl.MultiSelect = false;
             this.ReferenceLineMetaDataGridViewControl.Name = "ReferenceLineMetaDataGridViewControl";
             this.ReferenceLineMetaDataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            // 
+            // SelectAssessmentSectionLabel
+            // 
+            resources.ApplyResources(this.SelectAssessmentSectionLabel, "SelectAssessmentSectionLabel");
+            this.SelectAssessmentSectionLabel.Name = "SelectAssessmentSectionLabel";
+            // 
+            // groupBox1
+            // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.SignallingValueRadioButton);
+            this.groupBox1.Controls.Add(this.LowLimitValueRadioButton);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
             // 
             // ReferenceLineMetaSelectionDialog
             // 
@@ -108,8 +118,8 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -120,9 +130,10 @@
         private System.Windows.Forms.Button Ok;
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox SignalingLowerLimitComboBox;
-        private System.Windows.Forms.Label SelectValueLabel;
         private Core.Common.Controls.DataGrid.DataGridViewControl ReferenceLineMetaDataGridViewControl;
+        private System.Windows.Forms.RadioButton LowLimitValueRadioButton;
+        private System.Windows.Forms.RadioButton SignallingValueRadioButton;
+        private System.Windows.Forms.Label SelectAssessmentSectionLabel;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

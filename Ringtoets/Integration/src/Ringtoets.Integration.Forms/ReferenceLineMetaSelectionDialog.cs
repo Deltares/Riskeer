@@ -38,26 +38,19 @@ namespace Ringtoets.Integration.Forms
     /// </summary>
     public partial class ReferenceLineMetaSelectionDialog : DialogBase
     {
-        private enum SignalingLowerLimit
-        {
-            SignalingValue,
-            LowerLimitValue
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="referenceLineMetas">A list of <see cref="ReferenceLineMeta"/> the user can select.</param>
         public ReferenceLineMetaSelectionDialog(IWin32Window dialogParent, IEnumerable<ReferenceLineMeta> referenceLineMetas)
-            : base(dialogParent, CommonFormsResources.SelectionDialogIcon, 410, 350)
+            : base(dialogParent, CommonFormsResources.SelectionDialogIcon, 403, 350)
         {
             if (referenceLineMetas == null)
             {
                 throw new ArgumentNullException("referenceLineMetas");
             }
             InitializeComponent();
-            InitializeSignalingLowerLimitComboBox();
             InitializeReferenceLineMetaDataGridViewControl(referenceLineMetas);
         }
 
@@ -84,10 +77,7 @@ namespace Ringtoets.Integration.Forms
                 return null;
             }
 
-            var selectedItemInComboBox = (SignalingLowerLimit) SignalingLowerLimitComboBox.SelectedValue;
-            return selectedItemInComboBox == SignalingLowerLimit.SignalingValue ?
-                       selectedRow.SignalingValue :
-                       selectedRow.LowerLimitValue;
+            return SignallingValueRadioButton.Checked ? selectedRow.SignalingValue :  selectedRow.LowerLimitValue;
         }
 
         private void InitializeReferenceLineMetaDataGridViewControl(IEnumerable<ReferenceLineMeta> referenceLineMetas)
@@ -112,17 +102,6 @@ namespace Ringtoets.Integration.Forms
                 SelectedReferenceLineMeta = referenceLineMetaSelectionRow.ReferenceLineMeta;
                 SelectedNorm = GetSelectedLimitValue();
             }
-        }
-
-        private void InitializeSignalingLowerLimitComboBox()
-        {
-            SignalingLowerLimitComboBox.DataSource = new[]
-            {
-                Tuple.Create(SignalingLowerLimit.SignalingValue, Resources.ReferenceLineMetaSelectionView_SignalingValue_DisplayName),
-                Tuple.Create(SignalingLowerLimit.LowerLimitValue, Resources.ReferenceLineMetaSelectionView_LowerLimitValue_DisplayName)
-            };
-            SignalingLowerLimitComboBox.ValueMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item1);
-            SignalingLowerLimitComboBox.DisplayMember = TypeUtils.GetMemberName<Tuple<AssessmentSectionComposition, string>>(t => t.Item2);
         }
 
         private ReferenceLineMetaSelectionRow GetSelectedReferenceLineMetaSelectionRow()

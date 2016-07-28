@@ -266,9 +266,12 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             project.AssessmentSections.Add(TestAssessmentSection1_2(true));
             var expectedAssessmentSectionName = NamingHelper.GetUniqueName(project.AssessmentSections, "1-2", a => a.Name);
 
+            bool signallingValueRadioButtonSelected = false;
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
+                var signallingValueRadioButton = (RadioButton)new RadioButtonTester("SignallingValueRadioButton", selectionDialog).TheObject;
+                signallingValueRadioButtonSelected = signallingValueRadioButton.Checked;
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
@@ -276,6 +279,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             assessmentSectionFromFile.AddAssessmentSectionFromFile();
 
             // Assert
+            Assert.IsTrue(signallingValueRadioButtonSelected);
             Assert.AreEqual(2, project.AssessmentSections.Count);
             AssessmentSection assessmentSection = project.AssessmentSections[1];
             Assert.IsNotNull(assessmentSection);
@@ -306,8 +310,8 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
-                var combobox = (ComboBox) new ComboBoxTester("SignalingLowerLimitComboBox", selectionDialog).TheObject;
-                combobox.SelectedIndex = 1;
+                var lowLimitValueRadioButton = (RadioButton)new RadioButtonTester("LowLimitValueRadioButton", selectionDialog).TheObject;
+                lowLimitValueRadioButton.Checked = true;
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 

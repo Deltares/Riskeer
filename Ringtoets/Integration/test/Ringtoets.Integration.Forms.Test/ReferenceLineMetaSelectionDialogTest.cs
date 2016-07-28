@@ -64,9 +64,8 @@ namespace Ringtoets.Integration.Forms.Test
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
                 Assert.IsNull(dialog.SelectedReferenceLineMeta);
-                Assert.AreEqual("Selecteer referentielijn", dialog.Text);
+                Assert.AreEqual(@"Stel een traject samen", dialog.Text);
 
-                AssertSignalingLowerLimitComboBox(dialog);
                 AssertReferenceLineMetaDataGridViewControl(dialog);
             }
         }
@@ -81,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Test
                 dialog.Show();
 
                 // Assert
-                Assert.AreEqual(410, dialog.MinimumSize.Width);
+                Assert.AreEqual(403, dialog.MinimumSize.Width);
                 Assert.AreEqual(350, dialog.MinimumSize.Height);
             }
         }
@@ -91,12 +90,6 @@ namespace Ringtoets.Integration.Forms.Test
             var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
             Assert.IsFalse(grid.MultiSelect);
             Assert.AreEqual(DataGridViewSelectionMode.FullRowSelect, grid.SelectionMode);
-        }
-
-        private static void AssertSignalingLowerLimitComboBox(ReferenceLineMetaSelectionDialog dialog)
-        {
-            var combobox = (ComboBox) new ComboBoxTester("SignalingLowerLimitComboBox", dialog).TheObject;
-            Assert.AreEqual(ComboBoxStyle.DropDownList, combobox.DropDownStyle);
         }
     }
 }
