@@ -24,12 +24,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
+
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
+
 using log4net;
+
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Exceptions;
+
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -122,7 +126,7 @@ namespace Ringtoets.Common.IO
                 if (e is IOException || e is SecurityException)
                 {
                     var message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid,
-                                                         path);
+                                                path);
                     throw new CriticalFileReadException(message, e);
                 }
                 throw;
@@ -146,7 +150,6 @@ namespace Ringtoets.Common.IO
                     .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique);
                 throw new CriticalFileValidationException(message);
             }
-
         }
     }
 }
