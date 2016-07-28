@@ -21,9 +21,12 @@
 
 using System;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
+
+using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
 
@@ -60,6 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 StochasticSoilModelEntityId = entityId,
                 Name = testName,
                 SegmentName = testSegmentName,
+                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
             var collector = new ReadConversionCollector();
 
@@ -79,6 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new StochasticSoilModelEntity
             {
+                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0]),
                 StochasticSoilProfileEntities =
                 {
                     new StochasticSoilProfileEntity
@@ -116,13 +121,15 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_WithCollectorWithStochasticSoilModelSegmentPointEntity_ReturnsNewStochasticSoilModelWithGeometryPoints()
         {
             // Setup
+            var segmentPoints = new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            };
+
             var entity = new StochasticSoilModelEntity
             {
-                StochasticSoilModelSegmentPointEntities =
-                {
-                    new StochasticSoilModelSegmentPointEntity(),
-                    new StochasticSoilModelSegmentPointEntity()
-                }
+                SegmentPoints = new Point2DBinaryConverter().ToBytes(segmentPoints)
             };
             var collector = new ReadConversionCollector();
 
@@ -130,14 +137,17 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var model = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(2, model.Geometry.Count);
+            CollectionAssert.AreEqual(segmentPoints, model.Geometry);
         }
 
         [Test]
         public void Read_SameStochasticSoilModelEntityMultipleTimes_ReturnSameStochasticSoilModel()
         {
             // Setup
-            var entity = new StochasticSoilModelEntity();
+            var entity = new StochasticSoilModelEntity
+            {
+                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+            };
 
             var collector = new ReadConversionCollector();
 

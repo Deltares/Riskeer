@@ -118,6 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingFailureMechanism_WithStochasticSoilModelsSet_ReturnsNewPipingFailureMechanismWithStochasticSoilModelsSet()
         {
             // Setup
+            byte[] emptySegmentPointsData = new Point2DBinaryConverter().ToBytes(new Point2D[0]);
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity
@@ -126,8 +127,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 StochasticSoilModelEntities =
                 {
-                    new StochasticSoilModelEntity(),
-                    new StochasticSoilModelEntity()
+                    new StochasticSoilModelEntity
+                    {
+                        SegmentPoints = emptySegmentPointsData
+                    },
+                    new StochasticSoilModelEntity
+                    {
+                        SegmentPoints = emptySegmentPointsData
+                    }
                 }
             };
             var collector = new ReadConversionCollector();

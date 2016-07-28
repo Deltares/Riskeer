@@ -21,6 +21,7 @@
 
 using System;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
@@ -112,7 +113,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.StochasticSoilModelSegmentPointEntities.Count);
+            var expectedBinaryData = new Point2DBinaryConverter().ToBytes(stochasticSoilModel.Geometry);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.SegmentPoints);
         }
 
         [Test]

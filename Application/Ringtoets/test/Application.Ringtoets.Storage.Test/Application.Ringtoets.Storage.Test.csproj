@@ -167,7 +167,6 @@
     <Compile Include="Read\Piping\SoilLayerEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\SoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\StochasticSoilModelSegmentPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\SurfaceLinePointEntityReadExtensionsTest.cs" />

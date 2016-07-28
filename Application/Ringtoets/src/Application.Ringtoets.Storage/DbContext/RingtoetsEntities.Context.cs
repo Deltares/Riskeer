@@ -86,7 +86,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<SoilProfileEntity> SoilProfileEntities { get; set; }
         public virtual DbSet<StabilityStoneCoverSectionResultEntity> StabilityStoneCoverSectionResultEntities { get; set; }
         public virtual DbSet<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
-        public virtual DbSet<StochasticSoilModelSegmentPointEntity> StochasticSoilModelSegmentPointEntities { get; set; }
         public virtual DbSet<StochasticSoilProfileEntity> StochasticSoilProfileEntities { get; set; }
         public virtual DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; set; }
         public virtual DbSet<StrengthStabilityPointConstructionSectionResultEntity> StrengthStabilityPointConstructionSectionResultEntities { get; set; }

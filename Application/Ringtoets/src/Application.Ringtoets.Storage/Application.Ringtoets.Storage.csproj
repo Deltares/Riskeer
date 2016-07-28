@@ -221,9 +221,6 @@
     <Compile Include="DbContext\StochasticSoilModelEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\StochasticSoilModelSegmentPointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="DbContext\StochasticSoilProfileEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -272,7 +269,6 @@
     <Compile Include="Read\Piping\SoilLayerEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\SoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\StochasticSoilModelSegmentPointEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\SurfaceLinePointEntityReadExtensions.cs" />

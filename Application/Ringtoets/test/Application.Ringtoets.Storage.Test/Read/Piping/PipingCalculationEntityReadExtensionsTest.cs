@@ -21,6 +21,7 @@
 
 using System;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
@@ -333,6 +334,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = 75,
+                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0]),
                 StochasticSoilProfileEntities =
                 {
                     stochasticSoilProfileEntity

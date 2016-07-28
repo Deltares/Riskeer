@@ -20,15 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-
-using Core.Common.Base.Geometry;
 
 using Ringtoets.Piping.Data;
 
@@ -94,40 +91,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
         private static void UpdateSoilModelSegment(StochasticSoilModel model, StochasticSoilModelEntity entity)
         {
-            if (HasChanges(entity.StochasticSoilModelSegmentPointEntities, model.Geometry))
-            {
-                entity.StochasticSoilModelSegmentPointEntities.Clear();
-                UpdateSegmentPoints(model, entity);
-            }
-        }
-
-        private static bool HasChanges(ICollection<StochasticSoilModelSegmentPointEntity> existingPointEntities, List<Point2D> geometry)
-        {
-            StochasticSoilModelSegmentPointEntity[] existingPoints = existingPointEntities.OrderBy(pe => pe.Order).ToArray();
-            if (existingPoints.Length != geometry.Count)
-            {
-                return true;
-            }
-            for (int i = 0; i < existingPoints.Length; i++)
-            {
-                Point2D existingPoint = new Point2D(existingPoints[i].X.ToNullAsNaN(),
-                                                    existingPoints[i].Y.ToNullAsNaN());
-                if (!Math2D.AreEqualPoints(existingPoint, geometry[i]))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static void UpdateSegmentPoints(StochasticSoilModel model, StochasticSoilModelEntity entity)
-        {
-            for (int i = 0; i < model.Geometry.Count; i++)
-            {
-                Point2D point = model.Geometry[i];
-                StochasticSoilModelSegmentPointEntity pointEntity = point.CreateStochasticSoilModelSegmentPointEntity(i);
-                entity.StochasticSoilModelSegmentPointEntities.Add(pointEntity);
-            }
+            entity.SegmentPoints = new Point2DBinaryConverter().ToBytes(model.Geometry);
         }
     }
 }

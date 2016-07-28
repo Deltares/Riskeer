@@ -22,8 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -201,6 +206,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
+            byte[] emptySegmentPointsData = new Point2DBinaryConverter().ToBytes(new Point2D[0]);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
@@ -212,8 +218,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                 IsRelevant = Convert.ToByte(isRelevant),
                 StochasticSoilModelEntities =
                 {
-                    new StochasticSoilModelEntity(),
-                    new StochasticSoilModelEntity()
+                    new StochasticSoilModelEntity
+                    {
+                        SegmentPoints = emptySegmentPointsData
+                    },
+                    new StochasticSoilModelEntity
+                    {
+                        SegmentPoints = emptySegmentPointsData
+                    }
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);

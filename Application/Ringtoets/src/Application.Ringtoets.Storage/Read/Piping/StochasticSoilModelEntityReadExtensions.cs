@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 
 using Ringtoets.Piping.Data;
@@ -74,9 +74,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
 
         private static void ReadSegmentPoints(this StochasticSoilModelEntity entity, StochasticSoilModel model)
         {
-            model.Geometry.AddRange(entity.StochasticSoilModelSegmentPointEntities
-                                          .OrderBy(pe => pe.Order)
-                                          .Select(pe => pe.Read()));
+            model.Geometry.AddRange(new Point2DBinaryConverter().ToData(entity.SegmentPoints));
         }
     }
 }

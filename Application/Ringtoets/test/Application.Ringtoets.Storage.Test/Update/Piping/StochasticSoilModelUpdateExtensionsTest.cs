@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -270,23 +270,17 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 new Point2D(3.3, 4.4)
             });
 
-            var originalPointEntity = new StochasticSoilModelSegmentPointEntity
+            var point2DBinaryConverter = new Point2DBinaryConverter();
+            var originalSegmentPointsData = point2DBinaryConverter.ToBytes(new[]
             {
-                StochasticSoilModelSegmentPointEntityId = 1,
-                Order = 0,
-                X = 5.5,
-                Y = 6.6
-            };
+                new Point2D(5.5, 6.6), 
+            });
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = soilModelId,
-                StochasticSoilModelSegmentPointEntities =
-                {
-                    originalPointEntity
-                }
+                SegmentPoints = originalSegmentPointsData
             };
             context.StochasticSoilModelEntities.Add(soilModelEntity);
-            context.StochasticSoilModelSegmentPointEntities.Add(originalPointEntity);
             
             var registry = new PersistenceRegistry();
 
@@ -294,18 +288,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             soilModel.Update(registry, context);
 
             // Assert
-            Assert.AreEqual(2, soilModelEntity.StochasticSoilModelSegmentPointEntities.Count);
-
-            StochasticSoilModelSegmentPointEntity[] pointEntities = soilModelEntity.StochasticSoilModelSegmentPointEntities.ToArray();
-            StochasticSoilModelSegmentPointEntity point1Entity = pointEntities[0];
-            Assert.AreEqual(soilModel.Geometry[0].X, point1Entity.X);
-            Assert.AreEqual(soilModel.Geometry[0].Y, point1Entity.Y);
-            Assert.AreEqual(0, point1Entity.Order);
-
-            StochasticSoilModelSegmentPointEntity point2Entity = pointEntities[1];
-            Assert.AreEqual(soilModel.Geometry[1].X, point2Entity.X);
-            Assert.AreEqual(soilModel.Geometry[1].Y, point2Entity.Y);
-            Assert.AreEqual(1, point2Entity.Order);
+            CollectionAssert.AreEqual(point2DBinaryConverter.ToBytes(soilModel.Geometry), soilModelEntity.SegmentPoints);
 
             mocks.VerifyAll();
         }
@@ -329,32 +312,18 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 new Point2D(3.3, 4.4)
             });
 
-            var originalPointEntity1 = new StochasticSoilModelSegmentPointEntity
+            var point2DBinaryConverter = new Point2DBinaryConverter();
+            var originalSegmentPointsData = point2DBinaryConverter.ToBytes(new[]
             {
-                StochasticSoilModelSegmentPointEntityId = 1,
-                Order = 0,
-                X = 5.5,
-                Y = 6.6
-            };
-            var originalPointEntity2 = new StochasticSoilModelSegmentPointEntity
-            {
-                StochasticSoilModelSegmentPointEntityId = 2,
-                Order = 1,
-                X = 7.7,
-                Y = 8.8
-            };
+                new Point2D(5.5, 6.6), 
+                new Point2D(7.7, 8.8)
+            });
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = soilModelId,
-                StochasticSoilModelSegmentPointEntities =
-                {
-                    originalPointEntity1,
-                    originalPointEntity2
-                }
+                SegmentPoints = originalSegmentPointsData
             };
             context.StochasticSoilModelEntities.Add(soilModelEntity);
-            context.StochasticSoilModelSegmentPointEntities.Add(originalPointEntity1);
-            context.StochasticSoilModelSegmentPointEntities.Add(originalPointEntity2);
 
             var registry = new PersistenceRegistry();
 
@@ -362,18 +331,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             soilModel.Update(registry, context);
 
             // Assert
-            Assert.AreEqual(2, soilModelEntity.StochasticSoilModelSegmentPointEntities.Count);
-
-            StochasticSoilModelSegmentPointEntity[] pointEntities = soilModelEntity.StochasticSoilModelSegmentPointEntities.ToArray();
-            StochasticSoilModelSegmentPointEntity point1Entity = pointEntities[0];
-            Assert.AreEqual(soilModel.Geometry[0].X, point1Entity.X);
-            Assert.AreEqual(soilModel.Geometry[0].Y, point1Entity.Y);
-            Assert.AreEqual(0, point1Entity.Order);
-
-            StochasticSoilModelSegmentPointEntity point2Entity = pointEntities[1];
-            Assert.AreEqual(soilModel.Geometry[1].X, point2Entity.X);
-            Assert.AreEqual(soilModel.Geometry[1].Y, point2Entity.Y);
-            Assert.AreEqual(1, point2Entity.Order);
+            CollectionAssert.AreEqual(point2DBinaryConverter.ToBytes(soilModel.Geometry), soilModelEntity.SegmentPoints);
 
             mocks.VerifyAll();
         }
@@ -397,32 +355,13 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 new Point2D(3.3, 4.4)
             });
 
-            var originalPointEntity1 = new StochasticSoilModelSegmentPointEntity
-            {
-                StochasticSoilModelSegmentPointEntityId = 1,
-                Order = 0,
-                X = soilModel.Geometry[0].X,
-                Y = soilModel.Geometry[0].Y
-            };
-            var originalPointEntity2 = new StochasticSoilModelSegmentPointEntity
-            {
-                StochasticSoilModelSegmentPointEntityId = 2,
-                Order = 1,
-                X = soilModel.Geometry[1].X,
-                Y = soilModel.Geometry[1].Y
-            };
+            var originalSegmentPointData = new Point2DBinaryConverter().ToBytes(soilModel.Geometry);
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = soilModelId,
-                StochasticSoilModelSegmentPointEntities =
-                {
-                    originalPointEntity1,
-                    originalPointEntity2
-                }
+                SegmentPoints = originalSegmentPointData
             };
             context.StochasticSoilModelEntities.Add(soilModelEntity);
-            context.StochasticSoilModelSegmentPointEntities.Add(originalPointEntity1);
-            context.StochasticSoilModelSegmentPointEntities.Add(originalPointEntity2);
 
             var registry = new PersistenceRegistry();
 
@@ -430,10 +369,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             soilModel.Update(registry, context);
 
             // Assert
-            StochasticSoilModelSegmentPointEntity[] segmentPointEntities = context.StochasticSoilModelSegmentPointEntities.ToArray();
-            CollectionAssert.Contains(segmentPointEntities, originalPointEntity1);
-            CollectionAssert.Contains(segmentPointEntities, originalPointEntity2);
-            Assert.AreEqual(2, segmentPointEntities.Length);
+            CollectionAssert.AreEqual(originalSegmentPointData, soilModelEntity.SegmentPoints);
 
             mocks.VerifyAll();
         }
