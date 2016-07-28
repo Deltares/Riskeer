@@ -179,9 +179,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
-                                                                                 .AddImportItem()
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -191,8 +188,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -400,9 +395,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                           .AddSeparator()
-                          .AddImportItem()
-                          .AddExportItem()
-                          .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .AddSeparator()
@@ -504,10 +496,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                        .AddSeparator();
             }
 
-            return builder.AddImportItem()
-                          .AddExportItem()
-                          .AddSeparator()
-                          .AddExpandAllItem()
+            return builder.AddExpandAllItem()
                           .AddCollapseAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
@@ -629,9 +618,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddRenameItem()
                           .AddDeleteItem()
-                          .AddSeparator()
-                          .AddImportItem()
-                          .AddExportItem()
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

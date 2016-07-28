@@ -172,9 +172,6 @@ namespace Ringtoets.Piping.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .AddSeparator()
-                                                                                 .AddImportItem()
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -187,7 +184,6 @@ namespace Ringtoets.Piping.Plugin
                 ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.SurfaceLines.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
-                                                                                 .AddExportItem()
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
@@ -212,7 +208,6 @@ namespace Ringtoets.Piping.Plugin
                 ChildNodeObjects = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
-                                                                                 .AddExportItem()
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
@@ -264,8 +259,6 @@ namespace Ringtoets.Piping.Plugin
                 Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -461,9 +454,6 @@ namespace Ringtoets.Piping.Plugin
                           .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll)
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
-                          .AddImportItem()
-                          .AddExportItem()
-                          .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .AddSeparator()
@@ -547,9 +537,6 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddRenameItem()
                           .AddDeleteItem()
-                          .AddSeparator()
-                          .AddImportItem()
-                          .AddExportItem()
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
@@ -674,10 +661,7 @@ namespace Ringtoets.Piping.Plugin
                        .AddSeparator();
             }
 
-            return builder.AddImportItem()
-                          .AddExportItem()
-                          .AddSeparator()
-                          .AddExpandAllItem()
+            return builder.AddExpandAllItem()
                           .AddCollapseAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()

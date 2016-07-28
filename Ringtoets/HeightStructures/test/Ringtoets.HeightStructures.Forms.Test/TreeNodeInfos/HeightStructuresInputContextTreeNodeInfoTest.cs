@@ -136,9 +136,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 guiMock.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
 
-                menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
                 mocksRepository.ReplayAll();

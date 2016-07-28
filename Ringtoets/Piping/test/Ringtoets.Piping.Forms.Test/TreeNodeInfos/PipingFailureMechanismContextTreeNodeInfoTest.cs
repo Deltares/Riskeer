@@ -335,7 +335,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(15, menu.Items.Count);
+                Assert.AreEqual(12, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, 0, CoreCommonGuiResources.Open, CoreCommonGuiResources.Open_ToolTip, CoreCommonGuiResources.OpenIcon, false);
 
@@ -345,21 +345,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, 5, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, 6, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 8, CoreCommonGuiResources.Import, CoreCommonGuiResources.Import_ToolTip, CoreCommonGuiResources.ImportIcon, false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 9, CoreCommonGuiResources.Export, CoreCommonGuiResources.Export_ToolTip, CoreCommonGuiResources.ExportIcon, false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 8, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 9, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 11, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 12, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, false);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, 14, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesHS, false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 11, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesHS, false);
 
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
                     menu.Items[1],
                     menu.Items[3],
                     menu.Items[7],
-                    menu.Items[10],
-                    menu.Items[13]
+                    menu.Items[10]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -486,9 +482,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);

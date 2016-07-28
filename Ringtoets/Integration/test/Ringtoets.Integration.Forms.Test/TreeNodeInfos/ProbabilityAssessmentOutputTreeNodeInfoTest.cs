@@ -116,8 +116,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
-            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 

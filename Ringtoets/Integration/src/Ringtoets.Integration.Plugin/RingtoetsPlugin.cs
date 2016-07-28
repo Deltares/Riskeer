@@ -421,8 +421,6 @@ namespace Ringtoets.Integration.Plugin
                 Image = failureMechanismContribution => RingtoetsCommonFormsResources.FailureMechanismContributionIcon,
                 ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution, treeViewControl)
                                                                                                      .AddOpenItem()
-                                                                                                     .AddSeparator()
-                                                                                                     .AddExportItem()
                                                                                                      .Build()
             };
 
@@ -467,8 +465,6 @@ namespace Ringtoets.Integration.Plugin
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -488,9 +484,6 @@ namespace Ringtoets.Integration.Plugin
 
                     return Gui.Get(nodeData, treeViewControl)
                               .AddCustomItem(addItem)
-                              .AddSeparator()
-                              .AddImportItem()
-                              .AddExportItem()
                               .AddSeparator()
                               .AddExpandAllItem()
                               .AddCollapseAllItem()
@@ -757,9 +750,6 @@ namespace Ringtoets.Integration.Plugin
                       .AddRenameItem()
                       .AddDeleteItem()
                       .AddSeparator()
-                      .AddImportItem()
-                      .AddExportItem()
-                      .AddSeparator()
                       .AddExpandAllItem()
                       .AddCollapseAllItem()
                       .AddSeparator()
@@ -904,9 +894,6 @@ namespace Ringtoets.Integration.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(nodeData, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddImportItem()
-                          .AddExportItem()
-                          .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .AddSeparator()
@@ -997,11 +984,7 @@ namespace Ringtoets.Integration.Plugin
             }
 
             return Gui.Get(nodeData, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
                       .AddCustomItem(connectionItem)
-                      .AddImportItem()
-                      .AddExportItem()
                       .AddSeparator()
                       .AddCustomItem(designWaterLevelItem)
                       .AddSeparator()

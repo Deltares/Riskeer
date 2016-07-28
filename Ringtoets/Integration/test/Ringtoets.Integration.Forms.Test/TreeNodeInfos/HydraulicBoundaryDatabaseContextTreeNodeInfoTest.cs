@@ -154,11 +154,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -215,7 +211,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                     const string expectedItemText = "&Toetspeilen berekenen";
                     const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.";
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
                 }
             }
             // Assert
@@ -251,7 +247,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                     const string expectedItemText = "&Toetspeilen berekenen";
                     const string expectedItemTooltip = "Bereken de toetspeilen";
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 3, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
                 }
             }
             // Assert
@@ -264,7 +260,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Given
             var gui = mocks.DynamicMock<IGui>();
 
-            var contextMenuRunAssessmentLevelCalculationsIndex = 3;
+            var contextMenuRunAssessmentLevelCalculationsIndex = 2;
 
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
@@ -368,7 +364,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -415,7 +411,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPath, "empty.sqlite");
 
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -458,7 +454,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Given
             string testFile = Path.Combine(testDataPathNoHlcd, "HRD dutch coast south.sqlite");
 
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
@@ -505,7 +501,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             assessmentObserver.Expect(o => o.UpdateObserver());
             IObserver observer = mocks.StrictMock<IObserver>();
 
-            int contextMenuImportHydraulicBoundaryDatabaseIndex = 1;
+            int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             using (HydraulicBoundaryDatabaseImporter importer = new HydraulicBoundaryDatabaseImporter())

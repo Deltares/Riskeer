@@ -97,9 +97,6 @@ namespace Ringtoets.HeightStructures.Plugin
                 Text = inputContext => HeightStructuresFormsResources.HeightStructuresInputContext_NodeDisplayName,
                 Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddImportItem()
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -109,8 +106,6 @@ namespace Ringtoets.HeightStructures.Plugin
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
@@ -258,9 +253,6 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddSeparator()
-                          .AddImportItem()
-                          .AddExportItem()
-                          .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .AddSeparator()
@@ -358,10 +350,7 @@ namespace Ringtoets.HeightStructures.Plugin
                        .AddSeparator();
             }
 
-            return builder.AddImportItem()
-                          .AddExportItem()
-                          .AddSeparator()
-                          .AddExpandAllItem()
+            return builder.AddExpandAllItem()
                           .AddCollapseAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
@@ -438,9 +427,6 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddSeparator()
                           .AddRenameItem()
                           .AddDeleteItem()
-                          .AddSeparator()
-                          .AddImportItem()
-                          .AddExportItem()
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()

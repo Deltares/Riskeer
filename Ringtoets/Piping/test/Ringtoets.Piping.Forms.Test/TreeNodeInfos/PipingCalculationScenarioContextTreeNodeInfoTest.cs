@@ -282,9 +282,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddImportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
-                menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
