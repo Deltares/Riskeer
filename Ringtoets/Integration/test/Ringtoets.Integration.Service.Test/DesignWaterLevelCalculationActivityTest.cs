@@ -55,7 +55,9 @@ namespace Ringtoets.Integration.Service.Test
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
-            Assert.AreEqual(string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_, hydraulicBoundaryLocation.Id), activity.Name);
+            string expectedName = string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_,
+                                                hydraulicBoundaryLocation.Name);
+            Assert.AreEqual(expectedName, activity.Name);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
 

@@ -41,7 +41,8 @@ namespace Ringtoets.Integration.Service
         {
             get
             {
-                return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_, hydraulicBoundaryLocation.Id);
+                return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_,
+                                     hydraulicBoundaryLocation.Name);
             }
         }
 
