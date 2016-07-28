@@ -212,7 +212,7 @@ namespace Ringtoets.Integration.Forms.Commands
             catch (CriticalFileValidationException exception)
             {
                 MessageBox.Show(exception.Message, BaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                log.Warn(exception.Message, exception.InnerException);
+                log.Error(exception.Message, exception.InnerException);
                 return false;
             }
             catch (CriticalFileReadException exception)

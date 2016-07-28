@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Action action = () => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': De map locatie is ongeldig.", pathToNonExistingFolder);
+            var expectedMessage = string.Format("De map met specificaties voor trajecten '{0}' is niet gevonden.", pathToNonExistingFolder);
             TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
             mockRepository.VerifyAll();
         }

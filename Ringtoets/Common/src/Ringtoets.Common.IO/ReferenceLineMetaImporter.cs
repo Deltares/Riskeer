@@ -86,8 +86,7 @@ namespace Ringtoets.Common.IO
             var files = GetShapeFilesInFolder(folderpath);
             if (files.Length == 0)
             {
-                var message = new FileReaderErrorMessageBuilder(folderpath)
-                    .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found);
+                var message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0, folderpath);
                 throw new CriticalFileReadException(message);
             }
 
@@ -122,8 +121,8 @@ namespace Ringtoets.Common.IO
             {
                 if (e is IOException || e is SecurityException)
                 {
-                    var message = new FileReaderErrorMessageBuilder(path)
-                        .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid);
+                    var message = string.Format(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid,
+                                                         path);
                     throw new CriticalFileReadException(message, e);
                 }
                 throw;
@@ -132,9 +131,15 @@ namespace Ringtoets.Common.IO
 
         private void ValidateReferenceLineMetas(ICollection<ReferenceLineMeta> referenceLineMetas)
         {
+            if (referenceLineMetas.Any(rlm => string.IsNullOrEmpty(rlm.AssessmentSectionId)))
+            {
+                var message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                    .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids);
+                throw new CriticalFileValidationException(message);
+            }
+
             var referenceLineMetasCount = referenceLineMetas.Count;
             var referenceLineMetasDistinctCount = referenceLineMetas.Select(rlm => rlm.AssessmentSectionId).Distinct().Count();
-
             if (referenceLineMetasCount != referenceLineMetasDistinctCount)
             {
                 var message = new FileReaderErrorMessageBuilder(shapeFilePath)
@@ -142,12 +147,6 @@ namespace Ringtoets.Common.IO
                 throw new CriticalFileValidationException(message);
             }
 
-            if (referenceLineMetas.Any(rlm => string.IsNullOrEmpty(rlm.AssessmentSectionId)))
-            {
-                var message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(RingtoetsCommonIOResources.ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids);
-                throw new CriticalFileValidationException(message);
-            }
         }
     }
 }

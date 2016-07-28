@@ -64,7 +64,7 @@ namespace Ringtoets.Common.IO
 
             using (var reader = OpenPolyLineShapeFile(shapeFilePath))
             {
-                ValidateExistenceOfRequiredAttributes(reader);
+                ValidateExistenceOfRequiredAttributes(reader, shapeFilePath);
 
                 return ReadReferenceLinesMetas(reader);
             }
@@ -113,20 +113,15 @@ namespace Ringtoets.Common.IO
         /// Validates the file by checking if all mandatory attributes are present in the shape file.
         /// </summary>
         /// <param name="polylineShapeFileReader">The opened shape file reader.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the shape file lacks one of the mandatory attributes. </exception>
-        private static void ValidateExistenceOfRequiredAttributes(PolylineShapeFileReader polylineShapeFileReader)
+        /// <param name="shapeFilePath">The file path to the shape file.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when the shape file lacks one of the mandatory attributes.</exception>
+        private static void ValidateExistenceOfRequiredAttributes(PolylineShapeFileReader polylineShapeFileReader, string shapeFilePath)
         {
-            IList<string> missingAttributes = GetMissingAttributes(polylineShapeFileReader);
-            if (missingAttributes.Count == 1)
+            var missingAttributes = GetMissingAttributes(polylineShapeFileReader);
+            if (missingAttributes.Any())
             {
-                var message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attribute_0_,
-                                            missingAttributes[0]);
-                throw new CriticalFileReadException(message);
-            }
-            if (missingAttributes.Count > 1)
-            {
-                var message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_lacks_required_Attributes_0_,
-                                            string.Join("', '", missingAttributes));
+                var message = string.Format(RingtoetsCommonIOResources.ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_,
+                                            shapeFilePath, string.Join("', '", missingAttributes));
                 throw new CriticalFileReadException(message);
             }
         }

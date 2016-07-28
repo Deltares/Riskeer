@@ -149,7 +149,7 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            var expectedMessage = String.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
+            var expectedMessage = String.Format("Het shapebestand '{0}' om dijktrajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
                                                 missingAttribute);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -168,7 +168,7 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            var expectedMessage = String.Format("Het bestand heeft de attributen '{0}' niet. Deze attributen zijn vereist.",
+            var expectedMessage = String.Format("Het shapebestand '{0}' om dijktrajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
                                                 missingAttributes);
             Assert.AreEqual(expectedMessage, message);
         }

@@ -126,9 +126,6 @@
   <data name="FailureMechanismSectionReader_OpenPolyLineShapeFile_File_can_only_have_polylines" xml:space="preserve">
     <value>Het bestand mag uitsluitend polylijnen bevatten.</value>
   </data>
-  <data name="FailureMechanismSectionReader_File_lacks_required_Attribute_0_" xml:space="preserve">
-    <value>Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.</value>
-  </data>
   <data name="FailureMechanismSectionReader_File_has_unsupported_multiPolyline" xml:space="preserve">
     <value>Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.</value>
   </data>
@@ -159,32 +156,29 @@ Er is geen referentielijn geïmporteerd.</value>
   <data name="DataTypeDisplayName_0_shape_file_filter" xml:space="preserve">
     <value>{0} shape bestand (*.shp)|*.shp</value>
   </data>
-  <data name="ReferenceLinesMetaReader_File_lacks_required_Attributes_0_" xml:space="preserve">
-    <value>Het bestand heeft de attributen '{0}' niet. Deze attributen zijn vereist.</value>
-  </data>
-  <data name="ReferenceLinesMetaReader_File_lacks_required_Attribute_0_" xml:space="preserve">
-    <value>Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.</value>
-  </data>
-  <data name="ReferenceLinesMetaReader_TrajectId_is_empty" xml:space="preserve">
-    <value>Het bestand bevat geen waarde voor het attribuut 'TRAJECT_ID' in het shape bestand.</value>
+  <data name="ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_" xml:space="preserve">
+    <value>Het shapebestand '{0}' om dijktrajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="IHW_filecontents" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\20160624v3 N-waarden voor GEKB en HTKW.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found" xml:space="preserve">
-    <value>Er is geen shape file gevonden.</value>
+  <data name="ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0" xml:space="preserve">
+    <value>Geen shapebestand om trajecten te specificeren gevonden in de map '{0}'.</value>
   </data>
   <data name="ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1" xml:space="preserve">
-    <value>Er zijn meerdere shape files gevonden in '{0}'. '{1}' is gekozen.</value>
-  </data>
-  <data name="ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid" xml:space="preserve">
-    <value>De map locatie is ongeldig.</value>
+    <value>Meerdere shapebestanden gevonden in '{0}'. Het bestand '{1}' is gebruikt.</value>
   </data>
   <data name="ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique" xml:space="preserve">
-    <value>De identificatiecodes van de trajecten (het attribuut 'TRAJECT_ID' in het shape bestand) zijn niet uniek.</value>
+    <value>Meerdere trajecten met dezelfde identificatiecode (attribuut 'TRAJECT_ID') gevonden.</value>
   </data>
   <data name="ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids" xml:space="preserve">
-    <value>De identificatiecodes van de trajecten (het attribuut 'TRAJECT_ID' in het shape bestand) zijn niet allemaal ingevuld.</value>
+    <value>Trajecten gevonden zonder een geldige identificatiecode (attribuut 'TRAJECT_ID').</value>
+  </data>
+  <data name="ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid" xml:space="preserve">
+    <value>De map met specificaties voor trajecten '{0}' is niet gevonden.</value>
+  </data>
+  <data name="FailureMechanismSectionReader_File_lacks_required_Attribute_0_" xml:space="preserve">
+    <value>Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.</value>
   </data>
 </root>

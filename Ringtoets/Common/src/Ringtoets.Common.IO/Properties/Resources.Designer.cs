@@ -239,7 +239,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn meerdere shape files gevonden in &apos;{0}&apos;. &apos;{1}&apos; is gekozen..
+        ///   Looks up a localized string similar to Meerdere shapebestanden gevonden in &apos;{0}&apos;. Het bestand &apos;{1}&apos; is gebruikt..
         /// </summary>
         public static string ReferenceLineMetaImporter_ValidateAndConnectTo_Multiple_shape_files_found_FilePath_0_SelectedFilePath_1 {
             get {
@@ -249,16 +249,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen shape file gevonden..
+        ///   Looks up a localized string similar to Geen shapebestand om trajecten te specificeren gevonden in de map &apos;{0}&apos;..
         /// </summary>
-        public static string ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found {
+        public static string ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0 {
             get {
-                return ResourceManager.GetString("ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineMetaImporter_ValidateAndConnectTo_No_shape_file_found_in_folder_0", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De map locatie is ongeldig..
+        ///   Looks up a localized string similar to De map met specificaties voor trajecten &apos;{0}&apos; is niet gevonden..
         /// </summary>
         public static string ReferenceLineMetaImporter_ValidateDirectory_Directory_Invalid {
             get {
@@ -267,7 +267,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De identificatiecodes van de trajecten (het attribuut &apos;TRAJECT_ID&apos; in het shape bestand) zijn niet uniek..
+        ///   Looks up a localized string similar to Meerdere trajecten met dezelfde identificatiecode (attribuut &apos;TRAJECT_ID&apos;) gevonden..
         /// </summary>
         public static string ReferenceLineMetaImporter_ValidateReferenceLineMetas_AssessmentSection_Ids_Not_Unique {
             get {
@@ -277,7 +277,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De identificatiecodes van de trajecten (het attribuut &apos;TRAJECT_ID&apos; in het shape bestand) zijn niet allemaal ingevuld..
+        ///   Looks up a localized string similar to Trajecten gevonden zonder een geldige identificatiecode (attribuut &apos;TRAJECT_ID&apos;)..
         /// </summary>
         public static string ReferenceLineMetaImporter_ValidateReferenceLineMetas_Missing_AssessmentSection_Ids {
             get {
@@ -305,29 +305,11 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand heeft geen attribuut &apos;{0}&apos;. Dit attribuut is vereist..
+        ///   Looks up a localized string similar to Het shapebestand &apos;{0}&apos; om dijktrajecten te specificeren moet de attributen &apos;TRAJECT_ID&apos;, &apos;NORM_SW&apos;, en &apos;NORM_OG&apos; bevatten: &apos;{1}&apos; niet gevonden..
         /// </summary>
-        public static string ReferenceLinesMetaReader_File_lacks_required_Attribute_0_ {
+        public static string ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_ {
             get {
-                return ResourceManager.GetString("ReferenceLinesMetaReader_File_lacks_required_Attribute_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand heeft de attributen &apos;{0}&apos; niet. Deze attributen zijn vereist..
-        /// </summary>
-        public static string ReferenceLinesMetaReader_File_lacks_required_Attributes_0_ {
-            get {
-                return ResourceManager.GetString("ReferenceLinesMetaReader_File_lacks_required_Attributes_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het bestand bevat geen waarde voor het attribuut &apos;TRAJECT_ID&apos; in het shape bestand..
-        /// </summary>
-        public static string ReferenceLinesMetaReader_TrajectId_is_empty {
-            get {
-                return ResourceManager.GetString("ReferenceLinesMetaReader_TrajectId_is_empty", resourceCulture);
+                return ResourceManager.GetString("ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_", resourceCulture);
             }
         }
     }
