@@ -157,7 +157,7 @@ Er is geen referentielijn geïmporteerd.</value>
     <value>{0} shape bestand (*.shp)|*.shp</value>
   </data>
   <data name="ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_" xml:space="preserve">
-    <value>Het shapebestand '{0}' om dijktrajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.</value>
+    <value>Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="IHW_filecontents" type="System.Resources.ResXFileRef, System.Windows.Forms">

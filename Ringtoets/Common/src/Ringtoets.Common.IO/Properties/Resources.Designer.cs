@@ -305,7 +305,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het shapebestand &apos;{0}&apos; om dijktrajecten te specificeren moet de attributen &apos;TRAJECT_ID&apos;, &apos;NORM_SW&apos;, en &apos;NORM_OG&apos; bevatten: &apos;{1}&apos; niet gevonden..
+        ///   Looks up a localized string similar to Het shapebestand &apos;{0}&apos; om trajecten te specificeren moet de attributen &apos;TRAJECT_ID&apos;, &apos;NORM_SW&apos;, en &apos;NORM_OG&apos; bevatten: &apos;{1}&apos; niet gevonden..
         /// </summary>
         public static string ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_ {
             get {
