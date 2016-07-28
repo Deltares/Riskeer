@@ -56,16 +56,11 @@ namespace Core.Common.Controls.Dialogs
     /// The "new" implementation for <see cref="ShowDialog"/> only hides the base method. Therefore, don't cast to <see cref="Form"/>.
     /// Otherwise the original <see cref="Form.ShowDialog()"/> implementation will be used.
     /// </remarks>
-    public partial class DialogBase : Form
+    public abstract partial class DialogBase : Form
     {
         private readonly IWin32Window dialogParent;
         private readonly int minHeight;
         private readonly int minWidth;
-
-        public DialogBase()
-        {
-            
-        }
 
         /// <summary>
         /// Constructs a new <see cref="DialogBase"/>.
@@ -152,9 +147,6 @@ namespace Core.Common.Controls.Dialogs
         /// </summary>
         /// <returns>The cancel button.</returns>
         /// <remarks>By forcing derivatives to provide a cancel button, dialogs can be closed by hitting the <c>ESC</c> key on the keyboard.</remarks>
-        protected virtual Button GetCancelButton()
-        {
-            return new Button();
-        }
+        protected abstract Button GetCancelButton();
     }
 }
