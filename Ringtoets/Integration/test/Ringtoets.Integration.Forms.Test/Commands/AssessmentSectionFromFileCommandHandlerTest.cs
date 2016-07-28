@@ -443,7 +443,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Assert.IsNotNull(assessmentSection);
 
             AssessmentSection expectedAssessmentSection = TestAssessmentSection1_2(true);
-            expectedAssessmentSection.ReferenceLine.SetGeometry(new Point2D[0]);
+            expectedAssessmentSection.ReferenceLine = null;
 
             AssertAssessmentSection(expectedAssessmentSection, assessmentSection);
             mockRepository.VerifyAll();
@@ -602,7 +602,11 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
         private static void AssertReferenceLine(ReferenceLine expected, ReferenceLine actual)
         {
-            Assert.IsNotNull(expected);
+            if (expected == null)
+            {
+                Assert.IsNull(actual);
+                return;
+            }
             Assert.IsNotNull(actual);
             Point2D[] expectedPoints = expected.Points.ToArray();
             Point2D[] actualPoints = actual.Points.ToArray();

@@ -178,11 +178,14 @@ namespace Ringtoets.Integration.Forms.Commands
             }
 
             assessmentSection.Id = selectedItem.AssessmentSectionId;
-            assessmentSection.ReferenceLine = selectedItem.ReferenceLine;
 
-            if (!assessmentSection.ReferenceLine.Points.Any())
+            if (!selectedItem.ReferenceLine.Points.Any())
             {
                 log.Warn(Resources.AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_ReferenceLineFailed);
+            }
+            else
+            {
+                assessmentSection.ReferenceLine = selectedItem.ReferenceLine;
             }
 
             if (norm.HasValue)
