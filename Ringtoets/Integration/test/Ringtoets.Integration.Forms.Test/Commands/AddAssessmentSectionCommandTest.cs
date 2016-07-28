@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             // Setup
             var mockRepository = new MockRepository();
             var commandHandler = mockRepository.StrictMock<IAssessmentSectionFromFileCommandHandler>();
-            commandHandler.Expect(ch => ch.CreateAssessmentSectionFromFile());
+            commandHandler.Expect(ch => ch.AddAssessmentSectionFromFile());
             mockRepository.ReplayAll();
             var command = new AddAssessmentSectionCommand(commandHandler);
 

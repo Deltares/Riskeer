@@ -20,20 +20,19 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Core.Common.Gui;
-using Ringtoets.Integration.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Integration.Forms.Commands
 {
     /// <summary>
-    /// Interface for exposing command related to adding an <see cref="AssessmentSection"/> to an <see cref="IProject"/> in the <see cref="IProjectOwner"/>.
+    /// Interface for handling commands related to adding <see cref="IAssessmentSection"/> to a <see cref="IProject"/>.
     /// </summary>
     public interface IAssessmentSectionFromFileCommandHandler
     {
         /// <summary>
-        /// Displays a dialog of <see cref="AssessmentSection"/> objects.
-        /// If an <see cref="AssessmentSection"/> is selected to import, it is added to the <see cref="IProject"/> in the <see cref="IProjectOwner"/>.
+        /// Displays available <see cref="IAssessmentSection"/> objects to the user and asks to select one. 
+        /// The selected <see cref="IAssessmentSection"/>, if any, will be added to the <see cref="IProject"/>.
         /// </summary>
-        void CreateAssessmentSectionFromFile();
+        void AddAssessmentSectionFromFile();
     }
 }

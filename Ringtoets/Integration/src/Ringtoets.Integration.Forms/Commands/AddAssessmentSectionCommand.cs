@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Forms.Commands
 
         public void Execute(params object[] arguments)
         {
-            assessmentSectionFromFileCommandHandler.CreateAssessmentSectionFromFile();
+            assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
         }
     }
 }

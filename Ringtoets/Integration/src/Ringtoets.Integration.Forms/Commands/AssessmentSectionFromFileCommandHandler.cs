@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.IO.Exceptions;
@@ -77,20 +76,21 @@ namespace Ringtoets.Integration.Forms.Commands
             this.viewController = viewController;
         }
 
-        public void CreateAssessmentSectionFromFile()
+        public void AddAssessmentSectionFromFile()
         {
-            if (!TryValidate())
+            if (!AreSourceFilesValid())
             {
                 return;
             }
 
-            var assessmentSection = GetAssessmentSectionFromDialog();
-            if (assessmentSection == null || !(projectOwner.Project is RingtoetsProject))
+            AssessmentSection assessmentSection = GetAssessmentSectionFromDialog();
+            RingtoetsProject ringtoetsProject = projectOwner.Project as RingtoetsProject;
+            if (assessmentSection == null || ringtoetsProject == null)
             {
                 return;
             }
 
-            SetAssessmentSectionToProject((RingtoetsProject) projectOwner.Project, assessmentSection);
+            SetAssessmentSectionToProject(ringtoetsProject, assessmentSection);
         }
 
         #region Dialog
@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Commands
                     return null;
                 }
 
-                var selectedItem = dialog.SelectedReferenceLineMeta;
+                ReferenceLineMeta selectedItem = dialog.SelectedReferenceLineMeta;
                 return selectedItem == null ? null : CreateAssessmentSection(selectedItem, dialog.SelectedNorm);
             }
         }
@@ -122,7 +122,6 @@ namespace Ringtoets.Integration.Forms.Commands
         {
                 assessmentSection.GrassCoverErosionInwards.GeneralInput.N = n;
                 assessmentSection.HeightStructures.GeneralInput.N = n;
-
         }
 
         private void SetAssessmentSectionToProject(RingtoetsProject ringtoetsProject, AssessmentSection assessmentSection)
@@ -145,14 +144,13 @@ namespace Ringtoets.Integration.Forms.Commands
 
         private static AssessmentSection CreateDikeAssessmentSection()
         {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            return assessmentSection;
+            return new AssessmentSection(AssessmentSectionComposition.Dike);
         }
 
-        private static AssessmentSection CreateDikeAssessmentSection(AssessmentSectionSettings settings)
+        private static AssessmentSection CreateDikeAssessmentSection(int n)
         {
             var assessmentSection = CreateDikeAssessmentSection();
-            SetFailureMechanismsValueN(assessmentSection, settings.N);
+            SetFailureMechanismsValueN(assessmentSection, n);
             return assessmentSection;
         }
 
@@ -172,9 +170,9 @@ namespace Ringtoets.Integration.Forms.Commands
             }
             else
             {
-                assessmentSection = (settingOfSelectedAssessmentSection.IsDune) ?
+                assessmentSection = settingOfSelectedAssessmentSection.IsDune ?
                                         CreateDuneAssessmentSection() :
-                                        CreateDikeAssessmentSection(settingOfSelectedAssessmentSection);
+                                        CreateDikeAssessmentSection(settingOfSelectedAssessmentSection.N);
             }
 
             assessmentSection.Id = selectedItem.AssessmentSectionId;
@@ -203,13 +201,13 @@ namespace Ringtoets.Integration.Forms.Commands
 
         #region Validators
 
-        private bool TryValidate()
+        private bool AreSourceFilesValid()
         {
-            ValidateAssessmentSectionSettings();
+            ReadAssessmentSectionSettings();
 
             try
             {
-                ValidateReferenceLineMetas();
+                ReadReferenceLineMetas();
             }
             catch (CriticalFileValidationException exception)
             {
@@ -225,7 +223,22 @@ namespace Ringtoets.Integration.Forms.Commands
             return true;
         }
 
-        private void ValidateReferenceLineMetas()
+        /// <summary>
+        /// Reads all <see cref="ReferenceLineMeta"/> objects from the shape file located at <see cref="shapeFileDirectory"/>.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item><see cref="shapeFileDirectory"/> points to an invalid directory.</item>
+        /// <item>The path <see cref="shapeFileDirectory"/> does not contain any shape files.</item>
+        /// <item cref="CriticalFileReadException">Thrown when the shape file does not contain poly lines.</item>
+        /// </list></exception>
+        /// <exception cref="CriticalFileValidationException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The shape file does not contain the required attributes.</item>
+        /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
+        /// <item>No <see cref="ReferenceLineMeta"/> could be read from the shape file.</item>
+        /// </list></exception>
+        private void ReadReferenceLineMetas()
         {
             var importer = new ReferenceLineMetaImporter(shapeFileDirectory);
             referenceLineMetas = importer.GetReferenceLineMetas();
@@ -236,7 +249,7 @@ namespace Ringtoets.Integration.Forms.Commands
             }
         }
 
-        private void ValidateAssessmentSectionSettings()
+        private void ReadAssessmentSectionSettings()
         {
             var reader = new AssessmentSectionSettingsReader();
             settings = reader.ReadSettings();

@@ -484,7 +484,7 @@ namespace Ringtoets.Integration.Plugin
                         RingtoetsCommonFormsResources.RingtoetsProject_DisplayName,
                         RingtoetsCommonFormsResources.RingtoetsProject_ToolTip,
                         GuiResources.PlusIcon,
-                        (s, e) => assessmentSectionFromFileCommandHandler.CreateAssessmentSectionFromFile());
+                        (s, e) => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile());
 
                     return Gui.Get(nodeData, treeViewControl)
                               .AddCustomItem(addItem)
