@@ -61,7 +61,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestand bevat geen lijn..
+        ///   Looks up a localized string similar to Bestand bevat geen enkele lijn..
         /// </summary>
         internal static string LineShapeFileReader_File_contains_geometries_not_line {
             get {
@@ -70,7 +70,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestand bevat geen punt..
+        ///   Looks up a localized string similar to Bestand bevat geen enkele punt..
         /// </summary>
         internal static string PointShapeFileReader_File_contains_geometries_not_points {
             get {
@@ -79,7 +79,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestand bevat geen polygoon..
+        ///   Looks up a localized string similar to Bestand bevat geen enkele polygoon..
         /// </summary>
         internal static string PointShapeFileReader_File_contains_geometries_not_polygons {
             get {
