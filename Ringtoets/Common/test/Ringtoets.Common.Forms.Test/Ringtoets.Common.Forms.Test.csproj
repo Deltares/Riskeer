@@ -79,7 +79,6 @@
     <Compile Include="TypeConverters\FailureMechanismSectionResultNoProbabilityValueDoubleConverterTest.cs" />
     <Compile Include="TypeConverters\FailureMechanismSectionResultNoValueRoundedDoubleConverterTest.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
-    <Compile Include="Views\ChartDataFactoryTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
     <Compile Include="Views\FailureMechanismResultViewTest.cs">
       <SubType>UserControl</SubType>

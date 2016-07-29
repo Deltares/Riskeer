@@ -46,7 +46,7 @@ namespace Core.Components.Gis.Test.Data
         [TestCase("")]
         [TestCase("    ")]
         [TestCase(null)]
-        public void Constructor_InvalidName_ThrowsArgumentExcpetion(string invalidName)
+        public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Setup
             var list = Enumerable.Empty<MapData>().ToList();

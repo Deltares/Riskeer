@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
@@ -110,25 +109,25 @@ namespace Core.Plugins.Chart.Test.Legend
             TestChartData chartData1 = new TestChartData();
             TestChartData chartData2 = new TestChartData();
             TestChartData chartData3 = new TestChartData();
-            ChartDataCollection chartDataCollection = new ChartDataCollection(new List<ChartData>
-            {
-                chartData1,
-                chartData2,
-                chartData3
-            }, "test data");
+            ChartDataCollection chartDataCollection = new ChartDataCollection("test data");
+
+            chartDataCollection.Add(chartData1);
+            chartDataCollection.Add(chartData2);
+            chartDataCollection.Add(chartData3);
+
             ChartDataContext context = GetContext(chartDataCollection);
 
             // Call
             var objects = info.ChildNodeObjects(context);
 
             // Assert
-            var expectedChilds = new[]
+            var expectedChildren= new[]
             {
-                new ChartDataContext(chartData3, new ChartDataCollection(new ChartData[0], "test")),
-                new ChartDataContext(chartData2, new ChartDataCollection(new ChartData[0], "test")),
-                new ChartDataContext(chartData1, new ChartDataCollection(new ChartData[0], "test")),
+                new ChartDataContext(chartData3, new ChartDataCollection("test")),
+                new ChartDataContext(chartData2, new ChartDataCollection("test")),
+                new ChartDataContext(chartData1, new ChartDataCollection("test"))
             };
-            CollectionAssert.AreEqual(expectedChilds, objects);
+            CollectionAssert.AreEqual(expectedChildren, objects);
         }
 
         [Test]
@@ -148,11 +147,8 @@ namespace Core.Plugins.Chart.Test.Legend
         [Test]
         public void CanDrag_WrappedDataChartMultipleAreaData_ReturnsFalse()
         {
-            // Setup            
-            ChartMultipleAreaData multipleChartAreaData = new ChartMultipleAreaData(new[]
-            {
-                Enumerable.Empty<Point2D>()
-            }, "test data");
+            // Setup
+            ChartMultipleAreaData multipleChartAreaData = new ChartMultipleAreaData("test data");
             ChartDataContext context = GetContext(multipleChartAreaData);
 
             // Call
@@ -180,7 +176,7 @@ namespace Core.Plugins.Chart.Test.Legend
         public void CanCheck_WrappedDataChartDataCollection_ReturnsFalse()
         {
             // Setup
-            ChartDataContext context = GetContext(new ChartDataCollection(new ChartData[0], "test data"));
+            ChartDataContext context = GetContext(new ChartDataCollection("test data"));
 
             // Call
             bool canCheck = info.CanCheck(context);
@@ -246,7 +242,7 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartDataCollection chartDataCollection = new ChartDataCollection(new ChartData[0], "test");
+            ChartDataCollection chartDataCollection = new ChartDataCollection("test");
 
             ChartDataContext context = GetContext(chartData, chartDataCollection);
             ChartDataContext targetContext = GetContext(chartDataCollection);
@@ -280,8 +276,8 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartDataCollection rootCollection = new ChartDataCollection(new ChartData[0], "test");
-            ChartDataCollection targetCollection = new ChartDataCollection(new ChartData[0], "test");
+            ChartDataCollection rootCollection = new ChartDataCollection("test");
+            ChartDataCollection targetCollection = new ChartDataCollection("test");
 
             ChartDataContext context = GetContext(chartData, rootCollection);
             ChartDataContext targetContext = GetContext(targetCollection, rootCollection);
@@ -298,7 +294,7 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartDataCollection chartDataCollection = new ChartDataCollection(new ChartData[0], "test");
+            ChartDataCollection chartDataCollection = new ChartDataCollection("test");
 
             ChartDataContext context = GetContext(chartData, chartDataCollection);
             ChartDataContext targetContext = GetContext(chartDataCollection);
@@ -332,8 +328,8 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Setup
             ChartData chartData = new TestChartData();
-            ChartDataCollection rootCollection = new ChartDataCollection(new ChartData[0], "test");
-            ChartDataCollection targetCollection = new ChartDataCollection(new ChartData[0], "test");
+            ChartDataCollection rootCollection = new ChartDataCollection("test");
+            ChartDataCollection targetCollection = new ChartDataCollection("test");
 
             ChartDataContext context = GetContext(chartData, rootCollection);
             ChartDataContext targetContext = GetContext(targetCollection, rootCollection);
@@ -360,12 +356,11 @@ namespace Core.Plugins.Chart.Test.Legend
             var chartData1 = new TestChartData();
             var chartData2 = new TestChartData();
             var chartData3 = new TestChartData();
-            var chartDataCollection = new ChartDataCollection(new List<ChartData>
-            {
-                chartData1,
-                chartData2,
-                chartData3
-            }, "test data");
+            var chartDataCollection = new ChartDataCollection("test data");
+
+            chartDataCollection.Add(chartData1);
+            chartDataCollection.Add(chartData2);
+            chartDataCollection.Add(chartData3);
 
             var context1 = GetContext(chartData1);
             var collectionContext = GetContext(chartDataCollection);
@@ -380,7 +375,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 // Assert
                 var reversedIndex = 2 - position;
                 ChartDataCollection wrappedCollectionData = (ChartDataCollection)collectionContext.WrappedData;
-                Assert.AreSame(context1.WrappedData, wrappedCollectionData.List.ElementAt(reversedIndex));
+                Assert.AreSame(context1.WrappedData, wrappedCollectionData.Collection.ElementAt(reversedIndex));
 
                 mocks.VerifyAll();
             }
@@ -398,17 +393,16 @@ namespace Core.Plugins.Chart.Test.Legend
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var chartData1 = new ChartLineData(Enumerable.Empty<Point2D>(), "line");
-            var chartData2 = new ChartAreaData(Enumerable.Empty<Point2D>(), "area");
-            var chartData3 = new ChartPointData(Enumerable.Empty<Point2D>(), "point");
-            var chartData4 = new ChartMultipleAreaData(Enumerable.Empty<IEnumerable<Point2D>>(), "multiple area");
-            var chartDataCollection = new ChartDataCollection(new List<ChartData>
-            {
-                chartData1,
-                chartData2,
-                chartData3,
-                chartData4
-            }, "test data");
+            var chartData1 = new ChartLineData("line");
+            var chartData2 = new ChartAreaData("area");
+            var chartData3 = new ChartPointData("point");
+            var chartData4 = new ChartMultipleAreaData("multiple area");
+            var chartDataCollection = new ChartDataCollection("test data");
+
+            chartDataCollection.Add(chartData1);
+            chartDataCollection.Add(chartData2);
+            chartDataCollection.Add(chartData3);
+            chartDataCollection.Add(chartData4);
 
             chartDataCollection.Attach(observer);
             chartLegendView.Data = chartDataCollection;
@@ -432,18 +426,18 @@ namespace Core.Plugins.Chart.Test.Legend
 
         private static ChartDataContext GetContext(ChartData chartData, ChartDataCollection chartDataCollection = null)
         {
-            return new ChartDataContext(chartData, chartDataCollection ?? new ChartDataCollection(new List<ChartData>(), "test"));
+            return new ChartDataContext(chartData, chartDataCollection ?? new ChartDataCollection("test"));
         }
 
         private static IEnumerable<TestCaseData> ChartDataLegendImages
         {
             get
             {
-                yield return new TestCaseData(new ChartPointData(Enumerable.Empty<Point2D>(), "test"), Resources.PointsIcon);
-                yield return new TestCaseData(new ChartLineData(Enumerable.Empty<Point2D>(), "test"), Resources.LineIcon);
-                yield return new TestCaseData(new ChartAreaData(Enumerable.Empty<Point2D>(), "test"), Resources.AreaIcon);
-                yield return new TestCaseData(new ChartMultipleAreaData(new[] { Enumerable.Empty<Point2D>() }, "test data"), Resources.AreaIcon);
-                yield return new TestCaseData(new ChartDataCollection(new ChartData[0], "test"), GuiResources.folder);
+                yield return new TestCaseData(new ChartPointData("test"), Resources.PointsIcon);
+                yield return new TestCaseData(new ChartLineData("test"), Resources.LineIcon);
+                yield return new TestCaseData(new ChartAreaData("test"), Resources.AreaIcon);
+                yield return new TestCaseData(new ChartMultipleAreaData("test data"), Resources.AreaIcon);
+                yield return new TestCaseData(new ChartDataCollection("test"), GuiResources.folder);
             }
         }
 
@@ -453,10 +447,10 @@ namespace Core.Plugins.Chart.Test.Legend
             {
                 return new ChartData[]
                 {
-                    new ChartPointData(Enumerable.Empty<Point2D>(), "test"), 
-                    new ChartLineData(Enumerable.Empty<Point2D>(), "test"), 
-                    new ChartAreaData(Enumerable.Empty<Point2D>(), "Test"),
-                    new ChartDataCollection(new ChartData[0], "test")
+                    new ChartPointData("test"), 
+                    new ChartLineData("test"), 
+                    new ChartAreaData("Test"),
+                    new ChartDataCollection("test")
                 };
             }
         }
@@ -467,13 +461,10 @@ namespace Core.Plugins.Chart.Test.Legend
             {
                 return new ChartData[]
                 {
-                    new ChartPointData(Enumerable.Empty<Point2D>(), "test"),
-                    new ChartLineData(Enumerable.Empty<Point2D>(), "test"),
-                    new ChartAreaData(Enumerable.Empty<Point2D>(), "Test"),
-                    new ChartMultipleAreaData(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    }, "test data")
+                    new ChartPointData("test"),
+                    new ChartLineData("test"),
+                    new ChartAreaData("Test"),
+                    new ChartMultipleAreaData("test data")
                 };
             }
         }
@@ -482,14 +473,14 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             get
             {
-                yield return new TestCaseData(new ChartPointData(Enumerable.Empty<Point2D>(), "test"), false);
-                yield return new TestCaseData(new ChartPointData(Enumerable.Empty<Point2D>(), "test"), true);
-                yield return new TestCaseData(new ChartLineData(Enumerable.Empty<Point2D>(), "test"), false);
-                yield return new TestCaseData(new ChartLineData(Enumerable.Empty<Point2D>(), "test"), true);
-                yield return new TestCaseData(new ChartAreaData(Enumerable.Empty<Point2D>(), "test"), false);
-                yield return new TestCaseData(new ChartAreaData(Enumerable.Empty<Point2D>(), "test"), true);
-                yield return new TestCaseData(new ChartMultipleAreaData(new[] { Enumerable.Empty<Point2D>() }, "test data"), false);
-                yield return new TestCaseData(new ChartMultipleAreaData(new[] { Enumerable.Empty<Point2D>() }, "test data"), true);
+                yield return new TestCaseData(new ChartPointData("test"), false);
+                yield return new TestCaseData(new ChartPointData("test"), true);
+                yield return new TestCaseData(new ChartLineData("test"), false);
+                yield return new TestCaseData(new ChartLineData("test"), true);
+                yield return new TestCaseData(new ChartAreaData("test"), false);
+                yield return new TestCaseData(new ChartAreaData("test"), true);
+                yield return new TestCaseData(new ChartMultipleAreaData("test data"), false);
+                yield return new TestCaseData(new ChartMultipleAreaData("test data"), true);
             }
         }
     }

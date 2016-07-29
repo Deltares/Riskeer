@@ -43,7 +43,7 @@ namespace Core.Components.Charting.Data
         }
 
         /// <summary>
-        /// Gets or sets name of the <see cref="ChartData"/>.
+        /// Gets or sets the name of the <see cref="ChartData"/>.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is <c>null</c> or only whitespace.</exception>
         public string Name
@@ -56,7 +56,7 @@ namespace Core.Components.Charting.Data
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("A name must be set to chart data");
+                    throw new ArgumentException("A name must be set to the chart data.");
                 }
                 name = value;
             }

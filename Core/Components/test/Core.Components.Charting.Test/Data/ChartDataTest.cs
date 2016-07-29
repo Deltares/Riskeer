@@ -40,7 +40,7 @@ namespace Core.Components.Charting.Test.Data
             TestDelegate call = () => new TestChartData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "A name must be set to chart data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "A name must be set to the chart data.");
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Core.Components.Charting.Test.Data
             TestDelegate call = () => data.Name = invalidName;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "A name must be set to chart data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "A name must be set to the chart data.");
         }
     }
 

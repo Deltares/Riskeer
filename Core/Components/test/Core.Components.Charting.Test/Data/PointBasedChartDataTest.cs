@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
@@ -33,57 +31,63 @@ namespace Core.Components.Charting.Test.Data
     public class PointBasedChartDataTest
     {
         [Test]
-        public void Constructor_WithoutPoints_ThrowsArgumentNullException()
+        public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
             // Call
-            TestDelegate test = () => new TestPointBasedChartData(null, "test data");
-            
+            var data = new TestPointBasedChartData("test data");
+
             // Assert
-            var expectedMessage = "A point collection is required when creating a subclass of Core.Components.Charting.Data.PointBasedChartData.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            Assert.AreEqual("test data", data.Name);
+            Assert.IsEmpty(data.Points);
         }
 
         [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("        ")]
-        public void Constructor_InvalidName_ThrowsArgumentExcpetion(string invalidName)
+        public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
-            // Setup
-            var points = new Collection<Point2D>
-            {
-                new Point2D(0.0, 1.0),
-                new Point2D(2.5, 1.1)
-            };
-
             // Call
-            TestDelegate test = () => new TestPointBasedChartData(points, invalidName);
+            TestDelegate test = () => new TestPointBasedChartData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to chart data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the chart data.");
         }
 
         [Test]
-        public void Constructor_WithPoints_PropertiesSet()
+        public void Points_SetValidNewValue_GetsNewValue()
         {
             // Setup
-            var points = new Collection<Point2D>
+            var data = new TestPointBasedChartData("test data");
+            var points = new[]
             {
                 new Point2D(0.0, 1.0),
                 new Point2D(2.5, 1.1)
             };
-            
+
             // Call
-            var data = new TestPointBasedChartData(points, "test data");
+            data.Points = points;
 
             // Assert
-            Assert.AreNotSame(points, data.Points);
-            CollectionAssert.AreEqual(points, data.Points);
+            Assert.AreSame(points, data.Points);
         }
-    }
 
-    public class TestPointBasedChartData : PointBasedChartData
-    {
-        public TestPointBasedChartData(IEnumerable<Point2D> points, string name) : base(points, name) { }
+        [Test]
+        public void Points_SetNullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var data = new TestPointBasedChartData("test data");
+
+            // Call
+            TestDelegate test = () => data.Points = null;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "The array of points cannot be null.");
+        }
+
+        private class TestPointBasedChartData : PointBasedChartData
+        {
+            public TestPointBasedChartData(string name) : base(name) { }
+        }
     }
 }

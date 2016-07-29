@@ -42,18 +42,23 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var factory = new ChartSeriesFactory();
-            var testData = CreateTestData();
-            var expectedData = CreateExpectedData(testData);
+            var expectedData = CreateExpectedData(GetTestPointsFunc());
 
             // Call
-            IList<Series> series = factory.Create(new ChartAreaData(testData, "test data"));
+            IList<Series> series = factory.Create(new ChartAreaData("test data")
+            {
+                Points = GetTestPointsFunc()
+            });
 
             // Assert
             Assert.AreEqual(1, series.Count);
             Assert.IsInstanceOf<IList<Series>>(series);
-            var areaSeries = ((AreaSeries)series[0]);
+            var areaSeries = (AreaSeries) series[0];
             CollectionAssert.AreEqual(expectedData, areaSeries.Points);
-            CollectionAssert.AreEqual(new Collection<DataPoint>{expectedData.First()}, areaSeries.Points2);
+            CollectionAssert.AreEqual(new Collection<DataPoint>
+            {
+                expectedData.First()
+            }, areaSeries.Points2);
         }
 
         [Test]
@@ -61,17 +66,19 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var factory = new ChartSeriesFactory();
-            var testData = CreateTestData();
 
             // Call
-            IList<Series> series = factory.Create(new ChartLineData(testData, "test data"));
+            IList<Series> series = factory.Create(new ChartLineData("test data")
+            {
+                Points = GetTestPointsFunc()
+            });
 
             // Assert
             Assert.AreEqual(1, series.Count);
             Assert.IsInstanceOf<IList<Series>>(series);
-            var lineSeries = ((LineSeries)series[0]);
-            CollectionAssert.AreEqual(testData, lineSeries.ItemsSource);
-            Assert.AreNotSame(testData, lineSeries.ItemsSource);
+            var lineSeries = (LineSeries) series[0];
+            CollectionAssert.AreEqual(GetTestPointsFunc(), lineSeries.ItemsSource);
+            Assert.AreNotSame(GetTestPointsFunc(), lineSeries.ItemsSource);
         }
 
         [Test]
@@ -79,17 +86,19 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var factory = new ChartSeriesFactory();
-            var testData = CreateTestData();
 
             // Call
-            IList<Series> series = factory.Create(new ChartPointData(testData, "test data"));
+            IList<Series> series = factory.Create(new ChartPointData("test data")
+            {
+                Points = GetTestPointsFunc()
+            });
 
             // Assert
             Assert.AreEqual(1, series.Count);
             Assert.IsInstanceOf<IList<Series>>(series);
-            var lineSeries = ((LineSeries)series[0]);
-            CollectionAssert.AreEqual(testData, lineSeries.ItemsSource);
-            Assert.AreNotSame(testData, lineSeries.ItemsSource);
+            var lineSeries = (LineSeries) series[0];
+            CollectionAssert.AreEqual(GetTestPointsFunc(), lineSeries.ItemsSource);
+            Assert.AreNotSame(GetTestPointsFunc(), lineSeries.ItemsSource);
             Assert.AreEqual(LineStyle.None, lineSeries.LineStyle);
             Assert.AreEqual(MarkerType.Circle, lineSeries.MarkerType);
         }
@@ -99,18 +108,25 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var factory = new ChartSeriesFactory();
-            var testAreaA = CreateTestData();
-            var testAreaB = CreateTestData();
+            var testAreaA = GetTestPointsFunc();
+            var testAreaB = GetTestPointsFunc();
             var expectedDataA = CreateExpectedData(testAreaA);
             var expectedDataB = CreateExpectedData(testAreaB);
 
             // Call
-            IList<Series> series = factory.Create(new ChartMultipleAreaData(new [] { testAreaA, testAreaB }, "test data"));
+            IList<Series> series = factory.Create(new ChartMultipleAreaData("test data")
+            {
+                Areas = new[]
+                {
+                    testAreaA,
+                    testAreaB
+                }
+            });
 
             // Assert
             Assert.AreEqual(1, series.Count);
             Assert.IsInstanceOf<IList<Series>>(series);
-            var multipleAreaSeries = ((MultipleAreaSeries)series[0]);
+            var multipleAreaSeries = (MultipleAreaSeries) series[0];
             CollectionAssert.AreEqual(expectedDataA, multipleAreaSeries.Areas[0]);
             CollectionAssert.AreEqual(expectedDataB, multipleAreaSeries.Areas[1]);
         }
@@ -134,9 +150,9 @@ namespace Core.Components.OxyPlot.Test.Converter
             return testData.Select(p => new DataPoint(p.X, p.Y)).ToArray();
         }
 
-        private static Collection<Point2D> CreateTestData()
+        private static Point2D[] GetTestPointsFunc()
         {
-            return new Collection<Point2D>
+            return new[]
             {
                 new Point2D(1.2, 3.4),
                 new Point2D(3.2, 3.4),

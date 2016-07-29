@@ -309,7 +309,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void ReadDikeProfileData_FileWithNegativeForshorePointCount_ThrowCriticalFileReadException()
+        public void ReadDikeProfileData_FileWithNegativeForeshorePointCount_ThrowCriticalFileReadException()
         {
             string expectedMessage = "Het ingelezen aantal geometriepunten voorland ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl", 9, expectedMessage);

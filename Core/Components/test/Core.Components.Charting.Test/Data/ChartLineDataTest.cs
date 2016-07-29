@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.ObjectModel;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
 using NUnit.Framework;
@@ -32,68 +30,28 @@ namespace Core.Components.Charting.Test.Data
     public class ChartLineDataTest
     {
         [Test]
-        public void Constructor_NullPoints_ThrowsArgumentNullException()
+        public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
             // Call
-            TestDelegate test = () => new ChartLineData(null, "test data");
+            var data = new ChartLineData("test data");
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("test data", data.Name);
+            Assert.IsEmpty(data.Points);
+            Assert.IsInstanceOf<PointBasedChartData>(data);
         }
 
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        [TestCase("     ")]
+        [TestCase("        ")]
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
-            // Setup
-            var points = new Collection<Point2D>();
-
             // Call
-            TestDelegate test = () => new ChartLineData(points, invalidName);
+            TestDelegate test = () => new ChartLineData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to chart data");
-        }
-
-        [Test]
-        public void Constructor_WithEmptyPoints_CreatesNewICharData()
-        {
-            // Setup
-            var points = new Collection<Point2D>();
-
-            // Call
-            var data = new ChartLineData(points, "test data");
-
-            // Assert
-            Assert.IsInstanceOf<ChartData>(data);
-            Assert.AreNotSame(points, data.Points);
-        }
-
-        [Test]
-        public void Constructor_WithPoints_CreatesNewICharData()
-        {
-            // Setup
-            var points = CreateTestPoints();
-
-            // Call
-            var data = new ChartLineData(points, "test data");
-
-            // Assert
-            Assert.IsInstanceOf<ChartData>(data);
-            Assert.AreNotSame(points, data.Points);
-            CollectionAssert.AreEqual(points, data.Points);
-        }
-
-        private Collection<Point2D> CreateTestPoints()
-        {
-            return new Collection<Point2D>
-            {
-                new Point2D(0.0, 1.1),
-                new Point2D(1.0, 2.1),
-                new Point2D(1.6, 1.6)
-            };
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the chart data.");
         }
     }
 }

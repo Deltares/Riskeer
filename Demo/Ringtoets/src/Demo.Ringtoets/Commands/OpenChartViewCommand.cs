@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
@@ -45,193 +43,203 @@ namespace Demo.Ringtoets.Commands
 
         public void Execute(params object[] arguments)
         {
-            var line1 = new ChartLineData(new Collection<Point2D>
+            var line1 = new ChartLineData(Resources.OpenChartViewCommand_Execute_Line_one)
             {
-                new Point2D(0.0, 0.500),
-                new Point2D(0.1, 0.723),
-                new Point2D(0.2, 0.892),
-                new Point2D(0.3, 1.013),
-                new Point2D(0.4, 1.092),
-                new Point2D(0.5, 1.135),
-                new Point2D(0.6, 1.148),
-                new Point2D(0.7, 1.137),
-                new Point2D(0.8, 1.108),
-                new Point2D(0.9, 1.067),
-                new Point2D(1.0, 1.020),
-                new Point2D(1.1, 0.973),
-                new Point2D(1.2, 0.932),
-                new Point2D(1.3, 0.903),
-                new Point2D(1.4, 0.892),
-                new Point2D(1.5, 0.905),
-                new Point2D(1.6, 0.948),
-                new Point2D(1.7, 1.027),
-                new Point2D(1.8, 1.148),
-                new Point2D(1.9, 1.317),
-                new Point2D(2.0, 1.540),
-                new Point2D(2.1, 1.823)
-            }, Resources.OpenChartViewCommand_Execute_Line_one)
-            {
-                Style = new ChartLineStyle(Color.DarkRed, 3, DashStyle.Solid)
+                Style = new ChartLineStyle(Color.DarkRed, 3, DashStyle.Solid),
+                Points = new[]
+                {
+                    new Point2D(0.0, 0.500),
+                    new Point2D(0.1, 0.723),
+                    new Point2D(0.2, 0.892),
+                    new Point2D(0.3, 1.013),
+                    new Point2D(0.4, 1.092),
+                    new Point2D(0.5, 1.135),
+                    new Point2D(0.6, 1.148),
+                    new Point2D(0.7, 1.137),
+                    new Point2D(0.8, 1.108),
+                    new Point2D(0.9, 1.067),
+                    new Point2D(1.0, 1.020),
+                    new Point2D(1.1, 0.973),
+                    new Point2D(1.2, 0.932),
+                    new Point2D(1.3, 0.903),
+                    new Point2D(1.4, 0.892),
+                    new Point2D(1.5, 0.905),
+                    new Point2D(1.6, 0.948),
+                    new Point2D(1.7, 1.027),
+                    new Point2D(1.8, 1.148),
+                    new Point2D(1.9, 1.317),
+                    new Point2D(2.0, 1.540),
+                    new Point2D(2.1, 1.823)
+                }
             };
 
-
-            var line2 = new ChartLineData(new Collection<Point2D>
+            var line2 = new ChartLineData(Resources.OpenChartViewCommand_Execute_Line_two)
             {
-                new Point2D(0.0, 0.800),
-                new Point2D(0.1, 1.009),
-                new Point2D(0.2, 1.162),
-                new Point2D(0.3, 1.267),
-                new Point2D(0.4, 1.328),
-                new Point2D(0.5, 1.351),
-                new Point2D(0.6, 1.340),
-                new Point2D(0.7, 1.302),
-                new Point2D(0.8, 1.242),
-                new Point2D(0.9, 1.165),
-                new Point2D(1.0, 1.076),
-                new Point2D(1.1, 0.982),
-                new Point2D(1.2, 0.886),
-                new Point2D(1.3, 0.796),
-                new Point2D(1.4, 0.716),
-                new Point2D(1.5, 0.652),
-                new Point2D(1.6, 0.608),
-                new Point2D(1.7, 0.591),
-                new Point2D(1.8, 0.606),
-                new Point2D(1.9, 0.658),
-                new Point2D(2.0, 0.752),
-                new Point2D(2.1, 0.895)
-            }, Resources.OpenChartViewCommand_Execute_Line_two)
-            {
-                Style = new ChartLineStyle(Color.DarkSlateBlue, 2, DashStyle.DashDot)
+                Style = new ChartLineStyle(Color.DarkSlateBlue, 2, DashStyle.DashDot),
+                Points = new[]
+                {
+                    new Point2D(0.0, 0.800),
+                    new Point2D(0.1, 1.009),
+                    new Point2D(0.2, 1.162),
+                    new Point2D(0.3, 1.267),
+                    new Point2D(0.4, 1.328),
+                    new Point2D(0.5, 1.351),
+                    new Point2D(0.6, 1.340),
+                    new Point2D(0.7, 1.302),
+                    new Point2D(0.8, 1.242),
+                    new Point2D(0.9, 1.165),
+                    new Point2D(1.0, 1.076),
+                    new Point2D(1.1, 0.982),
+                    new Point2D(1.2, 0.886),
+                    new Point2D(1.3, 0.796),
+                    new Point2D(1.4, 0.716),
+                    new Point2D(1.5, 0.652),
+                    new Point2D(1.6, 0.608),
+                    new Point2D(1.7, 0.591),
+                    new Point2D(1.8, 0.606),
+                    new Point2D(1.9, 0.658),
+                    new Point2D(2.0, 0.752),
+                    new Point2D(2.1, 0.895)
+                }
             };
 
-            var area1 = new ChartAreaData(new Collection<Point2D>
+            var area1 = new ChartAreaData(Resources.OpenChartViewCommand_Execute_Area_one)
             {
-                new Point2D(0.0, 0.500),
-                new Point2D(0.1, 0.723),
-                new Point2D(0.2, 0.892),
-                new Point2D(0.3, 1.013),
-                new Point2D(0.4, 1.092),
-                new Point2D(0.5, 1.135),
-                new Point2D(0.6, 1.148),
-                new Point2D(0.7, 1.137),
-                new Point2D(0.8, 1.108),
-                new Point2D(0.9, 1.067),
-                new Point2D(1.0, 1.020),
-                new Point2D(1.1, 0.973),
-                new Point2D(1.2, 0.932),
-                new Point2D(1.3, 0.903),
-                new Point2D(1.4, 0.892),
-                new Point2D(1.5, 0.905),
-                new Point2D(1.5, 0.905 - 0.5),
-                new Point2D(1.4, 0.892 - 0.5),
-                new Point2D(1.3, 0.903 - 0.5),
-                new Point2D(1.2, 0.932 - 0.5),
-                new Point2D(1.1, 0.973 - 0.5),
-                new Point2D(1.0, 1.020 - 0.5),
-                new Point2D(0.9, 1.067 - 0.5),
-                new Point2D(0.8, 1.108 - 0.51),
-                new Point2D(0.7, 1.137 - 0.52),
-                new Point2D(0.6, 1.148 - 0.53),
-                new Point2D(0.5, 1.135 - 0.52),
-                new Point2D(0.4, 1.092 - 0.51),
-                new Point2D(0.3, 1.013 - 0.5),
-                new Point2D(0.2, 0.892 - 0.5),
-                new Point2D(0.1, 0.723 - 0.5),
-                new Point2D(0.0, 0.000),
-                new Point2D(0.0, 0.500)
-            }, Resources.OpenChartViewCommand_Execute_Area_one)
-            {
-                Style = new ChartAreaStyle(Color.DarkSeaGreen, Color.DarkGreen, 5)
+                Style = new ChartAreaStyle(Color.DarkSeaGreen, Color.DarkGreen, 5),
+                Points = new[]
+                {
+                    new Point2D(0.0, 0.500),
+                    new Point2D(0.1, 0.723),
+                    new Point2D(0.2, 0.892),
+                    new Point2D(0.3, 1.013),
+                    new Point2D(0.4, 1.092),
+                    new Point2D(0.5, 1.135),
+                    new Point2D(0.6, 1.148),
+                    new Point2D(0.7, 1.137),
+                    new Point2D(0.8, 1.108),
+                    new Point2D(0.9, 1.067),
+                    new Point2D(1.0, 1.020),
+                    new Point2D(1.1, 0.973),
+                    new Point2D(1.2, 0.932),
+                    new Point2D(1.3, 0.903),
+                    new Point2D(1.4, 0.892),
+                    new Point2D(1.5, 0.905),
+                    new Point2D(1.5, 0.905 - 0.5),
+                    new Point2D(1.4, 0.892 - 0.5),
+                    new Point2D(1.3, 0.903 - 0.5),
+                    new Point2D(1.2, 0.932 - 0.5),
+                    new Point2D(1.1, 0.973 - 0.5),
+                    new Point2D(1.0, 1.020 - 0.5),
+                    new Point2D(0.9, 1.067 - 0.5),
+                    new Point2D(0.8, 1.108 - 0.51),
+                    new Point2D(0.7, 1.137 - 0.52),
+                    new Point2D(0.6, 1.148 - 0.53),
+                    new Point2D(0.5, 1.135 - 0.52),
+                    new Point2D(0.4, 1.092 - 0.51),
+                    new Point2D(0.3, 1.013 - 0.5),
+                    new Point2D(0.2, 0.892 - 0.5),
+                    new Point2D(0.1, 0.723 - 0.5),
+                    new Point2D(0.0, 0.000),
+                    new Point2D(0.0, 0.500)
+                }
             };
 
-
-            var area2 = new ChartAreaData(new Collection<Point2D>
+            var area2 = new ChartAreaData(Resources.OpenChartViewCommand_Execute_Area_two)
             {
-                new Point2D(0.1, 0.723 - 0.5),
-                new Point2D(0.2, 0.892 - 0.5),
-                new Point2D(0.3, 1.013 - 0.49),
-                new Point2D(0.4, 1.092 - 0.48),
-                new Point2D(0.5, 1.135 - 0.47),
-                new Point2D(0.6, 1.148 - 0.46),
-                new Point2D(0.7, 1.137 - 0.47),
-                new Point2D(0.8, 1.108 - 0.48),
-                new Point2D(0.9, 1.067 - 0.49),
-                new Point2D(1.0, 1.020 - 0.50),
-                new Point2D(1.1, 0.973 - 0.5),
-                new Point2D(1.2, 0.932 - 0.5),
-                new Point2D(1.3, 0.903 - 0.5),
-                new Point2D(1.4, 0.892 - 0.5),
-                new Point2D(1.5, 0.905 - 0.5),
-                new Point2D(1.5, 0.905),
-                new Point2D(1.6, 0.948),
-                new Point2D(1.7, 1.027),
-                new Point2D(1.8, 1.148),
-                new Point2D(1.8, 0.606),
-                new Point2D(1.9, 0.658),
-                new Point2D(2.0, 0.752),
-                new Point2D(2.0, 0.350),
-                new Point2D(1.5, 0.905 - 0.7),
-                new Point2D(1.4, 0.892 - 0.7),
-                new Point2D(1.3, 0.903 - 0.7),
-                new Point2D(1.2, 0.932 - 0.7),
-                new Point2D(1.1, 0.973 - 0.7),
-                new Point2D(1.0, 1.020 - 0.7),
-                new Point2D(0.9, 1.067 - 0.7),
-                new Point2D(0.8, 1.108 - 0.7),
-                new Point2D(0.7, 1.137 - 0.7),
-                new Point2D(0.6, 1.148 - 0.7),
-                new Point2D(0.5, 1.135 - 0.7),
-                new Point2D(0.4, 1.092 - 0.7),
-                new Point2D(0.3, 1.013 - 0.7),
-                new Point2D(0.2, 0.892 - 0.7),
-                new Point2D(0.1, 0.723 - 0.7),
-                new Point2D(0.1, 0.723 - 0.5)
-            }, Resources.OpenChartViewCommand_Execute_Area_two)
-            {
-                Style = new ChartAreaStyle(Color.FromArgb(120, Color.Wheat), Color.DarkOrange, 2)
+                Style = new ChartAreaStyle(Color.FromArgb(120, Color.Wheat), Color.DarkOrange, 2),
+                Points = new[]
+                {
+                    new Point2D(0.1, 0.723 - 0.5),
+                    new Point2D(0.2, 0.892 - 0.5),
+                    new Point2D(0.3, 1.013 - 0.49),
+                    new Point2D(0.4, 1.092 - 0.48),
+                    new Point2D(0.5, 1.135 - 0.47),
+                    new Point2D(0.6, 1.148 - 0.46),
+                    new Point2D(0.7, 1.137 - 0.47),
+                    new Point2D(0.8, 1.108 - 0.48),
+                    new Point2D(0.9, 1.067 - 0.49),
+                    new Point2D(1.0, 1.020 - 0.50),
+                    new Point2D(1.1, 0.973 - 0.5),
+                    new Point2D(1.2, 0.932 - 0.5),
+                    new Point2D(1.3, 0.903 - 0.5),
+                    new Point2D(1.4, 0.892 - 0.5),
+                    new Point2D(1.5, 0.905 - 0.5),
+                    new Point2D(1.5, 0.905),
+                    new Point2D(1.6, 0.948),
+                    new Point2D(1.7, 1.027),
+                    new Point2D(1.8, 1.148),
+                    new Point2D(1.8, 0.606),
+                    new Point2D(1.9, 0.658),
+                    new Point2D(2.0, 0.752),
+                    new Point2D(2.0, 0.350),
+                    new Point2D(1.5, 0.905 - 0.7),
+                    new Point2D(1.4, 0.892 - 0.7),
+                    new Point2D(1.3, 0.903 - 0.7),
+                    new Point2D(1.2, 0.932 - 0.7),
+                    new Point2D(1.1, 0.973 - 0.7),
+                    new Point2D(1.0, 1.020 - 0.7),
+                    new Point2D(0.9, 1.067 - 0.7),
+                    new Point2D(0.8, 1.108 - 0.7),
+                    new Point2D(0.7, 1.137 - 0.7),
+                    new Point2D(0.6, 1.148 - 0.7),
+                    new Point2D(0.5, 1.135 - 0.7),
+                    new Point2D(0.4, 1.092 - 0.7),
+                    new Point2D(0.3, 1.013 - 0.7),
+                    new Point2D(0.2, 0.892 - 0.7),
+                    new Point2D(0.1, 0.723 - 0.7),
+                    new Point2D(0.1, 0.723 - 0.5)
+                }
             };
 
-            var points1 = new ChartPointData(new Collection<Point2D>
+            var points1 = new ChartPointData(Resources.OpenChartViewCommand_Execute_Points_one)
             {
-                new Point2D(0.2, 0.892 + 0.04),
-                new Point2D(0.3, 1.013 + 0.02),
-                new Point2D(0.4, 1.092),
-                new Point2D(0.5, 1.135 - 0.02),
-                new Point2D(0.6, 1.148 + 0.01),
-                new Point2D(1.4, 0.892 - 0.02),
-                new Point2D(1.5, 0.905 + 0.01),
-                new Point2D(1.8, 1.148 + 0.02)
-            }, Resources.OpenChartViewCommand_Execute_Points_one)
-            {
-                Style = new ChartPointStyle(Color.Crimson, 6, Color.AntiqueWhite, 3, ChartPointSymbol.Circle)
+                Style = new ChartPointStyle(Color.Crimson, 6, Color.AntiqueWhite, 3, ChartPointSymbol.Circle),
+                Points = new[]
+                {
+                    new Point2D(0.2, 0.892 + 0.04),
+                    new Point2D(0.3, 1.013 + 0.02),
+                    new Point2D(0.4, 1.092),
+                    new Point2D(0.5, 1.135 - 0.02),
+                    new Point2D(0.6, 1.148 + 0.01),
+                    new Point2D(1.4, 0.892 - 0.02),
+                    new Point2D(1.5, 0.905 + 0.01),
+                    new Point2D(1.8, 1.148 + 0.02)
+                }
             };
 
-            var points2 = new ChartPointData(new Collection<Point2D>
+            var points2 = new ChartPointData(Resources.OpenChartViewCommand_Execute_Points_two)
             {
-                new Point2D(0.0, 0.800 + 0.01),
-                new Point2D(0.1, 1.009 + 0.02),
-                new Point2D(0.2, 1.162 + 0.03),
-                new Point2D(0.2, 1.162 + 0.05),
-                new Point2D(0.2, 1.162 - 0.03),
-                new Point2D(0.2, 1.162 - 0.01),
-                new Point2D(0.3, 1.267),
-                new Point2D(0.4, 1.328 - 0.01),
-                new Point2D(0.53, 1.351),
-                new Point2D(0.69, 1.340),
-                new Point2D(0.73, 1.302),
-                new Point2D(1.4, 0.716 - 0.02),
-                new Point2D(1.4, 0.716 + 0.02),
-                new Point2D(1.7, 0.591),
-                new Point2D(1.8, 0.606)
-            }, Resources.OpenChartViewCommand_Execute_Points_two)
-            {
-                Style = new ChartPointStyle(Color.FromArgb(190, Color.Gold), 7, Color.DeepSkyBlue, 2, ChartPointSymbol.Diamond)
+                Style = new ChartPointStyle(Color.FromArgb(190, Color.Gold), 7, Color.DeepSkyBlue, 2, ChartPointSymbol.Diamond),
+                Points = new[]
+                {
+                    new Point2D(0.0, 0.800 + 0.01),
+                    new Point2D(0.1, 1.009 + 0.02),
+                    new Point2D(0.2, 1.162 + 0.03),
+                    new Point2D(0.2, 1.162 + 0.05),
+                    new Point2D(0.2, 1.162 - 0.03),
+                    new Point2D(0.2, 1.162 - 0.01),
+                    new Point2D(0.3, 1.267),
+                    new Point2D(0.4, 1.328 - 0.01),
+                    new Point2D(0.53, 1.351),
+                    new Point2D(0.69, 1.340),
+                    new Point2D(0.73, 1.302),
+                    new Point2D(1.4, 0.716 - 0.02),
+                    new Point2D(1.4, 0.716 + 0.02),
+                    new Point2D(1.7, 0.591),
+                    new Point2D(1.8, 0.606)
+                }
             };
 
-            viewController.DocumentViewController.OpenViewForData(new ChartDataCollection(new List<ChartData>
-            {
-                area1, area2, line1, line2, points1, points2
-            }, Resources.OpenChartViewCommand_Execute_Graph_data));
+            var chartDataCollection = new ChartDataCollection(Resources.OpenChartViewCommand_Execute_Graph_data);
+
+            chartDataCollection.Add(area1);
+            chartDataCollection.Add(area2);
+            chartDataCollection.Add(line1);
+            chartDataCollection.Add(line2);
+            chartDataCollection.Add(points1);
+            chartDataCollection.Add(points2);
+
+            viewController.DocumentViewController.OpenViewForData(chartDataCollection);
         }
     }
 }

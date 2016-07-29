@@ -32,39 +32,48 @@ namespace Core.Components.Charting.Data
     /// </summary>
     public class ChartMultipleAreaData : ChartData
     {
+        private IEnumerable<Point2D[]> areas;
+
         /// <summary>
         /// Creates a new instance of <see cref="ChartMultipleAreaData"/>.
         /// </summary>
-        /// <param name="areas">A <see cref="IEnumerable{T}"/> of <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> as (X,Y) points.</param>
         /// <param name="name">The name of the <see cref="ChartMultipleAreaData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="areas"/> is 
-        /// <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartMultipleAreaData(IEnumerable<IEnumerable<Point2D>> areas, string name)
-            : base(name)
+        public ChartMultipleAreaData(string name) : base(name)
         {
-            if (areas == null)
-            {
-                var message = string.Format("A collection of areas is required when creating {0}.", typeof(ChartMultipleAreaData).Name);
-                throw new ArgumentNullException("areas", message);
-            }
-            if (areas.Any(a => a == null))
-            {
-                var message = string.Format("Every area in the collection needs a value when creating {0}.", typeof(ChartMultipleAreaData).Name);
-                throw new ArgumentException(message, "areas");
-            }
-
-            Areas = areas.Select(area => area.ToList()).ToList();
+            Areas = new List<Point2D[]>();
         }
 
         /// <summary>
-        /// Gets the areas that are described by the <see cref="ChartMultipleAreaData"/>.
+        /// Gets or sets the areas that are described by the <see cref="ChartMultipleAreaData"/>.
         /// </summary>
-        public IEnumerable<IEnumerable<Point2D>>  Areas { get; private set; }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> contains any <c>null</c> value.</exception>
+        public IEnumerable<Point2D[]> Areas
+        {
+            get
+            {
+                return areas;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", "The collection of point arrays cannot be null.");
+                }
+
+                if (value.Any(array => array == null))
+                {
+                    throw new ArgumentException("The collection of point arrays cannot contain null values.", "value");
+                }
+
+                areas = value;
+            }
+        }
 
         /// <summary>
-        /// The style of the <see cref="ChartMultipleAreaData"/>.
+        /// Gets or sets the style of the <see cref="ChartMultipleAreaData"/>.
         /// </summary>
         public ChartAreaStyle Style { get; set; }
     }

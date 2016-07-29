@@ -54,7 +54,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var converter = new ChartAreaDataConverter();
-            var areaData = new ChartAreaData(new Collection<Point2D>(), "test data");
+            var areaData = new ChartAreaData("test data");
 
             // Call
             var canConvert = converter.CanConvertSeries(areaData);
@@ -72,7 +72,7 @@ namespace Core.Components.OxyPlot.Test.Converter
 
             // Call
             var canConvert = converter.CanConvertSeries(chartData);
-            
+
             // Assert
             Assert.IsFalse(canConvert);
         }
@@ -85,23 +85,28 @@ namespace Core.Components.OxyPlot.Test.Converter
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
             var points = new Collection<Point2D>();
-
-            for (int i = 0; i < randomCount; i++)
+            for (var i = 0; i < randomCount; i++)
             {
                 points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var areaData = new ChartAreaData(points, "test data");
+            var areaData = new ChartAreaData("test data")
+            {
+                Points = points.ToArray()
+            };
 
             // Call
             var series = converter.Convert(areaData);
 
             // Assert
             Assert.IsInstanceOf<IList<Series>>(series);
-            var areaSeries = ((AreaSeries)series[0]);
+            var areaSeries = (AreaSeries) series[0];
             var expectedData = points.Select(t => new DataPoint(t.X, t.Y)).ToArray();
             CollectionAssert.AreEqual(expectedData, areaSeries.Points);
-            CollectionAssert.AreEqual(new Collection<DataPoint> { expectedData.First() }, areaSeries.Points2);
+            CollectionAssert.AreEqual(new Collection<DataPoint>
+            {
+                expectedData.First()
+            }, areaSeries.Points2);
         }
 
         [Test]
@@ -144,7 +149,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartAreaDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartAreaStyle(expectedColor, Color.Red, 3);
-            var data = new ChartAreaData(new Collection<Point2D>(), "test")
+            var data = new ChartAreaData("test")
             {
                 Style = style
             };
@@ -153,7 +158,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var areaSeries = ((AreaSeries)series[0]);
+            var areaSeries = (AreaSeries) series[0];
             AssertColors(style.FillColor, areaSeries.Fill);
         }
 
@@ -167,7 +172,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartAreaDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartAreaStyle(Color.Red, expectedColor, 3);
-            var data = new ChartAreaData(new Collection<Point2D>(), "test")
+            var data = new ChartAreaData("test")
             {
                 Style = style
             };
@@ -176,7 +181,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var areaSeries = ((AreaSeries)series[0]);
+            var areaSeries = (AreaSeries) series[0];
             AssertColors(style.StrokeColor, areaSeries.Color);
         }
 
@@ -189,7 +194,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartAreaDataConverter();
             var style = new ChartAreaStyle(Color.Red, Color.Red, width);
-            var data = new ChartAreaData(new Collection<Point2D>(), "test")
+            var data = new ChartAreaData("test")
             {
                 Style = style
             };
@@ -198,7 +203,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var areaSeries = ((AreaSeries)series[0]);
+            var areaSeries = (AreaSeries) series[0];
             Assert.AreEqual(width, areaSeries.StrokeThickness);
         }
 

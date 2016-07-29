@@ -60,7 +60,7 @@ namespace Core.Common.Base.Geometry
             }
 
             Point2D worldCoordinate2D = new Point2D(worldCoordinate.X, worldCoordinate.Y);
-            Vector<double> vectorToPoint = (worldCoordinate2D - startWorldCoordinate);
+            Vector<double> vectorToPoint = worldCoordinate2D - startWorldCoordinate;
 
             // Determine the 'spanning line' vector:
             Vector<double> spanningVector = endWorldCoordinate - startWorldCoordinate;

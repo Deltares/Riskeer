@@ -2108,7 +2108,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Register_WithNullPipingFailureMechanismMetaEntity_ThrowsArgumentNullExcpetion()
+        public void Register_WithNullPipingFailureMechanismMetaEntity_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -2122,7 +2122,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Register_WithNullPipingProbabilityAssessmentInput_ThrowsArgumentNullExcpetion()
+        public void Register_WithNullPipingProbabilityAssessmentInput_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new PersistenceRegistry();

@@ -117,7 +117,7 @@ namespace Core.Plugins.Map.Test.Legend
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildsOnDataReversed()
+        public void ChildNodeObjects_Always_ReturnsChildrenOnDataReversed()
         {
             // Setup
             var mapData1 = mocks.StrictMock<MapData>("test data");

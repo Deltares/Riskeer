@@ -19,13 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -40,92 +35,75 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     public static class GrassCoverErosionInwardsChartDataFactory
     {
         /// <summary>
-        /// Create <see cref="ChartData"/> with default styling for the <paramref name="dikeGeometry"/>.
+        /// Create <see cref="ChartLineData"/> with default styling for a dike geometry.
         /// </summary>
-        /// <param name="dikeGeometry">The geometry of the <see cref="DikeProfile"/> for which to create 
-        /// <see cref="ChartData"/>.</param>
-        /// <param name="name">The name of the <see cref="DikeProfile"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="dikeGeometry"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeGeometry"/> 
-        /// is <c>null</c>.</exception>
-        public static ChartData Create(RoughnessPoint[] dikeGeometry, string name)
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateDikeGeometryChartData()
         {
-            if (dikeGeometry == null)
-            {
-                throw new ArgumentNullException("dikeGeometry");
-            }
-
-            return new ChartLineData(dikeGeometry.Select(dg => dg.Point),
-                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                                   name,
-                                                   Resources.DikeProfile_DisplayName))
+            return new ChartLineData(Resources.DikeProfile_DisplayName)
             {
                 Style = new ChartLineStyle(Color.SaddleBrown, 2, DashStyle.Solid)
             };
         }
 
         /// <summary>
-        /// Create <see cref="ChartData"/> with default styling for the <paramref name="foreshoreGeometry"/>.
+        /// Create <see cref="ChartLineData"/> with default styling for a foreshore geometry.
         /// </summary>
-        /// <param name="foreshoreGeometry">The forshore geometry of the <see cref="DikeProfile"/> 
-        /// for which to create <see cref="ChartData"/>.</param>
-        /// <param name="name">The name of the <see cref="DikeProfile"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="foreshoreGeometry"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="foreshoreGeometry"/> 
-        /// is <c>null</c>.</exception>
-        public static ChartData Create(RoundedPoint2DCollection foreshoreGeometry, string name)
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateForeshoreGeometryChartData()
         {
-            if (foreshoreGeometry == null)
-            {
-                throw new ArgumentNullException("foreshoreGeometry");
-            }
-
-            return new ChartLineData(foreshoreGeometry,
-                                     string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                                   name,
-                                                   Resources.Foreshore_DisplayName))
+            return new ChartLineData(Resources.Foreshore_DisplayName)
             {
                 Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
             };
         }
 
         /// <summary>
-        /// Create <see cref="ChartData"/> with default styling for the <paramref name="dikeHeight"/>.
+        /// Create <see cref="ChartLineData"/> with default styling for a dike height.
         /// </summary>
-        /// <param name="dikeHeight">The dike height of the <see cref="DikeProfile"/> for which
-        /// to create <see cref="ChartData"/>.</param>
-        /// <param name="dikeGeometry">The geometry of the <see cref="DikeProfile"/> to determine 
-        /// the position of the <paramref name="dikeHeight"/> marker.</param>
-        /// <param name="name">The name of the <see cref="DikeProfile"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="dikeHeight"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="dikeHeight"/> is <c>NaN</c>.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dikeGeometry"/> 
-        /// is <c>null</c>.</exception>
-        public static ChartData Create(RoundedDouble dikeHeight, RoughnessPoint[] dikeGeometry, string name)
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateDikeHeigthChartData()
         {
-            if (double.IsNaN(dikeHeight))
-            {
-                throw new ArgumentException("Dike height should have a value.", "dikeHeight");
-            }
-
-            if (dikeGeometry == null)
-            {
-                throw new ArgumentNullException("dikeGeometry");
-            }
-
-            return new ChartLineData(CreateDikeHeightData(dikeHeight, dikeGeometry), Resources.DikeHeight_ChartName)
+            return new ChartLineData(Resources.DikeHeight_ChartName)
             {
                 Style = new ChartLineStyle(Color.MediumSeaGreen, 2, DashStyle.Dash)
             };
         }
 
-        private static IEnumerable<Point2D> CreateDikeHeightData(RoundedDouble dikeHeight, RoughnessPoint[] dikeGeometry)
+        /// <summary>
+        /// Updates the name of <paramref name="chartData"/> based on <paramref name="dikeProfile"/>.
+        /// </summary>
+        /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
+        /// <param name="dikeProfile">The <see cref="DikeProfile"/> used for obtaining the name.</param>
+        /// <remarks>When <paramref name="dikeProfile"/> is <c>null</c> a default name is set (<seealso cref="CreateDikeGeometryChartData"/>).</remarks>
+        public static void UpdateDikeGeometryChartDataName(ChartLineData chartData, DikeProfile dikeProfile)
         {
-            return new[]
-            {
-                new Point2D(dikeGeometry.First().Point.X, dikeHeight),
-                new Point2D(dikeGeometry.Last().Point.X, dikeHeight)
-            };
+            chartData.Name = dikeProfile != null
+                                 ? string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                                 dikeProfile.Name,
+                                                 Resources.DikeProfile_DisplayName)
+                                 : Resources.DikeProfile_DisplayName;
+        }
+
+        /// <summary>
+        /// Updates the name of <paramref name="chartData"/> based on <paramref name="input"/>.
+        /// </summary>
+        /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
+        /// <param name="input">The <see cref="GrassCoverErosionInwardsInput"/> used for obtaining the name.</param>
+        /// <remarks>A default name is set (<seealso cref="CreateForeshoreGeometryChartData"/>) when:
+        /// <list type="bullet">
+        /// <item><paramref name="input"/> is <c>null</c>;</item>
+        /// <item>the dike profile in <paramref name="input"/> is <c>null</c>;</item>
+        /// <item>the foreshore should not be used.</item>
+        /// </list>
+        /// </remarks>
+        public static void UpdateForeshoreGeometryChartDataName(ChartLineData chartData, GrassCoverErosionInwardsInput input)
+        {
+            chartData.Name = input != null && input.DikeProfile != null && input.UseForeshore
+                                 ? string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                                 input.DikeProfile.Name,
+                                                 Resources.Foreshore_DisplayName)
+                                 : Resources.Foreshore_DisplayName;
         }
     }
 }

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base.Geometry;
 using Core.Components.Charting.Styles;
 
 namespace Core.Components.Charting.Data
@@ -34,13 +32,10 @@ namespace Core.Components.Charting.Data
         /// <summary>
         /// Creates a new instance of <see cref="ChartLineData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> as (X,Y) points.</param>
         /// <param name="name">The name of the <see cref="ChartLineData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is 
-        /// <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartLineData(IEnumerable<Point2D> points, string name) : base(points, name) { }
+        public ChartLineData(string name) : base(name) {}
 
         /// <summary>
         /// Gets or sets the style of the line.

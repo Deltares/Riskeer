@@ -50,7 +50,7 @@ namespace Core.Components.Gis.Test.Data
         [TestCase(null)]
         [TestCase("")]
         [TestCase("        ")]
-        public void Constructor_InvalidName_ThrowsArgumentExcpetion(string invalidName)
+        public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Setup
             var features = new Collection<MapFeature>

@@ -20,40 +20,47 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Geometry;
 
 namespace Core.Components.Charting.Data
 {
     /// <summary>
-    /// Base class for <see cref="ChartData"/> which is based on a collection of points.
+    /// Base class for <see cref="ChartData"/> which is based on an array of points in 2D space.
     /// </summary>
-    public abstract class PointBasedChartData : ChartData 
+    public abstract class PointBasedChartData : ChartData
     {
+        private Point2D[] points;
+
         /// <summary>
         /// Creates a new instance of <see cref="PointBasedChartData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> as (X,Y) points.</param>
         /// <param name="name">The name of the <see cref="PointBasedChartData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is 
-        /// <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        protected PointBasedChartData(IEnumerable<Point2D> points, string name) : base(name)
+        protected PointBasedChartData(string name) : base(name)
         {
-            if (points == null)
-            {
-                var message = String.Format("A point collection is required when creating a subclass of {0}.", typeof(PointBasedChartData));
-                throw new ArgumentNullException("points", message);
-            }
-            Points = points.ToArray();
+            points = new Point2D[0];
         }
 
-
         /// <summary>
-        /// Gets the collection of points in 2D space.
+        /// Gets or sets an array of points in 2D space.
         /// </summary>
-        public IEnumerable<Point2D> Points { get; private set; }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>
+        public Point2D[] Points
+        {
+            get
+            {
+                return points;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", "The array of points cannot be null.");
+                }
+
+                points = value;
+            }
+        }
     }
 }

@@ -29,32 +29,34 @@ namespace Core.Components.Charting.Data
     /// </summary>
     public class ChartDataCollection : ChartData
     {
+        private readonly IList<ChartData> chartDataList;
+
         /// <summary>
         /// Creates a new instance of <see cref="ChartDataCollection"/>.
         /// </summary>
-        /// <param name="list">A <see cref="IList{T}"/> of <see cref="ChartData"/>.</param>
         /// <param name="name">The name of the <see cref="ChartDataCollection"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is  <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartDataCollection(IList<ChartData> list, string name) : base(name)
+        public ChartDataCollection(string name) : base(name)
         {
-            if (list == null)
-            {
-                throw new ArgumentNullException("list", "A list collection is required when creating ChartDataCollection.");
-            }
-            List = list;
+            chartDataList = new List<ChartData>();
         }
 
         /// <summary>
-        /// Gets the list of <see cref="ChartData"/> of the <see cref="ChartDataCollection"/>.
+        /// Gets the collection of <see cref="ChartData"/> of the <see cref="ChartDataCollection"/>.
         /// </summary>
-        public IList<ChartData> List { get; private set; }
+        public IEnumerable<ChartData> Collection
+        {
+            get
+            {
+                return chartDataList;
+            }
+        }
 
         /// <summary>
-        /// Adds an element to the list of <see cref="ChartData"/>.
+        /// Adds an element to the collection of <see cref="ChartData"/>.
         /// </summary>
-        /// <param name="elementToAdd">The <see cref="ChartData"/> element to add to the list.</param>
+        /// <param name="elementToAdd">The <see cref="ChartData"/> element to add to the collection.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="elementToAdd"/> is <c>null</c>.</exception>
         public void Add(ChartData elementToAdd)
         {
@@ -62,24 +64,11 @@ namespace Core.Components.Charting.Data
             {
                 throw new ArgumentNullException("elementToAdd", "An element cannot be null when adding it to the collection.");
             }
-            List.Add(elementToAdd);
+            chartDataList.Add(elementToAdd);
         }
 
         /// <summary>
-        /// Replaces the given old element in the list of <see cref="ChartData"/> with the given new element.
-        /// Meta-data of the old element is being kept.
-        /// </summary>
-        /// <param name="oldElement">The <see cref="ChartData"/> element to replace.</param>
-        /// <param name="newElement">The <see cref="ChartData"/> element to replace with.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="oldElement"/> or 
-        /// <paramref name="newElement"/> is <c>null</c>.</exception>
-        public void Replace(ChartData oldElement, ChartData newElement)
-        {
-            Replace(oldElement, newElement, List);
-        }
-
-        /// <summary>
-        /// Inserts the given element in the list of <see cref="ChartData "/>on the given position.
+        /// Inserts the given element into the collection of <see cref="ChartData"/> on the given position.
         /// </summary>
         /// <param name="position">The position to insert the element on.</param>
         /// <param name="elementToInsert">The <see cref="ChartData"/> element to insert.</param>
@@ -90,48 +79,24 @@ namespace Core.Components.Charting.Data
             {
                 throw new ArgumentNullException("elementToInsert", "An element cannot be null when adding it to the collection.");
             }
-            List.Insert(position, elementToInsert);
+            chartDataList.Insert(position, elementToInsert);
         }
 
         /// <summary>
-        /// Removes the given element from the list of <see cref="ChartData"/>.
+        /// Removes the given element from the collection of <see cref="ChartData"/>.
         /// </summary>
         /// <param name="elementToRemove">The <see cref="ChartData"/> element to remove.</param>
         public void Remove(ChartData elementToRemove)
         {
-            List.Remove(elementToRemove);
+            chartDataList.Remove(elementToRemove);
         }
 
-        private void Replace(ChartData oldElement, ChartData newElement, IList<ChartData> listToCheck)
+        /// <summary>
+        /// Removes all elements from the collection of <see cref="ChartData"/>.
+        /// </summary>
+        public void Clear()
         {
-            if (newElement == null)
-            {
-                throw new ArgumentNullException("newElement", "An element cannot be replaced with null. Use Remove instead.");
-            }
-
-            if (oldElement == null)
-            {
-                throw new ArgumentNullException("oldElement", "A null element cannot be replaced. Use Add instead.");
-            }
-
-            for (var i = 0; i < listToCheck.Count; i++)
-            {
-                if (listToCheck[i].Equals(oldElement))
-                {
-                    ChartDataCollection oldCollection = oldElement as ChartDataCollection;
-                    ChartDataCollection newCollection = newElement as ChartDataCollection;
-                    if (oldCollection != null && newCollection != null)
-                    {
-                        for (int j = 0; j < newCollection.List.Count; j++)
-                        {
-                            Replace(oldCollection.List[j], newCollection.List[j], oldCollection.List);
-                        }
-                    }
-
-                    newElement.IsVisible = oldElement.IsVisible;
-                    listToCheck[i] = newElement;
-                }
-            }
+            chartDataList.Clear();
         }
     }
 }

@@ -36,7 +36,9 @@ namespace Core.Plugins.Chart.Test.PresentationObjects
         {
             // Setup
             ChartData data = new TestChartData();
-            ChartDataCollection collection = new ChartDataCollection(new [] { data }, "test");
+            ChartDataCollection collection = new ChartDataCollection("test");
+
+            collection.Add(data);
 
             // Call
             ChartDataContext context = new ChartDataContext(data, collection);

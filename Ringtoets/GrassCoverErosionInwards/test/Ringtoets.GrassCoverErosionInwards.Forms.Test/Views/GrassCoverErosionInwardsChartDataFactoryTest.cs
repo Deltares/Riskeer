@@ -19,12 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
@@ -39,157 +35,159 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     public class GrassCoverErosionInwardsChartDataFactoryTest
     {
         [Test]
-        public void Create_DikeProfileGeometryNull_ThrowsArgumentNullException()
+        public void CreateDikeGeometryChartData_ReturnsChartDataWithDefaultStyling()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoughnessPoint[]) null, "dike profile name");
+            ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("dikeGeometry", exception.ParamName);
+            Assert.AreEqual(string.Format(Resources.DikeProfile_DisplayName), data.Name);
+            AssertEqualStyle(data.Style, Color.SaddleBrown, 2, DashStyle.Solid);
         }
 
         [Test]
-        public void Create_GivenDikeProfileGeometry_ReturnsChartDataWithDefaultStyling()
+        public void CreateForeshoreGeometryChartData_ReturnsChartDataWithDefaultStyling()
         {
-            // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), CreateDikeProfileGeometry(), new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties
-                                              {
-                                                  Name = "dike profile"
-                                              });
-
             // Call
-            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.DikeGeometry, dikeProfile.Name);
+            ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateForeshoreGeometryChartData();
 
             // Assert
-            Assert.IsInstanceOf<ChartLineData>(data);
-            ChartLineData chartLineData = (ChartLineData) data;
-            Assert.AreEqual(3, chartLineData.Points.Count());
+            Assert.AreEqual(string.Format(Resources.Foreshore_DisplayName), data.Name);
+            AssertEqualStyle(data.Style, Color.DarkOrange, 2, DashStyle.Solid);
+        }
+
+        [Test]
+        public void CreateDikeHeigthChartData_ReturnsChartDataWithDefaultStyling()
+        {
+            // Call
+            ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeigthChartData();
+
+            // Assert
+            Assert.AreEqual(Resources.DikeHeight_ChartName, data.Name);
+            AssertEqualStyle(data.Style, Color.MediumSeaGreen, 2, DashStyle.Dash);
+        }
+
+        [Test]
+        public void UpdateDikeGeometryChartDataName_DikeProfileNull_NameSetToDefaultName()
+        {
+            // Setup
+            var chartData = new ChartLineData("test name");
+
+            // Call
+            GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(chartData, null);
+
+            // Assert
+            Assert.AreEqual(Resources.DikeProfile_DisplayName, chartData.Name);
+        }
+
+        [Test]
+        public void UpdateDikeGeometryChartDataName_DikeProfile_NameSetToDikeProfileName()
+        {
+            // Setup
+            var chartData = new ChartLineData("test name");
+            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0], null, new DikeProfile.ConstructionProperties
+            {
+                Name = "dike profile name"
+            });
+
+            // Call
+            GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(chartData, dikeProfile);
+
+            // Assert
             var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
                                              dikeProfile.Name,
                                              Resources.DikeProfile_DisplayName);
-            Assert.AreEqual(expectedName, data.Name);
-
-            AssertEqualPointCollections(dikeProfile.DikeGeometry.Select(dg => dg.Point), chartLineData.Points);
-            AssertEqualStyle(chartLineData.Style, Color.SaddleBrown, 2, DashStyle.Solid);
+            Assert.AreEqual(expectedName, chartData.Name);
         }
 
         [Test]
-        public void Create_DikeProfileForshoreGeometryNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedPoint2DCollection) null, "dike profile name");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("foreshoreGeometry", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_GivenDikeProfileForshoreGeometry_ReturnsChartDataWithDefaultStyling()
-        {
-            var dikeProfile = new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0], CreateForshoreGeometry(),
-                                              null, new DikeProfile.ConstructionProperties
-                                              {
-                                                  Name = "dike profile"
-                                              });
-
-            // Call
-            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeProfile.ForeshoreGeometry, dikeProfile.Name);
-
-            // Assert
-            Assert.IsInstanceOf<ChartLineData>(data);
-            ChartLineData chartLineData = (ChartLineData) data;
-            Assert.AreEqual(3, chartLineData.Points.Count());
-            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                             dikeProfile.Name,
-                                             Resources.Foreshore_DisplayName);
-            Assert.AreEqual(expectedName, data.Name);
-
-            AssertEqualPointCollections(dikeProfile.ForeshoreGeometry, chartLineData.Points);
-            AssertEqualStyle(chartLineData.Style, Color.DarkOrange, 2, DashStyle.Solid);
-        }
-
-        [Test]
-        public void Create_DikeHeightNaN_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedDouble) double.NaN, new RoughnessPoint[0], "dike profile name");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("dikeHeight", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_DikeHeightNotNaNDikeProfileGeometryNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => GrassCoverErosionInwardsChartDataFactory.Create((RoundedDouble) 12.0, null, "dike profile name");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("dikeGeometry", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_GivenDikeHeightAndDikeGeometry_ReturnsChartDataWithDefaultStyling()
+        public void UpdateForeshoreGeometryChartDataName_InputNull_NameSetToDefaultName()
         {
             // Setup
-            var dikeGeometry = CreateDikeProfileGeometry();
-            RoundedDouble dikeHeight = (RoundedDouble) 12.0;
-            string name = "dike profile";
+            var chartData = new ChartLineData("test name");
 
             // Call
-            ChartData data = GrassCoverErosionInwardsChartDataFactory.Create(dikeHeight, dikeGeometry, name);
+            GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(chartData, null);
 
             // Assert
-            Assert.IsInstanceOf<ChartLineData>(data);
-            ChartLineData chartLineData = (ChartLineData) data;
-            Assert.AreEqual(2, chartLineData.Points.Count());
-            Assert.AreEqual(Resources.DikeHeight_ChartName, data.Name);
+            Assert.AreEqual(Resources.Foreshore_DisplayName, chartData.Name);
+        }
 
-            var dikeHeightPoints = new[]
+        [Test]
+        public void UpdateForeshoreGeometryChartDataName_DikeProfileNull_NameSetToDefaultName()
+        {
+            // Setup
+            var chartData = new ChartLineData("test name");
+            var input = new GrassCoverErosionInwardsInput
             {
-                new Point2D(dikeGeometry.First().Point.X, 12.0),
-                new Point2D(dikeGeometry.Last().Point.X, 12.0),
+                UseForeshore = true
             };
 
-            AssertEqualPointCollections(dikeHeightPoints, chartLineData.Points);
-            AssertEqualStyle(chartLineData.Style, Color.MediumSeaGreen, 2, DashStyle.Dash);
+            // Call
+            GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(chartData, input);
+
+            // Assert
+            Assert.AreEqual(Resources.Foreshore_DisplayName, chartData.Name);
         }
 
-        private void AssertEqualPointCollections(IEnumerable<Point2D> points, IEnumerable<Point2D> chartPoints)
+        [Test]
+        public void UpdateForeshoreGeometryChartDataName_DikeProfileSetUseForeshoreFalse_NameSetToDefaultName()
         {
-            CollectionAssert.AreEqual(points, chartPoints);
+            // Setup
+            var chartData = new ChartLineData("test name");
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = new DikeProfile(new Point2D(0, 0),
+                                              new RoughnessPoint[0],
+                                              new Point2D[0],
+                                              null,
+                                              new DikeProfile.ConstructionProperties
+                                              {
+                                                  Name = "dike profile name"
+                                              }),
+                UseForeshore = false
+            };
+
+            // Call
+            GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(chartData, input);
+
+            // Assert
+            Assert.AreEqual(Resources.Foreshore_DisplayName, chartData.Name);
         }
 
-        private void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)
+        [Test]
+        public void UpdateForeshoreGeometryChartDataName_DikeProfileSetUseForeshoreTrue_NameSetToDikeProfileName()
+        {
+            // Setup
+            var chartData = new ChartLineData("test name");
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = new DikeProfile(new Point2D(0, 0),
+                                              new RoughnessPoint[0],
+                                              new Point2D[0],
+                                              null,
+                                              new DikeProfile.ConstructionProperties
+                                              {
+                                                  Name = "dike profile name"
+                                              }),
+                UseForeshore = true
+            };
+
+            // Call
+            GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(chartData, input);
+
+            // Assert
+            var expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                                             input.DikeProfile.Name,
+                                             Resources.Foreshore_DisplayName);
+            Assert.AreEqual(expectedName, chartData.Name);
+        }
+
+        private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)
         {
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.Style);
-        }
-
-        private RoughnessPoint[] CreateDikeProfileGeometry()
-        {
-            return new[]
-            {
-                new RoughnessPoint(new Point2D(2.0, 3.0), 4.0),
-                new RoughnessPoint(new Point2D(3.0, 4.0), 4.0),
-                new RoughnessPoint(new Point2D(4.0, 5.0), 4.0)
-            };
-        }
-
-        private Point2D[] CreateForshoreGeometry()
-        {
-            return new[]
-            {
-                new Point2D(8.0, 5.0),
-                new Point2D(9.0, 4.0),
-                new Point2D(10.0, 3.0),
-            };
         }
     }
 }

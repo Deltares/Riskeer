@@ -97,6 +97,7 @@
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsChartDataFactoryTest.cs" />
+    <Compile Include="Views\GrassCoverErosionInwardsChartDataPointsFactoryTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsDikeProfileSelectionViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismSectionResultRowTest.cs" />
@@ -147,10 +148,6 @@
       <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
       <Name>Core.Components.Charting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj">
-      <Project>{DADAA0A5-288C-49CB-9F08-337F16832C86}</Project>
-      <Name>Core.Components.OxyPlot.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
@@ -162,10 +159,6 @@
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
-      <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
-      <Name>Ringtoets.HydraRing.Calculation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
@@ -182,10 +175,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Plugin\Ringtoets.GrassCoverErosionInwards.Plugin.csproj">
       <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionInwards.Utils\Ringtoets.GrassCoverErosionInwards.Utils.csproj">
-      <Project>{99573570-EE00-4264-8147-26A1B25DB23F}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
@@ -58,7 +57,7 @@ namespace Core.Plugins.Chart.Test.Legend
             // Setup 
             using (var view = new ChartLegendView())
             {
-                var chartDataCollection = new ChartDataCollection(new List<ChartData>(), "test data");
+                var chartDataCollection = new ChartDataCollection("test data");
 
                 // Call
                 view.Data = chartDataCollection;
@@ -104,13 +103,11 @@ namespace Core.Plugins.Chart.Test.Legend
         {
             // Given
             var chartLineData = CreateChartLineData();
+            var rootCollection = new ChartDataCollection("test data");
 
-            var rootCollection = new ChartDataCollection(new List<ChartData>
-            {
-                chartLineData,
-                CreateChartLineData(),
-                CreateChartLineData()
-            }, "test data");
+            rootCollection.Add(chartLineData);
+            rootCollection.Add(CreateChartLineData());
+            rootCollection.Add(CreateChartLineData());
 
             using (var chartLegendView = new ChartLegendView
             {
@@ -127,13 +124,13 @@ namespace Core.Plugins.Chart.Test.Legend
                 info.OnDrop(context, rootCollection, rootCollection, index, treeViewControl);
 
                 // Then
-                Assert.AreEqual(2 - index, rootCollection.List.IndexOf(chartLineData));
+                Assert.AreEqual(2 - index, rootCollection.Collection.ToList().IndexOf(chartLineData));
             }
         }
 
         private ChartData CreateChartLineData()
         {
-            return new ChartLineData(Enumerable.Empty<Point2D>(), "some name");
+            return new ChartLineData("some name");
         }
     }
 }

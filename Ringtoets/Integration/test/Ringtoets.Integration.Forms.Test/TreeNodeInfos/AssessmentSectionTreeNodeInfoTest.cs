@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildsOnData()
+        public void ChildNodeObjects_Always_ReturnsChildrenOnData()
         {
             // Setup
             var failureMechanisms = new IFailureMechanism[]

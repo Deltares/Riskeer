@@ -31,7 +31,7 @@ namespace Demo.Ringtoets.Views
 
                 if (data != null)
                 {
-                    foreach (var chartData in data.List)
+                    foreach (var chartData in data.Collection)
                     {
                         Chart.Data.Add(chartData);
                     }

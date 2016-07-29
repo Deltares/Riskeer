@@ -19,14 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
+using Core.Common.Utils.Extensions;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -36,21 +39,25 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     public partial class PipingInputView : UserControl, IChartView
     {
-        private PipingCalculationScenario data;
-
-        private ChartData surfaceLineData;
-        private ChartData entryPointData;
-        private ChartData exitPointData;
-        private ChartData ditchPolderSideData;
-        private ChartData bottomDitchPolderSidePointData;
-        private ChartData bottomDitchDikeSidePointData;
-        private ChartData ditchDikeSidePointData;
-        private ChartData dikeToeAtRiverPointData;
-        private ChartData dikeToeAtPolderPointData;
-        private ChartData soilProfile;
-
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
+
+        private readonly ChartDataCollection soilProfileChartData;
+        private readonly ChartLineData surfaceLineChartData;
+        private readonly ChartPointData ditchPolderSideChartData;
+        private readonly ChartPointData bottomDitchPolderSideChartData;
+        private readonly ChartPointData bottomDitchDikeSideChartData;
+        private readonly ChartPointData ditchDikeSideChartData;
+        private readonly ChartPointData dikeToeAtPolderChartData;
+        private readonly ChartPointData dikeToeAtRiverChartData;
+        private readonly ChartPointData exitPointChartData;
+        private readonly ChartPointData entryPointChartData;
+
+        private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
+
+        private PipingCalculationScenario data;
+
+        private StochasticSoilProfile currentStochasticSoilProfile;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputView"/>.
@@ -59,8 +66,34 @@ namespace Ringtoets.Piping.Forms.Views
         {
             InitializeComponent();
 
-            calculationObserver = new Observer(SetChartTitle);
-            calculationInputObserver = new Observer(SetDataToChart);
+            calculationObserver = new Observer(UpdateChartTitle);
+            calculationInputObserver = new Observer(UpdateChartData);
+
+            soilProfileChartData = PipingChartDataFactory.CreateSoilProfileChartData();
+            surfaceLineChartData = PipingChartDataFactory.CreateSurfaceLineChartData();
+            ditchPolderSideChartData = PipingChartDataFactory.CreateDitchPolderSideChartData();
+            bottomDitchPolderSideChartData = PipingChartDataFactory.CreateBottomDitchPolderSideChartData();
+            bottomDitchDikeSideChartData = PipingChartDataFactory.CreateBottomDitchDikeSideChartData();
+            ditchDikeSideChartData = PipingChartDataFactory.CreateDitchDikeSideChartData();
+            dikeToeAtPolderChartData = PipingChartDataFactory.CreateDikeToeAtPolderChartData();
+            dikeToeAtRiverChartData = PipingChartDataFactory.CreateDikeToeAtRiverChartData();
+            exitPointChartData = PipingChartDataFactory.CreateExitPointChartData();
+            entryPointChartData = PipingChartDataFactory.CreateEntryPointChartData();
+
+            chartControl.Data.Add(soilProfileChartData);
+            chartControl.Data.Add(surfaceLineChartData);
+            chartControl.Data.Add(ditchPolderSideChartData);
+            chartControl.Data.Add(bottomDitchPolderSideChartData);
+            chartControl.Data.Add(bottomDitchDikeSideChartData);
+            chartControl.Data.Add(ditchDikeSideChartData);
+            chartControl.Data.Add(dikeToeAtPolderChartData);
+            chartControl.Data.Add(dikeToeAtRiverChartData);
+            chartControl.Data.Add(exitPointChartData);
+            chartControl.Data.Add(entryPointChartData);
+
+            chartControl.Data.Name = Resources.PipingInputContext_NodeDisplayName;
+
+            soilLayerChartDataLookup = new List<ChartMultipleAreaData>(); // Use lookup because the ordering in the chart data collection might change
         }
 
         public object Data
@@ -74,7 +107,7 @@ namespace Ringtoets.Piping.Forms.Views
                 data = value as PipingCalculationScenario;
 
                 calculationObserver.Observable = data;
-                calculationInputObserver.Observable = data != null ? data.InputParameters : null;
+                calculationInputObserver.Observable = GetPipingInput();
 
                 if (data == null)
                 {
@@ -82,8 +115,8 @@ namespace Ringtoets.Piping.Forms.Views
                     return;
                 }
 
-                SetChartTitle();
-                SetDataToChart();
+                UpdateChartTitle();
+                UpdateChartData();
             }
         }
 
@@ -95,10 +128,6 @@ namespace Ringtoets.Piping.Forms.Views
             }
         }
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             calculationObserver.Dispose();
@@ -111,147 +140,100 @@ namespace Ringtoets.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void SetChartTitle()
+        private void UpdateChartTitle()
         {
             chartControl.ChartTitle = data != null ? data.Name : string.Empty;
         }
 
-        private void SetDataToChart()
+        private void UpdateChartData()
         {
-            chartControl.Data.Name = Resources.PipingInputContext_NodeDisplayName;
+            var pipingInput = GetPipingInput();
+            var surfaceLine = GetSurfaceLine();
 
-            if (data != null)
-            {
-                // Bottom most layer
-                soilProfile = AddOrUpdateChartData(soilProfile, GetStochasticSoilProfileData());
-                surfaceLineData = AddOrUpdateChartData(surfaceLineData, GetSurfaceLineChartData());
-                ditchPolderSideData = AddOrUpdateChartData(ditchPolderSideData, GetDitchPolderSideData());
-                bottomDitchPolderSidePointData = AddOrUpdateChartData(bottomDitchPolderSidePointData, GetBottomDitchPolderSideData());
-                bottomDitchDikeSidePointData = AddOrUpdateChartData(bottomDitchDikeSidePointData, GetBottomDitchDikeSideData());
-                ditchDikeSidePointData = AddOrUpdateChartData(ditchDikeSidePointData, GetDitchDikeSideData());
-                dikeToeAtPolderPointData = AddOrUpdateChartData(dikeToeAtPolderPointData, GetDikeToeAtPolderData());
-                dikeToeAtRiverPointData = AddOrUpdateChartData(dikeToeAtRiverPointData, GetDikeToeAtRiverData());
-                exitPointData = AddOrUpdateChartData(exitPointData, GetExitPointChartData());
-                entryPointData = AddOrUpdateChartData(entryPointData, GetEntryPointChartData());
-                // Top most layer
-            }
+            PipingChartDataFactory.UpdateSurfaceLineChartDataName(surfaceLineChartData, surfaceLine);
+
+            UpdatePointBasedChartData(surfaceLineChartData, PipingChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine));
+            UpdatePointBasedChartData(ditchPolderSideChartData, PipingChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine));
+            UpdatePointBasedChartData(bottomDitchPolderSideChartData, PipingChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine));
+            UpdatePointBasedChartData(bottomDitchDikeSideChartData, PipingChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine));
+            UpdatePointBasedChartData(ditchDikeSideChartData, PipingChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine));
+            UpdatePointBasedChartData(dikeToeAtPolderChartData, PipingChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine));
+            UpdatePointBasedChartData(dikeToeAtRiverChartData, PipingChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine));
+            UpdatePointBasedChartData(exitPointChartData, PipingChartDataPointsFactory.CreateExitPointPoint(pipingInput));
+            UpdatePointBasedChartData(entryPointChartData, PipingChartDataPointsFactory.CreateEntryPointPoint(pipingInput));
+
+            UpdateSoilProfileChartData();
 
             chartControl.Data.NotifyObservers();
         }
 
-        private ChartData GetSurfaceLineChartData()
+        private static void UpdatePointBasedChartData(PointBasedChartData chartData, Point2D[] points)
         {
-            if (HasSurfaceLine())
-            {
-                return ChartDataFactory.CreateEmptyLineData(Resources.RingtoetsPipingSurfaceLine_DisplayName);
-            }
-            return PipingChartDataFactory.Create(data.InputParameters.SurfaceLine);
+            chartData.Points = points;
+            chartData.NotifyObservers();
         }
 
-        private ChartData GetEntryPointChartData()
+        private void UpdateSoilProfileChartData()
         {
-            if (HasSurfaceLine())
+            var stochasticSoilProfile = GetStochasticSoilProfile();
+
+            // If necessary, regenerate all soil layer chart data
+            if (!ReferenceEquals(currentStochasticSoilProfile, stochasticSoilProfile))
             {
-                return ChartDataFactory.CreateEmptyPointData(Resources.PipingInput_EntryPointL_DisplayName);
+                currentStochasticSoilProfile = stochasticSoilProfile;
+
+                soilProfileChartData.Clear();
+                soilLayerChartDataLookup.Clear();
+                GetSoilLayers().Select((layer, layerIndex) => PipingChartDataFactory.CreateSoilLayerChartData(layerIndex, stochasticSoilProfile.SoilProfile))
+                               .ForEachElementDo(sl =>
+                               {
+                                   soilProfileChartData.Insert(0, sl);
+                                   soilLayerChartDataLookup.Add(sl);
+                               });
+
+                PipingChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, stochasticSoilProfile.SoilProfile);
+
+                soilProfileChartData.NotifyObservers();
             }
-            return PipingChartDataFactory.CreateEntryPoint(data.InputParameters.EntryPointL, data.InputParameters.SurfaceLine);
+
+            // Update the areas of all soil layer chart data
+            var soilLayers = GetSoilLayers();
+
+            for (var i = 0; i < soilLayers.Count; i++)
+            {
+                var soilLayerData = soilLayerChartDataLookup[i];
+
+                soilLayerData.Areas = PipingChartDataPointsFactory.CreateSoilLayerAreas(soilLayers[i], stochasticSoilProfile.SoilProfile, GetSurfaceLine());
+                soilLayerData.NotifyObservers();
+            }
         }
 
-        private ChartData GetExitPointChartData()
+        private RingtoetsPipingSurfaceLine GetSurfaceLine()
         {
-            if (HasSurfaceLine())
-            {
-                return ChartDataFactory.CreateEmptyPointData(Resources.PipingInput_ExitPointL_DisplayName);
-            }
-            return PipingChartDataFactory.CreateExitPoint(data.InputParameters.ExitPointL, data.InputParameters.SurfaceLine);
+            return data != null
+                       ? data.InputParameters.SurfaceLine
+                       : null;
         }
 
-        private ChartData GetDitchPolderSideData()
+        private PipingInput GetPipingInput()
         {
-            if (HasSurfaceLine() || data.InputParameters.SurfaceLine.DitchPolderSide == null)
-            {
-                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchPolderSide);
-            }
-            return PipingChartDataFactory.CreateDitchPolderSide(data.InputParameters.SurfaceLine);
+            return data != null
+                       ? data.InputParameters
+                       : null;
         }
 
-        private ChartData GetBottomDitchPolderSideData()
+        private StochasticSoilProfile GetStochasticSoilProfile()
         {
-            if (HasSurfaceLine() || data.InputParameters.SurfaceLine.BottomDitchPolderSide == null)
-            {
-                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide);
-            }
-            return PipingChartDataFactory.CreateBottomDitchPolderSide(data.InputParameters.SurfaceLine);
+            return data != null
+                       ? data.InputParameters.StochasticSoilProfile
+                       : null;
         }
 
-        private ChartData GetBottomDitchDikeSideData()
+        private IList<PipingSoilLayer> GetSoilLayers()
         {
-            if (HasSurfaceLine() || data.InputParameters.SurfaceLine.BottomDitchDikeSide == null)
-            {
-                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide);
-            }
-            return PipingChartDataFactory.CreateBottomDitchDikeSide(data.InputParameters.SurfaceLine);
-        }
-
-        private ChartData GetDitchDikeSideData()
-        {
-            if (HasSurfaceLine() || data.InputParameters.SurfaceLine.DitchDikeSide == null)
-            {
-                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DitchDikeSide);
-            }
-            return PipingChartDataFactory.CreateDitchDikeSide(data.InputParameters.SurfaceLine);
-        }
-
-        private ChartData GetDikeToeAtRiverData()
-        {
-            if (HasSurfaceLine() || data.InputParameters.SurfaceLine.DikeToeAtRiver == null)
-            {
-                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtRiver);
-            }
-            return PipingChartDataFactory.CreateDikeToeAtRiver(data.InputParameters.SurfaceLine);
-        }
-
-        private ChartData GetDikeToeAtPolderData()
-        {
-            if (HasSurfaceLine() || data.InputParameters.SurfaceLine.DikeToeAtPolder == null)
-            {
-                return ChartDataFactory.CreateEmptyPointData(PipingDataResources.CharacteristicPoint_DikeToeAtPolder);
-            }
-            return PipingChartDataFactory.CreateDikeToeAtPolder(data.InputParameters.SurfaceLine);
-        }
-
-        private bool HasSurfaceLine()
-        {
-            return data == null || data.InputParameters.SurfaceLine == null;
-        }
-
-        private ChartData GetStochasticSoilProfileData()
-        {
-            if (data == null || data.InputParameters.StochasticSoilProfile == null || data.InputParameters.StochasticSoilProfile.SoilProfile == null)
-            {
-                return ChartDataFactory.CreateEmptyChartDataCollection(Resources.StochasticSoilProfileProperties_DisplayName);
-            }
-            var pipingSoilProfile = data.InputParameters.StochasticSoilProfile.SoilProfile;
-
-            return new ChartDataCollection(pipingSoilProfile.Layers.Select((layer, layerIndex) => 
-                PipingChartDataFactory.CreatePipingSoilLayer(
-                    layerIndex, 
-                    pipingSoilProfile,
-                    data.InputParameters.SurfaceLine)).Reverse().ToList(), pipingSoilProfile.Name);
-        }
-
-        private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
-        {
-            if (oldChartData != null)
-            {
-                chartControl.Data.Replace(oldChartData, newChartData);
-            }
-            else
-            {
-                chartControl.Data.Add(newChartData);
-            }
-
-            return newChartData;
+            return data != null && data.InputParameters.StochasticSoilProfile != null && data.InputParameters.StochasticSoilProfile.SoilProfile != null
+                       ? data.InputParameters.StochasticSoilProfile.SoilProfile.Layers.ToList()
+                       : new List<PipingSoilLayer>();
         }
     }
 }

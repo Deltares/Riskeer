@@ -22,7 +22,6 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Core.Components.Charting.Data;
 using NUnit.Framework;
@@ -44,7 +43,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual(75, chart.MinimumSize.Height);
                 Assert.AreEqual(50, chart.MinimumSize.Width);
                 Assert.IsNotNull(chart.Data);
-                CollectionAssert.IsEmpty(chart.Data.List);
+                CollectionAssert.IsEmpty(chart.Data.Collection);
                 Assert.IsTrue(chart.IsPanningEnabled);
                 Assert.IsFalse(chart.IsRectangleZoomingEnabled);
 
@@ -103,7 +102,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var testData = new ChartLineData(Enumerable.Empty<Point2D>(), "test data");
+                var testData = new ChartLineData("test data");
                 var view = TypeUtils.GetField<PlotView>(chart, "view");
                 var invalidated = 0;
 
@@ -131,7 +130,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var form = new Form())
             {
                 var chart = new ChartControl();
-                var testData = new ChartLineData(Enumerable.Empty<Point2D>(), "test data");
+                var testData = new ChartLineData("test data");
                 var view = TypeUtils.GetField<PlotView>(chart, "view");
                 var invalidated = 0;
 

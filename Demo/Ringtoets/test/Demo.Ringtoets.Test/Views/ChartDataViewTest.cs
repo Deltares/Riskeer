@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Components.Charting.Data;
 using Core.Components.OxyPlot.Forms;
@@ -44,7 +43,7 @@ namespace Demo.Ringtoets.Test.Views
                 Assert.IsInstanceOf<ChartControl>(chartObject);
 
                 var chart = (ChartControl) chartObject;
-                Assert.AreEqual((object) DockStyle.Fill, chart.Dock);
+                Assert.AreEqual(DockStyle.Fill, chart.Dock);
                 Assert.NotNull(chartView.Chart);
             }
         }
@@ -87,7 +86,7 @@ namespace Demo.Ringtoets.Test.Views
             // Setup
             using (var chartView = new ChartDataView())
             {
-                var chartDataCollection = new ChartDataCollection(new List<ChartData>(), "test data");
+                var chartDataCollection = new ChartDataCollection("test data");
 
                 // Call
                 chartView.Data = chartDataCollection;

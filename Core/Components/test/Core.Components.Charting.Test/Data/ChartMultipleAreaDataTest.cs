@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
@@ -33,95 +32,70 @@ namespace Core.Components.Charting.Test.Data
     public class ChartMultipleAreaDataTest
     {
         [Test]
-        public void Constructor_NullAreas_ThrowsArgumentNullException()
+        public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
             // Call
-            TestDelegate test = () => new ChartMultipleAreaData(null, "test data");
+            var data = new ChartMultipleAreaData("test data");
 
             // Assert
-            var expectedMessage = "A collection of areas is required when creating ChartMultipleAreaData.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_NullAreaInAreas_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new ChartMultipleAreaData(new Collection<Collection<Point2D>> { null }, "test data");
-
-            // Asserrt
-            var expectedMessage = "Every area in the collection needs a value when creating ChartMultipleAreaData.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            Assert.AreEqual("test data", data.Name);
+            Assert.IsInstanceOf<ChartData>(data);
         }
 
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        [TestCase("   ")]
+        [TestCase("        ")]
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
-            // Setup
-            var areas = new Collection<Collection<Point2D>>();
-
             // Call
-            TestDelegate test = () => new ChartMultipleAreaData(areas, invalidName);
+            TestDelegate test = () => new ChartMultipleAreaData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to chart data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the chart data.");
         }
 
         [Test]
-        public void Constructor_WithEmptyAreas_CreatesNewICharData()
+        public void Areas_SetValidNewValue_GetsNewValue()
         {
             // Setup
-            var areas = new Collection<Collection<Point2D>>();
+            var data = new ChartMultipleAreaData("test data");
+            var areas = new List<Point2D[]>();
 
             // Call
-            var data = new ChartMultipleAreaData(areas, "test data");
+            data.Areas = areas;
 
             // Assert
-            Assert.IsInstanceOf<ChartData>(data);
-            Assert.AreNotSame(areas, data.Areas);
+            Assert.AreSame(areas, data.Areas);
         }
 
         [Test]
-        public void Constructor_WithPoints_CreatesNewICharData()
+        public void Areas_SetNullValue_ThrowsArgumentNullException()
         {
             // Setup
-            var areas = CreateTestAreas();
+            var data = new ChartMultipleAreaData("test data");
 
             // Call
-            var data = new ChartMultipleAreaData(areas, "test data");
+            TestDelegate test = () => data.Areas = null;
 
             // Assert
-            Assert.IsInstanceOf<ChartData>(data);
-            Assert.AreNotSame(areas, data.Areas);
-            for (int i = 0; i < areas.Count; i++)
-            {
-                Assert.AreNotSame(areas[i], data.Areas.ElementAt(i));
-                Assert.AreEqual(areas[i], data.Areas.ElementAt(i));
-            }
-            CollectionAssert.AreEqual(areas, data.Areas);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "The collection of point arrays cannot be null.");
         }
 
-        private Collection<Collection<Point2D>> CreateTestAreas()
+        [Test]
+        public void Areas_SetValueContainingNullValue_ThrowsArgumentException()
         {
-            return new Collection<Collection<Point2D>>
-            {
-                new Collection<Point2D>
-                {
-                    new Point2D(0.0, 1.1),
-                    new Point2D(1.0, 2.1),
-                    new Point2D(1.6, 1.6)
-                },
-                new Collection<Point2D>
-                {
-                    new Point2D(0.4, 1.1),
-                    new Point2D(1.6, 2.2),
-                    new Point2D(1.2, 4.6)
+            // Setup
+            var data = new ChartMultipleAreaData("test data");
 
-                }
+            // Call
+            TestDelegate test = () => data.Areas = new List<Point2D[]>
+            {
+                null
             };
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "The collection of point arrays cannot contain null values.");
         }
     }
 }

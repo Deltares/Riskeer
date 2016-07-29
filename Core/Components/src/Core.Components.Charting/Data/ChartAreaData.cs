@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base.Geometry;
 using Core.Components.Charting.Styles;
 
 namespace Core.Components.Charting.Data
@@ -34,16 +32,13 @@ namespace Core.Components.Charting.Data
         /// <summary>
         /// Creates a new instance of <see cref="ChartAreaData"/>.
         /// </summary>
-        /// <param name="points">A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> as (X,Y) points.</param>
         /// <param name="name">The name of the <see cref="ChartAreaData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is 
-        /// <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public ChartAreaData(IEnumerable<Point2D> points, string name) : base(points, name) { }
+        public ChartAreaData(string name) : base(name) {}
 
         /// <summary>
-        /// The style of the chart area.
+        /// Gets or sets the style of the chart area.
         /// </summary>
         public ChartAreaStyle Style { get; set; }
     }

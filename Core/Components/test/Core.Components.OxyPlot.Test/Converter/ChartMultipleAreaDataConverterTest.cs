@@ -55,7 +55,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var converter = new ChartMultipleAreaDataConverter();
-            var areaData = new ChartMultipleAreaData(new Collection<Collection<Point2D>>(), "test data");
+            var areaData = new ChartMultipleAreaData("test data");
 
             // Call
             var canConvert = converter.CanConvertSeries(areaData);
@@ -85,24 +85,31 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartMultipleAreaDataConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
-            var areas = new Collection<Collection<Point2D>>();
-            var points = new Collection<Point2D>();
-            areas.Add(points);
 
-            for (int i = 0; i < randomCount; i++)
+            var points = new Collection<Point2D>();
+
+            for (var i = 0; i < randomCount; i++)
             {
                 points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var areaData = new ChartMultipleAreaData(areas, "test data");
+            var areas = new List<Point2D[]>
+            {
+                points.ToArray()
+            };
+
+            var areaData = new ChartMultipleAreaData("test data")
+            {
+                Areas = areas
+            };
 
             // Call
             var series = converter.Convert(areaData);
 
             // Assert
             Assert.IsInstanceOf<IList<Series>>(series);
-            var areaSeries = ((MultipleAreaSeries)series[0]);
-            var expectedData = points.Select(t => new DataPoint(t.X, t.Y)).ToArray();
+            var areaSeries = (MultipleAreaSeries) series[0];
+            var expectedData = areas.ElementAt(0).Select(t => new DataPoint(t.X, t.Y)).ToArray();
             CollectionAssert.AreEqual(expectedData, areaSeries.Areas[0]);
         }
 
@@ -146,7 +153,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartMultipleAreaDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartAreaStyle(expectedColor, Color.Red, 3);
-            var data = new ChartMultipleAreaData(new Collection<Collection<Point2D>>(), "test")
+            var data = new ChartMultipleAreaData("test")
             {
                 Style = style
             };
@@ -155,7 +162,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var multipleAreaSeries = ((MultipleAreaSeries)series[0]);
+            var multipleAreaSeries = (MultipleAreaSeries) series[0];
             AssertColors(style.FillColor, multipleAreaSeries.Fill);
         }
 
@@ -169,7 +176,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartMultipleAreaDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartAreaStyle(Color.Red, expectedColor, 3);
-            var data = new ChartMultipleAreaData(new Collection<Collection<Point2D>>(), "test")
+            var data = new ChartMultipleAreaData("test")
             {
                 Style = style
             };
@@ -178,7 +185,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var multipleAreaSeries = ((MultipleAreaSeries)series[0]);
+            var multipleAreaSeries = (MultipleAreaSeries) series[0];
             AssertColors(style.StrokeColor, multipleAreaSeries.Color);
         }
 
@@ -191,7 +198,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartMultipleAreaDataConverter();
             var style = new ChartAreaStyle(Color.Red, Color.Red, width);
-            var data = new ChartMultipleAreaData(new Collection<Collection<Point2D>>(), "test")
+            var data = new ChartMultipleAreaData("test")
             {
                 Style = style
             };
@@ -200,7 +207,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var multipleAreaSeries = ((MultipleAreaSeries)series[0]);
+            var multipleAreaSeries = (MultipleAreaSeries) series[0];
             Assert.AreEqual(width, multipleAreaSeries.StrokeThickness);
         }
 
@@ -208,6 +215,6 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             OxyColor originalColor = OxyColor.FromArgb(color.A, color.R, color.G, color.B);
             Assert.AreEqual(originalColor, oxyColor);
-        } 
+        }
     }
 }

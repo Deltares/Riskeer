@@ -91,7 +91,7 @@ namespace Core.Plugins.Chart.Legend
 
         private static object[] GetChildNodeObjects(ChartDataCollection chartDataCollection)
         {
-            return chartDataCollection.List.Reverse().Select(chartData => new ChartDataContext(chartData, chartDataCollection)).Cast<object>().ToArray();
+            return chartDataCollection.Collection.Reverse().Select(chartData => new ChartDataContext(chartData, chartDataCollection)).Cast<object>().ToArray();
         }
 
         private void NotifyObserversOfData(ChartData chartData)
@@ -156,7 +156,7 @@ namespace Core.Plugins.Chart.Legend
             ChartDataCollection parent = (ChartDataCollection) (sourceContext != null ? sourceContext.WrappedData : oldParentData);
 
             parent.Remove(chartData);
-            parent.Insert(parent.List.Count - position, chartData);
+            parent.Insert(parent.Collection.Count() - position, chartData);
             parent.NotifyObservers();
         }
 
@@ -186,7 +186,7 @@ namespace Core.Plugins.Chart.Legend
             ChartDataCollection parent = (ChartDataCollection) oldParentData;
 
             parent.Remove(chartData);
-            parent.Insert(parent.List.Count - position, chartData);
+            parent.Insert(parent.Collection.Count() - position, chartData);
             parent.NotifyObservers();
         }
 

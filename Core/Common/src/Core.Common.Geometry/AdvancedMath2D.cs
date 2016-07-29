@@ -34,13 +34,13 @@ namespace Core.Common.Geometry
     {
         /// <summary>
         /// Calculates the intersection between two polygons, which can result in any number of polygons which represent the intersecting area. Polygons
-        /// are defined by collections of points. 
+        /// are defined by an array of points.
         /// </summary>
         /// <param name="pointsOfPolygonA">Points of the first polygon.</param>
         /// <param name="pointsOfPolygonB">Points of the second polygon.</param>
-        /// <returns>A collection of point collections. Each point collection describes an intersecting area of the polygons.</returns>
+        /// <returns>A collection of point arrays. Each point array describes an intersecting area of the polygons.</returns>
         /// <exception cref="InvalidPolygonException"></exception>
-        public static IEnumerable<IEnumerable<Point2D>> PolygonIntersectionWithPolygon(IEnumerable<Point2D> pointsOfPolygonA, IEnumerable<Point2D> pointsOfPolygonB)
+        public static IEnumerable<Point2D[]> PolygonIntersectionWithPolygon(IEnumerable<Point2D> pointsOfPolygonA, IEnumerable<Point2D> pointsOfPolygonB)
         {
             Polygon polygonA = PointsToPolygon(pointsOfPolygonA);
             Polygon polygonB = PointsToPolygon(pointsOfPolygonB);
@@ -48,7 +48,7 @@ namespace Core.Common.Geometry
             try
             {
                 IGeometry intersection = polygonA.Intersection(polygonB);
-                return BuildSepearteAreasFromCoordinateList(intersection.Coordinates);
+                return BuildSeparateAreasFromCoordinateList(intersection.Coordinates);
             }
             catch (TopologyException e)
             {
@@ -70,9 +70,9 @@ namespace Core.Common.Geometry
             return new Polygon(new LinearRing(coordinates));
         }
 
-        private static IEnumerable<IEnumerable<Point2D>> BuildSepearteAreasFromCoordinateList(Coordinate[] coordinates)
+        private static IEnumerable<Point2D[]> BuildSeparateAreasFromCoordinateList(Coordinate[] coordinates)
         {
-            var areas = new List<IEnumerable<Point2D>>();
+            var areas = new List<Point2D[]>();
             HashSet<Point2D> area = new HashSet<Point2D>();
 
             foreach (var coordinate in coordinates)
@@ -80,7 +80,7 @@ namespace Core.Common.Geometry
                 var added = area.Add(new Point2D(coordinate.X, coordinate.Y));
                 if (!added)
                 {
-                    areas.Add(area);
+                    areas.Add(area.ToArray());
                     area = new HashSet<Point2D>();
                 }
             }

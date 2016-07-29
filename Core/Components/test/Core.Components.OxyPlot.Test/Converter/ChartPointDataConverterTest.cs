@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Charting.Data;
@@ -53,7 +54,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         {
             // Setup
             var converter = new ChartPointDataConverter();
-            var pointData = new ChartPointData(new Collection<Point2D>(), "test data");
+            var pointData = new ChartPointData("test data");
 
             // Call
             var canConvert = converter.CanConvertSeries(pointData);
@@ -83,23 +84,27 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
             var random = new Random(21);
             var randomCount = random.Next(5, 10);
+
             var points = new Collection<Point2D>();
 
-            for (int i = 0; i < randomCount; i++)
+            for (var i = 0; i < randomCount; i++)
             {
                 points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var pointData = new ChartPointData(points, "test data");
+            var pointData = new ChartPointData("test data")
+            {
+                Points = points.ToArray()
+            };
 
             // Call
             var series = converter.Convert(pointData);
 
             // Assert
             Assert.IsInstanceOf<IList<Series>>(series);
-            var lineSeries = ((LineSeries)series[0]);
+            var lineSeries = (LineSeries) series[0];
             CollectionAssert.AreEqual(points, lineSeries.ItemsSource);
-            Assert.AreNotSame(points, lineSeries.ItemsSource);
+            Assert.AreNotSame(pointData.Points, lineSeries.ItemsSource);
             Assert.AreEqual(LineStyle.None, lineSeries.LineStyle);
             Assert.AreEqual(MarkerType.Circle, lineSeries.MarkerType);
         }
@@ -144,7 +149,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartPointStyle(expectedColor, 3, Color.Red, 2, ChartPointSymbol.Circle);
-            var data = new ChartPointData(new Collection<Point2D>(), "test")
+            var data = new ChartPointData("test")
             {
                 Style = style
             };
@@ -153,7 +158,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var lineSeries = ((LineSeries)series[0]);
+            var lineSeries = (LineSeries) series[0];
             AssertColors(style.Color, lineSeries.MarkerFill);
         }
 
@@ -167,7 +172,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var converter = new ChartPointDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new ChartPointStyle(Color.Red, 3, expectedColor, 2, ChartPointSymbol.Circle);
-            var data = new ChartPointData(new Collection<Point2D>(), "test")
+            var data = new ChartPointData("test")
             {
                 Style = style
             };
@@ -176,7 +181,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var lineSeries = ((LineSeries)series[0]);
+            var lineSeries = (LineSeries) series[0];
             AssertColors(style.StrokeColor, lineSeries.MarkerStroke);
         }
 
@@ -189,7 +194,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var style = new ChartPointStyle(Color.Red, width, Color.Red, 2, ChartPointSymbol.Circle);
-            var data = new ChartPointData(new Collection<Point2D>(), "test")
+            var data = new ChartPointData("test")
             {
                 Style = style
             };
@@ -198,7 +203,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var lineSeries = ((LineSeries)series[0]);
+            var lineSeries = (LineSeries) series[0];
             Assert.AreEqual(width, lineSeries.MarkerSize);
         }
 
@@ -211,7 +216,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var style = new ChartPointStyle(Color.Red, 3, Color.Red, strokeThickness, ChartPointSymbol.Circle);
-            var data = new ChartPointData(new Collection<Point2D>(), "test")
+            var data = new ChartPointData("test")
             {
                 Style = style
             };
@@ -220,7 +225,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var lineSeries = ((LineSeries)series[0]);
+            var lineSeries = (LineSeries) series[0];
             Assert.AreEqual(strokeThickness, lineSeries.MarkerStrokeThickness);
         }
 
@@ -235,7 +240,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             // Setup
             var converter = new ChartPointDataConverter();
             var style = new ChartPointStyle(Color.Red, 3, Color.Red, 2, symbol);
-            var data = new ChartPointData(new Collection<Point2D>(), "test")
+            var data = new ChartPointData("test")
             {
                 Style = style
             };
@@ -244,7 +249,7 @@ namespace Core.Components.OxyPlot.Test.Converter
             var series = converter.Convert(data);
 
             // Assert
-            var lineSeries = ((LineSeries)series[0]);
+            var lineSeries = (LineSeries) series[0];
             Assert.AreEqual(expectedMarkerType, lineSeries.MarkerType);
         }
 

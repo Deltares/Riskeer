@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -49,7 +48,7 @@ namespace Core.Components.OxyPlot.Forms
             InitializePlotView();
             MinimumSize = new Size(50, 75);
 
-            Data = new ChartDataCollection(new List<ChartData>(), "Root");
+            Data = new ChartDataCollection("Root");
             Data.Attach(this);
 
             DrawSeries();

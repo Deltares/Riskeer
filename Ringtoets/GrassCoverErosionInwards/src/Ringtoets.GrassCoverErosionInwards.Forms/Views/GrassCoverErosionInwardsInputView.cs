@@ -19,12 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
@@ -37,10 +36,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     {
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
+
+        private readonly ChartLineData foreshoreChartData;
+        private readonly ChartLineData dikeGeometryChartData;
+        private readonly ChartLineData dikeHeightChartData;
+
         private GrassCoverErosionInwardsCalculation data;
-        private ChartData dikeProfileData;
-        private ChartData foreshoreData;
-        private ChartData dikeHeightData;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInputView"/>.
@@ -49,8 +50,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             InitializeComponent();
 
-            calculationObserver = new Observer(SetChartTitle);
-            calculationInputObserver = new Observer(SetDataToChart);
+            calculationObserver = new Observer(UpdateChartTitle);
+            calculationInputObserver = new Observer(UpdateChartData);
+
+            foreshoreChartData = GrassCoverErosionInwardsChartDataFactory.CreateForeshoreGeometryChartData();
+            dikeGeometryChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
+            dikeHeightChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeigthChartData();
+
+            chartControl.Data.Add(foreshoreChartData);
+            chartControl.Data.Add(dikeGeometryChartData);
+            chartControl.Data.Add(dikeHeightChartData);
+
+            chartControl.Data.Name = Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName;
         }
 
         public object Data
@@ -72,8 +83,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                     return;
                 }
 
-                SetChartTitle();
-                SetDataToChart();
+                UpdateChartTitle();
+                UpdateChartData();
             }
         }
 
@@ -85,10 +96,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             calculationObserver.Dispose();
@@ -101,79 +108,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void SetChartTitle()
+        private void UpdateChartTitle()
         {
             chartControl.ChartTitle = data != null ? data.Name : string.Empty;
         }
 
-        private void SetDataToChart()
+        private void UpdateChartData()
         {
-            chartControl.Data.Name = Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName;
+            var input = data != null ? data.InputParameters : null;
+            var dikeProfile = input != null ? input.DikeProfile : null;
 
-            if (data != null)
-            {
-                // Bottom most layer
-                foreshoreData = AddOrUpdateChartData(foreshoreData, GetForeshoreData());
-                dikeProfileData = AddOrUpdateChartData(dikeProfileData, GetDikeProfileData());
-                dikeHeightData = AddOrUpdateChartData(dikeHeightData, GetDikeHeightData());
-                // Top most layer
-            }
+            GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(foreshoreChartData, input);
+            GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(dikeGeometryChartData, dikeProfile);
+
+            UpdatePointBasedChartData(foreshoreChartData, GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input));
+            UpdatePointBasedChartData(dikeGeometryChartData, GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(dikeProfile));
+            UpdatePointBasedChartData(dikeHeightChartData, GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input));
 
             chartControl.Data.NotifyObservers();
         }
 
-        private ChartData GetForeshoreData()
+        private static void UpdatePointBasedChartData(PointBasedChartData chartData, Point2D[] points)
         {
-            if (!HasForeshorePoints())
-            {
-                return ChartDataFactory.CreateEmptyLineData(Resources.Foreshore_DisplayName);
-            }
-
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.InputParameters.ForeshoreGeometry, data.InputParameters.DikeProfile.Name);
-        }
-
-        private ChartData GetDikeProfileData()
-        {
-            if (!HasDikeProfilePoints())
-            {
-                return ChartDataFactory.CreateEmptyLineData(Resources.DikeProfile_DisplayName);
-            }
-
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.InputParameters.DikeGeometry, data.InputParameters.DikeProfile.Name);
-        }
-
-        private ChartData GetDikeHeightData()
-        {
-            if (!HasDikeProfilePoints())
-            {
-                return ChartDataFactory.CreateEmptyLineData(Resources.DikeHeight_ChartName);
-            }
-
-            return GrassCoverErosionInwardsChartDataFactory.Create(data.InputParameters.DikeHeight, data.InputParameters.DikeGeometry, data.InputParameters.DikeProfile.Name);
-        }
-
-        private ChartData AddOrUpdateChartData(ChartData oldChartData, ChartData newChartData)
-        {
-            if (oldChartData != null)
-            {
-                chartControl.Data.Replace(oldChartData, newChartData);
-            }
-            else
-            {
-                chartControl.Data.Add(newChartData);
-            }
-
-            return newChartData;
-        }
-
-        private bool HasForeshorePoints()
-        {
-            return data != null && data.InputParameters.DikeProfile != null && data.InputParameters.ForeshoreGeometry.Any() && data.InputParameters.UseForeshore;
-        }
-
-        private bool HasDikeProfilePoints()
-        {
-            return data != null && data.InputParameters.DikeProfile != null && data.InputParameters.DikeGeometry.Any();
+            chartData.Points = points;
+            chartData.NotifyObservers();
         }
     }
 }

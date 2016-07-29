@@ -20,13 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
-using Core.Common.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
 using Ringtoets.Piping.Forms.Properties;
@@ -36,333 +32,183 @@ using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 namespace Ringtoets.Piping.Forms.Views
 {
     /// <summary>
-    /// Factory for creating <see cref="ChartData"/> based on information used as input in the piping failure mechanism.
+    /// Factory for creating <see cref="ChartData"/> for data used as input in the piping failure mechanism.
     /// </summary>
     public static class PipingChartDataFactory
     {
         /// <summary>
-        /// Create <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine"/>.
+        /// Create <see cref="ChartLineData"/> with default styling for a <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> for which to create <see cref="ChartData"/>.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        public static ChartData Create(RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartLineData"/>.</returns>
+        public static ChartLineData CreateSurfaceLineChartData()
         {
-            if (surfaceLine == null)
-            {
-                throw new ArgumentNullException("surfaceLine");
-            }
-
-            return new ChartLineData(surfaceLine.ProjectGeometryToLZ(), surfaceLine.Name)
+            return new ChartLineData(Resources.RingtoetsPipingSurfaceLine_DisplayName)
             {
                 Style = new ChartLineStyle(Color.Sienna, 2, DashStyle.Solid)
             };
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="entryPoint"/>.
+        /// Create <see cref="ChartPointData"/> with default styling for an entry point.
         /// </summary>
-        /// <param name="entryPoint">The horizontal distance from the origin at which to place the entry point
-        /// on the  <paramref name="surfaceLine"/>.</param>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the entry point on.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="entryPoint"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="entryPoint"/> is <c>NaN</c>.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        public static ChartData CreateEntryPoint(RoundedDouble entryPoint, RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateEntryPointChartData()
         {
-            if (double.IsNaN(entryPoint))
+            return new ChartPointData(Resources.PipingInput_EntryPointL_DisplayName)
             {
-                throw new ArgumentException("Entry point should have a value.", "entryPoint");
-            }
-
-            if (surfaceLine == null)
-            {
-                throw new ArgumentNullException("surfaceLine");
-            }
-
-            return CreatePointWithZAtL(entryPoint, surfaceLine, Resources.PipingInput_EntryPointL_DisplayName, Color.Gold);
+                Style = GetGeneralPointStyle(Color.Gold)
+            };
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="exitPoint"/>.
+        /// Create <see cref="ChartPointData"/> with default styling for an exit point.
         /// </summary>
-        /// <param name="exitPoint">The horizontal distance from the origin at which to place the exit point
-        /// on the  <paramref name="surfaceLine"/>.</param>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> to place the exit point on.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="exitPoint"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="exitPoint"/> is <c>NaN</c>.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        public static ChartData CreateExitPoint(RoundedDouble exitPoint, RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateExitPointChartData()
         {
-            if (double.IsNaN(exitPoint))
+            return new ChartPointData(Resources.PipingInput_ExitPointL_DisplayName)
             {
-                throw new ArgumentException("Exit point should have a value.", "exitPoint");
-            }
-
-            if (surfaceLine == null)
-            {
-                throw new ArgumentNullException("surfaceLine");
-            }
-
-            return CreatePointWithZAtL(exitPoint, surfaceLine, Resources.PipingInput_ExitPointL_DisplayName, Color.Tomato);
+                Style = GetGeneralPointStyle(Color.Tomato)
+            };
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.DitchPolderSide"/>.
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type ditch polder side.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> which contains a point which 
-        /// characterizes the ditch at polder side, to create <see cref="ChartData"/> for.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.DitchPolderSide"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c> or 
-        /// the <see cref="RingtoetsPipingSurfaceLine"/> contains no <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/>.</exception>
-        public static ChartData CreateDitchPolderSide(RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDitchPolderSideChartData()
         {
-            if (surfaceLine == null)
+            return new ChartPointData(PipingDataResources.CharacteristicPoint_DitchPolderSide)
             {
-                throw new ArgumentNullException("surfaceLine");
-            }
-
-            return CreateCharacteristicPoint(surfaceLine.DitchPolderSide, surfaceLine, PipingDataResources.CharacteristicPoint_DitchPolderSide, Color.IndianRed);
+                Style = GetCharacteristicPointStyle(Color.IndianRed)
+            };
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.BottomDitchPolderSide"/>.
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type bottom ditch polder side.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> which contains a point which 
-        /// characterizes the bottom ditch at polder side, to create <see cref="ChartData"/> for.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.BottomDitchPolderSide"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c> or 
-        /// the <see cref="RingtoetsPipingSurfaceLine"/> contains no <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/>.</exception>
-        public static ChartData CreateBottomDitchPolderSide(RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateBottomDitchPolderSideChartData()
         {
-            if (surfaceLine == null)
+            return new ChartPointData(PipingDataResources.CharacteristicPoint_BottomDitchPolderSide)
             {
-                throw new ArgumentNullException("surfaceLine");
-            }
-
-            return CreateCharacteristicPoint(surfaceLine.BottomDitchPolderSide, surfaceLine, PipingDataResources.CharacteristicPoint_BottomDitchPolderSide, Color.Teal);
+                Style = GetCharacteristicPointStyle(Color.Teal)
+            };
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.BottomDitchDikeSide"/>.
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type bottom ditch dike side.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> which contains a point which 
-        /// characterizes the bottom ditch at dike side, to create <see cref="ChartData"/> for.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.BottomDitchDikeSide"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c> or 
-        /// the <see cref="RingtoetsPipingSurfaceLine"/> contains no <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/>.</exception>
-        public static ChartData CreateBottomDitchDikeSide(RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateBottomDitchDikeSideChartData()
         {
-            if (surfaceLine == null)
+            return new ChartPointData(PipingDataResources.CharacteristicPoint_BottomDitchDikeSide)
             {
-                throw new ArgumentNullException("surfaceLine");
-            }
-
-            return CreateCharacteristicPoint(surfaceLine.BottomDitchDikeSide, surfaceLine, PipingDataResources.CharacteristicPoint_BottomDitchDikeSide, Color.DarkSeaGreen);
+                Style = GetCharacteristicPointStyle(Color.DarkSeaGreen)
+            };
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.DitchDikeSide"/>.
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type ditch dike side.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> which contains a point which 
-        /// characterizes the ditch at dike side, to create <see cref="ChartData"/> for.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.DitchDikeSide"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c> or 
-        /// the <see cref="RingtoetsPipingSurfaceLine"/> contains no <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/>.</exception>
-        public static ChartData CreateDitchDikeSide(RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDitchDikeSideChartData()
         {
-            if (surfaceLine == null)
+            return new ChartPointData(PipingDataResources.CharacteristicPoint_DitchDikeSide)
             {
-                throw new ArgumentNullException("surfaceLine");
-            }
-
-            return CreateCharacteristicPoint(surfaceLine.DitchDikeSide, surfaceLine, PipingDataResources.CharacteristicPoint_DitchDikeSide, Color.MediumPurple);
+                Style = GetCharacteristicPointStyle(Color.MediumPurple)
+            };
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.DikeToeAtRiver"/>.
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type dike toe at river.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> which contains a point which 
-        /// characterizes the dike toe at river side, to create <see cref="ChartData"/> for.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.DikeToeAtRiver"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c> or 
-        /// the <see cref="RingtoetsPipingSurfaceLine"/> contains no <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/>.</exception>
-        public static ChartData CreateDikeToeAtRiver(RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDikeToeAtRiverChartData()
         {
-            if (surfaceLine == null)
+            return new ChartPointData(PipingDataResources.CharacteristicPoint_DikeToeAtRiver)
             {
-                throw new ArgumentNullException("surfaceLine");
-            }
-
-            return CreateCharacteristicPoint(surfaceLine.DikeToeAtRiver, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtRiver, Color.DarkBlue);
+                Style = GetCharacteristicPointStyle(Color.DarkBlue)
+            };
         }
 
         /// <summary>
-        /// Create a <see cref="ChartData"/> with default styling based on the <paramref name="surfaceLine.DikeToeAtPolder"/>.
+        /// Create <see cref="ChartPointData"/> with default styling for a characteristic point of type dike toe at polder.
         /// </summary>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> which contains a point which 
-        /// characterizes the dike toe at polder side, to create <see cref="ChartData"/> for.</param>
-        /// <returns><see cref="ChartData"/> based on the <paramref name="surfaceLine.DikeToeAtPolder"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c> or 
-        /// the <see cref="RingtoetsPipingSurfaceLine"/> contains no <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/>.</exception>
-        public static ChartData CreateDikeToeAtPolder(RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartPointData"/>.</returns>
+        public static ChartPointData CreateDikeToeAtPolderChartData()
         {
-            if (surfaceLine == null)
+            return new ChartPointData(PipingDataResources.CharacteristicPoint_DikeToeAtPolder)
             {
-                throw new ArgumentNullException("surfaceLine");
-            }
-
-            return CreateCharacteristicPoint(surfaceLine.DikeToeAtPolder, surfaceLine, PipingDataResources.CharacteristicPoint_DikeToeAtPolder, Color.SlateGray);
+                Style = GetCharacteristicPointStyle(Color.SlateGray)
+            };
         }
 
         /// <summary>
-        /// Create an instance of <see cref="ChartData"/> with styling based on the color of <see name="SoilLayer.Color"/> of
-        /// the <see cref="PipingSoilLayer"/> as index <paramref name="soilLayerIndex"/>. The <see cref="PipingSoilLayer"/> is drawn 
-        /// for the full width of the <paramref name="surfaceLine"/> (as far as the <see cref="PipingSoilLayer"/> is visible below 
-        /// the <paramref name="surfaceLine"/>).
+        /// Create a <see cref="ChartDataCollection"/> for a <see cref="PipingSoilProfile"/>.
         /// </summary>
-        /// <param name="soilLayerIndex">The index of the <see cref="PipingSoilLayer"/> in the <see cref="soilProfile"/> to create <see cref="ChartData"/> for.</param>
+        /// <returns>The created <see cref="ChartDataCollection"/>.</returns>
+        public static ChartDataCollection CreateSoilProfileChartData()
+        {
+            return new ChartDataCollection(Resources.StochasticSoilProfileProperties_DisplayName);
+        }
+
+        /// <summary>
+        /// Create <see cref="ChartData"/> for a <see cref="PipingSoilLayer"/> based on its color.
+        /// </summary>
+        /// <param name="soilLayerIndex">The index of the <see cref="PipingSoilLayer"/> in <paramref name="soilProfile"/> for which to create <see cref="ChartData"/>.</param>
         /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> which contains the <see cref="PipingSoilLayer"/>.</param>
-        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> that may intersect with the 
-        /// <see cref="PipingSoilLayer"/> and by doing that restricts the drawn height of the <see cref="PipingSoilLayer"/>.</param>
-        /// <returns>An <see cref="ICollection{T}"/> which contains one or more (in the case of the <paramref name="surfaceLine"/> 
-        /// splitting the layer in multiple parts) instances of <see cref="ChartData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="soilProfile"/> is <c>null</c>.</item>
-        /// <item><paramref name="surfaceLine"/> is <c>null</c>.</item>
-        /// </list></exception>
-        public static ChartData CreatePipingSoilLayer(int soilLayerIndex, PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine)
+        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
+        public static ChartMultipleAreaData CreateSoilLayerChartData(int soilLayerIndex, PipingSoilProfile soilProfile)
         {
             if (soilProfile == null)
             {
                 throw new ArgumentNullException("soilProfile");
             }
-            if (surfaceLine == null)
-            {
-                throw new ArgumentNullException("surfaceLine");
-            }
 
             var soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);
-            var surfaceLineLocalGeometry = surfaceLine.ProjectGeometryToLZ().ToArray();
 
-            var name = string.Format("{0} {1}", soilLayerIndex + 1, soilLayer.MaterialName);
-            var fillColor = soilLayer.Color;
-
-            IEnumerable<IEnumerable<Point2D>> soilLayerAreas;
-
-            if (IsSurfaceLineAboveSoilLayer(surfaceLineLocalGeometry, soilLayer))
+            return new ChartMultipleAreaData(string.Format("{0} {1}", soilLayerIndex + 1, soilLayer.MaterialName))
             {
-                soilLayerAreas = new List<IEnumerable<Point2D>>
-                {
-                    CreateSurfaceLineWideSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile)
-                };
-            }
-            else if (IsSurfaceLineBelowSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile))
-            {
-                soilLayerAreas = Enumerable.Empty<IEnumerable<Point2D>>();
-            }
-            else
-            {
-                soilLayerAreas = GetSoilLayerWithSurfaceLineIntersection(surfaceLineLocalGeometry, soilLayer, soilProfile);
-            }
-            return CreateSoilLayerChartData(soilLayerAreas, name, fillColor);
-        }
-
-        private static IEnumerable<IEnumerable<Point2D>> GetSoilLayerWithSurfaceLineIntersection(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
-        {
-            var surfaceLineAsPolygon = CreateSurfaceLinePolygonAroundSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
-            var soilLayerAsPolygon = CreateSurfaceLineWideSoilLayer(surfaceLineLocalGeometry, soilLayer, soilProfile);
-
-            return AdvancedMath2D.PolygonIntersectionWithPolygon(surfaceLineAsPolygon, soilLayerAsPolygon);
-        }
-
-        private static bool IsSurfaceLineAboveSoilLayer(IEnumerable<Point2D> surfaceLineLocalGeometry, PipingSoilLayer soilLayer)
-        {
-            var surfaceLineLowestPointY = surfaceLineLocalGeometry.Select(p => p.Y).Min();
-            var topLevel = soilLayer.Top;
-
-            return surfaceLineLowestPointY >= topLevel;
-        }
-
-        private static bool IsSurfaceLineBelowSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
-        {
-            var topLevel = soilLayer.Top;
-            return surfaceLineLocalGeometry.Select(p => p.Y).Max() <= topLevel - soilProfile.GetLayerThickness(soilLayer);
-        }
-
-        private static IEnumerable<Point2D> CreateSurfaceLinePolygonAroundSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
-        {
-            var surfaceLineAsPolygon = surfaceLineLocalGeometry.ToList();
-
-            var topLevel = soilLayer.Top;
-            var bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
-            var surfaceLineLowestPointY = surfaceLineAsPolygon.Select(p => p.Y).Min();
-
-            double closingSurfaceLineToPolygonBottomLevel = Math.Min(surfaceLineLowestPointY, bottomLevel) - 1;
-
-            surfaceLineAsPolygon.Add(new Point2D(surfaceLineAsPolygon.Last().X, closingSurfaceLineToPolygonBottomLevel));
-            surfaceLineAsPolygon.Add(new Point2D(surfaceLineAsPolygon.First().X, closingSurfaceLineToPolygonBottomLevel));
-
-            return surfaceLineAsPolygon;
-        }
-
-        private static IEnumerable<Point2D> CreateSurfaceLineWideSoilLayer(Point2D[] surfaceLineLocalGeometry, PipingSoilLayer soilLayer, PipingSoilProfile soilProfile)
-        {
-            var firstSurfaceLinePoint = surfaceLineLocalGeometry.First();
-            var lastSurfaceLinePoint = surfaceLineLocalGeometry.Last();
-
-            var startX = firstSurfaceLinePoint.X;
-            var endX = lastSurfaceLinePoint.X;
-
-            var topLevel = soilLayer.Top;
-            var bottomLevel = topLevel - soilProfile.GetLayerThickness(soilLayer);
-
-            var geometry = new[]
-            {
-                new Point2D(startX, topLevel),
-                new Point2D(endX, topLevel),
-                new Point2D(endX, bottomLevel),
-                new Point2D(startX, bottomLevel)
-            };
-            return geometry;
-        }
-
-        private static ChartMultipleAreaData CreateSoilLayerChartData(IEnumerable<IEnumerable<Point2D>> geometries, string name, Color color)
-        {
-            return new ChartMultipleAreaData(geometries, name)
-            {
-                Style = new ChartAreaStyle(color, Color.Black, 1)
+                Style = new ChartAreaStyle(soilLayer.Color, Color.Black, 1)
             };
         }
 
-        private static ChartData CreatePointWithZAtL(RoundedDouble pointL, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)
+        /// <summary>
+        /// Updates the name of <paramref name="chartData"/> based on <paramref name="surfaceLine"/>.
+        /// </summary>
+        /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
+        /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> used for obtaining the name.</param>
+        /// <remarks>When <paramref name="surfaceLine"/> is <c>null</c> a default name is set (<seealso cref="CreateSurfaceLineChartData"/>).</remarks>
+        public static void UpdateSurfaceLineChartDataName(ChartLineData chartData, RingtoetsPipingSurfaceLine surfaceLine)
         {
-            var pointZ = surfaceLine.GetZAtL(pointL);
-
-            return new ChartPointData(new[]
-            {
-                new Point2D(pointL, pointZ),
-            }, name)
-            {
-                Style = new ChartPointStyle(color, 8, Color.Transparent, 0, ChartPointSymbol.Triangle)
-            };
+            chartData.Name = surfaceLine != null
+                                 ? surfaceLine.Name
+                                 : Resources.RingtoetsPipingSurfaceLine_DisplayName;
         }
 
-        private static ChartData CreateCharacteristicPoint(Point3D worldPoint, RingtoetsPipingSurfaceLine surfaceLine, string name, Color color)
+        /// <summary>
+        /// Updates the name of <paramref name="chartData"/> based on <paramref name="soilProfile"/>.
+        /// </summary>
+        /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
+        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> used for obtaining the name.</param>
+        /// <remarks>When <paramref name="soilProfile"/> is <c>null</c> a default name is set (<seealso cref="CreateSoilProfileChartData"/>).</remarks>
+        public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, PipingSoilProfile soilProfile)
         {
-            return CreateLocalPoint(worldPoint, surfaceLine, name, new ChartPointStyle(color, 8, Color.Transparent, 0, ChartPointSymbol.Circle));
+            chartData.Name = soilProfile != null
+                                 ? soilProfile.Name
+                                 : Resources.StochasticSoilProfileProperties_DisplayName;
         }
 
-        private static ChartData CreateLocalPoint(Point3D worldPoint, RingtoetsPipingSurfaceLine surfaceLine, string name, ChartPointStyle style)
+        private static ChartPointStyle GetGeneralPointStyle(Color color)
         {
-            return new ChartPointData(new[]
-            {
-                surfaceLine.GetLocalPointFromGeometry(worldPoint)
-            }, name)
-            {
-                Style = style
-            };
+            return new ChartPointStyle(color, 8, Color.Transparent, 0, ChartPointSymbol.Triangle);
+        }
+
+        private static ChartPointStyle GetCharacteristicPointStyle(Color indianRed)
+        {
+            return new ChartPointStyle(indianRed, 8, Color.Transparent, 0, ChartPointSymbol.Circle);
         }
     }
 }
