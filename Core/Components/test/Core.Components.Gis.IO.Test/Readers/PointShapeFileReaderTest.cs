@@ -68,7 +68,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PointShapeFileReader(nonPointShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geometrieën die geen punt zijn.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geen punt.",
                                                 nonPointShapeFile);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

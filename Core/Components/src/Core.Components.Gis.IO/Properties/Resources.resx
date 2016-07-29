@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LineShapeFileReader_File_contains_geometries_not_line" xml:space="preserve">
-    <value>Bestand bevat geometrieën die geen lijn zijn.</value>
+    <value>Bestand bevat geen lijn.</value>
   </data>
   <data name="PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline" xml:space="preserve">
     <value>Ingelezen element is een 'multi-lijn'; alleen enkelvoudige lijn elementen worden ondersteund.</value>
@@ -130,13 +130,13 @@
     <value>Lijn</value>
   </data>
   <data name="PointShapeFileReader_File_contains_geometries_not_points" xml:space="preserve">
-    <value>Bestand bevat geometrieën die geen punt zijn.</value>
+    <value>Bestand bevat geen punt.</value>
   </data>
   <data name="PointShapeFileReader_ReadLine_Points" xml:space="preserve">
     <value>Punten</value>
   </data>
   <data name="PointShapeFileReader_File_contains_geometries_not_polygons" xml:space="preserve">
-    <value>Bestand bevat geometrieën die geen polygonen zijn.</value>
+    <value>Bestand bevat geen polygoon.</value>
   </data>
   <data name="PolygonShapeFileReader_ReadLine_Polygon" xml:space="preserve">
     <value>Polygoon</value>

@@ -114,7 +114,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => ReferenceLinesMetaReader.ReadReferenceLinesMetas(invalidFilePath);
 
             // Assert .
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geometrieën die geen lijn zijn.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geen lijn.",
                                                 invalidFilePath);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

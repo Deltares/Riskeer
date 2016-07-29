@@ -72,7 +72,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PolygonShapeFileReader(nonPolygonShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geometrieën die geen polygonen zijn.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geen polygoon.",
                                                 nonPolygonShapeFile);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
