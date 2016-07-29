@@ -61,7 +61,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} shape bestand (*.shp)|*.shp.
+        ///   Looks up a localized string similar to {0} shapebestand (*.shp)|*.shp.
         /// </summary>
         public static string DataTypeDisplayName_0_shape_file_filter {
             get {

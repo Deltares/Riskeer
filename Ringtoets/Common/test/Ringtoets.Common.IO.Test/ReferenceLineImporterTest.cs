@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.Test
             Assert.AreEqual("Referentielijn", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ReferenceLineIcon, importer.Image);
-            Assert.AreEqual("Referentielijn shape bestand (*.shp)|*.shp", importer.FileFilter);
+            Assert.AreEqual("Referentielijn shapebestand (*.shp)|*.shp", importer.FileFilter);
         }
 
         [Test]

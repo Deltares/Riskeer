@@ -267,7 +267,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.</value>
   </data>
   <data name="AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLines_in_file" xml:space="preserve">
-    <value>Er kunnen geen trajecten gelezen worden uit het shape bestand.</value>
+    <value>Er kunnen geen trajecten gelezen worden uit het shapebestand.</value>
   </data>
   <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_ReferenceLineFailed" xml:space="preserve">
     <value>Het importeren van de referentielijn is mislukt.</value>

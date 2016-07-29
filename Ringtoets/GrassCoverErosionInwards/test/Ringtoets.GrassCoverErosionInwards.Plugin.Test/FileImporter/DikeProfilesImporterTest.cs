@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Assert.AreEqual("Dijkprofiel locaties", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
             TestHelper.AssertImagesAreEqual(GrassCoverErosionInwardsPluginResources.DikeProfile, importer.Image);
-            Assert.AreEqual("Dijkprofiel locaties shape bestand (*.shp)|*.shp", importer.FileFilter);
+            Assert.AreEqual("Dijkprofiel locaties shapebestand (*.shp)|*.shp", importer.FileFilter);
         }
 
         [Test]
@@ -564,7 +564,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Assert.IsTrue(importResult);
             List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
             {
-                new ProgressNotification("Inlezen van dijkprofiel locaties uit een shape bestand.", 1, 1),
+                new ProgressNotification("Inlezen van dijkprofiel locaties uit een shapebestand.", 1, 1),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 1, 5),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 2, 5),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 3, 5),
@@ -643,7 +643,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Assert.IsTrue(importResult);
             List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
             {
-                new ProgressNotification("Inlezen van dijkprofiel locaties uit een shape bestand.", 1, 1),
+                new ProgressNotification("Inlezen van dijkprofiel locaties uit een shapebestand.", 1, 1),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 1, 5),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 2, 5),
                 new ProgressNotification("Inlezen van dijkprofiel locatie.", 3, 5),

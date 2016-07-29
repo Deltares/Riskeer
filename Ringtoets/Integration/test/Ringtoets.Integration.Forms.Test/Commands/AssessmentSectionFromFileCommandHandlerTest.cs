@@ -170,7 +170,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             Action action = () => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
 
             // Assert
-            const string expectedMessage = "Er kunnen geen trajecten gelezen worden uit het shape bestand.";
+            const string expectedMessage = "Er kunnen geen trajecten gelezen worden uit het shapebestand.";
             TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
             Assert.AreEqual(expectedMessage, messageText);
             mockRepository.VerifyAll();

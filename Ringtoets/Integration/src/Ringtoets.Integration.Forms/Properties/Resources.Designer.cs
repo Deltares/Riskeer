@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er kunnen geen trajecten gelezen worden uit het shape bestand..
+        ///   Looks up a localized string similar to Er kunnen geen trajecten gelezen worden uit het shapebestand..
         /// </summary>
         public static string AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLines_in_file {
             get {

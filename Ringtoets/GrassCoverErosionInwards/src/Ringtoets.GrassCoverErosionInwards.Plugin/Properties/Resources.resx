@@ -134,7 +134,7 @@
     <value>Dijkprofiel locaties</value>
   </data>
   <data name="DikeProfilesImporter_ReadDikeProfileLocations_reading_dikeprofilelocations" xml:space="preserve">
-    <value>Inlezen van dijkprofiel locaties uit een shape bestand.</value>
+    <value>Inlezen van dijkprofiel locaties uit een shapebestand.</value>
   </data>
   <data name="DikeProfilesImporter_GetDikeProfileLocationReadResult_reading_dikeprofilelocation" xml:space="preserve">
     <value>Inlezen van dijkprofiel locatie.</value>

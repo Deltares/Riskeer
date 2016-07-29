@@ -185,7 +185,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van dijkprofiel locaties uit een shape bestand..
+        ///   Looks up a localized string similar to Inlezen van dijkprofiel locaties uit een shapebestand..
         /// </summary>
         internal static string DikeProfilesImporter_ReadDikeProfileLocations_reading_dikeprofilelocations {
             get {
