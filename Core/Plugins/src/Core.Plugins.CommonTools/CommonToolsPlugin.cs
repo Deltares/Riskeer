@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
+using Core.Plugins.CommonTools.PropertyClasses;
 
 namespace Core.Plugins.CommonTools
 {
@@ -31,6 +33,11 @@ namespace Core.Plugins.CommonTools
     /// </summary>
     public class CommonToolsPlugin : PluginBase
     {
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo<IProject, ProjectProperties>();
+        }
+
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<RichTextFile, RichTextView>
