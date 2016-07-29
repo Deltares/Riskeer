@@ -798,9 +798,13 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
         private static bool IsDocumentViewPresent(AvalonDockViewHost avalonDockViewHost, IView documentView)
         {
-            var documentPane = TypeUtils.GetField<LayoutDocumentPane>(avalonDockViewHost, "documentPane");
+            var layoutDocumentPaneGroup = TypeUtils.GetField<LayoutDocumentPaneGroup>(avalonDockViewHost, "layoutDocumentPaneGroup");
 
-            return documentPane.Children.Any(c => ((WindowsFormsHost) c.Content).Child == documentView);
+            return layoutDocumentPaneGroup.Descendents()
+                                          .OfType<LayoutDocumentPane>()
+                                          .First()
+                                          .Children
+                                          .Any(c => ((WindowsFormsHost) c.Content).Child == documentView);
         }
 
         private static bool IsToolViewPresent(AvalonDockViewHost avalonDockViewHost, IView toolView, ToolViewLocation toolViewLocation)
@@ -810,22 +814,26 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             switch (toolViewLocation)
             {
                 case ToolViewLocation.Left:
-                    paneField = "leftPane";
+                    paneField = "leftLayoutAnchorablePaneGroup";
                     break;
                 case ToolViewLocation.Right:
-                    paneField = "rightPane";
+                    paneField = "rightLayoutAnchorablePaneGroup";
                     break;
                 case ToolViewLocation.Bottom:
-                    paneField = "bottomPane";
+                    paneField = "bottomLayoutAnchorablePaneGroup";
                     break;
                 default:
                     paneField = "";
                     break;
             }
 
-            var layoutAnchorablePaneGroup = TypeUtils.GetField<LayoutAnchorablePane>(avalonDockViewHost, paneField);
+            var layoutAnchorablePaneGroup = TypeUtils.GetField<LayoutAnchorablePaneGroup>(avalonDockViewHost, paneField);
 
-            return layoutAnchorablePaneGroup.Children.Any(c => ((WindowsFormsHost) c.Content).Child == toolView);
+            return layoutAnchorablePaneGroup.Descendents()
+                                            .OfType<LayoutAnchorablePane>()
+                                            .First()
+                                            .Children
+                                            .Any(c => ((WindowsFormsHost) c.Content).Child == toolView);
         }
 
         private static bool IsFocussedView(AvalonDockViewHost avalonDockViewHost, IView view)

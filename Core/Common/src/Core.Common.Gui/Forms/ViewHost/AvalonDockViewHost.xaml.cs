@@ -127,7 +127,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             documentViews.Add(view);
             hostControls.Add(hostControl);
-            documentPane.Children.Add(layoutDocument);
+            AddLayoutDocument(layoutDocument);
 
             SetFocusToView(view);
 
@@ -163,18 +163,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             toolViews.Add(view);
             hostControls.Add(hostControl);
 
-            switch (toolViewLocation)
-            {
-                case ToolViewLocation.Left:
-                    leftPane.Children.Add(layoutAnchorable);
-                    break;
-                case ToolViewLocation.Bottom:
-                    bottomPane.Children.Add(layoutAnchorable);
-                    break;
-                case ToolViewLocation.Right:
-                    rightPane.Children.Add(layoutAnchorable);
-                    break;
-            }
+            AddLayoutAnchorable(layoutAnchorable, toolViewLocation);
 
             SetFocusToView(view);
 
@@ -361,6 +350,37 @@ namespace Core.Common.Gui.Forms.ViewHost
             return dockingManager.Layout.Descendents()
                                  .OfType<T>()
                                  .FirstOrDefault(d => GetView(d.Content) == view);
+        }
+
+        private void AddLayoutDocument(LayoutDocument layoutDocument)
+        {
+            layoutDocumentPaneGroup.Descendents()
+                                   .OfType<LayoutDocumentPane>()
+                                   .First()
+                                   .Children.Add(layoutDocument);
+        }
+
+        private void AddLayoutAnchorable(LayoutAnchorable layoutAnchorable, ToolViewLocation toolViewLocation)
+        {
+            var layoutAnchorablePaneGroup = new LayoutAnchorablePaneGroup();
+
+            switch (toolViewLocation)
+            {
+                case ToolViewLocation.Left:
+                    layoutAnchorablePaneGroup = leftLayoutAnchorablePaneGroup;
+                    break;
+                case ToolViewLocation.Bottom:
+                    layoutAnchorablePaneGroup = bottomLayoutAnchorablePaneGroup;
+                    break;
+                case ToolViewLocation.Right:
+                    layoutAnchorablePaneGroup = rightLayoutAnchorablePaneGroup;
+                    break;
+            }
+
+            layoutAnchorablePaneGroup.Descendents()
+                                     .OfType<LayoutAnchorablePane>()
+                                     .First()
+                                     .Children.Add(layoutAnchorable);
         }
 
         private static IView GetView(object content)
