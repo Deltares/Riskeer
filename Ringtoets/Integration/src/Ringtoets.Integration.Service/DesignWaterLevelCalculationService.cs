@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Service
         /// <returns><c>False</c> if <paramref name="hydraulicBoundaryDatabase"/> contains validation errors; <c>True</c> otherwise.</returns>
         internal static bool Validate(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            CalculationServiceHelper.LogValidationBeginTime(hydraulicBoundaryLocation.Id.ToString());
+            CalculationServiceHelper.LogValidationBeginTime(hydraulicBoundaryLocation.Name);
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabase.FilePath);
             var hasErrors = string.IsNullOrEmpty(validationProblem);
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Service
                                                             validationProblem);
             }
 
-            CalculationServiceHelper.LogValidationEndTime(hydraulicBoundaryLocation.Id.ToString());
+            CalculationServiceHelper.LogValidationEndTime(hydraulicBoundaryLocation.Name);
 
             return hasErrors;
         }
@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Service
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
 
             CalculationServiceHelper.PerformCalculation(
-                hydraulicBoundaryLocation.Id.ToString(),
+                hydraulicBoundaryLocation.Name,
                 () =>
                 {
                     HydraRingCalculationService.PerformCalculation(
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Service
                               input,
                               new[] { targetProbabilityCalculationParser });
 
-                    VerifyOutput(targetProbabilityCalculationParser.Output, hydraulicBoundaryLocation.Id.ToString());
+                    VerifyOutput(targetProbabilityCalculationParser.Output, hydraulicBoundaryLocation.Name);
                 });
 
             return targetProbabilityCalculationParser.Output;

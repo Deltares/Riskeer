@@ -117,9 +117,9 @@ namespace Ringtoets.Integration.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", hydraulicBoundaryLocation.Id), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", hydraulicBoundaryLocation.Name), msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Id), msgs[2]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Name), msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
@@ -143,10 +143,10 @@ namespace Ringtoets.Integration.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", hydraulicBoundaryLocation.Id), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Id), msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", hydraulicBoundaryLocation.Id), msgs[2]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Id), msgs[3]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", hydraulicBoundaryLocation.Name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Name), msgs[1]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", hydraulicBoundaryLocation.Name), msgs[2]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Name), msgs[3]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
         }
@@ -170,11 +170,11 @@ namespace Ringtoets.Integration.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", hydraulicBoundaryLocation.Id), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Id), msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", hydraulicBoundaryLocation.Id), msgs[2]);
-                StringAssert.StartsWith(string.Format("Er is een fout opgetreden tijdens de toetspeil berekening '{0}': inspecteer het logbestand.", hydraulicBoundaryLocation.Id), msgs[3]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Id), msgs[4]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", hydraulicBoundaryLocation.Name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Name), msgs[1]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", hydraulicBoundaryLocation.Name), msgs[2]);
+                StringAssert.StartsWith(string.Format("Er is een fout opgetreden tijdens de toetspeil berekening '{0}': inspecteer het logbestand.", hydraulicBoundaryLocation.Name), msgs[3]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", hydraulicBoundaryLocation.Name), msgs[4]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
