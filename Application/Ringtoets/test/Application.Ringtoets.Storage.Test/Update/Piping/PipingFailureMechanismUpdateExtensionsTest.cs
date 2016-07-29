@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -241,7 +242,6 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             // Setup
             MockRepository mocks = new MockRepository();
             var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
-
             mocks.ReplayAll();
 
             var stochasticSoilModel = new StochasticSoilModel(-1, string.Empty, string.Empty)
@@ -267,7 +267,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
 
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
-                StochasticSoilModelEntityId = stochasticSoilModel.StorageId
+                StochasticSoilModelEntityId = stochasticSoilModel.StorageId,
+                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {

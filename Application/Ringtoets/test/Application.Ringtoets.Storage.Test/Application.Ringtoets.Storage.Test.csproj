@@ -86,6 +86,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinaryConverters\BinaryDataEqualityHelperTest.cs" />
     <Compile Include="BinaryConverters\Point2DBinaryConverterTest.cs" />
     <Compile Include="BinaryConverters\RoughnessPointBinaryConverterTest.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />

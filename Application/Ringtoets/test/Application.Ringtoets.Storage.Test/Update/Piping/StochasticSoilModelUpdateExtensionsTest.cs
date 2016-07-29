@@ -152,7 +152,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             {
                 StochasticSoilModelEntityId = 1,
                 Name = string.Empty,
-                SegmentName = string.Empty
+                SegmentName = string.Empty,
+                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
 
             ringtoetsEntities.StochasticSoilModelEntities.Add(modelEntity);
@@ -190,7 +191,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
 
             var soilModelEntity = new StochasticSoilModelEntity
             {
-                StochasticSoilModelEntityId = 1
+                StochasticSoilModelEntityId = 1,
+                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
 
             ringtoetsEntities.StochasticSoilModelEntities.Add(soilModelEntity);
@@ -236,7 +238,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 StochasticSoilProfileEntities = 
                 {
                     soilProfileEntity
-                }
+                },
+                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
 
             ringtoetsEntities.StochasticSoilModelEntities.Add(soilModelEntity);
