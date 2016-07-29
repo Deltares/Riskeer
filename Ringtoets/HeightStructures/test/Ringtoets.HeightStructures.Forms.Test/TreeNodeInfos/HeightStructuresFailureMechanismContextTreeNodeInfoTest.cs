@@ -171,8 +171,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -258,7 +256,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 var menu = info.ContextMenuStrip(failureMechanismContext, assessmentSectionMock, treeView);
 
                 // Assert
-                Assert.AreEqual(8, menu.Items.Count);
+                Assert.AreEqual(7, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                               RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
@@ -836,10 +834,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             }
         }
 
-        private const int contextMenuRelevancyIndexWhenRelevant = 1;
+        private const int contextMenuRelevancyIndexWhenRelevant = 0;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-        private const int contextMenuValidateAllIndex = 3;
-        private const int contextMenuCalculateAllIndex = 4;
-        private const int contextMenuClearAllIndex = 5;
+        private const int contextMenuValidateAllIndex = 2;
+        private const int contextMenuCalculateAllIndex = 3;
+        private const int contextMenuClearAllIndex = 4;
     }
 }

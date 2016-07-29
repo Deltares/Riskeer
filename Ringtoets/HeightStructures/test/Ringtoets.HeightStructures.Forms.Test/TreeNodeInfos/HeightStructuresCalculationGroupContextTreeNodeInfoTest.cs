@@ -171,8 +171,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                                            assessmentSectionMock);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -221,7 +219,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(9, menu.Items.Count);
+                Assert.AreEqual(8, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
@@ -1026,11 +1024,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
         }
 
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 1;
-        private const int contextMenuAddCalculationIndexRootGroup = 2;
-        private const int contextMenuValidateAllIndexRootGroup = 4;
-        private const int contextMenuCalculateAllIndexRootGroup = 5;
-        private const int contextMenuClearAllIndexRootGroup = 6;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 0;
+        private const int contextMenuAddCalculationIndexRootGroup = 1;
+        private const int contextMenuValidateAllIndexRootGroup = 3;
+        private const int contextMenuCalculateAllIndexRootGroup = 4;
+        private const int contextMenuClearAllIndexRootGroup = 5;
+
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;
         private const int contextMenuValidateAllIndexNestedGroup = 3;

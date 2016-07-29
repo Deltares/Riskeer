@@ -324,9 +324,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private ContextMenuStrip EmptyProbabilityAssessmentOutputContextMenuStrip(EmptyProbabilityAssessmentOutput output, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(output, treeViewControl));
-            return builder.AddExportItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
+            return builder.AddPropertiesItem()
                           .Build();
         }
 
@@ -384,9 +382,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionInwardsFailureMechanismContext, treeViewControl));
 
-            return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               grassCoverErosionInwardsFailureMechanismContext,
@@ -472,9 +468,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             if (!isNestedGroup)
             {
-                builder.AddOpenItem()
-                       .AddSeparator()
-                       .AddCustomItem(generateCalculationsItem)
+                builder.AddCustomItem(generateCalculationsItem)
                        .AddSeparator();
             }
 

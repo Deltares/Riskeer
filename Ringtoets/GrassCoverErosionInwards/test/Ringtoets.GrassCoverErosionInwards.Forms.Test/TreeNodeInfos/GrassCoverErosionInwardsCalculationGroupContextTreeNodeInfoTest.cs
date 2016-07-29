@@ -173,8 +173,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -225,7 +223,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(11, menu.Items.Count);
+                Assert.AreEqual(10, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
@@ -377,16 +375,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub, exportImportHandlerStub, viewCommandsHandlerMock, nodeData, treeViewControl);
                 guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                viewCommandsHandlerMock.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
-
                 mocks.ReplayAll();
 
                 // Call
                 ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Calculate_all,
                                                               RingtoetsFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
                                                               RingtoetsFormsResources.CalculateAllIcon,
@@ -428,16 +423,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub, exportImportHandlerStub, viewCommandsHandlerMock, nodeData, treeViewControl);
                 guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                viewCommandsHandlerMock.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
-
                 mocks.ReplayAll();
 
                 // Call
                 var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuClearAllIndexRootGroup,
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Calculate_all,
                                                               RingtoetsFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
                                                               RingtoetsFormsResources.CalculateAllIcon,
@@ -479,16 +471,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub, exportImportHandlerStub, viewCommandsHandlerMock, nodeData, treeViewControl);
                 guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                viewCommandsHandlerMock.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(false);
-
                 mocks.ReplayAll();
 
                 // Call
                 ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearAllIndexRootGroup];
+                ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexRootGroup];
 
                 Assert.AreEqual(RingtoetsFormsResources.Calculate_all, contextMenuItem.Text);
                 StringAssert.Contains(string.Format(RingtoetsFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
@@ -1119,12 +1108,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                    });
         }
 
-        private const int contextMenuGenerateCalculationsIndexRootGroup = 1;
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 3;
-        private const int contextMenuAddCalculationIndexRootGroup = 4;
-        private const int contextMenuValidateAllIndexRootGroup = 6;
-        private const int contextMenuCalculateAllIndexRootGroup = 7;
-        private const int contextMenuClearAllIndexRootGroup = 8;
+        private const int contextMenuGenerateCalculationsIndexRootGroup = 0;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
+        private const int contextMenuAddCalculationIndexRootGroup = 3;
+        private const int contextMenuValidateAllIndexRootGroup = 5;
+        private const int contextMenuCalculateAllIndexRootGroup = 6;
+        private const int contextMenuClearAllIndexRootGroup = 7;
+
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;
         private const int contextMenuValidateAllIndexNestedGroup = 3;

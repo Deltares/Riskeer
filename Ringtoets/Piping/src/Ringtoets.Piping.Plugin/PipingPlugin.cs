@@ -238,8 +238,6 @@ namespace Ringtoets.Piping.Plugin
                 Text = pipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = pipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };

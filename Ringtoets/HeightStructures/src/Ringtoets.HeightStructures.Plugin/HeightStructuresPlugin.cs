@@ -169,9 +169,7 @@ namespace Ringtoets.HeightStructures.Plugin
         private ContextMenuStrip EmptyProbabilityAssessmentOutputContextMenuStrip(EmptyProbabilityAssessmentOutput output, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(output, treeViewControl));
-            return builder.AddExportItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
+            return builder.AddPropertiesItem()
                           .Build();
         }
 
@@ -242,9 +240,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
@@ -325,12 +321,6 @@ namespace Ringtoets.HeightStructures.Plugin
             var group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
-
-            if (!isNestedGroup)
-            {
-                builder.AddOpenItem()
-                       .AddSeparator();
-            }
 
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(context, AddCalculation)
