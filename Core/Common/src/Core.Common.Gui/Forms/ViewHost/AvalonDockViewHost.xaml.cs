@@ -131,6 +131,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
             SetFocusToView(view);
 
+            layoutDocument.Closing += OnLayoutDocumentClosing;
             layoutDocument.Closed += OnLayoutDocumentClosed;
         }
 
@@ -293,10 +294,25 @@ namespace Core.Common.Gui.Forms.ViewHost
             }
         }
 
+        private void OnLayoutDocumentClosing(object sender, CancelEventArgs e)
+        {
+            var layoutDocument = (LayoutDocument) sender;
+            var view = GetView(layoutDocument.Content);
+
+            if (ActiveDocumentView == view)
+            {
+                // Note: When removing the active document view via AvalonDock, always set focus to this
+                // view in order to make the view host behave as expected (in this case AvalonDock will help
+                // us selecting the previous active document view based on active content changes).
+                SetFocusToView(view);
+            }
+        }
+
         private void OnLayoutDocumentClosed(object sender, EventArgs e)
         {
             var layoutDocument = (LayoutDocument) sender;
 
+            layoutDocument.Closing -= OnLayoutDocumentClosing;
             layoutDocument.Closed -= OnLayoutDocumentClosed;
 
             OnViewClosed(GetView(layoutDocument.Content));
