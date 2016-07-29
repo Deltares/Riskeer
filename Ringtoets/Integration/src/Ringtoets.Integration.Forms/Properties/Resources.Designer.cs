@@ -528,6 +528,42 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Korte beschrijving van het project..
+        /// </summary>
+        public static string RingtoetsProjectProperties_Description_Description {
+            get {
+                return ResourceManager.GetString("RingtoetsProjectProperties_Description_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Omschrijving.
+        /// </summary>
+        public static string RingtoetsProjectProperties_Description_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsProjectProperties_Description_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van het project..
+        /// </summary>
+        public static string RingtoetsProjectProperties_Name_Description {
+            get {
+                return ResourceManager.GetString("RingtoetsProjectProperties_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string RingtoetsProjectProperties_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsProjectProperties_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaardendatabase.
         /// </summary>
         public static string SelectHydraulicBoundaryDatabaseFile_FilterName {

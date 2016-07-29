@@ -246,6 +246,7 @@ namespace Ringtoets.Integration.Plugin
         /// </summary>
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
+            yield return new PropertyInfo<IProject, RingtoetsProjectProperties>();
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>();
             yield return new PropertyInfo<FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>();

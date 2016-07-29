@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Threading;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -195,7 +196,13 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, propertyInfos.Length);
+                Assert.AreEqual(7, propertyInfos.Length);
+
+                var ringtoetsProjectProperties = propertyInfos.Single(pi => pi.DataType == typeof(IProject));
+                Assert.AreEqual(typeof(RingtoetsProjectProperties), ringtoetsProjectProperties.PropertyObjectType);
+                Assert.IsNull(ringtoetsProjectProperties.AdditionalDataCheck);
+                Assert.IsNull(ringtoetsProjectProperties.GetObjectPropertiesData);
+                Assert.IsNull(ringtoetsProjectProperties.AfterCreate);
 
                 var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyObjectType);

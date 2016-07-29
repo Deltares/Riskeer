@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
-using Core.Plugins.CommonTools.PropertyClasses;
 using NUnit.Framework;
 
 namespace Core.Plugins.CommonTools.Test
@@ -32,23 +30,6 @@ namespace Core.Plugins.CommonTools.Test
     [TestFixture]
     public class CommonToolsPluginTest
     {
-        [Test]
-        public void GetCommonToolsPluginProperties_Always_ReturnProperties()
-        {
-            // Setup
-            var plugin = new CommonToolsPlugin();
-
-            // Call
-            var propertyInfos = plugin.GetPropertyInfos().ToList();
-
-            // Assert
-            Assert.AreEqual(1, propertyInfos.Count);
-
-            var projectPropertyInfo = propertyInfos.First(pi => pi.DataType == typeof(IProject));
-
-            Assert.AreEqual(typeof(ProjectProperties), projectPropertyInfo.PropertyObjectType);
-        }
-
         [Test]
         public void GetCommonToolsPluginProperties_Always_ReturnViews()
         {
