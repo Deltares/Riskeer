@@ -161,11 +161,17 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> which contains the <see cref="PipingSoilLayer"/>.</param>
         /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="soilLayerIndex"/> is outside the allowable range of values ([0, number_of_soil_layers>).</exception>
         public static ChartMultipleAreaData CreateSoilLayerChartData(int soilLayerIndex, PipingSoilProfile soilProfile)
         {
             if (soilProfile == null)
             {
                 throw new ArgumentNullException("soilProfile");
+            }
+
+            if (soilLayerIndex < 0 || soilLayerIndex >= soilProfile.Layers.Count())
+            {
+                throw new ArgumentOutOfRangeException("soilLayerIndex");
             }
 
             var soilLayer = soilProfile.Layers.ElementAt(soilLayerIndex);

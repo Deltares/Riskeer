@@ -168,11 +168,32 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("soilProfile", paramName);
         }
 
+        [TestCase(-1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void CreateSoilLayerChartData_InvalidSoilLayerIndex_ThrowsArgumentOutOfRangeException(int soilLayerIndex)
+        {
+            // Setup
+            var layers = new[]
+            {
+                new PipingSoilLayer(0),
+                new PipingSoilLayer(1)
+            };
+            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            TestDelegate test = () => PipingChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentOutOfRangeException>(test).ParamName;
+            Assert.AreEqual("soilLayerIndex", paramName);
+        }
+
         [Test]
         [TestCase("A", 0)]
         [TestCase("B", 3)]
         [TestCase("Random", 5)]
-        public void CreateSoilLayerChartData_ValidSoilProfile_ReturnsEmptyChartDataCollectionWithDefaultStyling(string name, int soilLayerIndex)
+        public void CreateSoilLayerChartData_ValidSoilProfileAndSoilLayerIndex_ReturnsEmptyChartDataCollectionWithDefaultStyling(string name, int soilLayerIndex)
         {
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             surfaceLine.SetGeometry(new[]
