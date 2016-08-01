@@ -23,7 +23,9 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Properties;
+
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -33,9 +35,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public class RingtoetsProjectProperties : ObjectProperties<IProject>
     {
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "RingtoetsProjectProperties_Name_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "RingtoetsProjectProperties_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Name_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Name_Description")]
         public string Name
         {
             get
@@ -45,9 +47,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "RingtoetsProjectProperties_Description_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "RingtoetsProjectProperties_Description_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Description_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Description_Description")]
         public string Description
         {
             get

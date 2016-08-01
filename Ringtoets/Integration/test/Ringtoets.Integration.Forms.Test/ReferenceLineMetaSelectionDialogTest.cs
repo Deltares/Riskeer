@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Forms.Test
                 var assessmentIdValuesInGrid = new List<string>();
                 for (var i = 0; i < dataGridView.Rows.Count; i++)
                 {
-                    var currentIdValue = dataGridView[0, i].FormattedValue;
+                    object currentIdValue = dataGridView[0, i].FormattedValue;
                     if (currentIdValue != null)
                     {
                         assessmentIdValuesInGrid.Add(currentIdValue.ToString());
