@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationProperties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryLocationMock);
 
             var dynamicPropertyBag = new DynamicPropertyBag(hydraulicBoundaryLocationProperties);
-            const string expectedIdDisplayName = "Id";
+            const string expectedIdDisplayName = "ID";
             const string expectedNameDisplayName = "Naam";
             const string expectedLocationDisplayName = "Coördinaten";
             const string expectedDesignWaterLevelDisplayName = "Toetspeil [m+NAP]";

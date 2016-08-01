@@ -446,7 +446,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Id.
+        ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string HydraulicBoundaryDatabase_Locations_Id_DisplayName {
             get {
