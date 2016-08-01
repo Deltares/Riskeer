@@ -299,4 +299,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="RingtoetsRibbon_AddAssessmentSection" xml:space="preserve">
     <value>Traject toevoegen</value>
   </data>
+  <data name="AddAssessmentSection_DisplayName" xml:space="preserve">
+    <value>&amp;Traject toevoegen...</value>
+  </data>
 </root>

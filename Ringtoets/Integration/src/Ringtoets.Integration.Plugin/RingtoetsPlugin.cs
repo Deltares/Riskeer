@@ -478,9 +478,9 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
                 {
                     var addItem = new StrictContextMenuItem(
-                        RingtoetsCommonFormsResources.RingtoetsProject_DisplayName,
+                        RingtoetsFormsResources.AddAssessmentSection_DisplayName,
                         RingtoetsCommonFormsResources.RingtoetsProject_ToolTip,
-                        GuiResources.PlusIcon,
+                        RingtoetsFormsResources.AddAssessmentSectionFolder,
                         (s, e) => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile());
 
                     return Gui.Get(nodeData, treeViewControl)
@@ -702,7 +702,7 @@ namespace Ringtoets.Integration.Plugin
         #endregion
 
         #region AssessmentSection
-        
+
         private object[] AssessmentSectionChildNodeObjects(IAssessmentSection nodeData)
         {
             var childNodes = new List<object>
@@ -1004,6 +1004,7 @@ namespace Ringtoets.Integration.Plugin
                 RestoreDirectory = true,
                 CheckFileExists = false
             })
+            {
                 if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
                 {
                     try
@@ -1015,6 +1016,7 @@ namespace Ringtoets.Integration.Plugin
                         log.Error(exception.Message, exception);
                     }
                 }
+            }
         }
 
         /// <summary>
@@ -1040,6 +1042,7 @@ namespace Ringtoets.Integration.Plugin
             }
 
             using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
+            {
                 if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
                 {
                     if (isClearConfirmationGiven)
@@ -1050,6 +1053,7 @@ namespace Ringtoets.Integration.Plugin
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
+            }
         }
 
         private static bool IsClearCalculationConfirmationGiven()

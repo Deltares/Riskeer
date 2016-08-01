@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Plugin;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -184,9 +185,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     // Call
                     var contextMenu = info.ContextMenuStrip(project, null, treeViewControl);
 
-                    const string expectedItemText = "&Nieuw traject...";
+                    const string expectedItemText = "&Traject toevoegen...";
                     const string expectedItemTooltip = "Voeg een nieuw traject toe aan het project.";
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, GuiResources.PlusIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.AddAssessmentSectionFolder);
                 }
             }
             // Assert

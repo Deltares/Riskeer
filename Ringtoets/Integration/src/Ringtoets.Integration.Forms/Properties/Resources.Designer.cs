@@ -61,6 +61,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Traject toevoegen....
+        /// </summary>
+        public static string AddAssessmentSection_DisplayName {
+            get {
+                return ResourceManager.GetString("AddAssessmentSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap AddAssessmentSectionFolder {
