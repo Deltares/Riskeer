@@ -32,6 +32,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Integration.Data;
+using IntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 using Ringtoets.Integration.Forms.Properties;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
@@ -177,6 +178,7 @@ namespace Ringtoets.Integration.Forms.Commands
                                         CreateDikeAssessmentSection(settingOfSelectedAssessmentSection.N);
             }
 
+            assessmentSection.Name = string.Format(IntegrationResources.AssessmentSection_Id_0, selectedItem.AssessmentSectionId);
             assessmentSection.Id = selectedItem.AssessmentSectionId;
 
             if (!selectedItem.ReferenceLine.Points.Any())

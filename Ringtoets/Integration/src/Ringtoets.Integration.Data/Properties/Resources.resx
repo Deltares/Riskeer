@@ -216,4 +216,7 @@
   <data name="WaterPressureAsphaltCoverFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Wateroverdruk bij asfaltbekleding</value>
   </data>
+  <data name="AssessmentSection_Id_0" xml:space="preserve">
+    <value>Traject {0}</value>
+  </data>
 </root>

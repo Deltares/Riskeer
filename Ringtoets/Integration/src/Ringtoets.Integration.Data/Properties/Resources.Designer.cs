@@ -70,6 +70,15 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Traject {0}.
+        /// </summary>
+        public static string AssessmentSection_Id_0 {
+            get {
+                return ResourceManager.GetString("AssessmentSection_Id_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BSKW.
         /// </summary>
         public static string ClosingStructureFailureMechanism_Code {

@@ -264,13 +264,13 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
 
             project.AssessmentSections.Add(TestAssessmentSection1_2(true));
-            var expectedAssessmentSectionName = NamingHelper.GetUniqueName(project.AssessmentSections, "1-2", a => a.Name);
+            var expectedAssessmentSectionName = NamingHelper.GetUniqueName(project.AssessmentSections, "Traject 1-2", a => a.Name);
 
             bool signallingValueRadioButtonSelected = false;
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
-                var signallingValueRadioButton = (RadioButton)new RadioButtonTester("SignallingValueRadioButton", selectionDialog).TheObject;
+                var signallingValueRadioButton = (RadioButton) new RadioButtonTester("SignallingValueRadioButton", selectionDialog).TheObject;
                 signallingValueRadioButtonSelected = signallingValueRadioButton.Checked;
                 new ButtonTester("Ok", selectionDialog).Click();
             };
@@ -310,7 +310,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
-                var lowLimitValueRadioButton = (RadioButton)new RadioButtonTester("LowLimitValueRadioButton", selectionDialog).TheObject;
+                var lowLimitValueRadioButton = (RadioButton) new RadioButtonTester("LowLimitValueRadioButton", selectionDialog).TheObject;
                 lowLimitValueRadioButton.Checked = true;
                 new ButtonTester("Ok", selectionDialog).Click();
             };
@@ -488,7 +488,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             var expectedAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                Id = "1-2",
+                Id = "1-2", Name = "Traject 1-2"
             };
             expectedAssessmentSection.GrassCoverErosionInwards.GeneralInput.N = 2;
             expectedAssessmentSection.HeightStructures.GeneralInput.N = 2;
@@ -525,6 +525,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Id = "1-2",
+                Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
                     Norm = (useSignalingValue) ? 3000 : 1000
@@ -547,6 +548,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)
             {
                 Id = "2-1",
+                Name = "Traject 2-1",
                 FailureMechanismContribution =
                 {
                     Norm = 300
@@ -569,6 +571,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 Id = "3-3",
+                Name = "Traject 3-3",
                 FailureMechanismContribution =
                 {
                     Norm = 300
@@ -591,6 +594,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         private static void AssertAssessmentSection(AssessmentSection expected, AssessmentSection actual)
         {
             Assert.AreEqual(expected.Id, actual.Id);
+            Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.FailureMechanismContribution.Norm, actual.FailureMechanismContribution.Norm);
             Assert.AreEqual(expected.Composition, actual.Composition);
 
