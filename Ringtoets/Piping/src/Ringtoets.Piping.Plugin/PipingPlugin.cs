@@ -220,6 +220,9 @@ namespace Ringtoets.Piping.Plugin
                 Image = stochasticSoilModel => PipingFormsResources.StochasticSoilModelIcon,
                 ChildNodeObjects = stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddExpandAllItem()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
