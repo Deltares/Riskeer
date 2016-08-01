@@ -57,10 +57,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void CreateDikeHeigthChartData_ReturnsChartDataWithDefaultStyling()
+        public void CreateDikeHeightChartData_ReturnsChartDataWithDefaultStyling()
         {
             // Call
-            ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeigthChartData();
+            ChartLineData data = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeightChartData();
 
             // Assert
             Assert.AreEqual(Resources.DikeHeight_ChartName, data.Name);

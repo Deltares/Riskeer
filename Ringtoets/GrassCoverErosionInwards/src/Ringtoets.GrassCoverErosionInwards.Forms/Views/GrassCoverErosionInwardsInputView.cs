@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             foreshoreChartData = GrassCoverErosionInwardsChartDataFactory.CreateForeshoreGeometryChartData();
             dikeGeometryChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeGeometryChartData();
-            dikeHeightChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeigthChartData();
+            dikeHeightChartData = GrassCoverErosionInwardsChartDataFactory.CreateDikeHeightChartData();
 
             chartControl.Data.Add(foreshoreChartData);
             chartControl.Data.Add(dikeGeometryChartData);
