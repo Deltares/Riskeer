@@ -61,6 +61,26 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AddAssessmentSectionFolder {
+            get {
+                object obj = ResourceManager.GetObject("AddAssessmentSectionFolder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AddAssessmentSectionFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("AddAssessmentSectionFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Traject.
         /// </summary>
         public static string AssessmentSection_DisplayName {

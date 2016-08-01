@@ -117,6 +117,9 @@
 
             </fluent:Ribbon.QuickAccessItems>
 
+            <!-- Start -->
+            <fluent:RibbonTabItem Header="{x:Static Properties:Resources.Ribbon_TabItem_Start}" fluent:KeyTip.Keys="S" ></fluent:RibbonTabItem>
+
             <!--View-->
             <fluent:RibbonTabItem Header="{x:Static Properties:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="V" >
                 <fluent:RibbonGroupBox Header="{x:Static Properties:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="ZS">

@@ -81,7 +81,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         private string lastNonContextualTab;
 
         private IGui gui;
-        private RichTextFile richTextFile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -601,11 +600,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
 
             ButtonShowMessages.IsChecked = !active;
-        }
-
-        private void OnFileHelpLicense_Clicked(object sender, RoutedEventArgs e)
-        {
-            viewController.DocumentViewController.OpenViewForData(richTextFile);
         }
 
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)

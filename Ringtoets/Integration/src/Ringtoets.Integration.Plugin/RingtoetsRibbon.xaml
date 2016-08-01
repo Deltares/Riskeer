@@ -7,14 +7,15 @@
              xmlns:Converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
              xmlns:resx="clr-namespace:Ringtoets.Integration.Plugin.Properties"
              xmlns:properties="clr-namespace:Ringtoets.Integration.Forms.Properties;assembly=Ringtoets.Integration.Forms"
+             xmlns:guiProperties="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <UserControl.Resources>
         <Converters:PngToIconConverter x:Key="IconConverter" />
     </UserControl.Resources>
     <fluent:Ribbon x:Name="RingtoetsRibbonControl" x:FieldModifier="private">
-        <fluent:RibbonTabItem Header="{x:Static resx:Resources.RingtoetsRibbon_TabItem_View}" fluent:KeyTip.Keys="S" >
+        <fluent:RibbonTabItem Header="{x:Static guiProperties:Resources.Ribbon_TabItem_Start}" fluent:KeyTip.Keys="S" >
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.RingtoetsRibbon_GroupBox_New}" fluent:KeyTip.Keys="ZN">
-                <fluent:Button x:Name="AddAssessmentSectionButton" Header="{x:Static properties:Resources.AssessmentSection_DisplayName}" LargeIcon="{Binding Source={x:Static properties:Resources.AssessmentSectionFolder}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonAddAssessmentSectionToolWindowClick" fluent:KeyTip.Keys="T" />
+                <fluent:Button x:Name="AddAssessmentSectionButton" Header="{x:Static properties:Resources.AssessmentSection_DisplayName}" LargeIcon="{Binding Source={x:Static properties:Resources.AddAssessmentSectionFolder}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonAddAssessmentSectionToolWindowClick" fluent:KeyTip.Keys="T" />
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

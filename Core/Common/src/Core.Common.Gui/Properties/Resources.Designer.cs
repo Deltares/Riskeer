@@ -1215,6 +1215,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Ribbon_TabItem_Start {
+            get {
+                return ResourceManager.GetString("Ribbon_TabItem_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Beeld.
         /// </summary>
         public static string Ribbon_TabItem_View {

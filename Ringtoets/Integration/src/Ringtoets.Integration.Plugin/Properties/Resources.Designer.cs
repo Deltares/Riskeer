@@ -207,14 +207,5 @@ namespace Ringtoets.Integration.Plugin.Properties {
                 return ResourceManager.GetString("RingtoetsRibbon_GroupBox_New", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start.
-        /// </summary>
-        public static string RingtoetsRibbon_TabItem_View {
-            get {
-                return ResourceManager.GetString("RingtoetsRibbon_TabItem_View", resourceCulture);
-            }
-        }
     }
 }
