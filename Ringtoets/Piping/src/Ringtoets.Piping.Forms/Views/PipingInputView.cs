@@ -191,7 +191,7 @@ namespace Ringtoets.Piping.Forms.Views
                                    soilLayerChartDataLookup.Add(sl);
                                });
 
-                PipingChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, stochasticSoilProfile.SoilProfile);
+                PipingChartDataFactory.UpdateSoilProfileChartDataName(soilProfileChartData, stochasticSoilProfile);
 
                 soilProfileChartData.NotifyObservers();
             }

@@ -25,6 +25,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Styles;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
@@ -189,15 +190,20 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Updates the name of <paramref name="chartData"/> based on <paramref name="soilProfile"/>.
+        /// Updates the name of <paramref name="chartData"/> based on <paramref name="stochasticSoilProfile"/>.
         /// </summary>
         /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
-        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> used for obtaining the name.</param>
-        /// <remarks>When <paramref name="soilProfile"/> is <c>null</c> a default name is set (<seealso cref="CreateSoilProfileChartData"/>).</remarks>
-        public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, PipingSoilProfile soilProfile)
+        /// <param name="stochasticSoilProfile">The <see cref="StochasticSoilProfile"/> used for obtaining the name.</param>
+        /// <remarks>A default name is set (<see cref="CreateSurfaceLineChartData"/>) when:
+        /// <list type="bullet">
+        /// <item><paramref name="stochasticSoilProfile"/> is <c>null</c>;</item>
+        /// <item>the <see cref="PipingSoilProfile"/> in <paramref name="stochasticSoilProfile"/> is <c>null</c>.</item>
+        /// </list>
+        /// </remarks>
+        public static void UpdateSoilProfileChartDataName(ChartDataCollection chartData, StochasticSoilProfile stochasticSoilProfile)
         {
-            chartData.Name = soilProfile != null
-                                 ? soilProfile.Name
+            chartData.Name = stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null
+                                 ? stochasticSoilProfile.SoilProfile.Name
                                  : Resources.StochasticSoilProfileProperties_DisplayName;
         }
 
