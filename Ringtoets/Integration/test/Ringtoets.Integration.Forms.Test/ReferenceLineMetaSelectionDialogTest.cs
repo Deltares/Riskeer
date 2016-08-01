@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Forms.Test
                 dialog.Show();
 
                 // Assert
-                Assert.AreEqual(403, dialog.MinimumSize.Width);
+                Assert.AreEqual(372, dialog.MinimumSize.Width);
                 Assert.AreEqual(350, dialog.MinimumSize.Height);
             }
         }
