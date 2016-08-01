@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Forms
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="referenceLineMetas">A list of <see cref="ReferenceLineMeta"/> the user can select.</param>
         public ReferenceLineMetaSelectionDialog(IWin32Window dialogParent, IEnumerable<ReferenceLineMeta> referenceLineMetas)
-            : base(dialogParent, CommonFormsResources.SelectionDialogIcon, 403, 350)
+            : base(dialogParent, CommonFormsResources.SelectionDialogIcon, 372, 350)
         {
             if (referenceLineMetas == null)
             {

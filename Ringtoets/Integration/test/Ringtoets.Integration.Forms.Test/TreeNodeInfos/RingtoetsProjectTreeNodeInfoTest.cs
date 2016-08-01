@@ -185,7 +185,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     // Call
                     var contextMenu = info.ContextMenuStrip(project, null, treeViewControl);
 
-                    const string expectedItemText = "&Traject toevoegen...";
+                    const string expectedItemText = "T&raject toevoegen...";
                     const string expectedItemTooltip = "Voeg een nieuw traject toe aan het project.";
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.AddAssessmentSectionFolder);
                 }

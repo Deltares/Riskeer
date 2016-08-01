@@ -300,6 +300,6 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Traject toevoegen</value>
   </data>
   <data name="AddAssessmentSection_DisplayName" xml:space="preserve">
-    <value>&amp;Traject toevoegen...</value>
+    <value>T&amp;raject toevoegen...</value>
   </data>
 </root>
