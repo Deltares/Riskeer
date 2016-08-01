@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Id.
+        ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string AssessmentSection_Id_DisplayName {
             get {
@@ -512,7 +512,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Identificatiecode.
+        ///   Looks up a localized string similar to Traject ID.
         /// </summary>
         public static string ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId {
             get {
@@ -580,6 +580,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string RingtoetsProjectProperties_Name_DisplayName {
             get {
                 return ResourceManager.GetString("RingtoetsProjectProperties_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Traject toevoegen.
+        /// </summary>
+        public static string RingtoetsRibbon_AddAssessmentSection {
+            get {
+                return ResourceManager.GetString("RingtoetsRibbon_AddAssessmentSection", resourceCulture);
             }
         }
         

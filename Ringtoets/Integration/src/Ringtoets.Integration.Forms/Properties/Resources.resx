@@ -252,13 +252,13 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Id van het traject.</value>
   </data>
   <data name="AssessmentSection_Id_DisplayName" xml:space="preserve">
-    <value>Id</value>
+    <value>ID</value>
   </data>
   <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue" xml:space="preserve">
     <value>Signaleringswaarde</value>
   </data>
   <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId" xml:space="preserve">
-    <value>Identificatiecode</value>
+    <value>Traject ID</value>
   </data>
   <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue" xml:space="preserve">
     <value>Ondergrens</value>
@@ -295,5 +295,8 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="AddAssessmentSectionFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AddFolder-stand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RingtoetsRibbon_AddAssessmentSection" xml:space="preserve">
+    <value>Traject toevoegen</value>
   </data>
 </root>

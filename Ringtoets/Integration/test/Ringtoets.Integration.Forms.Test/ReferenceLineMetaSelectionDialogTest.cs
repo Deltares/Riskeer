@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
@@ -67,6 +68,74 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreEqual(@"Stel een traject samen", dialog.Text);
 
                 AssertReferenceLineMetaDataGridViewControl(dialog);
+            }
+        }
+
+        [Test]
+        public void Constructor_WithParentAndUnorderedReferenceLineMetas_ShowsOrderedGrid()
+        {
+            // Setup
+            var referenceLineMetas = new[]
+            {
+                new ReferenceLineMeta(), 
+                new ReferenceLineMeta
+                {
+                    AssessmentSectionId = "101-10"
+                },
+                new ReferenceLineMeta
+                {
+                    AssessmentSectionId = "101b-1"
+                },
+                new ReferenceLineMeta
+                {
+                    AssessmentSectionId = "101-2"
+                },
+                new ReferenceLineMeta
+                {
+                    AssessmentSectionId = "101-1"
+                },
+                new ReferenceLineMeta
+                {
+                    AssessmentSectionId = "101a-1"
+                },
+                new ReferenceLineMeta
+                {
+                    AssessmentSectionId = "10"
+                },
+                new ReferenceLineMeta
+                {
+                    AssessmentSectionId = "102-1"
+                }
+            };
+
+            // Call
+            using (var dialog = new ReferenceLineMetaSelectionDialog(new Form(), referenceLineMetas))
+            {
+                // Assert
+                DataGridViewControl grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
+                DataGridView dataGridView = grid.Controls.OfType<DataGridView>().First();
+
+                var assessmentIdValuesInGrid = new List<string>();
+                for (var i = 0; i < dataGridView.Rows.Count; i++)
+                {
+                    var currentIdValue = dataGridView[0, i].FormattedValue;
+                    if (currentIdValue != null)
+                    {
+                        assessmentIdValuesInGrid.Add(currentIdValue.ToString());
+                    }
+                }
+
+                CollectionAssert.AreEqual(new[]
+                {
+                    "",
+                    "10",
+                    "101-1",
+                    "101-2",
+                    "101-10",
+                    "101a-1",
+                    "101b-1",
+                    "102-1"
+                }, assessmentIdValuesInGrid);
             }
         }
 

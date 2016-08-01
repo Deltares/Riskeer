@@ -428,7 +428,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
                 var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
                 var dataGridView = grid.Controls.OfType<DataGridView>().First();
-                dataGridView[0, 1].Selected = true;
+                dataGridView.Rows[1].Selected = true;
 
                 new ButtonTester("Ok", selectionDialog).Click();
             };

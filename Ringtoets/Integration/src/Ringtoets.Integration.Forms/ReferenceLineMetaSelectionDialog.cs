@@ -21,11 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Forms.Properties;
 using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -85,7 +86,9 @@ namespace Ringtoets.Integration.Forms
             ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("AssessmentSectionId", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId);
             ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("SignalingValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue);
             ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("LowerLimitValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue);
-            ReferenceLineMetaDataGridViewControl.SetDataSource(referenceLineMetas.Select(rlm => new ReferenceLineMetaSelectionRow(rlm)).ToArray());
+
+            var dataSource = referenceLineMetas.Select(rlm => new ReferenceLineMetaSelectionRow(rlm)).OrderBy(row => row.AssessmentSectionId, new AssessmentSectionIdComparer());
+            ReferenceLineMetaDataGridViewControl.SetDataSource(dataSource.ToArray());
         }
 
         private void OkButtonOnClick(object sender, EventArgs e)
@@ -129,6 +132,70 @@ namespace Ringtoets.Integration.Forms
             public int? SignalingValue { get; private set; }
             public int? LowerLimitValue { get; private set; }
             public ReferenceLineMeta ReferenceLineMeta { get; private set; }
+        }
+
+        private class AssessmentSectionIdComparer : IComparer<string>
+        {
+            public int Compare(string x, string y)
+            {
+                int idX;
+                string suffixX;
+                int subX;
+
+                int idY;
+                string suffixY;
+                int subY;
+
+                SplitAssessmentSectionId(x, out idX, out suffixX, out subX);
+                SplitAssessmentSectionId(y, out idY, out suffixY, out subY);
+
+                if (idX != idY)
+                {
+                    return idX - idY;
+                }
+
+                if (string.IsNullOrEmpty(suffixX) != string.IsNullOrEmpty(suffixY))
+                {
+                    return string.IsNullOrEmpty(suffixX) ? -1 : 1;
+                }
+                if (!string.IsNullOrEmpty(suffixX) && suffixX != suffixY)
+                {
+                    return string.Compare(suffixX, suffixY, StringComparison.Ordinal);
+                }
+                return subX - subY;
+            }
+
+            private static void SplitAssessmentSectionId(string str, out int id, out string suffix, out int sub)
+            {
+                if (string.IsNullOrEmpty(str))
+                {
+                    id = 0;
+                    sub = 0;
+                    suffix = string.Empty;
+                    return;
+                }
+                var parts = str.Split('-');
+                var firstPart = Regex.Split(parts.First(), "([A-Za-z])");
+                if (firstPart.Length > 1)
+                {
+                    int.TryParse(firstPart[0], out id);
+                    suffix = firstPart[1];
+                }
+                else
+                {
+                    int.TryParse(parts[0], out id);
+                    suffix = string.Empty;
+                }
+                
+                if (parts.Length == 2)
+                {
+                    int.TryParse(parts[1], out sub);
+                }
+                else
+                {
+                    sub = 0;
+                }
+            }
         }
     }
 }
