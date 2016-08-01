@@ -62,9 +62,10 @@ namespace Core.Common.Gui.Forms.ViewHost
         IView ActiveDocumentView { get; }
 
         /// <summary>
-        /// Adds a document view and makes it active (<seealso cref="ActiveDocumentView"/>).
+        /// Adds a document view and makes it active.
         /// </summary>
         /// <param name="view">The document view to add.</param>
+        /// <seealso cref="ActiveDocumentView"/>
         void AddDocumentView(IView view);
 
         /// <summary>

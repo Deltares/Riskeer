@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
         /// <param name="surfaceLine">The <see cref="RingtoetsPipingSurfaceLine"/> used for obtaining the name.</param>
-        /// <remarks>When <paramref name="surfaceLine"/> is <c>null</c> a default name is set (<seealso cref="CreateSurfaceLineChartData"/>).</remarks>
+        /// <remarks>A default name is set (the same as in <see cref="CreateSurfaceLineChartData"/>) when <paramref name="surfaceLine"/> is <c>null</c>.</remarks>
         public static void UpdateSurfaceLineChartDataName(ChartLineData chartData, RingtoetsPipingSurfaceLine surfaceLine)
         {
             chartData.Name = surfaceLine != null
@@ -194,7 +194,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// </summary>
         /// <param name="chartData">The <see cref="ChartDataCollection"/> to update the name for.</param>
         /// <param name="stochasticSoilProfile">The <see cref="StochasticSoilProfile"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (<see cref="CreateSurfaceLineChartData"/>) when:
+        /// <remarks>A default name is set (the same as in <see cref="CreateSoilProfileChartData"/>) when:
         /// <list type="bullet">
         /// <item><paramref name="stochasticSoilProfile"/> is <c>null</c>;</item>
         /// <item>the <see cref="PipingSoilProfile"/> in <paramref name="stochasticSoilProfile"/> is <c>null</c>.</item>

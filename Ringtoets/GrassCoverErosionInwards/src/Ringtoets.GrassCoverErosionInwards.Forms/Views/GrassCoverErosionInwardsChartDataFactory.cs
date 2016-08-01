@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
         /// <param name="dikeProfile">The <see cref="DikeProfile"/> used for obtaining the name.</param>
-        /// <remarks>When <paramref name="dikeProfile"/> is <c>null</c> a default name is set (<see cref="CreateDikeGeometryChartData"/>).</remarks>
+        /// <remarks>A default name is set (the same as in <see cref="CreateDikeGeometryChartData"/>) when <paramref name="dikeProfile"/> is <c>null</c>.</remarks>
         public static void UpdateDikeGeometryChartDataName(ChartLineData chartData, DikeProfile dikeProfile)
         {
             chartData.Name = dikeProfile != null
@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         /// <param name="chartData">The <see cref="ChartLineData"/> to update the name for.</param>
         /// <param name="input">The <see cref="GrassCoverErosionInwardsInput"/> used for obtaining the name.</param>
-        /// <remarks>A default name is set (<see cref="CreateForeshoreGeometryChartData"/>) when:
+        /// <remarks>A default name is set (the same as in <see cref="CreateForeshoreGeometryChartData"/>) when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>the dike profile in <paramref name="input"/> is <c>null</c>;</item>
