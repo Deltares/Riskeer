@@ -325,7 +325,7 @@
     <value>4</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>Kies een normwaarde</value>
+    <value>Kies een normwaarde:</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>
