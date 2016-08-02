@@ -204,8 +204,8 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(-0.233, calculation.Output.HeaveZValue, 1e-3);
             Assert.AreEqual(3.377, calculation.Output.UpliftFactorOfSafety, 1e-3);
             Assert.AreEqual(7.358, calculation.Output.UpliftZValue, 1e-3);
-            Assert.AreEqual(0.408, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
-            Assert.AreEqual(-1.588, calculation.Output.SellmeijerZValue, 1e-3);
+            Assert.AreEqual(0.4305734, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(-1.5272019, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)
@@ -232,9 +232,9 @@ namespace Demo.Ringtoets.Test.Commands
                             GetAccuracy(inputParameters.DampingFactorExit));
             Assert.AreEqual(1.355, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.PhreaticLevelExit));
-            Assert.AreEqual(0.011, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
+            Assert.AreEqual(0.011453, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.Diameter70));
-            Assert.AreEqual(2.347, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
+            Assert.AreEqual(2.345279, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DarcyPermeability));
 
             Assert.AreEqual(4.45, inputParameters.PiezometricHeadExit, 1e-2);

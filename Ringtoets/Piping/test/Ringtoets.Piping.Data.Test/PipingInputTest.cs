@@ -73,18 +73,18 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.Diameter70);
             Assert.AreEqual(defaultLogNormalMean, inputParameters.Diameter70.Mean,
                             GetErrorTolerance(inputParameters.Diameter70.Mean));
-            Assert.AreEqual(2, inputParameters.Diameter70.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(6, inputParameters.Diameter70.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.Diameter70.StandardDeviation,
                             GetErrorTolerance(inputParameters.Diameter70.StandardDeviation));
-            Assert.AreEqual(2, inputParameters.Diameter70.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(6, inputParameters.Diameter70.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.DarcyPermeability);
             Assert.AreEqual(defaultLogNormalMean, inputParameters.DarcyPermeability.Mean,
                             GetErrorTolerance(inputParameters.DarcyPermeability.Mean));
-            Assert.AreEqual(3, inputParameters.DarcyPermeability.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(6, inputParameters.DarcyPermeability.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.DarcyPermeability.StandardDeviation,
                             GetErrorTolerance(inputParameters.DarcyPermeability.StandardDeviation));
-            Assert.AreEqual(3, inputParameters.DarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(6, inputParameters.DarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsNull(inputParameters.SurfaceLine);
             Assert.IsNull(inputParameters.StochasticSoilModel);
@@ -420,10 +420,10 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreSame(originalDiameter70, inputs.Diameter70,
                            "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(2, originalDiameter70.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(8.89, originalDiameter70.Mean.Value);
-            Assert.AreEqual(2, originalDiameter70.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(9.14, originalDiameter70.StandardDeviation.Value);
+            Assert.AreEqual(6, originalDiameter70.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(8.8887999, originalDiameter70.Mean.Value, originalDiameter70.Mean.GetAccuracy());
+            Assert.AreEqual(6, originalDiameter70.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(9.1436299, originalDiameter70.StandardDeviation.Value, originalDiameter70.StandardDeviation.GetAccuracy());
         }
 
         [Test]
@@ -445,10 +445,10 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreSame(originalDarcyPermeability, inputs.DarcyPermeability,
                            "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(3, originalDarcyPermeability.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.938, originalDarcyPermeability.Mean.Value);
-            Assert.AreEqual(3, originalDarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(859.490, originalDarcyPermeability.StandardDeviation.Value);
+            Assert.AreEqual(6, originalDarcyPermeability.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.9375300, originalDarcyPermeability.Mean.Value, originalDarcyPermeability.Mean.GetAccuracy());
+            Assert.AreEqual(6, originalDarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(859.4902799, originalDarcyPermeability.StandardDeviation.Value, originalDarcyPermeability.StandardDeviation.GetAccuracy());
         }
 
         [Test]

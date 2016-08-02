@@ -81,8 +81,8 @@ namespace Ringtoets.Piping.Data
                 Mean = (RoundedDouble)17.5,
                 StandardDeviation = (RoundedDouble)0
             };
-            diameter70 = new LogNormalDistribution(2);
-            darcyPermeability = new LogNormalDistribution(3);
+            diameter70 = new LogNormalDistribution(6);
+            darcyPermeability = new LogNormalDistribution(6);
         }
 
         /// <summary>
