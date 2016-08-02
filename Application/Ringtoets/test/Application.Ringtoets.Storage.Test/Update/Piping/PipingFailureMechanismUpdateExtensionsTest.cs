@@ -268,7 +268,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = stochasticSoilModel.StorageId,
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {
@@ -385,7 +385,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
 
             var surfaceLineEntity = new SurfaceLineEntity
             {
-                SurfaceLineEntityId = surfaceLine.StorageId
+                SurfaceLineEntityId = surfaceLine.StorageId,
+                PointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points)
             };
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {
@@ -506,6 +507,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = failureMechanismSection.StorageId,
+                FailureMechanismSectionPointData = new Point2DBinaryConverter().ToBytes(failureMechanismSection.Points),
                 PipingSectionResultEntities =
                 {
                     pipingSectionResultEntity

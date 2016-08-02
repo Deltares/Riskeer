@@ -36,9 +36,12 @@ namespace Application.Ringtoets.Storage.DbContext
     public partial class CharacteristicPointEntity
     {
         public long CharacteristicPointEntityId { get; set; }
-        public short CharacteristicPointType { get; set; }
-        public long SurfaceLinePointEntityId { get; set; }
+        public long SurfaceLineEntityId { get; set; }
+        public short Type { get; set; }
+        public Nullable<double> X { get; set; }
+        public Nullable<double> Y { get; set; }
+        public Nullable<double> Z { get; set; }
     
-        public virtual SurfaceLinePointEntity SurfaceLinePointEntity { get; set; }
+        public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
     }
 }

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -44,8 +44,6 @@ using Application.Ringtoets.Storage.Update.TechnicalInnovation;
 using Application.Ringtoets.Storage.Update.WaterPressureAsphaltCover;
 using Application.Ringtoets.Storage.Update.WaveImpactAsphaltCover;
 
-using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Update
@@ -88,7 +86,7 @@ namespace Application.Ringtoets.Storage.Update
             entity.Norm = section.FailureMechanismContribution.Norm;
 
             UpdateHydraulicDatabase(section, entity, registry, context);
-            UpdateReferenceLine(section, entity, context);
+            UpdateReferenceLine(section, entity);
             UpdateFailureMechanisms(section, registry, context);
 
             registry.Register(entity, section);
@@ -116,23 +114,18 @@ namespace Application.Ringtoets.Storage.Update
             TechnicalInnovationFailureMechanismUpdateExtensions.Update(section.TechnicalInnovation, registry, context);
         }
 
-        private static void UpdateReferenceLine(AssessmentSection section, AssessmentSectionEntity entity, IRingtoetsEntities context)
+        private static void UpdateReferenceLine(AssessmentSection section, AssessmentSectionEntity entity)
         {
-            if (HasChanges(entity.ReferenceLinePointEntities, section.ReferenceLine))
+            if (section.ReferenceLine == null)
             {
-                context.ReferenceLinePointEntities.RemoveRange(entity.ReferenceLinePointEntities);
-                UpdateReferenceLinePoints(section, entity);
+                entity.ReferenceLinePointData = null;
             }
-        }
-
-        private static void UpdateReferenceLinePoints(AssessmentSection section, AssessmentSectionEntity entity)
-        {
-            if (section.ReferenceLine != null)
+            else
             {
-                var i = 0;
-                foreach (var point2D in section.ReferenceLine.Points)
+                byte[] newBinaryData = new Point2DBinaryConverter().ToBytes(section.ReferenceLine.Points);
+                if (entity.ReferenceLinePointData == null || !BinaryDataEqualityHelper.AreEqual(entity.ReferenceLinePointData, newBinaryData))
                 {
-                    entity.ReferenceLinePointEntities.Add(point2D.CreateReferenceLinePointEntity(i++));
+                    entity.ReferenceLinePointData = newBinaryData;
                 }
             }
         }
@@ -156,35 +149,6 @@ namespace Application.Ringtoets.Storage.Update
                     }
                 }
             }
-        }
-
-        private static bool HasChanges(ICollection<ReferenceLinePointEntity> existingLine, ReferenceLine otherLine)
-        {
-            if (!existingLine.Any())
-            {
-                return otherLine != null;
-            }
-            if (otherLine == null)
-            {
-                return true;
-            }
-
-            var existingPointEntities = existingLine.OrderBy(rlpe => rlpe.Order).ToArray();
-            var otherPointsArray = otherLine.Points.ToArray();
-            if (existingPointEntities.Length != otherPointsArray.Length)
-            {
-                return true;
-            }
-            for (var i = 0; i < existingPointEntities.Length; i++)
-            {
-                var existingPoint = new Point2D(existingPointEntities[i].X.ToNullAsNaN(), existingPointEntities[i].Y.ToNullAsNaN());
-
-                if (!Math2D.AreEqualPoints(existingPoint, otherPointsArray[i]))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

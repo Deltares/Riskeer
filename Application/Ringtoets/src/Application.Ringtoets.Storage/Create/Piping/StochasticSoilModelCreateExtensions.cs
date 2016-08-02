@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 Name = model.Name,
                 SegmentName = model.SegmentName,
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(model.Geometry)
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(model.Geometry)
             };
 
             AddEntitiesForStochasticSoilProfiles(model, registry, entity);

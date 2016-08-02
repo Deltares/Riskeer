@@ -129,11 +129,11 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StochasticSoilModelEntity
                     {
-                        SegmentPoints = emptySegmentPointsData
+                        StochasticSoilModelSegmentPointData = emptySegmentPointsData
                     },
                     new StochasticSoilModelEntity
                     {
-                        SegmentPoints = emptySegmentPointsData
+                        StochasticSoilModelSegmentPointData = emptySegmentPointsData
                     }
                 }
             };
@@ -151,6 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingFailureMechanism_WithSurfaceLines_ReturnsNewPipingFailureMechanismWithSurfaceLinesSet()
         {
             // Setup
+            byte[] emptyPointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0]);
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity
@@ -159,8 +160,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 SurfaceLineEntities =
                 {
-                    new SurfaceLineEntity(),
-                    new SurfaceLineEntity()
+                    new SurfaceLineEntity
+                    {
+                        PointsData = emptyPointsData
+                    },
+                    new SurfaceLineEntity
+                    {
+                        PointsData = emptyPointsData
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -178,14 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entityId = new Random(21).Next(1, 502);
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
-            {
-                Name = "section",
-                FailureMechanismSectionPointEntities =
-                {
-                    new FailureMechanismSectionPointEntity()
-                }
-            };
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             var pipingSectionResultEntity = new PipingSectionResultEntity
             {
                 PipingSectionResultEntityId = entityId,
@@ -375,14 +375,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entityId = new Random(21).Next(1, 502);
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
-            {
-                Name = "section",
-                FailureMechanismSectionPointEntities =
-                {
-                    new FailureMechanismSectionPointEntity()
-                }
-            };
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             var grassCoverErosionInwardsSectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
             {
                 GrassCoverErosionInwardsSectionResultEntityId = entityId,
@@ -523,14 +516,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 FailureMechanismEntityId = entityId,
                 FailureMechanismSectionEntities =
                 {
-                    new FailureMechanismSectionEntity
-                    {
-                        Name = "section",
-                        FailureMechanismSectionPointEntities =
-                        {
-                            new FailureMechanismSectionPointEntity()
-                        }
-                    }
+                    CreateSimpleFailureMechanismSectionEntity()
                 }
             };
             var collector = new ReadConversionCollector();
@@ -541,6 +527,21 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
+        }
+
+        private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()
+        {
+            var dummyPoints = new[]
+            {
+                new Point2D(0, 0)
+            };
+            byte[] dymmyPointData = new Point2DBinaryConverter().ToBytes(dummyPoints);
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
+            {
+                Name = "section",
+                FailureMechanismSectionPointData = dymmyPointData
+            };
+            return failureMechanismSectionEntity;
         }
     }
 }

@@ -102,14 +102,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             double firstY = random.NextDouble();
             double secondX = random.NextDouble();
             double secondY = random.NextDouble();
-            entity.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity
+
+            var points = new[]
             {
-                Order = 2, X = firstX, Y = firstY
-            });
-            entity.ReferenceLinePointEntities.Add(new ReferenceLinePointEntity
-            {
-                Order = 1, X = secondX, Y = secondY
-            });
+                new Point2D(firstX, firstY),
+                new Point2D(secondX, secondY)
+            };
+            entity.ReferenceLinePointData = new Point2DBinaryConverter().ToBytes(points);
 
             var collector = new ReadConversionCollector();
 
@@ -117,11 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(2, section.ReferenceLine.Points.Count());
-            Assert.AreEqual(secondX, section.ReferenceLine.Points.ElementAt(0).X, 1e-6);
-            Assert.AreEqual(secondY, section.ReferenceLine.Points.ElementAt(0).Y, 1e-6);
-            Assert.AreEqual(firstX, section.ReferenceLine.Points.ElementAt(1).X, 1e-6);
-            Assert.AreEqual(firstY, section.ReferenceLine.Points.ElementAt(1).Y, 1e-6);
+            CollectionAssert.AreEqual(points, section.ReferenceLine.Points);
         }
 
         [Test]
@@ -220,11 +215,11 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StochasticSoilModelEntity
                     {
-                        SegmentPoints = emptySegmentPointsData
+                        StochasticSoilModelSegmentPointData = emptySegmentPointsData
                     },
                     new StochasticSoilModelEntity
                     {
-                        SegmentPoints = emptySegmentPointsData
+                        StochasticSoilModelSegmentPointData = emptySegmentPointsData
                     }
                 }
             };
@@ -250,6 +245,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
+            var emptyPointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0]);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
@@ -261,8 +257,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                 IsRelevant = Convert.ToByte(isRelevant),
                 SurfaceLineEntities =
                 {
-                    new SurfaceLineEntity(),
-                    new SurfaceLineEntity()
+                    new SurfaceLineEntity
+                    {
+                        PointsData = emptyPointsData
+                    },
+                    new SurfaceLineEntity
+                    {
+                        PointsData = emptyPointsData
+                    }
                 }
             };
             entity.FailureMechanismEntities.Add(failureMechanismEntity);
@@ -545,25 +547,24 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         private static FailureMechanismSectionEntity[] CreateFailureMechanismSectionEntities()
         {
+            var dummyPointData = new[]
+            {
+                new Point2D(0.0, 0.0)
+            };
+            byte[] dummyPointBinaryData = new Point2DBinaryConverter().ToBytes(dummyPointData);
             return new[]
             {
                 new FailureMechanismSectionEntity
                 {
                     FailureMechanismSectionEntityId = 1,
                     Name = "",
-                    FailureMechanismSectionPointEntities =
-                    {
-                        new FailureMechanismSectionPointEntity()
-                    }
+                    FailureMechanismSectionPointData = dummyPointBinaryData
                 },
                 new FailureMechanismSectionEntity
                 {
                     FailureMechanismSectionEntityId = 2,
                     Name = "",
-                    FailureMechanismSectionPointEntities =
-                    {
-                        new FailureMechanismSectionPointEntity()
-                    }
+                    FailureMechanismSectionPointData = dummyPointBinaryData
                 }
             };
         }

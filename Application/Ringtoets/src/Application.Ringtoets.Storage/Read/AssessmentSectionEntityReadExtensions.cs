@@ -21,7 +21,12 @@
 
 using System;
 using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+
+using Core.Common.Base.Geometry;
+
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -87,10 +92,12 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadReferenceLine(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
         {
-            if (entity.ReferenceLinePointEntities.Any())
+            if (entity.ReferenceLinePointData != null)
             {
+                Point2D[] points = new Point2DBinaryConverter().ToData(entity.ReferenceLinePointData);
+
                 assessmentSection.ReferenceLine = new ReferenceLine();
-                assessmentSection.ReferenceLine.SetGeometry(entity.ReferenceLinePointEntities.OrderBy(rlpe => rlpe.Order).Select(rlpe => rlpe.Read()));
+                assessmentSection.ReferenceLine.SetGeometry(points);
             }
         }
 

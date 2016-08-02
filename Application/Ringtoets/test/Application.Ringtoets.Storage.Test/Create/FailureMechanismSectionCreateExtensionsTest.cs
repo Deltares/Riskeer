@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
@@ -60,7 +62,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
-            Assert.AreEqual(2, entity.FailureMechanismSectionPointEntities.Count);
+            byte[] expectedBinaryData = new Point2DBinaryConverter().ToBytes(geometryPoints);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.FailureMechanismSectionPointData);
         }   
     }
 }

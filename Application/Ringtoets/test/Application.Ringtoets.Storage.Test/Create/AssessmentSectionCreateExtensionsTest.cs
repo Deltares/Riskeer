@@ -21,6 +21,8 @@
 
 using System;
 using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
@@ -108,7 +110,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.HydraulicDatabaseVersion);
             Assert.IsEmpty(entity.HydraulicLocationEntities);
 
-            Assert.IsEmpty(entity.ReferenceLinePointEntities);
+            Assert.IsNull(entity.ReferenceLinePointData);
         }
 
         [Test]
@@ -118,14 +120,16 @@ namespace Application.Ringtoets.Storage.Test.Create
             string testFilePath = "path";
             string testVersion = "1";
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                FilePath = testFilePath,
-                Version = testVersion,
-                Locations =
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
-                    new HydraulicBoundaryLocation(-1, "name", 1, 2)
+                    FilePath = testFilePath,
+                    Version = testVersion,
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(-1, "name", 1, 2)
+                    }
                 }
             };
             var registry = new PersistenceRegistry();
@@ -143,27 +147,27 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_WithReferenceLine_AddsReferenceLinePointEntities()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.ReferenceLine = new ReferenceLine();
-            assessmentSection.ReferenceLine.SetGeometry(new[]
+            var points = new[]
             {
                 new Point2D(1, 0),
                 new Point2D(2, 3),
                 new Point2D(5, 3)
-            });
+            };
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                ReferenceLine = new ReferenceLine()
+            };
+            assessmentSection.ReferenceLine.SetGeometry(points);
+
             var registry = new PersistenceRegistry();
 
             // Call
             var entity = assessmentSection.Create(registry);
 
             // Assert
-            Assert.AreEqual(3, entity.ReferenceLinePointEntities.Count);
-            Assert.AreEqual(new[]
-            {
-                0,
-                1,
-                2
-            }, entity.ReferenceLinePointEntities.Select(rpe => rpe.Order));
+            var expectedBinaryData = new Point2DBinaryConverter().ToBytes(points);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.ReferenceLinePointData);
         }
     }
 }

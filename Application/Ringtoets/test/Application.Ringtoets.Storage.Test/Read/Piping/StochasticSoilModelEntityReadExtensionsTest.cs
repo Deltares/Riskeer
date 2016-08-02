@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 StochasticSoilModelEntityId = entityId,
                 Name = testName,
                 SegmentName = testSegmentName,
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
             var collector = new ReadConversionCollector();
 
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new StochasticSoilModelEntity
             {
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0]),
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0]),
                 StochasticSoilProfileEntities =
                 {
                     new StochasticSoilProfileEntity
@@ -129,7 +129,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new StochasticSoilModelEntity
             {
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(segmentPoints)
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(segmentPoints)
             };
             var collector = new ReadConversionCollector();
 
@@ -146,7 +146,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new StochasticSoilModelEntity
             {
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
 
             var collector = new ReadConversionCollector();

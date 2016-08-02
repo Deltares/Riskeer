@@ -21,14 +21,12 @@
 
 using System;
 
-using Core.Common.Base.Storage;
-
 namespace Core.Common.Base.Geometry
 {
     /// <summary>
     /// Defines a mathematical, immutable point in 3D Euclidean space.
     /// </summary>
-    public sealed class Point3D : IStorable
+    public sealed class Point3D
     {
         /// <summary>
         /// Creates a new instance of <see cref="Point3D"/>.
@@ -57,8 +55,6 @@ namespace Core.Common.Base.Geometry
         /// Gets or sets the z coordinate.
         /// </summary>
         public double Z { get; private set; }
-
-        public long StorageId { get; set; }
 
         public override bool Equals(object obj)
         {

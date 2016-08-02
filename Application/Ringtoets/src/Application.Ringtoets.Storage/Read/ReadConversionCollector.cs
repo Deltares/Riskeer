@@ -45,7 +45,6 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = CreateDictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
         private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
-        private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLineGeometryPoints = CreateDictionary<SurfaceLinePointEntity, Point3D>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations = CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = CreateDictionary<DikeProfileEntity, DikeProfile>();
@@ -332,79 +331,6 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return surfaceLines[entity];
-            }
-            catch (KeyNotFoundException e)
-            {
-                throw new InvalidOperationException(e.Message, e);
-            }
-        }
-
-        #endregion
-
-        #region SurfaceLinePointEntity: Read, Contains, Get
-
-        /// <summary>
-        /// Registers a read operation for <see cref="SurfaceLinePointEntity"/> and the
-        /// <see cref="Point3D"/> (that is part of <see cref="RingtoetsPipingSurfaceLine.Points"/>)
-        /// that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> that was read.</param>
-        /// <param name="model">The <see cref="Point3D"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        internal void Read(SurfaceLinePointEntity entity, Point3D model)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-            if (model == null)
-            {
-                throw new ArgumentNullException("model");
-            }
-
-            surfaceLineGeometryPoints[entity] = model;
-        }
-
-        /// <summary>
-        /// Checks whether a read operation has been registered for a given <see cref="SurfaceLinePointEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> to check for.</param>
-        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(SurfaceLinePointEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-            return surfaceLineGeometryPoints.ContainsKey(entity);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="Point3D"/> that is part of <see cref="RingtoetsPipingSurfaceLine.Points"/>
-        /// which was read for the given <see cref="SurfaceLinePointEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> for which a read
-        /// operation has been registered.</param>
-        /// <returns>The constructed <see cref="Point3D"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no read operation has
-        /// been registered for <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(SurfaceLinePointEntity)"/> to find out whether a
-        /// read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal Point3D Get(SurfaceLinePointEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-            try
-            {
-                return surfaceLineGeometryPoints[entity];
             }
             catch (KeyNotFoundException e)
             {

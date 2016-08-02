@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
 
         private static void ReadSegmentPoints(this StochasticSoilModelEntity entity, StochasticSoilModel model)
         {
-            model.Geometry.AddRange(new Point2DBinaryConverter().ToData(entity.SegmentPoints));
+            model.Geometry.AddRange(new Point2DBinaryConverter().ToData(entity.StochasticSoilModelSegmentPointData));
         }
     }
 }

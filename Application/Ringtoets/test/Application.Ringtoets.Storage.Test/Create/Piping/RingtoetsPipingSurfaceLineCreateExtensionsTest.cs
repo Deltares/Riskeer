@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
@@ -72,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
             Assert.IsNull(entity.FailureMechanismEntity);
-            CollectionAssert.IsEmpty(entity.SurfaceLinePointEntities);
+            CollectionAssert.AreEqual(new Point3DBinaryConverter().ToBytes(new Point3D[0]), entity.PointsData);
         }
 
         [Test]
@@ -101,18 +102,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            Assert.AreEqual(geometry.Length, entity.SurfaceLinePointEntities.Count);
-            SurfaceLinePointEntity[] pointEntities = entity.SurfaceLinePointEntities.ToArray();
-            for (int i = 0; i < geometry.Length; i++)
-            {
-                SurfaceLinePointEntity pointEntity = pointEntities[i];
-                Assert.AreEqual(i, pointEntity.Order);
-
-                Point3D expectedMatchingGeometryPoint = geometry[i];
-                Assert.AreEqual(expectedMatchingGeometryPoint.X, pointEntity.X);
-                Assert.AreEqual(expectedMatchingGeometryPoint.Y, pointEntity.Y);
-                Assert.AreEqual(expectedMatchingGeometryPoint.Z, pointEntity.Z);
-            }
+            byte[] expectedBinaryData = new Point3DBinaryConverter().ToBytes(geometry);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.PointsData);
 
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
@@ -162,43 +153,50 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            Assert.AreEqual(geometry.Length, entity.SurfaceLinePointEntities.Count);
-            SurfaceLinePointEntity[] pointEntities = entity.SurfaceLinePointEntities.ToArray();
-            for (int i = 0; i < geometry.Length; i++)
-            {
-                SurfaceLinePointEntity pointEntity = pointEntities[i];
-                Assert.AreEqual(i, pointEntity.Order);
+            byte[] expectedBinaryData = new Point3DBinaryConverter().ToBytes(geometry);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.PointsData);
 
-                Point3D expectedMatchingGeometryPoint = geometry[i];
-                Assert.AreEqual(expectedMatchingGeometryPoint.X, pointEntity.X);
-                Assert.AreEqual(expectedMatchingGeometryPoint.Y, pointEntity.Y);
-                Assert.AreEqual(expectedMatchingGeometryPoint.Z, pointEntity.Z);
+            Assert.AreEqual(6, entity.CharacteristicPointEntities.Count);
+            foreach (CharacteristicPointEntity characteristicPointEntity in entity.CharacteristicPointEntities)
+            {
+                switch (characteristicPointEntity.Type)
+                {
+                    case (short)CharacteristicPointType.BottomDitchDikeSide:
+                        Assert.AreEqual(geometry[bottomDitchDikeIndex].X, characteristicPointEntity.X);
+                        Assert.AreEqual(geometry[bottomDitchDikeIndex].Y, characteristicPointEntity.Y);
+                        Assert.AreEqual(geometry[bottomDitchDikeIndex].Z, characteristicPointEntity.Z);
+                        break;
+                    case (short)CharacteristicPointType.BottomDitchPolderSide:
+                        Assert.AreEqual(geometry[bottomDitchPolderIndex].X, characteristicPointEntity.X);
+                        Assert.AreEqual(geometry[bottomDitchPolderIndex].Y, characteristicPointEntity.Y);
+                        Assert.AreEqual(geometry[bottomDitchPolderIndex].Z, characteristicPointEntity.Z);
+                        break;
+                    case (short)CharacteristicPointType.DikeToeAtPolder:
+                        Assert.AreEqual(geometry[toePolderIndex].X, characteristicPointEntity.X);
+                        Assert.AreEqual(geometry[toePolderIndex].Y, characteristicPointEntity.Y);
+                        Assert.AreEqual(geometry[toePolderIndex].Z, characteristicPointEntity.Z);
+                        break;
+                    case (short)CharacteristicPointType.DikeToeAtRiver:
+                        Assert.AreEqual(geometry[toeDikeIndex].X, characteristicPointEntity.X);
+                        Assert.AreEqual(geometry[toeDikeIndex].Y, characteristicPointEntity.Y);
+                        Assert.AreEqual(geometry[toeDikeIndex].Z, characteristicPointEntity.Z);
+                        break;
+                    case (short)CharacteristicPointType.DitchDikeSide:
+                        Assert.AreEqual(geometry[ditchDikeIndex].X, characteristicPointEntity.X);
+                        Assert.AreEqual(geometry[ditchDikeIndex].Y, characteristicPointEntity.Y);
+                        Assert.AreEqual(geometry[ditchDikeIndex].Z, characteristicPointEntity.Z);
+                        break;
+                    case (short)CharacteristicPointType.DitchPolderSide:
+                        Assert.AreEqual(geometry[ditchPolderIndex].X, characteristicPointEntity.X);
+                        Assert.AreEqual(geometry[ditchPolderIndex].Y, characteristicPointEntity.Y);
+                        Assert.AreEqual(geometry[ditchPolderIndex].Z, characteristicPointEntity.Z);
+                        break;
+                    default:
+                        Assert.Fail("Invalid characteristic point type found: {0}", characteristicPointEntity.Type);
+                        break;
+                }
             }
 
-            SurfaceLinePointEntity bottomDitchDikeEntity = pointEntities[bottomDitchDikeIndex];
-            Assert.AreEqual(1, bottomDitchDikeEntity.CharacteristicPointEntities.Count);
-            Assert.AreEqual((short)CharacteristicPointType.BottomDitchDikeSide, bottomDitchDikeEntity.CharacteristicPointEntities.First().CharacteristicPointType);
-
-            SurfaceLinePointEntity bottomDitchPolderEntity = pointEntities[bottomDitchPolderIndex];
-            Assert.AreEqual(1, bottomDitchPolderEntity.CharacteristicPointEntities.Count);
-            Assert.AreEqual((short)CharacteristicPointType.BottomDitchPolderSide, bottomDitchPolderEntity.CharacteristicPointEntities.First().CharacteristicPointType);
-
-            SurfaceLinePointEntity dikeToePolderEntity = pointEntities[toePolderIndex];
-            Assert.AreEqual(1, dikeToePolderEntity.CharacteristicPointEntities.Count);
-            Assert.AreEqual((short)CharacteristicPointType.DikeToeAtPolder, dikeToePolderEntity.CharacteristicPointEntities.First().CharacteristicPointType);
-
-            SurfaceLinePointEntity dikeToeRiverEntity = pointEntities[toeDikeIndex];
-            Assert.AreEqual(1, dikeToeRiverEntity.CharacteristicPointEntities.Count);
-            Assert.AreEqual((short)CharacteristicPointType.DikeToeAtRiver, dikeToeRiverEntity.CharacteristicPointEntities.First().CharacteristicPointType);
-
-            SurfaceLinePointEntity ditchDikeEntity = pointEntities[ditchDikeIndex];
-            Assert.AreEqual(1, ditchDikeEntity.CharacteristicPointEntities.Count);
-            Assert.AreEqual((short)CharacteristicPointType.DitchDikeSide, ditchDikeEntity.CharacteristicPointEntities.First().CharacteristicPointType);
-
-            SurfaceLinePointEntity ditchPolderEntity = pointEntities[ditchPolderIndex];
-            Assert.AreEqual(1, ditchPolderEntity.CharacteristicPointEntities.Count);
-            Assert.AreEqual((short)CharacteristicPointType.DitchPolderSide, ditchPolderEntity.CharacteristicPointEntities.First().CharacteristicPointType);
-            
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
             Assert.IsNull(entity.FailureMechanismEntity);
@@ -234,24 +232,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            Assert.AreEqual(geometry.Length, entity.SurfaceLinePointEntities.Count);
-            SurfaceLinePointEntity[] pointEntities = entity.SurfaceLinePointEntities.ToArray();
-            for (int i = 0; i < geometry.Length; i++)
-            {
-                SurfaceLinePointEntity pointEntity = pointEntities[i];
-                Assert.AreEqual(i, pointEntity.Order);
+            byte[] expectedBinaryData = new Point3DBinaryConverter().ToBytes(geometry);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.PointsData);
 
-                Point3D expectedMatchingGeometryPoint = geometry[i];
-                Assert.AreEqual(expectedMatchingGeometryPoint.X, pointEntity.X);
-                Assert.AreEqual(expectedMatchingGeometryPoint.Y, pointEntity.Y);
-                Assert.AreEqual(expectedMatchingGeometryPoint.Z, pointEntity.Z);
-            }
-
-            SurfaceLinePointEntity characteristicGeometryPointEntity = pointEntities[0];
-            Assert.AreEqual(6, characteristicGeometryPointEntity.CharacteristicPointEntities.Count);
-            short[] characteristicPointTypeValues = characteristicGeometryPointEntity.CharacteristicPointEntities
-                                                                                     .Select(cpe => cpe.CharacteristicPointType)
-                                                                                     .ToArray();
+            Assert.AreEqual(6, entity.CharacteristicPointEntities.Count);
+            short[] characteristicPointTypeValues = entity.CharacteristicPointEntities
+                                                          .Select(cpe => cpe.Type)
+                                                          .ToArray();
             CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DikeToeAtRiver);
             CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DikeToeAtPolder);
             CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DitchDikeSide);

@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -46,22 +48,12 @@ namespace Application.Ringtoets.Storage.Create
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 Name = section.Name,
+                FailureMechanismSectionPointData = new Point2DBinaryConverter().ToBytes(section.Points)
             };
-
-            AddEntitiesForFailureMechanismSectionPoints(section, failureMechanismSectionEntity);
 
             registry.Register(failureMechanismSectionEntity, section);
 
             return failureMechanismSectionEntity;
-        }
-
-        private static void AddEntitiesForFailureMechanismSectionPoints(FailureMechanismSection section, FailureMechanismSectionEntity failureMechanismSectionEntity)
-        {
-            var i = 0;
-            foreach (var point2D in section.Points)
-            {
-                failureMechanismSectionEntity.FailureMechanismSectionPointEntities.Add(point2D.CreateFailureMechanismSectionPointEntity(i++));
-            }
         }
     }
 }

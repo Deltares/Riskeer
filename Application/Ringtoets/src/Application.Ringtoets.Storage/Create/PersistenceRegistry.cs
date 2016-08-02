@@ -82,7 +82,6 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
         private readonly Dictionary<SoilLayerEntity, PipingSoilLayer> soilLayers = CreateDictionary<SoilLayerEntity, PipingSoilLayer>();
         private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
-        private readonly Dictionary<SurfaceLinePointEntity, Point3D> surfaceLinePoints = CreateDictionary<SurfaceLinePointEntity, Point3D>();
         private readonly Dictionary<CharacteristicPointEntity, Point3D> characteristicPoints = CreateDictionary<CharacteristicPointEntity, Point3D>();
         private readonly Dictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput> pipingProbabilityAssessmentInputs = CreateDictionary<PipingFailureMechanismMetaEntity, PipingProbabilityAssessmentInput>();
         private readonly Dictionary<ProbabilisticOutputEntity, ProbabilityAssessmentOutput> probabilisticAssessmentOutputs = CreateDictionary<ProbabilisticOutputEntity, ProbabilityAssessmentOutput>();
@@ -921,36 +920,6 @@ namespace Application.Ringtoets.Storage.Create
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="SurfaceLinePointEntity"/> to be registered.</param>
-        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// <item><paramref name="model"/> is <c>null</c></item>
-        /// </list></exception>
-        internal void Register(SurfaceLinePointEntity entity, Point3D model)
-        {
-            Register(surfaceLinePoints, entity, model);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="SurfaceLinePointEntity"/> which was registered for the
-        /// given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The surfaceline geometry <see cref="Point3D"/> for which
-        /// a create or update operation has been registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create/update operation
-        /// has been registered for <paramref name="model"/>.</exception>
-        internal SurfaceLinePointEntity GetSurfaceLinePoint(Point3D model)
-        {
-            return Get(surfaceLinePoints, model);
-        }
-
-        /// <summary>
-        /// Registers a create or update operation for <paramref name="model"/> and the
-        /// <paramref name="entity"/> that was constructed with the information.
-        /// </summary>
         /// <param name="entity">The <see cref="CharacteristicPointEntity"/> to be registered.</param>
         /// <param name="model">The surfaceline geometry <see cref="Point3D"/> corresponding
         /// to the characteristic point data to be registered.</param>
@@ -1165,11 +1134,6 @@ namespace Application.Ringtoets.Storage.Create
                 surfaceLines[entity].StorageId = entity.SurfaceLineEntityId;
             }
 
-            foreach (var entity in surfaceLinePoints.Keys)
-            {
-                surfaceLinePoints[entity].StorageId = entity.SurfaceLinePointEntityId;
-            }
-
             foreach (var entity in pipingProbabilityAssessmentInputs.Keys)
             {
                 pipingProbabilityAssessmentInputs[entity].StorageId = entity.PipingFailureMechanismMetaEntityId;
@@ -1181,7 +1145,7 @@ namespace Application.Ringtoets.Storage.Create
             }
 
             // CharacteristicPoints do not really have a 'identity' within the object-model.
-            // As such, no need to copy StorageId. This is already covered by surfaceLinePoints.
+            // As such, no need to copy StorageId.
         }
 
         /// <summary>
@@ -1585,17 +1549,6 @@ namespace Application.Ringtoets.Storage.Create
                 }
             }
             dbContext.SurfaceLineEntities.RemoveRange(orphanedSurfaceLineEntities);
-
-            var orphanedSurfaceLinePointEntities = new List<SurfaceLinePointEntity>();
-            foreach (SurfaceLinePointEntity surfaceLinePointEntity in dbContext.SurfaceLinePointEntities
-                                                                               .Where(e => e.SurfaceLinePointEntityId > 0))
-            {
-                if (!surfaceLinePoints.ContainsKey(surfaceLinePointEntity))
-                {
-                    orphanedSurfaceLinePointEntities.Add(surfaceLinePointEntity);
-                }
-            }
-            dbContext.SurfaceLinePointEntities.RemoveRange(orphanedSurfaceLinePointEntities);
 
             var orphanedCharacteristicPointEntities = new List<CharacteristicPointEntity>();
             foreach (CharacteristicPointEntity characteristicPointEntity in dbContext.CharacteristicPointEntities

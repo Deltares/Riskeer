@@ -40,7 +40,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<HydraulicLocationEntity> hydraylicLocationsSet = CreateEmptyTestDbSet<HydraulicLocationEntity>();
             DbSet<FailureMechanismEntity> failureMechanismsSet = CreateEmptyTestDbSet<FailureMechanismEntity>();
             DbSet<FailureMechanismSectionEntity> failureMechanismSectionsSet = CreateEmptyTestDbSet<FailureMechanismSectionEntity>();
-            DbSet<FailureMechanismSectionPointEntity> failureMechanismSectionPointsSet = CreateEmptyTestDbSet<FailureMechanismSectionPointEntity>();
             DbSet<PipingSectionResultEntity> pipingSectionResultsSet = CreateEmptyTestDbSet<PipingSectionResultEntity>();
             DbSet<DikeProfileEntity> dikeProfileSet = CreateEmptyTestDbSet<DikeProfileEntity>();
             DbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity> grassCoverErosionInwardsMetaSet = CreateEmptyTestDbSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
@@ -64,7 +63,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<StabilityStoneCoverSectionResultEntity> stabilityStoneCoverSectionResultsSet = CreateEmptyTestDbSet<StabilityStoneCoverSectionResultEntity>();
             DbSet<StrengthStabilityPointConstructionSectionResultEntity> strengthStabilityPointConstructionSectionResultsSet = CreateEmptyTestDbSet<StrengthStabilityPointConstructionSectionResultEntity>();
             DbSet<AssessmentSectionEntity> assessmentSectionsSet = CreateEmptyTestDbSet<AssessmentSectionEntity>();
-            DbSet<ReferenceLinePointEntity> referenceLinesSet = CreateEmptyTestDbSet<ReferenceLinePointEntity>();
             DbSet<CalculationGroupEntity> calculationGroupsSet = CreateEmptyTestDbSet<CalculationGroupEntity>();
             DbSet<PipingCalculationEntity> pipingCalculationsSet = CreateEmptyTestDbSet<PipingCalculationEntity>();
             DbSet<PipingCalculationOutputEntity> pipingCalculationsOutputsSet = CreateEmptyTestDbSet<PipingCalculationOutputEntity>();
@@ -74,7 +72,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<SoilProfileEntity> soilProfilesSet = CreateEmptyTestDbSet<SoilProfileEntity>();
             DbSet<SoilLayerEntity> soilLayersSet = CreateEmptyTestDbSet<SoilLayerEntity>();
             DbSet<SurfaceLineEntity> surfaceLinesSet = CreateEmptyTestDbSet<SurfaceLineEntity>();
-            DbSet<SurfaceLinePointEntity> surfaceLinePointsSet = CreateEmptyTestDbSet<SurfaceLinePointEntity>();
             DbSet<CharacteristicPointEntity> characteristicPointsSet = CreateEmptyTestDbSet<CharacteristicPointEntity>();
             DbSet<PipingFailureMechanismMetaEntity> failureMechanismMetaSet = CreateEmptyTestDbSet<PipingFailureMechanismMetaEntity>();
             DbSet<ProbabilisticOutputEntity> probabilisticOutputsSet = CreateEmptyTestDbSet<ProbabilisticOutputEntity>();
@@ -84,7 +81,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.HydraulicLocationEntities).Return(hydraylicLocationsSet);
             ringtoetsEntities.Stub(r => r.FailureMechanismEntities).Return(failureMechanismsSet);
             ringtoetsEntities.Stub(r => r.FailureMechanismSectionEntities).Return(failureMechanismSectionsSet);
-            ringtoetsEntities.Stub(r => r.FailureMechanismSectionPointEntities).Return(failureMechanismSectionPointsSet);
             ringtoetsEntities.Stub(r => r.PipingSectionResultEntities).Return(pipingSectionResultsSet);
             ringtoetsEntities.Stub(r => r.DikeProfileEntities).Return(dikeProfileSet);
             ringtoetsEntities.Stub(r => r.GrassCoverErosionInwardsFailureMechanismMetaEntities).Return(grassCoverErosionInwardsMetaSet);
@@ -108,7 +104,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.StabilityStoneCoverSectionResultEntities).Return(stabilityStoneCoverSectionResultsSet);
             ringtoetsEntities.Stub(r => r.StrengthStabilityPointConstructionSectionResultEntities).Return(strengthStabilityPointConstructionSectionResultsSet);
             ringtoetsEntities.Stub(r => r.AssessmentSectionEntities).Return(assessmentSectionsSet);
-            ringtoetsEntities.Stub(r => r.ReferenceLinePointEntities).Return(referenceLinesSet);
             ringtoetsEntities.Stub(r => r.CalculationGroupEntities).Return(calculationGroupsSet);
             ringtoetsEntities.Stub(r => r.PipingCalculationEntities).Return(pipingCalculationsSet);
             ringtoetsEntities.Stub(r => r.PipingCalculationOutputEntities).Return(pipingCalculationsOutputsSet);
@@ -118,7 +113,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.SoilProfileEntities).Return(soilProfilesSet);
             ringtoetsEntities.Stub(r => r.SoilLayerEntities).Return(soilLayersSet);
             ringtoetsEntities.Stub(r => r.SurfaceLineEntities).Return(surfaceLinesSet);
-            ringtoetsEntities.Stub(r => r.SurfaceLinePointEntities).Return(surfaceLinePointsSet);
             ringtoetsEntities.Stub(r => r.CharacteristicPointEntities).Return(characteristicPointsSet);
             ringtoetsEntities.Stub(r => r.PipingFailureMechanismMetaEntities).Return(failureMechanismMetaSet);
             ringtoetsEntities.Stub(r => r.ProbabilisticOutputEntities).Return(probabilisticOutputsSet);

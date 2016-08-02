@@ -884,23 +884,6 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void GetSurfaceLinePoint_SurfaceLinePointAdded_ReturnsEntity()
-        {
-            // Setup
-            var surfaceLineGeometryPoint = new Point3D(1.1, 2.2, 3.3);
-            var initializedEntity = new SurfaceLinePointEntity();
-
-            var registry = new PersistenceRegistry();
-            registry.Register(initializedEntity, surfaceLineGeometryPoint);
-
-            // Call
-            SurfaceLinePointEntity retrievedEntity = registry.GetSurfaceLinePoint(surfaceLineGeometryPoint);
-
-            // Assert
-            Assert.AreSame(initializedEntity, retrievedEntity);
-        }
-
-        [Test]
         public void Get_WithoutDikeProfile_ThrowsArgumentNullException()
         {
             // Setup
@@ -2050,35 +2033,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
-
-        [Test]
-        public void Register_WithNullSurfaceLinePointEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate call = () => registry.Register((SurfaceLinePointEntity) null, new Point3D(1.1, 2.2, 3.3));
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void Register_WithNullSurfaceLinePoint_ThrowsArgumentNullException()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            // Call
-            TestDelegate call = () => registry.Register(new SurfaceLinePointEntity(), null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("model", paramName);
-        }
-
+        
         [Test]
         public void Register_WithNullCharacteristicPointEntity_ThrowsArgumentNullException()
         {
@@ -2086,7 +2041,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => registry.Register((CharacteristicPointEntity) null, new Point3D(1.1, 2.2, 3.3));
+            TestDelegate call = () => registry.Register(null, new Point3D(1.1, 2.2, 3.3));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -2939,28 +2894,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
         }
-
-        [Test]
-        public void TransferIds_WithSurfaceLinePointEntityAdded_EqualSurfaceLinePointEntityIdAndPoint3DStorageId()
-        {
-            // Setup
-            var registry = new PersistenceRegistry();
-
-            long storageId = new Random(21).Next(1, 4000);
-            var entity = new SurfaceLinePointEntity
-            {
-                SurfaceLinePointEntityId = storageId
-            };
-            var model = new Point3D(1.1, 2.2, 3.3);
-            registry.Register(entity, model);
-
-            // Call
-            registry.TransferIds();
-
-            // Assert
-            Assert.AreEqual(storageId, model.StorageId);
-        }
-
+        
         [Test]
         public void TransferIds_WithPipingFailureMechanismMetaEntityAdded_EqualFailureMechanismMetaEntityIdAndPipingProbabilityAssessmentInputStorageId()
         {
@@ -4314,43 +4248,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             CollectionAssert.Contains(dbContext.SurfaceLineEntities, persistentEntity);
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void RemoveUntouched_SurfaceLinePointEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IRingtoetsEntities dbContext = RingtoetsEntitiesHelper.CreateStub(mocks);
-            mocks.ReplayAll();
-
-            var orphanedEntity = new SurfaceLinePointEntity
-            {
-                SurfaceLinePointEntityId = 1
-            };
-            var persistentEntity = new SurfaceLinePointEntity
-            {
-                SurfaceLinePointEntityId = 2
-            };
-            dbContext.SurfaceLinePointEntities.Add(orphanedEntity);
-            dbContext.SurfaceLinePointEntities.Add(persistentEntity);
-
-            var geometryPoint = new Point3D(1, 2, 3)
-            {
-                StorageId = persistentEntity.SurfaceLinePointEntityId
-            };
-
-            var registry = new PersistenceRegistry();
-            registry.Register(persistentEntity, geometryPoint);
-
-            // Call
-            registry.RemoveUntouched(dbContext);
-
-            // Assert
-            Assert.AreEqual(1, dbContext.SurfaceLinePointEntities.Count());
-            CollectionAssert.Contains(dbContext.SurfaceLinePointEntities, persistentEntity);
-            mocks.VerifyAll();
-        }
-
+        
         [Test]
         public void RemoveUntouched_CharacteristicPointEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
         {
@@ -4370,10 +4268,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.CharacteristicPointEntities.Add(orphanedEntity);
             dbContext.CharacteristicPointEntities.Add(persistentEntity);
 
-            var geometryPoint = new Point3D(1, 2, 3)
-            {
-                StorageId = 394624 // Note: ID only has to match a SurfaceLinePointEntity's id!
-            };
+            var geometryPoint = new Point3D(1, 2, 3);
 
             var registry = new PersistenceRegistry();
             registry.Register(persistentEntity, geometryPoint);

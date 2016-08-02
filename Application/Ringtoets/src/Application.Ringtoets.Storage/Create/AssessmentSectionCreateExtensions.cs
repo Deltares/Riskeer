@@ -21,6 +21,7 @@
 
 using System;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create.ClosingStructure;
 using Application.Ringtoets.Storage.Create.DuneErosion;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
@@ -102,11 +103,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (section.ReferenceLine != null)
             {
-                var i = 0;
-                foreach (var point2D in section.ReferenceLine.Points)
-                {
-                    entity.ReferenceLinePointEntities.Add(point2D.CreateReferenceLinePointEntity(i++));
-                }
+                entity.ReferenceLinePointData = new Point2DBinaryConverter().ToBytes(section.ReferenceLine.Points);
             }
         }
 

@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
@@ -66,7 +67,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 SurfaceLineEntityId = id,
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
-                ReferenceLineIntersectionY = intersectionY
+                ReferenceLineIntersectionY = intersectionY,
+                PointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0])
             };
 
             // Call
@@ -99,35 +101,11 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             const double intersectionX = 3.4;
             const double intersectionY = 7.5;
             
-            var point1Entity = new SurfaceLinePointEntity
+            var points = new[]
             {
-                X = 1.1,
-                Y = 2.2,
-                Z = 3.3,
-                Order = 0,
-                SurfaceLinePointEntityId = 1
-            };
-            var point2Entity = new SurfaceLinePointEntity
-            {
-                X = 4.4,
-                Y = 5.5,
-                Z = 6.6,
-                Order = 1,
-                SurfaceLinePointEntityId = 2
-            };
-            var point3Entity = new SurfaceLinePointEntity
-            {
-                X = 7.7,
-                Y = 8.8,
-                Z = 9.9,
-                Order = 2,
-                SurfaceLinePointEntityId = 3
-            };
-            var sourceCollection = new[]
-            {
-                point1Entity,
-                point2Entity,
-                point3Entity
+                new Point3D(1.1, 2.2, 3.3),
+                new Point3D(4.4, 5.5, 6.6),
+                new Point3D(7.7, 8.8, 9.9)
             };
 
             var entity = new SurfaceLineEntity
@@ -135,12 +113,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 SurfaceLineEntityId = id,
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
-                ReferenceLineIntersectionY = intersectionY
+                ReferenceLineIntersectionY = intersectionY,
+                PointsData = new Point3DBinaryConverter().ToBytes(points)
             };
-            foreach (SurfaceLinePointEntity pointEntity in sourceCollection)
-            {
-                entity.SurfaceLinePointEntities.Add(pointEntity);
-            }
 
             // Call
             RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
@@ -151,18 +126,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
 
-            Point3D[] geometry = surfaceLine.Points.ToArray();
-            Assert.AreEqual(sourceCollection.Length, geometry.Length);
-            for (int i = 0; i < sourceCollection.Length; i++)
-            {
-                SurfaceLinePointEntity sourceEntity = sourceCollection[i];
-                Point3D geometryPoint = geometry[i];
-
-                Assert.AreEqual(sourceEntity.X, geometryPoint.X);
-                Assert.AreEqual(sourceEntity.Y, geometryPoint.Y);
-                Assert.AreEqual(sourceEntity.Z, geometryPoint.Z);
-                Assert.AreEqual(sourceEntity.SurfaceLinePointEntityId, geometryPoint.StorageId);
-            }
+            CollectionAssert.AreEqual(points, surfaceLine.Points);
 
             Assert.IsNull(surfaceLine.BottomDitchDikeSide);
             Assert.IsNull(surfaceLine.BottomDitchPolderSide);
@@ -183,80 +147,16 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             const double intersectionX = 3.4;
             const double intersectionY = 7.5;
 
-            var point1Entity = new SurfaceLinePointEntity
+            var points = new[]
             {
-                X = 1.1,
-                Y = 2.2,
-                Z = 3.3,
-                Order = 0,
-                SurfaceLinePointEntityId = 1
-            };
-            var point2Entity = new SurfaceLinePointEntity
-            {
-                X = 4.4,
-                Y = 5.5,
-                Z = 6.6,
-                Order = 1,
-                SurfaceLinePointEntityId = 2
-            };
-            var point3Entity = new SurfaceLinePointEntity
-            {
-                X = 7.7,
-                Y = 8.8,
-                Z = 9.9,
-                Order = 2,
-                SurfaceLinePointEntityId = 3
-            };
-            var point4Entity = new SurfaceLinePointEntity
-            {
-                X = 10.10,
-                Y = 11.11,
-                Z = 12.12,
-                Order = 3,
-                SurfaceLinePointEntityId = 4
-            };
-            var point5Entity = new SurfaceLinePointEntity
-            {
-                X = 13.13,
-                Y = 14.14,
-                Z = 15.15,
-                Order = 4,
-                SurfaceLinePointEntityId = 5
-            };
-            var point6Entity = new SurfaceLinePointEntity
-            {
-                X = 16.16,
-                Y = 17.17,
-                Z = 18.18,
-                Order = 5,
-                SurfaceLinePointEntityId = 6
-            };
-            var point7Entity = new SurfaceLinePointEntity
-            {
-                X = 19.19,
-                Y = 20.20,
-                Z = 21.21,
-                Order = 6,
-                SurfaceLinePointEntityId = 7
-            };
-            var point8Entity = new SurfaceLinePointEntity
-            {
-                X = 22.22,
-                Y = 23.23,
-                Z = 24.24,
-                Order = 7,
-                SurfaceLinePointEntityId = 8
-            };
-            var sourceCollection = new[]
-            {
-                point1Entity,
-                point2Entity,
-                point3Entity,
-                point4Entity,
-                point5Entity,
-                point6Entity,
-                point7Entity,
-                point8Entity
+                new Point3D(1.1, 2.2, 3.3),
+                new Point3D(4.4, 5.5, 6.6), 
+                new Point3D(7.7, 8.8, 9.9), 
+                new Point3D(10.10, 11.11, 12.12), 
+                new Point3D(13.13, 14.14, 15.15), 
+                new Point3D(16.16, 17.17, 18.18), 
+                new Point3D(19.19, 20.20, 21.21), 
+                new Point3D(22.22, 23.23, 24.24), 
             };
 
             var entity = new SurfaceLineEntity
@@ -264,42 +164,15 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 SurfaceLineEntityId = id,
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
-                ReferenceLineIntersectionY = intersectionY
+                ReferenceLineIntersectionY = intersectionY,
+                PointsData = new Point3DBinaryConverter().ToBytes(points)
             };
-            foreach (SurfaceLinePointEntity pointEntity in sourceCollection)
-            {
-                entity.SurfaceLinePointEntities.Add(pointEntity);
-            }
-            point2Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-            {
-                CharacteristicPointType = (short)CharacteristicPointType.BottomDitchDikeSide,
-                SurfaceLinePointEntity = point2Entity
-            });
-            point3Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-            {
-                CharacteristicPointType = (short)CharacteristicPointType.BottomDitchPolderSide,
-                SurfaceLinePointEntity = point3Entity
-            });
-            point4Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-            {
-                CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtPolder,
-                SurfaceLinePointEntity = point4Entity
-            });
-            point5Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-            {
-                CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtRiver,
-                SurfaceLinePointEntity = point5Entity
-            });
-            point6Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-            {
-                CharacteristicPointType = (short)CharacteristicPointType.DitchDikeSide,
-                SurfaceLinePointEntity = point6Entity
-            });
-            point7Entity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-            {
-                CharacteristicPointType = (short)CharacteristicPointType.DitchPolderSide,
-                SurfaceLinePointEntity = point7Entity
-            });
+            entity.CharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[1], CharacteristicPointType.BottomDitchDikeSide));
+            entity.CharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[2], CharacteristicPointType.BottomDitchPolderSide));
+            entity.CharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[3], CharacteristicPointType.DikeToeAtPolder));
+            entity.CharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[4], CharacteristicPointType.DikeToeAtRiver));
+            entity.CharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[5], CharacteristicPointType.DitchDikeSide));
+            entity.CharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[6], CharacteristicPointType.DitchPolderSide));
 
             // Call
             RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
@@ -310,25 +183,23 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
 
-            Point3D[] geometry = surfaceLine.Points.ToArray();
-            Assert.AreEqual(sourceCollection.Length, geometry.Length);
-            for (int i = 0; i < sourceCollection.Length; i++)
+            CollectionAssert.AreEqual(points, surfaceLine.Points);
+
+            Assert.AreSame(surfaceLine.Points[1], surfaceLine.BottomDitchDikeSide);
+            Assert.AreSame(surfaceLine.Points[2], surfaceLine.BottomDitchPolderSide);
+            Assert.AreSame(surfaceLine.Points[3], surfaceLine.DikeToeAtPolder);
+            Assert.AreSame(surfaceLine.Points[4], surfaceLine.DikeToeAtRiver);
+            Assert.AreSame(surfaceLine.Points[5], surfaceLine.DitchDikeSide);
+            Assert.AreSame(surfaceLine.Points[6], surfaceLine.DitchPolderSide);
+        }
+
+        private static CharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type)
+        {
+            return new CharacteristicPointEntity
             {
-                SurfaceLinePointEntity sourceEntity = sourceCollection[i];
-                Point3D geometryPoint = geometry[i];
-
-                Assert.AreEqual(sourceEntity.X, geometryPoint.X);
-                Assert.AreEqual(sourceEntity.Y, geometryPoint.Y);
-                Assert.AreEqual(sourceEntity.Z, geometryPoint.Z);
-                Assert.AreEqual(sourceEntity.SurfaceLinePointEntityId, geometryPoint.StorageId);
-            }
-
-            Assert.AreSame(geometry[1], surfaceLine.BottomDitchDikeSide);
-            Assert.AreSame(geometry[2], surfaceLine.BottomDitchPolderSide);
-            Assert.AreSame(geometry[3], surfaceLine.DikeToeAtPolder);
-            Assert.AreSame(geometry[4], surfaceLine.DikeToeAtRiver);
-            Assert.AreSame(geometry[5], surfaceLine.DitchDikeSide);
-            Assert.AreSame(geometry[6], surfaceLine.DitchPolderSide);
+                Type = (short)type,
+                X = point.X, Y = point.Y, Z = point.Z
+            };
         }
 
         [Test]
@@ -342,67 +213,50 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             const double intersectionX = 3.4;
             const double intersectionY = 7.5;
 
-            var surfaceLinePointEntity1 = new SurfaceLinePointEntity
+            const double x = 1.0;
+            const double y = 2.0;
+            const double z = 3.0;
+            var points = new[]
             {
-                X = 1.0,
-                Y = 2.0,
-                Z = 3.0,
-                Order = 0,
-                SurfaceLinePointEntityId = 1,
-                CharacteristicPointEntities =
-                {
-                    new CharacteristicPointEntity
-                    {
-                        CharacteristicPointType = (short)CharacteristicPointType.BottomDitchDikeSide
-                    },
-                    new CharacteristicPointEntity
-                    {
-                        CharacteristicPointType = (short)CharacteristicPointType.BottomDitchPolderSide
-                    },
-                    new CharacteristicPointEntity
-                    {
-                        CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtPolder
-                    },
-                    new CharacteristicPointEntity
-                    {
-                        CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtPolder
-                    },
-                    new CharacteristicPointEntity
-                    {
-                        CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtRiver
-                    },
-                    new CharacteristicPointEntity
-                    {
-                        CharacteristicPointType = (short)CharacteristicPointType.DitchDikeSide
-                    },
-                    new CharacteristicPointEntity
-                    {
-                        CharacteristicPointType = (short)CharacteristicPointType.DitchPolderSide
-                    }
-                }
+                new Point3D(x, y, z),
+                new Point3D(5.0, 6.0, 7.0)
             };
-            foreach (CharacteristicPointEntity characteristicPointEntity in surfaceLinePointEntity1.CharacteristicPointEntities)
-            {
-                characteristicPointEntity.SurfaceLinePointEntity = surfaceLinePointEntity1;
-            }
-            var surfaceLinePointEntity2 = new SurfaceLinePointEntity
-            {
-                X = 5.0,
-                Y = 6.0,
-                Z = 7.0,
-                Order = 1,
-                SurfaceLinePointEntityId = 2
-            };
-
+            
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = id,
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
-                ReferenceLineIntersectionY = intersectionY
+                ReferenceLineIntersectionY = intersectionY,
+                PointsData = new Point3DBinaryConverter().ToBytes(points),
+                CharacteristicPointEntities =
+                {
+                    new CharacteristicPointEntity
+                    {
+                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.BottomDitchDikeSide
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.BottomDitchPolderSide
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.DikeToeAtPolder
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.DikeToeAtRiver
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.DitchDikeSide
+                    },
+                    new CharacteristicPointEntity
+                    {
+                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.DitchPolderSide
+                    }
+                }
             };
-            entity.SurfaceLinePointEntities.Add(surfaceLinePointEntity1);
-            entity.SurfaceLinePointEntities.Add(surfaceLinePointEntity2);
 
             // Call
             RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
@@ -435,7 +289,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new SurfaceLineEntity
             {
-                SurfaceLineEntityId = id
+                SurfaceLineEntityId = id,
+                PointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0])
             };
 
             // Call

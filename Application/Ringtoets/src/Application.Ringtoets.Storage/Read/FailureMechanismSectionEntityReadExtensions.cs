@@ -20,8 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+
+using Core.Common.Base.Geometry;
+
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Read
@@ -46,11 +50,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
-            var points = entity.FailureMechanismSectionPointEntities
-                               .OrderBy(fmsp => fmsp.Order)
-                               .Select(failureMechanismSectionPointEntity => failureMechanismSectionPointEntity.Read())
-                               .ToList();
-
+            Point2D[] points = new Point2DBinaryConverter().ToData(entity.FailureMechanismSectionPointData);
             var mechanismSection = new FailureMechanismSection(entity.Name, points)
             {
                 StorageId = entity.FailureMechanismSectionEntityId

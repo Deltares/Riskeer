@@ -91,10 +91,10 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
         private static void UpdateSoilModelSegment(StochasticSoilModel model, StochasticSoilModelEntity entity)
         {
-            byte[] currentSegmentPointData = new Point2DBinaryConverter().ToBytes(model.Geometry);
-            if (!BinaryDataEqualityHelper.AreEqual(entity.SegmentPoints, currentSegmentPointData))
+            byte[] newBinaryData = new Point2DBinaryConverter().ToBytes(model.Geometry);
+            if (!BinaryDataEqualityHelper.AreEqual(entity.StochasticSoilModelSegmentPointData, newBinaryData))
             {
-                entity.SegmentPoints = currentSegmentPointData;
+                entity.StochasticSoilModelSegmentPointData = newBinaryData;
             }
         }
     }

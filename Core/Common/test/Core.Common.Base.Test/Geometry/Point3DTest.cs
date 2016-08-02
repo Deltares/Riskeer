@@ -43,8 +43,6 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point3D(x, y, z);
 
             // Assert
-            Assert.IsInstanceOf<IStorable>(point);
-
             Assert.AreEqual(1.1, point.X);
             Assert.AreEqual(2.2, point.Y);
             Assert.AreEqual(-1.1, point.Z);

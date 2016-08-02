@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="BinaryConverters\BinaryDataEqualityHelper.cs" />
     <Compile Include="BinaryConverters\Point2DBinaryConverter.cs" />
+    <Compile Include="BinaryConverters\Point3DBinaryConverter.cs" />
     <Compile Include="BinaryConverters\RoughnessPointBinaryConverter.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
@@ -111,12 +112,10 @@
     <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\IFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\Point3DCreateExtensions.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
     <Compile Include="Create\PersistenceRegistry.cs" />
     <Compile Include="Create\RingtoetsProjectCreateExtensions.cs" />
-    <Compile Include="Create\Point2DCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="DbContext\AssessmentSectionEntity.cs">
@@ -142,9 +141,6 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\FailureMechanismSectionEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\FailureMechanismSectionPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\GrassCoverErosionInwardsCalculationEntity.cs">
@@ -207,9 +203,6 @@
     <Compile Include="DbContext\ProjectEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\ReferenceLinePointEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="DbContext\SoilLayerEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -232,9 +225,6 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\SurfaceLineEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbContext\SurfaceLinePointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\TechnicalInnovationSectionResultEntity.cs">
@@ -272,7 +262,6 @@
     <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensions.cs" />
-    <Compile Include="Read\Piping\SurfaceLinePointEntityReadExtensions.cs" />
     <Compile Include="Read\ProbabilisticOutputEntityReadExtensions.cs" />
     <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
@@ -290,10 +279,8 @@
     <Compile Include="Read\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismSectionEntityReadExtensions.cs" />
-    <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />
     <Compile Include="Read\ReadConversionCollector.cs" />
-    <Compile Include="Read\ReferenceLinePointEntityReadExtensions.cs" />
     <Compile Include="DbContext\FailureMechanismType.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensions.cs" />
     <Compile Include="Read\ProjectEntityReadExtensions.cs" />

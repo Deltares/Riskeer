@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 
 using Core.Common.Base.Geometry;
@@ -57,75 +59,47 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 Name = surfaceLine.Name,
                 ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull(),
-                ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull()
+                ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull(),
+                PointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points)
             };
-            CreateSurfaceLinePointEntities(surfaceLine, registry, entity);
-            CreateCharacteristicPointEntities(surfaceLine, registry);
+            CreateCharacteristicPointEntities(surfaceLine, registry, entity);
 
             registry.Register(entity, surfaceLine);
 
             return entity;
         }
 
-        private static void CreateSurfaceLinePointEntities(RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry registry, SurfaceLineEntity entity)
+        private static void CreateCharacteristicPointEntities(RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry registry, SurfaceLineEntity entity)
         {
-            int order = 0;
-            foreach (Point3D point3D in surfaceLine.Points)
+            var characteristicPointAssociations = new[]
             {
-                entity.SurfaceLinePointEntities.Add(point3D.CreateSurfaceLinePointEntity(registry, order++));
+                Tuple.Create(surfaceLine.BottomDitchPolderSide, CharacteristicPointType.BottomDitchPolderSide),
+                Tuple.Create(surfaceLine.BottomDitchDikeSide, CharacteristicPointType.BottomDitchDikeSide),
+                Tuple.Create(surfaceLine.DikeToeAtPolder, CharacteristicPointType.DikeToeAtPolder),
+                Tuple.Create(surfaceLine.DikeToeAtRiver, CharacteristicPointType.DikeToeAtRiver),
+                Tuple.Create(surfaceLine.DitchDikeSide, CharacteristicPointType.DitchDikeSide),
+                Tuple.Create(surfaceLine.DitchPolderSide, CharacteristicPointType.DitchPolderSide)
+            };
+            foreach (Tuple<Point3D, CharacteristicPointType> characteristicPointToSave in characteristicPointAssociations.Where(t => t.Item1 != null))
+            {
+                var characteristicPointEntity = CreateCharacteristicPointEntity(characteristicPointToSave.Item1,
+                                                                                characteristicPointToSave.Item2,
+                                                                                registry);
+                entity.CharacteristicPointEntities.Add(characteristicPointEntity);
             }
         }
 
-        private static void CreateCharacteristicPointEntities(RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry registry)
+        private static CharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type, PersistenceRegistry registry)
         {
-            if (surfaceLine.BottomDitchPolderSide != null)
+            var entity = new CharacteristicPointEntity
             {
-                SurfaceLinePointEntity characteristicPointEntity = registry.GetSurfaceLinePoint(surfaceLine.BottomDitchPolderSide);
-                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-                {
-                    CharacteristicPointType = (short)CharacteristicPointType.BottomDitchPolderSide
-                });
-            }
-            if (surfaceLine.BottomDitchDikeSide != null)
-            {
-                SurfaceLinePointEntity characteristicPointEntity = registry.GetSurfaceLinePoint(surfaceLine.BottomDitchDikeSide);
-                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-                {
-                    CharacteristicPointType = (short)CharacteristicPointType.BottomDitchDikeSide
-                });
-            }
-            if (surfaceLine.DikeToeAtPolder != null)
-            {
-                SurfaceLinePointEntity characteristicPointEntity = registry.GetSurfaceLinePoint(surfaceLine.DikeToeAtPolder);
-                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-                {
-                    CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtPolder
-                });
-            }
-            if (surfaceLine.DikeToeAtRiver != null)
-            {
-                SurfaceLinePointEntity characteristicPointEntity = registry.GetSurfaceLinePoint(surfaceLine.DikeToeAtRiver);
-                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-                {
-                    CharacteristicPointType = (short)CharacteristicPointType.DikeToeAtRiver
-                });
-            }
-            if (surfaceLine.DitchDikeSide != null)
-            {
-                SurfaceLinePointEntity characteristicPointEntity = registry.GetSurfaceLinePoint(surfaceLine.DitchDikeSide);
-                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-                {
-                    CharacteristicPointType = (short)CharacteristicPointType.DitchDikeSide
-                });
-            }
-            if (surfaceLine.DitchPolderSide != null)
-            {
-                SurfaceLinePointEntity characteristicPointEntity = registry.GetSurfaceLinePoint(surfaceLine.DitchPolderSide);
-                characteristicPointEntity.CharacteristicPointEntities.Add(new CharacteristicPointEntity
-                {
-                    CharacteristicPointType = (short)CharacteristicPointType.DitchPolderSide
-                });
-            }
+                Type = (short)type,
+                X = point.X.ToNaNAsNull(),
+                Y = point.Y.ToNaNAsNull(),
+                Z = point.Z.ToNaNAsNull()
+            };
+            registry.Register(entity, point);
+            return entity;
         }
     }
 }

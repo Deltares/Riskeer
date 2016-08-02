@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             var expectedBinaryData = new Point2DBinaryConverter().ToBytes(stochasticSoilModel.Geometry);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.SegmentPoints);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.StochasticSoilModelSegmentPointData);
         }
 
         [Test]

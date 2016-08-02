@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -143,7 +143,8 @@ namespace Application.Ringtoets.Storage.Test.Update
 
             var entity = new FailureMechanismSectionEntity
             {
-                FailureMechanismSectionEntityId = 1
+                FailureMechanismSectionEntityId = 1,
+                FailureMechanismSectionPointData = new Point2DBinaryConverter().ToBytes(points)
             };
             ringtoetsEntities.FailureMechanismSectionEntities.Add(entity);
 
@@ -151,7 +152,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(1, entity.FailureMechanismSectionPointEntities.Count);
+            byte[] expectedBinaryData = new Point2DBinaryConverter().ToBytes(points);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.FailureMechanismSectionPointData);
 
             mocks.VerifyAll();
         }
@@ -174,28 +176,20 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StorageId = 1
             };
 
-            var pointEntity = new FailureMechanismSectionPointEntity
-            {
-                X = 2,
-                Y = 3
-            };
+            var binaryConverter = new Point2DBinaryConverter();
             var entity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = 1,
-                FailureMechanismSectionPointEntities = 
-                {
-                    pointEntity
-                }
+                FailureMechanismSectionPointData = binaryConverter.ToBytes(new[]{new Point2D(2,3)})
             };
             ringtoetsEntities.FailureMechanismSectionEntities.Add(entity);
-            ringtoetsEntities.FailureMechanismSectionPointEntities.Add(pointEntity);
 
             // Call
             section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(0, ringtoetsEntities.ReferenceLinePointEntities.Count());
-            Assert.AreEqual(1, entity.FailureMechanismSectionPointEntities.Count(p => p.X == 1 && p.Y == 2));
+            byte[] expectedBinaryData = binaryConverter.ToBytes(points);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.FailureMechanismSectionPointData);
 
             mocks.VerifyAll();
         }

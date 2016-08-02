@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
-using Core.Common.Base.Geometry;
+
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Update
@@ -66,56 +66,18 @@ namespace Application.Ringtoets.Storage.Update
                 o => o.FailureMechanismSectionEntityId);
             entity.Name = section.Name;
 
-            UpdateGeometry(section, entity, context);
+            UpdateGeometry(section, entity);
 
             registry.Register(entity, section);
         }
 
-        private static void UpdateGeometry(FailureMechanismSection section, FailureMechanismSectionEntity entity, IRingtoetsEntities context)
+        private static void UpdateGeometry(FailureMechanismSection section, FailureMechanismSectionEntity entity)
         {
-            if (HasChanges(entity.FailureMechanismSectionPointEntities, section.Points))
+            byte[] newBinaryData = new Point2DBinaryConverter().ToBytes(section.Points);
+            if(!BinaryDataEqualityHelper.AreEqual(entity.FailureMechanismSectionPointData, newBinaryData))
             {
-                context.FailureMechanismSectionPointEntities.RemoveRange(entity.FailureMechanismSectionPointEntities);
-                UpdateGeometryPoints(section, entity);
+                entity.FailureMechanismSectionPointData = newBinaryData;
             }
-        }
-
-        private static void UpdateGeometryPoints(FailureMechanismSection section, FailureMechanismSectionEntity entity)
-        {
-            var i = 0;
-            foreach (var point2D in section.Points)
-            {
-                entity.FailureMechanismSectionPointEntities.Add(point2D.CreateFailureMechanismSectionPointEntity(i++));
-            }
-        }
-
-        private static bool HasChanges(ICollection<FailureMechanismSectionPointEntity> existingLine, IEnumerable<Point2D> otherLine)
-        {
-            if (!existingLine.Any())
-            {
-                return otherLine != null;
-            }
-            if (otherLine == null)
-            {
-                return true;
-            }
-
-            var existingPointEntities = existingLine.OrderBy(rlpe => rlpe.Order).ToArray();
-            var otherPointsArray = otherLine.ToArray();
-            if (existingPointEntities.Length != otherPointsArray.Length)
-            {
-                return true;
-            }
-            for (int i = 0; i < existingPointEntities.Length; i++)
-            {
-                var isXAlmostEqual = Math.Abs(existingPointEntities[i].X.ToNullAsNaN() - otherPointsArray[i].X) < 1e-6;
-                var isYAlmostEqual = Math.Abs(existingPointEntities[i].Y.ToNullAsNaN() - otherPointsArray[i].Y) < 1e-6;
-                if (!isXAlmostEqual || !isYAlmostEqual)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

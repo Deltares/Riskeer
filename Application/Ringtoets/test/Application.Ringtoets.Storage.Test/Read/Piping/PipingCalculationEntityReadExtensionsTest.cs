@@ -171,31 +171,16 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithSurfaceLineNotYetInCollector_CalculationWithCreatedSurfaceLineAndRegisteredNewEntities()
         {
             // Setup
-            var pointEntity1 = new SurfaceLinePointEntity
+            var points = new[]
             {
-                Order = 0,
-                SurfaceLinePointEntityId = 1,
-                X = 1,
-                Y = 3,
-                Z = 4
-            };
-            var pointEntity2 = new SurfaceLinePointEntity
-            {
-                Order = 1,
-                SurfaceLinePointEntityId = 2,
-                X = 7,
-                Y = 10,
-                Z = 11
+                new Point3D(1, 3, 4),
+                new Point3D(7, 10, 11)
             };
 
             var surfaceLineEntity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = 123,
-                SurfaceLinePointEntities =
-                {
-                    pointEntity1,
-                    pointEntity2
-                }
+                PointsData = new Point3DBinaryConverter().ToBytes(points)
             };
 
             var entity = new PipingCalculationEntity
@@ -217,8 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Assert
             Assert.AreEqual(surfaceLineEntity.SurfaceLineEntityId, calculation.InputParameters.SurfaceLine.StorageId);
             Assert.IsTrue(collector.Contains(surfaceLineEntity));
-            Assert.IsTrue(collector.Contains(pointEntity1));
-            Assert.IsTrue(collector.Contains(pointEntity2));
+            CollectionAssert.AreEqual(points, calculation.InputParameters.SurfaceLine.Points);
         }
 
         [Test]
@@ -334,7 +318,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = 75,
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0]),
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0]),
                 StochasticSoilProfileEntities =
                 {
                     stochasticSoilProfileEntity

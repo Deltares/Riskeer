@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 
 using Core.Common.Base.Geometry;
@@ -64,30 +65,25 @@ namespace Application.Ringtoets.Storage.Read.Piping
                     entity.ReferenceLineIntersectionX.ToNullAsNaN(),
                     entity.ReferenceLineIntersectionY.ToNullAsNaN())
             };
-            entity.ReadSurfaceLineGeometryAndCharacteristicPoints(surfaceLine, collector);
+            entity.ReadSurfaceLineGeometryAndCharacteristicPoints(surfaceLine);
 
             collector.Read(entity, surfaceLine);
 
             return surfaceLine;
         }
 
-        private static void ReadSurfaceLineGeometryAndCharacteristicPoints(this SurfaceLineEntity entity, RingtoetsPipingSurfaceLine surfaceLine, ReadConversionCollector collector)
+        private static void ReadSurfaceLineGeometryAndCharacteristicPoints(this SurfaceLineEntity entity, RingtoetsPipingSurfaceLine surfaceLine)
         {
-            var geometryPoints = new Point3D[entity.SurfaceLinePointEntities.Count];
-            var characteristicPoints = new Dictionary<CharacteristicPointType, Point3D>();
-
-            foreach (SurfaceLinePointEntity pointEntity in entity.SurfaceLinePointEntities)
-            {
-                var geometryPoint = pointEntity.Read(collector);
-                geometryPoints[pointEntity.Order] = geometryPoint;
-
-                foreach (CharacteristicPointEntity characteristicPointEntity in pointEntity.CharacteristicPointEntities)
-                {
-                    characteristicPoints[(CharacteristicPointType)characteristicPointEntity.CharacteristicPointType] = geometryPoint;
-                }
-            }
-
+            Point3D[] geometryPoints = new Point3DBinaryConverter().ToData(entity.PointsData);
             surfaceLine.SetGeometry(geometryPoints);
+
+            var characteristicPoints = new Dictionary<CharacteristicPointType, Point3D>();
+            foreach (CharacteristicPointEntity pointEntity in entity.CharacteristicPointEntities)
+            {
+                characteristicPoints[(CharacteristicPointType)pointEntity.Type] = new Point3D(pointEntity.X.ToNullAsNaN(),
+                                                                                              pointEntity.Y.ToNullAsNaN(),
+                                                                                              pointEntity.Z.ToNullAsNaN());
+            }
             foreach (KeyValuePair<CharacteristicPointType, Point3D> keyValuePair in characteristicPoints)
             {
                 SetCharacteristicPoint(surfaceLine, keyValuePair.Key, keyValuePair.Value);

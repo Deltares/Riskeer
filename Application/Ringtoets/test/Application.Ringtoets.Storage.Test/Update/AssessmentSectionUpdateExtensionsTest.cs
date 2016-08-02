@@ -22,6 +22,8 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -185,7 +187,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(comments, entity.Comments);
             Assert.AreEqual(norm, entity.Norm);
             Assert.AreEqual((short) composition, entity.Composition);
-            Assert.IsEmpty(entity.ReferenceLinePointEntities);
+            Assert.IsNull(entity.ReferenceLinePointData);
             Assert.IsEmpty(entity.HydraulicLocationEntities);
             Assert.IsNull(entity.HydraulicDatabaseLocation);
             Assert.IsNull(entity.HydraulicDatabaseVersion);
@@ -239,7 +241,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(1, entity.ReferenceLinePointEntities.Count);
+            byte[] expectedBinaryData = new Point2DBinaryConverter().ToBytes(referenceLine.Points);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.ReferenceLinePointData);
 
             mocks.VerifyAll();
         }
@@ -261,17 +264,14 @@ namespace Application.Ringtoets.Storage.Test.Update
             var section = InitializeCreatedDikeAssessmentSection();
             section.ReferenceLine = referenceLine;
 
-            var referenceLinePointEntity = new ReferenceLinePointEntity
-            {
-                X = 2, Y = 3
-            };
+            var binaryConverter = new Point2DBinaryConverter();
             var entity = new AssessmentSectionEntity
             {
                 AssessmentSectionEntityId = 1,
-                ReferenceLinePointEntities =
+                ReferenceLinePointData = binaryConverter.ToBytes(new[]
                 {
-                    referenceLinePointEntity
-                }
+                    new Point2D(2, 3)
+                })
             };
             ringtoetsEntities.AssessmentSectionEntities.Add(entity);
             ringtoetsEntities.CalculationGroupEntities.Add(new CalculationGroupEntity
@@ -292,15 +292,14 @@ namespace Application.Ringtoets.Storage.Test.Update
                 GrassCoverErosionInwardsFailureMechanismMetaEntityId = section.GrassCoverErosionInwards.GeneralInput.StorageId,
                 FailureMechanismEntityId = section.GrassCoverErosionInwards.StorageId
             });
-            ringtoetsEntities.ReferenceLinePointEntities.Add(referenceLinePointEntity);
             FillWithFailureMechanismEntities(ringtoetsEntities.FailureMechanismEntities);
 
             // Call
             section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(0, ringtoetsEntities.ReferenceLinePointEntities.Count());
-            Assert.AreEqual(1, entity.ReferenceLinePointEntities.Count(p => p.X == 1 && p.Y == 2));
+            byte[] expectedBinaryData = binaryConverter.ToBytes(referenceLine.Points);
+            CollectionAssert.AreEqual(expectedBinaryData, entity.ReferenceLinePointData);
 
             mocks.VerifyAll();
         }

@@ -193,22 +193,10 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; }
 
         /// <summary>
-        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="FailureMechanismSectionPointEntity"/> containing
-        /// every entity found in the database.
-        /// </summary>
-        DbSet<FailureMechanismSectionPointEntity> FailureMechanismSectionPointEntities { get; }
-
-        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="HydraulicLocationEntity"/> containing
         /// every entity found in the database.
         /// </summary>
         DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; }
-
-        /// <summary>
-        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="HydraulicLocationEntity"/> containing
-        /// every entity found in the database.
-        /// </summary>
-        DbSet<ReferenceLinePointEntity> ReferenceLinePointEntities { get; }
 
         /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="CalculationGroupEntity"/> containing
@@ -263,12 +251,6 @@ namespace Application.Ringtoets.Storage.DbContext
         /// every piping surface line entity in the database.
         /// </summary>
         DbSet<SurfaceLineEntity> SurfaceLineEntities { get; }
-
-        /// <summary>
-        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="SurfaceLinePointEntity"/>
-        /// containing every piping surface line geometry point in the database.
-        /// </summary>
-        DbSet<SurfaceLinePointEntity> SurfaceLinePointEntities { get; }
 
         /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="CharacteristicPointEntity"/>

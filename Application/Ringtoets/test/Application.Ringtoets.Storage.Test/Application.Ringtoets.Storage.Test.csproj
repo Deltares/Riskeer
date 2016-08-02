@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="BinaryConverters\BinaryDataEqualityHelperTest.cs" />
     <Compile Include="BinaryConverters\Point2DBinaryConverterTest.cs" />
+    <Compile Include="BinaryConverters\Point3DBinaryConverterTest.cs" />
     <Compile Include="BinaryConverters\RoughnessPointBinaryConverterTest.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismCreateExtensionsTest.cs" />
@@ -140,11 +141,9 @@
     <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\PersistenceRegistryTest.cs" />
     <Compile Include="Create\IFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\Point3DCreateExtensionsTest.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\FailureMechanismSectionCreateExtensionsTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />
-    <Compile Include="Create\Point2DCreateExtensionsTest.cs" />
     <Compile Include="Create\RingtoetsProjectCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
@@ -170,7 +169,6 @@
     <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\Piping\SurfaceLinePointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ProbabilisticOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
@@ -188,11 +186,9 @@
     <Compile Include="Read\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\FailureMechanismEntityReadExtensionsTest.cs" />
     <Compile Include="Read\FailureMechanismSectionEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\FailureMechanismSectionPointEntityReadExtensionsTest.cs" />
     <Compile Include="Read\HydraulicLocationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ProjectEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ReadConversionCollectorTest.cs" />
-    <Compile Include="Read\ReferenceLinePointEntityReadExtensionsTest.cs" />
     <Compile Include="RingtoetsDatabaseCreatorTest.cs" />
     <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />

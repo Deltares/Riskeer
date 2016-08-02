@@ -153,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 StochasticSoilModelEntityId = 1,
                 Name = string.Empty,
                 SegmentName = string.Empty,
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
 
             ringtoetsEntities.StochasticSoilModelEntities.Add(modelEntity);
@@ -192,7 +192,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = 1,
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
 
             ringtoetsEntities.StochasticSoilModelEntities.Add(soilModelEntity);
@@ -239,7 +239,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 {
                     soilProfileEntity
                 },
-                SegmentPoints = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
             };
 
             ringtoetsEntities.StochasticSoilModelEntities.Add(soilModelEntity);
@@ -281,7 +281,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = soilModelId,
-                SegmentPoints = originalSegmentPointsData
+                StochasticSoilModelSegmentPointData = originalSegmentPointsData
             };
             context.StochasticSoilModelEntities.Add(soilModelEntity);
             
@@ -291,7 +291,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             soilModel.Update(registry, context);
 
             // Assert
-            CollectionAssert.AreEqual(point2DBinaryConverter.ToBytes(soilModel.Geometry), soilModelEntity.SegmentPoints);
+            CollectionAssert.AreEqual(point2DBinaryConverter.ToBytes(soilModel.Geometry), soilModelEntity.StochasticSoilModelSegmentPointData);
 
             mocks.VerifyAll();
         }
@@ -324,7 +324,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = soilModelId,
-                SegmentPoints = originalSegmentPointsData
+                StochasticSoilModelSegmentPointData = originalSegmentPointsData
             };
             context.StochasticSoilModelEntities.Add(soilModelEntity);
 
@@ -334,7 +334,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             soilModel.Update(registry, context);
 
             // Assert
-            CollectionAssert.AreEqual(point2DBinaryConverter.ToBytes(soilModel.Geometry), soilModelEntity.SegmentPoints);
+            CollectionAssert.AreEqual(point2DBinaryConverter.ToBytes(soilModel.Geometry), soilModelEntity.StochasticSoilModelSegmentPointData);
 
             mocks.VerifyAll();
         }
@@ -362,7 +362,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = soilModelId,
-                SegmentPoints = originalSegmentPointData
+                StochasticSoilModelSegmentPointData = originalSegmentPointData
             };
             context.StochasticSoilModelEntities.Add(soilModelEntity);
 
@@ -372,7 +372,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             soilModel.Update(registry, context);
 
             // Assert
-            CollectionAssert.AreEqual(originalSegmentPointData, soilModelEntity.SegmentPoints);
+            CollectionAssert.AreEqual(originalSegmentPointData, soilModelEntity.StochasticSoilModelSegmentPointData);
 
             mocks.VerifyAll();
         }

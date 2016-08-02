@@ -21,6 +21,8 @@
 
 using System;
 using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -199,22 +201,25 @@ namespace Application.Ringtoets.Storage.Test.Update.StrengthStabilityLengthwiseC
 
             mocks.ReplayAll();
 
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism
-            {
-                StorageId = 1
-            };
             var testName = "testName";
-            failureMechanism.AddSection(new FailureMechanismSection(testName, new[]
+            var failureMechanismSection = new FailureMechanismSection(testName, new[]
             {
                 new Point2D(0, 0)
             })
             {
                 StorageId = 1
-            });
+            };
+
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism
+            {
+                StorageId = 1
+            };
+            failureMechanism.AddSection(failureMechanismSection);
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = 1,
+                FailureMechanismSectionPointData = new Point2DBinaryConverter().ToBytes(failureMechanismSection.Points)
             };
             var failureMechanismEntity = new FailureMechanismEntity
             {

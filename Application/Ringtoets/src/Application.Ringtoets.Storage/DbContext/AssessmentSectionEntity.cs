@@ -40,7 +40,6 @@ namespace Application.Ringtoets.Storage.DbContext
         {
             this.FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
             this.HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
-            this.ReferenceLinePointEntities = new HashSet<ReferenceLinePointEntity>();
         }
     
         public long AssessmentSectionEntityId { get; set; }
@@ -52,13 +51,12 @@ namespace Application.Ringtoets.Storage.DbContext
         public string HydraulicDatabaseVersion { get; set; }
         public string HydraulicDatabaseLocation { get; set; }
         public short Composition { get; set; }
+        public byte[] ReferenceLinePointData { get; set; }
     
         public virtual ProjectEntity ProjectEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReferenceLinePointEntity> ReferenceLinePointEntities { get; set; }
     }
 }

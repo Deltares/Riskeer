@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 
@@ -78,99 +80,77 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
         private static void UpdateGeometry(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, PersistenceRegistry registry)
         {
-            if (HasGeometryChanges(surfaceLine, entity))
+            var newBinaryData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points);
+            if (!BinaryDataEqualityHelper.AreEqual(entity.PointsData, newBinaryData))
             {
-                foreach (SurfaceLinePointEntity pointEntity in entity.SurfaceLinePointEntities.ToArray())
-                {
-                    entity.SurfaceLinePointEntities.Remove(pointEntity);
-                }
-                UpdateGeometryPoints(surfaceLine, entity, registry);
-            }
-            else
-            {
-                var orderedPointEntities = entity.SurfaceLinePointEntities.OrderBy(pe => pe.Order).ToArray();
-                for (int i = 0; i < surfaceLine.Points.Length; i++)
-                {
-                    registry.Register(orderedPointEntities[i], surfaceLine.Points[i]);
-                }
-            }
-        }
-
-        private static bool HasGeometryChanges(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity)
-        {
-            if (surfaceLine.Points.Length != entity.SurfaceLinePointEntities.Count)
-            {
-                return true;
-            }
-            var existingSurfaceLinePointEntities = entity.SurfaceLinePointEntities.OrderBy(pe => pe.Order).ToArray();
-            for (int i = 0; i < surfaceLine.Points.Length; i++)
-            {
-                // Note: Point3D is immutable, therefore checking for identity is enough.
-                if (surfaceLine.Points[i].StorageId != existingSurfaceLinePointEntities[i].SurfaceLinePointEntityId)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private static void UpdateGeometryPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, PersistenceRegistry registry)
-        {
-            int order = 0;
-            foreach (Point3D geometryPoint in surfaceLine.Points)
-            {
-                entity.SurfaceLinePointEntities.Add(geometryPoint.CreateSurfaceLinePointEntity(registry, order++));
+                entity.PointsData = newBinaryData;
             }
         }
 
         private static void UpdateCharacteristicPoints(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, PersistenceRegistry registry)
         {
-            CharacteristicPointEntity[] currentCharacteristicPointEntities = entity.SurfaceLinePointEntities
-                                                                                   .SelectMany(pe => pe.CharacteristicPointEntities)
-                                                                                   .ToArray();
-
-            UpdateCharacteristicPoint(surfaceLine.DikeToeAtRiver, CharacteristicPointType.DikeToeAtRiver,
-                                      currentCharacteristicPointEntities, registry);
-            UpdateCharacteristicPoint(surfaceLine.DikeToeAtPolder, CharacteristicPointType.DikeToeAtPolder,
-                                      currentCharacteristicPointEntities, registry);
-            UpdateCharacteristicPoint(surfaceLine.DitchDikeSide, CharacteristicPointType.DitchDikeSide,
-                                      currentCharacteristicPointEntities, registry);
-            UpdateCharacteristicPoint(surfaceLine.BottomDitchDikeSide, CharacteristicPointType.BottomDitchDikeSide,
-                                      currentCharacteristicPointEntities, registry);
-            UpdateCharacteristicPoint(surfaceLine.BottomDitchPolderSide, CharacteristicPointType.BottomDitchPolderSide,
-                                      currentCharacteristicPointEntities, registry);
-            UpdateCharacteristicPoint(surfaceLine.DitchPolderSide, CharacteristicPointType.DitchPolderSide,
-                                      currentCharacteristicPointEntities, registry);
-        }
-
-        private static void UpdateCharacteristicPoint(Point3D currentCharacteristicPoint, CharacteristicPointType type,
-                                                      CharacteristicPointEntity[] currentCharacteristicPointEntities,
-                                                      PersistenceRegistry registry)
-        {
-            short typeValue = (short)type;
-            CharacteristicPointEntity characteristicPointEntity = currentCharacteristicPointEntities
-                .FirstOrDefault(cpe => cpe.CharacteristicPointType == typeValue);
-
-            if (currentCharacteristicPoint == null && characteristicPointEntity != null)
+            var characteristicPointAssociations = new[]
             {
-                characteristicPointEntity.SurfaceLinePointEntity = null;
-            }
-            else if (currentCharacteristicPoint != null)
+                Tuple.Create(surfaceLine.BottomDitchPolderSide, CharacteristicPointType.BottomDitchPolderSide),
+                Tuple.Create(surfaceLine.BottomDitchDikeSide, CharacteristicPointType.BottomDitchDikeSide),
+                Tuple.Create(surfaceLine.DikeToeAtPolder, CharacteristicPointType.DikeToeAtPolder),
+                Tuple.Create(surfaceLine.DikeToeAtRiver, CharacteristicPointType.DikeToeAtRiver),
+                Tuple.Create(surfaceLine.DitchDikeSide, CharacteristicPointType.DitchDikeSide),
+                Tuple.Create(surfaceLine.DitchPolderSide, CharacteristicPointType.DitchPolderSide)
+            };
+
+            // Add new items at the end to optimize performance during the lookup of existing points
+            var characteristicPointEntitiesToAdd = new List<CharacteristicPointEntity>();
+
+            foreach (Tuple<Point3D, CharacteristicPointType> characteristicPointAssociation in characteristicPointAssociations)
             {
-                SurfaceLinePointEntity geometryPointEntity = registry.GetSurfaceLinePoint(currentCharacteristicPoint);
-                if (characteristicPointEntity == null)
+                short typeValue = (short)characteristicPointAssociation.Item2;
+                var characteristicPointEntity = entity.CharacteristicPointEntities.FirstOrDefault(cpe => cpe.Type == typeValue);
+                if (characteristicPointAssociation.Item1 == null)
                 {
-                    characteristicPointEntity = new CharacteristicPointEntity
+                    if (characteristicPointEntity != null)
                     {
-                        CharacteristicPointType = typeValue
-                    };
-                    geometryPointEntity.CharacteristicPointEntities.Add(characteristicPointEntity);
+                        entity.CharacteristicPointEntities.Remove(characteristicPointEntity);
+                    }
                 }
-                else if (characteristicPointEntity.SurfaceLinePointEntity != geometryPointEntity)
+                else
                 {
-                    characteristicPointEntity.SurfaceLinePointEntity = geometryPointEntity;
+                    double? xValue = characteristicPointAssociation.Item1.X.ToNaNAsNull();
+                    double? yValue = characteristicPointAssociation.Item1.Y.ToNaNAsNull();
+                    double? zValue = characteristicPointAssociation.Item1.Z.ToNaNAsNull();
+
+                    if (characteristicPointEntity == null)
+                    {
+                        var newEntity = new CharacteristicPointEntity
+                        {
+                            Type = typeValue,
+                            X = xValue,
+                            Y = yValue,
+                            Z = zValue
+                        };
+                        characteristicPointEntitiesToAdd.Add(newEntity);
+                        registry.Register(newEntity, characteristicPointAssociation.Item1);
+                    }
+                    else if (characteristicPointEntity.X.Equals(xValue) &&
+                             characteristicPointEntity.Y.Equals(yValue) &&
+                             characteristicPointEntity.Z.Equals(zValue))
+                    {
+                        registry.Register(characteristicPointEntity, characteristicPointAssociation.Item1);
+                    }
+                    else
+                    {
+                        characteristicPointEntity.X = xValue;
+                        characteristicPointEntity.Y = yValue;
+                        characteristicPointEntity.Z = zValue;
+
+                        registry.Register(characteristicPointEntity, characteristicPointAssociation.Item1);
+                    }
                 }
-                registry.Register(characteristicPointEntity, currentCharacteristicPoint);
+
+                foreach (CharacteristicPointEntity characteristicPointEntityToAdd in characteristicPointEntitiesToAdd)
+                {
+                    entity.CharacteristicPointEntities.Add(characteristicPointEntityToAdd);
+                }
             }
         }
     }

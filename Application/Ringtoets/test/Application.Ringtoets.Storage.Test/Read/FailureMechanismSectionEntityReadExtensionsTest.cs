@@ -20,8 +20,13 @@
 // All rights reserved.
 
 using System;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+
+using Core.Common.Base.Geometry;
+
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -47,14 +52,16 @@ namespace Application.Ringtoets.Storage.Test.Read
             var random = new Random(21);
             var entityId = random.Next(1, 502);
             string name = "testName";
+            var points = new[]
+            {
+                new Point2D(0, 0)
+            };
+            byte[] pointData = new Point2DBinaryConverter().ToBytes(points);
             var entity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = entityId,
                 Name = name,
-                FailureMechanismSectionPointEntities =
-                {
-                    new FailureMechanismSectionPointEntity()
-                }
+                FailureMechanismSectionPointData = pointData
             };
 
             // Call
