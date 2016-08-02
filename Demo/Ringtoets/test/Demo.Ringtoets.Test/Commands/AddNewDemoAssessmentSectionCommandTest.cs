@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
@@ -92,7 +91,7 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                        .First();
             AssertCalculationAbleToCalculate(pipingCalculationScenario);
             AssertCalculationInFailureMechanismSectionResult(
-                pipingCalculationScenario, 
+                pipingCalculationScenario,
                 demoAssessmentSection.PipingFailureMechanism.SectionResults.ToArray(),
                 demoAssessmentSection.PipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>());
 
@@ -204,8 +203,8 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(-0.233, calculation.Output.HeaveZValue, 1e-3);
             Assert.AreEqual(3.377, calculation.Output.UpliftFactorOfSafety, 1e-3);
             Assert.AreEqual(7.358, calculation.Output.UpliftZValue, 1e-3);
-            Assert.AreEqual(0.4305734, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
-            Assert.AreEqual(-1.5272019, calculation.Output.SellmeijerZValue, 1e-3);
+            Assert.AreEqual(0.430, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(-1.527, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)
@@ -219,7 +218,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient, 1e-3);
             Assert.AreEqual(1.33e-6, inputParameters.WaterKinematicViscosity, 1e-3);
             Assert.AreEqual(9.81, inputParameters.Gravity, 1e-3);
-            Assert.AreEqual(0.000208, inputParameters.MeanDiameter70, 1e-3);
+            Assert.AreEqual(0.000, inputParameters.MeanDiameter70, 1e-3);
             Assert.AreEqual(37, inputParameters.BeddingAngle, 1e-3);
 
             Assert.AreEqual("PK001_0001", inputParameters.SurfaceLine.Name);
