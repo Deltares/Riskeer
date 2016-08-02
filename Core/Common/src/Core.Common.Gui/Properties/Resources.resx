@@ -349,18 +349,6 @@
   <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available" xml:space="preserve">
     <value>Ringtoets kan de huidige selectie ({0}) niet exporteren.</value>
   </data>
-  <data name="SplashScreen_CopyRights" xml:space="preserve">
-    <value>Copyright</value>
-  </data>
-  <data name="SplashScreen_Free" xml:space="preserve">
-    <value>Gratis</value>
-  </data>
-  <data name="SplashScreen_License" xml:space="preserve">
-    <value>Licentie</value>
-  </data>
-  <data name="SplashScreen_Starting" xml:space="preserve">
-    <value>Opstarten...</value>
-  </data>
   <data name="SplashScreen_Version" xml:space="preserve">
     <value>Versie</value>
   </data>
@@ -545,10 +533,10 @@
     <value>Website</value>
   </data>
   <data name="SplashScreen_SupportPhoneNumber" xml:space="preserve">
-    <value>Telefoonnummer</value>
+    <value>Telefoon</value>
   </data>
   <data name="SplashScreen_SupportTitle" xml:space="preserve">
-    <value>Heeft u vragen of opmerkingen, neem dan contact op met Helpdesk Water.</value>
+    <value>Voor vragen, Helpdesk Water.</value>
   </data>
   <data name="GuiCore_UpdateTitle_Unknown" xml:space="preserve">
     <value>Onbekend</value>

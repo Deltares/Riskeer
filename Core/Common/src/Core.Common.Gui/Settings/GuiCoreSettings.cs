@@ -37,16 +37,6 @@ namespace Core.Common.Gui.Settings
         public string SupportPhoneNumber { get; set; }
 
         /// <summary>
-        /// Gets or sets the copyright to show in the graphical user interface.
-        /// </summary>
-        public string Copyright { get; set; }
-
-        /// <summary>
-        /// Gets or sets the license description to show in the graphical user interface.
-        /// </summary>
-        public string LicenseDescription { get; set; }
-
-        /// <summary>
         /// Gets or sets the title to show in the main window of the graphical user interface.
         /// </summary>
         public string MainWindowTitle { get; set; }

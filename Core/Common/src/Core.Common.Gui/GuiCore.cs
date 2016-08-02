@@ -414,8 +414,6 @@ namespace Core.Common.Gui
             splashScreen = new SplashScreen
             {
                 VersionText = SettingsHelper.ApplicationVersion,
-                CopyrightText = FixedSettings.Copyright,
-                LicenseText = FixedSettings.LicenseDescription
             };
 
             splashScreen.IsVisibleChanged += delegate

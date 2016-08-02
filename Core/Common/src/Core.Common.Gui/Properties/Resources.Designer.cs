@@ -1299,42 +1299,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copyright.
-        /// </summary>
-        public static string SplashScreen_CopyRights {
-            get {
-                return ResourceManager.GetString("SplashScreen_CopyRights", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gratis.
-        /// </summary>
-        public static string SplashScreen_Free {
-            get {
-                return ResourceManager.GetString("SplashScreen_Free", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Licentie.
-        /// </summary>
-        public static string SplashScreen_License {
-            get {
-                return ResourceManager.GetString("SplashScreen_License", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opstarten....
-        /// </summary>
-        public static string SplashScreen_Starting {
-            get {
-                return ResourceManager.GetString("SplashScreen_Starting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Website.
         /// </summary>
         public static string SplashScreen_SupportEmail {
@@ -1344,7 +1308,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Telefoonnummer.
+        ///   Looks up a localized string similar to Telefoon.
         /// </summary>
         public static string SplashScreen_SupportPhoneNumber {
             get {
@@ -1353,7 +1317,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heeft u vragen of opmerkingen, neem dan contact op met Helpdesk Water..
+        ///   Looks up a localized string similar to Voor vragen, Helpdesk Water..
         /// </summary>
         public static string SplashScreen_SupportTitle {
             get {

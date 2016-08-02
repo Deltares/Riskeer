@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Windows;
 using System.Windows.Media;
 
@@ -30,49 +29,18 @@ namespace Core.Common.Gui.Forms.SplashScreen
     /// </summary>
     public partial class SplashScreen
     {
-        private string progressText;
-        private int progressValuePercent;
-        private string licenseText;
-        private string copyrightText;
         private string versionText;
-        private bool hasProgress;
-
         private string supportPhoneNumber;
         private string supportEmailAddress;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SplashScreen"/> class with a progress
-        /// bar from 0 to 100%.
+        /// Initializes a new instance of the <see cref="SplashScreen"/> class.
         /// </summary>
         public SplashScreen()
         {
             InitializeComponent();
 
-            ProgressBar.Maximum = 100; // classic percentage approach, there is no need for the splash screen to be more precise
-
-            HasProgress = true;
-            ProgressValuePercent = 0;
-            ProgressText = "";
-            CopyrightText = "";
-            LicenseText = "";
             VersionText = "";
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether or not the progress bar and progress
-        /// label are visible in the window.
-        /// </summary>
-        public bool HasProgress
-        {
-            get
-            {
-                return hasProgress;
-            }
-            set
-            {
-                hasProgress = value;
-                InvalidateVisual();
-            }
         }
 
         /// <summary>
@@ -80,77 +48,13 @@ namespace Core.Common.Gui.Forms.SplashScreen
         /// </summary>
         public string VersionText
         {
-            get
+            private get
             {
                 return versionText;
             }
             set
             {
                 versionText = value;
-                InvalidateVisual();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the copyright owner to be shown.
-        /// </summary>
-        public string CopyrightText
-        {
-            get
-            {
-                return copyrightText;
-            }
-            set
-            {
-                copyrightText = value;
-                InvalidateVisual();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the type of the license, plain text.
-        /// </summary>
-        public string LicenseText
-        {
-            get
-            {
-                return licenseText;
-            }
-            set
-            {
-                licenseText = value;
-                InvalidateVisual();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the percentage value (in the range [0, 100]) to be set as progress indication. 
-        /// </summary>
-        public int ProgressValuePercent
-        {
-            get
-            {
-                return progressValuePercent;
-            }
-            set
-            {
-                progressValuePercent = value;
-                InvalidateVisual();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the descriptive text for current status of the progress.
-        /// </summary>
-        public string ProgressText
-        {
-            get
-            {
-                return progressText;
-            }
-            set
-            {
-                progressText = value;
                 InvalidateVisual();
             }
         }
@@ -200,49 +104,17 @@ namespace Core.Common.Gui.Forms.SplashScreen
         {
             base.OnRender(drawingContext);
 
-            if (LabelLicense.Content.ToString() != LicenseText)
-            {
-                LabelLicense.Content = LicenseText;
-            }
-
-            if (LabelCopyright.Content.ToString() != CopyrightText)
-            {
-                LabelCopyright.Content = CopyrightText;
-            }
-
             if (LabelVersion.Content.ToString() != VersionText)
             {
                 LabelVersion.Content = VersionText;
             }
 
             SetSupportValues();
-
-            var progressVisibility = HasProgress ? Visibility.Visible : Visibility.Hidden;
-
-            ProgressBar.Visibility = progressVisibility;
-            LabelProgressBar.Visibility = progressVisibility;
-            LabelProgressMessage.Visibility = progressVisibility;
-
-            if (!HasProgress)
-            {
-                return; // no need to update progress related labels below
-            }
-
-            if (ProgressBar.Value != ProgressValuePercent)
-            {
-                ProgressBar.Value = ProgressValuePercent;
-                LabelProgressBar.Content = string.Format("{0} %", ProgressValuePercent);
-            }
-
-            if (LabelProgressMessage.Content.ToString() != ProgressText)
-            {
-                LabelProgressMessage.Content = ProgressText;
-            }
         }
 
         private void SetSupportValues()
         {
-            var supportVisibility = (String.IsNullOrWhiteSpace(SupportPhoneNumber) || String.IsNullOrWhiteSpace(SupportEmail)) ? Visibility.Collapsed : Visibility.Visible;
+            var supportVisibility = (string.IsNullOrWhiteSpace(SupportPhoneNumber) || string.IsNullOrWhiteSpace(SupportEmail)) ? Visibility.Collapsed : Visibility.Visible;
 
             LabelSupportTitle.Visibility = supportVisibility;
             LabelSupportPhoneNumberTitle.Visibility = supportVisibility;

@@ -631,10 +631,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             var aboutDialog = new SplashScreen.SplashScreen
             {
-                HasProgress = false,
                 VersionText = SettingsHelper.ApplicationVersion,
-                CopyrightText = settings.FixedSettings.Copyright,
-                LicenseText = settings.FixedSettings.LicenseDescription,
                 SupportEmail = settings.FixedSettings.SupportEmailAddress,
                 SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumber,
                 AllowsTransparency = false,
