@@ -43,15 +43,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     public class GrassCoverErosionInwardsInputContextProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
     {
         private const int dikeProfilePropertyIndex = 1;
-        private const int orientationPropertyIndex = 2;
-        private const int breakWaterPropertyIndex = 3;
-        private const int foreshorePropertyIndex = 4;
-        private const int dikeGeometryPropertyIndex = 5;
-        private const int dikeHeightPropertyIndex = 6;
-        private const int criticalFlowRatePropertyIndex = 7;
-        private const int hydraulicBoundaryLocationPropertyIndex = 8;
-        private const int calculateDikeHeightPropertyIndex = 9;
-        private const int worldReferencePointPropertyIndex = 10;
+        private const int worldReferencePointPropertyIndex = 2;
+        private const int orientationPropertyIndex = 3;
+        private const int breakWaterPropertyIndex = 4;
+        private const int foreshorePropertyIndex = 5;
+        private const int dikeGeometryPropertyIndex = 6;
+        private const int dikeHeightPropertyIndex = 7;
+        private const int criticalFlowRatePropertyIndex = 8;
+        private const int hydraulicBoundaryLocationPropertyIndex = 9;
+        private const int calculateDikeHeightPropertyIndex = 10;
 
         [PropertyOrder(dikeProfilePropertyIndex)]
         [Editor(typeof(GrassCoverErosionInwardsInputContextDikeProfileEditor), typeof(UITypeEditor))]
@@ -69,6 +69,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
                 data.WrappedData.DikeProfile = value;
                 AssignUnassignCalculations.Update(data.FailureMechanism.SectionResults, data.Calculation);
                 data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(worldReferencePointPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(Resources), "WorldReferencePoint_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WorldReferencePoint_Description")]
+        public Point2D WorldReferencePoint
+        {
+            get
+            {
+                return data.WrappedData.DikeProfile == null ? null :
+                           new Point2D(
+                               new RoundedDouble(0, data.WrappedData.DikeProfile.WorldReferencePoint.X),
+                               new RoundedDouble(0, data.WrappedData.DikeProfile.WorldReferencePoint.Y));
             }
         }
 
@@ -170,21 +185,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             {
                 data.WrappedData.CalculateDikeHeight = value;
                 data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(worldReferencePointPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "WorldReferencePoint_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WorldReferencePoint_Description")]
-        public Point2D WorldReferencePoint
-        {
-            get
-            {
-                return data.WrappedData.DikeProfile == null ? null :
-                           new Point2D(
-                               new RoundedDouble(0, data.WrappedData.DikeProfile.WorldReferencePoint.X),
-                               new RoundedDouble(0, data.WrappedData.DikeProfile.WorldReferencePoint.Y));
             }
         }
 

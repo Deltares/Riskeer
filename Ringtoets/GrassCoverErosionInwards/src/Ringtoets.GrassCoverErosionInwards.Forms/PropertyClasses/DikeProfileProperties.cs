@@ -37,12 +37,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     public class DikeProfileProperties : ObjectProperties<DikeProfile>
     {
         private const int namePropertyIndex = 1;
-        private const int orientationPropertyIndex = 2;
-        private const int breakWaterPropertyIndex = 3;
-        private const int foreshorePropertyIndex = 4;
-        private const int dikeGeometryPropertyIndex = 5;
-        private const int dikeHeightPropertyIndex = 6;
-        private const int worldReferencePointPropertyIndex = 7;
+        private const int worldReferencePointPropertyIndex = 2;
+        private const int orientationPropertyIndex = 3;
+        private const int breakWaterPropertyIndex = 4;
+        private const int foreshorePropertyIndex = 5;
+        private const int dikeGeometryPropertyIndex = 6;
+        private const int dikeHeightPropertyIndex = 7;
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
@@ -53,6 +53,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return data.Name;
+            }
+        }
+
+        [PropertyOrder(worldReferencePointPropertyIndex)]
+        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), "WorldReferencePoint_DisplayName")]
+        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "WorldReferencePoint_Description")]
+        public Point2D WorldReferencePoint
+        {
+            get
+            {
+                return new Point2D(
+                    new RoundedDouble(0, data.WorldReferencePoint.X),
+                    new RoundedDouble(0, data.WorldReferencePoint.Y));
             }
         }
 
@@ -125,20 +139,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return data.DikeHeight;
-            }
-        }
-
-        [PropertyOrder(worldReferencePointPropertyIndex)]
-        [ResourcesCategory(typeof(GrassCoverErosionInwardsFormsResources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), "WorldReferencePoint_DisplayName")]
-        [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "WorldReferencePoint_Description")]
-        public Point2D WorldReferencePoint
-        {
-            get
-            {
-                return new Point2D(
-                               new RoundedDouble(0, data.WorldReferencePoint.X),
-                               new RoundedDouble(0, data.WorldReferencePoint.Y));
             }
         }
     }

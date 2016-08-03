@@ -212,6 +212,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Dijkprofiel", dikeProfileProperty.DisplayName);
             Assert.AreEqual("De schematisatie van het dijkprofiel.", dikeProfileProperty.Description);
 
+            PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
+            Assert.IsNotNull(worldReferencePointProperty);
+            Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
+            Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
+            Assert.AreEqual("De coördinaten van de locatie in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
+
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
             Assert.AreEqual(!withDikeProfile, orientationProperty.IsReadOnly);
@@ -270,25 +277,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("HBN berekenen", dynamicProperties[calculateDikeHeightPropertyIndex].DisplayName);
             Assert.AreEqual("Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.", dynamicProperties[calculateDikeHeightPropertyIndex].Description);
 
-            PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
-            Assert.IsNotNull(worldReferencePointProperty);
-            Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
-            Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
-
             mockRepository.VerifyAll();
         }
 
         private const int dikeProfilePropertyIndex = 0;
-        private const int orientationPropertyIndex = 1;
-        private const int breakWaterPropertyIndex = 2;
-        private const int foreshorePropertyIndex = 3;
-        private const int dikeGeometryPropertyIndex = 4;
-        private const int dikeHeightPropertyIndex = 5;
-        private const int criticalFlowRatePropertyIndex = 6;
-        private const int hydraulicBoundaryLocationPropertyIndex = 7;
-        private const int calculateDikeHeightPropertyIndex = 8;
-        private const int worldReferencePointPropertyIndex = 9;
+        private const int worldReferencePointPropertyIndex = 1;
+        private const int orientationPropertyIndex = 2;
+        private const int breakWaterPropertyIndex = 3;
+        private const int foreshorePropertyIndex = 4;
+        private const int dikeGeometryPropertyIndex = 5;
+        private const int dikeHeightPropertyIndex = 6;
+        private const int criticalFlowRatePropertyIndex = 7;
+        private const int hydraulicBoundaryLocationPropertyIndex = 8;
+        private const int calculateDikeHeightPropertyIndex = 9;
     }
 }

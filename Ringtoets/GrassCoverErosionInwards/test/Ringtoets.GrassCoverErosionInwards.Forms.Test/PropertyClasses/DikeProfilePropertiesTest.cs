@@ -96,6 +96,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Naam", nameProperty.DisplayName);
             Assert.AreEqual("Naam van het dijkprofiel.", nameProperty.Description);
 
+            PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
+            Assert.IsNotNull(worldReferencePointProperty);
+            Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
+            Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
+            Assert.AreEqual("De coördinaten van de locatie in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
+
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
             Assert.IsTrue(orientationProperty.IsReadOnly);
@@ -133,21 +140,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
             Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);
-
-            PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
-            Assert.IsNotNull(worldReferencePointProperty);
-            Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
-            Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
         }
 
         private const int namePropertyIndex = 0;
-        private const int orientationPropertyIndex = 1;
-        private const int breakWaterPropertyIndex = 2;
-        private const int foreshorePropertyIndex = 3;
-        private const int dikeGeometryPropertyIndex = 4;
-        private const int dikeHeightPropertyIndex = 5;
-        private const int worldReferencePointPropertyIndex = 6;
+        private const int worldReferencePointPropertyIndex = 1;
+        private const int orientationPropertyIndex = 2;
+        private const int breakWaterPropertyIndex = 3;
+        private const int foreshorePropertyIndex = 4;
+        private const int dikeGeometryPropertyIndex = 5;
+        private const int dikeHeightPropertyIndex = 6;
     }
 }
