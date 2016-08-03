@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Update
 
             ProjectEntity entity = project.GetCorrespondingEntity(
                 context.ProjectEntities,
-                o => o.ProjectEntityId);
+                context);
 
             entity.Description = project.Description;
 

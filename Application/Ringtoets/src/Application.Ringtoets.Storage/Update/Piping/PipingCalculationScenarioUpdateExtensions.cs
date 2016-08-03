@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
             PipingCalculationEntity entity = calculation.GetCorrespondingEntity(
                 context.PipingCalculationEntities,
-                o => o.PipingCalculationEntityId);
+                context);
             entity.RelevantForScenario = Convert.ToByte(calculation.IsRelevant);
             entity.ScenarioContribution = calculation.Contribution.Value.ToNaNAsNull();
             entity.Name = calculation.Name;

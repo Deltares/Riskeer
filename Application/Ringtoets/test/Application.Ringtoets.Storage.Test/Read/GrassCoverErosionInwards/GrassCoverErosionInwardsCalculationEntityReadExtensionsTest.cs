@@ -268,7 +268,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 GrassCoverErosionInwardsCalculationEntityId = 456,
                 GrassCoverErosionInwardsOutputEntity = new GrassCoverErosionInwardsOutputEntity
                 {
-                    GrassCoverErosionInwardsOutputId = 9745,
+                    GrassCoverErosionInwardsOutputEntityId = 9745,
                     ProbabilisticOutputEntity = new ProbabilisticOutputEntity
                     {
                         ProbabilisticOutputEntityId = 3245
@@ -294,7 +294,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 GrassCoverErosionInwardsCalculationEntityId = 456,
                 GrassCoverErosionInwardsOutputEntity = new GrassCoverErosionInwardsOutputEntity
                 {
-                    GrassCoverErosionInwardsOutputId = 9745,
+                    GrassCoverErosionInwardsOutputEntityId = 9745,
                     ProbabilisticOutputEntity = new ProbabilisticOutputEntity
                     {
                         ProbabilisticOutputEntityId = 3245

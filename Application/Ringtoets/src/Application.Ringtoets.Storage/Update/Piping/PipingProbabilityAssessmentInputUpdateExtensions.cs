@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
             PipingFailureMechanismMetaEntity entity = probabilityAssessmentInput.GetCorrespondingEntity(
                 context.PipingFailureMechanismMetaEntities,
-                o => o.PipingFailureMechanismMetaEntityId);
+                context);
 
             entity.A = probabilityAssessmentInput.A;
 

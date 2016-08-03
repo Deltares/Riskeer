@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.StabilityStoneCover
 
             StabilityStoneCoverSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.StabilityStoneCoverSectionResultEntities, 
-                s => s.StabilityStoneCoverSectionResultEntityId);
+                context);
 
             entity.LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA);
             entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();

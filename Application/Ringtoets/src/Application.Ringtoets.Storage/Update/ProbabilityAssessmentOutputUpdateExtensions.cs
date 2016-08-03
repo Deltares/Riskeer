@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update
 
             ProbabilisticOutputEntity entity = output.GetCorrespondingEntity(
                 context.ProbabilisticOutputEntities,
-                o => o.ProbabilisticOutputEntityId);
+                context);
 
             registry.Register(entity, output);
         }

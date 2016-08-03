@@ -129,9 +129,9 @@
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsOutputEntity">
           <Key>
-            <PropertyRef Name="GrassCoverErosionInwardsOutputId" />
+            <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
           </Key>
-          <Property Name="GrassCoverErosionInwardsOutputId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GrassCoverErosionInwardsOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProbabilisticOutputEntityId" Type="integer" Nullable="false" />
           <Property Name="IsOvertoppingDominant" Type="tinyint" Nullable="false" />
           <Property Name="WaveHeight" Type="real" />
@@ -581,7 +581,7 @@
           <End Role="GrassCoverErosionInwardsCalculationEntity" Type="Self.GrassCoverErosionInwardsCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GrassCoverErosionInwardsOutputEntity">
-              <PropertyRef Name="GrassCoverErosionInwardsOutputId" />
+              <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
             </Principal>
             <Dependent Role="GrassCoverErosionInwardsCalculationEntity">
               <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
@@ -1614,9 +1614,9 @@
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsOutputEntity">
           <Key>
-            <PropertyRef Name="GrassCoverErosionInwardsOutputId" />
+            <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
           </Key>
-          <Property Name="GrassCoverErosionInwardsOutputId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrassCoverErosionInwardsOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProbabilisticOutputEntityId" Type="Int64" Nullable="false" />
           <Property Name="IsOvertoppingDominant" Type="Byte" Nullable="false" />
           <Property Name="WaveHeight" Type="Double" />
@@ -2398,7 +2398,7 @@
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Role="GrassCoverErosionInwardsCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GrassCoverErosionInwardsOutputEntity">
-              <PropertyRef Name="GrassCoverErosionInwardsOutputId" />
+              <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
             </Principal>
             <Dependent Role="GrassCoverErosionInwardsCalculationEntity">
               <PropertyRef Name="GrassCoverErosionInwardsOutputEntityId" />
@@ -2671,7 +2671,7 @@
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
                 <ScalarProperty Name="IsOvertoppingDominant" ColumnName="IsOvertoppingDominant" />
                 <ScalarProperty Name="ProbabilisticOutputEntityId" ColumnName="ProbabilisticOutputEntityId" />
-                <ScalarProperty Name="GrassCoverErosionInwardsOutputId" ColumnName="GrassCoverErosionInwardsOutputId" />
+                <ScalarProperty Name="GrassCoverErosionInwardsOutputEntityId" ColumnName="GrassCoverErosionInwardsOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

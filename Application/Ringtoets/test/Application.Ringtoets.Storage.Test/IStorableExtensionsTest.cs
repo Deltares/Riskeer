@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.ObjectModel;
+
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Storage;
@@ -58,21 +60,30 @@ namespace Application.Ringtoets.Storage.Test
         public void Find_NoItemsInContext_ThrowsException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<IRingtoetsEntities>();
+            mocks.ReplayAll();
+
             var storable = new SimpleStorable();
             var set = new TestDbSet<object>(new ObservableCollection<object>());
 
             // Call
-            TestDelegate test = () => storable.GetCorrespondingEntity(set, o => 1);
+            TestDelegate test = () => storable.GetCorrespondingEntity(set, context);
 
             // Assert
             var message = Assert.Throws<EntityNotFoundException>(test).Message;
             Assert.AreEqual("Het object 'Object' met id '0' is niet gevonden.", message);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Find_NoItemsWithIdInContext_ThrowsException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<IRingtoetsEntities>();
+            mocks.ReplayAll();
+
             var storable = new SimpleStorable
             {
                 StorageId = 21
@@ -80,41 +91,51 @@ namespace Application.Ringtoets.Storage.Test
             var set = new TestDbSet<WithId>(new ObservableCollection<WithId>());
             set.Add(new WithId
             {
-                Id = 11
+                WithIdId = 11
             });
 
             // Call
-            TestDelegate test = () => storable.GetCorrespondingEntity(set, o => o.Id);
+            TestDelegate test = () => storable.GetCorrespondingEntity(set, context);
 
             // Assert
             var message = Assert.Throws<EntityNotFoundException>(test).Message;
             Assert.AreEqual(string.Format("Het object 'WithId' met id '{0}' is niet gevonden.", storable.StorageId), message);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Find_MultipleItemsWithIdInContext_ThrowsException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<IRingtoetsEntities>();
+            mocks.ReplayAll();
+
             var storable = new SimpleStorable
             {
                 StorageId = 21
             };
             var set = new TestDbSet<WithId>(new ObservableCollection<WithId>());
-            set.Add(new WithId { Id = storable.StorageId });
-            set.Add(new WithId { Id = storable.StorageId });
+            set.Add(new WithId { WithIdId = storable.StorageId });
+            set.Add(new WithId { WithIdId = storable.StorageId });
 
             // Call
-            TestDelegate test = () => storable.GetCorrespondingEntity(set, o => o.Id);
+            TestDelegate test = () => storable.GetCorrespondingEntity(set, context);
 
             // Assert
             var message = Assert.Throws<EntityNotFoundException>(test).Message;
             Assert.AreEqual(string.Format("Het object 'WithId' met id '{0}' is niet gevonden.", storable.StorageId), message);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Find_ItemWithIdZeroInContext_ThrowsException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<IRingtoetsEntities>();
+            mocks.ReplayAll();
+
             var storable = new SimpleStorable
             {
                 StorageId = 0
@@ -122,23 +143,28 @@ namespace Application.Ringtoets.Storage.Test
             var set = new TestDbSet<WithId>(new ObservableCollection<WithId>());
             var expectedItem = new WithId
             {
-                Id = storable.StorageId
+                WithIdId = storable.StorageId
             };
             set.Add(expectedItem);
-            set.Add(new WithId { Id = 19 });
+            set.Add(new WithId { WithIdId = 19 });
 
             // Call
-            TestDelegate test = () => storable.GetCorrespondingEntity(set, o => o.Id);
+            TestDelegate test = () => storable.GetCorrespondingEntity(set, context);
 
             // Assert
             var message = Assert.Throws<EntityNotFoundException>(test).Message;
             Assert.AreEqual("Het object \'WithId\' met id \'0\' is niet gevonden.", message);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Find_ItemWithIdNotZeroInContext_ReturnEntityFromContext()
         {
             // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<IRingtoetsEntities>();
+            mocks.ReplayAll();
+
             var storable = new SimpleStorable
             {
                 StorageId = new Random(21).Next(1, int.MaxValue)
@@ -146,16 +172,17 @@ namespace Application.Ringtoets.Storage.Test
             var set = new TestDbSet<WithId>(new ObservableCollection<WithId>());
             var expectedItem = new WithId
             {
-                Id = storable.StorageId
+                WithIdId = storable.StorageId
             };
             set.Add(expectedItem);
-            set.Add(new WithId { Id = 19 });
+            set.Add(new WithId { WithIdId = 19 });
 
             // Call
-            WithId actualItem = storable.GetCorrespondingEntity(set, o => o.Id);
+            WithId actualItem = storable.GetCorrespondingEntity(set, context);
 
             // Assert
             Assert.AreSame(expectedItem, actualItem);
+            mocks.VerifyAll();
         }
     }
 
@@ -164,6 +191,6 @@ namespace Application.Ringtoets.Storage.Test
     }
 
     public class WithId {
-        public long Id { get; set; }
+        public long WithIdId { get; set; }
     }
 }

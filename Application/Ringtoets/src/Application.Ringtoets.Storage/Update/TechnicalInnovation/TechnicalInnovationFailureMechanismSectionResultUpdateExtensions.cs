@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.TechnicalInnovation
 
             TechnicalInnovationSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.TechnicalInnovationSectionResultEntities,
-                o => o.TechnicalInnovationSectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();

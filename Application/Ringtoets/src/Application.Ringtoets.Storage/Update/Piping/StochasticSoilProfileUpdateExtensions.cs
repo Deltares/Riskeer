@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
             StochasticSoilProfileEntity entity = profile.GetCorrespondingEntity(
                 context.StochasticSoilProfileEntities,
-                o => o.StochasticSoilProfileEntityId);
+                context);
 
             entity.Probability = profile.Probability.ToNaNAsNull();
 

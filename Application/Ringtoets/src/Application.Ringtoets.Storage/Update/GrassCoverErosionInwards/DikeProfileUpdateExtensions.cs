@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
 
             DikeProfileEntity entity = profile.GetCorrespondingEntity(
                 context.DikeProfileEntities,
-                o => o.DikeProfileEntityId);
+                context);
 
             // DikeProfile cannot be changed after construction. No need to update state in 'entity'
 

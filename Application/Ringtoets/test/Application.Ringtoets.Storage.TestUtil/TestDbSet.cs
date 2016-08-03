@@ -103,5 +103,16 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             return collection.GetEnumerator();
         }
+
+        public override T Find(params object[] keyValues)
+        {
+            var propertyInfo = typeof(T).GetProperty(typeof(T).Name + "Id");
+            if (propertyInfo == null)
+            {
+                // Naming convention: Primary key of an entity should be named '<tablename>+Id', but convention is violated:
+                throw new MissingMemberException(typeof(T).Name, typeof(T).Name + "Id");
+            }
+            return collection.SingleOrDefault(i => propertyInfo.GetValue(i, null).Equals(keyValues[0]));
+        }
     }
 }

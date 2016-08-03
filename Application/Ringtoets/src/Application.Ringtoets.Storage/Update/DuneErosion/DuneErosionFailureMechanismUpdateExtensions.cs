@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.DuneErosion
 
             FailureMechanismEntity entity = mechanism.GetCorrespondingEntity(
                 context.FailureMechanismEntities, 
-                o => o.FailureMechanismEntityId);
+                context);
 
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 

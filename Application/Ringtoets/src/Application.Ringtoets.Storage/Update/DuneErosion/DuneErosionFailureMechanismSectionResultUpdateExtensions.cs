@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.DuneErosion
 
             DuneErosionSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.DuneErosionSectionResultEntities, 
-                s => s.DuneErosionSectionResultEntityId);
+                context);
 
             entity.LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA);
             entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();

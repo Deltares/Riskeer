@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.PipingStructure
 
             PipingStructureSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.PipingStructureSectionResultEntities, 
-                s => s.PipingStructureSectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA);

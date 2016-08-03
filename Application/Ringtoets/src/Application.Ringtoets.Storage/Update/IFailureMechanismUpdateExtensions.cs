@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Update
 
             FailureMechanismEntity entity = mechanism.GetCorrespondingEntity(
                 context.FailureMechanismEntities,
-                o => o.FailureMechanismEntityId);
+                context);
 
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
             entity.Comments = mechanism.Comments;

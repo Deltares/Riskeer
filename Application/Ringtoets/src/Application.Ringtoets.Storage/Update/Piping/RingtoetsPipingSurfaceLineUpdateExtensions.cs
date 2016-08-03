@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
             SurfaceLineEntity entity = surfaceLine.GetCorrespondingEntity(
                 context.SurfaceLineEntities,
-                o => o.SurfaceLineEntityId);
+                context);
 
             entity.Name = surfaceLine.Name;
             entity.ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull();

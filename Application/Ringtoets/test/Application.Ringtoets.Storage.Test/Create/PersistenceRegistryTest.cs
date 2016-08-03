@@ -2292,7 +2292,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             long storageId = new Random(21).Next(1, 4000);
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = storageId
+                GrassCoverErosionInwardsOutputEntityId = storageId
             };
             var model = new GrassCoverErosionInwardsOutput(1, false, new ProbabilityAssessmentOutput(1, 1, 1, 1, 1), 1);
             registry.Register(entity, model);
@@ -3214,18 +3214,18 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             var orphanedEntity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = 1
+                GrassCoverErosionInwardsOutputEntityId = 1
             };
             var persistentEntity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = 2
+                GrassCoverErosionInwardsOutputEntityId = 2
             };
             dbContext.GrassCoverErosionInwardsOutputEntities.Add(orphanedEntity);
             dbContext.GrassCoverErosionInwardsOutputEntities.Add(persistentEntity);
 
             var calculation = new GrassCoverErosionInwardsOutput(1, false, new ProbabilityAssessmentOutput(1, 1, 1, 1, 1), 1)
             {
-                StorageId = persistentEntity.GrassCoverErosionInwardsOutputId
+                StorageId = persistentEntity.GrassCoverErosionInwardsOutputEntityId
             };
 
             var registry = new PersistenceRegistry();

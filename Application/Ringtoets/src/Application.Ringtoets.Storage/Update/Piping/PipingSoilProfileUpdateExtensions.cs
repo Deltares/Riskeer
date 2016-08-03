@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
             SoilProfileEntity entity = profile.GetCorrespondingEntity(
                 context.SoilProfileEntities,
-                o => o.SoilProfileEntityId);
+                context);
 
             entity.Name = profile.Name;
             entity.Bottom = profile.Bottom.ToNaNAsNull();

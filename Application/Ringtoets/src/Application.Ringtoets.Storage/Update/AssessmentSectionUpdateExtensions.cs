@@ -78,7 +78,7 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("registry");
             }
 
-            AssessmentSectionEntity entity = section.GetCorrespondingEntity(context.AssessmentSectionEntities, o => o.AssessmentSectionEntityId);
+            AssessmentSectionEntity entity = section.GetCorrespondingEntity(context.AssessmentSectionEntities, context);
             entity.Id = section.Id;
             entity.Name = section.Name;
             entity.Composition = (short) section.Composition;

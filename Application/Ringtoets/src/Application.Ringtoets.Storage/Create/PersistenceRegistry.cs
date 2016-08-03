@@ -996,7 +996,7 @@ namespace Application.Ringtoets.Storage.Create
 
             foreach (var entity in grassCoverErosionInwardsOutputs.Keys)
             {
-                grassCoverErosionInwardsOutputs[entity].StorageId = entity.GrassCoverErosionInwardsOutputId;
+                grassCoverErosionInwardsOutputs[entity].StorageId = entity.GrassCoverErosionInwardsOutputEntityId;
             }
 
             foreach (var entity in grassCoverErosionInwardsFailureMechanismSectionResults.Keys)
@@ -1163,7 +1163,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedProjectEntities.Add(projectEntity);
                 }
             }
-            dbContext.ProjectEntities.RemoveRange(orphanedProjectEntities);
+            if (orphanedProjectEntities.Any())
+            {
+                dbContext.ProjectEntities.RemoveRange(orphanedProjectEntities);
+            }
 
             var orphanedAssessmentSectionEntities = new List<AssessmentSectionEntity>();
             foreach (AssessmentSectionEntity assessmentSectionEntity in dbContext.AssessmentSectionEntities
@@ -1174,7 +1177,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedAssessmentSectionEntities.Add(assessmentSectionEntity);
                 }
             }
-            dbContext.AssessmentSectionEntities.RemoveRange(orphanedAssessmentSectionEntities);
+            if (orphanedAssessmentSectionEntities.Any())
+            {
+                dbContext.AssessmentSectionEntities.RemoveRange(orphanedAssessmentSectionEntities);
+            }
 
             var orphanedFailureMechanismEntities = new List<FailureMechanismEntity>();
             foreach (FailureMechanismEntity failureMechanismEntity in dbContext.FailureMechanismEntities
@@ -1185,7 +1191,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedFailureMechanismEntities.Add(failureMechanismEntity);
                 }
             }
-            dbContext.FailureMechanismEntities.RemoveRange(orphanedFailureMechanismEntities);
+            if (orphanedFailureMechanismEntities.Any())
+            {
+                dbContext.FailureMechanismEntities.RemoveRange(orphanedFailureMechanismEntities);
+            }
 
             var orphanedFailureMechanismSectionEntities = new List<FailureMechanismSectionEntity>();
             foreach (FailureMechanismSectionEntity failureMechanismSectionEntity in dbContext.FailureMechanismSectionEntities
@@ -1196,7 +1205,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedFailureMechanismSectionEntities.Add(failureMechanismSectionEntity);
                 }
             }
-            dbContext.FailureMechanismSectionEntities.RemoveRange(orphanedFailureMechanismSectionEntities);
+            if (orphanedFailureMechanismSectionEntities.Any())
+            {
+                dbContext.FailureMechanismSectionEntities.RemoveRange(orphanedFailureMechanismSectionEntities);
+            }
 
             var orphanedPipingSectionResultEntities = new List<PipingSectionResultEntity>();
             foreach (PipingSectionResultEntity pipingSectionResultEntity in dbContext.PipingSectionResultEntities
@@ -1207,7 +1219,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedPipingSectionResultEntities.Add(pipingSectionResultEntity);
                 }
             }
-            dbContext.PipingSectionResultEntities.RemoveRange(orphanedPipingSectionResultEntities);
+            if (orphanedPipingSectionResultEntities.Any())
+            {
+                dbContext.PipingSectionResultEntities.RemoveRange(orphanedPipingSectionResultEntities);
+            }
 
             var orphanedGrassCoverErosionInwardsFailureMechanismMetaEntities = new List<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
             foreach (GrassCoverErosionInwardsFailureMechanismMetaEntity inputEntity in dbContext.GrassCoverErosionInwardsFailureMechanismMetaEntities
@@ -1218,7 +1233,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedGrassCoverErosionInwardsFailureMechanismMetaEntities.Add(inputEntity);
                 }
             }
-            dbContext.GrassCoverErosionInwardsFailureMechanismMetaEntities.RemoveRange(orphanedGrassCoverErosionInwardsFailureMechanismMetaEntities);
+            if (orphanedGrassCoverErosionInwardsFailureMechanismMetaEntities.Any())
+            {
+                dbContext.GrassCoverErosionInwardsFailureMechanismMetaEntities.RemoveRange(orphanedGrassCoverErosionInwardsFailureMechanismMetaEntities);
+            }
 
             var orphanedDikeProfileEntities = new List<DikeProfileEntity>();
             foreach (DikeProfileEntity dikeProfileEntity in dbContext.DikeProfileEntities
@@ -1229,7 +1247,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedDikeProfileEntities.Add(dikeProfileEntity);
                 }
             }
-            dbContext.DikeProfileEntities.RemoveRange(orphanedDikeProfileEntities);
+            if (orphanedDikeProfileEntities.Any())
+            {
+                dbContext.DikeProfileEntities.RemoveRange(orphanedDikeProfileEntities);
+            }
 
             var orphanedGrassCoverErosionInwardsCalculationEntities = new List<GrassCoverErosionInwardsCalculationEntity>();
             foreach (GrassCoverErosionInwardsCalculationEntity calculationEntity in dbContext.GrassCoverErosionInwardsCalculationEntities
@@ -1240,18 +1261,24 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedGrassCoverErosionInwardsCalculationEntities.Add(calculationEntity);
                 }
             }
-            dbContext.GrassCoverErosionInwardsCalculationEntities.RemoveRange(orphanedGrassCoverErosionInwardsCalculationEntities);
+            if (orphanedGrassCoverErosionInwardsCalculationEntities.Any())
+            {
+                dbContext.GrassCoverErosionInwardsCalculationEntities.RemoveRange(orphanedGrassCoverErosionInwardsCalculationEntities);
+            }
 
             var orphanedGrassCoverErosionInwardsOutputEntities = new List<GrassCoverErosionInwardsOutputEntity>();
             foreach (GrassCoverErosionInwardsOutputEntity outputEntity in dbContext.GrassCoverErosionInwardsOutputEntities
-                                                                                   .Where(e => e.GrassCoverErosionInwardsOutputId > 0))
+                                                                                   .Where(e => e.GrassCoverErosionInwardsOutputEntityId > 0))
             {
                 if (!grassCoverErosionInwardsOutputs.ContainsKey(outputEntity))
                 {
                     orphanedGrassCoverErosionInwardsOutputEntities.Add(outputEntity);
                 }
             }
-            dbContext.GrassCoverErosionInwardsOutputEntities.RemoveRange(orphanedGrassCoverErosionInwardsOutputEntities);
+            if (orphanedGrassCoverErosionInwardsOutputEntities.Any())
+            {
+                dbContext.GrassCoverErosionInwardsOutputEntities.RemoveRange(orphanedGrassCoverErosionInwardsOutputEntities);
+            }
 
             var orphanedGrassCoverErosionInwardsSectionResultEntities = new List<GrassCoverErosionInwardsSectionResultEntity>();
             foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverErosionInwardsSectionResultEntities
@@ -1262,7 +1289,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedGrassCoverErosionInwardsSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.GrassCoverErosionInwardsSectionResultEntities.RemoveRange(orphanedGrassCoverErosionInwardsSectionResultEntities);
+            if (orphanedGrassCoverErosionInwardsSectionResultEntities.Any())
+            {
+                dbContext.GrassCoverErosionInwardsSectionResultEntities.RemoveRange(orphanedGrassCoverErosionInwardsSectionResultEntities);
+            }
 
             var orphanedHeightStructuresSectionResultEntities = new List<HeightStructuresSectionResultEntity>();
             foreach (HeightStructuresSectionResultEntity sectionResultEntity in dbContext.HeightStructuresSectionResultEntities
@@ -1273,7 +1303,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedHeightStructuresSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.HeightStructuresSectionResultEntities.RemoveRange(orphanedHeightStructuresSectionResultEntities);
+            if (orphanedHeightStructuresSectionResultEntities.Any())
+            {
+                dbContext.HeightStructuresSectionResultEntities.RemoveRange(orphanedHeightStructuresSectionResultEntities);
+            }
 
             var orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities = new List<StrengthStabilityLengthwiseConstructionSectionResultEntity>();
             foreach (StrengthStabilityLengthwiseConstructionSectionResultEntity sectionResultEntity in dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities
@@ -1284,7 +1317,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities.RemoveRange(orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities);
+            if (orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities.Any())
+            {
+                dbContext.StrengthStabilityLengthwiseConstructionSectionResultEntities.RemoveRange(orphanedStrengthStabilityLengthwiseConstructionSectionResultEntities);
+            }
 
             var orphanedTechnicalInnovationSectionResultEntities = new List<TechnicalInnovationSectionResultEntity>();
             foreach (TechnicalInnovationSectionResultEntity sectionResultEntity in dbContext.TechnicalInnovationSectionResultEntities
@@ -1295,7 +1331,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedTechnicalInnovationSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.TechnicalInnovationSectionResultEntities.RemoveRange(orphanedTechnicalInnovationSectionResultEntities);
+            if (orphanedTechnicalInnovationSectionResultEntities.Any())
+            {
+                dbContext.TechnicalInnovationSectionResultEntities.RemoveRange(orphanedTechnicalInnovationSectionResultEntities);
+            }
 
             var orphanedWaterPressureAsphaltCoverSectionResultEntities = new List<WaterPressureAsphaltCoverSectionResultEntity>();
             foreach (WaterPressureAsphaltCoverSectionResultEntity sectionResultEntity in dbContext.WaterPressureAsphaltCoverSectionResultEntities
@@ -1306,7 +1345,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedWaterPressureAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.WaterPressureAsphaltCoverSectionResultEntities.RemoveRange(orphanedWaterPressureAsphaltCoverSectionResultEntities);
+            if (orphanedWaterPressureAsphaltCoverSectionResultEntities.Any())
+            {
+                dbContext.WaterPressureAsphaltCoverSectionResultEntities.RemoveRange(orphanedWaterPressureAsphaltCoverSectionResultEntities);
+            }
 
             var orphanedClosingStructureSectionResultEntities = new List<ClosingStructureSectionResultEntity>();
             foreach (ClosingStructureSectionResultEntity sectionResultEntity in dbContext.ClosingStructureSectionResultEntities
@@ -1317,7 +1359,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedClosingStructureSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.ClosingStructureSectionResultEntities.RemoveRange(orphanedClosingStructureSectionResultEntities);
+            if (orphanedClosingStructureSectionResultEntities.Any())
+            {
+                dbContext.ClosingStructureSectionResultEntities.RemoveRange(orphanedClosingStructureSectionResultEntities);
+            }
 
             var orphanedMacrostabilityInwardsSectionResultEntities = new List<MacrostabilityInwardsSectionResultEntity>();
             foreach (MacrostabilityInwardsSectionResultEntity sectionResultEntity in dbContext.MacrostabilityInwardsSectionResultEntities
@@ -1328,7 +1373,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedMacrostabilityInwardsSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.MacrostabilityInwardsSectionResultEntities.RemoveRange(orphanedMacrostabilityInwardsSectionResultEntities);
+            if (orphanedMacrostabilityInwardsSectionResultEntities.Any())
+            {
+                dbContext.MacrostabilityInwardsSectionResultEntities.RemoveRange(orphanedMacrostabilityInwardsSectionResultEntities);
+            }
 
             var orphanedMacrostabilityOutwardsSectionResultEntities = new List<MacrostabilityOutwardsSectionResultEntity>();
             foreach (MacrostabilityOutwardsSectionResultEntity sectionResultEntity in dbContext.MacrostabilityOutwardsSectionResultEntities
@@ -1339,7 +1387,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedMacrostabilityOutwardsSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.MacrostabilityOutwardsSectionResultEntities.RemoveRange(orphanedMacrostabilityOutwardsSectionResultEntities);
+            if (orphanedMacrostabilityOutwardsSectionResultEntities.Any())
+            {
+                dbContext.MacrostabilityOutwardsSectionResultEntities.RemoveRange(orphanedMacrostabilityOutwardsSectionResultEntities);
+            }
 
             var orphanedWaveImpactAsphaltCoverSectionResultEntities = new List<WaveImpactAsphaltCoverSectionResultEntity>();
             foreach (WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity in dbContext.WaveImpactAsphaltCoverSectionResultEntities
@@ -1350,7 +1401,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedWaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.WaveImpactAsphaltCoverSectionResultEntities.RemoveRange(orphanedWaveImpactAsphaltCoverSectionResultEntities);
+            if (orphanedWaveImpactAsphaltCoverSectionResultEntities.Any())
+            {
+                dbContext.WaveImpactAsphaltCoverSectionResultEntities.RemoveRange(orphanedWaveImpactAsphaltCoverSectionResultEntities);
+            }
 
             var orphanedGrassCoverErosionOutwardsSectionResultEntities = new List<GrassCoverErosionOutwardsSectionResultEntity>();
             foreach (GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverErosionOutwardsSectionResultEntities
@@ -1361,7 +1415,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedGrassCoverErosionOutwardsSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.GrassCoverErosionOutwardsSectionResultEntities.RemoveRange(orphanedGrassCoverErosionOutwardsSectionResultEntities);
+            if (orphanedGrassCoverErosionOutwardsSectionResultEntities.Any())
+            {
+                dbContext.GrassCoverErosionOutwardsSectionResultEntities.RemoveRange(orphanedGrassCoverErosionOutwardsSectionResultEntities);
+            }
 
             var orphanedGrassCoverSlipOffInwardsSectionResultEntities = new List<GrassCoverSlipOffInwardsSectionResultEntity>();
             foreach (GrassCoverSlipOffInwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverSlipOffInwardsSectionResultEntities
@@ -1372,7 +1429,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedGrassCoverSlipOffInwardsSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.GrassCoverSlipOffInwardsSectionResultEntities.RemoveRange(orphanedGrassCoverSlipOffInwardsSectionResultEntities);
+            if (orphanedGrassCoverSlipOffInwardsSectionResultEntities.Any())
+            {
+                dbContext.GrassCoverSlipOffInwardsSectionResultEntities.RemoveRange(orphanedGrassCoverSlipOffInwardsSectionResultEntities);
+            }
 
             var orphanedGrassCoverSlipOffOutwardsSectionResultEntities = new List<GrassCoverSlipOffOutwardsSectionResultEntity>();
             foreach (GrassCoverSlipOffOutwardsSectionResultEntity sectionResultEntity in dbContext.GrassCoverSlipOffOutwardsSectionResultEntities
@@ -1383,7 +1443,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedGrassCoverSlipOffOutwardsSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.GrassCoverSlipOffOutwardsSectionResultEntities.RemoveRange(orphanedGrassCoverSlipOffOutwardsSectionResultEntities);
+            if (orphanedGrassCoverSlipOffOutwardsSectionResultEntities.Any())
+            {
+                dbContext.GrassCoverSlipOffOutwardsSectionResultEntities.RemoveRange(orphanedGrassCoverSlipOffOutwardsSectionResultEntities);
+            }
 
             var orphanedMicrostabilitySectionResultEntities = new List<MicrostabilitySectionResultEntity>();
             foreach (MicrostabilitySectionResultEntity sectionResultEntity in dbContext.MicrostabilitySectionResultEntities
@@ -1394,7 +1457,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedMicrostabilitySectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.MicrostabilitySectionResultEntities.RemoveRange(orphanedMicrostabilitySectionResultEntities);
+            if (orphanedMicrostabilitySectionResultEntities.Any())
+            {
+                dbContext.MicrostabilitySectionResultEntities.RemoveRange(orphanedMicrostabilitySectionResultEntities);
+            }
 
             var orphanedPipingStructureSectionResultEntities = new List<PipingStructureSectionResultEntity>();
             foreach (PipingStructureSectionResultEntity sectionResultEntity in dbContext.PipingStructureSectionResultEntities
@@ -1405,7 +1471,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedPipingStructureSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.PipingStructureSectionResultEntities.RemoveRange(orphanedPipingStructureSectionResultEntities);
+            if (orphanedPipingStructureSectionResultEntities.Any())
+            {
+                dbContext.PipingStructureSectionResultEntities.RemoveRange(orphanedPipingStructureSectionResultEntities);
+            }
 
             var orphanedDuneErosionSectionResultEntities = new List<DuneErosionSectionResultEntity>();
             foreach (DuneErosionSectionResultEntity sectionResultEntity in dbContext.DuneErosionSectionResultEntities
@@ -1416,7 +1485,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedDuneErosionSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.DuneErosionSectionResultEntities.RemoveRange(orphanedDuneErosionSectionResultEntities);
+            if (orphanedDuneErosionSectionResultEntities.Any())
+            {
+                dbContext.DuneErosionSectionResultEntities.RemoveRange(orphanedDuneErosionSectionResultEntities);
+            }
 
             var orphanedStabilityStoneCoverSectionResultEntities = new List<StabilityStoneCoverSectionResultEntity>();
             foreach (StabilityStoneCoverSectionResultEntity sectionResultEntity in dbContext.StabilityStoneCoverSectionResultEntities
@@ -1427,7 +1499,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedStabilityStoneCoverSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.StabilityStoneCoverSectionResultEntities.RemoveRange(orphanedStabilityStoneCoverSectionResultEntities);
+            if (orphanedStabilityStoneCoverSectionResultEntities.Any())
+            {
+                dbContext.StabilityStoneCoverSectionResultEntities.RemoveRange(orphanedStabilityStoneCoverSectionResultEntities);
+            }
 
             var orphanedStrengthStabilityPointConstructionSectionResultEntities = new List<StrengthStabilityPointConstructionSectionResultEntity>();
             foreach (StrengthStabilityPointConstructionSectionResultEntity sectionResultEntity in dbContext.StrengthStabilityPointConstructionSectionResultEntities
@@ -1438,7 +1513,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedStrengthStabilityPointConstructionSectionResultEntities.Add(sectionResultEntity);
                 }
             }
-            dbContext.StrengthStabilityPointConstructionSectionResultEntities.RemoveRange(orphanedStrengthStabilityPointConstructionSectionResultEntities);
+            if (orphanedStrengthStabilityPointConstructionSectionResultEntities.Any())
+            {
+                dbContext.StrengthStabilityPointConstructionSectionResultEntities.RemoveRange(orphanedStrengthStabilityPointConstructionSectionResultEntities);
+            }
 
             var orphanedHydraulicLocationEntities = new List<HydraulicLocationEntity>();
             foreach (HydraulicLocationEntity hydraulicLocationEntity in dbContext.HydraulicLocationEntities
@@ -1449,7 +1527,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedHydraulicLocationEntities.Add(hydraulicLocationEntity);
                 }
             }
-            dbContext.HydraulicLocationEntities.RemoveRange(orphanedHydraulicLocationEntities);
+            if (orphanedHydraulicLocationEntities.Any())
+            {
+                dbContext.HydraulicLocationEntities.RemoveRange(orphanedHydraulicLocationEntities);
+            }
 
             var orphanedCalculationGroupEntities = new List<CalculationGroupEntity>();
             foreach (CalculationGroupEntity calculationGroupEntity in dbContext.CalculationGroupEntities
@@ -1460,7 +1541,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedCalculationGroupEntities.Add(calculationGroupEntity);
                 }
             }
-            dbContext.CalculationGroupEntities.RemoveRange(orphanedCalculationGroupEntities);
+            if (orphanedCalculationGroupEntities.Any())
+            {
+                dbContext.CalculationGroupEntities.RemoveRange(orphanedCalculationGroupEntities);
+            }
 
             var orphanedPipingCalculationEntities = new List<PipingCalculationEntity>();
             foreach (PipingCalculationEntity pipingCalculationEntity in dbContext.PipingCalculationEntities
@@ -1471,7 +1555,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedPipingCalculationEntities.Add(pipingCalculationEntity);
                 }
             }
-            dbContext.PipingCalculationEntities.RemoveRange(orphanedPipingCalculationEntities);
+            if (orphanedPipingCalculationEntities.Any())
+            {
+                dbContext.PipingCalculationEntities.RemoveRange(orphanedPipingCalculationEntities);
+            }
 
             var orphanedPipingCalculationOutputEntities = new List<PipingCalculationOutputEntity>();
             foreach (PipingCalculationOutputEntity pipingCalculationOutputEntity in dbContext.PipingCalculationOutputEntities
@@ -1482,7 +1569,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedPipingCalculationOutputEntities.Add(pipingCalculationOutputEntity);
                 }
             }
-            dbContext.PipingCalculationOutputEntities.RemoveRange(orphanedPipingCalculationOutputEntities);
+            if (orphanedPipingCalculationOutputEntities.Any())
+            {
+                dbContext.PipingCalculationOutputEntities.RemoveRange(orphanedPipingCalculationOutputEntities);
+            }
 
             var orphanedPipingSemiProbabilisticOutputEntities = new List<PipingSemiProbabilisticOutputEntity>();
             foreach (PipingSemiProbabilisticOutputEntity pipingSemiProbabilisticOutputEntity in dbContext.PipingSemiProbabilisticOutputEntities
@@ -1493,7 +1583,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedPipingSemiProbabilisticOutputEntities.Add(pipingSemiProbabilisticOutputEntity);
                 }
             }
-            dbContext.PipingSemiProbabilisticOutputEntities.RemoveRange(orphanedPipingSemiProbabilisticOutputEntities);
+            if (orphanedPipingSemiProbabilisticOutputEntities.Any())
+            {
+                dbContext.PipingSemiProbabilisticOutputEntities.RemoveRange(orphanedPipingSemiProbabilisticOutputEntities);
+            }
 
             var orphanedStochasticSoilModelEntities = new List<StochasticSoilModelEntity>();
             foreach (StochasticSoilModelEntity stochasticSoilModelEntity in dbContext.StochasticSoilModelEntities
@@ -1504,7 +1597,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedStochasticSoilModelEntities.Add(stochasticSoilModelEntity);
                 }
             }
-            dbContext.StochasticSoilModelEntities.RemoveRange(orphanedStochasticSoilModelEntities);
+            if (orphanedStochasticSoilModelEntities.Any())
+            {
+                dbContext.StochasticSoilModelEntities.RemoveRange(orphanedStochasticSoilModelEntities);
+            }
 
             var orphanedStochasticSoilProfileEntities = new List<StochasticSoilProfileEntity>();
             foreach (StochasticSoilProfileEntity stochasticSoilProfileEntity in dbContext.StochasticSoilProfileEntities
@@ -1515,7 +1611,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedStochasticSoilProfileEntities.Add(stochasticSoilProfileEntity);
                 }
             }
-            dbContext.StochasticSoilProfileEntities.RemoveRange(orphanedStochasticSoilProfileEntities);
+            if (orphanedStochasticSoilProfileEntities.Any())
+            {
+                dbContext.StochasticSoilProfileEntities.RemoveRange(orphanedStochasticSoilProfileEntities);
+            }
 
             var orphanedSoilProfileEntities = new List<SoilProfileEntity>();
             foreach (SoilProfileEntity soilProfileEntity in dbContext.SoilProfileEntities
@@ -1526,7 +1625,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedSoilProfileEntities.Add(soilProfileEntity);
                 }
             }
-            dbContext.SoilProfileEntities.RemoveRange(orphanedSoilProfileEntities);
+            if (orphanedSoilProfileEntities.Any())
+            {
+                dbContext.SoilProfileEntities.RemoveRange(orphanedSoilProfileEntities);
+            }
 
             var orphanedSoilLayerEntities = new List<SoilLayerEntity>();
             foreach (SoilLayerEntity soilLayerEntity in dbContext.SoilLayerEntities
@@ -1537,7 +1639,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedSoilLayerEntities.Add(soilLayerEntity);
                 }
             }
-            dbContext.SoilLayerEntities.RemoveRange(orphanedSoilLayerEntities);
+            if (orphanedSoilLayerEntities.Any())
+            {
+                dbContext.SoilLayerEntities.RemoveRange(orphanedSoilLayerEntities);
+            }
 
             var orphanedSurfaceLineEntities = new List<SurfaceLineEntity>();
             foreach (SurfaceLineEntity surfaceLineEntity in dbContext.SurfaceLineEntities
@@ -1548,7 +1653,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedSurfaceLineEntities.Add(surfaceLineEntity);
                 }
             }
-            dbContext.SurfaceLineEntities.RemoveRange(orphanedSurfaceLineEntities);
+            if (orphanedSurfaceLineEntities.Any())
+            {
+                dbContext.SurfaceLineEntities.RemoveRange(orphanedSurfaceLineEntities);
+            }
 
             var orphanedCharacteristicPointEntities = new List<CharacteristicPointEntity>();
             foreach (CharacteristicPointEntity characteristicPointEntity in dbContext.CharacteristicPointEntities
@@ -1559,7 +1667,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedCharacteristicPointEntities.Add(characteristicPointEntity);
                 }
             }
-            dbContext.CharacteristicPointEntities.RemoveRange(orphanedCharacteristicPointEntities);
+            if (orphanedCharacteristicPointEntities.Any())
+            {
+                dbContext.CharacteristicPointEntities.RemoveRange(orphanedCharacteristicPointEntities);
+            }
 
             var orphanedPipingFailureMechanismMetaEntities = new List<PipingFailureMechanismMetaEntity>();
             foreach (PipingFailureMechanismMetaEntity pipingFailureMechanismMetaEntity in dbContext.PipingFailureMechanismMetaEntities
@@ -1570,7 +1681,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedPipingFailureMechanismMetaEntities.Add(pipingFailureMechanismMetaEntity);
                 }
             }
-            dbContext.PipingFailureMechanismMetaEntities.RemoveRange(orphanedPipingFailureMechanismMetaEntities);
+            if (orphanedPipingFailureMechanismMetaEntities.Any())
+            {
+                dbContext.PipingFailureMechanismMetaEntities.RemoveRange(orphanedPipingFailureMechanismMetaEntities);
+            }
 
             var orphanedProbabilisticOutputEntities = new List<ProbabilisticOutputEntity>();
             foreach (ProbabilisticOutputEntity outputEntity in dbContext.ProbabilisticOutputEntities
@@ -1581,7 +1695,10 @@ namespace Application.Ringtoets.Storage.Create
                     orphanedProbabilisticOutputEntities.Add(outputEntity);
                 }
             }
-            dbContext.ProbabilisticOutputEntities.RemoveRange(orphanedProbabilisticOutputEntities);
+            if (orphanedProbabilisticOutputEntities.Any())
+            {
+                dbContext.ProbabilisticOutputEntities.RemoveRange(orphanedProbabilisticOutputEntities);
+            }
         }
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()

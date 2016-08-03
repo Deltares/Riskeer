@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
             StochasticSoilModelEntity entity = model.GetCorrespondingEntity(
                 context.StochasticSoilModelEntities,
-                o => o.StochasticSoilModelEntityId);
+                context);
 
             entity.Name = model.Name;
             entity.SegmentName = model.SegmentName;

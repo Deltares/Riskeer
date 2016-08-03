@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
             FailureMechanismEntity entity = mechanism.GetCorrespondingEntity(
                 context.FailureMechanismEntities,
-                o => o.FailureMechanismEntityId);
+                context);
 
             entity.IsRelevant = Convert.ToByte(mechanism.IsRelevant);
 

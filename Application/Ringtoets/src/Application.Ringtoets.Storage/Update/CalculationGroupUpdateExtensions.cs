@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Update
                 throw new ArgumentNullException("context");
             }
 
-            CalculationGroupEntity entity = calculationGroup.GetCorrespondingEntity(context.CalculationGroupEntities, o => o.CalculationGroupEntityId);
+            CalculationGroupEntity entity = calculationGroup.GetCorrespondingEntity(context.CalculationGroupEntities, context);
             entity.Name = calculationGroup.Name;
             entity.Order = order;
 

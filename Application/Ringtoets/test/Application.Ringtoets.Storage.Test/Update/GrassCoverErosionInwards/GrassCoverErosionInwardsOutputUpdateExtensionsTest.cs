@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
 
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = 23
+                GrassCoverErosionInwardsOutputEntityId = 23
             };
             var probabilisticOutputEntity = new ProbabilisticOutputEntity
             {
@@ -139,7 +139,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
 
             var persistentEntity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = 23
+                GrassCoverErosionInwardsOutputEntityId = 23
             };
             var persistentProbabilisticOutputEntity = new ProbabilisticOutputEntity
             {
@@ -147,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             };
             var orphanedEntity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = 42
+                GrassCoverErosionInwardsOutputEntityId = 42
             };
             var orphanedProbabilisticOutputEntity = new ProbabilisticOutputEntity
             {
@@ -166,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             };
             var output = new GrassCoverErosionInwardsOutput(1, true, probabilityAssessmentOutput, 1)
             {
-                StorageId = persistentEntity.GrassCoverErosionInwardsOutputId
+                StorageId = persistentEntity.GrassCoverErosionInwardsOutputEntityId
             };
 
             // Call

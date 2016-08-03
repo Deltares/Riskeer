@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
 
             GrassCoverErosionInwardsFailureMechanismMetaEntity entity = input.GetCorrespondingEntity(
                 context.GrassCoverErosionInwardsFailureMechanismMetaEntities,
-                inputEntity => inputEntity.GrassCoverErosionInwardsFailureMechanismMetaEntityId);
+                context);
             entity.N = input.N;
 
             registry.Register(entity, input);

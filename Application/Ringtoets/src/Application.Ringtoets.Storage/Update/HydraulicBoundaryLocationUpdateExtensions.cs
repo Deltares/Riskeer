@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Update
 
             HydraulicLocationEntity entity = location.GetCorrespondingEntity(
                 context.HydraulicLocationEntities, 
-                o => o.HydraulicLocationEntityId);
+                context);
 
             entity.Name = location.Name;
             entity.LocationX = location.Location.X.ToNaNAsNull();

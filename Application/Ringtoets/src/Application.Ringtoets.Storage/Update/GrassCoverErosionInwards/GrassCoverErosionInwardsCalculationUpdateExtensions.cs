@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
 
             GrassCoverErosionInwardsCalculationEntity entity = calculation.GetCorrespondingEntity(
                 context.GrassCoverErosionInwardsCalculationEntities,
-                inputEntity => inputEntity.GrassCoverErosionInwardsCalculationEntityId);
+                context);
             entity.Name = calculation.Name;
             entity.Comments = calculation.Comments;
             entity.Order = order;

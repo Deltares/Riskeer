@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.Microstability
 
             MicrostabilitySectionResultEntity entity = result.GetCorrespondingEntity(
                 context.MicrostabilitySectionResultEntities, 
-                s => s.MicrostabilitySectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA);

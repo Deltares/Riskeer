@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.DbContext
             this.GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
         }
     
-        public long GrassCoverErosionInwardsOutputId { get; set; }
+        public long GrassCoverErosionInwardsOutputEntityId { get; set; }
         public long ProbabilisticOutputEntityId { get; set; }
         public byte IsOvertoppingDominant { get; set; }
         public Nullable<double> WaveHeight { get; set; }

@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = 495876,
+                GrassCoverErosionInwardsOutputEntityId = 495876,
                 WaveHeight = 1.1,
                 IsOvertoppingDominant = Convert.ToByte(false),
                 ProbabilisticOutputEntity = probabilisticOutputEntity,
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.GrassCoverErosionInwardsOutputId, output.StorageId);
+            Assert.AreEqual(entity.GrassCoverErosionInwardsOutputEntityId, output.StorageId);
             Assert.AreEqual(entity.WaveHeight, output.WaveHeight.Value);
             Assert.IsFalse(output.IsOvertoppingDominant);
             Assert.AreEqual(entity.DikeHeight, output.DikeHeight.Value);
@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = 7536,
+                GrassCoverErosionInwardsOutputEntityId = 7536,
                 WaveHeight = null,
                 IsOvertoppingDominant = Convert.ToByte(true),
                 ProbabilisticOutputEntity = probabilisticOutputEntity,
@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.GrassCoverErosionInwardsOutputId, output.StorageId);
+            Assert.AreEqual(entity.GrassCoverErosionInwardsOutputEntityId, output.StorageId);
             Assert.IsNaN(output.WaveHeight);
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.IsNaN(output.DikeHeight);
@@ -125,7 +125,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = 7536,
+                GrassCoverErosionInwardsOutputEntityId = 7536,
                 ProbabilisticOutputEntity = probabilisticOutputEntity,
                 DikeHeight = null,
                 IsDikeHeightCalculated = Convert.ToByte(false)

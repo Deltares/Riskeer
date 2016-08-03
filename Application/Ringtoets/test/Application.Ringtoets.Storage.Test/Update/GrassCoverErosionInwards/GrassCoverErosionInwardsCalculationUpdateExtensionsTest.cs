@@ -415,7 +415,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
 
             var outputEntity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = calculation.Output.StorageId,
+                GrassCoverErosionInwardsOutputEntityId = calculation.Output.StorageId,
                 ProbabilisticOutputEntity = new ProbabilisticOutputEntity
                 {
                     ProbabilisticOutputEntityId = calculation.Output.ProbabilityAssessmentOutput.StorageId
@@ -458,7 +458,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
 
             var outputEntity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputId = 3,
+                GrassCoverErosionInwardsOutputEntityId = 3,
                 ProbabilisticOutputEntity = new ProbabilisticOutputEntity
                 {
                     ProbabilisticOutputEntityId = 12

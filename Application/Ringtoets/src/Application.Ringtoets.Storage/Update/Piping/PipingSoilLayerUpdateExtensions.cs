@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
             SoilLayerEntity entity = layer.GetCorrespondingEntity(
                 context.SoilLayerEntities,
-                o => o.SoilLayerEntityId);
+                context);
 
             entity.IsAquifer = Convert.ToByte(layer.IsAquifer);
             entity.Top = layer.Top;

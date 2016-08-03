@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.MacrostabilityOutwards
 
             MacrostabilityOutwardsSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.MacrostabilityOutwardsSectionResultEntities, 
-                s => s.MacrostabilityOutwardsSectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull();

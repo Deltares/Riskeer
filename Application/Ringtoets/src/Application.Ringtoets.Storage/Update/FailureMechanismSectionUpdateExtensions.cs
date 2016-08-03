@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update
 
             FailureMechanismSectionEntity entity = section.GetCorrespondingEntity(
                 context.FailureMechanismSectionEntities, 
-                o => o.FailureMechanismSectionEntityId);
+                context);
             entity.Name = section.Name;
 
             UpdateGeometry(section, entity);

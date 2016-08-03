@@ -129,9 +129,9 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutputEntity entity = output.Create(registry);
 
             // Assert
-            entity.GrassCoverErosionInwardsOutputId = 984756;
+            entity.GrassCoverErosionInwardsOutputEntityId = 984756;
             registry.TransferIds();
-            Assert.AreEqual(entity.GrassCoverErosionInwardsOutputId, output.StorageId);
+            Assert.AreEqual(entity.GrassCoverErosionInwardsOutputEntityId, output.StorageId);
         }
     }
 }

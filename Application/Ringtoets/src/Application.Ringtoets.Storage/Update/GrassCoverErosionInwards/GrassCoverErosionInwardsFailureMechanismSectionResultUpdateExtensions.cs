@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
 
             GrassCoverErosionInwardsSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.GrassCoverErosionInwardsSectionResultEntities, 
-                o => o.GrassCoverErosionInwardsSectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();

@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.StrengthStabilityPointConstructio
 
             StrengthStabilityPointConstructionSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.StrengthStabilityPointConstructionSectionResultEntities, 
-                s => s.StrengthStabilityPointConstructionSectionResultEntityId);
+                context);
 
             entity.LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull();
             entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();

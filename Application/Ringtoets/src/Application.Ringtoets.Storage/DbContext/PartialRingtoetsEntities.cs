@@ -32,5 +32,17 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <param name="connString">A connection string.</param>
         public RingtoetsEntities(string connString)
             : base(connString) {}
+
+        public bool AutoDetectChangesEnabled
+        {
+            get
+            {
+                return Configuration.AutoDetectChangesEnabled;
+            }
+            set
+            {
+                Configuration.AutoDetectChangesEnabled = value;
+            }
+        }
     }
 }

@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
 
             GrassCoverErosionInwardsOutputEntity entity = output.GetCorrespondingEntity(
                 context.GrassCoverErosionInwardsOutputEntities,
-                o => o.GrassCoverErosionInwardsOutputId);
+                context);
 
             output.ProbabilityAssessmentOutput.Update(registry, context);
 

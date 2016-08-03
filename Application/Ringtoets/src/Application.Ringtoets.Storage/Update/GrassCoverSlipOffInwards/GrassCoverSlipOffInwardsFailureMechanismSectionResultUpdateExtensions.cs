@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverSlipOffInwards
 
             GrassCoverSlipOffInwardsSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.GrassCoverSlipOffInwardsSectionResultEntities, 
-                s => s.GrassCoverSlipOffInwardsSectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerTwoA = Convert.ToByte(result.AssessmentLayerTwoA);

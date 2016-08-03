@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.WaterPressureAsphaltCover
 
             WaterPressureAsphaltCoverSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.WaterPressureAsphaltCoverSectionResultEntities,
-                o => o.WaterPressureAsphaltCoverSectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();

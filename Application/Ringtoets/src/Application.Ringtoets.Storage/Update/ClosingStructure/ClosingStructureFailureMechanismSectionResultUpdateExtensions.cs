@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.ClosingStructure
 
             ClosingStructureSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.ClosingStructureSectionResultEntities, 
-                s => s.ClosingStructureSectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull();

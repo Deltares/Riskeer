@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.HeightStructures
 
             HeightStructuresSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.HeightStructuresSectionResultEntities, 
-                o => o.HeightStructuresSectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull();

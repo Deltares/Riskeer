@@ -21,7 +21,8 @@
 
 using System;
 using System.Data.Entity;
-using System.Linq;
+
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Storage;
@@ -48,7 +49,7 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="storable">The <see cref="IStorable"/> corresponding with the Entity.</param>
         /// <param name="entitySet">The Entity set to obtain the existing entity from.</param>
-        /// <param name="getId">The function to obtain the id field of the Entity.</param>
+        /// <param name="context"></param>
         /// <returns>The stored <see cref="IStorable"/> as an Entity of type <typeparamref name="T"/>.</returns>
         /// <exception cref="EntityNotFoundException">Thrown when either:
         /// <list type="bullet">
@@ -56,7 +57,7 @@ namespace Application.Ringtoets.Storage
         /// <item>more than one Entity of type <typeparamref name="T"/> was found in the <paramref name="entitySet"/></item>
         /// <item><see cref="storable"/> has not yet been saved in the database</item>
         /// </list></exception>
-        public static T GetCorrespondingEntity<T>(this IStorable storable, DbSet<T> entitySet, Func<T, long> getId) where T : class
+        public static T GetCorrespondingEntity<T>(this IStorable storable, DbSet<T> entitySet, IRingtoetsEntities context) where T : class
         {
             if (storable.IsNew())
             {
@@ -64,12 +65,21 @@ namespace Application.Ringtoets.Storage
             }
             try
             {
-                Func<T, bool> expression = sle => getId(sle) == storable.StorageId;
-                return entitySet.Single(expression);
+                context.AutoDetectChangesEnabled = false;
+                T entity = entitySet.Find(storable.StorageId);
+                if (entity == null)
+                {
+                    throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(T).Name, storable.StorageId));
+                }
+                return entity;
             }
             catch (InvalidOperationException exception)
             {
                 throw new EntityNotFoundException(string.Format(Resources.Error_Entity_Not_Found_0_1, typeof(T).Name, storable.StorageId), exception);
+            }
+            finally
+            {
+                context.AutoDetectChangesEnabled = true;
             }
         }
     }

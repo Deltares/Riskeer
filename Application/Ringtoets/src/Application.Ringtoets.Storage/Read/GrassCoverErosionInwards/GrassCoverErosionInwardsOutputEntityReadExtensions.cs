@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                                       entity.ProbabilisticOutputEntity.Read(),
                                                       GetDikeHeightValue(entity))
             {
-                StorageId = entity.GrassCoverErosionInwardsOutputId
+                StorageId = entity.GrassCoverErosionInwardsOutputEntityId
             };
         }
 

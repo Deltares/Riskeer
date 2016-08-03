@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Update.WaveImpactAsphaltCover
 
             WaveImpactAsphaltCoverSectionResultEntity entity = result.GetCorrespondingEntity(
                 context.WaveImpactAsphaltCoverSectionResultEntities, 
-                s => s.WaveImpactAsphaltCoverSectionResultEntityId);
+                context);
 
             entity.LayerOne = Convert.ToByte(result.AssessmentLayerOne);
             entity.LayerTwoA = result.AssessmentLayerTwoA.Value.ToNaNAsNull();
