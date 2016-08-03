@@ -593,7 +593,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Traject toevoegen.
+        ///   Looks up a localized string similar to Traject Toevoegen.
         /// </summary>
         public static string RingtoetsRibbon_AddAssessmentSection {
             get {
