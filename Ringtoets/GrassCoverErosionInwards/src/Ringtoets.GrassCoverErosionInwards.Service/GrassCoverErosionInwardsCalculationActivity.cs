@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                GrassCoverErosionInwardsCalculationService.CalculateProbability(calculation,
                                                                                                hlcdDirectory,
                                                                                                failureMechanismSection,
-                                                                                               failureMechanismSection.Name, // TODO: Provide name of reference line instead
+                                                                                               assessmentSection.Id,
                                                                                                failureMechanism.GeneralInput);
 
                            if (output != null && calculation.InputParameters.CalculateDikeHeight)

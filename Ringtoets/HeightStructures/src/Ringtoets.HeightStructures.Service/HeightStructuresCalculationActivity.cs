@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Service
                        () => HeightStructuresCalculationService.Calculate(calculation,
                                                                           hlcdDirectory,
                                                                           failureMechanismSection,
-                                                                          failureMechanismSection.Name, // TODO: Provide name of reference line instead
+                                                                          assessmentSection.Id,
                                                                           failureMechanism.GeneralInput));
         }
 

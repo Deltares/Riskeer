@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Service
                            () => DesignWaterLevelCalculationService.Calculate(assessmentSection,
                                                                               assessmentSection.HydraulicBoundaryDatabase,
                                                                               hydraulicBoundaryLocation,
-                                                                              assessmentSection.Name)); // TODO: Provide name of reference line instead
+                                                                              assessmentSection.Id));
             
         }
 

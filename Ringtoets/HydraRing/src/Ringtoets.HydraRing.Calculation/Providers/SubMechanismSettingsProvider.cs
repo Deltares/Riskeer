@@ -61,6 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
 
             if (fileSubMechanismSettings.ContainsKey(mechanismId) &&
                 fileSubMechanismSettings[mechanismId].ContainsKey(subMechanismId) &&
+                ringId != null &&
                 fileSubMechanismSettings[mechanismId][subMechanismId].ContainsKey(ringId))
             {
                 return fileSubMechanismSettings[mechanismId][subMechanismId][ringId];
