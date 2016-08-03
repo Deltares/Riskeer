@@ -110,11 +110,21 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(inputParameters.DampingFactorExit, properties.DampingFactorExit.Distribution);
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Distribution.Mean);
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.Distribution.StandardDeviation);
-            Assert.AreSame(inputParameters.Diameter70, properties.Diameter70.Distribution);
-            Assert.AreSame(inputParameters.DarcyPermeability, properties.DarcyPermeability.Distribution);
+            Assert.AreEqual(inputParameters.Diameter70.Mean, properties.Diameter70.Distribution.Mean);
+            Assert.AreEqual(inputParameters.Diameter70.StandardDeviation, properties.Diameter70.Distribution.StandardDeviation);
+            Assert.AreEqual(inputParameters.DarcyPermeability.Mean, properties.DarcyPermeability.Distribution.Mean);
+            Assert.AreEqual(inputParameters.DarcyPermeability.StandardDeviation, properties.DarcyPermeability.Distribution.StandardDeviation);
             Assert.AreEqual(inputParameters.ThicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Distribution.Mean);
             Assert.AreEqual(inputParameters.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.Distribution.StandardDeviation);
-            Assert.AreSame(inputParameters.SaturatedVolumicWeightOfCoverageLayer, properties.SaturatedVolumicWeightOfCoverageLayer.Distribution);
+            Assert.AreEqual(
+                inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean, 
+                properties.SaturatedVolumicWeightOfCoverageLayer.Distribution.Mean);
+            Assert.AreEqual(
+                inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation, 
+                properties.SaturatedVolumicWeightOfCoverageLayer.Distribution.StandardDeviation);
+            Assert.AreEqual(
+                inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift, 
+                properties.SaturatedVolumicWeightOfCoverageLayer.Distribution.Shift);
 
             Assert.AreEqual(inputParameters.AssessmentLevel, properties.AssessmentLevel);
             Assert.AreEqual(inputParameters.PiezometricHeadExit, properties.PiezometricHeadExit);
@@ -175,7 +185,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 9;
+            int numberProperties = 6;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mocks.ReplayAll();
 
@@ -197,9 +207,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             LogNormalDistribution dampingFactorExit = new LogNormalDistribution(3);
             NormalDistribution phreaticLevelExit = new NormalDistribution(2);
-            LogNormalDistribution diameter70 = new LogNormalDistribution(2);
-            LogNormalDistribution darcyPermeability = new LogNormalDistribution(3);
-            ShiftedLogNormalDistribution saturatedVolumicWeightOfCoverageLoayer = new ShiftedLogNormalDistribution(2);
 
             RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             StochasticSoilModel stochasticSoilModel1 = ValidStochasticSoilModel(0.0, 4.0);
@@ -223,9 +230,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSectionMock),
                 DampingFactorExit = new LogNormalDistributionDesignVariable(dampingFactorExit),
                 PhreaticLevelExit = new NormalDistributionDesignVariable(phreaticLevelExit),
-                Diameter70 = new LogNormalDistributionDesignVariable(diameter70),
-                DarcyPermeability = new LogNormalDistributionDesignVariable(darcyPermeability),
-                SaturatedVolumicWeightOfCoverageLayer = new ShiftedLogNormalDistributionDesignVariable(saturatedVolumicWeightOfCoverageLoayer),
                 SurfaceLine = surfaceLine,
                 StochasticSoilModel = stochasticSoilModel2,
                 StochasticSoilProfile = stochasticSoilProfile2,
@@ -244,23 +248,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                             inputParameters.PhreaticLevelExit.GetAccuracy());
             Assert.AreEqual(phreaticLevelExit.StandardDeviation, inputParameters.PhreaticLevelExit.StandardDeviation,
                             inputParameters.PhreaticLevelExit.GetAccuracy());
-
-            Assert.AreEqual(diameter70.Mean, inputParameters.Diameter70.Mean,
-                            inputParameters.Diameter70.GetAccuracy());
-            Assert.AreEqual(diameter70.StandardDeviation, inputParameters.Diameter70.StandardDeviation,
-                            inputParameters.Diameter70.GetAccuracy());
-
-            Assert.AreEqual(darcyPermeability.Mean, inputParameters.DarcyPermeability.Mean,
-                            inputParameters.DarcyPermeability.GetAccuracy());
-            Assert.AreEqual(darcyPermeability.StandardDeviation, inputParameters.DarcyPermeability.StandardDeviation,
-                            inputParameters.DarcyPermeability.GetAccuracy());
-
-            Assert.AreEqual(saturatedVolumicWeightOfCoverageLoayer.Mean, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean,
-                            inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
-            Assert.AreEqual(saturatedVolumicWeightOfCoverageLoayer.StandardDeviation, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation,
-                            inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
-            Assert.AreEqual(saturatedVolumicWeightOfCoverageLoayer.Shift, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift,
-                            inputParameters.SaturatedVolumicWeightOfCoverageLayer.GetAccuracy());
 
             Assert.AreEqual(surfaceLine, inputParameters.SurfaceLine);
             Assert.AreEqual(stochasticSoilModel2, inputParameters.StochasticSoilModel);

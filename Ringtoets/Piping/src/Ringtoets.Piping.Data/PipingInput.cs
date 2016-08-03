@@ -43,9 +43,6 @@ namespace Ringtoets.Piping.Data
         private readonly GeneralPipingInput generalInputParameters;
         private readonly NormalDistribution phreaticLevelExit;
         private readonly LogNormalDistribution dampingFactorExit;
-        private readonly ShiftedLogNormalDistribution saturatedVolumicWeightOfCoverageLayer;
-        private readonly LogNormalDistribution darcyPermeability;
-        private readonly LogNormalDistribution diameter70;
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
         private RingtoetsPipingSurfaceLine surfaceLine;
@@ -75,14 +72,6 @@ namespace Ringtoets.Piping.Data
                 Mean = (RoundedDouble)0.7,
                 StandardDeviation = (RoundedDouble)0.0
             };
-            saturatedVolumicWeightOfCoverageLayer = new ShiftedLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble)17.5,
-                StandardDeviation = (RoundedDouble)0,
-                Shift = (RoundedDouble)10
-            };
-            diameter70 = new LogNormalDistribution(6);
-            darcyPermeability = new LogNormalDistribution(6);
         }
 
         /// <summary>
@@ -442,12 +431,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return diameter70;
-            }
-            set
-            {
-                diameter70.Mean = value.Mean;
-                diameter70.StandardDeviation = value.StandardDeviation;
+                return new DerivedPipingInput(this).DiameterD70;
             }
         }
 
@@ -459,17 +443,12 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return darcyPermeability;
-            }
-            set
-            {
-                darcyPermeability.Mean = value.Mean;
-                darcyPermeability.StandardDeviation = value.StandardDeviation;
+                return new DerivedPipingInput(this).DarcyPermeability;
             }
         }
 
         /// <summary>
-        /// Gets or sets the thickness of the aquifer layer.
+        /// Gets or sets the total thickness of the aquifer layers at the exit point.
         /// [m]
         /// </summary>
         public LogNormalDistribution ThicknessAquiferLayer
@@ -515,13 +494,7 @@ namespace Ringtoets.Piping.Data
         {
             get
             {
-                return saturatedVolumicWeightOfCoverageLayer;
-            }
-            set
-            {
-                saturatedVolumicWeightOfCoverageLayer.Mean = value.Mean;
-                saturatedVolumicWeightOfCoverageLayer.StandardDeviation = value.StandardDeviation;
-                saturatedVolumicWeightOfCoverageLayer.Shift = value.Shift;
+                return new DerivedPipingInput(this).SaturatedVolumicWeightOfCoverageLayer;
             }
         }
 

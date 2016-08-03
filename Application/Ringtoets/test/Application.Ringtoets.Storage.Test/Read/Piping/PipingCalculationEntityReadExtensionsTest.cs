@@ -117,13 +117,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             AssertRoundedDouble(entity.PhreaticLevelExitStandardDeviation, calculation.InputParameters.PhreaticLevelExit.StandardDeviation);
             AssertRoundedDouble(entity.DampingFactorExitMean, calculation.InputParameters.DampingFactorExit.Mean);
             AssertRoundedDouble(entity.DampingFactorExitStandardDeviation, calculation.InputParameters.DampingFactorExit.StandardDeviation);
-            AssertRoundedDouble(entity.SaturatedVolumicWeightOfCoverageLayerMean, calculation.InputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean);
-            AssertRoundedDouble(entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation, calculation.InputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
-            AssertRoundedDouble(entity.SaturatedVolumicWeightOfCoverageLayerShift, calculation.InputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift);
-            AssertRoundedDouble(entity.Diameter70Mean, calculation.InputParameters.Diameter70.Mean);
-            AssertRoundedDouble(entity.Diameter70StandardDeviation, calculation.InputParameters.Diameter70.StandardDeviation);
-            AssertRoundedDouble(entity.DarcyPermeabilityMean, calculation.InputParameters.DarcyPermeability.Mean);
-            AssertRoundedDouble(entity.DarcyPermeabilityStandardDeviation, calculation.InputParameters.DarcyPermeability.StandardDeviation);
 
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
             Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);

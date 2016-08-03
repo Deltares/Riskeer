@@ -47,6 +47,7 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.IsNaN(layer.BelowPhreaticLevelMean);
             Assert.IsNaN(layer.BelowPhreaticLevelDeviation);
+            Assert.IsNaN(layer.BelowPhreaticLevelShift);
 
             Assert.IsNaN(layer.DiameterD70Mean);
             Assert.IsNaN(layer.DiameterD70Deviation);

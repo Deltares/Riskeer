@@ -44,11 +44,18 @@ namespace Ringtoets.Piping.Data.TestUtil
                 {
                     new PipingSoilLayer(top)
                     {
-                        IsAquifer = false
+                        IsAquifer = false,
+                        BelowPhreaticLevelDeviation = 0,
+                        BelowPhreaticLevelShift = 10,
+                        BelowPhreaticLevelMean = 17.5
                     },
                     new PipingSoilLayer(top/2)
                     {
-                        IsAquifer = true
+                        IsAquifer = true,
+                        DiameterD70Deviation = 0,
+                        DiameterD70Mean = 1.0,
+                        PermeabilityDeviation = 0,
+                        PermeabilityMean = 1.0
                     }
                 }, SoilProfileType.SoilProfile1D, 0)
             };
@@ -83,14 +90,6 @@ namespace Ringtoets.Piping.Data.TestUtil
                 InputParameters =
                 {
                     DampingFactorExit =
-                    {
-                        Mean = (RoundedDouble) 1.0
-                    },
-                    DarcyPermeability =
-                    {
-                        Mean = (RoundedDouble) 1.0
-                    },
-                    Diameter70 =
                     {
                         Mean = (RoundedDouble) 1.0
                     },

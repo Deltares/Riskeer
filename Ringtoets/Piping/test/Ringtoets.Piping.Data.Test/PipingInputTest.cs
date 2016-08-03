@@ -67,23 +67,16 @@ namespace Ringtoets.Piping.Data.Test
                             GetErrorTolerance(inputParameters.DampingFactorExit.StandardDeviation));
             Assert.AreEqual(3, inputParameters.DampingFactorExit.StandardDeviation.NumberOfDecimalPlaces);
 
-            double defaultLogNormalMean = Math.Exp(-0.5);
-            double defaultLogNormalStandardDev = Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1));
-
             Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.Diameter70);
-            Assert.AreEqual(defaultLogNormalMean, inputParameters.Diameter70.Mean,
-                            GetErrorTolerance(inputParameters.Diameter70.Mean));
+            Assert.IsNaN(inputParameters.Diameter70.Mean);
+            Assert.IsNaN(inputParameters.Diameter70.StandardDeviation);
             Assert.AreEqual(6, inputParameters.Diameter70.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.Diameter70.StandardDeviation,
-                            GetErrorTolerance(inputParameters.Diameter70.StandardDeviation));
             Assert.AreEqual(6, inputParameters.Diameter70.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.DarcyPermeability);
-            Assert.AreEqual(defaultLogNormalMean, inputParameters.DarcyPermeability.Mean,
-                            GetErrorTolerance(inputParameters.DarcyPermeability.Mean));
+            Assert.IsNaN(inputParameters.DarcyPermeability.Mean);
+            Assert.IsNaN(inputParameters.DarcyPermeability.StandardDeviation);
             Assert.AreEqual(6, inputParameters.DarcyPermeability.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(defaultLogNormalStandardDev, inputParameters.DarcyPermeability.StandardDeviation,
-                            GetErrorTolerance(inputParameters.DarcyPermeability.StandardDeviation));
             Assert.AreEqual(6, inputParameters.DarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsNull(inputParameters.SurfaceLine);
@@ -110,10 +103,12 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
 
             Assert.IsInstanceOf<ShiftedLogNormalDistribution>(inputParameters.SaturatedVolumicWeightOfCoverageLayer);
-            Assert.AreEqual(17.5, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.Value);
             Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value);
             Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.NumberOfDecimalPlaces);
+            Assert.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.Value);
+            Assert.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value);
+            Assert.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.Value);
 
             Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ThicknessAquiferLayer);
             Assert.IsNaN(inputParameters.ThicknessAquiferLayer.Mean);
@@ -371,84 +366,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(4.568, originalDampingFactorExit.Mean.Value);
             Assert.AreEqual(3, originalDampingFactorExit.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(1.235, originalDampingFactorExit.StandardDeviation.Value);
-        }
-
-        [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_SetNewValue_UpdateMeanAndStandardDeviation()
-        {
-            // Setup
-            PipingInput inputs = new PipingInput(new GeneralPipingInput());
-            ShiftedLogNormalDistribution originalSaturatedVolumicWeightOfCoverageLayer = inputs.SaturatedVolumicWeightOfCoverageLayer;
-
-            ShiftedLogNormalDistribution newValue = new ShiftedLogNormalDistribution(5)
-            {
-                Mean = (RoundedDouble) 1.11111,
-                StandardDeviation = (RoundedDouble) 2.22222,
-                Shift = (RoundedDouble) (-3.33333)
-            };
-
-            // Call
-            inputs.SaturatedVolumicWeightOfCoverageLayer = newValue;
-
-            // Assert
-            Assert.AreSame(originalSaturatedVolumicWeightOfCoverageLayer, inputs.SaturatedVolumicWeightOfCoverageLayer,
-                           "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(2, originalSaturatedVolumicWeightOfCoverageLayer.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.11, originalSaturatedVolumicWeightOfCoverageLayer.Mean.Value);
-            Assert.AreEqual(2, originalSaturatedVolumicWeightOfCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(2.22, originalSaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value);
-            Assert.AreEqual(2, originalSaturatedVolumicWeightOfCoverageLayer.Shift.NumberOfDecimalPlaces);
-            Assert.AreEqual(-3.33, originalSaturatedVolumicWeightOfCoverageLayer.Shift.Value);
-        }
-
-        [Test]
-        public void Diameter70_SetNewValue_UpdateMeanAndStandardDeviation()
-        {
-            // Setup
-            PipingInput inputs = new PipingInput(new GeneralPipingInput());
-            LogNormalDistribution originalDiameter70 = inputs.Diameter70;
-
-            LogNormalDistribution newValue = new LogNormalDistribution(5)
-            {
-                Mean = (RoundedDouble) 8.8888,
-                StandardDeviation = (RoundedDouble) 9.14363
-            };
-
-            // Call
-            inputs.Diameter70 = newValue;
-
-            // Assert
-            Assert.AreSame(originalDiameter70, inputs.Diameter70,
-                           "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(6, originalDiameter70.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(8.8887999, originalDiameter70.Mean.Value, originalDiameter70.Mean.GetAccuracy());
-            Assert.AreEqual(6, originalDiameter70.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(9.1436299, originalDiameter70.StandardDeviation.Value, originalDiameter70.StandardDeviation.GetAccuracy());
-        }
-
-        [Test]
-        public void DarcyPermeability_SetNewValue_UpdateMeanAndStandardDeviation()
-        {
-            // Setup
-            PipingInput inputs = new PipingInput(new GeneralPipingInput());
-            LogNormalDistribution originalDarcyPermeability = inputs.DarcyPermeability;
-
-            LogNormalDistribution newValue = new LogNormalDistribution(5)
-            {
-                Mean = (RoundedDouble) 1.93753,
-                StandardDeviation = (RoundedDouble) 859.49028
-            };
-
-            // Call
-            inputs.DarcyPermeability = newValue;
-
-            // Assert
-            Assert.AreSame(originalDarcyPermeability, inputs.DarcyPermeability,
-                           "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(6, originalDarcyPermeability.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.9375300, originalDarcyPermeability.Mean.Value, originalDarcyPermeability.Mean.GetAccuracy());
-            Assert.AreEqual(6, originalDarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(859.4902799, originalDarcyPermeability.StandardDeviation.Value, originalDarcyPermeability.StandardDeviation.GetAccuracy());
         }
 
         [Test]

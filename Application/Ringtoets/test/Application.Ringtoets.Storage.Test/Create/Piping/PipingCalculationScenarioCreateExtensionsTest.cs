@@ -123,13 +123,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(input.PhreaticLevelExit.StandardDeviation.Value, entity.PhreaticLevelExitStandardDeviation);
             Assert.AreEqual(input.DampingFactorExit.Mean.Value, entity.DampingFactorExitMean);
             Assert.AreEqual(input.DampingFactorExit.StandardDeviation.Value, entity.DampingFactorExitStandardDeviation);
-            Assert.AreEqual(input.SaturatedVolumicWeightOfCoverageLayer.Mean.Value, entity.SaturatedVolumicWeightOfCoverageLayerMean);
-            Assert.AreEqual(input.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value, entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation);
-            Assert.AreEqual(input.SaturatedVolumicWeightOfCoverageLayer.Shift.Value, entity.SaturatedVolumicWeightOfCoverageLayerShift);
-            Assert.AreEqual(input.Diameter70.Mean.Value, entity.Diameter70Mean);
-            Assert.AreEqual(input.Diameter70.StandardDeviation.Value, entity.Diameter70StandardDeviation);
-            Assert.AreEqual(input.DarcyPermeability.Mean.Value, entity.DarcyPermeabilityMean);
-            Assert.AreEqual(input.DarcyPermeability.StandardDeviation.Value, entity.DarcyPermeabilityStandardDeviation);
             
             Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(0, entity.PipingCalculationEntityId);

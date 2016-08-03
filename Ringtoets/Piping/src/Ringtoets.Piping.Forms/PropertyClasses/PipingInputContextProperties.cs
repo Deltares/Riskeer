@@ -297,11 +297,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.WrappedData);
             }
-            set
-            {
-                data.WrappedData.DarcyPermeability = value.Distribution;
-                data.WrappedData.NotifyObservers();
-            }
         }
 
         [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
@@ -314,11 +309,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 return PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.WrappedData);
             }
-            set
-            {
-                data.WrappedData.Diameter70 = value.Distribution;
-                data.WrappedData.NotifyObservers();
-            }
         }
 
         [TypeConverter(typeof(ShiftedLogNormalDistributionDesignVariableTypeConverter))]
@@ -330,11 +320,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData);
-            }
-            set
-            {
-                data.WrappedData.SaturatedVolumicWeightOfCoverageLayer = value.Distribution;
-                data.WrappedData.NotifyObservers();
             }
         }
 

@@ -209,6 +209,7 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)
         {
+            Console.WriteLine("{0} en {1}", Math.Exp(-0.5), Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)));
             Assert.AreEqual(1.0, inputParameters.UpliftModelFactor, 1e-3);
             Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor, 1e-3);
 
@@ -235,6 +236,8 @@ namespace Demo.Ringtoets.Test.Commands
                             GetAccuracy(inputParameters.Diameter70));
             Assert.AreEqual(2.345281, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DarcyPermeability));
+            Assert.AreEqual(17.5, PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
 
             Assert.AreEqual(4.45, inputParameters.PiezometricHeadExit, 1e-2);
             Assert.AreEqual(106.13, inputParameters.ExitPointL, 1e-2);

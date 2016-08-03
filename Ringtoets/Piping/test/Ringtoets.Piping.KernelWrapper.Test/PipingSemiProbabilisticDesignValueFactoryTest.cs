@@ -24,20 +24,6 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         }
 
         [Test]
-        public void GetSaturatedVolumicWeightOfCoverageLayer_ValidPipingCalculation_CreateDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
-        {
-            // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
-
-            // Call
-            var saturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
-
-            // Assert
-            Assert.AreSame(inputParameters.SaturatedVolumicWeightOfCoverageLayer, saturatedVolumicWeightOfCoverageLayer.Distribution);
-            Assert.AreEqual(0.05, saturatedVolumicWeightOfCoverageLayer.Percentile);
-        }
-
-        [Test]
         public void GetPhreaticLevelExit_ValidPipingCalculation_CreateDesignVariableForPhreaticLevelExit()
         {
             // Setup
@@ -94,7 +80,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var d70 = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters);
 
             // Assert
-            Assert.AreSame(inputParameters.Diameter70, d70.Distribution);
+            Assert.AreEqual(inputParameters.Diameter70.Mean, d70.Distribution.Mean);
+            Assert.AreEqual(inputParameters.Diameter70.StandardDeviation, d70.Distribution.StandardDeviation);
             Assert.AreEqual(0.05, d70.Percentile);
         }
 
@@ -108,8 +95,31 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var darcyPermeability = PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters);
 
             // Assert
-            Assert.AreSame(inputParameters.DarcyPermeability, darcyPermeability.Distribution);
+            Assert.AreEqual(inputParameters.DarcyPermeability.Mean, darcyPermeability.Distribution.Mean);
+            Assert.AreEqual(inputParameters.DarcyPermeability.StandardDeviation, darcyPermeability.Distribution.StandardDeviation);
             Assert.AreEqual(0.95, darcyPermeability.Percentile);
+        }
+
+        [Test]
+        public void GetSaturatedVolumicWeightOfCoverageLayer_ValidPipingCalculation_CreateDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
+        {
+            // Setup
+            var inputParameters = new PipingInput(new GeneralPipingInput());
+
+            // Call
+            var saturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
+
+            // Assert
+            Assert.AreEqual(
+                inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean, 
+                saturatedVolumicWeightOfCoverageLayer.Distribution.Mean);
+            Assert.AreEqual(
+                inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation, 
+                saturatedVolumicWeightOfCoverageLayer.Distribution.StandardDeviation);
+            Assert.AreEqual(
+                inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift, 
+                saturatedVolumicWeightOfCoverageLayer.Distribution.Shift);
+            Assert.AreEqual(0.05, saturatedVolumicWeightOfCoverageLayer.Percentile);
         }
 
         [Test]

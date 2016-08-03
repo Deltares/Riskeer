@@ -43,6 +43,7 @@ namespace Ringtoets.Piping.Primitives
             MaterialName = string.Empty;
             BelowPhreaticLevelMean = double.NaN;
             BelowPhreaticLevelDeviation = double.NaN;
+            BelowPhreaticLevelShift = double.NaN;
             DiameterD70Mean = double.NaN;
             DiameterD70Deviation = double.NaN;
             PermeabilityMean = double.NaN;

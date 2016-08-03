@@ -94,6 +94,8 @@ namespace Ringtoets.Piping.Primitives
         /// </summary>
         public SoilProfileType SoilProfileType { get; private set; }
 
+        public long StorageId { get; set; }
+
         /// <summary>
         /// Gets the thickness of the given layer in the <see cref="PipingSoilProfile"/>.
         /// Thickness of a layer is determined by its top and the top of the layer below it.
@@ -114,51 +116,6 @@ namespace Ringtoets.Piping.Primitives
                 previousLevel = oLayer.Top;
             }
             throw new ArgumentException("Layer not found in profile.");
-        }
-
-        /// <summary>
-        /// Retrieves the thickness of the consecutive aquifer layers (if any) under a certain <paramref name="level"/>.
-        /// Only the thickness of the part of the aquifer layer under the level is determined. 
-        /// Aquifer layers above <paramref name="level"/> are not considered.
-        /// </summary>
-        /// <param name="level">The level under which the aquifer layer is sought.</param>
-        /// <returns>The thickness of the part of the consecutive aquifer layer(s) under the <paramref name="level"/>.</returns>
-        /// <exception cref="ArgumentException"><paramref name="level"/> is less than <see cref="Bottom"/>.</exception>
-        public double GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(double level)
-        {
-            ValidateLevelToBottom(level);
-
-            PipingSoilLayer previousAquiferLayer = null;
-            var aquiferLayerThickness = 0.0;
-            foreach (var pipingSoilLayer in Layers)
-            {
-                if (pipingSoilLayer.Top > level)
-                {
-                    previousAquiferLayer = null;
-                    if (!pipingSoilLayer.IsAquifer)
-                    {
-                        aquiferLayerThickness = 0.0;
-                    }
-                }
-
-                if (!pipingSoilLayer.IsAquifer)
-                {
-                    if (previousAquiferLayer != null)
-                    {
-                        break;
-                    }
-                    continue;
-                }
-
-                previousAquiferLayer = pipingSoilLayer;
-                var layerThickness = GetLayerThicknessBelowLevel(pipingSoilLayer, level);
-                if (!double.IsNaN(layerThickness))
-                {
-                    aquiferLayerThickness += layerThickness;
-                }
-            }
-
-            return previousAquiferLayer == null ? double.NaN : aquiferLayerThickness;
         }
 
         public override string ToString()
@@ -193,27 +150,5 @@ namespace Ringtoets.Piping.Primitives
                 throw new ArgumentException(Resources.PipingSoilProfile_Layers_Layer_top_below_profile_bottom);
             }
         }
-
-        private void ValidateLevelToBottom(double level)
-        {
-            if (level < Bottom)
-            {
-                var message = string.Format(Resources.PipingSoilProfile_GetTopAquiferLayerThicknessBelowLevel_Level_0_below_Bottom_1_, level, Bottom);
-                throw new ArgumentException(message);
-            }
-        }
-
-        private double GetLayerThicknessBelowLevel(PipingSoilLayer layer, double level)
-        {
-            var thickness = double.NaN;
-            if (layer != null)
-            {
-                double thicknessAboveLevel = Math.Max(0, layer.Top - level);
-                thickness = GetLayerThickness(layer) - thicknessAboveLevel;
-            }
-            return thickness;
-        }
-
-        public long StorageId { get; set; }
     }
 }

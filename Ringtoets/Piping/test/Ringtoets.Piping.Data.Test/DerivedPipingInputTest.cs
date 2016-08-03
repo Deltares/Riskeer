@@ -537,5 +537,445 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNaN(seepageLength.Mean);
             Assert.IsNaN(seepageLength.StandardDeviation);
         }
+
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_NoSoilProfile_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile.SoilProfile = null;
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.Shift);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_NoStochasticSoilProfile_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile = null;
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.Shift);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_NoSurfaceLine_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.SurfaceLine = null;
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.Shift);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_NoExitPointL_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.ExitPointL = (RoundedDouble) double.NaN;
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.Shift);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_NoAquitardLayers_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new []
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.Shift);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_SingleLayer_ReturnsWithParametersFromLayer()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var random = new Random(21);
+            double belowPhreaticLevelMean = random.NextDouble();
+            double deviation = random.NextDouble();
+            double shift = random.NextDouble();
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", 0.0, new[]
+            {
+                new PipingSoilLayer(2.5)
+                {
+                    BelowPhreaticLevelDeviation = deviation,
+                    BelowPhreaticLevelShift = shift,
+                    BelowPhreaticLevelMean = belowPhreaticLevelMean
+                },
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.AreEqual(belowPhreaticLevelMean, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual(shift, result.Shift, result.Shift.GetAccuracy());
+            Assert.AreEqual(deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersEqualShiftAndStandardDeviation_ReturnsWithWeightedMean()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var random = new Random(21);
+            var belowPhreaticLevelMeanA = random.NextDouble();
+            var belowPhreaticLevelMeanB = random.NextDouble();
+            double deviation = random.NextDouble();
+            double shift = random.NextDouble();
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
+            {
+                new PipingSoilLayer(2.5)
+                {
+                    BelowPhreaticLevelDeviation = deviation,
+                    BelowPhreaticLevelShift = shift,
+                    BelowPhreaticLevelMean = belowPhreaticLevelMeanA
+                },
+                new PipingSoilLayer(-0.5)
+                {
+                    BelowPhreaticLevelDeviation = deviation,
+                    BelowPhreaticLevelShift = shift,
+                    BelowPhreaticLevelMean = belowPhreaticLevelMeanB
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.5) / 4, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual(shift, result.Shift, result.Shift.GetAccuracy());
+            Assert.AreEqual(deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void DarcyPermeability_NoSoilProfile_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile.SoilProfile = null;
+
+            // Call
+            var result = derivedInput.DarcyPermeability;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DarcyPermeability_NoStochasticSoilProfile_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile = null;
+
+            // Call
+            var result = derivedInput.DarcyPermeability;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DarcyPermeability_NoSurfaceLine_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.SurfaceLine = null;
+
+            // Call
+            var result = derivedInput.DarcyPermeability;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DarcyPermeability_NoExitPointL_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.ExitPointL = (RoundedDouble) double.NaN;
+
+            // Call
+            var result = derivedInput.DarcyPermeability;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DarcyPermeability_NoAquiferLayers_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
+            {
+                new PipingSoilLayer(1.0)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.DarcyPermeability;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DarcyPermeability_SingleAquiferLayers_ReturnsWithParametersFromLayer()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var random = new Random(21);
+            var permeabilityMean = random.NextDouble();
+            var permeabilityDeviation = random.NextDouble();
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true,
+                    PermeabilityMean = permeabilityMean,
+                    PermeabilityDeviation = permeabilityDeviation
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.DarcyPermeability;
+
+            // Assert
+            Assert.AreEqual(permeabilityMean, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual(permeabilityDeviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void DarcyPermeability_MultipleAquiferLayers_ReturnsWithParametersFromTopmostLayer()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var permeabilityMean = 0.5;
+            var permeabilityDeviation = 0.2;
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true,
+                    PermeabilityMean = permeabilityMean,
+                    PermeabilityDeviation = permeabilityDeviation
+                },
+                new PipingSoilLayer(0.0)
+                {
+                    IsAquifer = true,
+                    PermeabilityMean = 12.5,
+                    PermeabilityDeviation = 2.3
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.DarcyPermeability;
+
+            // Assert
+            Assert.AreEqual(permeabilityMean, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual(permeabilityDeviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void DiameterD70_NoSoilProfile_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile.SoilProfile = null;
+
+            // Call
+            var result = derivedInput.DiameterD70;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DiameterD70_NoStochasticSoilProfile_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile = null;
+
+            // Call
+            var result = derivedInput.DiameterD70;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DiameterD70_NoSurfaceLine_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.SurfaceLine = null;
+
+            // Call
+            var result = derivedInput.DiameterD70;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DiameterD70_NoExitPointL_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.ExitPointL = (RoundedDouble) double.NaN;
+
+            // Call
+            var result = derivedInput.DiameterD70;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DiameterD70_NoAquiferLayers_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
+            {
+                new PipingSoilLayer(1.0)
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.DiameterD70;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void DiameterD70_SingleAquiferLayers_ReturnsWithParametersFromLayer()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var random = new Random(21);
+            var diameterD70Mean = random.NextDouble();
+            var diameterD70Deviation = random.NextDouble();
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true,
+                    DiameterD70Mean = diameterD70Mean,
+                    DiameterD70Deviation = diameterD70Deviation
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.DiameterD70;
+
+            // Assert
+            Assert.AreEqual(diameterD70Mean, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual(diameterD70Deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void DiameterD70_MultipleAquiferLayers_ReturnsWithParametersFromTopmostLayer()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var diameterD70Mean = 0.5;
+            var diameterD70Deviation = 0.2;
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true,
+                    DiameterD70Mean = diameterD70Mean,
+                    DiameterD70Deviation = diameterD70Deviation
+                },
+                new PipingSoilLayer(0.0)
+                {
+                    IsAquifer = true,
+                    DiameterD70Mean = 12.5,
+                    DiameterD70Deviation = 2.3
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.DiameterD70;
+
+            // Assert
+            Assert.AreEqual(diameterD70Mean, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual(diameterD70Deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+        }
     }
 }

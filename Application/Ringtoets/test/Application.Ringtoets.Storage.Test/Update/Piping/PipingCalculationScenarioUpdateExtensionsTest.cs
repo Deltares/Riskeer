@@ -174,13 +174,6 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             Assert.AreEqual(inputParameters.PhreaticLevelExit.StandardDeviation.Value, entity.PhreaticLevelExitStandardDeviation);
             Assert.AreEqual(inputParameters.DampingFactorExit.Mean.Value, entity.DampingFactorExitMean);
             Assert.AreEqual(inputParameters.DampingFactorExit.StandardDeviation.Value, entity.DampingFactorExitStandardDeviation);
-            Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.Value, entity.SaturatedVolumicWeightOfCoverageLayerMean);
-            Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value, entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation);
-            Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.Value, entity.SaturatedVolumicWeightOfCoverageLayerShift);
-            Assert.AreEqual(inputParameters.Diameter70.Mean.Value, entity.Diameter70Mean);
-            Assert.AreEqual(inputParameters.Diameter70.StandardDeviation.Value, entity.Diameter70StandardDeviation);
-            Assert.AreEqual(inputParameters.DarcyPermeability.Mean.Value, entity.DarcyPermeabilityMean);
-            Assert.AreEqual(inputParameters.DarcyPermeability.StandardDeviation.Value, entity.DarcyPermeabilityStandardDeviation);
 
             registry.RemoveUntouched(context);
             CollectionAssert.Contains(context.PipingCalculationEntities, entity);
