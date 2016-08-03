@@ -104,17 +104,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadExit_Description")]
-        public RoundedDouble PiezometricHeadExit
-        {
-            get
-            {
-                return data.WrappedData.PiezometricHeadExit;
-            }
-        }
-
         [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_DampingFactorExit_DisplayName")]
@@ -247,6 +236,17 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadExit_Description")]
+        public RoundedDouble PiezometricHeadExit
+        {
+            get
+            {
+                return data.WrappedData.PiezometricHeadExit;
+            }
+        }
+
         [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_SeepageLength_DisplayName")]
@@ -283,12 +283,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        #endregion
-
-        #region Soil Properties
-
         [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_SoilProperties")]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_DarcyPermeability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_DarcyPermeability_Description")]
         public DesignVariable<LogNormalDistribution> DarcyPermeability
@@ -300,7 +296,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(LogNormalDistributionDesignVariableTypeConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_SoilProperties")]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_Diameter70_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_Diameter70_Description")]
         public DesignVariable<LogNormalDistribution> Diameter70
@@ -312,7 +308,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(ShiftedLogNormalDistributionDesignVariableTypeConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_SoilProperties")]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description")]
         public DesignVariable<ShiftedLogNormalDistribution> SaturatedVolumicWeightOfCoverageLayer

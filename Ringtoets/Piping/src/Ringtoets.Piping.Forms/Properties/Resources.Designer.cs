@@ -714,7 +714,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de aquifer, bepaald zonder fijne fractie (&lt; 63µm)..
+        ///   Looks up a localized string similar to Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de voor doorlatendheid te onderscheiden zandlaag, bepaald zonder fijne fractie (&lt; 63µm)..
         /// </summary>
         public static string PipingInput_Diameter70_Description {
             get {
