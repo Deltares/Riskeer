@@ -39,9 +39,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             // Setup
             var distribution = new ShiftedLogNormalDistribution(5)
             {
-                Mean = (RoundedDouble) 1.1,
+                Mean = (RoundedDouble) 3.3,
                 StandardDeviation = (RoundedDouble) 2.2,
-                Shift = (RoundedDouble) 3.3
+                Shift = (RoundedDouble) 1.1
             };
             var designVariable = new ShiftedLogNormalDistributionDesignVariable(distribution);
             var converter = new ShiftedLogNormalDistributionDesignVariableTypeConverter();

@@ -41,7 +41,12 @@ namespace Ringtoets.Common.Data.Probabilistics
 
         public override RoundedDouble GetDesignValue()
         {
-            return new LogNormalDistributionDesignVariable(Distribution)
+            return new LogNormalDistributionDesignVariable(
+                       new LogNormalDistribution(distribution.Mean.NumberOfDecimalPlaces)
+                       {
+                           Mean = Distribution.Mean - Distribution.Shift,
+                           StandardDeviation = Distribution.StandardDeviation
+                       })
             {
                 Percentile = Percentile
             }.GetDesignValue() + distribution.Shift;

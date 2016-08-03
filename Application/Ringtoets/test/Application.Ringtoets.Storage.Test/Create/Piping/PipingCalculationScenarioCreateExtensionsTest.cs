@@ -87,9 +87,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                     },
                     SaturatedVolumicWeightOfCoverageLayer =
                     {
-                        Mean = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        Mean = (RoundedDouble)GetRandomDoubleFromRange(random, 10.0, 9999.9999),
                         StandardDeviation = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        Shift = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Shift = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 10.0)
                     },
                     Diameter70 =
                     {

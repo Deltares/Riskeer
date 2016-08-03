@@ -137,9 +137,9 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                     },
                     SaturatedVolumicWeightOfCoverageLayer =
                     {
-                        Mean = (RoundedDouble)7.7,
+                        Mean = (RoundedDouble)9.9,
                         StandardDeviation = (RoundedDouble)8.8,
-                        Shift = (RoundedDouble)9.9
+                        Shift = (RoundedDouble)7.7
                     },
                     Diameter70 =
                     {

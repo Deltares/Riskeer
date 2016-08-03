@@ -52,13 +52,13 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         /// <param name="percentile">Percentile.</param>
         /// <param name="expectedResult">Rekenwaarde.</param>
         [Test]
-        [TestCase(75, 70, 0.95, 89.4965)]
-        [TestCase(75, 70, 0.5, 74.5373)]
-        [TestCase(75, 70, 0.05, 62.0785)]
-        [TestCase(75, 123.45, 0.95, 94.5284)]
-        [TestCase(75, 1.2345, 0.95, 76.8381)]
-        [TestCase(123.45, 70, 0.95, 137.6756)]
-        [TestCase(1.2345, 70, 0.95, 4.5413)]
+        [TestCase(75, 70, 0.95, 89.49908018)]
+        [TestCase(75, 70, 0.5, 74.53764421)]
+        [TestCase(75, 70, 0.05, 62.07729055)]
+        [TestCase(75, 123.45, 0.95, 94.5366392)]
+        [TestCase(75, 1.2345, 0.95, 76.84147913)]
+        [TestCase(123.45, 70, 0.95, 137.6747689)]
+        [TestCase(1.2345, 70, 0.95, 4.541270837)]
         public void GetDesignVariable_ValidLogNormalDistribution_ReturnExpectedValue(
             double expectedValue, double variance, double percentile,
             double expectedResult)

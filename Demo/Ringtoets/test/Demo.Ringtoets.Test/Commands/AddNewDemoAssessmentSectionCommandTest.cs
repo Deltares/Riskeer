@@ -199,12 +199,12 @@ namespace Demo.Ringtoets.Test.Commands
 
             PipingCalculationService.Calculate(calculation);
             Assert.IsTrue(calculation.HasOutput);
-            Assert.AreEqual(0.563, calculation.Output.HeaveFactorOfSafety, 1e-3);
-            Assert.AreEqual(-0.233, calculation.Output.HeaveZValue, 1e-3);
-            Assert.AreEqual(3.377, calculation.Output.UpliftFactorOfSafety, 1e-3);
-            Assert.AreEqual(7.358, calculation.Output.UpliftZValue, 1e-3);
-            Assert.AreEqual(0.430, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
-            Assert.AreEqual(-1.527, calculation.Output.SellmeijerZValue, 1e-3);
+            Assert.AreEqual(0.568, calculation.Output.HeaveFactorOfSafety, 1e-3);
+            Assert.AreEqual(-0.228, calculation.Output.HeaveZValue, 1e-3);
+            Assert.AreEqual(1.484, calculation.Output.UpliftFactorOfSafety, 1e-3);
+            Assert.AreEqual(1.499, calculation.Output.UpliftZValue, 1e-3);
+            Assert.AreEqual(0.432, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(-1.514, calculation.Output.SellmeijerZValue, 1e-3);
         }
 
         private static void AssertExpectedPipingInput(PipingInput inputParameters)
@@ -233,16 +233,16 @@ namespace Demo.Ringtoets.Test.Commands
                             GetAccuracy(inputParameters.PhreaticLevelExit));
             Assert.AreEqual(0.011453, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.Diameter70));
-            Assert.AreEqual(2.345279, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
+            Assert.AreEqual(2.345281, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DarcyPermeability));
 
             Assert.AreEqual(4.45, inputParameters.PiezometricHeadExit, 1e-2);
             Assert.AreEqual(106.13, inputParameters.ExitPointL, 1e-2);
-            Assert.AreEqual(81.45, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),
+            Assert.AreEqual(81.18, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DampingFactorExit));
-            Assert.AreEqual(5.81, PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
+            Assert.AreEqual(5.86, PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DampingFactorExit));
-            Assert.AreEqual(20.29, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
+            Assert.AreEqual(20.13, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
                             GetAccuracy(inputParameters.DampingFactorExit));
         }
 

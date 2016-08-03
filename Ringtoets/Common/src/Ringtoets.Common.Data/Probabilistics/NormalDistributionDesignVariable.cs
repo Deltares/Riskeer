@@ -29,7 +29,8 @@ namespace Ringtoets.Common.Data.Probabilistics
 
         public override RoundedDouble GetDesignValue()
         {
-            return DetermineDesignValue(Distribution.Mean, Distribution.StandardDeviation);
+            return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces,
+                DetermineDesignValue(Distribution.Mean, Distribution.StandardDeviation));
         }
     }
 }

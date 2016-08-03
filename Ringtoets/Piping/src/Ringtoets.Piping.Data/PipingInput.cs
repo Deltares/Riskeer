@@ -77,9 +77,9 @@ namespace Ringtoets.Piping.Data
             };
             saturatedVolumicWeightOfCoverageLayer = new ShiftedLogNormalDistribution(2)
             {
-                Shift = (RoundedDouble)10,
                 Mean = (RoundedDouble)17.5,
-                StandardDeviation = (RoundedDouble)0
+                StandardDeviation = (RoundedDouble)0,
+                Shift = (RoundedDouble)10
             };
             diameter70 = new LogNormalDistribution(6);
             darcyPermeability = new LogNormalDistribution(6);

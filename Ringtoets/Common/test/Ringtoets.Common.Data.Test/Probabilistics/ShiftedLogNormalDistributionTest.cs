@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -52,7 +53,10 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         public void Mean_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
         {
             // Setup
-            var distribution = new ShiftedLogNormalDistribution(numberOfDecimalPlaces);
+            var distribution = new ShiftedLogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = new RoundedDouble(2, 10.0)
+            };
 
             // Call
             distribution.Shift = new RoundedDouble(4, 5.6473);
@@ -60,6 +64,24 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Shift.NumberOfDecimalPlaces);
             Assert.AreEqual(expectedStandardDeviation, distribution.Shift.Value);
+        }
+
+        [Test]
+        public void Shift_SetIllegalValue_ThrowArgumentOutOfRangeException()
+        {
+            // Setup
+            var distribution = new ShiftedLogNormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 10.0),
+                StandardDeviation = new RoundedDouble(2, 1.0)
+            };
+
+            // Call
+            TestDelegate call = () => distribution.Shift = new RoundedDouble(2, 100.0);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentOutOfRangeException>(call).ParamName;
+            Assert.AreEqual("De verschuiving mag niet groter zijn dan de verwachtingswaarde.", paramName);
         }
     }
 }

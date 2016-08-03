@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
         public override RoundedDouble GetDesignValue()
         {
-            RoundedDouble normalSpaceDesignValue = DetermineDesignValueInNormalDistributionSpace();
+            double normalSpaceDesignValue = DetermineDesignValueInNormalDistributionSpace();
             return ProjectFromNormalToLogNormalSpace(normalSpaceDesignValue);
         }
 
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// distribution' space and calculates the design value for that value space.
         /// </summary>
         /// <returns>The design value in 'normal distribution' space.</returns>
-        private RoundedDouble DetermineDesignValueInNormalDistributionSpace()
+        private double DetermineDesignValueInNormalDistributionSpace()
         {
             // Determine normal distribution parameters from log-normal parameters, as
             // design value can only be determined in 'normal distribution' space.
@@ -55,13 +55,12 @@ namespace Ringtoets.Common.Data.Probabilistics
             double sigmaLogOverMuLog = Distribution.StandardDeviation/Distribution.Mean;
             double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog*sigmaLogOverMuLog + 1.0));
             double muNormal = Math.Log(Distribution.Mean) - 0.5*sigmaNormal*sigmaNormal;
-            return DetermineDesignValue(new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, muNormal),
-                                        new RoundedDouble(Distribution.StandardDeviation.NumberOfDecimalPlaces, sigmaNormal));
+            return DetermineDesignValue(muNormal, sigmaNormal);
         }
 
-        private static RoundedDouble ProjectFromNormalToLogNormalSpace(RoundedDouble normalSpaceDesignValue)
+        private RoundedDouble ProjectFromNormalToLogNormalSpace(double normalSpaceDesignValue)
         {
-            return new RoundedDouble(normalSpaceDesignValue.NumberOfDecimalPlaces, Math.Exp(normalSpaceDesignValue));
+            return new RoundedDouble(Distribution.Mean.NumberOfDecimalPlaces, Math.Exp(normalSpaceDesignValue));
         }
     }
 }

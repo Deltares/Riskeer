@@ -184,9 +184,9 @@ namespace Application.Ringtoets.Storage.TestUtil
                             },
                             SaturatedVolumicWeightOfCoverageLayer =
                             {
-                                Mean = (RoundedDouble) 5.5,
+                                Mean = (RoundedDouble) 7.7,
                                 StandardDeviation = (RoundedDouble) 6.6,
-                                Shift = (RoundedDouble) 7.7
+                                Shift = (RoundedDouble) 5.5
                             },
                             Diameter70 =
                             {
@@ -239,9 +239,9 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     SaturatedVolumicWeightOfCoverageLayer =
                     {
-                        Mean = (RoundedDouble) 16.16,
+                        Mean = (RoundedDouble) 18.18,
                         StandardDeviation = (RoundedDouble) 17.17,
-                        Shift = (RoundedDouble) 18.18
+                        Shift = (RoundedDouble) 16.16
                     },
                     Diameter70 =
                     {

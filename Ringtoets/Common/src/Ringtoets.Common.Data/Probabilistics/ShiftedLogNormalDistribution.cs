@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Probabilistics
 {
@@ -47,6 +49,9 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// <summary>
         /// Gets or sets the shift applied to the log-normal distribution.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the shift is larger then the shifted mean, which makes the mean negative.
+        /// </exception>
         public RoundedDouble Shift
         {
             get
@@ -55,7 +60,12 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
             set
             {
-                shift = value.ToPrecision(shift.NumberOfDecimalPlaces);
+                var newShift = value.ToPrecision(shift.NumberOfDecimalPlaces);
+                if (newShift > Mean)
+                {
+                    throw new ArgumentOutOfRangeException(Resources.ShiftedLogNormalDistribution_Shift_may_not_exceed_Mean);
+                }
+                shift = newShift;
             }
         }
     }

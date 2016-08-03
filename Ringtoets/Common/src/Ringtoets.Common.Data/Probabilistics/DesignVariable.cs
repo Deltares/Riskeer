@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// <param name="expectedValue">The expected value.</param>
         /// <param name="standardDeviation">The standard deviation.</param>
         /// <returns>The design value</returns>
-        protected RoundedDouble DetermineDesignValue(RoundedDouble expectedValue, RoundedDouble standardDeviation)
+        protected double DetermineDesignValue(double expectedValue, double standardDeviation)
         {
             // Design factor is determined using the 'probit function', which is the inverse
             // CDF function of the standard normal distribution. For more information see:
