@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var dynamicPropertyBag = new DynamicPropertyBag(hydraulicBoundaryLocationProperties);
             const string expectedIdDisplayName = "ID";
             const string expectedNameDisplayName = "Naam";
-            const string expectedLocationDisplayName = "Coördinaten";
+            const string expectedLocationDisplayName = "Coördinaten [m]";
             const string expectedDesignWaterLevelDisplayName = "Toetspeil [m+NAP]";
             const string expectedIdDescription = "Id van de hydraulische randvoorwaardenlocatie in de database.";
             const string expectedNameDescriptione = "Naam van de hydraulische randvoorwaardenlocatie.";

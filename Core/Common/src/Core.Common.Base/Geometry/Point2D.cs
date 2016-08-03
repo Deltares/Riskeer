@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Properties;
-
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 
@@ -123,7 +121,7 @@ namespace Core.Common.Base.Geometry
             {
                 return false;
             }
-            return Equals((Point2D)obj);
+            return Equals((Point2D) obj);
         }
 
         public override int GetHashCode()
@@ -131,7 +129,7 @@ namespace Core.Common.Base.Geometry
             unchecked
             {
                 var hashCode = X.GetHashCode();
-                hashCode = (hashCode * 397) ^ Y.GetHashCode();
+                hashCode = (hashCode*397) ^ Y.GetHashCode();
                 return hashCode;
             }
         }
@@ -145,7 +143,7 @@ namespace Core.Common.Base.Geometry
         /// Compares the <see cref="Point2D"/> with <paramref name="other"/> based on <see cref="X"/> and <see cref="Y"/>.
         /// </summary>
         /// <param name="other">A <see cref="Point2D"/> to compare with.</param>
-        /// <returns>True if the coordinates of the <see cref="Point3D"/> matches the coordinate of <paramref name="other"/>. False otherwise.</returns>
+        /// <returns>True if the coordinates of the <see cref="Point2D"/> matches the coordinate of <paramref name="other"/>. False otherwise.</returns>
         private bool Equals(Point2D other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y);

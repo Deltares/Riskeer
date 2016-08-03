@@ -401,7 +401,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coördinaten.
+        ///   Looks up a localized string similar to Coördinaten [m].
         /// </summary>
         public static string HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName {
             get {

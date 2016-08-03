@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -50,6 +51,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int criticalFlowRatePropertyIndex = 7;
         private const int hydraulicBoundaryLocationPropertyIndex = 8;
         private const int calculateDikeHeightPropertyIndex = 9;
+        private const int worldReferencePointPropertyIndex = 10;
 
         [PropertyOrder(dikeProfilePropertyIndex)]
         [Editor(typeof(GrassCoverErosionInwardsInputContextDikeProfileEditor), typeof(UITypeEditor))]
@@ -171,6 +173,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(worldReferencePointPropertyIndex)]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(Resources), "WorldReferencePoint_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WorldReferencePoint_Description")]
+        public Point2D WorldReferencePoint
+        {
+            get
+            {
+                return data.WrappedData.DikeProfile == null ? null :
+                           new Point2D(
+                               new RoundedDouble(0, data.WrappedData.DikeProfile.WorldReferencePoint.X),
+                               new RoundedDouble(0, data.WrappedData.DikeProfile.WorldReferencePoint.Y));
+            }
+        }
 
         [PropertyOrder(criticalFlowRatePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]

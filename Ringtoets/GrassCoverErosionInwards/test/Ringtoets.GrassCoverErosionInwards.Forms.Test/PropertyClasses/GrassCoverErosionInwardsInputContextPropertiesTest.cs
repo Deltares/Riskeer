@@ -67,7 +67,45 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
+            };
+            var inputContext = new GrassCoverErosionInwardsInputContext(input, calculationMock, failureMechanismMock, assessmentSectionMock);
+
+            // Call
+            var properties = new GrassCoverErosionInwardsInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Assert
+            Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
+            Assert.IsNull(properties.DikeProfile);
+            Assert.AreEqual(0.0, properties.Orientation.Value);
+            Assert.AreSame(inputContext, properties.BreakWater.Data);
+            Assert.AreSame(inputContext, properties.Foreshore.Data);
+            Assert.AreSame(inputContext, properties.DikeGeometry.Data);
+            Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, properties.DikeHeight.Value);
+            Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
+            Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
+            Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.AreEqual(input.CalculateDikeHeight, properties.CalculateDikeHeight);
+            Assert.IsNull(properties.WorldReferencePoint);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Data_SetNewInputContextInstanceWithDikeProfile_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var failureMechanismMock = mockRepository.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+            var calculationMock = mockRepository.StrictMock<GrassCoverErosionInwardsCalculation>();
+            mockRepository.ReplayAll();
+
+            var input = new GrassCoverErosionInwardsInput
+            {
+                DikeProfile = new DikeProfile(new Point2D(12.34, 56.78), new RoughnessPoint[0], new Point2D[0],
                                               null, new DikeProfile.ConstructionProperties()),
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
             };
@@ -92,6 +130,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             Assert.AreEqual(input.CalculateDikeHeight, properties.CalculateDikeHeight);
+            Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
             mockRepository.VerifyAll();
         }
 
@@ -164,7 +203,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
 
             PropertyDescriptor dikeProfileProperty = dynamicProperties[dikeProfilePropertyIndex];
             Assert.IsNotNull(dikeProfileProperty);
@@ -226,11 +265,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
             Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
 
-            PropertyDescriptor calculateDikeHeightProperty = dynamicProperties[calculateDikeHeightPropertyIndex];
-            Assert.IsNotNull(calculateDikeHeightProperty);
-            Assert.AreEqual("Schematisatie", calculateDikeHeightProperty.Category);
-            Assert.AreEqual("HBN berekenen", calculateDikeHeightProperty.DisplayName);
-            Assert.AreEqual("Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.", calculateDikeHeightProperty.Description);
+            Assert.IsNotNull(dynamicProperties[calculateDikeHeightPropertyIndex]);
+            Assert.AreEqual("Schematisatie", dynamicProperties[calculateDikeHeightPropertyIndex].Category);
+            Assert.AreEqual("HBN berekenen", dynamicProperties[calculateDikeHeightPropertyIndex].DisplayName);
+            Assert.AreEqual("Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.", dynamicProperties[calculateDikeHeightPropertyIndex].Description);
+
+            PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
+            Assert.IsNotNull(worldReferencePointProperty);
+            Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
+            Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
+            Assert.AreEqual("De coördinaten van de locatie in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
+
             mockRepository.VerifyAll();
         }
 
@@ -243,5 +289,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int criticalFlowRatePropertyIndex = 6;
         private const int hydraulicBoundaryLocationPropertyIndex = 7;
         private const int calculateDikeHeightPropertyIndex = 8;
+        private const int worldReferencePointPropertyIndex = 9;
     }
 }

@@ -676,5 +676,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
                 return ResourceManager.GetString("Orientation_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De coördinaten van de locatie in het Rijksdriehoeksstelsel..
+        /// </summary>
+        public static string WorldReferencePoint_Description {
+            get {
+                return ResourceManager.GetString("WorldReferencePoint_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locatie (RD) [m].
+        /// </summary>
+        public static string WorldReferencePoint_DisplayName {
+            get {
+                return ResourceManager.GetString("WorldReferencePoint_DisplayName", resourceCulture);
+            }
+        }
     }
 }

@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             const string name = "Dijkprofiel";
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+            var dikeProfile = new DikeProfile(new Point2D(12.34, 56.78), new RoughnessPoint[0], new Point2D[0],
                                               null, new DikeProfile.ConstructionProperties
                                               {
                                                   Name = name
@@ -60,6 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
+            Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, properties.Orientation.Value);
@@ -86,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsNotNull(nameProperty);
@@ -132,6 +133,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
             Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);
+
+            PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
+            Assert.IsNotNull(worldReferencePointProperty);
+            Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
+            Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
+            Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
+            Assert.AreEqual("De coördinaten van de locatie in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
         }
 
         private const int namePropertyIndex = 0;
@@ -140,5 +148,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int foreshorePropertyIndex = 3;
         private const int dikeGeometryPropertyIndex = 4;
         private const int dikeHeightPropertyIndex = 5;
+        private const int worldReferencePointPropertyIndex = 6;
     }
 }

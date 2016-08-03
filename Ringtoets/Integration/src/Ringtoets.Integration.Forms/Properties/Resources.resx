@@ -178,7 +178,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Coördinaten van de hydraulische randvoorwaardenlocatie.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName" xml:space="preserve">
-    <value>Coördinaten</value>
+    <value>Coördinaten [m]</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Description" xml:space="preserve">
     <value>Locaties uit de hydraulische randvoorwaardendatabase.</value>
