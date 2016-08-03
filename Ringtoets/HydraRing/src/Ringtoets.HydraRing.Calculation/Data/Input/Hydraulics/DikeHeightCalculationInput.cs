@@ -200,7 +200,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
 
             // Model factor Frunup
             yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Variation, modelFactorFrunupMean,
+                                               HydraRingDeviationType.Standard, modelFactorFrunupMean,
                                                modelFactorFrunupStandardDeviation, double.NaN);
 
             // Exponent model factor shallow

@@ -168,7 +168,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 11, 0, 2, 2.6, 0.35, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 12, 1, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 17, 0, 4, 22.22, 33.33, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 120, 0, 2, 1, NULL, NULL, NULL, 0, 0.07, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 120, 0, 2, 1, 0.07, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 123, 0, 2, 0.92, 0.24, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
@@ -284,7 +284,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 11, 0, 2, 2.6, 0.35, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 12, 1, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 17, 0, 4, 22.22, 33.33, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
-                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 120, 0, 2, 1, NULL, NULL, NULL, 0, 0.07, 300);" + Environment.NewLine +
+                                         "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 120, 0, 2, 1, 0.07, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 101, 1, 1, 123, 0, 2, 0.92, 0.24, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
