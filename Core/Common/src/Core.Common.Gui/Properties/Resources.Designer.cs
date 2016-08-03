@@ -107,11 +107,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets wordt gestart....
+        ///   Looks up a localized string similar to Ringtoets versie {0} wordt gestart....
         /// </summary>
-        public static string App_Starting_Ringtoets {
+        public static string App_Starting_Ringtoets_version_0 {
             get {
-                return ResourceManager.GetString("App_Starting_Ringtoets", resourceCulture);
+                return ResourceManager.GetString("App_Starting_Ringtoets_version_0", resourceCulture);
             }
         }
         

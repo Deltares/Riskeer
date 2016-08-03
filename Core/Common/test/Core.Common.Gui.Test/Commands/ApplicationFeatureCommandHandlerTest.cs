@@ -24,9 +24,7 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.Selection;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Commands
@@ -44,7 +42,6 @@ namespace Core.Common.Gui.Test.Commands
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             var mainWindow = mocks.Stub<IMainWindow>();
             mainWindow.Expect(w => w.InitPropertiesWindowAndActivate());
-            var applicationSelection = mocks.Stub<IApplicationSelection>();
             mocks.ReplayAll();
 
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
@@ -67,7 +64,6 @@ namespace Core.Common.Gui.Test.Commands
             propertyResolver.Expect(r => r.GetObjectProperties(target))
                             .Return(mocks.Stub<IObjectProperties>());
             var mainWindow = mocks.Stub<IMainWindow>();
-            var applicationSelection = mocks.Stub<IApplicationSelection>();
             mocks.ReplayAll();
 
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
@@ -91,7 +87,6 @@ namespace Core.Common.Gui.Test.Commands
             propertyResolver.Expect(r => r.GetObjectProperties(target))
                             .Return(null);
             var mainWindow = mocks.Stub<IMainWindow>();
-            var applicationSelection = mocks.Stub<IApplicationSelection>();
             mocks.ReplayAll();
 
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);

@@ -25,12 +25,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Properties;
-using Core.Common.Gui.Settings;
-
 using log4net;
 using log4net.Appender;
 
@@ -68,30 +65,38 @@ namespace Core.Common.Gui.Commands
 
         public void OpenLogFileExternal()
         {
+            var fileAppender = LogManager.GetAllRepositories()
+                                         .SelectMany(r => r.GetAppenders())
+                                         .OfType<FileAppender>()
+                                         .FirstOrDefault();
+            if (fileAppender == null || string.IsNullOrWhiteSpace(fileAppender.File))
+            {
+                return;
+            }
+
+            TryOpenLogFileExternal(fileAppender.File);
+        }
+
+        private void TryOpenLogFileExternal(string logFile)
+        {
+            var logFolderPath = Path.GetDirectoryName(logFile);
+
             try
             {
-                var fileAppender = LogManager.GetAllRepositories()
-                                             .SelectMany(r => r.GetAppenders())
-                                             .OfType<FileAppender>()
-                                             .FirstOrDefault();
-                if (fileAppender != null)
-                {
-                    var logFile = fileAppender.File;
-                    Process.Start(logFile);
-                }
+                Process.Start(logFile);
             }
             catch (Exception e)
             {
-                if (e is Win32Exception || e is ObjectDisposedException || e is FileNotFoundException)
+                if (!string.IsNullOrWhiteSpace(logFolderPath) && (e is Win32Exception || e is ObjectDisposedException || e is FileNotFoundException))
                 {
-                    MessageBox.Show(Resources.ApplicationFeatureiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead, Resources.ApplicationFeatureCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
-                    Process.Start(SettingsHelper.GetApplicationLocalUserSettingsDirectory());
+                    MessageBox.Show(Resources.ApplicationFeatureiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead,
+                                    Resources.ApplicationFeatureCommandHandler_OpenLogFileExternal_Unable_to_open_log_file);
+                    Process.Start(logFolderPath);
+                    return;
                 }
-                else
-                {
-                    // Undocumented exception -> Fail Fast!
-                    throw;
-                }
+
+                // Undocumented exception -> Fail Fast!
+                throw;
             }
         }
     }

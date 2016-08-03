@@ -43,6 +43,7 @@ using Core.Plugins.CommonTools;
 using Core.Plugins.Map;
 using Core.Plugins.ProjectExplorer;
 using log4net;
+using log4net.Appender;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.Integration.Data;
@@ -79,7 +80,7 @@ namespace Application.Ringtoets
         {
             SetLanguage();
 
-            log.Info(Core.Common.Gui.Properties.Resources.App_Starting_Ringtoets);
+            log.Info(string.Format(Core.Common.Gui.Properties.Resources.App_Starting_Ringtoets_version_0, SettingsHelper.ApplicationVersion));
         }
 
         /// <summary>
@@ -184,13 +185,42 @@ namespace Application.Ringtoets
         /// </summary>
         private void DeleteOldLogFiles()
         {
-            string settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
+            string settingsDirectory = GetLogFileDirectory();
+            if (string.IsNullOrWhiteSpace(settingsDirectory))
+            {
+                return;
+            }
             foreach (string logFile in Directory.GetFiles(settingsDirectory, "*.log"))
             {
                 if ((DateTime.Now - File.GetCreationTime(logFile)).TotalDays > numberOfDaysToKeepLogFiles)
                 {
                     File.Delete(logFile);
                 }
+            }
+        }
+
+        private string GetLogFileDirectory()
+        {
+            var fileAppender = LogManager.GetAllRepositories()
+                                         .SelectMany(r => r.GetAppenders())
+                                         .OfType<FileAppender>()
+                                         .FirstOrDefault();
+            if (fileAppender == null)
+            {
+                return string.Empty;
+            }
+
+            try
+            {
+                return Path.GetDirectoryName(fileAppender.File);
+            }
+            catch (Exception exception)
+            {
+                if (exception is ArgumentException || exception is PathTooLongException)
+                {
+                    return string.Empty;
+                }
+                throw;
             }
         }
 
@@ -318,14 +348,12 @@ namespace Application.Ringtoets
                         }
                     }
                 })
-                {
                     if (exceptionDialog.ShowDialog() == DialogResult.OK)
                     {
                         Restart();
 
                         return;
                     }
-                }
             }
 
             Environment.Exit(1);

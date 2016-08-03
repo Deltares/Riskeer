@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.IO;
-
 using Core.Common.Gui.Settings;
-
 using log4net.Util;
 
 namespace Core.Common.Gui.Appenders
@@ -34,7 +32,7 @@ namespace Core.Common.Gui.Appenders
     {
         protected override void Convert(TextWriter writer, object state)
         {
-            var settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
+            var settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory(Option);
             writer.Write(settingsDirectory);
         }
     }

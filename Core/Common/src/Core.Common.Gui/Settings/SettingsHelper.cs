@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using System.Reflection;
 using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Settings
@@ -40,7 +39,6 @@ namespace Core.Common.Gui.Settings
             var info = AssemblyUtils.GetExecutingAssemblyInfo();
             ApplicationName = info.Product;
             ApplicationVersion = info.Version;
-            ApplicationCompany = info.Company;
         }
 
         /// <summary>
@@ -54,22 +52,14 @@ namespace Core.Common.Gui.Settings
         public static string ApplicationVersion { get; private set; }
 
         /// <summary>
-        /// Gets the company that released the application.
-        /// </summary>
-        public static string ApplicationCompany { get; private set; }
-
-        /// <summary>
         /// Gets the application local user settings directory.
         /// </summary>
+        /// <param name="postfix">The postfix path to use after the local application data folder (if any).</param>
         /// <returns>Directory path where the user settings can be found.</returns>
-        public static string GetApplicationLocalUserSettingsDirectory()
+        public static string GetApplicationLocalUserSettingsDirectory(string postfix)
         {
             var localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var executingAssembly = Assembly.GetExecutingAssembly();
-            var assemblyInfo = AssemblyUtils.GetAssemblyInfo(executingAssembly);
-            var companySettingsDirectoryPath = Path.Combine(localSettingsDirectoryPath, assemblyInfo.Company);
-
-            var appSettingsDirectoryPath = Path.Combine(companySettingsDirectoryPath, ApplicationName + " " + ApplicationVersion);
+            var appSettingsDirectoryPath = string.IsNullOrWhiteSpace(postfix) ? localSettingsDirectoryPath : Path.Combine(localSettingsDirectoryPath, postfix);
 
             if (!Directory.Exists(appSettingsDirectoryPath))
             {

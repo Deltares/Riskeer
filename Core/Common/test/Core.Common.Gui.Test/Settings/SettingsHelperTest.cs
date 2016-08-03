@@ -41,7 +41,7 @@ namespace Core.Common.Gui.Test.Settings
         }
 
         [Test]
-        public void ApplicationVersion_RetursnVersionOfExecutingAssembly()
+        public void ApplicationVersion_ReturnsVersionOfExecutingAssembly()
         {
             // Call
             var settings = SettingsHelper.ApplicationVersion;
@@ -51,25 +51,18 @@ namespace Core.Common.Gui.Test.Settings
         }
 
         [Test]
-        public void ApplicationCompany_ReturnsCompanyOfExecutingAssembly()
-        {
-            // Call
-            var settings = SettingsHelper.ApplicationCompany;
-
-            // Assert
-            Assert.AreEqual(AssemblyUtils.GetExecutingAssemblyInfo().Company, settings);
-        }
-
-        [Test]
-        public void GetApplicationLocalUserSettingsDirectory_ReturnsApplicationLocalUserSettingsDirectory()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase("some directory name")]
+        public void GetApplicationLocalUserSettingsDirectory_VariousInfixes_ReturnsApplicationLocalUserSettingsDirectory(string postfix)
         {
             // Setup
             var localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var companySettingsDirectoryPath = Path.Combine(localSettingsDirectoryPath, SettingsHelper.ApplicationCompany);
-            var appSettingsDirectoryPath = Path.Combine(companySettingsDirectoryPath, SettingsHelper.ApplicationName + " " + SettingsHelper.ApplicationVersion);
+            var appSettingsDirectoryPath = string.IsNullOrWhiteSpace(postfix) ? localSettingsDirectoryPath : Path.Combine(localSettingsDirectoryPath, postfix);
 
             // Call
-            var pathFromSettings = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
+            var pathFromSettings = SettingsHelper.GetApplicationLocalUserSettingsDirectory(postfix);
 
             // Assert
             Assert.AreEqual(appSettingsDirectoryPath, pathFromSettings);

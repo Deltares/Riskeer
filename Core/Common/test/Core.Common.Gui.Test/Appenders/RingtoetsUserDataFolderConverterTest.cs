@@ -20,14 +20,10 @@
 // All rights reserved.
 
 using System.IO;
-
 using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Settings;
-
 using log4net.Util;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Appenders
@@ -49,17 +45,24 @@ namespace Core.Common.Gui.Test.Appenders
         }
 
         [Test]
-        public void Convert_Always_WriteLocalUserDataDirectory()
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase("some string")]
+        public void Convert_Always_WriteLocalUserDataDirectory(string infix)
         {
             // Setup
-            var settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
+            var settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory(infix);
 
             var mocks = new MockRepository();
             var textWriter = mocks.StrictMock<TextWriter>();
             textWriter.Expect(w => w.Write(settingsDirectory));
             mocks.ReplayAll();
 
-            var converter = new RingtoetsUserDataFolderConverter();
+            var converter = new RingtoetsUserDataFolderConverter
+            {
+                Option = infix
+            };
 
             // Call
             converter.Format(textWriter, null);
