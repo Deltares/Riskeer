@@ -26,7 +26,7 @@ using Ringtoets.HydraRing.Calculation.Data.Output;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
 {
     [TestFixture]
-    public class WaveHeightCalculationOutputTest
+    public class OvertoppingCalculationWaveHeightOutputTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -37,11 +37,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
             var isDominant = Convert.ToBoolean(random.Next(0, 2));
 
             // Call
-            var targetProbabilityCalculationOutput = new WaveHeightCalculationOutput(value, isDominant);
+            var waveHeightOutput = new OvertoppingCalculationWaveHeightOutput(value, isDominant);
 
             // Assert
-            Assert.AreEqual(value, targetProbabilityCalculationOutput.WaveHeight);
-            Assert.AreEqual(isDominant, targetProbabilityCalculationOutput.IsOvertoppingDominant);
+            Assert.AreEqual(value, waveHeightOutput.WaveHeight);
+            Assert.AreEqual(isDominant, waveHeightOutput.IsOvertoppingDominant);
         }
     }
 }

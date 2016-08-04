@@ -74,7 +74,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation, failureMechanismSection, generalInput);
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
-            var waveHeightCalculationParser = new WaveHeightCalculationParser();
+            var waveHeightParser = new OvertoppingCalculationWaveHeightParser();
 
             HydraRingCalculationService.PerformCalculation(
                 hlcdDirectory,
@@ -85,16 +85,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 new IHydraRingFileParser[]
                 {
                     exceedanceProbabilityCalculationParser,
-                    waveHeightCalculationParser
+                    waveHeightParser
                 });
 
-            VerifyOvertoppingCalculationOutput(exceedanceProbabilityCalculationParser.Output, waveHeightCalculationParser.Output, calculation.Name);
+            VerifyOvertoppingCalculationOutput(exceedanceProbabilityCalculationParser.Output, waveHeightParser.Output, calculation.Name);
 
             return exceedanceProbabilityCalculationParser.Output != null
-                   && waveHeightCalculationParser.Output != null ? new GrassCoverErosionInwardsCalculationServiceOutput(
+                   && waveHeightParser.Output != null ? new GrassCoverErosionInwardsCalculationServiceOutput(
                                                                        exceedanceProbabilityCalculationParser.Output.Beta,
-                                                                       waveHeightCalculationParser.Output.WaveHeight,
-                                                                       waveHeightCalculationParser.Output.IsOvertoppingDominant,
+                                                                       waveHeightParser.Output.WaveHeight,
+                                                                       waveHeightParser.Output.IsOvertoppingDominant,
                                                                        null) : null;
         }
 
@@ -135,7 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return targetProbabiltyCalculationParser.Output == null ? double.NaN : targetProbabiltyCalculationParser.Output.Result;
         }
 
-        private static void VerifyOvertoppingCalculationOutput(ExceedanceProbabilityCalculationOutput exceedanceOutput, WaveHeightCalculationOutput waveHeightOutput, string name)
+        private static void VerifyOvertoppingCalculationOutput(ExceedanceProbabilityCalculationOutput exceedanceOutput, OvertoppingCalculationWaveHeightOutput waveHeightOutput, string name)
         {
             if (exceedanceOutput == null || waveHeightOutput == null)
             {

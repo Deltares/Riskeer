@@ -27,18 +27,18 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
-    public class WaveHeightCalculationParserTest
+    public class OvertoppingCalculationWaveHeightParserTest
     {
         private const int sectionId = 1;
 
-        private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "WaveHeightCalculationParser");
+        private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "OvertoppingCalculationWaveHeightParser");
         private readonly string outputFileName = sectionId + "-output.txt";
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()
         {
             // Call
-            var parser = new WaveHeightCalculationParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
 
             // Assert
             Assert.IsInstanceOf<IHydraRingFileParser>(parser);
@@ -49,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingOutputFile_OutputNull()
         {
             // Setup
-            var parser = new WaveHeightCalculationParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
 
             // Call
             parser.Parse(testDataPath, 1);
@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_EmptyOutputFile_OutputNull()
         {
             // Setup
-            var parser = new WaveHeightCalculationParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
             var workingDirectory = Path.Combine(testDataPath, "empty");
 
             // Call
@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ExampleHydraRingOutputFileContainingSectionIds_OutputSetWithExpectedCalculationResult(string testDir, double expected, bool isOvertoppingDominant)
         {
             // Setup
-            var parser = new WaveHeightCalculationParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
             var workingDirectory = Path.Combine(testDataPath, testDir);
 
             // Call
@@ -108,7 +108,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_InvalidHydraRingOutputFile_OutputNull(string testDir)
         {
             // Setup
-            var parser = new WaveHeightCalculationParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
             var workingDirectory = Path.Combine(testDataPath, testDir);
 
             // Call

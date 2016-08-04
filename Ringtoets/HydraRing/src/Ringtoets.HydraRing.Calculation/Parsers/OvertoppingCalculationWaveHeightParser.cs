@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// <summary>
     /// Class for parsing wave height results from a Grass Cover Erosion Inwards calculation.
     /// </summary>
-    public class WaveHeightCalculationParser : IHydraRingFileParser
+    public class OvertoppingCalculationWaveHeightParser : IHydraRingFileParser
     {
         private class GeneralResult
         {
@@ -64,9 +64,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private int governingWindDirection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightCalculationParser"/>.
+        /// Creates a new instance of <see cref="OvertoppingCalculationWaveHeightParser"/>.
         /// </summary>
-        public WaveHeightCalculationParser()
+        public OvertoppingCalculationWaveHeightParser()
         {
             overtoppingResults = new List<OvertoppingResult>();
             overflowResults = new List<GeneralResult>();
@@ -75,7 +75,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// <summary>
         /// Gets the output that was parsed from the output file.
         /// </summary>
-        public WaveHeightCalculationOutput Output { get; private set; }
+        public OvertoppingCalculationWaveHeightOutput Output { get; private set; }
 
         public void Parse(string workingDirectory, int sectionId)
         {
@@ -109,7 +109,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 GeneralResult governingOverflowResult = overflowResults
                     .First(o => o.WindDirection == governingWindDirection && o.ClosingSituation == relevantOvertoppingResult.ClosingSituation);
 
-                Output = new WaveHeightCalculationOutput(
+                Output = new OvertoppingCalculationWaveHeightOutput(
                     relevantOvertoppingResult.WaveHeight,
                     relevantOvertoppingResult.Beta < governingOverflowResult.Beta);
             }

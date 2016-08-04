@@ -22,25 +22,24 @@
 namespace Ringtoets.HydraRing.Calculation.Data.Output
 {
     /// <summary>
-    /// Class containing the results of a Hydra-Ring calculation for the sub failure mechanisms
-    /// overtopping and overflow.
+    /// Class containing the results of a Hydra-Ring calculation for the sub failure mechanism overtopping.
     /// </summary>
-    public class WaveHeightCalculationOutput
+    public class OvertoppingCalculationWaveHeightOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightCalculationOutput"/>.
+        /// Creates a new instance of <see cref="OvertoppingCalculationWaveHeightOutput"/>.
         /// </summary>
         /// <param name="waveHeight">The resulting wave height.</param>
         /// <param name="isOvertoppingDominant">The value indicating whether the overtopping 
         /// sub failure mechanism was dominant over the overflow sub failure mechanism.</param>
-        public WaveHeightCalculationOutput(double waveHeight, bool isOvertoppingDominant)
+        public OvertoppingCalculationWaveHeightOutput(double waveHeight, bool isOvertoppingDominant)
         {
             WaveHeight = waveHeight;
             IsOvertoppingDominant = isOvertoppingDominant;
         }
 
         /// <summary>
-        /// Gets the wave height that was a result of the wave height calculation.
+        /// Gets the wave height that was a result of the overtopping calculation.
         /// </summary>
         public double WaveHeight { get; private set; }
 
