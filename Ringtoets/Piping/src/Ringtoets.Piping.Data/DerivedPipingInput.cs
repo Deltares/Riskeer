@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
@@ -264,17 +265,17 @@ namespace Ringtoets.Piping.Data
 
         private void UpdateSaturatedVolumicWeightOfCoverageLayerParameters(ShiftedLogNormalDistribution volumicWeightDistribution)
         {
-            PipingSoilLayer[] aquitardLayers = GetConsecutiveAquitardLayers();
+            PipingSoilLayer[] coverageLayers = GetConsecutiveCoverageLayers();
 
-            if (HasUniqueShiftAndDeviationSaturatedWeightDefinition(aquitardLayers))
+            if (HasUniqueShiftAndDeviationSaturatedWeightDefinition(coverageLayers))
             {
-                PipingSoilLayer topMostAquitardLayer = aquitardLayers.First();
+                PipingSoilLayer topMostAquitardLayer = coverageLayers.First();
                 volumicWeightDistribution.Shift = (RoundedDouble) topMostAquitardLayer.BelowPhreaticLevelShift;
                 volumicWeightDistribution.StandardDeviation = (RoundedDouble) topMostAquitardLayer.BelowPhreaticLevelDeviation;
 
                 var weightedMean = new RoundedDouble(volumicWeightDistribution.Mean.NumberOfDecimalPlaces,
                     GetWeightedMeanForVolumicWeightOfCoverageLayer(
-                        aquitardLayers,
+                        coverageLayers,
                         input.StochasticSoilProfile.SoilProfile,
                         input.SurfaceLine.GetZAtL(input.ExitPointL)));
 
@@ -333,18 +334,33 @@ namespace Ringtoets.Piping.Data
             return new PipingSoilLayer[0];
         }
         
-        private PipingSoilLayer[] GetConsecutiveAquitardLayers()
+        private PipingSoilLayer[] GetConsecutiveCoverageLayers()
         {
             RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
             PipingSoilProfile soilProfile = input.StochasticSoilProfile != null ? input.StochasticSoilProfile.SoilProfile : null;
             RoundedDouble exitPointL = input.ExitPointL;
 
+            var consecutiveCoverageLayers = new PipingSoilLayer[0];
+
             if (surfaceLine != null && soilProfile != null && !double.IsNaN(exitPointL))
             {
-                return soilProfile.GetConsecutiveAquitardLayersBelowLevel(surfaceLine.GetZAtL(exitPointL)).ToArray();
+                PipingSoilLayer topAquifer = soilProfile
+                    .GetConsecutiveAquiferLayersBelowLevel(surfaceLine.GetZAtL(exitPointL))
+                    .FirstOrDefault();
+
+                PipingSoilLayer[] consecutiveAquitardLayersBelowLevel = soilProfile
+                    .GetConsecutiveAquitardLayersBelowLevel(surfaceLine.GetZAtL(exitPointL))
+                    .ToArray();
+
+                if (topAquifer != null 
+                    && consecutiveAquitardLayersBelowLevel.Any()
+                    && topAquifer.Top < consecutiveAquitardLayersBelowLevel.First().Top)
+                {
+                    consecutiveCoverageLayers = consecutiveAquitardLayersBelowLevel;
+                }
             }
 
-            return new PipingSoilLayer[0];
+            return consecutiveCoverageLayers;
         }
 
         private bool AlmostEquals(double a, double b)

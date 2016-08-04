@@ -91,6 +91,18 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
+        /// Logs messages as warnings.
+        /// </summary>
+        /// <param name="warningMessages">The messages to log.</param>
+        public static void LogMessagesAsWarning(params string[] warningMessages)
+        {
+            foreach (var errorMessage in warningMessages)
+            {
+                log.Warn(errorMessage);
+            }
+        }
+
+        /// <summary>
         /// Logs the begin time of the validation.
         /// </summary>
         /// <param name="name">The name of the object being validated.</param>

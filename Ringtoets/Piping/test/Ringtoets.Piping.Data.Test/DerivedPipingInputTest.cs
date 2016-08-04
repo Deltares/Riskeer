@@ -628,6 +628,55 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNaN(result.Shift);
             Assert.IsNaN(result.StandardDeviation);
         }
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_NoAquiferLayers_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new []
+            {
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = false
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.Shift);
+            Assert.IsNaN(result.StandardDeviation);
+        }
+
+        [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_NoCoverageLayersAboveTopAquiferLayer_ReturnsNaNForParameters()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new []
+            {
+                new PipingSoilLayer(2.0)
+                {
+                    IsAquifer = false
+                },
+                new PipingSoilLayer(1.0)
+                {
+                    IsAquifer = true
+                }
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.Shift);
+            Assert.IsNaN(result.StandardDeviation);
+        }
 
         [Test]
         public void SaturatedVolumicWeightOfCoverageLayer_SingleLayer_ReturnsWithParametersFromLayer()
@@ -647,6 +696,10 @@ namespace Ringtoets.Piping.Data.Test
                     BelowPhreaticLevelShift = shift,
                     BelowPhreaticLevelMean = belowPhreaticLevelMean
                 },
+                new PipingSoilLayer(0.5)
+                {
+                    IsAquifer = true
+                }, 
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -682,14 +735,18 @@ namespace Ringtoets.Piping.Data.Test
                     BelowPhreaticLevelDeviation = deviation,
                     BelowPhreaticLevelShift = shift,
                     BelowPhreaticLevelMean = belowPhreaticLevelMeanB
-                }
+                },
+                new PipingSoilLayer(-1.5)
+                {
+                    IsAquifer = true
+                }, 
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.5) / 4, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5, result.Mean, result.Mean.GetAccuracy());
             Assert.AreEqual(shift, result.Shift, result.Shift.GetAccuracy());
             Assert.AreEqual(deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
         }

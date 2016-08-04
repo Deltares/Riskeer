@@ -153,4 +153,16 @@
   <data name="PipingCalculationService_ValidateInput_No_value_for_ExitPointL" xml:space="preserve">
     <value>Er is geen waarde voor het uittredepunt opgegeven.</value>
   </data>
+  <data name="PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine" xml:space="preserve">
+    <value>Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.</value>
+  </data>
+  <data name="PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_values_for_DiameterD70_and_DarcyPermeability_taken_from_top_layer" xml:space="preserve">
+    <value>Meerdere aaneengesloten watervoerende lagen gevonden. De definities voor de korrelgrootte en doorlatendheid van de bovenste watervoerende laag worden gebruikt in de berekening.</value>
+  </data>
+  <data name="PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_values_for_saturated_weight_taken_as_weighted_mean_from_all_coverage_layers" xml:space="preserve">
+    <value>Meerdere aaneengesloten deklagen gevonden. Het gewogen gemiddelde van de definities voor het verzadigd gewicht van de deklagen wordt gebruikt in de berekening.</value>
+  </data>
+  <data name="PipingCalculationService_ValidateInput_No_aquifer_layer_at_ExitPointL_under_SurfaceLine" xml:space="preserve">
+    <value>Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.</value>
+  </data>
 </root>

@@ -30,6 +30,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Service.Test
 {
@@ -245,8 +246,9 @@ namespace Ringtoets.Piping.Service.Test
             calculation.InputParameters.StochasticSoilProfile = null;
             calculation.Name = name;
 
-            // Call
             bool isValid = false;
+
+            // Call
             Action call = () => isValid = PipingCalculationService.Validate(calculation);
 
             // Assert
@@ -262,7 +264,129 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void PerformValidatedCalculation_ValidPipingCalculation_LogStartAndEndOfValidatingInputsAndCalculation()
+        public void Validate_CalculationWithoutAquiferLayer_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
+                string.Empty,
+                0.0,
+                new[]
+                {
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = false
+                    }, 
+                }, 
+                SoilProfileType.SoilProfile1D, 
+                -1);
+            calculation.Name = name;
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(5, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
+                StringAssert.StartsWith("Validatie mislukt: Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[3]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithoutAquitardLayer_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
+                string.Empty,
+                0.0,
+                new[]
+                {
+                    new PipingSoilLayer(2.0)
+                    {
+                        IsAquifer = true
+                    }, 
+                }, 
+                SoilProfileType.SoilProfile1D, 
+                -1);
+            calculation.Name = name;
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[2]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithoutCoverageLayer_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string name = "<very nice name>";
+            
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
+                string.Empty,
+                0.0,
+                new[]
+                {
+                    new PipingSoilLayer(13.0)
+                    {
+                        IsAquifer = false
+                    },
+                    new PipingSoilLayer(11.0)
+                    {
+                        IsAquifer = true
+                    }, 
+                }, 
+                SoilProfileType.SoilProfile1D, 
+                -1);
+            calculation.Name = name;
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[2]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Calculate_ValidPipingCalculation_LogStartAndEndOfValidatingInputsAndCalculation()
         {
             // Setup
             const string name = "<very nice name>";
@@ -270,10 +394,12 @@ namespace Ringtoets.Piping.Service.Test
             PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validPipingCalculation.Name = name;
 
-            // Call
             Action call = () =>
             {
+                // Precondition
                 Assert.IsTrue(PipingCalculationService.Validate(validPipingCalculation));
+
+                // Call
                 PipingCalculationService.Calculate(validPipingCalculation);
             };
 
@@ -290,16 +416,16 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void PerformValidatedCalculation_ValidPipingCalculationNoOutput_ShouldSetOutput()
+        public void Calculate_ValidPipingCalculationNoOutput_ShouldSetOutput()
         {
             // Setup
             PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
 
             // Precondition
             Assert.IsNull(validPipingCalculation.Output);
+            Assert.IsTrue(PipingCalculationService.Validate(validPipingCalculation));
 
             // Call
-            Assert.IsTrue(PipingCalculationService.Validate(validPipingCalculation));
             PipingCalculationService.Calculate(validPipingCalculation);
 
             // Assert
@@ -307,7 +433,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void PerformValidatedCalculation_ValidPipingCalculationWithOutput_ShouldChangeOutput()
+        public void Calculate_ValidPipingCalculationWithOutput_ShouldChangeOutput()
         {
             // Setup
             var output = new TestPipingOutput();
@@ -315,8 +441,10 @@ namespace Ringtoets.Piping.Service.Test
             PipingCalculation validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validPipingCalculation.Output = output;
 
-            // Call
+            // Precondition
             Assert.IsTrue(PipingCalculationService.Validate(validPipingCalculation));
+
+            // Call
             PipingCalculationService.Calculate(validPipingCalculation);
 
             // Assert
