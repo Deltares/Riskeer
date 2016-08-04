@@ -31,7 +31,6 @@ using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Service.Properties;
-
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -70,7 +69,7 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Performs a design water level calculation based on the supplied <see cref="HydraulicBoundaryLocation"/> and sets <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>
+        /// Performs a design water level calculation based on the supplied <see cref="HydraulicBoundaryLocation"/> and returns the result
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to base the input for the calculation upon.</param>
@@ -78,7 +77,7 @@ namespace Ringtoets.Integration.Service
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        internal static TargetProbabilityCalculationOutput Calculate(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, 
+        internal static TargetProbabilityCalculationOutput Calculate(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation, string ringId)
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath);
@@ -90,12 +89,15 @@ namespace Ringtoets.Integration.Service
                 () =>
                 {
                     HydraRingCalculationService.PerformCalculation(
-                              hlcdDirectory, 
-                              ringId, 
-                              HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, 
-                              HydraRingUncertaintiesType.All, 
-                              input,
-                              new[] { targetProbabilityCalculationParser });
+                        hlcdDirectory,
+                        ringId,
+                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
+                        HydraRingUncertaintiesType.All,
+                        input,
+                        new[]
+                        {
+                            targetProbabilityCalculationParser
+                        });
 
                     VerifyOutput(targetProbabilityCalculationParser.Output, hydraulicBoundaryLocation.Name);
                 });
