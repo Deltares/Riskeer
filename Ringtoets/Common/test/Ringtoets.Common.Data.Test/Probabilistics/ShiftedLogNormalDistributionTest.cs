@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
         [TestCase(3, 5.647)]
         [TestCase(4, 5.6473)]
         [TestCase(15, 5.647300000000000)]
-        public void Mean_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
+        public void Shift_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
         {
             // Setup
             var distribution = new ShiftedLogNormalDistribution(numberOfDecimalPlaces)
