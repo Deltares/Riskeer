@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
@@ -22,8 +43,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     public class DesignWaterLevelContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mocks;
-
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "DesignWaterLevel");
 
         [SetUp]
         public void SetUp()
@@ -58,22 +77,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsSetName()
         {
             // Setup
-            var name = "Toetspeil";
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
 
             mocks.ReplayAll();
-
-            var context = new DesignWaterLevelContext(assessmentSectionMock);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(context);
+                var text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual(name, text);
+                Assert.AreEqual("Toetspeil", text);
             }
             mocks.VerifyAll();
         }
@@ -181,10 +197,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                     const string expectedItemText = "&Berekenen";
                     const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.";
+
+                    // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
                 }
             }
-            // Assert
+            
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -212,15 +230,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     plugin.Gui = guiMock;
 
                     // Call
-                    nodeData.WrappedData.HydraulicBoundaryDatabase.FilePath = testDataPath;
                     var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                     const string expectedItemText = "&Berekenen";
                     const string expectedItemTooltip = "Bereken de toetspeilen";
+
+                    // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
                 }
             }
-            // Assert
+            
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -295,6 +314,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
+
                 // Call
                 Color color = info.ForeColor(designWaterLevelContext);
 
