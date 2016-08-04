@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             return "DROP TABLE IF EXISTS 'VersionEntity'; " +
                    "CREATE TABLE VersionEntity (VersionId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                   " FromVersion VARCHAR (16), ToVersion VARCHAR (16),Timestamp NUMERIC); ";
+                   " Version VARCHAR (16) NOT NULL, Timestamp DATETIME NOT NULL, FingerPrint BLOB NOT NULL); ";
         }
 
         /// <summary>

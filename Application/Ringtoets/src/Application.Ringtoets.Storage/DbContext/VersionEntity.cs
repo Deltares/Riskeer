@@ -36,8 +36,8 @@ namespace Application.Ringtoets.Storage.DbContext
     public partial class VersionEntity
     {
         public long VersionId { get; set; }
-        public string FromVersion { get; set; }
-        public string ToVersion { get; set; }
-        public Nullable<decimal> Timestamp { get; set; }
+        public string Version { get; set; }
+        public System.DateTime Timestamp { get; set; }
+        public byte[] FingerPrint { get; set; }
     }
 }

@@ -184,6 +184,12 @@ namespace Application.Ringtoets.Storage
                 try
                 {
                     var registry = new PersistenceRegistry();
+                    dbContext.VersionEntities.Add(new VersionEntity
+                    {
+                        FingerPrint = new byte[]{1,2,3,4,5},
+                        Timestamp = DateTime.Now,
+                        Version = "1"
+                    });
                     dbContext.ProjectEntities.Add(project.Create(registry));
                     dbContext.SaveChanges();
                     registry.TransferIds();
@@ -214,6 +220,9 @@ namespace Application.Ringtoets.Storage
                     var updateCollector = new PersistenceRegistry();
                     project.Update(updateCollector, dbContext);
                     updateCollector.RemoveUntouched(dbContext);
+
+                    dbContext.VersionEntities.Single().Timestamp = DateTime.Now;
+
                     dbContext.SaveChanges();
                     updateCollector.TransferIds();
                 }
