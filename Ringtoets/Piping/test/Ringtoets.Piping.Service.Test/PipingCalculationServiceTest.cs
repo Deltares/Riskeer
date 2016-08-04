@@ -431,9 +431,9 @@ namespace Ringtoets.Piping.Service.Test
                     new PipingSoilLayer(10.5)
                     {
                         IsAquifer = false,
-                        BelowPhreaticLevelDeviation = random.NextDouble(),
-                        BelowPhreaticLevelMean = 0.1 + random.NextDouble(),
-                        BelowPhreaticLevelShift = random.NextDouble()
+                        BelowPhreaticLevelDeviation = GetRandomDoubleFromRange(random, 1e-6, 999.999),
+                        BelowPhreaticLevelMean = GetRandomDoubleFromRange(random, 10.0, 999.999),
+                        BelowPhreaticLevelShift = GetRandomDoubleFromRange(random, 1e-6, 10.0)
                     },
                     incompletePipingSoilLayer
                 },
@@ -493,9 +493,9 @@ namespace Ringtoets.Piping.Service.Test
                     new PipingSoilLayer(10.5)
                     {
                         IsAquifer = false,
-                        BelowPhreaticLevelDeviation = random.NextDouble(),
-                        BelowPhreaticLevelMean = 0.1 + random.NextDouble(),
-                        BelowPhreaticLevelShift = random.NextDouble()
+                        BelowPhreaticLevelDeviation = GetRandomDoubleFromRange(random, 1e-6, 999.999),
+                        BelowPhreaticLevelMean = GetRandomDoubleFromRange(random, 10.0, 999.999),
+                        BelowPhreaticLevelShift = GetRandomDoubleFromRange(random, 1e-6, 10.0)
                     },
                     incompletePipingSoilLayer
                 },
@@ -801,6 +801,13 @@ namespace Ringtoets.Piping.Service.Test
                             input.DarcyPermeability.GetAccuracy());
             Assert.AreEqual(input.SandParticlesVolumicWeight, sellmeijerCalculator.GammaSubParticles);
             Assert.AreEqual(input.Gravity, sellmeijerCalculator.Gravity);
+        }
+
+
+        private double GetRandomDoubleFromRange(Random random, double lowerLimit, double upperLimit)
+        {
+            double difference = upperLimit - lowerLimit;
+            return lowerLimit + random.NextDouble() * difference;
         }
     }
 }

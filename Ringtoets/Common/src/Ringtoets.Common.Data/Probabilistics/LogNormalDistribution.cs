@@ -30,12 +30,13 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// </summary>
     public class LogNormalDistribution : IDistribution
     {
-        private RoundedDouble standardDeviation;
         private RoundedDouble mean;
+        private RoundedDouble standardDeviation;
+        private RoundedDouble shift;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LogNormalDistribution"/> class,
-        /// initialized as the standard log-normal distribution (mu=0, sigma=1).
+        /// initialized as the standard log-normal distribution (mu=0, sigma=1, theta=0).
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
@@ -49,13 +50,15 @@ namespace Ringtoets.Common.Data.Probabilistics
                 throw new ArgumentOutOfRangeException("numberOfDecimalPlaces",
                                                       "Value must be in range [1, 15].");
             }
-            // Simplified calculation mean and standard deviation given mu=0 and sigma=1.
+            // Initialize mean, standard deviation and shift of the normal distribution which is the log of the 
+            // log-normal distribution with scale parameter mu=0, shape parameter sigma=1 and location parameter theta=0.
             mean = new RoundedDouble(numberOfDecimalPlaces, Math.Exp(-0.5));
             standardDeviation = new RoundedDouble(numberOfDecimalPlaces, Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)));
+            shift = new RoundedDouble(numberOfDecimalPlaces);
         }
 
         /// <summary>
-        /// Gets or sets the mean (expected value, E(X)) of the distribution.
+        /// Gets or sets the mean of the normal distribution which is the log of the log-normal distribution.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Expected value is less then or equal to 0.</exception>
         public RoundedDouble Mean
@@ -72,11 +75,22 @@ namespace Ringtoets.Common.Data.Probabilistics
                 {
                     throw new ArgumentOutOfRangeException("value", Resources.LogNormalDistribution_Mean_must_be_greater_than_zero);
                 }
+                if (Shift > roundedValue)
+                {
+                    throw new ArgumentOutOfRangeException(Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
+                }
 
                 mean = roundedValue;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the standard deviation of the normal distribution which is the log of the log-normal distribution.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when either:<list type="bullet">
+        /// <item>Standard deviation is less then or equal to 0.</item>
+        /// <item>The mean is smaller than the shift.</item>
+        /// </list></exception>
         public RoundedDouble StandardDeviation
         {
             get
@@ -93,6 +107,29 @@ namespace Ringtoets.Common.Data.Probabilistics
                 }
 
                 standardDeviation = roundedValue;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the shift of the normal distribution which is the log of the log-normal distribution.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when the shift is larger then the mean.
+        /// </exception>
+        public RoundedDouble Shift
+        {
+            get
+            {
+                return shift;
+            }
+            set
+            {
+                var newShift = value.ToPrecision(shift.NumberOfDecimalPlaces);
+                if (newShift > Mean)
+                {
+                    throw new ArgumentOutOfRangeException(Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
+                }
+                shift = newShift;
             }
         }
     }

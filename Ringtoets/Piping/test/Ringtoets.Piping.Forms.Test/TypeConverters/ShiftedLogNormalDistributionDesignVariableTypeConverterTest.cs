@@ -37,13 +37,13 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void ConvertTo_DestinationTypeIsString_ReturnNormalDistributionSpecs()
         {
             // Setup
-            var distribution = new ShiftedLogNormalDistribution(5)
+            var distribution = new LogNormalDistribution(5)
             {
                 Mean = (RoundedDouble) 3.3,
                 StandardDeviation = (RoundedDouble) 2.2,
                 Shift = (RoundedDouble) 1.1
             };
-            var designVariable = new ShiftedLogNormalDistributionDesignVariable(distribution);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
             var converter = new ShiftedLogNormalDistributionDesignVariableTypeConverter();
 
             // Call
@@ -72,8 +72,8 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetProperties_Always_ReturnMeanAndStandardDeviation()
         {
             // Setup
-            var distribution = new ShiftedLogNormalDistribution(3);
-            var designVariable = new ShiftedLogNormalDistributionDesignVariable(distribution);
+            var distribution = new LogNormalDistribution(3);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
             var converter = new ShiftedLogNormalDistributionDesignVariableTypeConverter();
 
             // Call
@@ -89,21 +89,21 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.AreEqual("Type verdeling", distributionTypePropertyDescriptor.DisplayName);
             Assert.AreEqual("Het soort kansverdeling waarin deze parameter gedefinieerd wordt.", distributionTypePropertyDescriptor.Description);
             Assert.AreEqual("DistributionType", distributionTypePropertyDescriptor.Name);
-            Assert.AreEqual("Verschoven lognormaal", distributionTypePropertyDescriptor.GetValue(new object()));
+            Assert.AreEqual("Lognormaal", distributionTypePropertyDescriptor.GetValue(new object()));
 
             var meanPropertyDescriptor = properties[1];
-            Assert.AreEqual(distribution.GetType().BaseType, meanPropertyDescriptor.ComponentType);
+            Assert.AreEqual(distribution.GetType(), meanPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(RoundedDouble), meanPropertyDescriptor.PropertyType);
             Assert.IsFalse(meanPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Verwachtingswaarde", meanPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De gemiddelde waarde van de verschoven lognormale verdeling.", meanPropertyDescriptor.Description);
+            Assert.AreEqual("De gemiddelde waarde van de lognormale verdeling.", meanPropertyDescriptor.Description);
 
             var stdPropertyDescriptor = properties[2];
-            Assert.AreEqual(distribution.GetType().BaseType, stdPropertyDescriptor.ComponentType);
+            Assert.AreEqual(distribution.GetType(), stdPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(RoundedDouble), stdPropertyDescriptor.PropertyType);
             Assert.IsFalse(stdPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Standaardafwijking", stdPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De standaardafwijking van de verschoven lognormale verdeling.", stdPropertyDescriptor.Description);
+            Assert.AreEqual("De standaardafwijking van de lognormale verdeling.", stdPropertyDescriptor.Description);
 
             var shiftPropertyDescriptor = properties[3];
             Assert.AreEqual(distribution.GetType(), shiftPropertyDescriptor.ComponentType);
@@ -125,8 +125,8 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetProperties_TypeConverterPropertyDecoratedWithReadOnlyAttribute_ReturnMeanAndStandardDeviationAndShiftAsReadOnly()
         {
             // Setup
-            var distribution = new ShiftedLogNormalDistribution(3);
-            var designVariable = new ShiftedLogNormalDistributionDesignVariable(distribution);
+            var distribution = new LogNormalDistribution(3);
+            var designVariable = new LogNormalDistributionDesignVariable(distribution);
             var converter = new ShiftedLogNormalDistributionDesignVariableTypeConverter();
 
             var classWithDecoratedProperty = new ClassWithReadOnlyDesignVariable();
@@ -151,21 +151,21 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.AreEqual("Type verdeling", distributionTypePropertyDescriptor.DisplayName);
             Assert.AreEqual("Het soort kansverdeling waarin deze parameter gedefinieerd wordt.", distributionTypePropertyDescriptor.Description);
             Assert.AreEqual("DistributionType", distributionTypePropertyDescriptor.Name);
-            Assert.AreEqual("Verschoven lognormaal", distributionTypePropertyDescriptor.GetValue(new object()));
+            Assert.AreEqual("Lognormaal", distributionTypePropertyDescriptor.GetValue(new object()));
 
             var meanPropertyDescriptor = properties[1];
-            Assert.AreEqual(distribution.GetType().BaseType, meanPropertyDescriptor.ComponentType);
+            Assert.AreEqual(distribution.GetType(), meanPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(RoundedDouble), meanPropertyDescriptor.PropertyType);
             Assert.IsTrue(meanPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Verwachtingswaarde", meanPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De gemiddelde waarde van de verschoven lognormale verdeling.", meanPropertyDescriptor.Description);
+            Assert.AreEqual("De gemiddelde waarde van de lognormale verdeling.", meanPropertyDescriptor.Description);
 
             var stdPropertyDescriptor = properties[2];
-            Assert.AreEqual(distribution.GetType().BaseType, stdPropertyDescriptor.ComponentType);
+            Assert.AreEqual(distribution.GetType(), stdPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(RoundedDouble), stdPropertyDescriptor.PropertyType);
             Assert.IsTrue(stdPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Standaardafwijking", stdPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De standaardafwijking van de verschoven lognormale verdeling.", stdPropertyDescriptor.Description);
+            Assert.AreEqual("De standaardafwijking van de lognormale verdeling.", stdPropertyDescriptor.Description);
 
             var shiftPropertyDescriptor = properties[3];
             Assert.AreEqual(distribution.GetType(), shiftPropertyDescriptor.ComponentType);
@@ -189,11 +189,11 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             public ClassWithReadOnlyDesignVariable()
             {
-                Property = new ShiftedLogNormalDistributionDesignVariable(new ShiftedLogNormalDistribution(3));
+                Property = new LogNormalDistributionDesignVariable(new LogNormalDistribution(3));
             }
 
             [ReadOnly(true)]
-            public DesignVariable<ShiftedLogNormalDistribution> Property { get; set; }
+            public DesignVariable<LogNormalDistribution> Property { get; set; }
         }
     }
 }

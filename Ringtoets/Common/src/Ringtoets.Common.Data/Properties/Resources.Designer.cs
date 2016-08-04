@@ -289,6 +289,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De verschuiving mag niet groter zijn dan de verwachtingswaarde..
+        /// </summary>
+        public static string LogNormalDistribution_Shift_may_not_exceed_Mean {
+            get {
+                return ResourceManager.GetString("LogNormalDistribution_Shift_may_not_exceed_Mean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -.
         /// </summary>
         public static string OtherFailureMechanism_Code {
@@ -339,15 +348,6 @@ namespace Ringtoets.Common.Data.Properties {
         public static string ReferenceLine_SetGeometry_New_geometry_has_null_coordinate {
             get {
                 return ResourceManager.GetString("ReferenceLine_SetGeometry_New_geometry_has_null_coordinate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De verschuiving mag niet groter zijn dan de verwachtingswaarde..
-        /// </summary>
-        public static string ShiftedLogNormalDistribution_Shift_may_not_exceed_Mean {
-            get {
-                return ResourceManager.GetString("ShiftedLogNormalDistribution_Shift_may_not_exceed_Mean", resourceCulture);
             }
         }
         

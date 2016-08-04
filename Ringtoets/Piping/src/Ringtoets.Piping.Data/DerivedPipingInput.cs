@@ -179,11 +179,11 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the volumic weight of the saturated coverage layer.
         /// </summary>
-        public ShiftedLogNormalDistribution SaturatedVolumicWeightOfCoverageLayer
+        public LogNormalDistribution SaturatedVolumicWeightOfCoverageLayer
         {
             get
             {
-                var distribution = new ShiftedLogNormalDistribution(2)
+                var distribution = new LogNormalDistribution(2)
                 {
                     Mean = (RoundedDouble) double.NaN,
                     StandardDeviation = (RoundedDouble) double.NaN,
@@ -263,7 +263,7 @@ namespace Ringtoets.Piping.Data
         }
 
 
-        private void UpdateSaturatedVolumicWeightOfCoverageLayerParameters(ShiftedLogNormalDistribution volumicWeightDistribution)
+        private void UpdateSaturatedVolumicWeightOfCoverageLayerParameters(LogNormalDistribution volumicWeightDistribution)
         {
             PipingSoilLayer[] coverageLayers = GetConsecutiveCoverageLayers();
 

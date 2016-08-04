@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.5, inputParameters.ThicknessCoverageLayer.StandardDeviation.Value);
             Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
 
-            Assert.IsInstanceOf<ShiftedLogNormalDistribution>(inputParameters.SaturatedVolumicWeightOfCoverageLayer);
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.SaturatedVolumicWeightOfCoverageLayer);
             Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.NumberOfDecimalPlaces);

@@ -1501,24 +1501,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verschoven lognormale verdeling.
-        /// </summary>
-        public static string ShiftedLogNormalDistribution_DisplayName {
-            get {
-                return ResourceManager.GetString("ShiftedLogNormalDistribution_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verschoven lognormaal.
-        /// </summary>
-        public static string ShiftedLogNormalDistribution_ShortName {
-            get {
-                return ResourceManager.GetString("ShiftedLogNormalDistribution_ShortName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geometrie uit de database..
         /// </summary>
         public static string StochasticSoilModel_Geometry_Description {

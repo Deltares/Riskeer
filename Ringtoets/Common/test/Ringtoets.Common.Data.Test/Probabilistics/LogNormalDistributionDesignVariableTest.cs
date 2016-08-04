@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
     public class LogNormalDistributionDesignVariableTest
     {
         [Test]
-        public void ParameterdConstructor_ValidLogNormalDistribution_ExpectedValues()
+        public void ParameteredConstructor_ValidLogNormalDistribution_ExpectedValues()
         {
             // Setup
             var logNormalDistribution = new LogNormalDistribution(2);
@@ -82,6 +82,88 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
             Assert.AreEqual(expectedResult, result, 1e-4);
+        }
+
+        /// <summary>
+        /// Tests the <see cref="LogNormalDistributionDesignVariable.GetDesignValue"/>
+        /// against the values calculated with the excel sheet in WTI-688 (timestamp: 04-08-2016 09:59).
+        /// </summary>
+        /// <param name="expectedValue">MEAN.</param>
+        /// <param name="variance">VARIANCE.</param>
+        /// <param name="shift">SHIFT</param>
+        /// <param name="percentile">Percentile.</param>
+        /// <param name="expectedResult">Rekenwaarde.</param>
+        [Test]
+        [TestCase(75, 20, 10, 0.95, 82.60703184)]
+        [TestCase(75, 70, 10, 0.5, 74.46813834)]
+        [TestCase(75, 70, 10, 0.95, 89.60066615)]
+        [TestCase(75, 70, 10, 0.05, 62.21238794)]
+        [TestCase(75, 70, -30, 0.95, 89.30145551)]
+        [TestCase(75, 123.45, 10, 0.95, 94.70113921)]
+        [TestCase(75, 1.2345, 10, 0.95, 76.84359757)]
+        [TestCase(123.45, 70, 10, 0.95, 137.713425)]
+        public void GetDesignVariable_ValidLogNormalDistributionWithNonZeroShift_ReturnExpectedValue(
+            double expectedValue, double variance, double shift, double percentile,
+            double expectedResult)
+        {
+            // Setup
+            const int numberOfDecimalPlaces = 4;
+            var logNormalDistribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = (RoundedDouble)expectedValue,
+                StandardDeviation = (RoundedDouble)Math.Sqrt(variance),
+                Shift = (RoundedDouble)shift
+            };
+
+            var designVariable = new LogNormalDistributionDesignVariable(logNormalDistribution)
+            {
+                Percentile = percentile
+            };
+
+            // Call
+            RoundedDouble result = designVariable.GetDesignValue();
+
+            // Assert
+            Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedResult, result, 1e-4);
+        }
+
+        [Test]
+        [TestCase(75, 70, 0.5)]
+        [TestCase(75, 70, 0.95)]
+        [TestCase(75, 70, 0.05)]
+        [TestCase(75, 123.45, 0.95)]
+        [TestCase(75, 1.2345, 0.95)]
+        [TestCase(123.45, 70, 0.95)]
+        [TestCase(1.2345, 70, 0.95)]
+        public void GetDesignVariable_ShiftIsZero_ReturnIdenticalValueAsLogNormalDistributionDesignVariable(
+            double expectedValue, double variance, double percentile)
+        {
+            // Setup
+            const int numberOfDecimalPlaces = 6;
+            var logNormalDistribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = (RoundedDouble)expectedValue,
+                StandardDeviation = (RoundedDouble)Math.Sqrt(variance),
+                Shift = (RoundedDouble)0.0
+            };
+
+            var designVariable = new LogNormalDistributionDesignVariable(logNormalDistribution)
+            {
+                Percentile = percentile
+            };
+
+            // Call
+            RoundedDouble result = designVariable.GetDesignValue();
+
+            // Assert
+            RoundedDouble expectedResult = new LogNormalDistributionDesignVariable(logNormalDistribution)
+            {
+                Percentile = percentile
+            }.GetDesignValue();
+
+            Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedResult, result, 1e-6);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
 {
     /// <summary>
     /// A <see cref="TypeConverter"/> implementation for <see cref="LogNormalDistribution"/>
-    /// properties.
+    /// properties without the shift.
     /// </summary>
     public sealed class LogNormalDistributionDesignVariableTypeConverter : DesignVariableTypeConverter<LogNormalDistribution>
     {

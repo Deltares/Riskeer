@@ -44,20 +44,12 @@ namespace Ringtoets.Piping.Data
             };
         }
 
-        private static DesignVariable<ShiftedLogNormalDistribution> CreateDesignVariable(ShiftedLogNormalDistribution distribution, double percentile)
-        {
-            return new ShiftedLogNormalDistributionDesignVariable(distribution)
-            {
-                Percentile = percentile
-            };
-        }
-
         #region General parameters
 
         /// <summary>
         /// Creates the design variable for <see cref="PipingInput.SaturatedVolumicWeightOfCoverageLayer"/>.
         /// </summary>
-        public static DesignVariable<ShiftedLogNormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
+        public static DesignVariable<LogNormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput parameters)
         {
             return CreateDesignVariable(parameters.SaturatedVolumicWeightOfCoverageLayer, 0.05);
         }

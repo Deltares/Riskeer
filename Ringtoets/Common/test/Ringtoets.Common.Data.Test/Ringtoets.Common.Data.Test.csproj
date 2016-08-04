@@ -73,8 +73,6 @@
     <Compile Include="Probabilistics\LogNormalDistributionTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionDesignVariableTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionTest.cs" />
-    <Compile Include="Probabilistics\ShiftedLogNormalDistributionDesignVariableTest.cs" />
-    <Compile Include="Probabilistics\ShiftedLogNormalDistributionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

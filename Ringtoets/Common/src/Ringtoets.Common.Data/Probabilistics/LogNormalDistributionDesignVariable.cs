@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         public override RoundedDouble GetDesignValue()
         {
             double normalSpaceDesignValue = DetermineDesignValueInNormalDistributionSpace();
-            return ProjectFromNormalToLogNormalSpace(normalSpaceDesignValue);
+            return ProjectFromNormalToLogNormalSpace(normalSpaceDesignValue) + Distribution.Shift;
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace Ringtoets.Common.Data.Probabilistics
             // design value can only be determined in 'normal distribution' space.
             // Below formula's come from Tu-Delft College dictaat "b3 Probabilistisch Ontwerpen"
             // by ir. A.C.W.M. Vrouwenvelder and ir.J.K. Vrijling 5th reprint 1987.
-            double sigmaLogOverMuLog = Distribution.StandardDeviation/Distribution.Mean;
+            double sigmaLogOverMuLog = Distribution.StandardDeviation/(Distribution.Mean - Distribution.Shift);
             double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog*sigmaLogOverMuLog + 1.0));
-            double muNormal = Math.Log(Distribution.Mean) - 0.5*sigmaNormal*sigmaNormal;
+            double muNormal = Math.Log(Distribution.Mean - Distribution.Shift) - 0.5*sigmaNormal*sigmaNormal;
             return DetermineDesignValue(muNormal, sigmaNormal);
         }
 

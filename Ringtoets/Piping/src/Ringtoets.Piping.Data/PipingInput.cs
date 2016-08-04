@@ -490,7 +490,7 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets or sets the volumic weight of the saturated coverage layer.
         /// </summary>
-        public ShiftedLogNormalDistribution SaturatedVolumicWeightOfCoverageLayer
+        public LogNormalDistribution SaturatedVolumicWeightOfCoverageLayer
         {
             get
             {

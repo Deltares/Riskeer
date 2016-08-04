@@ -46,6 +46,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             Assert.AreEqual(numberOfDecimalPlaces, distribution.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)), distribution.StandardDeviation, expectedAccuracy);
             Assert.AreEqual(numberOfDecimalPlaces, distribution.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, distribution.Shift, expectedAccuracy);
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.Shift.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -220,6 +222,45 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(expectedMean, distribution.Mean.Value);
+        }
+
+        [Test]
+        [TestCase(1, 5.6)]
+        [TestCase(3, 5.647)]
+        [TestCase(4, 5.6473)]
+        [TestCase(15, 5.647300000000000)]
+        public void Shift_SetNewValue_GetValueRoundedToGivenNumberOfDecimalPlaces(int numberOfDecimalPlaces, double expectedStandardDeviation)
+        {
+            // Setup
+            var distribution = new LogNormalDistribution(numberOfDecimalPlaces)
+            {
+                Mean = new RoundedDouble(2, 10.0)
+            };
+
+            // Call
+            distribution.Shift = new RoundedDouble(4, 5.6473);
+
+            // Assert
+            Assert.AreEqual(numberOfDecimalPlaces, distribution.Shift.NumberOfDecimalPlaces);
+            Assert.AreEqual(expectedStandardDeviation, distribution.Shift.Value);
+        }
+
+        [Test]
+        public void Shift_SetIllegalValue_ThrowArgumentOutOfRangeException()
+        {
+            // Setup
+            var distribution = new LogNormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 10.0),
+                StandardDeviation = new RoundedDouble(2, 1.0)
+            };
+
+            // Call
+            TestDelegate call = () => distribution.Shift = new RoundedDouble(2, 100.0);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentOutOfRangeException>(call).ParamName;
+            Assert.AreEqual("De verschuiving mag niet groter zijn dan de verwachtingswaarde.", paramName);
         }
     }
 }

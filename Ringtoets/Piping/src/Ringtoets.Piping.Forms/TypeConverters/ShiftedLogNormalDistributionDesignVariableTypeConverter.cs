@@ -27,12 +27,12 @@ using Ringtoets.Piping.Forms.Properties;
 namespace Ringtoets.Piping.Forms.TypeConverters
 {
     /// <summary>
-    /// A <see cref="TypeConverter"/> implementation for <see cref="ShiftedLogNormalDistribution"/>
-    /// properties.
+    /// A <see cref="TypeConverter"/> implementation for <see cref="LogNormalDistribution"/>
+    /// properties including the shift.
     /// </summary>
-    public sealed class ShiftedLogNormalDistributionDesignVariableTypeConverter : DesignVariableTypeConverter<ShiftedLogNormalDistribution>
+    public sealed class ShiftedLogNormalDistributionDesignVariableTypeConverter : DesignVariableTypeConverter<LogNormalDistribution>
     {
-        private readonly ParameterDefinition<ShiftedLogNormalDistribution>[] parameters;
+        private readonly ParameterDefinition<LogNormalDistribution>[] parameters;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ShiftedLogNormalDistributionDesignVariableTypeConverter"/> class.
@@ -42,19 +42,19 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             var lowerCaseDistributionName = DistributionName.ToLower();
             parameters = new[]
             {
-                new ParameterDefinition<ShiftedLogNormalDistribution>(d => d.Mean)
+                new ParameterDefinition<LogNormalDistribution>(d => d.Mean)
                 {
                     Symbol = Resources.Probabilistics_Mean_Symbol,
                     Description = String.Format(Resources.Probabilistics_Mean_description_for_Distribution_0_,
                                                 lowerCaseDistributionName)
                 },
-                new ParameterDefinition<ShiftedLogNormalDistribution>(d => d.StandardDeviation)
+                new ParameterDefinition<LogNormalDistribution>(d => d.StandardDeviation)
                 {
                     Symbol = Resources.Probabilistics_StandardDeviation_Symbol,
                     Description = String.Format(Resources.Probabilistics_StandardDeviation_description_for_Distribution_0_,
                                                 lowerCaseDistributionName)
                 },
-                new ParameterDefinition<ShiftedLogNormalDistribution>(d => d.Shift)
+                new ParameterDefinition<LogNormalDistribution>(d => d.Shift)
                 {
                     Symbol = Resources.Probabilistics_Shift_Symbol, 
                     Description = Resources.Probabilistics_Shift_Description
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             get
             {
-                return Resources.ShiftedLogNormalDistribution_DisplayName;
+                return Resources.LogNormalDistribution_DisplayName;
             }
         }
 
@@ -74,11 +74,11 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             get
             {
-                return Resources.ShiftedLogNormalDistribution_ShortName;
+                return Resources.LogNormalDistribution_ShortName;
             }
         }
 
-        protected override ParameterDefinition<ShiftedLogNormalDistribution>[] Parameters
+        protected override ParameterDefinition<LogNormalDistribution>[] Parameters
         {
             get
             {

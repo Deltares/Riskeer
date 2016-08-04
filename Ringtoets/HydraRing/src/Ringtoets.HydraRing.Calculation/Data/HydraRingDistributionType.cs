@@ -31,6 +31,6 @@ namespace Ringtoets.HydraRing.Calculation.Data
     {
         Deterministic = 0,
         Normal = 2,
-        LogNormal = 4 // Also applies to shifted log normal distributions
+        LogNormal = 4 // Also applies to log-normal distributions with a non-zero shift
     }
 }

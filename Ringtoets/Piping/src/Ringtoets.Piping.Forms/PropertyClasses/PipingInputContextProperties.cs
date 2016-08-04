@@ -311,7 +311,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description")]
-        public DesignVariable<ShiftedLogNormalDistribution> SaturatedVolumicWeightOfCoverageLayer
+        public DesignVariable<LogNormalDistribution> SaturatedVolumicWeightOfCoverageLayer
         {
             get
             {
