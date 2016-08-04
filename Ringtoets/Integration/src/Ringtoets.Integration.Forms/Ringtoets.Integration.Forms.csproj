@@ -52,6 +52,7 @@
     <Compile Include="Commands\AddAssessmentSectionCommand.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
+    <Compile Include="PresentationObjects\DesignWaterLevelContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />

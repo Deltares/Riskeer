@@ -433,7 +433,19 @@ namespace Ringtoets.Integration.Plugin
                 ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
+                ChildNodeObjects = HydraulicBoundaryDatabaseChildNodeObjects,
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<DesignWaterLevelContext>
+            {
+                Text =  designWaterLevel => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
+                Image = designWaterLevel => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CanRename = (context, o) => false,
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
+                                           Color.FromKnownColor(KnownColor.GrayText) :
+                                           Color.FromKnownColor(KnownColor.ControlText),
+                ContextMenuStrip = DesignWaterLevelContextMenuStrip
             };
 
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
@@ -949,13 +961,16 @@ namespace Ringtoets.Integration.Plugin
 
         #region HydraulicBoundaryDatabase
 
-        private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
         {
-            var connectionItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
-                RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData.WrappedData); });
+            return new object[]
+            {
+                new DesignWaterLevelContext(nodeData.WrappedData)
+            };
+        }
 
+        private ContextMenuStrip DesignWaterLevelContextMenuStrip(DesignWaterLevelContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.DesignWaterLevel_Calculate,
                 RingtoetsFormsResources.DesignWaterLevel_Calculate_ToolTip,
@@ -985,11 +1000,24 @@ namespace Ringtoets.Integration.Plugin
             }
 
             return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomItem(connectionItem)
-                      .AddSeparator()
                       .AddCustomItem(designWaterLevelItem)
                       .AddSeparator()
                       .AddPropertiesItem()
+                      .Build();
+        }
+
+        private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var connectionItem = new StrictContextMenuItem(
+                RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
+                RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
+                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData.WrappedData); });
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCustomItem(connectionItem)
+                      .AddSeparator()
+                      .AddExpandAllItem()
+                      .AddCollapseAllItem()
                       .Build();
         }
 

@@ -269,7 +269,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Toetspeilen berekenen.
+        ///   Looks up a localized string similar to &amp;Berekenen.
         /// </summary>
         public static string DesignWaterLevel_Calculate {
             get {
@@ -283,6 +283,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string DesignWaterLevel_Calculate_ToolTip {
             get {
                 return ResourceManager.GetString("DesignWaterLevel_Calculate_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetspeil.
+        /// </summary>
+        public static string DesignWaterLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("DesignWaterLevel_DisplayName", resourceCulture);
             }
         }
         

@@ -145,7 +145,7 @@
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="DesignWaterLevel_Calculate" xml:space="preserve">
-    <value>&amp;Toetspeilen berekenen</value>
+    <value>&amp;Berekenen</value>
   </data>
   <data name="DesignWaterLevel_Calculate_ToolTip" xml:space="preserve">
     <value>Bereken de toetspeilen</value>
@@ -301,5 +301,8 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="AddAssessmentSection_DisplayName" xml:space="preserve">
     <value>T&amp;raject toevoegen...</value>
+  </data>
+  <data name="DesignWaterLevel_DisplayName" xml:space="preserve">
+    <value>Toetspeil</value>
   </data>
 </root>
