@@ -61,6 +61,7 @@ namespace Demo.Ringtoets.Commands
         {
             var demoAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
+                Id = "6-3",
                 Name = "Demo traject"
             };
             InitializeDemoReferenceLine(demoAssessmentSection);

@@ -68,6 +68,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1, project.AssessmentSections.Count);
             var demoAssessmentSection = project.AssessmentSections[0];
             Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
+            Assert.AreEqual("6-3", demoAssessmentSection.Id);
 
             Assert.IsNotEmpty(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
             Assert.IsTrue(File.Exists(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath));
