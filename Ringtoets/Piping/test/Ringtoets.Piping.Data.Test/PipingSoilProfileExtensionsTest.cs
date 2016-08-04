@@ -29,6 +29,31 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class PipingSoilProfileExtensionsTest
     {
+        private PipingSoilLayer[] testCaseOneAquifer = {
+            new PipingSoilLayer(2.1)
+            {
+                IsAquifer = true
+            }
+        };
+
+        private PipingSoilLayer[] testCaseOneAquitard = {
+            new PipingSoilLayer(2.1)
+            {
+                IsAquifer = false
+            }
+        };
+
+        private PipingSoilLayer[] testCaseOneCoverage = {
+            new PipingSoilLayer(2.1)
+            {
+                IsAquifer = false
+            },
+            new PipingSoilLayer(0.1)
+            {
+                IsAquifer = true
+            }
+        };
+
         private PipingSoilLayer[] testCaseTwoAquitard = {
             new PipingSoilLayer(2.1)
             {
@@ -51,6 +76,21 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
+        private PipingSoilLayer[] testCaseTwoCoverage = {
+            new PipingSoilLayer(2.1)
+            {
+                IsAquifer = false
+            },
+            new PipingSoilLayer(1.1)
+            {
+                IsAquifer = false
+            },
+            new PipingSoilLayer(0.1)
+            {
+                IsAquifer = true
+            }
+        };
+
         private PipingSoilLayer[] testCaseOneAquiferOneAquitard = {
             new PipingSoilLayer(2.1)
             {
@@ -64,35 +104,6 @@ namespace Ringtoets.Piping.Data.Test
 
         private PipingSoilLayer[] testCaseOneAquitardOneAquifer = {
             new PipingSoilLayer(2.1)
-            {
-                IsAquifer = false
-            },
-            new PipingSoilLayer(1.1)
-            {
-                IsAquifer = true
-            }
-        };
-
-        private PipingSoilLayer[] testCaseOneAquifer = {
-            new PipingSoilLayer(2.1)
-            {
-                IsAquifer = true
-            }
-        };
-
-        private PipingSoilLayer[] testCaseOneAquitard = {
-            new PipingSoilLayer(2.1)
-            {
-                IsAquifer = false
-            }
-        };
-
-        private PipingSoilLayer[] testCaseOneAquiferOneAquitardOneAquifer = {
-            new PipingSoilLayer(2.1)
-            {
-                IsAquifer = true
-            },
-            new PipingSoilLayer(1.5)
             {
                 IsAquifer = false
             },
@@ -121,7 +132,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoAquitardOneAquiferOneAquitard = {
+        private PipingSoilLayer[] testCaseTwoCoverageOneAquiferOneAquitard = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -486,172 +497,201 @@ namespace Ringtoets.Piping.Data.Test
 
         #endregion
 
-        #region GetConsecutiveAquitardLayersBelowLevel
+        #region GetConsecutiveCoverageLayersBelowLevel
 
         [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_NoAquitardLayer_ReturnEmptyCollection()
+        public void GetConsecutiveCoverageLayersBelowLevel_NoAquitardLayer_ReturnEmptyCollection()
         {
             // Setup
             var profile = CreateTestProfile(testCaseTwoAquifer);
 
             // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(1.0);
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.0);
 
             // Assert
             Assert.IsEmpty(result);
         }
 
         [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_AquitardLayerAboveLevel_ReturnEmptyCollection()
+        public void GetConsecutiveCoverageLayersBelowLevel_AquitardLayerAboveLevel_ReturnEmptyCollection()
         {
             // Setup
             var profile = CreateTestProfile(testCaseOneAquitardOneAquifer);
 
             // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(1.1);
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.1);
 
             // Assert
             Assert.IsEmpty(result);
         }
 
         [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_AquitardLayerCompletelyBelowLevel_ReturnAquitardLayer()
+        public void GetConsecutiveCoverageLayersBelowLevel_OnlyAquitardLayer_ReturnEmptyCollection()
         {
             // Setup
             var profile = CreateTestProfile(testCaseOneAquitard);
 
             // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(2.2);
-
-            // Assert
-            CollectionAssert.AreEqual(profile.Layers, result);
-        }
-
-        [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_AquitardLayerPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
-        {
-            // Setup
-            var profile = CreateTestProfile(testCaseOneAquitard);
-
-            // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(1.6);
-
-            // Assert
-            CollectionAssert.AreEqual(profile.Layers, result);
-        }
-
-        [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_AquitardLayerTopEqualToLevel_ReturnCollectionWithAquitardLayer()
-        {
-            // Setup
-            var profile = CreateTestProfile(testCaseOneAquitard);
-
-            // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(2.1);
-
-            // Assert
-            CollectionAssert.AreEqual(profile.Layers, result);
-        }
-
-        [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_AquitardLayerBottomEqualToLevel_ReturnEmptyCollection()
-        {
-            // Setup
-            var profile = CreateTestProfile(testCaseOneAquitard);
-
-            // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(0.0);
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.2);
 
             // Assert
             Assert.IsEmpty(result);
         }
 
         [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_TwoAquitardLayersCompletelyBelowLevel_ReturnConsecutiveAquitardLayers()
+        public void GetConsecutiveCoverageLayersBelowLevel_CoverageLayerCompletelyBelowLevel_ReturnAquitardLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquitard);
+            var profile = CreateTestProfile(testCaseOneCoverage);
 
             // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(2.2);
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.2);
 
             // Assert
-            CollectionAssert.AreEqual(profile.Layers, result);
+            CollectionAssert.AreEqual(profile.Layers.Take(1), result);
         }
 
         [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_TopmostAquitardLayerTopEqualToLevel_ReturnConsecutiveAquitardLayers()
+        public void GetConsecutiveCoverageLayersBelowLevel_CoverageLayerPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquitard);
+            var profile = CreateTestProfile(testCaseOneCoverage);
 
             // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(2.1);
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.6);
 
             // Assert
-            CollectionAssert.AreEqual(profile.Layers, result);
+            CollectionAssert.AreEqual(profile.Layers.Take(1), result);
         }
 
         [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_TopmostAquitardLayerTopPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
+        public void GetConsecutiveCoverageLayersBelowLevel_CoverageLayerTopEqualToLevel_ReturnCollectionWithAquitardLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquitard);
+            var profile = CreateTestProfile(testCaseOneCoverage);
 
             // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(2.0);
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.1);
 
             // Assert
-            CollectionAssert.AreEqual(profile.Layers, result);
+            CollectionAssert.AreEqual(profile.Layers.Take(1), result);
         }
 
         [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_TopmostAquitardLayerCompletelyAboveLevel_ReturnCollectionWithoutTopmostAquitardLayer()
+        public void GetConsecutiveCoverageLayersBelowLevel_CoverageLayerBottomEqualToLevel_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquitard);
+            var profile = CreateTestProfile(testCaseOneCoverage);
 
             // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(0.5);
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(0.1);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(1) }, result);
+            Assert.IsEmpty(result);
         }
 
         [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_BottomAquitardLayerTopEqualToLevel_ReturnCollectionWithBottomAquitardLayer()
+        public void GetConsecutiveCoverageLayersBelowLevel_TwoCoverageLayersCompletelyBelowLevel_ReturnConsecutiveAquitardLayers()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquitard);
+            var profile = CreateTestProfile(testCaseTwoCoverage);
 
             // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(1.1);
-
-            // Assert
-            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(1) }, result);
-        }
-
-        [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_TwoConsecutiveAquitardLayersAndOneNonConsecutiveAquitardLayer_ReturnConsecutiveAquitardLayers()
-        {
-            // Setup
-            var profile = CreateTestProfile(testCaseTwoAquitardOneAquiferOneAquitard);
-
-            // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(1.5);
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.2);
 
             // Assert
             CollectionAssert.AreEqual(profile.Layers.Take(2), result);
         }
 
         [Test]
-        public void GetConsecutiveAquitardLayersBelowLevel_LevelBelowProfile_ReturnEmptyCollection()
+        public void GetConsecutiveCoverageLayersBelowLevel_TopmostCoverageLayerTopEqualToLevel_ReturnConsecutiveAquitardLayers()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquitard);
+            var profile = CreateTestProfile(testCaseTwoCoverage);
 
             // Call
-            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquitardLayersBelowLevel(-1.0);
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.1);
+
+            // Assert
+            CollectionAssert.AreEqual(profile.Layers.Take(2), result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayersBelowLevel_TopmostCoverageLayerTopPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverage);
+
+            // Call
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.0);
+
+            // Assert
+            CollectionAssert.AreEqual(profile.Layers.Take(2), result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayersBelowLevel_TopmostCoverageLayerCompletelyAboveLevel_ReturnCollectionWithoutTopmostAquitardLayer()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverage);
+
+            // Call
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(0.5);
+
+            // Assert
+            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(1) }, result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayersBelowLevel_BottomCoverageLayerTopEqualToLevel_ReturnCollectionWithBottomAquitardLayer()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverage);
+
+            // Call
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.1);
+
+            // Assert
+            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(1) }, result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayersBelowLevel_TwoConsecutiveCoverageLayersAndOneNonConsecutiveAquitardLayer_ReturnConsecutiveAquitardLayers()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageOneAquiferOneAquitard);
+
+            // Call
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.5);
+
+            // Assert
+            CollectionAssert.AreEqual(profile.Layers.Take(2), result);
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(0.8)]
+        [TestCase(0.5)]
+        public void GetConsecutiveCoverageLayersBelowLevel_NoCoverageLayerAtLevel_ReturnEmptyCollection(double level)
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverageOneAquiferOneAquitard);
+
+            // Call
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(level);
+
+            // Assert
+            Assert.IsEmpty(result);
+        }
+
+        [Test]
+        public void GetConsecutiveCoverageLayersBelowLevel_LevelBelowProfile_ReturnEmptyCollection()
+        {
+            // Setup
+            var profile = CreateTestProfile(testCaseTwoCoverage);
+
+            // Call
+            IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(-1.0);
 
             // Assert
             Assert.IsEmpty(result);

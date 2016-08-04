@@ -50,17 +50,15 @@ namespace Ringtoets.Piping.Service
         public static bool Validate(PipingCalculation calculation)
         {
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
+            CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
             var inputValidationResults = ValidateInput(calculation.InputParameters);
-
             if (inputValidationResults.Count > 0)
             {
                 CalculationServiceHelper.LogMessagesAsError(Resources.Error_in_piping_validation_0, inputValidationResults.ToArray());
                 CalculationServiceHelper.LogValidationEndTime(calculation.Name);
                 return false;
             }
-
-            CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
             var validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
             CalculationServiceHelper.LogMessagesAsError(Resources.Error_in_piping_validation_0, validationResults.ToArray());
@@ -166,19 +164,42 @@ namespace Ringtoets.Piping.Service
 
                 if (pipingSoilProfile != null)
                 {
-                    IEnumerable<PipingSoilLayer> consecutiveAquiferLayersBelowLevel = pipingSoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLevel).ToArray();
-                    IEnumerable<PipingSoilLayer> consecutiveAquitardLayersBelowLevel = pipingSoilProfile.GetConsecutiveAquitardLayersBelowLevel(surfaceLevel).ToArray();
+                    IEnumerable<PipingSoilLayer> consecutiveAquiferLayers = pipingSoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLevel).ToArray();
+                    IEnumerable<PipingSoilLayer> consecutiveCoverageLayers = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).ToArray();
 
-                    var hasAquiferLayers = consecutiveAquiferLayersBelowLevel.Any();
-                    var hasAquitardLayers = consecutiveAquitardLayersBelowLevel.Any();
+                    var hasAquiferLayers = consecutiveAquiferLayers.Any();
+                    var hasCoverageLayers = consecutiveCoverageLayers.Any();
 
                     if (!hasAquiferLayers)
                     {
                         validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_aquifer_layer_at_ExitPointL_under_SurfaceLine);
                     }
-                    if (!hasAquitardLayers || (hasAquiferLayers && consecutiveAquiferLayersBelowLevel.First().Top > consecutiveAquitardLayersBelowLevel.First().Top))
+                    if (!hasCoverageLayers)
                     {
                         validationResult.Add(Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine);
+                    }
+
+                    if (hasAquiferLayers)
+                    {
+                        if (double.IsNaN(inputParameters.DarcyPermeability.Mean)
+                            || double.IsNaN(inputParameters.DarcyPermeability.StandardDeviation))
+                        {
+                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derrive_DarcyPermeability);
+                        }
+                        if (double.IsNaN(inputParameters.Diameter70.Mean)
+                            || double.IsNaN(inputParameters.Diameter70.StandardDeviation))
+                        {
+                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derrive_Diameter70);
+                        }
+                    }
+                    if (hasCoverageLayers)
+                    {
+                        if (double.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean)
+                            || double.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation)
+                            || double.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift))
+                        {
+                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derrive_SaturatedVolumicWeight);
+                        }
                     }
                 }
             }
@@ -203,14 +224,15 @@ namespace Ringtoets.Piping.Service
                 var surfaceLevel = inputParameters.SurfaceLine.GetZAtL(exitPointL);
 
                 IEnumerable<PipingSoilLayer> consecutiveAquiferLayersBelowLevel = pipingSoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLevel);
-                IEnumerable<PipingSoilLayer> consecutiveAquitardLayersBelowLevel = pipingSoilProfile.GetConsecutiveAquitardLayersBelowLevel(surfaceLevel);
+                IEnumerable<PipingSoilLayer> consecutiveAquitardLayersBelowLevel = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel);
+
                 if (consecutiveAquiferLayersBelowLevel.Count() > 1)
                 {
-                    warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_values_for_DiameterD70_and_DarcyPermeability_taken_from_top_layer);
+                    warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer);
                 }
                 if (consecutiveAquitardLayersBelowLevel.Count() > 1)
                 {
-                    warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_values_for_saturated_weight_taken_as_weighted_mean_from_all_coverage_layers);
+                    warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination);
                 }
             }
 

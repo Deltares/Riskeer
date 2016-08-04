@@ -79,22 +79,49 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meerdere aaneengesloten watervoerende lagen gevonden. De definities voor de korrelgrootte en doorlatendheid van de bovenste watervoerende laag worden gebruikt in de berekening..
+        ///   Looks up a localized string similar to Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de korrelgrootte en doorlatendheid van de bovenste watervoerende laag af te leiden..
         /// </summary>
-        internal static string PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_values_for_DiameterD70_and_DarcyPermeability_taken_from_top_layer {
+        internal static string PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer {
             get {
-                return ResourceManager.GetString("PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_values_for_Diam" +
-                        "eterD70_and_DarcyPermeability_taken_from_top_layer", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_dete" +
+                        "rmine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meerdere aaneengesloten deklagen gevonden. Het gewogen gemiddelde van de definities voor het verzadigd gewicht van de deklagen wordt gebruikt in de berekening..
+        ///   Looks up a localized string similar to Meerdere aaneengesloten deklagen gevonden. Er wordt geprobeerd de gemiddelden van de definities voor het verzadigd gewicht van de deklagen te combineren..
         /// </summary>
-        internal static string PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_values_for_saturated_weight_taken_as_weighted_mean_from_all_coverage_layers {
+        internal static string PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination {
             get {
-                return ResourceManager.GetString("PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_values_for_sat" +
-                        "urated_weight_taken_as_weighted_mean_from_all_coverage_layers", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_det" +
+                        "ermine_value_from_combination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de definitie voor de doorlatendheid van de watervoerende laag niet (volledig) afleiden..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_Cannot_derrive_DarcyPermeability {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derrive_DarcyPermeability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de definitie voor het 70%-fraktiel van de korreldiameter van de watervoerende laag niet (volledig) afleiden..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_Cannot_derrive_Diameter70 {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derrive_Diameter70", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden..
+        /// </summary>
+        internal static string PipingCalculationService_ValidateInput_Cannot_derrive_SaturatedVolumicWeight {
+            get {
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derrive_SaturatedVolumicWeight", resourceCulture);
             }
         }
         

@@ -71,9 +71,18 @@ namespace Ringtoets.Piping.Data
         /// <param name="soilProfile">The soil profile containing <see cref="PipingSoilLayer"/> to consider.</param>
         /// <param name="level">The level under which the aquitard layers are sought.</param>
         /// <returns>The collection of consecutive aquitard layer(s) under the <paramref name="level"/>.</returns>
-        public static IEnumerable<PipingSoilLayer> GetConsecutiveAquitardLayersBelowLevel(this PipingSoilProfile soilProfile, double level)
+        public static IEnumerable<PipingSoilLayer> GetConsecutiveCoverageLayersBelowLevel(this PipingSoilProfile soilProfile, double level)
         {
-            return GetConsecutiveLayers(soilProfile, level, false);
+            var topAquiferLayer = soilProfile.GetConsecutiveAquiferLayersBelowLevel(level).FirstOrDefault();
+            if (topAquiferLayer != null)
+            {
+                var aquitardLayers = GetConsecutiveLayers(soilProfile, level, false).ToArray();
+                if (aquitardLayers.Any() && topAquiferLayer.Top < aquitardLayers.First().Top)
+                {
+                    return aquitardLayers;
+                }
+            }
+            return Enumerable.Empty<PipingSoilLayer>();
         }
 
         /// <summary>

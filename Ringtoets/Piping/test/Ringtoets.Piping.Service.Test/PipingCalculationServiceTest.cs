@@ -293,11 +293,12 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
-                Assert.AreEqual(5, msgs.Length);
+                Assert.AreEqual(6, msgs.Length);
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[3]);
+                StringAssert.StartsWith("Validatie mislukt: Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[4]);
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
@@ -310,6 +311,7 @@ namespace Ringtoets.Piping.Service.Test
             const string name = "<very nice name>";
             
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var random = new Random(21);
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
                 string.Empty,
                 0.0,
@@ -317,7 +319,11 @@ namespace Ringtoets.Piping.Service.Test
                 {
                     new PipingSoilLayer(2.0)
                     {
-                        IsAquifer = true
+                        IsAquifer = true,
+                        DiameterD70Deviation = random.NextDouble(),
+                        DiameterD70Mean = 0.1 + random.NextDouble(),
+                        PermeabilityDeviation = random.NextDouble(),
+                        PermeabilityMean = 0.1 + random.NextDouble()
                     }, 
                 }, 
                 SoilProfileType.SoilProfile1D, 
@@ -347,8 +353,9 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             const string name = "<very nice name>";
-            
+
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            var random = new Random(21);
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
                 string.Empty,
                 0.0,
@@ -360,7 +367,11 @@ namespace Ringtoets.Piping.Service.Test
                     },
                     new PipingSoilLayer(11.0)
                     {
-                        IsAquifer = true
+                        IsAquifer = true,
+                        DiameterD70Deviation = random.NextDouble(),
+                        DiameterD70Mean = 0.1 + random.NextDouble(),
+                        PermeabilityDeviation = random.NextDouble(),
+                        PermeabilityMean = 0.1 + random.NextDouble()
                     }, 
                 }, 
                 SoilProfileType.SoilProfile1D, 
@@ -383,6 +394,256 @@ namespace Ringtoets.Piping.Service.Test
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        [TestCase(false,false)]
+        [TestCase(false,true)]
+        [TestCase(true,false)]
+        public void Validate_CalculationWithIncompleteDiameterD70Definition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet)
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+
+            var random = new Random(21);
+            var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
+            {
+                IsAquifer = true,
+                PermeabilityDeviation = random.NextDouble(),
+                PermeabilityMean = 0.1 + random.NextDouble()
+            };
+            if (meanSet)
+            {
+                incompletePipingSoilLayer.DiameterD70Mean = 0.1 + random.NextDouble();
+            }
+            if (deviationSet)
+            {
+                incompletePipingSoilLayer.DiameterD70Deviation = random.NextDouble();
+            }
+
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
+                string.Empty,
+                0.0,
+                new[]
+                {
+                    new PipingSoilLayer(10.5)
+                    {
+                        IsAquifer = false,
+                        BelowPhreaticLevelDeviation = random.NextDouble(),
+                        BelowPhreaticLevelMean = 0.1 + random.NextDouble(),
+                        BelowPhreaticLevelShift = random.NextDouble()
+                    },
+                    incompletePipingSoilLayer
+                },
+                SoilProfileType.SoilProfile1D,
+                -1);
+            calculation.Name = name;
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Kan de definitie voor het 70%-fraktiel van de korreldiameter van de watervoerende laag niet (volledig) afleiden.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        [TestCase(false,false)]
+        [TestCase(false,true)]
+        [TestCase(true,false)]
+        public void Validate_CalculationWithIncompletePermeabilityDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet)
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+
+            var random = new Random(21);
+            var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
+            {
+                IsAquifer = true,
+                DiameterD70Deviation = random.NextDouble(),
+                DiameterD70Mean = 0.1 + random.NextDouble()
+            };
+            if (meanSet)
+            {
+                incompletePipingSoilLayer.PermeabilityMean = 0.1 + random.NextDouble();
+            }
+            if (deviationSet)
+            {
+                incompletePipingSoilLayer.PermeabilityDeviation = random.NextDouble();
+            }
+
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
+                string.Empty,
+                0.0,
+                new[]
+                {
+                    new PipingSoilLayer(10.5)
+                    {
+                        IsAquifer = false,
+                        BelowPhreaticLevelDeviation = random.NextDouble(),
+                        BelowPhreaticLevelMean = 0.1 + random.NextDouble(),
+                        BelowPhreaticLevelShift = random.NextDouble()
+                    },
+                    incompletePipingSoilLayer
+                },
+                SoilProfileType.SoilProfile1D,
+                -1);
+            calculation.Name = name;
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Kan de definitie voor de doorlatendheid van de watervoerende laag niet (volledig) afleiden.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        [TestCase(false,false,false)]
+        [TestCase(false,true,true)]
+        [TestCase(true,false,true)]
+        [TestCase(true,true,false)]
+        public void Validate_CalculationWithIncompletSaturatedVolumicWeightDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+
+            var random = new Random(21);
+            var incompletePipingSoilLayer = new PipingSoilLayer(10.5)
+            {
+                IsAquifer = false,
+            };
+            if (deviationSet)
+            {
+                incompletePipingSoilLayer.BelowPhreaticLevelDeviation = random.NextDouble();
+            }
+            if (shiftSet)
+            {
+                incompletePipingSoilLayer.BelowPhreaticLevelShift = random.NextDouble();
+            }
+            if (meanSet)
+            {
+                incompletePipingSoilLayer.BelowPhreaticLevelMean = 0.1 + incompletePipingSoilLayer.BelowPhreaticLevelShift + random.NextDouble();
+            }
+
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
+                string.Empty,
+                0.0,
+                new[]
+                {
+                    incompletePipingSoilLayer,
+                    new PipingSoilLayer(5.0)
+                    {
+                        IsAquifer = true,
+                        PermeabilityDeviation = random.NextDouble(),
+                        PermeabilityMean = 0.1 + random.NextDouble(),
+                        DiameterD70Deviation = random.NextDouble(),
+                        DiameterD70Mean = 0.1 + random.NextDouble()
+                    }
+                },
+                SoilProfileType.SoilProfile1D,
+                -1);
+            calculation.Name = name;
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Validatie mislukt: Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_CalculationWithMultipleCoverageLayer_LogsWarningAndReturnsTrue()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+
+            var random = new Random(21);
+            var belowPhreaticLevelDeviation = random.NextDouble();
+            var belowPhreaticLevelShift = random.NextDouble();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
+                string.Empty,
+                0.0,
+                new[]
+                {
+                    new PipingSoilLayer(10.5)
+                    {
+                        IsAquifer = false,
+                        BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
+                        BelowPhreaticLevelShift = belowPhreaticLevelShift,
+                        BelowPhreaticLevelMean = 0.1 + belowPhreaticLevelShift + random.NextDouble()
+                    },
+                    new PipingSoilLayer(8.5)
+                    {
+                        IsAquifer = false,
+                        BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
+                        BelowPhreaticLevelShift = belowPhreaticLevelShift,
+                        BelowPhreaticLevelMean = 0.1 + belowPhreaticLevelShift + random.NextDouble()
+                    },
+                    new PipingSoilLayer(5.0)
+                    {
+                        IsAquifer = true,
+                        PermeabilityDeviation = random.NextDouble(),
+                        PermeabilityMean = 0.1 + random.NextDouble(),
+                        DiameterD70Deviation = random.NextDouble(),
+                        DiameterD70Mean = 0.1 + random.NextDouble()
+                    }
+                },
+                SoilProfileType.SoilProfile1D,
+                -1);
+            calculation.Name = name;
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = PipingCalculationService.Validate(calculation);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith("Meerdere aaneengesloten deklagen gevonden. Er wordt geprobeerd de gemiddelden van de definities voor het verzadigd gewicht van de deklagen te combineren.", msgs[1]);
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+            Assert.IsTrue(isValid);
         }
 
         [Test]

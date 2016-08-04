@@ -340,27 +340,16 @@ namespace Ringtoets.Piping.Data
             PipingSoilProfile soilProfile = input.StochasticSoilProfile != null ? input.StochasticSoilProfile.SoilProfile : null;
             RoundedDouble exitPointL = input.ExitPointL;
 
-            var consecutiveCoverageLayers = new PipingSoilLayer[0];
-
             if (surfaceLine != null && soilProfile != null && !double.IsNaN(exitPointL))
             {
-                PipingSoilLayer topAquifer = soilProfile
-                    .GetConsecutiveAquiferLayersBelowLevel(surfaceLine.GetZAtL(exitPointL))
-                    .FirstOrDefault();
 
                 PipingSoilLayer[] consecutiveAquitardLayersBelowLevel = soilProfile
-                    .GetConsecutiveAquitardLayersBelowLevel(surfaceLine.GetZAtL(exitPointL))
+                    .GetConsecutiveCoverageLayersBelowLevel(surfaceLine.GetZAtL(exitPointL))
                     .ToArray();
 
-                if (topAquifer != null 
-                    && consecutiveAquitardLayersBelowLevel.Any()
-                    && topAquifer.Top < consecutiveAquitardLayersBelowLevel.First().Top)
-                {
-                    consecutiveCoverageLayers = consecutiveAquitardLayersBelowLevel;
-                }
+                return consecutiveAquitardLayersBelowLevel;
             }
-
-            return consecutiveCoverageLayers;
+            return new PipingSoilLayer[0];
         }
 
         private bool AlmostEquals(double a, double b)
