@@ -47,8 +47,7 @@ namespace Core.Common.Geometry
 
             try
             {
-                IGeometry intersection = polygonA.Intersection(polygonB);
-                return BuildSeparateAreasFromCoordinateList(intersection.Coordinates);
+                return BuildSeparateAreasFromCoordinateList(polygonA.Intersection(polygonB));
             }
             catch (TopologyException e)
             {
@@ -70,18 +69,27 @@ namespace Core.Common.Geometry
             return new Polygon(new LinearRing(coordinates));
         }
 
-        private static IEnumerable<Point2D[]> BuildSeparateAreasFromCoordinateList(Coordinate[] coordinates)
+        private static IEnumerable<Point2D[]> BuildSeparateAreasFromCoordinateList(IGeometry geometry)
         {
-            var areas = new List<Point2D[]>();
-            HashSet<Point2D> area = new HashSet<Point2D>();
-
-            foreach (var coordinate in coordinates)
+            var geometryCollection = geometry as GeometryCollection;
+            if (geometryCollection == null)
             {
-                var added = area.Add(new Point2D(coordinate.X, coordinate.Y));
-                if (!added)
+                if (geometry.Coordinates.Any())
                 {
-                    areas.Add(area.ToArray());
-                    area = new HashSet<Point2D>();
+                    return new[]
+                    {
+                        geometry.Coordinates.Distinct().Select(c => new Point2D(c.X, c.Y)).ToArray()
+                    };
+                }
+                return Enumerable.Empty<Point2D[]>();
+            }
+
+            var areas = new List<Point2D[]>();
+            if (!geometryCollection.IsEmpty)
+            {
+                for (int i = 0; i < geometry.NumGeometries; i++)
+                {
+                    areas = areas.Union(BuildSeparateAreasFromCoordinateList(geometryCollection[i])).ToList();
                 }
             }
             return areas;

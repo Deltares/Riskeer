@@ -134,7 +134,14 @@ namespace Core.Common.Geometry.Test
             IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
 
             // Assert
-            Assert.IsEmpty(intersections);
+            Assert.AreEqual(new []
+            {
+                new[]
+                {
+                    new Point2D(4, 4),
+                    new Point2D(4, 0)
+                }
+            }, intersections);
         }
 
         [Test]
@@ -156,7 +163,13 @@ namespace Core.Common.Geometry.Test
             IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
 
             // Assert
-            Assert.IsEmpty(intersections);
+            Assert.AreEqual(new[]
+            {
+                new[]
+                {
+                    new Point2D(4, 2)
+                }
+            }, intersections);
         }
 
         [Test]
@@ -196,6 +209,48 @@ namespace Core.Common.Geometry.Test
                 new Point2D(2,0),
                 new Point2D(2,1)
             }, intersections.ElementAt(1));
+        }
+
+        [Test]
+        public void PolygonIntersectionWithPolygon_IntersectsPolygonLineAndPoint_ReturnsTwoIntersections()
+        {
+            // Setup
+            var polyA = CreateBasePolygon();
+
+            var polyB = new[]
+            {
+                new Point2D(0, -2),
+                new Point2D(0, 5),
+                new Point2D(0.5, 5),
+                new Point2D(0.5, -1),
+                new Point2D(1.0, 0),
+                new Point2D(1.5, 0),
+                new Point2D(2.0, -1),
+                new Point2D(3.0, 0),
+                new Point2D(4.0, -2)
+            };
+
+            // Call
+            IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, intersections.Count());
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(3.0,0.0)
+            }, intersections.ElementAt(0));
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(1.5, 0.0),
+                new Point2D(1.0, 0.0)
+            }, intersections.ElementAt(1));
+            CollectionAssert.AreEqual(new []
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(0.0, 4.0),
+                new Point2D(0.5, 4.0),
+                new Point2D(0.5, 0.0)
+            }, intersections.ElementAt(2));
         }
 
         private static Point2D[] CreateBasePolygon()
