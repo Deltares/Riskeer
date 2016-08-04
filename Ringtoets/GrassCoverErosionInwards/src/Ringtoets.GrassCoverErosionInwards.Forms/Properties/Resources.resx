@@ -323,7 +323,7 @@
     <value>HBN [m+NAP]</value>
   </data>
   <data name="WorldReferencePoint_Description" xml:space="preserve">
-    <value>De coördinaten van de locatie in het Rijksdriehoeksstelsel.</value>
+    <value>De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel.</value>
   </data>
   <data name="WorldReferencePoint_DisplayName" xml:space="preserve">
     <value>Locatie (RD) [m]</value>

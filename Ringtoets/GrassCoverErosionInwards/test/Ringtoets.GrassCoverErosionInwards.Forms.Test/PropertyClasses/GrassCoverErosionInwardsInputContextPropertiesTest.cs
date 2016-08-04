@@ -217,7 +217,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
             Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
+            Assert.AreEqual("De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);

@@ -678,7 +678,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De coördinaten van de locatie in het Rijksdriehoeksstelsel..
+        ///   Looks up a localized string similar to De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel..
         /// </summary>
         public static string WorldReferencePoint_Description {
             get {
