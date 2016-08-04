@@ -49,15 +49,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> ExitPointL { get; set; }
         public Nullable<double> PhreaticLevelExitMean { get; set; }
         public Nullable<double> PhreaticLevelExitStandardDeviation { get; set; }
-        public Nullable<double> Diameter70Mean { get; set; }
-        public Nullable<double> Diameter70StandardDeviation { get; set; }
-        public Nullable<double> DarcyPermeabilityMean { get; set; }
-        public Nullable<double> DarcyPermeabilityStandardDeviation { get; set; }
         public Nullable<double> DampingFactorExitMean { get; set; }
         public Nullable<double> DampingFactorExitStandardDeviation { get; set; }
-        public Nullable<double> SaturatedVolumicWeightOfCoverageLayerMean { get; set; }
-        public Nullable<double> SaturatedVolumicWeightOfCoverageLayerStandardDeviation { get; set; }
-        public Nullable<double> SaturatedVolumicWeightOfCoverageLayerShift { get; set; }
         public byte RelevantForScenario { get; set; }
         public Nullable<double> ScenarioContribution { get; set; }
     

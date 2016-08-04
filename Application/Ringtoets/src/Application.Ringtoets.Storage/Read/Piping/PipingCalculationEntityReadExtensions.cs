@@ -100,13 +100,6 @@ namespace Application.Ringtoets.Storage.Read.Piping
             inputParameters.PhreaticLevelExit.StandardDeviation = (RoundedDouble)entity.PhreaticLevelExitStandardDeviation.ToNullAsNaN();
             inputParameters.DampingFactorExit.Mean = (RoundedDouble)entity.DampingFactorExitMean.ToNullAsNaN();
             inputParameters.DampingFactorExit.StandardDeviation = (RoundedDouble)entity.DampingFactorExitStandardDeviation.ToNullAsNaN();
-            inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean = (RoundedDouble)entity.SaturatedVolumicWeightOfCoverageLayerMean.ToNullAsNaN();
-            inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation = (RoundedDouble)entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation.ToNullAsNaN();
-            inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift = (RoundedDouble)entity.SaturatedVolumicWeightOfCoverageLayerShift.ToNullAsNaN();
-            inputParameters.Diameter70.Mean = (RoundedDouble)entity.Diameter70Mean.ToNullAsNaN();
-            inputParameters.Diameter70.StandardDeviation = (RoundedDouble)entity.Diameter70StandardDeviation.ToNullAsNaN();
-            inputParameters.DarcyPermeability.Mean = (RoundedDouble)entity.DarcyPermeabilityMean.ToNullAsNaN();
-            inputParameters.DarcyPermeability.StandardDeviation = (RoundedDouble)entity.DarcyPermeabilityStandardDeviation.ToNullAsNaN();
         }
     }
 }

@@ -91,16 +91,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
             entity.DampingFactorExitMean = inputParameters.DampingFactorExit.Mean.Value.ToNaNAsNull();
             entity.DampingFactorExitStandardDeviation = inputParameters.DampingFactorExit.StandardDeviation.Value.ToNaNAsNull();
-
-            entity.SaturatedVolumicWeightOfCoverageLayerMean = inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.Value.ToNaNAsNull();
-            entity.SaturatedVolumicWeightOfCoverageLayerStandardDeviation = inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value.ToNaNAsNull();
-            entity.SaturatedVolumicWeightOfCoverageLayerShift = inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.Value.ToNaNAsNull();
-
-            entity.Diameter70Mean = inputParameters.Diameter70.Mean.Value.ToNaNAsNull();
-            entity.Diameter70StandardDeviation = inputParameters.Diameter70.StandardDeviation.Value.ToNaNAsNull();
-
-            entity.DarcyPermeabilityMean = inputParameters.DarcyPermeability.Mean.Value.ToNaNAsNull();
-            entity.DarcyPermeabilityStandardDeviation = inputParameters.DarcyPermeability.StandardDeviation.Value.ToNaNAsNull();
         }
 
         private static void CreatePipingOutputEntity(PipingCalculationEntity entity, PipingOutput output, PersistenceRegistry registry)

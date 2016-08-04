@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Branch_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -247,15 +247,8 @@
           <Property Name="ExitPointL" Type="real" />
           <Property Name="PhreaticLevelExitMean" Type="real" />
           <Property Name="PhreaticLevelExitStandardDeviation" Type="real" />
-          <Property Name="Diameter70Mean" Type="real" />
-          <Property Name="Diameter70StandardDeviation" Type="real" />
-          <Property Name="DarcyPermeabilityMean" Type="real" />
-          <Property Name="DarcyPermeabilityStandardDeviation" Type="real" />
           <Property Name="DampingFactorExitMean" Type="real" />
           <Property Name="DampingFactorExitStandardDeviation" Type="real" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerMean" Type="real" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" Type="real" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerShift" Type="real" />
           <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
           <Property Name="ScenarioContribution" Type="real" />
         </EntityType>
@@ -1746,15 +1739,8 @@
           <Property Name="ExitPointL" Type="Double" />
           <Property Name="PhreaticLevelExitMean" Type="Double" />
           <Property Name="PhreaticLevelExitStandardDeviation" Type="Double" />
-          <Property Name="Diameter70Mean" Type="Double" />
-          <Property Name="Diameter70StandardDeviation" Type="Double" />
-          <Property Name="DarcyPermeabilityMean" Type="Double" />
-          <Property Name="DarcyPermeabilityStandardDeviation" Type="Double" />
           <Property Name="DampingFactorExitMean" Type="Double" />
           <Property Name="DampingFactorExitStandardDeviation" Type="Double" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerMean" Type="Double" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" Type="Double" />
-          <Property Name="SaturatedVolumicWeightOfCoverageLayerShift" Type="Double" />
           <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
           <Property Name="ScenarioContribution" Type="Double" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_5_0" FromRole="PipingCalculationEntity" ToRole="CalculationGroupEntity" />
@@ -2780,15 +2766,8 @@
               <MappingFragment StoreEntitySet="PipingCalculationEntity">
                 <ScalarProperty Name="ScenarioContribution" ColumnName="ScenarioContribution" />
                 <ScalarProperty Name="RelevantForScenario" ColumnName="RelevantForScenario" />
-                <ScalarProperty Name="SaturatedVolumicWeightOfCoverageLayerShift" ColumnName="SaturatedVolumicWeightOfCoverageLayerShift" />
-                <ScalarProperty Name="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" ColumnName="SaturatedVolumicWeightOfCoverageLayerStandardDeviation" />
-                <ScalarProperty Name="SaturatedVolumicWeightOfCoverageLayerMean" ColumnName="SaturatedVolumicWeightOfCoverageLayerMean" />
                 <ScalarProperty Name="DampingFactorExitStandardDeviation" ColumnName="DampingFactorExitStandardDeviation" />
                 <ScalarProperty Name="DampingFactorExitMean" ColumnName="DampingFactorExitMean" />
-                <ScalarProperty Name="DarcyPermeabilityStandardDeviation" ColumnName="DarcyPermeabilityStandardDeviation" />
-                <ScalarProperty Name="DarcyPermeabilityMean" ColumnName="DarcyPermeabilityMean" />
-                <ScalarProperty Name="Diameter70StandardDeviation" ColumnName="Diameter70StandardDeviation" />
-                <ScalarProperty Name="Diameter70Mean" ColumnName="Diameter70Mean" />
                 <ScalarProperty Name="PhreaticLevelExitStandardDeviation" ColumnName="PhreaticLevelExitStandardDeviation" />
                 <ScalarProperty Name="PhreaticLevelExitMean" ColumnName="PhreaticLevelExitMean" />
                 <ScalarProperty Name="ExitPointL" ColumnName="ExitPointL" />

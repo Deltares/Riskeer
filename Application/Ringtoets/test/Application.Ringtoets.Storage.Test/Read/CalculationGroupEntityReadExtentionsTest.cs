@@ -188,9 +188,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Order = 0,
                         Name = "1",
                         DampingFactorExitMean = 1,
-                        SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                        Diameter70Mean = 1,
-                        DarcyPermeabilityMean = 1
                     },
                     new PipingCalculationEntity
                     {
@@ -198,9 +195,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Order = 1,
                         Name = "2",
                         DampingFactorExitMean = 2,
-                        SaturatedVolumicWeightOfCoverageLayerMean = 2,
-                        Diameter70Mean = 2,
-                        DarcyPermeabilityMean = 2
                     }
                 }
             };
@@ -240,9 +234,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Order = 0,
                         Name = "calculation1",
                         DampingFactorExitMean = 1,
-                        SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                        Diameter70Mean = 1,
-                        DarcyPermeabilityMean = 1
                     },
                     new PipingCalculationEntity
                     {
@@ -250,9 +241,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Order = 2,
                         Name = "calculation2",
                         DampingFactorExitMean = 2,
-                        SaturatedVolumicWeightOfCoverageLayerMean = 2,
-                        Diameter70Mean = 2,
-                        DarcyPermeabilityMean = 2
                     }
                 },
                 CalculationGroupEntity1 =

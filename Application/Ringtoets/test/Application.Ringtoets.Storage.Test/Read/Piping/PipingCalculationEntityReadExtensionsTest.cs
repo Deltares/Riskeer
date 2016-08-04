@@ -77,13 +77,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 PhreaticLevelExitStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
                 DampingFactorExitMean = GetRandomNullableDoubleInRange(random, 1e-6, 9999.99),
                 DampingFactorExitStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
-                SaturatedVolumicWeightOfCoverageLayerMean = GetRandomNullableDoubleInRange(random, 10.0, 9999.99),
-                SaturatedVolumicWeightOfCoverageLayerStandardDeviation = GetRandomNullableDoubleInRange(random, 0, 9999.99),
-                SaturatedVolumicWeightOfCoverageLayerShift = GetRandomNullableDoubleInRange(random, -9999.99, 10.0),
-                Diameter70Mean = GetRandomNullableDoubleInRange(random, 1e-6, 9999.99),
-                Diameter70StandardDeviation = GetRandomNullableDoubleInRange(random, 0.0, 9999.99),
-                DarcyPermeabilityMean = GetRandomNullableDoubleInRange(random, 1e-6, 9999.99),
-                DarcyPermeabilityStandardDeviation = GetRandomNullableDoubleInRange(random, 0.0, 9999.99)
             };
 
             var collector = new ReadConversionCollector();
@@ -143,9 +136,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                Diameter70Mean = 1,
-                DarcyPermeabilityMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -182,9 +172,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                Diameter70Mean = 1,
-                DarcyPermeabilityMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -210,9 +197,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                Diameter70Mean = 1,
-                DarcyPermeabilityMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -241,9 +225,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                Diameter70Mean = 1,
-                DarcyPermeabilityMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -275,9 +256,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                Diameter70Mean = 1,
-                DarcyPermeabilityMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -325,9 +303,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                Diameter70Mean = 1,
-                DarcyPermeabilityMean = 1
             };
 
             var collector = new ReadConversionCollector();
@@ -352,9 +327,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                Diameter70Mean = 1,
-                DarcyPermeabilityMean = 1,
                 PipingCalculationOutputEntity = new PipingCalculationOutputEntity
                 {
                     PipingCalculationOutputEntityId = outputId
@@ -381,9 +353,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                SaturatedVolumicWeightOfCoverageLayerMean = 1,
-                Diameter70Mean = 1,
-                DarcyPermeabilityMean = 1,
                 PipingSemiProbabilisticOutputEntity = new PipingSemiProbabilisticOutputEntity
                 {
                     PipingSemiProbabilisticOutputEntityId = outputId
