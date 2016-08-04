@@ -33,16 +33,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Call
-            var norm = 10000;
+            // Setup
+            const int norm = 10000;
+            const int sectionId = 1;
+            const long hydraulicBoundaryLocationId = 1234;
             var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, 1, norm);
+
+            // Call
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
 
             // Assert
             Assert.AreEqual(HydraRingFailureMechanismType.AssessmentLevel, assessmentLevelCalculationInput.FailureMechanismType);
             Assert.AreEqual(2, assessmentLevelCalculationInput.CalculationTypeId);
             Assert.AreEqual(26, assessmentLevelCalculationInput.VariableId);
-            Assert.AreEqual(1, assessmentLevelCalculationInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, assessmentLevelCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(assessmentLevelCalculationInput.Section);
             Assert.AreEqual(1, assessmentLevelCalculationInput.Variables.Count());
             CollectionAssert.IsEmpty(assessmentLevelCalculationInput.ProfilePoints);
@@ -51,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(expectedBeta, assessmentLevelCalculationInput.Beta);
 
             var hydraRingSection = assessmentLevelCalculationInput.Section;
-            Assert.AreEqual(1, hydraRingSection.SectionId);
+            Assert.AreEqual(sectionId, hydraRingSection.SectionId);
             Assert.IsNaN(hydraRingSection.SectionLength);
             Assert.IsNaN(hydraRingSection.CrossSectionNormal);
 
