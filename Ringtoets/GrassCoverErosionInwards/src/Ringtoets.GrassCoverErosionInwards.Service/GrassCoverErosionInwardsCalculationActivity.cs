@@ -29,7 +29,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.Calculation.Activities;
-
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
@@ -90,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         protected override void OnRun()
         {
-            FailureMechanismSection failureMechanismSection = 
+            FailureMechanismSection failureMechanismSection =
                 GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.SectionResults, calculation);
 
             PerformRun(() => GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection),
@@ -117,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                                   assessmentSection,
                                                                                                   hlcdDirectory,
                                                                                                   failureMechanismSection,
-                                                                                                  failureMechanismSection.Name, // TODO : Provide name of reference line instead
+                                                                                                  assessmentSection.Id,
                                                                                                   failureMechanism.GeneralInput);
                            }
 
