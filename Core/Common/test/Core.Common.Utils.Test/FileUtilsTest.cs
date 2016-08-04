@@ -143,5 +143,73 @@ namespace Core.Common.Utils.Test
             // Assert
             Assert.IsFalse(valid);
         }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void DeleteOldFiles_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
+        {
+            // Call
+            TestDelegate call = () => FileUtils.DeleteOldFiles(invalidPath,"",0);
+
+            // Assert
+            string invalidParameterName = Assert.Throws<ArgumentException>(call).ParamName;
+            Assert.AreEqual("path", invalidParameterName);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        public void DeleteOldFiles_PathDoesNotExist_ThrowsArgumentException(string invalidSearchPattern)
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+
+            // Call
+            TestDelegate call = () => FileUtils.DeleteOldFiles(path, invalidSearchPattern, 0);
+
+            // Assert
+            string invalidParameterName = Assert.Throws<ArgumentException>(call).ParamName;
+            Assert.AreEqual("searchPattern", invalidParameterName);
+        }
+        
+        [Test]
+        public void DeleteOldFiles_PathDoesNotExist_ThrowsIOException()
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils, "doesNotExist");
+
+            // Precondition
+            Assert.IsFalse(Directory.Exists(path));
+
+            // Call
+            TestDelegate call = () => FileUtils.DeleteOldFiles(path, "*.log", 0);
+
+            // Assert
+            IOException exception = Assert.Throws<IOException>(call);
+            var message = string.Format("Er is een fout opgetreden bij het verwijderen van bestanden in de map '{0}'.", path);
+            Assert.AreEqual(message, exception.Message);
+            Assert.IsInstanceOf<IOException>(exception.InnerException);
+        }
+        
+        [Test]
+        public void DeleteOldFiles_ValidPathWithFile_DeletesFile()
+        {
+            // Setup
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
+            var filePath = Path.Combine(path, "fileToDelete.log");
+
+            using (new FileDisposeHelper(filePath))
+            {
+
+                // Call
+                FileUtils.DeleteOldFiles(path, "*.log", 0);
+
+                // Assert
+                Assert.IsFalse(File.Exists(filePath));
+            }
+        }
     }
 }

@@ -185,40 +185,15 @@ namespace Application.Ringtoets
         /// </summary>
         private void DeleteOldLogFiles()
         {
-            string settingsDirectory = GetLogFileDirectory();
-            if (string.IsNullOrWhiteSpace(settingsDirectory))
-            {
-                return;
-            }
-            foreach (string logFile in Directory.GetFiles(settingsDirectory, "*.log"))
-            {
-                if ((DateTime.Now - File.GetCreationTime(logFile)).TotalDays > numberOfDaysToKeepLogFiles)
-                {
-                    File.Delete(logFile);
-                }
-            }
-        }
-
-        private string GetLogFileDirectory()
-        {
-            var fileAppender = LogManager.GetAllRepositories()
-                                         .SelectMany(r => r.GetAppenders())
-                                         .OfType<FileAppender>()
-                                         .FirstOrDefault();
-            if (fileAppender == null)
-            {
-                return string.Empty;
-            }
-
             try
             {
-                return Path.GetDirectoryName(fileAppender.File);
+                FileUtils.DeleteOldFiles(GetLogFileDirectory(), "*.log", numberOfDaysToKeepLogFiles);
             }
-            catch (Exception exception)
+            catch (Exception e)
             {
-                if (exception is ArgumentException || exception is PathTooLongException)
+                if (e is ArgumentException || e is IOException)
                 {
-                    return string.Empty;
+                    return;
                 }
                 throw;
             }
@@ -413,6 +388,20 @@ namespace Application.Ringtoets
                 Thread.CurrentThread.CurrentUICulture = cultureInfo;
                 Thread.CurrentThread.CurrentCulture = cultureInfo;
             }
+        }
+
+        private static string GetLogFileDirectory()
+        {
+            var fileAppender = LogManager.GetAllRepositories()
+                                         .SelectMany(r => r.GetAppenders())
+                                         .OfType<FileAppender>()
+                                         .FirstOrDefault();
+            if (fileAppender == null || string.IsNullOrWhiteSpace(fileAppender.File))
+            {
+                return string.Empty;
+            }
+
+            return Path.GetDirectoryName(fileAppender.File);
         }
     }
 }

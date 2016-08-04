@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
 
@@ -93,6 +94,45 @@ namespace Core.Common.Utils
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Searches the files in <paramref name="path"/> that match <paramref name="searchPattern"/> and 
+        /// deletes the files older than <paramref name="numberOfDaysToKeepFiles"/> days.
+        /// </summary>
+        /// <param name="path">The directory to search.</param>
+        /// <param name="searchPattern">The search string to match against the names of files in path.</param>
+        /// <param name="numberOfDaysToKeepFiles">The maximum number days since the creation of the file.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> of <paramref name="searchPattern"/> is <c>null</c>, is a zero-length string, 
+        /// contains only white space, or contains one or more invalid characters.</exception>
+        /// <exception cref="IOException">Thrown when an error occured trying to search and delete files in <paramref name="path"/>.</exception>
+        public static void DeleteOldFiles(string path, string searchPattern, int numberOfDaysToKeepFiles)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentException(@"No valid value for 'path'.", "path");
+            }
+            if (string.IsNullOrWhiteSpace(searchPattern))
+            {
+                throw new ArgumentException(@"No valid value for 'searchPattern'.", "searchPattern");
+            }
+            try
+            {
+                foreach (string logFile in Directory.GetFiles(path, searchPattern).Where(
+                    l => (DateTime.Now - File.GetCreationTime(l)).TotalDays > numberOfDaysToKeepFiles))
+                {
+                    File.Delete(logFile);
+                }
+            }
+            catch (Exception e)
+            {
+                if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
+                {
+                    var message = string.Format(Resources.FileUtils_DeleteOldFiles_Error_occured_deleting_files_in_folder_0, path);
+                    throw new IOException(message, e);
+                }
+                throw;
+            }
         }
     }
 }

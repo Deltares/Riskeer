@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Gui.Settings
@@ -30,6 +31,8 @@ namespace Core.Common.Gui.Settings
     /// </summary>
     public static class SettingsHelper
     {
+        private static readonly string localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
         /// <summary>
         /// Initializes the <see cref="SettingsHelper"/> static properties.
         /// </summary>
@@ -56,16 +59,27 @@ namespace Core.Common.Gui.Settings
         /// </summary>
         /// <param name="postfix">The postfix path to use after the local application data folder (if any).</param>
         /// <returns>Directory path where the user settings can be found.</returns>
+        /// <exception cref="IOException">Thown when the application local user settings directory could not be created.</exception>
         public static string GetApplicationLocalUserSettingsDirectory(string postfix)
         {
-            var localSettingsDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             var appSettingsDirectoryPath = string.IsNullOrWhiteSpace(postfix) ? localSettingsDirectoryPath : Path.Combine(localSettingsDirectoryPath, postfix);
 
             if (!Directory.Exists(appSettingsDirectoryPath))
             {
-                Directory.CreateDirectory(appSettingsDirectoryPath);
+                try
+                {
+                    Directory.CreateDirectory(appSettingsDirectoryPath);
+                }
+                catch (Exception e)
+                {
+                    if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
+                    {
+                        var message = string.Format(Resources.SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_created, appSettingsDirectoryPath);
+                        throw new IOException(message, e);
+                    }
+                    throw;
+                }
             }
-
             return appSettingsDirectoryPath;
         }
     }

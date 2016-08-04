@@ -568,4 +568,7 @@
   <data name="Ribbon_TabItem_Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="SettingsHelper_GetApplicationLocalUserSettingsDirectory_Folder_0_Cannot_be_created" xml:space="preserve">
+    <value>De map '{0}' kan niet aangemaakt worden.</value>
+  </data>
 </root>
