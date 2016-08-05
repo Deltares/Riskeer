@@ -76,9 +76,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsSetName()
         {
-            // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
@@ -89,15 +86,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Toetspeil", text);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnsGenericIcon()
         {
-            // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
@@ -108,15 +101,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CanRenameNode_Always_ReturnsFalse()
         {
-            // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
@@ -127,7 +116,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.IsFalse(renameAllowed);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -200,7 +188,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
                 }
             }
-            
+
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -237,7 +225,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
                 }
             }
-            
+
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -301,7 +289,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasNoReferenceLine_ReturnDisabledColor()
+        public void ForeColor_ContextHasNoHydraulicBoundaryDatabase_ReturnDisabledColor()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -323,7 +311,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasReferenceLineData_ReturnControlText()
+        public void ForeColor_ContextHasHydraulicBoundaryDatabaseData_ReturnControlText()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -344,7 +332,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             }
             mocks.VerifyAll();
         }
-        
+
         private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DesignWaterLevelContext));

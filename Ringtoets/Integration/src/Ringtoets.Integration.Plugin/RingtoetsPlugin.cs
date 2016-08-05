@@ -448,6 +448,17 @@ namespace Ringtoets.Integration.Plugin
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = DesignWaterLevelContextMenuStrip
             };
+            
+            yield return new TreeNodeInfo<WaveHeightContext>
+            {
+                Text = designWaterLevel => RingtoetsFormsResources.WaveHeightContext_DisplayName,
+                Image = designWaterLevel => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CanRename = (context, o) => false,
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
+                                           Color.FromKnownColor(KnownColor.GrayText) :
+                                           Color.FromKnownColor(KnownColor.ControlText),
+                ContextMenuStrip = WaveHeightContextMenuStrip
+            };
 
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
@@ -966,7 +977,8 @@ namespace Ringtoets.Integration.Plugin
         {
             return new object[]
             {
-                new DesignWaterLevelContext(nodeData.WrappedData)
+                new DesignWaterLevelContext(nodeData.WrappedData),
+                new WaveHeightContext(nodeData.WrappedData)
             };
         }
 
@@ -1002,6 +1014,27 @@ namespace Ringtoets.Integration.Plugin
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(designWaterLevelItem)
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        private ContextMenuStrip WaveHeightContextMenuStrip(WaveHeightContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var waveHeightItem = new StrictContextMenuItem(
+                RingtoetsFormsResources.WaveHeight_Calculate,
+                RingtoetsFormsResources.WaveHeight_Calculate_ToolTip,
+                RingtoetsCommonFormsResources.FailureMechanismIcon,
+                null);
+
+            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+            {
+                waveHeightItem.Enabled = false;
+                waveHeightItem.ToolTipText = RingtoetsFormsResources.WaveHeight_No_HRD_To_Calculate;
+            }
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCustomItem(waveHeightItem)
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();

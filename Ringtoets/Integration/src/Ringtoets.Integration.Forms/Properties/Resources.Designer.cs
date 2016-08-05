@@ -627,5 +627,41 @@ namespace Ringtoets.Integration.Forms.Properties {
                 return ResourceManager.GetString("SelectHydraulicBoundaryDatabaseFile_Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Berekenen.
+        /// </summary>
+        public static string WaveHeight_Calculate {
+            get {
+                return ResourceManager.GetString("WaveHeight_Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bereken de golfhoogtes.
+        /// </summary>
+        public static string WaveHeight_Calculate_ToolTip {
+            get {
+                return ResourceManager.GetString("WaveHeight_Calculate_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes te berekenen..
+        /// </summary>
+        public static string WaveHeight_No_HRD_To_Calculate {
+            get {
+                return ResourceManager.GetString("WaveHeight_No_HRD_To_Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogtes.
+        /// </summary>
+        public static string WaveHeightContext_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveHeightContext_DisplayName", resourceCulture);
+            }
+        }
     }
 }

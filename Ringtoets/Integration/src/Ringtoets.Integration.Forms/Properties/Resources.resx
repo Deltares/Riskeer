@@ -305,4 +305,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="DesignWaterLevel_DisplayName" xml:space="preserve">
     <value>Toetspeil</value>
   </data>
+  <data name="WaveHeightContext_DisplayName" xml:space="preserve">
+    <value>Golfhoogtes</value>
+  </data>
+  <data name="WaveHeight_No_HRD_To_Calculate" xml:space="preserve">
+    <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes te berekenen.</value>
+  </data>
+  <data name="WaveHeight_Calculate" xml:space="preserve">
+    <value>&amp;Berekenen</value>
+  </data>
+  <data name="WaveHeight_Calculate_ToolTip" xml:space="preserve">
+    <value>Bereken de golfhoogtes</value>
+  </data>
 </root>

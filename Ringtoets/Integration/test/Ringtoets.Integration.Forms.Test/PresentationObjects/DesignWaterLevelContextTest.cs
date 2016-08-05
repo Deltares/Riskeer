@@ -28,7 +28,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseContextTest
+    public class DesignWaterLevelContextTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -39,12 +39,12 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
+            var presentationObject = new DesignWaterLevelContext(assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
             Assert.AreSame(assessmentSectionMock, presentationObject.WrappedData);
             mockRepository.VerifyAll();
-        }
+        }  
     }
 }
