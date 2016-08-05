@@ -156,8 +156,10 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var entity = CreateAssessmentSectionEntity();
-            var entityId = new Random(21).Next(1, 502);
-            var parameterA = new Random(21).NextDouble()/10;
+            var random = new Random(21);
+            var entityId = random.Next(1, 502);
+            var parameterA = random.NextDouble()/10;
+            var parameterUpliftCriticalSafetyFactor = random.NextDouble() + 0.1;
             const string comments = "Some text";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -174,7 +176,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new PipingFailureMechanismMetaEntity
                     {
-                        A = parameterA
+                        A = parameterA,
+                        UpliftCriticalSafetyFactor = parameterUpliftCriticalSafetyFactor
                     }
                 }
             };

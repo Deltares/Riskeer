@@ -166,6 +166,6 @@
     <value>Het gespecificeerde punt moet op het profiel liggen (bereik [{0}, {1}]).</value>
   </data>
   <data name="PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_range_zero_and_fifty" xml:space="preserve">
-    <value>Kritieke veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen.</value>
+    <value>Kritische veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen.</value>
   </data>
 </root>

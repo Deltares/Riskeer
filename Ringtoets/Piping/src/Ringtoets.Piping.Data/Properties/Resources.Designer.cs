@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritieke veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen..
+        ///   Looks up a localized string similar to Kritische veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen..
         /// </summary>
         public static string PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_range_zero_and_fifty {
             get {

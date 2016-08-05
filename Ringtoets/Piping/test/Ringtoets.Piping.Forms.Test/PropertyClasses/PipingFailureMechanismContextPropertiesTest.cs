@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -271,13 +273,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             failureMechanism.Attach(observerMock);
-            var value = new Random(21).NextDouble();
+            var value = new Random(21).NextDouble() + 0.1;
 
             // Call
-            properties.UpliftCriticalSafetyFactor = value;
+            properties.UpliftCriticalSafetyFactor = (RoundedDouble) value;
 
             // Assert
-            Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor);
+            var upliftCriticalSafetyFactor = failureMechanism.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor;
+            Assert.AreEqual(value, upliftCriticalSafetyFactor, upliftCriticalSafetyFactor.GetAccuracy());
             mocks.VerifyAll();
         }
     }

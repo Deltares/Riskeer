@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("Kritieke veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen.", exception.Message);
+            Assert.AreEqual("Kritische veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen.", exception.Message);
         }
 
         [Test]
