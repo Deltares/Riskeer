@@ -43,10 +43,10 @@ namespace Ringtoets.HydraRing.Data.Test
         public void Constructor_ValidParameters_PropertiesAsExpected()
         {
             // Setup
-            long id = 1234L;
-            string name = "<some name>";
-            double x = 567.0;
-            double y = 890.0;
+            const long id = 1234L;
+            const string name = "<some name>";
+            const double x = 567.0;
+            const double y = 890.0;
 
             // Call
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
@@ -60,20 +60,25 @@ namespace Ringtoets.HydraRing.Data.Test
             Assert.IsInstanceOf<Point2D>(location);
             Assert.AreEqual(x, location.X);
             Assert.AreEqual(y, location.Y);
+            Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
         }
 
         [Test]
         public void Properties_ValidParameters_PropertiesAsExpected()
         {
             // Setup
-            double designWaterLevel = 741.0;
+            const double designWaterLevel = 741.0;
+            const double waveHeight = 132.0;
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0, 0);
 
             // Call
             hydraulicBoundaryLocation.DesignWaterLevel = designWaterLevel;
+            hydraulicBoundaryLocation.WaveHeight = waveHeight;
 
             // Assert
             Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight);
         }
 
         [Test]

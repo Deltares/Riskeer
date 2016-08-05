@@ -49,6 +49,7 @@ namespace Ringtoets.HydraRing.Data
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
             DesignWaterLevel = double.NaN;
+            WaveHeight = double.NaN;
         }
 
         /// <summary>
@@ -70,6 +71,11 @@ namespace Ringtoets.HydraRing.Data
         /// Gets the design water level of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         public double DesignWaterLevel { get; set; }
+
+        /// <summary>
+        /// Gets the wave height of <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        public double WaveHeight { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the storage of the class.
