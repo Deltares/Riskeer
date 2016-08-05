@@ -214,6 +214,7 @@ CREATE TABLE 'HydraulicLocationEntity'
 	'LocationX' REAL,
 	'LocationY' REAL,
 	'DesignWaterLevel' REAL,
+	'WaveHeight' REAL,
 	CONSTRAINT 'FK_HydraulicLocationEntity_AssessmentSectionEntity' FOREIGN KEY ('AssessmentSectionEntityId') REFERENCES 'AssessmentSectionEntity' ('AssessmentSectionEntityId') ON DELETE Cascade ON UPDATE Cascade
 )
 ;

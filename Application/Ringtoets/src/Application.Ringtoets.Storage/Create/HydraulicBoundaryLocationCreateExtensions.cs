@@ -54,7 +54,8 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name,
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
-                DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel
+                DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel,
+                WaveHeight = double.IsNaN(location.WaveHeight) ? (double?)null : location.WaveHeight
             };
 
             registry.Register(entity, location);

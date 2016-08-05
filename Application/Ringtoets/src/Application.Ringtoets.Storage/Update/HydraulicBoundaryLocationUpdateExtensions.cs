@@ -65,6 +65,7 @@ namespace Application.Ringtoets.Storage.Update
             entity.LocationX = location.Location.X.ToNaNAsNull();
             entity.LocationY = location.Location.Y.ToNaNAsNull();
             entity.DesignWaterLevel = location.DesignWaterLevel.ToNaNAsNull();
+            entity.WaveHeight = location.WaveHeight.ToNaNAsNull();
 
             registry.Register(entity, location);
         }

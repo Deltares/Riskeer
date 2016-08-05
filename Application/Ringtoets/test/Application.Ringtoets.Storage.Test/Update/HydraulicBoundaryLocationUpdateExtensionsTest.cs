@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -36,7 +35,7 @@ namespace Application.Ringtoets.Storage.Test.Update
     public class HydraulicBoundaryLocationUpdateExtensionsTest
     {
         [Test]
-        public void Update_WithoutContext_ArgumentNullException()
+        public void Update_WithoutContext_ThrowsArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -50,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_WithoutPersistenceRegistry_ArgumentNullException()
+        public void Update_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -70,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoHydraulicBoundaryLocation_EntityNotFoundException()
+        public void Update_ContextWithNoHydraulicBoundaryLocation_ThrowsEntityNotFoundException()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -91,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Update
         }
 
         [Test]
-        public void Update_ContextWithNoNoHydraulicBoundaryLocationWithId_EntityNotFoundException()
+        public void Update_ContextWithNoNoHydraulicBoundaryLocationWithId_ThrowsEntityNotFoundException()
         {
             // Setup
             MockRepository mocks = new MockRepository();
@@ -136,17 +135,20 @@ namespace Application.Ringtoets.Storage.Test.Update
             long newId = 2;
             string newName = "newName";
             double newDesignWaterLevel = random.NextDouble() * 10;
+            double newWaveHeight = random.NextDouble() * 10;
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(newId, newName, newX, newY)
             {
                 StorageId = 1,
-                DesignWaterLevel = newDesignWaterLevel
+                DesignWaterLevel = newDesignWaterLevel,
+                WaveHeight = newWaveHeight
             };
 
             var hydraulicLocationEntity = new HydraulicLocationEntity
             {
                 HydraulicLocationEntityId = 1,
                 DesignWaterLevel = 10,
+                WaveHeight = 10,
                 LocationId = 2,
                 LocationX = -3.2,
                 LocationY = -3.5
@@ -163,6 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(newX, hydraulicLocationEntity.LocationX, 1e-6);
             Assert.AreEqual(newY, hydraulicLocationEntity.LocationY, 1e-6);
             Assert.AreEqual(newDesignWaterLevel, hydraulicLocationEntity.DesignWaterLevel, 1e-6);
+            Assert.AreEqual(newWaveHeight, hydraulicLocationEntity.WaveHeight, 1e-6);
 
             mocks.VerifyAll();
         }

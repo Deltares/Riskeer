@@ -668,6 +668,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
             Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
             Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevel, actualBoundaryLocation.DesignWaterLevel);
+            Assert.AreEqual(expectedBoundaryLocation.WaveHeight, actualBoundaryLocation.WaveHeight);
             Assert.AreEqual(expectedBoundaryLocation.StorageId, actualBoundaryLocation.StorageId);
             Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
         }
@@ -681,13 +682,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertPipingFailureMechanism(PipingFailureMechanism expectedPipingFailureMechanism, PipingFailureMechanism actualPipingFailureMechanism)
         {
-            AssertProbabilityAssesmentInput(expectedPipingFailureMechanism.PipingProbabilityAssessmentInput, actualPipingFailureMechanism.PipingProbabilityAssessmentInput);
+            AssertProbabilityAssessmentInput(expectedPipingFailureMechanism.PipingProbabilityAssessmentInput, actualPipingFailureMechanism.PipingProbabilityAssessmentInput);
             AssertStochasticSoilModels(expectedPipingFailureMechanism.StochasticSoilModels, actualPipingFailureMechanism.StochasticSoilModels);
             AssertSurfaceLines(expectedPipingFailureMechanism.SurfaceLines, actualPipingFailureMechanism.SurfaceLines);
             AssertCalculationGroup(expectedPipingFailureMechanism.CalculationsGroup, actualPipingFailureMechanism.CalculationsGroup);
         }
 
-        private static void AssertProbabilityAssesmentInput(PipingProbabilityAssessmentInput expectedModel, PipingProbabilityAssessmentInput actualModel)
+        private static void AssertProbabilityAssessmentInput(PipingProbabilityAssessmentInput expectedModel, PipingProbabilityAssessmentInput actualModel)
         {
             Assert.AreEqual(expectedModel.A, actualModel.A);
         }
@@ -945,10 +946,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.DikeHeight, actualOutput.DikeHeight);
             Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
             Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);
-            AssertProbabilityAssesmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
+            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
         }
 
-        private static void AssertProbabilityAssesmentOutput(ProbabilityAssessmentOutput expectedOutput, ProbabilityAssessmentOutput actualOutput)
+        private static void AssertProbabilityAssessmentOutput(ProbabilityAssessmentOutput expectedOutput, ProbabilityAssessmentOutput actualOutput)
         {
             Assert.AreEqual(expectedOutput.FactorOfSafety, actualOutput.FactorOfSafety);
             Assert.AreEqual(expectedOutput.Probability, actualOutput.Probability);

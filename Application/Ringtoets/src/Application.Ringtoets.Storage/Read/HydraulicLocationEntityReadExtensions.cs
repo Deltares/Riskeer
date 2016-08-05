@@ -62,6 +62,11 @@ namespace Application.Ringtoets.Storage.Read
                 hydraulicBoundaryLocation.DesignWaterLevel = entity.DesignWaterLevel.Value;
             }
 
+            if (entity.WaveHeight.HasValue)
+            {
+                hydraulicBoundaryLocation.WaveHeight = entity.WaveHeight.Value;
+            }
+
             collector.Read(entity, hydraulicBoundaryLocation);
 
             return hydraulicBoundaryLocation;

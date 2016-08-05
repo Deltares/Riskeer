@@ -67,6 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(coordinateY, entity.LocationY);
             Assert.AreEqual(id, entity.LocationId);
             Assert.IsNull(entity.DesignWaterLevel);
+            Assert.IsNull(entity.WaveHeight);
         }
 
         [Test]
@@ -75,9 +76,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var random = new Random(21);
             var waterLevel = random.NextDouble();
+            var waveHeight = random.NextDouble();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
-                DesignWaterLevel = waterLevel
+                DesignWaterLevel = waterLevel,
+                WaveHeight = waveHeight
             };
             var registry = new PersistenceRegistry();
 
@@ -87,6 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(waterLevel, entity.DesignWaterLevel);
+            Assert.AreEqual(waveHeight, entity.WaveHeight);
         }
 
         [Test]

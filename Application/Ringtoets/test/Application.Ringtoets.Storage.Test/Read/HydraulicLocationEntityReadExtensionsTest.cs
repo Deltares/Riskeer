@@ -76,6 +76,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
+            Assert.IsNaN(location.DesignWaterLevel);
+            Assert.IsNaN(location.WaveHeight);
         } 
 
         [Test]
@@ -101,6 +103,31 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.IsNotNull(location);
             Assert.AreEqual(expectedWaterLevel, location.DesignWaterLevel);
+        }
+
+        [Test]
+        [TestCase(null, double.NaN)]
+        [TestCase(double.MaxValue, double.MaxValue)]
+        [TestCase(double.MinValue, double.MinValue)]
+        [TestCase(1.5, 1.5)]
+        [TestCase(double.NaN, double.NaN)]
+        public void Read_DifferentWaveHeight_ReturnHydraulicBoundaryLocationWithExpectedWaveHeight(double? waveHeight, double expectedWaveHeight)
+        {
+            // Setup
+            var entity = new HydraulicLocationEntity
+            {
+                Name = "someName",
+                WaveHeight = waveHeight
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var location = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(location);
+            Assert.AreEqual(expectedWaveHeight, location.WaveHeight);
         }
 
         [Test]
