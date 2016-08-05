@@ -75,7 +75,8 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.IsTrue(File.Exists(Path.Combine(Path.GetDirectoryName(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath), "HLCD.sqlite")));
             var hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
             Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
-            AssertValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
+            AssertDesignWaterLevelValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
+            AssertWaveHeightValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
 
             Assert.AreEqual(2380, demoAssessmentSection.ReferenceLine.Points.Count());
 
@@ -128,7 +129,7 @@ namespace Demo.Ringtoets.Test.Commands
             }, sectionResultWithCalculation.GetCalculationScenarios(calculations));
         }
 
-        private void AssertValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        private void AssertDesignWaterLevelValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
         {
             Assert.AreEqual(5.78, hydraulicBoundaryLocations[0].DesignWaterLevel);
             Assert.AreEqual(5.77, hydraulicBoundaryLocations[1].DesignWaterLevel);
@@ -148,6 +149,28 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(5.54, hydraulicBoundaryLocations[15].DesignWaterLevel);
             Assert.AreEqual(5.86, hydraulicBoundaryLocations[16].DesignWaterLevel);
             Assert.AreEqual(6.0, hydraulicBoundaryLocations[17].DesignWaterLevel);
+        }
+
+        private void AssertWaveHeightValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        {
+            Assert.AreEqual(4.13374, hydraulicBoundaryLocations[0].WaveHeight);
+            Assert.AreEqual(4.19044, hydraulicBoundaryLocations[1].WaveHeight);
+            Assert.AreEqual(4.01717, hydraulicBoundaryLocations[2].WaveHeight);
+            Assert.AreEqual(3.87408, hydraulicBoundaryLocations[3].WaveHeight);
+            Assert.AreEqual(3.73281, hydraulicBoundaryLocations[4].WaveHeight);
+            Assert.AreEqual(2.65268, hydraulicBoundaryLocations[5].WaveHeight);
+            Assert.AreEqual(3.04333, hydraulicBoundaryLocations[6].WaveHeight);
+            Assert.AreEqual(3.19952, hydraulicBoundaryLocations[7].WaveHeight);
+            Assert.AreEqual(3.3554, hydraulicBoundaryLocations[8].WaveHeight);
+            Assert.AreEqual(3.52929, hydraulicBoundaryLocations[9].WaveHeight);
+            Assert.AreEqual(3.62194, hydraulicBoundaryLocations[10].WaveHeight);
+            Assert.AreEqual(3.6851, hydraulicBoundaryLocations[11].WaveHeight);
+            Assert.AreEqual(3.72909, hydraulicBoundaryLocations[12].WaveHeight);
+            Assert.AreEqual(3.74794, hydraulicBoundaryLocations[13].WaveHeight);
+            Assert.AreEqual(3.29686, hydraulicBoundaryLocations[14].WaveHeight);
+            Assert.AreEqual(9.57558, hydraulicBoundaryLocations[15].WaveHeight);
+            Assert.AreEqual(8.01959, hydraulicBoundaryLocations[16].WaveHeight);
+            Assert.AreEqual(4.11447, hydraulicBoundaryLocations[17].WaveHeight);
         }
 
         private void AssertCharacteristicPointsOnSurfaceLines(RingtoetsPipingSurfaceLine[] surfaceLines)

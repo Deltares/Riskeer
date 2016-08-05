@@ -451,8 +451,8 @@ namespace Ringtoets.Integration.Plugin
             
             yield return new TreeNodeInfo<WaveHeightContext>
             {
-                Text = designWaterLevel => RingtoetsFormsResources.WaveHeightContext_DisplayName,
-                Image = designWaterLevel => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                Text = waveHeight => RingtoetsFormsResources.WaveHeightContext_DisplayName,
+                Image = waveHeight => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CanRename = (context, o) => false,
                 ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :

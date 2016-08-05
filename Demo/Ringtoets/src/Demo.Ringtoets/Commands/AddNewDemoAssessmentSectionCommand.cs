@@ -91,7 +91,8 @@ namespace Demo.Ringtoets.Commands
                 hydraulicBoundaryDatabaseImporter.Import(demoAssessmentSection, filePath);
             }
 
-            SetHydraulicBoundaryLocationValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationDesignWaterLevelValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationWaveHeightValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
         }
 
         private void InitializeDemoFailureMechanismSections(AssessmentSection demoAssessmentSection)
@@ -183,7 +184,7 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.NotifyObservers();
         }
 
-        private void SetHydraulicBoundaryLocationValues(ICollection<HydraulicBoundaryLocation> locations)
+        private void SetHydraulicBoundaryLocationDesignWaterLevelValues(ICollection<HydraulicBoundaryLocation> locations)
         {
             locations.ElementAt(0).DesignWaterLevel = 5.78;
             locations.ElementAt(1).DesignWaterLevel = 5.77;
@@ -203,6 +204,28 @@ namespace Demo.Ringtoets.Commands
             locations.ElementAt(15).DesignWaterLevel = 5.54;
             locations.ElementAt(16).DesignWaterLevel = 5.86;
             locations.ElementAt(17).DesignWaterLevel = 6.0;
+        }
+
+        private void SetHydraulicBoundaryLocationWaveHeightValues(ICollection<HydraulicBoundaryLocation> locations)
+        {
+            locations.ElementAt(0).WaveHeight = 4.13374;
+            locations.ElementAt(1).WaveHeight = 4.19044;
+            locations.ElementAt(2).WaveHeight = 4.01717;
+            locations.ElementAt(3).WaveHeight = 3.87408;
+            locations.ElementAt(4).WaveHeight = 3.73281;
+            locations.ElementAt(5).WaveHeight = 2.65268;
+            locations.ElementAt(6).WaveHeight = 3.04333;
+            locations.ElementAt(7).WaveHeight = 3.19952;
+            locations.ElementAt(8).WaveHeight = 3.3554;
+            locations.ElementAt(9).WaveHeight = 3.52929;
+            locations.ElementAt(10).WaveHeight = 3.62194;
+            locations.ElementAt(11).WaveHeight = 3.6851;
+            locations.ElementAt(12).WaveHeight = 3.72909;
+            locations.ElementAt(13).WaveHeight = 3.74794;
+            locations.ElementAt(14).WaveHeight = 3.29686;
+            locations.ElementAt(15).WaveHeight = 9.57558;
+            locations.ElementAt(16).WaveHeight = 8.01959;
+            locations.ElementAt(17).WaveHeight = 4.11447;
         }
     }
 }

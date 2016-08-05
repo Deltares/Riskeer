@@ -52,7 +52,8 @@ namespace Ringtoets.Integration.Service
         /// <returns><c>False</c> if <paramref name="hydraulicBoundaryDatabase"/> contains validation errors; <c>True</c> otherwise.</returns>
         internal static bool Validate(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            CalculationServiceHelper.LogValidationBeginTime(hydraulicBoundaryLocation.Name);
+            var calculationName = string.Format(Resources.WaveHeightCalculationService_Name_Wave_height_for_location_0_,hydraulicBoundaryLocation.Name);
+            CalculationServiceHelper.LogValidationBeginTime(calculationName);
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabase.FilePath);
             var hasErrors = string.IsNullOrEmpty(validationProblem);
@@ -63,7 +64,7 @@ namespace Ringtoets.Integration.Service
                                                             validationProblem);
             }
 
-            CalculationServiceHelper.LogValidationEndTime(hydraulicBoundaryLocation.Name);
+            CalculationServiceHelper.LogValidationEndTime(calculationName);
 
             return hasErrors;
         }
@@ -74,9 +75,10 @@ namespace Ringtoets.Integration.Service
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath);
             var input = CreateInput(assessmentSection, hydraulicBoundaryLocation);
             var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+            var calculationName = string.Format(Resources.WaveHeightCalculationService_Name_Wave_height_for_location_0_, hydraulicBoundaryLocation.Name);
 
             CalculationServiceHelper.PerformCalculation(
-                hydraulicBoundaryLocation.Name,
+                calculationName,
                 () =>
                 {
                     HydraRingCalculationService.PerformCalculation(

@@ -71,6 +71,15 @@ namespace Ringtoets.Integration.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toetspeil voor locatie {0}.
+        /// </summary>
+        internal static string DesignWaterLevelCalculationService_Name_Assessment_level_for_location_0_ {
+            get {
+                return ResourceManager.GetString("DesignWaterLevelCalculationService_Name_Assessment_level_for_location_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetspeil berekenen voor locatie &apos;{0}&apos;.
         /// </summary>
         internal static string DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_ {
@@ -92,9 +101,18 @@ namespace Ringtoets.Integration.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogte berekenen voor locatie &apos;{0}&apos;.
         /// </summary>
-        internal static string WaveHeightCalculationService_Name_Calculate_assessment_level_for_location_0_ {
+        internal static string WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_ {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationService_Name_Calculate_assessment_level_for_location_0_", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogte voor locatie {0}.
+        /// </summary>
+        internal static string WaveHeightCalculationService_Name_Wave_height_for_location_0_ {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculationService_Name_Wave_height_for_location_0_", resourceCulture);
             }
         }
     }

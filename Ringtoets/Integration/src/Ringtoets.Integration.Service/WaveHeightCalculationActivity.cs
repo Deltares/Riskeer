@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Service
         {
             get
             {
-                return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_assessment_level_for_location_0_,
+                return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_,
                                      hydraulicBoundaryLocation.Name);
             }
         }
