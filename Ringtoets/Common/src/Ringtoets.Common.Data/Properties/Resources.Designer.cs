@@ -352,11 +352,11 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Standaard afwijking (σ) moet groter zijn dan of gelijk zijn aan 0..
+        ///   Looks up a localized string similar to Standaard afwijking (σ) moet groter zijn dan 0..
         /// </summary>
-        public static string StandardDeviation_Should_be_greater_than_or_equal_to_zero {
+        public static string StandardDeviation_Should_be_greater_than_zero {
             get {
-                return ResourceManager.GetString("StandardDeviation_Should_be_greater_than_or_equal_to_zero", resourceCulture);
+                return ResourceManager.GetString("StandardDeviation_Should_be_greater_than_zero", resourceCulture);
             }
         }
         

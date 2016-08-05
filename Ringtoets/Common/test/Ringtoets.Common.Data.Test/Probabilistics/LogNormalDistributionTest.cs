@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble) standardDeviation;
 
             // Assert
-            const string expectedMessage = "Standaard afwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";
+            const string expectedMessage = "Standaard afwijking (\u03C3) moet groter zijn dan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             TestDelegate call = () => distribution.SetStandardDeviationFromVariationCoefficient(variationCoefficient);
 
             // Assert
-            const string expectedMessage = "Standaard afwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";
+            const string expectedMessage = "Standaard afwijking (\u03C3) moet groter zijn dan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 

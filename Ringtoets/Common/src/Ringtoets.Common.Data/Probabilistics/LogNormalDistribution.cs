@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// Gets or sets the standard deviation of the normal distribution which is the log of the log-normal distribution.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when either:<list type="bullet">
-        /// <item>Standard deviation is less than or equal to 0.</item>
+        /// <item>Standard deviation is less than 0.</item>
         /// <item>The mean is smaller than the shift.</item>
         /// </list></exception>
         public RoundedDouble StandardDeviation
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
                 if (roundedValue < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_or_equal_to_zero);
+                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_zero);
                 }
 
                 standardDeviation = roundedValue;

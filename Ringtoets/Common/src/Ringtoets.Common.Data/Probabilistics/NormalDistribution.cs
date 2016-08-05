@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
                 if (roundedValue < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_or_equal_to_zero);
+                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_zero);
                 }
 
                 standardDeviation = roundedValue;
