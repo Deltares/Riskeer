@@ -440,23 +440,25 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<DesignWaterLevelContext>
             {
-                Text =  designWaterLevel => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
+                Text = designWaterLevel => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
                 Image = designWaterLevel => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CanRename = (context, o) => false,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
-                                           Color.FromKnownColor(KnownColor.GrayText) :
-                                           Color.FromKnownColor(KnownColor.ControlText),
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase != null &&
+                                       context.WrappedData.HydraulicBoundaryDatabase.Locations.Any(l => !double.IsNaN(l.DesignWaterLevel)) ?
+                                           Color.FromKnownColor(KnownColor.ControlText) :
+                                           Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = DesignWaterLevelContextMenuStrip
             };
-            
+
             yield return new TreeNodeInfo<WaveHeightContext>
             {
                 Text = waveHeight => RingtoetsFormsResources.WaveHeightContext_DisplayName,
                 Image = waveHeight => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CanRename = (context, o) => false,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
-                                           Color.FromKnownColor(KnownColor.GrayText) :
-                                           Color.FromKnownColor(KnownColor.ControlText),
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase != null &&
+                                       context.WrappedData.HydraulicBoundaryDatabase.Locations.Any(l => !double.IsNaN(l.WaveHeight)) ?
+                                           Color.FromKnownColor(KnownColor.ControlText) :
+                                           Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = WaveHeightContextMenuStrip
             };
 
@@ -1068,6 +1070,8 @@ namespace Ringtoets.Integration.Plugin
                       .AddSeparator()
                       .AddExpandAllItem()
                       .AddCollapseAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
                       .Build();
         }
 

@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -84,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Toetspeil", text);
+                Assert.AreEqual("Toetspeilen", text);
             }
         }
 
@@ -311,11 +312,39 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasHydraulicBoundaryDatabaseData_ReturnControlText()
+        public void ForeColor_ContextHasNoCalculations_ReturnDisabledColor()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            mocks.ReplayAll();
+
+            var designWaterLevelContext = new DesignWaterLevelContext(assessmentSection);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Call
+                Color color = info.ForeColor(designWaterLevelContext);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ForeColor_ContextHasCalculations_ReturnControlColor()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var location = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            {
+                DesignWaterLevel = 1.0
+            };
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(location);
             mocks.ReplayAll();
 
             var designWaterLevelContext = new DesignWaterLevelContext(assessmentSection);

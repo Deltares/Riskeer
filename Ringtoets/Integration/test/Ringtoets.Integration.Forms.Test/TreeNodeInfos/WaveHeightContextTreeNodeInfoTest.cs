@@ -256,7 +256,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasHydraulicBoundaryDatabaseData_ReturnControlText()
+        public void ForeColor_ContextHasNoCalculations_ReturnDisabledColor()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -273,11 +273,38 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Color color = info.ForeColor(waterLevelContext);
 
                 // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void ForeColor_ContextHasCalculations_ReturnControlColor()
+        {
+            // Setup
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var location = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            {
+                WaveHeight = 1.0
+            };
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(location);
+            mockRepository.ReplayAll();
+
+            var waterLevelContext = new WaveHeightContext(assessmentSection);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Call
+                Color color = info.ForeColor(waterLevelContext);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+            }
+            mockRepository.VerifyAll();
+        }
 
         [Test]
         public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
