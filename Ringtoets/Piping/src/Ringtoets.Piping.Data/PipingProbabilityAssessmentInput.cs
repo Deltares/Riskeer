@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Storage;
-
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
@@ -41,6 +40,7 @@ namespace Ringtoets.Piping.Data
             A = 0.4;
             B = 300.0;
             SectionLength = double.NaN;
+            UpliftCriticalSafetyFactor = 1.2;
         }
 
         /// <summary>
@@ -59,10 +59,15 @@ namespace Ringtoets.Piping.Data
                 {
                     throw new ArgumentException(Resources.PipingProbabilityAssessmentInput_A_Value_must_be_between_zero_and_one);
                 }
-                
+
                 a = value;
             }
         }
+
+        /// <summary>
+        /// Gets the critical safety factor to which the calculated uplift stability factor is compared.
+        /// </summary>
+        public double UpliftCriticalSafetyFactor { get; set; }
 
         /// <summary>
         /// Gets 'b' parameter used to factor in the 'length effect' when determining the

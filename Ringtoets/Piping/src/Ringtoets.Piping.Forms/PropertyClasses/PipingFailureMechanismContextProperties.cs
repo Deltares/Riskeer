@@ -38,6 +38,18 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_WaterVolumetricWeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_WaterVolumetricWeight_Description")]
+        public double WaterVolumetricWeight
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.WaterVolumetricWeight;
+            }
+        }
+
         #endregion
 
         #region Model Factors
@@ -68,17 +80,34 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        #region General sub-failure mechanism parameters
+        #region Semi-probabilistic parameters
 
         [PropertyOrder(21)]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_WaterVolumetricWeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_WaterVolumetricWeight_Description")]
-        public double WaterVolumetricWeight
+        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_A_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_A_Description")]
+        public double A
         {
             get
             {
-                return data.WrappedData.GeneralInput.WaterVolumetricWeight;
+                return data.WrappedData.PipingProbabilityAssessmentInput.A;
+            }
+            set
+            {
+                data.WrappedData.PipingProbabilityAssessmentInput.A = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(22)]
+        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
+        [ResourcesDisplayName(typeof(Resources), "GenerapPipingInput_B_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_B_Description")]
+        public double B
+        {
+            get
+            {
+                return data.WrappedData.PipingProbabilityAssessmentInput.B;
             }
         }
 
@@ -100,9 +129,30 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        #region Sellmeijer
+        #region Uplift
 
         [PropertyOrder(41)]
+        [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_UpliftCriticalSafetyFactor_Description")]
+        public double UpliftCriticalSafetyFactor
+        {
+            get
+            {
+                return data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor;
+            }
+            set
+            {
+                data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        #endregion
+
+        #region Sellmeijer
+
+        [PropertyOrder(51)]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SandParticlesVolumicWeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SandParticlesVolumicWeight_Description")]
@@ -114,7 +164,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(42)]
+        [PropertyOrder(52)]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_WhitesDragCoefficient_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_WhitesDragCoefficient_Description")]
@@ -126,7 +176,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(43)]
+        [PropertyOrder(53)]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_BeddingAngle_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_BeddingAngle_Description")]
@@ -138,7 +188,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(44)]
+        [PropertyOrder(54)]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_WaterKinematicViscosity_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_WaterKinematicViscosity_Description")]
@@ -150,7 +200,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(45)]
+        [PropertyOrder(55)]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_Gravity_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_Gravity_Description")]
@@ -162,7 +212,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(46)]
+        [PropertyOrder(56)]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_MeanDiameter70_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_MeanDiameter70_Description")]
@@ -174,7 +224,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(47)]
+        [PropertyOrder(57)]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SellmeijerReductionFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SellmeijerReductionFactor_Description")]
@@ -183,39 +233,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.GeneralInput.SellmeijerReductionFactor;
-            }
-        }
-
-        #endregion
-
-        #region Semi-probabilistic parameters
-
-        [PropertyOrder(51)]
-        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_A_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_A_Description")]
-        public double A
-        {
-            get
-            {
-                return data.WrappedData.PipingProbabilityAssessmentInput.A;
-            }
-            set
-            {
-                data.WrappedData.PipingProbabilityAssessmentInput.A = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(52)]
-        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
-        [ResourcesDisplayName(typeof(Resources), "GenerapPipingInput_B_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_B_Description")]
-        public double B
-        {
-            get
-            {
-                return data.WrappedData.PipingProbabilityAssessmentInput.B;
             }
         }
 

@@ -340,6 +340,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De veiligheidsfactor die wordt vergeleken met de berekende stabiliteitsfactor van het submechanisme opbarsten..
+        /// </summary>
+        public static string GeneralPipingInput_UpliftCriticalSafetyFactor_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_UpliftCriticalSafetyFactor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritische veiligheidsfactor voor opbarsten [-].
+        /// </summary>
+        public static string GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen..
         /// </summary>
         public static string GeneralPipingInput_UpliftModelFactor_Description {

@@ -37,6 +37,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.4, pipingProbabilityAssessmentInput.A);
             Assert.AreEqual(300, pipingProbabilityAssessmentInput.B);
 
+            Assert.AreEqual(1.2, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor);
+
             Assert.IsNaN(pipingProbabilityAssessmentInput.SectionLength);
         }
 
