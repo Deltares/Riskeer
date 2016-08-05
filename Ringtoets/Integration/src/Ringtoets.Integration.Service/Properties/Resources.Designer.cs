@@ -88,5 +88,14 @@ namespace Ringtoets.Integration.Service.Properties {
                 return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogte berekenen voor locatie &apos;{0}&apos;.
+        /// </summary>
+        internal static string WaveHeightCalculationService_Name_Calculate_assessment_level_for_location_0_ {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculationService_Name_Calculate_assessment_level_for_location_0_", resourceCulture);
+            }
+        }
     }
 }

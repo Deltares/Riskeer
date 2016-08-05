@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
@@ -26,17 +27,19 @@ using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
-    public class WaveHeightContextTreeNodeInfoTest
+    public class WaveHeightContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mockRepository;
 
@@ -237,14 +240,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var designWaterLevelContext = new WaveHeightContext(assessmentSection);
+            var waterLevelContext = new WaveHeightContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
                 // Call
-                Color color = info.ForeColor(designWaterLevelContext);
+                Color color = info.ForeColor(waterLevelContext);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -260,20 +263,81 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             mockRepository.ReplayAll();
 
-            var designWaterLevelContext = new WaveHeightContext(assessmentSection);
+            var waterLevelContext = new WaveHeightContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
                 // Call
-                Color color = info.ForeColor(designWaterLevelContext);
+                Color color = info.ForeColor(waterLevelContext);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
             mockRepository.VerifyAll();
         }
+
+
+        [Test]
+        public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
+        {
+            // Given
+            var gui = mockRepository.DynamicMock<IGui>();
+
+            var contextMenuRunAssessmentLevelCalculationsIndex = 0;
+
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
+            {
+                WaveHeight = 4.2
+            };
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation1,
+                    hydraulicBoundaryLocation2
+                },
+                FilePath = "D:/nonExistingDirectory/nonExistingFile",
+                Version = "random"
+            };
+
+            var assessmentSectionMock = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+            };
+            var waveHeightContext = new WaveHeightContext(assessmentSectionMock);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Expect(cmp => cmp.Get(waveHeightContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    var info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    var contextMenuAdapter = info.ContextMenuStrip(waveHeightContext, null, treeViewControl);
+
+                    // When
+                    Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
+
+                    // Then
+                    string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+                                                   hydraulicBoundaryDatabase.FilePath);
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
+
+                    Assert.IsNaN(hydraulicBoundaryLocation1.WaveHeight); // No result set
+                    Assert.AreEqual(4.2, hydraulicBoundaryLocation2.WaveHeight); // Previous result not cleared
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {

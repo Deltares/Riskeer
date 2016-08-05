@@ -1025,7 +1025,23 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsFormsResources.WaveHeight_Calculate,
                 RingtoetsFormsResources.WaveHeight_Calculate_ToolTip,
                 RingtoetsCommonFormsResources.FailureMechanismIcon,
-                null);
+                (sender, args) =>
+                {
+                    var hrdFile = nodeData.WrappedData.HydraulicBoundaryDatabase.FilePath;
+                    var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
+                    if (validationProblem == null)
+                    {
+                        var activities = nodeData.WrappedData.HydraulicBoundaryDatabase.Locations.Select(hbl => new WaveHeightCalculationActivity(nodeData.WrappedData, hbl)).ToArray();
+
+                        ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+
+                        nodeData.WrappedData.NotifyObservers();
+                    }
+                    else
+                    {
+                        log.ErrorFormat(Resources.RingtoetsPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_, validationProblem);
+                    }
+                });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
             {

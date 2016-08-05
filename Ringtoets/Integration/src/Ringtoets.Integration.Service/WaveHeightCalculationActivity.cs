@@ -30,20 +30,20 @@ using Ringtoets.Integration.Service.Properties;
 namespace Ringtoets.Integration.Service
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a design water level calculation.
+    /// <see cref="Activity"/> for running a water height calculation.
     /// </summary>
-    public class DesignWaterLevelCalculationActivity : HydraRingActivity<TargetProbabilityCalculationOutput>
+    public class WaveHeightCalculationActivity : HydraRingActivity<TargetProbabilityCalculationOutput>
     {
         private readonly IAssessmentSection assessmentSection;
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelCalculationActivity"/>.
+        /// Creates a new instance of <see cref="WaveHeightCalculationActivity"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> data which is used for the calculation.</param>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryDatabase"/> to perform the calculation for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationActivity(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public WaveHeightCalculationActivity(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (assessmentSection == null)
             {
@@ -56,36 +56,38 @@ namespace Ringtoets.Integration.Service
 
             this.assessmentSection = assessmentSection;
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            
         }
 
         public override string Name
         {
             get
             {
-                return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_,
+                return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_assessment_level_for_location_0_,
                                      hydraulicBoundaryLocation.Name);
             }
         }
 
         protected override void OnRun()
         {
-            if (!double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
+            if (!double.IsNaN(hydraulicBoundaryLocation.WaveHeight))
             {
                 State = ActivityState.Skipped;
                 return;
             }
 
-            PerformRun(() => DesignWaterLevelCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
-                       () => hydraulicBoundaryLocation.DesignWaterLevel = double.NaN,
-                       () => DesignWaterLevelCalculationService.Calculate(assessmentSection,
-                                                                          assessmentSection.HydraulicBoundaryDatabase,
-                                                                          hydraulicBoundaryLocation,
-                                                                          assessmentSection.Id));
+            PerformRun(() => WaveHeightCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
+                           () => hydraulicBoundaryLocation.WaveHeight = double.NaN,
+                           () => WaveHeightCalculationService.Calculate(assessmentSection,
+                                                                              assessmentSection.HydraulicBoundaryDatabase,
+                                                                              hydraulicBoundaryLocation,
+                                                                              assessmentSection.Id));
+
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() => hydraulicBoundaryLocation.DesignWaterLevel = Output.Result, hydraulicBoundaryLocation);
+            PerformFinish(() => hydraulicBoundaryLocation.WaveHeight = Output.Result, hydraulicBoundaryLocation);
         }
     }
 }
