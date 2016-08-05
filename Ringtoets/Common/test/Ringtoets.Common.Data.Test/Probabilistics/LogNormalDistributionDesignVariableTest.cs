@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.Probabilistics
 {
@@ -81,7 +82,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedResult, result, 1e-4);
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         /// <summary>
@@ -125,7 +126,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
 
             // Assert
             Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedResult, result, 1e-4);
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         [Test]
@@ -163,7 +164,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             }.GetDesignValue();
 
             Assert.AreEqual(numberOfDecimalPlaces, result.NumberOfDecimalPlaces);
-            Assert.AreEqual(expectedResult, result, 1e-6);
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
     }
 }

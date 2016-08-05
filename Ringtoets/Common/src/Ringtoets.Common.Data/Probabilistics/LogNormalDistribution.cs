@@ -58,9 +58,30 @@ namespace Ringtoets.Common.Data.Probabilistics
         }
 
         /// <summary>
+        /// Gets or sets the shift of the normal distribution which is the log of the log-normal distribution.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the shift is larger than the mean.</exception>
+        public RoundedDouble Shift
+        {
+            get
+            {
+                return shift;
+            }
+            set
+            {
+                RoundedDouble newShift = value.ToPrecision(shift.NumberOfDecimalPlaces);
+                if (newShift > Mean)
+                {
+                    throw new ArgumentOutOfRangeException(Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
+                }
+                shift = newShift;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the mean of the normal distribution which is the log of the log-normal distribution.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Expected value is less then or equal to 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Expected value is less than or equal to 0.</exception>
         public RoundedDouble Mean
         {
             get
@@ -88,7 +109,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// Gets or sets the standard deviation of the normal distribution which is the log of the log-normal distribution.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when either:<list type="bullet">
-        /// <item>Standard deviation is less then or equal to 0.</item>
+        /// <item>Standard deviation is less than or equal to 0.</item>
         /// <item>The mean is smaller than the shift.</item>
         /// </list></exception>
         public RoundedDouble StandardDeviation
@@ -107,29 +128,6 @@ namespace Ringtoets.Common.Data.Probabilistics
                 }
 
                 standardDeviation = roundedValue;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the shift of the normal distribution which is the log of the log-normal distribution.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when the shift is larger then the mean.
-        /// </exception>
-        public RoundedDouble Shift
-        {
-            get
-            {
-                return shift;
-            }
-            set
-            {
-                var newShift = value.ToPrecision(shift.NumberOfDecimalPlaces);
-                if (newShift > Mean)
-                {
-                    throw new ArgumentOutOfRangeException(Resources.LogNormalDistribution_Shift_may_not_exceed_Mean);
-                }
-                shift = newShift;
             }
         }
     }
