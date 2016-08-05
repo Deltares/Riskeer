@@ -1,4 +1,5 @@
-﻿using Core.Common.Gui.Attributes;
+﻿using Core.Common.Base.Data;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 
@@ -143,7 +144,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = value;
+                data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = (RoundedDouble) value;
                 data.WrappedData.NotifyObservers();
             }
         }

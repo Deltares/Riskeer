@@ -188,6 +188,16 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kritieke veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen..
+        /// </summary>
+        public static string PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_range_zero_and_fifty {
+            get {
+                return ResourceManager.GetString("PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_rang" +
+                        "e_zero_and_fifty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Level {0} is below the bottom of the soil profile {1}..
         /// </summary>
         public static string PipingSoilProfile_GetTopAquiferLayerThicknessBelowLevel_Level_0_below_Bottom_1_ {

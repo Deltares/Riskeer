@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Ringtoets.Piping.Data.Properties;
 
@@ -31,6 +32,7 @@ namespace Ringtoets.Piping.Data
     public class PipingProbabilityAssessmentInput : IStorable
     {
         private double a;
+        private RoundedDouble upliftCriticalSafetyFactor;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingProbabilityAssessmentInput"/>.
@@ -40,7 +42,8 @@ namespace Ringtoets.Piping.Data
             A = 0.4;
             B = 300.0;
             SectionLength = double.NaN;
-            UpliftCriticalSafetyFactor = 1.2;
+            
+            upliftCriticalSafetyFactor = new RoundedDouble(1, 1.2);
         }
 
         /// <summary>
@@ -67,7 +70,22 @@ namespace Ringtoets.Piping.Data
         /// <summary>
         /// Gets the critical safety factor to which the calculated uplift stability factor is compared.
         /// </summary>
-        public double UpliftCriticalSafetyFactor { get; set; }
+        public RoundedDouble UpliftCriticalSafetyFactor
+        {
+            get
+            {
+                return upliftCriticalSafetyFactor;
+            }
+            set
+            {
+                var roundedValue = new RoundedDouble(upliftCriticalSafetyFactor.NumberOfDecimalPlaces, value);
+                if (roundedValue <= 0 || roundedValue > 50)
+                {
+                    throw new ArgumentException(Resources.PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_range_zero_and_fifty);
+                }
+                upliftCriticalSafetyFactor = roundedValue;
+            }
+        }
 
         /// <summary>
         /// Gets 'b' parameter used to factor in the 'length effect' when determining the

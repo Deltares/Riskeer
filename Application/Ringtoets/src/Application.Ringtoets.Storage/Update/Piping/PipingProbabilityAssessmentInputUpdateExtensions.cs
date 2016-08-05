@@ -64,6 +64,7 @@ namespace Application.Ringtoets.Storage.Update.Piping
                 context);
 
             entity.A = probabilityAssessmentInput.A;
+            entity.UpliftCriticalSafetyFactor = probabilityAssessmentInput.UpliftCriticalSafetyFactor;
 
             registry.Register(entity, probabilityAssessmentInput);
         }

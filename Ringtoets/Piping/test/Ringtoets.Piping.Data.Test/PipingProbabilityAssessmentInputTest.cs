@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -37,7 +39,8 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.4, pipingProbabilityAssessmentInput.A);
             Assert.AreEqual(300, pipingProbabilityAssessmentInput.B);
 
-            Assert.AreEqual(1.2, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor);
+            Assert.AreEqual(1.2, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor.Value);
+            Assert.AreEqual(1, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor.NumberOfDecimalPlaces);
 
             Assert.IsNaN(pipingProbabilityAssessmentInput.SectionLength);
         }
@@ -76,6 +79,41 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(value, pipingProbabilityAssessmentInput.A);
+        }
+
+        [Test]
+        [TestCase(-0.05)]
+        [TestCase(0.0)]
+        [TestCase(0.04)]
+        [TestCase(50.05)]
+        [TestCase(50.1)]
+        public void UpliftCriticalSafetyFactor_InvalidValue_ThrowsArgumentException(double value)
+        {
+            // Setup
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
+
+            // Call
+            TestDelegate call = () => pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = (RoundedDouble) value;
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("Kritieke veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen.", exception.Message);
+        }
+
+        [Test]
+        [TestCase(0.05)]
+        [TestCase(50.04)]
+        [TestCase(50.0)]
+        public void UpliftCriticalSafetyFactor_ValidValue_SetsValue(double value)
+        {
+            // Setup
+            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
+
+            // Call
+            pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = (RoundedDouble) value;
+
+            // Assert
+            Assert.AreEqual(value, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor.GetAccuracy());
         }
     }
 }

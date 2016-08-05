@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 using Application.Ringtoets.Storage.DbContext;
-
+using Core.Common.Base.Data;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read.Piping
@@ -43,7 +41,8 @@ namespace Application.Ringtoets.Storage.Read.Piping
             return new PipingProbabilityAssessmentInput
             {
                 StorageId = entity.PipingFailureMechanismMetaEntityId,
-                A = entity.A
+                A = entity.A,
+                UpliftCriticalSafetyFactor = (RoundedDouble) entity.UpliftCriticalSafetyFactor
             };
         }
     }

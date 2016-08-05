@@ -271,6 +271,7 @@
           <Property Name="PipingFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" />
           <Property Name="A" Type="real" Nullable="false" />
+          <Property Name="UpliftCriticalSafetyFactor" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="PipingSectionResultEntity">
           <Key>
@@ -1770,6 +1771,7 @@
           <Property Name="PipingFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" />
           <Property Name="A" Type="Double" Nullable="false" />
+          <Property Name="UpliftCriticalSafetyFactor" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="PipingFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="PipingSectionResultEntity">
@@ -2801,6 +2803,7 @@
           <EntitySetMapping Name="PipingFailureMechanismMetaEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity">
               <MappingFragment StoreEntitySet="PipingFailureMechanismMetaEntity">
+                <ScalarProperty Name="UpliftCriticalSafetyFactor" ColumnName="UpliftCriticalSafetyFactor" />
                 <ScalarProperty Name="A" ColumnName="A" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="PipingFailureMechanismMetaEntityId" ColumnName="PipingFailureMechanismMetaEntityId" />

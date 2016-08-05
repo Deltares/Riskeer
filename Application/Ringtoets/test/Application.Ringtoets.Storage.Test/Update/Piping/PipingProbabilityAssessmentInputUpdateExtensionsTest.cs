@@ -26,7 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update.Piping;
-
+using Core.Common.Base.Data;
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -130,18 +130,21 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var ringtoetsEntities = RingtoetsEntitiesHelper.CreateStub(mocks);
             mocks.ReplayAll();
 
-            double value = 0.64;
+            double aValue = 0.64;
+            double upliftValue = 2.9;
 
             var probabilityAssessmentInput = new PipingProbabilityAssessmentInput
             {
                 StorageId = 1,
-                A = value
+                A = aValue,
+                UpliftCriticalSafetyFactor = (RoundedDouble) upliftValue
             };
 
             var pipingFailureMechanismMetaEntity = new PipingFailureMechanismMetaEntity
             {
                 PipingFailureMechanismMetaEntityId = probabilityAssessmentInput.StorageId,
-                A = 0.3
+                A = 0.3,
+                UpliftCriticalSafetyFactor = 1.2
             };
             ringtoetsEntities.PipingFailureMechanismMetaEntities.Add(pipingFailureMechanismMetaEntity);
 
@@ -149,7 +152,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             probabilityAssessmentInput.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            Assert.AreEqual(value, pipingFailureMechanismMetaEntity.A);
+            Assert.AreEqual(aValue, pipingFailureMechanismMetaEntity.A);
+            Assert.AreEqual(upliftValue, pipingFailureMechanismMetaEntity.UpliftCriticalSafetyFactor);
 
             mocks.VerifyAll();
         }
