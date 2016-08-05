@@ -77,8 +77,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsSetName()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             using (var plugin = new RingtoetsPlugin())
@@ -195,10 +193,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     // Call
                     var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
+                    // Assert
                     const string expectedItemText = "&Berekenen";
                     const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.";
 
-                    // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
                 }
             }
@@ -232,10 +230,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     // Call
                     var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
+                    // Assert
                     const string expectedItemText = "&Berekenen";
                     const string expectedItemTooltip = "Bereken de toetspeilen";
 
-                    // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
                 }
             }
