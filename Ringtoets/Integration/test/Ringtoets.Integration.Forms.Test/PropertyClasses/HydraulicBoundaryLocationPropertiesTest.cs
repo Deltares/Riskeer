@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -142,18 +144,21 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsTrue(idProperty.IsBrowsable);
             Assert.AreEqual(expectedIdDisplayName, idProperty.DisplayName);
             Assert.AreEqual(expectedIdDescription, idProperty.Description);
+            Assert.AreEqual(1, idProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
 
             Assert.IsNotNull(nameProperty);
             Assert.IsTrue(nameProperty.IsReadOnly);
             Assert.IsTrue(nameProperty.IsBrowsable);
             Assert.AreEqual(expectedNameDisplayName, nameProperty.DisplayName);
             Assert.AreEqual(expectedNameDescription, nameProperty.Description);
+            Assert.AreEqual(2, nameProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
 
             Assert.IsNotNull(locationProperty);
             Assert.IsTrue(locationProperty.IsReadOnly);
             Assert.IsTrue(locationProperty.IsBrowsable);
             Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
             Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
+            Assert.AreEqual(3, locationProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
 
             mockRepository.VerifyAll();
         }

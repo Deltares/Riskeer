@@ -102,12 +102,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+
+            // Assert
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor locationsProperty = dynamicProperties.Find("Locations", false);
 
-            // Assert
             Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
-
             Assert.IsNotNull(locationsProperty);
             Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
             Assert.IsTrue(locationsProperty.IsReadOnly);

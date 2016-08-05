@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Id"/> from the <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.Id"/>.
         /// </summary>
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Id_DisplayName")]
@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Name"/> from the <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.Name"/>.
         /// </summary>
         [PropertyOrder(2)]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Name_DisplayName")]
@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Location"/> from the <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.Location"/>.
         /// </summary>
         [PropertyOrder(3)]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName")]
