@@ -46,6 +46,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public string Name { get; set; }
         public string SegmentName { get; set; }
         public byte[] StochasticSoilModelSegmentPointData { get; set; }
+        public int Order { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

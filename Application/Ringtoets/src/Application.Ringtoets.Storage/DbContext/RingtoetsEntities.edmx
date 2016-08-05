@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Branch_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -67,6 +67,7 @@
           <Property Name="X" Type="real" />
           <Property Name="Y" Type="real" />
           <Property Name="X0" Type="real" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DuneErosionSectionResultEntity">
           <Key>
@@ -199,6 +200,7 @@
           <Property Name="LocationY" Type="real" />
           <Property Name="DesignWaterLevel" Type="real" />
           <Property Name="WaveHeight" Type="real" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="MacrostabilityInwardsSectionResultEntity">
           <Key>
@@ -348,6 +350,7 @@
           <Property Name="BelowPhreaticLevelShift" Type="real" />
           <Property Name="PermeabilityMean" Type="real" />
           <Property Name="PermeabilityDeviation" Type="real" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SoilProfileEntity">
           <Key>
@@ -375,6 +378,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="SegmentName" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="StochasticSoilModelSegmentPointData" Type="blob" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StochasticSoilProfileEntity">
           <Key>
@@ -384,6 +388,7 @@
           <Property Name="SoilProfileEntityId" Type="integer" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="integer" Nullable="false" />
           <Property Name="Probability" Type="real" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StrengthStabilityLengthwiseConstructionSectionResultEntity">
           <Key>
@@ -413,6 +418,7 @@
           <Property Name="ReferenceLineIntersectionX" Type="real" />
           <Property Name="ReferenceLineIntersectionY" Type="real" />
           <Property Name="PointsData" Type="blob" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TechnicalInnovationSectionResultEntity">
           <Key>
@@ -1511,6 +1517,7 @@
           <Property Name="X" Type="Double" />
           <Property Name="Y" Type="Double" />
           <Property Name="X0" Type="Double" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_DikeProfileEntity_0_0" FromRole="DikeProfileEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="DikeProfileEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
         </EntityType>
@@ -1687,6 +1694,7 @@
           <Property Name="LocationY" Type="Double" />
           <Property Name="DesignWaterLevel" Type="Double" />
           <Property Name="WaveHeight" Type="Double" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_4_0" FromRole="HydraulicLocationEntity" ToRole="PipingCalculationEntity" />
@@ -1855,6 +1863,7 @@
           <Property Name="BelowPhreaticLevelShift" Type="Double" />
           <Property Name="PermeabilityMean" Type="Double" />
           <Property Name="PermeabilityDeviation" Type="Double" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilLayerEntity" ToRole="SoilProfileEntity" />
         </EntityType>
         <EntityType Name="SoilProfileEntity">
@@ -1886,6 +1895,7 @@
           <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="SegmentName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="StochasticSoilModelSegmentPointData" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="StochasticSoilProfileEntity" />
         </EntityType>
@@ -1897,6 +1907,7 @@
           <Property Name="SoilProfileEntityId" Type="Int64" Nullable="false" />
           <Property Name="StochasticSoilModelEntityId" Type="Int64" Nullable="false" />
           <Property Name="Probability" Type="Double" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="SoilProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="StochasticSoilProfileEntity" ToRole="SoilProfileEntity" />
           <NavigationProperty Name="StochasticSoilModelEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilProfileEntity" ToRole="StochasticSoilModelEntity" />
@@ -1931,6 +1942,7 @@
           <Property Name="ReferenceLineIntersectionX" Type="Double" />
           <Property Name="ReferenceLineIntersectionY" Type="Double" />
           <Property Name="PointsData" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CharacteristicPointEntities" Relationship="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="CharacteristicPointEntity" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="SurfaceLineEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0" FromRole="SurfaceLineEntity" ToRole="PipingCalculationEntity" />
@@ -2574,6 +2586,7 @@
           <EntitySetMapping Name="DikeProfileEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.DikeProfileEntity">
               <MappingFragment StoreEntitySet="DikeProfileEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="X0" ColumnName="X0" />
                 <ScalarProperty Name="Y" ColumnName="Y" />
                 <ScalarProperty Name="X" ColumnName="X" />
@@ -2722,6 +2735,7 @@
           <EntitySetMapping Name="HydraulicLocationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HydraulicLocationEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
                 <ScalarProperty Name="DesignWaterLevel" ColumnName="DesignWaterLevel" />
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
@@ -2878,6 +2892,7 @@
           <EntitySetMapping Name="SoilLayerEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SoilLayerEntity">
               <MappingFragment StoreEntitySet="SoilLayerEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="PermeabilityDeviation" ColumnName="PermeabilityDeviation" />
                 <ScalarProperty Name="PermeabilityMean" ColumnName="PermeabilityMean" />
                 <ScalarProperty Name="BelowPhreaticLevelShift" ColumnName="BelowPhreaticLevelShift" />
@@ -2916,6 +2931,7 @@
           <EntitySetMapping Name="StochasticSoilModelEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StochasticSoilModelEntity">
               <MappingFragment StoreEntitySet="StochasticSoilModelEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="StochasticSoilModelSegmentPointData" ColumnName="StochasticSoilModelSegmentPointData" />
                 <ScalarProperty Name="SegmentName" ColumnName="SegmentName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -2927,6 +2943,7 @@
           <EntitySetMapping Name="StochasticSoilProfileEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StochasticSoilProfileEntity">
               <MappingFragment StoreEntitySet="StochasticSoilProfileEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Probability" ColumnName="Probability" />
                 <ScalarProperty Name="StochasticSoilModelEntityId" ColumnName="StochasticSoilModelEntityId" />
                 <ScalarProperty Name="SoilProfileEntityId" ColumnName="SoilProfileEntityId" />
@@ -2957,6 +2974,7 @@
           <EntitySetMapping Name="SurfaceLineEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SurfaceLineEntity">
               <MappingFragment StoreEntitySet="SurfaceLineEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="PointsData" ColumnName="PointsData" />
                 <ScalarProperty Name="ReferenceLineIntersectionY" ColumnName="ReferenceLineIntersectionY" />
                 <ScalarProperty Name="ReferenceLineIntersectionX" ColumnName="ReferenceLineIntersectionX" />

@@ -45,6 +45,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long SoilProfileEntityId { get; set; }
         public long StochasticSoilModelEntityId { get; set; }
         public Nullable<double> Probability { get; set; }
+        public int Order { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }

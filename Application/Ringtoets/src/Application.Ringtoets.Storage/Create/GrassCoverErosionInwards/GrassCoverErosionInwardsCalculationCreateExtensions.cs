@@ -72,11 +72,11 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         {
             if (input.DikeProfile != null)
             {
-                entity.DikeProfileEntity = input.DikeProfile.Create(registry);
+                entity.DikeProfileEntity = registry.Get(input.DikeProfile);
             }
             if (input.HydraulicBoundaryLocation != null)
             {
-                entity.HydraulicLocationEntity = input.HydraulicBoundaryLocation.Create(registry);
+                entity.HydraulicLocationEntity = registry.Get(input.HydraulicBoundaryLocation);
             }
 
             entity.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();

@@ -75,17 +75,19 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
         private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
+            int index = 0;
             foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
             {
-                entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(registry));
+                entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(registry, index++));
             }
         }
 
         private static void AddEntitiesForSurfaceLines(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
+            int index = 0;
             foreach (RingtoetsPipingSurfaceLine surfaceLine in mechanism.SurfaceLines)
             {
-                entity.SurfaceLineEntities.Add(surfaceLine.Create(registry));
+                entity.SurfaceLineEntities.Add(surfaceLine.Create(registry, index++));
             }
         }
     }

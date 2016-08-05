@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var stochasticSoilModel = new TestStochasticSoilModel();
 
             // Call
-            TestDelegate test = () => stochasticSoilModel.Create(null);
+            TestDelegate test = () => stochasticSoilModel.Create(null, 0);
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -58,18 +58,20 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithCollector_ReturnsStochasticSoilModelEntityWithPropertiesSet()
         {
             // Setup
+            var order = new Random(1).Next();
             string testName = "testName";
             string testSegmentName = "testSegmentName";
             var stochasticSoilModel = new StochasticSoilModel(-1, testName, testSegmentName);
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilModel.Create(registry);
+            var entity = stochasticSoilModel.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(testSegmentName, entity.SegmentName);
+            Assert.AreEqual(order, entity.Order);
             Assert.IsEmpty(entity.StochasticSoilProfileEntities);
         }   
 
@@ -89,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilModel.Create(registry);
+            var entity = stochasticSoilModel.Create(registry, 0);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -109,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = stochasticSoilModel.Create(registry);
+            var entity = stochasticSoilModel.Create(registry, 0);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -126,8 +128,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            StochasticSoilModelEntity entity1 = soilModel.Create(registry);
-            StochasticSoilModelEntity entity2 = soilModel.Create(registry);
+            StochasticSoilModelEntity entity1 = soilModel.Create(registry, 0);
+            StochasticSoilModelEntity entity2 = soilModel.Create(registry, 0);
 
             // Assert
             Assert.AreSame(entity1, entity2);

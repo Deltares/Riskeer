@@ -38,9 +38,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// </summary>
         /// <param name="dikeProfile">The dike profile to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="DikeProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static DikeProfileEntity Create(this DikeProfile dikeProfile, PersistenceRegistry registry)
+        internal static DikeProfileEntity Create(this DikeProfile dikeProfile, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -60,7 +61,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 ForeShoreData = new Point2DBinaryConverter().ToBytes(dikeProfile.ForeshoreGeometry),
                 Orientation = dikeProfile.Orientation,
                 DikeHeight = dikeProfile.DikeHeight,
-                Name = dikeProfile.Name
+                Name = dikeProfile.Name,
+                Order = order
             };
             if (dikeProfile.HasBreakWater)
             {

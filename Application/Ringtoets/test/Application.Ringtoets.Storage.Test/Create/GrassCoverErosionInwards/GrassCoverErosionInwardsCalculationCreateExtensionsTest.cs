@@ -190,30 +190,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_CalculationWithNewDikeProfile_ReturnEntityWithDikeProfileEntity()
-        {
-            // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
-                                              new Point2D[0], null, new DikeProfile.ConstructionProperties());
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = dikeProfile
-                }
-            };
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
-
-            // Assert
-            Assert.IsTrue(registry.Contains(dikeProfile));
-            Assert.IsNotNull(entity.DikeProfileEntity);
-        }
-
-        [Test]
         public void Create_CalculationWithAlreadySavedHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
         {
             // Setup
@@ -235,29 +211,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
-        }
-
-        [Test]
-        public void Create_CalculationWithNewHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
-        {
-            // Setup
-            var hydroLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydroLocation
-                }
-            };
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
-
-            // Assert
-            Assert.IsTrue(registry.Contains(hydroLocation));
-            Assert.IsNotNull(entity.HydraulicLocationEntity);
         }
 
         [Test]

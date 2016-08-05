@@ -37,9 +37,10 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// </summary>
         /// <param name="layer">The layer to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="SoilLayerEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static SoilLayerEntity Create(this PipingSoilLayer layer, PersistenceRegistry registry)
+        internal static SoilLayerEntity Create(this PipingSoilLayer layer, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -58,7 +59,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 PermeabilityMean = layer.PermeabilityMean.ToNaNAsNull(),
                 PermeabilityDeviation = layer.PermeabilityDeviation.ToNaNAsNull(),
                 Color = layer.Color.ToArgb(),
-                MaterialName = layer.MaterialName
+                MaterialName = layer.MaterialName,
+                Order = order
             };
 
             registry.Register(entity, layer);

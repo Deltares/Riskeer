@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", 2, 3);
 
             // Call
-            TestDelegate test = () => hydraulicBoundaryLocation.Create(null);
+            TestDelegate test = () => hydraulicBoundaryLocation.Create(null, 0);
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -54,11 +54,12 @@ namespace Application.Ringtoets.Storage.Test.Create
             var coordinateX = random.NextDouble();
             var coordinateY = random.NextDouble();
             var id = random.Next(0,150);
+            int order = random.Next();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = hydraulicBoundaryLocation.Create(registry);
+            var entity = hydraulicBoundaryLocation.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -68,6 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(id, entity.LocationId);
             Assert.IsNull(entity.DesignWaterLevel);
             Assert.IsNull(entity.WaveHeight);
+            Assert.AreEqual(order, entity.Order);
         }
 
         [Test]
@@ -85,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = hydraulicBoundaryLocation.Create(registry);
+            var entity = hydraulicBoundaryLocation.Create(registry, 0);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -102,8 +104,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            HydraulicLocationEntity entity1 = hydraulicBoundaryLocations.Create(registry);
-            HydraulicLocationEntity entity2 = hydraulicBoundaryLocations.Create(registry);
+            HydraulicLocationEntity entity1 = hydraulicBoundaryLocations.Create(registry, 0);
+            HydraulicLocationEntity entity2 = hydraulicBoundaryLocations.Create(registry, 0);
 
             // Assert
             Assert.AreSame(entity1, entity2);

@@ -95,11 +95,12 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
         private static void UpdateSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry registry, IRingtoetsEntities context, FailureMechanismEntity entity)
         {
-            foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
+            for (int index = 0; index < mechanism.StochasticSoilModels.Count; index++)
             {
+                var stochasticSoilModel = mechanism.StochasticSoilModels[index];
                 if (stochasticSoilModel.IsNew())
                 {
-                    entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(registry));
+                    entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(registry, index));
                 }
                 else
                 {
@@ -110,16 +111,18 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
         private static void UpdateSurfaceLines(PipingFailureMechanism failureMechanism, PersistenceRegistry registry, IRingtoetsEntities context, FailureMechanismEntity entity)
         {
+            int index = 0;
             foreach (RingtoetsPipingSurfaceLine surfaceLine in failureMechanism.SurfaceLines)
             {
                 if (surfaceLine.IsNew())
                 {
-                    entity.SurfaceLineEntities.Add(surfaceLine.Create(registry));
+                    entity.SurfaceLineEntities.Add(surfaceLine.Create(registry, index));
                 }
                 else
                 {
                     surfaceLine.Update(registry, context);
                 }
+                index++;
             }
         }
     }

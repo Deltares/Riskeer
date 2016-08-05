@@ -114,9 +114,10 @@ namespace Application.Ringtoets.Storage.Create
                 entity.HydraulicDatabaseLocation = section.HydraulicBoundaryDatabase.FilePath;
                 entity.HydraulicDatabaseVersion = section.HydraulicBoundaryDatabase.Version;
 
-                foreach (var hydraulicBoundaryLocation in section.HydraulicBoundaryDatabase.Locations)
+                for (int i = 0; i < section.HydraulicBoundaryDatabase.Locations.Count; i++)
                 {
-                    entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry));
+                    var hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations[i];
+                    entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));
                 }
             }
         }

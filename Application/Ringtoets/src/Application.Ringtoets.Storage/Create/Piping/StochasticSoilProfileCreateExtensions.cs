@@ -37,14 +37,16 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// </summary>
         /// <param name="profile">The profile to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="StochasticSoilProfileEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StochasticSoilProfileEntity Create(this StochasticSoilProfile profile, PersistenceRegistry registry)
+        internal static StochasticSoilProfileEntity Create(this StochasticSoilProfile profile, PersistenceRegistry registry, int order)
         {
             var entity = new StochasticSoilProfileEntity
             {
                 Probability = profile.Probability.ToNaNAsNull(),
-                SoilProfileEntity = profile.SoilProfile.Create(registry)
+                SoilProfileEntity = profile.SoilProfile.Create(registry),
+                Order = order
             };
             if (registry.Contains(profile))
             {

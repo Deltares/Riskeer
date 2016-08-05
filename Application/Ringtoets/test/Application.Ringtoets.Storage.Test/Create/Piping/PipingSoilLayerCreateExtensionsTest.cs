@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var soilLayer = new PipingSoilLayer(new Random(21).NextDouble());
 
             // Call
-            TestDelegate test = () => soilLayer.Create(null);
+            TestDelegate test = () => soilLayer.Create(null, 0);
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -54,8 +54,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithCollector_ReturnsFailureMechanismEntityWithPropertiesSet(bool isAquifer)
         {
             // Setup
-            double top = new Random(21).NextDouble();
             var random = new Random(21);
+            double top = random.NextDouble();
+            int order = random.Next();
             var soilLayer = new PipingSoilLayer(top)
             {
                 IsAquifer = isAquifer,
@@ -68,12 +69,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 DiameterD70Deviation = double.NaN,
                 PermeabilityMean = random.NextDouble(),
                 PermeabilityDeviation = random.NextDouble()
-
             };
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = soilLayer.Create(registry);
+            var entity = soilLayer.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -87,6 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(soilLayer.DiameterD70Deviation.ToNaNAsNull(), entity.DiameterD70Deviation);
             Assert.AreEqual(soilLayer.PermeabilityMean.ToNaNAsNull(), entity.PermeabilityMean);
             Assert.AreEqual(soilLayer.PermeabilityDeviation.ToNaNAsNull(), entity.PermeabilityDeviation);
+            Assert.AreEqual(order, entity.Order);
         }
     }
 }

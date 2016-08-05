@@ -67,16 +67,18 @@ namespace Application.Ringtoets.Storage.Update.Piping
             entity.Name = profile.Name;
             entity.Bottom = profile.Bottom.ToNaNAsNull();
 
+            int index = 0;
             foreach (var pipingSoilLayer in profile.Layers)
             {
                 if (pipingSoilLayer.IsNew())
                 {
-                    entity.SoilLayerEntities.Add(pipingSoilLayer.Create(registry));
+                    entity.SoilLayerEntities.Add(pipingSoilLayer.Create(registry, index));
                 }
                 else
                 {
                     pipingSoilLayer.Update(registry, context);
                 }
+                index++;
             }
 
             registry.Register(entity, profile);

@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                               new DikeProfile.ConstructionProperties());
 
             // Call
-            TestDelegate call = () => dikeProfile.Create(null);
+            TestDelegate call = () => dikeProfile.Create(null, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -67,6 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_WithoutBreakWater_ReturnEntityWithNullBreakWaterProperties()
         {
             // Setup
+            var order = new Random(22).Next();
             var dikeProfile = new DikeProfile(new Point2D(1.1, 2.2),
                                               new[]
                                               {
@@ -89,12 +90,13 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            DikeProfileEntity entity = dikeProfile.Create(registry);
+            DikeProfileEntity entity = dikeProfile.Create(registry, order);
 
             // Assert
             Assert.AreEqual(dikeProfile.WorldReferencePoint.X, entity.X);
             Assert.AreEqual(dikeProfile.WorldReferencePoint.Y, entity.Y);
             Assert.AreEqual(dikeProfile.X0, entity.X0);
+            Assert.AreEqual(order, entity.Order);
             byte[] convertedDikeGeometry = new RoughnessPointBinaryConverter().ToBytes(dikeProfile.DikeGeometry);
             CollectionAssert.AreEqual(convertedDikeGeometry, entity.DikeGeometryData);
             byte[] convertedForeshoreGeometry = new Point2DBinaryConverter().ToBytes(dikeProfile.ForeshoreGeometry);
@@ -114,6 +116,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_WithBreakWater_ReturnEntity(BreakWaterType type, double height)
         {
             // Setup
+            var order = new Random(42).Next();
             var dikeProfile = new DikeProfile(new Point2D(1234.4567, 5678.432),
                                               new[]
                                               {
@@ -136,12 +139,13 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            DikeProfileEntity entity = dikeProfile.Create(registry);
+            DikeProfileEntity entity = dikeProfile.Create(registry, order);
 
             // Assert
             Assert.AreEqual(dikeProfile.WorldReferencePoint.X, entity.X);
             Assert.AreEqual(dikeProfile.WorldReferencePoint.Y, entity.Y);
             Assert.AreEqual(dikeProfile.X0, entity.X0);
+            Assert.AreEqual(order, entity.Order);
             byte[] convertedDikeGeometry = new RoughnessPointBinaryConverter().ToBytes(dikeProfile.DikeGeometry);
             CollectionAssert.AreEqual(convertedDikeGeometry, entity.DikeGeometryData);
             byte[] convertedForeshoreGeometry = new Point2DBinaryConverter().ToBytes(dikeProfile.ForeshoreGeometry);
@@ -172,7 +176,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var registry = new PersistenceRegistry();
 
             // Call
-            DikeProfileEntity entity = dikeProfile.Create(registry);
+            DikeProfileEntity entity = dikeProfile.Create(registry, 0);
 
             // Assert
             entity.DikeProfileEntityId = 345678;
@@ -196,13 +200,13 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                                   new Point2D(9.9, 10.10)
                                               }, null, new DikeProfile.ConstructionProperties());
             var registry = new PersistenceRegistry();
-            DikeProfileEntity entity1 = dikeProfile.Create(registry);
+            DikeProfileEntity entity1 = dikeProfile.Create(registry, 0);
 
             // Precondition:
             Assert.IsTrue(registry.Contains(dikeProfile));
 
             // Call
-            DikeProfileEntity entity2 = dikeProfile.Create(registry);
+            DikeProfileEntity entity2 = dikeProfile.Create(registry, 0);
 
             // Assert
             Assert.AreSame(entity1, entity2);

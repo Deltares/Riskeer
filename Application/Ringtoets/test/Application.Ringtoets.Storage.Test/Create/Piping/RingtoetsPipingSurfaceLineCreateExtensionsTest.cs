@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            TestDelegate call = () => surfaceLine.Create(null);
+            TestDelegate call = () => surfaceLine.Create(null, 0);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -55,6 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_SurfaceLineWithoutGeometry_ReturnSurfaceLineEntityWithoutAddingPointEntities()
         {
             // Setup
+            var order = new Random(96).Next();
             var registry = new PersistenceRegistry();
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
@@ -63,12 +64,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             };
 
             // Call
-            SurfaceLineEntity entity = surfaceLine.Create(registry);
+            SurfaceLineEntity entity = surfaceLine.Create(registry, order);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
+            Assert.AreEqual(order, entity.Order);
 
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
@@ -80,6 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_SurfaceLineWithGeometryWithoutCharacteristicPoints_ReturnSurfaceLineEntityWithPointEntities()
         {
             // Setup
+            var order = new Random(21).Next();
             var registry = new PersistenceRegistry();
             var geometry = new[]
             {
@@ -95,12 +98,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             surfaceLine.SetGeometry(geometry);
 
             // Call
-            SurfaceLineEntity entity = surfaceLine.Create(registry);
+            SurfaceLineEntity entity = surfaceLine.Create(registry, order);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
+            Assert.AreEqual(order, entity.Order);
 
             byte[] expectedBinaryData = new Point3DBinaryConverter().ToBytes(geometry);
             CollectionAssert.AreEqual(expectedBinaryData, entity.PointsData);
@@ -146,7 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             surfaceLine.SetDitchPolderSideAt(geometry[ditchPolderIndex]);
 
             // Call
-            SurfaceLineEntity entity = surfaceLine.Create(registry);
+            SurfaceLineEntity entity = surfaceLine.Create(registry, 0);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
@@ -225,7 +229,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             surfaceLine.SetDitchPolderSideAt(geometry[0]);
 
             // Call
-            SurfaceLineEntity entity = surfaceLine.Create(registry);
+            SurfaceLineEntity entity = surfaceLine.Create(registry, 0);
 
             // Assert
             Assert.AreEqual(surfaceLine.Name, entity.Name);
@@ -262,7 +266,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             };
 
             // Call
-            surfaceLine.Create(registry);
+            surfaceLine.Create(registry, 0);
 
             // Assert
             Assert.IsTrue(registry.Contains(surfaceLine));
@@ -280,8 +284,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var registry = new PersistenceRegistry();
 
             // Call
-            SurfaceLineEntity entity1 = surfaceLine.Create(registry);
-            SurfaceLineEntity entity2 = surfaceLine.Create(registry);
+            SurfaceLineEntity entity1 = surfaceLine.Create(registry, 0);
+            SurfaceLineEntity entity2 = surfaceLine.Create(registry, 0);
 
             // Assert
             Assert.AreSame(entity1, entity2);

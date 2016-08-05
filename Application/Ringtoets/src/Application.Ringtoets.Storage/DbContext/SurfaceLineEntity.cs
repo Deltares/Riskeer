@@ -48,6 +48,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> ReferenceLineIntersectionX { get; set; }
         public Nullable<double> ReferenceLineIntersectionY { get; set; }
         public byte[] PointsData { get; set; }
+        public int Order { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }

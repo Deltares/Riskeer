@@ -59,9 +59,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 
         private static void AddEntitiesForDikeProfiles(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
-            foreach (DikeProfile dikeProfile in mechanism.DikeProfiles)
+            for (int i = 0; i < mechanism.DikeProfiles.Count; i++)
             {
-                entity.DikeProfileEntities.Add(dikeProfile.Create(registry));
+                DikeProfile dikeProfile = mechanism.DikeProfiles[i];
+                entity.DikeProfileEntities.Add(dikeProfile.Create(registry, i));
             }
         }
 

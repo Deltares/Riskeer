@@ -38,9 +38,10 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// </summary>
         /// <param name="model">The model to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="StochasticSoilModelEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StochasticSoilModelEntity Create(this StochasticSoilModel model, PersistenceRegistry registry)
+        internal static StochasticSoilModelEntity Create(this StochasticSoilModel model, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -55,7 +56,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 Name = model.Name,
                 SegmentName = model.SegmentName,
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(model.Geometry)
+                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(model.Geometry),
+                Order = order
             };
 
             AddEntitiesForStochasticSoilProfiles(model, registry, entity);
@@ -66,9 +68,10 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
         private static void AddEntitiesForStochasticSoilProfiles(StochasticSoilModel model, PersistenceRegistry registry, StochasticSoilModelEntity entity)
         {
-            foreach (var stochasticSoilProfile in model.StochasticSoilProfiles)
+            for (int i = 0; i < model.StochasticSoilProfiles.Count; i++)
             {
-                entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry));
+                var stochasticSoilProfile = model.StochasticSoilProfiles[i];
+                entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry, i));
             }
         }
     }

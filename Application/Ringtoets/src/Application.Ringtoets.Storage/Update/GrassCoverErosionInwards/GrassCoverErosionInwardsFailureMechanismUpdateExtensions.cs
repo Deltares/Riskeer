@@ -78,11 +78,12 @@ namespace Application.Ringtoets.Storage.Update.GrassCoverErosionInwards
         private static void UpdateDikeProfiles(GrassCoverErosionInwardsFailureMechanism mechanism, 
             PersistenceRegistry registry, FailureMechanismEntity entity, IRingtoetsEntities context)
         {
-            foreach (DikeProfile dikeProfile in mechanism.DikeProfiles)
+            for (int i = 0; i < mechanism.DikeProfiles.Count; i++)
             {
+                DikeProfile dikeProfile = mechanism.DikeProfiles[i];
                 if (dikeProfile.IsNew())
                 {
-                    entity.DikeProfileEntities.Add(dikeProfile.Create(registry));
+                    entity.DikeProfileEntities.Add(dikeProfile.Create(registry, i));
                 }
                 else
                 {

@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             });
 
             var registry = new PersistenceRegistry();
-            SurfaceLineEntity surfaceLineEntity = surfaceLine.Create(registry);
+            SurfaceLineEntity surfaceLineEntity = surfaceLine.Create(registry, 0);
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -166,45 +166,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_HasSurfaceLineSetButInstanceNotSaved_EntityHasNewSurfaceLineEntity()
-        {
-            // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(1.1, 2.2)
-            };
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0.0, 0.0, 1.0), 
-                new Point3D(3.3, 6.6, 1.0) 
-            });
-
-            var registry = new PersistenceRegistry();
-
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLine
-                }
-            };
-
-            // Call
-            PipingCalculationEntity entity = calculation.Create(registry, 0);
-
-            // Assert
-            Assert.True(registry.Contains(surfaceLine));
-            Assert.AreSame(registry.Get(surfaceLine), entity.SurfaceLineEntity);
-        }
-
-        [Test]
         public void Create_HydraulicBoundaryLocation_EntityHasHydraulicLocationEntity()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
 
             var registry = new PersistenceRegistry();
-            HydraulicLocationEntity hydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry);
+            HydraulicLocationEntity hydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry, 0);
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -222,28 +190,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_HasHydraulicBoundaryLocationSetButInstanceNotSaved_EntityHasNewHydraulicLocationEntity()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "a", 1.1, 2.2);
-            var registry = new PersistenceRegistry();
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            // Call
-            PipingCalculationEntity entity = calculation.Create(registry, 0);
-
-            // Assert
-            Assert.True(registry.Contains(hydraulicBoundaryLocation));
-            Assert.AreSame(registry.Get(hydraulicBoundaryLocation), entity.HydraulicLocationEntity);
-        }
-
-        [Test]
         public void Create_StochasticSoilProfileSet_EntityHasStochasticSoilProfileEntity()
         {
             // Setup
@@ -257,7 +203,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             soilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
             var registry = new PersistenceRegistry();
-            StochasticSoilModelEntity soilModelEntity = soilModel.Create(registry);
+            StochasticSoilModelEntity soilModelEntity = soilModel.Create(registry, 0);
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
@@ -275,38 +221,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var expectedStochasticSoilProfileEntity = soilModelEntity.StochasticSoilProfileEntities.First();
             Assert.AreSame(expectedStochasticSoilProfileEntity, entity.StochasticSoilProfileEntity);
             Assert.IsTrue(registry.Contains(soilModel));
-        }
-
-        [Test]
-        public void Create_HasStochasticSoilProfileSetButInstanceNotSaved_EntityHasNewStochasticSoilProfileEntity()
-        {
-            // Setup
-            var soilProfile = new TestPipingSoilProfile();
-            var stochasticSoilProfile = new StochasticSoilProfile(0.6, SoilProfileType.SoilProfile1D, 1)
-            {
-                SoilProfile = soilProfile
-            };
-
-            var soilModel = new StochasticSoilModel(1, "A", "B");
-            soilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
-
-            var registry = new PersistenceRegistry();
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    StochasticSoilModel = soilModel,
-                    StochasticSoilProfile = stochasticSoilProfile
-                }
-            };
-
-            // Call
-            PipingCalculationEntity entity = calculation.Create(registry, 0);
-
-            // Assert
-            Assert.True(registry.Contains(soilModel));
-            Assert.True(registry.Contains(stochasticSoilProfile));
-            Assert.AreSame(registry.Get(stochasticSoilProfile), entity.StochasticSoilProfileEntity);
         }
 
         [Test]

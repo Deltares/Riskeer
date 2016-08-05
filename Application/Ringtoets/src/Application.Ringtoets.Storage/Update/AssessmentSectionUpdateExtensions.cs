@@ -137,11 +137,12 @@ namespace Application.Ringtoets.Storage.Update
                 entity.HydraulicDatabaseLocation = section.HydraulicBoundaryDatabase.FilePath;
                 entity.HydraulicDatabaseVersion = section.HydraulicBoundaryDatabase.Version;
 
-                foreach (var hydraulicBoundaryLocation in section.HydraulicBoundaryDatabase.Locations)
+                for (int i = 0; i < section.HydraulicBoundaryDatabase.Locations.Count; i++)
                 {
+                    var hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations[i];
                     if (hydraulicBoundaryLocation.IsNew())
                     {
-                        entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry));
+                        entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));
                     }
                     else
                     {

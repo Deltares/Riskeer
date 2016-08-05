@@ -35,9 +35,10 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="location">The location to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="HydraulicLocationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static HydraulicLocationEntity Create(this HydraulicBoundaryLocation location, PersistenceRegistry registry)
+        internal static HydraulicLocationEntity Create(this HydraulicBoundaryLocation location, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -55,7 +56,8 @@ namespace Application.Ringtoets.Storage.Create
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
                 DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel,
-                WaveHeight = double.IsNaN(location.WaveHeight) ? (double?)null : location.WaveHeight
+                WaveHeight = double.IsNaN(location.WaveHeight) ? (double?)null : location.WaveHeight,
+                Order = order
             };
 
             registry.Register(entity, location);

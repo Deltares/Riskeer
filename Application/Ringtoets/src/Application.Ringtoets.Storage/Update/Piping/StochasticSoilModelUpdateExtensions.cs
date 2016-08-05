@@ -76,11 +76,12 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
         private static void UpdateStochasticSoilProfiles(StochasticSoilModel model, StochasticSoilModelEntity entity, PersistenceRegistry registry, IRingtoetsEntities context)
         {
-            foreach (var stochasticSoilProfile in model.StochasticSoilProfiles)
+            for (int index = 0; index < model.StochasticSoilProfiles.Count; index++)
             {
+                var stochasticSoilProfile = model.StochasticSoilProfiles[index];
                 if (stochasticSoilProfile.IsNew())
                 {
-                    entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry));
+                    entity.StochasticSoilProfileEntities.Add(stochasticSoilProfile.Create(registry, index));
                 }
                 else
                 {

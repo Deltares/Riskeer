@@ -42,9 +42,10 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// </summary>
         /// <param name="surfaceLine">The surface line to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>a new <see cref="AssessmentSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static SurfaceLineEntity Create(this RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry registry)
+        internal static SurfaceLineEntity Create(this RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -60,7 +61,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 Name = surfaceLine.Name,
                 ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull(),
                 ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull(),
-                PointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points)
+                PointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points),
+                Order = order
             };
             CreateCharacteristicPointEntities(surfaceLine, registry, entity);
 

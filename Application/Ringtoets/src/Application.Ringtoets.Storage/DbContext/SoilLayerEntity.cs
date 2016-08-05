@@ -48,6 +48,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> BelowPhreaticLevelShift { get; set; }
         public Nullable<double> PermeabilityMean { get; set; }
         public Nullable<double> PermeabilityDeviation { get; set; }
+        public int Order { get; set; }
     
         public virtual SoilProfileEntity SoilProfileEntity { get; set; }
     }
