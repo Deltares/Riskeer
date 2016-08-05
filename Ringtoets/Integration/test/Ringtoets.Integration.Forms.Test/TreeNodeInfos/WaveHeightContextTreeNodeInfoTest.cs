@@ -189,6 +189,48 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseSet_ContextMenuItemCalculateEnabled()
+        {
+            // Setup
+            var guiMock = mockRepository.StrictMock<IGui>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+
+            var nodeData = new WaveHeightContext(assessmentSectionMock)
+            {
+                WrappedData =
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                }
+            };
+            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    var info = GetInfo(plugin);
+
+                    plugin.Gui = guiMock;
+
+                    // Call
+                    var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+                    // Assert
+                    const string expectedItemText = "&Berekenen";
+                    const string expectedItemTooltip = "Bereken de golfhoogtes.";
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.FailureMechanismIcon);
+                }
+            }
+
+            mockRepository.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
         public void ForeColor_ContextHasNoHydraulicBoundaryDatabase_ReturnDisabledColor()
         {
             // Setup

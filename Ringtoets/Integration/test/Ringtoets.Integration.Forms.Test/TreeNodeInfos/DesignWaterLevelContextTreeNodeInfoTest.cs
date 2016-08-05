@@ -220,7 +220,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                     // Assert
                     const string expectedItemText = "&Berekenen";
-                    const string expectedItemTooltip = "Bereken de toetspeilen";
+                    const string expectedItemTooltip = "Bereken de toetspeilen.";
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
                 }

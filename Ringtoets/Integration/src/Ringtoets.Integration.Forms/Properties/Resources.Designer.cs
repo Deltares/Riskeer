@@ -278,7 +278,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bereken de toetspeilen.
+        ///   Looks up a localized string similar to Bereken de toetspeilen..
         /// </summary>
         public static string DesignWaterLevel_Calculate_ToolTip {
             get {
@@ -638,7 +638,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bereken de golfhoogtes.
+        ///   Looks up a localized string similar to Bereken de golfhoogtes..
         /// </summary>
         public static string WaveHeight_Calculate_ToolTip {
             get {
