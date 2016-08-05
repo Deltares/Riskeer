@@ -56,6 +56,8 @@
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelContextProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationDesignWaterLevelProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectProperties.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationProperties.cs" />

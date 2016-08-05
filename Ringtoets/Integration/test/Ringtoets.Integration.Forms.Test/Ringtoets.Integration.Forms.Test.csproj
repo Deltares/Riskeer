@@ -67,6 +67,8 @@
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationDesignWaterLevelPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />

@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
-using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -47,12 +45,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the Id from the <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.Id"/> from the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Id_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Id_Description")]
-        public long Id
+        public virtual long Id
         {
             get
             {
@@ -61,12 +59,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the Name from the <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.Name"/> from the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(2)]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Name_Description")]
-        public string Name
+        public virtual string Name
         {
             get
             {
@@ -75,12 +73,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the Location from the <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.Location"/> from the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         [PropertyOrder(3)]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Coordinates_Description")]
-        public Point2D Location
+        public virtual Point2D Location
         {
             get
             {
@@ -88,23 +86,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the DesignWaterLevel from the <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        [PropertyOrder(4)]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description")]
-        public string DesignWaterLevel
-        {
-            get
-            {
-                return double.IsNaN(data.DesignWaterLevel) ? "" : data.DesignWaterLevel.ToString("F2", CultureInfo.InvariantCulture);
-            }
-        }
-
         public override string ToString()
         {
-            return String.Format("{0} {1}", Name, Location);
+            return string.Format("{0} {1}", Name, Location);
         }
     }
 }

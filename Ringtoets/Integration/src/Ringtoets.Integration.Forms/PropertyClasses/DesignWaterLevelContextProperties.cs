@@ -19,30 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Linq;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Properties;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
+    /// ViewModel of <see cref="DesignWaterLevelContext"/> for properties panel.
     /// </summary>
-    public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
+    public class DesignWaterLevelContextProperties : ObjectProperties<DesignWaterLevelContext>
     {
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryDatabase.FilePath"/> from the <see cref="HydraulicBoundaryDatabaseContext"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocationDesignWaterLevelProperties"/> from the <see cref="DesignWaterLevelContext"/>.
         /// </summary>
+        [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_FilePath_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_FilePath_Description")]
-        public string FilePath
+        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Description")]
+        public HydraulicBoundaryLocationDesignWaterLevelProperties[] Locations
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryDatabase != null ? data.WrappedData.HydraulicBoundaryDatabase.FilePath : string.Empty;
+                return data.WrappedData.HydraulicBoundaryDatabase != null
+                           ? data.WrappedData.HydraulicBoundaryDatabase.Locations.Select(loc => new HydraulicBoundaryLocationDesignWaterLevelProperties(loc)).ToArray()
+                           : new HydraulicBoundaryLocationDesignWaterLevelProperties[0];
             }
         }
     }

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Linq;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -54,13 +52,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0);
-            HydraulicBoundaryLocationProperties expectedLocationProperties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryLocation);
-
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
-            hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase.FilePath = "Test";
-            hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            const string filePath = @"C:\file.sqlite";
+            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionMock)
+            {
+                WrappedData =
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                    {
+                        FilePath = filePath
+                    }
+                }
+            };
 
             // Call
             HydraulicBoundaryDatabaseProperties properties = new HydraulicBoundaryDatabaseProperties
@@ -69,15 +71,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase.FilePath, properties.FilePath);
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(HydraulicBoundaryLocationProperties));
-            Assert.AreEqual(1, hydraulicBoundaryDatabaseContext.WrappedData.HydraulicBoundaryDatabase.Locations.Count);
-
-            HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = properties.Locations.FirstOrDefault();
-            Assert.AreEqual(expectedLocationProperties.Name, hydraulicBoundaryLocationProperties.Name);
-            Assert.AreEqual(expectedLocationProperties.Id, hydraulicBoundaryLocationProperties.Id);
-            Assert.AreEqual(expectedLocationProperties.Location, hydraulicBoundaryLocationProperties.Location);
-            Assert.AreEqual(expectedLocationProperties.DesignWaterLevel, hydraulicBoundaryLocationProperties.DesignWaterLevel);
+            Assert.AreEqual(filePath, properties.FilePath);
         }
 
         [Test]
@@ -91,17 +85,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const string expectedFilePathDescription = "Locatie van het hydraulische randvoorwaardendatabase bestand.";
             const string expectedFilePathCategory = "Algemeen";
 
-            const string expectedLocationsDisplayName = "Locaties";
-            const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaardendatabase.";
-            const string expectedLocationsCategory = "Algemeen";
-
             // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            PropertyDescriptor filePathProperty = dynamicProperties.Find("FilePath", false);
-            PropertyDescriptor locationsProperty = dynamicProperties.Find("Locations", false);
 
             // Assert
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            PropertyDescriptor filePathProperty = dynamicProperties.Find("FilePath", false);
+
             Assert.IsInstanceOf<TypeConverter>(classTypeConverter);
 
             Assert.IsNotNull(filePathProperty);
@@ -110,14 +100,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedFilePathDisplayName, filePathProperty.DisplayName);
             Assert.AreEqual(expectedFilePathDescription, filePathProperty.Description);
             Assert.AreEqual(expectedFilePathCategory, filePathProperty.Category);
-
-            Assert.IsNotNull(locationsProperty);
-            Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
-            Assert.IsTrue(locationsProperty.IsReadOnly);
-            Assert.IsTrue(locationsProperty.IsBrowsable);
-            Assert.AreEqual(expectedLocationsDisplayName, locationsProperty.DisplayName);
-            Assert.AreEqual(expectedLocationsDescription, locationsProperty.Description);
-            Assert.AreEqual(expectedLocationsCategory, filePathProperty.Category);
         }
     }
 }
