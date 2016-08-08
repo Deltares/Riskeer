@@ -30,11 +30,11 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
     /// </summary>
     public class WaveHeightContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
-          /// <summary>
+        /// <summary>
         /// Creates a new instance of <see cref="WaveHeightContext"/>.
         /// </summary>
         /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the <see cref="WaveHeightContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
-        public WaveHeightContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) { }
+        public WaveHeightContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
     }
 }

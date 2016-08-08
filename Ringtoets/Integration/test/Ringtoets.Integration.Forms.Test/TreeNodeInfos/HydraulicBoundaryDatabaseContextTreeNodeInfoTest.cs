@@ -63,8 +63,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
@@ -78,17 +76,20 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanDrop);
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Text_Always_ReturnsSetName()
         {
             // Setup
-            var name = "Hydraulische randvoorwaarden";
+            const string name = "Hydraulische randvoorwaarden";
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             var context = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
@@ -110,8 +111,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsGenericIcon()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
@@ -122,26 +121,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
             }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CanRenameNode_Always_ReturnsFalse()
-        {
-            // Setup
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                var info = GetInfo(plugin);
-
-                // Call
-                var renameAllowed = info.CanRename(null, null);
-
-                // Assert
-                Assert.IsFalse(renameAllowed);
-            }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -229,6 +208,35 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ChildNodeObjects_Always_ReturnsChildrenOnData()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            mocks.ReplayAll();
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var info = GetInfo(plugin);
+                // Call
+                var objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
+
+                // Assert
+                Assert.AreEqual(2, objects.Length);
+                var designWaterLevelContext = (DesignWaterLevelContext)objects[0];
+                Assert.AreSame(assessmentSection, designWaterLevelContext.WrappedData);
+
+                var waveHeightContext = (WaveHeightContext)objects[1];
+                Assert.AreSame(assessmentSection, waveHeightContext.WrappedData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [RequiresSTA]
         public void GivenNoFilePathIsSet_WhenOpeningValidFileFromContextMenu_ThenPathWillBeSetAndNotifiesObserverAndLogMessageAdded()
         {
@@ -246,7 +254,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 IGui gui = mocks.DynamicMock<IGui>();
                 gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
-                
+
                 DialogBoxHandler = (name, wnd) =>
                 {
                     OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
@@ -376,9 +384,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             using (HydraulicBoundaryDatabaseImporter importer = new HydraulicBoundaryDatabaseImporter())
-            {
                 importer.Import(assessmentSection, validFile);
-            }
 
             assessmentSection.Attach(assessmentObserver);
 

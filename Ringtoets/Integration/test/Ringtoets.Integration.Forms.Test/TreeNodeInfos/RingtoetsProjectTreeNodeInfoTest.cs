@@ -64,6 +64,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanDrop);
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
             }
         }
 

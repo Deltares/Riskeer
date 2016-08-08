@@ -431,7 +431,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = hydraulicBoundaryDatabase => RingtoetsFormsResources.HydraulicBoundaryDatabase_DisplayName,
                 Image = hydraulicBoundaryDatabase => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CanRename = (context, o) => false,
                 ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
@@ -443,7 +442,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = designWaterLevel => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
                 Image = designWaterLevel => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CanRename = (context, o) => false,
                 ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase != null &&
                                        context.WrappedData.HydraulicBoundaryDatabase.Locations.Any(l => !double.IsNaN(l.DesignWaterLevel)) ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
@@ -455,7 +453,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = waveHeight => RingtoetsFormsResources.WaveHeightContext_DisplayName,
                 Image = waveHeight => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CanRename = (context, o) => false,
                 ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase != null &&
                                        context.WrappedData.HydraulicBoundaryDatabase.Locations.Any(l => !double.IsNaN(l.WaveHeight)) ?
                                            Color.FromKnownColor(KnownColor.ControlText) :

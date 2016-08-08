@@ -22,7 +22,6 @@
 using System;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -55,8 +54,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
@@ -70,13 +67,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanDrop);
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Text_Always_ReturnsSetName()
         {
+            // Setup
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
@@ -92,6 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsGenericIcon()
         {
+            // Setup
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
@@ -101,21 +105,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
-            }
-        }
-
-        [Test]
-        public void CanRenameNode_Always_ReturnsFalse()
-        {
-            using (var plugin = new RingtoetsPlugin())
-            {
-                var info = GetInfo(plugin);
-
-                // Call
-                var renameAllowed = info.CanRename(null, null);
-
-                // Assert
-                Assert.IsFalse(renameAllowed);
             }
         }
 
