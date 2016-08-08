@@ -739,19 +739,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     var messageList = messages.ToList();
 
                     // Assert
-                    Assert.AreEqual(12, messageList.Count);
+                    Assert.AreEqual(14, messageList.Count);
                     StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                     StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                     StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
-                    Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'A' is niet gelukt.", messageList[3]);
-                    StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[4]);
-                    StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[5]);
-                    StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[6]);
-                    StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[7]);
-                    Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'B' is niet gelukt.", messageList[8]);
-                    StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[9]);
-                    Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[10]);
-                    Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[11]);
+                    Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'A' is niet gelukt.", messageList[4]);
+                    StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
+                    StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
+                    StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
+                    StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
+                    Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'B' is niet gelukt.", messageList[10]);
+                    StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
+                    Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);
+                    Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[13]);
                 });
             }
         }

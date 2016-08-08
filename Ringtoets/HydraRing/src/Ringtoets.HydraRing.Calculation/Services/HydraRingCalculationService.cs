@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -66,7 +67,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
             PerformCalculation(workingDirectory, hydraRingInitializationService);
 
-            ExecuteParsers(parsers, hydraRingInitializationService.TemporaryWorkingDirectory, hydraRingCalculationInput.Section.SectionId);
+            var extendedParsers = parsers.ToList();
+            extendedParsers.Add(new LogFileParser());
+            ExecuteParsers(extendedParsers, hydraRingInitializationService.TemporaryWorkingDirectory, hydraRingCalculationInput.Section.SectionId);
         }
 
         /// <summary>

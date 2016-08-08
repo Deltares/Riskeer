@@ -72,5 +72,23 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
                 return ResourceManager.GetString("HydraRingSettings", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan het Hydra-Ring logbestand {0} niet vinden in de map {1}..
+        /// </summary>
+        internal static string Parse_Cannot_find_file_0_in_folder_1_ {
+            get {
+                return ResourceManager.GetString("Parse_Cannot_find_file_0_in_folder_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}..
+        /// </summary>
+        internal static string Parse_Cannot_read_file_0_from_folder_1_ {
+            get {
+                return ResourceManager.GetString("Parse_Cannot_read_file_0_from_folder_1_", resourceCulture);
+            }
+        }
     }
 }
