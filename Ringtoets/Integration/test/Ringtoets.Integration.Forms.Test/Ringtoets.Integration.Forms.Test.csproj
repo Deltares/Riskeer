@@ -71,10 +71,12 @@
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationDesignWaterLevelPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationWaveHeightPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAloneFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\WaveHeightContextPropertiesTest.cs" />
     <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructureFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />

@@ -26,71 +26,70 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationDesignWaterLevelPropertiesTest
+    public class HydraulicBoundaryLocationWaveHeightPropertiesTest
     {
         [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
             // Setup
             const long id = 1234;
-            const string name = "<some name>";
             const double x = 567.0;
             const double y = 890.0;
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            const string name = "<some name>";
+
+            var hydraulicBoundaryLocation =new HydraulicBoundaryLocation(id, name, x, y);
 
             // Call
-            HydraulicBoundaryLocationDesignWaterLevelProperties properties =
-                new HydraulicBoundaryLocationDesignWaterLevelProperties(hydraulicBoundaryLocation);
+            var properties = new HydraulicBoundaryLocationWaveHeightProperties(hydraulicBoundaryLocation);
 
             // Assert
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            Assert.AreEqual(string.Empty, properties.DesignWaterLevel);
+            Assert.AreEqual(string.Empty, properties.WaveHeight);
         }
 
         [Test]
-        public void GetProperties_ValidDesignWaterLevel_ReturnsExpectedValues()
+        public void GetProperties_ValidWaveHeight_ReturnsExpectedValues()
         {
             // Setup
             const long id = 1234L;
             const double x = 567.0;
             const double y = 890.0;
             const string name = "<some name>";
-            const double designWaterLevel = 5.123456;
+            const double waveHeight = 5.123456;
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
-                DesignWaterLevel = designWaterLevel
+                WaveHeight = waveHeight
             };
 
             // Call
-            HydraulicBoundaryLocationDesignWaterLevelProperties properties =
-                new HydraulicBoundaryLocationDesignWaterLevelProperties(hydraulicBoundaryLocation);
+            var properties = new HydraulicBoundaryLocationWaveHeightProperties(hydraulicBoundaryLocation);
 
             // Assert
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            string expectedDesignWaterLevel = designWaterLevel.ToString("F2", CultureInfo.InvariantCulture);
-            Assert.AreEqual(expectedDesignWaterLevel, properties.DesignWaterLevel);
+            string expectedWaveHeight = waveHeight.ToString("F2", CultureInfo.InvariantCulture);
+            Assert.AreEqual(expectedWaveHeight, properties.WaveHeight);
         }
 
         [Test]
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            HydraulicBoundaryLocationDesignWaterLevelProperties properties =
-                new HydraulicBoundaryLocationDesignWaterLevelProperties(hydraulicBoundaryLocation);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
+            var properties = new HydraulicBoundaryLocationWaveHeightProperties(hydraulicBoundaryLocation);
 
             // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
@@ -100,17 +99,16 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const string expectedIdDisplayName = "ID";
             const string expectedNameDisplayName = "Naam";
             const string expectedLocationDisplayName = "Coördinaten [m]";
-            const string expectedDesignWaterLevelDisplayName = "Toetspeil [m+NAP]";
-            const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
+            const string expectedWaveHeightDisplayName = "Hs [m]";
+            const string expectedIdDescription = "Id van de hydraulische randvoorwaardenlocatie in de database.";
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
-            const string expectedDesignWaterLevelDescription = "Berekend toetspeil.";
-
+            const string expectedWaveHeightDescription = "Berekende golfhoogte.";
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
             PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);
             PropertyDescriptor locationProperty = dynamicProperties.Find("Location", false);
-            PropertyDescriptor designWaterLevelProperty = dynamicProperties.Find("DesignWaterLevel", false);
+            PropertyDescriptor waveHeightProperty = dynamicProperties.Find("WaveHeight", false);
 
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
@@ -135,12 +133,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
             Assert.AreEqual(3, locationProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
 
-            Assert.IsNotNull(designWaterLevelProperty);
-            Assert.IsTrue(designWaterLevelProperty.IsReadOnly);
-            Assert.IsTrue(designWaterLevelProperty.IsBrowsable);
-            Assert.AreEqual(expectedDesignWaterLevelDisplayName, designWaterLevelProperty.DisplayName);
-            Assert.AreEqual(expectedDesignWaterLevelDescription, designWaterLevelProperty.Description);
-            Assert.AreEqual(4, designWaterLevelProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
+            Assert.IsNotNull(waveHeightProperty);
+            Assert.IsTrue(waveHeightProperty.IsReadOnly);
+            Assert.IsTrue(waveHeightProperty.IsBrowsable);
+            Assert.AreEqual(expectedWaveHeightDisplayName, waveHeightProperty.DisplayName);
+            Assert.AreEqual(expectedWaveHeightDescription, waveHeightProperty.Description);
+            Assert.AreEqual(4, waveHeightProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
         }
     }
 }

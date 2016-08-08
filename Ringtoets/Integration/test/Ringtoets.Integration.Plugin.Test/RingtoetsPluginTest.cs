@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(8, propertyInfos.Length);
+                Assert.AreEqual(9, propertyInfos.Length);
 
                 var ringtoetsProjectProperties = propertyInfos.Single(pi => pi.DataType == typeof(IProject));
                 Assert.AreEqual(typeof(RingtoetsProjectProperties), ringtoetsProjectProperties.PropertyObjectType);
@@ -245,6 +245,12 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(designWaterLevelContextProperties.AdditionalDataCheck);
                 Assert.IsNull(designWaterLevelContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelContextProperties.AfterCreate);
+
+                var waveHeightContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(WaveHeightContext));
+                Assert.AreEqual(typeof(WaveHeightContextProperties), waveHeightContextProperties.PropertyObjectType);
+                Assert.IsNull(waveHeightContextProperties.AdditionalDataCheck);
+                Assert.IsNull(waveHeightContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(waveHeightContextProperties.AfterCreate);
             }
         }
 

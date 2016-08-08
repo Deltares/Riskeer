@@ -317,4 +317,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="WaveHeight_Calculate_ToolTip" xml:space="preserve">
     <value>Bereken de golfhoogtes.</value>
   </data>
+  <data name="HydraulicBoundaryDatabase_Locations_WaveHeight_Description" xml:space="preserve">
+    <value>Berekende golfhoogte.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName" xml:space="preserve">
+    <value>Hs [m]</value>
+  </data>
 </root>

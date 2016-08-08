@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -29,16 +28,13 @@ using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
-    /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with <see cref="DesignWaterLevel"/> for properties panel.
-    /// </summary>
-    public class HydraulicBoundaryLocationDesignWaterLevelProperties : HydraulicBoundaryLocationProperties
+    public class HydraulicBoundaryLocationWaveHeightProperties : HydraulicBoundaryLocationProperties
     {
         /// <summary>
-        /// New instance of <see cref="HydraulicBoundaryLocationDesignWaterLevelProperties"/>.
+        /// New instance of <see cref="HydraulicBoundaryLocationWaveHeightProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation"><see cref="HydraulicBoundaryLocation"/> whose data will be used for the properties panel.</param>
-        public HydraulicBoundaryLocationDesignWaterLevelProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation) : base(hydraulicBoundaryLocation) {}
+        public HydraulicBoundaryLocationWaveHeightProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation) : base(hydraulicBoundaryLocation) {}
 
         [PropertyOrder(1)]
         public override long Id
@@ -68,16 +64,16 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
         /// </summary>
         [PropertyOrder(4)]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description")]
-        public string DesignWaterLevel
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_Description")]
+        public string WaveHeight
         {
             get
             {
-                return double.IsNaN(data.DesignWaterLevel) ? string.Empty : data.DesignWaterLevel.ToString("F2", CultureInfo.InvariantCulture);
+                return double.IsNaN(data.WaveHeight) ? string.Empty : data.WaveHeight.ToString("F2", CultureInfo.InvariantCulture);
             }
         }
     }

@@ -491,6 +491,24 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekende golfhoogte..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_WaveHeight_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_WaveHeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs [m].
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
         /// </summary>
         public static string HydraulicBoundaryDatabaseContext_HydraulicBoundaryDatabaseContext__0__cannot_bet__null__ {

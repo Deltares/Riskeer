@@ -254,6 +254,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>();
             yield return new PropertyInfo<DesignWaterLevelContext, DesignWaterLevelContextProperties>();
+            yield return new PropertyInfo<WaveHeightContext, WaveHeightContextProperties>();
         }
 
         /// <summary>
