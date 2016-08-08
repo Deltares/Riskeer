@@ -52,7 +52,7 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
-        public void CanConvertSeries_DifferentInherritingTypes_OnlySupportsExactType()
+        public void CanConvertSeries_DifferentInheritingTypes_OnlySupportsExactType()
         {
             // Setup
             var testConverter = new TestChartDataConverter<Class>();

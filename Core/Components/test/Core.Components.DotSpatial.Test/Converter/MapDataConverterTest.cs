@@ -34,7 +34,7 @@ namespace Core.Components.DotSpatial.Test.Converter
     public class MapDataConverterTest
     {
         [Test]
-        public void CanConvertMapData_DifferentInherritingTypes_OnlySupportsExactType()
+        public void CanConvertMapData_DifferentInheritingTypes_OnlySupportsExactType()
         {
             // Setup
             var testConverter = new TestMapDataConverter<Class>();

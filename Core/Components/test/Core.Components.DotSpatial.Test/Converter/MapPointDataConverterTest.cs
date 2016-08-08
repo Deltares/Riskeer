@@ -55,9 +55,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void CanConvertMapData_MapPointData_ReturnsTrue()
         {
             // Setup
-            var feature = new List<MapFeature>
+            var feature = new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -67,7 +67,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             };
 
             var converter = new MapPointDataConverter();
-            var pointData = new MapPointData(feature, "test data");
+            var pointData = new MapPointData("test data")
+            {
+                Features = feature
+            };
 
             // Call
             var canConvert = converter.CanConvertMapData(pointData);
@@ -99,9 +102,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             var randomCount = random.Next(5, 10);
             var features = new List<MapFeature>();
 
-            for (int i = 0; i < randomCount; i++)
+            for (var i = 0; i < randomCount; i++)
             {
-                features.Add(new MapFeature(new List<MapGeometry>
+                features.Add(new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -113,7 +116,10 @@ namespace Core.Components.DotSpatial.Test.Converter
                 }));
             }
 
-            var pointData = new MapPointData(features, "test data");
+            var pointData = new MapPointData("test data")
+            {
+                Features = features.ToArray()
+            };
 
             // Call
             var mapLayers = converter.Convert(pointData);
@@ -133,9 +139,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var features = new List<MapFeature>
+            var features = new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -145,7 +151,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                         }
                     })
                 }),
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -155,7 +161,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                         }
                     })
                 }),
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -167,14 +173,17 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             };
 
-            var pointData = new MapPointData(features, "test");
+            var pointData = new MapPointData("test")
+            {
+                Features = features
+            };
 
             // Call
             var layers = converter.Convert(pointData);
 
             // Assert
             var layer = layers.First();
-            Assert.AreEqual(features.Count, layer.DataSet.Features.Count);
+            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
             layer.DataSet.InitializeVertices();
             Assert.AreEqual(3, layer.DataSet.ShapeIndices.Count);
 
@@ -221,7 +230,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapPointDataConverter();
-            var data = new MapPointData(Enumerable.Empty<MapFeature>(), "test")
+            var data = new MapPointData("test")
             {
                 IsVisible = isVisible
             };
@@ -239,13 +248,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var name = "<Some name>";
             var converter = new MapPointDataConverter();
-            var data = new MapPointData(Enumerable.Empty<MapFeature>(), name);
+            var data = new MapPointData(name);
 
             // Call
             var layers = converter.Convert(data);
 
             // Assert
-            var layer = layers.First() as MapPointLayer;
+            var layer = (MapPointLayer) layers.First();
             Assert.AreEqual(name, layer.Name);
         }
 
@@ -259,7 +268,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapPointDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new PointStyle(expectedColor, 3, PointSymbol.Circle);
-            var data = new MapPointData(Enumerable.Empty<MapFeature>(), "test")
+            var data = new MapPointData("test")
             {
                 Style = style
             };
@@ -268,7 +277,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var layers = converter.Convert(data);
 
             // Assert
-            var layer = (MapPointLayer)layers.First();
+            var layer = (MapPointLayer) layers.First();
             AssertAreEqual(new PointSymbolizer(expectedColor, PointShape.Ellipse, 3), layer.Symbolizer);
         }
 
@@ -281,7 +290,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapPointDataConverter();
             var style = new PointStyle(Color.AliceBlue, width, PointSymbol.Circle);
-            var data = new MapPointData(Enumerable.Empty<MapFeature>(), "test")
+            var data = new MapPointData("test")
             {
                 Style = style
             };
@@ -290,7 +299,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var layers = converter.Convert(data);
 
             // Assert
-            var layer = (MapPointLayer)layers.First();
+            var layer = (MapPointLayer) layers.First();
             AssertAreEqual(new PointSymbolizer(Color.AliceBlue, PointShape.Ellipse, width), layer.Symbolizer);
         }
 
@@ -303,7 +312,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapPointDataConverter();
             var style = new PointStyle(Color.AliceBlue, 3, pointStyle);
-            var data = new MapPointData(Enumerable.Empty<MapFeature>(), "test")
+            var data = new MapPointData("test")
             {
                 Style = style
             };
@@ -312,7 +321,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var layers = converter.Convert(data);
 
             // Assert
-            var layer = (MapPointLayer)layers.First();
+            var layer = (MapPointLayer) layers.First();
             PointShape expectedPointShape = pointStyle == PointSymbol.Circle ? PointShape.Ellipse : pointStyle == PointSymbol.Square ? PointShape.Rectangle : PointShape.Triangle;
             AssertAreEqual(new PointSymbolizer(Color.AliceBlue, expectedPointShape, 3), layer.Symbolizer);
         }
@@ -324,8 +333,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.AreEqual(firstSymbols.Count, secondSymbols.Count, "Unequal amount of strokes defined.");
             for (var i = 0; i < firstSymbols.Count; i++)
             {
-                var firstStroke = (SimpleSymbol)firstSymbols[i];
-                var secondStroke = (SimpleSymbol)secondSymbols[i];
+                var firstStroke = (SimpleSymbol) firstSymbols[i];
+                var secondStroke = (SimpleSymbol) secondSymbols[i];
 
                 Assert.AreEqual(firstStroke.Color, secondStroke.Color);
                 Assert.AreEqual(firstStroke.PointShape, secondStroke.PointShape);

@@ -44,7 +44,7 @@ namespace Core.Components.DotSpatial
         {
             if (map == null)
             {
-                throw new ArgumentNullException("map", "An extension cannot be initialized without map.");
+                throw new ArgumentNullException("map", @"An extension cannot be initialized without map.");
             }
             this.map = map;
 
@@ -71,7 +71,7 @@ namespace Core.Components.DotSpatial
                     xLabel, yLabel
                 },
                 RowCount = 1,
-                ColumnCount = 2,
+                ColumnCount = 2
             };
         }
 

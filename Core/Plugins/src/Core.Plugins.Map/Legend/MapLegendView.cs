@@ -61,11 +61,11 @@ namespace Core.Plugins.Map.Legend
         {
             if (contextMenuBuilderProvider == null)
             {
-                throw new ArgumentNullException("contextMenuBuilderProvider", "Cannot create a MapLegendView when the context menu builder provider is null.");
+                throw new ArgumentNullException("contextMenuBuilderProvider", @"Cannot create a MapLegendView when the context menu builder provider is null.");
             }
             if (parentWindow == null)
             {
-                throw new ArgumentNullException("parentWindow", "Cannot create a MapLegendView when the parent window is null.");
+                throw new ArgumentNullException("parentWindow", @"Cannot create a MapLegendView when the parent window is null.");
             }
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
@@ -124,7 +124,7 @@ namespace Core.Plugins.Map.Legend
             {
                 Text = mapDataCollection => mapDataCollection.Name,
                 Image = mapDataCollection => GuiResources.folder,
-                ChildNodeObjects = mapDataCollection => mapDataCollection.List.Reverse().Cast<object>().ToArray(),
+                ChildNodeObjects = mapDataCollection => mapDataCollection.Collection.Reverse().Cast<object>().ToArray(),
                 CanDrop = MapControlCanDrop,
                 CanInsert = MapControlCanInsert,
                 OnDrop = MapControlOnDrop,
@@ -166,7 +166,7 @@ namespace Core.Plugins.Map.Legend
             var target = (MapDataCollection) newParentData;
 
             target.Remove(mapData);
-            target.Insert(target.List.Count - position, mapData); // Note: target is the same as the previous parent in this case
+            target.Insert(target.Collection.Count() - position, mapData); // Note: target is the same as the previous parent in this case
             target.NotifyObservers();
         }
 
@@ -194,7 +194,7 @@ namespace Core.Plugins.Map.Legend
                 Multiselect = false,
                 Title = windowTitle,
                 RestoreDirectory = true,
-                CheckFileExists = false,
+                CheckFileExists = false
             })
             {
                 if (dialog.ShowDialog(parentWindow) == DialogResult.OK)
@@ -206,11 +206,11 @@ namespace Core.Plugins.Map.Legend
 
         private void CheckDataFormat(string filePath, string title, MapDataCollection mapDataCollection)
         {
-            FeatureBasedMapData importedData;
-
             try
             {
                 var featureSet = Shapefile.OpenFile(filePath);
+
+                FeatureBasedMapData importedData;
 
                 switch (featureSet.FeatureType)
                 {

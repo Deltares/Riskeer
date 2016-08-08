@@ -125,19 +125,26 @@ namespace Core.Components.Gis.IO.Readers
         private FeatureBasedMapData ConvertPointFeatureToMapPointData(IFeature pointFeature, string name)
         {
             MapFeature feature = CreateMapFeatureForPointFeature(pointFeature);
+
             CopyMetaDataIntoFeature(feature, readIndex);
 
-            IEnumerable<MapFeature> mapFeatures = new List<MapFeature>
+            return new MapPointData(name)
             {
-                feature
+                Features = new[]
+                {
+                    feature
+                }
             };
-            return new MapPointData(mapFeatures, name);
         }
 
-        private FeatureBasedMapData ConvertPointFeaturesToMapPointData(IEnumerable<IFeature> featureList, string name)
+        private static FeatureBasedMapData ConvertPointFeaturesToMapPointData(IEnumerable<IFeature> featureList, string name)
         {
             MapFeature[] mapFeatures = featureList.Select(CreateMapFeatureForPointFeature).ToArray();
-            return new MapPointData(mapFeatures, name);
+
+            return new MapPointData(name)
+            {
+                Features = mapFeatures
+            };
         }
 
         private static MapFeature CreateMapFeatureForPointFeature(IFeature pointFeature)

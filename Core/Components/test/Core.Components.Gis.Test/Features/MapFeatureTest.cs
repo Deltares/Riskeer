@@ -37,7 +37,7 @@ namespace Core.Components.Gis.Test.Features
         public void ParameteredConstructor_WithMapGeometries_MapGeometriesAndDefaultValuesSet()
         {
             // Setup
-            var mapGeometries = new List<MapGeometry>
+            var mapGeometries = new[]
             {
                 new MapGeometry(new[]
                 {

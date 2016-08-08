@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -55,7 +54,7 @@ namespace Core.Components.DotSpatial.Forms
             InitializeMapView();
             TogglePanning();
 
-            Data = new MapDataCollection(new List<MapData>(), "Root");
+            Data = new MapDataCollection("Root");
             Data.Attach(this);
 
             DrawFeatureSets();

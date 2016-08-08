@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -29,7 +28,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
@@ -92,8 +90,8 @@ namespace Core.Plugins.Map.Test.Legend
         public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            var mapLineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "MapLineData");
             mocks.ReplayAll();
+            var mapLineData = new MapLineData("test data");
 
             // Call
             var text = info.Text(mapLineData);
@@ -119,12 +117,11 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
-
             mocks.ReplayAll();
+            var mapLineData = new MapLineData("test data");
 
             // Call
-            var canCheck = info.CanCheck(lineData);
+            var canCheck = info.CanCheck(mapLineData);
 
             // Assert
             Assert.IsTrue(canCheck);
@@ -135,14 +132,14 @@ namespace Core.Plugins.Map.Test.Legend
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
-
-            lineData.IsVisible = isVisible;
-
             mocks.ReplayAll();
+            var mapLineData = new MapLineData("test data")
+            {
+                IsVisible = isVisible
+            };
 
             // Call
-            var canCheck = info.IsChecked(lineData);
+            var canCheck = info.IsChecked(mapLineData);
 
             // Assert
             Assert.AreEqual(isVisible, canCheck);
@@ -153,17 +150,17 @@ namespace Core.Plugins.Map.Test.Legend
         public void OnNodeChecked_LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
-
             mocks.ReplayAll();
-
-            lineData.IsVisible = initialVisibleState;
+            var mapLineData = new MapLineData("test data")
+            {
+                IsVisible = initialVisibleState
+            };
 
             // Call
-            info.OnNodeChecked(lineData, null);
+            info.OnNodeChecked(mapLineData, null);
 
             // Assert
-            Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
+            Assert.AreEqual(!initialVisibleState, mapLineData.IsVisible);
         }
 
         [TestCase(true)]
@@ -174,29 +171,29 @@ namespace Core.Plugins.Map.Test.Legend
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
 
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
-
             mocks.ReplayAll();
 
-            lineData.IsVisible = initialVisibleState;
+            var mapLineData = new MapLineData("test data")
+            {
+                IsVisible = initialVisibleState
+            };
 
             // Call
-            info.OnNodeChecked(lineData, observable);
+            info.OnNodeChecked(mapLineData, observable);
 
             // Assert
-            Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
+            Assert.AreEqual(!initialVisibleState, mapLineData.IsVisible);
         }
 
         [Test]
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<MapLineData>(Enumerable.Empty<MapFeature>(), "test data");
-
             mocks.ReplayAll();
+            var mapLineData = new MapLineData("test data");
 
             // Call
-            var canDrag = info.CanDrag(lineData, null);
+            var canDrag = info.CanDrag(mapLineData, null);
 
             // Assert
             Assert.IsTrue(canDrag);

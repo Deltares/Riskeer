@@ -19,22 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.HydraRing.Data;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.Primitives;
+using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {
@@ -42,247 +34,63 @@ namespace Ringtoets.Piping.Forms.Test.Views
     public class PipingMapDataFactoryTest
     {
         [Test]
-        public void Create_GivenSurfaceLines_ReturnsMapFeaturesWithDefaultStyling()
+        public void CreateSurfaceLinesMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
         {
-            // Setup
-            var pointsOne = new[]
-            {
-                new Point3D(1.2, 2.3, 4.0),
-                new Point3D(2.7, 2.0, 6.0)
-            };
-            var pointsTwo = new[]
-            {
-                new Point3D(3.2, 23.3, 34.2),
-                new Point3D(7.7, 12.6, 1.2)
-            };
-            var lines = new[]
-            {
-                new RingtoetsPipingSurfaceLine(),
-                new RingtoetsPipingSurfaceLine()
-            };
-            lines[0].SetGeometry(pointsOne);
-            lines[1].SetGeometry(pointsTwo);
-
             // Call
-            MapData data = PipingMapDataFactory.Create(lines);
+            MapLineData data = PipingMapDataFactory.CreateSurfaceLinesMapData();
 
             // Assert
-            Assert.IsInstanceOf<MapLineData>(data);
-            var mapLineData = (MapLineData) data;
-            Assert.AreEqual(1, mapLineData.Features.Count());
-            Assert.AreEqual(2, mapLineData.Features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(0));
-            AssertEqualPointCollections(pointsTwo, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(1));
+            Assert.IsEmpty(data.Features);
             Assert.AreEqual(Resources.PipingSurfaceLinesCollection_DisplayName, data.Name);
-
-            AssertEqualStyle(mapLineData.Style, Color.DarkSeaGreen, 2, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.DarkSeaGreen, 2, DashStyle.Solid);
         }
 
         [Test]
-        public void Create_NoSurfaceLines_ThrowsArgumentNullException()
+        public void CreateStochasticSoilModelsMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
         {
             // Call
-            TestDelegate test = () => PipingMapDataFactory.Create((IEnumerable<RingtoetsPipingSurfaceLine>) null);
+            MapLineData data = PipingMapDataFactory.CreateStochasticSoilModelsMapData();
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("surfaceLines", parameter);
-        }
-
-        [Test]
-        public void Create_GivenStochasticSoilModels_ReturnsMapFeaturesWithDefaultStyling()
-        {
-            // Setup
-            var pointsOne = new[]
-            {
-                new Point2D(1.2, 2.3),
-                new Point2D(2.7, 2.0)
-            };
-            var pointsTwo = new[]
-            {
-                new Point2D(3.2, 23.3),
-                new Point2D(7.7, 12.6)
-            };
-            var stochasticSoilModels = new[]
-            {
-                new StochasticSoilModel(1, "StochasticSoilModelName1", "StochasticSoilModelSegmentName1"),
-                new StochasticSoilModel(2, "StochasticSoilModelName2", "StochasticSoilModelSegmentName2")
-            };
-            stochasticSoilModels[0].Geometry.AddRange(pointsOne);
-            stochasticSoilModels[1].Geometry.AddRange(pointsTwo);
-
-            // Call
-            MapData data = PipingMapDataFactory.Create(stochasticSoilModels);
-
-            // Assert
-            Assert.IsInstanceOf<MapLineData>(data);
-            var mapLineData = (MapLineData) data;
-            Assert.AreEqual(1, mapLineData.Features.Count());
-            Assert.AreEqual(2, mapLineData.Features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(0));
-            AssertEqualPointCollections(pointsTwo, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(1));
+            Assert.IsEmpty(data.Features);
             Assert.AreEqual(Resources.StochasticSoilModelCollection_DisplayName, data.Name);
-
-            AssertEqualStyle(mapLineData.Style, Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid);
+            AssertEqualStyle(data.Style, Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid);
         }
 
         [Test]
-        public void Create_NoStochasticSoilModels_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionsMapData_ReturnsEmptyChartLineDataWithDefaultStyling()
         {
             // Call
-            TestDelegate test = () => PipingMapDataFactory.Create((IEnumerable<StochasticSoilModel>) null);
+            MapLineData data = PipingMapDataFactory.CreateFailureMechanismSectionsMapData();
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("stochasticSoilModels", parameter);
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(CommonFormsResources.FailureMechanism_Sections_DisplayName, data.Name);
+            AssertEqualStyle(data.Style, Color.Khaki, 3, DashStyle.Dot);
         }
 
         [Test]
-        public void Create_GivenSections_ReturnsMapFeaturesWithDefaultStyling()
+        public void CreateFailureMechanismSectionsStartPointMapData_ReturnsEmptyChartPointDataWithDefaultStyling()
         {
-            // Setup
-            var pointsOne = new[]
-            {
-                new Point2D(1.2, 2.3),
-                new Point2D(2.7, 2.0)
-            };
-            var pointsTwo = new[]
-            {
-                new Point2D(3.2, 23.3),
-                new Point2D(7.7, 12.6)
-            };
-            var lines = new[]
-            {
-                new FailureMechanismSection(string.Empty, pointsOne),
-                new FailureMechanismSection(string.Empty, pointsTwo)
-            };
-
             // Call
-            MapData data = PipingMapDataFactory.Create(lines);
+            MapPointData data = PipingMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
 
             // Assert
-            Assert.IsInstanceOf<MapLineData>(data);
-            var mapLineData = (MapLineData) data;
-            Assert.AreEqual(1, mapLineData.Features.Count());
-            Assert.AreEqual(2, mapLineData.Features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(pointsOne, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(0));
-            AssertEqualPointCollections(pointsTwo, mapLineData.Features.ElementAt(0).MapGeometries.ElementAt(1));
-            Assert.AreEqual(Common.Forms.Properties.Resources.FailureMechanism_Sections_DisplayName, data.Name);
-
-            AssertEqualStyle(mapLineData.Style, Color.Khaki, 3, DashStyle.Dot);
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(GetSectionPointDisplayName(CommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), data.Name);
+            AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
 
         [Test]
-        public void Create_NoSections_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionsEndPointMapData_ReturnsEmptyChartPointDataWithDefaultStyling()
         {
             // Call
-            TestDelegate test = () => PipingMapDataFactory.Create((IEnumerable<FailureMechanismSection>) null);
+            MapPointData data = PipingMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sections", parameter);
-        }
-
-        [Test]
-        public void CreateStartPoints_GivenSections_ReturnsMapFeaturesWithDefaultStyling()
-        {
-            // Setup
-            var pointsOne = new[]
-            {
-                new Point2D(1.2, 2.3),
-                new Point2D(2.7, 2.0)
-            };
-            var pointsTwo = new[]
-            {
-                new Point2D(3.2, 23.3),
-                new Point2D(7.7, 12.6)
-            };
-            var lines = new[]
-            {
-                new FailureMechanismSection(string.Empty, pointsOne),
-                new FailureMechanismSection(string.Empty, pointsTwo)
-            };
-
-            // Call
-            MapData data = PipingMapDataFactory.CreateStartPoints(lines);
-
-            // Assert
-            Assert.IsInstanceOf<MapPointData>(data);
-            var mapPointData = (MapPointData) data;
-            Assert.AreEqual(1, mapPointData.Features.Count());
-            Assert.AreEqual(1, mapPointData.Features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(new[]
-            {
-                pointsOne[0],
-                pointsTwo[0]
-            }, mapPointData.Features.ElementAt(0).MapGeometries.ElementAt(0));
-
-            var name = SectionPointDisplayName(Common.Forms.Properties.Resources.FailureMechanismSections_StartPoints_DisplayName);
-            Assert.AreEqual(name, data.Name);
-
-            AssertEqualStyle(mapPointData.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
-        }
-
-        [Test]
-        public void CreateStartPoints_NoSections_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => PipingMapDataFactory.CreateStartPoints(null);
-
-            // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sections", parameter);
-        }
-
-        [Test]
-        public void CreateEndPoints_GivenSections_ReturnsMapFeaturesWithDefaultStyling()
-        {
-            // Setup
-            var pointsOne = new[]
-            {
-                new Point2D(1.2, 2.3),
-                new Point2D(2.7, 2.0)
-            };
-            var pointsTwo = new[]
-            {
-                new Point2D(3.2, 23.3),
-                new Point2D(7.7, 12.6)
-            };
-            var lines = new[]
-            {
-                new FailureMechanismSection(string.Empty, pointsOne),
-                new FailureMechanismSection(string.Empty, pointsTwo)
-            };
-
-            // Call
-            MapData data = PipingMapDataFactory.CreateEndPoints(lines);
-
-            // Assert
-            Assert.IsInstanceOf<MapPointData>(data);
-            var mapPointData = (MapPointData) data;
-            Assert.AreEqual(1, mapPointData.Features.Count());
-            Assert.AreEqual(1, mapPointData.Features.ElementAt(0).MapGeometries.Count());
-            AssertEqualPointCollections(new[]
-            {
-                pointsOne[1],
-                pointsTwo[1]
-            }, mapPointData.Features.ElementAt(0).MapGeometries.ElementAt(0));
-
-            var name = SectionPointDisplayName(Common.Forms.Properties.Resources.FailureMechanismSections_EndPoints_DisplayName);
-            Assert.AreEqual(name, data.Name);
-
-            AssertEqualStyle(mapPointData.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
-        }
-
-        [Test]
-        public void CreateEndPoints_NoSections_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => PipingMapDataFactory.CreateEndPoints(null);
-
-            // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sections", parameter);
+            Assert.IsEmpty(data.Features);
+            Assert.AreEqual(GetSectionPointDisplayName(CommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), data.Name);
+            AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
 
         private void AssertEqualStyle(PointStyle pointStyle, Color color, int width, PointSymbol symbol)
@@ -299,21 +107,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(style, lineStyle.Style);
         }
 
-        private static string SectionPointDisplayName(string name)
+        private static string GetSectionPointDisplayName(string name)
         {
             return string.Format("{0} ({1})",
-                                 Common.Forms.Properties.Resources.FailureMechanism_Sections_DisplayName,
+                                 CommonFormsResources.FailureMechanism_Sections_DisplayName,
                                  name);
-        }
-
-        private void AssertEqualPointCollections(IEnumerable<Point3D> points, MapGeometry geometry)
-        {
-            AssertEqualPointCollections(points.Select(p => new Point2D(p.X, p.Y)), geometry);
-        }
-
-        private void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
-        {
-            CollectionAssert.AreEqual(points.Select(p => new Point2D(p.X, p.Y)), geometry.PointCollections.First());
         }
     }
 }

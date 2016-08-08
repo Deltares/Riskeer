@@ -44,7 +44,7 @@ namespace Core.Components.DotSpatial.Converter
         {
             if (data == null)
             {
-                throw new ArgumentNullException("data", "Null data cannot be converted into feature sets.");
+                throw new ArgumentNullException("data", @"Null data cannot be converted into feature sets.");
             }
 
             if (!CanConvertMapData(data))

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -61,7 +59,7 @@ namespace Demo.Ringtoets.Test.Views
                 object mapObject = mapView.Controls[0];
                 Assert.IsInstanceOf<MapControl>(mapObject);
 
-                var map = (MapControl)mapObject;
+                var map = (MapControl) mapObject;
                 Assert.AreEqual(DockStyle.Fill, map.Dock);
                 Assert.NotNull(mapView.Map);
             }
@@ -73,7 +71,7 @@ namespace Demo.Ringtoets.Test.Views
             // Setup
             using (var mapView = new MapDataView())
             {
-                var map = (MapControl)mapView.Controls[0];
+                var map = (MapControl) mapView.Controls[0];
                 var mapData = map.Data;
 
                 // Call
@@ -103,9 +101,9 @@ namespace Demo.Ringtoets.Test.Views
         public void Data_SetToMapCollectionData_MapDataSet()
         {
             // Setup
-            var features = new Collection<MapFeature>
+            var features = new[]
             {
-                new MapFeature(new Collection<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -116,18 +114,20 @@ namespace Demo.Ringtoets.Test.Views
 
             using (var mapView = new MapDataView())
             {
-                var map = (MapControl)mapView.Controls[0];
-                var pointData = new MapPointData(features, "test data");
-                var collection = new MapDataCollection(new List<MapData>
+                var map = (MapControl) mapView.Controls[0];
+                var collection = new MapDataCollection("test");
+                var pointData = new MapPointData("test data")
                 {
-                    pointData
-                }, "test");
+                    Features = features
+                };
+
+                collection.Add(pointData);
 
                 // Call
                 mapView.Data = collection;
 
                 // Assert
-                Assert.AreSame(pointData, map.Data.List.First());
+                Assert.AreSame(pointData, map.Data.Collection.First());
                 Assert.AreSame(collection, mapView.Data);
             }
         }

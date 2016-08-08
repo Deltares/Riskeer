@@ -103,6 +103,7 @@
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditorTest.cs" />
     <Compile Include="Views\PipingCalculationRowTest.cs" />
     <Compile Include="Views\PipingChartDataPointsFactoryTest.cs" />
+    <Compile Include="Views\PipingMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\PipingScenariosViewTest.cs" />
     <Compile Include="Views\PipingChartDataFactoryTest.cs" />
     <Compile Include="Views\PipingInputViewTest.cs" />

@@ -35,17 +35,19 @@ using NUnit.Framework;
 namespace Core.Components.DotSpatial.Test.Converter
 {
     [TestFixture]
-    public class MapDataFactoryTest
+    public class MapFeatureLayerFactoryTest
     {
         [Test]
         public void Create_MapPointData_ReturnMapPointLayer()
         {
             // Setup
             var factory = new MapFeatureLayerFactory();
-            var testData = CreateTestData();
 
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(new MapPointData(testData, "test data"));
+            IList<IMapFeatureLayer> layers = factory.Create(new MapPointData("test data")
+            {
+                Features = CreateTestData()
+            });
 
             // Assert
             Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
@@ -58,10 +60,12 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var factory = new MapFeatureLayerFactory();
-            var testData = CreateTestData();
 
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(new MapLineData(testData, "test data"));
+            IList<IMapFeatureLayer> layers = factory.Create(new MapLineData("test data")
+            {
+                Features = CreateTestData()
+            });
 
             // Assert
             Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
@@ -74,10 +78,12 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var factory = new MapFeatureLayerFactory();
-            var testData = CreateTestData();
 
             // Call
-            IList<IMapFeatureLayer> layers = factory.Create(new MapPolygonData(testData, "test data"));
+            IList<IMapFeatureLayer> layers = factory.Create(new MapPolygonData("test data")
+            {
+                Features = CreateTestData()
+            });
 
             // Assert
             Assert.IsInstanceOf<IList<IMapFeatureLayer>>(layers);
@@ -94,12 +100,22 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var factory = new MapFeatureLayerFactory();
             var testData = CreateTestData();
-            var mapDataCollection = new MapDataCollection(new List<MapData>
+            var mapDataCollection = new MapDataCollection("test data");
+
+            mapDataCollection.Add(new MapPointData("test data")
             {
-                new MapPointData(testData, "test data"),
-                new MapLineData(testData, "test data"),
-                new MapPolygonData(testData, "test data")
-            }, "test data");
+                Features = testData
+            });
+
+            mapDataCollection.Add(new MapLineData("test data")
+            {
+                Features = testData
+            });
+
+            mapDataCollection.Add(new MapPolygonData("test data")
+            {
+                Features = testData
+            });
 
             var points = testData.First().MapGeometries.First().PointCollections.First().ToArray();
 
@@ -143,18 +159,21 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.Throws<NotSupportedException>(test);
         }
 
-        private static List<MapFeature> CreateTestData()
+        private static MapFeature[] CreateTestData()
         {
-            return new List<MapFeature>
+            return new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
-                    new MapGeometry(new[]{new []
+                    new MapGeometry(new[]
                     {
-                        new Point2D(1.2, 3.4),
-                        new Point2D(3.2, 3.4),
-                        new Point2D(0.2, 2.4)
-                    }})
+                        new[]
+                        {
+                            new Point2D(1.2, 3.4),
+                            new Point2D(3.2, 3.4),
+                            new Point2D(0.2, 2.4)
+                        }
+                    })
                 })
             };
         }

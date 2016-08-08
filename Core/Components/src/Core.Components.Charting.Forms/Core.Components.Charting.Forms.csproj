@@ -59,6 +59,10 @@
       <Name>Core.Common.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Core.Common.Version</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Components.Charting\Core.Components.Charting.csproj">
       <Project>{516ebc95-b8f2-428c-b7f6-733f01bf8fdd}</Project>
       <Name>Core.Components.Charting</Name>

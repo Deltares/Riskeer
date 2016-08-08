@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -36,13 +35,15 @@ namespace Core.Components.Gis.Test.Data
     public class MapPolygonDataTest
     {
         [Test]
-        public void Constructor_NullPoints_ThrowsArgumentNullException()
+        public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
             // Call
-            TestDelegate test = () => new MapPolygonData(null, "test data");
+            var data = new MapPolygonData("test data");
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, string.Format("A feature collection is required when creating a subclass of {0}.", typeof(FeatureBasedMapData)));
+            Assert.AreEqual("test data", data.Name);
+            Assert.IsEmpty(data.Features);
+            Assert.IsInstanceOf<FeatureBasedMapData>(data);
         }
 
         [Test]
@@ -51,29 +52,60 @@ namespace Core.Components.Gis.Test.Data
         [TestCase("        ")]
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
+            // Call
+            TestDelegate test = () => new MapPolygonData(invalidName);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the map data.");
+        }
+
+        [Test]
+        public void Features_SetValidNewValue_GetsNewValue()
+        {
             // Setup
-            var features = new Collection<MapFeature>
+            var data = new MapPolygonData("test data");
+            var features = new[]
             {
-                new MapFeature(new Collection<MapGeometry>
+                new MapFeature(Enumerable.Empty<MapGeometry>()),
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
-                        Enumerable.Empty<Point2D>()
+                        CreateTestPoints(),
+                        CreateTestPoints()
+                    }),
+                    new MapGeometry(new[]
+                    {
+                        CreateTestPoints()
                     })
                 })
             };
 
             // Call
-            TestDelegate test = () => new MapPolygonData(features, invalidName);
+            data.Features = features;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
+            Assert.AreSame(features, data.Features);
         }
 
         [Test]
-        public void Constructor_EmptyPointsCollection_ThrowArgumentException()
+        public void Features_SetNullValue_ThrowsArgumentNullException()
         {
             // Setup
+            var data = new MapPolygonData("test data");
+
+            // Call
+            TestDelegate test = () => data.Features = null;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "The array of features cannot be null.");
+        }
+
+        [Test]
+        public void Features_SetInvalidValue_ThrowsArgumentException()
+        {
+            // Setup
+            var data = new MapPolygonData("test data");
             var features = new[]
             {
                 new MapFeature(new[]
@@ -83,142 +115,19 @@ namespace Core.Components.Gis.Test.Data
             };
 
             // Call
-            TestDelegate call = () => new MapPolygonData(features, "Some invalid map data");
+            TestDelegate test = () => data.Features = features;
 
             // Assert
-            string expectedMessage = "MapPolygonData only accept MapFeature instances whose MapGeometries contain a single point-collection.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "MapPolygonData only accepts MapFeature instances whose MapGeometries contain at least one single point-collection.");
         }
 
-        [Test]
-        public void Constructor_WithEmptyPoints_CreatesNewMapPolygonData()
-        {
-            // Setup
-            var features = new Collection<MapFeature>
-            {
-                new MapFeature(new Collection<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
-
-            // Call
-            var data = new MapPolygonData(features, "test data");
-
-            // Assert
-            Assert.IsInstanceOf<MapData>(data);
-            Assert.AreNotSame(features, data.Features);
-        }
-
-        [Test]
-        public void Constructor_WithPoints_CreatesNewMapPolygonData()
-        {
-            // Setup
-            var features = new Collection<MapFeature> 
-            {
-                new MapFeature(new Collection<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        CreateOuterRingPoints()
-                    })
-                })
-            };
-
-            // Call
-            var data = new MapPolygonData(features, "test data");
-
-            // Assert
-            Assert.IsInstanceOf<MapData>(data);
-            Assert.AreNotSame(features, data.Features);
-            CollectionAssert.AreEqual(new[]
-            {
-                CreateOuterRingPoints()
-            }, data.Features.First().MapGeometries.First().PointCollections);
-        }
-
-        [Test]
-        public void Constructor_WithOuterAndInnerRingPoints_CreatesNewMapPointData()
-        {
-            // Setup
-            Point2D[] outerRingPoints = CreateOuterRingPoints();
-            Point2D[] innerRing1Points = CreateInnerRingPoints(2.0, 4.0);
-            Point2D[] innerRing2Points = CreateInnerRingPoints(8.0, 5.0);
-            var features = new[]
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        outerRingPoints,
-                        innerRing1Points,
-                        innerRing2Points
-                    })
-                })
-            };
-
-            // Call
-            var data = new MapPolygonData(features, "test data");
-
-            // Assert
-            Assert.IsInstanceOf<MapData>(data);
-            Assert.AreNotSame(features, data.Features);
-
-            MapGeometry mapFeatureGeometry = data.Features.First().MapGeometries.First();
-            var pointCollections = mapFeatureGeometry.PointCollections.ToArray();
-            Assert.AreEqual(3, pointCollections.Length);
-            CollectionAssert.AreEqual(outerRingPoints, pointCollections[0]);
-            CollectionAssert.AreEqual(innerRing1Points, pointCollections[1]);
-            CollectionAssert.AreEqual(innerRing2Points, pointCollections[2]);
-        }
-
-        [Test]
-        public void Constructor_WithName_SetsName()
-        {
-            // Setup
-            var features = new Collection<MapFeature>
-            {
-                new MapFeature(new Collection<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
-            var name = "Some name";
-
-            // Call
-            var data = new MapPolygonData(features, name);
-
-            // Assert
-            Assert.AreEqual(name, data.Name);
-        }
-
-        private Point2D[] CreateOuterRingPoints()
+        private static Point2D[] CreateTestPoints()
         {
             return new[]
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(10.0, 0.0),
-                new Point2D(10.0, 10.0),
-                new Point2D(0.0, 10.0),
-                new Point2D(0.0, 0.0)
-            };
-        }
-
-        private Point2D[] CreateInnerRingPoints(double lowerLeftCubeX, double upperRightCubeX)
-        {
-            return new[]
-            {
-                new Point2D(lowerLeftCubeX, lowerLeftCubeX),
-                new Point2D(upperRightCubeX, lowerLeftCubeX),
-                new Point2D(upperRightCubeX, upperRightCubeX),
-                new Point2D(lowerLeftCubeX, upperRightCubeX),
-                new Point2D(lowerLeftCubeX, lowerLeftCubeX)
+                new Point2D(0.0, 1.1),
+                new Point2D(1.0, 2.1),
+                new Point2D(1.6, 1.6)
             };
         }
     }

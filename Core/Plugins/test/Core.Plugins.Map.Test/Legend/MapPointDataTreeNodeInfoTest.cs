@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -29,7 +28,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
@@ -63,6 +61,8 @@ namespace Core.Plugins.Map.Test.Legend
         public void TearDown()
         {
             mapLegendView.Dispose();
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -90,8 +90,8 @@ namespace Core.Plugins.Map.Test.Legend
         public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            var mapPointData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "MapPointData");
             mocks.ReplayAll();
+            var mapPointData = new MapPointData("MapPointData");
 
             // Call
             var text = info.Text(mapPointData);
@@ -117,29 +117,43 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
-
             mocks.ReplayAll();
+            var mapPointData = new MapPointData("test data");
 
             // Call
-            var canCheck = info.CanCheck(lineData);
+            var canCheck = info.CanCheck(mapPointData);
 
             // Assert
             Assert.IsTrue(canCheck);
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
+        [Test]
+        public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
-            lineData.IsVisible = isVisible;
-
             mocks.ReplayAll();
+            var mapPointData = new MapPointData("test data");
 
             // Call
-            var canCheck = info.IsChecked(lineData);
+            var canDrag = info.CanDrag(mapPointData, null);
+
+            // Assert
+            Assert.IsTrue(canDrag);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsChecked_Always_ReturnsAccordingToVisibleStateOfPointData(bool isVisible)
+        {
+            // Setup
+            mocks.ReplayAll();
+            var mapPointData = new MapPointData("test data")
+            {
+                IsVisible = isVisible
+            };
+
+            // Call
+            var canCheck = info.IsChecked(mapPointData);
 
             // Assert
             Assert.AreEqual(isVisible, canCheck);
@@ -147,56 +161,42 @@ namespace Core.Plugins.Map.Test.Legend
 
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeChecked_LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
+        public void OnNodeChecked_PointDataNodeWithoutParent_SetsPointDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
-
             mocks.ReplayAll();
-
-            lineData.IsVisible = initialVisibleState;
+            var mapPointData = new MapPointData("test data")
+            {
+                IsVisible = initialVisibleState
+            };
 
             // Call
-            info.OnNodeChecked(lineData, null);
+            info.OnNodeChecked(mapPointData, null);
 
             // Assert
-            Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
+            Assert.AreEqual(!initialVisibleState, mapPointData.IsVisible);
         }
 
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeChecked_LineDataNodeWithObservableParent_SetsLineDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
+        public void OnNodeChecked_PointDataNodeWithObservableParent_SetsPointDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
-
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
 
             mocks.ReplayAll();
 
-            lineData.IsVisible = initialVisibleState;
+            var mapPointData = new MapPointData("test data")
+            {
+                IsVisible = initialVisibleState
+            };
 
             // Call
-            info.OnNodeChecked(lineData, observable);
+            info.OnNodeChecked(mapPointData, observable);
 
             // Assert
-            Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
-        }
-
-        [Test]
-        public void CanDrag_Always_ReturnsTrue()
-        {
-            // Setup
-            var pointData = mocks.StrictMock<MapPointData>(Enumerable.Empty<MapFeature>(), "test data");
-
-            mocks.ReplayAll();
-
-            // Call
-            var canDrag = info.CanDrag(pointData, null);
-
-            // Assert
-            Assert.IsTrue(canDrag);
+            Assert.AreEqual(!initialVisibleState, mapPointData.IsVisible);
         }
     }
 }

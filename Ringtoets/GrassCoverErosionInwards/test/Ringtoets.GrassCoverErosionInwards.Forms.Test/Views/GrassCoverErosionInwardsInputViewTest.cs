@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Chart, view.Controls[0]);
-                Assert.AreEqual(DockStyle.Fill, ((Control)view.Chart).Dock);
+                Assert.AreEqual(DockStyle.Fill, ((Control) view.Chart).Dock);
                 Assert.AreEqual(Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName, view.Chart.Data.Name);
                 Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Distance_DisplayName, view.Chart.BottomAxisTitle);
                 Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Height_DisplayName, view.Chart.LeftAxisTitle);
@@ -105,17 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsInputView())
             {
-                DikeProfile dikeProfile = GetDikeProfileWithGeometry();
-
-                var calculation = new GrassCoverErosionInwardsCalculation
-                {
-                    InputParameters =
-                    {
-                        DikeProfile = dikeProfile
-                    }
-                };
-
-                view.Data = calculation;
+                view.Data = new GrassCoverErosionInwardsCalculation();
 
                 // Precondition
                 Assert.AreEqual(3, view.Chart.Data.Collection.Count());
@@ -228,7 +218,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObservers_CalculationNameUpdated_ChartTitleUpdated()
+        public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
             using (var view = new GrassCoverErosionInwardsInputView())
@@ -257,7 +247,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObservers_OtherCalculationNameUpdated_ChartTitleNotUpdated()
+        public void UpdateObserver_OtherCalculationNameUpdated_ChartTitleNotUpdated()
         {
             // Setup
             using (var view = new GrassCoverErosionInwardsInputView())
@@ -290,7 +280,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObservers_CalculationDikeProfileUpdated_SetNewChartData()
+        public void UpdateObserver_CalculationDikeProfileUpdated_SetNewChartData()
         {
             // Setup
             using (var view = new GrassCoverErosionInwardsInputView())
@@ -321,9 +311,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.AreSame(dikeProfileChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(dikeProfileIndex));
                 AssertDikeProfileChartData(dikeProfile2, dikeProfileChartData);
-                Assert.AreSame(foreshoreChartData, (ChartLineData)view.Chart.Data.Collection.ElementAt(foreshoreIndex));
+                Assert.AreSame(foreshoreChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(foreshoreIndex));
                 AssertForeshoreChartData(dikeProfile2, foreshoreChartData);
-                Assert.AreSame(dikeHeightChartData, (ChartLineData)view.Chart.Data.Collection.ElementAt(dikeHeightIndex));
+                Assert.AreSame(dikeHeightChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(dikeHeightIndex));
                 AssertDikeHeightChartData(dikeProfile2, dikeHeightChartData);
             }
         }
@@ -342,7 +332,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                         DikeProfile = dikeProfile
                     }
                 };
-                
+
                 var calculation2 = new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
@@ -385,13 +375,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.Chart.Data.Add(dataToMove);
 
                 // Precondition
-                var dikeProfileChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(updatedDikeProfileIndex);
+                var dikeProfileChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeProfileIndex);
                 Assert.AreEqual(Resources.DikeProfile_DisplayName, dikeProfileChartData.Name);
 
-                var foreshoreChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(updatedForeshoreIndex);
+                var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedForeshoreIndex);
                 Assert.AreEqual(Resources.Foreshore_DisplayName, foreshoreChartData.Name);
 
-                var dikeHeightChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(updatedDikeHeightIndex);
+                var dikeHeightChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeHeightIndex);
                 Assert.AreEqual(Resources.DikeHeight_ChartName, dikeHeightChartData.Name);
 
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
@@ -401,18 +391,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                var actualDikeProfileChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(updatedDikeProfileIndex);
+                var actualDikeProfileChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeProfileIndex);
                 string expectedDikeProfileName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
                                                                dikeProfile.Name, Resources.DikeProfile_DisplayName);
                 Assert.AreEqual(expectedDikeProfileName, actualDikeProfileChartData.Name);
 
-                var actualForeshoreChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(updatedForeshoreIndex);
+                var actualForeshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedForeshoreIndex);
                 string expectedForeshoreName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                                dikeProfile.Name,
-                                                Resources.Foreshore_DisplayName);
+                                                             dikeProfile.Name,
+                                                             Resources.Foreshore_DisplayName);
                 Assert.AreEqual(expectedForeshoreName, actualForeshoreChartData.Name);
 
-                var actualDikeHeightChartData = (ChartLineData)view.Chart.Data.Collection.ElementAt(updatedDikeHeightIndex);
+                var actualDikeHeightChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeHeightIndex);
                 Assert.AreEqual(Resources.DikeHeight_ChartName, actualDikeHeightChartData.Name);
             }
         }

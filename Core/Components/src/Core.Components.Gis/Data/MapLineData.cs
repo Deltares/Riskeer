@@ -22,56 +22,51 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Components.Gis.Features;
-using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 
 namespace Core.Components.Gis.Data
 {
     /// <summary>
-    /// This class represents data in 2D space which is visible as a line.
+    /// This class represents features that are visible as a line.
     /// </summary>
     public class MapLineData : FeatureBasedMapData
     {
         /// <summary>
         /// Creates a new instance of <see cref="MapLineData"/>.
         /// </summary>
-        /// <param name="features">A <see cref="IEnumerable{T}"/> of <see cref="MapFeature"/> which describes a <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.</param>
-        /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when 
-        /// <list type="bullet">
-        /// <item><paramref name="features"/> is invalid.</item>
-        /// <item><paramref name="name"/> is <c>null</c> or only whitespace.</item>
-        /// </list>
-        /// </exception>
-        public MapLineData(IEnumerable<MapFeature> features, string name) : base(features, name) {}
+        /// <param name="name">The name of the <see cref="MapLineData"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        public MapLineData(string name) : base(name) {}
 
         /// <summary>
-        /// The style of the line.
+        /// Gets or sets the style of the line.
         /// </summary>
         public LineStyle Style { get; set; }
 
         /// <summary>
-        /// Validates the features.
+        /// This method validates newly set features.
         /// </summary>
-        /// <param name="features">The features.</param>
-        /// <exception cref="System.ArgumentNullException">When <paramref name="features"/> is null
-        /// or any feature contains multiple point-collections.</exception>
-        protected override void ValidateFeatures(IEnumerable<MapFeature> features)
+        /// <param name="featuresToValidate">The new features to validate.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="featuresToValidate"/> is <c>null</c>.</exception>
+        /// <exception cref="System.ArgumentException">Thrown when any feature in <paramref name="featuresToValidate"/> 
+        /// contains multiple point-collections.</exception>
+        /// <seealso cref="Features"/>
+        protected override void ValidateFeatures(MapFeature[] featuresToValidate)
         {
-            base.ValidateFeatures(features);
+            base.ValidateFeatures(featuresToValidate);
 
-            if (HasFeatureWithMultiplePointCollections(features))
+            if (HasFeatureWithMultiplePointCollections(featuresToValidate))
             {
-                throw new ArgumentException("MapLineData only accept MapFeature instances whose MapGeometries contain a single point-collection.");
+                throw new ArgumentException("MapLineData only accepts MapFeature instances whose MapGeometries contain a single point-collection.");
             }
         }
 
         private static bool HasFeatureWithMultiplePointCollections(IEnumerable<MapFeature> lineFeatures)
         {
             return lineFeatures.SelectMany(feature => feature.MapGeometries)
-                                .Any(geometry => geometry.PointCollections.Count() != 1);
+                               .Any(geometry => geometry.PointCollections.Count() != 1);
         }
     }
 }

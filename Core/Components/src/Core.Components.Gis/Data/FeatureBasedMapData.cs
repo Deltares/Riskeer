@@ -20,50 +20,58 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Components.Gis.Features;
-using Core.Components.Gis.Geometries;
 
 namespace Core.Components.Gis.Data
 {
     /// <summary>
-    /// Base class for <see cref="MapData"/> which is based on a collection of points.
+    /// Base class for <see cref="MapData"/> which is based on an array of features.
     /// </summary>
     public abstract class FeatureBasedMapData : MapData
     {
-        /// <summary>
-        /// Create a new instance of <see cref="FeatureBasedMapData"/>.
-        /// </summary>
-        /// <param name="features">A <see cref="IEnumerable{T}"/> of <see cref="MapFeature"/> which describes a <see cref="IEnumerable{T}"/> of <see cref="MapGeometry"/>.</param>
-        /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="features"/>
-        /// is not a valid instance to create an instance of <see cref="FeatureBasedMapData"/> with,
-        /// or when <paramref name="name"/> is <c>null</c> or only whitespace.</exception>
-        protected FeatureBasedMapData(IEnumerable<MapFeature> features, string name) : base(name)
-        {
-            ValidateFeatures(features);
+        private MapFeature[] features;
 
-            Features = features.ToArray();
+        /// <summary>
+        /// Creates a new instance of <see cref="FeatureBasedMapData"/>.
+        /// </summary>
+        /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
+        /// <c>null</c> or only whitespace.</exception>
+        protected FeatureBasedMapData(string name) : base(name)
+        {
+            features = new MapFeature[0];
         }
 
         /// <summary>
-        /// Validates the features.
+        /// Gets or sets an array of features.
         /// </summary>
-        /// <param name="features">The features captured by this map data object.</param>
-        /// <exception cref="System.ArgumentException">When <paramref name="features"/> is invalid.</exception>
-        protected virtual void ValidateFeatures(IEnumerable<MapFeature> features)
+        /// <remarks>Calls <see cref="ValidateFeatures"/> and so can throw all corresponding exceptions.</remarks>
+        public MapFeature[] Features
         {
-            if (features == null)
+            get
             {
-                var message = String.Format("A feature collection is required when creating a subclass of {0}.", typeof(FeatureBasedMapData));
-                throw new ArgumentException(message, "features");
+                return features;
+            }
+            set
+            {
+                ValidateFeatures(value);
+
+                features = value;
             }
         }
 
         /// <summary>
-        /// Gets the collection of features.
+        /// This method validates newly set features.
         /// </summary>
-        public IEnumerable<MapFeature> Features { get; private set; }
+        /// <param name="featuresToValidate">The new features to validate.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="featuresToValidate"/> is <c>null</c>.</exception>
+        /// <seealso cref="Features"/>
+        protected virtual void ValidateFeatures(MapFeature[] featuresToValidate)
+        {
+            if (featuresToValidate == null)
+            {
+                throw new ArgumentNullException("featuresToValidate", @"The array of features cannot be null.");
+            }
+        }
     }
 }

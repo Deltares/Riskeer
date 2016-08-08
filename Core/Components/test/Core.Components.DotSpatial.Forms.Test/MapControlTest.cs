@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -51,7 +49,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsInstanceOf<IMapControl>(map);
                 Assert.IsInstanceOf<MapDataCollection>(map.Data);
                 Assert.IsNotNull(map.Data);
-                CollectionAssert.IsEmpty(map.Data.List);
+                CollectionAssert.IsEmpty(map.Data.Collection);
                 Assert.IsTrue(map.IsPanningEnabled);
                 Assert.IsFalse(map.IsRectangleZoomingEnabled);
                 Assert.IsTrue(map.IsMouseCoordinatesVisible);
@@ -84,13 +82,13 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var map = new MapControl())
             {
-                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
+                var testData = new MapPointData("test data");
 
                 // Call
                 map.Data.Add(testData);
 
                 // Assert
-                Assert.AreSame(testData, map.Data.List.First());
+                Assert.AreSame(testData, map.Data.Collection.First());
             }
         }
 
@@ -101,7 +99,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 var mapView = map.Controls.OfType<Map>().First();
-                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
+                var testData = new MapPointData("test data");
 
                 map.Data.Add(testData);
                 map.UpdateObserver();
@@ -110,7 +108,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(1, mapView.Layers.Count);
                 Assert.IsInstanceOf<MapPointLayer>(mapView.Layers[0]);
 
-                map.Data.Add(new MapLineData(Enumerable.Empty<MapFeature>(), "test data"));
+                map.Data.Add(new MapLineData("test data"));
 
                 // Call
                 map.UpdateObserver();
@@ -130,7 +128,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var form = new Form())
             {
                 var map = new MapControl();
-                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
+                var testData = new MapPointData("test data");
                 var mapView = map.Controls.OfType<Map>().First();
                 var invalidated = 0;
 
@@ -161,9 +159,9 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var form = new Form())
             {
                 var map = new MapControl();
-                var mapFeature = new Collection<MapFeature>
+                var mapFeatures = new[]
                 {
-                    new MapFeature(new Collection<MapGeometry>
+                    new MapFeature(new[]
                     {
                         new MapGeometry(new[]
                         {
@@ -175,7 +173,10 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     })
                 };
-                var testData = new MapPointData(mapFeature, "test data");
+                var testData = new MapPointData("test data")
+                {
+                    Features = mapFeatures
+                };
                 var mapView = map.Controls.OfType<Map>().First();
                 var invalidated = 0;
 
@@ -231,18 +232,20 @@ namespace Core.Components.DotSpatial.Forms.Test
         [TestCase(5.0, 5.0)]
         [TestCase(5.0, 1.0)]
         [TestCase(1.0, 5.0)]
-        [TestCase(Double.MaxValue * 0.96, Double.MaxValue * 0.96)]
+        [TestCase(Double.MaxValue*0.96, Double.MaxValue*0.96)]
         [TestCase(Double.MaxValue, Double.MaxValue)]
         public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
         {
             // Setup
             var map = new MapControl();
             var mapView = map.Controls.OfType<Map>().First();
-            var testData = new MapDataCollection(new List<MapData>
+            var mapDataCollection = new MapDataCollection("test data");
+
+            mapDataCollection.Add(new MapPointData("test data")
             {
-                new MapPointData(new Collection<MapFeature>
+                Features = new[]
                 {
-                    new MapFeature(new List<MapGeometry>
+                    new MapFeature(new[]
                     {
                         new MapGeometry(new[]
                         {
@@ -253,14 +256,15 @@ namespace Core.Components.DotSpatial.Forms.Test
                             }
                         })
                     })
-                }, "test data")
-            }, "test data");
-            map.Data.Add(testData);
+                }
+            });
+
+            map.Data.Add(mapDataCollection);
             map.Data.NotifyObservers();
 
             var expectedExtent = new Extent(0.0, 0.0, xMax, yMax);
             var smallest = expectedExtent.Height < expectedExtent.Width ? expectedExtent.Height : expectedExtent.Width;
-            expectedExtent.ExpandBy(smallest * padding);
+            expectedExtent.ExpandBy(smallest*padding);
 
             // Call
             map.ZoomToAllVisibleLayers();
@@ -504,7 +508,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var form = new Form())
             {
                 var map = new MapControl();
-                var testData = new MapPointData(Enumerable.Empty<MapFeature>(), "test data");
+                var testData = new MapPointData("test data");
                 var view = map.Controls.OfType<Map>().First();
 
                 map.Data.Add(testData);
@@ -706,71 +710,79 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         private static MapDataCollection GetTestData()
         {
-            var points = new MapPointData(new Collection<MapFeature>
-            {
-                new MapFeature(new List<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(1.5, 2)
-                        }
-                    }),
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(1.1, 1)
-                        }
-                    }),
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(0.8, 0.5)
-                        }
-                    })
-                })
-            }, "test data");
-            var lines = new MapLineData(new Collection<MapFeature>
-            {
-                new MapFeature(new List<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(0.0, 1.1),
-                            new Point2D(1.0, 2.1),
-                            new Point2D(1.6, 1.6)
-                        }
-                    })
-                })
-            }, "test data");
-            var polygons = new MapPolygonData(new Collection<MapFeature>
-            {
-                new MapFeature(new List<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        new[]
-                        {
-                            new Point2D(1.0, 1.3),
-                            new Point2D(3.0, 2.6),
-                            new Point2D(5.6, 1.6)
-                        }
-                    })
-                })
-            }, "test data")
-            {
-                IsVisible = false
-            };
+            var mapDataCollection = new MapDataCollection("test data");
 
-            return new MapDataCollection(new List<MapData>
+            mapDataCollection.Add(new MapPointData("test data")
             {
-                points, lines, polygons
-            }, "test data");
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.5, 2)
+                            }
+                        }),
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.1, 1)
+                            }
+                        }),
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0.8, 0.5)
+                            }
+                        })
+                    })
+                }
+            });
+
+            mapDataCollection.Add(new MapLineData("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(0.0, 1.1),
+                                new Point2D(1.0, 2.1),
+                                new Point2D(1.6, 1.6)
+                            }
+                        })
+                    })
+                }
+            });
+
+            mapDataCollection.Add(new MapPolygonData("test data")
+            {
+                Features = new[]
+                {
+                    new MapFeature(new[]
+                    {
+                        new MapGeometry(new[]
+                        {
+                            new[]
+                            {
+                                new Point2D(1.0, 1.3),
+                                new Point2D(3.0, 2.6),
+                                new Point2D(5.6, 1.6)
+                            }
+                        })
+                    })
+                },
+                IsVisible = false
+            });
+
+            return mapDataCollection;
         }
     }
 }

@@ -133,28 +133,36 @@ namespace Core.Components.Gis.IO.Readers
         private MapLineData ConvertSingleLineFeatureToMapLineData(IFeature lineFeature, string name)
         {
             MapFeature feature = CreateMapFeatureForLineFeature(lineFeature);
+
             CopyMetaDataIntoFeature(feature, readIndex);
 
-            IEnumerable<MapFeature> mapFeatures = new[]
+            return new MapLineData(name)
             {
-                feature
+                Features = new[]
+                {
+                    feature
+                }
             };
-            return new MapLineData(mapFeatures, name);
         }
 
         private MapLineData ConvertMultiLineFeatureToMapLineData(List<IFeature> lineFeatures, string name)
         {
             var mapFeatureList = new List<MapFeature>();
-            for (int featureIndex = 0; featureIndex < lineFeatures.Count; featureIndex++)
+
+            for (var featureIndex = 0; featureIndex < lineFeatures.Count; featureIndex++)
             {
                 IFeature lineFeature = lineFeatures[featureIndex];
                 MapFeature feature = CreateMapFeatureForLineFeature(lineFeature);
+
                 CopyMetaDataIntoFeature(feature, featureIndex);
 
                 mapFeatureList.Add(feature);
             }
 
-            return new MapLineData(mapFeatureList, name);
+            return new MapLineData(name)
+            {
+                Features = mapFeatureList.ToArray()
+            };
         }
 
         private static MapFeature CreateMapFeatureForLineFeature(IFeature lineFeature)

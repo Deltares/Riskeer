@@ -43,7 +43,7 @@ namespace Core.Components.OxyPlot.Converter
         {
             if (data == null)
             {
-                throw new ArgumentNullException("Null data cannot be converted into series.");
+                throw new ArgumentNullException("data", @"Null data cannot be converted into series.");
             }
             if (!CanConvertSeries(data))
             {

@@ -197,7 +197,7 @@ namespace Core.Components.DotSpatial.Test.MapFunctions
             var mapMock = mockingRepository.Stub<IMap>();
             var mapFrame = mockingRepository.Stub<IMapFrame>();
             var inGraphics = mockingRepository.Stub<Graphics>();
-            inGraphics.Expect(e => e.DrawRectangle(null, 0, 0, 0, 0)).IgnoreArguments().Repeat.Never();
+            inGraphics.Expect(e => e.DrawRectangle(new Pen(Color.Empty), 0, 0, 0, 0)).IgnoreArguments().Repeat.Never();
             mockingRepository.ReplayAll();
 
             var mapFunction = new MapFunctionSelectionZoom(mapMock);

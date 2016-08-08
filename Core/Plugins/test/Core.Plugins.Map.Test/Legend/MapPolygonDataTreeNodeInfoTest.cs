@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -29,7 +28,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
@@ -94,8 +92,8 @@ namespace Core.Plugins.Map.Test.Legend
         public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            var mapPolygonData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "MapPolygonData");
             mocks.ReplayAll();
+            var mapPolygonData = new MapPolygonData("MapPolygonData");
 
             // Call
             var text = info.Text(mapPolygonData);
@@ -121,12 +119,11 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanCheck_Always_ReturnsTrue()
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
-
             mocks.ReplayAll();
+            var mapPolygonData = new MapPolygonData("test data");
 
             // Call
-            var canCheck = info.CanCheck(lineData);
+            var canCheck = info.CanCheck(mapPolygonData);
 
             // Assert
             Assert.IsTrue(canCheck);
@@ -136,12 +133,11 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanDrag_Always_ReturnsTrue()
         {
             // Setup
-            var polygonData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
-
             mocks.ReplayAll();
+            var mapPolygonData = new MapPolygonData("test data");
 
             // Call
-            var canDrag = info.CanDrag(polygonData, null);
+            var canDrag = info.CanDrag(mapPolygonData, null);
 
             // Assert
             Assert.IsTrue(canDrag);
@@ -149,16 +145,17 @@ namespace Core.Plugins.Map.Test.Legend
 
         [TestCase(true)]
         [TestCase(false)]
-        public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
+        public void IsChecked_Always_ReturnsAccordingToVisibleStateOfPolygonData(bool isVisible)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
-            lineData.IsVisible = isVisible;
-
             mocks.ReplayAll();
+            var mapPolygonData = new MapPolygonData("test data")
+            {
+                IsVisible = isVisible
+            };
 
             // Call
-            var canCheck = info.IsChecked(lineData);
+            var canCheck = info.IsChecked(mapPolygonData);
 
             // Assert
             Assert.AreEqual(isVisible, canCheck);
@@ -166,41 +163,42 @@ namespace Core.Plugins.Map.Test.Legend
 
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeChecked_LineDataNodeWithoutParent_SetsLineDataVisibility(bool initialVisibleState)
+        public void OnNodeChecked_PolygonDataNodeWithoutParent_SetsPolygonDataVisibility(bool initialVisibleState)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
-
             mocks.ReplayAll();
-
-            lineData.IsVisible = initialVisibleState;
+            var mapPolygonData = new MapPolygonData("test data")
+            {
+                IsVisible = initialVisibleState
+            };
 
             // Call
-            info.OnNodeChecked(lineData, null);
+            info.OnNodeChecked(mapPolygonData, null);
 
             // Assert
-            Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
+            Assert.AreEqual(!initialVisibleState, mapPolygonData.IsVisible);
         }
 
         [TestCase(true)]
         [TestCase(false)]
-        public void OnNodeChecked_LineDataNodeWithObservableParent_SetsLineDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
+        public void OnNodeChecked_PolygonDataNodeWithObservableParent_SetsPolygonDataVisibilityAndNotifiesParentObservers(bool initialVisibleState)
         {
             // Setup
-            var lineData = mocks.StrictMock<MapPolygonData>(Enumerable.Empty<MapFeature>(), "test data");
-
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
 
             mocks.ReplayAll();
 
-            lineData.IsVisible = initialVisibleState;
+            var mapPolygonData = new MapPolygonData("test data")
+            {
+                IsVisible = initialVisibleState
+            };
 
             // Call
-            info.OnNodeChecked(lineData, observable);
+            info.OnNodeChecked(mapPolygonData, observable);
 
             // Assert
-            Assert.AreEqual(!initialVisibleState, lineData.IsVisible);
+            Assert.AreEqual(!initialVisibleState, mapPolygonData.IsVisible);
         }
     }
 }

@@ -29,90 +29,74 @@ namespace Core.Components.Gis.Data
     /// </summary>
     public class MapDataCollection : MapData
     {
+        private readonly IList<MapData> mapDataList;
+
         /// <summary>
         /// Creates a new instance of <see cref="MapDataCollection"/>.
         /// </summary>
-        /// <param name="list">A <see cref="List{T}"/> of <see cref="MapData"/>.</param>
-        /// <param name="name">The name of the <see cref="MapData"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="list"/> is 
-        /// <c>null</c>.</exception>
+        /// <param name="name">The name of the <see cref="MapDataCollection"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> is 
         /// <c>null</c> or only whitespace.</exception>
-        public MapDataCollection(IList<MapData> list, string name) : base(name)
+        public MapDataCollection(string name) : base(name)
         {
-            if (list == null)
-            {
-                throw new ArgumentNullException("list", "A list collection is required when creating MapDataCollection.");
-            }
-            List = list;
+            mapDataList = new List<MapData>();
         }
 
         /// <summary>
-        /// Gets the list of <see cref="MapData"/> of the <see cref="MapDataCollection"/>.
+        /// Gets the collection of <see cref="MapData"/> of the <see cref="MapDataCollection"/>.
         /// </summary>
-        public IList<MapData> List { get; private set; }
+        public IEnumerable<MapData> Collection
+        {
+            get
+            {
+                return mapDataList;
+            }
+        }
 
         /// <summary>
-        /// Adds an element to the list of <see cref="MapData"/>.
+        /// Adds an element to the collection of <see cref="MapData"/>.
         /// </summary>
-        /// <param name="elementToAdd">The <see cref="MapData"/> element to add to the list.</param>
+        /// <param name="elementToAdd">The <see cref="MapData"/> element to add to the collection.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="elementToAdd"/> is <c>null</c>.</exception>
         public void Add(MapData elementToAdd)
         {
             if (elementToAdd == null)
             {
-                throw new ArgumentNullException("elementToAdd", "An element cannot be null when adding it to the collection.");
+                throw new ArgumentNullException("elementToAdd", @"An element cannot be null when adding it to the collection.");
             }
-            List.Add(elementToAdd);
+            mapDataList.Add(elementToAdd);
         }
 
         /// <summary>
-        /// Replaces the given old element in the list of <see cref="MapData"/> with the given new element.
-        /// Meta-data of the old element is being kept.
+        /// Inserts the given element into the collection of <see cref="MapData"/> on the given position.
         /// </summary>
-        /// <param name="oldElement">The <see cref="MapData"/> element to replace.</param>
-        /// <param name="newElement">The <see cref="MapData"/> element to replace with.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="oldElement"/> or 
-        /// <paramref name="newElement"/> is <c>null</c>.</exception>
-        public void Replace(MapData oldElement, MapData newElement)
+        /// <param name="position">The position to insert the element on.</param>
+        /// <param name="elementToInsert">The <see cref="MapData"/> element to insert.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="elementToInsert"/> is <c>null</c>.</exception>
+        public void Insert(int position, MapData elementToInsert)
         {
-            if (newElement == null)
+            if (elementToInsert == null)
             {
-                throw new ArgumentNullException("newElement", "An element cannot be replaced with null. Use Remove instead.");
+                throw new ArgumentNullException("elementToInsert", @"An element cannot be null when adding it to the collection.");
             }
-
-            if (oldElement == null)
-            {
-                throw new ArgumentNullException("oldElement", "A null element cannot be replaced. Use Add instead.");
-            }
-
-            for (var i = 0; i < List.Count; i++)
-            {
-                if (List[i].Equals(oldElement))
-                {
-                    newElement.IsVisible = oldElement.IsVisible;
-                    List[i] = newElement;
-                }
-            }
+            mapDataList.Insert(position, elementToInsert);
         }
 
         /// <summary>
-        /// Removes the given element from the list of <see cref="MapData"/>.
+        /// Removes the given element from the collection of <see cref="MapData"/>.
         /// </summary>
         /// <param name="elementToRemove">The <see cref="MapData"/> element to remove.</param>
         public void Remove(MapData elementToRemove)
         {
-            List.Remove(elementToRemove);
+            mapDataList.Remove(elementToRemove);
         }
 
         /// <summary>
-        /// Inserts the given element to the list of <see cref="MapData"/> on the given index.
+        /// Removes all elements from the collection of <see cref="MapData"/>.
         /// </summary>
-        /// <param name="indexToInsert">The index to insert on.</param>
-        /// <param name="elementToAdd">The <see cref="MapData"/> element to insert.</param>
-        public void Insert(int indexToInsert, MapData elementToAdd)
+        public void Clear()
         {
-            List.Insert(indexToInsert, elementToAdd);
+            mapDataList.Clear();
         }
     }
 }

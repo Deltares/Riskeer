@@ -36,7 +36,7 @@ namespace Core.Components.DotSpatial.Converter
         {
             var factory = new MapFeatureLayerFactory();
 
-            return data.List.SelectMany(md => factory.Create(md)).ToList();
+            return data.Collection.SelectMany(md => factory.Create(md)).ToList();
         }
     }
 }

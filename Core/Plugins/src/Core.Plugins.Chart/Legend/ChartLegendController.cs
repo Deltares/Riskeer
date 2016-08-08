@@ -25,7 +25,6 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Components.Charting.Data;
-using Core.Plugins.Chart.Legend;
 using Core.Plugins.Chart.Properties;
 
 namespace Core.Plugins.Chart.Legend
@@ -52,7 +51,7 @@ namespace Core.Plugins.Chart.Legend
         {
             if (viewController == null)
             {
-                throw new ArgumentNullException("viewController", "Cannot create a ChartLegendController when the view controller is null.");
+                throw new ArgumentNullException("viewController", @"Cannot create a ChartLegendController when the view controller is null.");
             }
             this.viewController = viewController;
         }

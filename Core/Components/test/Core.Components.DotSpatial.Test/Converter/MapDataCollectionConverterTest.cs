@@ -52,7 +52,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapDataCollectionConverter();
-            var collectionData = new MapDataCollection(new List<MapData>(), "test data");
+            var collectionData = new MapDataCollection("test data");
 
             // Call
             var canConvert = converter.CanConvertMapData(collectionData);
@@ -122,9 +122,9 @@ namespace Core.Components.DotSpatial.Test.Converter
                 linePoints.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var pointFeature = new List<MapFeature>
+            var pointFeatures = new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -133,9 +133,9 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             };
 
-            var lineFeature = new List<MapFeature>
+            var lineFeatures = new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -144,12 +144,17 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             };
 
-            var collectionData = new MapDataCollection(new List<MapData>(), "test data");
-            var pointData = new MapPointData(pointFeature, "test data");
-            var lineData = new MapLineData(lineFeature, "test data");
-
-            collectionData.List.Add(pointData);
-            collectionData.List.Add(lineData);
+            var collectionData = new MapDataCollection("test data");
+            var pointData = new MapPointData("test data")
+            {
+                Features = pointFeatures
+            };
+            var lineData = new MapLineData("test data")
+            {
+                Features = lineFeatures
+            };
+            collectionData.Add(pointData);
+            collectionData.Add(lineData);
 
             // Call
             var layers = converter.Convert(collectionData);

@@ -20,10 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
@@ -36,14 +33,14 @@ namespace Core.Components.Gis.Test.Data
     public class FeatureBasedMapDataTest
     {
         [Test]
-        public void Constructor_WithoutPoints_ThrowsArgumentNullException()
+        public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
             // Call
-            TestDelegate test = () => new TestFeatureBasedMapData(null, "some name");
+            var data = new TestFeatureBasedMapData("test data");
 
             // Assert
-            var expectedMessage = "A feature collection is required when creating a subclass of Core.Components.Gis.Data.FeatureBasedMapData.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            Assert.AreEqual("test data", data.Name);
+            Assert.IsEmpty(data.Features);
         }
 
         [Test]
@@ -52,82 +49,47 @@ namespace Core.Components.Gis.Test.Data
         [TestCase("        ")]
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
-            // Setup
-            var features = new Collection<MapFeature>
-            {
-                new MapFeature(new Collection<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
-
             // Call
-            TestDelegate test = () => new TestFeatureBasedMapData(features, invalidName);
+            TestDelegate test = () => new TestFeatureBasedMapData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the map data.");
         }
 
         [Test]
-        public void Constructor_WithPoints_PropertiesSet()
+        public void Features_SetValidNewValue_GetsNewValue()
         {
             // Setup
-            var points = new[]
-            {
-                new Point2D(0.0, 1.0),
-                new Point2D(2.5, 1.1)
-            };
-
+            var data = new TestFeatureBasedMapData("test data");
             var features = new[]
             {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        points
-                    })
-                })
+                new MapFeature(Enumerable.Empty<MapGeometry>()),
+                new MapFeature(Enumerable.Empty<MapGeometry>())
             };
 
             // Call
-            var data = new TestFeatureBasedMapData(features, "some name");
+            data.Features = features;
 
             // Assert
-            Assert.AreNotSame(features, data.Features);
-            Assert.AreEqual(features.Length, data.Features.Count());
-            Assert.AreEqual(features[0].MapGeometries.Count(), data.Features.First().MapGeometries.Count());
-            CollectionAssert.AreEqual(points, data.Features.First().MapGeometries.First().PointCollections.First());
+            Assert.AreSame(features, data.Features);
         }
 
         [Test]
-        public void Constructor_WithName_SetsName()
+        public void Features_SetNullValue_ThrowsArgumentNullException()
         {
             // Setup
-            var features = new Collection<MapFeature>
-            {
-                new MapFeature(new Collection<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
-            var name = "Some name";
+            var data = new TestFeatureBasedMapData("test data");
 
             // Call
-            var data = new TestFeatureBasedMapData(features, name);
+            TestDelegate test = () => data.Features = null;
 
             // Assert
-            Assert.AreEqual(name, data.Name);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "The array of features cannot be null.");
         }
 
         private class TestFeatureBasedMapData : FeatureBasedMapData
         {
-            public TestFeatureBasedMapData(IEnumerable<MapFeature> features, string name) : base(features, name) { }
+            public TestFeatureBasedMapData(string name) : base(name) { }
         }
     }
 }

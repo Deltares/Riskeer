@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Data_PipingCalculation_DataSet()
+        public void Data_PipingCalculationScenario_DataSet()
         {
             // Setup
             using (var view = new PipingInputView())
@@ -91,10 +91,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                var calculation = new object();
+                var data = new object();
 
                 // Call
-                view.Data = calculation;
+                view.Data = data;
 
                 // Assert
                 Assert.IsNull(view.Data);
@@ -107,16 +107,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                RingtoetsPipingSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
-                {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine
-                    }
-                };
-
-                view.Data = calculation;
+                view.Data = new PipingCalculationScenario(new GeneralPipingInput());
 
                 // Precondition
                 Assert.AreEqual(10, view.Chart.Data.Collection.Count());
@@ -240,14 +231,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 var chartData = view.Chart.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
                 Assert.AreEqual(10, chartData.Collection.Count());
-                var soilProfileData = (ChartDataCollection)chartData.Collection.ElementAt(soilProfileIndex);
+                var soilProfileData = (ChartDataCollection) chartData.Collection.ElementAt(soilProfileIndex);
                 CollectionAssert.IsEmpty(soilProfileData.Collection);
                 Assert.AreEqual(Resources.StochasticSoilProfileProperties_DisplayName, soilProfileData.Name);
             }
         }
 
         [Test]
-        public void UpdateObservers_CalculationNameUpdated_ChartTitleUpdated()
+        public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
             using (var view = new PipingInputView())
@@ -276,7 +267,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObservers_OtherCalculationUpdated_ChartTitleNotUpdated()
+        public void UpdateObserver_OtherCalculationUpdated_ChartTitleNotUpdated()
         {
             // Setup
             using (var view = new PipingInputView())
@@ -312,7 +303,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObservers_CalculationSurfaceLineUpdated_ChartDataUpdated()
+        public void UpdateObserver_CalculationSurfaceLineUpdated_ChartDataUpdated()
         {
             // Setup
             using (var view = new PipingInputView())
@@ -366,7 +357,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Assert
                 chartDataList = view.Chart.Data.Collection.ToList();
 
-                Assert.AreSame(surfaceLineChartData, (ChartLineData)chartDataList[surfaceLineIndex]);
+                Assert.AreSame(surfaceLineChartData, (ChartLineData) chartDataList[surfaceLineIndex]);
                 Assert.AreSame(entryPointChartData, (ChartPointData) chartDataList[entryPointIndex]);
                 Assert.AreSame(exitPointChartData, (ChartPointData) chartDataList[exitPointIndex]);
                 Assert.AreSame(ditchDikeSideData, (ChartPointData) chartDataList[ditchDikeSideIndex]);
@@ -384,7 +375,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObservers_StochasticSoilProfileUpdated_ChartDataUpdated()
+        public void UpdateObserver_StochasticSoilProfileUpdated_ChartDataUpdated()
         {
             // Setup
             using (var view = new PipingInputView())
@@ -420,7 +411,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 calculation.InputParameters.NotifyObservers();
 
                 // Assert
-                Assert.AreSame(soilProfileData, (ChartDataCollection)view.Chart.Data.Collection.ElementAt(soilProfileIndex));
+                Assert.AreSame(soilProfileData, (ChartDataCollection) view.Chart.Data.Collection.ElementAt(soilProfileIndex));
                 AssertSoilProfileChartData(soilProfile2, soilProfileData);
             }
         }
@@ -608,16 +599,16 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             Assert.AreEqual(10, chartDatasList.Count);
 
-            var soilProfileData = (ChartDataCollection)chartDatasList[soilProfileIndex];
-            var surfaceLineData = (ChartLineData)chartDatasList[surfaceLineIndex];
-            var entryPointData = (ChartPointData)chartDatasList[entryPointIndex];
-            var exitPointData = (ChartPointData)chartDatasList[exitPointIndex];
-            var ditchDikeSideData = (ChartPointData)chartDatasList[ditchDikeSideIndex];
-            var bottomDitchDikeSideData = (ChartPointData)chartDatasList[bottomDitchDikeSideIndex];
-            var ditchPolderSideData = (ChartPointData)chartDatasList[ditchPolderSideIndex];
-            var bottomDitchPolderSideData = (ChartPointData)chartDatasList[bottomDitchPolderSideIndex];
-            var dikeToeAtPolderData = (ChartPointData)chartDatasList[dikeToeAtPolderIndex];
-            var dikeToeAtRiverData = (ChartPointData)chartDatasList[dikeToeAtRiverIndex];
+            var soilProfileData = (ChartDataCollection) chartDatasList[soilProfileIndex];
+            var surfaceLineData = (ChartLineData) chartDatasList[surfaceLineIndex];
+            var entryPointData = (ChartPointData) chartDatasList[entryPointIndex];
+            var exitPointData = (ChartPointData) chartDatasList[exitPointIndex];
+            var ditchDikeSideData = (ChartPointData) chartDatasList[ditchDikeSideIndex];
+            var bottomDitchDikeSideData = (ChartPointData) chartDatasList[bottomDitchDikeSideIndex];
+            var ditchPolderSideData = (ChartPointData) chartDatasList[ditchPolderSideIndex];
+            var bottomDitchPolderSideData = (ChartPointData) chartDatasList[bottomDitchPolderSideIndex];
+            var dikeToeAtPolderData = (ChartPointData) chartDatasList[dikeToeAtPolderIndex];
+            var dikeToeAtRiverData = (ChartPointData) chartDatasList[dikeToeAtRiverIndex];
 
             CollectionAssert.IsEmpty(soilProfileData.Collection);
             CollectionAssert.IsEmpty(surfaceLineData.Points);

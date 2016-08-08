@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -105,7 +104,7 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
             {
-                var mapData = new MapDataCollection(new List<MapData>(), "test data");
+                var mapData = new MapDataCollection("test data");
 
                 // Call
                 view.Data = mapData;
@@ -122,7 +121,10 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
             {
-                var mapData = new MapPointData(CreateFeature(), "test data");
+                var mapData = new MapPointData("test data")
+                {
+                    Features = CreateFeatures()
+                };
 
                 // Call
                 view.Data = mapData;
@@ -139,7 +141,10 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
             {
-                var mapData = new MapLineData(CreateFeature(), "test data");
+                var mapData = new MapLineData("test data")
+                {
+                    Features = CreateFeatures()
+                };
 
                 // Call
                 view.Data = mapData;
@@ -156,7 +161,10 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             using (var view = new MapLegendView(contextMenuBuilderProvider, parentWindow))
             {
-                var mapData = new MapPolygonData(CreateFeature(), "test data");
+                var mapData = new MapPolygonData("test data")
+                {
+                    Features = CreateFeatures()
+                };
 
                 // Call
                 view.Data = mapData;
@@ -195,11 +203,11 @@ namespace Core.Plugins.Map.Test.Legend
             }
         }
 
-        private MapFeature[] CreateFeature()
+        private static MapFeature[] CreateFeatures()
         {
-            return new []
+            return new[]
             {
-                new MapFeature(new []
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {

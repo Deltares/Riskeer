@@ -58,15 +58,15 @@ namespace Core.Plugins.Map.Legend
         {
             if (viewController == null)
             {
-                throw new ArgumentNullException("viewController", "Cannot create a MapLegendController when the view controller is null.");
+                throw new ArgumentNullException("viewController", @"Cannot create a MapLegendController when the view controller is null.");
             }
             if (contextMenuBuilderProvider == null)
             {
-                throw new ArgumentNullException("contextMenuBuilderProvider", "Cannot create a MapLegendController when the context menu builder provider is null.");
+                throw new ArgumentNullException("contextMenuBuilderProvider", @"Cannot create a MapLegendController when the context menu builder provider is null.");
             }
             if (parentWindow == null)
             {
-                throw new ArgumentNullException("parentWindow", "Cannot create a MapLegendController when the parent window is null");
+                throw new ArgumentNullException("parentWindow", @"Cannot create a MapLegendController when the parent window is null");
             }
             this.viewController = viewController;
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;

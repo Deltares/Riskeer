@@ -27,11 +27,11 @@ namespace Demo.Ringtoets.Views
             }
             set
             {
-                data = (MapDataCollection)value;
+                data = (MapDataCollection) value;
 
                 if (data != null)
                 {
-                    foreach (var mapData in data.List)
+                    foreach (var mapData in data.Collection)
                     {
                         Map.Data.Add(mapData);
                     }

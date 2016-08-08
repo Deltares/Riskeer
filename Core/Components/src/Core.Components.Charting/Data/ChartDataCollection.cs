@@ -62,7 +62,7 @@ namespace Core.Components.Charting.Data
         {
             if (elementToAdd == null)
             {
-                throw new ArgumentNullException("elementToAdd", "An element cannot be null when adding it to the collection.");
+                throw new ArgumentNullException("elementToAdd", @"An element cannot be null when adding it to the collection.");
             }
             chartDataList.Add(elementToAdd);
         }
@@ -77,7 +77,7 @@ namespace Core.Components.Charting.Data
         {
             if (elementToInsert == null)
             {
-                throw new ArgumentNullException("elementToInsert", "An element cannot be null when adding it to the collection.");
+                throw new ArgumentNullException("elementToInsert", @"An element cannot be null when adding it to the collection.");
             }
             chartDataList.Insert(position, elementToInsert);
         }

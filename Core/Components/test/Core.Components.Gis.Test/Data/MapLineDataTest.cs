@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -36,163 +35,104 @@ namespace Core.Components.Gis.Test.Data
     public class MapLineDataTest
     {
         [Test]
-        public void Constructor_NullPoints_ThrowsArgumentNullException()
+        public void Constructor_ValidName_NameAndDefaultValuesSet()
         {
             // Call
-            TestDelegate test = () => new MapLineData(null, "test data");
+            var data = new MapLineData("test data");
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, string.Format("A feature collection is required when creating a subclass of {0}.", typeof(FeatureBasedMapData)));
+            Assert.AreEqual("test data", data.Name);
+            Assert.IsEmpty(data.Features);
+            Assert.IsInstanceOf<FeatureBasedMapData>(data);
         }
 
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        [TestCase("     ")]
+        [TestCase("        ")]
         public void Constructor_InvalidName_ThrowsArgumentException(string invalidName)
         {
             // Call
-            TestDelegate test = () => new MapLineData(Enumerable.Empty<MapFeature>(), invalidName);
+            TestDelegate test = () => new MapLineData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to map data");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the map data.");
+        }
+
+        [Test]
+        public void Features_SetValidNewValue_GetsNewValue()
+        {
+            // Setup
+            var data = new MapLineData("test data");
+            var features = new[]
+            {
+                new MapFeature(Enumerable.Empty<MapGeometry>()),
+                new MapFeature(new[]
+                {
+                    new MapGeometry(new[]
+                    {
+                        Enumerable.Empty<Point2D>()
+                    }),
+                    new MapGeometry(new[]
+                    {
+                        CreateTestPoints()
+                    })
+                })
+            };
+
+            // Call
+            data.Features = features;
+
+            // Assert
+            Assert.AreSame(features, data.Features);
+        }
+
+        [Test]
+        public void Features_SetNullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var data = new MapLineData("test data");
+
+            // Call
+            TestDelegate test = () => data.Features = null;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "The array of features cannot be null.");
         }
 
         [Test]
         [TestCase(0)]
         [TestCase(2)]
-        [TestCase(5)]
-        public void Constructor_InvalidGeometryConfiguration_ThrowArgumentException(int numberOfPointCollections)
+        [TestCase(7)]
+        public void Features_SetInvalidValue_ThrowsArgumentException(int numberOfPointCollections)
         {
             // Setup
+            var data = new MapLineData("test data");
             var invalidPointsCollections = new IEnumerable<Point2D>[numberOfPointCollections];
-            for (int i = 0; i < numberOfPointCollections; i++)
+
+            for (var i = 0; i < numberOfPointCollections; i++)
             {
-                invalidPointsCollections[i] = CreateSingleLinePoints();
+                invalidPointsCollections[i] = CreateTestPoints();
             }
+
             var features = new[]
             {
                 new MapFeature(new[]
                 {
-                    new MapGeometry(invalidPointsCollections),
+                    new MapGeometry(invalidPointsCollections)
                 })
             };
 
             // Call
-            TestDelegate call = () => new MapLineData(features, "Some invalid map data");
+            TestDelegate test = () => data.Features = features;
 
             // Assert
-            string expectedMessage = "MapLineData only accept MapFeature instances whose MapGeometries contain a single point-collection.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "MapLineData only accepts MapFeature instances whose MapGeometries contain a single point-collection.");
         }
 
-        [Test]
-        public void Constructor_WithEmptyMapGeometryPoints_CreatesNewMapLineData()
-        {
-            // Setup
-            var features = new[]
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
-
-            // Call
-            var data = new MapLineData(features, "test data");
-
-            // Assert
-            Assert.IsInstanceOf<MapData>(data);
-            Assert.AreNotSame(features, data.Features);
-            CollectionAssert.IsEmpty(data.Features.First().MapGeometries.First().PointCollections.First());
-        }
-
-        [Test]
-        public void Constructor_WithPoints_CreatesNewMapLineData()
-        {
-            // Setup
-            var features = new Collection<MapFeature>
-            {
-                new MapFeature(new Collection<MapGeometry>
-                {
-                    new MapGeometry(CreateTestPointCollections())
-                })
-            };
-
-            // Call
-            var data = new MapLineData(features, "test data");
-
-            // Assert
-            Assert.IsInstanceOf<MapData>(data);
-            Assert.AreNotSame(features, data.Features);
-            CollectionAssert.AreEqual(CreateTestPointCollections(), data.Features.First().MapGeometries.First().PointCollections);
-            CollectionAssert.IsEmpty(data.Features.First().MetaData);
-        }
-
-        [Test]
-        public void Constructor_WithName_SetsName()
-        {
-            // Setup
-            var features = new Collection<MapFeature>
-            {
-                new MapFeature(new Collection<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
-            var name = "Some name";
-
-            // Call
-            var data = new MapLineData(features, name);
-
-            // Assert
-            Assert.AreEqual(name, data.Name);
-        }
-
-        [Test]
-        public void MetaData_SetNewValue_GetNewlySetValue()
-        {
-            // Setup
-            var features = new Collection<MapFeature>
-            {
-                new MapFeature(new Collection<MapGeometry>
-                {
-                    new MapGeometry(new[]
-                    {
-                        Enumerable.Empty<Point2D>()
-                    })
-                })
-            };
-
-            var data = new MapLineData(features, "test data");
-
-            const string key = "<some key>";
-            var newValue = new object();
-
-            // Call
-            data.Features.First().MetaData[key] = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, data.Features.First().MetaData[key]);
-        }
-
-        private static IEnumerable<IEnumerable<Point2D>> CreateTestPointCollections()
+        private static Point2D[] CreateTestPoints()
         {
             return new[]
-            {
-                CreateSingleLinePoints()
-            };
-        }
-
-        private static Point2D[] CreateSingleLinePoints()
-        {
-            return new []
             {
                 new Point2D(0.0, 1.1),
                 new Point2D(1.0, 2.1),

@@ -92,9 +92,8 @@ namespace Core.Plugins.Map.Test.Legend
         public void Text_Always_ReturnsNameFromMapData()
         {
             // Setup
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "Collectie");
-
             mocks.ReplayAll();
+            var mapDataCollection = new MapDataCollection("Collectie");
 
             // Call
             var text = info.Text(mapDataCollection);
@@ -123,12 +122,11 @@ namespace Core.Plugins.Map.Test.Legend
             var mapData1 = mocks.StrictMock<MapData>("test data");
             var mapData2 = mocks.StrictMock<MapData>("test data");
             var mapData3 = mocks.StrictMock<MapData>("test data");
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>
-            {
-                mapData1,
-                mapData2,
-                mapData3
-            }, "test data");
+            var mapDataCollection = new MapDataCollection("test data");
+
+            mapDataCollection.Add(mapData1);
+            mapDataCollection.Add(mapData2);
+            mapDataCollection.Add(mapData3);
 
             mocks.ReplayAll();
 
@@ -148,9 +146,8 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanDrop_SourceNodeTagIsNoMapData_ReturnsFalse()
         {
             // Setup
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
-
             mocks.ReplayAll();
+            var mapDataCollection = new MapDataCollection("test data");
 
             // Call
             var canDrop = info.CanDrop(new object(), mapDataCollection);
@@ -164,7 +161,7 @@ namespace Core.Plugins.Map.Test.Legend
         {
             // Setup
             var mapData = mocks.StrictMock<MapData>("test data");
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
+            var mapDataCollection = new MapDataCollection("test data");
 
             mocks.ReplayAll();
 
@@ -179,9 +176,8 @@ namespace Core.Plugins.Map.Test.Legend
         public void CanInsert_SourceNodeTagIsNoMapData_ReturnsFalse()
         {
             // Setup
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
-
             mocks.ReplayAll();
+            var mapDataCollection = new MapDataCollection("test data");
 
             // Call
             var canInsert = info.CanInsert(new object(), mapDataCollection);
@@ -195,7 +191,7 @@ namespace Core.Plugins.Map.Test.Legend
         {
             // Setup
             var mapData = mocks.StrictMock<MapData>("test data");
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
+            var mapDataCollection = new MapDataCollection("test data");
 
             mocks.ReplayAll();
 
@@ -216,12 +212,11 @@ namespace Core.Plugins.Map.Test.Legend
             var mapData1 = mocks.StrictMock<MapData>("test data");
             var mapData2 = mocks.StrictMock<MapData>("test data");
             var mapData3 = mocks.StrictMock<MapData>("test data");
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>
-            {
-                mapData1,
-                mapData2,
-                mapData3
-            }, "test data");
+            var mapDataCollection = new MapDataCollection("test data");
+
+            mapDataCollection.Add(mapData1);
+            mapDataCollection.Add(mapData2);
+            mapDataCollection.Add(mapData3);
 
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -237,7 +232,7 @@ namespace Core.Plugins.Map.Test.Legend
 
                 // Assert
                 var reversedIndex = 2 - position;
-                Assert.AreSame(mapData1, mapDataCollection.List.ElementAt(reversedIndex));
+                Assert.AreSame(mapData1, mapDataCollection.Collection.ElementAt(reversedIndex));
             }
         }
 
@@ -253,12 +248,11 @@ namespace Core.Plugins.Map.Test.Legend
             var mapData1 = mocks.StrictMock<MapData>("test data");
             var mapData2 = mocks.StrictMock<MapData>("test data");
             var mapData3 = mocks.StrictMock<MapData>("test data");
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(new List<MapData>
-            {
-                mapData1,
-                mapData2,
-                mapData3
-            }, "test data");
+            var mapDataCollection = new MapDataCollection("test data");
+
+            mapDataCollection.Add(mapData1);
+            mapDataCollection.Add(mapData2);
+            mapDataCollection.Add(mapData3);
 
             mapDataCollection.Attach(observer);
             mocks.ReplayAll();
@@ -277,7 +271,7 @@ namespace Core.Plugins.Map.Test.Legend
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
+            var mapDataCollection = new MapDataCollection("test data");
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -303,7 +297,7 @@ namespace Core.Plugins.Map.Test.Legend
             // Setup
             const string expectedItemText = "&Voeg kaartlaag toe...";
             const string expectedItemTooltip = "Importeer een nieuwe kaartlaag en voeg deze toe.";
-            var mapDataCollection = mocks.StrictMock<MapDataCollection>(Enumerable.Empty<MapData>(), "test data");
+            var mapDataCollection = new MapDataCollection("test data");
 
             using (var treeViewControl = new TreeViewControl())
             {

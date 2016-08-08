@@ -70,6 +70,7 @@
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\NormalDistributionProperties.cs" />
+    <Compile Include="Views\RingtoetsMapDataFeaturesFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactory.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Views\FailureMechanismResultView.Designer.cs">
       <DependentUpon>FailureMechanismResultView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\MapDataFactory.cs" />
+    <Compile Include="Views\RingtoetsMapDataFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

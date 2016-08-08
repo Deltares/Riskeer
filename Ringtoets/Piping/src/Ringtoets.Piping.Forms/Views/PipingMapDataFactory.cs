@@ -19,166 +19,88 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
-using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
+using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
     /// <summary>
-    /// Factory for creating <see cref="MapData"/> based on information used as input in the piping failure mechanism.
+    /// Factory for creating <see cref="MapData"/> for data used as input in the piping failure mechanism.
     /// </summary>
     public static class PipingMapDataFactory
     {
         /// <summary>
-        /// Create <see cref="MapData"/> with default styling based on the <paramref name="surfaceLines"/>.
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
-        /// <param name="surfaceLines">The <see cref="RingtoetsPipingSurfaceLine"/> collection for which to create <see cref="MapData"/>.</param>
-        /// <returns><see cref="MapData"/> based on <paramref name="surfaceLines"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="surfaceLines"/> is <c>null</c>.</exception>
-        public static MapData Create(IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines)
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateSurfaceLinesMapData()
         {
-            if (surfaceLines == null)
-            {
-                throw new ArgumentNullException("surfaceLines");
-            }
-
-            var mapFeatures = new List<MapFeature>
-            {
-                new MapFeature(surfaceLines.Select(surfaceLine => new MapGeometry(new[]
-                {
-                    surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))
-                })))
-            };
-
-            return new MapLineData(mapFeatures, Resources.PipingSurfaceLinesCollection_DisplayName)
+            return new MapLineData(Resources.PipingSurfaceLinesCollection_DisplayName)
             {
                 Style = new LineStyle(Color.DarkSeaGreen, 2, DashStyle.Solid)
             };
         }
 
         /// <summary>
-        /// Create <see cref="MapData"/> with default styling based on the <paramref name="stochasticSoilModels"/>.
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="StochasticSoilModel"/>.
         /// </summary>
-        /// <param name="stochasticSoilModels">The <see cref="RingtoetsPipingSurfaceLine"/> collection for which to create <see cref="MapData"/>.</param>
-        /// <returns><see cref="MapData"/> based on <paramref name="stochasticSoilModels"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="stochasticSoilModels"/> is <c>null</c>.</exception>
-        public static MapData Create(IEnumerable<StochasticSoilModel> stochasticSoilModels)
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateStochasticSoilModelsMapData()
         {
-            if (stochasticSoilModels == null)
-            {
-                throw new ArgumentNullException("stochasticSoilModels");
-            }
-
-            var mapFeatures = new List<MapFeature>
-            {
-                new MapFeature(stochasticSoilModels.Select(stochasticSoilModel => new MapGeometry(new[]
-                {
-                    stochasticSoilModel.Geometry.Select(p => new Point2D(p.X, p.Y))
-                })))
-            };
-
-            return new MapLineData(mapFeatures, Resources.StochasticSoilModelCollection_DisplayName)
+            return new MapLineData(Resources.StochasticSoilModelCollection_DisplayName)
             {
                 Style = new LineStyle(Color.FromArgb(70, Color.SaddleBrown), 5, DashStyle.Solid)
             };
         }
 
         /// <summary>
-        /// Create <see cref="MapData"/> with default styling based on the <paramref name="sections"/>.
+        /// Create <see cref="MapLineData"/> with default styling for collections of <see cref="FailureMechanismSection"/>.
         /// </summary>
-        /// <param name="sections">The <see cref="FailureMechanismSection"/> collection for which to create <see cref="MapData"/>.</param>
-        /// <returns><see cref="MapData"/> based on <paramref name="sections"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="sections"/> is <c>null</c>.</exception>
-        public static MapData Create(IEnumerable<FailureMechanismSection> sections)
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateFailureMechanismSectionsMapData()
         {
-            if (sections == null)
-            {
-                throw new ArgumentNullException("sections");
-            }
-
-            var mapFeatures = new List<MapFeature>
-            {
-                new MapFeature(sections.Select(section => new MapGeometry(new[]
-                {
-                    section.Points.Select(p => new Point2D(p.X, p.Y))
-                })))
-            };
-
-            return new MapLineData(mapFeatures, Common.Forms.Properties.Resources.FailureMechanism_Sections_DisplayName)
+            return new MapLineData(CommonFormsResources.FailureMechanism_Sections_DisplayName)
             {
                 Style = new LineStyle(Color.Khaki, 3, DashStyle.Dot)
             };
         }
 
         /// <summary>
-        /// Create <see cref="MapData"/> with default styling based on the start points of <paramref name="sections"/>.
+        /// Create <see cref="MapPointData"/> with default styling for the start points in collections of <see cref="FailureMechanismSection"/>.
         /// </summary>
-        /// <param name="sections">The <see cref="FailureMechanismSection"/> collection which's start points will be used to create <see cref="MapData"/>.</param>
-        /// <returns><see cref="MapData"/> based on the start points of <paramref name="sections"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="sections"/> is <c>null</c>.</exception>
-        public static MapData CreateStartPoints(IEnumerable<FailureMechanismSection> sections)
+        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        public static MapPointData CreateFailureMechanismSectionsStartPointMapData()
         {
-            if (sections == null)
-            {
-                throw new ArgumentNullException("sections");
-            }
+            var mapDataName = string.Format("{0} ({1})",
+                                            CommonFormsResources.FailureMechanism_Sections_DisplayName,
+                                            CommonFormsResources.FailureMechanismSections_StartPoints_DisplayName);
 
-            IEnumerable<Point2D> startPoints = sections.Select(sl => sl.GetStart());
-            string mapDataName = string.Format("{0} ({1})",
-                                               Common.Forms.Properties.Resources.FailureMechanism_Sections_DisplayName,
-                                               Common.Forms.Properties.Resources.FailureMechanismSections_StartPoints_DisplayName);
-            return new MapPointData(GetMapFeature(startPoints), mapDataName)
+            return new MapPointData(mapDataName)
             {
                 Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
             };
         }
 
         /// <summary>
-        /// Create <see cref="MapData"/> with default styling based on the end points of <paramref name="sections"/>.
+        /// Create <see cref="MapPointData"/> with default styling for the end points in collections of <see cref="FailureMechanismSection"/>.
         /// </summary>
-        /// <param name="sections">The <see cref="FailureMechanismSection"/> collection which's end points will be used to create <see cref="MapData"/>.</param>
-        /// <returns><see cref="MapData"/> based on the end points of <paramref name="sections"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="sections"/> is <c>null</c>.</exception>
-        public static MapData CreateEndPoints(IEnumerable<FailureMechanismSection> sections)
+        /// <returns>The created <see cref="MapPointData"/>.</returns>
+        public static MapPointData CreateFailureMechanismSectionsEndPointMapData()
         {
-            if (sections == null)
-            {
-                throw new ArgumentNullException("sections");
-            }
+            var mapDataName = string.Format("{0} ({1})",
+                                            CommonFormsResources.FailureMechanism_Sections_DisplayName,
+                                            CommonFormsResources.FailureMechanismSections_EndPoints_DisplayName);
 
-            IEnumerable<Point2D> startPoints = sections.Select(sl => sl.GetLast());
-            string mapDataName = string.Format("{0} ({1})",
-                                               Common.Forms.Properties.Resources.FailureMechanism_Sections_DisplayName,
-                                               Common.Forms.Properties.Resources.FailureMechanismSections_EndPoints_DisplayName);
-            return new MapPointData(GetMapFeature(startPoints), mapDataName)
+            return new MapPointData(mapDataName)
             {
                 Style = new PointStyle(Color.DarkKhaki, 15, PointSymbol.Triangle)
-            };
-        }
-
-        private static IEnumerable<MapFeature> GetMapFeature(IEnumerable<Point2D> points)
-        {
-            return new[]
-            {
-                new MapFeature(new[]
-                {
-                    new MapGeometry(new[]
-                    {
-                        points
-                    })
-                })
             };
         }
     }

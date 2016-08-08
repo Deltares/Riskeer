@@ -56,9 +56,9 @@ namespace Core.Components.DotSpatial.Test.Converter
         public void CanConvertMapData_MapLineData_ReturnTrue()
         {
             // Setup
-            var feature = new List<MapFeature>
+            var mapFeatures = new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -67,7 +67,10 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             };
             var converter = new MapLineDataConverter();
-            var lineData = new MapLineData(feature, "test data");
+            var lineData = new MapLineData("test data")
+            {
+                Features = mapFeatures
+            };
 
             // Call
             var canConvert = converter.CanConvertMapData(lineData);
@@ -135,9 +138,9 @@ namespace Core.Components.DotSpatial.Test.Converter
                 points.Add(new Point2D(random.NextDouble(), random.NextDouble()));
             }
 
-            var feature = new List<MapFeature>
+            var mapFeatures = new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
@@ -146,7 +149,10 @@ namespace Core.Components.DotSpatial.Test.Converter
                 })
             };
 
-            var lineData = new MapLineData(feature, "test data");
+            var lineData = new MapLineData("test data")
+            {
+                Features = mapFeatures
+            };
 
             // Call
             var mapLayers = converter.Convert(lineData);
@@ -163,14 +169,17 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapLineDataConverter();
-            var features = new List<MapFeature>
+            var features = new[]
             {
                 new MapFeature(Enumerable.Empty<MapGeometry>()),
                 new MapFeature(Enumerable.Empty<MapGeometry>()),
                 new MapFeature(Enumerable.Empty<MapGeometry>())
             };
 
-            var lineData = new MapLineData(features, "test");
+            var lineData = new MapLineData("test")
+            {
+                Features = features
+            };
 
             // Call
             var mapLayers = converter.Convert(lineData);
@@ -178,7 +187,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             Assert.AreEqual(1, mapLayers.Count);
             var layer = mapLayers[0];
-            Assert.AreEqual(features.Count, layer.DataSet.Features.Count);
+            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
         }
 
         [Test]
@@ -186,16 +195,16 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapLineDataConverter();
-            var features = new List<MapFeature>
+            var features = new[]
             {
-                new MapFeature(new List<MapGeometry>
+                new MapFeature(new[]
                 {
                     new MapGeometry(new[]
                     {
                         new[]
                         {
                             new Point2D(1.0, 2.0),
-                            new Point2D(2.0, 1.0),
+                            new Point2D(2.0, 1.0)
                         }
                     }),
                     new MapGeometry(new[]
@@ -203,7 +212,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                         new[]
                         {
                             new Point2D(2.0, 2.0),
-                            new Point2D(3.0, 2.0),
+                            new Point2D(3.0, 2.0)
                         }
                     }),
                     new MapGeometry(new[]
@@ -211,7 +220,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                         new[]
                         {
                             new Point2D(1.0, 3.0),
-                            new Point2D(1.0, 4.0),
+                            new Point2D(1.0, 4.0)
                         }
                     }),
                     new MapGeometry(new[]
@@ -219,7 +228,7 @@ namespace Core.Components.DotSpatial.Test.Converter
                         new[]
                         {
                             new Point2D(3.0, 2.0),
-                            new Point2D(4.0, 1.0),
+                            new Point2D(4.0, 1.0)
                         }
                     })
                 })
@@ -227,7 +236,10 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             var geometries = features.First().MapGeometries.ToArray();
 
-            var lineData = new MapLineData(features, "test");
+            var lineData = new MapLineData("test")
+            {
+                Features = features
+            };
 
             // Call
             var mapLayers = converter.Convert(lineData);
@@ -235,7 +247,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             Assert.AreEqual(1, mapLayers.Count);
             var layer = mapLayers[0];
-            Assert.AreEqual(features.Count, layer.DataSet.Features.Count);
+            Assert.AreEqual(features.Length, layer.DataSet.Features.Count);
             layer.DataSet.InitializeVertices();
             var layerGeometries = layer.DataSet.ShapeIndices.First().Parts;
             Assert.AreEqual(geometries.Length, layerGeometries.Count);
@@ -248,7 +260,7 @@ namespace Core.Components.DotSpatial.Test.Converter
         {
             // Setup
             var converter = new MapLineDataConverter();
-            var data = new MapLineData(Enumerable.Empty<MapFeature>(), "test")
+            var data = new MapLineData("test")
             {
                 IsVisible = isVisible
             };
@@ -266,13 +278,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var name = "<Some name>";
             var converter = new MapLineDataConverter();
-            var data = new MapLineData(Enumerable.Empty<MapFeature>(), name);
+            var data = new MapLineData(name);
 
             // Call
             var layers = converter.Convert(data);
 
             // Assert
-            var layer = layers.First() as MapLineLayer;
+            var layer = (MapLineLayer) layers.First();
             Assert.AreEqual(name, layer.Name);
         }
 
@@ -286,7 +298,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             var converter = new MapLineDataConverter();
             var expectedColor = Color.FromKnownColor(color);
             var style = new LineStyle(expectedColor, 3, DashStyle.Solid);
-            var data = new MapLineData(Enumerable.Empty<MapFeature>(), "test")
+            var data = new MapLineData("test")
             {
                 Style = style
             };
@@ -308,7 +320,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapLineDataConverter();
             var style = new LineStyle(Color.AliceBlue, width, DashStyle.Solid);
-            var data = new MapLineData(Enumerable.Empty<MapFeature>(), "test")
+            var data = new MapLineData("test")
             {
                 Style = style
             };
@@ -330,7 +342,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var converter = new MapLineDataConverter();
             var style = new LineStyle(Color.AliceBlue, 3, lineStyle);
-            var data = new MapLineData(Enumerable.Empty<MapFeature>(), "test")
+            var data = new MapLineData("test")
             {
                 Style = style
             };

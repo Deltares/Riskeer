@@ -127,20 +127,23 @@ namespace Core.Components.Gis.IO.Readers
             }
         }
 
-        private FeatureBasedMapData ConvertPolygonFeatureToMapPolygonData(IFeature polygonFeature, string name)
+        private static FeatureBasedMapData ConvertPolygonFeatureToMapPolygonData(IFeature polygonFeature, string name)
         {
-            var mapFeature = CreateMapFeatureForPolygonFeature(polygonFeature);
-            IEnumerable<MapFeature> mapFeatures = new[]
+            return new MapPolygonData(name)
             {
-                mapFeature
+                Features = new[]
+                {
+                    CreateMapFeatureForPolygonFeature(polygonFeature)
+                }
             };
-            return new MapPolygonData(mapFeatures, name);
         }
 
-        private FeatureBasedMapData ConvertPolygonFeaturesToMapPointData(IEnumerable<IFeature> featureList, string name)
+        private static FeatureBasedMapData ConvertPolygonFeaturesToMapPointData(IEnumerable<IFeature> featureList, string name)
         {
-            MapFeature[] mapFeatures = featureList.Select(CreateMapFeatureForPolygonFeature).ToArray();
-            return new MapPolygonData(mapFeatures, name);
+            return new MapPolygonData(name)
+            {
+                Features = featureList.Select(CreateMapFeatureForPolygonFeature).ToArray()
+            };
         }
 
         private static MapFeature CreateMapFeatureForPolygonFeature(IFeature polygonFeature)
