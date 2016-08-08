@@ -65,23 +65,6 @@ namespace Ringtoets.HydraRing.Data.Test
         }
 
         [Test]
-        public void Properties_ValidParameters_PropertiesAsExpected()
-        {
-            // Setup
-            const double designWaterLevel = 741.0;
-            const double waveHeight = 132.0;
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0, 0);
-
-            // Call
-            hydraulicBoundaryLocation.DesignWaterLevel = designWaterLevel;
-            hydraulicBoundaryLocation.WaveHeight = waveHeight;
-
-            // Assert
-            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight);
-        }
-
-        [Test]
         public void ToString_Always_ReturnsName()
         {
             // Setup

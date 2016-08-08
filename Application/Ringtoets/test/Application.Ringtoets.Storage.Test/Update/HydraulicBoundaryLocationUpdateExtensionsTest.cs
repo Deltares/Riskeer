@@ -134,8 +134,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             double newY = random.NextDouble() * 10;
             long newId = 2;
             string newName = "newName";
-            double newDesignWaterLevel = random.NextDouble() * 10;
-            double newWaveHeight = random.NextDouble() * 10;
+            double newDesignWaterLevel = random.NextDouble();
+            double newWaveHeight = random.NextDouble();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(newId, newName, newX, newY)
             {

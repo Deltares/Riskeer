@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -55,7 +56,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
                 Assert.AreEqual(typeof(WaveHeightContext), info.TagType);
@@ -81,10 +82,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var text = info.Text(null);
+                string text = info.Text(null);
 
                 // Assert
                 const string expectedName = "Golfhoogtes";
@@ -98,10 +99,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                var image = info.Image(null);
+                Image image = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, image);
@@ -133,7 +134,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     plugin.Gui = guiMock;
 
@@ -164,7 +165,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     plugin.Gui = guiMock;
 
@@ -205,12 +206,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
+                    TreeNodeInfo info = GetInfo(plugin);
 
                     plugin.Gui = guiMock;
 
                     // Call
-                    var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+                    ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                     // Assert
                     const string expectedItemText = "&Berekenen";
@@ -227,17 +228,17 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_ContextHasNoHydraulicBoundaryDatabase_ReturnDisabledColor()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var waterLevelContext = new WaveHeightContext(assessmentSection);
+            var waveHeightContext = new WaveHeightContext(assessmentSectionMock);
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color color = info.ForeColor(waterLevelContext);
+                Color color = info.ForeColor(waveHeightContext);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -249,18 +250,18 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_ContextHasNoCalculations_ReturnControlColor()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             mockRepository.ReplayAll();
 
-            var waterLevelContext = new WaveHeightContext(assessmentSection);
+            var waveHeightContext = new WaveHeightContext(assessmentSectionMock);
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color color = info.ForeColor(waterLevelContext);
+                Color color = info.ForeColor(waveHeightContext);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
@@ -272,23 +273,23 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_ContextHasCalculations_ReturnControlColor()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var location = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
                 WaveHeight = 1.0
             };
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(location);
+            assessmentSectionMock.HydraulicBoundaryDatabase.Locations.Add(location);
             mockRepository.ReplayAll();
 
-            var waterLevelContext = new WaveHeightContext(assessmentSection);
+            var waveHeightContext = new WaveHeightContext(assessmentSectionMock);
 
             using (var plugin = new RingtoetsPlugin())
             {
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color color = info.ForeColor(waterLevelContext);
+                Color color = info.ForeColor(waveHeightContext);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
@@ -297,12 +298,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
+        public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingWaveHeightFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
         {
             // Given
-            var gui = mockRepository.DynamicMock<IGui>();
+            var guiMock = mockRepository.DynamicMock<IGui>();
 
-            var contextMenuRunAssessmentLevelCalculationsIndex = 0;
+            var contextMenuRunWaveHeightCalculationsIndex = 0;
 
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
@@ -329,19 +330,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Expect(cmp => cmp.Get(waveHeightContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiMock.Expect(cmp => cmp.Get(waveHeightContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RingtoetsPlugin())
                 {
-                    var info = GetInfo(plugin);
-                    plugin.Gui = gui;
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = guiMock;
 
-                    var contextMenuAdapter = info.ContextMenuStrip(waveHeightContext, null, treeViewControl);
+                    ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(waveHeightContext, null, treeViewControl);
 
                     // When
-                    Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
+                    Action action = () => { contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick(); };
 
                     // Then
                     string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
