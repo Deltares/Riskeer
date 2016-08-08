@@ -114,6 +114,33 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string name = "A";
+            const string comment = "B";
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                Comments = comment
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreNotSame(name, entity.Name,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(name, entity.Name);
+
+            Assert.AreNotSame(comment, entity.Comments,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(comment, entity.Comments);
+        }
+
+        [Test]
         public void Create_NaNParameters_EntityWithNullFields()
         {
             // Setup

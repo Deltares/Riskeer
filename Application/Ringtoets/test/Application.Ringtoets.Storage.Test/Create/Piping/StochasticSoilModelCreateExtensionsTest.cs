@@ -73,7 +73,29 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(testSegmentName, entity.SegmentName);
             Assert.AreEqual(order, entity.Order);
             Assert.IsEmpty(entity.StochasticSoilProfileEntities);
-        }   
+        }
+
+        [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            string testName = "testName";
+            string testSegmentName = "testSegmentName";
+            var stochasticSoilModel = new StochasticSoilModel(-1, testName, testSegmentName);
+            var registry = new PersistenceRegistry();
+
+            // Call
+            StochasticSoilModelEntity entity = stochasticSoilModel.Create(registry, 0);
+
+            // Assert
+            Assert.AreNotSame(testName, entity.Name,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(testName, entity.Name);
+
+            Assert.AreNotSame(testSegmentName, entity.SegmentName,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(testSegmentName, entity.SegmentName);
+        }
 
         [Test]
         public void Create_WithStochasticSoilProfiles_ReturnsStochasticSoilModelEntityWithPropertiesAndStochasticSoilProfileEntitiesSet()

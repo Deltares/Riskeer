@@ -52,6 +52,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -242,6 +244,7 @@
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Exceptions\CannotDeleteBackupFileException.cs" />
     <Compile Include="IStorableExtensions.cs" />
+    <Compile Include="FingerprintGenerator.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensions.cs" />
@@ -312,6 +315,7 @@
     <Compile Include="SqLiteConnectionStringBuilder.cs" />
     <Compile Include="StorageSqLite.cs" />
     <Compile Include="BackedUpFileWriter.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensions.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensions.cs" />
     <Compile Include="Update\ClosingStructure\ClosingStructureFailureMechanismSectionResultUpdateExtensions.cs" />

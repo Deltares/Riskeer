@@ -35,40 +35,22 @@ namespace Core.Common.Base.Storage
         string FileFilter { get; }
 
         /// <summary>
-        /// Converts <paramref name="project"/> to a new storage entry.
+        /// Converts the staged project to a new storage entry.
         /// </summary>
-        /// <param name="project"><see cref="IProject"/> to save.</param>
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
+        /// <exception cref="InvalidOperationException">When not project has been staged
+        /// before calling this method.</exception>
         /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
         /// <exception cref="CouldNotConnectException">Thrown when no new storage was created.</exception>
         /// <exception cref="StorageException">Thrown when
         /// <list type="bullet">
         /// <item>No new storage was created.</item>
         /// <item>The storage is no valid Ringtoets project.</item>
-        /// <item>Saving the <paramref name="project"/> to the storage failed.</item>
+        /// <item>Saving the staged project to the storage failed.</item>
         /// <item>The connection to the storage failed.</item>
         /// </list>
         /// </exception>
-        void SaveProjectAs(string connectionArguments, IProject project);
-
-        /// <summary>
-        /// Converts <paramref name="project"/> to an existing entity in the storage.
-        /// </summary>
-        /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
-        /// <param name="project">The <see cref="IProject"/> to save.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
-        /// <exception cref="System.ArgumentException"><paramref name="connectionArguments"/> is invalid.</exception>
-        /// <exception cref="CouldNotConnectException">No file is present at <paramref name="connectionArguments"/></exception>
-        /// <exception cref="StorageException">Thrown when
-        /// <list type="bullet">
-        /// <item><paramref name="connectionArguments"/> does not exist.</item>
-        /// <item>The storage is no valid Ringtoets project.</item>
-        /// <item>Saving the <paramref name="project"/> to the storage failed.</item>
-        /// <item>The connection to the storage failed.</item>
-        /// <item>The related entity was not found in the storage. Therefore, no update was possible.</item>
-        /// </list>
-        /// </exception>
-        void SaveProject(string connectionArguments, IProject project);
+        void SaveProjectAs(string connectionArguments);
 
         /// <summary>
         /// Attempts to load the <see cref="IProject"/> from the storage.
@@ -92,11 +74,28 @@ namespace Core.Common.Base.Storage
         void CloseProject();
 
         /// <summary>
-        /// Checks if <paramref name="project"/> differs from the last saved or loaded <see cref="IProject"/>, if any.
+        /// Gets a value indicating whether this instance has staged project.
         /// </summary>
-        /// <param name="project">The <see cref="IProject"/> to save.</param>
-        /// <returns><c>true</c> if last <see cref="IProject"/> was set and is different from <paramref name="project"/>, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is null.</exception>
-        bool HasChanges(IProject project);
+        /// <seealso cref="StageProject"/>
+        bool HasStagedProject { get; }
+
+        /// <summary>
+        /// Stages the project (does some prep-work and validity checking) to be saved.
+        /// </summary>
+        /// <param name="project">The project to be prepared to be saved.</param>
+        void StageProject(IProject project);
+
+        /// <summary>
+        /// Unstages the project and discards all prep-work that has been done.
+        /// </summary>
+        void UnstageProject();
+
+        /// <summary>
+        /// Checks if the staged project differs from the last saved or loaded <see cref="IProject"/>, if any.
+        /// </summary>
+        /// <returns><c>true</c> if last <see cref="IProject"/> was set and is different
+        /// from the staged project, <c>false</c> otherwise.</returns>
+        /// <exception cref="InvalidOperationException">When no project has been staged.</exception>
+        bool HasStagedProjectChanges();
     }
 }

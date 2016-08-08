@@ -77,12 +77,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +151,7 @@
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="DoubleConversionExtensionsTest.cs" />
     <Compile Include="Exceptions\CannotDeleteBackupFileExceptionTest.cs" />
+    <Compile Include="FingerprintGeneratorTest.cs" />
     <Compile Include="IStorableExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
@@ -197,6 +200,7 @@
     <Compile Include="SqLiteConnectionStringBuilderTest.cs" />
     <Compile Include="StorageSqliteCreatorTest.cs" />
     <Compile Include="StorageSqLiteTest.cs" />
+    <Compile Include="StringExtensionsTest.cs" />
     <Compile Include="Update\AssessmentSectionUpdateExtensionsTest.cs" />
     <Compile Include="Update\CalculationGroupUpdateExtensionsTest.cs" />
     <Compile Include="Update\ClosingStructure\ClosingStructureFailureMechanismSectionResultUpdateExtensionsTest.cs" />

@@ -24,12 +24,14 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+
+using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Update;
+
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Utils;
@@ -48,6 +50,8 @@ namespace Application.Ringtoets.Storage
         private static readonly ILog log = LogManager.GetLogger(typeof(StorageSqLite));
 
         private string connectionString;
+        private RingtoetsProject stagedProject;
+        private ProjectEntity stagedProjectEntity;
 
         public string FileFilter
         {
@@ -57,12 +61,38 @@ namespace Application.Ringtoets.Storage
             }
         }
 
-        public void SaveProjectAs(string databaseFilePath, IProject project)
+        public bool HasStagedProject
+        {
+            get
+            {
+                return stagedProjectEntity != null;
+            }
+        }
+
+        public void StageProject(IProject project)
         {
             var ringtoetsProject = project as RingtoetsProject;
             if (ringtoetsProject == null)
             {
                 throw new ArgumentNullException("project");
+            }
+            stagedProject = ringtoetsProject;
+
+            var registry = new PersistenceRegistry();
+            stagedProjectEntity = ringtoetsProject.Create(registry);
+        }
+
+        public void UnstageProject()
+        {
+            stagedProject = null;
+            stagedProjectEntity = null;
+        }
+
+        public void SaveProjectAs(string databaseFilePath)
+        {
+            if (!HasStagedProject)
+            {
+                throw new InvalidOperationException("Call 'StageProject(IProject)' first before calling this method.");
             }
 
             try
@@ -71,7 +101,7 @@ namespace Application.Ringtoets.Storage
                 writer.Perform(() =>
                 {
                     SetConnectionToNewFile(databaseFilePath);
-                    SaveProjectInDatabase(databaseFilePath, ringtoetsProject);
+                    SaveProjectInDatabase(databaseFilePath);
                 });
             }
             catch (IOException e)
@@ -82,26 +112,10 @@ namespace Application.Ringtoets.Storage
             {
                 log.Warn(e.Message, e);
             }
-        }
-
-        public void SaveProject(string databaseFilePath, IProject project)
-        {
-            var ringtoetsProject = project as RingtoetsProject;
-            if (ringtoetsProject == null)
+            finally
             {
-                throw new ArgumentNullException("project");
+                UnstageProject();
             }
-
-            try
-            {
-                SetConnectionToExistingFile(databaseFilePath);
-            }
-            catch
-            {
-                SaveProjectAs(databaseFilePath, ringtoetsProject);
-            }
-
-            UpdateProjectInDatabase(databaseFilePath, ringtoetsProject);
         }
 
         public IProject LoadProject(string databaseFilePath)
@@ -143,41 +157,27 @@ namespace Application.Ringtoets.Storage
             connectionString = null;
         }
 
-        public bool HasChanges(IProject project)
+        public bool HasStagedProjectChanges()
         {
+            if (!HasStagedProject)
+            {
+                throw new InvalidOperationException("Call 'StageProject(IProject)' first before calling this method.");
+            }
+
             if (string.IsNullOrWhiteSpace(connectionString))
             {
                 return true;
             }
 
-            var ringtoetsProject = project as RingtoetsProject;
-            if (ringtoetsProject == null)
-            {
-                throw new ArgumentNullException("project");
-            }
-
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
-                try
-                {
-                    var persistenceRegistry = new PersistenceRegistry();
-                    ringtoetsProject.Update(persistenceRegistry, dbContext);
-                    persistenceRegistry.RemoveUntouched(dbContext);
-
-                    return dbContext.ChangeTracker.HasChanges();
-                }
-                catch (EntityNotFoundException)
-                {
-                    return true;
-                }
-                catch (SystemException)
-                {
-                    return true;
-                }
+                byte[] originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
+                byte[] hash = FingerprintGenerator.Get(stagedProjectEntity);
+                return !BinaryDataEqualityHelper.AreEqual(originalHash, hash);
             }
         }
 
-        private void SaveProjectInDatabase(string databaseFilePath, RingtoetsProject project)
+        private void SaveProjectInDatabase(string databaseFilePath)
         {
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
@@ -186,49 +186,15 @@ namespace Application.Ringtoets.Storage
                     var registry = new PersistenceRegistry();
                     dbContext.VersionEntities.Add(new VersionEntity
                     {
-                        FingerPrint = new byte[]{1,2,3,4,5},
+                        Version = "1",
                         Timestamp = DateTime.Now,
-                        Version = "1"
+                        FingerPrint = FingerprintGenerator.Get(stagedProjectEntity)
                     });
-                    dbContext.ProjectEntities.Add(project.Create(registry));
+                    dbContext.ProjectEntities.Add(stagedProjectEntity);
                     dbContext.SaveChanges();
                     registry.TransferIds();
 
-                    project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
-                }
-                catch (DataException exception)
-                {
-                    throw CreateStorageWriterException(databaseFilePath, Resources.Error_Update_Database, exception);
-                }
-                catch (SystemException exception)
-                {
-                    if (exception is InvalidOperationException || exception is NotSupportedException)
-                    {
-                        throw CreateStorageWriterException(databaseFilePath, Resources.Error_During_Connection, exception);
-                    }
-                    throw;
-                }
-            }
-        }
-
-        private void UpdateProjectInDatabase(string databaseFilePath, RingtoetsProject project)
-        {
-            using (var dbContext = new RingtoetsEntities(connectionString))
-            {
-                try
-                {
-                    var updateCollector = new PersistenceRegistry();
-                    project.Update(updateCollector, dbContext);
-                    updateCollector.RemoveUntouched(dbContext);
-
-                    dbContext.VersionEntities.Single().Timestamp = DateTime.Now;
-
-                    dbContext.SaveChanges();
-                    updateCollector.TransferIds();
-                }
-                catch (EntityNotFoundException e)
-                {
-                    throw CreateStorageWriterException(databaseFilePath, e.Message, e);
+                    stagedProject.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
                 }
                 catch (DataException exception)
                 {

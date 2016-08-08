@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create
             {
                 FailureMechanismType = (short) type,
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant),
-                Comments = mechanism.Comments
+                Comments = mechanism.Comments.DeepClone()
             };
 
             mechanism.AddEntitiesForFailureMechanismSections(registry, entity);

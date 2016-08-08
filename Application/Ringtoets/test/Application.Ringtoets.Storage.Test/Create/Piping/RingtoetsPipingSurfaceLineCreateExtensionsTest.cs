@@ -79,6 +79,27 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            const string originalName = "Test";
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = originalName,
+                ReferenceLineIntersectionWorldPoint = new Point2D(1235.439, 49308.346)
+            };
+
+            // Call
+            SurfaceLineEntity entity = surfaceLine.Create(registry, 0);
+
+            // Assert
+            Assert.AreNotSame(originalName, entity.Name,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(originalName, entity.Name);
+        }
+
+        [Test]
         public void Create_SurfaceLineWithGeometryWithoutCharacteristicPoints_ReturnSurfaceLineEntityWithPointEntities()
         {
             // Setup

@@ -75,6 +75,27 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string name = "original";
+            var group = new CalculationGroup
+            {
+                Name = name
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            Assert.AreNotSame(name, entity.Name,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(name, entity.Name);
+        }
+
+        [Test]
         public void Create_GroupWithChildren_CreateEntities()
         {
             // Setup

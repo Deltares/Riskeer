@@ -21,6 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
+
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
@@ -60,6 +62,25 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.NotNull(entity);
+            Assert.AreEqual(testdescription, entity.Description);
+        }
+
+        [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            var testdescription = "original description";
+            var project = new RingtoetsProject
+            {
+                Description = testdescription
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            ProjectEntity entity = project.Create(registry);
+
+            // Assert
+            Assert.AreNotSame(testdescription, entity.Description);
             Assert.AreEqual(testdescription, entity.Description);
         }
 

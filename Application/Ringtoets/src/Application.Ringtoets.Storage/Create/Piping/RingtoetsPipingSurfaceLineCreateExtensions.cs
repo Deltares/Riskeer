@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
             var entity = new SurfaceLineEntity
             {
-                Name = surfaceLine.Name,
+                Name = surfaceLine.Name.DeepClone(),
                 ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull(),
                 ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull(),
                 PointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points),

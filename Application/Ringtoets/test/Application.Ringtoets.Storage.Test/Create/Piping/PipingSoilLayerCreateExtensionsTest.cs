@@ -24,6 +24,7 @@ using System.Drawing;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
+using Application.Ringtoets.Storage.DbContext;
 
 using NUnit.Framework;
 
@@ -88,6 +89,27 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(soilLayer.PermeabilityMean.ToNaNAsNull(), entity.PermeabilityMean);
             Assert.AreEqual(soilLayer.PermeabilityDeviation.ToNaNAsNull(), entity.PermeabilityDeviation);
             Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string materialName = "MaterialName";
+            var soilLayer = new PipingSoilLayer(0)
+            {
+                MaterialName = materialName
+
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            SoilLayerEntity entity = soilLayer.Create(registry, 0);
+
+            // Assert
+            Assert.AreNotSame(materialName, entity.MaterialName,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(materialName, entity.MaterialName);
         }
     }
 }

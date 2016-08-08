@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             }
             var entity = new SoilProfileEntity
             {
-                Name = profile.Name,
+                Name = profile.Name.DeepClone(),
                 Bottom = profile.Bottom.ToNaNAsNull()
             };
 

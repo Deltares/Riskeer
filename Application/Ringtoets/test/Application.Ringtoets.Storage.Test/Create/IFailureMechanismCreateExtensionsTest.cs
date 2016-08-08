@@ -24,6 +24,8 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create
@@ -86,6 +88,25 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(1, failureMechanismEntity.FailureMechanismSectionEntities.Count);
+        }
+
+        [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string original = "ladida";
+            IFailureMechanism failureMechanism = new TestFailureMechanism("a", "cool");
+            failureMechanism.Comments = original;
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(FailureMechanismType.DuneErosion, registry);
+
+            // Assert
+            Assert.AreNotSame(original, entity.Comments,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(original, entity.Comments);
         }
     }
 }

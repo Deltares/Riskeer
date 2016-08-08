@@ -114,6 +114,34 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string originalName = "name";
+            const string originalComments = "comments";
+
+            var section = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                Name = originalName,
+                Comments = originalComments
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            AssessmentSectionEntity entity = section.Create(registry);
+
+            // Assert
+            Assert.AreNotSame(originalName, entity.Name,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreNotSame(originalComments, entity.Comments,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+
+            Assert.AreEqual(originalName, entity.Name);
+            Assert.AreEqual(originalComments, entity.Comments);
+        }
+
+        [Test]
         public void Create_WithHydraulicBoundaryDatabase_SetsPropertiesAndLocationsToEntity()
         {
             // Setup

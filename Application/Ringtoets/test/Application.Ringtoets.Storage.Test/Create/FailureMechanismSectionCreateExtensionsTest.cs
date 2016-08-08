@@ -23,6 +23,7 @@ using System;
 
 using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -64,6 +65,24 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(testName, entity.Name);
             byte[] expectedBinaryData = new Point2DBinaryConverter().ToBytes(geometryPoints);
             CollectionAssert.AreEqual(expectedBinaryData, entity.FailureMechanismSectionPointData);
+        }
+
+        [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            string testName = "original name";
+            var geometryPoints = new[] { new Point2D(0, 0), new Point2D(0, 0) };
+            var failureMechanismSection = new FailureMechanismSection(testName, geometryPoints);
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismSectionEntity entity = failureMechanismSection.Create(registry);
+
+            // Assert
+            Assert.AreNotSame(testName, entity.Name,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(testName, entity.Name);
         }   
     }
 }

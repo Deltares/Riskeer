@@ -52,8 +52,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
                 ScenarioContribution = calculation.Contribution.Value.ToNaNAsNull(),
-                Name = calculation.Name,
-                Comments = calculation.Comments,
+                Name = calculation.Name.DeepClone(),
+                Comments = calculation.Comments.DeepClone(),
                 Order = order
             };
             SetInputParametersToEntity(entity, calculation.InputParameters, registry);

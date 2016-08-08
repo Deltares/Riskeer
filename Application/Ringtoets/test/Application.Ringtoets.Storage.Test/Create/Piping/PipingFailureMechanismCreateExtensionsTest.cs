@@ -86,6 +86,26 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string originalComments = "Some text";
+            var failureMechanism = new PipingFailureMechanism
+            {
+                Comments = originalComments
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.AreNotSame(originalComments, entity.Comments,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(originalComments, entity.Comments);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Create_WithStochasticSoilModels_ReturnsFailureMechanismEntityWithStochasticSoilModelEntities(bool isRelevant)

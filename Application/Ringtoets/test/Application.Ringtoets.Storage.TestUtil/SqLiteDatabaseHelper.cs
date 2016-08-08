@@ -77,7 +77,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             try
             {
                 var storageSqLite = new StorageSqLite();
-                storageSqLite.SaveProjectAs(databaseFilePath, project);
+                storageSqLite.StageProject(project);
+                storageSqLite.SaveProjectAs(databaseFilePath);
             }
             catch (Exception exception)
             {

@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
-                Name = section.Name,
+                Name = section.Name.DeepClone(),
                 FailureMechanismSectionPointData = new Point2DBinaryConverter().ToBytes(section.Points)
             };
 

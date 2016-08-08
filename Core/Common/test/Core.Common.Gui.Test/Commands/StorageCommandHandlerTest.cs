@@ -149,8 +149,11 @@ namespace Core.Common.Gui.Test.Commands
             const string exceptionMessage = "<some descriptive exception message>";
 
             var projectStorage = mocks.StrictMock<IStoreProject>();
-            projectStorage.Expect(ps => ps.SaveProject(someValidFilePath, projectMock)).
+            projectStorage.Expect(ps => ps.HasStagedProject).Return(false);
+            projectStorage.Expect(ps => ps.StageProject(projectMock));
+            projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath)).
                            Throw(new StorageException(exceptionMessage, new Exception("l33t h4xor!")));
+
             var mainWindowController = mocks.StrictMock<IWin32Window>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Project = projectMock;
@@ -186,7 +189,10 @@ namespace Core.Common.Gui.Test.Commands
             const string someValidFilePath = "<some valid filepath>";
 
             var projectStorage = mocks.Stub<IStoreProject>();
-            projectStorage.Expect(ps => ps.SaveProject(someValidFilePath, projectMock));
+            projectStorage.Expect(ps => ps.StageProject(projectMock));
+            projectStorage.Expect(ps => ps.HasStagedProject).Return(false);
+            projectStorage.Expect(ps => ps.SaveProjectAs(someValidFilePath));
+
             var mainWindowController = mocks.StrictMock<IWin32Window>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Project = projectMock;
@@ -430,7 +436,10 @@ namespace Core.Common.Gui.Test.Commands
             projectMock.Name = projectName;
             projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
-            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
+            projectStorageMock.Expect(ps => ps.StageProject(projectMock));
+            projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);
+            projectStorageMock.Expect(ps => ps.HasStagedProjectChanges()).IgnoreArguments().Return(true);
+            projectStorageMock.Expect(ps => ps.UnstageProject());
 
             var projectOwnerMock = mocks.Stub<IProjectOwner>();
             projectOwnerMock.Project = projectMock;
@@ -472,7 +481,10 @@ namespace Core.Common.Gui.Test.Commands
             projectMock.Name = projectName;
             projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
-            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
+            projectStorageMock.Expect(ps => ps.StageProject(projectMock));
+            projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);
+            projectStorageMock.Expect(ps => ps.HasStagedProjectChanges()).IgnoreArguments().Return(true);
+            projectStorageMock.Expect(ps => ps.UnstageProject());
 
             var projectOwnerMock = mocks.Stub<IProjectOwner>();
             projectOwnerMock.Project = projectMock;
@@ -516,13 +528,16 @@ namespace Core.Common.Gui.Test.Commands
             var projectFilePath = "some path";
 
             var projectStorageMock = mocks.Stub<IStoreProject>();
-            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
+            projectStorageMock.Expect(ps => ps.StageProject(projectMock));
+            projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true).Repeat.Twice();
+            projectStorageMock.Expect(ps => ps.HasStagedProjectChanges()).IgnoreArguments().Return(true);
+            projectStorageMock.Expect(ps => ps.UnstageProject());
 
             var projectOwnerMock = mocks.Stub<IProjectOwner>();
             projectOwnerMock.Project = projectMock;
             projectOwnerMock.ProjectFilePath = projectFilePath;
 
-            projectStorageMock.Expect(p => p.SaveProject(projectFilePath, projectMock));
+            projectStorageMock.Expect(p => p.SaveProjectAs(projectFilePath));
             mocks.ReplayAll();
 
             string messageBoxText = null;
@@ -561,7 +576,10 @@ namespace Core.Common.Gui.Test.Commands
             projectMock.Name = projectName;
             projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
-            projectStorageMock.Expect(p => p.HasChanges(null)).IgnoreArguments().Return(true);
+            projectStorageMock.Expect(ps => ps.StageProject(projectMock));
+            projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);
+            projectStorageMock.Expect(ps => ps.HasStagedProjectChanges()).IgnoreArguments().Return(true);
+            projectStorageMock.Expect(ps => ps.UnstageProject());
 
             var projectOwnerMock = mocks.Stub<IProjectOwner>();
             projectOwnerMock.Project = projectMock;

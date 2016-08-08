@@ -24,6 +24,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Threading;
+
+using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -67,7 +70,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             var tempFile = Path.Combine(testDataPath, "tempProjectAsFile.rtd");
 
             StorageSqLite storage = new StorageSqLite();
-            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, fullProject);
+            storage.StageProject(fullProject);
+            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile);
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
@@ -75,7 +79,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             RingtoetsProject secondProject = null;
             try
             {
-                storage.SaveProjectAs(tempFile, fullProject);
+                storage.StageProject(fullProject);
+                storage.SaveProjectAs(tempFile);
                 firstProject = (RingtoetsProject) storage.LoadProject(tempRingtoetsFile);
                 secondProject = (RingtoetsProject) storage.LoadProject(tempFile);
             }
@@ -94,16 +99,46 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         [Test]
+        public void GivenRingtoetsProject_WhenComparingFingerPrintsVariousScenariosUnchangedData_ThenFingerprintUnchanged()
+        {
+            // Given
+            RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
+
+            // When
+            var entityBeforeSave = fullProject.Create(new PersistenceRegistry());
+
+            byte[] hash1 = FingerprintGenerator.Get(entityBeforeSave);
+
+            StorageSqLite storage = new StorageSqLite();
+            storage.StageProject(fullProject);
+            storage.SaveProjectAs(tempRingtoetsFile);
+
+            ProjectEntity entityAfterSave = fullProject.Create(new PersistenceRegistry());
+            byte[] hash2 = FingerprintGenerator.Get(entityAfterSave);
+
+            var openedProject = (RingtoetsProject)storage.LoadProject(tempRingtoetsFile);
+            ProjectEntity entityAfterOpening = openedProject.Create(new PersistenceRegistry());
+
+            byte[] hash3 = FingerprintGenerator.Get(entityAfterOpening);
+
+            // Then
+            CollectionAssert.AreEqual(hash1, hash2);
+            CollectionAssert.AreEqual(hash1, hash3);
+        }
+
+        [Test]
         public void SaveProjectAs_LoadProject_ProjectAsEntitiesInNewStorage()
         {
             // Setup
             StorageSqLite storage = new StorageSqLite();
             RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
-            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile, fullProject);
+            storage.StageProject(fullProject);
+            TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile);
             Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
-            TestDelegate test = () => storage.SaveProject(tempRingtoetsFile, fullProject);
+            storage.StageProject(fullProject);
+            TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
 
             // Assert
             Assert.DoesNotThrow(test, String.Format("Precondition: failed to save project to file '{0}'.", tempRingtoetsFile));
@@ -225,7 +260,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssessmentSection expectedAssessmentSection = expectedProjectAssessmentSections[i];
                 AssessmentSection actualAssessmentSection = actualProjectAssessmentSections[i];
 
-                Assert.AreEqual(expectedAssessmentSection.StorageId, actualAssessmentSection.StorageId);
+                Assert.AreEqual(expectedAssessmentSection.Id, actualAssessmentSection.Id);
                 Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
 
                 AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
@@ -669,7 +704,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
             Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevel, actualBoundaryLocation.DesignWaterLevel);
             Assert.AreEqual(expectedBoundaryLocation.WaveHeight, actualBoundaryLocation.WaveHeight);
-            Assert.AreEqual(expectedBoundaryLocation.StorageId, actualBoundaryLocation.StorageId);
             Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
         }
 

@@ -60,11 +60,23 @@ namespace Core.Common.Gui.Commands
         public bool ContinueIfHasChanges()
         {
             var project = projectOwner.Project;
-            if (project == null || projectOwner.EqualsToNew(project) || !projectPersistor.HasChanges(project))
+            if (project == null || projectOwner.EqualsToNew(project))
             {
                 return true;
             }
-            return OpenSaveOrDiscardProjectDialog();
+            projectPersistor.StageProject(project);
+            if (!projectPersistor.HasStagedProjectChanges())
+            {
+                projectPersistor.UnstageProject();
+                return true;
+            }
+
+            var openSaveOrDiscardProjectDialog = OpenSaveOrDiscardProjectDialog();
+            if (projectPersistor.HasStagedProject)
+            {
+                projectPersistor.UnstageProject();
+            }
+            return openSaveOrDiscardProjectDialog;
         }
 
         public void Dispose() {}
@@ -168,7 +180,7 @@ namespace Core.Common.Gui.Commands
                 return SaveProjectAs();
             }
 
-            if (!TrySaveProject(filePath))
+            if (!TrySaveProjectAs(filePath))
             {
                 return false;
             }
@@ -259,22 +271,11 @@ namespace Core.Common.Gui.Commands
         {
             try
             {
-                projectPersistor.SaveProjectAs(filePath, projectOwner.Project);
-                return true;
-            }
-            catch (StorageException e)
-            {
-                log.Error(e.Message, e.InnerException);
-                log.Error(Resources.StorageCommandHandler_Saving_project_failed);
-                return false;
-            }
-        }
-
-        private bool TrySaveProject(string filePath)
-        {
-            try
-            {
-                projectPersistor.SaveProject(filePath, projectOwner.Project);
+                if (!projectPersistor.HasStagedProject)
+                {
+                    projectPersistor.StageProject(projectOwner.Project);
+                }
+                projectPersistor.SaveProjectAs(filePath);
                 return true;
             }
             catch (StorageException e)

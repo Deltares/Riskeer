@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var entity = new CalculationGroupEntity
             {
-                Name = group.Name,
+                Name = group.Name.DeepClone(),
                 IsEditable = Convert.ToByte(group.IsNameEditable),
                 Order = order
             };

@@ -74,6 +74,26 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverSlipOffInwards
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string originalComments = "Some text";
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
+            {
+                Comments = originalComments
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            var entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.AreNotSame(originalComments, entity.Comments,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(originalComments, entity.Comments);
+        }
+
+        [Test]
         public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup

@@ -52,8 +52,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                Name = calculation.Name,
-                Comments = calculation.Comments,
+                Name = calculation.Name.DeepClone(),
+                Comments = calculation.Comments.DeepClone(),
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);

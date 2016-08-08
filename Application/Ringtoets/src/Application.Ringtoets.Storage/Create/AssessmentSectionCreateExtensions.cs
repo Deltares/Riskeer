@@ -67,9 +67,9 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new AssessmentSectionEntity
             {
                 Id = section.Id,
-                Name = section.Name,
+                Name = section.Name.DeepClone(),
                 Composition = (short) section.Composition,
-                Comments = section.Comments,
+                Comments = section.Comments.DeepClone(),
                 Norm = section.FailureMechanismContribution.Norm
             };
 

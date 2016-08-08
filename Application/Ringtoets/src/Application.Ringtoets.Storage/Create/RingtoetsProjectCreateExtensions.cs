@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var entity = new ProjectEntity
             {
-                Description = project.Description
+                Description = project.Description.DeepClone()
             };
 
             AddEntitiesForAssessmentSections(project, entity, registry);

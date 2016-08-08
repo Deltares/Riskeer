@@ -110,6 +110,30 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string originalName = "Dike profile without break water.";
+            var dikeProfile = new DikeProfile(new Point2D(1.1, 2.2),
+                                              new RoughnessPoint[0],
+                                              new Point2D[0],
+                                              null,
+                                              new DikeProfile.ConstructionProperties
+                                              {
+                                                  Name = originalName
+                                              });
+            var registry = new PersistenceRegistry();
+
+            // Call
+            DikeProfileEntity entity = dikeProfile.Create(registry, 0);
+
+            // Assert
+            Assert.AreNotSame(originalName, entity.Name,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(originalName, entity.Name);
+        }
+
+        [Test]
         [TestCase(BreakWaterType.Caisson, 1.1)]
         [TestCase(BreakWaterType.Dam, 2.2)]
         [TestCase(BreakWaterType.Wall, -3.3)]

@@ -23,6 +23,7 @@ using System;
 
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
+using Application.Ringtoets.Storage.DbContext;
 
 using NUnit.Framework;
 
@@ -70,7 +71,29 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(bottom, entity.Bottom);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(2, entity.SoilLayerEntities.Count);
-        }  
+        }
+
+        [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            string testName = "testName";
+            var layers = new[]
+            {
+                new PipingSoilLayer(1), 
+                new PipingSoilLayer(2) 
+            };
+            var soilProfile = new PipingSoilProfile(testName, 0, layers, SoilProfileType.SoilProfile1D, -1);
+            var registry = new PersistenceRegistry();
+
+            // Call
+            SoilProfileEntity entity = soilProfile.Create(registry);
+
+            // Assert
+            Assert.AreNotSame(testName, entity.Name,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(testName, entity.Name);
+        }
 
         [Test]
         public void Create_ForTheSameEntityTwice_ReturnsSameSoilProfileEntityInstance()

@@ -134,6 +134,33 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string name = "A";
+            const string comments = "B";
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                Name = name,
+                Comments = comments
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            PipingCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreNotSame(name, entity.Name,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(name, entity.Name);
+
+            Assert.AreNotSame(comments, entity.Comments,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(comments, entity.Comments);
+        }
+
+        [Test]
         public void Create_HasSurfaceLineSet_EntityHasSurfaceLineEntity()
         {
             // Setup

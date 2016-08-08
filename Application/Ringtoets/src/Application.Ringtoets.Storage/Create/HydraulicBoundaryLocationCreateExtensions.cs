@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Create
             var entity = new HydraulicLocationEntity
             {
                 LocationId = location.Id,
-                Name = location.Name,
+                Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
                 DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel,

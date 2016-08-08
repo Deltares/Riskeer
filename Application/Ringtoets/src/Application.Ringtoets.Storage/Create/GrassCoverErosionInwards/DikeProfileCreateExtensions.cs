@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 ForeShoreData = new Point2DBinaryConverter().ToBytes(dikeProfile.ForeshoreGeometry),
                 Orientation = dikeProfile.Orientation,
                 DikeHeight = dikeProfile.DikeHeight,
-                Name = dikeProfile.Name,
+                Name = dikeProfile.Name.DeepClone(),
                 Order = order
             };
             if (dikeProfile.HasBreakWater)

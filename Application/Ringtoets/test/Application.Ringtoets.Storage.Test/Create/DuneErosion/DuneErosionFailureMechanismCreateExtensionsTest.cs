@@ -74,6 +74,27 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference(bool isRelevant)
+        {
+            // Setup
+            const string originalComments = "comments";
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                IsRelevant = isRelevant,
+                Comments = originalComments
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.AreNotSame(originalComments, entity.Comments,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(failureMechanism.Comments, entity.Comments);
+        }
+
+        [Test]
         public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup

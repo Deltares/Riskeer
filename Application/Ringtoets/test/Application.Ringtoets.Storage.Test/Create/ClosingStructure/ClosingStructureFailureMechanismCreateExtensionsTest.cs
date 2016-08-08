@@ -74,6 +74,26 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
         }
 
         [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string original = "Some text";
+            var failureMechanism = new ClosingStructureFailureMechanism
+            {
+                Comments = original
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            var entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.AreNotSame(original, entity.Comments,
+                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(failureMechanism.Comments, entity.Comments);
+        }
+
+        [Test]
         public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup

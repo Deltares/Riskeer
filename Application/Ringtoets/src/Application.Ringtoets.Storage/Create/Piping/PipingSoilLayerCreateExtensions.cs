@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 PermeabilityMean = layer.PermeabilityMean.ToNaNAsNull(),
                 PermeabilityDeviation = layer.PermeabilityDeviation.ToNaNAsNull(),
                 Color = layer.Color.ToArgb(),
-                MaterialName = layer.MaterialName,
+                MaterialName = layer.MaterialName.DeepClone(),
                 Order = order
             };
 
