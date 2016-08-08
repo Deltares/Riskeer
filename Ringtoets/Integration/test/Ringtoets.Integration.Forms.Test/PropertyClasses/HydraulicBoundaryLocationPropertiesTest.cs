@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const string expectedIdDisplayName = "ID";
             const string expectedNameDisplayName = "Naam";
             const string expectedLocationDisplayName = "Coördinaten [m]";
-            const string expectedIdDescription = "Id van de hydraulische randvoorwaardenlocatie in de database.";
+            const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
 

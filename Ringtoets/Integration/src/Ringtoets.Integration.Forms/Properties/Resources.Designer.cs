@@ -455,7 +455,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Id van de hydraulische randvoorwaardenlocatie in de database..
+        ///   Looks up a localized string similar to ID van de hydraulische randvoorwaardenlocatie in de database..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Locations_Id_Description {
             get {

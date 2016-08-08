@@ -193,7 +193,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Locaties</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Id_Description" xml:space="preserve">
-    <value>Id van de hydraulische randvoorwaardenlocatie in de database.</value>
+    <value>ID van de hydraulische randvoorwaardenlocatie in de database.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_Id_DisplayName" xml:space="preserve">
     <value>ID</value>
