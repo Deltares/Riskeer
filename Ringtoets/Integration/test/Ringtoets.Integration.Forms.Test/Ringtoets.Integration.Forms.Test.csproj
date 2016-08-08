@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
+    <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PresentationObjects\WaveHeightContextTest.cs" />
@@ -223,6 +224,10 @@
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
       <Name>Ringtoets.Piping.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
+      <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
+      <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>

@@ -22,6 +22,7 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
@@ -87,27 +88,30 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
-            };
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation();
-
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
+            });
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation()
+            {
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            });
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new HeightStructuresCalculation()
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            });
 
             // Call
             RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
 
             // Assert
-            PipingCalculation clearedPipingCalculation = assessmentSection.PipingFailureMechanism.CalculationsGroup.Children[0] as PipingCalculation;
-            GrassCoverErosionInwardsCalculation clearedCoverErosionInwardsCalculation = assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children[0] as GrassCoverErosionInwardsCalculation;
-            HeightStructuresCalculation clearedHeightStructuresCalculation = assessmentSection.HeightStructures.CalculationsGroup.Children[0] as HeightStructuresCalculation;
-            Assert.IsNull(clearedPipingCalculation.Output);
-            Assert.IsNull(clearedCoverErosionInwardsCalculation.Output);
-            Assert.IsNull(clearedHeightStructuresCalculation.Output);
+            PipingCalculation pipingCalculation = assessmentSection.PipingFailureMechanism.CalculationsGroup.Children[0] as PipingCalculation;
+            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children[0] as GrassCoverErosionInwardsCalculation;
+            HeightStructuresCalculation heightStructuresCalculation = assessmentSection.HeightStructures.CalculationsGroup.Children[0] as HeightStructuresCalculation;
+            Assert.IsNull(pipingCalculation.Output);
+            Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
+            Assert.IsNull(heightStructuresCalculation.Output);
         }
     }
 }

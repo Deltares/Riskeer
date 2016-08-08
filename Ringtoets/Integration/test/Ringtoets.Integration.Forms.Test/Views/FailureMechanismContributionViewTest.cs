@@ -72,28 +72,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void NormTextBox_Initialize_TextSetToData()
         {
             // Setup
-            var random = new Random(21);
-            var norm = random.Next(100, 300000);
-            var otherContribution = random.Next(1, 100);
-
-            var mockRepository = new MockRepository();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms())
-                             .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
-            mockRepository.ReplayAll();
-
-            var contribution = new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, otherContribution, norm);
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             // Call
             using (var contributionView = new FailureMechanismContributionView
             {
-                Data = contribution,
+                Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
             })
             {
@@ -104,57 +89,45 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var normControl = normTester.TheObject as NumericUpDown;
 
                 Assert.NotNull(normControl);
-                Assert.AreEqual(contribution.Norm.ToString(), normTester.Text);
+                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
                 Assert.AreEqual(300000, normControl.Maximum);
                 Assert.AreEqual(100, normControl.Minimum);
             }
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void NormTextBox_ValueChanged_UpdatesDataWithNewValue()
         {
             // Setup
-            var random = new Random(21);
-            var norm = random.Next(100, 300000);
-            var otherContribution = random.Next(1, 100);
+            const int normValue = 200;
 
-            var mockRepository = new MockRepository();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms())
-                             .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
-            var observerMock = mockRepository.StrictMock<IObserver>();
+            MockRepository mockRepository = new MockRepository();
+            IObserver observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-
             mockRepository.ReplayAll();
 
-            var distribution = new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, otherContribution, norm);
-            distribution.Attach(observerMock);
+            failureMechanismContribution.Attach(observerMock);
 
-            using (var distributionView = new FailureMechanismContributionView
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
             {
-                Data = distribution,
+                Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
             })
             {
                 ShowFormWithView(distributionView);
-                var normTester = new ControlTester(normInputTextBoxName);
+                ControlTester normTester = new ControlTester(normInputTextBoxName);
 
                 // Precondition
-                Assert.AreEqual(distribution.Norm.ToString(), normTester.Text);
+                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
 
                 // Call
-                normTester.Properties.Text = 200.ToString();
+                normTester.Properties.Text = normValue.ToString();
 
                 // Assert
-                Assert.AreEqual(200, distribution.Norm);
+                Assert.AreEqual(normValue, failureMechanismContribution.Norm);
             }
             mockRepository.VerifyAll();
         }
@@ -163,10 +136,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Data_Always_CorrectHeaders()
         {
             // Setup
-            var mockRepository = new MockRepository();
-
-            mockRepository.ReplayAll();
-
             using (var distributionView = new FailureMechanismContributionView())
             {
                 // Call
@@ -190,8 +159,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 string probabilitySpaceColumnHeaderText = dataGridView.Columns[probabilitySpaceColumnIndex].HeaderText;
                 Assert.AreEqual("Faalkansruimte [1/jaar]", probabilitySpaceColumnHeaderText);
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -200,19 +167,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var random = new Random(21);
             var otherContribution = random.Next(0, 100);
-            var mockRepository = new MockRepository();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var testName = "testName";
             var testCode = "testCode";
             double testContribution = 100 - otherContribution;
 
+            var mockRepository = new MockRepository();
             var someMechanism = mockRepository.StrictMock<FailureMechanismBase>(testName, testCode);
             someMechanism.Contribution = testContribution;
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms())
-                              .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(section => section.Composition)
-                              .Return(AssessmentSectionComposition.Dike);
 
             mockRepository.ReplayAll();
 
@@ -256,21 +220,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var expectedValue = 200;
             var random = new Random(21);
 
+            var assessmentSection1 = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection2 = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             var mockRepository = new MockRepository();
-
             var someMechanism = mockRepository.Stub<IFailureMechanism>();
-            var assessmentSection1 = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection1.Stub(section => section.GetFailureMechanisms())
-                              .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection1.Stub(section => section.Composition)
-                              .Return(AssessmentSectionComposition.Dike);
-
-            var assessmentSection2 = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection2.Stub(section => section.GetFailureMechanisms())
-                              .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection2.Stub(section => section.Composition)
-                              .Return(AssessmentSectionComposition.Dike);
-
             mockRepository.ReplayAll();
 
             var initialContribution = new FailureMechanismContribution(new[]
@@ -312,16 +266,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const int initialValue = 100;
             const int expectedValue = 200;
             var random = new Random(21);
-
+            
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            
             var mockRepository = new MockRepository();
-
             var someMechanism = mockRepository.Stub<IFailureMechanism>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms())
-                             .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
-
             mockRepository.ReplayAll();
 
             var contribution = new FailureMechanismContribution(new[]
@@ -358,13 +307,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFailureMechanismContributionView_WhenSettingData_ProperlyInitializeRelevancyColumn(bool isFailureMechanismRelevant)
         {
             // Given
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms())
-                             .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
+            var mockRepository = new MockRepository();
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             failureMechanismStub.Stub(fm => fm.Name).Return("A");
             failureMechanismStub.Stub(fm => fm.Code).Return("C");
@@ -398,13 +343,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFailureMechanismContributionView_WhenSettingDataWithZeroContributionFailureMechanism_ProbabilitySpaceShowsAsNotApplicable()
         {
             // Given
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms())
-                             .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
+            var mockRepository = new MockRepository();
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             failureMechanismStub.Stub(fm => fm.Name).Return("A");
             failureMechanismStub.Stub(fm => fm.Code).Return("C");
@@ -440,12 +381,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const double contribution = 25.0;
             const int norm = 500;
 
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms())
-                             .Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(section => section.Composition)
-                             .Return(AssessmentSectionComposition.Dike);
 
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             failureMechanismStub.Stub(fm => fm.Name).Return("A");
