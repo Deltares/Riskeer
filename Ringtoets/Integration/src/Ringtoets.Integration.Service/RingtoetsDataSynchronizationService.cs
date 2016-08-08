@@ -20,19 +20,21 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Data.Contribution;
+using Ringtoets.GrassCoverErosionInwards.Service;
+using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Integration.Service
 {
     /// <summary>
-    /// Service for synchronizing data which is dependent on the <see cref="FailureMechanismContribution.Norm"/>.
+    /// Service for synchronizing ringtoets.
     /// </summary>
     public static class RingtoetsDataSynchronizationService
     {
         /// <summary>
-        /// Clears all the data within the <see cref="AssessmentSection"/> that is dependent on the <see cref="FailureMechanismContribution.Norm"/>.
+        /// Clears all the output data within the <see cref="AssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to clear the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
@@ -44,15 +46,28 @@ namespace Ringtoets.Integration.Service
             }
 
             ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase);
+            ClearFailureMechanismCalculationOutputs(assessmentSection);
         }
-        
+
         private static void ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
+            if (hydraulicBoundaryDatabase == null)
+            {
+                return;
+            }
+
             foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations) 
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = double.NaN;
                 hydraulicBoundaryLocation.WaveHeight = double.NaN;
             }
+        }
+
+        private static void ClearFailureMechanismCalculationOutputs(AssessmentSection assessmentSection)
+        {
+            PipingDataSynchronizationService.ClearAllCalculationOutput(assessmentSection.PipingFailureMechanism);
+            GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(assessmentSection.GrassCoverErosionInwards);
+            HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(assessmentSection.HeightStructures);
         }
     }
 }
