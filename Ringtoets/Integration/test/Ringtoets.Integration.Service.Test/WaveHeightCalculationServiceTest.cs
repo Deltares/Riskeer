@@ -32,6 +32,7 @@ using Ringtoets.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.Integration.Service.Test
 {
+    [TestFixture]
     public class WaveHeightCalculationServiceTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");

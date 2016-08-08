@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Service
         private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationService));
 
         /// <summary>
-        /// Performs validation over the values on the given <paramref name="hydraulicBoundaryDatabase"/>. Error information is logged during
+        /// Performs validation of the values in the given <paramref name="hydraulicBoundaryDatabase"/>. Error information is logged during
         /// the execution of the operation.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> for which to validate the values.</param>
@@ -55,10 +55,10 @@ namespace Ringtoets.Integration.Service
             var calculationName = string.Format(Resources.DesignWaterLevelCalculationService_Name_Assessment_level_for_location_0_, hydraulicBoundaryLocation.Name);
             CalculationServiceHelper.LogValidationBeginTime(calculationName);
 
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabase.FilePath);
-            var hasErrors = string.IsNullOrEmpty(validationProblem);
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabase.FilePath);
+            var isValid = string.IsNullOrEmpty(validationProblem);
 
-            if (!hasErrors)
+            if (!isValid)
             {
                 CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
                                                             validationProblem);
@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Service
 
             CalculationServiceHelper.LogValidationEndTime(calculationName);
 
-            return hasErrors;
+            return isValid;
         }
 
         /// <summary>
