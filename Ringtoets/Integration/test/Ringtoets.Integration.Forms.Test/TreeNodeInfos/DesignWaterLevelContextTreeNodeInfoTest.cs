@@ -301,7 +301,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasNoCalculations_ReturnDisabledColor()
+        public void ForeColor_ContextHasNoCalculations_ReturnControlColor()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -318,7 +318,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Color color = info.ForeColor(designWaterLevelContext);
 
                 // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
             mocks.VerifyAll();
         }

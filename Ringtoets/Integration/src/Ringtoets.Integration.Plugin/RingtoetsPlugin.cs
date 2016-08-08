@@ -442,10 +442,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = designWaterLevel => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
                 Image = designWaterLevel => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase != null &&
-                                       context.WrappedData.HydraulicBoundaryDatabase.Locations.Any(l => !double.IsNaN(l.DesignWaterLevel)) ?
-                                           Color.FromKnownColor(KnownColor.ControlText) :
-                                           Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
+                                           Color.FromKnownColor(KnownColor.GrayText) :
+                                           Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = DesignWaterLevelContextMenuStrip
             };
 
@@ -453,10 +452,9 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = waveHeight => RingtoetsFormsResources.WaveHeightContext_DisplayName,
                 Image = waveHeight => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase != null &&
-                                       context.WrappedData.HydraulicBoundaryDatabase.Locations.Any(l => !double.IsNaN(l.WaveHeight)) ?
-                                           Color.FromKnownColor(KnownColor.ControlText) :
-                                           Color.FromKnownColor(KnownColor.GrayText),
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
+                                           Color.FromKnownColor(KnownColor.GrayText) :
+                                           Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = WaveHeightContextMenuStrip
             };
 
