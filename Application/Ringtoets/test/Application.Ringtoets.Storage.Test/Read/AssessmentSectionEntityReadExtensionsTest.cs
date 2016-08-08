@@ -131,11 +131,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.HydraulicDatabaseVersion = testVersion;
             entity.HydraulicLocationEntities.Add(new HydraulicLocationEntity
             {
-                Name = "someName"
+                Name = "A",
+                Order = 1
             });
             entity.HydraulicLocationEntities.Add(new HydraulicLocationEntity
             {
-                Name = "someName"
+                Name = "B",
+                Order = 0
             });
 
             var collector = new ReadConversionCollector();
@@ -145,6 +147,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.HydraulicBoundaryDatabase.Locations.Count);
+            CollectionAssert.AreEqual(new[]{"B", "A"}, section.HydraulicBoundaryDatabase.Locations.Select(l => l.Name));
             Assert.AreEqual(testLocation, section.HydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(testVersion, section.HydraulicBoundaryDatabase.Version);
         }

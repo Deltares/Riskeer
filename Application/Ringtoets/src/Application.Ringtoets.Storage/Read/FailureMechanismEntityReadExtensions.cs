@@ -96,12 +96,12 @@ namespace Application.Ringtoets.Storage.Read
                 ReadProbabilityAssessmentInput(entity.PipingFailureMechanismMetaEntities, failureMechanism.PipingProbabilityAssessmentInput);
             }
 
-            foreach (var stochasticSoilModelEntity in entity.StochasticSoilModelEntities)
+            foreach (var stochasticSoilModelEntity in entity.StochasticSoilModelEntities.OrderBy(ssm => ssm.Order))
             {
                 failureMechanism.StochasticSoilModels.Add(stochasticSoilModelEntity.Read(collector));
             }
 
-            foreach (SurfaceLineEntity surfaceLineEntity in entity.SurfaceLineEntities)
+            foreach (SurfaceLineEntity surfaceLineEntity in entity.SurfaceLineEntities.OrderBy(sl => sl.Order))
             {
                 failureMechanism.SurfaceLines.Add(surfaceLineEntity.Read(collector));
             }

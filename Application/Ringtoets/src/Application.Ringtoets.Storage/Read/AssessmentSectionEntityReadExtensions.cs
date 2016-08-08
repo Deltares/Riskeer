@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.Read
                     Version = entity.HydraulicDatabaseVersion
                 };
 
-                foreach (var hydraulicLocationEntity in entity.HydraulicLocationEntities)
+                foreach (var hydraulicLocationEntity in entity.HydraulicLocationEntities.OrderBy(hl => hl.Order))
                 {
                     assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicLocationEntity.Read(collector));
                 }

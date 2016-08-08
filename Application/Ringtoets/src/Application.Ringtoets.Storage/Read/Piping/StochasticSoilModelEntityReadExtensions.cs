@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
 using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
@@ -66,7 +67,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
 
         private static void ReadStochasticSoilProfiles(this StochasticSoilModelEntity entity, StochasticSoilModel model, ReadConversionCollector collector)
         {
-            foreach (var stochasticSoilProfileEntity in entity.StochasticSoilProfileEntities)
+            foreach (var stochasticSoilProfileEntity in entity.StochasticSoilProfileEntities.OrderBy(ssp => ssp.Order))
             {
                 model.StochasticSoilProfiles.Add(stochasticSoilProfileEntity.Read(collector));
             }

@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 
 using NUnit.Framework;
+
+using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
 {
@@ -63,20 +66,31 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 Bottom = bottom,
                 SoilLayerEntities =
                 {
-                    new SoilLayerEntity{ Top = bottom + 0.5 },
-                    new SoilLayerEntity{ Top = bottom + 1.2 }
+                    new SoilLayerEntity
+                    {
+                        Top = bottom + 0.5,
+                        MaterialName = "A",
+                        Order = 1
+                    },
+                    new SoilLayerEntity
+                    {
+                        Top = bottom + 1.2,
+                        MaterialName = "B",
+                        Order = 0
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
 
             // Call
-            var failureMechanism = entity.Read(collector);
+            PipingSoilProfile profile = entity.Read(collector);
 
             // Assert
-            Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(entityId, failureMechanism.StorageId);
-            Assert.AreEqual(testName, failureMechanism.Name);
-            Assert.AreEqual(bottom, failureMechanism.Bottom, 1e-6);
+            Assert.IsNotNull(profile);
+            Assert.AreEqual(entityId, profile.StorageId);
+            Assert.AreEqual(testName, profile.Name);
+            Assert.AreEqual(bottom, profile.Bottom, 1e-6);
+            CollectionAssert.AreEqual(new[]{"B", "A"}, profile.Layers.Select(l => l.MaterialName));
         } 
 
         [Test]
@@ -113,13 +127,13 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             };
             var collector = new ReadConversionCollector();
 
-            var firstFailureMechanism = entity.Read(collector);
+            PipingSoilProfile profile = entity.Read(collector);
 
             // Call
             var secondFailureMechanism = entity.Read(collector);
 
             // Assert
-            Assert.AreSame(firstFailureMechanism, secondFailureMechanism);
+            Assert.AreSame(profile, secondFailureMechanism);
         }
     }
 }

@@ -131,11 +131,15 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StochasticSoilModelEntity
                     {
-                        StochasticSoilModelSegmentPointData = emptySegmentPointsData
+                        StochasticSoilModelSegmentPointData = emptySegmentPointsData,
+                        Name = "A",
+                        Order = 1
                     },
                     new StochasticSoilModelEntity
                     {
-                        StochasticSoilModelSegmentPointData = emptySegmentPointsData
+                        StochasticSoilModelSegmentPointData = emptySegmentPointsData,
+                        Name = "B",
+                        Order = 0
                     }
                 }
             };
@@ -147,6 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, failureMechanism.StochasticSoilModels.Count);
+            CollectionAssert.AreEqual(new[]{"B", "A"}, failureMechanism.StochasticSoilModels.Select(s => s.Name));
         }
 
         [Test]
@@ -164,11 +169,15 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new SurfaceLineEntity
                     {
-                        PointsData = emptyPointsData
+                        PointsData = emptyPointsData,
+                        Name = "1",
+                        Order = 1
                     },
                     new SurfaceLineEntity
                     {
-                        PointsData = emptyPointsData
+                        PointsData = emptyPointsData,
+                        Name = "2",
+                        Order = 0
                     }
                 }
             };
@@ -180,6 +189,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, failureMechanism.SurfaceLines.Count);
+            CollectionAssert.AreEqual(new[]{"2", "1"}, failureMechanism.SurfaceLines.Select(sl => sl.Name));
         }
 
         [Test]

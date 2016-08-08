@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 
 using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
@@ -93,8 +94,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                             SoilLayerEntities =
                             {
                                 new SoilLayerEntity()
-                            }
-                        }
+                            },
+                            Name = "A"
+                        },
+                        Order = 1
                     },
                     new StochasticSoilProfileEntity
                     {
@@ -103,18 +106,21 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                             SoilLayerEntities =
                             {
                                 new SoilLayerEntity()
-                            }
-                        }
+                            },
+                            Name = "B"
+                        },
+                        Order = 0
                     }
                 }
             };
             var collector = new ReadConversionCollector();
 
             // Call
-            var model = entity.Read(collector);
+            StochasticSoilModel model = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
+            CollectionAssert.AreEqual(new[]{"B", "A"}, model.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile.Name));
         }
 
         [Test]
