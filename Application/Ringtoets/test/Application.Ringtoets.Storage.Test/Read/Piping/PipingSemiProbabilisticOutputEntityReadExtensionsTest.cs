@@ -28,7 +28,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 PipingReliability = 6.6,
                 UpliftFactorOfSafety = 7.7,
                 UpliftProbability = 0.8,
-                UpliftReliability = 9.9,
                 SellmeijerFactorOfSafety = 10.10,
                 SellmeijerProbability = 0.11,
                 SellmeijerReliability = 12.12,
@@ -49,7 +48,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             AssertAreEqual(entity.PipingReliability, pipingSemiProbabilisticOutput.PipingReliability);
             AssertAreEqual(entity.UpliftFactorOfSafety, pipingSemiProbabilisticOutput.UpliftFactorOfSafety);
             AssertAreEqual(entity.UpliftProbability, pipingSemiProbabilisticOutput.UpliftProbability);
-            AssertAreEqual(entity.UpliftReliability, pipingSemiProbabilisticOutput.UpliftReliability);
             AssertAreEqual(entity.SellmeijerFactorOfSafety, pipingSemiProbabilisticOutput.SellmeijerFactorOfSafety);
             AssertAreEqual(entity.SellmeijerProbability, pipingSemiProbabilisticOutput.SellmeijerProbability);
             AssertAreEqual(entity.SellmeijerReliability, pipingSemiProbabilisticOutput.SellmeijerReliability);
@@ -72,7 +70,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 PipingReliability = null,
                 UpliftFactorOfSafety = null,
                 UpliftProbability = null,
-                UpliftReliability = null,
                 SellmeijerFactorOfSafety = null,
                 SellmeijerProbability = null,
                 SellmeijerReliability = null,
@@ -93,7 +90,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNaN(pipingSemiProbabilisticOutput.PipingReliability);
             Assert.IsNaN(pipingSemiProbabilisticOutput.UpliftFactorOfSafety);
             Assert.IsNaN(pipingSemiProbabilisticOutput.UpliftProbability);
-            Assert.IsNaN(pipingSemiProbabilisticOutput.UpliftReliability);
             Assert.IsNaN(pipingSemiProbabilisticOutput.SellmeijerFactorOfSafety);
             Assert.IsNaN(pipingSemiProbabilisticOutput.SellmeijerProbability);
             Assert.IsNaN(pipingSemiProbabilisticOutput.SellmeijerReliability);

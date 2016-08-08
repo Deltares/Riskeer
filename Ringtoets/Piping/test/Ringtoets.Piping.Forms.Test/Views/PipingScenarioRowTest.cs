@@ -66,7 +66,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 random.NextDouble(),
                 random.NextDouble(),
                 random.NextDouble(),
-                random.NextDouble(),
                 random.NextDouble());
 
             // Call

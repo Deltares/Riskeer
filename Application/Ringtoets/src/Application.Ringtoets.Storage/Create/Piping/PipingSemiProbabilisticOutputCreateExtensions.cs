@@ -51,7 +51,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var entity = new PipingSemiProbabilisticOutputEntity
             {
                 UpliftFactorOfSafety = semiProbabilisticOutput.UpliftFactorOfSafety.Value.ToNaNAsNull(),
-                UpliftReliability = semiProbabilisticOutput.UpliftReliability.Value.ToNaNAsNull(),
                 UpliftProbability = semiProbabilisticOutput.UpliftProbability.ToNaNAsNull(),
                 HeaveFactorOfSafety = semiProbabilisticOutput.HeaveFactorOfSafety.Value.ToNaNAsNull(),
                 HeaveReliability = semiProbabilisticOutput.HeaveReliability.Value.ToNaNAsNull(),

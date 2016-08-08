@@ -114,7 +114,8 @@ namespace Ringtoets.Piping.Service.Test
             var validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validPipingCalculation.Output = null;
 
-            var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
+            var norm = new Random(21).Next(100, 300000);
+            var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
             activity.Run();
 
             // Call

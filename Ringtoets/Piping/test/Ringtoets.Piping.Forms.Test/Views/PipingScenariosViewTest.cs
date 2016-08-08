@@ -392,7 +392,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                             double.NaN,
                             double.NaN,
                             double.NaN,
-                            double.NaN,
                             0.0005,
                             double.NaN,
                             double.NaN,

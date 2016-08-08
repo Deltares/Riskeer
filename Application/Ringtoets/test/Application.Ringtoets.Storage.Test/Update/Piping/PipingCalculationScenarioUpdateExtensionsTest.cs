@@ -788,7 +788,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 StorageId = entity.PipingCalculationEntityId,
-                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(1, 1, 1,
+                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(1, 1,
                                                                             1, 1, 1,
                                                                             1, 1, 1,
                                                                             1, 1,
@@ -853,7 +853,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 StorageId = entity.PipingCalculationEntityId,
-                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(1, 1, 1,
+                SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(1, 1,
                                                                             1, 1, 1,
                                                                             1, 1, 1,
                                                                             1, 1,

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Branch_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -291,7 +291,6 @@
           </Key>
           <Property Name="PipingSemiProbabilisticOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UpliftFactorOfSafety" Type="real" />
-          <Property Name="UpliftReliability" Type="real" />
           <Property Name="UpliftProbability" Type="real" />
           <Property Name="HeaveFactorOfSafety" Type="real" />
           <Property Name="HeaveReliability" Type="real" />
@@ -1800,7 +1799,6 @@
           </Key>
           <Property Name="PipingSemiProbabilisticOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UpliftFactorOfSafety" Type="Double" />
-          <Property Name="UpliftReliability" Type="Double" />
           <Property Name="UpliftProbability" Type="Double" />
           <Property Name="HeaveFactorOfSafety" Type="Double" />
           <Property Name="HeaveReliability" Type="Double" />
@@ -2852,7 +2850,6 @@
                 <ScalarProperty Name="HeaveReliability" ColumnName="HeaveReliability" />
                 <ScalarProperty Name="HeaveFactorOfSafety" ColumnName="HeaveFactorOfSafety" />
                 <ScalarProperty Name="UpliftProbability" ColumnName="UpliftProbability" />
-                <ScalarProperty Name="UpliftReliability" ColumnName="UpliftReliability" />
                 <ScalarProperty Name="UpliftFactorOfSafety" ColumnName="UpliftFactorOfSafety" />
                 <ScalarProperty Name="PipingSemiProbabilisticOutputEntityId" ColumnName="PipingSemiProbabilisticOutputEntityId" />
               </MappingFragment>

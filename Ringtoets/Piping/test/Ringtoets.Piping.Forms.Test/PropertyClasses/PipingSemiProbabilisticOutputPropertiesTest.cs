@@ -44,7 +44,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call
             var semiProbabilisticOutput = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -66,7 +65,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call & Assert
             var probabilityFormat = "1/{0:n0}";
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(upliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
             Assert.AreEqual(string.Format(probabilityFormat, 1.0 / upliftProbability), properties.UpliftProbability);
             Assert.AreEqual(heaveFactorOfSafety, properties.HeaveFactorOfSafety, properties.HeaveFactorOfSafety.GetAccuracy());
             Assert.AreEqual(heaveReliability, properties.HeaveReliability, properties.HeaveReliability.GetAccuracy());
@@ -105,7 +103,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call
             var semiProbabilisticOutput = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,

@@ -55,7 +55,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             var output = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -116,7 +115,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             var output = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -162,7 +160,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -207,7 +204,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             var output = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -253,7 +249,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -298,7 +293,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             var output = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -344,7 +338,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -389,7 +382,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             var output = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -435,7 +427,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -480,7 +471,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             var output = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,
@@ -526,7 +516,6 @@ namespace Ringtoets.Piping.Data.Test
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
-                upliftReliability,
                 upliftProbability,
                 heaveFactorOfSafety,
                 heaveReliability,

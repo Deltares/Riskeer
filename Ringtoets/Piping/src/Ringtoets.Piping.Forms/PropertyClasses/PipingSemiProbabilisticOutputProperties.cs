@@ -25,21 +25,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Uplift", 1, 4)]
-        [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftReliability_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftReliability_Description")]
-        [PropertyOrder(2)]
-        public RoundedDouble UpliftReliability
-        {
-            get
-            {
-                return data.UpliftReliability;
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Uplift", 1, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftProbability_Description")]
-        [PropertyOrder(3)]
+        [PropertyOrder(2)]
         public string UpliftProbability
         {
             get

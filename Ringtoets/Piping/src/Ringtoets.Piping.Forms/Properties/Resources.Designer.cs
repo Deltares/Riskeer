@@ -1355,24 +1355,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme Opbarsten voor deze berekening..
-        /// </summary>
-        public static string PipingSemiProbabilisticOutput_UpliftReliability_Description {
-            get {
-                return ResourceManager.GetString("PipingSemiProbabilisticOutput_UpliftReliability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex [-].
-        /// </summary>
-        public static string PipingSemiProbabilisticOutput_UpliftReliability_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingSemiProbabilisticOutput_UpliftReliability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap PipingSoilProfileIcon {

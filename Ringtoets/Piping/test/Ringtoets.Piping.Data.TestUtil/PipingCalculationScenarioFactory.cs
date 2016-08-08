@@ -34,7 +34,6 @@ namespace Ringtoets.Piping.Data.TestUtil
                 random.NextDouble(),
                 random.NextDouble(),
                 random.NextDouble(),
-                random.NextDouble(),
                 (RoundedDouble) probability,
                 random.NextDouble(),
                 random.NextDouble());

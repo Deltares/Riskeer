@@ -1895,7 +1895,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Setup
             var registry = new PersistenceRegistry();
 
-            PipingSemiProbabilisticOutput output = new PipingSemiProbabilisticOutput(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            PipingSemiProbabilisticOutput output = new PipingSemiProbabilisticOutput(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
 
             // Call
             TestDelegate test = () => registry.Register(null, output);
@@ -2777,7 +2777,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 PipingSemiProbabilisticOutputEntityId = storageId
             };
-            var model = new PipingSemiProbabilisticOutput(1, 2, 0.3, 4, 5, 0.6, 7, 8, 0.9, 1.0, 11, 0.3, 13, 14);
+            var model = new PipingSemiProbabilisticOutput(2, 0.3, 4, 5, 0.6, 7, 8, 0.9, 1.0, 11, 0.3, 13, 14);
             registry.Register(entity, model);
 
             // Call
@@ -4051,7 +4051,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             dbContext.PipingSemiProbabilisticOutputEntities.Add(orphanedEntity);
             dbContext.PipingSemiProbabilisticOutputEntities.Add(persistentEntity);
 
-            var pipingSemiProbabilisticOutput = new PipingSemiProbabilisticOutput(1, 2, 0.3, 4, 5, 0.6, 7,
+            var pipingSemiProbabilisticOutput = new PipingSemiProbabilisticOutput(2, 0.3, 4, 5, 0.6, 7,
                                                                                   8, 0.9, 1.0, 11, 0.3, 13, 14)
             {
                 StorageId = persistentEntity.PipingSemiProbabilisticOutputEntityId

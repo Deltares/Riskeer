@@ -23,7 +23,6 @@ namespace Ringtoets.Piping.Data
         /// Creates a new instance of <see cref="PipingSemiProbabilisticOutput"/>.
         /// </summary>
         /// <param name="upliftFactorOfSafety">The factor of safety for the uplift sub-mechanism.</param>
-        /// <param name="upliftReliability">The reliability of uplift the sub-mechanism.</param>
         /// <param name="upliftProbability">The probability of failure due to the uplift sub-mechanism.</param>
         /// <param name="heaveFactorOfSafety">The factor of safety for the heave sub-mechanism.</param>
         /// <param name="heaveReliability">The reliability of the heave sub-mechanism.</param>
@@ -38,14 +37,9 @@ namespace Ringtoets.Piping.Data
         /// <param name="pipingFactorOfSafety">The factor of safety for the piping failure mechanism.</param>
         /// <exception cref="ArgumentOutOfRangeException">When setting a probability that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
-        public PipingSemiProbabilisticOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability,
-                                             double heaveFactorOfSafety, double heaveReliability, double heaveProbability,
-                                             double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability,
-                                             double requiredProbability, double requiredReliability,
-                                             double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
+        public PipingSemiProbabilisticOutput(double upliftFactorOfSafety, double upliftProbability, double heaveFactorOfSafety, double heaveReliability, double heaveProbability, double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability, double requiredProbability, double requiredReliability, double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
         {
             UpliftFactorOfSafety = new RoundedDouble(3, upliftFactorOfSafety);
-            UpliftReliability = new RoundedDouble(3, upliftReliability);
             UpliftProbability = upliftProbability;
             HeaveFactorOfSafety = new RoundedDouble(3, heaveFactorOfSafety);
             HeaveReliability = new RoundedDouble(3, heaveReliability);

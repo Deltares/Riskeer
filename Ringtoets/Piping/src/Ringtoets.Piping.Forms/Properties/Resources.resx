@@ -556,12 +556,6 @@
   <data name="PipingSemiProbabilisticOutput_UpliftProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_UpliftReliability_Description" xml:space="preserve">
-    <value>De betrouwbaarheidsindex voor het submechanisme Opbarsten voor deze berekening.</value>
-  </data>
-  <data name="PipingSemiProbabilisticOutput_UpliftReliability_DisplayName" xml:space="preserve">
-    <value>Betrouwbaarheidsindex [-]</value>
-  </data>
   <data name="PipingSemiProbabilisticOutput_Categories_Heave" xml:space="preserve">
     <value>Heave</value>
   </data>
