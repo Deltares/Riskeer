@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using Core.Common.Base.Properties;
-
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 
@@ -120,20 +118,20 @@ namespace Core.Common.Base.Geometry
 
             var aLine = line1Point2.Y - line1Point1.Y;
             var bLine = line1Point1.X - line1Point2.X;
-            var cLine = aLine * line1Point1.X + bLine * line1Point1.Y;
+            var cLine = aLine*line1Point1.X + bLine*line1Point1.Y;
 
             var aOtherLine = line2Point2.Y - line2Point1.Y;
             var bOtherLine = line2Point1.X - line2Point2.X;
-            var cOtherLine = aOtherLine * line2Point1.X + bOtherLine * line2Point1.Y;
+            var cOtherLine = aOtherLine*line2Point1.X + bOtherLine*line2Point1.Y;
 
-            var determinant = aLine * bOtherLine - aOtherLine * bLine;
+            var determinant = aLine*bOtherLine - aOtherLine*bLine;
             if (Math.Abs(determinant) < epsilonForComparisons)
             {
                 return null;
             }
 
-            var x = (bOtherLine * cLine - bLine * cOtherLine) / determinant;
-            var y = (aLine * cOtherLine - aOtherLine * cLine) / determinant;
+            var x = (bOtherLine*cLine - bLine*cOtherLine)/determinant;
+            var y = (aLine*cOtherLine - aOtherLine*cLine)/determinant;
             return new Point2D(x, y);
         }
 
@@ -234,13 +232,13 @@ namespace Core.Common.Base.Geometry
             else
             {
                 // Segments are at an angle and may intersect:
-                double sI = PerpDotProduct(v, w) / d;
+                double sI = PerpDotProduct(v, w)/d;
                 if (sI < 0.0 || sI > 1.0)
                 {
                     return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
                 }
 
-                double tI = PerpDotProduct(u, w) / d;
+                double tI = PerpDotProduct(u, w)/d;
                 if (tI < 0.0 || tI > 1.0)
                 {
                     return Segment2DIntersectSegment2DResult.CreateNoIntersectResult();
@@ -249,6 +247,19 @@ namespace Core.Common.Base.Geometry
                 Point2D intersectionPoint = segment1.FirstPoint + u.Multiply(sI);
                 return Segment2DIntersectSegment2DResult.CreateIntersectionResult(intersectionPoint);
             }
+        }
+
+        /// <summary>
+        /// Gets the interpolated point between the two end points of the <paramref name="lineSegment"/> at
+        /// the <paramref name="fraction"/> of the length from the first end point.
+        /// </summary>
+        /// <param name="lineSegment">The segment to interpolate over.</param>
+        /// <param name="fraction">The fraction of the length of the segment where to obtain a new point.</param>
+        /// <returns>A new <see cref="Point2D"/> at the interpolated point.</returns>
+        public static Point2D GetInterpolatedPointAtFraction(Segment2D lineSegment, double fraction)
+        {
+            Vector<double> segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
+            return lineSegment.FirstPoint + segmentVector.Multiply(fraction);
         }
 
         /// <summary>
@@ -271,13 +282,13 @@ namespace Core.Common.Base.Geometry
             Vector<double> w2 = segment1.SecondPoint - segment2.FirstPoint;
             if (v[0] != 0.0)
             {
-                t0 = w[0] / v[0];
-                t1 = w2[0] / v[0];
+                t0 = w[0]/v[0];
+                t1 = w2[0]/v[0];
             }
             else
             {
-                t0 = w[1] / v[1];
-                t1 = w2[1] / v[1];
+                t0 = w[1]/v[1];
+                t1 = w2[1]/v[1];
             }
             // Require t0 to be smaller than t1, swapping if needed:
             if (t0 > t1)
@@ -445,9 +456,8 @@ namespace Core.Common.Base.Geometry
 
         private static Point2D GetInterpolatedPoint(Segment2D lineSegment, double splitDistance)
         {
-            var interpolationFactor = splitDistance / lineSegment.Length;
-            Vector<double> segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
-            return lineSegment.FirstPoint + segmentVector.Multiply(interpolationFactor);
+            var interpolationFactor = splitDistance/lineSegment.Length;
+            return GetInterpolatedPointAtFraction(lineSegment, interpolationFactor);
         }
 
         /// <summary>

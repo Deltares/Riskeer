@@ -34,6 +34,24 @@ namespace Ringtoets.Piping.Data
         private double a;
         private RoundedDouble upliftCriticalSafetyFactor;
 
+        private readonly NormDependentFactorCollection heaveNormDependentFactorCollection = new NormDependentFactorCollection(
+            Tuple.Create(100, 0.16),
+            Tuple.Create(300, 0.15),
+            Tuple.Create(1000, 0.13),
+            Tuple.Create(3000, 0.12),
+            Tuple.Create(10000, 0.11),
+            Tuple.Create(30000, 0.10),
+            Tuple.Create(300000, 0.09));
+
+        private readonly NormDependentFactorCollection sellmeNormDependentFactorCollection = new NormDependentFactorCollection(
+            Tuple.Create(100, 0.32),
+            Tuple.Create(300, 0.28),
+            Tuple.Create(1000, 0.24),
+            Tuple.Create(3000, 0.21),
+            Tuple.Create(10000, 0.19),
+            Tuple.Create(30000, 0.17),
+            Tuple.Create(300000, 0.13));
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingProbabilityAssessmentInput"/>.
         /// </summary>
@@ -42,7 +60,7 @@ namespace Ringtoets.Piping.Data
             A = 0.4;
             B = 300.0;
             SectionLength = double.NaN;
-            
+
             upliftCriticalSafetyFactor = new RoundedDouble(1, 1.2);
         }
 
@@ -85,6 +103,28 @@ namespace Ringtoets.Piping.Data
                 }
                 upliftCriticalSafetyFactor = roundedValue;
             }
+        }
+
+        /// <summary>
+        /// Gets the norm dependent factor which is used in the relation between safety factor and reliability index
+        /// for the Sellmeijer failure mechanism.
+        /// </summary>
+        /// <param name="norm">The norm for which to obtain the factor.</param>
+        /// <returns>A factor which can be used in a semi-probabilistic assessment.</returns>
+        public double GetSellmeijerNormDependentFactor(int norm)
+        {
+            return sellmeNormDependentFactorCollection.GetFactorFromNorm(norm);
+        }
+
+        /// <summary>
+        /// Gets the norm dependent factor which is used in the relation between safety factor and reliability index 
+        /// for the heave failure mechanism.
+        /// </summary>
+        /// <param name="norm">The norm for which to obtain the factor.</param>
+        /// <returns>A factor which can be used in a semi-probabilistic assessment.</returns>
+        public double GetHeaveNormDependentFactor(int norm)
+        {
+            return heaveNormDependentFactorCollection.GetFactorFromNorm(norm);
         }
 
         /// <summary>

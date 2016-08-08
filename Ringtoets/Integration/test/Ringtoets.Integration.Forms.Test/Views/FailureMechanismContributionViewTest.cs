@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            var norm = random.Next(1, 200000);
+            var norm = random.Next(100, 300000);
             var otherContribution = random.Next(1, 100);
 
             var mockRepository = new MockRepository();
@@ -90,6 +90,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 failureMechanism
             }, otherContribution, norm);
 
+            // Call
             using (var contributionView = new FailureMechanismContributionView
             {
                 Data = contribution,
@@ -97,10 +98,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
             })
             {
                 ShowFormWithView(contributionView);
-                var normTester = new ControlTester(normInputTextBoxName);
 
                 // Assert
+                var normTester = new ControlTester(normInputTextBoxName);
+                var normControl = normTester.TheObject as NumericUpDown;
+
+                Assert.NotNull(normControl);
                 Assert.AreEqual(contribution.Norm.ToString(), normTester.Text);
+                Assert.AreEqual(300000, normControl.Maximum);
+                Assert.AreEqual(100, normControl.Minimum);
             }
             mockRepository.VerifyAll();
         }
@@ -110,7 +116,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            var norm = random.Next(1, 200000);
+            var norm = random.Next(100, 300000);
             var otherContribution = random.Next(1, 100);
 
             var mockRepository = new MockRepository();

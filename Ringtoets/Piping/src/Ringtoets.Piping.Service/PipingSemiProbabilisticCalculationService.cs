@@ -19,6 +19,7 @@ namespace Ringtoets.Piping.Service
         private readonly double constantA;
         private readonly double constantB;
         private readonly double assessmentSectionLength;
+        private readonly double upliftCriticalSafetyFactor;
         private readonly double contribution;
 
         // Intermediate results
@@ -49,7 +50,7 @@ namespace Ringtoets.Piping.Service
         /// <param name="constantB">The constant b.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <param name="contribution">The contribution of piping to the total failure.</param>
-        private PipingSemiProbabilisticCalculationService(double upliftFactorOfSafety, double heaveFactorOfSafety, double sellmeijerFactorOfSafety, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double contribution)
+        private PipingSemiProbabilisticCalculationService(double upliftFactorOfSafety, double heaveFactorOfSafety, double sellmeijerFactorOfSafety, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double upliftCriticalSafetyFactor, double contribution)
         {
             this.heaveFactorOfSafety = heaveFactorOfSafety;
             this.upliftFactorOfSafety = upliftFactorOfSafety;
@@ -58,6 +59,7 @@ namespace Ringtoets.Piping.Service
             this.constantA = constantA;
             this.constantB = constantB;
             this.assessmentSectionLength = assessmentSectionLength;
+            this.upliftCriticalSafetyFactor = upliftCriticalSafetyFactor;
             this.contribution = contribution;
         }
 
@@ -86,6 +88,7 @@ namespace Ringtoets.Piping.Service
                 pipingProbabilityAssessmentInput.A,
                 pipingProbabilityAssessmentInput.B,
                 pipingProbabilityAssessmentInput.SectionLength,
+                pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor,
                 contribution/100);
 
             calculator.Calculate();

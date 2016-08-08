@@ -48,12 +48,12 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             resources.ApplyResources(this.normInput, "normInput");
             this.normInput.Maximum = new decimal(new int[] {
-            200000,
+            300000,
             0,
             0,
             0});
             this.normInput.Minimum = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
             0});

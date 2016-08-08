@@ -1084,6 +1084,86 @@ namespace Core.Common.Base.Test.Geometry
             Assert.AreEqual(expectedLength, length);
         }
 
+        [Test]
+        public void GetInterpolatedPoint_WithinLine_InterpolatesBetweenPoints()
+        {
+            // Setup
+            var pointA = new Point2D(1.8, 5.02);
+            var pointB = new Point2D(3.8, -2.2);
+            var segment = new Segment2D(pointA, pointB);
+            var fraction = 0.5;
+
+            // Call
+            Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
+
+            // Assert
+            Assert.AreEqual(new Point2D(2.8, (5.02 - 2.2) * fraction), result);
+        }
+
+        [Test]
+        public void GetInterpolatedPoint_OnFirstEndPoint_ReturnsEndPointCoordinate()
+        {
+            // Setup
+            var pointA = new Point2D(1.8, 5.02);
+            var pointB = new Point2D(3.8, -2.2);
+            var segment = new Segment2D(pointA, pointB);
+            var fraction = 0.0;
+
+            // Call
+            Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
+
+            // Assert
+            Assert.AreEqual(pointA, result);
+        }
+
+        [Test]
+        public void GetInterpolatedPoint_OnSecondEndPoint_ReturnsEndPointCoordinate()
+        {
+            // Setup
+            var pointA = new Point2D(1.8, 5.02);
+            var pointB = new Point2D(3.8, -2.2);
+            var segment = new Segment2D(pointA, pointB);
+            var fraction = 1.0;
+
+            // Call
+            Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
+
+            // Assert
+            Assert.AreEqual(pointB, result);
+        }
+
+        [Test]
+        public void GetInterpolatedPoint_BeyondSecondEndPoint_ReturnsExtrapolatedPoint()
+        {
+            // Setup
+            var pointA = new Point2D(1.8, 5.02);
+            var pointB = new Point2D(3.8, -2.2);
+            var segment = new Segment2D(pointA, pointB);
+            var fraction = 1.5;
+
+            // Call
+            Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
+
+            // Assert
+            Assert.AreEqual(new Point2D(4.8, 5.02 + (-2.2 - 5.02) * fraction), result);
+        }
+
+        [Test]
+        public void GetInterpolatedPoint_BeforeFirstEndPoint_ReturnsExtrapolatedPoint()
+        {
+            // Setup
+            var pointA = new Point2D(1.8, 5.02);
+            var pointB = new Point2D(3.8, -2.2);
+            var segment = new Segment2D(pointA, pointB);
+            var fraction = -0.5;
+
+            // Call
+            Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
+
+            // Assert
+            Assert.AreEqual(new Point2D(1.8 + (3.8 - 1.8) * fraction, 5.02 + ((-2.2 - 5.02) * fraction)), result);
+        }
+
         private static void CollectionAssertAreEquivalent(Point2D[] expected, Point2D[] actual)
         {
             var comparer = new Point2DComparerWithTolerance(1e-6);
