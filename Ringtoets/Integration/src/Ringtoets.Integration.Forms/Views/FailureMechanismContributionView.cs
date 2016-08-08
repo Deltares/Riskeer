@@ -271,6 +271,11 @@ namespace Ringtoets.Integration.Forms.Views
         {
             data.Norm = Convert.ToInt32(normInput.Value);
             data.NotifyObservers();
+
+            foreach (var fm in AssessmentSection.GetFailureMechanisms())
+            {
+                fm.NotifyObservers();
+            }
         }
 
         private void ResetTextIfEmtpy()

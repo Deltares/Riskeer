@@ -148,7 +148,8 @@ namespace Ringtoets.Piping.Data.Test
             var result = pipingProbabilityAssessmentInput.GetSellmeijerNormDependentFactor(norm);
 
             // Assert
-            Assert.AreEqual(expectedValue, result);
+            Assert.AreEqual(expectedValue, result.Value);
+            Assert.AreEqual(2, result.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -183,7 +184,8 @@ namespace Ringtoets.Piping.Data.Test
             var result = pipingProbabilityAssessmentInput.GetHeaveNormDependentFactor(norm);
 
             // Assert
-            Assert.AreEqual(expectedValue, result);
+            Assert.AreEqual(expectedValue, result.Value);
+            Assert.AreEqual(2, result.NumberOfDecimalPlaces);
         }
     }
 }

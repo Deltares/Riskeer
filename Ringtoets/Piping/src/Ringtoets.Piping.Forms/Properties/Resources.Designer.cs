@@ -214,6 +214,15 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to b.
+        /// </summary>
+        public static string GeneralPipingInput_B_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_B_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd..
         /// </summary>
         public static string GeneralPipingInput_BeddingAngle_Description {
@@ -268,6 +277,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Normafhankelijke factor die gebruikt wordt bij het omzetten van de veiligheidsfactor voor heave naar een betrouwbaarheidsindex..
+        /// </summary>
+        public static string GeneralPipingInput_HeaveNormDependentFactor_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_HeaveNormDependentFactor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normafhankelijke factor voor heave.
+        /// </summary>
+        public static string GeneralPipingInput_HeaveNormDependentFactor_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_HeaveNormDependentFactor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit..
         /// </summary>
         public static string GeneralPipingInput_MeanDiameter70_Description {
@@ -318,6 +345,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string GeneralPipingInput_SellmeijerModelFactor_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralPipingInput_SellmeijerModelFactor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normafhankelijke factor die gebruikt wordt bij het omzetten van de veiligheidsfactor voor terugschrijdende erosie (Sellmeijer) naar een betrouwbaarheidsindex..
+        /// </summary>
+        public static string GeneralPipingInput_SellmeijerNormDependentFactor_Description {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_SellmeijerNormDependentFactor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normafhankelijke factor voor terugschrijdende erosie.
+        /// </summary>
+        public static string GeneralPipingInput_SellmeijerNormDependentFactor_DisplayName {
+            get {
+                return ResourceManager.GetString("GeneralPipingInput_SellmeijerNormDependentFactor_DisplayName", resourceCulture);
             }
         }
         
@@ -426,15 +471,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string GeneralPipingInput_WhitesDragCoefficient_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralPipingInput_WhitesDragCoefficient_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to b.
-        /// </summary>
-        public static string GenerapPipingInput_B_DisplayName {
-            get {
-                return ResourceManager.GetString("GenerapPipingInput_B_DisplayName", resourceCulture);
             }
         }
         

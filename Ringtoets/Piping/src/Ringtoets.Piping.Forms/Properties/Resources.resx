@@ -478,7 +478,7 @@
   <data name="GeneralPipingInput_B_Description" xml:space="preserve">
     <value>De parameter 'b' die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans.</value>
   </data>
-  <data name="GenerapPipingInput_B_DisplayName" xml:space="preserve">
+  <data name="GeneralPipingInput_B_DisplayName" xml:space="preserve">
     <value>b</value>
   </data>
   <data name="PipingInputContextProperties_AssessmentLevel_cannot_be_NaN" xml:space="preserve">
@@ -672,5 +672,17 @@
   </data>
   <data name="GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName" xml:space="preserve">
     <value>Kritische veiligheidsfactor voor opbarsten [-]</value>
+  </data>
+  <data name="GeneralPipingInput_HeaveNormDependentFactor_Description" xml:space="preserve">
+    <value>Normafhankelijke factor die gebruikt wordt bij het omzetten van de veiligheidsfactor voor heave naar een betrouwbaarheidsindex.</value>
+  </data>
+  <data name="GeneralPipingInput_HeaveNormDependentFactor_DisplayName" xml:space="preserve">
+    <value>Normafhankelijke factor voor heave</value>
+  </data>
+  <data name="GeneralPipingInput_SellmeijerNormDependentFactor_Description" xml:space="preserve">
+    <value>Normafhankelijke factor die gebruikt wordt bij het omzetten van de veiligheidsfactor voor terugschrijdende erosie (Sellmeijer) naar een betrouwbaarheidsindex.</value>
+  </data>
+  <data name="GeneralPipingInput_SellmeijerNormDependentFactor_DisplayName" xml:space="preserve">
+    <value>Normafhankelijke factor voor terugschrijdende erosie</value>
   </data>
 </root>

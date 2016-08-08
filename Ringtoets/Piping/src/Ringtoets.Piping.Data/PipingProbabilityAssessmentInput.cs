@@ -111,9 +111,9 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="norm">The norm for which to obtain the factor.</param>
         /// <returns>A factor which can be used in a semi-probabilistic assessment.</returns>
-        public double GetSellmeijerNormDependentFactor(int norm)
+        public RoundedDouble GetSellmeijerNormDependentFactor(int norm)
         {
-            return sellmeNormDependentFactorCollection.GetFactorFromNorm(norm);
+            return new RoundedDouble(2, sellmeNormDependentFactorCollection.GetFactorFromNorm(norm));
         }
 
         /// <summary>
@@ -122,9 +122,9 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="norm">The norm for which to obtain the factor.</param>
         /// <returns>A factor which can be used in a semi-probabilistic assessment.</returns>
-        public double GetHeaveNormDependentFactor(int norm)
+        public RoundedDouble GetHeaveNormDependentFactor(int norm)
         {
-            return heaveNormDependentFactorCollection.GetFactorFromNorm(norm);
+            return new RoundedDouble(2, heaveNormDependentFactorCollection.GetFactorFromNorm(norm));
         }
 
         /// <summary>

@@ -102,13 +102,37 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(22)]
         [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
-        [ResourcesDisplayName(typeof(Resources), "GenerapPipingInput_B_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_B_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_B_Description")]
         public double B
         {
             get
             {
                 return data.WrappedData.PipingProbabilityAssessmentInput.B;
+            }
+        }
+
+        [PropertyOrder(23)]
+        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_HeaveNormDependentFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_HeaveNormDependentFactor_Description")]
+        public RoundedDouble HeaveNormDependentFactor
+        {
+            get
+            {
+                return data.WrappedData.PipingProbabilityAssessmentInput.GetHeaveNormDependentFactor(data.Parent.FailureMechanismContribution.Norm);
+            }
+        }
+
+        [PropertyOrder(24)]
+        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SellmeijerNormDependentFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SellmeijerNormDependentFactor_Description")]
+        public RoundedDouble SellmeijerNormDependentFactor
+        {
+            get
+            {
+                return data.WrappedData.PipingProbabilityAssessmentInput.GetSellmeijerNormDependentFactor(data.Parent.FailureMechanismContribution.Norm);
             }
         }
 
