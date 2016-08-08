@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -44,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const double y = 890.0;
             const string name = "<some name>";
 
-            var hydraulicBoundaryLocation =new HydraulicBoundaryLocation(id, name, x, y);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
 
             // Call
             var properties = new HydraulicBoundaryLocationWaveHeightProperties(hydraulicBoundaryLocation);
@@ -100,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const string expectedNameDisplayName = "Naam";
             const string expectedLocationDisplayName = "Coördinaten [m]";
             const string expectedWaveHeightDisplayName = "Hs [m]";
-            const string expectedIdDescription = "Id van de hydraulische randvoorwaardenlocatie in de database.";
+            const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
             const string expectedWaveHeightDescription = "Berekende golfhoogte.";
