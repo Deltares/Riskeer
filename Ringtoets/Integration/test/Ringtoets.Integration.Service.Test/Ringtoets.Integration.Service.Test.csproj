@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="DesignWaterLevelCalculationActivityTest.cs" />
     <Compile Include="DesignWaterLevelCalculationServiceTest.cs" />
+    <Compile Include="RingtoetsDataSynchronizationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WaveHeightCalculationActivityTest.cs" />
     <Compile Include="WaveHeightCalculationServiceTest.cs" />
