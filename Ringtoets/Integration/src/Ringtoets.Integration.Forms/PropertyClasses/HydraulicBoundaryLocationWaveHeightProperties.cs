@@ -28,6 +28,9 @@ using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with <see cref="WaveHeight"/> for properties panel.
+    /// </summary>
     public class HydraulicBoundaryLocationWaveHeightProperties : HydraulicBoundaryLocationProperties
     {
         /// <summary>
