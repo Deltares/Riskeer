@@ -247,39 +247,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasNoCalculations_ReturnControlColor()
+        public void ForeColor_ContextHasHydraulicBoundaryDatabase_ReturnControlColor()
         {
             // Setup
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            mockRepository.ReplayAll();
-
-            var waveHeightContext = new WaveHeightContext(assessmentSectionMock);
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                Color color = info.ForeColor(waveHeightContext);
-
-                // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ForeColor_ContextHasCalculations_ReturnControlColor()
-        {
-            // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var location = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            {
-                WaveHeight = 1.0
-            };
-            assessmentSectionMock.HydraulicBoundaryDatabase.Locations.Add(location);
             mockRepository.ReplayAll();
 
             var waveHeightContext = new WaveHeightContext(assessmentSectionMock);
