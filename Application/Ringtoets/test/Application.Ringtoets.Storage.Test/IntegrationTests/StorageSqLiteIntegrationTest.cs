@@ -918,7 +918,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
                 Assert.AreEqual(expectedOutput.UpliftProbability, actualOutput.UpliftProbability);
-                Assert.AreEqual(expectedOutput.UpliftReliability, actualOutput.UpliftReliability);
 
                 Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
                 Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);

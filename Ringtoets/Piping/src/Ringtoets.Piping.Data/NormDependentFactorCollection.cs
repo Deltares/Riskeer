@@ -25,9 +25,13 @@ using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Piping.Data
 {
+    /// <summary>
+    /// A collection of combinations of norm and a factor, for which it is assumed that 
+    /// a logartihmic (in x, base-10) function can be perfectly fitted. 
+    /// </summary>
     internal class NormDependentFactorCollection
     {
-        private Tuple<int,double>[] points;
+        private readonly Tuple<int,double>[] points;
 
         /// <summary>
         /// Creates a new instance of <see cref="NormDependentFactorCollection"/>. The <paramref name="points"/> 
@@ -50,6 +54,13 @@ namespace Ringtoets.Piping.Data
             this.points = points.OrderBy(p => p.Item1).ToArray();
         }
 
+        /// <summary>
+        /// Gets a (interpolated) factor based on the provided <paramref name="norm"/>.
+        /// </summary>
+        /// <param name="norm">The value for which a factor needs to be obtained.</param>
+        /// <returns>Returns a (interpolated) factor.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="norm"/> is less than the minimum norm or 
+        /// greater than the maximum norm for which a factor has been defined.</exception>
         public double GetFactorFromNorm(int norm)
         {
             if (norm < points.First().Item1 || norm > points.Last().Item1)
@@ -77,7 +88,7 @@ namespace Ringtoets.Piping.Data
                                         (normLog - firstPoint.X) / (secondPoint.X - firstPoint.X)).Y;
         }
 
-        private Point2D ToPointInLogXScale(Tuple<int, double> point)
+        private static Point2D ToPointInLogXScale(Tuple<int, double> point)
         {
             var x1 = Math.Log10(point.Item1);
             var y1 = point.Item2;

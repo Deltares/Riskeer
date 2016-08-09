@@ -38,7 +38,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
@@ -72,7 +71,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<IStorable>(output);
 
             Assert.AreEqual(upliftFactorOfSafety, output.UpliftFactorOfSafety, output.UpliftFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(upliftReliability, output.UpliftReliability, output.UpliftReliability.GetAccuracy());
             Assert.AreEqual(upliftProbability, output.UpliftProbability);
             Assert.AreEqual(heaveFactorOfSafety, output.HeaveFactorOfSafety, output.HeaveFactorOfSafety.GetAccuracy());
             Assert.AreEqual(heaveReliability, output.HeaveReliability, output.HeaveReliability.GetAccuracy());
@@ -99,7 +97,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
@@ -144,7 +141,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
@@ -188,7 +184,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
@@ -233,7 +228,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
@@ -277,7 +271,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
@@ -322,7 +315,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
@@ -366,7 +358,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
             double heaveProbability = random.NextDouble();
@@ -411,7 +402,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
             double heaveProbability = random.NextDouble();
@@ -455,7 +445,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
@@ -500,7 +489,6 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var random = new Random(21);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();

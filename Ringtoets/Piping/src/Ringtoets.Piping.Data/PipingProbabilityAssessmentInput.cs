@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Data
             Tuple.Create(30000, 0.10),
             Tuple.Create(300000, 0.09));
 
-        private readonly NormDependentFactorCollection sellmeNormDependentFactorCollection = new NormDependentFactorCollection(
+        private readonly NormDependentFactorCollection sellmeijerNormDependentFactorCollection = new NormDependentFactorCollection(
             Tuple.Create(100, 0.32),
             Tuple.Create(300, 0.28),
             Tuple.Create(1000, 0.24),
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Data
         /// <returns>A factor which can be used in a semi-probabilistic assessment.</returns>
         public RoundedDouble GetSellmeijerNormDependentFactor(int norm)
         {
-            return new RoundedDouble(2, sellmeNormDependentFactorCollection.GetFactorFromNorm(norm));
+            return new RoundedDouble(2, sellmeijerNormDependentFactorCollection.GetFactorFromNorm(norm));
         }
 
         /// <summary>

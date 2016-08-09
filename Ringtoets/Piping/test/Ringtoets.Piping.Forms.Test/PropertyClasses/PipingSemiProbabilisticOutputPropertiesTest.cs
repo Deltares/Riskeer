@@ -27,7 +27,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(22);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double upliftProbability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
@@ -85,7 +84,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(22);
             double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
             double heaveFactorOfSafety = random.NextDouble();
             double heaveReliability = random.NextDouble();
             double sellmeijerFactorOfSafety = random.NextDouble();

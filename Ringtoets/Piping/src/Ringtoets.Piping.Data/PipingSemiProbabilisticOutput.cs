@@ -132,12 +132,6 @@ namespace Ringtoets.Piping.Data
         public RoundedDouble UpliftFactorOfSafety { get; private set; }
 
         /// <summary>
-        /// Gets the reliability for the uplift sub-mechanism,
-        /// which is a value greater than 0.
-        /// </summary>
-        public RoundedDouble UpliftReliability { get; private set; }
-
-        /// <summary>
         /// Gets the probability of failing due to the uplift failure sub-mechanism,
         /// which value in range [0,1].
         /// </summary>
