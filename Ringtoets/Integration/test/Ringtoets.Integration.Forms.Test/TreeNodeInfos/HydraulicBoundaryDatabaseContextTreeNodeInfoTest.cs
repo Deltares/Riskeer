@@ -208,7 +208,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOnData()
+        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -384,7 +384,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             using (HydraulicBoundaryDatabaseImporter importer = new HydraulicBoundaryDatabaseImporter())
+            {
                 importer.Import(assessmentSection, validFile);
+            }
 
             assessmentSection.Attach(assessmentObserver);
 
