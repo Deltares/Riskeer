@@ -69,10 +69,10 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// This method returns an enumeration of <see cref="IFileExporter"/>.
+        /// This method returns an enumeration of <see cref="ExportInfo"/>.
         /// </summary>
-        /// <returns>The enumeration of <see cref="IFileExporter"/> provided by the <see cref="PluginBase"/>.</returns>
-        public virtual IEnumerable<IFileExporter> GetFileExporters()
+        /// <returns>The enumeration of <see cref="ExportInfo"/> provided by the <see cref="PluginBase"/>.</returns>
+        public virtual IEnumerable<ExportInfo> GetExportInfos()
         {
             yield break;
         }

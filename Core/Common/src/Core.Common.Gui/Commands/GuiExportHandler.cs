@@ -23,8 +23,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.IO;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
 using log4net;
@@ -40,17 +40,17 @@ namespace Core.Common.Gui.Commands
         private static readonly Bitmap brickImage = Resources.brick;
 
         private readonly IWin32Window dialogParent;
-        private readonly IEnumerable<IFileExporter> fileExporter;
+        private readonly IEnumerable<ExportInfo> exportInfos;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiExportHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent window to show dialogs on top.</param>
-        /// <param name="fileExporter">An enumeration of <see cref="IFileExporter"/>.</param>
-        public GuiExportHandler(IWin32Window dialogParent, IEnumerable<IFileExporter> fileExporter)
+        /// <param name="exportInfos">An enumeration of <see cref="ExportInfo"/>.</param>
+        public GuiExportHandler(IWin32Window dialogParent, IEnumerable<ExportInfo> exportInfos)
         {
             this.dialogParent = dialogParent;
-            this.fileExporter = fileExporter;
+            this.exportInfos = exportInfos;
         }
 
         /// <summary>
@@ -61,30 +61,31 @@ namespace Core.Common.Gui.Commands
         /// <param name="item">The export source.</param>
         public void ExportFrom(object item)
         {
-            var exporter = GetSupportedExporterForItemUsingDialog(item);
-            if (exporter == null)
+            var exportInfo = GetSupportedExportInfoUsingDialog(item);
+            if (exportInfo == null)
             {
                 return;
             }
-            GetExporterDialog(exporter, item);
+
+            GetExporterDialog(exportInfo, item);
         }
 
         /// <summary>
-        /// Ask the user for the target file to export data to, then perform the export
+        /// Asks the user for the target file to export data to, then performs the export
         /// using the source object.
         /// </summary>
-        /// <param name="exporter">The importer to use.</param>
-        /// <param name="selectedItem">The import target.</param>
-        public void GetExporterDialog(IFileExporter exporter, object selectedItem)
+        /// <param name="exportInfo">The export information to use.</param>
+        /// <param name="selectedItem">The export source.</param>
+        public void GetExporterDialog(ExportInfo exportInfo, object selectedItem)
         {
-            ExporterItemUsingFileOpenDialog(exporter, selectedItem);
+            ExportItemUsingFileOpenDialog(exportInfo, selectedItem);
         }
 
-        private IFileExporter GetSupportedExporterForItemUsingDialog(object itemToExport)
+        private ExportInfo GetSupportedExportInfoUsingDialog(object itemToExport)
         {
-            var fileExporters = GetSupportedFileExporters(itemToExport).ToArray();
+            var supportedExportInfos = GetSupportedExportInfos(itemToExport).ToArray();
 
-            if (fileExporters.Length == 0)
+            if (supportedExportInfos.Length == 0)
             {
                 MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available,
                                 Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_Error);
@@ -93,54 +94,60 @@ namespace Core.Common.Gui.Commands
                 return null;
             }
 
-            // If there is only one available exporter use that:
-            if (fileExporters.Length == 1)
+            if (supportedExportInfos.Length == 1)
             {
-                return fileExporters[0];
+                return supportedExportInfos[0];
             }
 
-            using (var selectExporterDialog = new SelectItemDialog(dialogParent))
+            using (var selectExportInfoDialog = new SelectItemDialog(dialogParent))
             {
-                foreach (var fileExporter in fileExporters)
+                foreach (var exportInfo in supportedExportInfos)
                 {
-                    selectExporterDialog.AddItemType(fileExporter.Name, fileExporter.Category, fileExporter.Image ?? brickImage, null);
+                    selectExportInfoDialog.AddItemType(exportInfo.Name, exportInfo.Category, exportInfo.Image ?? brickImage, null);
                 }
 
-                if (selectExporterDialog.ShowDialog() == DialogResult.OK)
+                if (selectExportInfoDialog.ShowDialog() == DialogResult.OK)
                 {
-                    return fileExporters.First(i => i.Name == selectExporterDialog.SelectedItemTypeName);
+                    return supportedExportInfos.First(info => info.Name == selectExportInfoDialog.SelectedItemTypeName);
                 }
             }
             return null;
         }
 
-        private IEnumerable<IFileExporter> GetSupportedFileExporters(object source)
+        /// <summary>
+        /// Gets an enumeration of supported <see cref="ExportInfo"/> objects for the provided <paramref name="source"/>.
+        /// </summary>
+        /// <param name="source">The data object to get the supported <see cref="ExportInfo"/> objects for.</param>
+        /// <returns>An enumeration of supported <see cref="ExportInfo"/> objects.</returns>
+        public IEnumerable<ExportInfo> GetSupportedExportInfos(object source)
         {
             if (source == null)
             {
-                return Enumerable.Empty<IFileExporter>();
+                return Enumerable.Empty<ExportInfo>();
             }
 
             var sourceType = source.GetType();
 
-            return fileExporter.Where(fe => (fe.SupportedItemType == sourceType || sourceType.Implements(fe.SupportedItemType)));
+            return exportInfos.Where(info => info.DataType == sourceType || sourceType.Implements(info.DataType));
         }
 
-        private void ExporterItemUsingFileOpenDialog(IFileExporter exporter, object item)
+        private void ExportItemUsingFileOpenDialog(ExportInfo exportInfo, object item)
         {
             log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
 
-            var windowTitle = string.Format(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to, exporter.Name);
+            var windowTitle = string.Format(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to, exportInfo.Name);
             using (var saveFileDialog = new SaveFileDialog
             {
-                Filter = exporter.FileFilter,
+                Filter = exportInfo.FileFilter,
                 Title = windowTitle,
                 FilterIndex = 2
             })
             {
                 if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)
                 {
-                    if (exporter.Export(item, saveFileDialog.FileName))
+                    var exporter = exportInfo.CreateFileExporter(item, saveFileDialog.FileName);
+
+                    if (exporter.Export())
                     {
                         log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting);
                     }

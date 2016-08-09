@@ -119,7 +119,7 @@ namespace Core.Common.Gui
             storageCommandHandler = new StorageCommandHandler(projectStore, this, MainWindow);
             exportImportCommandHandler = new ExportImportCommandHandler(MainWindow,
                                                                         Plugins.SelectMany(p => p.GetFileImporters()),
-                                                                        Plugins.SelectMany(p => p.GetFileExporters()));
+                                                                        Plugins.SelectMany(p => p.GetExportInfos()));
 
             WindowsApplication.EnableVisualStyles();
             ViewPropertyEditor.ViewCommands = ViewCommands;

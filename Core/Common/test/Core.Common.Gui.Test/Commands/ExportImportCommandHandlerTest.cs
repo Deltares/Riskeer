@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -39,10 +40,10 @@ namespace Core.Common.Gui.Test.Commands
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var fileImporters = Enumerable.Empty<IFileImporter>();
-            var fileExporters = Enumerable.Empty<IFileExporter>();
+            var exportInfos = Enumerable.Empty<ExportInfo>();
             mocks.ReplayAll();
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, exportInfos);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(new object());
@@ -68,9 +69,9 @@ namespace Core.Common.Gui.Test.Commands
             {
                 objectImporter
             };
-            var fileExporters = Enumerable.Empty<IFileExporter>();
+            var exportInfos = Enumerable.Empty<ExportInfo>();
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, exportInfos);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(target);
@@ -95,9 +96,9 @@ namespace Core.Common.Gui.Test.Commands
             {
                 objectImporter
             };
-            var fileExporters = Enumerable.Empty<IFileExporter>();
+            var exportInfos = Enumerable.Empty<ExportInfo>();
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, exportInfos);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(target);
@@ -124,9 +125,9 @@ namespace Core.Common.Gui.Test.Commands
             {
                 objectImporter1, objectImporter2
             };
-            var fileExporters = Enumerable.Empty<IFileExporter>();
+            var exportInfos = Enumerable.Empty<ExportInfo>();
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, exportInfos);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(target);
@@ -153,9 +154,9 @@ namespace Core.Common.Gui.Test.Commands
             {
                 objectImporter1, objectImporter2
             };
-            var fileExporters = Enumerable.Empty<IFileExporter>();
+            var exportInfos = Enumerable.Empty<ExportInfo>();
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, exportInfos);
 
             // Call
             var isImportPossible = commandHandler.CanImportOn(target);
@@ -174,9 +175,9 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             var fileImporters = Enumerable.Empty<IFileImporter>();
-            var fileExporters = Enumerable.Empty<IFileExporter>();
+            var exportInfos = Enumerable.Empty<ExportInfo>();
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, exportInfos);
 
             // Call
             var isExportPossible = commandHandler.CanExportFrom(new object());
@@ -190,21 +191,17 @@ namespace Core.Common.Gui.Test.Commands
         public void CanExportFrom_HasOneFileExporterForTarget_ReturnTrue()
         {
             // Setup
-            var target = new object();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
-            var objectExporter = mocks.Stub<IFileExporter>();
-            objectExporter.Stub(i => i.SupportedItemType)
-                          .Return(target.GetType());
             mocks.ReplayAll();
 
             var fileImporters = Enumerable.Empty<IFileImporter>();
-            var fileExporters = new List<IFileExporter>
+            var exportInfos = new List<ExportInfo>
             {
-                objectExporter
+                new ExportInfo<object>()
             };
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, exportInfos);
 
             // Call
             var isExportPossible = commandHandler.CanExportFrom(new object());
@@ -218,23 +215,15 @@ namespace Core.Common.Gui.Test.Commands
         public void CanExportFrom_HasMultipleFileExportersForTarget_ReturnTrue()
         {
             // Setup
-            var target = new object();
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
-            var objectExporter1 = mocks.Stub<IFileExporter>();
-            objectExporter1.Stub(i => i.SupportedItemType)
-                           .Return(target.GetType());
-            var objectExporter2 = mocks.Stub<IFileExporter>();
-            objectExporter2.Stub(i => i.SupportedItemType)
-                           .Return(target.GetType());
-
             mocks.ReplayAll();
 
             var fileImporters = Enumerable.Empty<IFileImporter>();
-            var fileExporters = new List<IFileExporter>
+            var fileExporters = new List<ExportInfo>
             {
-                objectExporter1,
-                objectExporter2
+                new ExportInfo<object>(),
+                new ExportInfo<object>()
             };
 
             var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);

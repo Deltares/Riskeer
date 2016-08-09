@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
+using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
-using Core.Common.Utils.Reflection;
 using log4net;
 
 namespace Core.Common.Gui.Commands
@@ -38,7 +38,6 @@ namespace Core.Common.Gui.Commands
         private static readonly ILog log = LogManager.GetLogger(typeof(ExportImportCommandHandler));
 
         private readonly IEnumerable<IFileImporter> fileImporters;
-        private readonly IEnumerable<IFileExporter> fileExporters;
         private readonly GuiImportHandler importHandler;
         private readonly GuiExportHandler exportHandler;
 
@@ -47,13 +46,12 @@ namespace Core.Common.Gui.Commands
         /// </summary>
         /// <param name="dialogParent">The parent window onto which dialogs should be shown.</param>
         /// <param name="fileImporters">An enumeration of <see cref="IFileImporter"/>.</param>
-        /// <param name="fileExporters">An enumeration of <see cref="IFileExporter"/>.</param>
-        public ExportImportCommandHandler(IWin32Window dialogParent, IEnumerable<IFileImporter> fileImporters, IEnumerable<IFileExporter> fileExporters)
+        /// <param name="exportInfos">An enumeration of <see cref="ExportInfo"/>.</param>
+        public ExportImportCommandHandler(IWin32Window dialogParent, IEnumerable<IFileImporter> fileImporters, IEnumerable<ExportInfo> exportInfos)
         {
             this.fileImporters = fileImporters;
-            this.fileExporters = fileExporters;
             importHandler = new GuiImportHandler(dialogParent, this.fileImporters);
-            exportHandler = new GuiExportHandler(dialogParent, this.fileExporters);
+            exportHandler = new GuiExportHandler(dialogParent, exportInfos);
         }
 
         public bool CanImportOn(object target)
@@ -82,31 +80,12 @@ namespace Core.Common.Gui.Commands
 
         public bool CanExportFrom(object obj)
         {
-            return GetSupportedFileExporters(obj).Any();
+            return exportHandler.GetSupportedExportInfos(obj).Any();
         }
 
-        public void ExportFrom(object data, IFileExporter exporter = null)
+        public void ExportFrom(object data)
         {
-            if (exporter == null)
-            {
-                exportHandler.ExportFrom(data);
-            }
-            else
-            {
-                exportHandler.GetExporterDialog(exporter, data);
-            }
-        }
-
-        private IEnumerable<IFileExporter> GetSupportedFileExporters(object source)
-        {
-            if (source == null)
-            {
-                return Enumerable.Empty<IFileExporter>();
-            }
-
-            var sourceType = source.GetType();
-
-            return fileExporters.Where(fe => (fe.SupportedItemType == sourceType || sourceType.Implements(fe.SupportedItemType)));
+            exportHandler.ExportFrom(data);
         }
     }
 }

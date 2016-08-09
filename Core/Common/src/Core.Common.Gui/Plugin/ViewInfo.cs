@@ -121,7 +121,7 @@ namespace Core.Common.Gui.Plugin
     public class ViewInfo<TData, TViewData, TView> where TView : IView
     {
         /// <summary>
-        /// Gets or sets the data type associated with this view info.
+        /// Gets the data type associated with this view info.
         /// </summary>
         public Type DataType
         {
@@ -132,7 +132,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Gets or sets the type of data used for the view.
+        /// Gets the type of data used for the view.
         /// </summary>
         public Type ViewDataType
         {
@@ -143,7 +143,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Gets or sets the type of the view.
+        /// Gets the type of the view.
         /// </summary>
         public Type ViewType
         {
@@ -217,10 +217,8 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Performs an implicit conversion from <see cref="ViewInfo{TData, TViewData, TView}"/> to <see cref="ViewInfo"/>.
         /// </summary>
-        /// <param name="viewInfo">The view information.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
+        /// <param name="viewInfo">The view information to convert.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator ViewInfo(ViewInfo<TData, TViewData, TView> viewInfo)
         {
             return new ViewInfo

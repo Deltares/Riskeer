@@ -214,7 +214,7 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
-        public void GetFileExporters_ReturnsEmptyEnumerable()
+        public void GetExportInfos_ReturnsEmptyEnumerable()
         {
             // Setup
             var mocks = new MockRepository();
@@ -227,7 +227,7 @@ namespace Core.Common.Gui.Test.Plugin
             })
             {
                 // Call
-                var infos = plugin.GetFileExporters();
+                var infos = plugin.GetExportInfos();
 
                 // Assert
                 CollectionAssert.IsEmpty(infos);

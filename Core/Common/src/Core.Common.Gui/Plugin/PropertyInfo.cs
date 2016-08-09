@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Gui.PropertyBag;
 
 namespace Core.Common.Gui.Plugin
 {
     /// <summary>
-    /// Information for creating object properties.
+    /// Information for creating object properties for a particular data object.
     /// </summary>
     public class PropertyInfo
     {
@@ -76,14 +75,14 @@ namespace Core.Common.Gui.Plugin
     }
 
     /// <summary>
-    /// Information for creating object properties.
+    /// Information for creating object properties for a particular data object.
     /// </summary>
     /// <typeparam name="TObject">The type of the object to create object properties for.</typeparam>
     /// <typeparam name="TProperty">The type of the object properties to create.</typeparam>
     public class PropertyInfo<TObject, TProperty> where TProperty : IObjectProperties
     {
         /// <summary>
-        /// Gets or sets the type of the data to create properties for.
+        /// Gets the type of the data to create properties for.
         /// </summary>
         public Type DataType
         {
@@ -94,7 +93,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Gets or sets the type of object properties to create.
+        /// Gets the type of object properties to create.
         /// </summary>
         public Type PropertyObjectType
         {
@@ -141,20 +140,22 @@ namespace Core.Common.Gui.Plugin
         /// <summary>
         /// Performs an implicit conversion from <see cref="PropertyInfo{TObject, TProperty}"/> to <see cref="PropertyInfo"/>.
         /// </summary>
-        public static implicit operator PropertyInfo(PropertyInfo<TObject, TProperty> pi)
+        /// <param name="propertyInfo">The property information to convert.</param>
+        /// <returns>The result of the conversion.</returns>
+        public static implicit operator PropertyInfo(PropertyInfo<TObject, TProperty> propertyInfo)
         {
             return new PropertyInfo
             {
                 DataType = typeof(TObject),
                 PropertyObjectType = typeof(TProperty),
-                AdditionalDataCheck = pi.AdditionalDataCheck != null
-                                          ? o => pi.AdditionalDataCheck((TObject) o)
+                AdditionalDataCheck = propertyInfo.AdditionalDataCheck != null
+                                          ? o => propertyInfo.AdditionalDataCheck((TObject) o)
                                           : (Func<object, bool>) null,
-                GetObjectPropertiesData = pi.GetObjectPropertiesData != null
-                                              ? o => pi.GetObjectPropertiesData((TObject) o)
+                GetObjectPropertiesData = propertyInfo.GetObjectPropertiesData != null
+                                              ? o => propertyInfo.GetObjectPropertiesData((TObject) o)
                                               : (Func<object, object>) null,
-                AfterCreate = pi.AfterCreate != null
-                                  ? op => pi.AfterCreate((TProperty) op)
+                AfterCreate = propertyInfo.AfterCreate != null
+                                  ? op => propertyInfo.AfterCreate((TProperty) op)
                                   : (Action<object>) null
             };
         }

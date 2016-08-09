@@ -65,7 +65,6 @@ namespace Core.Common.Gui.Commands
         /// </list>
         /// </summary>
         /// <param name="data">The data to export.</param>
-        /// <param name="exporter">Optional: The specific exporter to use.</param>
-        void ExportFrom(object data, IFileExporter exporter = null);
+        void ExportFrom(object data);
     }
 }
