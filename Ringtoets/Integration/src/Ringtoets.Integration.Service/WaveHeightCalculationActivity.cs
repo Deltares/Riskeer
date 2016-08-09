@@ -56,7 +56,6 @@ namespace Ringtoets.Integration.Service
 
             this.assessmentSection = assessmentSection;
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            
         }
 
         public override string Name
@@ -77,17 +76,17 @@ namespace Ringtoets.Integration.Service
             }
 
             PerformRun(() => WaveHeightCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
-                           () => hydraulicBoundaryLocation.WaveHeight = double.NaN,
-                           () => WaveHeightCalculationService.Calculate(assessmentSection,
-                                                                              assessmentSection.HydraulicBoundaryDatabase,
-                                                                              hydraulicBoundaryLocation,
-                                                                              assessmentSection.Id));
-
+                       () => hydraulicBoundaryLocation.WaveHeight = double.NaN,
+                       () => WaveHeightCalculationService.Calculate(assessmentSection,
+                                                                    assessmentSection.HydraulicBoundaryDatabase,
+                                                                    hydraulicBoundaryLocation,
+                                                                    assessmentSection.Id));
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() => hydraulicBoundaryLocation.WaveHeight = Output.Result, hydraulicBoundaryLocation);
+            PerformFinish(() => { hydraulicBoundaryLocation.WaveHeight = Output.Result; });
+            hydraulicBoundaryLocation.NotifyObservers();
         }
     }
 }

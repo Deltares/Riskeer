@@ -85,7 +85,11 @@ namespace Ringtoets.Integration.Service
 
         protected override void OnFinish()
         {
-            PerformFinish(() => hydraulicBoundaryLocation.DesignWaterLevel = Output.Result, hydraulicBoundaryLocation);
+            PerformFinish(() =>
+            {
+                hydraulicBoundaryLocation.DesignWaterLevel = Output.Result;
+            });
+            hydraulicBoundaryLocation.NotifyObservers();
         }
     }
 }

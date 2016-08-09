@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Service;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Activities
@@ -84,20 +82,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         }
 
         [Test]
-        public void Finish_StateExecuted_SetsOutputAndNotifiesObservers()
+        public void Finish_StateExecuted_SetsOutput()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            var observableMock = mocks.StrictMock<IObservable>();
-            observableMock.Expect(o => o.Attach(observerMock));
-            observableMock.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            observableMock.Attach(observerMock);
-
             double newValue = 2.0;
-            TestHydraRingActivity activity = new TestHydraRingActivity(true, () => newValue, observableMock);
+            TestHydraRingActivity activity = new TestHydraRingActivity(true, () => newValue);
 
             activity.Run();
 
@@ -106,19 +95,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             // Assert
             Assert.AreEqual(newValue, activity.Value);
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void Finish_OutputNull_DoesNotSetOutputAndNotifyObservers()
+        public void Finish_OutputNull_DoesNotSetOutput()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observableMock = mocks.StrictMock<IObservable>();
-            observableMock.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            TestHydraRingActivity activity = new TestHydraRingActivity(true, () => null, observableMock);
+            TestHydraRingActivity activity = new TestHydraRingActivity(true, () => null);
 
             activity.Run();
 
@@ -127,21 +110,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             // Assert
             Assert.IsNaN(activity.Value);
-            mocks.VerifyAll();
         }
 
         private class TestHydraRingActivity : HydraRingActivity<object>
         {
             private readonly bool valid;
             private readonly Func<object> calculationFunc;
-            private readonly IObservable observableObject;
             private double value = 3.0;
 
-            public TestHydraRingActivity(bool valid, Func<object> calculationFunc, IObservable observableObject = null)
+            public TestHydraRingActivity(bool valid, Func<object> calculationFunc)
             {
                 this.valid = valid;
                 this.calculationFunc = calculationFunc;
-                this.observableObject = observableObject;
             }
 
             public double Value
@@ -159,7 +139,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
 
             protected override void OnFinish()
             {
-                PerformFinish(() => value = (double) Output, observableObject);
+                PerformFinish(() => value = (double) Output);
             }
         }
     }

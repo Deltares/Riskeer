@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Service;
 using Ringtoets.HydraRing.Calculation.Services;
 
@@ -75,18 +74,15 @@ namespace Ringtoets.HydraRing.Calculation.Activities
 
         /// <summary>
         /// Method for performing the finish of the activity. If the calculation is successful
-        /// executed, the output will be set on the calculation. After that the observers of 
-        /// <paramref name="observableObject"/> will be notified.
+        /// executed, the output will be set on the calculation.
         /// </summary>
         /// <param name="setOutputAction">The method to set the output on the object.</param>
-        /// <param name="observableObject">The object to notify the observers upon.</param>
-        protected void PerformFinish(Action setOutputAction, IObservable observableObject)
+        protected void PerformFinish(Action setOutputAction)
         {
             if (State == ActivityState.Executed)
             {
                 setOutputAction();
             }
-            observableObject.NotifyObservers();
         }
     }
 }

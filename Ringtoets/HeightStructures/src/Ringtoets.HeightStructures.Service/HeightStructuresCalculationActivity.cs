@@ -40,14 +40,6 @@ namespace Ringtoets.HeightStructures.Service
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
-        public override string Name
-        {
-            get
-            {
-                return calculation.Name;
-            }
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationActivity"/>.
         /// </summary>
@@ -56,7 +48,7 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HeightStructuresCalculationActivity(HeightStructuresCalculation calculation, string hlcdDirectory, 
+        public HeightStructuresCalculationActivity(HeightStructuresCalculation calculation, string hlcdDirectory,
                                                    HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculation == null)
@@ -82,6 +74,14 @@ namespace Ringtoets.HeightStructures.Service
             this.assessmentSection = assessmentSection;
         }
 
+        public override string Name
+        {
+            get
+            {
+                return calculation.Name;
+            }
+        }
+
         protected override void OnRun()
         {
             var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of structure with reference line
@@ -103,7 +103,8 @@ namespace Ringtoets.HeightStructures.Service
                                                                             failureMechanism.Contribution,
                                                                             failureMechanism.GeneralInput.N,
                                                                             Output.Beta);
-            }, calculation);
+            });
+            calculation.NotifyObservers();
         }
     }
 }
