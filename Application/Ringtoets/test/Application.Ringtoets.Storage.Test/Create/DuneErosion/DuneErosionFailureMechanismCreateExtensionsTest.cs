@@ -80,7 +80,6 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             const string originalComments = "comments";
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                IsRelevant = isRelevant,
                 Comments = originalComments
             };
             var registry = new PersistenceRegistry();
