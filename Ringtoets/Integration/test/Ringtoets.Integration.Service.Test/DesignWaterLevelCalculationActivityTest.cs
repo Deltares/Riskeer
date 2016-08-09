@@ -228,13 +228,10 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void Finish_ValidCalculationAndRun_SetsDesignWaterLevelAndNotifyObservers()
+        public void Finish_ValidCalculationAndRun_SetsDesignWaterLevel()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionStub.Expect(o => o.NotifyObservers());
 
@@ -245,7 +242,6 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
-            hydraulicBoundaryLocation.Attach(observerMock);
 
             var activity = new DesignWaterLevelCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 
@@ -260,13 +256,10 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void Finish_InvalidCalculationAndRun_DoesNotSetDesignWaterlevelAndUpdateObserver()
+        public void Finish_InvalidCalculationAndRun_DoesNotSetDesignWaterlevel()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionStub.Expect(o => o.NotifyObservers());
 
@@ -277,7 +270,6 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
-            hydraulicBoundaryLocation.Attach(observerMock);
 
             var activity = new DesignWaterLevelCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 

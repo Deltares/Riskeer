@@ -41,43 +41,56 @@ namespace Ringtoets.Integration.Forms.Test
     public class FailureMechanismContributionViewIntegrationTest
     {
         [Test]
-        public void NormTextBox_ValueChanged_ClearsDependentData()
+        public void NormTextBox_ValueChanged_ClearsDependentDataAndNotifiesObservers()
         {
             // Setup
             const int normValue = 200;
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
-
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
             {
                 WaveHeight = 3.0,
                 DesignWaterLevel = 4.2
             });
 
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+            };
+
+            PipingCalculation originalPipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
-            });
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation()
+            };
+            GrassCoverErosionInwardsCalculation originalGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            });
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new HeightStructuresCalculation()
+            };
+            HeightStructuresCalculation originalHeightStructuresCalculation = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            });
+            };
+
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(originalPipingCalculation);
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(originalGrassCoverErosionInwardsCalculation);
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(originalHeightStructuresCalculation);
 
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
             MockRepository mockRepository = new MockRepository();
             IObserver observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
+            IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
+            calculationObserver.Expect(co => co.UpdateObserver()).Repeat.Times(3);
+            IObserver assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
+            assessmentSectionObserver.Expect(hbdo => hbdo.UpdateObserver());
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
+            assessmentSection.Attach(assessmentSectionObserver);
+            originalPipingCalculation.Attach(calculationObserver);
+            originalGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
+            originalHeightStructuresCalculation.Attach(calculationObserver);
 
             using (Form form = new Form())
             using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView

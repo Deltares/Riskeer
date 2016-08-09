@@ -121,19 +121,19 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearAssessmentSectionData_WithMultiplePipingFailureMechanisms_ClearsOutput()
         {
             // Setup
-            var failureMechanism1 = new PipingFailureMechanism();
+            PipingFailureMechanism failureMechanism1 = new PipingFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             });
-            var failureMechanism2 = new PipingFailureMechanism();
+            PipingFailureMechanism failureMechanism2 = new PipingFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             });
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            MockRepository mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
@@ -157,19 +157,19 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearAssessmentSectionData_WithMultipleGrassCoverErosionInwardsFailureMechanisms_ClearsOutput()
         {
             // Setup
-            var failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             });
-            var failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             });
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            MockRepository mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
@@ -193,19 +193,19 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearAssessmentSectionData_WithMultipleHeightStructuresFailureMechanisms_ClearsOutput()
         {
             // Setup
-            var failureMechanism1 = new HeightStructuresFailureMechanism();
+            HeightStructuresFailureMechanism failureMechanism1 = new HeightStructuresFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             });
-            var failureMechanism2 = new HeightStructuresFailureMechanism();
+            HeightStructuresFailureMechanism failureMechanism2 = new HeightStructuresFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             });
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            MockRepository mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
@@ -260,19 +260,19 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithMultiplePipingFailureMechanisms_ClearsOutput()
         {
             // Setup
-            var failureMechanism1 = new PipingFailureMechanism();
+            PipingFailureMechanism failureMechanism1 = new PipingFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             });
-            var failureMechanism2 = new PipingFailureMechanism();
+            PipingFailureMechanism failureMechanism2 = new PipingFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             });
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            MockRepository mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
@@ -295,19 +295,19 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithMultipleGrassCoverErosionInwardsFailureMechanisms_ClearsOutput()
         {
             // Setup
-            var failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             });
-            var failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             });
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            MockRepository mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
@@ -330,19 +330,19 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithMultipleHeightStructuresFailureMechanisms_ClearsOutput()
         {
             // Setup
-            var failureMechanism1 = new HeightStructuresFailureMechanism();
+            HeightStructuresFailureMechanism failureMechanism1 = new HeightStructuresFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             });
-            var failureMechanism2 = new HeightStructuresFailureMechanism();
+            HeightStructuresFailureMechanism failureMechanism2 = new HeightStructuresFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             });
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            MockRepository mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
@@ -408,7 +408,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
 
-            var failureMechanism1 = new PipingFailureMechanism();
+            PipingFailureMechanism failureMechanism1 = new PipingFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
@@ -416,7 +416,7 @@ namespace Ringtoets.Integration.Service.Test
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             });
-            var failureMechanism2 = new PipingFailureMechanism();
+            PipingFailureMechanism failureMechanism2 = new PipingFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
@@ -425,8 +425,8 @@ namespace Ringtoets.Integration.Service.Test
                 }
             });
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            MockRepository mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
@@ -451,7 +451,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
 
-            var failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -459,7 +459,7 @@ namespace Ringtoets.Integration.Service.Test
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             });
-            var failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
@@ -468,8 +468,8 @@ namespace Ringtoets.Integration.Service.Test
                 }
             });
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            MockRepository mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
@@ -494,7 +494,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
 
-            var failureMechanism1 = new HeightStructuresFailureMechanism();
+            HeightStructuresFailureMechanism failureMechanism1 = new HeightStructuresFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new HeightStructuresCalculation
             {
                 InputParameters =
@@ -502,7 +502,7 @@ namespace Ringtoets.Integration.Service.Test
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             });
-            var failureMechanism2 = new HeightStructuresFailureMechanism();
+            HeightStructuresFailureMechanism failureMechanism2 = new HeightStructuresFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new HeightStructuresCalculation
             {
                 InputParameters =
@@ -511,8 +511,8 @@ namespace Ringtoets.Integration.Service.Test
                 }
             });
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            MockRepository mocks = new MockRepository();
+            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism1,
@@ -535,8 +535,8 @@ namespace Ringtoets.Integration.Service.Test
         public void NotifyCalculationObservers_Always_NotifiesAllCalculationsInAssessmentSection()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
+            MockRepository mocks = new MockRepository();
+            IObserver observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(3);
             mocks.ReplayAll();
 

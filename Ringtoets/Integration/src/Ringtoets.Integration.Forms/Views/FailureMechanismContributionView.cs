@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -273,6 +272,9 @@ namespace Ringtoets.Integration.Forms.Views
         {
             data.Norm = Convert.ToInt32(normInput.Value);
             RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
+            RingtoetsDataSynchronizationService.NotifyCalculationObservers(assessmentSection);
+            assessmentSection.NotifyObservers();
+
             data.NotifyObservers();
 
             foreach (var fm in AssessmentSection.GetFailureMechanisms())

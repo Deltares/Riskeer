@@ -89,7 +89,6 @@ namespace Ringtoets.Integration.Service
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = Output.Result;
             });
-            hydraulicBoundaryLocation.NotifyObservers();
         }
     }
 }
