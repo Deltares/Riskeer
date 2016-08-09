@@ -20,10 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Integration.Service
@@ -38,7 +44,7 @@ namespace Ringtoets.Integration.Service
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to clear the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static void ClearAssessmentSectionData(AssessmentSection assessmentSection)
+        public static void ClearAssessmentSectionData(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
@@ -63,11 +69,12 @@ namespace Ringtoets.Integration.Service
             }
         }
 
-        private static void ClearFailureMechanismCalculationOutputs(AssessmentSection assessmentSection)
+        private static void ClearFailureMechanismCalculationOutputs(IAssessmentSection assessmentSection)
         {
-            PipingDataSynchronizationService.ClearAllCalculationOutput(assessmentSection.PipingFailureMechanism);
-            GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(assessmentSection.GrassCoverErosionInwards);
-            HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(assessmentSection.HeightStructures);
+            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(PipingDataSynchronizationService.ClearAllCalculationOutput);
+            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput);
+            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput);
         }
     }
 }

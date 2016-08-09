@@ -272,7 +272,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void NormValueChanged(object sender, EventArgs eventArgs)
         {
             data.Norm = Convert.ToInt32(normInput.Value);
-            RingtoetsDataSynchronizationService.ClearAssessmentSectionData((AssessmentSection) assessmentSection);
+            RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
             data.NotifyObservers();
 
             foreach (var fm in AssessmentSection.GetFailureMechanisms())
