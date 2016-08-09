@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -61,7 +62,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 Name = surfaceLine.Name.DeepClone(),
                 ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull(),
                 ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull(),
-                PointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points),
+                PointsXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points),
                 Order = order
             };
             CreateCharacteristicPointEntities(surfaceLine, registry, entity);

@@ -22,9 +22,10 @@
 using System;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
+
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -110,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.HydraulicDatabaseVersion);
             Assert.IsEmpty(entity.HydraulicLocationEntities);
 
-            Assert.IsNull(entity.ReferenceLinePointData);
+            Assert.IsNull(entity.ReferenceLinePointXml);
         }
 
         [Test]
@@ -194,8 +195,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var entity = assessmentSection.Create(registry);
 
             // Assert
-            var expectedBinaryData = new Point2DBinaryConverter().ToBytes(points);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.ReferenceLinePointData);
+            string expectedXml = new Point2DXmlSerializer().ToXml(points);
+            Assert.AreEqual(expectedXml, entity.ReferenceLinePointXml);
         }
     }
 }

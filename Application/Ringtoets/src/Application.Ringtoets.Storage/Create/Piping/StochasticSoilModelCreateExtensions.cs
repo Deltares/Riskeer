@@ -21,8 +21,8 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 
 using Ringtoets.Piping.Data;
 
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             {
                 Name = model.Name.DeepClone(),
                 SegmentName = model.SegmentName.DeepClone(),
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(model.Geometry),
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(model.Geometry),
                 Order = order
             };
 

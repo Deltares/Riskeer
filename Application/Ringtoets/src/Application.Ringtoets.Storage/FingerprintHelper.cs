@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage
     /// This class is capable of generating a hashcode for serializable object instance
     /// such that the hashcode can be used to detect changes.
     /// </summary>
-    public static class FingerprintGenerator
+    public static class FingerprintHelper
     {
         /// <summary>
         /// Gets the fingerprint for the given <see cref="ProjectEntity"/>.
@@ -59,6 +59,29 @@ namespace Application.Ringtoets.Storage
                 writer.Flush();
                 return hashingAlgorithm.ComputeHash(stream.ToArray());
             }
+        }
+
+        /// <summary>
+        /// Determines if two fingerprint byte arrays are equal to each other.
+        /// </summary>
+        /// <param name="array1">The first array, cannot be <c>null</c>.</param>
+        /// <param name="array2">The second array, cannot be <c>null</c>.</param>
+        /// <returns><c>True</c> if the two fingerprints are equal, <c>false</c> otherwise.</returns>
+        public static bool AreEqual(byte[] array1, byte[] array2)
+        {
+            if (array1.Length != array2.Length)
+            {
+                return false;
+            }
+            // Note: Do not turn this into a linq query, as that is less performance optimal!
+            for (int i = 0; i < array1.Length; i++)
+            {
+                if (!array1[i].Equals(array2[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

@@ -22,8 +22,8 @@
 using System;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -92,9 +92,9 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadReferenceLine(this AssessmentSectionEntity entity, IAssessmentSection assessmentSection)
         {
-            if (entity.ReferenceLinePointData != null)
+            if (entity.ReferenceLinePointXml != null)
             {
-                Point2D[] points = new Point2DBinaryConverter().ToData(entity.ReferenceLinePointData);
+                Point2D[] points = new Point2DXmlSerializer().FromXml(entity.ReferenceLinePointXml);
 
                 assessmentSection.ReferenceLine = new ReferenceLine();
                 assessmentSection.ReferenceLine.SetGeometry(points);

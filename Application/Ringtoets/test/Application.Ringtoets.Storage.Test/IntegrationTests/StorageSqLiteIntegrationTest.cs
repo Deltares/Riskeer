@@ -107,19 +107,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             // When
             var entityBeforeSave = fullProject.Create(new PersistenceRegistry());
 
-            byte[] hash1 = FingerprintGenerator.Get(entityBeforeSave);
+            byte[] hash1 = FingerprintHelper.Get(entityBeforeSave);
 
             StorageSqLite storage = new StorageSqLite();
             storage.StageProject(fullProject);
             storage.SaveProjectAs(tempRingtoetsFile);
 
             ProjectEntity entityAfterSave = fullProject.Create(new PersistenceRegistry());
-            byte[] hash2 = FingerprintGenerator.Get(entityAfterSave);
+            byte[] hash2 = FingerprintHelper.Get(entityAfterSave);
 
             var openedProject = (RingtoetsProject)storage.LoadProject(tempRingtoetsFile);
             ProjectEntity entityAfterOpening = openedProject.Create(new PersistenceRegistry());
 
-            byte[] hash3 = FingerprintGenerator.Get(entityAfterOpening);
+            byte[] hash3 = FingerprintHelper.Get(entityAfterOpening);
 
             // Then
             CollectionAssert.AreEqual(hash1, hash2);

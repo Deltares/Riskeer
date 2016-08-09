@@ -22,10 +22,10 @@
 using System;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update.Piping;
 
@@ -268,7 +268,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = stochasticSoilModel.StorageId,
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {
@@ -386,7 +386,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var surfaceLineEntity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
-                PointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points)
+                PointsXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points)
             };
             var rootCalculationGroupEntity = new CalculationGroupEntity
             {
@@ -507,7 +507,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = failureMechanismSection.StorageId,
-                FailureMechanismSectionPointData = new Point2DBinaryConverter().ToBytes(failureMechanismSection.Points),
+                FailureMechanismSectionPointXml = new Point2DXmlSerializer().ToXml(failureMechanismSection.Points),
                 PipingSectionResultEntities =
                 {
                     pipingSectionResultEntity

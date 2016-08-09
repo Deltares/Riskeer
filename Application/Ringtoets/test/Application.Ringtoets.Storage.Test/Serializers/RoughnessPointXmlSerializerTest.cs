@@ -22,7 +22,7 @@
 using System;
 using System.Collections;
 
-using Application.Ringtoets.Storage.BinaryConverters;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -30,37 +30,37 @@ using NUnit.Framework;
 
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.BinaryConverters
+namespace Application.Ringtoets.Storage.Test.Serializers
 {
     [TestFixture]
-    public class RoughnessPointBinaryConverterTest
+    public class RoughnessPointXmlSerializerTest
     {
         [Test]
-        public void ToBytes_PointsCollectionNull_ThrowArgumentNullException()
+        public void ToXml_PointsCollectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var converter = new RoughnessPointBinaryConverter();
+            var converter = new RoughnessPointXmlSerializer();
 
             // Call
-            TestDelegate call = () => converter.ToBytes(null);
+            TestDelegate call = () => converter.ToXml(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("points", paramName);
+            Assert.AreEqual("elements", paramName);
         }
 
         [Test]
-        public void ToData_BinaryDataNull_ThrowArgumentNullException()
+        public void FromXml_XmlIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var converter = new RoughnessPointBinaryConverter();
+            var converter = new RoughnessPointXmlSerializer();
 
             // Call
-            TestDelegate call = () => converter.ToData(null);
+            TestDelegate call = () => converter.FromXml(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("serializedData", paramName);
+            Assert.AreEqual("xml", paramName);
         }
 
         [Test]
@@ -79,11 +79,11 @@ namespace Application.Ringtoets.Storage.Test.BinaryConverters
                 new RoughnessPoint(new Point2D(7.7, 8.8), 0.8),
                 new RoughnessPoint(new Point2D(9.9, 10.10), 0.7)
             };
-            var converter = new RoughnessPointBinaryConverter();
+            var converter = new RoughnessPointXmlSerializer();
 
             // When
-            byte[] bytes = converter.ToBytes(original);
-            RoughnessPoint[] roundtripResult = converter.ToData(bytes);
+            string xml = converter.ToXml(original);
+            RoughnessPoint[] roundtripResult = converter.FromXml(xml);
 
             // Then
             CollectionAssert.AreEqual(original, roundtripResult, new RoughnessPointComparer());
@@ -94,11 +94,11 @@ namespace Application.Ringtoets.Storage.Test.BinaryConverters
         {
             // Given
             var original = new RoughnessPoint[0];
-            var converter = new RoughnessPointBinaryConverter();
+            var converter = new RoughnessPointXmlSerializer();
 
             // When
-            byte[] bytes = converter.ToBytes(original);
-            RoughnessPoint[] roundtripResult = converter.ToData(bytes);
+            string xml = converter.ToXml(original);
+            RoughnessPoint[] roundtripResult = converter.FromXml(xml);
 
             // Then
             CollectionAssert.IsEmpty(roundtripResult);

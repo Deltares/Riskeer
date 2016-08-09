@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 new Point2D(firstX, firstY),
                 new Point2D(secondX, secondY)
             };
-            entity.ReferenceLinePointData = new Point2DBinaryConverter().ToBytes(points);
+            entity.ReferenceLinePointXml = new Point2DXmlSerializer().ToXml(points);
 
             var collector = new ReadConversionCollector();
 
@@ -207,7 +207,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
-            byte[] emptySegmentPointsData = new Point2DBinaryConverter().ToBytes(new Point2D[0]);
+            string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
@@ -221,11 +221,11 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StochasticSoilModelEntity
                     {
-                        StochasticSoilModelSegmentPointData = emptySegmentPointsData
+                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml
                     },
                     new StochasticSoilModelEntity
                     {
-                        StochasticSoilModelSegmentPointData = emptySegmentPointsData
+                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml
                     }
                 }
             };
@@ -251,7 +251,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
             var entityId = new Random(21).Next(1, 502);
 
-            var emptyPointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0]);
+            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = entityId,
@@ -265,11 +265,11 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new SurfaceLineEntity
                     {
-                        PointsData = emptyPointsData
+                        PointsXml = emptyPointsXml
                     },
                     new SurfaceLineEntity
                     {
-                        PointsData = emptyPointsData
+                        PointsXml = emptyPointsXml
                     }
                 }
             };
@@ -557,20 +557,20 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 new Point2D(0.0, 0.0)
             };
-            byte[] dummyPointBinaryData = new Point2DBinaryConverter().ToBytes(dummyPointData);
+            string dummyPointXml = new Point2DXmlSerializer().ToXml(dummyPointData);
             return new[]
             {
                 new FailureMechanismSectionEntity
                 {
                     FailureMechanismSectionEntityId = 1,
                     Name = "",
-                    FailureMechanismSectionPointData = dummyPointBinaryData
+                    FailureMechanismSectionPointXml = dummyPointXml
                 },
                 new FailureMechanismSectionEntity
                 {
                     FailureMechanismSectionEntityId = 2,
                     Name = "",
-                    FailureMechanismSectionPointData = dummyPointBinaryData
+                    FailureMechanismSectionPointXml = dummyPointXml
                 }
             };
         }

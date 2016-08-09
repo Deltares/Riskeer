@@ -21,9 +21,9 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -56,12 +56,12 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 new Point2D(0, 0)
             };
-            byte[] pointData = new Point2DBinaryConverter().ToBytes(points);
+            string pointXml = new Point2DXmlSerializer().ToXml(points);
             var entity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = entityId,
                 Name = name,
-                FailureMechanismSectionPointData = pointData
+                FailureMechanismSectionPointXml = pointXml
             };
 
             // Call

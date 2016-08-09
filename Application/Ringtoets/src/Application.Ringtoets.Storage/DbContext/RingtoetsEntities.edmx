@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -18,7 +18,7 @@
           <Property Name="HydraulicDatabaseVersion" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicDatabaseLocation" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Composition" Type="smallint" Nullable="false" />
-          <Property Name="ReferenceLinePointData" Type="blob" />
+          <Property Name="ReferenceLinePointXml" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="CalculationGroupEntity">
           <Key>
@@ -61,8 +61,8 @@
           <Property Name="Orientation" Type="real" />
           <Property Name="BreakWaterType" Type="tinyint" />
           <Property Name="BreakWaterHeight" Type="real" />
-          <Property Name="ForeShoreData" Type="blob" Nullable="false" />
-          <Property Name="DikeGeometryData" Type="blob" Nullable="false" />
+          <Property Name="ForeShoreXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="DikeGeometryXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="DikeHeight" Type="real" />
           <Property Name="X" Type="real" />
           <Property Name="Y" Type="real" />
@@ -96,7 +96,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
-          <Property Name="FailureMechanismSectionPointData" Type="blob" Nullable="false" />
+          <Property Name="FailureMechanismSectionPointXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsCalculationEntity">
           <Key>
@@ -376,7 +376,7 @@
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="SegmentName" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="StochasticSoilModelSegmentPointData" Type="blob" Nullable="false" />
+          <Property Name="StochasticSoilModelSegmentPointXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StochasticSoilProfileEntity">
@@ -416,7 +416,7 @@
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="ReferenceLineIntersectionX" Type="real" />
           <Property Name="ReferenceLineIntersectionY" Type="real" />
-          <Property Name="PointsData" Type="blob" Nullable="false" />
+          <Property Name="PointsXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TechnicalInnovationSectionResultEntity">
@@ -1457,7 +1457,7 @@
           <Property Name="HydraulicDatabaseVersion" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="HydraulicDatabaseLocation" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Composition" Type="Int16" Nullable="false" />
-          <Property Name="ReferenceLinePointData" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="ReferenceLinePointXml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProjectEntity" Relationship="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
@@ -1510,8 +1510,8 @@
           <Property Name="Orientation" Type="Double" />
           <Property Name="BreakWaterType" Type="Byte" />
           <Property Name="BreakWaterHeight" Type="Double" />
-          <Property Name="ForeShoreData" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
-          <Property Name="DikeGeometryData" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="ForeShoreXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="DikeGeometryXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="DikeHeight" Type="Double" />
           <Property Name="X" Type="Double" />
           <Property Name="Y" Type="Double" />
@@ -1556,7 +1556,7 @@
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
-          <Property Name="FailureMechanismSectionPointData" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="FailureMechanismSectionPointXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ClosingStructureSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="ClosingStructureSectionResultEntity" />
           <NavigationProperty Name="DuneErosionSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_DuneErosionSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="DuneErosionSectionResultEntity" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="FailureMechanismEntity" />
@@ -1892,7 +1892,7 @@
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="SegmentName" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="StochasticSoilModelSegmentPointData" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="StochasticSoilModelSegmentPointXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_0_0" FromRole="StochasticSoilModelEntity" ToRole="StochasticSoilProfileEntity" />
@@ -1939,7 +1939,7 @@
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="ReferenceLineIntersectionX" Type="Double" />
           <Property Name="ReferenceLineIntersectionY" Type="Double" />
-          <Property Name="PointsData" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="PointsXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CharacteristicPointEntities" Relationship="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0" FromRole="SurfaceLineEntity" ToRole="CharacteristicPointEntity" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="SurfaceLineEntity" ToRole="FailureMechanismEntity" />
@@ -2534,7 +2534,7 @@
           <EntitySetMapping Name="AssessmentSectionEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.AssessmentSectionEntity">
               <MappingFragment StoreEntitySet="AssessmentSectionEntity">
-                <ScalarProperty Name="ReferenceLinePointData" ColumnName="ReferenceLinePointData" />
+                <ScalarProperty Name="ReferenceLinePointXml" ColumnName="ReferenceLinePointXml" />
                 <ScalarProperty Name="Composition" ColumnName="Composition" />
                 <ScalarProperty Name="HydraulicDatabaseLocation" ColumnName="HydraulicDatabaseLocation" />
                 <ScalarProperty Name="HydraulicDatabaseVersion" ColumnName="HydraulicDatabaseVersion" />
@@ -2589,8 +2589,8 @@
                 <ScalarProperty Name="Y" ColumnName="Y" />
                 <ScalarProperty Name="X" ColumnName="X" />
                 <ScalarProperty Name="DikeHeight" ColumnName="DikeHeight" />
-                <ScalarProperty Name="DikeGeometryData" ColumnName="DikeGeometryData" />
-                <ScalarProperty Name="ForeShoreData" ColumnName="ForeShoreData" />
+                <ScalarProperty Name="DikeGeometryXml" ColumnName="DikeGeometryXml" />
+                <ScalarProperty Name="ForeShoreXml" ColumnName="ForeShoreXml" />
                 <ScalarProperty Name="BreakWaterHeight" ColumnName="BreakWaterHeight" />
                 <ScalarProperty Name="BreakWaterType" ColumnName="BreakWaterType" />
                 <ScalarProperty Name="Orientation" ColumnName="Orientation" />
@@ -2625,7 +2625,7 @@
           <EntitySetMapping Name="FailureMechanismSectionEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.FailureMechanismSectionEntity">
               <MappingFragment StoreEntitySet="FailureMechanismSectionEntity">
-                <ScalarProperty Name="FailureMechanismSectionPointData" ColumnName="FailureMechanismSectionPointData" />
+                <ScalarProperty Name="FailureMechanismSectionPointXml" ColumnName="FailureMechanismSectionPointXml" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
@@ -2929,7 +2929,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StochasticSoilModelEntity">
               <MappingFragment StoreEntitySet="StochasticSoilModelEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="StochasticSoilModelSegmentPointData" ColumnName="StochasticSoilModelSegmentPointData" />
+                <ScalarProperty Name="StochasticSoilModelSegmentPointXml" ColumnName="StochasticSoilModelSegmentPointXml" />
                 <ScalarProperty Name="SegmentName" ColumnName="SegmentName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
@@ -2972,7 +2972,7 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.SurfaceLineEntity">
               <MappingFragment StoreEntitySet="SurfaceLineEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="PointsData" ColumnName="PointsData" />
+                <ScalarProperty Name="PointsXml" ColumnName="PointsXml" />
                 <ScalarProperty Name="ReferenceLineIntersectionY" ColumnName="ReferenceLineIntersectionY" />
                 <ScalarProperty Name="ReferenceLineIntersectionX" ColumnName="ReferenceLineIntersectionX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -72,18 +72,18 @@ namespace Application.Ringtoets.Storage.Update.Piping
             entity.ReferenceLineIntersectionX = surfaceLine.ReferenceLineIntersectionWorldPoint.X.ToNaNAsNull();
             entity.ReferenceLineIntersectionY = surfaceLine.ReferenceLineIntersectionWorldPoint.Y.ToNaNAsNull();
 
-            UpdateGeometry(surfaceLine, entity, registry);
+            UpdateGeometry(surfaceLine, entity);
             UpdateCharacteristicPoints(surfaceLine, entity, registry);
 
             registry.Register(entity, surfaceLine);
         }
 
-        private static void UpdateGeometry(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity, PersistenceRegistry registry)
+        private static void UpdateGeometry(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity)
         {
-            var newBinaryData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points);
-            if (!BinaryDataEqualityHelper.AreEqual(entity.PointsData, newBinaryData))
+            var newXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points);
+            if (!entity.PointsXml.Equals(newXml))
             {
-                entity.PointsData = newBinaryData;
+                entity.PointsXml = newXml;
             }
         }
 

@@ -21,7 +21,6 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 
@@ -30,6 +29,7 @@ using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -197,8 +197,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             var dikeProfileEntity = new DikeProfileEntity
             {
                 DikeProfileEntityId = 7465,
-                DikeGeometryData = new RoughnessPointBinaryConverter().ToBytes(new RoughnessPoint[0]),
-                ForeShoreData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]),
+                ForeShoreXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {

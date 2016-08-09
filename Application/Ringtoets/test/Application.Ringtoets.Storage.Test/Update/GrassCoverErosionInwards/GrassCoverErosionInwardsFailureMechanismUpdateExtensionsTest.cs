@@ -22,10 +22,10 @@
 using System;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update.GrassCoverErosionInwards;
 
@@ -422,7 +422,7 @@ namespace Application.Ringtoets.Storage.Test.Update.GrassCoverErosionInwards
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = 1,
-                FailureMechanismSectionPointData = new Point2DBinaryConverter().ToBytes(failureMechanismSection.Points)
+                FailureMechanismSectionPointXml = new Point2DXmlSerializer().ToXml(failureMechanismSection.Points)
             };
             var failureMechanismEntity = new FailureMechanismEntity
             {

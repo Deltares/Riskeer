@@ -21,8 +21,8 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -57,8 +57,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 X = dikeProfile.WorldReferencePoint.X,
                 Y = dikeProfile.WorldReferencePoint.Y,
                 X0 = dikeProfile.X0,
-                DikeGeometryData = new RoughnessPointBinaryConverter().ToBytes(dikeProfile.DikeGeometry),
-                ForeShoreData = new Point2DBinaryConverter().ToBytes(dikeProfile.ForeshoreGeometry),
+                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(dikeProfile.DikeGeometry),
+                ForeShoreXml = new Point2DXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry),
                 Orientation = dikeProfile.Orientation,
                 DikeHeight = dikeProfile.DikeHeight,
                 Name = dikeProfile.Name.DeepClone(),

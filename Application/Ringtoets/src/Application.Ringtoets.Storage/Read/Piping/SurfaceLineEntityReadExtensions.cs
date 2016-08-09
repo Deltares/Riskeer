@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
 
         private static void ReadSurfaceLineGeometryAndCharacteristicPoints(this SurfaceLineEntity entity, RingtoetsPipingSurfaceLine surfaceLine)
         {
-            Point3D[] geometryPoints = new Point3DBinaryConverter().ToData(entity.PointsData);
+            Point3D[] geometryPoints = new Point3DXmlSerializer().FromXml(entity.PointsXml);
             surfaceLine.SetGeometry(geometryPoints);
 
             var characteristicPoints = new Dictionary<CharacteristicPointType, Point3D>();

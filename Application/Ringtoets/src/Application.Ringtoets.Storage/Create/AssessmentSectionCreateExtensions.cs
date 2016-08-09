@@ -21,7 +21,6 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create.ClosingStructure;
 using Application.Ringtoets.Storage.Create.DuneErosion;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
@@ -41,6 +40,8 @@ using Application.Ringtoets.Storage.Create.TechnicalInnovation;
 using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
+
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Create
@@ -103,7 +104,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (section.ReferenceLine != null)
             {
-                entity.ReferenceLinePointData = new Point2DBinaryConverter().ToBytes(section.ReferenceLine.Points);
+                entity.ReferenceLinePointXml = new Point2DXmlSerializer().ToXml(section.ReferenceLine.Points);
             }
         }
 

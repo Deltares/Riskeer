@@ -20,11 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -120,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingFailureMechanism_WithStochasticSoilModelsSet_ReturnsNewPipingFailureMechanismWithStochasticSoilModelsSet()
         {
             // Setup
-            byte[] emptySegmentPointsData = new Point2DBinaryConverter().ToBytes(new Point2D[0]);
+            string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity
@@ -131,13 +132,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StochasticSoilModelEntity
                     {
-                        StochasticSoilModelSegmentPointData = emptySegmentPointsData,
+                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml,
                         Name = "A",
                         Order = 1
                     },
                     new StochasticSoilModelEntity
                     {
-                        StochasticSoilModelSegmentPointData = emptySegmentPointsData,
+                        StochasticSoilModelSegmentPointXml = emptySegmentPointsXml,
                         Name = "B",
                         Order = 0
                     }
@@ -158,7 +159,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingFailureMechanism_WithSurfaceLines_ReturnsNewPipingFailureMechanismWithSurfaceLinesSet()
         {
             // Setup
-            byte[] emptyPointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0]);
+            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity
@@ -169,13 +170,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new SurfaceLineEntity
                     {
-                        PointsData = emptyPointsData,
+                        PointsXml = emptyPointsXml,
                         Name = "1",
                         Order = 1
                     },
                     new SurfaceLineEntity
                     {
-                        PointsData = emptyPointsData,
+                        PointsXml = emptyPointsXml,
                         Name = "2",
                         Order = 0
                     }
@@ -337,8 +338,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             const int id1 = 4578;
             const int id2 = 384729847;
-            byte[] emptyDikeGeometryBinaryData = new RoughnessPointBinaryConverter().ToBytes(new RoughnessPoint[0]);
-            byte[] emptyForeshoreBinaryData = new Point2DBinaryConverter().ToBytes(new Point2D[0]);
+            string emptyDikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]);
+            string emptyForeshoreBinaryXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismEntityId = 1,
@@ -355,14 +356,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new DikeProfileEntity
                     {
                         DikeProfileEntityId = id1,
-                        DikeGeometryData = emptyDikeGeometryBinaryData,
-                        ForeShoreData = emptyForeshoreBinaryData
+                        DikeGeometryXml = emptyDikeGeometryXml,
+                        ForeShoreXml = emptyForeshoreBinaryXml
                     },
                     new DikeProfileEntity
                     {
                         DikeProfileEntityId = id2,
-                        DikeGeometryData = emptyDikeGeometryBinaryData,
-                        ForeShoreData = emptyForeshoreBinaryData
+                        DikeGeometryXml = emptyDikeGeometryXml,
+                        ForeShoreXml = emptyForeshoreBinaryXml
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity
@@ -547,11 +548,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 new Point2D(0, 0)
             };
-            byte[] dymmyPointData = new Point2DBinaryConverter().ToBytes(dummyPoints);
+            string dymmyPointXml = new Point2DXmlSerializer().ToXml(dummyPoints);
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 Name = "section",
-                FailureMechanismSectionPointData = dymmyPointData
+                FailureMechanismSectionPointXml = dymmyPointXml
             };
             return failureMechanismSectionEntity;
         }

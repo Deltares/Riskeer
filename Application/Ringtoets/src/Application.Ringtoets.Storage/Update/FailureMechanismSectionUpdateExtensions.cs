@@ -21,10 +21,10 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Serializers;
 
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -73,10 +73,10 @@ namespace Application.Ringtoets.Storage.Update
 
         private static void UpdateGeometry(FailureMechanismSection section, FailureMechanismSectionEntity entity)
         {
-            byte[] newBinaryData = new Point2DBinaryConverter().ToBytes(section.Points);
-            if(!BinaryDataEqualityHelper.AreEqual(entity.FailureMechanismSectionPointData, newBinaryData))
+            string newXml = new Point2DXmlSerializer().ToXml(section.Points);
+            if(!entity.FailureMechanismSectionPointXml.Equals(newXml))
             {
-                entity.FailureMechanismSectionPointData = newBinaryData;
+                entity.FailureMechanismSectionPointXml = newXml;
             }
         }
     }

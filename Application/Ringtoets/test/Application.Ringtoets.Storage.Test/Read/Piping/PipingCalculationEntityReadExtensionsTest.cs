@@ -21,10 +21,10 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -163,7 +163,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var surfaceLineEntity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = 123,
-                PointsData = new Point3DBinaryConverter().ToBytes(points)
+                PointsXml = new Point3DXmlSerializer().ToXml(points)
             };
 
             var entity = new PipingCalculationEntity
@@ -289,7 +289,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = 75,
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0]),
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
                 StochasticSoilProfileEntities =
                 {
                     stochasticSoilProfileEntity

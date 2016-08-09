@@ -23,10 +23,10 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update;
 using Core.Common.Base.Geometry;
@@ -187,7 +187,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             Assert.AreEqual(comments, entity.Comments);
             Assert.AreEqual(norm, entity.Norm);
             Assert.AreEqual((short) composition, entity.Composition);
-            Assert.IsNull(entity.ReferenceLinePointData);
+            Assert.IsNull(entity.ReferenceLinePointXml);
             Assert.IsEmpty(entity.HydraulicLocationEntities);
             Assert.IsNull(entity.HydraulicDatabaseLocation);
             Assert.IsNull(entity.HydraulicDatabaseVersion);
@@ -241,8 +241,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            byte[] expectedBinaryData = new Point2DBinaryConverter().ToBytes(referenceLine.Points);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.ReferenceLinePointData);
+            string expectedXml = new Point2DXmlSerializer().ToXml(referenceLine.Points);
+            Assert.AreEqual(expectedXml, entity.ReferenceLinePointXml);
 
             mocks.VerifyAll();
         }
@@ -264,11 +264,11 @@ namespace Application.Ringtoets.Storage.Test.Update
             var section = InitializeCreatedDikeAssessmentSection();
             section.ReferenceLine = referenceLine;
 
-            var binaryConverter = new Point2DBinaryConverter();
+            var serializer = new Point2DXmlSerializer();
             var entity = new AssessmentSectionEntity
             {
                 AssessmentSectionEntityId = 1,
-                ReferenceLinePointData = binaryConverter.ToBytes(new[]
+                ReferenceLinePointXml = serializer.ToXml(new[]
                 {
                     new Point2D(2, 3)
                 })
@@ -298,8 +298,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            byte[] expectedBinaryData = binaryConverter.ToBytes(referenceLine.Points);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.ReferenceLinePointData);
+            string expectedXml = serializer.ToXml(referenceLine.Points);
+            Assert.AreEqual(expectedXml, entity.ReferenceLinePointXml);
 
             mocks.VerifyAll();
         }

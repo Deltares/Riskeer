@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 using Application.Ringtoets.Storage.Create;
@@ -33,13 +34,13 @@ using Ringtoets.Integration.Data;
 namespace Application.Ringtoets.Storage.Test
 {
     [TestFixture]
-    public class FingerprintGeneratorTest
+    public class FingerprintHelperTest
     {
         [Test]
         public void Get_EntityIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FingerprintGenerator.Get(null);
+            TestDelegate call = () => FingerprintHelper.Get(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -54,8 +55,8 @@ namespace Application.Ringtoets.Storage.Test
             ProjectEntity entity = project.Create(new PersistenceRegistry());
 
             // When
-            byte[] hash1 = FingerprintGenerator.Get(entity);
-            byte[] hash2 = FingerprintGenerator.Get(entity);
+            byte[] hash1 = FingerprintHelper.Get(entity);
+            byte[] hash2 = FingerprintHelper.Get(entity);
 
             // Then
             Assert.IsNotNull(hash1);
@@ -71,9 +72,9 @@ namespace Application.Ringtoets.Storage.Test
             ProjectEntity entity = project.Create(new PersistenceRegistry());
 
             // When
-            byte[] hash1 = FingerprintGenerator.Get(entity);
+            byte[] hash1 = FingerprintHelper.Get(entity);
             entity.AssessmentSectionEntities.First().Name = "Something completely different";
-            byte[] hash2 = FingerprintGenerator.Get(entity);
+            byte[] hash2 = FingerprintHelper.Get(entity);
 
             // Then
             Assert.IsNotNull(hash1);
@@ -91,13 +92,93 @@ namespace Application.Ringtoets.Storage.Test
             ProjectEntity entity2 = project2.Create(new PersistenceRegistry());
 
             // Call
-            byte[] hash1 = FingerprintGenerator.Get(entity1);
-            byte[] hash2 = FingerprintGenerator.Get(entity2);
+            byte[] hash1 = FingerprintHelper.Get(entity1);
+            byte[] hash2 = FingerprintHelper.Get(entity2);
 
             // Assert
             Assert.IsNotNull(hash1);
             CollectionAssert.IsNotEmpty(hash1);
             CollectionAssert.AreEqual(hash1, hash2);
+        }
+
+        [Test]
+        public void AreEqual_ArraysAreNotEqual_ReturnFalse()
+        {
+            // Setup
+            var random = new Random(42);
+            const int arraySize = 10;
+            var array1 = new byte[arraySize];
+            var array2 = new byte[arraySize];
+            random.NextBytes(array1);
+            random.NextBytes(array2);
+
+            // Precondition
+            CollectionAssert.AreNotEqual(array1, array2);
+
+            // Call
+            bool areCollectionEqual = FingerprintHelper.AreEqual(array1, array2);
+
+            // Assert
+            Assert.IsFalse(areCollectionEqual);
+        }
+
+        [Test]
+        public void AreEqual_ArraysAreEqual_ReturnTrue()
+        {
+            // Setup
+            var random = new Random(42);
+            const int arraySize = 10;
+            var array1 = new byte[arraySize];
+            random.NextBytes(array1);
+
+            // Precondition
+            CollectionAssert.AreEqual(array1, array1);
+
+            // Call
+            bool areCollectionEqual = FingerprintHelper.AreEqual(array1, array1);
+
+            // Assert
+            Assert.IsTrue(areCollectionEqual);
+        }
+
+        [Test]
+        public void GivenNotEqualData_WhenComparingPerformance_ThenPerformanceShouldBeBetterThenLinq()
+        {
+            // Given
+            var random = new Random(42);
+            const int arraySize = 100000000;
+            var array1 = new byte[arraySize];
+            var array2 = new byte[arraySize];
+            random.NextBytes(array1);
+            random.NextBytes(array2);
+
+            // Precondition
+            CollectionAssert.AreNotEqual(array1, array2);
+
+            // When
+            var stopwatch = new Stopwatch();
+            long timeToBeat = 0, actualTime = 0;
+            for (int i = 0; i < 100000; i++)
+            {
+                stopwatch.Start();
+                Assert.IsFalse(SlowBaselineLinqEqualty(array1, array2));
+                stopwatch.Stop();
+                timeToBeat += stopwatch.ElapsedTicks;
+
+                stopwatch.Reset();
+                stopwatch.Start();
+                Assert.IsFalse(FingerprintHelper.AreEqual(array1, array2));
+                stopwatch.Stop();
+                actualTime += stopwatch.ElapsedTicks;
+            }
+
+            // Then
+            Assert.Less(actualTime, timeToBeat); // If you want to see the 'timings', just change it to Assert.Greater
+        }
+
+        private static bool SlowBaselineLinqEqualty(byte[] array1, byte[] array2)
+        {
+            return array1.SequenceEqual(array2);
         }
     }
 }

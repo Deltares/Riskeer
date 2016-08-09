@@ -21,8 +21,9 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
+
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Create
@@ -48,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 Name = section.Name.DeepClone(),
-                FailureMechanismSectionPointData = new Point2DBinaryConverter().ToBytes(section.Points)
+                FailureMechanismSectionPointXml = new Point2DXmlSerializer().ToXml(section.Points)
             };
 
             registry.Register(failureMechanismSectionEntity, section);

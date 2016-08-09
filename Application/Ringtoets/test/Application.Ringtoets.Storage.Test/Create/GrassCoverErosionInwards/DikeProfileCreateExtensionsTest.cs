@@ -21,10 +21,10 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -97,10 +97,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(dikeProfile.WorldReferencePoint.Y, entity.Y);
             Assert.AreEqual(dikeProfile.X0, entity.X0);
             Assert.AreEqual(order, entity.Order);
-            byte[] convertedDikeGeometry = new RoughnessPointBinaryConverter().ToBytes(dikeProfile.DikeGeometry);
-            CollectionAssert.AreEqual(convertedDikeGeometry, entity.DikeGeometryData);
-            byte[] convertedForeshoreGeometry = new Point2DBinaryConverter().ToBytes(dikeProfile.ForeshoreGeometry);
-            CollectionAssert.AreEqual(convertedForeshoreGeometry, entity.ForeShoreData);
+            string convertedDikeGeometry = new RoughnessPointXmlSerializer().ToXml(dikeProfile.DikeGeometry);
+            Assert.AreEqual(convertedDikeGeometry, entity.DikeGeometryXml);
+            string convertedForeshoreGeometry = new Point2DXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry);
+            Assert.AreEqual(convertedForeshoreGeometry, entity.ForeShoreXml);
             Assert.AreEqual(dikeProfile.Orientation.Value, entity.Orientation);
             Assert.AreEqual(dikeProfile.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(dikeProfile.Name, entity.Name);
@@ -170,10 +170,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(dikeProfile.WorldReferencePoint.Y, entity.Y);
             Assert.AreEqual(dikeProfile.X0, entity.X0);
             Assert.AreEqual(order, entity.Order);
-            byte[] convertedDikeGeometry = new RoughnessPointBinaryConverter().ToBytes(dikeProfile.DikeGeometry);
-            CollectionAssert.AreEqual(convertedDikeGeometry, entity.DikeGeometryData);
-            byte[] convertedForeshoreGeometry = new Point2DBinaryConverter().ToBytes(dikeProfile.ForeshoreGeometry);
-            CollectionAssert.AreEqual(convertedForeshoreGeometry, entity.ForeShoreData);
+            string convertedDikeGeometry = new RoughnessPointXmlSerializer().ToXml(dikeProfile.DikeGeometry);
+            Assert.AreEqual(convertedDikeGeometry, entity.DikeGeometryXml);
+            string convertedForeshoreGeometry = new Point2DXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry);
+            Assert.AreEqual(convertedForeshoreGeometry, entity.ForeShoreXml);
             Assert.AreEqual(dikeProfile.Orientation.Value, entity.Orientation);
             Assert.AreEqual(dikeProfile.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(dikeProfile.Name, entity.Name);

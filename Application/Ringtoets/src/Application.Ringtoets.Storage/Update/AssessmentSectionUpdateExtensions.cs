@@ -21,10 +21,10 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.Update.ClosingStructure;
 using Application.Ringtoets.Storage.Update.DuneErosion;
 using Application.Ringtoets.Storage.Update.GrassCoverErosionInwards;
@@ -118,14 +118,14 @@ namespace Application.Ringtoets.Storage.Update
         {
             if (section.ReferenceLine == null)
             {
-                entity.ReferenceLinePointData = null;
+                entity.ReferenceLinePointXml = null;
             }
             else
             {
-                byte[] newBinaryData = new Point2DBinaryConverter().ToBytes(section.ReferenceLine.Points);
-                if (entity.ReferenceLinePointData == null || !BinaryDataEqualityHelper.AreEqual(entity.ReferenceLinePointData, newBinaryData))
+                string newXml = new Point2DXmlSerializer().ToXml(section.ReferenceLine.Points);
+                if (entity.ReferenceLinePointXml == null || !entity.ReferenceLinePointXml.Equals(newXml))
                 {
-                    entity.ReferenceLinePointData = newBinaryData;
+                    entity.ReferenceLinePointXml = newXml;
                 }
             }
         }

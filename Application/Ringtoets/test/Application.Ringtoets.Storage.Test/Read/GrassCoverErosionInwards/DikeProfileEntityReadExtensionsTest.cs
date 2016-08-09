@@ -22,10 +22,10 @@
 using System;
 using System.Collections;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -73,8 +73,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 Orientation = 45.67,
                 BreakWaterHeight = null,
                 BreakWaterType = null,
-                ForeShoreData = new Point2DBinaryConverter().ToBytes(foreshorePoints),
-                DikeGeometryData = new RoughnessPointBinaryConverter().ToBytes(roughnessPoints),
+                ForeShoreXml = new Point2DXmlSerializer().ToXml(foreshorePoints),
+                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(roughnessPoints),
                 DikeHeight = 1.2,
                 X = 3.4,
                 Y = 5.6,
@@ -121,8 +121,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 Orientation = 360.0,
                 BreakWaterHeight = height,
                 BreakWaterType = Convert.ToByte(type),
-                ForeShoreData = new Point2DBinaryConverter().ToBytes(foreshorePoints),
-                DikeGeometryData = new RoughnessPointBinaryConverter().ToBytes(roughnessPoints),
+                ForeShoreXml = new Point2DXmlSerializer().ToXml(foreshorePoints),
+                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(roughnessPoints),
                 DikeHeight = 4.5,
                 X = 93.0,
                 Y = 945.6,

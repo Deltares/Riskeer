@@ -20,12 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update.Piping;
 
@@ -119,7 +120,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 Name = "<originalName>",
                 ReferenceLineIntersectionX = 9876.5432,
                 ReferenceLineIntersectionY = 9182.8374,
-                PointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0])
+                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
             };
             context.SurfaceLineEntities.Add(entity);
 
@@ -133,7 +134,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            CollectionAssert.AreEqual(new Point3DBinaryConverter().ToBytes(new Point3D[0]), entity.PointsData);
+            string expectedXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
+            Assert.AreEqual(expectedXml, entity.PointsXml);
             mocks.VerifyAll();
         }
 
@@ -147,14 +149,14 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithGeometry();
 
-            var binaryConverter = new Point3DBinaryConverter();
+            var serializer = new Point3DXmlSerializer();
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
                 Name = "<name>",
                 ReferenceLineIntersectionX = 91.28,
                 ReferenceLineIntersectionY = 37.46,
-                PointsData = binaryConverter.ToBytes(new Point3D[0])
+                PointsXml = serializer.ToXml(new Point3D[0])
             };
             context.SurfaceLineEntities.Add(entity);
 
@@ -168,7 +170,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            CollectionAssert.AreEqual(binaryConverter.ToBytes(surfaceLine.Points), entity.PointsData);
+            string expectedXml = serializer.ToXml(surfaceLine.Points);
+            Assert.AreEqual(expectedXml, entity.PointsXml);
             mocks.VerifyAll();
         }
 
@@ -182,14 +185,14 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithGeometry();
 
-            var binaryConverter = new Point3DBinaryConverter();
+            var serializer = new Point3DXmlSerializer();
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
                 Name = "<name>",
                 ReferenceLineIntersectionX = 91.28,
                 ReferenceLineIntersectionY = 37.46,
-                PointsData = binaryConverter.ToBytes(new[]
+                PointsXml = serializer.ToXml(new[]
                 {
                     new Point3D(1.0, 2.0, 3.0), 
                     new Point3D(5.0, 2.0, 4.0)
@@ -207,7 +210,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            CollectionAssert.AreEqual(binaryConverter.ToBytes(surfaceLine.Points), entity.PointsData);
+            string expectedXml = serializer.ToXml(surfaceLine.Points);
+            Assert.AreEqual(expectedXml, entity.PointsXml);
             mocks.VerifyAll();
         }
 
@@ -221,11 +225,11 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
 
             RingtoetsPipingSurfaceLine surfaceLine = CreateSavedSurfaceLineWithGeometry();
             
-            byte[] pointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points);
+            string pointsXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points);
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
-                PointsData = pointsData
+                PointsXml = pointsXml
             };
             context.SurfaceLineEntities.Add(entity);
             var registry = new PersistenceRegistry();
@@ -234,7 +238,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             surfaceLine.Update(registry, context);
 
             // Assert
-            Assert.AreSame(pointsData, entity.PointsData);
+            Assert.AreSame(pointsXml, entity.PointsXml);
             mocks.VerifyAll();
         }
 
@@ -251,7 +255,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
-                PointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0])
+                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
             };
             context.SurfaceLineEntities.Add(entity);
 
@@ -261,8 +265,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             surfaceLine.Update(registry, context);
 
             // Assert
-            byte[] expectedBinaryData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.PointsData);
+            string expectedXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points);
+            Assert.AreEqual(expectedXml, entity.PointsXml);
 
             var characteristicPointAssociations = new[]
             {
@@ -296,7 +300,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
-                PointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0])
+                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
             };
             context.SurfaceLineEntities.Add(entity);
 
@@ -345,7 +349,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
-                PointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points),
+                PointsXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points),
                 CharacteristicPointEntities =
                 {
                     characteristicPointEntity
@@ -382,7 +386,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = surfaceLine.StorageId,
-                PointsData = new Point3DBinaryConverter().ToBytes(surfaceLine.Points)
+                PointsXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points)
             };
             foreach (CharacteristicPointEntity characteristicPointEntity in characteristicPointEntities)
             {

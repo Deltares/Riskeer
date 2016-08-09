@@ -59,10 +59,10 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="BinaryConverters\BinaryDataEqualityHelper.cs" />
-    <Compile Include="BinaryConverters\Point2DBinaryConverter.cs" />
-    <Compile Include="BinaryConverters\Point3DBinaryConverter.cs" />
-    <Compile Include="BinaryConverters\RoughnessPointBinaryConverter.cs" />
+    <Compile Include="Serializers\Point2DXmlSerializer.cs" />
+    <Compile Include="Serializers\Point3DXmlSerializer.cs" />
+    <Compile Include="Serializers\RoughnessPointXmlSerializer.cs" />
+    <Compile Include="Serializers\DataCollectionSerializer.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismCreateExtensions.cs" />
@@ -244,7 +244,7 @@
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Exceptions\CannotDeleteBackupFileException.cs" />
     <Compile Include="IStorableExtensions.cs" />
-    <Compile Include="FingerprintGenerator.cs" />
+    <Compile Include="FingerprintHelper.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensions.cs" />

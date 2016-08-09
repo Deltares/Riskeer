@@ -88,10 +88,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinaryConverters\BinaryDataEqualityHelperTest.cs" />
-    <Compile Include="BinaryConverters\Point2DBinaryConverterTest.cs" />
-    <Compile Include="BinaryConverters\Point3DBinaryConverterTest.cs" />
-    <Compile Include="BinaryConverters\RoughnessPointBinaryConverterTest.cs" />
+    <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
+    <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />
+    <Compile Include="Serializers\RoughnessPointXmlSerializerTest.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
@@ -151,7 +150,7 @@
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="DoubleConversionExtensionsTest.cs" />
     <Compile Include="Exceptions\CannotDeleteBackupFileExceptionTest.cs" />
-    <Compile Include="FingerprintGeneratorTest.cs" />
+    <Compile Include="FingerprintHelperTest.cs" />
     <Compile Include="IStorableExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />

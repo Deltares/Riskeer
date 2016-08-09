@@ -21,10 +21,10 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update;
 using Core.Common.Base.Geometry;
@@ -144,7 +144,7 @@ namespace Application.Ringtoets.Storage.Test.Update
             var entity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = 1,
-                FailureMechanismSectionPointData = new Point2DBinaryConverter().ToBytes(points)
+                FailureMechanismSectionPointXml = new Point2DXmlSerializer().ToXml(points)
             };
             ringtoetsEntities.FailureMechanismSectionEntities.Add(entity);
 
@@ -152,8 +152,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            byte[] expectedBinaryData = new Point2DBinaryConverter().ToBytes(points);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.FailureMechanismSectionPointData);
+            string expectedXml = new Point2DXmlSerializer().ToXml(points);
+            Assert.AreEqual(expectedXml, entity.FailureMechanismSectionPointXml);
 
             mocks.VerifyAll();
         }
@@ -176,11 +176,11 @@ namespace Application.Ringtoets.Storage.Test.Update
                 StorageId = 1
             };
 
-            var binaryConverter = new Point2DBinaryConverter();
+            var serializer = new Point2DXmlSerializer();
             var entity = new FailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntityId = 1,
-                FailureMechanismSectionPointData = binaryConverter.ToBytes(new[]{new Point2D(2,3)})
+                FailureMechanismSectionPointXml = serializer.ToXml(new[]{new Point2D(2,3)})
             };
             ringtoetsEntities.FailureMechanismSectionEntities.Add(entity);
 
@@ -188,8 +188,8 @@ namespace Application.Ringtoets.Storage.Test.Update
             section.Update(new PersistenceRegistry(), ringtoetsEntities);
 
             // Assert
-            byte[] expectedBinaryData = binaryConverter.ToBytes(points);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.FailureMechanismSectionPointData);
+            string expectedXml = serializer.ToXml(points);
+            CollectionAssert.AreEqual(expectedXml, entity.FailureMechanismSectionPointXml);
 
             mocks.VerifyAll();
         }

@@ -20,12 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -68,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
                 ReferenceLineIntersectionY = intersectionY,
-                PointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0])
+                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
             };
 
             // Call
@@ -114,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
                 ReferenceLineIntersectionY = intersectionY,
-                PointsData = new Point3DBinaryConverter().ToBytes(points)
+                PointsXml = new Point3DXmlSerializer().ToXml(points)
             };
 
             // Call
@@ -165,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
                 ReferenceLineIntersectionY = intersectionY,
-                PointsData = new Point3DBinaryConverter().ToBytes(points)
+                PointsXml = new Point3DXmlSerializer().ToXml(points)
             };
             entity.CharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[1], CharacteristicPointType.BottomDitchDikeSide));
             entity.CharacteristicPointEntities.Add(CreateCharacteristicPointEntity(points[2], CharacteristicPointType.BottomDitchPolderSide));
@@ -228,7 +229,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
                 ReferenceLineIntersectionY = intersectionY,
-                PointsData = new Point3DBinaryConverter().ToBytes(points),
+                PointsXml = new Point3DXmlSerializer().ToXml(points),
                 CharacteristicPointEntities =
                 {
                     new CharacteristicPointEntity
@@ -290,7 +291,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = id,
-                PointsData = new Point3DBinaryConverter().ToBytes(new Point3D[0])
+                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
             };
 
             // Call

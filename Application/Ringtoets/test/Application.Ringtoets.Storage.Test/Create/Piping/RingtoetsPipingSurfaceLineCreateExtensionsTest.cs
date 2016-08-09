@@ -20,12 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -75,7 +76,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
             Assert.IsNull(entity.FailureMechanismEntity);
-            CollectionAssert.AreEqual(new Point3DBinaryConverter().ToBytes(new Point3D[0]), entity.PointsData);
+            IEnumerable<Point3D> points = new Point3D[0];
+            string expectedXml = new Point3DXmlSerializer().ToXml(points);
+            Assert.AreEqual(expectedXml, entity.PointsXml);
         }
 
         [Test]
@@ -127,8 +130,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
             Assert.AreEqual(order, entity.Order);
 
-            byte[] expectedBinaryData = new Point3DBinaryConverter().ToBytes(geometry);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.PointsData);
+            string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
+            Assert.AreEqual(expectedXml, entity.PointsXml);
 
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
@@ -178,8 +181,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            byte[] expectedBinaryData = new Point3DBinaryConverter().ToBytes(geometry);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.PointsData);
+            string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
+            Assert.AreEqual(expectedXml, entity.PointsXml);
 
             Assert.AreEqual(6, entity.CharacteristicPointEntities.Count);
             foreach (CharacteristicPointEntity characteristicPointEntity in entity.CharacteristicPointEntities)
@@ -257,8 +260,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            byte[] expectedBinaryData = new Point3DBinaryConverter().ToBytes(geometry);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.PointsData);
+            string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
+            Assert.AreEqual(expectedXml, entity.PointsXml);
 
             Assert.AreEqual(6, entity.CharacteristicPointEntities.Count);
             short[] characteristicPointTypeValues = entity.CharacteristicPointEntities

@@ -21,10 +21,10 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.Update.Piping;
 
@@ -153,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 StochasticSoilModelEntityId = 1,
                 Name = string.Empty,
                 SegmentName = string.Empty,
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
 
             ringtoetsEntities.StochasticSoilModelEntities.Add(modelEntity);
@@ -192,7 +192,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = 1,
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
 
             ringtoetsEntities.StochasticSoilModelEntities.Add(soilModelEntity);
@@ -239,7 +239,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 {
                     soilProfileEntity
                 },
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
 
             ringtoetsEntities.StochasticSoilModelEntities.Add(soilModelEntity);
@@ -273,15 +273,15 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 new Point2D(3.3, 4.4)
             });
 
-            var point2DBinaryConverter = new Point2DBinaryConverter();
-            var originalSegmentPointsData = point2DBinaryConverter.ToBytes(new[]
+            var point2DBinaryConverter = new Point2DXmlSerializer();
+            var originalSegmentPointsXml = point2DBinaryConverter.ToXml(new[]
             {
                 new Point2D(5.5, 6.6), 
             });
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = soilModelId,
-                StochasticSoilModelSegmentPointData = originalSegmentPointsData
+                StochasticSoilModelSegmentPointXml = originalSegmentPointsXml
             };
             context.StochasticSoilModelEntities.Add(soilModelEntity);
             
@@ -291,7 +291,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             soilModel.Update(registry, context);
 
             // Assert
-            CollectionAssert.AreEqual(point2DBinaryConverter.ToBytes(soilModel.Geometry), soilModelEntity.StochasticSoilModelSegmentPointData);
+            Assert.AreEqual(point2DBinaryConverter.ToXml(soilModel.Geometry), soilModelEntity.StochasticSoilModelSegmentPointXml);
 
             mocks.VerifyAll();
         }
@@ -315,8 +315,8 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 new Point2D(3.3, 4.4)
             });
 
-            var point2DBinaryConverter = new Point2DBinaryConverter();
-            var originalSegmentPointsData = point2DBinaryConverter.ToBytes(new[]
+            var serializer = new Point2DXmlSerializer();
+            var originalSegmentPointsXml = serializer.ToXml(new[]
             {
                 new Point2D(5.5, 6.6), 
                 new Point2D(7.7, 8.8)
@@ -324,7 +324,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = soilModelId,
-                StochasticSoilModelSegmentPointData = originalSegmentPointsData
+                StochasticSoilModelSegmentPointXml = originalSegmentPointsXml
             };
             context.StochasticSoilModelEntities.Add(soilModelEntity);
 
@@ -334,7 +334,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             soilModel.Update(registry, context);
 
             // Assert
-            CollectionAssert.AreEqual(point2DBinaryConverter.ToBytes(soilModel.Geometry), soilModelEntity.StochasticSoilModelSegmentPointData);
+            Assert.AreEqual(serializer.ToXml(soilModel.Geometry), soilModelEntity.StochasticSoilModelSegmentPointXml);
 
             mocks.VerifyAll();
         }
@@ -358,11 +358,11 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
                 new Point2D(3.3, 4.4)
             });
 
-            var originalSegmentPointData = new Point2DBinaryConverter().ToBytes(soilModel.Geometry);
+            var originalSegmentPointXml = new Point2DXmlSerializer().ToXml(soilModel.Geometry);
             var soilModelEntity = new StochasticSoilModelEntity
             {
                 StochasticSoilModelEntityId = soilModelId,
-                StochasticSoilModelSegmentPointData = originalSegmentPointData
+                StochasticSoilModelSegmentPointXml = originalSegmentPointXml
             };
             context.StochasticSoilModelEntities.Add(soilModelEntity);
 
@@ -372,7 +372,7 @@ namespace Application.Ringtoets.Storage.Test.Update.Piping
             soilModel.Update(registry, context);
 
             // Assert
-            CollectionAssert.AreEqual(originalSegmentPointData, soilModelEntity.StochasticSoilModelSegmentPointData);
+            Assert.AreEqual(originalSegmentPointXml, soilModelEntity.StochasticSoilModelSegmentPointXml);
 
             mocks.VerifyAll();
         }

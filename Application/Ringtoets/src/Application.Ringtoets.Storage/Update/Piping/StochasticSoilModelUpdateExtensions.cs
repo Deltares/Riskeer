@@ -21,11 +21,11 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
+using Application.Ringtoets.Storage.Serializers;
 
 using Ringtoets.Piping.Data;
 
@@ -92,10 +92,10 @@ namespace Application.Ringtoets.Storage.Update.Piping
 
         private static void UpdateSoilModelSegment(StochasticSoilModel model, StochasticSoilModelEntity entity)
         {
-            byte[] newBinaryData = new Point2DBinaryConverter().ToBytes(model.Geometry);
-            if (!BinaryDataEqualityHelper.AreEqual(entity.StochasticSoilModelSegmentPointData, newBinaryData))
+            string newXml = new Point2DXmlSerializer().ToXml(model.Geometry);
+            if (!entity.StochasticSoilModelSegmentPointXml.Equals(newXml))
             {
-                entity.StochasticSoilModelSegmentPointData = newBinaryData;
+                entity.StochasticSoilModelSegmentPointXml = newXml;
             }
         }
     }

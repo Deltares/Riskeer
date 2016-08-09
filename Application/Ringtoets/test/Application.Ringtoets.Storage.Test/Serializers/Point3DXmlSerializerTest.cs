@@ -21,66 +21,63 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test.BinaryConverters
+namespace Application.Ringtoets.Storage.Test.Serializers
 {
     [TestFixture]
-    public class Point2DBinaryConverterTest
+    public class Point3DXmlSerializerTest
     {
         [Test]
-        public void ToBytes_PointsCollectionNull_ThrowArgumentNullException()
+        public void ToXml_PointsCollectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var converter = new Point2DBinaryConverter();
+            var serializer = new Point3DXmlSerializer();
 
             // Call
-            TestDelegate call = () => converter.ToBytes(null);
+            TestDelegate call = () => serializer.ToXml(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("points", paramName);
+            Assert.AreEqual("elements", paramName);
         }
 
         [Test]
-        public void ToData_BinaryDataNull_ThrowArgumentNullException()
+        public void FromXml_XmlNull_ThrowArgumentNullException()
         {
             // Setup
-            var converter = new Point2DBinaryConverter();
+            var serializer = new Point3DXmlSerializer();
 
             // Call
-            TestDelegate call = () => converter.ToData(null);
+            TestDelegate call = () => serializer.FromXml(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("serializedData", paramName);
+            Assert.AreEqual("xml", paramName);
         }
 
         [Test]
-        public void GivenArrayWithPoint2D_WhenConvertingRoundTrip_ThenEqualArrayOfPoints2D()
+        public void GivenArrayWithPoint3D_WhenConvertingRoundTrip_ThenEqualArrayOfPoints3D()
         {
             // Given
             var original = new[]
             {
-                new Point2D(-7.7, -6.6),
-                new Point2D(-5.5, -4.4),
-                new Point2D(-3.3, -2.2),
-                new Point2D(-1.1, 0.0),
-                new Point2D(1.1, 2.2),
-                new Point2D(3.3, 4.4),
-                new Point2D(5.5, 6.6),
-                new Point2D(7.7, 8.8),
-                new Point2D(9.9, 10.10)
+                new Point3D(-6.6, -5.5, -4.4),
+                new Point3D(-3.3, -2.2, -1.1),
+                new Point3D(0.0, 1.1, 2.2),
+                new Point3D(3.3, 4.4, 5.5),
+                new Point3D(6.6, 7.7, 8.8),
+                new Point3D(9.9, 10.10, 11.11)
             };
-            var converter = new Point2DBinaryConverter();
+            var serializer = new Point3DXmlSerializer();
 
             // When
-            byte[] bytes = converter.ToBytes(original);
-            Point2D[] roundtripResult = converter.ToData(bytes);
+            string xml = serializer.ToXml(original);
+            Point3D[] roundtripResult = serializer.FromXml(xml);
 
             // Then
             CollectionAssert.AreEqual(original, roundtripResult);
@@ -90,12 +87,12 @@ namespace Application.Ringtoets.Storage.Test.BinaryConverters
         public void GivenEmptyArray_WhenConvertingRoundTrip_ThenReturnEmptyArray()
         {
             // Given
-            var original = new Point2D[0];
-            var converter = new Point2DBinaryConverter();
+            var original = new Point3D[0];
+            var serializer = new Point3DXmlSerializer();
 
             // When
-            byte[] bytes = converter.ToBytes(original);
-            Point2D[] roundtripResult = converter.ToData(bytes);
+            string xml = serializer.ToXml(original);
+            Point3D[] roundtripResult = serializer.FromXml(xml);
 
             // Then
             CollectionAssert.IsEmpty(roundtripResult);

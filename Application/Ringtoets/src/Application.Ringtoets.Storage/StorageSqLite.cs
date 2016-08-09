@@ -25,7 +25,6 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -172,8 +171,8 @@ namespace Application.Ringtoets.Storage
             using (var dbContext = new RingtoetsEntities(connectionString))
             {
                 byte[] originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
-                byte[] hash = FingerprintGenerator.Get(stagedProjectEntity);
-                return !BinaryDataEqualityHelper.AreEqual(originalHash, hash);
+                byte[] hash = FingerprintHelper.Get(stagedProjectEntity);
+                return !FingerprintHelper.AreEqual(originalHash, hash);
             }
         }
 
@@ -188,7 +187,7 @@ namespace Application.Ringtoets.Storage
                     {
                         Version = "1",
                         Timestamp = DateTime.Now,
-                        FingerPrint = FingerprintGenerator.Get(stagedProjectEntity)
+                        FingerPrint = FingerprintHelper.Get(stagedProjectEntity)
                     });
                     dbContext.ProjectEntities.Add(stagedProjectEntity);
                     dbContext.SaveChanges();

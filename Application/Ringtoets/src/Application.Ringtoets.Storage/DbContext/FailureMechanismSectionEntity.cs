@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public long FailureMechanismSectionEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
-        public byte[] FailureMechanismSectionPointData { get; set; }
+        public string FailureMechanismSectionPointXml { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; set; }

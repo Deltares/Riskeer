@@ -21,9 +21,9 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -63,8 +63,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
-            byte[] expectedBinaryData = new Point2DBinaryConverter().ToBytes(geometryPoints);
-            CollectionAssert.AreEqual(expectedBinaryData, entity.FailureMechanismSectionPointData);
+            string expectedXml = new Point2DXmlSerializer().ToXml(geometryPoints);
+            Assert.AreEqual(expectedXml, entity.FailureMechanismSectionPointXml);
         }
 
         [Test]

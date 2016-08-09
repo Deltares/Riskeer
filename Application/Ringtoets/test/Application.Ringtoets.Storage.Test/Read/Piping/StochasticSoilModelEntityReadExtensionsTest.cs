@@ -22,10 +22,10 @@
 using System;
 using System.Linq;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 StochasticSoilModelEntityId = entityId,
                 Name = testName,
                 SegmentName = testSegmentName,
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
             var collector = new ReadConversionCollector();
 
@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new StochasticSoilModelEntity
             {
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0]),
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
                 StochasticSoilProfileEntities =
                 {
                     new StochasticSoilProfileEntity
@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new StochasticSoilModelEntity
             {
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(segmentPoints)
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(segmentPoints)
             };
             var collector = new ReadConversionCollector();
 
@@ -152,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new StochasticSoilModelEntity
             {
-                StochasticSoilModelSegmentPointData = new Point2DBinaryConverter().ToBytes(new Point2D[0])
+                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
 
             var collector = new ReadConversionCollector();

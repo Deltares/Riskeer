@@ -21,8 +21,8 @@
 
 using System;
 
-using Application.Ringtoets.Storage.BinaryConverters;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Serializers;
 
 using Core.Common.Base.Geometry;
 
@@ -55,8 +55,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             }
 
             var dikeProfile = new DikeProfile(new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
-                                              new RoughnessPointBinaryConverter().ToData(entity.DikeGeometryData),
-                                              new Point2DBinaryConverter().ToData(entity.ForeShoreData),
+                                              new RoughnessPointXmlSerializer().FromXml(entity.DikeGeometryXml),
+                                              new Point2DXmlSerializer().FromXml(entity.ForeShoreXml),
                                               CreateBreakWater(entity),
                                               CreateProperties(entity))
             {
