@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         }
 
         [Test]
-        public void Create_StringPropertiesDoNotShareReference(bool isRelevant)
+        public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
             const string originalComments = "comments";
