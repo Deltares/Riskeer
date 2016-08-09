@@ -29,21 +29,21 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class PipingSoilProfileExtensionsTest
     {
-        private PipingSoilLayer[] testCaseOneAquifer = {
+        private PipingSoilLayer[] testCaseOneAquiferLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
             }
         };
 
-        private PipingSoilLayer[] testCaseOneAquitard = {
+        private PipingSoilLayer[] testCaseOneAquitardLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
             }
         };
 
-        private PipingSoilLayer[] testCaseOneCoverage = {
+        private PipingSoilLayer[] testCaseOneCoverageLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoAquitard = {
+        private PipingSoilLayer[] testCaseTwoAquitardLayers = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoAquifer = {
+        private PipingSoilLayer[] testCaseTwoAquiferLayers = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoCoverage = {
+        private PipingSoilLayer[] testCaseTwoCoverageLayers = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseOneAquiferOneAquitard = {
+        private PipingSoilLayer[] testCaseOneAquiferLayerOneAquitardLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseOneAquitardOneAquifer = {
+        private PipingSoilLayer[] testCaseOneAquitardLayerOneAquiferLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoAquiferOneAquitardOneAquifer = {
+        private PipingSoilLayer[] testCaseTwoAquiferLayersOneAquitardLayerOneAquiferLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoCoverageOneAquiferOneAquitard = {
+        private PipingSoilLayer[] testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -154,10 +154,10 @@ namespace Ringtoets.Piping.Data.Test
         #region GetTopmostConsecutiveAquiferLayerThicknessBelowLevel
 
         [Test]
-        public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_NoAquiferLayer_NaN()
+        public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_NoAquiferLayer_ReturnsNaN()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquitard);
+            var profile = CreateTestProfile(testCaseTwoAquitardLayers);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(1.0);
@@ -167,10 +167,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerAboveLevel_NaN()
+        public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerAboveLevel_ReturnsNaN()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquiferOneAquitard);
+            var profile = CreateTestProfile(testCaseOneAquiferLayerOneAquitardLayer);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(1.0);
@@ -183,7 +183,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerCompletelyBelowLevel_ReturnAquiferLayerThickness()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquifer);
+            var profile = CreateTestProfile(testCaseOneAquiferLayer);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(2.2);
@@ -196,7 +196,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerPartlyBelowLevel_ReturnAquiferLayerThicknessUpTillLevel()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquifer);
+            var profile = CreateTestProfile(testCaseOneAquiferLayer);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(1.6);
@@ -209,7 +209,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerTopEqualToLevel_ReturnAquiferLayerThickness()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquifer);
+            var profile = CreateTestProfile(testCaseOneAquiferLayer);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(2.1);
@@ -219,10 +219,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerBottomEqualToLevel_NaN()
+        public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_AquiferLayerBottomEqualToLevel_ReturnsNaN()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquifer);
+            var profile = CreateTestProfile(testCaseOneAquiferLayer);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(0.0);
@@ -235,7 +235,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_TwoAquiferLayersCompletelyBelowLevel_ReturnConsecutiveAquiferLayerThickness()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(2.2);
@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_TopmostAquiferLayerTopEqualToLevel_ReturnConsecutiveAquiferLayerThickness()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(2.1);
@@ -261,7 +261,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_TopmostAquiferLayerTopPartlyBelowLevel_ReturnConsecutiveAquiferLayerThickness()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(2.0);
@@ -274,7 +274,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_TopmostAquiferLayerCompletelyAboveLevel_ReturnBottomAquiferLayerThickness()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(0.5);
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_BottomAquiferLayerTopEqualToLevel_BottomAquiferLayerThickness()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(1.1);
@@ -300,7 +300,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_TwoConsecutiveAquiferLayersAndOneNonConsecutiveAquiferLayer_ReturnConsecutiveAquiferLayerThicknessUpTillLevel()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquiferOneAquitardOneAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayersOneAquitardLayerOneAquiferLayer);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(1.5);
@@ -310,10 +310,10 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_LevelBelowProfile_NaN()
+        public void GetTopmostConsecutiveAquiferLayerThicknessBelowLevel_LevelBelowProfile_ReturnsNaN()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             double result = profile.GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(-1.0);
@@ -330,7 +330,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_NoAquiferLayer_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquitard);
+            var profile = CreateTestProfile(testCaseTwoAquitardLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(1.0);
@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_AquiferLayerAboveLevel_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquiferOneAquitard);
+            var profile = CreateTestProfile(testCaseOneAquiferLayerOneAquitardLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(1.0);
@@ -356,7 +356,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_AquiferLayerCompletelyBelowLevel_ReturnAquiferLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquifer);
+            var profile = CreateTestProfile(testCaseOneAquiferLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(2.2);
@@ -369,7 +369,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_AquiferLayerPartlyBelowLevel_ReturnCollectionWithAquiferLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquifer);
+            var profile = CreateTestProfile(testCaseOneAquiferLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(1.6);
@@ -382,7 +382,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_AquiferLayerTopEqualToLevel_ReturnCollectionWithAquiferLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquifer);
+            var profile = CreateTestProfile(testCaseOneAquiferLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(2.1);
@@ -395,7 +395,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_AquiferLayerBottomEqualToLevel_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquifer);
+            var profile = CreateTestProfile(testCaseOneAquiferLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(0.0);
@@ -408,7 +408,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_TwoAquiferLayersCompletelyBelowLevel_ReturnConsecutiveAquiferLayers()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(2.2);
@@ -421,7 +421,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_TopmostAquiferLayerTopEqualToLevel_ReturnConsecutiveAquiferLayers()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(2.1);
@@ -434,7 +434,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_TopmostAquiferLayerTopPartlyBelowLevel_ReturnCollectionWithAquiferLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(2.0);
@@ -447,7 +447,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_TopmostAquiferLayerCompletelyAboveLevel_ReturnCollectionWithoutTopmostAquiferLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(0.5);
@@ -460,7 +460,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_BottomAquiferLayerTopEqualToLevel_ReturnCollectionWithBottomAquiferLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(1.1);
@@ -473,7 +473,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_TwoConsecutiveAquiferLayersAndOneNonConsecutiveAquiferLayer_ReturnConsecutiveAquiferLayers()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquiferOneAquitardOneAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayersOneAquitardLayerOneAquiferLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(1.5);
@@ -486,7 +486,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveAquiferLayersBelowLevel_LevelBelowProfile_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(-1.0);
@@ -503,7 +503,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_NoAquitardLayer_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoAquifer);
+            var profile = CreateTestProfile(testCaseTwoAquiferLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.0);
@@ -516,7 +516,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_AquitardLayerAboveLevel_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquitardOneAquifer);
+            var profile = CreateTestProfile(testCaseOneAquitardLayerOneAquiferLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.1);
@@ -529,7 +529,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_OnlyAquitardLayer_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneAquitard);
+            var profile = CreateTestProfile(testCaseOneAquitardLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.2);
@@ -542,7 +542,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_CoverageLayerCompletelyBelowLevel_ReturnAquitardLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneCoverage);
+            var profile = CreateTestProfile(testCaseOneCoverageLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.2);
@@ -555,7 +555,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_CoverageLayerPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneCoverage);
+            var profile = CreateTestProfile(testCaseOneCoverageLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.6);
@@ -568,7 +568,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_CoverageLayerTopEqualToLevel_ReturnCollectionWithAquitardLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneCoverage);
+            var profile = CreateTestProfile(testCaseOneCoverageLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.1);
@@ -581,7 +581,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_CoverageLayerBottomEqualToLevel_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseOneCoverage);
+            var profile = CreateTestProfile(testCaseOneCoverageLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(0.1);
@@ -594,7 +594,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_TwoCoverageLayersCompletelyBelowLevel_ReturnConsecutiveAquitardLayers()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoCoverage);
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.2);
@@ -607,7 +607,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_TopmostCoverageLayerTopEqualToLevel_ReturnConsecutiveAquitardLayers()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoCoverage);
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.1);
@@ -620,7 +620,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_TopmostCoverageLayerTopPartlyBelowLevel_ReturnCollectionWithAquitardLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoCoverage);
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(2.0);
@@ -633,7 +633,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_TopmostCoverageLayerCompletelyAboveLevel_ReturnCollectionWithoutTopmostAquitardLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoCoverage);
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(0.5);
@@ -646,7 +646,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_BottomCoverageLayerTopEqualToLevel_ReturnCollectionWithBottomAquitardLayer()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoCoverage);
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.1);
@@ -659,7 +659,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_TwoConsecutiveCoverageLayersAndOneNonConsecutiveAquitardLayer_ReturnConsecutiveAquitardLayers()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoCoverageOneAquiferOneAquitard);
+            var profile = CreateTestProfile(testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.5);
@@ -675,7 +675,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_NoCoverageLayerAtLevel_ReturnEmptyCollection(double level)
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoCoverageOneAquiferOneAquitard);
+            var profile = CreateTestProfile(testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(level);
@@ -688,7 +688,7 @@ namespace Ringtoets.Piping.Data.Test
         public void GetConsecutiveCoverageLayersBelowLevel_LevelBelowProfile_ReturnEmptyCollection()
         {
             // Setup
-            var profile = CreateTestProfile(testCaseTwoCoverage);
+            var profile = CreateTestProfile(testCaseTwoCoverageLayers);
 
             // Call
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(-1.0);

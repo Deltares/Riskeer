@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <param name="seepageLength">The horizontal distance between entry and exit point. [m]</param>
         /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water. [kN/m³]</param>
         /// <param name="whitesDragCoefficient">The White's drag coefficient.</param>
-        /// <param name="diameter70">The sieve size through which 70% fraction of the grains of the top part of the aquifer passes. [m]</param>
+        /// <param name="diameter70">The sieve size through which 70% of the grains of the top part of the aquifer pass. [m]</param>
         /// <param name="darcyPermeability">The Darcy-speed with which water flows through the aquifer layer. [m/s]</param>
         /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 °C. [m²/s]</param>
         /// <param name="gravity">The gravitational acceleration. [m/s²]</param>
@@ -262,7 +262,7 @@ namespace Ringtoets.Piping.KernelWrapper
         }
 
         /// <summary>
-        /// Gets the sieve size through which 70% fraction of the grains of the top part of the aquifer passes.
+        /// Gets the sieve size through which 70% of the grains of the top part of the aquifer pass.
         /// [m]
         /// </summary>
         public double Diameter70

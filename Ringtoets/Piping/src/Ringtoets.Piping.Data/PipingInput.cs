@@ -412,7 +412,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the horizontal distance between entry and exit point.
+        /// Gets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
         public LogNormalDistribution SeepageLength
@@ -424,7 +424,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the sieve size through which 70% fraction of the grains of the top part of the aquifer passes.
+        /// Gets the sieve size through which 70% of the grains of the top part of the aquifer pass.
         /// [m]
         /// </summary>
         public LogNormalDistribution Diameter70
@@ -436,7 +436,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the Darcy-speed with which water flows through the aquifer layer.
+        /// Gets the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
         public LogNormalDistribution DarcyPermeability
@@ -448,7 +448,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the total thickness of the aquifer layers at the exit point.
+        /// Gets the total thickness of the aquifer layers at the exit point.
         /// [m]
         /// </summary>
         public LogNormalDistribution ThicknessAquiferLayer
@@ -460,7 +460,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the total thickness of the coverage layer at the exit point.
+        /// Gets the total thickness of the coverage layer at the exit point.
         /// [m]
         /// </summary>
         public LogNormalDistribution ThicknessCoverageLayer
@@ -488,7 +488,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the volumic weight of the saturated coverage layer.
+        /// Gets the volumic weight of the saturated coverage layer.
         /// </summary>
         public LogNormalDistribution SaturatedVolumicWeightOfCoverageLayer
         {

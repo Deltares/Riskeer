@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the sieve size through which 70% fraction of the grains of the top part of the aquifer passes.
+        /// Gets the sieve size through which 70% of the grains of the top part of the aquifer pass.
         /// [m]
         /// </summary>
         public LogNormalDistribution DiameterD70
@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the Darcy-speed with which water flows through the aquifer layer.
+        /// Gets the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
         public LogNormalDistribution DarcyPermeability
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the volumic weight of the saturated coverage layer.
+        /// Gets the volumic weight of the saturated coverage layer.
         /// </summary>
         public LogNormalDistribution SaturatedVolumicWeightOfCoverageLayer
         {
@@ -262,12 +262,13 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-
         private void UpdateSaturatedVolumicWeightOfCoverageLayerParameters(LogNormalDistribution volumicWeightDistribution)
         {
             PipingSoilLayer[] coverageLayers = GetConsecutiveCoverageLayers();
 
-            if (HasUniqueShiftAndDeviationSaturatedWeightDefinition(coverageLayers))
+            if (HasUniqueShiftAndDeviationSaturatedWeightDefinition(
+                coverageLayers,
+                volumicWeightDistribution.StandardDeviation.NumberOfDecimalPlaces, volumicWeightDistribution.Shift.NumberOfDecimalPlaces))
             {
                 PipingSoilLayer topMostAquitardLayer = coverageLayers.First();
                 volumicWeightDistribution.Shift = (RoundedDouble) topMostAquitardLayer.BelowPhreaticLevelShift;
@@ -286,6 +287,22 @@ namespace Ringtoets.Piping.Data
             }
         }
 
+        private bool HasUniqueShiftAndDeviationSaturatedWeightDefinition(IList<PipingSoilLayer> consecutiveAquitardLayers, int deviationNumberOfDecimals, int shiftNumberOfDecimals)
+        {
+            if (!consecutiveAquitardLayers.Any())
+            {
+                return false;
+            }
+            if (consecutiveAquitardLayers.Count == 1)
+            {
+                return true;
+            }
+
+            return consecutiveAquitardLayers.All(al =>
+                                                 AlmostEquals(al.BelowPhreaticLevelDeviation, consecutiveAquitardLayers[0].BelowPhreaticLevelDeviation, deviationNumberOfDecimals)
+                                                 && AlmostEquals(al.BelowPhreaticLevelShift, consecutiveAquitardLayers[0].BelowPhreaticLevelShift, shiftNumberOfDecimals));
+        }
+
         private static double GetWeightedMeanForVolumicWeightOfCoverageLayer(PipingSoilLayer[] aquitardLayers, PipingSoilProfile profile, double surfaceLevel)
         {
             double totalThickness = 0.0;
@@ -302,22 +319,6 @@ namespace Ringtoets.Piping.Data
             }
 
             return weighedTotal/totalThickness;
-        }
-
-        private bool HasUniqueShiftAndDeviationSaturatedWeightDefinition(PipingSoilLayer[] consecutiveAquitardLayers)
-        {
-            if (!consecutiveAquitardLayers.Any())
-            {
-                return false;
-            }
-            if (consecutiveAquitardLayers.Length == 1)
-            {
-                return true;
-            }
-
-            return consecutiveAquitardLayers.All(al =>
-                                                 AlmostEquals(al.BelowPhreaticLevelDeviation, consecutiveAquitardLayers[0].BelowPhreaticLevelDeviation)
-                                                 && AlmostEquals(al.BelowPhreaticLevelShift, consecutiveAquitardLayers[0].BelowPhreaticLevelShift));
         }
         
         private PipingSoilLayer[] GetConsecutiveAquiferLayers()
@@ -352,9 +353,9 @@ namespace Ringtoets.Piping.Data
             return new PipingSoilLayer[0];
         }
 
-        private bool AlmostEquals(double a, double b)
+        private bool AlmostEquals(double a, double b, int numberOfDecimals)
         {
-            return Math.Abs(a - b) < 1e-6;
+            return Math.Abs(a - b) < Math.Pow(10.0, -numberOfDecimals);
         }
 
         private static double GetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, RoundedDouble exitPointL)

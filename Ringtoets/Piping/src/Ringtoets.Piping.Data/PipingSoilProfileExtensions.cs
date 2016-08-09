@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data
@@ -30,13 +29,12 @@ namespace Ringtoets.Piping.Data
     public static class PipingSoilProfileExtensions
     {
         /// <summary>
-        /// Retrieves the thickness of the consecutive aquifer layers (if any) under a certain <paramref name="level"/>.
+        /// Retrieves the thickness of the consecutive aquifer layers (if any) which are (partly) under a certain <paramref name="level"/>.
         /// Only the thickness of the part of the aquifer layer under the level is determined. 
-        /// Aquifer layers above <paramref name="level"/> are not considered.
         /// </summary>
         /// <param name="soilProfile">The soil profile containing <see cref="PipingSoilLayer"/> to consider.</param>
         /// <param name="level">The level under which the aquifer layers are sought.</param>
-        /// <returns>The thickness of the part of the consecutive aquifer layer(s) under the <paramref name="level"/>.</returns>
+        /// <returns>The thickness of the part of the consecutive aquifer layer(s) (partly) under the <paramref name="level"/>.</returns>
         /// <exception cref="ArgumentException"><paramref name="level"/> is less than <see cref="PipingSoilProfile.Bottom"/>.</exception>
         public static double GetTopmostConsecutiveAquiferLayerThicknessBelowLevel(this PipingSoilProfile soilProfile, double level)
         {
@@ -58,7 +56,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="soilProfile">The soil profile containing <see cref="PipingSoilLayer"/> to consider.</param>
         /// <param name="level">The level under which the aquifer layers are sought.</param>
-        /// <returns>The collection of consecutive aquifer layer(s) under the <paramref name="level"/>.</returns>
+        /// <returns>The collection of consecutive aquifer layer(s) (partly) under the <paramref name="level"/>.</returns>
         public static IEnumerable<PipingSoilLayer> GetConsecutiveAquiferLayersBelowLevel(this PipingSoilProfile soilProfile, double level)
         {
             return GetConsecutiveLayers(soilProfile, level, true);
@@ -70,7 +68,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="soilProfile">The soil profile containing <see cref="PipingSoilLayer"/> to consider.</param>
         /// <param name="level">The level under which the aquitard layers are sought.</param>
-        /// <returns>The collection of consecutive aquitard layer(s) under the <paramref name="level"/>.</returns>
+        /// <returns>The collection of consecutive aquitard layer(s) (partly) under the <paramref name="level"/>.</returns>
         public static IEnumerable<PipingSoilLayer> GetConsecutiveCoverageLayersBelowLevel(this PipingSoilProfile soilProfile, double level)
         {
             var topAquiferLayer = soilProfile.GetConsecutiveAquiferLayersBelowLevel(level).FirstOrDefault();

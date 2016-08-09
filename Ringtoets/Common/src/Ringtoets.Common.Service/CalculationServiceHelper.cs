@@ -96,9 +96,9 @@ namespace Ringtoets.Common.Service
         /// <param name="warningMessages">The messages to log.</param>
         public static void LogMessagesAsWarning(params string[] warningMessages)
         {
-            foreach (var errorMessage in warningMessages)
+            foreach (var waningMessage in warningMessages)
             {
-                log.Warn(errorMessage);
+                log.Warn(waningMessage);
             }
         }
 

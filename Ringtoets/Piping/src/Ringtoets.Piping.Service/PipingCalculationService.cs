@@ -21,8 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
-using log4net;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper;
@@ -184,12 +182,12 @@ namespace Ringtoets.Piping.Service
                         if (double.IsNaN(inputParameters.DarcyPermeability.Mean)
                             || double.IsNaN(inputParameters.DarcyPermeability.StandardDeviation))
                         {
-                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derrive_DarcyPermeability);
+                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability);
                         }
                         if (double.IsNaN(inputParameters.Diameter70.Mean)
                             || double.IsNaN(inputParameters.Diameter70.StandardDeviation))
                         {
-                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derrive_Diameter70);
+                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_Diameter70);
                         }
                     }
                     if (hasCoverageLayers)
@@ -198,7 +196,7 @@ namespace Ringtoets.Piping.Service
                             || double.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation)
                             || double.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift))
                         {
-                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derrive_SaturatedVolumicWeight);
+                            validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight);
                         }
                     }
                 }

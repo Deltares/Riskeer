@@ -101,27 +101,27 @@ namespace Ringtoets.Piping.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan de definitie voor de doorlatendheid van de watervoerende laag niet (volledig) afleiden..
         /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_derrive_DarcyPermeability {
+        internal static string PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability {
             get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derrive_DarcyPermeability", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kan de definitie voor het 70%-fraktiel van de korreldiameter van de watervoerende laag niet (volledig) afleiden..
         /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_derrive_Diameter70 {
+        internal static string PipingCalculationService_ValidateInput_Cannot_derive_Diameter70 {
             get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derrive_Diameter70", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derive_Diameter70", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden..
         /// </summary>
-        internal static string PipingCalculationService_ValidateInput_Cannot_derrive_SaturatedVolumicWeight {
+        internal static string PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight {
             get {
-                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derrive_SaturatedVolumicWeight", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight", resourceCulture);
             }
         }
         
