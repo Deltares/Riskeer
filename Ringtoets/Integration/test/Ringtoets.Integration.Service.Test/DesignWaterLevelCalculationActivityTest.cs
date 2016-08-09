@@ -227,6 +227,7 @@ namespace Ringtoets.Integration.Service.Test
                 Assert.AreEqual(0, msgs.Length);
             });
             Assert.AreEqual(ActivityState.Skipped, activity.State);
+            mockRepository.VerifyAll();
         }
 
         [Test]
