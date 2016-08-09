@@ -87,7 +87,7 @@ namespace Ringtoets.HeightStructures.Service
             var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of structure with reference line
 
             PerformRun(() => HeightStructuresCalculationService.Validate(calculation, assessmentSection),
-                       () => calculation.ClearOutput(),
+                       () => HeightStructuresDataSynchronizationService.ClearCalculationOutput(calculation),
                        () => HeightStructuresCalculationService.Calculate(calculation,
                                                                           hlcdDirectory,
                                                                           failureMechanismSection,

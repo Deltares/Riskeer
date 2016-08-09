@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Integration.Test
 {
@@ -148,7 +149,7 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual(string.Empty, dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
 
                 // Clear the output of the calculation and make sure the data grid view is updated
-                pipingCalculation1.ClearOutput();
+                PipingDataSynchronizationService.ClearCalculationOutput(pipingCalculation1);
                 pipingCalculation1.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("Niet alle berekeningen voor dit vak zijn uitgevoerd.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);

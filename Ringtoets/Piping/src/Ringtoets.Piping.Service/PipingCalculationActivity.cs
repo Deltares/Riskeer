@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Service
             }
 
             LogMessages.Clear();
-            calculation.ClearOutput();
+            PipingDataSynchronizationService.ClearCalculationOutput(calculation);
 
             PipingCalculationService.Calculate(calculation);
             PipingSemiProbabilisticCalculationService.Calculate(calculation, pipingProbabilityAssessmentInput, norm, contribution);

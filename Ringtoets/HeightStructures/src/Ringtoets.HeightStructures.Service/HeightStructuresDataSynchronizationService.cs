@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Utils.Extensions;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Service
 {
@@ -42,9 +44,36 @@ namespace Ringtoets.HeightStructures.Service
                             .ForEachElementDo(ClearCalculationOutput);
         }
 
-        private static void ClearCalculationOutput(HeightStructuresCalculation calculation)
+        /// <summary>
+        /// Clears the output of the given <see cref="HeightStructuresCalculation"/>.
+        /// </summary>
+        /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> to clear the output for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        public static void ClearCalculationOutput(HeightStructuresCalculation calculation)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
+            }
+
             calculation.Output = null;
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="HeightStructuresFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> which contains the calculations.</param>
+        public static void ClearHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
+        {
+            failureMechanism.Calculations
+                            .Cast<HeightStructuresCalculation>()
+                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
+                            .ForEachElementDo(ClearHydraulicBoundaryLocation);
+        }
+
+        private static void ClearHydraulicBoundaryLocation(HeightStructuresCalculation calculation)
+        {
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
         }
     }
 }

@@ -1190,8 +1190,6 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             public void ClearOutput() {}
 
-            public void ClearHydraulicBoundaryLocation() {}
-
             public ICalculationInput GetObservableInput()
             {
                 return null;

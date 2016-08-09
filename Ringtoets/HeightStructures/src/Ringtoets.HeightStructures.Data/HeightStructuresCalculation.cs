@@ -69,11 +69,6 @@ namespace Ringtoets.HeightStructures.Data
             Output = null;
         }
 
-        public void ClearHydraulicBoundaryLocation()
-        {
-            InputParameters.HydraulicBoundaryLocation = null;
-        }
-
         public ICalculationInput GetObservableInput()
         {
             return InputParameters;

@@ -23,12 +23,12 @@ using System;
 using System.Linq;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
 
@@ -40,9 +40,9 @@ namespace Ringtoets.Integration.Service
     public static class RingtoetsDataSynchronizationService
     {
         /// <summary>
-        /// Clears all the output data within the <see cref="AssessmentSection"/>.
+        /// Clears all the output data within the <see cref="IAssessmentSection"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to clear the data for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static void ClearAssessmentSectionData(IAssessmentSection assessmentSection)
         {
@@ -55,6 +55,44 @@ namespace Ringtoets.Integration.Service
             ClearFailureMechanismCalculationOutputs(assessmentSection);
         }
 
+        /// <summary>
+        /// Clears the output of all calculations in the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
+        public static void ClearFailureMechanismCalculationOutputs(IAssessmentSection assessmentSection)
+        {
+            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(PipingDataSynchronizationService.ClearAllCalculationOutput);
+            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput);
+            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput);
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all calculations in the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
+        public static void ClearHydraulicBoundaryLocationFromCalculations(IAssessmentSection assessmentSection)
+        {
+            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(PipingDataSynchronizationService.ClearHydraulicBoundaryLocations);
+            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(GrassCoverErosionInwardsDataSynchronizationService.ClearHydraulicBoundaryLocations);
+            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(HeightStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations);
+        }
+
+        /// <summary>
+        /// Notifies the observers of the calculation in the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
+        public static void NotifyCalculationObservers(IAssessmentSection assessmentSection)
+        {
+            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+
+            foreach (ICalculation calc in failureMechanisms.SelectMany(fm => fm.Calculations))
+            {
+                calc.NotifyObservers();
+            }
+        }
+
         private static void ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)
@@ -62,19 +100,11 @@ namespace Ringtoets.Integration.Service
                 return;
             }
 
-            foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations) 
+            foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations)
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = double.NaN;
                 hydraulicBoundaryLocation.WaveHeight = double.NaN;
             }
-        }
-
-        private static void ClearFailureMechanismCalculationOutputs(IAssessmentSection assessmentSection)
-        {
-            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(PipingDataSynchronizationService.ClearAllCalculationOutput);
-            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput);
-            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput);
         }
     }
 }

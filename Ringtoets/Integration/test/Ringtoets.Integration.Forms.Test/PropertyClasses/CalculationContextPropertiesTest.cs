@@ -154,8 +154,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             public void ClearOutput() {}
 
-            public void ClearHydraulicBoundaryLocation() {}
-
             public ICalculationInput GetObservableInput()
             {
                 return null;

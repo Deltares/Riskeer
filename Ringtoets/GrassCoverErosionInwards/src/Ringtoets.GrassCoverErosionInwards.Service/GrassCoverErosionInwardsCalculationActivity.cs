@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.SectionResults, calculation);
 
             PerformRun(() => GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection),
-                       () => calculation.ClearOutput(),
+                       () => GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation),
                        () =>
                        {
                            log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,

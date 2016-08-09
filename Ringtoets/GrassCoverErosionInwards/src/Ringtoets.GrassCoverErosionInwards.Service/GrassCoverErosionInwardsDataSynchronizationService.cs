@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Utils.Extensions;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
@@ -42,9 +44,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                             .ForEachElementDo(ClearCalculationOutput);
         }
 
-        private static void ClearCalculationOutput(GrassCoverErosionInwardsCalculation calculation)
+        /// <summary>
+        /// Clears the output of the given <see cref="GrassCoverErosionInwardsCalculation"/>.
+        /// </summary>
+        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> to clear the output for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        public static void ClearCalculationOutput(GrassCoverErosionInwardsCalculation calculation)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
+            }
+
             calculation.Output = null;
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> which contains the calculations.</param>
+        public static void ClearHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            failureMechanism.Calculations
+                            .Cast<GrassCoverErosionInwardsCalculation>()
+                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
+                            .ForEachElementDo(ClearHydraulicBoundaryLocation);
+        }
+
+        private static void ClearHydraulicBoundaryLocation(GrassCoverErosionInwardsCalculation calculation)
+        {
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
         }
     }
 }

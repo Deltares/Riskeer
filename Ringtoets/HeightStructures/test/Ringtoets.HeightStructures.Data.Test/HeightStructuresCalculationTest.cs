@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -116,24 +114,6 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.AreSame(calculation.Output, output);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocation_Always_SetHydraulicBoundaryLocationToNull()
-        {
-            // Setup
-            var calculation = new HeightStructuresCalculation();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
-            calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-
-            // Precondition
-            Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-
-            // Call
-            calculation.ClearHydraulicBoundaryLocation();
-
-            // Assert
-            Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         private void AssertDemoInput(HeightStructuresInput inputParameters)

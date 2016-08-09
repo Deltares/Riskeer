@@ -204,45 +204,6 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocation_Always_SetHydraulicBoundaryLocationToNull()
-        {
-            // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
-            calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-
-            // Precondition
-            Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-
-            // Call
-            calculation.ClearHydraulicBoundaryLocation();
-
-            // Assert
-            Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocation_Always_SetAssessmentLevelToNaN()
-        {
-            // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
-            var assessmentLevel = new RoundedDouble(2, 7.60);
-            calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
-            {
-                DesignWaterLevel = assessmentLevel
-            };
-
-            // Precondition
-            Assert.AreEqual(assessmentLevel, calculation.InputParameters.AssessmentLevel);
-
-            // Call
-            calculation.ClearHydraulicBoundaryLocation();
-
-            // Assert
-            Assert.IsNaN(calculation.InputParameters.AssessmentLevel);
-        }
-
-        [Test]
         public void GetObservableInput_Always_ReturnsInputParameters()
         {
             // Setup

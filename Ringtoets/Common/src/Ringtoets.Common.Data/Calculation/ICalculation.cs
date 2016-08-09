@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HydraRing.Data;
-
 namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
@@ -37,11 +35,6 @@ namespace Ringtoets.Common.Data.Calculation
         /// Clears the calculated output.
         /// </summary>
         void ClearOutput();
-
-        /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        void ClearHydraulicBoundaryLocation();
 
         /// <summary>
         /// Gets the input of the calculation to observe.

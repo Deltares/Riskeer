@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Service.Test
 {
@@ -54,6 +56,69 @@ namespace Ringtoets.HeightStructures.Service.Test
             foreach (HeightStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<HeightStructuresCalculation>())
             {
                 Assert.IsNull(calculation.Output);
+            }
+        }
+
+        [Test]
+        public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresDataSynchronizationService.ClearCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearCalculationOutput_WithCalculation_ClearsOutput()
+        {
+            // Setup
+            HeightStructuresCalculation calculation = new HeightStructuresCalculation
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            // Call
+            HeightStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
+
+            // Assert
+            Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocations_WithHydraulicBoundaryLocation_ClearsHydraulicBoundaryLocation()
+        {
+            // Setup
+            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            HeightStructuresCalculation calculation1 = new HeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            HeightStructuresCalculation calculation2 = new HeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+
+            // Call
+            HeightStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (HeightStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<HeightStructuresCalculation>())
+            {
+                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
             }
         }
     }

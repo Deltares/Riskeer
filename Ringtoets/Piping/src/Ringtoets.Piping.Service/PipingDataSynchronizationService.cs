@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Utils.Extensions;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Service
@@ -42,9 +44,36 @@ namespace Ringtoets.Piping.Service
                             .ForEachElementDo(ClearCalculationOutput);
         }
 
-        private static void ClearCalculationOutput(PipingCalculation calculation)
+        /// <summary>
+        /// Clears the output of the given <see cref="PipingCalculation"/>.
+        /// </summary>
+        /// <param name="calculation">The <see cref="PipingCalculation"/> to clear the output for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        public static void ClearCalculationOutput(PipingCalculation calculation)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
+            }
+
             calculation.Output = null;
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="PipingFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
+        public static void ClearHydraulicBoundaryLocations(PipingFailureMechanism failureMechanism)
+        {
+            failureMechanism.Calculations
+                            .Cast<PipingCalculation>()
+                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
+                            .ForEachElementDo(ClearHydraulicBoundaryLocation);
+        }
+
+        private static void ClearHydraulicBoundaryLocation(PipingCalculation calculation)
+        {
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
         }
     }
 }

@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
@@ -54,6 +56,69 @@ namespace Ringtoets.Piping.Service.Test
             foreach (PipingCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<PipingCalculation>())
             {
                 Assert.IsNull(calculation.Output);
+            }
+        }
+
+        [Test]
+        public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => PipingDataSynchronizationService.ClearCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearCalculationOutput_WithCalculation_ClearsOutput()
+        {
+            // Setup
+            PipingCalculation calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+
+            // Call
+            PipingDataSynchronizationService.ClearCalculationOutput(calculation);
+
+            // Assert
+            Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocations_WithHydraulicBoundaryLocation_ClearsHydraulicBoundaryLocation()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            
+            PipingCalculation calculation1 = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            PipingCalculation calculation2 = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+
+            // Call
+            PipingDataSynchronizationService.ClearHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (PipingCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<PipingCalculation>())
+            {
+                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
             }
         }
     }

@@ -25,7 +25,6 @@ using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -124,24 +123,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Call & Assert
             Assert.IsTrue(calculation.HasOutput);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocation_Always_SetHydraulicBoundaryLocationToNull()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1.0, 2.0);
-            calculation.InputParameters.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-
-            // Precondition
-            Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-
-            // Call
-            calculation.ClearHydraulicBoundaryLocation();
-
-            // Assert
-            Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         [Test]
