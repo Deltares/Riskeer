@@ -93,7 +93,8 @@ namespace Core.Common.Controls.Test.Dialogs
             TestDelegate test = () => new TestDialog(window, icon, minWidth, 1);
 
             // Call & Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "The minimum width of the dialog should be greater than 0");
+            const string expectedMessage = "The minimum width of the dialog should be greater than 0";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [TestCase(-1)]
@@ -108,7 +109,8 @@ namespace Core.Common.Controls.Test.Dialogs
             TestDelegate test = () => new TestDialog(window, icon, 1, minHeight);
 
             // Call & Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "The minimum height of the dialog should be greater than 0");
+            const string expectedMessage = "The minimum height of the dialog should be greater than 0";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]

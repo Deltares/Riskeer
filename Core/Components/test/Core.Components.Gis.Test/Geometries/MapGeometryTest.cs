@@ -77,7 +77,8 @@ namespace Core.Components.Gis.Test.Geometries
             TestDelegate call = () => new MapGeometry(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "MapGeometry cannot be created without points.");
+            const string expectedMessage = "MapGeometry cannot be created without points.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }	
     }
 }

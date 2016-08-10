@@ -90,7 +90,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "No observerable object set.");
+            const string expectedMessage = "No observerable object set.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -110,7 +111,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Mean is set to be read-only.");
+            const string expectedMessage = "Mean is set to be read-only.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
             mockRepository.VerifyAll();
         }
 
@@ -150,7 +152,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "No observerable object set.");
+            const string expectedMessage = "No observerable object set.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -170,7 +173,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "StandardDeviation is set to be read-only.");
+            const string expectedMessage = "StandardDeviation is set to be read-only.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
             mockRepository.VerifyAll();
         }
 

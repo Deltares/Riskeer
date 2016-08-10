@@ -60,7 +60,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}", fileName, UtilsResources.Error_Path_must_be_specified);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}", fileName, UtilsResources.Error_Path_must_be_specified);
 
             // Call
             TestDelegate test = () => new HydraulicBoundarySqLiteDatabaseReader(fileName).Dispose();

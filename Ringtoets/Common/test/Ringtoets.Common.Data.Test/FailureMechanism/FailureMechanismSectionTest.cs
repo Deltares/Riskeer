@@ -86,7 +86,8 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             TestDelegate call = () => new FailureMechanismSection("name", geometryPoints);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "One or multiple elements are null.");
+            const string expectedMessage = "One or multiple elements are null.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -96,7 +97,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             TestDelegate call = () => new FailureMechanismSection("", Enumerable.Empty<Point2D>());
 
             // Assert
-            string expectedMessage = "Vak moet minstens uit 1 punt bestaan.";
+            const string expectedMessage = "Vak moet minstens uit 1 punt bestaan.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

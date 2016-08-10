@@ -65,7 +65,7 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidFilePath, String.Join(", ", invalidFileNameChars));
+                                                invalidFilePath, string.Join(", ", invalidFileNameChars));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -149,7 +149,7 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            var expectedMessage = String.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
+            var expectedMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
                                                 missingAttribute);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -168,7 +168,7 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
-            var expectedMessage = String.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
+            var expectedMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.", validFilePath,
                                                 missingAttributes);
             Assert.AreEqual(expectedMessage, message);
         }
@@ -268,7 +268,7 @@ namespace Ringtoets.Common.IO.Test
             Point2D[] actualPoints = actualReferenceLineMeta.ReferenceLine.Points.ToArray();
             CollectionAssert.AreEqual(expectedPoints, actualPoints,
                                       new Point2DComparerWithTolerance(1e-6),
-                                      String.Format("Unexpected geometry found in ReferenceLineMeta with id '{0}'", actualReferenceLineMeta.AssessmentSectionId));
+                                      string.Format("Unexpected geometry found in ReferenceLineMeta with id '{0}'", actualReferenceLineMeta.AssessmentSectionId));
         }
     }
 }

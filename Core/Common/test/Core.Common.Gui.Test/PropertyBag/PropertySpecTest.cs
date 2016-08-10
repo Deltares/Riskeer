@@ -135,7 +135,8 @@ namespace Core.Common.Gui.Test.PropertyBag
             TestDelegate call = () => new PropertySpec(propertyInfo);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Index properties are not allowed.");
+            const string expectedMessage = "Index properties are not allowed.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]

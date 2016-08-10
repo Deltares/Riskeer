@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         {
             if (calculation == null)
             {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.PipingContext_DataDescription_PipingCalculationItem);
 
                 throw new ArgumentNullException("calculation", message);

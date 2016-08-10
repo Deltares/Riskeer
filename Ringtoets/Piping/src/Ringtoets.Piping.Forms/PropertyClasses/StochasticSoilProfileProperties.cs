@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.SoilProfile != null ? data.SoilProfile.Name : String.Empty;
+                return data.SoilProfile != null ? data.SoilProfile.Name : string.Empty;
             }
         }
 

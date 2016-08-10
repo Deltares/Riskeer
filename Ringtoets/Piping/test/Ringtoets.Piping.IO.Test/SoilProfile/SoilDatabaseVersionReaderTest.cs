@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
                                                 fileName, UtilsResources.Error_Path_must_be_specified);
             // Call
             TestDelegate test = () => { using (new SoilDatabaseVersionReader(fileName)) {} };
@@ -72,7 +72,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         {
             // Setup
             const string version = "15.0.5.0";
-            string expectedVersionMessage = String.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version);
+            string expectedVersionMessage = string.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version);
             const string dbName = "incorrectversion.soil";
             var dbFile = Path.Combine(testDataPath, dbName);
 

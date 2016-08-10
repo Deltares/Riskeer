@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.Data.Test
                 pipingFactorOfSafety);
 
             // Assert
-            string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
+            const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -257,7 +257,7 @@ namespace Ringtoets.Piping.Data.Test
                 pipingFactorOfSafety);
 
             // Assert
-            string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
+            const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -344,7 +344,7 @@ namespace Ringtoets.Piping.Data.Test
                 pipingFactorOfSafety);
 
             // Assert
-            string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
+            const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -431,7 +431,7 @@ namespace Ringtoets.Piping.Data.Test
                 pipingFactorOfSafety);
 
             // Assert
-            string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
+            const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -518,7 +518,7 @@ namespace Ringtoets.Piping.Data.Test
                 pipingFactorOfSafety);
 
             // Assert
-            string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
+            const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
     }

@@ -36,7 +36,7 @@ namespace Core.Common.TestUtil.Test
             FileDisposeHelper disposeHelper = null;
 
             // Precondition
-            Assert.IsFalse(File.Exists(filePath), String.Format("Precondition failed: File '{0}' should not exist", filePath));
+            Assert.IsFalse(File.Exists(filePath), string.Format("Precondition failed: File '{0}' should not exist", filePath));
 
             // Call
             TestDelegate test = () => disposeHelper = new FileDisposeHelper(filePath);
@@ -59,7 +59,7 @@ namespace Core.Common.TestUtil.Test
                 using (File.Create(filePath)) {}
 
                 // Precondition
-                Assert.IsTrue(File.Exists(filePath), String.Format("Precondition failed: File '{0}' should exist", filePath));
+                Assert.IsTrue(File.Exists(filePath), string.Format("Precondition failed: File '{0}' should exist", filePath));
 
                 // Call
                 TestDelegate test = () => disposeHelper = new FileDisposeHelper(filePath);
@@ -106,7 +106,7 @@ namespace Core.Common.TestUtil.Test
         public void Create_InvalidPath_DoesNotThrowException()
         {
             // Setup
-            var filePath = String.Empty;
+            var filePath = string.Empty;
 
             // Call
             TestDelegate test = () => new FileDisposeHelper(filePath);
@@ -151,7 +151,7 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_InvalidPath_DoesNotThrowException()
         {
             // Setup
-            string filePath = String.Empty;
+            string filePath = string.Empty;
 
             // Call
             TestDelegate test = () => new FileDisposeHelper(filePath);

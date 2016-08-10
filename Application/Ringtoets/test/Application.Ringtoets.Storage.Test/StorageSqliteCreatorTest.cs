@@ -120,7 +120,7 @@ namespace Application.Ringtoets.Storage.Test
                 }
 
                 // Assert
-                var expectedMessage = String.Format(@"File '{0}' already exists.", tempRingtoetsFile);
+                var expectedMessage = string.Format(@"File '{0}' already exists.", tempRingtoetsFile);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }

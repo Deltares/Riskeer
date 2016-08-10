@@ -72,7 +72,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, null, assessmentSectionMock);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het hoogte kunstwerk toetsspoor mag niet 'null' zijn.");
+            const string expectedMessage = "Het hoogte kunstwerk toetsspoor mag niet 'null' zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             mockRepository.VerifyAll();
         }
 
@@ -87,7 +88,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, failureMechanism, null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
+            const string expectedMessage = "Het traject mag niet 'null' zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]

@@ -203,7 +203,7 @@ namespace Core.Common.Gui.Commands
         private bool OpenSaveOrDiscardProjectDialog()
         {
             var confirmation = MessageBox.Show(
-                String.Format(Resources.StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0, projectOwner.Project.Name),
+                string.Format(Resources.StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0, projectOwner.Project.Name),
                 Resources.StorageCommandHandler_ClosingProject_Title,
                 MessageBoxButtons.YesNoCancel);
 

@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.IO.Test.Exceptions
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(StochasticSoilProfileReadException).FullName);
+            string expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(StochasticSoilProfileReadException).FullName);
 
             // Call
             StochasticSoilProfileReadException exception = new StochasticSoilProfileReadException();

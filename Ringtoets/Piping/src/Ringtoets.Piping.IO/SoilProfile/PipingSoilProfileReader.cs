@@ -239,7 +239,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                               "GROUP BY SP2D_ID",
                               SoilProfileDatabaseColumns.LayerCount);
             string subQueryGetMaterialPropertiesOfLayer =
-                String.Format(
+                string.Format(
                     "SELECT " +
 	                "mat.MA_ID, " +
                     "mat.MA_Name as {0}, " +
@@ -277,7 +277,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     SoilProfileDatabaseColumns.DiameterD70Deviation
                     );
             string subQueryGetLayerPropertiesOfLayer1D =
-                String.Format(
+                string.Format(
                     "SELECT " +
                     "SL1D_ID, " +
                     "PV_Value as {0} " +
@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     "WHERE PN_NAME = '{0}'",
                     SoilProfileDatabaseColumns.IsAquifer);
             string subQueryGetLayerPropertiesOfLayer2D =
-                String.Format(
+                string.Format(
                     "SELECT " +
                     "SL2D_ID, " +
                     "PV_Value as {0} " +
@@ -426,7 +426,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }, new SQLiteParameter
             {
                 DbType = DbType.String,
-                ParameterName = String.Format("@{0}", MechanismDatabaseColumns.MechanismName),
+                ParameterName = string.Format("@{0}", MechanismDatabaseColumns.MechanismName),
                 Value = pipingMechanismName
             });
         }

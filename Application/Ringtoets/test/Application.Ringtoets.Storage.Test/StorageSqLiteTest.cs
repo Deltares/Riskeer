@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_InvalidPath_ThrowsArgumentException(string invalidPath)
         {
             // Setup
-            string expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
+            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
                                                    invalidPath, UtilsResources.Error_Path_must_be_specified);
 
             // Call
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             string nonExistingPath = "fileDoesNotExist";
-            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}", nonExistingPath, "Het bestand bestaat niet.");
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", nonExistingPath, "Het bestand bestaat niet.");
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(nonExistingPath);
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             string validPath = "empty.rtd";
             var tempFile = Path.Combine(testDataPath, validPath);
-            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempFile, @"Het bestand is geen geldig Ringtoets bestand.");
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempFile, @"Het bestand is geen geldig Ringtoets bestand.");
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(tempFile);
@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test
                 TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
 
                 // Assert
-                var expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempRingtoetsFile, Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
+                var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempRingtoetsFile, Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
 
                 StorageException exception = Assert.Throws<StorageException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_CorruptRingtoetsFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace()
         {
             // Setup
-            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempRingtoetsFile, @"Het bestand is geen geldig Ringtoets bestand.");
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempRingtoetsFile, @"Het bestand is geen geldig Ringtoets bestand.");
             var expectedInnerExceptionMessage = "An error occurred while executing the command definition. See the inner exception for details.";
             var expectedInnerExceptionInnerExceptionMessage = "SQL logic error or missing database" + Environment.NewLine +
                                                               "no such table: ProjectEntity";
@@ -363,7 +363,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             RingtoetsProject project = new RingtoetsProject();
-            var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
                                                 invalidPath, UtilsResources.Error_Path_must_be_specified);
 
             var storage = new StorageSqLite();

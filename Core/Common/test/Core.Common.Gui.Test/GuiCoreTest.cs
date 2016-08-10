@@ -148,7 +148,8 @@ namespace Core.Common.Gui.Test
                 TestDelegate call = () => new GuiCore(nullArgumentIndex == 0 ? null : mainWindow, projectStore, projectFactory, guiCoreSettings);
 
                 // Assert
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Value cannot be null.");
+                const string expectedMessage = "Value cannot be null.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             }
             mocks.VerifyAll();
         }

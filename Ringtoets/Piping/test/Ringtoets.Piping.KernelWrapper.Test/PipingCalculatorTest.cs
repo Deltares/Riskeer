@@ -20,7 +20,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             TestDelegate call = () => new PipingCalculator(null, null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "PipingCalculatorInput required for creating a PipingCalculator.");
+            const string expectedMessage = "PipingCalculatorInput required for creating a PipingCalculator.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]
@@ -30,7 +31,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             TestDelegate call = () => new PipingCalculator(new TestPipingInput().AsRealInput(), null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "IPipingSubCalculatorFactory required for creating a PipingCalculator.");
+            const string expectedMessage = "IPipingSubCalculatorFactory required for creating a PipingCalculator.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]

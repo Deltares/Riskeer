@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
             // Setup
             PipingInput input = new PipingInput(new GeneralPipingInput())
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, String.Empty, 0, 0)
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
                 {
                     DesignWaterLevel = (RoundedDouble) 0.0
                 }

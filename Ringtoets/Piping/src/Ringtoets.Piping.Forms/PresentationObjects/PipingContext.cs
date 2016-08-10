@@ -113,13 +113,13 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         {
             if (surfaceLines == null)
             {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.PipingContext_DataDescription_Surfacelines);
                 throw new ArgumentNullException("surfaceLines", message);
             }
             if (soilProfiles == null)
             {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.PipingContext_DataDescription_Soilprofiles);
                 throw new ArgumentNullException("soilProfiles", message);
             }
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
             }
             if (assessmentSection == null)
             {
-                var message = String.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.PipingContext_DataDescription_AssessmentSection);
                 throw new ArgumentNullException("assessmentSection", message);
             }

@@ -74,7 +74,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, null, assessmentSectionMock);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het grasbekleding erosie kruin en binnentalud toetsspoor mag niet 'null' zijn.");
+            const string expectedMessage = "Het grasbekleding erosie kruin en binnentalud toetsspoor mag niet 'null' zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             mockRepository.VerifyAll();
         }
 
@@ -89,7 +90,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, failureMechanism, null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Het traject mag niet 'null' zijn.");
+            const string expectedMessage = "Het traject mag niet 'null' zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]

@@ -52,7 +52,8 @@ namespace Core.Components.Charting.Test.Data
             TestDelegate test = () => new ChartMultipleAreaData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the chart data.");
+            const string expectedMessage = "A name must be set to the chart data.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -79,7 +80,8 @@ namespace Core.Components.Charting.Test.Data
             TestDelegate test = () => data.Areas = null;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "The collection of point arrays cannot be null.");
+            const string expectedMessage = "The collection of point arrays cannot be null.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -95,7 +97,8 @@ namespace Core.Components.Charting.Test.Data
             };
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "The collection of point arrays cannot contain null values.");
+            const string expectedMessage = "The collection of point arrays cannot contain null values.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Application.Ringtoets
 
         private static GuiCore gui;
         private static int waitForProcessId = -1;
-        private static string fileToOpen = String.Empty;
+        private static string fileToOpen = string.Empty;
 
         private static Mutex singleInstanceMutex;
 

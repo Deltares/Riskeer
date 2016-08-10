@@ -32,7 +32,7 @@ namespace Ringtoets.HydraRing.IO.Test.Exceptions
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(HydraulicBoundaryDatabaseReadException).FullName);
+            string expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(HydraulicBoundaryDatabaseReadException).FullName);
 
             // Call
             HydraulicBoundaryDatabaseReadException exception = new HydraulicBoundaryDatabaseReadException();

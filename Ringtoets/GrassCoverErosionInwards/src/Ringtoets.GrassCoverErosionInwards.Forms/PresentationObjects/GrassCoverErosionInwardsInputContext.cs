@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         {
             if (calculation == null)
             {
-                var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInputCalculationItem);
 
                 throw new ArgumentNullException("calculation", message);

@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "nonexisting.sqlite");
-            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", filePath);
+            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", filePath);
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);
@@ -124,8 +124,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             var expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
-                .Build(String.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                     String.Join(", ", Path.GetInvalidFileNameChars())));
+                .Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
+                                     string.Join(", ", Path.GetInvalidFileNameChars())));
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
@@ -143,7 +143,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             mocks.ReplayAll();
 
             string filePath = Path.Combine(testDataPath, "/");
-            var expectedExceptionMessage = String.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.", filePath);
+            var expectedExceptionMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.", filePath);
 
             // Call
             TestDelegate test = () => importer.Import(assessmentSection, filePath);

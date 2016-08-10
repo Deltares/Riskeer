@@ -51,7 +51,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             TestDelegate call = () => new HydraRingSettingsCsvReader(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "A file must be set.");
+            const string expectedMessage = "A file must be set.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]

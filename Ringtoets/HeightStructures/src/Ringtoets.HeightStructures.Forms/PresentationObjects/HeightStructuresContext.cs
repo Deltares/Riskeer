@@ -52,7 +52,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         {
             if (failureMechanism == null)
             {
-                var message = String.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism);
 
                 throw new ArgumentNullException("failureMechanism", message);
@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 
             if (assessmentSection == null)
             {
-                var message = String.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.HeightStructuresContext_DataDescription_AssessmentSection);
                 throw new ArgumentNullException("assessmentSection", message);
             }

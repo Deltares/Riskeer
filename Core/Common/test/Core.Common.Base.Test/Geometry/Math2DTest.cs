@@ -277,7 +277,7 @@ namespace Core.Common.Base.Test.Geometry
             TestDelegate call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
 
             // Assert
-            var expectedMessage = "Er zijn niet genoeg punten beschikbaar om een lijn te definiëren.";
+            const string expectedMessage = "Er zijn niet genoeg punten beschikbaar om een lijn te definiëren.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -302,7 +302,7 @@ namespace Core.Common.Base.Test.Geometry
             TestDelegate call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
 
             // Assert
-            var expectedMessage = "Er mogen geen negatieve lengtes worden opgegeven om de lijn mee op te knippen.";
+            const string expectedMessage = "Er mogen geen negatieve lengtes worden opgegeven om de lijn mee op te knippen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -331,7 +331,7 @@ namespace Core.Common.Base.Test.Geometry
             TestDelegate call = () => Math2D.SplitLineAtLengths(originalLine, lengths);
 
             // Assert
-            var expectedMessage = "De som van alle lengtes moet gelijk zijn aan de lengte van de opgegeven lijn.";
+            const string expectedMessage = "De som van alle lengtes moet gelijk zijn aan de lengte van de opgegeven lijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

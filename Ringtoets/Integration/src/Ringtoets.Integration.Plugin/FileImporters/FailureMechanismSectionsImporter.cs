@@ -204,7 +204,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private void LogCriticalFileReadError(string message)
         {
-            var errorMessage = String.Format(Resources.FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported,
+            var errorMessage = string.Format(Resources.FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported,
                                              message);
             log.Error(errorMessage);
         }

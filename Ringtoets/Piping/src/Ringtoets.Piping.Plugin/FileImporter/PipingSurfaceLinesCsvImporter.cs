@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return String.Format("{0} {1} (*.csv)|*.csv",
+                return string.Format("{0} {1} (*.csv)|*.csv",
                                      PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, RingtoetsPluginResources.Csv_file_name);
             }
         }
@@ -151,7 +151,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void LogCriticalFileReadError(string message)
         {
-            var errorMessage = String.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_No_sections_imported,
+            var errorMessage = string.Format(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_No_sections_imported,
                                              message);
             log.Error(errorMessage);
         }

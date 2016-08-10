@@ -91,7 +91,8 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             TestDelegate call = () => new PipingInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSectionMock);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "De berekening mag niet 'null' zijn.");
+            const string expectedMessage = "De berekening mag niet 'null' zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             mocks.VerifyAll();
         }
     }

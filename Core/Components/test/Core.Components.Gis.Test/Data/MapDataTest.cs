@@ -40,7 +40,8 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate call = () => new MapDataChild(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "A name must be set to the map data.");
+            const string expectedMessage = "A name must be set to the map data.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]

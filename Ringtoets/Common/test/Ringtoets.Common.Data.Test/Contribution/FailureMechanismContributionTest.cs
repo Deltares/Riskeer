@@ -111,7 +111,8 @@ namespace Ringtoets.Common.Data.Test.Contribution
             TestDelegate test = () => { new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm); };
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.Contribution_Value_should_be_in_interval_0_100);
+            var expectedMessage = Resources.Contribution_Value_should_be_in_interval_0_100;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]

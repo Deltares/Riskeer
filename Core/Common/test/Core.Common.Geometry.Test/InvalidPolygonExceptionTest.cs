@@ -31,7 +31,7 @@ namespace Core.Common.Geometry.Test
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(InvalidPolygonException).FullName);
+            string expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(InvalidPolygonException).FullName);
 
             // Call
             InvalidPolygonException exception = new InvalidPolygonException();

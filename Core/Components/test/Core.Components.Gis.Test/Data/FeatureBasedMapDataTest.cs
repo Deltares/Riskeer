@@ -53,7 +53,8 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => new TestFeatureBasedMapData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the map data.");
+            const string expectedMessage = "A name must be set to the map data.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -84,7 +85,8 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => data.Features = null;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "The array of features cannot be null.");
+            const string expectedMessage = "The array of features cannot be null.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         private class TestFeatureBasedMapData : FeatureBasedMapData

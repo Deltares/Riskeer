@@ -32,7 +32,7 @@ namespace Core.Common.Base.Test.Storage
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(StorageException).FullName);
+            string expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(StorageException).FullName);
 
             // Call
             StorageException exception = new StorageException();

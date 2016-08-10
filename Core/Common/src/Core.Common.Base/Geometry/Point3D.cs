@@ -86,7 +86,7 @@ namespace Core.Common.Base.Geometry
 
         public override string ToString()
         {
-            return String.Format("({0}, {1}, {2})", X, Y, Z);
+            return string.Format("({0}, {1}, {2})", X, Y, Z);
         }
 
         /// <summary>

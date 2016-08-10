@@ -65,8 +65,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(corruptPath);
 
             // Assert
-            var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(String.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                                                                              String.Join(", ", Path.GetInvalidFileNameChars())));
+            var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
+                                                                                              string.Join(", ", Path.GetInvalidFileNameChars())));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

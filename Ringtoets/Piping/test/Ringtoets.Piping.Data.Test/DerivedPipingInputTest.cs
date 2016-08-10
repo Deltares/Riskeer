@@ -44,7 +44,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => new DerivedPipingInput(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "Cannot create DerivedPipingInput without PipingInput.");
+            const string expectedMessage = "Cannot create DerivedPipingInput without PipingInput.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]

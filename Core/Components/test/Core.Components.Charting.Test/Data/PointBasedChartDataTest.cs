@@ -51,7 +51,8 @@ namespace Core.Components.Charting.Test.Data
             TestDelegate test = () => new TestPointBasedChartData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the chart data.");
+            const string expectedMessage = "A name must be set to the chart data.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -82,7 +83,8 @@ namespace Core.Components.Charting.Test.Data
             TestDelegate test = () => data.Points = null;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "The array of points cannot be null.");
+            const string expectedMessage = "The array of points cannot be null.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         private class TestPointBasedChartData : PointBasedChartData

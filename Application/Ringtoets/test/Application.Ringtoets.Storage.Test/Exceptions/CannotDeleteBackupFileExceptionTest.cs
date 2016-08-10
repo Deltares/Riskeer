@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(CannotDeleteBackupFileException).FullName);
+            string expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(CannotDeleteBackupFileException).FullName);
 
             // Call
             var exception = new CannotDeleteBackupFileException();

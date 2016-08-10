@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             var sqliteParameter = new SQLiteParameter
             {
                 DbType = DbType.String,
-                ParameterName = String.Format("@{0}", MetaDataDatabaseColumns.Value),
+                ParameterName = string.Format("@{0}", MetaDataDatabaseColumns.Value),
                 Value = databaseRequiredVersion
             };
 

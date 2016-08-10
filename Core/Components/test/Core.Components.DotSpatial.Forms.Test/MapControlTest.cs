@@ -623,9 +623,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Precondition
                 Assert.AreEqual(isRectangleZooming, map.IsRectangleZoomingEnabled,
-                                String.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
+                                string.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
                 Assert.AreEqual(!isRectangleZooming, map.IsPanningEnabled,
-                                String.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
+                                string.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
 
                 // Call
                 map.ToggleRectangleZooming();
@@ -651,9 +651,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Precondition
                 Assert.AreEqual(isPanning, map.IsPanningEnabled,
-                                String.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
+                                string.Format("Precondition failed: IsPanningEnabled is {0}", map.IsPanningEnabled));
                 Assert.AreEqual(!isPanning, map.IsRectangleZoomingEnabled,
-                                String.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
+                                string.Format("Precondition failed: IsRectangleZoomingEnabled is {0}", map.IsRectangleZoomingEnabled));
 
                 // Call
                 map.TogglePanning();

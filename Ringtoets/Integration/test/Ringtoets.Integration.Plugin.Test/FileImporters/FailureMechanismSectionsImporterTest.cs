@@ -401,7 +401,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Setup
             var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                    Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            var shapeFileName = String.Format("Artificial_referencelijn_testA_InvalidVakken_Section{0}.shp", shapeCondition);
+            var shapeFileName = string.Format("Artificial_referencelijn_testA_InvalidVakken_Section{0}.shp", shapeCondition);
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("FailureMechanismSections", shapeFileName));
 
@@ -440,7 +440,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Setup
             var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                    Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
-            var shapeFileName = String.Format("Artificial_referencelijn_testA_InvalidVakken_{0}.shp", shapeCondition);
+            var shapeFileName = string.Format("Artificial_referencelijn_testA_InvalidVakken_{0}.shp", shapeCondition);
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("FailureMechanismSections", shapeFileName));
 

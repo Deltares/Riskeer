@@ -93,7 +93,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                       null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null);
+            var expectedMessage = Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null;
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             Assert.AreEqual("points", exception.ParamName);
         }
 
@@ -110,7 +111,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                       null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, Resources.DikeProfile_SetGeometry_A_point_in_the_collection_is_null);
+            var expectedMessage = Resources.DikeProfile_SetGeometry_A_point_in_the_collection_is_null;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -121,7 +123,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                       null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, Resources.DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null);
+            var expectedMessage = Resources.DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null;
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             Assert.AreEqual("points", exception.ParamName);
         }
 
@@ -136,7 +139,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                                       }, null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, Resources.DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null);
+            var expectedMessage = Resources.DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]

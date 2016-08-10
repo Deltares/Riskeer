@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// defined as <see cref="MechanismDatabaseColumns.MechanismName"/>.</remarks>
         public static string GetStochasticSoilModelOfMechanismQuery()
         {
-            return String.Format(@"SELECT SP.{8}, SP.{9}, S.{10}, SSM.{11}, SSM.{12} " +
+            return string.Format(@"SELECT SP.{8}, SP.{9}, S.{10}, SSM.{11}, SSM.{12} " +
                                  "FROM {0} M " +
                                  "INNER JOIN {1} S USING({4}) " +
                                  "INNER JOIN {2} SSM USING({5}) " +
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// from the database.</returns>
         public static string GetStochasticSoilModelOfMechanismCountQuery()
         {
-            return String.Format(@"SELECT COUNT('1') AS {8} " +
+            return string.Format(@"SELECT COUNT('1') AS {8} " +
                                  "FROM (" +
                                  "SELECT '1' FROM {0} M " +
                                  "INNER JOIN {1} S USING({4}) " +
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <returns>The SQL query to execute.</returns>
         public static string GetAllStochasticSoilProfileQuery()
         {
-            return String.Format("SELECT {1}, {2}, {3}, {4} FROM {0} ORDER BY {1};",
+            return string.Format("SELECT {1}, {2}, {3}, {4} FROM {0} ORDER BY {1};",
                                  StochasticSoilProfileDatabaseColumns.TableName,
                                  StochasticSoilProfileDatabaseColumns.StochasticSoilModelId,
                                  StochasticSoilProfileDatabaseColumns.Probability,
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// that can be read from the database.</returns>
         public static string GetPipingSoilProfileCountQuery()
         {
-            return String.Format(
+            return string.Format(
                 "SELECT (" +
                 "SELECT COUNT(DISTINCT sl1D.SP1D_ID) " +
                 "FROM Mechanism AS m " +
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// defined as the required database version.</remarks>
         public static string GetCheckVersionQuery()
         {
-            return String.Format(
+            return string.Format(
                 "SELECT {2} FROM {0} WHERE {1} = 'VERSION' AND {2} = @{2};",
                 MetaDataDatabaseColumns.TableName,
                 MetaDataDatabaseColumns.Key,

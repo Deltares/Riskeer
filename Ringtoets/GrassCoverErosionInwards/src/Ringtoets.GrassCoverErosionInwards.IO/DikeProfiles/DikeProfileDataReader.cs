@@ -1040,7 +1040,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             if (missingKeywords.Any())
             {
                 string criticalErrorMessage = string.Format(Resources.DikeProfileDataReader_ValidateNoMissingKeywords_List_mising_keywords_0_,
-                                                            String.Join(", ", missingKeywords));
+                                                            string.Join(", ", missingKeywords));
                 var message = new FileReaderErrorMessageBuilder(fileBeingRead)
                     .Build(criticalErrorMessage);
                 throw new CriticalFileReadException(message);

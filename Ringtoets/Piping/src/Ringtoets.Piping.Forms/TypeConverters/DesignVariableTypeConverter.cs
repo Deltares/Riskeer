@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             {
                 var designVariable = (DesignVariable<T>) value;
                 var variablesText = string.Join(", ", Parameters.Select(p => p.GetSummary(designVariable.Distribution, culture)));
-                return String.Format("{0} ({1})", designVariable.GetDesignValue(), variablesText);
+                return string.Format("{0} ({1})", designVariable.GetDesignValue(), variablesText);
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             /// <returns>The summay text of the parameter.</returns>
             public string GetSummary(DistributionType distribution, CultureInfo culture)
             {
-                return String.Format("{0} = {1}",
+                return string.Format("{0} = {1}",
                                      Symbol,
                                      getRoundedDouble != null ?
                                          getRoundedDouble(distribution).ToString() :

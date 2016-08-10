@@ -66,7 +66,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, new Collection<PipingSoilLayer>(), SoilProfileType.SoilProfile1D, 0);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
+            var expectedMessage = PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -76,7 +77,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, null, SoilProfileType.SoilProfile1D, 0);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers);
+            var expectedMessage = PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -124,7 +126,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingSoilProfile(String.Empty, bottom, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.");
+            const string expectedMessage = "Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -162,7 +165,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => profile.GetLayerThickness(new PipingSoilLayer(1.1));
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Layer not found in profile.");
+            const string expectedMessage = "Layer not found in profile.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]

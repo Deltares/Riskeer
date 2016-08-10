@@ -78,9 +78,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             TestDelegate test = () => new GrassCoverErosionInwardsInputContext(input, null, failureMechanism, assessmentSectionMock);
 
             // Assert
-            var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                        Resources.GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInputCalculationItem);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, message);
+            var expectedMessage = string.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                                Resources.GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInputCalculationItem);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
             mocksRepository.VerifyAll();
         }
     }

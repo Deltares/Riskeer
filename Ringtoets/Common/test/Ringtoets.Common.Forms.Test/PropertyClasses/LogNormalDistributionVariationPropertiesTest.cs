@@ -144,7 +144,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "No observerable object set.");
+            const string expectedMessage = "No observerable object set.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -165,7 +166,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Mean is set to be read-only.");
+            const string expectedMessage = "Mean is set to be read-only.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
             mockRepository.VerifyAll();
         }
 
@@ -205,7 +207,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.VariationCoefficient = new RoundedDouble(2, 20);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "No observerable object set.");
+            const string expectedMessage = "No observerable object set.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -223,7 +226,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestDelegate test = () => properties.VariationCoefficient = new RoundedDouble(2, 20);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Variation coefficient is set to be read-only.");
+            const string expectedMessage = "Variation coefficient is set to be read-only.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]

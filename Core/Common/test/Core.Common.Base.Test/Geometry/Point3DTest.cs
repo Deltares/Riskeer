@@ -173,7 +173,7 @@ namespace Core.Common.Base.Test.Geometry
             var stringRepresentation = point.ToString();
 
             // Assert
-            var expectedText = String.Format("({0}, {1}, {2})", point.X, point.Y, point.Z);
+            var expectedText = string.Format("({0}, {1}, {2})", point.X, point.Y, point.Z);
             Assert.AreEqual(expectedText, stringRepresentation);
         }
     }

@@ -57,7 +57,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             TestDelegate call = () => new LogNormalDistribution(0);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Value must be in range [1, 15].");
+            const string expectedMessage = "Value must be in range [1, 15].";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]

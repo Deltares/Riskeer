@@ -364,9 +364,9 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDitchPolderSideAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                        testPoint, Resources.CharacteristicPoint_DitchPolderSide);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            var expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                                testPoint, Resources.CharacteristicPoint_DitchPolderSide);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -379,7 +379,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDitchPolderSideAt(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+            const string expectedMessage = "Cannot find a point in geometry using a null point.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -413,9 +414,9 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetBottomDitchPolderSideAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                        testPoint, Resources.CharacteristicPoint_BottomDitchPolderSide);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            var expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                                testPoint, Resources.CharacteristicPoint_BottomDitchPolderSide);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -428,7 +429,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetBottomDitchPolderSideAt(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+            const string expectedMessage = "Cannot find a point in geometry using a null point.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -462,9 +464,9 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetBottomDitchDikeSideAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                        testPoint, Resources.CharacteristicPoint_BottomDitchDikeSide);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            var expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                                testPoint, Resources.CharacteristicPoint_BottomDitchDikeSide);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -477,7 +479,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetBottomDitchDikeSideAt(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+            const string expectedMessage = "Cannot find a point in geometry using a null point.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -526,7 +529,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDitchDikeSideAt(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+            const string expectedMessage = "Cannot find a point in geometry using a null point.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -560,9 +564,9 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDikeToeAtRiverAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                        testPoint, Resources.CharacteristicPoint_DikeToeAtRiver);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            var expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                                testPoint, Resources.CharacteristicPoint_DikeToeAtRiver);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -575,7 +579,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDikeToeAtRiverAt(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+            const string expectedMessage = "Cannot find a point in geometry using a null point.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -609,9 +614,9 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDikeToeAtPolderAt(testPoint);
 
             // Assert
-            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
-                                        testPoint, Resources.CharacteristicPoint_DikeToeAtPolder);
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            var expectedMessage = string.Format(Resources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
+                                                testPoint, Resources.CharacteristicPoint_DikeToeAtPolder);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -624,7 +629,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => surfaceLine.SetDikeToeAtPolderAt(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot find a point in geometry using a null point.");
+            const string expectedMessage = "Cannot find a point in geometry using a null point.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]

@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
-            var expectedFileFilter = String.Format("{0} {1} (*.csv)|*.csv",
+            var expectedFileFilter = string.Format("{0} {1} (*.csv)|*.csv",
                                                    PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, PipingPluginResources.Csv_file_name);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
         }
@@ -414,8 +414,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, corruptPath);
 
             // Assert
-            var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(String.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                                                                                          String.Join(", ", Path.GetInvalidFileNameChars())));
+            var internalErrorMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
+                                                                                                          string.Join(", ", Path.GetInvalidFileNameChars())));
             var expectedLogMessage = string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_File_Skipped,
                                                    internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
@@ -1765,7 +1765,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         private static void AssertAreEqualPoint2D(Point2D expectedPoint, Point2D actualPoint)
         {
             Assert.IsTrue(Math2D.AreEqualPoints(expectedPoint, actualPoint),
-                          String.Format("Expected point: {0}" + Environment.NewLine + "Actual point: {1}",
+                          string.Format("Expected point: {0}" + Environment.NewLine + "Actual point: {1}",
                                         expectedPoint, actualPoint));
         }
     }

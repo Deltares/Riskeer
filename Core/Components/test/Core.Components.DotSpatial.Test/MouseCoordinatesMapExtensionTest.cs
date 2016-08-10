@@ -50,7 +50,8 @@ namespace Core.Components.DotSpatial.Test
             TestDelegate call = () => new MouseCoordinatesMapExtension(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An extension cannot be initialized without map.");
+            const string expectedMessage = "An extension cannot be initialized without map.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]

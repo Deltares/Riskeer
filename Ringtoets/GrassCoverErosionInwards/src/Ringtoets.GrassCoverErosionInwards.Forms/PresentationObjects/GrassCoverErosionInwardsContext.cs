@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         {
             if (failureMechanism == null)
             {
-                var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism);
 
                 throw new ArgumentNullException("failureMechanism", message);
@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 
             if (assessmentSection == null)
             {
-                var message = String.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.GrassCoverErosionInwardsContext_DataDescription_AssessmentSection);
                 throw new ArgumentNullException("assessmentSection", message);
             }

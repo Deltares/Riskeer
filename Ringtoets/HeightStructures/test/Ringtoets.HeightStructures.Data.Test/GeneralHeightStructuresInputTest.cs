@@ -89,7 +89,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             TestDelegate test = () => generalHeightStructuresInput.N = value;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.N_Value_should_be_in_interval_1_20);
+            var expectedMessage = Resources.N_Value_should_be_in_interval_1_20;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }
 }

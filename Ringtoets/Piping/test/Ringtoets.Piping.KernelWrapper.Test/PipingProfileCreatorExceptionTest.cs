@@ -10,7 +10,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            var expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(PipingProfileCreatorException).FullName);
+            var expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(PipingProfileCreatorException).FullName);
 
             // Call
             var exception = new PipingProfileCreatorException();

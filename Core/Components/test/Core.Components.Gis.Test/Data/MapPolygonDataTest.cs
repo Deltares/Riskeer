@@ -56,7 +56,8 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => new MapPolygonData(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the map data.");
+            const string expectedMessage = "A name must be set to the map data.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -98,7 +99,8 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => data.Features = null;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "The array of features cannot be null.");
+            const string expectedMessage = "The array of features cannot be null.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -118,7 +120,8 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => data.Features = features;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "MapPolygonData only accepts MapFeature instances whose MapGeometries contain at least one single point-collection.");
+            const string expectedMessage = "MapPolygonData only accepts MapFeature instances whose MapGeometries contain at least one single point-collection.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         private static Point2D[] CreateTestPoints()

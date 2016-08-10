@@ -533,10 +533,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ExitPointL = (RoundedDouble) newExitPoint;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
-                call,
-                RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
-
+            var expectedMessage = RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -576,10 +574,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.EntryPointL = (RoundedDouble) newEntryPoint;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
-                call,
-                RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
-
+            var expectedMessage = RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -617,9 +613,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.EntryPointL = (RoundedDouble)(-15.0);
 
             // Assert
-            var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 4]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 4]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -657,9 +652,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.ExitPointL = (RoundedDouble) 10.0;
 
             // Assert
-            var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 4]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 4]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -679,7 +673,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, String.Empty, 0.0, 0.0)
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
                 {
                     DesignWaterLevel = assessmentLevel
                 }

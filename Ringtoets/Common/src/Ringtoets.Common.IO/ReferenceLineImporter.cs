@@ -78,7 +78,7 @@ namespace Ringtoets.Common.IO
         {
             get
             {
-                return String.Format(RingtoetsCommonIOResources.DataTypeDisplayName_0_shape_file_filter, Name);
+                return string.Format(RingtoetsCommonIOResources.DataTypeDisplayName_0_shape_file_filter, Name);
             }
         }
 
@@ -177,7 +177,7 @@ namespace Ringtoets.Common.IO
 
         private static ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
         {
-            var errorMessage = String.Format(Resources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
+            var errorMessage = string.Format(Resources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
                                              e.Message);
             log.Error(errorMessage);
             return new ReadResult<ReferenceLine>(true);

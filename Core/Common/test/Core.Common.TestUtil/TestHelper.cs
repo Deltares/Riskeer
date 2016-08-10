@@ -214,19 +214,19 @@ namespace Core.Common.TestUtil
                 rank *= machineHddPerformanceRank;
             }
 
-            var userMessage = String.IsNullOrEmpty(message) ? "" : message + ". ";
+            var userMessage = string.IsNullOrEmpty(message) ? "" : message + ". ";
             if (!rank.Equals(1.0f))
             {
                 Assert.IsTrue(rank*actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
                               maxMilliseconds, actualMillisecond, actualMillisecond*rank);
-                Console.WriteLine(userMessage + String.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
+                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
                                                               maxMilliseconds, actualMillisecond, actualMillisecond*rank));
             }
             else
             {
                 Assert.IsTrue(actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}", maxMilliseconds,
                               actualMillisecond);
-                Console.WriteLine(userMessage + String.Format("Test took {1} milliseconds. Maximum was {0}", maxMilliseconds, actualMillisecond));
+                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds. Maximum was {0}", maxMilliseconds, actualMillisecond));
             }
 
             return actualMillisecond;
@@ -370,7 +370,7 @@ namespace Core.Common.TestUtil
                 }, StringSplitOptions.None).ToList();
                 customMessageParts.RemoveAt(customMessageParts.Count - 1);
 
-                message = String.Join(Environment.NewLine, customMessageParts.ToArray());
+                message = string.Join(Environment.NewLine, customMessageParts.ToArray());
             }
             Assert.AreEqual(expectedCustomMessage, message);
             return exception;

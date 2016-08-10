@@ -70,7 +70,8 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             TestDelegate call = () =>referenceLine.SetGeometry(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "De geometrie die opgegeven werd voor de referentielijn heeft geen waarde.");
+            const string expectedMessage = "De geometrie die opgegeven werd voor de referentielijn heeft geen waarde.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]
@@ -90,7 +91,8 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             TestDelegate call = () => referenceLine.SetGeometry(pointWithNullElement);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Een punt in de geometrie voor de referentielijn heeft geen waarde.");
+            const string expectedMessage = "Een punt in de geometrie voor de referentielijn heeft geen waarde.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             StorageSqLite storage = new StorageSqLite();
             storage.StageProject(fullProject);
             TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile);
-            Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
+            Assert.DoesNotThrow(precondition, string.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
             RingtoetsProject firstProject = null;
@@ -134,14 +134,14 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             RingtoetsProject fullProject = RingtoetsProjectTestHelper.GetFullTestProject();
             storage.StageProject(fullProject);
             TestDelegate precondition = () => storage.SaveProjectAs(tempRingtoetsFile);
-            Assert.DoesNotThrow(precondition, String.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
+            Assert.DoesNotThrow(precondition, string.Format("Precondition: file '{0}' must be a valid Ringtoets database file.", tempRingtoetsFile));
 
             // Call
             storage.StageProject(fullProject);
             TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
 
             // Assert
-            Assert.DoesNotThrow(test, String.Format("Precondition: failed to save project to file '{0}'.", tempRingtoetsFile));
+            Assert.DoesNotThrow(test, string.Format("Precondition: failed to save project to file '{0}'.", tempRingtoetsFile));
 
             // Call
             RingtoetsProject loadedProject = (RingtoetsProject) storage.LoadProject(tempRingtoetsFile);

@@ -111,8 +111,8 @@ namespace Core.Common.Base.Test.Data
             TestDelegate call = () => new RoundedDouble(invalidNumberOfPlaces);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                "Value must be in range [0, 15].");
+            const string expectedMessage = "Value must be in range [0, 15].";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]

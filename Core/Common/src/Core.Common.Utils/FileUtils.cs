@@ -60,11 +60,11 @@ namespace Core.Common.Utils
             catch (ArgumentException e)
             {
                 var message = new FileReaderErrorMessageBuilder(path)
-                    .Build(String.Format(Resources.Error_Path_cannot_contain_Characters_0_,
-                                         String.Join(", ", Path.GetInvalidFileNameChars())));
+                    .Build(string.Format(Resources.Error_Path_cannot_contain_Characters_0_,
+                                         string.Join(", ", Path.GetInvalidFileNameChars())));
                 throw new ArgumentException(message, e);
             }
-            if (String.Empty == name)
+            if (string.Empty == name)
             {
                 var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_empty_file_name);
                 throw new ArgumentException(message);

@@ -159,9 +159,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => pipingInput.ExitPointL = (RoundedDouble)value;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
-                call, 
-                Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+            var expectedMessage = Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -195,7 +194,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => input.ExitPointL = (RoundedDouble) value;
 
             // Assert
-            var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
@@ -235,9 +234,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => pipingInput.EntryPointL = (RoundedDouble)value;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
-                call,
-                Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL);
+            var expectedMessage = Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -254,7 +252,7 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate call = () => input.EntryPointL = (RoundedDouble)value;
 
             // Assert
-            var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
          }
 

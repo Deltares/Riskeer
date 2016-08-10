@@ -112,9 +112,8 @@ namespace Ringtoets.Common.Data.Test.Probability
                                                                       factorOfSafety);
 
             // Assert
-            var expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                                                                                                expectedMessage);
+            const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -166,9 +165,8 @@ namespace Ringtoets.Common.Data.Test.Probability
                                                                       factorOfSafety);
 
             // Assert
-            var expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
-                                                                                                expectedMessage);
+            const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(EntityNotFoundException).FullName);
+            string expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(EntityNotFoundException).FullName);
 
             // Call
             EntityNotFoundException exception = new EntityNotFoundException();

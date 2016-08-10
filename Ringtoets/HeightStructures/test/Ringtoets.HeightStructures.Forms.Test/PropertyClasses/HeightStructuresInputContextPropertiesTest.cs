@@ -198,7 +198,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityOfStructureGivenErosion = newValue.ToString(CultureInfo.InvariantCulture);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, Resources.FailureProbabilityOfStructureGivenErosion_Value_too_large);
+            var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Value_too_large;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -224,7 +225,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityOfStructureGivenErosion = newValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, Resources.FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value);
+            var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -248,7 +250,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityOfStructureGivenErosion = null;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, Resources.FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null);
+            var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]

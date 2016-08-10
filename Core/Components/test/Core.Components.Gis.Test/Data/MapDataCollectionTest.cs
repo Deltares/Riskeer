@@ -40,7 +40,8 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => new MapDataCollection(invalidName);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "A name must be set to the map data.");
+            const string expectedMessage = "A name must be set to the map data.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]
@@ -84,7 +85,8 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate call = () => mapDataCollection.Add(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An item cannot be null when adding it to the collection.");
+            const string expectedMessage = "An item cannot be null when adding it to the collection.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]
@@ -120,7 +122,8 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate call = () => mapDataCollection.Insert(0, null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An item cannot be null when adding it to the collection.");
+            const string expectedMessage = "An item cannot be null when adding it to the collection.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [TestCase(-1)]

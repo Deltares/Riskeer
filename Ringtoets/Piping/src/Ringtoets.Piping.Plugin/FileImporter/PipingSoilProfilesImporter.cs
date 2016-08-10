@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return String.Format("{0} {1} (*.soil)|*.soil",
+                return string.Format("{0} {1} (*.soil)|*.soil",
                                      PipingFormsResources.StochasticSoilProfileCollection_DisplayName, RingtoetsPluginResources.Soil_file_name);
             }
         }

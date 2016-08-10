@@ -91,7 +91,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.SaveAs(filePath);
 
                 // Assert
-                var expectedMessage = "Fout bij het lezen van bestand 'c:/\".shp': Bestandspad mag niet de volgende tekens bevatten: \", <, >, |, \0, , , , , , , \a, \b, \t, \n, \v, \f, \r, , , , , , , , , , , , , , , , , , , :, *, ?, \\, /";
+                const string expectedMessage = "Fout bij het lezen van bestand 'c:/\".shp': Bestandspad mag niet de volgende tekens bevatten: \", <, >, |, \0, , , , , , , \a, \b, \t, \n, \v, \f, \r, , , , , , , , , , , , , , , , , , , :, *, ?, \\, /";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }

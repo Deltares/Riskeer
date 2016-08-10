@@ -203,7 +203,8 @@ namespace Core.Components.DotSpatial.Test.Converter
             TestDelegate test = () => testConverter.Convert(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Null data cannot be converted into feature sets.");
+            const string expectedMessage = "Null data cannot be converted into feature sets.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -212,7 +213,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Setup
             var testConverter = new MapPointDataConverter();
             var testMapData = new TestMapData("test data");
-            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
+
             // Precondition
             Assert.IsFalse(testConverter.CanConvertMapData(testMapData));
 
@@ -220,6 +221,7 @@ namespace Core.Components.DotSpatial.Test.Converter
             TestDelegate test = () => testConverter.Convert(testMapData);
 
             // Assert
+            var expectedMessage = string.Format("The data of type {0} cannot be converted by this converter.", testMapData.GetType());
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 

@@ -62,7 +62,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
             TestDelegate test = () => hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput2);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "Section id is not unique");
+            const string expectedMessage = "Section id is not unique";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
         [Test]

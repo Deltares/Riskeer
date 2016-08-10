@@ -111,7 +111,8 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             TestDelegate test = () => failureMechanism.Contribution = value;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, Resources.Contribution_Value_should_be_in_interval_0_100);
+            var expectedMessage = Resources.Contribution_Value_should_be_in_interval_0_100;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
@@ -252,7 +253,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             TestDelegate call = () => failureMechanism.AddSection(section2);
 
             // Assert
-            string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
+            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

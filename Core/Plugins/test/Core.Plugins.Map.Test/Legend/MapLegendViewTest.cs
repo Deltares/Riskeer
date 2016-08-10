@@ -85,7 +85,8 @@ namespace Core.Plugins.Map.Test.Legend
             TestDelegate test = () => new MapLegendView(null, parentWindow);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot create a MapLegendView when the context menu builder provider is null.");
+            const string expectedMessage = "Cannot create a MapLegendView when the context menu builder provider is null.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]
@@ -95,7 +96,8 @@ namespace Core.Plugins.Map.Test.Legend
             TestDelegate test = () => new MapLegendView(contextMenuBuilderProvider, null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, "Cannot create a MapLegendView when the parent window is null.");
+            const string expectedMessage = "Cannot create a MapLegendView when the parent window is null.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 
         [Test]

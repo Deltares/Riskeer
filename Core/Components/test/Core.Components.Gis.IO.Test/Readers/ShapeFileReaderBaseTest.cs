@@ -95,7 +95,7 @@ namespace Core.Components.Gis.IO.Test.Readers
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
-                                                invalidFilePath, String.Join(", ", invalidFileNameChars));
+                                                invalidFilePath, string.Join(", ", invalidFileNameChars));
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

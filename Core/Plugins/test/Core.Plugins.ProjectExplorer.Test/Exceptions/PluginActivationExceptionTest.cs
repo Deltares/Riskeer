@@ -32,7 +32,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Exceptions
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            string expectedMessage = String.Format("Exception of type '{0}' was thrown.", typeof(PluginActivationException).FullName);
+            string expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(PluginActivationException).FullName);
 
             // Call
             var exception = new PluginActivationException();

@@ -48,13 +48,13 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                 new ParameterDefinition<NormalDistribution>(d => d.Mean)
                 {
                     Symbol = Resources.Probabilistics_Mean_Symbol,
-                    Description = String.Format(Resources.Probabilistics_Mean_description_for_Distribution_0_,
+                    Description = string.Format(Resources.Probabilistics_Mean_description_for_Distribution_0_,
                                                 lowerCaseDistributionName)
                 },
                 new ParameterDefinition<NormalDistribution>(d => d.StandardDeviation)
                 {
                     Symbol = Resources.Probabilistics_StandardDeviation_Symbol,
-                    Description = String.Format(Resources.Probabilistics_StandardDeviation_description_for_Distribution_0_,
+                    Description = string.Format(Resources.Probabilistics_StandardDeviation_description_for_Distribution_0_,
                                                 lowerCaseDistributionName)
                 }
             };

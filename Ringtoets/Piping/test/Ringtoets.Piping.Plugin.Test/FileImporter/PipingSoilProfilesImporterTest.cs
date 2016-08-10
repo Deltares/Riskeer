@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void DefaultConstructor_ExpectedValues()
         {
             // Prepare
-            var expectedFileFilter = String.Format("{0} {1} (*.soil)|*.soil",
+            var expectedFileFilter = string.Format("{0} {1} (*.soil)|*.soil",
                                                    PipingFormsResources.StochasticSoilProfileCollection_DisplayName, ApplicationResources.Soil_file_name);
 
             // Call
@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
+                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, string.Empty);
                 StringAssert.EndsWith(message, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -173,7 +173,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, String.Empty);
+                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped, string.Empty);
                 StringAssert.EndsWith(message, messageArray[0]);
             });
             Assert.IsFalse(importResult);
@@ -534,7 +534,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, validFilePath);
 
             // Assert
-            var expectedLogMessage = String.Format("Fout bij het lezen van bestand '{0}': De ondergrondschematisatie verwijst naar een ongeldige waarde." +
+            var expectedLogMessage = string.Format("Fout bij het lezen van bestand '{0}': De ondergrondschematisatie verwijst naar een ongeldige waarde." +
                                                    " Dit stochastische ondergrondmodel wordt overgeslagen.", validFilePath);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.AreEqual(0, failureMechanism.StochasticSoilModels.Count);

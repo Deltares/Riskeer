@@ -60,7 +60,8 @@ namespace Core.Components.Gis.Test.Features
             TestDelegate call = () => new MapFeature(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "MapFeature cannot be created without map geometries.");
+            const string expectedMessage = "MapFeature cannot be created without map geometries.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
         [Test]

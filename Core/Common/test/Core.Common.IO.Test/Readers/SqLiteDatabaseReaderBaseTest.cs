@@ -87,8 +87,8 @@ namespace Core.Common.IO.Test.Readers
 
             // Assert
             var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath)
-                .Build(String.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                     String.Join(", ", Path.GetInvalidFileNameChars())));
+                .Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
+                                     string.Join(", ", Path.GetInvalidFileNameChars())));
             var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -114,7 +114,7 @@ namespace Core.Common.IO.Test.Readers
         public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Setup
-            var expectedMessage = String.Format("Fout bij het lezen van bestand '{0}': {1}",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': {1}",
                                                 fileName, UtilsResources.Error_Path_must_be_specified);
 
             // Call

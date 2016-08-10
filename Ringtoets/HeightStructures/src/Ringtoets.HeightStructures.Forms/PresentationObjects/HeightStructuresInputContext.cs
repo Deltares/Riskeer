@@ -48,7 +48,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         {
             if (calculation == null)
             {
-                var message = String.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem);
 
                 throw new ArgumentNullException("calculation", message);

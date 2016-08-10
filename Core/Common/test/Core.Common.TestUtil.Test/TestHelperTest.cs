@@ -402,7 +402,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate t = () => { };
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, String.Empty); };
+            TestDelegate call = () => { TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, string.Empty); };
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -412,8 +412,8 @@ namespace Core.Common.TestUtil.Test
         public void AssertExceptionCustomMessage_ExceptionIncorrectMessage_ThrowsAssertionException()
         {
             // Setup
-            var someMessage = "Exception";
-            var differentMessage = "Different";
+            const string someMessage = "Exception";
+            const string differentMessage = "Different";
             TestDelegate t = () => { throw new ArgumentException(someMessage); };
 
             // Call
@@ -429,7 +429,7 @@ namespace Core.Common.TestUtil.Test
         public void AssertExceptionCustomMessage_ExceptionEqualMessage_NoExceptions(string argument)
         {
             // Setup
-            var someMessage = "Exception";
+            const string someMessage = "Exception";
             TestDelegate t = () => { throw new ArgumentException(someMessage, argument); };
 
             // Call & Assert
@@ -453,7 +453,7 @@ namespace Core.Common.TestUtil.Test
         public void AssertThrowsArgumentExceptionAndTestMessage_Always_ReturnsException()
         {
             // Setup
-            var someMessage = "Exception";
+            const string someMessage = "Exception";
             var argumentException = new ArgumentException(someMessage);
 
             TestDelegate t = () =>
