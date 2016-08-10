@@ -85,33 +85,15 @@ namespace Core.Plugins.ProjectExplorer.Test
         }
 
         [Test]
-        public void Dispose_Always_SetsApplicationSelectionToNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IApplicationSelection applicationSelection = mocks.StrictMock<IApplicationSelection>();
-            applicationSelection.Expect(aps => aps.Selection = null);
-
-            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
-
-            mocks.ReplayAll();
-            var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos);
-
-            // Call
-            explorer.Dispose();
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Data_Always_SetTreeViewControlData()
         {
             // Setup
             var mocks = new MockRepository();
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            var projectStub = mocks.Stub<IProject>();
+            mocks.ReplayAll();
+
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
                 new TreeNodeInfo
@@ -119,9 +101,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                     TagType = typeof(IProject)
                 }
             };
-
-            var projectStub = mocks.Stub<IProject>();
-            mocks.ReplayAll();
 
             using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos))
             {
@@ -141,6 +120,11 @@ namespace Core.Plugins.ProjectExplorer.Test
             var mocks = new MockRepository();
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            var projectStub = mocks.Stub<IProject>();
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(projectStub));
+
+            mocks.ReplayAll();
+
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
                 new TreeNodeInfo
@@ -149,12 +133,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                     CanRemove = (item, parent) => true
                 }
             };
-
-            var projectStub = mocks.Stub<IProject>();
-
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(projectStub));
-
-            mocks.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -185,6 +163,15 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             var projectStub = mocks.Stub<IProject>();
             var stringA = "testA";
+
+            using (mocks.Ordered())
+            {
+                applicationSelection.Expect(a => a.Selection = projectStub);
+                applicationSelection.Expect(a => a.Selection = stringA);
+            }
+
+            mocks.ReplayAll();
+
             var stringB = "testB";
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
@@ -203,15 +190,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                     TagType = typeof(string)
                 }
             };
-
-            using (mocks.Ordered())
-            {
-                applicationSelection.Expect(a => a.Selection = projectStub);
-                applicationSelection.Expect(a => a.Selection = stringA);
-                applicationSelection.Expect(a => a.Selection = null);
-            }
-
-            mocks.ReplayAll();
 
             using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
             {
@@ -243,8 +221,9 @@ namespace Core.Plugins.ProjectExplorer.Test
             var mocks = new MockRepository();
             IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
             IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
-
             var projectStub = mocks.Stub<IProject>();
+
+            mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
             {
@@ -259,7 +238,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                 viewCommands.Expect(a => a.OpenViewForSelection());
             }
 
-            mocks.ReplayAll();
 
             using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
             {
@@ -284,6 +262,56 @@ namespace Core.Plugins.ProjectExplorer.Test
                 tester.DoubleClick();
             }
             // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void Selection_Always_ReturnsSelectedNodeData()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IApplicationSelection applicationSelection = mocks.Stub<IApplicationSelection>();
+            IViewCommands viewCommands = mocks.StrictMock<IViewCommands>();
+            var projectStub = mocks.Stub<IProject>();
+
+            mocks.ReplayAll();
+
+            var stringA = "testA";
+            var stringB = "testB";
+
+            IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
+            {
+                new TreeNodeInfo
+                {
+                    TagType = typeof(IProject),
+                    ChildNodeObjects = o => new[]
+                    {
+                        stringA,
+                        stringB
+                    }
+                },
+                new TreeNodeInfo
+                {
+                    TagType = typeof(string)
+                }
+            };
+
+            using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
+            {
+                Data = projectStub
+            })
+            {
+                WindowsFormsTestHelper.Show(explorer.TreeViewControl);
+                explorer.TreeViewControl.TrySelectNodeForData(stringA);
+
+                // Call
+                var selection = explorer.Selection;
+
+                // Assert
+                Assert.AreSame(stringA, selection);
+            }
+            WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
     }

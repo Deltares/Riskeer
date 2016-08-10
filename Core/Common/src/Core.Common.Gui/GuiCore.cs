@@ -31,6 +31,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
@@ -506,10 +507,10 @@ namespace Core.Common.Gui
 
         private void OnActiveViewChanged(object sender, ViewChangeEventArgs e)
         {
-            var view = e.View as IProjectExplorer;
-            if (view != null)
+            var selectionProvider = e.View as ISelectionProvider;
+            if (selectionProvider != null)
             {
-                Selection = view.TreeViewControl.SelectedData;
+                Selection = selectionProvider.Selection ?? Selection;
             }
         }
 

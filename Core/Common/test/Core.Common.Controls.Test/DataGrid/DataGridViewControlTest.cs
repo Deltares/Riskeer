@@ -1091,6 +1091,38 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
 
+        [Test]
+        public void ClearCurrentCell_Always_SetsCurrentCellToNull()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header"); // Set read-only state of the column to the opposite
+
+                dataGridView.DataSource = new[]
+                {
+                    ""
+                };
+
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                // Precondition
+                Assert.IsNotNull(dataGridView.CurrentCell);
+
+                // Call
+                control.ClearCurrentCell();
+
+                // Assert
+                Assert.IsNull(dataGridView.CurrentCell);
+            }
+        }
+
         private enum TestEnum
         {
             NoDisplayName,

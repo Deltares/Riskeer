@@ -947,6 +947,27 @@ namespace Ringtoets.Piping.Forms.Test.Views
             mocks.VerifyAll(); // No observer notified
         }
 
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
+        {
+            // Setup
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
+
+            // Call
+            var selection = pipingCalculationView.Selection;
+
+            // Assert
+            Assert.IsInstanceOf<PipingInputContext>(selection);
+            var dataRow = (PipingCalculationRow)dataGridView.Rows[selectedRow].DataBoundItem;
+            Assert.AreSame(dataRow.PipingCalculation, ((PipingInputContext)selection).PipingCalculation);
+        }
+
         private const int nameColumnIndex = 0;
         private const int stochasticSoilModelsColumnIndex = 1;
         private const int stochasticSoilProfilesColumnIndex = 2;

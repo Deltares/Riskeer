@@ -102,6 +102,14 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
+        public object Selection
+        {
+            get
+            {
+                return TreeViewControl.SelectedData;
+            }
+        }
+
         private void BindTreeInteractionEvents()
         {
             treeViewControl.DataDoubleClick += TreeViewControlDataDoubleClick;
@@ -130,21 +138,6 @@ namespace Core.Plugins.ProjectExplorer
         private void TreeViewControlDataDeleted(object sender, EventArgs<object> e)
         {
             viewCommands.RemoveAllViewsForItem(e.Value);
-        }
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-                applicationSelection.Selection = null;
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

@@ -19,20 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Data;
-using Core.Common.Controls.TreeView;
-using Core.Common.Controls.Views;
-
-namespace Core.Common.Gui.Forms
+namespace Core.Common.Controls.Views
 {
     /// <summary>
-    /// View to show the contents of a <see cref="IProject"/> instance.
+    /// Interface for views which can influence the selection on an application level.
     /// </summary>
-    public interface IProjectExplorer : ISelectionProvider
+    public interface ISelectionProvider : IView
     {
         /// <summary>
-        /// Gets the internal <see cref="TreeViewControl"/>.
+        /// Gets the selected <see cref="object"/>; or <c>null</c> if nothing is selected.
         /// </summary>
-        TreeViewControl TreeViewControl { get; }
+        object Selection { get; } 
     }
 }

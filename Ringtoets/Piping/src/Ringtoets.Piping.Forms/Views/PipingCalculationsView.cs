@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// <summary>
     /// This class is a view for configuring piping calculations.
     /// </summary>
-    public partial class PipingCalculationsView : UserControl, IView
+    public partial class PipingCalculationsView : UserControl, ISelectionProvider
     {
         private const int stochasticSoilModelColumnIndex = 1;
         private const int stochasticSoilProfileColumnIndex = 2;
@@ -151,6 +151,14 @@ namespace Ringtoets.Piping.Forms.Views
                     pipingCalculationObserver.Observable = null;
                     pipingCalculationGroupObserver.Observable = null;
                 }
+            }
+        }
+
+        public object Selection
+        {
+            get
+            {
+                return CreateSelectedItemFromCurrentRow();
             }
         }
 
@@ -557,10 +565,21 @@ namespace Ringtoets.Piping.Forms.Views
                 return;
             }
 
+            var selection = CreateSelectedItemFromCurrentRow();
+
+            if ((ApplicationSelection.Selection == null && selection != null)
+                || (ApplicationSelection.Selection != null && !ApplicationSelection.Selection.Equals(selection)))
+            {
+                ApplicationSelection.Selection = selection;
+            }
+        }
+
+        private PipingInputContext CreateSelectedItemFromCurrentRow()
+        {
             var currentRow = dataGridViewControl.GetCurrentRow();
 
             var pipingCalculationRow = currentRow != null
-                                           ? (PipingCalculationRow) currentRow.DataBoundItem
+                                           ? (PipingCalculationRow)currentRow.DataBoundItem
                                            : null;
 
             PipingInputContext selection = null;
@@ -574,12 +593,7 @@ namespace Ringtoets.Piping.Forms.Views
                     pipingFailureMechanism,
                     assessmentSection);
             }
-
-            if ((ApplicationSelection.Selection == null && selection != null)
-                || (ApplicationSelection.Selection != null && !ApplicationSelection.Selection.Equals(selection)))
-            {
-                ApplicationSelection.Selection = selection;
-            }
+            return selection;
         }
 
         # endregion
