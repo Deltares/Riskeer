@@ -132,13 +132,34 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void UpdateMapData()
         {
-            UpdateFeatureBasedMapData(referenceLineMapData, RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data != null && data.Parent != null ? data.Parent.ReferenceLine : null));
-            UpdateFeatureBasedMapData(sectionsMapData, PipingMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(data != null && data.WrappedData != null ? data.WrappedData.Sections : null));
-            UpdateFeatureBasedMapData(stochasticSoilModelsMapData, PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(data != null && data.WrappedData != null ? data.WrappedData.StochasticSoilModels : null));
-            UpdateFeatureBasedMapData(surfaceLinesMapData, PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(data != null && data.WrappedData != null ? data.WrappedData.SurfaceLines : null));
-            UpdateFeatureBasedMapData(sectionsStartPointMapData, PipingMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(data != null && data.WrappedData != null ? data.WrappedData.Sections : null));
-            UpdateFeatureBasedMapData(sectionsEndPointMapData, PipingMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(data != null && data.WrappedData != null ? data.WrappedData.Sections : null));
-            UpdateFeatureBasedMapData(hydraulicBoundaryDatabaseMapData, RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(data != null && data.Parent != null ? data.Parent.HydraulicBoundaryDatabase : null));
+            UpdateFeatureBasedMapData(referenceLineMapData,
+                                      RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data != null && data.Parent != null
+                                                                                                      ? data.Parent.ReferenceLine
+                                                                                                      : null));
+            UpdateFeatureBasedMapData(sectionsMapData,
+                                      PipingMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(data != null && data.WrappedData != null
+                                                                                                             ? data.WrappedData.Sections
+                                                                                                             : null));
+            UpdateFeatureBasedMapData(stochasticSoilModelsMapData,
+                                      PipingMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(data != null && data.WrappedData != null
+                                                                                                         ? data.WrappedData.StochasticSoilModels
+                                                                                                         : null));
+            UpdateFeatureBasedMapData(surfaceLinesMapData,
+                                      PipingMapDataFeaturesFactory.CreateSurfaceLineFeatures(data != null && data.WrappedData != null
+                                                                                                 ? data.WrappedData.SurfaceLines
+                                                                                                 : null));
+            UpdateFeatureBasedMapData(sectionsStartPointMapData,
+                                      PipingMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(data != null && data.WrappedData != null
+                                                                                                                       ? data.WrappedData.Sections
+                                                                                                                       : null));
+            UpdateFeatureBasedMapData(sectionsEndPointMapData,
+                                      PipingMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(data != null && data.WrappedData != null
+                                                                                                                     ? data.WrappedData.Sections
+                                                                                                                     : null));
+            UpdateFeatureBasedMapData(hydraulicBoundaryDatabaseMapData,
+                                      RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(data != null && data.Parent != null
+                                                                                                                  ? data.Parent.HydraulicBoundaryDatabase
+                                                                                                                  : null));
 
             mapControl.Data.NotifyObservers();
         }

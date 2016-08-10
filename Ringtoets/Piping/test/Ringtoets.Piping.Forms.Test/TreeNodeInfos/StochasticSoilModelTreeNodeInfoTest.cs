@@ -85,7 +85,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOnData()
+        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
             var stochasticSoilProfile1 = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)

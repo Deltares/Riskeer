@@ -148,7 +148,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOnData()
+        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
             var pipingSoilProfile1 = new PipingSoilProfile("pipingSoilProfile1", 0, new List<PipingSoilLayer>

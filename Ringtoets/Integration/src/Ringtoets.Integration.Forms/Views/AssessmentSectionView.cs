@@ -114,8 +114,14 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateMapData()
         {
-            UpdateFeatureBasedMapData(referenceLineMapData, RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data != null ? data.ReferenceLine : null));
-            UpdateFeatureBasedMapData(hydraulicBoundaryDatabaseMapData, RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(data != null ? data.HydraulicBoundaryDatabase : null));
+            UpdateFeatureBasedMapData(referenceLineMapData,
+                                      RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(data != null
+                                                                                                      ? data.ReferenceLine
+                                                                                                      : null));
+            UpdateFeatureBasedMapData(hydraulicBoundaryDatabaseMapData,
+                                      RingtoetsMapDataFeaturesFactory.CreateHydraulicBoundaryDatabaseFeatures(data != null
+                                                                                                                  ? data.HydraulicBoundaryDatabase
+                                                                                                                  : null));
 
             mapControl.Data.NotifyObservers();
         }

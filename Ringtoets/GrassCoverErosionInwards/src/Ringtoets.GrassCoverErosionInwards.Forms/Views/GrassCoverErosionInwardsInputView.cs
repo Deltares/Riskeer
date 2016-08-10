@@ -121,9 +121,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             GrassCoverErosionInwardsChartDataFactory.UpdateForeshoreGeometryChartDataName(foreshoreChartData, input);
             GrassCoverErosionInwardsChartDataFactory.UpdateDikeGeometryChartDataName(dikeGeometryChartData, dikeProfile);
 
-            UpdatePointBasedChartData(foreshoreChartData, GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input));
-            UpdatePointBasedChartData(dikeGeometryChartData, GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(dikeProfile));
-            UpdatePointBasedChartData(dikeHeightChartData, GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input));
+            UpdatePointBasedChartData(foreshoreChartData,
+                                      GrassCoverErosionInwardsChartDataPointsFactory.CreateForeshoreGeometryPoints(input));
+            UpdatePointBasedChartData(dikeGeometryChartData,
+                                      GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeGeometryPoints(dikeProfile));
+            UpdatePointBasedChartData(dikeHeightChartData,
+                                      GrassCoverErosionInwardsChartDataPointsFactory.CreateDikeHeightPoints(input));
 
             chartControl.Data.NotifyObservers();
         }

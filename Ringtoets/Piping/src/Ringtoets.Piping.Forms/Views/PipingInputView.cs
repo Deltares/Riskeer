@@ -152,15 +152,24 @@ namespace Ringtoets.Piping.Forms.Views
 
             PipingChartDataFactory.UpdateSurfaceLineChartDataName(surfaceLineChartData, surfaceLine);
 
-            UpdatePointBasedChartData(surfaceLineChartData, PipingChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine));
-            UpdatePointBasedChartData(ditchPolderSideChartData, PipingChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine));
-            UpdatePointBasedChartData(bottomDitchPolderSideChartData, PipingChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine));
-            UpdatePointBasedChartData(bottomDitchDikeSideChartData, PipingChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine));
-            UpdatePointBasedChartData(ditchDikeSideChartData, PipingChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine));
-            UpdatePointBasedChartData(dikeToeAtPolderChartData, PipingChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine));
-            UpdatePointBasedChartData(dikeToeAtRiverChartData, PipingChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine));
-            UpdatePointBasedChartData(exitPointChartData, PipingChartDataPointsFactory.CreateExitPointPoint(pipingInput));
-            UpdatePointBasedChartData(entryPointChartData, PipingChartDataPointsFactory.CreateEntryPointPoint(pipingInput));
+            UpdatePointBasedChartData(surfaceLineChartData,
+                                      PipingChartDataPointsFactory.CreateSurfaceLinePoints(surfaceLine));
+            UpdatePointBasedChartData(ditchPolderSideChartData,
+                                      PipingChartDataPointsFactory.CreateDitchPolderSidePoint(surfaceLine));
+            UpdatePointBasedChartData(bottomDitchPolderSideChartData,
+                                      PipingChartDataPointsFactory.CreateBottomDitchPolderSidePoint(surfaceLine));
+            UpdatePointBasedChartData(bottomDitchDikeSideChartData,
+                                      PipingChartDataPointsFactory.CreateBottomDitchDikeSidePoint(surfaceLine));
+            UpdatePointBasedChartData(ditchDikeSideChartData,
+                                      PipingChartDataPointsFactory.CreateDitchDikeSidePoint(surfaceLine));
+            UpdatePointBasedChartData(dikeToeAtPolderChartData,
+                                      PipingChartDataPointsFactory.CreateDikeToeAtPolderPoint(surfaceLine));
+            UpdatePointBasedChartData(dikeToeAtRiverChartData,
+                                      PipingChartDataPointsFactory.CreateDikeToeAtRiverPoint(surfaceLine));
+            UpdatePointBasedChartData(exitPointChartData,
+                                      PipingChartDataPointsFactory.CreateExitPointPoint(pipingInput));
+            UpdatePointBasedChartData(entryPointChartData,
+                                      PipingChartDataPointsFactory.CreateEntryPointPoint(pipingInput));
 
             UpdateSoilProfileChartData();
 

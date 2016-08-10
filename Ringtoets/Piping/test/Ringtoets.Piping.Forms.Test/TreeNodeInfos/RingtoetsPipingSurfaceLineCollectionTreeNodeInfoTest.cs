@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOnData()
+        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
