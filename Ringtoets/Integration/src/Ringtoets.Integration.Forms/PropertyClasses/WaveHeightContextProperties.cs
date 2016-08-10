@@ -25,6 +25,7 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Properties;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
@@ -32,7 +33,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="WaveHeightContext"/> for properties panel.
     /// </summary>
-    public class WaveHeightContextProperties : ObjectProperties<WaveHeightContext>
+    public class WaveHeightContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
         /// <summary>
         /// Gets the <see cref="HydraulicBoundaryLocationDesignWaterLevelProperties"/> from the <see cref="WaveHeightContext"/>.
@@ -45,8 +46,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.HydraulicBoundaryDatabase != null
-                           ? data.WrappedData.HydraulicBoundaryDatabase.Locations.Select(loc => new HydraulicBoundaryLocationWaveHeightProperties(loc)).ToArray()
+                return data != null
+                           ? data.Locations.Select(loc => new HydraulicBoundaryLocationWaveHeightProperties(loc)).ToArray()
                            : new HydraulicBoundaryLocationWaveHeightProperties[0];
             }
         }

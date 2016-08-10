@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new DesignWaterLevelContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<DesignWaterLevelContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -54,12 +54,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
-            
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             DesignWaterLevelContext designWaterLevelContext = new DesignWaterLevelContext(assessmentSectionMock)
             {
                 WrappedData =
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 }
             };
 
@@ -73,7 +74,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Call
             DesignWaterLevelContextProperties properties = new DesignWaterLevelContextProperties
             {
-                Data = designWaterLevelContext
+                Data = hydraulicBoundaryDatabase
             };
 
             // Assert

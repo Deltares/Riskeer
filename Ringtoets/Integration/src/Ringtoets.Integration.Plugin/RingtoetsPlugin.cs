@@ -253,8 +253,14 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>();
-            yield return new PropertyInfo<DesignWaterLevelContext, DesignWaterLevelContextProperties>();
-            yield return new PropertyInfo<WaveHeightContext, WaveHeightContextProperties>();
+            yield return new PropertyInfo<DesignWaterLevelContext, DesignWaterLevelContextProperties>
+            {
+                GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
+            };
+            yield return new PropertyInfo<WaveHeightContext, WaveHeightContextProperties>
+            {
+                GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
+            };
         }
 
         /// <summary>
@@ -996,7 +1002,7 @@ namespace Ringtoets.Integration.Plugin
 
                         ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
 
-                        nodeData.WrappedData.NotifyObservers();
+                        nodeData.WrappedData.HydraulicBoundaryDatabase.NotifyObservers();
                     }
                     else
                     {
@@ -1033,7 +1039,7 @@ namespace Ringtoets.Integration.Plugin
 
                         ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
 
-                        nodeData.WrappedData.NotifyObservers();
+                        nodeData.WrappedData.HydraulicBoundaryDatabase.NotifyObservers();
                     }
                     else
                     {

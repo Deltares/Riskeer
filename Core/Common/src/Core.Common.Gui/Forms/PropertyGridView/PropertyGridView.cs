@@ -27,6 +27,7 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Gui.Properties;
+using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.Selection;
 
 namespace Core.Common.Gui.Forms.PropertyGridView
@@ -107,25 +108,14 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         private void GuiSelectionChanged(object sender, EventArgs e)
         {
-            if (observable != null)
-            {
-                observable.Detach(this);
-            }
-
             var selection = applicationSelection.Selection;
             if (selection == null)
             {
-                SelectedObject = null;
+                Data = null;
                 return;
             }
 
-            observable = selection as IObservable;
-            if (observable != null)
-            {
-                observable.Attach(this);
-            }
-
-            SelectedObject = GetObjectProperties(selection);
+            Data = GetObjectProperties(selection);
         }
 
         #region IPropertyGrid Members
@@ -138,7 +128,28 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
             set
             {
+                if (observable != null)
+                {
+                    observable.Detach(this);
+                    observable = null;
+                }
+
                 SelectedObject = value;
+
+                var dynamicPropertyBag = SelectedObject as DynamicPropertyBag;
+                if (dynamicPropertyBag != null)
+                {
+                    var objectProperties = dynamicPropertyBag.WrappedObject as IObjectProperties;
+                    if (objectProperties != null)
+                    {
+                        observable = objectProperties.Data as IObservable;
+
+                        if (observable != null)
+                        {
+                            observable.Attach(this);
+                        }
+                    }
+                }
             }
         }
 

@@ -273,7 +273,11 @@ namespace Ringtoets.Integration.Forms.Views
             data.Norm = Convert.ToInt32(normInput.Value);
             var affectedCalculations = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
             RingtoetsDataSynchronizationService.NotifyCalculationObservers(affectedCalculations);
-            assessmentSection.NotifyObservers();
+
+            if (assessmentSection.HydraulicBoundaryDatabase != null)
+            {
+                assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+            }
 
             data.NotifyObservers();
 

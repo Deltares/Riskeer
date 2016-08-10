@@ -78,6 +78,8 @@
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightContextPropertiesTest.cs" />
+    <Compile Include="PropertyInfos\WaveHeightContextPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\DesignWaterLevelContextPropertyInfoTest.cs" />
     <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructureFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />

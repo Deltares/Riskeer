@@ -88,12 +88,12 @@ namespace Ringtoets.Integration.Forms.Test
             observerMock.Expect(o => o.UpdateObserver());
             IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
             calculationObserver.Expect(co => co.UpdateObserver()).Repeat.Times(3);
-            IObserver assessmentSectionObserver = mockRepository.StrictMock<IObserver>();
-            assessmentSectionObserver.Expect(hbdo => hbdo.UpdateObserver());
+            IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
+            hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
-            assessmentSection.Attach(assessmentSectionObserver);
+            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
             pipingCalculation.Attach(calculationObserver);
             grassCoverErosionInwardsCalculation.Attach(calculationObserver);
             heightStructuresCalculation.Attach(calculationObserver);

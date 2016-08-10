@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new WaveHeightContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<WaveHeightContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -55,11 +55,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             WaveHeightContext waveHeightContext = new WaveHeightContext(assessmentSectionMock)
             {
                 WrappedData =
                 {
-                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
                 }
             };
 
@@ -73,7 +74,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Call
             WaveHeightContextProperties properties = new WaveHeightContextProperties
             {
-                Data = waveHeightContext
+                Data = hydraulicBoundaryDatabase
             };
 
             // Assert
