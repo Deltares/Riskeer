@@ -47,12 +47,8 @@ namespace Core.Components.Gis.IO.Readers
         /// </summary>
         /// <param name="filePath">The path to the shape file.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException">Thrown when
-        /// <list type="bullet">
-        /// <item><paramref name="filePath"/> points to a file that doesn't exist.</item>
-        /// <item>The shapefile has unexpected geometries in it.</item>
-        /// </list>
-        /// </exception>
+        /// <exception cref="CriticalFileReadException">Thrown when <paramref name="filePath"/> 
+        /// points to a file that doesn't exist. </exception>
         protected ShapeFileReaderBase(string filePath)
         {
             FileUtils.ValidateFilePath(filePath);
@@ -86,7 +82,7 @@ namespace Core.Components.Gis.IO.Readers
         }
 
         /// <summary>
-        /// Reads a line shape from the file.
+        /// Reads a line from the shape file.
         /// </summary>
         /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>. When <c>null</c> a default value will be set.</param>
         /// <returns>The <see cref="FeatureBasedMapData"/> representing the shape, or 

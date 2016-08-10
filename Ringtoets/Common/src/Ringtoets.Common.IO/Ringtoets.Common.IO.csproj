@@ -50,6 +50,7 @@
     <Compile Include="AssessmentSectionSettings.cs" />
     <Compile Include="AssessmentSectionSettingsReader.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
+    <Compile Include="ReferenceLineExporter.cs" />
     <Compile Include="ReferenceLineMetaImporter.cs" />
     <Compile Include="ReferenceLinesMetaReader.cs" />
     <Compile Include="FailureMechanismSectionReader.cs" />
@@ -61,6 +62,7 @@
     </Compile>
     <Compile Include="ReferenceLineImporter.cs" />
     <Compile Include="ReferenceLineReader.cs" />
+    <Compile Include="ReferenceLineWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

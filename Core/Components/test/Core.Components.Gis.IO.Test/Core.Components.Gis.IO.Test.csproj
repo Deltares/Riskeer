@@ -54,6 +54,8 @@
     <Compile Include="Readers\PolygonShapeFileReaderTest.cs" />
     <Compile Include="Readers\PolylineShapeFileReaderTest.cs" />
     <Compile Include="Readers\ShapeFileReaderBaseTest.cs" />
+    <Compile Include="Writers\PolylineShapeFileWriterTest.cs" />
+    <Compile Include="Writers\ShapeFileWriterBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
