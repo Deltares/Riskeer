@@ -34,6 +34,114 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
 
         [Test]
+        [TestCase("")]
+        [TestCase("    ")]
+        [TestCase(null)]
+        public void CreateCorruptDatabaseFile_InvalidPath_ThrowArgumentNullException(string invalidFilePath)
+        {
+            // Call
+            TestDelegate call = () => SqLiteDatabaseHelper.CreateCorruptDatabaseFile(invalidFilePath);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void CreateCorruptDatabaseFile_ValidArguments_CreatedDatabaseFile()
+        {
+            // Setup
+            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
+            try
+            {
+                // Call
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateCorruptDatabaseFile(validPath);
+
+                // Assert
+                Assert.DoesNotThrow(test);
+                Assert.IsTrue(File.Exists(validPath));
+            }
+            finally
+            {
+                CallGarbageCollector();
+                fileDisposeHelper.Dispose();
+            }
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("    ")]
+        [TestCase(null)]
+        public void CreateCompleteDatabaseFileWithoutProjectData_InvalidPath_ThrowsArgumentNullException(string invalidFilePath)
+        {
+            // Call
+            TestDelegate call = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileWithoutProjectData(invalidFilePath);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void CreateCompleteDatabaseFileWithoutProjectData_ValidArguments_CreatedDatabaseFile()
+        {
+            // Setup
+            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
+            try
+            {
+                // Call
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileWithoutProjectData(validPath);
+
+                // Assert
+                Assert.DoesNotThrow(test);
+                Assert.IsTrue(File.Exists(validPath));
+            }
+            finally
+            {
+                CallGarbageCollector();
+                fileDisposeHelper.Dispose();
+            }
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("    ")]
+        [TestCase(null)]
+        public void CreateCompleteDatabaseFileEmpty_InvalidPath_ThrowsArgumentNullException(string invalidFilePath)
+        {
+            // Call
+            TestDelegate call = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(invalidFilePath);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        public void CreateCompleteDatabaseFileEmpty_ValidArguments_CreatedDatabaseFile()
+        {
+            // Setup
+            string validPath = Path.Combine(testDataPath, "tempFile.rtd");
+
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(validPath);
+            try
+            {
+                // Call
+                TestDelegate test = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(validPath);
+
+                // Assert
+                Assert.DoesNotThrow(test);
+                Assert.IsTrue(File.Exists(validPath));
+            }
+            finally
+            {
+                CallGarbageCollector();
+                fileDisposeHelper.Dispose();
+            }
+        }
+
+        [Test]
         public void CreateDatabaseFile_NullPath_ThrowsArgumentNullException()
         {
             // Setup
@@ -173,6 +281,19 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsNotNullOrEmpty(query);
             Assert.IsTrue(query.Contains(expectedCreateVersionTable));
             Assert.IsFalse(query.Contains(notExpectedCreateProjectEntityTable));
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("    ")]
+        [TestCase(null)]
+        public void AddVersionEntity_InvalidPath_ThrowsArgumentNullException(string invalidFilePath)
+        {
+            // Call
+            TestDelegate call = () => SqLiteDatabaseHelper.AddVersionEntity(invalidFilePath, 1);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
         }
 
         private static void CallGarbageCollector()

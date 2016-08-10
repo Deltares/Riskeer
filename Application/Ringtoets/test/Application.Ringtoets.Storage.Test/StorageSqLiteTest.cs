@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class StorageSqLiteTest
     {
-        private const int currentDatabaseVersoin = 1;
+        private const int currentDatabaseVersion = 1;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
         private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
 
@@ -214,8 +214,8 @@ namespace Application.Ringtoets.Storage.Test
                 TestDelegate precondition = () =>
                 {
                     SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
-                    SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, currentDatabaseVersoin);
-                    SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, currentDatabaseVersoin);
+                    SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, currentDatabaseVersion);
+                    SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, currentDatabaseVersion);
                 };
                 Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
 
@@ -236,8 +236,8 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        [TestCase(currentDatabaseVersoin + 1)]
-        [TestCase(currentDatabaseVersoin + 500)]
+        [TestCase(currentDatabaseVersion + 1)]
+        [TestCase(currentDatabaseVersion + 500)]
         public void LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException(int versionCode)
         {
             // Setup
@@ -459,6 +459,40 @@ namespace Application.Ringtoets.Storage.Test
                 CallGarbageCollector();
                 fileDisposeHelper.Dispose();
             }
+        }
+
+        [Test]
+        public void SaveProkectAs_NoStagedProject_ThrowInvalidOperationException()
+        {
+            // Setup
+            var storage = new StorageSqLite();
+
+            // Precondition
+            Assert.IsFalse(storage.HasStagedProject);
+
+            // Call
+            TestDelegate call = () => storage.SaveProjectAs(tempRingtoetsFile);
+
+            // Assert
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
+            Assert.AreEqual("Call 'StageProject(IProject)' first before calling this method.", message);
+        }
+
+        [Test]
+        public void HasStagedProjectChanges_NoProjectStaged_ThrowInvalidOperationException()
+        {
+            // Setup
+            var storage = new StorageSqLite();
+
+            // Precondition
+            Assert.IsFalse(storage.HasStagedProject);
+
+            // Call
+            TestDelegate call = () => storage.HasStagedProjectChanges();
+
+            // Assert
+            string message = Assert.Throws<InvalidOperationException>(call).Message;
+            Assert.AreEqual("Call 'StageProject(IProject)' first before calling this method.", message);
         }
 
         [Test]
