@@ -53,17 +53,6 @@ namespace Core.Common.Gui.Commands
         }
 
         /// <summary>
-        /// Ask the user for the source file to import data from, then perform the import
-        /// on the target object.
-        /// </summary>
-        /// <param name="importer">The importer to use.</param>
-        /// <param name="target">The import target.</param>
-        public void ImportUsingImporter(IFileImporter importer, object target)
-        {
-            GetImportedItemsUsingFileOpenDialog(importer, target);
-        }
-
-        /// <summary>
         /// Asks the user to select which importer to use if multiple are available. Then
         /// if an importer is found/selected, the user is asked for a source to import from.
         /// Finally the data is being imported to the target object.

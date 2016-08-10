@@ -58,27 +58,26 @@ namespace Core.Common.Gui.Commands
         /// if an exporter is found/selected, the user is asked for a location to export to.
         /// Finally the data is being exported from the source object.
         /// </summary>
-        /// <param name="item">The export source.</param>
-        public void ExportFrom(object item)
+        /// <param name="source">The export source.</param>
+        public void ExportFrom(object source)
         {
-            var exportInfo = GetSupportedExportInfoUsingDialog(item);
+            var exportInfo = GetSupportedExportInfoUsingDialog(source);
             if (exportInfo == null)
             {
                 return;
             }
 
-            GetExporterDialog(exportInfo, item);
+            ExportItemUsingFileOpenDialog(exportInfo, source);
         }
 
         /// <summary>
-        /// Asks the user for the target file to export data to, then performs the export
-        /// using the source object.
+        /// Checks whether or not exporters are available for <paramref name="source"/>.
         /// </summary>
-        /// <param name="exportInfo">The export information to use.</param>
-        /// <param name="selectedItem">The export source.</param>
-        public void GetExporterDialog(ExportInfo exportInfo, object selectedItem)
+        /// <param name="source">The data object to check the export support for.</param>
+        /// <returns>Whether or not <paramref name="source"/> can be exported.</returns>
+        public bool CanExportFrom(object source)
         {
-            ExportItemUsingFileOpenDialog(exportInfo, selectedItem);
+            return GetSupportedExportInfos(source).Any();
         }
 
         private ExportInfo GetSupportedExportInfoUsingDialog(object itemToExport)
@@ -114,23 +113,6 @@ namespace Core.Common.Gui.Commands
             return null;
         }
 
-        /// <summary>
-        /// Gets an enumeration of supported <see cref="ExportInfo"/> objects for the provided <paramref name="source"/>.
-        /// </summary>
-        /// <param name="source">The data object to get the supported <see cref="ExportInfo"/> objects for.</param>
-        /// <returns>An enumeration of supported <see cref="ExportInfo"/> objects.</returns>
-        public IEnumerable<ExportInfo> GetSupportedExportInfos(object source)
-        {
-            if (source == null)
-            {
-                return Enumerable.Empty<ExportInfo>();
-            }
-
-            var sourceType = source.GetType();
-
-            return exportInfos.Where(info => info.DataType == sourceType || sourceType.Implements(info.DataType));
-        }
-
         private void ExportItemUsingFileOpenDialog(ExportInfo exportInfo, object item)
         {
             log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
@@ -157,6 +139,18 @@ namespace Core.Common.Gui.Commands
                     }
                 }
             }
+        }
+
+        private IEnumerable<ExportInfo> GetSupportedExportInfos(object source)
+        {
+            if (source == null)
+            {
+                return Enumerable.Empty<ExportInfo>();
+            }
+
+            var sourceType = source.GetType();
+
+            return exportInfos.Where(info => info.DataType == sourceType || sourceType.Implements(info.DataType));
         }
     }
 }

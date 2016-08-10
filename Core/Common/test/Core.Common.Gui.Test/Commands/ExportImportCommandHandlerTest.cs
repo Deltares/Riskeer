@@ -220,13 +220,13 @@ namespace Core.Common.Gui.Test.Commands
             mocks.ReplayAll();
 
             var fileImporters = Enumerable.Empty<IFileImporter>();
-            var fileExporters = new List<ExportInfo>
+            var exportInfos = new List<ExportInfo>
             {
                 new ExportInfo<object>(),
                 new ExportInfo<object>()
             };
 
-            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, fileExporters);
+            var commandHandler = new ExportImportCommandHandler(dialogParent, fileImporters, exportInfos);
 
             // Call
             var isExportPossible = commandHandler.CanExportFrom(new object());

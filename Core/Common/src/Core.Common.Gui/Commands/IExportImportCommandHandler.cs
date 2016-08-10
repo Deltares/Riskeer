@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.IO;
-
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// Interface declaring commands/methods related to importing and exporting data.
+    /// Interface declaring commands/methods related to exporting and importing data.
     /// </summary>
     public interface IExportImportCommandHandler
     {
@@ -32,11 +30,11 @@ namespace Core.Common.Gui.Commands
         /// Indicates if there are importers for the given object.
         /// </summary>
         /// <param name="obj">The object to check importer availability for.</param>
-        /// <returns><c>True</c> if there are importers available, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if there are importers available, <c>false</c> otherwise.</returns>
         bool CanImportOn(object obj);
 
         /// <summary>
-        /// Perform the import workflow by:
+        /// Perform the import workflow by the following steps:
         /// <list type="number">
         /// <item>If multiple importers are available for target data object, ask the user
         /// which importer to use;</item>
@@ -45,18 +43,17 @@ namespace Core.Common.Gui.Commands
         /// </list>
         /// </summary>
         /// <param name="target">The import target.</param>
-        /// <param name="importer">Optional: The specific importer to use.</param>
-        void ImportOn(object target, IFileImporter importer = null);
+        void ImportOn(object target);
 
         /// <summary>
         /// Indicates if there are exporters for the given object.
         /// </summary>
         /// <param name="obj">The object to check exporter availability for.</param>
-        /// <returns><c>True</c> if there are exporters available, <c>false</c> otherwise.</returns>
+        /// <returns><c>true</c> if there are exporters available, <c>false</c> otherwise.</returns>
         bool CanExportFrom(object obj);
 
         /// <summary>
-        /// Perform the export workflow by:
+        /// Perform the export workflow by the following steps:
         /// <list type="number">
         /// <item>If multiple exporters are available for source data object, ask the user
         /// which exporter to use;</item>
@@ -64,7 +61,7 @@ namespace Core.Common.Gui.Commands
         /// <item>Export from the source data object to the specified location.</item>
         /// </list>
         /// </summary>
-        /// <param name="data">The data to export.</param>
+        /// <param name="data">The data object to export.</param>
         void ExportFrom(object data);
     }
 }

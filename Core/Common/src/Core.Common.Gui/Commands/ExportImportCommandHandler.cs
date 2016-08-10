@@ -37,9 +37,9 @@ namespace Core.Common.Gui.Commands
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ExportImportCommandHandler));
 
-        private readonly IEnumerable<IFileImporter> fileImporters;
         private readonly GuiImportHandler importHandler;
         private readonly GuiExportHandler exportHandler;
+        private readonly IEnumerable<IFileImporter> fileImporters;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExportImportCommandHandler"/> class.
@@ -59,18 +59,11 @@ namespace Core.Common.Gui.Commands
             return fileImporters.Any(fileImporter => fileImporter.CanImportOn(target));
         }
 
-        public void ImportOn(object target, IFileImporter importer = null)
+        public void ImportOn(object target)
         {
             try
             {
-                if (importer == null)
-                {
-                    importHandler.ImportDataTo(target);
-                }
-                else
-                {
-                    importHandler.ImportUsingImporter(importer, target);
-                }
+                importHandler.ImportDataTo(target);
             }
             catch (Exception)
             {
@@ -78,9 +71,9 @@ namespace Core.Common.Gui.Commands
             }
         }
 
-        public bool CanExportFrom(object obj)
+        public bool CanExportFrom(object data)
         {
-            return exportHandler.GetSupportedExportInfos(obj).Any();
+            return exportHandler.CanExportFrom(data);
         }
 
         public void ExportFrom(object data)
