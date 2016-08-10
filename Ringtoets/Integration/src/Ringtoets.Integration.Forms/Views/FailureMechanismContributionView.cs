@@ -29,7 +29,6 @@ using Core.Common.Gui.Commands;
 using Core.Common.Utils.Reflection;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Service;
@@ -52,7 +51,6 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly Observer closeViewsForIrrelevantFailureMechanismObserver;
         private FailureMechanismContribution data;
 
-        private bool revertingComboBoxSelectedValue;
         private IAssessmentSection assessmentSection;
 
         private const int isRelevantColumnIndex = 0;
@@ -405,48 +403,28 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void AssessmentSectionCompositionComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (revertingComboBoxSelectedValue)
-            {
-                return;
-            }
+            assessmentSection.ChangeComposition((AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue);
+            SetGridDataSource();
 
-            double[] originalFailureMechanismContributions = assessmentSection.GetFailureMechanisms().Select(fm => fm.Contribution).ToArray();
-
-            var dialogResult = MessageBox.Show(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ChangeComposition_Change_will_clear_calculation_output_accept_question,
-                                               CoreCommonBaseResources.Confirm,
-                                               MessageBoxButtons.OKCancel);
-            if (dialogResult == DialogResult.OK)
-            {
-                assessmentSection.ChangeComposition((AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue);
-                SetGridDataSource();
-
-                ClearCalculationOutputForChangedContributions(originalFailureMechanismContributions);
-                assessmentSection.NotifyObservers();
-            }
-            else
-            {
-                revertingComboBoxSelectedValue = true;
-                assessmentSectionCompositionComboBox.SelectedValue = assessmentSection.Composition;
-                revertingComboBoxSelectedValue = false;
-            }
+            assessmentSection.NotifyObservers();
         }
-
-        private void ClearCalculationOutputForChangedContributions(double[] originalFailureMechanismContributions)
-        {
-            var allFailureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-            for (int i = 0; i < allFailureMechanisms.Length; i++)
-            {
-                IFailureMechanism failureMechanism = allFailureMechanisms[i];
-                if (originalFailureMechanismContributions[i] != failureMechanism.Contribution)
-                {
-                    foreach (ICalculation calculation in failureMechanism.Calculations)
-                    {
-                        calculation.ClearOutput();
-                        calculation.NotifyObservers();
-                    }
-                }
-            }
-        }
+//
+//        private void ClearCalculationOutputForChangedContributions(double[] originalFailureMechanismContributions)
+//        {
+//            var allFailureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+//            for (int i = 0; i < allFailureMechanisms.Length; i++)
+//            {
+//                IFailureMechanism failureMechanism = allFailureMechanisms[i];
+//                if (originalFailureMechanismContributions[i] != failureMechanism.Contribution)
+//                {
+//                    foreach (ICalculation calculation in failureMechanism.Calculations)
+//                    {
+//                        calculation.ClearOutput();
+//                        calculation.NotifyObservers();
+//                    }
+//                }
+//            }
+//        }
 
         #endregion
     }

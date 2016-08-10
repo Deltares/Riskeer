@@ -449,55 +449,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
-        public void CompositionComboBox_ChangeComposition_ShowMessageBoxWithExpectedText(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
-        {
-            // Setup
-            using (var view = new FailureMechanismContributionView())
-            {
-                var assessmentSection = new AssessmentSection(initialComposition);
-
-                view.Data = assessmentSection.FailureMechanismContribution;
-                view.AssessmentSection = assessmentSection;
-                ShowFormWithView(view);
-
-                // Precondition
-                Assert.AreNotEqual(assessmentSection.Composition, newComposition);
-
-                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
-
-                int dataGridInvalidatedCallCount = 0;
-                var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-                contributionGridView.Invalidated += (sender, args) => dataGridInvalidatedCallCount++;
-
-                string messageBoxTitle = null, messageBoxText = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
-                    messageBoxTitle = messageBox.Title;
-                    messageBoxText = messageBox.Text;
-
-                    messageBox.ClickOk();
-                };
-
-                // Call
-                compositionComboBox.SelectedValue = newComposition;
-
-                // Assert
-                Assert.AreEqual("Bevestigen", messageBoxTitle);
-                string expectedText = "U heeft een ander trajecttype geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden." + Environment.NewLine +
-                                      Environment.NewLine +
-                                      "Weet u zeker dat u wilt doorgaan?";
-                Assert.AreEqual(expectedText, messageBoxText);
-            }
-        }
-
-        [Test]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune)]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
         public void CompositionComboBox_ChangeCompositionAndOk_UpdateAssessmentSectionContributionAndView(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
         {
             // Setup
@@ -515,12 +466,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 bool dataGridInvalidated = false;
                 var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 contributionGridView.Invalidated += (sender, args) => dataGridInvalidated = true;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
-                    messageBox.ClickOk();
-                };
 
                 var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
 
@@ -544,7 +489,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
-        public void CompositionComboBox_ChangeCompositionAndOk_NotifyAssessmentSectionObservers(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
+        public void CompositionComboBox_ChangeComposition_NotifyAssessmentSectionObservers(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
         {
             // Setup
             using (var view = new FailureMechanismContributionView())
@@ -564,12 +509,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Precondition
                 Assert.AreNotEqual(assessmentSection.Composition, newComposition);
 
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
-                    messageBox.ClickOk();
-                };
-
                 var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
 
                 // Call
@@ -578,183 +517,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 mocks.VerifyAll(); // Expect UpdateObserver call
             }
-        }
-
-        [Test]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune)]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
-        public void CompositionComboBox_ChangeCompositionAndOk_ClearOutputAndNotify(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
-        {
-            // Setup
-            var firstMockRepository = new MockRepository();
-
-            var calculationItem1 = firstMockRepository.Stub<ICalculation>();
-            calculationItem1.Expect(ci => ci.ClearOutput());
-            calculationItem1.Expect(ci => ci.NotifyObservers());
-
-            // Expect no clear output as failure mechanism doesn't have different Contribution:
-            var calculationItem2 = firstMockRepository.StrictMock<ICalculation>();
-
-            double contributionBeforeChange = 1.1, contributionAfterChange = 2.2;
-
-            var failureMechanism1 = firstMockRepository.Stub<IFailureMechanism>();
-            failureMechanism1.Stub(fm => fm.Calculations).Return(new[]
-                {
-                    calculationItem1
-                });
-            failureMechanism1.Contribution = contributionBeforeChange;
-            failureMechanism1.Stub(fm => fm.Name).Return("A");
-            failureMechanism1.Stub(fm => fm.Code).Return("C");
-            failureMechanism1.Stub(fm => fm.Attach(null)).IgnoreArguments();
-            failureMechanism1.Stub(fm => fm.Detach(null)).IgnoreArguments();
-
-            var failureMechanism2 = firstMockRepository.Stub<IFailureMechanism>();
-            failureMechanism2.Stub(fm => fm.Calculations).Return(new[]
-                {
-                    calculationItem2
-                });
-            failureMechanism2.Stub(fm => fm.Name).Return("B");
-            failureMechanism2.Stub(fm => fm.Code).Return("C");
-            failureMechanism2.Stub(fm => fm.Attach(null)).IgnoreArguments();
-            failureMechanism2.Stub(fm => fm.Detach(null)).IgnoreArguments();
-
-            firstMockRepository.ReplayAll();
-
-            var failureMechanisms = new[]
-                {
-                    failureMechanism1,
-                    failureMechanism2
-                };
-
-            var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 100.0, 30000);
-
-            var secondMockRepository = new MockRepository();
-            var assessmentSection = secondMockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(failureMechanismContribution);
-            assessmentSection.Stub(section => section.Composition).Return(initialComposition);
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(section => section.NotifyObservers());
-            assessmentSection.Expect(section => section.ChangeComposition(newComposition))
-                             .WhenCalled(invocation => failureMechanism1.Contribution = contributionAfterChange);
-            secondMockRepository.ReplayAll();
-
-            using (var view = new FailureMechanismContributionView())
-            {
-                
-
-                view.Data = failureMechanismContribution;
-                view.AssessmentSection = assessmentSection;
-                ShowFormWithView(view);
-
-                // Precondition
-                Assert.AreNotEqual(assessmentSection.Composition, newComposition);
-
-                bool dataGridViewInvalidated = false;
-                var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-                contributionGridView.Invalidated += (sender, args) => dataGridViewInvalidated = true;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
-                    messageBox.ClickOk();
-                };
-
-                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
-
-                // Call
-                compositionComboBox.SelectedValue = newComposition;
-
-                // Assert
-                Assert.AreEqual(newComposition, compositionComboBox.SelectedValue);
-
-                Assert.IsTrue(dataGridViewInvalidated,
-                              "Expect the data grid view to be marked for redrawing.");
-            }
-
-            firstMockRepository.VerifyAll(); // Expect ICalculation.ClearOutput and ICalculation.NotifyObservers
-            secondMockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune)]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune)]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike)]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune)]
-        public void CompositionComboBox_ChangeCompositionAndCancel_KeepOriginalCompositionAndCalculationResults(AssessmentSectionComposition initialComposition, AssessmentSectionComposition newComposition)
-        {
-            // Setup
-            var firstMockRepository = new MockRepository();
-
-            var calculationItem1 = firstMockRepository.Stub<ICalculation>();
-            calculationItem1.Expect(ci => ci.ClearOutput()).Repeat.Never();
-            var calculationItem2 = firstMockRepository.Stub<ICalculation>();
-            calculationItem2.Expect(ci => ci.ClearOutput()).Repeat.Never();
-
-            var failureMechanism = firstMockRepository.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(new[]
-                {
-                    calculationItem1,
-                    calculationItem2
-                });
-            failureMechanism.Stub(fm => fm.Name).Return("A");
-            failureMechanism.Stub(fm => fm.Code).Return("C");
-            failureMechanism.Stub(fm => fm.Attach(null)).IgnoreArguments();
-            failureMechanism.Stub(fm => fm.Detach(null)).IgnoreArguments();
-
-            firstMockRepository.ReplayAll();
-
-            var failureMechanisms = new[]
-                {
-                    failureMechanism
-                };
-
-            var failureMechanismContribution = new FailureMechanismContribution(failureMechanisms, 100.0, 30000);
-
-            var secondMockRepository = new MockRepository();
-            var assessmentSection = secondMockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(failureMechanismContribution);
-            assessmentSection.Stub(section => section.Composition).Return(initialComposition);
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Expect(section => section.ChangeComposition(newComposition)).Repeat.Never();
-            secondMockRepository.ReplayAll();
-
-            using (var view = new FailureMechanismContributionView())
-            {
-                view.Data = failureMechanismContribution;
-                view.AssessmentSection = assessmentSection;
-                ShowFormWithView(view);
-
-                // Precondition
-                Assert.AreNotEqual(assessmentSection.Composition, newComposition);
-
-                int dataGridInvalidatedCallCount = 0;
-                var contributionGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
-                contributionGridView.Invalidated += (sender, args) => dataGridInvalidatedCallCount++;
-
-                var compositionComboBox = (ComboBox) new ControlTester(assessmentSectionCompositionComboBoxName).TheObject;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var messageBox = new MessageBoxTester(wnd);
-                    messageBox.ClickCancel();
-                };
-
-                // Call
-                compositionComboBox.SelectedValue = newComposition;
-
-                // Assert
-                Assert.AreEqual(0, dataGridInvalidatedCallCount);
-                Assert.AreEqual(initialComposition, compositionComboBox.SelectedValue);
-            }
-
-            firstMockRepository.VerifyAll();
-            secondMockRepository.VerifyAll();
         }
 
         [Test]
