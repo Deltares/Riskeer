@@ -368,8 +368,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             applicationSelectionMock.Expect(asm => asm.Selection).Return(null);
 
             mocks.ReplayAll();

@@ -565,10 +565,9 @@ namespace Ringtoets.Piping.Forms.Views
                 return;
             }
 
-            var selection = CreateSelectedItemFromCurrentRow();
-
-            if ((ApplicationSelection.Selection == null && selection != null)
-                || (ApplicationSelection.Selection != null && !ApplicationSelection.Selection.Equals(selection)))
+            PipingInputContext selection = CreateSelectedItemFromCurrentRow();
+            if ((ApplicationSelection.Selection == null && selection != null) || 
+                (ApplicationSelection.Selection != null && !ApplicationSelection.Selection.Equals(selection)))
             {
                 ApplicationSelection.Selection = selection;
             }

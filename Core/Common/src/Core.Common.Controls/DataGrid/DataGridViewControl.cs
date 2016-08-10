@@ -453,7 +453,11 @@ namespace Core.Common.Controls.DataGrid
         private void EndCellEdit()
         {
             var currentCell = dataGridView.CurrentCell;
-            dataGridView.CurrentCell = null;
+
+            // End edits of current cell:
+            dataGridView.CurrentCell = null; // Setting to null has side-effect of removing selection highlight
+
+            // Restore selection highlight:
             dataGridView.CurrentCell = currentCell;
         }
 
