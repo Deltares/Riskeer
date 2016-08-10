@@ -433,7 +433,7 @@
             <PropertyRef Name="VersionId" />
           </Key>
           <Property Name="VersionId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Version" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Version" Type="integer" Nullable="false" />
           <Property Name="Timestamp" Type="datetime" Nullable="false" />
           <Property Name="FingerPrint" Type="blob" Nullable="false" />
         </EntityType>
@@ -1960,7 +1960,7 @@
             <PropertyRef Name="VersionId" />
           </Key>
           <Property Name="VersionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Version" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="Int64" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" Nullable="false" />
           <Property Name="FingerPrint" Type="Binary" Nullable="false" MaxLength="2147483647" FixedLength="false" />
         </EntityType>

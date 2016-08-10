@@ -38,6 +38,7 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class StorageSqLiteTest
     {
+        private const int currentDatabaseVersoin = 1;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
         private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
 
@@ -110,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
-                TestDelegate precondition = () => SqLiteDatabaseHelper.CreateDatabaseFile(tempRingtoetsFile, SqLiteDatabaseHelper.GetCompleteSchema());
+                TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileWithoutProjectData(tempRingtoetsFile);
                 Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
 
                 // Call
@@ -142,7 +143,7 @@ namespace Application.Ringtoets.Storage.Test
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
-                TestDelegate precondition = () => SqLiteDatabaseHelper.CreateDatabaseFile(tempRingtoetsFile, SqLiteDatabaseHelper.GetCorruptSchema());
+                TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCorruptDatabaseFile(tempRingtoetsFile);
                 Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
 
                 // Call
@@ -158,6 +159,148 @@ namespace Application.Ringtoets.Storage.Test
 
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException.InnerException);
                 Assert.AreEqual(expectedInnerExceptionInnerExceptionMessage, exception.InnerException.InnerException.Message);
+            }
+            finally
+            {
+                CallGarbageCollector();
+                fileDisposeHelper.Dispose();
+            }
+        }
+
+        [Test]
+        public void LoadProject_DatabaseWithoutVersionEntities_ThrowStorageValidationException()
+        {
+            // Setup
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}",
+                                                   tempRingtoetsFile,
+                                                   @"Database moet 1 rij in de VersionEntity tabel hebben.");
+
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
+            try
+            {
+                TestDelegate precondition = () =>
+                {
+                    SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
+                };
+                Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
+
+                // Call
+                TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+
+                // Assert
+                StorageException exception = Assert.Throws<StorageValidationException>(test);
+                Assert.IsInstanceOf<Exception>(exception);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
+            }
+            finally
+            {
+                CallGarbageCollector();
+                fileDisposeHelper.Dispose();
+            }
+        }
+
+        [Test]
+        public void LoadProject_DatabaseWithMultipleVersionEntities_ThrowStorageValidationException()
+        {
+            // Setup
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}",
+                                                   tempRingtoetsFile,
+                                                   @"Database moet 1 rij in de VersionEntity tabel hebben.");
+
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
+            try
+            {
+                TestDelegate precondition = () =>
+                {
+                    SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
+                    SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, currentDatabaseVersoin);
+                    SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, currentDatabaseVersoin);
+                };
+                Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
+
+                // Call
+                TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+
+                // Assert
+                StorageException exception = Assert.Throws<StorageValidationException>(test);
+                Assert.IsInstanceOf<Exception>(exception);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
+            }
+            finally
+            {
+                CallGarbageCollector();
+                fileDisposeHelper.Dispose();
+            }
+        }
+
+        [Test]
+        [TestCase(currentDatabaseVersoin + 1)]
+        [TestCase(currentDatabaseVersoin + 500)]
+        public void LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException(int versionCode)
+        {
+            // Setup
+            string subMessage = string.Format("Database versie '{0}' is hoger dan de huidig ondersteunde versie (1). Update Ringtoets naar een nieuwere versie.",
+                                              versionCode);
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}",
+                                                   tempRingtoetsFile,
+                                                   subMessage);
+
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
+            try
+            {
+                TestDelegate precondition = () =>
+                {
+                    SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
+                    SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, versionCode);
+                };
+                Assert.DoesNotThrow(precondition, "Precondition failed: creating future database file failed");
+
+                // Call
+                TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+
+                // Assert
+                StorageException exception = Assert.Throws<StorageValidationException>(test);
+                Assert.IsInstanceOf<Exception>(exception);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+            finally
+            {
+                CallGarbageCollector();
+                fileDisposeHelper.Dispose();
+            }
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(-567)]
+        public void LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException(int versionCode)
+        {
+            // Setup
+            string subMessage = string.Format("Database versie '{0}' is niet valide. Database versie dient 1 of hoger te zijn.",
+                                              versionCode);
+            string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}",
+                                                   tempRingtoetsFile,
+                                                   subMessage);
+
+            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
+            try
+            {
+                TestDelegate precondition = () =>
+                {
+                    SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
+                    SqLiteDatabaseHelper.AddVersionEntity(tempRingtoetsFile, versionCode);
+                };
+                Assert.DoesNotThrow(precondition, "Precondition failed: creating future database file failed");
+
+                // Call
+                TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
+
+                // Assert
+                StorageException exception = Assert.Throws<StorageValidationException>(test);
+                Assert.IsInstanceOf<Exception>(exception);
+                Assert.AreEqual(expectedMessage, exception.Message);
             }
             finally
             {

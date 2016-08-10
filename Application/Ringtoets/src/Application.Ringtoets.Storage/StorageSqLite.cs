@@ -24,13 +24,11 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
 using Application.Ringtoets.Storage.Read;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Utils;
@@ -46,6 +44,7 @@ namespace Application.Ringtoets.Storage
     /// </summary>
     public class StorageSqLite : IStoreProject
     {
+        private const int currentDatabaseVersion = 1;
         private static readonly ILog log = LogManager.GetLogger(typeof(StorageSqLite));
 
         private string connectionString;
@@ -124,6 +123,8 @@ namespace Application.Ringtoets.Storage
             {
                 using (var dbContext = new RingtoetsEntities(connectionString))
                 {
+                    ValidateDatabaseVersion(dbContext, databaseFilePath);
+
                     ProjectEntity projectEntity;
 
                     try
@@ -176,6 +177,34 @@ namespace Application.Ringtoets.Storage
             }
         }
 
+        private void ValidateDatabaseVersion(RingtoetsEntities ringtoetsEntities, string databaseFilePath)
+        {
+            try
+            {
+                long databaseVersion = ringtoetsEntities.VersionEntities.Select(v => v.Version).Single();
+                if (databaseVersion <= 0)
+                {
+                    string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid,
+                                             databaseVersion);
+                    var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
+                    throw new StorageValidationException(message);
+                }
+
+                if (databaseVersion > currentDatabaseVersion)
+                {
+                    string m = String.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_,
+                                             databaseVersion, currentDatabaseVersion);
+                    var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
+                    throw new StorageValidationException(message);
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.StorageSqLite_ValidateDatabaseVersion_Database_must_have_one_VersionEntity_row);
+                throw new StorageValidationException(message, e);
+            }
+        }
+
         private void SaveProjectInDatabase(string databaseFilePath)
         {
             using (var dbContext = new RingtoetsEntities(connectionString))
@@ -185,7 +214,7 @@ namespace Application.Ringtoets.Storage
                     var registry = new PersistenceRegistry();
                     dbContext.VersionEntities.Add(new VersionEntity
                     {
-                        Version = "1",
+                        Version = currentDatabaseVersion,
                         Timestamp = DateTime.Now,
                         FingerPrint = FingerprintHelper.Get(stagedProjectEntity)
                     });
@@ -280,7 +309,7 @@ namespace Application.Ringtoets.Storage
                 }
                 catch (Exception exception)
                 {
-                    var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(string.Format(Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file, databaseFilePath));
+                    var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
                     throw new StorageValidationException(message, exception);
                 }
             }
@@ -306,7 +335,7 @@ namespace Application.Ringtoets.Storage
         /// <param name="errorMessage">The critical error message.</param>
         /// <param name="innerException">Exception that caused this exception to be thrown.</param>
         /// <returns>Returns a new <see cref="StorageException"/>.</returns>
-        private StorageException CreateStorageReaderException(string databaseFilePath, string errorMessage, Exception innerException)
+        private StorageException CreateStorageReaderException(string databaseFilePath, string errorMessage, Exception innerException = null)
         {
             var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(errorMessage);
             return new StorageException(message, innerException);

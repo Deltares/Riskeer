@@ -64,6 +64,7 @@ namespace Core.Common.Base.Storage
         /// <item>The storage does not contain all requested tables.</item>
         /// <item>The connection to the storage failed.</item>
         /// <item>The related entity was not found in the storage.</item>
+        /// <item>The storage's version is incompatible.</item>
         /// </list>
         /// </exception>
         IProject LoadProject(string connectionArguments);
