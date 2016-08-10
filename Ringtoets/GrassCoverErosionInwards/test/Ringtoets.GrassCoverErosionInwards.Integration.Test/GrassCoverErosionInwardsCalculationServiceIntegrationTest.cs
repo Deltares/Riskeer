@@ -252,6 +252,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith("HydraRing berekeningsverslag. Klik op details voor meer informatie.", msgs[0]);
                 StringAssert.StartsWith(String.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
             });
             Assert.IsNull(output);
@@ -336,6 +337,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith("HydraRing berekeningsverslag. Klik op details voor meer informatie.", msgs[0]);
                 StringAssert.StartsWith(String.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
             });
             Assert.IsNaN(output);
