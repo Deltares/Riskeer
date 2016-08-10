@@ -50,161 +50,179 @@ namespace Core.Components.Gis.Test.Data
             const string name = "Some name";
 
             // Call
-            var data = new MapDataCollection(name);
+            var mapDataCollection = new MapDataCollection(name);
 
             // Assert
-            Assert.AreEqual(name, data.Name);
-            Assert.IsInstanceOf<MapData>(data);
-            CollectionAssert.IsEmpty(data.Collection);
+            Assert.AreEqual(name, mapDataCollection.Name);
+            Assert.IsInstanceOf<MapData>(mapDataCollection);
+            CollectionAssert.IsEmpty(mapDataCollection.Collection);
         }
 
         [Test]
-        public void Add_NotNull_AddsElementToCollection()
+        public void Add_NotNull_AddsItemToCollection()
         {
             // Setup
-            var data = new MapDataCollection("test");
-            var objectToAdd = new MapLineData("test");
+            var item = new MapLineData("test");
+            var mapDataCollection = new MapDataCollection("test");
 
             // Call
-            data.Add(objectToAdd);
+            mapDataCollection.Add(item);
 
             // Assert
-            var mpaData = data.Collection.ToList();
-            Assert.AreEqual(1, mpaData.Count);
-            Assert.AreSame(objectToAdd, mpaData.First());
+            var mapData = mapDataCollection.Collection.ToList();
+            Assert.AreEqual(1, mapData.Count);
+            Assert.AreSame(item, mapData.First());
         }
 
         [Test]
         public void Add_Null_ThrowsArgumentNullException()
         {
             // Setup
-            var data = new MapDataCollection("test");
+            var mapDataCollection = new MapDataCollection("test");
 
             // Call
-            TestDelegate call = () => data.Add(null);
+            TestDelegate call = () => mapDataCollection.Add(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An element cannot be null when adding it to the collection.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An item cannot be null when adding it to the collection.");
         }
 
         [Test]
-        public void Insert_NotNull_InsertsElementToCollectionAtGivenPosition()
+        public void Insert_ItemNotNullAndValidIndex_InsertsItemToCollectionAtGivenIndex()
         {
             // Setup
-            var mapData = new MapPointData("test");
-            var data = new MapDataCollection("test");
-            var objectToAdd = new MapLineData("test");
+            var itemToInsert = new MapLineData("test");
+            var existingItem = new MapPointData("test");
+            var mapDataCollection = new MapDataCollection("test");
 
-            data.Add(mapData);
+            mapDataCollection.Add(existingItem);
 
             // Precondition
-            Assert.AreEqual(1, data.Collection.Count());
-            Assert.AreSame(mapData, data.Collection.ElementAt(0));
+            Assert.AreEqual(1, mapDataCollection.Collection.Count());
+            Assert.AreSame(existingItem, mapDataCollection.Collection.ElementAt(0));
 
             // Call
-            data.Insert(0, objectToAdd);
+            mapDataCollection.Insert(0, itemToInsert);
 
             // Assert
-            Assert.AreEqual(2, data.Collection.Count());
-            Assert.AreSame(objectToAdd, data.Collection.ElementAt(0));
-            Assert.AreSame(mapData, data.Collection.ElementAt(1));
+            Assert.AreEqual(2, mapDataCollection.Collection.Count());
+            Assert.AreSame(itemToInsert, mapDataCollection.Collection.ElementAt(0));
+            Assert.AreSame(existingItem, mapDataCollection.Collection.ElementAt(1));
         }
 
         [Test]
-        public void Insert_ElementNull_ThrowsArgumentNullException()
+        public void Insert_ItemNull_ThrowsArgumentNullException()
         {
             // Setup
-            var data = new MapDataCollection("test");
+            var mapDataCollection = new MapDataCollection("test");
 
             // Call
-            TestDelegate call = () => data.Insert(0, null);
+            TestDelegate call = () => mapDataCollection.Insert(0, null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An element cannot be null when adding it to the collection.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An item cannot be null when adding it to the collection.");
+        }
+
+        [TestCase(-1)]
+        [TestCase(2)]
+        public void Insert_InvalidIndex_ThrowsArgumentOutOfRangeException(int invalidIndex)
+        {
+            // Setup
+            var itemToInsert = new MapLineData("test");
+            var existingItem = new MapPointData("test");
+            var mapDataCollection = new MapDataCollection("test");
+
+            mapDataCollection.Add(existingItem);
+
+            // Call
+            TestDelegate call = () => mapDataCollection.Insert(invalidIndex, itemToInsert);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call, "index");
         }
 
         [Test]
-        public void Remove_ExistingElement_RemovesElement()
+        public void Remove_ExistingItem_RemovesItem()
         {
             // Setup
-            var data = new MapDataCollection("test");
-            var dataElement = new MapLineData("test");
+            var item = new MapLineData("test");
+            var mapDataCollection = new MapDataCollection("test");
 
-            data.Add(dataElement);
+            mapDataCollection.Add(item);
 
             // Precondition
-            Assert.AreEqual(1, data.Collection.Count());
-            Assert.IsInstanceOf<MapLineData>(data.Collection.First());
+            Assert.AreEqual(1, mapDataCollection.Collection.Count());
+            Assert.IsInstanceOf<MapLineData>(mapDataCollection.Collection.First());
 
             // Call
-            data.Remove(dataElement);
+            mapDataCollection.Remove(item);
 
             // Assert
-            CollectionAssert.IsEmpty(data.Collection);
+            CollectionAssert.IsEmpty(mapDataCollection.Collection);
         }
 
         [Test]
         public void Remove_Null_DoesNotRemove()
         {
             // Setup
-            var data = new MapDataCollection("test");
-            var dataElement = new MapLineData("test");
+            var item = new MapLineData("test");
+            var mapDataCollection = new MapDataCollection("test");
 
-            data.Add(dataElement);
+            mapDataCollection.Add(item);
 
             // Precondition
-            Assert.AreEqual(1, data.Collection.Count());
-            Assert.IsInstanceOf<MapLineData>(data.Collection.First());
-            var listBeforeRemove = data.Collection;
+            Assert.AreEqual(1, mapDataCollection.Collection.Count());
+            Assert.IsInstanceOf<MapLineData>(mapDataCollection.Collection.First());
+            var listBeforeRemove = mapDataCollection.Collection.ToList();
 
             // Call
-            data.Remove(null);
+            mapDataCollection.Remove(null);
 
             // Assert
-            CollectionAssert.AreEqual(listBeforeRemove, data.Collection);
+            CollectionAssert.AreEqual(listBeforeRemove, mapDataCollection.Collection);
         }
 
         [Test]
-        public void Remove_NotExistingElement_DoesNotRemove()
+        public void Remove_NotExistingItem_DoesNotRemove()
         {
             // Setup
-            var data = new MapDataCollection("test");
-            var dataElement = new MapLineData("test");
-            var otherDataElement = new MapPointData("another test");
+            var item = new MapLineData("test");
+            var otherItem = new MapPointData("another test");
+            var mapDataCollection = new MapDataCollection("test");
 
-            data.Add(dataElement);
+            mapDataCollection.Add(item);
 
             // Precondition
-            Assert.AreEqual(1, data.Collection.Count());
-            Assert.IsInstanceOf<MapLineData>(data.Collection.First());
-            var listBeforeRemove = data.Collection;
+            Assert.AreEqual(1, mapDataCollection.Collection.Count());
+            Assert.IsInstanceOf<MapLineData>(mapDataCollection.Collection.First());
+            var listBeforeRemove = mapDataCollection.Collection.ToList();
 
             // Call
-            data.Remove(otherDataElement);
+            mapDataCollection.Remove(otherItem);
 
             // Assert
-            CollectionAssert.AreEqual(listBeforeRemove, data.Collection);
+            CollectionAssert.AreEqual(listBeforeRemove, mapDataCollection.Collection);
         }
 
         [Test]
-        public void Clear_Always_RemovesAllElements()
+        public void Clear_Always_RemovesAllItems()
         {
             // Setup
-            var data = new MapDataCollection("test");
-            var dataElement1 = new MapLineData("test");
-            var dataElement2 = new MapLineData("test");
+            var item1 = new MapLineData("test");
+            var item2 = new MapLineData("test");
+            var mapDataCollection = new MapDataCollection("test");
 
-            data.Add(dataElement1);
-            data.Add(dataElement2);
+            mapDataCollection.Add(item1);
+            mapDataCollection.Add(item2);
 
             // Precondition
-            Assert.AreEqual(2, data.Collection.Count());
+            Assert.AreEqual(2, mapDataCollection.Collection.Count());
 
             // Call
-            data.Clear();
+            mapDataCollection.Clear();
 
             // Assert
-            CollectionAssert.IsEmpty(data.Collection);
+            CollectionAssert.IsEmpty(mapDataCollection.Collection);
         }
     }
 }

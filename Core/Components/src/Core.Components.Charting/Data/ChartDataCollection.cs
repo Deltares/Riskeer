@@ -54,45 +54,46 @@ namespace Core.Components.Charting.Data
         }
 
         /// <summary>
-        /// Adds an element to the collection of <see cref="ChartData"/>.
+        /// Adds an item to the collection of <see cref="ChartData"/>.
         /// </summary>
-        /// <param name="elementToAdd">The <see cref="ChartData"/> element to add to the collection.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="elementToAdd"/> is <c>null</c>.</exception>
-        public void Add(ChartData elementToAdd)
+        /// <param name="item">The <see cref="ChartData"/> item to add to the collection.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="item"/> is <c>null</c>.</exception>
+        public void Add(ChartData item)
         {
-            if (elementToAdd == null)
+            if (item == null)
             {
-                throw new ArgumentNullException("elementToAdd", @"An element cannot be null when adding it to the collection.");
+                throw new ArgumentNullException("item", @"An item cannot be null when adding it to the collection.");
             }
-            chartDataList.Add(elementToAdd);
+            chartDataList.Add(item);
         }
 
         /// <summary>
-        /// Inserts the given element into the collection of <see cref="ChartData"/> on the given position.
+        /// Inserts the given item into the collection of <see cref="ChartData"/> on the given index.
         /// </summary>
-        /// <param name="position">The position to insert the element on.</param>
-        /// <param name="elementToInsert">The <see cref="ChartData"/> element to insert.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="elementToInsert"/> is <c>null</c>.</exception>
-        public void Insert(int position, ChartData elementToInsert)
+        /// <param name="index">The position to insert the item on.</param>
+        /// <param name="item">The <see cref="ChartData"/> item to insert.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="item"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="index"/> is less than 0 or greater than the size of <see cref="Collection"/>.</exception>
+        public void Insert(int index, ChartData item)
         {
-            if (elementToInsert == null)
+            if (item == null)
             {
-                throw new ArgumentNullException("elementToInsert", @"An element cannot be null when adding it to the collection.");
+                throw new ArgumentNullException("item", @"An item cannot be null when adding it to the collection.");
             }
-            chartDataList.Insert(position, elementToInsert);
+            chartDataList.Insert(index, item);
         }
 
         /// <summary>
-        /// Removes the given element from the collection of <see cref="ChartData"/>.
+        /// Removes the given item from the collection of <see cref="ChartData"/>.
         /// </summary>
-        /// <param name="elementToRemove">The <see cref="ChartData"/> element to remove.</param>
-        public void Remove(ChartData elementToRemove)
+        /// <param name="item">The <see cref="ChartData"/> item to remove.</param>
+        public void Remove(ChartData item)
         {
-            chartDataList.Remove(elementToRemove);
+            chartDataList.Remove(item);
         }
 
         /// <summary>
-        /// Removes all elements from the collection of <see cref="ChartData"/>.
+        /// Removes all items from the collection of <see cref="ChartData"/>.
         /// </summary>
         public void Clear()
         {

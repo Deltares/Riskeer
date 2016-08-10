@@ -50,161 +50,179 @@ namespace Core.Components.Charting.Test.Data
             const string name = "Some name";
 
             // Call
-            var data = new ChartDataCollection(name);
+            var chartDataCollection = new ChartDataCollection(name);
 
             // Assert
-            Assert.AreEqual(name, data.Name);
-            Assert.IsInstanceOf<ChartData>(data);
-            CollectionAssert.IsEmpty(data.Collection);
+            Assert.AreEqual(name, chartDataCollection.Name);
+            Assert.IsInstanceOf<ChartData>(chartDataCollection);
+            CollectionAssert.IsEmpty(chartDataCollection.Collection);
         }
 
         [Test]
-        public void Add_NotNull_AddsElementToCollection()
+        public void Add_NotNull_AddsItemToCollection()
         {
             // Setup
-            var data = new ChartDataCollection("test");
-            var objectToAdd = new ChartLineData("test");
+            var item = new ChartLineData("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
             // Call
-            data.Add(objectToAdd);
+            chartDataCollection.Add(item);
 
             // Assert
-            var chartData = data.Collection.ToList();
+            var chartData = chartDataCollection.Collection.ToList();
             Assert.AreEqual(1, chartData.Count);
-            Assert.AreSame(objectToAdd, chartData.First());
+            Assert.AreSame(item, chartData.First());
         }
 
         [Test]
         public void Add_Null_ThrowsArgumentNullException()
         {
             // Setup
-            var data = new ChartDataCollection("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
             // Call
-            TestDelegate call = () => data.Add(null);
+            TestDelegate call = () => chartDataCollection.Add(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An element cannot be null when adding it to the collection.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An item cannot be null when adding it to the collection.");
         }
 
         [Test]
-        public void Insert_NotNull_InsertsElementToCollectionAtGivenPosition()
+        public void Insert_ItemNotNullAndValidIndex_InsertsItemToCollectionAtGivenIndex()
         {
             // Setup
-            TestChartData chartData = new TestChartData("test");
-            var data = new ChartDataCollection("test");
-            var objectToAdd = new ChartLineData("test");
+            var itemToInsert = new ChartLineData("test");
+            var existingItem = new TestChartData("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
-            data.Add(chartData);
+            chartDataCollection.Add(existingItem);
 
             // Precondition
-            Assert.AreEqual(1, data.Collection.Count());
-            Assert.AreSame(chartData, data.Collection.ElementAt(0));
+            Assert.AreEqual(1, chartDataCollection.Collection.Count());
+            Assert.AreSame(existingItem, chartDataCollection.Collection.ElementAt(0));
             
             // Call
-            data.Insert(0, objectToAdd);
+            chartDataCollection.Insert(0, itemToInsert);
 
             // Assert
-            Assert.AreEqual(2, data.Collection.Count());
-            Assert.AreSame(objectToAdd, data.Collection.ElementAt(0));
-            Assert.AreSame(chartData, data.Collection.ElementAt(1));
+            Assert.AreEqual(2, chartDataCollection.Collection.Count());
+            Assert.AreSame(itemToInsert, chartDataCollection.Collection.ElementAt(0));
+            Assert.AreSame(existingItem, chartDataCollection.Collection.ElementAt(1));
         }
 
         [Test]
-        public void Insert_ElementNull_ThrowsArgumentNullException()
+        public void Insert_ItemNull_ThrowsArgumentNullException()
         {
             // Setup
-            var data = new ChartDataCollection("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
             // Call
-            TestDelegate call = () => data.Insert(0, null);
+            TestDelegate call = () => chartDataCollection.Insert(0, null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An element cannot be null when adding it to the collection.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "An item cannot be null when adding it to the collection.");
+        }
+
+        [TestCase(-1)]
+        [TestCase(2)]
+        public void Insert_InvalidIndex_ThrowsArgumentOutOfRangeException(int invalidIndex)
+        {
+            // Setup
+            var itemToInsert = new ChartLineData("test");
+            var existingItem = new TestChartData("test");
+            var chartDataCollection = new ChartDataCollection("test");
+
+            chartDataCollection.Add(existingItem);
+
+            // Call
+            TestDelegate call = () => chartDataCollection.Insert(invalidIndex, itemToInsert);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call, "index");
         }
 
         [Test]
-        public void Remove_ExistingElement_RemovesElement()
+        public void Remove_ExistingItem_RemovesItem()
         {
             // Setup
-            var data = new ChartDataCollection("test");
-            var dataElement = new ChartLineData("test");
+            var item = new ChartLineData("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
-            data.Add(dataElement);
+            chartDataCollection.Add(item);
 
             // Precondition
-            Assert.AreEqual(1, data.Collection.Count());
-            Assert.IsInstanceOf<ChartLineData>(data.Collection.First());
+            Assert.AreEqual(1, chartDataCollection.Collection.Count());
+            Assert.IsInstanceOf<ChartLineData>(chartDataCollection.Collection.First());
 
             // Call
-            data.Remove(dataElement);
+            chartDataCollection.Remove(item);
 
             // Assert
-            CollectionAssert.IsEmpty(data.Collection);
+            CollectionAssert.IsEmpty(chartDataCollection.Collection);
         }
 
         [Test]
         public void Remove_Null_DoesNotRemove()
         {
             // Setup
-            var data = new ChartDataCollection("test");
-            var dataElement = new ChartLineData("test");
+            var item = new ChartLineData("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
-            data.Add(dataElement);
+            chartDataCollection.Add(item);
 
             // Precondition
-            Assert.AreEqual(1, data.Collection.Count());
-            Assert.IsInstanceOf<ChartLineData>(data.Collection.First());
-            var listBeforeRemove = data.Collection;
+            Assert.AreEqual(1, chartDataCollection.Collection.Count());
+            Assert.IsInstanceOf<ChartLineData>(chartDataCollection.Collection.First());
+            var listBeforeRemove = chartDataCollection.Collection.ToList();
 
             // Call
-            data.Remove(null);
+            chartDataCollection.Remove(null);
 
             // Assert
-            CollectionAssert.AreEqual(listBeforeRemove, data.Collection);
+            CollectionAssert.AreEqual(listBeforeRemove, chartDataCollection.Collection);
         }
 
         [Test]
-        public void Remove_NotExistingElement_DoesNotRemove()
+        public void Remove_NotExistingItem_DoesNotRemove()
         {
             // Setup
-            var data = new ChartDataCollection("test");
-            var dataElement = new ChartLineData("test");
-            var otherDataElement = new ChartPointData("another test");
+            var item = new ChartLineData("test");
+            var otherItem = new ChartPointData("another test");
+            var chartDataCollection = new ChartDataCollection("test");
 
-            data.Add(dataElement);
+            chartDataCollection.Add(item);
 
             // Precondition
-            Assert.AreEqual(1, data.Collection.Count());
-            Assert.IsInstanceOf<ChartLineData>(data.Collection.First());
-            var listBeforeRemove = data.Collection;
+            Assert.AreEqual(1, chartDataCollection.Collection.Count());
+            Assert.IsInstanceOf<ChartLineData>(chartDataCollection.Collection.First());
+            var listBeforeRemove = chartDataCollection.Collection.ToList();
 
             // Call
-            data.Remove(otherDataElement);
+            chartDataCollection.Remove(otherItem);
 
             // Assert
-            CollectionAssert.AreEqual(listBeforeRemove, data.Collection);
+            CollectionAssert.AreEqual(listBeforeRemove, chartDataCollection.Collection);
         }
 
         [Test]
-        public void Clear_Always_RemovesAllElements()
+        public void Clear_Always_RemovesAllItems()
         {
             // Setup
-            var data = new ChartDataCollection("test");
-            var dataElement1 = new ChartLineData("test");
-            var dataElement2 = new ChartLineData("test");
+            var item1 = new ChartLineData("test");
+            var item2 = new ChartLineData("test");
+            var chartDataCollection = new ChartDataCollection("test");
 
-            data.Add(dataElement1);
-            data.Add(dataElement2);
+            chartDataCollection.Add(item1);
+            chartDataCollection.Add(item2);
 
             // Precondition
-            Assert.AreEqual(2, data.Collection.Count());
+            Assert.AreEqual(2, chartDataCollection.Collection.Count());
 
             // Call
-            data.Clear();
+            chartDataCollection.Clear();
 
             // Assert
-            CollectionAssert.IsEmpty(data.Collection);
+            CollectionAssert.IsEmpty(chartDataCollection.Collection);
         }
     }
 }
