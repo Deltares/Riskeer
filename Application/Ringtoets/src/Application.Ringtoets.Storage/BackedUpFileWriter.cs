@@ -21,10 +21,8 @@
 
 using System;
 using System.IO;
-
 using Application.Ringtoets.Storage.Exceptions;
 using Application.Ringtoets.Storage.Properties;
-
 using Core.Common.Utils;
 
 namespace Application.Ringtoets.Storage

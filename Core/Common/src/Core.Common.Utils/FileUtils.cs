@@ -102,10 +102,10 @@ namespace Core.Common.Utils
         /// </summary>
         /// <param name="path">The directory to search.</param>
         /// <param name="searchPattern">The search string to match against the names of files in path.</param>
-        /// <param name="numberOfDaysToKeepFiles">The maximum number days since the creation of the file.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> of <paramref name="searchPattern"/> is <c>null</c>, is a zero-length string, 
+        /// <param name="numberOfDaysToKeepFiles">The maximum number days since the file was created.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> or <paramref name="searchPattern"/> is <c>null</c>, is a zero-length string, 
         /// contains only white space, or contains one or more invalid characters.</exception>
-        /// <exception cref="IOException">Thrown when an error occured trying to search and delete files in <paramref name="path"/>.</exception>
+        /// <exception cref="IOException">Thrown when an error occured while trying to search and delete files in <paramref name="path"/>.</exception>
         public static void DeleteOldFiles(string path, string searchPattern, int numberOfDaysToKeepFiles)
         {
             if (string.IsNullOrWhiteSpace(path))

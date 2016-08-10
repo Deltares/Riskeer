@@ -23,11 +23,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Security.AccessControl;
-using System.Security.Principal;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
-using log4net;
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Settings
@@ -35,10 +33,18 @@ namespace Core.Common.Gui.Test.Settings
     [TestFixture]
     public class SettingsHelperTest
     {
+        private string originalLocalSettingsDirectoryPath = "";
+
+        [SetUp]
+        public void SetUp()
+        {
+            originalLocalSettingsDirectoryPath = GetLocalSettingsDirectoryPath();
+        }
+
         [TearDown]
         public void TearDown()
         {
-            SetLocalSettingsDirectoryPath(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
+            SetLocalSettingsDirectoryPath(originalLocalSettingsDirectoryPath);
         }
 
         [Test]
@@ -83,73 +89,30 @@ namespace Core.Common.Gui.Test.Settings
         public void GetApplicationLocalUserSettingsDirectory_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException()
         {
             // Setup
-            var workingDirectory = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui, "SettingsHelper");
+            string workingDirectory = Path.Combine(".", "SettingsHelper", "NotWritable");
             Directory.CreateDirectory(workingDirectory);
-            var notWritableFolder = "notWritable";
-
-            DenyDirectoryRight(workingDirectory, FileSystemRights.Write);
+            const string notWritableFolder = "folderToCreate";
 
             SetLocalSettingsDirectoryPath(workingDirectory);
 
-            // Call
-            TestDelegate test = () => SettingsHelper.GetApplicationLocalUserSettingsDirectory(notWritableFolder);
-
-            try
+            using (new DirectoryRightsHelper(workingDirectory, FileSystemRights.Write))
             {
-                // Assert
-                var notWritableDirectory = Path.Combine(workingDirectory, notWritableFolder);
-                var expectedMessage = string.Format("De map '{0}' kan niet aangemaakt worden.", notWritableDirectory);
-                var message = Assert.Throws<IOException>(test).Message;
-                Assert.AreEqual(expectedMessage, message);
+                // Call
+                TestDelegate test = () => SettingsHelper.GetApplicationLocalUserSettingsDirectory(notWritableFolder);
+
+                try
+                {
+                    // Assert
+                    var notWritableDirectory = Path.Combine(workingDirectory, notWritableFolder);
+                    var expectedMessage = string.Format("De map '{0}' kan niet aangemaakt worden.", notWritableDirectory);
+                    var message = Assert.Throws<IOException>(test).Message;
+                    Assert.AreEqual(expectedMessage, message);
+                }
+                finally
+                {
+                    Directory.Delete(workingDirectory, true);
+                }
             }
-            finally
-            {
-                RevertDenyDirectoryRight(workingDirectory, FileSystemRights.FullControl);
-                Directory.Delete(workingDirectory, true);
-            }
-
-        }
-
-        /// <summary>
-        /// Adds a <paramref name="rights"/> of type <see cref="AccessControlType.Deny"/> to the access
-        /// rule set for the file at <paramref name="filePath"/>.
-        /// </summary>
-        /// <param name="filePath">The path of the file to change the right for.</param>
-        /// <param name="rights">The right to deny.</param>
-        private static void DenyDirectoryRight(string filePath, FileSystemRights rights)
-        {
-            var sid = GetSecurityIdentifier();
-
-            DirectoryInfo directoryInfo = new DirectoryInfo(filePath);
-            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
-
-            directorySecurity.AddAccessRule(new FileSystemAccessRule(sid, rights, AccessControlType.Deny));
-
-            directoryInfo.SetAccessControl(directorySecurity);
-        }
-
-        /// <summary>
-        /// Removes a <paramref name="rights"/> of type <see cref="AccessControlType.Deny"/> from the 
-        /// access rule set for the file at <paramref name="filePath"/>.
-        /// </summary>
-        /// <param name="filePath">The path of the file to change the right for.</param>
-        /// <param name="rights">The right to revert.</param>
-        private static void RevertDenyDirectoryRight(string filePath, FileSystemRights rights)
-        {
-            var sid = GetSecurityIdentifier();
-
-            DirectoryInfo directoryInfo = new DirectoryInfo(filePath);
-            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
-
-            directorySecurity.RemoveAccessRule(new FileSystemAccessRule(sid, rights, AccessControlType.Deny));
-
-            directoryInfo.SetAccessControl(directorySecurity);
-        }
-
-        private static SecurityIdentifier GetSecurityIdentifier()
-        {
-            SecurityIdentifier id = WindowsIdentity.GetCurrent().User.AccountDomainSid;
-            return new SecurityIdentifier(WellKnownSidType.WorldSid, id);
         }
 
         private static void SetLocalSettingsDirectoryPath(string nonExistingFolder)
@@ -161,10 +124,21 @@ namespace Core.Common.Gui.Test.Settings
             {
                 Assert.Fail("Unable to find private field '{0}'", localSettingsDirectoryPath);
             }
-            else
+
+            fieldInfo.SetValue(null, nonExistingFolder);
+        }
+
+        private static string GetLocalSettingsDirectoryPath()
+        {
+            string localSettingsDirectoryPath = "localSettingsDirectoryPath";
+            Type settingsHelperType = typeof(SettingsHelper);
+            FieldInfo fieldInfo = settingsHelperType.GetField(localSettingsDirectoryPath, BindingFlags.NonPublic | BindingFlags.Static);
+            if (fieldInfo == null)
             {
-                fieldInfo.SetValue(null, nonExistingFolder);
+                Assert.Fail("Unable to find private field '{0}'", localSettingsDirectoryPath);
             }
+
+            return (string) fieldInfo.GetValue(null);
         }
     }
 }

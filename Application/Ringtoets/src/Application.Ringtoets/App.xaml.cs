@@ -323,12 +323,14 @@ namespace Application.Ringtoets
                         }
                     }
                 })
+                {
                     if (exceptionDialog.ShowDialog() == DialogResult.OK)
                     {
                         Restart();
 
                         return;
                     }
+                }
             }
 
             Environment.Exit(1);

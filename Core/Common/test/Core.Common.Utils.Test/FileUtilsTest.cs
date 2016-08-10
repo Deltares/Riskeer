@@ -162,7 +162,7 @@ namespace Core.Common.Utils.Test
         [TestCase(null)]
         [TestCase("")]
         [TestCase("   ")]
-        public void DeleteOldFiles_PathDoesNotExist_ThrowsArgumentException(string invalidSearchPattern)
+        public void DeleteOldFiles_InvalidSearchPattern_ThrowsArgumentException(string invalidSearchPattern)
         {
             // Setup
             var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
@@ -203,7 +203,6 @@ namespace Core.Common.Utils.Test
 
             using (new FileDisposeHelper(filePath))
             {
-
                 // Call
                 FileUtils.DeleteOldFiles(path, "*.log", 0);
 

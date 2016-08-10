@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="DoubleWithToleranceComparerTest.cs" />
     <Compile Include="FileDisposeHelperTest.cs" />
+    <Compile Include="DirectoryRightsHelperTest.cs" />
     <Compile Include="Point2DComparerWithToleranceTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

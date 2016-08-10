@@ -22,10 +22,8 @@
 using System;
 using System.IO;
 using System.Security.AccessControl;
-using System.Security.Principal;
-
 using Application.Ringtoets.Storage.Exceptions;
-
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test
@@ -177,8 +175,6 @@ namespace Application.Ringtoets.Storage.Test
 
             Directory.CreateDirectory(notWritableDirectory);
             using (File.Create(filePath)) {}
-            DenyDirectoryRight(notWritableDirectory, FileSystemRights.Write);
-
             var writer = new BackedUpFileWriter(filePath);
 
             // Precondition
@@ -189,12 +185,14 @@ namespace Application.Ringtoets.Storage.Test
 
             try
             {
-                // Assert
-                var expectedMessage = string.Format(
-                    "Kan geen tijdelijk bestand maken van het originele bestand ({0}).",
-                    filePath);
-                var message = Assert.Throws<IOException>(test).Message;
-                Assert.AreEqual(expectedMessage, message);
+                using (new DirectoryRightsHelper(notWritableDirectory, FileSystemRights.Write))
+                {
+                    // Assert
+                    var expectedMessage = string.Format(
+                        "Kan geen tijdelijk bestand maken van het originele bestand ({0}).",filePath);
+                    var message = Assert.Throws<IOException>(test).Message;
+                    Assert.AreEqual(expectedMessage, message);
+                }
             }
             finally
             {
@@ -212,20 +210,19 @@ namespace Application.Ringtoets.Storage.Test
             Directory.CreateDirectory(noAccessDirectory);
             var helper = new BackedUpFileWriter(filePath);
 
-            var right = FileSystemRights.FullControl;
-            DenyDirectoryRight(noAccessDirectory, right);
-
             // Call
             TestDelegate test = () => helper.Perform(() => { });
 
             try
             {
-                // Assert
-                Assert.DoesNotThrow(test);
+                using (new DirectoryRightsHelper(noAccessDirectory, FileSystemRights.FullControl))
+                {
+                    // Assert
+                    Assert.DoesNotThrow(test);
+                }
             }
             finally
             {
-                RevertDenyDirectoryRight(noAccessDirectory, right);
                 Directory.Delete(noAccessDirectory, true);
             }
         }
@@ -320,14 +317,13 @@ namespace Application.Ringtoets.Storage.Test
 
             var helper = new BackedUpFileWriter(filePath);
 
-            var right = FileSystemRights.FullControl;
-
+            DirectoryRightsHelper fileRightsHelper = null;
             try
             {
                 // Call
                 TestDelegate test = () => helper.Perform(() =>
                 {
-                    DenyDirectoryRight(noAccessDirectory, right);
+                    fileRightsHelper = new DirectoryRightsHelper(noAccessDirectory, FileSystemRights.FullControl);
                     throw new Exception();
                 });
 
@@ -340,51 +336,12 @@ namespace Application.Ringtoets.Storage.Test
             }
             finally
             {
-                RevertDenyDirectoryRight(noAccessDirectory, right);
+                if (fileRightsHelper != null)
+                {
+                    fileRightsHelper.Dispose();
+                }
                 Directory.Delete(noAccessDirectory, true);
             }
-        }
-
-        /// <summary>
-        /// Adds a <paramref name="rights"/> of type <see cref="AccessControlType.Deny"/> to the access
-        /// rule set for the file at <paramref name="filePath"/>.
-        /// </summary>
-        /// <param name="filePath">The path of the file to change the right for.</param>
-        /// <param name="rights">The right to deny.</param>
-        private static void DenyDirectoryRight(string filePath, FileSystemRights rights)
-        {
-            var sid = GetSecurityIdentifier();
-
-            DirectoryInfo directoryInfo = new DirectoryInfo(filePath);
-            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
-
-            directorySecurity.AddAccessRule(new FileSystemAccessRule(sid, rights, AccessControlType.Deny));
-
-            directoryInfo.SetAccessControl(directorySecurity);
-        }
-
-        /// <summary>
-        /// Removes a <paramref name="rights"/> of type <see cref="AccessControlType.Deny"/> from the 
-        /// access rule set for the file at <paramref name="filePath"/>.
-        /// </summary>
-        /// <param name="filePath">The path of the file to change the right for.</param>
-        /// <param name="rights">The right to revert.</param>
-        private static void RevertDenyDirectoryRight(string filePath, FileSystemRights rights)
-        {
-            var sid = GetSecurityIdentifier();
-
-            DirectoryInfo directoryInfo = new DirectoryInfo(filePath);
-            DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
-
-            directorySecurity.RemoveAccessRule(new FileSystemAccessRule(sid, rights, AccessControlType.Deny));
-
-            directoryInfo.SetAccessControl(directorySecurity);
-        }
-
-        private static SecurityIdentifier GetSecurityIdentifier()
-        {
-            SecurityIdentifier id = WindowsIdentity.GetCurrent().User.AccountDomainSid;
-            return new SecurityIdentifier(WellKnownSidType.WorldSid, id);
         }
     }
 }
