@@ -79,11 +79,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var logFileParser = new LogFileParser();
 
             // Call
-            Action call = () => logFileParser.Parse(testDataDirectory, 1);
+           logFileParser.Parse(testDataDirectory, 1);
 
             // Assert
             var expectedMessage = "In dit bestand staan veschillende log berichten, welke door Hydra-Ring gegenereerd zijn.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            Assert.AreEqual(expectedMessage, logFileParser.LogFileContent);
         }
     }
 }
