@@ -21,6 +21,8 @@
 
 using System;
 using System.IO;
+using System.Security.AccessControl;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Writers;
@@ -53,7 +55,7 @@ namespace Core.Components.Gis.IO.Test.Writers
             {
                 // Call
                 TestDelegate call = () => writer.SaveAs(filePath);
-                
+
                 // Assert
                 var expectedMessage = "Bestandspad mag niet leeg of ongedefinieerd zijn.";
                 var message = Assert.Throws<ArgumentException>(call).Message;
@@ -93,6 +95,36 @@ namespace Core.Components.Gis.IO.Test.Writers
                 // Assert
                 const string expectedMessage = "Fout bij het lezen van bestand 'c:/\".shp': Bestandspad mag niet de volgende tekens bevatten: \", <, >, |, \0, , , , , , , \a, \b, \t, \n, \v, \f, \r, , , , , , , , , , , , , , , , , , , :, *, ?, \\, /";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            }
+        }
+
+        [Test]
+        public void SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException()
+        {
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                              "SaveAs_InvalidDirectoryRights_ThrowCriticalFileWriteException");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.shp");
+
+            try
+            {
+                using (new DirectoryRightsHelper(directoryPath, FileSystemRights.Write))
+                {
+                    using (var writer = new TestShapeFileWriterBase())
+                    {
+                        // Call
+                        TestDelegate call = () => writer.SaveAs(filePath);
+
+                        // Assert
+                        var expectedMessage = string.Format("Fout bij het schrijven naar bestand '{0}': ", filePath);
+                        var message = Assert.Throws<CriticalFileWriteException>(call).Message;
+                        StringAssert.StartsWith(expectedMessage, message);
+                    }
+                }
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
             }
         }
 

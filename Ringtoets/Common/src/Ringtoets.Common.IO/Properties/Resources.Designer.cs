@@ -169,6 +169,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///Er is geen referentielijn geëxporteerd..
+        /// </summary>
+        public static string ReferenceLineExporter_Error_0_no_referenceline_exported {
+            get {
+                return ResourceManager.GetString("ReferenceLineExporter_Error_0_no_referenceline_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.

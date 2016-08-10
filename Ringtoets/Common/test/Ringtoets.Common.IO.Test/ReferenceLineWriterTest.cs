@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Test
             var writer = new ReferenceLineWriter();
 
             // Call
-            TestDelegate call =() => ReferenceLineWriter.WriteReferenceLine(null, filePath);
+            TestDelegate call = () => writer.WriteReferenceLine(null, filePath, "anId");
 
             // Assert
             Assert.Throws<NullReferenceException>(call);
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.IO.Test
             var writer = new ReferenceLineWriter();
 
             // Call
-            TestDelegate call = () => ReferenceLineWriter.WriteReferenceLine(referenceLine, null);
+            TestDelegate call = () => writer.WriteReferenceLine(referenceLine, null, "anId");
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -92,7 +92,7 @@ namespace Ringtoets.Common.IO.Test
             // Call
             try
             {
-                ReferenceLineWriter.WriteReferenceLine(referenceLine, filePath);
+                writer.WriteReferenceLine(referenceLine, filePath, "anId");
 
                 // Assert
                 AssertEssentialShapefileExists(directoryPath, baseName, true);
@@ -105,9 +105,10 @@ namespace Ringtoets.Common.IO.Test
 
         private static void AssertEssentialShapefileExists(string directoryPath, string baseName, bool shouldExist)
         {
-            Assert.AreEqual(shouldExist, File.Exists(Path.Combine(directoryPath, baseName + ".shp")));
-            Assert.AreEqual(shouldExist, File.Exists(Path.Combine(directoryPath, baseName + ".shx")));
-            Assert.AreEqual(shouldExist, File.Exists(Path.Combine(directoryPath, baseName + ".dbf")));
+            string pathName = Path.Combine(directoryPath, baseName);
+            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shp"));
+            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shx"));
+            Assert.AreEqual(shouldExist, File.Exists(pathName + ".dbf"));
         }
     }
 }

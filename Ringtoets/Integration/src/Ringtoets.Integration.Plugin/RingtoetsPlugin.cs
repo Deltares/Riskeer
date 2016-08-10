@@ -70,6 +70,7 @@ using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
@@ -348,6 +349,16 @@ namespace Ringtoets.Integration.Plugin
             yield return new FailureMechanismSectionsImporter();
         }
 
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return new ExportInfo<ReferenceLineContext>
+            {
+                CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData.ReferenceLine, filePath, context.WrappedData.Id),
+                IsEnabled = context => context.WrappedData.ReferenceLine != null,
+                FileFilter = string.Format(RingtoetsCommonIoResources.DataTypeDisplayName_0_shape_file_filter, "Referentielijn")
+            };
+        }
+
         /// <summary>
         /// Gets the child data instances that have <see cref="ViewInfo"/> definitions of some parent data object.
         /// </summary>
@@ -397,7 +408,10 @@ namespace Ringtoets.Integration.Plugin
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
-                                   Gui.Get(nodeData, treeViewControl).AddImportItem().Build()
+                                   Gui.Get(nodeData, treeViewControl)
+                                      .AddImportItem()
+                                      .AddExportItem()
+                                      .Build()
             };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(

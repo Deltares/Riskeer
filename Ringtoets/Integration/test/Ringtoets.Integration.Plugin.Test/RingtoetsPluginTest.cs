@@ -255,6 +255,22 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
+        public void GetExportInfos_ReturnsSupportedExportInfos()
+        {
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, exportInfos.Length);
+                var referenceLineExportInfo = exportInfos.Single(ei => ei.DataType == typeof(ReferenceLineContext));
+                Assert.AreEqual("Referentielijn shapebestand (*.shp)|*.shp", referenceLineExportInfo.FileFilter);
+            }
+        }
+
+        [Test]
         public void GetViewInfos_ReturnsSupportedViewInfoClasses()
         {
             // Setup

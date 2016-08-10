@@ -101,7 +101,7 @@ namespace Core.Common.TestUtil.Test
         public void GetTestDataPath_Always_VerifiedTestPaths()
         {
             // Core Common Base
-            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Base);
+            var path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.IO);
             Assert.IsTrue(Directory.Exists(path));
 
             // Core Common Utils

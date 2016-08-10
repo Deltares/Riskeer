@@ -69,11 +69,11 @@ namespace Core.Common.TestUtil
         /// <summary>
         /// Returns full path to the file or directory in "test-data"
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="testDataPath"></param>
         /// <returns></returns>
-        public static string GetTestDataPath(TestDataPath path)
+        public static string GetTestDataPath(TestDataPath testDataPath)
         {
-            return Path.Combine(TestDataDirectory, path.Path);
+            return Path.Combine(TestDataDirectory, testDataPath.Path, "test-data");
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Core.Common.TestUtil
         /// <returns></returns>
         public static string GetTestDataPath(TestDataPath testDataPath, string path)
         {
-            return Path.Combine(Path.Combine(TestDataDirectory, testDataPath.Path), "test-data", path);
+            return Path.Combine(GetTestDataPath(testDataPath.Path), path);
         }
 
         public static string GetTestProjectDirectory()

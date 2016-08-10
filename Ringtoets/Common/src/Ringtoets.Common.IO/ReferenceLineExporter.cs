@@ -19,9 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
+using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO
 {
@@ -34,20 +38,38 @@ namespace Ringtoets.Common.IO
 
         private readonly ReferenceLine referenceLine;
         private readonly string filePath;
+        private readonly string id;
 
         /// <summary>
         /// Creates a new instance of <see cref="ReferenceLineExporter"/>.
         /// </summary>
         /// <param name="referenceLine">The reference line to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
-        public ReferenceLineExporter(ReferenceLine referenceLine, string filePath)
+        /// <param name="id">The assessment section id.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        public ReferenceLineExporter(ReferenceLine referenceLine, string filePath, string id)
         {
+            FileUtils.ValidateFilePath(filePath);
+
             this.referenceLine = referenceLine;
             this.filePath = filePath;
+            this.id = id;
         }
 
         public bool Export()
         {
+            var referenceLineWriter = new ReferenceLineWriter();
+
+            try
+            {
+                referenceLineWriter.WriteReferenceLine(referenceLine, filePath, id);
+            }
+            catch (CriticalFileWriteException e)
+            {
+                log.Error(string.Format(Resources.ReferenceLineExporter_Error_0_no_referenceline_exported, e.Message));
+                return false;
+            }
+
             return true;
         }
     }

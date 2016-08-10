@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
@@ -113,6 +113,7 @@ namespace Core.Components.Gis.IO.Test.Writers
 
                     // Assert
                     AssertEssentialShapefileExists(directoryPath, baseName, true);
+                    AssertEssentialShapefileMd5Hashes(directoryPath, baseName);
                 }
             }
             finally
@@ -121,9 +122,22 @@ namespace Core.Components.Gis.IO.Test.Writers
             }
         }
 
+        private void AssertEssentialShapefileMd5Hashes(string directoryPath, string baseName)
+        {
+            string refPathName = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO), "md5_reference");
+            string pathName = Path.Combine(directoryPath, baseName);
+
+            Assert.AreEqual(MD5.Create().ComputeHash(File.ReadAllBytes(refPathName + ".shp")),
+                            MD5.Create().ComputeHash(File.ReadAllBytes(pathName + ".shp")));
+            Assert.AreEqual(MD5.Create().ComputeHash(File.ReadAllBytes(refPathName + ".shx")),
+                            MD5.Create().ComputeHash(File.ReadAllBytes(pathName + ".shx")));
+            Assert.AreEqual(MD5.Create().ComputeHash(File.ReadAllBytes(refPathName + ".dbf")),
+                            MD5.Create().ComputeHash(File.ReadAllBytes(pathName + ".dbf")));
+        }
+
         private static MapFeature[] CreateFeatures(double seed)
         {
-            return new []
+            return new[]
             {
                 new MapFeature(new Collection<MapGeometry>
                 {
@@ -142,9 +156,10 @@ namespace Core.Components.Gis.IO.Test.Writers
 
         private static void AssertEssentialShapefileExists(string directoryPath, string baseName, bool shouldExist)
         {
-            Assert.AreEqual(shouldExist, File.Exists(Path.Combine(directoryPath, baseName + ".shp")));
-            Assert.AreEqual(shouldExist, File.Exists(Path.Combine(directoryPath, baseName + ".shx")));
-            Assert.AreEqual(shouldExist, File.Exists(Path.Combine(directoryPath, baseName + ".dbf")));
+            string pathName = Path.Combine(directoryPath, baseName);
+            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shp"));
+            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shx"));
+            Assert.AreEqual(shouldExist, File.Exists(pathName + ".dbf"));
         }
     }
 }

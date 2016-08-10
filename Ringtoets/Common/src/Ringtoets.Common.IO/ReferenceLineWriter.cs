@@ -42,20 +42,21 @@ namespace Ringtoets.Common.IO
         /// </summary>
         /// <param name="referenceLine">The reference line which is to be written to file.</param>
         /// <param name="filePath">The path to the shapefile.</param>
+        /// <param name="id">The assessment section id.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
-        public static void WriteReferenceLine(ReferenceLine referenceLine, string filePath)
+        public void WriteReferenceLine(ReferenceLine referenceLine, string filePath, string id)
         {
             var polyLineShapeFileWriter = new PolylineShapeFileWriter();
 
-            MapLineData mapLineData = CreateMapLineData(referenceLine);
+            MapLineData mapLineData = CreateMapLineData(referenceLine, id);
 
             polyLineShapeFileWriter.AddFeature(mapLineData);
 
             polyLineShapeFileWriter.SaveAs(filePath);
         }
 
-        private static MapLineData CreateMapLineData(ReferenceLine referenceLine)
+        private static MapLineData CreateMapLineData(ReferenceLine referenceLine, string id)
         {
             MapGeometry referenceGeometry = new MapGeometry(
                 new List<IEnumerable<Point2D>>
@@ -64,6 +65,8 @@ namespace Ringtoets.Common.IO
                 });
 
             MapFeature mapFeature = new MapFeature(new []{referenceGeometry});
+
+            mapFeature.MetaData.Add("TRAJECT_ID", id);
 
             return new MapLineData("referentielijn")
             {
