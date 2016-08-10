@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Utils.Reflection;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
@@ -45,6 +46,8 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class FailureMechanismContributionView : UserControl, IView, IObserver
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(FailureMechanismContributionView));
+
         private readonly Observer isFailureMechanismRelevantObserver;
         private readonly Observer closeViewsForIrrelevantFailureMechanismObserver;
         private FailureMechanismContribution data;
@@ -271,12 +274,18 @@ namespace Ringtoets.Integration.Forms.Views
         private void NormValueChanged(object sender, EventArgs eventArgs)
         {
             data.Norm = Convert.ToInt32(normInput.Value);
-            var affectedCalculations = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
+            var affectedCalculations = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection).ToArray();
             RingtoetsDataSynchronizationService.NotifyCalculationObservers(affectedCalculations);
+
+            if (affectedCalculations.Length > 0)
+            {
+                log.InfoFormat(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Results_of_0_calculations_cleared, affectedCalculations.Length);
+            }
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)
             {
                 assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+                log.Info(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
             }
 
             data.NotifyObservers();

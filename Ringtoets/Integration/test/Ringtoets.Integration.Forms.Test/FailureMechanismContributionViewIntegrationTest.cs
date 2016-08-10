@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -31,6 +34,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -41,7 +45,7 @@ namespace Ringtoets.Integration.Forms.Test
     public class FailureMechanismContributionViewIntegrationTest
     {
         [Test]
-        public void NormTextBox_ValueChanged_ClearsDependentDataAndNotifiesObservers()
+        public void NormTextBox_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
         {
             // Setup
             const int normValue = 200;
@@ -94,6 +98,11 @@ namespace Ringtoets.Integration.Forms.Test
 
             failureMechanismContribution.Attach(observerMock);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
+            
+            emptyPipingCalculation.Attach(calculationObserver);
+            emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
+            emptyHeightStructuresCalculation.Attach(calculationObserver);
+
             pipingCalculation.Attach(calculationObserver);
             grassCoverErosionInwardsCalculation.Attach(calculationObserver);
             heightStructuresCalculation.Attach(calculationObserver);
@@ -121,9 +130,15 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.IsNotNull(heightStructuresCalculation.Output);
 
                 // Call
-                normTester.Properties.Text = normValue.ToString();
+                Action call = () => normTester.Properties.Text = normValue.ToString();
 
                 // Assert
+                TestHelper.AssertLogMessages(call, msgs =>
+                {
+                    string[] messages = msgs.ToArray();
+                    Assert.AreEqual(string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_0_calculations_cleared, 3), messages[0]);
+                    Assert.AreEqual(Resources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared, messages[1]);
+                });
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
@@ -132,6 +147,60 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.IsNull(heightStructuresCalculation.Output);
             }
             mockRepository.VerifyAll();
-        }   
+        }
+        
+        [Test]
+        public void NormTextBox_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
+        {
+            // Setup
+            const int normValue = 200;
+
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
+
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+
+            MockRepository mockRepository = new MockRepository();
+            IObserver observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
+            mockRepository.ReplayAll();
+
+            failureMechanismContribution.Attach(observerMock);
+            emptyPipingCalculation.Attach(calculationObserver);
+            emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
+            emptyHeightStructuresCalculation.Attach(calculationObserver);
+
+            using (Form form = new Form())
+            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
+            {
+                Data = failureMechanismContribution,
+                AssessmentSection = assessmentSection
+            })
+            {
+                form.Controls.Add(distributionView);
+                form.Show();
+
+                ControlTester normTester = new ControlTester("normInput");
+
+                // Precondition
+                Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
+
+                // Call
+                Action call = () => normTester.Properties.Text = normValue.ToString();
+
+                // Assert
+                TestHelper.AssertLogMessagesCount(call, 0);
+                Assert.AreEqual(normValue, failureMechanismContribution.Norm);
+            }
+            mockRepository.VerifyAll();
+        }
     }
 }
