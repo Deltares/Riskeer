@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils.Extensions;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -36,12 +37,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// Clears the output for all calculations in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> which contains the calculations.</param>
-        public static void ClearAllCalculationOutput(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        public static IEnumerable<GrassCoverErosionInwardsCalculation> ClearAllCalculationOutput(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
-            failureMechanism.Calculations
-                            .Cast<GrassCoverErosionInwardsCalculation>()
-                            .Where(c => c.HasOutput)
-                            .ForEachElementDo(ClearCalculationOutput);
+            var affectedItems = failureMechanism.Calculations
+                                                .Cast<GrassCoverErosionInwardsCalculation>()
+                                                .Where(c => c.HasOutput)
+                                                .ToArray();
+            
+            affectedItems.ForEachElementDo(ClearCalculationOutput);
+
+            return affectedItems;
         }
 
         /// <summary>
@@ -63,12 +69,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> which contains the calculations.</param>
-        public static void ClearHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        public static IEnumerable<GrassCoverErosionInwardsCalculation> ClearHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
-            failureMechanism.Calculations
-                            .Cast<GrassCoverErosionInwardsCalculation>()
-                            .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
-                            .ForEachElementDo(ClearHydraulicBoundaryLocation);
+            var affectedItems = failureMechanism.Calculations
+                                                .Cast<GrassCoverErosionInwardsCalculation>()
+                                                .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
+                                                .ToArray();
+
+            affectedItems.ForEachElementDo(ClearHydraulicBoundaryLocation);
+
+            return affectedItems;
         }
 
         private static void ClearHydraulicBoundaryLocation(GrassCoverErosionInwardsCalculation calculation)

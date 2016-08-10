@@ -1146,9 +1146,10 @@ namespace Ringtoets.Integration.Plugin
 
         private static void ClearCalculations(IAssessmentSection nodeData)
         {
-            RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(nodeData);
-            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationFromCalculations(nodeData);
-            RingtoetsDataSynchronizationService.NotifyCalculationObservers(nodeData);
+            var affectedCalculations = new List<ICalculation>();
+            affectedCalculations.AddRange(RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(nodeData));
+            affectedCalculations.AddRange(RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationFromCalculations(nodeData));
+            RingtoetsDataSynchronizationService.NotifyCalculationObservers(affectedCalculations.Distinct());
 
             log.Info(RingtoetsFormsResources.Calculations_Cleared);
         }

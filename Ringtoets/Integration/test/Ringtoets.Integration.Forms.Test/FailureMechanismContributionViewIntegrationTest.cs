@@ -58,22 +58,28 @@ namespace Ringtoets.Integration.Forms.Test
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
-            PipingCalculation originalPipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             };
-            GrassCoverErosionInwardsCalculation originalGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
-            HeightStructuresCalculation originalHeightStructuresCalculation = new HeightStructuresCalculation
+            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(originalPipingCalculation);
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(originalGrassCoverErosionInwardsCalculation);
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(originalHeightStructuresCalculation);
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
 
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
 
@@ -88,9 +94,9 @@ namespace Ringtoets.Integration.Forms.Test
 
             failureMechanismContribution.Attach(observerMock);
             assessmentSection.Attach(assessmentSectionObserver);
-            originalPipingCalculation.Attach(calculationObserver);
-            originalGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
-            originalHeightStructuresCalculation.Attach(calculationObserver);
+            pipingCalculation.Attach(calculationObserver);
+            grassCoverErosionInwardsCalculation.Attach(calculationObserver);
+            heightStructuresCalculation.Attach(calculationObserver);
 
             using (Form form = new Form())
             using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
@@ -105,9 +111,6 @@ namespace Ringtoets.Integration.Forms.Test
                 ControlTester normTester = new ControlTester("normInput");
 
                 HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
-                PipingCalculation pipingCalculation = assessmentSection.PipingFailureMechanism.CalculationsGroup.Children[0] as PipingCalculation;
-                GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children[0] as GrassCoverErosionInwardsCalculation;
-                HeightStructuresCalculation heightStructuresCalculation = assessmentSection.HeightStructures.CalculationsGroup.Children[0] as HeightStructuresCalculation;
 
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);

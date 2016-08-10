@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -44,7 +46,8 @@ namespace Ringtoets.Integration.Service
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static void ClearAssessmentSectionData(IAssessmentSection assessmentSection)
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        public static IEnumerable<ICalculation> ClearAssessmentSectionData(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
@@ -52,31 +55,41 @@ namespace Ringtoets.Integration.Service
             }
 
             ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase);
-            ClearFailureMechanismCalculationOutputs(assessmentSection);
+            return ClearFailureMechanismCalculationOutputs(assessmentSection);
         }
 
         /// <summary>
         /// Clears the output of all calculations in the <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
-        public static void ClearFailureMechanismCalculationOutputs(IAssessmentSection assessmentSection)
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        public static IEnumerable<ICalculation> ClearFailureMechanismCalculationOutputs(IAssessmentSection assessmentSection)
         {
+            List<ICalculation> affectedItems = new List<ICalculation>();
+
             var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(PipingDataSynchronizationService.ClearAllCalculationOutput);
-            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput);
-            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput);
+            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(fm)));
+            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(fm)));
+            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(fm)));
+
+            return affectedItems;
         }
 
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> for all calculations in the <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
-        public static void ClearHydraulicBoundaryLocationFromCalculations(IAssessmentSection assessmentSection)
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        public static IEnumerable<ICalculation> ClearHydraulicBoundaryLocationFromCalculations(IAssessmentSection assessmentSection)
         {
+            List<ICalculation> affectedItems = new List<ICalculation>();
+
             var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(PipingDataSynchronizationService.ClearHydraulicBoundaryLocations);
-            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(GrassCoverErosionInwardsDataSynchronizationService.ClearHydraulicBoundaryLocations);
-            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(HeightStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations);
+            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(PipingDataSynchronizationService.ClearHydraulicBoundaryLocations(fm)));
+            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearHydraulicBoundaryLocations(fm)));
+            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations(fm)));
+
+            return affectedItems;
         }
 
         /// <summary>
@@ -91,6 +104,15 @@ namespace Ringtoets.Integration.Service
             {
                 calc.NotifyObservers();
             }
+        }
+
+        /// <summary>
+        /// Notifies the observers of the <paramref name="affectedCalculations"/>.
+        /// </summary>
+        /// <param name="affectedCalculations">An <see cref="IEnumerable{T}"/> containing the calculations to notify.</param>
+        public static void NotifyCalculationObservers(IEnumerable<ICalculation> affectedCalculations)
+        {
+            affectedCalculations.ForEachElementDo(c => c.NotifyObservers());
         }
 
         private static void ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)

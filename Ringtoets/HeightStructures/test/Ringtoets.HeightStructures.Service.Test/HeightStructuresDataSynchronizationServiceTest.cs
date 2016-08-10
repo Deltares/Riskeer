@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
@@ -46,17 +47,21 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
+            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
+            IEnumerable<HeightStructuresCalculation> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
 
             // Assert
             foreach (HeightStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<HeightStructuresCalculation>())
             {
                 Assert.IsNull(calculation.Output);
             }
+            CollectionAssert.AreEqual(new[] { calculation1, calculation2 }, affectedItems);
         }
 
         [Test]
@@ -87,7 +92,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocations_WithHydraulicBoundaryLocation_ClearsHydraulicBoundaryLocation()
+        public void ClearHydraulicBoundaryLocations_WithHydraulicBoundaryLocation_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
             HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
@@ -109,17 +114,25 @@ namespace Ringtoets.HeightStructures.Service.Test
                 }
             };
 
+            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            HeightStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<HeightStructuresCalculation> affectedItems = HeightStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             foreach (HeightStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<HeightStructuresCalculation>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
             }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
         }
     }
 }

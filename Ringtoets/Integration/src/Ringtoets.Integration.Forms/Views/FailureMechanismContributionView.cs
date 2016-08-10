@@ -271,8 +271,8 @@ namespace Ringtoets.Integration.Forms.Views
         private void NormValueChanged(object sender, EventArgs eventArgs)
         {
             data.Norm = Convert.ToInt32(normInput.Value);
-            RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
-            RingtoetsDataSynchronizationService.NotifyCalculationObservers(assessmentSection);
+            var affectedCalculations = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
+            RingtoetsDataSynchronizationService.NotifyCalculationObservers(affectedCalculations);
             assessmentSection.NotifyObservers();
 
             data.NotifyObservers();
