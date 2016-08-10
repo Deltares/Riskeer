@@ -39,6 +39,7 @@ namespace Core.Common.Gui.Forms.ViewHost
     {
         public event EventHandler<EventArgs> ActiveDocumentViewChanging;
         public event EventHandler<EventArgs> ActiveDocumentViewChanged;
+        public event EventHandler<ViewChangeEventArgs> ActiveViewChanged;
         public event EventHandler<EventArgs> ViewClosed;
 
         private readonly List<IView> toolViews;
@@ -247,6 +248,14 @@ namespace Core.Common.Gui.Forms.ViewHost
             }
         }
 
+        private void OnActiveViewChangedEvent()
+        {
+            if (ActiveViewChanged != null)
+            {
+                ActiveViewChanged(this, new ViewChangeEventArgs(GetView(dockingManager.ActiveContent)));
+            }
+        }
+
         private void OnViewClosedEvent()
         {
             if (ViewClosed != null)
@@ -276,6 +285,11 @@ namespace Core.Common.Gui.Forms.ViewHost
             if (documentViews.Contains(focussedView))
             {
                 ActiveDocumentView = focussedView;
+                OnActiveViewChangedEvent();
+            }
+            else if (toolViews.Contains(focussedView))
+            {
+                OnActiveViewChangedEvent();
             }
             else if (dockingManager.ActiveContent == null)
             {

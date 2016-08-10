@@ -370,16 +370,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
-            var secondPipingCalculationItem = (PipingCalculationScenario) ((CalculationGroup) pipingCalculationsView.Data).Children[1];
-            var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
-
-            applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem,
-                                                                                          secondPipingCalculationItem,
-                                                                                          pipingCalculationsView.PipingFailureMechanism.SurfaceLines,
-                                                                                          pipingCalculationsView.PipingFailureMechanism.StochasticSoilModels,
-                                                                                          pipingCalculationsView.PipingFailureMechanism,
-                                                                                          pipingCalculationsView.AssessmentSection));
+            applicationSelectionMock.Expect(asm => asm.Selection).Return(null);
 
             mocks.ReplayAll();
 

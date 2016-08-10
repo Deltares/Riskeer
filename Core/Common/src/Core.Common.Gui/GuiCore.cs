@@ -238,7 +238,9 @@ namespace Core.Common.Gui
                 if (ViewHost != null)
                 {
                     ViewHost.Dispose();
+                    ViewHost.ViewClosed -= OnActiveDocumentViewChanged;
                     ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
+                    ViewHost.ActiveViewChanged -= OnActiveViewChanged;
                 }
 
                 if (storageCommandHandler != null)
@@ -480,6 +482,7 @@ namespace Core.Common.Gui
             ViewHost = mainWindow.ViewHost;
             ViewHost.ViewClosed += OnActiveDocumentViewChanged;
             ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
+            ViewHost.ActiveViewChanged += OnActiveViewChanged;
 
             DocumentViewController = new DocumentViewController(ViewHost, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
 
@@ -498,6 +501,15 @@ namespace Core.Common.Gui
             if (mainWindow != null && !mainWindow.IsWindowDisposed)
             {
                 mainWindow.ValidateItems();
+            }
+        }
+
+        private void OnActiveViewChanged(object sender, ViewChangeEventArgs e)
+        {
+            var view = e.View as IProjectExplorer;
+            if (view != null)
+            {
+                Selection = view.TreeViewControl.SelectedData;
             }
         }
 

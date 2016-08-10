@@ -42,6 +42,11 @@ namespace Core.Common.Gui.Forms.ViewHost
         event EventHandler<EventArgs> ActiveDocumentViewChanged;
 
         /// <summary>
+        /// Fired after the active document or tool view has changed.
+        /// </summary>
+        event EventHandler<ViewChangeEventArgs> ActiveViewChanged;
+
+        /// <summary>
         /// Fired when a document view or a tool view has been closed.
         /// </summary>
         event EventHandler<EventArgs> ViewClosed;

@@ -703,7 +703,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Assert
                 Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
-                Assert.IsNull(dataGridView.CurrentCell);
+                Assert.AreSame(dataGridViewCell, dataGridView.CurrentCell);
             }
         }
 
@@ -1467,7 +1467,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 gridTester.FireEvent("Leave", EventArgs.Empty);
 
                 // Assert
-                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
                 Assert.AreEqual(new RoundedDouble(2, Convert.ToDouble(newValue)), new RoundedDouble(2, Convert.ToDouble(dataGridViewCell.FormattedValue)));
             }
         }
@@ -1507,7 +1506,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 gridTester.FireEvent("Leave", EventArgs.Empty);
 
                 // Assert
-                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
                 Assert.AreEqual(string.Empty, dataGridView.Rows[0].ErrorText);
                 Assert.AreEqual(initialValue.ToString(CultureInfo.CurrentCulture), dataGridViewCell.FormattedValue);
             }

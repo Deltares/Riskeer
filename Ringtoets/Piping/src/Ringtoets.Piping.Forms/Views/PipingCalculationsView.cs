@@ -376,6 +376,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             var dataSource = pipingCalculations.Select(pc => new PipingCalculationRow(pc)).ToList();
             dataGridViewControl.SetDataSource(dataSource);
+            dataGridViewControl.ClearCurrentCell();
 
             UpdateStochasticSoilModelColumn();
             UpdateStochasticSoilProfileColumn();
@@ -503,7 +504,6 @@ namespace Ringtoets.Piping.Forms.Views
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
-            UpdateApplicationSelection();
         }
 
         private void OnGenerateScenariosButtonClick(object sender, EventArgs e)

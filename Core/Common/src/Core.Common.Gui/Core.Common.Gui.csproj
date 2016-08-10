@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="Forms\ViewHost\IDocumentViewController.cs" />
     <Compile Include="Forms\ViewHost\ToolViewLocation.cs" />
+    <Compile Include="Forms\ViewHost\ViewChangeEventArgs.cs" />
     <Compile Include="IViewController.cs" />
     <Compile Include="IPluginsHost.cs" />
     <Compile Include="IMainWindowController.cs" />

@@ -235,7 +235,7 @@ namespace Core.Common.Controls.DataGrid
             {
                 dataGridView.CancelEdit();
                 dataGridView.EndEdit();
-                dataGridView.CurrentCell = null;
+                EndCellEdit();
             }
         }
 
@@ -377,6 +377,14 @@ namespace Core.Common.Controls.DataGrid
             dataGridView.CellClick -= handler;
         }
 
+        /// <summary>
+        /// Clears the current cell.
+        /// </summary>
+        public void ClearCurrentCell()
+        {
+            dataGridView.CurrentCell = null;
+        }
+
         private void SubscribeEvents()
         {
             dataGridView.ColumnAdded += DataGridViewOnColumnAdded;
@@ -438,8 +446,15 @@ namespace Core.Common.Controls.DataGrid
                     dataGridView.CurrentCell.OwningRow.ErrorText = string.Empty;
                 }
 
-                dataGridView.CurrentCell = null;
+                EndCellEdit();
             }
+        }
+
+        private void EndCellEdit()
+        {
+            var currentCell = dataGridView.CurrentCell;
+            dataGridView.CurrentCell = null;
+            dataGridView.CurrentCell = currentCell;
         }
 
         #endregion
