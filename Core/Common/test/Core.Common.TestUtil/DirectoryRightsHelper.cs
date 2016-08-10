@@ -57,6 +57,11 @@ namespace Core.Common.TestUtil
             {
                 throw new DirectoryNotFoundException(@"filePath does not exist.");
             }
+
+            if (rights == FileSystemRights.Synchronize)
+            {
+                throw new NotSupportedException(string.Format("Setting the right {0} is not supported.", rights));
+            }
             AddDenyDirectoryInfoRight(rights);
         }
 

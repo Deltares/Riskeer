@@ -61,15 +61,34 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
+        public void Constructor_UnsupportedRight_ThrowsNotSupportedException()
+        {
+            // Setup
+            const FileSystemRights rights = FileSystemRights.Synchronize;
+            var accessDirectory = Path.Combine(testWorkDir, "Constructor_UnsupportedRight_ThrowsNotSupportedException", rights.ToString());
+            Directory.CreateDirectory(accessDirectory);
+
+            try
+            {
+                // Call
+                TestDelegate test = () => { new DirectoryRightsHelper(accessDirectory, rights); };
+
+                // Assert
+                Assert.Throws<NotSupportedException>(test);
+            }
+            finally
+            {
+                Directory.Delete(accessDirectory, true);
+            }
+        }
+
+        [Test]
         [TestCase(FileSystemRights.AppendData)]
         [TestCase(FileSystemRights.ChangePermissions)]
-        [TestCase(FileSystemRights.CreateDirectories)]
-        [TestCase(FileSystemRights.CreateFiles)]
         [TestCase(FileSystemRights.Delete)]
         [TestCase(FileSystemRights.DeleteSubdirectoriesAndFiles)]
         [TestCase(FileSystemRights.ExecuteFile)]
         [TestCase(FileSystemRights.FullControl)]
-        [TestCase(FileSystemRights.ListDirectory)]
         [TestCase(FileSystemRights.Modify)]
         [TestCase(FileSystemRights.Read)]
         [TestCase(FileSystemRights.ReadAndExecute)]
@@ -78,8 +97,8 @@ namespace Core.Common.TestUtil.Test
         [TestCase(FileSystemRights.ReadExtendedAttributes)]
         [TestCase(FileSystemRights.ReadPermissions)]
         [TestCase(FileSystemRights.TakeOwnership)]
-        [TestCase(FileSystemRights.Traverse)]
         [TestCase(FileSystemRights.Write)]
+        [TestCase(FileSystemRights.WriteData)]
         [TestCase(FileSystemRights.WriteAttributes)]
         [TestCase(FileSystemRights.WriteExtendedAttributes)]
         public void Constructor_ValidPathDenyRight_SetsDenyRight(FileSystemRights rights)
@@ -108,13 +127,10 @@ namespace Core.Common.TestUtil.Test
         [Test]
         [TestCase(FileSystemRights.AppendData)]
         [TestCase(FileSystemRights.ChangePermissions)]
-        [TestCase(FileSystemRights.CreateDirectories)]
-        [TestCase(FileSystemRights.CreateFiles)]
         [TestCase(FileSystemRights.Delete)]
         [TestCase(FileSystemRights.DeleteSubdirectoriesAndFiles)]
         [TestCase(FileSystemRights.ExecuteFile)]
         [TestCase(FileSystemRights.FullControl)]
-        [TestCase(FileSystemRights.ListDirectory)]
         [TestCase(FileSystemRights.Modify)]
         [TestCase(FileSystemRights.Read)]
         [TestCase(FileSystemRights.ReadAndExecute)]
@@ -123,8 +139,8 @@ namespace Core.Common.TestUtil.Test
         [TestCase(FileSystemRights.ReadExtendedAttributes)]
         [TestCase(FileSystemRights.ReadPermissions)]
         [TestCase(FileSystemRights.TakeOwnership)]
-        [TestCase(FileSystemRights.Traverse)]
         [TestCase(FileSystemRights.Write)]
+        [TestCase(FileSystemRights.WriteData)]
         [TestCase(FileSystemRights.WriteAttributes)]
         [TestCase(FileSystemRights.WriteExtendedAttributes)]
         public void Dispose_RightAlreadySet_DoesNotRemoveRight(FileSystemRights rights)
