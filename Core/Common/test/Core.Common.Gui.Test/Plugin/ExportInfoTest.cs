@@ -39,6 +39,7 @@ namespace Core.Common.Gui.Test.Plugin
             // Assert
             Assert.IsNull(info.DataType);
             Assert.IsNull(info.CreateFileExporter);
+            Assert.IsNull(info.IsEnabled);
             Assert.IsNullOrEmpty(info.Name);
             Assert.IsNullOrEmpty(info.Category);
             Assert.IsNull(info.Image);
@@ -54,6 +55,7 @@ namespace Core.Common.Gui.Test.Plugin
             // Assert
             Assert.AreEqual(typeof(int), info.DataType);
             Assert.IsNull(info.CreateFileExporter);
+            Assert.IsNull(info.IsEnabled);
             Assert.IsNullOrEmpty(info.Name);
             Assert.IsNullOrEmpty(info.Category);
             Assert.IsNull(info.Image);
@@ -76,6 +78,7 @@ namespace Core.Common.Gui.Test.Plugin
             var info = new ExportInfo<int>
             {
                 CreateFileExporter = (data, filePath) => fileExporter,
+                IsEnabled = data => false,
                 Name = name,
                 Category = category,
                 Image = image,
@@ -93,6 +96,8 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(typeof(int), convertedInfo.DataType);
             Assert.IsNotNull(convertedInfo.CreateFileExporter);
             Assert.AreSame(fileExporter, convertedInfo.CreateFileExporter(12, string.Empty));
+            Assert.IsNotNull(convertedInfo.IsEnabled);
+            Assert.IsFalse(convertedInfo.IsEnabled(12));
             Assert.AreEqual(name, info.Name);
             Assert.AreEqual(category, info.Category);
             Assert.AreSame(image, info.Image);
@@ -118,6 +123,8 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.AreEqual(typeof(int), convertedInfo.DataType);
             Assert.IsNotNull(convertedInfo.CreateFileExporter);
             Assert.IsNull(convertedInfo.CreateFileExporter(new object(), string.Empty));
+            Assert.IsNotNull(convertedInfo.IsEnabled);
+            Assert.IsTrue(convertedInfo.IsEnabled(new object()));
             Assert.IsNullOrEmpty(info.Name);
             Assert.IsNullOrEmpty(info.Category);
             Assert.IsNull(info.Image);

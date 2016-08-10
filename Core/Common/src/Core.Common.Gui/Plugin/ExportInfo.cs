@@ -46,6 +46,15 @@ namespace Core.Common.Gui.Plugin
         public Func<object, string, IFileExporter> CreateFileExporter { get; set; }
 
         /// <summary>
+        /// Gets or sets the method used to determine whether or not the export routine should be enabled. Function arguments:
+        /// <list type="number">
+        ///     <item>The data to export.</item>
+        ///     <item>out - <c>true</c> if the export should be enabled, <c>false</c> otherwise.</item>
+        /// </list>
+        /// </summary>
+        public Func<object, bool> IsEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the export information.
         /// </summary>
         public string Name { get; set; }
@@ -98,6 +107,15 @@ namespace Core.Common.Gui.Plugin
         public Func<TData, string, IFileExporter> CreateFileExporter { get; set; }
 
         /// <summary>
+        /// Gets or sets the method used to determine whether or not the export routine should be enabled. Function arguments:
+        /// <list type="number">
+        ///     <item>The data to export.</item>
+        ///     <item>out - <c>true</c> if the export should be enabled, <c>false</c> otherwise.</item>
+        /// </list>
+        /// </summary>
+        public Func<TData, bool> IsEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the export information.
         /// </summary>
         public string Name { get; set; }
@@ -134,6 +152,7 @@ namespace Core.Common.Gui.Plugin
                 CreateFileExporter = (data, filePath) => exportInfo.CreateFileExporter != null
                                                              ? exportInfo.CreateFileExporter((TData) data, filePath)
                                                              : null,
+                IsEnabled = data => exportInfo.IsEnabled == null || exportInfo.IsEnabled((TData) data),
                 Name = exportInfo.Name,
                 Category = exportInfo.Category,
                 Image = exportInfo.Image,
