@@ -150,7 +150,7 @@ namespace Core.Common.Gui.Commands
 
             var sourceType = source.GetType();
 
-            return exportInfos.Where(info => info.DataType == sourceType || sourceType.Implements(info.DataType));
+            return exportInfos.Where(info => (info.DataType == sourceType || sourceType.Implements(info.DataType)) && info.IsEnabled(source));
         }
     }
 }
