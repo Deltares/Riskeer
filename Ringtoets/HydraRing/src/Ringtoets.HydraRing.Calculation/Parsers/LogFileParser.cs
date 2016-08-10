@@ -40,16 +40,20 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 string logFilePath = Path.Combine(workingDirectory, logFileName);
                 if (!File.Exists(logFilePath))
                 {
-                    log.Error(string.Format(Resources.Parse_Cannot_find_file_0_in_folder_1_, new[] { logFileName, workingDirectory }));
+                    log.Error(string.Format(Resources.Parse_Cannot_find_file_0_in_folder_1_, logFileName, workingDirectory));
                     return;
                 }
-                string text = File.ReadAllText(logFilePath);
-                log.Info(text);
+                LogFileContent = File.ReadAllText(logFilePath);
             }
             catch
             {
-                log.Error(string.Format(Resources.Parse_Cannot_read_file_0_from_folder_1_, new[] { logFileName, workingDirectory }));
+                log.Error(string.Format(Resources.Parse_Cannot_read_file_0_from_folder_1_, logFileName, workingDirectory));
             }
         }
+
+        /// <summary>
+        /// Gets the log file content.
+        /// </summary>
+        public string LogFileContent { get; private set; }
     }
 }

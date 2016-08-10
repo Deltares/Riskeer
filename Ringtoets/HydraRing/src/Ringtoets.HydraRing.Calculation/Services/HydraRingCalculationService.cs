@@ -23,10 +23,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using log4net;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.Calculation.Properties;
 
 namespace Ringtoets.HydraRing.Calculation.Services
 {
@@ -35,6 +36,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// </summary>
     public static class HydraRingCalculationService
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraRingCalculationService));
+
         private static Process hydraRingProcess;
 
         /// <summary>
@@ -67,9 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
             PerformCalculation(workingDirectory, hydraRingInitializationService);
 
-            var extendedParsers = parsers.ToList();
-            extendedParsers.Add(new LogFileParser());
-            ExecuteParsers(extendedParsers, hydraRingInitializationService.TemporaryWorkingDirectory, hydraRingCalculationInput.Section.SectionId);
+            PerformPostProcessing(hydraRingCalculationInput, parsers.ToList(), hydraRingInitializationService);
         }
 
         /// <summary>
@@ -80,6 +81,22 @@ namespace Ringtoets.HydraRing.Calculation.Services
             if (hydraRingProcess != null && !hydraRingProcess.HasExited)
             {
                 hydraRingProcess.StandardInput.WriteLine("b");
+            }
+        }
+
+        private static void PerformPostProcessing(HydraRingCalculationInput hydraRingCalculationInput,
+                                                  ICollection<IHydraRingFileParser> parsers, 
+                                                  HydraRingInitializationService hydraRingInitializationService)
+        {
+            var logFileParser = new LogFileParser();
+            parsers.Add(logFileParser);
+
+            ExecuteParsers(parsers, hydraRingInitializationService.TemporaryWorkingDirectory, hydraRingCalculationInput.Section.SectionId);
+
+            string logFileContent = logFileParser.LogFileContent;
+            if (!string.IsNullOrEmpty(logFileContent))
+            {
+                log.Info(string.Format(Resources.HydraRingCalculationService_HydraRing_calculation_report_message_text_0, logFileContent));
             }
         }
 

@@ -61,6 +61,16 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HydraRing berekeningsverslag. Klik op details voor meer informatie.
+        ///{0}.
+        /// </summary>
+        internal static string HydraRingCalculationService_HydraRing_calculation_report_message_text_0 {
+            get {
+                return ResourceManager.GetString("HydraRingCalculationService_HydraRing_calculation_report_message_text_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;TrajectID&quot;;&quot;MechanismID&quot;;&quot;SubMechanismID&quot;;&quot;Rekenmethode&quot;;&quot;FORM_StartMethod&quot;;&quot;FORM_NrIterations&quot;;&quot;FORM_RelaxationFactor&quot;;&quot;FORM_EpsBeta&quot;;&quot;FORM_EpsHOH&quot;;&quot;FORM_EpsZFunc&quot;;&quot;Ds_StartMethod&quot;;&quot;Ds_Min&quot;;&quot;Ds_Max&quot;;&quot;Ds_VarCoefficient&quot;;&quot;NI_UMin&quot;;&quot;NI_Umax&quot;;&quot;NI_NumberSteps&quot;
         ///&quot;205&quot;;1;1;1;4;50;0.15;0.01;0.01;0.01;2;20000;100000;0.1;-6;6;25
         ///&quot;205&quot;;11;11;1;4;50;0.15;0.01;0.01;0.01;2;20000;100000;0.1;-6;6;25
