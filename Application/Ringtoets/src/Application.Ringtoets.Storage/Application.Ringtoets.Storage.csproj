@@ -243,7 +243,6 @@
     </Compile>
     <Compile Include="DoubleConversionExtensions.cs" />
     <Compile Include="Exceptions\CannotDeleteBackupFileException.cs" />
-    <Compile Include="IStorableExtensions.cs" />
     <Compile Include="FingerprintHelper.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />

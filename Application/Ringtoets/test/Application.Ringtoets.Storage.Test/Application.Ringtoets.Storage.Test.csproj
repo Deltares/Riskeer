@@ -151,7 +151,6 @@
     <Compile Include="DoubleConversionExtensionsTest.cs" />
     <Compile Include="Exceptions\CannotDeleteBackupFileExceptionTest.cs" />
     <Compile Include="FingerprintHelperTest.cs" />
-    <Compile Include="IStorableExtensionsTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
     <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensionsTest.cs" />
