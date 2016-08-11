@@ -85,8 +85,9 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the index of the known factor for which the norm is the minimum in the subset of factors for which the norm
-        /// is larger that the given <paramref name="norm"/>.
+        /// Finds the known factor pair where the given <paramref name="norm"/> is in the 
+        /// range specified by that factor pair. Returns the index such that the pair is
+        /// defined by [index-1, index].
         /// </summary>
         /// <param name="norm">The norm to compare the known factors' norms with.</param>
         /// <returns>The index of the factor with minimum norm larger than <paramref name="norm"/>.</returns>
