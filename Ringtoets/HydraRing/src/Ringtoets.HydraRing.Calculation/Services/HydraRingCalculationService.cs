@@ -88,7 +88,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                                                   ICollection<IHydraRingFileParser> parsers, 
                                                   HydraRingInitializationService hydraRingInitializationService)
         {
-            var logFileParser = new LogFileParser();
+            var logFileParser = new HydraRingLogFileParser();
             parsers.Add(logFileParser);
 
             ExecuteParsers(parsers, hydraRingInitializationService.TemporaryWorkingDirectory, hydraRingCalculationInput.Section.SectionId);

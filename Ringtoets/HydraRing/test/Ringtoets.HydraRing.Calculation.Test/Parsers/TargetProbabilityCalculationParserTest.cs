@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -41,6 +42,51 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.IsInstanceOf<IHydraRingFileParser>(parser);
             Assert.IsNull(parser.Output);
+        }
+
+        [Test]
+        public void Parse_NullWorkingDirectory_ThrowArgumentNullException()
+        {
+            // Setup
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+
+            // Call
+            TestDelegate call = () => targetProbabilityCalculationParser.Parse(null, 1);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("      ")]
+        public void Parse_NoWorkingDirectory_ThrowArgumentException(string directoryPath)
+        {
+            // Setup
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+
+            // Call
+            TestDelegate call = () => targetProbabilityCalculationParser.Parse(directoryPath, 1);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void Parse_NoWorkingDirectory_ThrowArgumentException()
+        {
+            // Setup
+            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+
+            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            string invalidCharacter = invalidFileNameChars[0].ToString();
+            var directoryPath = "c:/test_directory".Replace("_", invalidCharacter);
+
+            // Call
+            TestDelegate call = () => targetProbabilityCalculationParser.Parse(directoryPath, 1);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
         }
 
         [Test]

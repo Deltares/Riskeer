@@ -23,6 +23,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Core.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Services;
 
@@ -43,9 +44,17 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
+            if (workingDirectory == null)
+            {
+                throw new ArgumentNullException("workingDirectory");
+            }
+            FileUtils.ValidateFilePath(workingDirectory);
+
+            string filePath = Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName);
+
             try
             {
-                using (var streamReader = new StreamReader(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)))
+                using (var streamReader = new StreamReader(filePath))
                 {
                     var fileContents = streamReader.ReadToEnd();
                     var lines = fileContents.Split('\n');

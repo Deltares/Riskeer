@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using Core.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Services;
 
@@ -79,6 +81,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
+            if (workingDirectory == null)
+            {
+                throw new ArgumentNullException("workingDirectory");
+            }
+            FileUtils.ValidateFilePath(workingDirectory);
+
             string fileName = string.Format("{0}{1}", sectionId, HydraRingFileName.OutputFileSuffix);
             string filePath = Path.Combine(workingDirectory, fileName);
 

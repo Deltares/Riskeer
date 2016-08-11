@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
+using Core.Common.Utils;
 using log4net;
 using Ringtoets.HydraRing.Calculation.Properties;
 
@@ -28,21 +30,23 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// <summary>
     /// Parser for a Hydra-Ring log file.
     /// </summary>
-    public class LogFileParser : IHydraRingFileParser
+    public class HydraRingLogFileParser : IHydraRingFileParser
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(LogFileParser));
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraRingLogFileParser));
 
         public void Parse(string workingDirectory, int sectionId)
         {
+            if (workingDirectory == null)
+            {
+                throw new ArgumentNullException("workingDirectory");
+            }
+            FileUtils.ValidateFilePath(workingDirectory);
+
             string logFileName = sectionId + ".log";
             string logFilePath = Path.Combine(workingDirectory, logFileName);
+
             try
             {
-                if (!File.Exists(logFilePath))
-                {
-                    log.Error(string.Format(Resources.Parse_Cannot_find_file_0_in_folder_1_, logFileName, workingDirectory));
-                    return;
-                }
                 LogFileContent = File.ReadAllText(logFilePath);
             }
             catch

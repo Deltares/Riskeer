@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void DefaultConstructor_SetDefaultValues()
         {
             // Call
-            var parser = new LogFileParser();
+            var parser = new HydraRingLogFileParser();
 
             // Assert
             Assert.IsInstanceOf<IHydraRingFileParser>(parser);
@@ -46,14 +46,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingWorkingDirectory_LogError()
         {
             // Setup
-            var logFileParser = new LogFileParser();
+            var logFileParser = new HydraRingLogFileParser();
             var logFileName = "1.log";
+            var nonExistentDirectory = "c:/niet_bestaande_map";
 
             // Call
-            Action call = () => logFileParser.Parse(null, 1);
+            Action call = () => logFileParser.Parse(nonExistentDirectory, 1);
 
             // Assert
-            var expectedMessage = string.Format("Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}.", new[] { logFileName, null });
+            var expectedMessage = string.Format("Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}.", logFileName, nonExistentDirectory);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
         }
 
@@ -61,14 +62,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingLogFile_LogError()
         {
             // Setup
-            var logFileParser = new LogFileParser();
+            var logFileParser = new HydraRingLogFileParser();
             var logFileName = "1234567890.log";
 
             // Call
             Action call = () => logFileParser.Parse(testDataDirectory, 1234567890);
 
             // Assert
-            var expectedMessage = string.Format("Kan het Hydra-Ring logbestand {0} niet vinden in de map {1}.", new[] { logFileName, testDataDirectory });
+            var expectedMessage = string.Format("Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}.", new[] { logFileName, testDataDirectory });
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
         }
 
@@ -76,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ValidLogFile_LogInfo()
         {
             // Setup
-            var logFileParser = new LogFileParser();
+            var logFileParser = new HydraRingLogFileParser();
 
             // Call
            logFileParser.Parse(testDataDirectory, 1);
@@ -84,6 +85,51 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             var expectedMessage = "In dit bestand staan veschillende log berichten, welke door Hydra-Ring gegenereerd zijn.";
             Assert.AreEqual(expectedMessage, logFileParser.LogFileContent);
+        }
+
+        [Test]
+        public void Parse_NullWorkingDirectory_ThrowArgumentNullException()
+        {
+            // Setup
+            var logFileParser = new HydraRingLogFileParser();
+
+            // Call
+            TestDelegate call =() => logFileParser.Parse(null, 1); 
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("      ")]
+        public void Parse_NoWorkingDirectory_ThrowArgumentException(string directoryPath)
+        {
+            // Setup
+            var logFileParser = new HydraRingLogFileParser();
+
+            // Call
+            TestDelegate call = () => logFileParser.Parse(directoryPath, 1);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void Parse_NoWorkingDirectory_ThrowArgumentException()
+        {
+            // Setup
+            var logFileParser = new HydraRingLogFileParser();
+
+            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
+            string invalidCharacter = invalidFileNameChars[0].ToString();
+            var directoryPath = "c:/test_directory".Replace("_", invalidCharacter);
+
+            // Call
+            TestDelegate call = () => logFileParser.Parse(directoryPath, 1);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
         }
     }
 }
