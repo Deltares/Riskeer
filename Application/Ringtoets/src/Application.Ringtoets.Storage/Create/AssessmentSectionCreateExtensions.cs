@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create.ClosingStructure;
 using Application.Ringtoets.Storage.Create.DuneErosion;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
@@ -41,7 +40,6 @@ using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Ringtoets.Integration.Data;
 
 namespace Application.Ringtoets.Storage.Create
@@ -115,7 +113,7 @@ namespace Application.Ringtoets.Storage.Create
                 entity.HydraulicDatabaseLocation = section.HydraulicBoundaryDatabase.FilePath;
                 entity.HydraulicDatabaseVersion = section.HydraulicBoundaryDatabase.Version;
 
-                for (int i = 0; i < section.HydraulicBoundaryDatabase.Locations.Count; i++)
+                for (var i = 0; i < section.HydraulicBoundaryDatabase.Locations.Count; i++)
                 {
                     var hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations[i];
                     entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));

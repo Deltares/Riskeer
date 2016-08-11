@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 

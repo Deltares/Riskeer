@@ -20,11 +20,8 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Core.Common.Base.Data;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards

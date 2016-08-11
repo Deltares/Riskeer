@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
@@ -32,7 +30,7 @@ using Ringtoets.Piping.Data;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="CalculationGroup"/> related to creating an <see cref="CalculationGroupEntity"/>.
+    /// Extension methods for <see cref="CalculationGroup"/> related to creating a <see cref="CalculationGroupEntity"/>.
     /// </summary>
     internal static class CalculationGroupCreateExtensions
     {
@@ -58,7 +56,7 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
             CreateChildElements(group, entity, registry);
-            
+
             registry.Register(entity, group);
             return entity;
         }

@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.TestUtil;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -116,13 +113,13 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new PipingStructureFailureMechanismSectionResult(new TestFailureMechanismSection()); 
+            var sectionResult = new PipingStructureFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
-        } 
+        }
     }
 }

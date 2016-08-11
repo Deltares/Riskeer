@@ -21,16 +21,12 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;

@@ -20,14 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Create.Piping
@@ -96,7 +92,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         {
             var entity = new CharacteristicPointEntity
             {
-                Type = (short)type,
+                Type = (short) type,
                 X = point.X.ToNaNAsNull(),
                 Y = point.Y.ToNaNAsNull(),
                 Z = point.Z.ToNaNAsNull()

@@ -21,9 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -51,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

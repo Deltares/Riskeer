@@ -20,16 +20,12 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -89,11 +85,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.AreNotSame(testName, entity.Name,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(testName, entity.Name);
 
             Assert.AreNotSame(testSegmentName, entity.SegmentName,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(testSegmentName, entity.SegmentName);
         }
 
@@ -127,7 +123,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var stochasticSoilModel = new StochasticSoilModel(-1, "testName", "testSegmentName");
             stochasticSoilModel.Geometry.AddRange(new[]
             {
-                new Point2D(-12.34, 56.78), 
+                new Point2D(-12.34, 56.78),
                 new Point2D(91.23, -34.56)
             });
             var registry = new PersistenceRegistry();

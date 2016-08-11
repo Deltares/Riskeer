@@ -1,4 +1,25 @@
-﻿using System;
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
@@ -17,9 +38,9 @@ namespace Application.Ringtoets.Storage.Serializers
         /// </summary>
         /// <param name="elements">The elements to be serialized.</param>
         /// <returns>The XML data.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="elements"/> is null.</exception>
-        /// <exception cref="IOException">An I/O error occurs.</exception>
-        /// <exception cref="SerializationException">An error occurs during serialization.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="elements"/> is <c>null</c>.</exception>
+        /// <exception cref="IOException">Thrown when an I/O error occurs.</exception>
+        /// <exception cref="SerializationException">Thrown when an error occurs during serialization.</exception>
         public string ToXml(IEnumerable<TData> elements)
         {
             if (elements == null)
@@ -27,7 +48,7 @@ namespace Application.Ringtoets.Storage.Serializers
                 throw new ArgumentNullException("elements");
             }
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             using (var writer = XmlDictionaryWriter.CreateTextWriter(memoryStream, encoding, false))
             using (var streamReader = new StreamReader(memoryStream))
             {
@@ -45,9 +66,9 @@ namespace Application.Ringtoets.Storage.Serializers
         /// </summary>
         /// <param name="xml">The XML.</param>
         /// <returns>An array of <see cref="TData"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="xml"/> is null.</exception>
-        /// <exception cref="IOException">An I/O error occurs.</exception>
-        /// <exception cref="SerializationException">An error occurs during deserialization.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="xml"/> is <c>null</c>.</exception>
+        /// <exception cref="IOException">Thrown when an I/O error occurs.</exception>
+        /// <exception cref="SerializationException">Thrown when an error occurs during deserialization.</exception>
         public TData[] FromXml(string xml)
         {
             if (xml == null)

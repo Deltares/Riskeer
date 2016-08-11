@@ -21,9 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 
@@ -57,7 +55,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<PipingFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<PipingFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var pipingFailureMechanismSectionResult in sectionResults)
@@ -76,7 +74,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         private static void AddEntitiesForStochasticSoilModels(PipingFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
             int index = 0;
-            foreach (var stochasticSoilModel in mechanism.StochasticSoilModels)
+            foreach (StochasticSoilModel stochasticSoilModel in mechanism.StochasticSoilModels)
             {
                 entity.StochasticSoilModelEntities.Add(stochasticSoilModel.Create(registry, index++));
             }

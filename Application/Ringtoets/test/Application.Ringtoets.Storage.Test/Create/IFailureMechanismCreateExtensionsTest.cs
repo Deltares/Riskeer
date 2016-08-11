@@ -24,7 +24,6 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -105,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreNotSame(original, entity.Comments,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(original, entity.Comments);
         }
     }

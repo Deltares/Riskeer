@@ -21,13 +21,10 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -90,8 +87,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(entityId, profile.StorageId);
             Assert.AreEqual(testName, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom, 1e-6);
-            CollectionAssert.AreEqual(new[]{"B", "A"}, profile.Layers.Select(l => l.MaterialName));
-        } 
+            CollectionAssert.AreEqual(new[]
+            {
+                "B",
+                "A"
+            }, profile.Layers.Select(l => l.MaterialName));
+        }
 
         [Test]
         [TestCase(true)]
@@ -121,8 +122,14 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 Bottom = bottom,
                 SoilLayerEntities =
                 {
-                    new SoilLayerEntity{ Top = bottom + 0.5 },
-                    new SoilLayerEntity{ Top = bottom + 1.2 }
+                    new SoilLayerEntity
+                    {
+                        Top = bottom + 0.5
+                    },
+                    new SoilLayerEntity
+                    {
+                        Top = bottom + 1.2
+                    }
                 }
             };
             var collector = new ReadConversionCollector();

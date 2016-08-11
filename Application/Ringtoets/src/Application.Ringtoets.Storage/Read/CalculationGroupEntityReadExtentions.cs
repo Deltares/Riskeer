@@ -21,18 +21,16 @@
 
 using System;
 using System.Collections;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.Piping;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an <see cref="CalculationGroup"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="CalculationGroup"/> based on the
     /// <see cref="CalculationGroupEntity"/>.
     /// </summary>
     internal static class CalculationGroupEntityReadExtentions

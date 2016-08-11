@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 

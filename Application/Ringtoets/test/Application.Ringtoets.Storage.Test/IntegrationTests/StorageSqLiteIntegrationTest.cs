@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Threading;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;

@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Read
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
-            } 
+            }
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");
@@ -55,8 +55,8 @@ namespace Application.Ringtoets.Storage.Read
 
             sectionResult.StorageId = entity.MicrostabilitySectionResultEntityId;
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
-            sectionResult.AssessmentLayerTwoA = (AssessmentLayerTwoAResult)entity.LayerTwoA;
-            sectionResult.AssessmentLayerThree = (RoundedDouble)entity.LayerThree.ToNullAsNaN();
+            sectionResult.AssessmentLayerTwoA = (AssessmentLayerTwoAResult) entity.LayerTwoA;
+            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }
     }
 }

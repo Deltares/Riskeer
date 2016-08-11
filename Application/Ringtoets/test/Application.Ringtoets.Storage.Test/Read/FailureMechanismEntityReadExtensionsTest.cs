@@ -20,15 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
@@ -40,6 +36,71 @@ namespace Application.Ringtoets.Storage.Test.Read
     [TestFixture]
     public class FailureMechanismEntityReadExtensionsTest
     {
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadAsStandAloneFailureMechanism_WithoutSectionsSet_ReturnsNewStandAloneFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entityId = new Random(21).Next(1, 502);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                IsRelevant = Convert.ToByte(isRelevant),
+                Comments = "Some comment"
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+
+            // Assert
+            Assert.IsEmpty(failureMechanism.Sections);
+            Assert.AreEqual(entityId, failureMechanism.StorageId);
+            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(entity.Comments, failureMechanism.Comments);
+            Assert.IsEmpty(failureMechanism.Sections);
+        }
+
+        [Test]
+        public void ReadAsStandAloneFailureMechanism_WithSectionsSet_ReturnsNewStandAloneFailureMechanismWithFailureMechanismSections()
+        {
+            // Setup
+            var entityId = new Random(21).Next(1, 502);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismEntityId = entityId,
+                FailureMechanismSectionEntities =
+                {
+                    CreateSimpleFailureMechanismSectionEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(1, failureMechanism.Sections.Count());
+        }
+
+        private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()
+        {
+            var dummyPoints = new[]
+            {
+                new Point2D(0, 0)
+            };
+            string dymmyPointXml = new Point2DXmlSerializer().ToXml(dummyPoints);
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
+            {
+                Name = "section",
+                FailureMechanismSectionPointXml = dymmyPointXml
+            };
+            return failureMechanismSectionEntity;
+        }
+
         #region Piping
 
         [Test]
@@ -152,7 +213,11 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, failureMechanism.StochasticSoilModels.Count);
-            CollectionAssert.AreEqual(new[]{"B", "A"}, failureMechanism.StochasticSoilModels.Select(s => s.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                "B",
+                "A"
+            }, failureMechanism.StochasticSoilModels.Select(s => s.Name));
         }
 
         [Test]
@@ -190,7 +255,11 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, failureMechanism.SurfaceLines.Count);
-            CollectionAssert.AreEqual(new[]{"2", "1"}, failureMechanism.SurfaceLines.Select(sl => sl.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                "2",
+                "1"
+            }, failureMechanism.SurfaceLines.Select(sl => sl.Name));
         }
 
         [Test]
@@ -277,11 +346,11 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child1", child1.Name);
-            Assert.AreEqual(childGroup1Id, ((CalculationGroup)child1).StorageId);
+            Assert.AreEqual(childGroup1Id, ((CalculationGroup) child1).StorageId);
 
             ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child2", child2.Name);
-            Assert.AreEqual(childGroup2Id, ((CalculationGroup)child2).StorageId);
+            Assert.AreEqual(childGroup2Id, ((CalculationGroup) child2).StorageId);
         }
 
         #endregion
@@ -483,78 +552,13 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child1", child1.Name);
-            Assert.AreEqual(childGroup1Id, ((CalculationGroup)child1).StorageId);
+            Assert.AreEqual(childGroup1Id, ((CalculationGroup) child1).StorageId);
 
             ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child2", child2.Name);
-            Assert.AreEqual(childGroup2Id, ((CalculationGroup)child2).StorageId);
+            Assert.AreEqual(childGroup2Id, ((CalculationGroup) child2).StorageId);
         }
 
         #endregion
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ReadAsStandAloneFailureMechanism_WithoutSectionsSet_ReturnsNewStandAloneFailureMechanism(bool isRelevant)
-        {
-            // Setup
-            var entityId = new Random(21).Next(1, 502);
-            var entity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = entityId,
-                IsRelevant = Convert.ToByte(isRelevant),
-                Comments = "Some comment"
-            };
-            var collector = new ReadConversionCollector();
-            var failureMechanism = new TestFailureMechanism();
-
-            // Call
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-
-            // Assert
-            Assert.IsEmpty(failureMechanism.Sections);
-            Assert.AreEqual(entityId, failureMechanism.StorageId);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
-            Assert.AreEqual(entity.Comments, failureMechanism.Comments);
-            Assert.IsEmpty(failureMechanism.Sections);
-        }
-
-        [Test]
-        public void ReadAsStandAloneFailureMechanism_WithSectionsSet_ReturnsNewStandAloneFailureMechanismWithFailureMechanismSections()
-        {
-            // Setup
-            var entityId = new Random(21).Next(1, 502);
-            var entity = new FailureMechanismEntity
-            {
-                FailureMechanismEntityId = entityId,
-                FailureMechanismSectionEntities =
-                {
-                    CreateSimpleFailureMechanismSectionEntity()
-                }
-            };
-            var collector = new ReadConversionCollector();
-            var failureMechanism = new TestFailureMechanism();
-
-            // Call
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-
-            // Assert
-            Assert.AreEqual(1, failureMechanism.Sections.Count());
-        }
-
-        private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()
-        {
-            var dummyPoints = new[]
-            {
-                new Point2D(0, 0)
-            };
-            string dymmyPointXml = new Point2DXmlSerializer().ToXml(dummyPoints);
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
-            {
-                Name = "section",
-                FailureMechanismSectionPointXml = dymmyPointXml
-            };
-            return failureMechanismSectionEntity;
-        }
     }
 }

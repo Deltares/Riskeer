@@ -21,14 +21,11 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.TechnicalInnovation;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-
 using NUnit.Framework;
-
 using Ringtoets.Integration.Data.StandAlone;
 
 namespace Application.Ringtoets.Storage.Test.Create.TechnicalInnovation
@@ -68,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.TechnicalInnovation
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short)FailureMechanismType.TechnicalInnovations, entity.FailureMechanismType);
+            Assert.AreEqual((short) FailureMechanismType.TechnicalInnovations, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
         }
@@ -89,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Create.TechnicalInnovation
 
             // Assert
             Assert.AreNotSame(originalComments, entity.Comments,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(originalComments, entity.Comments);
         }
 

@@ -21,11 +21,9 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -134,9 +132,9 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreNotSame(originalName, entity.Name,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreNotSame(originalComments, entity.Comments,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
 
             Assert.AreEqual(originalName, entity.Name);
             Assert.AreEqual(originalComments, entity.Comments);

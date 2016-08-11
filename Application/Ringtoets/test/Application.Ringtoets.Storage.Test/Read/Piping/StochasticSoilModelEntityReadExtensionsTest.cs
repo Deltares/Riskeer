@@ -21,16 +21,12 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -76,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(entityId, model.StorageId);
             Assert.AreEqual(testName, model.Name);
             Assert.AreEqual(testSegmentName, model.SegmentName);
-        } 
+        }
 
         [Test]
         public void Read_WithCollectorWithStochasticSoilProfiles_ReturnsNewStochasticSoilModelWithStochasticSoilProfiles()
@@ -120,7 +116,11 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.AreEqual(2, model.StochasticSoilProfiles.Count);
-            CollectionAssert.AreEqual(new[]{"B", "A"}, model.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                "B",
+                "A"
+            }, model.StochasticSoilProfiles.Select(ssp => ssp.SoilProfile.Name));
         }
 
         [Test]

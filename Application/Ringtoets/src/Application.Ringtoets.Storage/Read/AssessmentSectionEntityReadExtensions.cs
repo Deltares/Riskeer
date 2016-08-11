@@ -21,12 +21,9 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;

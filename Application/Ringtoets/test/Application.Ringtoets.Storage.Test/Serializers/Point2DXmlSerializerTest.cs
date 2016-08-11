@@ -20,11 +20,8 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test.Serializers

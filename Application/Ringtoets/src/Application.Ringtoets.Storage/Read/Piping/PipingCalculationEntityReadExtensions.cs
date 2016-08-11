@@ -20,11 +20,8 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Core.Common.Base.Data;
-
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 
@@ -44,7 +41,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <returns>A new <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static PipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector,
-            GeneralPipingInput generalInputParameters)
+                                                       GeneralPipingInput generalInputParameters)
         {
             if (collector == null)
             {
@@ -55,7 +52,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
             {
                 StorageId = entity.PipingCalculationEntityId,
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
-                Contribution = (RoundedDouble)entity.ScenarioContribution.ToNullAsNaN(),
+                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
                 Name = entity.Name,
                 Comments = entity.Comments
             };
@@ -94,12 +91,12 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 inputParameters.StochasticSoilProfile = entity.StochasticSoilProfileEntity.Read(collector);
             }
 
-            inputParameters.EntryPointL = (RoundedDouble)entity.EntryPointL.ToNullAsNaN();
-            inputParameters.ExitPointL = (RoundedDouble)entity.ExitPointL.ToNullAsNaN();
-            inputParameters.PhreaticLevelExit.Mean = (RoundedDouble)entity.PhreaticLevelExitMean.ToNullAsNaN();
-            inputParameters.PhreaticLevelExit.StandardDeviation = (RoundedDouble)entity.PhreaticLevelExitStandardDeviation.ToNullAsNaN();
-            inputParameters.DampingFactorExit.Mean = (RoundedDouble)entity.DampingFactorExitMean.ToNullAsNaN();
-            inputParameters.DampingFactorExit.StandardDeviation = (RoundedDouble)entity.DampingFactorExitStandardDeviation.ToNullAsNaN();
+            inputParameters.EntryPointL = (RoundedDouble) entity.EntryPointL.ToNullAsNaN();
+            inputParameters.ExitPointL = (RoundedDouble) entity.ExitPointL.ToNullAsNaN();
+            inputParameters.PhreaticLevelExit.Mean = (RoundedDouble) entity.PhreaticLevelExitMean.ToNullAsNaN();
+            inputParameters.PhreaticLevelExit.StandardDeviation = (RoundedDouble) entity.PhreaticLevelExitStandardDeviation.ToNullAsNaN();
+            inputParameters.DampingFactorExit.Mean = (RoundedDouble) entity.DampingFactorExitMean.ToNullAsNaN();
+            inputParameters.DampingFactorExit.StandardDeviation = (RoundedDouble) entity.DampingFactorExitStandardDeviation.ToNullAsNaN();
         }
     }
 }

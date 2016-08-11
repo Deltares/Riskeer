@@ -20,15 +20,14 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Create.Piping
 {
     /// <summary>
-    /// Extension methods for <see cref="StochasticSoilProfile"/> related to creating database entities.
+    /// Extension methods for <see cref="StochasticSoilProfile"/> related to creating
+    /// a <see cref="StochasticSoilProfileEntity"/>.
     /// </summary>
     internal static class StochasticSoilProfileCreateExtensions
     {

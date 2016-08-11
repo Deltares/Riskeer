@@ -20,16 +20,14 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Create.Piping
 {
     /// <summary>
     /// Extension methods for <see cref="PipingCalculationScenario"/> related to creating
-    /// an <see cref="PipingCalculationEntity"/>.
+    /// a <see cref="PipingCalculationEntity"/>.
     /// </summary>
     internal static class PipingCalculationScenarioCreateExtensions
     {
@@ -61,7 +59,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
             CreatePipingSemiProbabilisticOutputEntity(entity, calculation.SemiProbabilisticOutput, registry);
 
             registry.Register(entity, calculation);
-            
+
             return entity;
         }
 

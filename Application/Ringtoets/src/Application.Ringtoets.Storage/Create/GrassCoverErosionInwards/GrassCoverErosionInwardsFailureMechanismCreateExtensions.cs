@@ -21,9 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
@@ -59,7 +57,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 
         private static void AddEntitiesForDikeProfiles(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
         {
-            for (int i = 0; i < mechanism.DikeProfiles.Count; i++)
+            for (var i = 0; i < mechanism.DikeProfiles.Count; i++)
             {
                 DikeProfile dikeProfile = mechanism.DikeProfiles[i];
                 entity.DikeProfileEntities.Add(dikeProfile.Create(registry, i));

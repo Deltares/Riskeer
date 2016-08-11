@@ -84,6 +84,7 @@ namespace Core.Common.Base.Storage
         /// Stages the project (does some prep-work and validity checking) to be saved.
         /// </summary>
         /// <param name="project">The project to be prepared to be saved.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/> is <c>null</c>.</exception>
         void StageProject(IProject project);
 
         /// <summary>
@@ -96,7 +97,7 @@ namespace Core.Common.Base.Storage
         /// </summary>
         /// <returns><c>true</c> if last <see cref="IProject"/> was set and is different
         /// from the staged project, <c>false</c> otherwise.</returns>
-        /// <exception cref="InvalidOperationException">When no project has been staged.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no project has been staged.</exception>
         bool HasStagedProjectChanges();
     }
 }

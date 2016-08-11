@@ -25,7 +25,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Xml;
-
 using Application.Ringtoets.Storage.DbContext;
 
 namespace Application.Ringtoets.Storage
@@ -39,7 +38,7 @@ namespace Application.Ringtoets.Storage
         /// <summary>
         /// Gets the fingerprint for the given <see cref="ProjectEntity"/>.
         /// </summary>
-        /// <param name="entity">The entity to generate a hashcode for.</param>
+        /// <param name="entity">The <see cref="ProjectEntity"/> to generate a hashcode for.</param>
         /// <returns>The binary hashcode for <paramref name="entity"/>.</returns>
         public static byte[] Get(ProjectEntity entity)
         {
@@ -62,7 +61,7 @@ namespace Application.Ringtoets.Storage
         }
 
         /// <summary>
-        /// Determines if two fingerprint byte arrays are equal to each other.
+        /// Determines if two fingerprint byte arrays are equal to eachother.
         /// </summary>
         /// <param name="array1">The first array, cannot be <c>null</c>.</param>
         /// <param name="array2">The second array, cannot be <c>null</c>.</param>

@@ -20,17 +20,13 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
@@ -59,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         [TestCase(3456789, true, 0.98, "haha", "hihi", 0.0, 3.4, 123)]
         [TestCase(234, false, 0.0, null, null, double.NaN, double.NaN, 321)]
         public void Read_ValidEntity_ReturnPipingCalculationScenario(long id, bool isRelevant, double contribution,
-            string name, string comments, double entryPoint, double exitPoint, int seed)
+                                                                     string name, string comments, double entryPoint, double exitPoint, int seed)
         {
             // Setup
             var random = new Random(seed);
@@ -383,7 +379,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         private static double? GetRandomNullableDoubleInRange(Random random, double lowerLimit, double upperLimit)
         {
             var difference = upperLimit - lowerLimit;
-            return lowerLimit + random.NextDouble() * difference;
+            return lowerLimit + random.NextDouble()*difference;
         }
     }
 }

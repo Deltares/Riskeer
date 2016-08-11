@@ -21,9 +21,7 @@
 
 using System;
 using System.Drawing;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Read.Piping

@@ -22,14 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 
 namespace Application.Ringtoets.Storage.Serializers
 {
     /// <summary>
-    /// Converter class that converts between a collection of <see cref="Point3D"/> and a
-    /// binary representation of that data.
+    /// Converter class that converts between a collection of <see cref="Point3D"/> and an
+    /// XML representation of that data.
     /// </summary>
     internal class Point3DXmlSerializer : SimpleDataCollectionSerializer<Point3D, Point3DXmlSerializer.SerializablePoint3D>
     {

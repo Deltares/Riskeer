@@ -20,18 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -80,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreEqual(name, surfaceLine.Name);
             Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
-            
+
             CollectionAssert.IsEmpty(surfaceLine.Points);
 
             Assert.IsNull(surfaceLine.BottomDitchDikeSide);
@@ -101,7 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             const string name = "Better name.";
             const double intersectionX = 3.4;
             const double intersectionY = 7.5;
-            
+
             var points = new[]
             {
                 new Point3D(1.1, 2.2, 3.3),
@@ -151,13 +146,13 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var points = new[]
             {
                 new Point3D(1.1, 2.2, 3.3),
-                new Point3D(4.4, 5.5, 6.6), 
-                new Point3D(7.7, 8.8, 9.9), 
-                new Point3D(10.10, 11.11, 12.12), 
-                new Point3D(13.13, 14.14, 15.15), 
-                new Point3D(16.16, 17.17, 18.18), 
-                new Point3D(19.19, 20.20, 21.21), 
-                new Point3D(22.22, 23.23, 24.24), 
+                new Point3D(4.4, 5.5, 6.6),
+                new Point3D(7.7, 8.8, 9.9),
+                new Point3D(10.10, 11.11, 12.12),
+                new Point3D(13.13, 14.14, 15.15),
+                new Point3D(16.16, 17.17, 18.18),
+                new Point3D(19.19, 20.20, 21.21),
+                new Point3D(22.22, 23.23, 24.24),
             };
 
             var entity = new SurfaceLineEntity
@@ -194,15 +189,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.AreSame(surfaceLine.Points[6], surfaceLine.DitchPolderSide);
         }
 
-        private static CharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type)
-        {
-            return new CharacteristicPointEntity
-            {
-                Type = (short)type,
-                X = point.X, Y = point.Y, Z = point.Z
-            };
-        }
-
         [Test]
         public void Read_SurfaceLineEntityWithGeometryPointEntityMarkedForAllCharacteristicPoints_ReturnFullSurfaceLineWithCharacteristicPointsToOneGeometryPoint()
         {
@@ -222,7 +208,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 new Point3D(x, y, z),
                 new Point3D(5.0, 6.0, 7.0)
             };
-            
+
             var entity = new SurfaceLineEntity
             {
                 SurfaceLineEntityId = id,
@@ -234,27 +220,27 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 {
                     new CharacteristicPointEntity
                     {
-                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.BottomDitchDikeSide
+                        X = x, Y = y, Z = z, Type = (short) CharacteristicPointType.BottomDitchDikeSide
                     },
                     new CharacteristicPointEntity
                     {
-                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.BottomDitchPolderSide
+                        X = x, Y = y, Z = z, Type = (short) CharacteristicPointType.BottomDitchPolderSide
                     },
                     new CharacteristicPointEntity
                     {
-                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.DikeToeAtPolder
+                        X = x, Y = y, Z = z, Type = (short) CharacteristicPointType.DikeToeAtPolder
                     },
                     new CharacteristicPointEntity
                     {
-                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.DikeToeAtRiver
+                        X = x, Y = y, Z = z, Type = (short) CharacteristicPointType.DikeToeAtRiver
                     },
                     new CharacteristicPointEntity
                     {
-                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.DitchDikeSide
+                        X = x, Y = y, Z = z, Type = (short) CharacteristicPointType.DitchDikeSide
                     },
                     new CharacteristicPointEntity
                     {
-                        X= x, Y = y, Z = z, Type = (short)CharacteristicPointType.DitchPolderSide
+                        X = x, Y = y, Z = z, Type = (short) CharacteristicPointType.DitchPolderSide
                     }
                 }
             };
@@ -300,6 +286,15 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.AreSame(surfaceLine1, surfaceLine2);
+        }
+
+        private static CharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type)
+        {
+            return new CharacteristicPointEntity
+            {
+                Type = (short) type,
+                X = point.X, Y = point.Y, Z = point.Z
+            };
         }
     }
 }

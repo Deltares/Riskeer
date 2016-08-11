@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.TestUtil;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -118,6 +115,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
-        } 
+        }
     }
 }

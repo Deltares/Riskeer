@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
@@ -81,11 +78,11 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 
         private static BreakWater CreateBreakWater(DikeProfileEntity entity)
         {
-            if (entity.BreakWaterType == null)
+            if (entity.BreakWaterType == null || entity.BreakWaterHeight == null)
             {
                 return null;
             }
-            return new BreakWater((BreakWaterType)entity.BreakWaterType, entity.BreakWaterHeight.Value);
+            return new BreakWater((BreakWaterType) entity.BreakWaterType, entity.BreakWaterHeight.Value);
         }
     }
 }

@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Read.Piping

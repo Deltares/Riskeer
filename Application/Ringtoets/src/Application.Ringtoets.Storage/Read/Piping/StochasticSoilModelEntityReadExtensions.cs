@@ -21,10 +21,8 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Read.Piping

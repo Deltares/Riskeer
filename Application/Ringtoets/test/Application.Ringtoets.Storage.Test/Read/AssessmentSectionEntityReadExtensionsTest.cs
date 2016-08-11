@@ -22,13 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;

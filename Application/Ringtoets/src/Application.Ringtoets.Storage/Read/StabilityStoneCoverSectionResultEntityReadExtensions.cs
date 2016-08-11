@@ -47,15 +47,15 @@ namespace Application.Ringtoets.Storage.Read
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
-            } 
+            }
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");
             }
 
             sectionResult.StorageId = entity.StabilityStoneCoverSectionResultEntityId;
-            sectionResult.AssessmentLayerTwoA = (AssessmentLayerTwoAResult)entity.LayerTwoA;
-            sectionResult.AssessmentLayerThree = (RoundedDouble)entity.LayerThree.ToNullAsNaN();
+            sectionResult.AssessmentLayerTwoA = (AssessmentLayerTwoAResult) entity.LayerTwoA;
+            sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }
     }
 }

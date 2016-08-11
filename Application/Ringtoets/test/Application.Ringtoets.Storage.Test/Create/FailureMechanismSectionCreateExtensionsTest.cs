@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
@@ -53,7 +52,11 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             string testName = "testName";
-            var geometryPoints = new[] { new Point2D(0, 0), new Point2D(0, 0) };
+            var geometryPoints = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(0, 0)
+            };
             var failureMechanismSection = new FailureMechanismSection(testName, geometryPoints);
             var registry = new PersistenceRegistry();
 
@@ -72,7 +75,11 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             string testName = "original name";
-            var geometryPoints = new[] { new Point2D(0, 0), new Point2D(0, 0) };
+            var geometryPoints = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(0, 0)
+            };
             var failureMechanismSection = new FailureMechanismSection(testName, geometryPoints);
             var registry = new PersistenceRegistry();
 
@@ -81,8 +88,8 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreNotSame(testName, entity.Name,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(testName, entity.Name);
-        }   
+        }
     }
 }

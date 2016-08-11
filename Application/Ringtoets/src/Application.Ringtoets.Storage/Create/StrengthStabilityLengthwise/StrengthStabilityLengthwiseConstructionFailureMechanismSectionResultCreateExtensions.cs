@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise

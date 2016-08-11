@@ -21,12 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-
 using Application.Ringtoets.Storage.DbContext;
-
-using Core.Common.Base.Geometry;
 using Core.Common.Utils;
-
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;

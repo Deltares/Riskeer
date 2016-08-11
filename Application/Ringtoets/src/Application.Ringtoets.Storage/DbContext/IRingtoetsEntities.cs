@@ -264,11 +264,6 @@ namespace Application.Ringtoets.Storage.DbContext
         /// </summary>
         DbSet<ProbabilisticOutputEntity> ProbabilisticOutputEntities { get; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether automatic change detection is enabled or not.
-        /// </summary>
-        bool AutoDetectChangesEnabled { get; set; }
-
         /// <summary> 
         /// Persists all updates to the database and resets change tracking in the object context, see <see cref="ObjectContext.SaveChanges()"/>.
         /// </summary>

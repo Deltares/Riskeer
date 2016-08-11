@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -43,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("collector", paramName);
-        } 
+        }
 
         [Test]
         public void Read_Always_NewPoint()
@@ -73,6 +70,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entityId, section.StorageId);
             Assert.AreEqual(name, section.Name);
             Assert.AreEqual(section, readConversionCollector.Get(entity));
-        } 
+        }
     }
 }

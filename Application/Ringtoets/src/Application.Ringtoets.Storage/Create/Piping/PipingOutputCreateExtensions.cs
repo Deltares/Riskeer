@@ -20,15 +20,13 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Create.Piping
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingOutput"/> related to creating an <see cref="PipingCalculationOutputEntity"/>.
+    /// Extension methods for <see cref="PipingOutput"/> related to creating a <see cref="PipingCalculationOutputEntity"/>.
     /// </summary>
     internal static class PipingOutputCreateExtensions
     {

@@ -21,9 +21,7 @@
 
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.Piping;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -71,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 UpliftZValue = null,
                 UpliftFactorOfSafety = null,
                 SellmeijerZValue = null,
-                SellmeijerFactorOfSafety =  null
+                SellmeijerFactorOfSafety = null
             };
 
             // Call

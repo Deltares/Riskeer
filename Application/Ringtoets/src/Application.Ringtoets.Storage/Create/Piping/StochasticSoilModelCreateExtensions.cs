@@ -20,16 +20,15 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Create.Piping
 {
     /// <summary>
-    /// Extension methods for <see cref="StochasticSoilModel"/> related to creating database entities.
+    /// Extension methods for <see cref="StochasticSoilModel"/> related to creating
+    /// a <see cref="StochasticSoilModelEntity"/>.
     /// </summary>
     internal static class StochasticSoilModelCreateExtensions
     {

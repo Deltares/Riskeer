@@ -22,16 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Serializers
 {
     /// <summary>
     /// Converter class that converts between a collection of <see cref="RoughnessPoint"/>
-    /// and a binary representation of that data.
+    /// and an XML representation of that data.
     /// </summary>
     internal class RoughnessPointXmlSerializer : SimpleDataCollectionSerializer<RoughnessPoint, RoughnessPointXmlSerializer.SerializableRoughnessPoint>
     {

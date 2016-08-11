@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.HeightStructures

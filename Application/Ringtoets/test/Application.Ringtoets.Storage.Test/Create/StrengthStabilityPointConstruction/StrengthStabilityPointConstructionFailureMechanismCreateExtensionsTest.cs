@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short)FailureMechanismType.StrengthAndStabilityPointConstruction, entity.FailureMechanismType);
+            Assert.AreEqual((short) FailureMechanismType.StrengthAndStabilityPointConstruction, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
         }
@@ -86,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
 
             // Assert
             Assert.AreNotSame(originalComments, entity.Comments,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(originalComments, entity.Comments);
         }
 

@@ -20,19 +20,13 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-
-using NUnit.Framework;
-
-using Ringtoets.GrassCoverErosionInwards.Data;
-
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
+using NUnit.Framework;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards

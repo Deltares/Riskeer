@@ -22,13 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 
 namespace Application.Ringtoets.Storage.Serializers
 {
     /// <summary>
-    /// Converter class that converts between a collection of <see cref="Point2D"/> and a
+    /// Converter class that converts between a collection of <see cref="Point2D"/> and an
     /// XML representation of that data.
     /// </summary>
     internal class Point2DXmlSerializer : SimpleDataCollectionSerializer<Point2D, Point2DXmlSerializer.SerializablePoint2D>

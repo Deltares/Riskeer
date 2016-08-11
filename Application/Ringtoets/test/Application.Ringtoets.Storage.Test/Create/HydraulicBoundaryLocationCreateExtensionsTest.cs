@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 
@@ -53,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var random = new Random(21);
             var coordinateX = random.NextDouble();
             var coordinateY = random.NextDouble();
-            var id = random.Next(0,150);
+            var id = random.Next(0, 150);
             int order = random.Next();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
             var registry = new PersistenceRegistry();
@@ -86,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreNotSame(testName, entity.Name,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(testName, entity.Name);
         }
 

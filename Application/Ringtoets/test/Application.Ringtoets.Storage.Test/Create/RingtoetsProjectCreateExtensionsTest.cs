@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;

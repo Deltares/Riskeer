@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Read
                 return collector.Get(entity);
             }
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(
                 entity.LocationId,
                 entity.Name,
                 entity.LocationX.ToNullAsNaN(),

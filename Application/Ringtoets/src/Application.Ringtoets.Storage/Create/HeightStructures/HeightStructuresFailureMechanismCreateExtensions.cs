@@ -21,9 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.HeightStructures

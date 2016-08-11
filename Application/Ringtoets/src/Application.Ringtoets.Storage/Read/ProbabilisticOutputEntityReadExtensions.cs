@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
-
 using Ringtoets.Common.Data.Probability;
 
 namespace Application.Ringtoets.Storage.Read

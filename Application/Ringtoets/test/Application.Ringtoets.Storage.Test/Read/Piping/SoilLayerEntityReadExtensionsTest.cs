@@ -21,12 +21,9 @@
 
 using System;
 using System.Drawing;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.Piping;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping

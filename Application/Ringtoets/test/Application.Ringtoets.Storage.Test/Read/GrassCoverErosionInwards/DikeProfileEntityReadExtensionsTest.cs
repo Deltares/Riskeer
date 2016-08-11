@@ -21,16 +21,12 @@
 
 using System;
 using System.Collections;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
@@ -156,7 +152,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var registeredEntity = new DikeProfileEntity();
             var registeredProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                          null, new DikeProfile.ConstructionProperties());
+                                                    null, new DikeProfile.ConstructionProperties());
             var collector = new ReadConversionCollector();
             collector.Read(registeredEntity, registeredProfile);
 
@@ -167,11 +163,12 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.AreSame(registeredProfile, returnedProfile);
         }
 
-        private class RoughnessPointComparer : IComparer {
+        private class RoughnessPointComparer : IComparer
+        {
             public int Compare(object x, object y)
             {
-                var p1 = (RoughnessPoint)x;
-                var p2 = (RoughnessPoint)y;
+                var p1 = (RoughnessPoint) x;
+                var p2 = (RoughnessPoint) y;
                 if (p1.Point.Equals(p2.Point) && p1.Roughness.Equals(p2.Roughness))
                 {
                     return 0;

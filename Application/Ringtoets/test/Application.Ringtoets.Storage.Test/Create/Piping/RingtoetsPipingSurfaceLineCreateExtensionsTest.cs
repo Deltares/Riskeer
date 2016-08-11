@@ -22,16 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Primitives;
 
 namespace Application.Ringtoets.Storage.Test.Create.Piping
