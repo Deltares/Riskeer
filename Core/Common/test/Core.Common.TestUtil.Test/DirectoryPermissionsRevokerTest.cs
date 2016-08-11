@@ -29,9 +29,9 @@ using NUnit.Framework;
 namespace Core.Common.TestUtil.Test
 {
     [TestFixture]
-    public class DirectoryRightsHelperTest
+    public class DirectoryPermissionsRevokerTest
     {
-        private readonly string testWorkDir = Path.Combine(".", "FileRightsHelperTest");
+        private readonly string testWorkDir = Path.Combine(".", "DirectoryPermissionsRevokerTest");
 
         [Test]
         [TestCase(null)]
@@ -40,7 +40,7 @@ namespace Core.Common.TestUtil.Test
         public void Constructor_NullPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate test = () => new DirectoryRightsHelper(invalidPath, FileSystemRights.Modify);
+            TestDelegate test = () => new DirectoryPermissionsRevoker(invalidPath, FileSystemRights.Modify);
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(test).ParamName;
@@ -54,7 +54,7 @@ namespace Core.Common.TestUtil.Test
             const string invalidPath = @".\DirectoryDoesNotExist\fileDoesNotExist";
 
             // Call
-            TestDelegate test = () => new DirectoryRightsHelper(invalidPath, FileSystemRights.Modify);
+            TestDelegate test = () => new DirectoryPermissionsRevoker(invalidPath, FileSystemRights.Modify);
 
             // Assert
             Assert.Throws<DirectoryNotFoundException>(test);
@@ -71,7 +71,7 @@ namespace Core.Common.TestUtil.Test
             try
             {
                 // Call
-                TestDelegate test = () => { new DirectoryRightsHelper(accessDirectory, rights); };
+                TestDelegate test = () => { new DirectoryPermissionsRevoker(accessDirectory, rights); };
 
                 // Assert
                 Assert.Throws<NotSupportedException>(test);
@@ -101,6 +101,8 @@ namespace Core.Common.TestUtil.Test
         [TestCase(FileSystemRights.WriteData)]
         [TestCase(FileSystemRights.WriteAttributes)]
         [TestCase(FileSystemRights.WriteExtendedAttributes)]
+        [TestCase(FileSystemRights.Delete | FileSystemRights.Read)]
+        [TestCase(FileSystemRights.Delete | FileSystemRights.Synchronize)]
         public void Constructor_ValidPathDenyRight_SetsDenyRight(FileSystemRights rights)
         {
             // Setup
@@ -110,7 +112,7 @@ namespace Core.Common.TestUtil.Test
             try
             {
                 // Call
-                using (new DirectoryRightsHelper(accessDirectory, rights))
+                using (new DirectoryPermissionsRevoker(accessDirectory, rights))
                 {
                     // Assert
                     AssertPathHasAccessRuleSet(accessDirectory, rights);
@@ -143,6 +145,8 @@ namespace Core.Common.TestUtil.Test
         [TestCase(FileSystemRights.WriteData)]
         [TestCase(FileSystemRights.WriteAttributes)]
         [TestCase(FileSystemRights.WriteExtendedAttributes)]
+        [TestCase(FileSystemRights.Delete | FileSystemRights.Read)]
+        [TestCase(FileSystemRights.Delete | FileSystemRights.Synchronize)]
         public void Dispose_RightAlreadySet_DoesNotRemoveRight(FileSystemRights rights)
         {
             // Setup
@@ -157,7 +161,7 @@ namespace Core.Common.TestUtil.Test
             try
             {
                 // Call
-                using (new DirectoryRightsHelper(accessDirectory, rights))
+                using (new DirectoryPermissionsRevoker(accessDirectory, rights))
                 {
                     // Assert
                     AssertPathHasAccessRuleSet(accessDirectory, rights);
@@ -182,7 +186,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate test = () =>
             {
                 // Call
-                using (new DirectoryRightsHelper(accessDirectory, FileSystemRights.Write))
+                using (new DirectoryPermissionsRevoker(accessDirectory, FileSystemRights.Write))
                 {
                     Directory.Delete(accessDirectory, true);
                 }
@@ -199,8 +203,17 @@ namespace Core.Common.TestUtil.Test
             DirectoryInfo directoryInfo = new DirectoryInfo(filePath);
             DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
             var rules = directorySecurity.GetAccessRules(true, false, typeof(SecurityIdentifier));
-            var fileSystemAccessRule = rules.OfType<FileSystemAccessRule>().FirstOrDefault(fs => fs.FileSystemRights == rights && fs.AccessControlType == AccessControlType.Deny);
-            Assert.IsNull(fileSystemAccessRule, string.Format("Rights '{0} {1}' are set for '{2}'", AccessControlType.Deny, rights, filePath));
+
+            var supportedFileSystemRights = GetSupportedFileSystemRights(rights);
+
+            var fileSystemAccessRule = rules.OfType<FileSystemAccessRule>().FirstOrDefault(
+                fs => fs.FileSystemRights.HasFlag(supportedFileSystemRights) && fs.AccessControlType == AccessControlType.Deny);
+            Assert.IsNull(fileSystemAccessRule, string.Format("Rights '{0} {1}' are set for '{2}'", AccessControlType.Deny, supportedFileSystemRights, filePath));
+        }
+
+        private static FileSystemRights GetSupportedFileSystemRights(FileSystemRights rights)
+        {
+            return rights & ~FileSystemRights.Synchronize;
         }
 
         private void AssertPathHasAccessRuleSet(string filePath, FileSystemRights rights)
@@ -208,10 +221,14 @@ namespace Core.Common.TestUtil.Test
             DirectoryInfo directoryInfo = new DirectoryInfo(filePath);
             DirectorySecurity directorySecurity = directoryInfo.GetAccessControl();
             var rules = directorySecurity.GetAccessRules(true, false, typeof(SecurityIdentifier));
-            var fileSystemAccessRule = rules.OfType<FileSystemAccessRule>().First(fs => fs.FileSystemRights == rights && fs.AccessControlType == AccessControlType.Deny);
-            Assert.IsNotNull(fileSystemAccessRule, string.Format("Rights '{0} {1}' not set for '{2}'", AccessControlType.Deny, rights, filePath));
-        }
 
+            var supportedFileSystemRights = GetSupportedFileSystemRights(rights);
+
+            var fileSystemAccessRule = rules.OfType<FileSystemAccessRule>().FirstOrDefault(
+                fs => fs.FileSystemRights.HasFlag(supportedFileSystemRights) && fs.AccessControlType == AccessControlType.Deny);
+            Assert.IsNotNull(fileSystemAccessRule, string.Format("Rights '{0} {1}' not set for '{2}'", AccessControlType.Deny, (supportedFileSystemRights), filePath));
+        }
+        
         #endregion
 
         #region Apply access rules

@@ -114,7 +114,7 @@ namespace Ringtoets.Common.IO.Test
             bool isExported = true;
             try
             {
-                using (new DirectoryRightsHelper(directoryPath, FileSystemRights.Write))
+                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
                 {
                     // Call
                     isExported = exporter.Export();

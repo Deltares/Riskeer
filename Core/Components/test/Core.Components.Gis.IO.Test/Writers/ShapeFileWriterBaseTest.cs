@@ -108,7 +108,7 @@ namespace Core.Components.Gis.IO.Test.Writers
 
             try
             {
-                using (new DirectoryRightsHelper(directoryPath, FileSystemRights.Write))
+                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
                 {
                     using (var writer = new TestShapeFileWriterBase())
                     {

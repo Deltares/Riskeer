@@ -95,7 +95,7 @@ namespace Core.Common.Gui.Test.Settings
 
             SetLocalSettingsDirectoryPath(workingDirectory);
 
-            using (new DirectoryRightsHelper(workingDirectory, FileSystemRights.Write))
+            using (new DirectoryPermissionsRevoker(workingDirectory, FileSystemRights.Write))
             {
                 // Call
                 TestDelegate test = () => SettingsHelper.GetApplicationLocalUserSettingsDirectory(notWritableFolder);

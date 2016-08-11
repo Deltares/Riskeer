@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="DoubleWithToleranceComparer.cs" />
     <Compile Include="FileDisposeHelper.cs" />
-    <Compile Include="DirectoryRightsHelper.cs" />
+    <Compile Include="DirectoryPermissionsRevoker.cs" />
     <Compile Include="GuiTestHelper.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="LogLevelConstant.cs" />

@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Storage.Test
     public class BackedUpFileWriterTest
     {
         private readonly string testWorkDir = Path.Combine(".", "SafeOverwriteFileHelperTest");
-
+        
         [TestFixtureSetUp]
         public void SetUpFixture()
         {
@@ -185,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test
 
             try
             {
-                using (new DirectoryRightsHelper(notWritableDirectory, FileSystemRights.Write))
+                using (new DirectoryPermissionsRevoker(notWritableDirectory, FileSystemRights.Write))
                 {
                     // Assert
                     var expectedMessage = string.Format(
@@ -201,7 +201,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void Perform_TargetFileDoesNotExistAccessRightsRevoked_DoesNotThrow()
+        public void Perform_TargetFileDoesNotExistDeleteRightsRevoked_DoesNotThrow()
         {
             // Setup
             var noAccessDirectory = Path.Combine(testWorkDir, "NoAccess");
@@ -215,7 +215,7 @@ namespace Application.Ringtoets.Storage.Test
 
             try
             {
-                using (new DirectoryRightsHelper(noAccessDirectory, FileSystemRights.FullControl))
+                using (new DirectoryPermissionsRevoker(noAccessDirectory, FileSystemRights.Delete))
                 {
                     // Assert
                     Assert.DoesNotThrow(test);
@@ -317,13 +317,13 @@ namespace Application.Ringtoets.Storage.Test
 
             var helper = new BackedUpFileWriter(filePath);
 
-            DirectoryRightsHelper fileRightsHelper = null;
+            DirectoryPermissionsRevoker fileRightsHelper = null;
             try
             {
                 // Call
                 TestDelegate test = () => helper.Perform(() =>
                 {
-                    fileRightsHelper = new DirectoryRightsHelper(noAccessDirectory, FileSystemRights.FullControl);
+                    fileRightsHelper = new DirectoryPermissionsRevoker(noAccessDirectory, FileSystemRights.FullControl);
                     throw new Exception();
                 });
 

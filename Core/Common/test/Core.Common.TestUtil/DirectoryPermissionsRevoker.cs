@@ -31,20 +31,20 @@ namespace Core.Common.TestUtil
     /// <summary>
     /// Class for providing a safe way to manipulating directory permissions.
     /// </summary>
-    public class DirectoryRightsHelper : IDisposable
+    public class DirectoryPermissionsRevoker : IDisposable
     {
         private readonly IList<FileSystemAccessRule> appliedFileSystemAccessRules = new List<FileSystemAccessRule>();
         private readonly string filePath;
         private readonly DirectoryInfo directoryInfo;
 
         /// <summary>
-        /// Creates an instance of <see cref="DirectoryRightsHelper"/>.
+        /// Creates an instance of <see cref="DirectoryPermissionsRevoker"/>.
         /// Adds a <paramref name="rights"/> of type <see cref="AccessControlType.Deny"/> to the access
         /// rule set for the file at <paramref name="filePath"/>.
         /// </summary>
         /// <param name="filePath">The path of the file to change the right for.</param>
         /// <param name="rights">The right to deny.</param>
-        public DirectoryRightsHelper(string filePath, FileSystemRights rights)
+        public DirectoryPermissionsRevoker(string filePath, FileSystemRights rights)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -58,11 +58,12 @@ namespace Core.Common.TestUtil
                 throw new DirectoryNotFoundException(@"filePath does not exist.");
             }
 
-            if (rights == FileSystemRights.Synchronize)
+            if ((rights ^ FileSystemRights.Synchronize) == 0)
             {
+                // The FileSystemRights Synchronize by itself cannot be set.
                 throw new NotSupportedException(string.Format("Setting the right {0} is not supported.", rights));
             }
-            AddDenyDirectoryInfoRight(rights);
+            AddDenyDirectoryInfoRight(GetSupportedFileSystemRights(rights));
         }
 
         public void Dispose()
@@ -97,7 +98,12 @@ namespace Core.Common.TestUtil
         private static bool IsFileSystemAccessRuleSet(FileSystemRights rights, CommonObjectSecurity commonObjectSecurity, AccessControlType accessControlType)
         {
             AuthorizationRuleCollection rules = commonObjectSecurity.GetAccessRules(true, false, typeof(SecurityIdentifier));
-            return rules.OfType<FileSystemAccessRule>().Any(fs => fs.FileSystemRights == rights && fs.AccessControlType == accessControlType);
+            return rules.OfType<FileSystemAccessRule>().Any(fs => fs.FileSystemRights.HasFlag(rights) && fs.AccessControlType == accessControlType);
+        }
+
+        private static FileSystemRights GetSupportedFileSystemRights(FileSystemRights rights)
+        {
+            return rights & ~FileSystemRights.Synchronize;
         }
 
         private void RevertDenyDirectoryInfoRight(FileSystemAccessRule rule)
