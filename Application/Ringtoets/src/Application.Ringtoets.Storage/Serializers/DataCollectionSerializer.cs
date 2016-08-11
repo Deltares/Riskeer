@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Text;
 using System.Xml;
 
@@ -41,6 +42,8 @@ namespace Application.Ringtoets.Storage.Serializers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="elements"/> is <c>null</c>.</exception>
         /// <exception cref="IOException">Thrown when an I/O error occurs.</exception>
         /// <exception cref="SerializationException">Thrown when an error occurs during serialization.</exception>
+        /// <exception cref="QuotaExceededException">Thrown when <paramref name="elements"/>
+        /// contains too many objects.</exception>
         public string ToXml(IEnumerable<TData> elements)
         {
             if (elements == null)

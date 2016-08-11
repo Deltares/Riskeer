@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
+using System.ServiceModel;
 using System.Xml;
 using Application.Ringtoets.Storage.DbContext;
 
@@ -40,6 +41,9 @@ namespace Application.Ringtoets.Storage
         /// </summary>
         /// <param name="entity">The <see cref="ProjectEntity"/> to generate a hashcode for.</param>
         /// <returns>The binary hashcode for <paramref name="entity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is null.</exception>
+        /// <exception cref="QuotaExceededException">Thrown when <paramref name="entity"/>
+        /// contains more than <see cref="int.MaxValue"/> unique object instances.</exception>
         public static byte[] Get(ProjectEntity entity)
         {
             if (entity == null)
@@ -61,7 +65,7 @@ namespace Application.Ringtoets.Storage
         }
 
         /// <summary>
-        /// Determines if two fingerprint byte arrays are equal to eachother.
+        /// Determines if two fingerprint byte arrays are equal to each other.
         /// </summary>
         /// <param name="array1">The first array, cannot be <c>null</c>.</param>
         /// <param name="array2">The second array, cannot be <c>null</c>.</param>

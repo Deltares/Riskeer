@@ -121,16 +121,13 @@
   <data name="DatabaseStructure" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\DbContext\DatabaseStructure.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="Error_During_Connection" xml:space="preserve">
+  <data name="Error_during_connection" xml:space="preserve">
     <value>Er is een fout opgetreden in de verbinding met het Ringtoets bestand.</value>
   </data>
-  <data name="Error_Entity_Not_Found_0_1" xml:space="preserve">
-    <value>Het object '{0}' met id '{1}' is niet gevonden.</value>
+  <data name="Error_saving_database" xml:space="preserve">
+    <value>Een fout is opgetreden tijdens het opslaan van het Ringtoets bestand.</value>
   </data>
-  <data name="Error_Update_Database" xml:space="preserve">
-    <value>Een fout is opgetreden met het updaten van het Ringtoets bestand.</value>
-  </data>
-  <data name="Error_Write_Structure_to_Database" xml:space="preserve">
+  <data name="Error_writing_structure_to_database" xml:space="preserve">
     <value>Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.</value>
   </data>
   <data name="Ringtoets_project_file_filter" xml:space="preserve">

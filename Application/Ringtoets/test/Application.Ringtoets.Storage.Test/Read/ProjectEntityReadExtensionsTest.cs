@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
@@ -76,11 +77,15 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new AssessmentSectionEntity
                     {
-                        Norm = norm
+                        Norm = norm,
+                        Name = "A",
+                        Order = 56
                     },
                     new AssessmentSectionEntity
                     {
-                        Norm = norm
+                        Norm = norm,
+                        Name = "B",
+                        Order = 0
                     }
                 }
             };
@@ -90,6 +95,10 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, project.AssessmentSections.Count);
+            CollectionAssert.AreEqual(new[]
+            {
+                "B", "A"
+            }, project.AssessmentSections.Select(a => a.Name));
         }
     }
 }

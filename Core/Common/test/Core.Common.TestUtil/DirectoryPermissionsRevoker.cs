@@ -88,7 +88,8 @@ namespace Core.Common.TestUtil
             }
 
             SecurityIdentifier sid = GetSecurityIdentifier();
-            var fileSystemAccessRule = new FileSystemAccessRule(sid, rights, AccessControlType.Deny);
+            var fileSystemAccessRule = new FileSystemAccessRule(sid, rights, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit,
+                                                                PropagationFlags.None, AccessControlType.Deny);
             directorySecurity.AddAccessRule(fileSystemAccessRule);
 
             directoryInfo.SetAccessControl(directorySecurity);

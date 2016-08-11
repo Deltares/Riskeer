@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var assessmentSection = new AssessmentSection(assessmentSectionComposition);
 
             // Call
-            TestDelegate test = () => assessmentSection.Create(null);
+            TestDelegate test = () => assessmentSection.Create(null, 0);
 
             // Assert
             var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -63,6 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             const string testName = "testName";
             const string comments = "Some text";
             const int norm = int.MaxValue;
+            int order = new Random(65).Next();
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
                 Id = testId,
@@ -76,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = assessmentSection.Create(registry);
+            var entity = assessmentSection.Create(registry, order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -104,6 +105,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StrengthAndStabilityParallelConstruction));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.DuneErosion));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.TechnicalInnovations));
+            Assert.AreEqual(order, entity.Order);
 
             Assert.IsNull(entity.HydraulicDatabaseLocation);
             Assert.IsNull(entity.HydraulicDatabaseVersion);
@@ -128,7 +130,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            AssessmentSectionEntity entity = section.Create(registry);
+            AssessmentSectionEntity entity = section.Create(registry, 0);
 
             // Assert
             Assert.AreNotSame(originalName, entity.Name,
@@ -162,7 +164,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = assessmentSection.Create(registry);
+            var entity = assessmentSection.Create(registry, 0);
 
             // Assert
             Assert.AreEqual(testFilePath, entity.HydraulicDatabaseLocation);
@@ -190,7 +192,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = assessmentSection.Create(registry);
+            var entity = assessmentSection.Create(registry, 0);
 
             // Assert
             string expectedXml = new Point2DXmlSerializer().ToXml(points);

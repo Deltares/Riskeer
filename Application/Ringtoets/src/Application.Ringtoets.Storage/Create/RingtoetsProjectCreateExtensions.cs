@@ -57,9 +57,10 @@ namespace Application.Ringtoets.Storage.Create
 
         private static void AddEntitiesForAssessmentSections(RingtoetsProject project, ProjectEntity entity, PersistenceRegistry registry)
         {
-            foreach (var result in project.AssessmentSections)
+            for (int index = 0; index < project.AssessmentSections.Count; index++)
             {
-                entity.AssessmentSectionEntities.Add(result.Create(registry));
+                AssessmentSection assessmentSection = project.AssessmentSections[index];
+                entity.AssessmentSectionEntities.Add(assessmentSection.Create(registry, index));
             }
         }
     }

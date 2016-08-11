@@ -65,10 +65,19 @@ namespace Core.Common.Gui.Commands
                 return true;
             }
             projectPersistor.StageProject(project);
-            if (!projectPersistor.HasStagedProjectChanges())
+            try
             {
+                if (!projectPersistor.HasStagedProjectChanges())
+                {
+                    projectPersistor.UnstageProject();
+                    return true;
+                }
+            }
+            catch (StorageException e)
+            {
+                log.Error(e.Message, e);
                 projectPersistor.UnstageProject();
-                return true;
+                return false;
             }
 
             var openSaveOrDiscardProjectDialog = OpenSaveOrDiscardProjectDialog();

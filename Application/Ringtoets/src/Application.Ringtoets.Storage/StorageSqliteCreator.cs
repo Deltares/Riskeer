@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage
             }
             catch (SQLiteException exception)
             {
-                var message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(Resources.Error_Write_Structure_to_Database);
+                var message = new FileWriterErrorMessageBuilder(databaseFilePath).Build(Resources.Error_writing_structure_to_database);
                 throw new StorageException(message, new UpdateStorageException("", exception));
             }
             finally

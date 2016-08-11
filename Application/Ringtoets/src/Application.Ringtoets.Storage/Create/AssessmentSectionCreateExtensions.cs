@@ -54,9 +54,10 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="section">The section to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">The index at which <paramref name="section"/> resides in its parent.</param>
         /// <returns>A new <see cref="AssessmentSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static AssessmentSectionEntity Create(this AssessmentSection section, PersistenceRegistry registry)
+        internal static AssessmentSectionEntity Create(this AssessmentSection section, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -69,7 +70,8 @@ namespace Application.Ringtoets.Storage.Create
                 Name = section.Name.DeepClone(),
                 Composition = (short) section.Composition,
                 Comments = section.Comments.DeepClone(),
-                Norm = section.FailureMechanismContribution.Norm
+                Norm = section.FailureMechanismContribution.Norm,
+                Order = order
             };
 
             AddEntityForHydraulicDatabase(section, entity, registry);

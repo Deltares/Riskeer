@@ -385,9 +385,11 @@ namespace Application.Ringtoets.Storage.Test
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
-            FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
+                // Precondition
+                Assert.IsFalse(File.Exists(tempRingtoetsFile));
+
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
 
@@ -397,7 +399,7 @@ namespace Application.Ringtoets.Storage.Test
             finally
             {
                 CallGarbageCollector();
-                fileDisposeHelper.Dispose();
+                File.Delete(tempRingtoetsFile);
             }
         }
 
@@ -412,6 +414,9 @@ namespace Application.Ringtoets.Storage.Test
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
+                // Precondition
+                Assert.IsTrue(File.Exists(tempRingtoetsFile));
+
                 // Call
                 TestDelegate test = () => storage.SaveProjectAs(tempRingtoetsFile);
 

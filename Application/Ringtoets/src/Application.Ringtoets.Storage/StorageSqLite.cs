@@ -24,6 +24,7 @@ using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Exceptions;
@@ -169,11 +170,18 @@ namespace Application.Ringtoets.Storage
                 return true;
             }
 
-            using (var dbContext = new RingtoetsEntities(connectionString))
+            try
             {
-                byte[] originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
-                byte[] hash = FingerprintHelper.Get(stagedProjectEntity);
-                return !FingerprintHelper.AreEqual(originalHash, hash);
+                using (var dbContext = new RingtoetsEntities(connectionString))
+                {
+                    byte[] originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
+                    byte[] hash = FingerprintHelper.Get(stagedProjectEntity);
+                    return !FingerprintHelper.AreEqual(originalHash, hash);
+                }
+            }
+            catch (QuotaExceededException e)
+            {
+                throw new StorageException("Het project bevat te veel unieke objecten om een digitale vingerafdruk van te genereren.", e);
             }
         }
 
@@ -226,13 +234,17 @@ namespace Application.Ringtoets.Storage
                 }
                 catch (DataException exception)
                 {
-                    throw CreateStorageWriterException(databaseFilePath, Resources.Error_Update_Database, exception);
+                    throw CreateStorageWriterException(databaseFilePath, Resources.Error_saving_database, exception);
+                }
+                catch (QuotaExceededException exception)
+                {
+                    throw CreateStorageWriterException(databaseFilePath, exception.Message, exception);
                 }
                 catch (SystemException exception)
                 {
                     if (exception is InvalidOperationException || exception is NotSupportedException)
                     {
-                        throw CreateStorageWriterException(databaseFilePath, Resources.Error_During_Connection, exception);
+                        throw CreateStorageWriterException(databaseFilePath, Resources.Error_during_connection, exception);
                     }
                     throw;
                 }

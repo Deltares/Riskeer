@@ -98,6 +98,8 @@ namespace Core.Common.Base.Storage
         /// <returns><c>true</c> if last <see cref="IProject"/> was set and is different
         /// from the staged project, <c>false</c> otherwise.</returns>
         /// <exception cref="InvalidOperationException">Thrown when no project has been staged.</exception>
+        /// <exception cref="StorageException">Thrown when the staged project contains
+        /// more then <see cref="int.MaxValue"/> unique object instances.</exception>
         bool HasStagedProjectChanges();
     }
 }

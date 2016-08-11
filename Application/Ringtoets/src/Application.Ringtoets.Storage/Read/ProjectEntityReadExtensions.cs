@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data;
 
@@ -50,7 +51,7 @@ namespace Application.Ringtoets.Storage.Read
                 Description = entity.Description
             };
 
-            foreach (var assessmentSectionEntity in entity.AssessmentSectionEntities)
+            foreach (var assessmentSectionEntity in entity.AssessmentSectionEntities.OrderBy(ase => ase.Order))
             {
                 project.AssessmentSections.Add(assessmentSectionEntity.Read(collector));
             }
