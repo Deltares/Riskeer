@@ -34,28 +34,28 @@ namespace Core.Common.TestUtil
     public class DirectoryPermissionsRevoker : IDisposable
     {
         private readonly IList<FileSystemAccessRule> appliedFileSystemAccessRules = new List<FileSystemAccessRule>();
-        private readonly string filePath;
+        private readonly string folderPath;
         private readonly DirectoryInfo directoryInfo;
 
         /// <summary>
         /// Creates an instance of <see cref="DirectoryPermissionsRevoker"/>.
         /// Adds a <paramref name="rights"/> of type <see cref="AccessControlType.Deny"/> to the access
-        /// rule set for the file at <paramref name="filePath"/>.
+        /// rule set for the folder at <paramref name="folderPath"/>.
         /// </summary>
-        /// <param name="filePath">The path of the file to change the right for.</param>
+        /// <param name="folderPath">The path of the file to change the right for.</param>
         /// <param name="rights">The right to deny.</param>
-        public DirectoryPermissionsRevoker(string filePath, FileSystemRights rights)
+        public DirectoryPermissionsRevoker(string folderPath, FileSystemRights rights)
         {
-            if (string.IsNullOrWhiteSpace(filePath))
+            if (string.IsNullOrWhiteSpace(folderPath))
             {
-                throw new ArgumentException(@"filePath must have a valid value.", "filePath");
+                throw new ArgumentException(@"folderPath must have a valid value.", "folderPath");
             }
 
-            this.filePath = filePath;
-            directoryInfo = new DirectoryInfo(Path.GetFullPath(filePath));
+            this.folderPath = folderPath;
+            directoryInfo = new DirectoryInfo(Path.GetFullPath(folderPath));
             if (!directoryInfo.Exists)
             {
-                throw new DirectoryNotFoundException(@"filePath does not exist.");
+                throw new DirectoryNotFoundException(@"folderPath does not exist.");
             }
 
             if ((rights ^ FileSystemRights.Synchronize) == 0)
@@ -68,7 +68,7 @@ namespace Core.Common.TestUtil
 
         public void Dispose()
         {
-            if (!Directory.Exists(filePath))
+            if (!Directory.Exists(folderPath))
             {
                 return;
             }
