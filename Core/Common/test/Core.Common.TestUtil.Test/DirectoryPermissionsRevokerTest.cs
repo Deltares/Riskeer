@@ -44,7 +44,7 @@ namespace Core.Common.TestUtil.Test
 
             // Assert
             string paramName = Assert.Throws<ArgumentException>(test).ParamName;
-            Assert.AreEqual("filePath", paramName);
+            Assert.AreEqual("folderPath", paramName);
         }
 
         [Test]
