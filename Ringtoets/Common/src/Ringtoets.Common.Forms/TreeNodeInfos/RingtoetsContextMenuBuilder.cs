@@ -247,6 +247,18 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return this;
         }
 
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which removes all children of the given
+        /// <paramref name="calculationGroup"/>.
+        /// </summary>
+        /// <param name="calculationGroup">The calculation group from which all the children will be removed.</param>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        public RingtoetsContextMenuBuilder AddRemoveAllChildrenItem(CalculationGroup calculationGroup)
+        {
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup));
+            return this;
+        }
+
         # region Decorated members
 
         /// <summary>

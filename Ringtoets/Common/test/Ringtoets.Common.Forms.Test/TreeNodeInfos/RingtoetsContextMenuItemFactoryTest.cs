@@ -1305,6 +1305,107 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
+        #region CreateRemoveAllChildrenFromGroupItem
+
+        [Test]
+        public void CreateRemoveAllChildrenFromGroupItem_NoChildren_CreatesDisabledItemWithTooltipSet()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup();
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
+
+            // Assert
+            Assert.AreEqual("Subonderdelen verwijderen...", toolStripItem.Text);
+            Assert.AreEqual("Er zijn geen groepen of berekeningen om te verwijderen.", toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.RemoveAllIcon, toolStripItem.Image);
+            Assert.IsFalse(toolStripItem.Enabled);
+        }
+
+        [Test]
+        public void CreateRemoveAllChildrenFromGroupItem_WithChildren_CreatesEnabledItem()
+        {
+            // Setup
+            var calculation = new TestCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            // Call
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
+
+            // Assert
+            Assert.AreEqual("Subonderdelen verwijderen...", toolStripItem.Text);
+            Assert.AreEqual("Verwijder alle groepen en berekeningen uit deze groep.", toolStripItem.ToolTipText);
+            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.RemoveAllIcon, toolStripItem.Image);
+            Assert.IsTrue(toolStripItem.Enabled);
+        }
+
+        [Test]
+        public void CreateRemoveAllChildrenFromGroupItem_WithChildrenPerformClickOnCreatedItemAndCancelChange_GroupUnchanged()
+        {
+            // Setup
+            var calculation = new TestCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var dialog = new MessageBoxTester(wnd);
+                Assert.AreEqual("Weet u zeker dat u alles binnen deze groep wilt verwijderen?", dialog.Text);
+                dialog.ClickCancel();
+            };
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            CollectionAssert.AreEqual(new[] { calculation }, calculationGroup.Children);
+        }
+
+        [Test]
+        public void CreateRemoveAllChildrenFromGroupItem_WithChildrenPerformClickOnCreatedItemAndConfirmChange_ClearsGroup()
+        {
+            // Setup
+            var calculation = new TestCalculation();
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation
+                }
+            };
+
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var dialog = new MessageBoxTester(wnd);
+                Assert.AreEqual("Weet u zeker dat u alles binnen deze groep wilt verwijderen?", dialog.Text);
+                dialog.ClickOk();
+            };
+
+            // Call
+            toolStripItem.PerformClick();
+
+            // Assert
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        #endregion
+
         # region Nested types
 
         private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
