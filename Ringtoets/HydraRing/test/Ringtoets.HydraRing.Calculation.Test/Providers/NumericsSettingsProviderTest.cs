@@ -27,17 +27,17 @@ using Ringtoets.HydraRing.Calculation.Providers;
 namespace Ringtoets.HydraRing.Calculation.Test.Providers
 {
     [TestFixture]
-    public class SubMechanismSettingsProviderTest
+    public class NumericsSettingsProviderTest
     {
         [Test]
-        public void GetSubMechanismSettings_KnownRingId_ReturnsExpectedSubMechanismSettings()
+        public void GetNumericsSettings_KnownRingId_ReturnsExpectedNumericsSettings()
         {
             // Setup
-            var subMechanismSettingsProvider = new SubMechanismSettingsProvider();
-            var expectedValues = GetExpectedSubMechanismSettings();
+            var numericsSettingsProvider = new NumericsSettingsProvider();
+            var expectedValues = GetExpectedNumericsSettings();
 
             // Call
-            var settings = subMechanismSettingsProvider.GetSubMechanismSettings(HydraRingFailureMechanismType.AssessmentLevel, 1, "205");
+            var settings = numericsSettingsProvider.GetNumericsSettings(HydraRingFailureMechanismType.AssessmentLevel, 1, "205");
 
             // Assert
             Assert.AreEqual(expectedValues.CalculationTechniqueId, settings.CalculationTechniqueId);
@@ -88,34 +88,34 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 433, 1, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 434, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 435, 1, 4)]
-        public void GetSubMechanismSettings_UnknownRingId_ReturnsExpectedDefaultSubMechanismSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId, int expectedFormStartMethod)
+        public void GetNumericsSettings_UnknownRingId_ReturnsExpectedDefaultNumericsSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId, int expectedFormStartMethod)
         {
             // Setup
-            var subMechanismSettingsProvider = new SubMechanismSettingsProvider();
+            var numericsSettingsProvider = new NumericsSettingsProvider();
 
             // Call
-            var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(failureMechanismType, subMechanismId, "unknown ringId");
+            var numericsSettings = numericsSettingsProvider.GetNumericsSettings(failureMechanismType, subMechanismId, "unknown ringId");
 
             // Assert
-            Assert.AreEqual(expectedCalculationTechniqueId, subMechanismSettings.CalculationTechniqueId);
-            Assert.AreEqual(expectedFormStartMethod, subMechanismSettings.FormStartMethod);
-            Assert.AreEqual(50, subMechanismSettings.FormNumberOfIterations);
-            Assert.AreEqual(0.15, subMechanismSettings.FormRelaxationFactor);
-            Assert.AreEqual(0.01, subMechanismSettings.FormEpsBeta);
-            Assert.AreEqual(0.01, subMechanismSettings.FormEpsHoh);
-            Assert.AreEqual(0.01, subMechanismSettings.FormEpsZFunc);
-            Assert.AreEqual(2, subMechanismSettings.DsStartMethod);
-            Assert.AreEqual(10000, subMechanismSettings.DsMinNumberOfIterations);
-            Assert.AreEqual(20000, subMechanismSettings.DsMaxNumberOfIterations);
-            Assert.AreEqual(0.1, subMechanismSettings.DsVarCoefficient);
-            Assert.AreEqual(-6.0, subMechanismSettings.NiUMin);
-            Assert.AreEqual(6.0, subMechanismSettings.NiUMax);
-            Assert.AreEqual(25, subMechanismSettings.NiNumberSteps);
+            Assert.AreEqual(expectedCalculationTechniqueId, numericsSettings.CalculationTechniqueId);
+            Assert.AreEqual(expectedFormStartMethod, numericsSettings.FormStartMethod);
+            Assert.AreEqual(50, numericsSettings.FormNumberOfIterations);
+            Assert.AreEqual(0.15, numericsSettings.FormRelaxationFactor);
+            Assert.AreEqual(0.01, numericsSettings.FormEpsBeta);
+            Assert.AreEqual(0.01, numericsSettings.FormEpsHoh);
+            Assert.AreEqual(0.01, numericsSettings.FormEpsZFunc);
+            Assert.AreEqual(2, numericsSettings.DsStartMethod);
+            Assert.AreEqual(10000, numericsSettings.DsMinNumberOfIterations);
+            Assert.AreEqual(20000, numericsSettings.DsMaxNumberOfIterations);
+            Assert.AreEqual(0.1, numericsSettings.DsVarCoefficient);
+            Assert.AreEqual(-6.0, numericsSettings.NiUMin);
+            Assert.AreEqual(6.0, numericsSettings.NiUMax);
+            Assert.AreEqual(25, numericsSettings.NiNumberSteps);
         }
 
-        private static SubMechanismSettings GetExpectedSubMechanismSettings()
+        private static NumericsSettings GetExpectedNumericsSettings()
         {
-            return new SubMechanismSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 20000, 100000, 0.1, -6, 6, 25);
+            return new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 20000, 100000, 0.1, -6, 6, 25);
         }
     }
 }

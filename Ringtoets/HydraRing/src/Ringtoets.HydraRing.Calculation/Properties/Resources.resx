@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="HydraRingSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hydra-Ring settings.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Parse_Cannot_find_file_0_in_folder_1_" xml:space="preserve">
     <value>Kan het Hydra-Ring logbestand {0} niet vinden in de map {1}.</value>
   </data>
@@ -130,5 +126,9 @@
   <data name="HydraRingCalculationService_HydraRing_calculation_report_message_text_0" xml:space="preserve">
     <value>HydraRing berekeningsverslag. Klik op details voor meer informatie.
 {0}</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NumericsSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Numerics.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

@@ -25,29 +25,18 @@ using Ringtoets.HydraRing.Calculation.Data.Settings;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Settings
 {
     [TestFixture]
-    public class SubMechanismSettingsTest
+    public class DesignTableSettingsTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var subMechanismSettings = new SubMechanismSettings(1, 2, 3, 4.4, 5.5, 6.6, 7.7, 8, 9, 10, 11.11, 12.12, 13.13, 14);
+            var designTableSettings = new DesignTableSettings(1.1, 2.2, 3.3);
 
             // Assert
-            Assert.AreEqual(1, subMechanismSettings.CalculationTechniqueId);
-            Assert.AreEqual(2, subMechanismSettings.FormStartMethod);
-            Assert.AreEqual(3, subMechanismSettings.FormNumberOfIterations);
-            Assert.AreEqual(4.4, subMechanismSettings.FormRelaxationFactor);
-            Assert.AreEqual(5.5, subMechanismSettings.FormEpsBeta);
-            Assert.AreEqual(6.6, subMechanismSettings.FormEpsHoh);
-            Assert.AreEqual(7.7, subMechanismSettings.FormEpsZFunc);
-            Assert.AreEqual(8, subMechanismSettings.DsStartMethod);
-            Assert.AreEqual(9, subMechanismSettings.DsMinNumberOfIterations);
-            Assert.AreEqual(10, subMechanismSettings.DsMaxNumberOfIterations);
-            Assert.AreEqual(11.11, subMechanismSettings.DsVarCoefficient);
-            Assert.AreEqual(12.12, subMechanismSettings.NiUMin);
-            Assert.AreEqual(13.13, subMechanismSettings.NiUMax);
-            Assert.AreEqual(14, subMechanismSettings.NiNumberSteps);
+            Assert.AreEqual(1.1, designTableSettings.ValueMin);
+            Assert.AreEqual(2.2, designTableSettings.ValueMax);
+            Assert.AreEqual(3.3, designTableSettings.FaultTreeModelId);
         }
     }
 }

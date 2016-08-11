@@ -24,19 +24,19 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// <summary>
     /// Container for failure mechanism settings.
     /// </summary>
-    internal class FailureMechanismSettings
+    internal class DesignTableSettings
     {
         private readonly double valueMin;
         private readonly double valueMax;
         private readonly double faultTreeModelId;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="FailureMechanismSettings"/> class.
+        /// Creates a new instance of the <see cref="DesignTableSettings"/> class.
         /// </summary>
         /// <param name="valueMin">The minimum value to use while iterating to a target probability.</param>
         /// <param name="valueMax">The maximum value to use while iterating to a target probability.</param>
         /// <param name="faultTreeModelId">The fault tree model id.</param>
-        public FailureMechanismSettings(double valueMin, double valueMax, double faultTreeModelId)
+        public DesignTableSettings(double valueMin, double valueMax, double faultTreeModelId)
         {
             this.valueMin = valueMin;
             this.valueMax = valueMax;

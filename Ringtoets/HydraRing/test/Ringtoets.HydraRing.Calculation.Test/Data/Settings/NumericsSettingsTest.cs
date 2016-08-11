@@ -25,18 +25,29 @@ using Ringtoets.HydraRing.Calculation.Data.Settings;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Settings
 {
     [TestFixture]
-    public class FailureMechanismSettingsTest
+    public class NumericsSettingsTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var failureMechanismSettings = new FailureMechanismSettings(1.1, 2.2, 3.3);
+            var numericsSettings = new NumericsSettings(1, 2, 3, 4.4, 5.5, 6.6, 7.7, 8, 9, 10, 11.11, 12.12, 13.13, 14);
 
             // Assert
-            Assert.AreEqual(1.1, failureMechanismSettings.ValueMin);
-            Assert.AreEqual(2.2, failureMechanismSettings.ValueMax);
-            Assert.AreEqual(3.3, failureMechanismSettings.FaultTreeModelId);
+            Assert.AreEqual(1, numericsSettings.CalculationTechniqueId);
+            Assert.AreEqual(2, numericsSettings.FormStartMethod);
+            Assert.AreEqual(3, numericsSettings.FormNumberOfIterations);
+            Assert.AreEqual(4.4, numericsSettings.FormRelaxationFactor);
+            Assert.AreEqual(5.5, numericsSettings.FormEpsBeta);
+            Assert.AreEqual(6.6, numericsSettings.FormEpsHoh);
+            Assert.AreEqual(7.7, numericsSettings.FormEpsZFunc);
+            Assert.AreEqual(8, numericsSettings.DsStartMethod);
+            Assert.AreEqual(9, numericsSettings.DsMinNumberOfIterations);
+            Assert.AreEqual(10, numericsSettings.DsMaxNumberOfIterations);
+            Assert.AreEqual(11.11, numericsSettings.DsVarCoefficient);
+            Assert.AreEqual(12.12, numericsSettings.NiUMin);
+            Assert.AreEqual(13.13, numericsSettings.NiUMax);
+            Assert.AreEqual(14, numericsSettings.NiNumberSteps);
         }
     }
 }

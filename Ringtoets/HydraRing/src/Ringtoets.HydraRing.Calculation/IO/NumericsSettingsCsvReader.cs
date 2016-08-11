@@ -28,15 +28,15 @@ using Ringtoets.HydraRing.Calculation.Data.Settings;
 namespace Ringtoets.HydraRing.Calculation.IO
 {
     /// <summary>
-    /// The reader for the Hydra-Ring settings in csv format.
+    /// The reader for the <see cref="NumericsSettings"/> in csv format.
     /// </summary>
-    internal class HydraRingSettingsCsvReader
+    internal class NumericsSettingsCsvReader
     {
         private const char separator = ';';
 
         private readonly string fileContents;
 
-        private readonly IDictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>> settings = new Dictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>>();
+        private readonly IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> settings = new Dictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>>();
 
         private readonly Dictionary<string, int> columns = new Dictionary<string, int>
         {
@@ -94,11 +94,11 @@ namespace Ringtoets.HydraRing.Calculation.IO
         };
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraRingSettingsCsvReader"/>.
+        /// Creates a new instance of <see cref="NumericsSettingsCsvReader"/>.
         /// </summary>
         /// <param name="file">The file to read.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="file"/> is not set.</exception>
-        public HydraRingSettingsCsvReader(string file)
+        public NumericsSettingsCsvReader(string file)
         {
             if (string.IsNullOrEmpty(file))
             {
@@ -112,7 +112,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// Reads the settings from the file.
         /// </summary>
         /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the settings.</returns>
-        public IDictionary<int, IDictionary<int, IDictionary<string, SubMechanismSettings>>> ReadSettings()
+        public IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> ReadSettings()
         {
             string[] lines = fileContents.Split('\n');
 
@@ -131,7 +131,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!settings.ContainsKey(failureMechanismType))
             {
-                settings.Add(failureMechanismType, new Dictionary<int, IDictionary<string, SubMechanismSettings>>());
+                settings.Add(failureMechanismType, new Dictionary<int, IDictionary<string, NumericsSettings>>());
             }
 
             // Get sub mechanism
@@ -139,7 +139,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!settings[failureMechanismType].ContainsKey(subMechanism))
             {
-                settings[failureMechanismType].Add(subMechanism, new Dictionary<string, SubMechanismSettings>());
+                settings[failureMechanismType].Add(subMechanism, new Dictionary<string, NumericsSettings>());
             }
 
             // Get TrajectId
@@ -166,9 +166,9 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return line[columns[ringIdKey]].Trim().Replace("\"", "");
         }
 
-        private SubMechanismSettings GetSubMechanismSetting(IList<string> line)
+        private NumericsSettings GetSubMechanismSetting(IList<string> line)
         {
-            return new SubMechanismSettings(GetIntValueFromElement(line[columns[calculationMethodKey]]),
+            return new NumericsSettings(GetIntValueFromElement(line[columns[calculationMethodKey]]),
                                             GetIntValueFromElement(line[columns[formStartMethodKey]]),
                                             GetIntValueFromElement(line[columns[formIterationsKey]]),
                                             GetDoubleValueFromElement(line[columns[formRelaxationFactorKey]]),

@@ -26,7 +26,7 @@ using Ringtoets.HydraRing.Calculation.Providers;
 namespace Ringtoets.HydraRing.Calculation.Test.Providers
 {
     [TestFixture]
-    public class FailureMechanismSettingsProviderTest
+    public class DesignTableSettingsProviderTest
     {
         [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 5.0, 15.0, 1)]
         [TestCase(HydraRingFailureMechanismType.QVariant, 5.0, 15.0, 7)]
@@ -39,18 +39,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, double.NaN, double.NaN, 4404)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, double.NaN, double.NaN, 4505)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, double.NaN, double.NaN, 4607)]
-        public void GetFailureMechanismSettings_DefaultsOnly_ReturnsExpectedFailureMechanismSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax, double expectedFaultTreeModelId)
+        public void GetDesignTableSettings_DefaultsOnly_ReturnsExpectedDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax, double expectedFaultTreeModelId)
         {
             // Setup
-            var failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
+            var designTablesSettingsProvider = new DesignTablesSettingsProvider();
 
             // Call
-            var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(failureMechanismType);
+            var designTableSettings = designTablesSettingsProvider.GetDesignTableSettings(failureMechanismType);
 
             // Assert
-            Assert.AreEqual(expectedValueMin, failureMechanismSettings.ValueMin);
-            Assert.AreEqual(expectedValueMax, failureMechanismSettings.ValueMax);
-            Assert.AreEqual(expectedFaultTreeModelId, failureMechanismSettings.FaultTreeModelId);
+            Assert.AreEqual(expectedValueMin, designTableSettings.ValueMin);
+            Assert.AreEqual(expectedValueMax, designTableSettings.ValueMax);
+            Assert.AreEqual(expectedFaultTreeModelId, designTableSettings.FaultTreeModelId);
         }
     }
 }

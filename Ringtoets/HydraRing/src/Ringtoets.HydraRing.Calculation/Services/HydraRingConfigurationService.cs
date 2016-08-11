@@ -63,8 +63,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
         private readonly string ringId;
         private readonly IList<HydraRingCalculationInput> hydraRingCalculationInputs;
-        private readonly SubMechanismSettingsProvider subMechanismSettingsProvider = new SubMechanismSettingsProvider();
-        private readonly FailureMechanismSettingsProvider failureMechanismSettingsProvider = new FailureMechanismSettingsProvider();
+        private readonly NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
+        private readonly DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
         private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
@@ -252,7 +252,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
                 var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(hydraRingCalculationInput.FailureMechanismType);
+                var designTableSettings = designTablesSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -287,10 +287,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "TableStepSize", defaultHydraRingValue // Fixed: no support for type III computations (see "Method")
                     },
                     {
-                        "ValueMin", GetHydraRingValue(failureMechanismSettings.ValueMin)
+                        "ValueMin", GetHydraRingValue(designTableSettings.ValueMin)
                     },
                     {
-                        "ValueMax", GetHydraRingValue(failureMechanismSettings.ValueMax)
+                        "ValueMax", GetHydraRingValue(designTableSettings.ValueMax)
                     },
                     {
                         "Beta", GetHydraRingValue(hydraRingCalculationInput.Beta)
@@ -311,7 +311,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
                 foreach (var subMechanismId in failureMechanismDefaults.SubMechanismIds)
                 {
-                    var subMechanismSettings = subMechanismSettingsProvider.GetSubMechanismSettings(hydraRingCalculationInput.FailureMechanismType, subMechanismId, ringId);
+                    var numericsSettings = numericsSettingsProvider.GetNumericsSettings(hydraRingCalculationInput.FailureMechanismType, subMechanismId, ringId);
 
                     orderDictionaries.Add(new OrderedDictionary
                     {
@@ -331,49 +331,49 @@ namespace Ringtoets.HydraRing.Calculation.Services
                             "SubMechanismId", subMechanismId
                         },
                         {
-                            "Method", subMechanismSettings.CalculationTechniqueId
+                            "Method", numericsSettings.CalculationTechniqueId
                         },
                         {
-                            "FormStartMethod", subMechanismSettings.FormStartMethod
+                            "FormStartMethod", numericsSettings.FormStartMethod
                         },
                         {
-                            "FormNumberOfIterations", subMechanismSettings.FormNumberOfIterations
+                            "FormNumberOfIterations", numericsSettings.FormNumberOfIterations
                         },
                         {
-                            "FormRelaxationFactor", GetHydraRingValue(subMechanismSettings.FormRelaxationFactor)
+                            "FormRelaxationFactor", GetHydraRingValue(numericsSettings.FormRelaxationFactor)
                         },
                         {
-                            "FormEpsBeta", GetHydraRingValue(subMechanismSettings.FormEpsBeta)
+                            "FormEpsBeta", GetHydraRingValue(numericsSettings.FormEpsBeta)
                         },
                         {
-                            "FormEpsHOH", GetHydraRingValue(subMechanismSettings.FormEpsHoh)
+                            "FormEpsHOH", GetHydraRingValue(numericsSettings.FormEpsHoh)
                         },
                         {
-                            "FormEpsZFunc", GetHydraRingValue(subMechanismSettings.FormEpsZFunc)
+                            "FormEpsZFunc", GetHydraRingValue(numericsSettings.FormEpsZFunc)
                         },
                         {
-                            "DsStartMethod", subMechanismSettings.DsStartMethod
+                            "DsStartMethod", numericsSettings.DsStartMethod
                         },
                         {
                             "DsIterationmethod", 1 // Fixed: not relevant
                         },
                         {
-                            "DsMinNumberOfIterations", subMechanismSettings.DsMinNumberOfIterations
+                            "DsMinNumberOfIterations", numericsSettings.DsMinNumberOfIterations
                         },
                         {
-                            "DsMaxNumberOfIterations", subMechanismSettings.DsMaxNumberOfIterations
+                            "DsMaxNumberOfIterations", numericsSettings.DsMaxNumberOfIterations
                         },
                         {
-                            "DsVarCoefficient", GetHydraRingValue(subMechanismSettings.DsVarCoefficient)
+                            "DsVarCoefficient", GetHydraRingValue(numericsSettings.DsVarCoefficient)
                         },
                         {
-                            "NiUMin", GetHydraRingValue(subMechanismSettings.NiUMin)
+                            "NiUMin", GetHydraRingValue(numericsSettings.NiUMin)
                         },
                         {
-                            "NiUMax", GetHydraRingValue(subMechanismSettings.NiUMax)
+                            "NiUMax", GetHydraRingValue(numericsSettings.NiUMax)
                         },
                         {
-                            "NiNumberSteps", subMechanismSettings.NiNumberSteps
+                            "NiNumberSteps", numericsSettings.NiNumberSteps
                         }
                     });
                 }
@@ -604,7 +604,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
                 var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                var failureMechanismSettings = failureMechanismSettingsProvider.GetFailureMechanismSettings(hydraRingCalculationInput.FailureMechanismType);
+                var designTableSettings = designTablesSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -621,7 +621,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                     },
                     {
-                        "FaultTreeModelId", failureMechanismSettings.FaultTreeModelId
+                        "FaultTreeModelId", designTableSettings.FaultTreeModelId
                     }
                 });
             }
