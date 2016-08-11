@@ -131,8 +131,14 @@ namespace Core.Components.Gis.IO.Test.Writers
                             MD5.Create().ComputeHash(File.ReadAllBytes(pathName + ".shp")));
             Assert.AreEqual(MD5.Create().ComputeHash(File.ReadAllBytes(refPathName + ".shx")),
                             MD5.Create().ComputeHash(File.ReadAllBytes(pathName + ".shx")));
-            Assert.AreEqual(MD5.Create().ComputeHash(File.ReadAllBytes(refPathName + ".dbf")),
-                            MD5.Create().ComputeHash(File.ReadAllBytes(pathName + ".dbf")));
+
+            int headerLength = 32;
+            int bodyLength = 45;
+            var refContent = File.ReadAllBytes(refPathName + ".dbf");
+            var content = File.ReadAllBytes(pathName + ".dbf");
+            Assert.AreEqual(headerLength + bodyLength, content.Length);
+            Assert.AreEqual(refContent.Skip(headerLength).Take(45),
+                            content.Skip(headerLength).Take(45));
         }
 
         private static MapFeature[] CreateFeatures(double seed)
