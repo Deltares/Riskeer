@@ -35,9 +35,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         public void Parse(string workingDirectory, int sectionId)
         {
             string logFileName = sectionId + ".log";
+            string logFilePath = Path.Combine(workingDirectory, logFileName);
             try
             {
-                string logFilePath = Path.Combine(workingDirectory, logFileName);
                 if (!File.Exists(logFilePath))
                 {
                     log.Error(string.Format(Resources.Parse_Cannot_find_file_0_in_folder_1_, logFileName, workingDirectory));
