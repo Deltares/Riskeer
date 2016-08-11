@@ -22,46 +22,27 @@
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// Interface declaring commands/methods related to exporting and importing data.
+    /// Interface declaring commands/methods related to importing data.
     /// </summary>
-    public interface IExportImportCommandHandler
+    public interface IImportCommandHandler
     {
         /// <summary>
-        /// Indicates if there are importers for the given object.
+        /// Indicates if there are importers for the given target object.
         /// </summary>
-        /// <param name="obj">The object to check importer availability for.</param>
+        /// <param name="target">The target object to check importer availability for.</param>
         /// <returns><c>true</c> if there are importers available, <c>false</c> otherwise.</returns>
-        bool CanImportOn(object obj);
+        bool CanImportOn(object target);
 
         /// <summary>
         /// Perform the import workflow by the following steps:
         /// <list type="number">
-        /// <item>If multiple importers are available for target data object, ask the user
+        /// <item>If multiple importers are available for the target object, ask the user
         /// which importer to use;</item>
         /// <item>Ask the user which file to use to import from;</item>
-        /// <item>Import from the user specified file to the target data object.</item>
+        /// <item>Import from the user specified file to the target object.</item>
         /// </list>
         /// </summary>
-        /// <param name="target">The import target.</param>
+        /// <param name="target">The data object to import to.</param>
         void ImportOn(object target);
-
-        /// <summary>
-        /// Indicates if there are exporters for the given object.
-        /// </summary>
-        /// <param name="obj">The object to check exporter availability for.</param>
-        /// <returns><c>true</c> if there are exporters available, <c>false</c> otherwise.</returns>
-        bool CanExportFrom(object obj);
-
-        /// <summary>
-        /// Perform the export workflow by the following steps:
-        /// <list type="number">
-        /// <item>If multiple exporters are available for source data object, ask the user
-        /// which exporter to use;</item>
-        /// <item>Ask the user which file or file-destination to export to;</item>
-        /// <item>Export from the source data object to the specified location.</item>
-        /// </list>
-        /// </summary>
-        /// <param name="data">The data object to export.</param>
-        void ExportFrom(object data);
     }
 }

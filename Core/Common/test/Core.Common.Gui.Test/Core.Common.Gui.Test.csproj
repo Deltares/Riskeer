@@ -77,7 +77,6 @@
     <Compile Include="Attributes\TestCaseClasses\DynamicReadOnlyTestCases.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicVisibilityTestCases.cs" />
     <Compile Include="Commands\ApplicationFeatureCommandHandlerTest.cs" />
-    <Compile Include="Commands\ExportImportCommandHandlerTest.cs" />
     <Compile Include="Commands\GuiExportHandlerTest.cs" />
     <Compile Include="Commands\GuiImportHandlerTest.cs" />
     <Compile Include="Commands\StorageCommandHandlerTest.cs" />

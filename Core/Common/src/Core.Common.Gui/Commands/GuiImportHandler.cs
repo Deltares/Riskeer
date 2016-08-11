@@ -34,7 +34,7 @@ namespace Core.Common.Gui.Commands
     /// <summary>
     /// Class responsible for handling import workflow with user interaction.
     /// </summary>
-    public class GuiImportHandler
+    public class GuiImportHandler : IImportCommandHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiImportHandler));
 
@@ -52,20 +52,26 @@ namespace Core.Common.Gui.Commands
             this.fileImporters = fileImporters;
         }
 
-        /// <summary>
-        /// Asks the user to select which importer to use if multiple are available. Then
-        /// if an importer is found/selected, the user is asked for a source to import from.
-        /// Finally the data is being imported to the target object.
-        /// </summary>
-        /// <param name="target">The import target.</param>
-        public void ImportDataTo(object target)
+        public bool CanImportOn(object target)
         {
-            ImportToItem(target);
+            return fileImporters.Any(fileImporter => fileImporter.CanImportOn(target));
         }
 
-        private IFileImporter GetSupportedImporterForTargetType(object target)
+        public void ImportOn(object target)
+        {
+            var importer = GetSupportedImporterUsingDialog(target);
+            if (importer == null)
+            {
+                return;
+            }
+
+            ImportItemsUsingFileOpenDialog(importer, target);
+        }
+
+        private IFileImporter GetSupportedImporterUsingDialog(object target)
         {
             var importers = fileImporters.Where(fileImporter => fileImporter.CanImportOn(target)).ToArray();
+
             if (!importers.Any())
             {
                 MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item,
@@ -75,7 +81,6 @@ namespace Core.Common.Gui.Commands
                 return null;
             }
 
-            // If there is only one available importer use that:
             if (importers.Length == 1)
             {
                 return importers[0];
@@ -96,23 +101,14 @@ namespace Core.Common.Gui.Commands
                     return importers.First(i => i.Name == selectImporterDialog.SelectedItemTypeName);
                 }
             }
+
             return null;
         }
 
-        private void ImportToItem(object item)
-        {
-            var importer = GetSupportedImporterForTargetType(item);
-            if (importer == null)
-            {
-                return;
-            }
-
-            GetImportedItemsUsingFileOpenDialog(importer, item);
-        }
-
-        private void GetImportedItemsUsingFileOpenDialog(IFileImporter importer, object target)
+        private void ImportItemsUsingFileOpenDialog(IFileImporter importer, object target)
         {
             var windowTitle = string.Format(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from, importer.Name);
+
             using (var dialog = new OpenFileDialog
             {
                 Filter = importer.FileFilter,

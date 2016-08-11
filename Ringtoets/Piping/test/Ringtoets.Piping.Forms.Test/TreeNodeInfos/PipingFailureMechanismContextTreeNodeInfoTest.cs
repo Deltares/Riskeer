@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -32,12 +31,9 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -49,7 +45,6 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -70,14 +65,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             mocks = new MockRepository();
             plugin = new PipingPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailureMechanismContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
         }
 
         [Test]
@@ -152,42 +139,42 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(3, children.Length);
-            var inputsFolder = (CategoryTreeFolder)children[0];
+            var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
             Assert.AreEqual(4, inputsFolder.Contents.Count);
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext)inputsFolder.Contents[0];
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             Assert.AreSame(pipingFailureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext)inputsFolder.Contents[1];
+            var surfaceLinesContext = (RingtoetsPipingSurfaceLinesContext) inputsFolder.Contents[1];
             Assert.AreSame(pipingFailureMechanism, surfaceLinesContext.WrappedData);
             Assert.AreSame(assessmentSection, surfaceLinesContext.AssessmentSection);
 
-            var stochasticSoilModelContext = (StochasticSoilModelContext)inputsFolder.Contents[2];
+            var stochasticSoilModelContext = (StochasticSoilModelContext) inputsFolder.Contents[2];
             Assert.AreSame(pipingFailureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>)inputsFolder.Contents[3];
+            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
             Assert.AreSame(pipingFailureMechanism, commentContext.WrappedData);
 
-            var calculationsFolder = (PipingCalculationGroupContext)children[1];
+            var calculationsFolder = (PipingCalculationGroupContext) children[1];
             Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
             CollectionAssert.AreEqual(pipingFailureMechanism.CalculationsGroup.Children, calculationsFolder.WrappedData.Children);
             Assert.AreSame(pipingFailureMechanism.SurfaceLines, calculationsFolder.AvailablePipingSurfaceLines);
             Assert.AreEqual(pipingFailureMechanism.StochasticSoilModels, calculationsFolder.AvailableStochasticSoilModels);
             Assert.AreSame(pipingFailureMechanism, calculationsFolder.FailureMechanism);
 
-            var outputsFolder = (CategoryTreeFolder)children[2];
+            var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            var failureMechanismScenariosContext = (PipingScenariosContext)outputsFolder.Contents[0];
+            var failureMechanismScenariosContext = (PipingScenariosContext) outputsFolder.Contents[0];
             Assert.AreSame(pipingFailureMechanism, failureMechanismScenariosContext.ParentFailureMechanism);
             Assert.AreSame(pipingFailureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>)outputsFolder.Contents[1];
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents[1];
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
         }
@@ -214,7 +201,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, children.Length);
-            var commentContext = (CommentContext<ICommentable>)children[0];
+            var commentContext = (CommentContext<ICommentable>) children[0];
             Assert.AreSame(pipingFailureMechanism, commentContext.WrappedData);
         }
 
@@ -317,12 +304,18 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
+            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
             var viewCommandsHandler = mocks.Stub<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, failureMechanismContext, treeViewControl);
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                                                         importCommandHandler,
+                                                         exportCommandHandler,
+                                                         viewCommandsHandler,
+                                                         failureMechanismContext,
+                                                         treeViewControl);
 
                 var gui = mocks.StrictMock<IGui>();
                 gui.Expect(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
@@ -715,6 +708,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.IsTrue(failureMechanism.IsRelevant);
             }
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         private const int contextMenuRelevancyIndexWhenRelevant = 1;

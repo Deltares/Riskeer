@@ -189,11 +189,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                    assessmentSectionMock);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
-            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
+            var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                importHandlerMock,
+                exportHandlerMock,
+                viewCommandsHandler,
+                nodeData,
+                treeViewControl);
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
             treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
@@ -292,11 +298,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                              assessmentSectionMock);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandler = mocks.Stub<IExportImportCommandHandler>();
+            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler, exportImportHandler, viewCommandsHandler, nodeData, treeViewControl);
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                    importHandlerMock,
+                    exportHandlerMock,
+                    viewCommandsHandler,
+                    nodeData,
+                    treeViewControl);
                 gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
 
@@ -991,7 +1003,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                          Geometry =
                                                                          {
                                                                              new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                                                                         },
+                                                                         }
                                                                      }
                                                                  },
                                                                  pipingFailureMechanism,
@@ -1102,7 +1114,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                                          Geometry =
                                                                          {
                                                                              new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                                                                         },
+                                                                         }
                                                                      }
                                                                  },
                                                                  pipingFailureMechanism,
@@ -1274,7 +1286,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                         Geometry =
                         {
                             new Point2D(0.0, 0.0), new Point2D(5.0, 0.0)
-                        },
+                        }
                     }
                 }
             };

@@ -22,7 +22,6 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -32,12 +31,9 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -46,7 +42,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.HydraRing.Data;
-
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsFormResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
@@ -150,12 +145,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
-            var calculationGroupContext = (GrassCoverErosionInwardsCalculationGroupContext)children[0];
+            var calculationGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) children[0];
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, calculationGroupContext.AssessmentSection);
             Assert.AreSame(calculationItemMock, children[1]);
-            var calculationContext = (GrassCoverErosionInwardsCalculationContext)children[2];
+            var calculationContext = (GrassCoverErosionInwardsCalculationContext) children[2];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
         }
@@ -368,12 +363,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                                                assessmentSectionMock);
 
             var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandlerStub = mocks.Stub<IExportImportCommandHandler>();
+            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             var viewCommandsHandlerMock = mocks.StrictMock<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub, exportImportHandlerStub, viewCommandsHandlerMock, nodeData, treeViewControl);
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
+                                                         importHandlerMock,
+                                                         exportHandlerMock,
+                                                         viewCommandsHandlerMock,
+                                                         nodeData,
+                                                         treeViewControl);
                 guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
@@ -416,12 +417,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                                                assessmentSectionMock);
 
             var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandlerStub = mocks.Stub<IExportImportCommandHandler>();
+            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             var viewCommandsHandlerMock = mocks.StrictMock<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub, exportImportHandlerStub, viewCommandsHandlerMock, nodeData, treeViewControl);
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
+                                                         importHandlerMock,
+                                                         exportHandlerMock,
+                                                         viewCommandsHandlerMock,
+                                                         nodeData,
+                                                         treeViewControl);
                 guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
@@ -464,12 +471,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                                                assessmentSectionMock);
 
             var applicationFeatureCommandHandlerStub = mocks.Stub<IApplicationFeatureCommands>();
-            var exportImportHandlerStub = mocks.Stub<IExportImportCommandHandler>();
+            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
             var viewCommandsHandlerMock = mocks.StrictMock<IViewCommands>();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub, exportImportHandlerStub, viewCommandsHandlerMock, nodeData, treeViewControl);
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandlerStub,
+                                                         importHandlerMock,
+                                                         exportHandlerMock,
+                                                         viewCommandsHandlerMock,
+                                                         nodeData,
+                                                         treeViewControl);
                 guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
@@ -883,8 +896,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridView)new ControlTester("DikeProfileDataGrid", selectionDialog).TheObject;
+                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridView) new ControlTester("DikeProfileDataGrid", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 
@@ -939,8 +952,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridView)new ControlTester("DikeProfileDataGrid", selectionDialog).TheObject;
+                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridView) new ControlTester("DikeProfileDataGrid", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 
@@ -972,7 +985,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 {
                     DikeProfiles =
                     {
-                        dikeProfile,
+                        dikeProfile
                     },
                     CalculationsGroup =
                     {
@@ -1003,8 +1016,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridView)new ControlTester("DikeProfileDataGrid", selectionDialog).TheObject;
+                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridView) new ControlTester("DikeProfileDataGrid", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 

@@ -118,9 +118,8 @@ namespace Core.Common.Gui
 
             viewCommandHandler = new ViewCommandHandler(this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, MainWindow);
-            exportImportCommandHandler = new ExportImportCommandHandler(MainWindow,
-                                                                        Plugins.SelectMany(p => p.GetFileImporters()),
-                                                                        Plugins.SelectMany(p => p.GetExportInfos()));
+            importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetFileImporters()));
+            exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
 
             WindowsApplication.EnableVisualStyles();
             ViewPropertyEditor.ViewCommands = ViewCommands;
@@ -201,7 +200,13 @@ namespace Core.Common.Gui
             {
                 throw new InvalidOperationException("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.");
             }
-            return new ContextMenuBuilder(applicationFeatureCommands, exportImportCommandHandler, ViewCommands, dataObject, treeViewControl);
+
+            return new ContextMenuBuilder(applicationFeatureCommands,
+                                          importCommandHandler,
+                                          exportCommandHandler,
+                                          ViewCommands,
+                                          dataObject,
+                                          treeViewControl);
         }
 
         #endregion
@@ -416,7 +421,7 @@ namespace Core.Common.Gui
         {
             splashScreen = new SplashScreen
             {
-                VersionText = SettingsHelper.ApplicationVersion,
+                VersionText = SettingsHelper.ApplicationVersion
             };
 
             splashScreen.IsVisibleChanged += delegate
@@ -648,7 +653,8 @@ namespace Core.Common.Gui
 
         private ApplicationFeatureCommandHandler applicationFeatureCommands;
         private readonly ViewCommandHandler viewCommandHandler;
-        private readonly ExportImportCommandHandler exportImportCommandHandler;
+        private readonly GuiImportHandler importCommandHandler;
+        private readonly GuiExportHandler exportCommandHandler;
         private StorageCommandHandler storageCommandHandler;
 
         public IApplicationFeatureCommands ApplicationCommands

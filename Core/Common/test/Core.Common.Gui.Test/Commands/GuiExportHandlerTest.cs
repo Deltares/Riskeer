@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
@@ -198,6 +200,67 @@ namespace Core.Common.Gui.Test.Commands
                 "Exporteren afgerond."
             });
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CanExportFrom_HasNoFileExportersForTarget_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var commandHandler = new GuiExportHandler(dialogParent, Enumerable.Empty<ExportInfo>());
+
+            // Call
+            var isExportPossible = commandHandler.CanExportFrom(new object());
+
+            // Assert
+            Assert.IsFalse(isExportPossible);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanExportFrom_HasOneFileExporterForTarget_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
+            {
+                new ExportInfo<object>()
+            });
+
+            // Call
+            var isExportPossible = commandHandler.CanExportFrom(new object());
+
+            // Assert
+            Assert.IsTrue(isExportPossible);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanExportFrom_HasMultipleFileExportersForTarget_ReturnTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
+            {
+                new ExportInfo<object>(),
+                new ExportInfo<object>()
+            });
+
+            // Call
+            var isExportPossible = commandHandler.CanExportFrom(new object());
+
+            // Assert
+            Assert.IsTrue(isExportPossible);
+            mocks.VerifyAll();
         }
 
         private static ExportInfo GetUnsupportedExportInfo()

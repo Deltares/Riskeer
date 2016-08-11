@@ -21,7 +21,6 @@
 
 using System;
 using System.Windows.Forms;
-
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Properties;
 
@@ -33,41 +32,58 @@ namespace Core.Common.Gui.ContextMenu
     internal class GuiContextMenuItemFactory
     {
         private readonly IApplicationFeatureCommands applicationFeatureCommandHandler;
-        private readonly IExportImportCommandHandler exportImportCommandHandler;
+        private readonly IImportCommandHandler importCommandHandler;
+        private readonly IExportCommandHandler exportCommandHandler;
         private readonly IViewCommands viewCommands;
         private readonly object dataObject;
 
         /// <summary>
         /// Creates a new instance of <see cref="GuiContextMenuItemFactory"/>.
         /// </summary>
-        /// <param name="applicationFeatureCommandHandler">The <see cref="IApplicationFeatureCommands"/> which contains information for creating the 
-        /// <see cref="ToolStripItem"/>.</param>
-        /// <param name="exportImportCommandHandler">The <see cref="IExportImportCommandHandler"/>
+        /// <param name="applicationFeatureCommandHandler">The <see cref="IApplicationFeatureCommands"/>
         /// which contains information for creating the <see cref="ToolStripItem"/>.</param>
-        /// <param name="viewCommandsHandler">The <see cref="IViewCommands"/> which contains
+        /// <param name="importCommandHandler">The <see cref="IImportCommandHandler"/> which contains
         /// information for creating the <see cref="ToolStripItem"/>.</param>
+        /// <param name="exportCommandHandler">The <see cref="IExportCommandHandler"/> which contains
+        /// information for creating the <see cref="ToolStripItem"/>.</param>
+        /// <param name="viewCommandsHandler">The <see cref="IViewCommands"/> which contains information for
+        /// creating the <see cref="ToolStripItem"/>.</param>
         /// <param name="dataObject">The data object for which to create <see cref="ToolStripItem"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public GuiContextMenuItemFactory(IApplicationFeatureCommands applicationFeatureCommandHandler, IExportImportCommandHandler exportImportCommandHandler, IViewCommands viewCommandsHandler, object dataObject)
+        public GuiContextMenuItemFactory(IApplicationFeatureCommands applicationFeatureCommandHandler,
+                                         IImportCommandHandler importCommandHandler,
+                                         IExportCommandHandler exportCommandHandler,
+                                         IViewCommands viewCommandsHandler,
+                                         object dataObject)
         {
             if (applicationFeatureCommandHandler == null)
             {
-                throw new ArgumentNullException("applicationFeatureCommandHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
+                throw new ArgumentNullException("applicationFeatureCommandHandler",
+                                                Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_gui);
             }
-            if (exportImportCommandHandler == null)
+            if (importCommandHandler == null)
             {
-                throw new ArgumentNullException("exportImportCommandHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_exportImport_handler);
+                throw new ArgumentNullException("importCommandHandler",
+                                                Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler);
+            }
+            if (exportCommandHandler == null)
+            {
+                throw new ArgumentNullException("exportCommandHandler",
+                                                Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler);
             }
             if (viewCommandsHandler == null)
             {
-                throw new ArgumentNullException("viewCommandsHandler", Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands);
+                throw new ArgumentNullException("viewCommandsHandler",
+                                                Resources.GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands);
             }
             if (dataObject == null)
             {
-                throw new ArgumentNullException("dataObject", Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data);
+                throw new ArgumentNullException("dataObject",
+                                                Resources.ContextMenuItemFactory_Can_not_create_context_menu_items_without_data);
             }
             this.applicationFeatureCommandHandler = applicationFeatureCommandHandler;
-            this.exportImportCommandHandler = exportImportCommandHandler;
+            this.importCommandHandler = importCommandHandler;
+            this.exportCommandHandler = exportCommandHandler;
             viewCommands = viewCommandsHandler;
             this.dataObject = dataObject;
         }
@@ -98,14 +114,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateExportItem()
         {
-            bool canExport = exportImportCommandHandler.CanExportFrom(dataObject);
+            bool canExport = exportCommandHandler.CanExportFrom(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Export)
             {
                 ToolTipText = Resources.Export_ToolTip,
                 Image = Resources.ExportIcon,
                 Enabled = canExport
             };
-            newItem.Click += (s, e) => exportImportCommandHandler.ExportFrom(dataObject);
+            newItem.Click += (s, e) => exportCommandHandler.ExportFrom(dataObject);
 
             return newItem;
         }
@@ -117,14 +133,14 @@ namespace Core.Common.Gui.ContextMenu
         /// <returns>The created <see cref="ToolStripItem"/>.</returns>
         public ToolStripItem CreateImportItem()
         {
-            bool canImport = exportImportCommandHandler.CanImportOn(dataObject);
+            bool canImport = importCommandHandler.CanImportOn(dataObject);
             var newItem = new ToolStripMenuItem(Resources.Import)
             {
                 ToolTipText = Resources.Import_ToolTip,
                 Image = Resources.ImportIcon,
                 Enabled = canImport
             };
-            newItem.Click += (s, e) => exportImportCommandHandler.ImportOn(dataObject);
+            newItem.Click += (s, e) => importCommandHandler.ImportOn(dataObject);
 
             return newItem;
         }
@@ -144,7 +160,7 @@ namespace Core.Common.Gui.ContextMenu
                 Enabled = canShowProperties
             };
             newItem.Click += (s, e) => applicationFeatureCommandHandler.ShowPropertiesFor(dataObject);
-            
+
             return newItem;
         }
     }

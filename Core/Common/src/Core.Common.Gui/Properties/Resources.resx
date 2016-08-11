@@ -148,9 +148,6 @@
   <data name="Ribbon_GroupBox_Show_Hide" xml:space="preserve">
     <value>Weergeven/Verbergen</value>
   </data>
-  <data name="ExportImportCommandHandler_ImportOn_Unable_to_import_on_0_" xml:space="preserve">
-    <value>Kan niet importeren naar {0}.</value>
-  </data>
   <data name="openfolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\openfolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -520,8 +517,11 @@
   <data name="StorageCommandHandler_SaveProject_Succesfully_saved_project_0_" xml:space="preserve">
     <value>Het Ringtoetsproject '{0}' is succesvol opgeslagen.</value>
   </data>
-  <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_exportImport_handler" xml:space="preserve">
-    <value>Kan geen 'IExportImportCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IExportImportCommandHandler'.</value>
+  <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_import_handler" xml:space="preserve">
+    <value>Kan geen 'IImportCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IImportCommandHandler'.</value>
+  </data>
+  <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_export_handler" xml:space="preserve">
+    <value>Kan geen 'IExportCommandHandler'-afhankelijk element in het contextmenu creëren zonder een 'IExportCommandHandler'.</value>
   </data>
   <data name="GuiContextMenuItemFactory_Can_not_create_gui_context_menu_items_without_view_commands" xml:space="preserve">
     <value>Kan geen 'IViewCommands'-afhankelijk element in het contextmenu creëren zonder een 'IViewCommands'.</value>

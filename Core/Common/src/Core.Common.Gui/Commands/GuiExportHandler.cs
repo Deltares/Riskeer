@@ -32,9 +32,9 @@ using log4net;
 namespace Core.Common.Gui.Commands
 {
     /// <summary>
-    /// Class responsible for data export commands.
+    /// Class responsible for handling export workflow with user interaction.
     /// </summary>
-    public class GuiExportHandler
+    public class GuiExportHandler : IExportCommandHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiExportHandler));
         private static readonly Bitmap brickImage = Resources.brick;
@@ -53,12 +53,11 @@ namespace Core.Common.Gui.Commands
             this.exportInfos = exportInfos;
         }
 
-        /// <summary>
-        /// Asks the user to select which exporter to use if multiple are available. Then
-        /// if an exporter is found/selected, the user is asked for a location to export to.
-        /// Finally the data is being exported from the source object.
-        /// </summary>
-        /// <param name="source">The export source.</param>
+        public bool CanExportFrom(object source)
+        {
+            return GetSupportedExportInfos(source).Any();
+        }
+
         public void ExportFrom(object source)
         {
             var exportInfo = GetSupportedExportInfoUsingDialog(source);
@@ -70,25 +69,27 @@ namespace Core.Common.Gui.Commands
             ExportItemUsingFileOpenDialog(exportInfo, source);
         }
 
-        /// <summary>
-        /// Checks whether or not exporters are available for <paramref name="source"/>.
-        /// </summary>
-        /// <param name="source">The data object to check the export support for.</param>
-        /// <returns>Whether or not <paramref name="source"/> can be exported.</returns>
-        public bool CanExportFrom(object source)
+        private IEnumerable<ExportInfo> GetSupportedExportInfos(object source)
         {
-            return GetSupportedExportInfos(source).Any();
+            if (source == null)
+            {
+                return Enumerable.Empty<ExportInfo>();
+            }
+
+            var sourceType = source.GetType();
+
+            return exportInfos.Where(info => (info.DataType == sourceType || sourceType.Implements(info.DataType)) && info.IsEnabled(source));
         }
 
-        private ExportInfo GetSupportedExportInfoUsingDialog(object itemToExport)
+        private ExportInfo GetSupportedExportInfoUsingDialog(object source)
         {
-            var supportedExportInfos = GetSupportedExportInfos(itemToExport).ToArray();
+            var supportedExportInfos = GetSupportedExportInfos(source).ToArray();
 
             if (supportedExportInfos.Length == 0)
             {
                 MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available,
                                 Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_Error);
-                var itemToExportType = itemToExport == null ? "null" : itemToExport.GetType().FullName;
+                var itemToExportType = source == null ? "null" : source.GetType().FullName;
                 log.Warn(string.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available, itemToExportType));
                 return null;
             }
@@ -110,10 +111,11 @@ namespace Core.Common.Gui.Commands
                     return supportedExportInfos.First(info => info.Name == selectExportInfoDialog.SelectedItemTypeName);
                 }
             }
+
             return null;
         }
 
-        private void ExportItemUsingFileOpenDialog(ExportInfo exportInfo, object item)
+        private void ExportItemUsingFileOpenDialog(ExportInfo exportInfo, object source)
         {
             log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
 
@@ -127,7 +129,7 @@ namespace Core.Common.Gui.Commands
             {
                 if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)
                 {
-                    var exporter = exportInfo.CreateFileExporter(item, saveFileDialog.FileName);
+                    var exporter = exportInfo.CreateFileExporter(source, saveFileDialog.FileName);
 
                     if (exporter.Export())
                     {
@@ -135,22 +137,10 @@ namespace Core.Common.Gui.Commands
                     }
                     else
                     {
-                        log.Warn(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed);
+                        log.Error(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed);
                     }
                 }
             }
-        }
-
-        private IEnumerable<ExportInfo> GetSupportedExportInfos(object source)
-        {
-            if (source == null)
-            {
-                return Enumerable.Empty<ExportInfo>();
-            }
-
-            var sourceType = source.GetType();
-
-            return exportInfos.Where(info => (info.DataType == sourceType || sourceType.Implements(info.DataType)) && info.IsEnabled(source));
         }
     }
 }

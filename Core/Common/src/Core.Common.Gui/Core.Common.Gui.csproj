@@ -104,12 +104,12 @@
     <Compile Include="Attributes\DynamicVisibleValidationMethodAttribute.cs" />
     <Compile Include="Attributes\PropertyOrderAttribute.cs" />
     <Compile Include="Commands\ApplicationFeatureCommandHandler.cs" />
-    <Compile Include="Commands\ExportImportCommandHandler.cs" />
     <Compile Include="Commands\GuiExportHandler.cs" />
     <Compile Include="Commands\GuiImportHandler.cs" />
     <Compile Include="Commands\IApplicationFeatureCommands.cs" />
     <Compile Include="Commands\ICommandsOwner.cs" />
-    <Compile Include="Commands\IExportImportCommandHandler.cs" />
+    <Compile Include="Commands\IExportCommandHandler.cs" />
+    <Compile Include="Commands\IImportCommandHandler.cs" />
     <Compile Include="Commands\IStorageCommands.cs" />
     <Compile Include="Commands\IViewCommands.cs" />
     <Compile Include="Commands\StorageCommandHandler.cs" />
