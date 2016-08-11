@@ -67,6 +67,7 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBase.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutput.cs" />
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutput.cs" />
+    <Compile Include="IO\DesignTableSettingsCsvReader.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
     <Compile Include="Parsers\IHydraRingFileParser.cs" />
     <Compile Include="Parsers\LogFileParser.cs" />

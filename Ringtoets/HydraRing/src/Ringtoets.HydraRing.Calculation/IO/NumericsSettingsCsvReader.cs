@@ -102,7 +102,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         {
             if (string.IsNullOrEmpty(file))
             {
-                throw new ArgumentNullException("file", "A file must be set.");
+                throw new ArgumentNullException("file", @"A file must be set.");
             }
 
             fileContents = file;
@@ -147,7 +147,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!settings[failureMechanismType][subMechanism].ContainsKey(ringId))
             {
-                settings[failureMechanismType][subMechanism].Add(ringId, GetSubMechanismSetting(line));
+                settings[failureMechanismType][subMechanism].Add(ringId, GetNumericSettings(line));
             }
         }
 
@@ -166,7 +166,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return line[columns[ringIdKey]].Trim().Replace("\"", "");
         }
 
-        private NumericsSettings GetSubMechanismSetting(IList<string> line)
+        private NumericsSettings GetNumericSettings(IList<string> line)
         {
             return new NumericsSettings(GetIntValueFromElement(line[columns[calculationMethodKey]]),
                                             GetIntValueFromElement(line[columns[formStartMethodKey]]),
