@@ -59,7 +59,7 @@ namespace Core.Components.Gis.IO.Writers
             }
             catch (Exception e)
             {
-                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_Writing_To_File_0_1, filePath, e.Message));
+                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), e);
             }
         }
 

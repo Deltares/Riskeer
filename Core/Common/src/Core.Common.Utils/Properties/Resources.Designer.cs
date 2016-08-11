@@ -115,6 +115,15 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand: {0}.
+        /// </summary>
+        public static string Error_General_output_error_0 {
+            get {
+                return ResourceManager.GetString("Error_General_output_error_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regel bevat te veel tekst om in het RAM geheugen opgeslagen te worden..
         /// </summary>
         public static string Error_Line_too_big_for_RAM {

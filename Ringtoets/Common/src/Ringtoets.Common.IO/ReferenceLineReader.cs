@@ -107,14 +107,14 @@ namespace Ringtoets.Common.IO
         /// </exception>
         private static MapLineData GetReferenceLineMapData(PolylineShapeFileReader lineShapeReader, string shapeFilePath)
         {
-            if (lineShapeReader.GetNumberOfLines() != 1)
+            if (lineShapeReader.GetNumberOfFeatures() != 1)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
                     .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_must_contain_1_polyline);
                 throw new CriticalFileReadException(message);
             }
 
-            return (MapLineData) lineShapeReader.ReadLine(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
+            return (MapLineData) lineShapeReader.ReadFeature(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
         }
 
         private static ReferenceLine CreateReferenceLine(MapLineData lineMapData, string shapeFilePath)

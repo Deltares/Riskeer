@@ -119,7 +119,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             public TestShapeFileReaderBase(string filePath) : base(filePath) {}
 
-            public override FeatureBasedMapData ReadLine(string name = null)
+            public override FeatureBasedMapData ReadFeature(string name = null)
             {
                 return null;
             }

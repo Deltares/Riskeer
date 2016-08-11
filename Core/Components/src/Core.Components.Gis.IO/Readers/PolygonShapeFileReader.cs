@@ -74,9 +74,9 @@ namespace Core.Components.Gis.IO.Readers
             }
         }
 
-        public override FeatureBasedMapData ReadLine(string name = null)
+        public override FeatureBasedMapData ReadFeature(string name = null)
         {
-            if (readIndex == GetNumberOfLines())
+            if (readIndex == GetNumberOfFeatures())
             {
                 return null;
             }
@@ -96,7 +96,7 @@ namespace Core.Components.Gis.IO.Readers
         public override FeatureBasedMapData ReadShapeFile(string name = null)
         {
             List<IFeature> featureList = new List<IFeature>();
-            while (readIndex != GetNumberOfLines())
+            while (readIndex != GetNumberOfFeatures())
             {
                 featureList.Add(ReadFeatureLine());
             }

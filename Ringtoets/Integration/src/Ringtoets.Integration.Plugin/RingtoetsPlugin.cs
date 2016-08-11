@@ -355,7 +355,7 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new ExportInfo<ReferenceLineContext>
             {
-                CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData.ReferenceLine, filePath, context.WrappedData.Id),
+                CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData.ReferenceLine, context.WrappedData.Id, filePath),
                 IsEnabled = context => context.WrappedData.ReferenceLine != null,
                 FileFilter = string.Format(RingtoetsCommonIoResources.DataTypeDisplayName_0_shape_file_filter, "Referentielijn")
             };

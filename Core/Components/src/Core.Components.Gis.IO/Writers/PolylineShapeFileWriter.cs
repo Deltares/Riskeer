@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -49,27 +50,33 @@ namespace Core.Components.Gis.IO.Writers
             };
         }
 
+        /// <summary>
+        /// Create a new feature from a <see cref="MapLineData"/> object and store it in the shapefile.
+        /// </summary>
+        /// <param name="mapData">The <see cref="MapLineData"/> which is to be stored as a feature.</param>
+        /// <exception cref="ArgumentException">Thrown when a <paramref name="mapData"/> contains different metadata keys
+        /// than the <paramref name="mapData"/> of the first call to this method.</exception>
         public override void AddFeature(MapLineData mapData)
         {
             MapFeature mapFeature = mapData.Features.First();
 
             if (!hasPropertyTable)
             {
-                CreatePropertyTable(mapFeature);
+                CreateAttributeTable(mapFeature);
                 hasPropertyTable = true;
             }
 
-            var lineString = CreateLineStringForMapFeature(mapFeature);
+            LineString lineString = CreateLineStringForMapFeature(mapFeature);
 
-            var lineFeature = ShapeFile.AddFeature(lineString);
+            IFeature lineFeature = ShapeFile.AddFeature(lineString);
 
-            CopyMetaDataFromMapFeatureToPropertyTable(mapFeature, lineFeature);
+            CopyMetaDataFromMapFeatureToAttributeTable(mapFeature, lineFeature);
         }
 
-        private void CreatePropertyTable(MapFeature mapFeature)
+        private void CreateAttributeTable(MapFeature mapFeature)
         {
-            var metaData = mapFeature.MetaData;
-            var sortedKeys = metaData.Keys.ToList();
+            IDictionary<string, object> metaData = mapFeature.MetaData;
+            List<string> sortedKeys = metaData.Keys.ToList();
             sortedKeys.Sort();
 
             var columns = ShapeFile.DataTable.Columns;
@@ -95,10 +102,17 @@ namespace Core.Components.Gis.IO.Writers
             return new LineString(coordinates);
         }
 
-        private static void CopyMetaDataFromMapFeatureToPropertyTable(MapFeature mapFeature, IFeature feature)
+        /// <summary>
+        /// Copy the content of a feature's metadata to the attribute table of the shapefile.
+        /// </summary>
+        /// <param name="mapFeature">The <see cref="MapFeature"/> whose metadata is to be copied.</param>
+        /// <param name="feature">The shapefile feature to whose attribute table row the metadata is copied.</param>
+        /// <exception cref="ArgumentException">Thrown when a <paramref name="mapFeature"/> contains different metadata keys
+        /// than the <paramref name="mapFeature"/> of the first call to <see cref="AddFeature"/>.</exception>
+        private static void CopyMetaDataFromMapFeatureToAttributeTable(MapFeature mapFeature, IFeature feature)
         {
-            var metaData = mapFeature.MetaData;
-            var sortedKeys = metaData.Keys.ToList();
+            IDictionary<string, object> metaData = mapFeature.MetaData;
+            List<string> sortedKeys = metaData.Keys.ToList();
             sortedKeys.Sort();
 
             foreach (string key in sortedKeys)

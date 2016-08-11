@@ -34,14 +34,14 @@ namespace Ringtoets.Common.IO.Test
     public class ReferenceLineExporterTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void ParameteredConstructor_ValidParameters_ExpectedValues()
         {
             // Setup
             var referenceLine = new ReferenceLine();
-            var filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "test.shp");
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "test.shp");
 
             // Call
-            var referenceLineExporter = new ReferenceLineExporter(referenceLine, filePath, "anId");
+            var referenceLineExporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(referenceLineExporter);
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.IO.Test
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => new ReferenceLineExporter(referenceLine, null, "anId");
+            TestDelegate call = () => new ReferenceLineExporter(referenceLine, "anId", null);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.IO.Test
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 
-            var exporter = new ReferenceLineExporter(referenceLine, filePath, "anId");
+            var exporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
 
             bool isExported;
             try
@@ -109,7 +109,7 @@ namespace Ringtoets.Common.IO.Test
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 
-            var exporter = new ReferenceLineExporter(referenceLine, filePath, "anId");
+            var exporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
 
             bool isExported = true;
             try

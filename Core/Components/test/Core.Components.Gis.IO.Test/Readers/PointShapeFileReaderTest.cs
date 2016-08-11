@@ -103,7 +103,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                var count = reader.GetNumberOfLines();
+                var count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(0, count);
@@ -119,7 +119,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                var count = reader.GetNumberOfLines();
+                var count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(1, count);
@@ -136,7 +136,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithMultiplePoints))
             {
                 // Call
-                var count = reader.GetNumberOfLines();
+                var count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(6, count);
@@ -154,7 +154,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData)reader.ReadLine(name);
+                MapPointData pointData = (MapPointData)reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual(name, pointData.Name);
@@ -173,7 +173,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData)reader.ReadLine(name);
+                MapPointData pointData = (MapPointData)reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual("Punten", pointData.Name);
@@ -189,7 +189,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = reader.ReadLine() as MapPointData;
+                MapPointData pointData = reader.ReadFeature() as MapPointData;
 
                 // Assert
                 Assert.IsNotNull(pointData);                
@@ -217,15 +217,15 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithMultiplePoints))
             {
                 // Precondition
-                Assert.AreEqual(6, reader.GetNumberOfLines());
+                Assert.AreEqual(6, reader.GetNumberOfFeatures());
 
                 // Call
-                MapPointData points1 = (MapPointData)reader.ReadLine();
-                MapPointData points2 = (MapPointData)reader.ReadLine();
-                MapPointData points3 = (MapPointData)reader.ReadLine();
-                MapPointData points4 = (MapPointData)reader.ReadLine();
-                MapPointData points5 = (MapPointData)reader.ReadLine();
-                MapPointData points6 = (MapPointData)reader.ReadLine();
+                MapPointData points1 = (MapPointData)reader.ReadFeature();
+                MapPointData points2 = (MapPointData)reader.ReadFeature();
+                MapPointData points3 = (MapPointData)reader.ReadFeature();
+                MapPointData points4 = (MapPointData)reader.ReadFeature();
+                MapPointData points5 = (MapPointData)reader.ReadFeature();
+                MapPointData points6 = (MapPointData)reader.ReadFeature();
 
                 // Assert
 
@@ -389,7 +389,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PointShapeFileReader(shapeWithMultiplePoints))
             {
                 // Precondition
-                Assert.AreEqual(6, reader.GetNumberOfLines());
+                Assert.AreEqual(6, reader.GetNumberOfFeatures());
 
                 // Call
                 MapPointData points = (MapPointData)reader.ReadShapeFile();
@@ -507,13 +507,13 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                        fileName);
             using (var reader = new PointShapeFileReader(filePath))
             {
-                for (int i = 0; i < reader.GetNumberOfLines(); i++)
+                for (int i = 0; i < reader.GetNumberOfFeatures(); i++)
                 {
-                    reader.ReadLine();
+                    reader.ReadFeature();
                 }
 
                 // Call
-                MapPointData feature = reader.ReadLine() as MapPointData;
+                MapPointData feature = reader.ReadFeature() as MapPointData;
 
                 // Assert
                 Assert.IsNull(feature);

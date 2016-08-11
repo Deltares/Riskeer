@@ -172,9 +172,9 @@ namespace Ringtoets.Common.IO.Properties {
         ///   Looks up a localized string similar to {0}
         ///Er is geen referentielijn geëxporteerd..
         /// </summary>
-        public static string ReferenceLineExporter_Error_0_no_referenceline_exported {
+        public static string ReferenceLineExporter_Error_0_no_ReferenceLine_exported {
             get {
-                return ResourceManager.GetString("ReferenceLineExporter_Error_0_no_referenceline_exported", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineExporter_Error_0_no_ReferenceLine_exported", resourceCulture);
             }
         }
         

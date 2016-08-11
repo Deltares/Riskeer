@@ -163,7 +163,7 @@ namespace Ringtoets.Common.IO
 
         private static MapLineData ReadMapLineData(PolylineShapeFileReader polylineShapeFileReader)
         {
-            return (MapLineData) polylineShapeFileReader.ReadLine();
+            return (MapLineData) polylineShapeFileReader.ReadFeature();
         }
 
         /// <summary>

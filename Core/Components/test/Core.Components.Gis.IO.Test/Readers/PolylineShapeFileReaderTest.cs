@@ -101,7 +101,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                var count = reader.GetNumberOfLines();
+                var count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(0, count);
@@ -117,7 +117,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                var count = reader.GetNumberOfLines();
+                var count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(1, count);
@@ -134,7 +134,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithMultipleLines))
             {
                 // Call
-                var count = reader.GetNumberOfLines();
+                var count = reader.GetNumberOfFeatures();
 
                 // Assert
                 Assert.AreEqual(4, count);
@@ -152,7 +152,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData) reader.ReadLine(name);
+                MapLineData line = (MapLineData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual(name, line.Name);
@@ -171,7 +171,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData) reader.ReadLine(name);
+                MapLineData line = (MapLineData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual("Lijn", line.Name);
@@ -187,7 +187,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithOneLine))
             {
                 // Call
-                MapLineData line = (MapLineData) reader.ReadLine();
+                MapLineData line = (MapLineData) reader.ReadFeature();
 
                 // Assert
                 Assert.IsNotNull(line);
@@ -225,13 +225,13 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithMultipleLines))
             {
                 // Precondition
-                Assert.AreEqual(4, reader.GetNumberOfLines());
+                Assert.AreEqual(4, reader.GetNumberOfFeatures());
 
                 // Call
-                MapLineData line1 = (MapLineData) reader.ReadLine();
-                MapLineData line2 = (MapLineData) reader.ReadLine();
-                MapLineData line3 = (MapLineData) reader.ReadLine();
-                MapLineData line4 = (MapLineData) reader.ReadLine();
+                MapLineData line1 = (MapLineData) reader.ReadFeature();
+                MapLineData line2 = (MapLineData) reader.ReadFeature();
+                MapLineData line3 = (MapLineData) reader.ReadFeature();
+                MapLineData line4 = (MapLineData) reader.ReadFeature();
 
                 // Assert
 
@@ -405,7 +405,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             using (var reader = new PolylineShapeFileReader(shapeWithMultipleLines))
             {
                 // Precondition
-                Assert.AreEqual(4, reader.GetNumberOfLines());
+                Assert.AreEqual(4, reader.GetNumberOfFeatures());
 
                 // Call
                 MapLineData lines = (MapLineData) reader.ReadShapeFile();
@@ -499,13 +499,13 @@ namespace Core.Components.Gis.IO.Test.Readers
                                                                        shapeFileName);
             using (var reader = new PolylineShapeFileReader(linesShapefileFilePath))
             {
-                for (int i = 0; i < reader.GetNumberOfLines(); i++)
+                for (int i = 0; i < reader.GetNumberOfFeatures(); i++)
                 {
-                    reader.ReadLine();
+                    reader.ReadFeature();
                 }
 
                 // Call
-                MapLineData line = reader.ReadLine() as MapLineData;
+                MapLineData line = reader.ReadFeature() as MapLineData;
 
                 // Assert
                 Assert.IsNull(line);

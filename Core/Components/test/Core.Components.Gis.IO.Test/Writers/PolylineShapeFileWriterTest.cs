@@ -137,8 +137,8 @@ namespace Core.Components.Gis.IO.Test.Writers
             var refContent = File.ReadAllBytes(refPathName + ".dbf");
             var content = File.ReadAllBytes(pathName + ".dbf");
             Assert.AreEqual(headerLength + bodyLength, content.Length);
-            Assert.AreEqual(refContent.Skip(headerLength).Take(45),
-                            content.Skip(headerLength).Take(45));
+            Assert.AreEqual(refContent.Skip(headerLength).Take(bodyLength),
+                            content.Skip(headerLength).Take(bodyLength));
         }
 
         private static MapFeature[] CreateFeatures(double seed)

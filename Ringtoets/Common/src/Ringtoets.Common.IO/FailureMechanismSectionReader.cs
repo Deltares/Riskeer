@@ -72,7 +72,7 @@ namespace Ringtoets.Common.IO
         public int GetFailureMechanismSectionCount()
         {
             ValidateExistenceOfRequiredAttributes();
-            return polylineShapeFileReader.GetNumberOfLines();
+            return polylineShapeFileReader.GetNumberOfFeatures();
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.IO
         /// <returns></returns>
         private MapLineData ReadMapLineData()
         {
-            return polylineShapeFileReader.ReadLine() as MapLineData;
+            return polylineShapeFileReader.ReadFeature() as MapLineData;
         }
 
         private FailureMechanismSection CreateFailureMechanismSection(MapLineData lineData)

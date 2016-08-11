@@ -45,7 +45,7 @@ namespace Core.Components.Gis.IO.Readers
         /// <summary>
         /// Creates a new instance of <see cref="ShapeFileReaderBase"/>.
         /// </summary>
-        /// <param name="filePath">The path to the shape file.</param>
+        /// <param name="filePath">The path to the shapefile.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when <paramref name="filePath"/> 
         /// points to a file that doesn't exist. </exception>
@@ -63,9 +63,9 @@ namespace Core.Components.Gis.IO.Readers
         }
 
         /// <summary>
-        /// Gets the number of lines in the shapefile.
+        /// Gets the number of features in the shapefile.
         /// </summary>
-        public int GetNumberOfLines()
+        public int GetNumberOfFeatures()
         {
             return ShapeFile != null ? ShapeFile.Features.Count : 0;
         }
@@ -82,15 +82,15 @@ namespace Core.Components.Gis.IO.Readers
         }
 
         /// <summary>
-        /// Reads a line from the shape file.
+        /// Reads a feature from the shapefile.
         /// </summary>
         /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>. When <c>null</c> a default value will be set.</param>
         /// <returns>The <see cref="FeatureBasedMapData"/> representing the shape, or 
         /// <c>null</c> when at the end of the shapefile.</returns>
-        public abstract FeatureBasedMapData ReadLine(string name = null);
+        public abstract FeatureBasedMapData ReadFeature(string name = null);
 
         /// <summary>
-        /// Reads all lines from the shape file.
+        /// Reads all features from the shapefile.
         /// </summary>
         /// <param name="name">The name of the <see cref="FeatureBasedMapData"/>. When <c>null</c>, a default value will be set.</param>
         /// <returns>The <see cref="FeatureBasedMapData"/> representing the shape.</returns>

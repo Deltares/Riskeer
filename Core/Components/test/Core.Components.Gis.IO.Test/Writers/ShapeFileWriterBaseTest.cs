@@ -116,9 +116,9 @@ namespace Core.Components.Gis.IO.Test.Writers
                         TestDelegate call = () => writer.SaveAs(filePath);
 
                         // Assert
-                        var expectedMessage = string.Format("Fout bij het schrijven naar bestand '{0}': ", filePath);
+                        var expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand: {0}", filePath);
                         var message = Assert.Throws<CriticalFileWriteException>(call).Message;
-                        StringAssert.StartsWith(expectedMessage, message);
+                        Assert.AreEqual(expectedMessage, message);
                     }
                 }
             }

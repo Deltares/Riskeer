@@ -30,7 +30,7 @@ using Ringtoets.Common.IO.Properties;
 namespace Ringtoets.Common.IO
 {
     /// <summary>
-    /// Exports a <see cref="ReferenceLine"/> from a <see cref="IAssessmentSection"/> and stores it in a shapefile.
+    /// Exports a <see cref="ReferenceLine"/> associated to an <see cref="IAssessmentSection"/> and stores it as a shapefile.
     /// </summary>
     public class ReferenceLineExporter : IFileExporter
     {
@@ -44,10 +44,10 @@ namespace Ringtoets.Common.IO
         /// Creates a new instance of <see cref="ReferenceLineExporter"/>.
         /// </summary>
         /// <param name="referenceLine">The reference line to export.</param>
+        /// <param name="id">The id of the assessment section to which this reference line is associated.</param>
         /// <param name="filePath">The path of the file to export to.</param>
-        /// <param name="id">The assessment section id.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public ReferenceLineExporter(ReferenceLine referenceLine, string filePath, string id)
+        public ReferenceLineExporter(ReferenceLine referenceLine, string id, string filePath)
         {
             FileUtils.ValidateFilePath(filePath);
 
@@ -62,11 +62,11 @@ namespace Ringtoets.Common.IO
 
             try
             {
-                referenceLineWriter.WriteReferenceLine(referenceLine, filePath, id);
+                referenceLineWriter.WriteReferenceLine(referenceLine, id, filePath);
             }
             catch (CriticalFileWriteException e)
             {
-                log.Error(string.Format(Resources.ReferenceLineExporter_Error_0_no_referenceline_exported, e.Message));
+                log.Error(string.Format(Resources.ReferenceLineExporter_Error_0_no_ReferenceLine_exported, e.Message));
                 return false;
             }
 

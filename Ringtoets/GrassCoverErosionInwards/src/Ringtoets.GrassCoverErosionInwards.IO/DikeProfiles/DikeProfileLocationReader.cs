@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         public int GetLocationCount {
             get
             {
-                return pointsShapeFileReader.GetNumberOfLines();
+                return pointsShapeFileReader.GetNumberOfFeatures();
             }
         }
 
@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <returns>A <see cref="DikeProfileLocation"/> based on the next point feature in the shapefile.</returns>
         public DikeProfileLocation GetNextDikeProfileLocation()
         {
-            MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadLine();
+            MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadFeature();
 
             IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
 

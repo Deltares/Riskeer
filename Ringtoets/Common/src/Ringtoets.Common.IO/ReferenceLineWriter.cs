@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Components.Gis.Data;
@@ -41,12 +40,30 @@ namespace Ringtoets.Common.IO
         /// Writes a <see cref="ReferenceLine"/> as a line feature in a shapefile.
         /// </summary>
         /// <param name="referenceLine">The reference line which is to be written to file.</param>
+        /// <param name="id">The id of the assessment section to which this reference line is associated.</param>
         /// <param name="filePath">The path to the shapefile.</param>
-        /// <param name="id">The assessment section id.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, <paramref name="id"/> 
+        /// or <paramref name="filePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <list type="bullet">
+        /// <item><paramref name="filePath"/> is invalid, or</item>
+        /// <item><paramref name="id"/> is empty or consists of whitespace.</item>
+        /// </list></exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
-        public void WriteReferenceLine(ReferenceLine referenceLine, string filePath, string id)
+        public void WriteReferenceLine(ReferenceLine referenceLine, string id, string filePath)
         {
+            if (referenceLine == null)
+            {
+                throw new ArgumentNullException("referenceLine");
+            }
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+            if (filePath == null)
+            {
+                throw new ArgumentNullException("filePath");
+            }
+
             var polyLineShapeFileWriter = new PolylineShapeFileWriter();
 
             MapLineData mapLineData = CreateMapLineData(referenceLine, id);
@@ -56,21 +73,40 @@ namespace Ringtoets.Common.IO
             polyLineShapeFileWriter.SaveAs(filePath);
         }
 
+        /// <summary>
+        /// Create a new instance of <see cref="MapLineData"/> from a reference line and a traject id.
+        /// </summary>
+        /// <param name="referenceLine">The <see cref="ReferenceLine"/> supplying the geometry information 
+        /// for the new <see cref="MapLineData"/> object.</param>
+        /// <param name="id">The id of the assessment section to which the reference line is associated.</param>
+        /// <returns>A new instance of <see cref="MapLineData"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is empty or consists of whitespace.</exception>
         private static MapLineData CreateMapLineData(ReferenceLine referenceLine, string id)
         {
-            MapGeometry referenceGeometry = new MapGeometry(
+            if (id.Length == 0 || string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException("id");
+            }
+
+            MapGeometry referenceLineGeometry = new MapGeometry(
                 new List<IEnumerable<Point2D>>
                 {
                     referenceLine.Points
                 });
 
-            MapFeature mapFeature = new MapFeature(new []{referenceGeometry});
+            MapFeature mapFeature = new MapFeature(new[]
+            {
+                referenceLineGeometry
+            });
 
             mapFeature.MetaData.Add("TRAJECT_ID", id);
 
             return new MapLineData("referentielijn")
             {
-                Features = new[] { mapFeature }
+                Features = new[]
+                {
+                    mapFeature
+                }
             };
         }
     }

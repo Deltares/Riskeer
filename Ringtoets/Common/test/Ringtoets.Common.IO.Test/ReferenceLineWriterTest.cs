@@ -32,7 +32,7 @@ namespace Ringtoets.Common.IO.Test
     public class ReferenceLineWriterTest
     {
         [Test]
-        public void WriteReferenceLine_NullReferenceLine_ThrowNullReferenceException()
+        public void WriteReferenceLine_NullReferenceLine_ThrowArgumentNullException()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -41,14 +41,63 @@ namespace Ringtoets.Common.IO.Test
             var writer = new ReferenceLineWriter();
 
             // Call
-            TestDelegate call = () => writer.WriteReferenceLine(null, filePath, "anId");
+            TestDelegate call = () => writer.WriteReferenceLine(null, "anId", filePath);
 
             // Assert
-            Assert.Throws<NullReferenceException>(call);
+            Assert.Throws<ArgumentNullException>(call);
         }
 
         [Test]
-        public void WriteReferenceLine_NullFilePath_ThrowArgumentException()
+        public void WriteReferenceLine_NullId_ThrowArgumentNullException()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.1, 2.2),
+                new Point2D(11.11, 22.22)
+            });
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("WriteReferenceLine_NullId_ThrowArgumentException", "test.shp"));
+
+            var writer = new ReferenceLineWriter();
+
+            // Call
+            TestDelegate call = () => writer.WriteReferenceLine(referenceLine, null, filePath);
+
+            // Assert
+            Assert.Throws<ArgumentNullException>(call);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase("   ")]
+        public void WriteReferenceLine_InvalidId_ThrowArgumentException(string id)
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.1, 2.2),
+                new Point2D(11.11, 22.22)
+            });
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("WriteReferenceLine_InvalidId_ThrowArgumentException", "test.shp"));
+
+            var writer = new ReferenceLineWriter();
+
+            // Call
+            TestDelegate call = () => writer.WriteReferenceLine(referenceLine, id, filePath);
+
+            // Assert
+            Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void WriteReferenceLine_NullFilePath_ThrowArgumentNullException()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -61,14 +110,14 @@ namespace Ringtoets.Common.IO.Test
             var writer = new ReferenceLineWriter();
 
             // Call
-            TestDelegate call = () => writer.WriteReferenceLine(referenceLine, null, "anId");
+            TestDelegate call = () => writer.WriteReferenceLine(referenceLine, "anId", null);
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            Assert.Throws<ArgumentNullException>(call);
         }
 
         [Test]
-        public void WriteReferenceLine_ValidReferenceLineAndFilePath_WritesShapeFile()
+        public void WriteReferenceLine_ValidData_WritesShapeFile()
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -79,7 +128,7 @@ namespace Ringtoets.Common.IO.Test
             });
 
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              "WriteReferenceLine_ValidReferenceLineAndFilePath_WritesShapeFile");
+                                                              "WriteReferenceLine_ValidData_WritesShapeFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";
@@ -92,7 +141,7 @@ namespace Ringtoets.Common.IO.Test
             // Call
             try
             {
-                writer.WriteReferenceLine(referenceLine, filePath, "anId");
+                writer.WriteReferenceLine(referenceLine, "anId", filePath);
 
                 // Assert
                 AssertEssentialShapefileExists(directoryPath, baseName, true);
