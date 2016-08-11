@@ -40,7 +40,7 @@ namespace Core.Common.Gui.Test.Commands
         [Test]
         [TestCase(1234)]
         [TestCase(null)]
-        public void ExportFrom_NoExporterAvailable_GivesMessageBoxAndLogsMessage(object exportFrom)
+        public void ExportFrom_NoExporterAvailable_GivesMessageBoxAndLogsMessage(object source)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -63,18 +63,20 @@ namespace Core.Common.Gui.Test.Commands
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>());
 
             // Call
-            Action call = () => exportHandler.ExportFrom(exportFrom);
+            Action call = () => exportHandler.ExportFrom(source);
 
             // Assert
-            var itemToExportType = exportFrom == null ? "null" : exportFrom.GetType().FullName;
-            TestHelper.AssertLogMessageIsGenerated(call, string.Format("Ringtoets kan de huidige selectie ({0}) niet exporteren.", itemToExportType));
+            var sourceTypeName = source == null ? "null" : source.GetType().FullName;
+            TestHelper.AssertLogMessageIsGenerated(call, string.Format("Ringtoets kan de huidige selectie ({0}) niet exporteren.", sourceTypeName));
             Assert.AreEqual("Fout", messageBoxTitle);
             Assert.AreEqual("Ringtoets kan de huidige selectie niet exporteren.", messageBoxText);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void ExportFrom_NoSupportedExporterAvailable_GivesMessageBoxAndLogsMessage()
+        [TestCase(1234)]
+        [TestCase(null)]
+        public void ExportFrom_NoSupportedExporterAvailable_GivesMessageBoxAndLogsMessage(object source)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -96,14 +98,15 @@ namespace Core.Common.Gui.Test.Commands
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
-                GetUnsupportedExportInfo()
+                new ExportInfo<string>()
             });
 
             // Call
-            Action call = () => exportHandler.ExportFrom(null);
+            Action call = () => exportHandler.ExportFrom(source);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, string.Format("Ringtoets kan de huidige selectie ({0}) niet exporteren.", "null"));
+            var sourceTypeName = source == null ? "null" : source.GetType().FullName;
+            TestHelper.AssertLogMessageIsGenerated(call, string.Format("Ringtoets kan de huidige selectie ({0}) niet exporteren.", sourceTypeName));
             Assert.AreEqual("Fout", messageBoxTitle);
             Assert.AreEqual("Ringtoets kan de huidige selectie niet exporteren.", messageBoxText);
             mockRepository.VerifyAll();
@@ -111,11 +114,13 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [RequiresSTA]
-        public void ExportFrom_SupportedExporterAvailableCancelClicked_AbortsExportAndLogsMessage()
+        public void ExportFrom_SupportedExporterAvailableCancelClicked_AbortsExport()
         {
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
+            var exporterMock = mockRepository.StrictMock<IFileExporter>();
+
             mockRepository.ReplayAll();
 
             ModalFormHandler = (name, wnd, form) =>
@@ -126,15 +131,17 @@ namespace Core.Common.Gui.Test.Commands
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
-                GetIntegerExportInfo()
+                new ExportInfo<int>
+                {
+                    CreateFileExporter = (o, s) => exporterMock
+                }
             });
 
             // Call
-            Action call = () => exportHandler.ExportFrom(1234);
+            exportHandler.ExportFrom(1234);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Exporteren gestart.");
-            mockRepository.VerifyAll();
+            mockRepository.VerifyAll(); // Expect no calls on exporter mock
         }
 
         [Test]
@@ -154,7 +161,10 @@ namespace Core.Common.Gui.Test.Commands
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
-                GetIntegerExportInfo()
+                new ExportInfo<int>
+                {
+                    CreateFileExporter = (data, filePath) => new IntegerFileExporter()
+                }
             });
 
             // Call
@@ -186,8 +196,11 @@ namespace Core.Common.Gui.Test.Commands
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
-                GetUnsupportedExportInfo(),
-                GetIntegerExportInfo()
+                new ExportInfo<string>(),
+                new ExportInfo<int>
+                {
+                    CreateFileExporter = (data, filePath) => new IntegerFileExporter()
+                }
             });
 
             // Call
@@ -261,19 +274,6 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             Assert.IsTrue(isExportPossible);
             mocks.VerifyAll();
-        }
-
-        private static ExportInfo GetUnsupportedExportInfo()
-        {
-            return new ExportInfo<string>();
-        }
-
-        private static ExportInfo GetIntegerExportInfo()
-        {
-            return new ExportInfo<int>
-            {
-                CreateFileExporter = (data, filePath) => new IntegerFileExporter()
-            };
         }
 
         private class IntegerFileExporter : IFileExporter

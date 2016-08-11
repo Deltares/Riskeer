@@ -117,8 +117,6 @@ namespace Core.Common.Gui.Commands
 
         private void ExportItemUsingFileOpenDialog(ExportInfo exportInfo, object source)
         {
-            log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
-
             var windowTitle = string.Format(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to, exportInfo.Name);
             using (var saveFileDialog = new SaveFileDialog
             {
@@ -129,6 +127,8 @@ namespace Core.Common.Gui.Commands
             {
                 if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)
                 {
+                    log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
+
                     var exporter = exportInfo.CreateFileExporter(source, saveFileDialog.FileName);
 
                     if (exporter.Export())
