@@ -30,6 +30,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.ViewHost;
@@ -163,7 +164,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        public IPropertyGrid PropertyGrid
+        public IView PropertyGrid
         {
             get
             {
@@ -285,7 +286,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
 
             propertyGrid.Text = Properties.Resources.Properties_Title;
-            propertyGrid.Data = propertyGrid.GetObjectProperties(applicationSelection.Selection);
+            propertyGrid.Data = applicationSelection.Selection;
 
             viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right);
             viewController.ViewHost.SetImage(propertyGrid, Properties.Resources.PropertiesHS);

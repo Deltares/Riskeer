@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Commands;
+using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -273,11 +274,11 @@ namespace Ringtoets.Integration.Forms.Views
         {
             data.Norm = Convert.ToInt32(normInput.Value);
             var affectedCalculations = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection).ToArray();
-            RingtoetsDataSynchronizationService.NotifyCalculationObservers(affectedCalculations);
 
             if (affectedCalculations.Length > 0)
             {
-                log.InfoFormat(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Results_of_0_calculations_cleared, affectedCalculations.Length);
+                affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
+                log.InfoFormat(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared, affectedCalculations.Length);
             }
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)
@@ -408,23 +409,6 @@ namespace Ringtoets.Integration.Forms.Views
 
             assessmentSection.NotifyObservers();
         }
-//
-//        private void ClearCalculationOutputForChangedContributions(double[] originalFailureMechanismContributions)
-//        {
-//            var allFailureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-//            for (int i = 0; i < allFailureMechanisms.Length; i++)
-//            {
-//                IFailureMechanism failureMechanism = allFailureMechanisms[i];
-//                if (originalFailureMechanismContributions[i] != failureMechanism.Contribution)
-//                {
-//                    foreach (ICalculation calculation in failureMechanism.Calculations)
-//                    {
-//                        calculation.ClearOutput();
-//                        calculation.NotifyObservers();
-//                    }
-//                }
-//            }
-//        }
 
         #endregion
     }

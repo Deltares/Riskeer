@@ -33,6 +33,17 @@ namespace Ringtoets.HeightStructures.Service.Test
     public class HeightStructuresDataSynchronizationServiceTest
     {
         [Test]
+        public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void ClearAllCalculationOutput_WithOutput_ClearsCalculationsOutput()
         {
             // Setup
@@ -92,6 +103,17 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
+        public void ClearHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => HeightStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void ClearHydraulicBoundaryLocations_WithHydraulicBoundaryLocation_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
@@ -127,6 +149,145 @@ namespace Ringtoets.HeightStructures.Service.Test
             foreach (HeightStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<HeightStructuresCalculation>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutAssessmentSection_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        {
+            // Setup
+            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            HeightStructuresCalculation calculation1 = new HeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            HeightStructuresCalculation calculation2 = new HeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<HeightStructuresCalculation> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (HeightStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<HeightStructuresCalculation>())
+            {
+                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
+                Assert.IsNull(calculation.Output);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
+        {
+            // Setup
+            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            HeightStructuresCalculation calculation1 = new HeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            HeightStructuresCalculation calculation2 = new HeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<HeightStructuresCalculation> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (HeightStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<HeightStructuresCalculation>())
+            {
+                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOuputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
+
+            HeightStructuresCalculation calculation1 = new HeightStructuresCalculation
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            HeightStructuresCalculation calculation2 = new HeightStructuresCalculation
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<HeightStructuresCalculation> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (HeightStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<HeightStructuresCalculation>())
+            {
+                Assert.IsNull(calculation.Output);
             }
             CollectionAssert.AreEqual(new[]
             {

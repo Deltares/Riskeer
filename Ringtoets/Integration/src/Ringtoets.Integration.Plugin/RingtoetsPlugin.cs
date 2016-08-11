@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
@@ -35,6 +36,7 @@ using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.IO.Exceptions;
+using Core.Common.Utils.Extensions;
 using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -1167,9 +1169,8 @@ namespace Ringtoets.Integration.Plugin
         private static void ClearCalculations(IAssessmentSection nodeData)
         {
             var affectedCalculations = new List<ICalculation>();
-            affectedCalculations.AddRange(RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(nodeData));
-            affectedCalculations.AddRange(RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationFromCalculations(nodeData));
-            RingtoetsDataSynchronizationService.NotifyCalculationObservers(affectedCalculations.Distinct());
+            affectedCalculations.AddRange(RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(nodeData));
+            affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
 
             log.Info(RingtoetsFormsResources.Calculations_Cleared);
         }

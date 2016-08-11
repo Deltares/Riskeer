@@ -26,17 +26,16 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Properties;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DesignWaterLevelContext"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
     /// </summary>
     public class DesignWaterLevelContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocationDesignWaterLevelProperties"/> from the <see cref="DesignWaterLevelContext"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocationDesignWaterLevelProperties"/> from the <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]

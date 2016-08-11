@@ -20,10 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -45,8 +42,8 @@ namespace Ringtoets.Integration.Service
         /// Clears all the output data within the <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the data for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static IEnumerable<ICalculation> ClearAssessmentSectionData(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
@@ -59,60 +56,79 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
+        /// Clears all the output data and hydraulic boundary locations within the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the data for.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<ICalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+
+            List<ICalculation> affectedItems = new List<ICalculation>();
+
+            foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
+                var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
+                var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
+
+                if (pipingFailureMechanism != null)
+                {
+                    affectedItems.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(pipingFailureMechanism));
+                }
+                if (grassCoverErosionInwardsFailureMechanism != null)
+                {
+                    affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionInwardsFailureMechanism));
+                }
+                if (heightStructuresFailureMechanism != null)
+                {
+                    affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(heightStructuresFailureMechanism));
+                }
+            }
+
+            return affectedItems;
+        }
+
+        /// <summary>
         /// Clears the output of all calculations in the <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static IEnumerable<ICalculation> ClearFailureMechanismCalculationOutputs(IAssessmentSection assessmentSection)
         {
-            List<ICalculation> affectedItems = new List<ICalculation>();
-
-            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(fm)));
-            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(fm)));
-            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(fm)));
-
-            return affectedItems;
-        }
-
-        /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all calculations in the <see cref="IAssessmentSection"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        public static IEnumerable<ICalculation> ClearHydraulicBoundaryLocationFromCalculations(IAssessmentSection assessmentSection)
-        {
-            List<ICalculation> affectedItems = new List<ICalculation>();
-
-            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-            failureMechanisms.OfType<PipingFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(PipingDataSynchronizationService.ClearHydraulicBoundaryLocations(fm)));
-            failureMechanisms.OfType<GrassCoverErosionInwardsFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearHydraulicBoundaryLocations(fm)));
-            failureMechanisms.OfType<HeightStructuresFailureMechanism>().ForEachElementDo(fm => affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations(fm)));
-
-            return affectedItems;
-        }
-
-        /// <summary>
-        /// Notifies the observers of the calculation in the <see cref="IAssessmentSection"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
-        public static void NotifyCalculationObservers(IAssessmentSection assessmentSection)
-        {
-            var failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-
-            foreach (ICalculation calc in failureMechanisms.SelectMany(fm => fm.Calculations))
+            if (assessmentSection == null)
             {
-                calc.NotifyObservers();
+                throw new ArgumentNullException("assessmentSection");
             }
-        }
 
-        /// <summary>
-        /// Notifies the observers of the <paramref name="affectedCalculations"/>.
-        /// </summary>
-        /// <param name="affectedCalculations">An <see cref="IEnumerable{T}"/> containing the calculations to notify.</param>
-        public static void NotifyCalculationObservers(IEnumerable<ICalculation> affectedCalculations)
-        {
-            affectedCalculations.ForEachElementDo(c => c.NotifyObservers());
+            List<ICalculation> affectedItems = new List<ICalculation>();
+
+            foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
+                var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
+                var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
+
+                if (pipingFailureMechanism != null)
+                {
+                    affectedItems.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(pipingFailureMechanism));
+                }
+                if (grassCoverErosionInwardsFailureMechanism != null)
+                {
+                    affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(grassCoverErosionInwardsFailureMechanism));
+                }
+                if (heightStructuresFailureMechanism != null)
+                {
+                    affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(heightStructuresFailureMechanism));
+                }
+            }
+
+            return affectedItems;
         }
 
         private static void ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)

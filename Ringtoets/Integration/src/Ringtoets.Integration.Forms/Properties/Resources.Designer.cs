@@ -349,15 +349,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De uitvoer van {0} berekeningen is verwijderd..
         /// </summary>
-        public static string FailureMechanismContributionView_NormValueChanged_Results_of_0_calculations_cleared {
+        public static string FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared {
             get {
-                return ResourceManager.GetString("FailureMechanismContributionView_NormValueChanged_Results_of_0_calculations_clear" +
-                        "ed", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations" +
+                        "_0_calculations_cleared", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekende toetspeilen en golfhoogte van alle hydraulische randvoorwaarden locaties zijn verwijderd..
+        ///   Looks up a localized string similar to De berekende toetspeilen en golfhoogtes van alle hydraulische randvoorwaarden locaties zijn verwijderd..
         /// </summary>
         public static string FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared {
             get {

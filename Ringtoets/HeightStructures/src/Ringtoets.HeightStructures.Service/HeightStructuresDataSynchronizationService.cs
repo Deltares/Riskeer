@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Utils.Extensions;
 using Ringtoets.HeightStructures.Data;
@@ -38,8 +39,14 @@ namespace Ringtoets.HeightStructures.Service
         /// </summary>
         /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<HeightStructuresCalculation> ClearAllCalculationOutput(HeightStructuresFailureMechanism failureMechanism)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
             var affectedItems = failureMechanism.Calculations
                                                 .Cast<HeightStructuresCalculation>()
                                                 .Where(c => c.HasOutput)
@@ -70,14 +77,60 @@ namespace Ringtoets.HeightStructures.Service
         /// </summary>
         /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<HeightStructuresCalculation> ClearHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
             var affectedItems = failureMechanism.Calculations
                                                 .Cast<HeightStructuresCalculation>()
                                                 .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
                                                 .ToArray();
 
             affectedItems.ForEachElementDo(ClearHydraulicBoundaryLocation);
+
+            return affectedItems;
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations in the <see cref="HeightStructuresFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<HeightStructuresCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            Collection<HeightStructuresCalculation> affectedItems = new Collection<HeightStructuresCalculation>();
+
+            foreach (var calculation in failureMechanism.Calculations.Cast<HeightStructuresCalculation>())
+            {
+                var calculationChanged = false;
+
+                if (calculation.HasOutput)
+                {
+                    ClearCalculationOutput(calculation);
+                    calculationChanged = true;
+                }
+
+                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
+                {
+                    ClearHydraulicBoundaryLocation(calculation);
+                    calculationChanged = true;
+                }
+
+                if (calculationChanged)
+                {
+                    affectedItems.Add(calculation);
+                }
+            }
 
             return affectedItems;
         }

@@ -332,7 +332,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.IsNull(viewHost.ActiveDocumentView);
                 Assert.AreSame(viewHost.ToolViews.ElementAt(0), mainWindow.PropertyGrid, "PropertyGrid instance should remain the same.");
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
-                Assert.AreEqual(selectedObjectProperties, mainWindow.PropertyGrid.Data);
+                Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
             }
             mocks.VerifyAll();
         }
@@ -374,7 +374,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.IsNull(viewHost.ActiveDocumentView);
                 Assert.AreSame(originalPropertyGrid, mainWindow.PropertyGrid, "PropertyGrid instance should remain the same.");
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
-                Assert.AreEqual(selectedObjectProperties, mainWindow.PropertyGrid.Data);
+                Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
             }
 
             mocks.VerifyAll();
@@ -427,7 +427,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 // Assert
                 Assert.IsInstanceOf<Gui.Forms.PropertyGridView.PropertyGridView>(mainWindow.PropertyGrid);
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
-                Assert.AreEqual(selectedObjectProperties, mainWindow.PropertyGrid.Data);
+                Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
 
                 Assert.IsInstanceOf<Gui.Forms.MessageWindow.MessageWindow>(mainWindow.MessageWindow);
                 Assert.AreEqual("Berichten", mainWindow.MessageWindow.Text);

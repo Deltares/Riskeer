@@ -26,6 +26,7 @@ using System.Reflection;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Properties;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.Selection;
@@ -35,7 +36,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
     /// <summary>
     /// View for displaying the properties of an data object.
     /// </summary>
-    public class PropertyGridView : PropertyGrid, IPropertyGrid, IObserver
+    public class PropertyGridView : PropertyGrid, IView, IObserver
     {
         /// <summary>
         /// This delegate enabled asynchronous calls to methods without arguments.
@@ -44,6 +45,8 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         private readonly IApplicationSelection applicationSelection;
         private readonly IPropertyResolver propertyResolver;
+
+        private object data;
 
         private IObservable observable;
 
@@ -115,16 +118,16 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                 return;
             }
 
-            Data = GetObjectProperties(selection);
+            Data = selection; //GetObjectProperties(selection);
         }
 
-        #region IPropertyGrid Members
+        #region IView Members
 
         public object Data
         {
             get
             {
-                return SelectedObject;
+                return data;
             }
             set
             {
@@ -134,7 +137,8 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                     observable = null;
                 }
 
-                SelectedObject = value;
+                data = value;
+                SelectedObject = GetObjectProperties(value);
 
                 var dynamicPropertyBag = SelectedObject as DynamicPropertyBag;
                 if (dynamicPropertyBag != null)
@@ -149,11 +153,12 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                             observable.Attach(this);
                         }
                     }
+                    ;
                 }
             }
         }
 
-        public object GetObjectProperties(object sourceData)
+        private object GetObjectProperties(object sourceData)
         {
             return propertyResolver.GetObjectProperties(sourceData);
         }

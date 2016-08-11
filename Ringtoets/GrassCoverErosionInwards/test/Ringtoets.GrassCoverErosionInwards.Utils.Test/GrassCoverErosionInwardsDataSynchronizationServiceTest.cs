@@ -34,6 +34,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
     public class GrassCoverErosionInwardsDataSynchronizationServiceTest
     {
         [Test]
+        public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void ClearAllCalculationOutput_WithOutput_ClearsCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
@@ -93,6 +104,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         }
 
         [Test]
+        public void ClearHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsDataSynchronizationService.ClearHydraulicBoundaryLocations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void ClearHydraulicBoundaryLocations_WithHydraulicBoundaryLocation_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
@@ -128,6 +150,145 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             foreach (GrassCoverErosionInwardsCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<GrassCoverErosionInwardsCalculation>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutAssessmentSection_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            GrassCoverErosionInwardsCalculation calculation1 = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+
+            GrassCoverErosionInwardsCalculation calculation2 = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+
+            GrassCoverErosionInwardsCalculation calculation3 = new GrassCoverErosionInwardsCalculation();
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<GrassCoverErosionInwardsCalculation> affectedItems = GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (GrassCoverErosionInwardsCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<GrassCoverErosionInwardsCalculation>())
+            {
+                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
+                Assert.IsNull(calculation.Output);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            GrassCoverErosionInwardsCalculation calculation1 = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            GrassCoverErosionInwardsCalculation calculation2 = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            GrassCoverErosionInwardsCalculation calculation3 = new GrassCoverErosionInwardsCalculation();
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<GrassCoverErosionInwardsCalculation> affectedItems = GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (GrassCoverErosionInwardsCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<GrassCoverErosionInwardsCalculation>())
+            {
+                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOuputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            GrassCoverErosionInwardsCalculation calculation1 = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+
+            GrassCoverErosionInwardsCalculation calculation2 = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+
+            GrassCoverErosionInwardsCalculation calculation3 = new GrassCoverErosionInwardsCalculation();
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<GrassCoverErosionInwardsCalculation> affectedItems = GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (GrassCoverErosionInwardsCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<GrassCoverErosionInwardsCalculation>())
+            {
+                Assert.IsNull(calculation.Output);
             }
             CollectionAssert.AreEqual(new[]
             {

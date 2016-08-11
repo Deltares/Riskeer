@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -119,7 +118,7 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
 
             // Call
-            var affectedItems = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
+            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
 
             // Assert
             Assert.IsNull(pipingCalculation.Output);
@@ -162,8 +161,8 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
 
             // Assert
-            PipingCalculation calculation1 = failureMechanism1.CalculationsGroup.Children[0] as PipingCalculation;
-            PipingCalculation calculation2 = failureMechanism2.CalculationsGroup.Children[0] as PipingCalculation;
+            PipingCalculation calculation1 = (PipingCalculation) failureMechanism1.CalculationsGroup.Children[0];
+            PipingCalculation calculation2 = (PipingCalculation) failureMechanism2.CalculationsGroup.Children[0];
             Assert.IsNull(calculation1.Output);
             Assert.IsNull(calculation2.Output);
             CollectionAssert.AreEqual(new[]
@@ -203,8 +202,8 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
 
             // Assert
-            GrassCoverErosionInwardsCalculation calculation1 = failureMechanism1.CalculationsGroup.Children[0] as GrassCoverErosionInwardsCalculation;
-            GrassCoverErosionInwardsCalculation calculation2 = failureMechanism2.CalculationsGroup.Children[0] as GrassCoverErosionInwardsCalculation;
+            GrassCoverErosionInwardsCalculation calculation1 = (GrassCoverErosionInwardsCalculation) failureMechanism1.CalculationsGroup.Children[0];
+            GrassCoverErosionInwardsCalculation calculation2 = (GrassCoverErosionInwardsCalculation) failureMechanism2.CalculationsGroup.Children[0];
             Assert.IsNull(calculation1.Output);
             Assert.IsNull(calculation2.Output);
             CollectionAssert.AreEqual(new[]
@@ -244,8 +243,8 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection);
 
             // Assert
-            HeightStructuresCalculation calculation1 = failureMechanism1.CalculationsGroup.Children[0] as HeightStructuresCalculation;
-            HeightStructuresCalculation calculation2 = failureMechanism2.CalculationsGroup.Children[0] as HeightStructuresCalculation;
+            HeightStructuresCalculation calculation1 = (HeightStructuresCalculation) failureMechanism1.CalculationsGroup.Children[0];
+            HeightStructuresCalculation calculation2 = (HeightStructuresCalculation) failureMechanism2.CalculationsGroup.Children[0];
             Assert.IsNull(calculation1.Output);
             Assert.IsNull(calculation2.Output);
             CollectionAssert.AreEqual(new[]
@@ -254,6 +253,17 @@ namespace Ringtoets.Integration.Service.Test
                 calculation2
             }, affectedItems);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ClearFailureMechanismCalculationOutputs_WithoutAssessmentSection_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -330,8 +340,8 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Assert
-            PipingCalculation calculation1 = failureMechanism1.CalculationsGroup.Children[0] as PipingCalculation;
-            PipingCalculation calculation2 = failureMechanism2.CalculationsGroup.Children[0] as PipingCalculation;
+            PipingCalculation calculation1 = (PipingCalculation) failureMechanism1.CalculationsGroup.Children[0];
+            PipingCalculation calculation2 = (PipingCalculation) failureMechanism2.CalculationsGroup.Children[0];
             Assert.IsNull(calculation1.Output);
             Assert.IsNull(calculation2.Output);
             CollectionAssert.AreEqual(new[]
@@ -370,8 +380,8 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Assert
-            GrassCoverErosionInwardsCalculation calculation1 = failureMechanism1.CalculationsGroup.Children[0] as GrassCoverErosionInwardsCalculation;
-            GrassCoverErosionInwardsCalculation calculation2 = failureMechanism2.CalculationsGroup.Children[0] as GrassCoverErosionInwardsCalculation;
+            GrassCoverErosionInwardsCalculation calculation1 = (GrassCoverErosionInwardsCalculation) failureMechanism1.CalculationsGroup.Children[0];
+            GrassCoverErosionInwardsCalculation calculation2 = (GrassCoverErosionInwardsCalculation) failureMechanism2.CalculationsGroup.Children[0];
             Assert.IsNull(calculation1.Output);
             Assert.IsNull(calculation2.Output);
             CollectionAssert.AreEqual(new[]
@@ -410,8 +420,8 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Assert
-            HeightStructuresCalculation calculation1 = failureMechanism1.CalculationsGroup.Children[0] as HeightStructuresCalculation;
-            HeightStructuresCalculation calculation2 = failureMechanism2.CalculationsGroup.Children[0] as HeightStructuresCalculation;
+            HeightStructuresCalculation calculation1 = (HeightStructuresCalculation) failureMechanism1.CalculationsGroup.Children[0];
+            HeightStructuresCalculation calculation2 = (HeightStructuresCalculation) failureMechanism2.CalculationsGroup.Children[0];
             Assert.IsNull(calculation1.Output);
             Assert.IsNull(calculation2.Output);
             CollectionAssert.AreEqual(new[]
@@ -423,7 +433,80 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationFromCalculations_WithAssessmentSection_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutAssessmentSection_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        {
+            // Setup
+            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
+            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new TestPipingOutput()
+            };
+
+            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+
+            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
+
+            // Call
+            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
+
+            // Assert
+            Assert.IsNull(pipingCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(grassCoverErosionInwardsCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(heightStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(pipingCalculation.Output);
+            Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
+            Assert.IsNull(heightStructuresCalculation.Output);
+            CollectionAssert.AreEqual(new ICalculation[]
+            {
+                pipingCalculation,
+                grassCoverErosionInwardsCalculation,
+                heightStructuresCalculation
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -464,7 +547,7 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
 
             // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationFromCalculations(assessmentSection);
+            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
 
             // Assert
             Assert.IsNull(pipingCalculation.InputParameters.HydraulicBoundaryLocation);
@@ -479,203 +562,49 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationFromCalculations_WithMultiplePipingFailureMechanisms_ClearsHydraulicBoundaryLocationsAndReturnsAffectedItems()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOuputAndReturnsAffectedCalculations()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
-
-            PipingFailureMechanism failureMechanism1 = new PipingFailureMechanism();
-            failureMechanism1.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            });
-            PipingFailureMechanism failureMechanism2 = new PipingFailureMechanism();
-            failureMechanism2.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            });
-
-            MockRepository mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
-            mocks.ReplayAll();
-
-            // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationFromCalculations(assessmentSection);
-
-            // Assert
-            PipingCalculation calculation1 = failureMechanism1.CalculationsGroup.Children[0] as PipingCalculation;
-            PipingCalculation calculation2 = failureMechanism2.CalculationsGroup.Children[0] as PipingCalculation;
-            Assert.IsNull(calculation1.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(calculation2.InputParameters.HydraulicBoundaryLocation);
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationFromCalculations_WithMultipleGrassCoverErosionInwardsFailureMechanisms_ClearsHydraulicBoundaryLocationsAndReturnsAffectedItems()
-        {
-            // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
-
-            GrassCoverErosionInwardsFailureMechanism failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism1.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            });
-            GrassCoverErosionInwardsFailureMechanism failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism2.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            });
-
-            MockRepository mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
-            mocks.ReplayAll();
-
-            // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationFromCalculations(assessmentSection);
-
-            // Assert
-            GrassCoverErosionInwardsCalculation calculation1 = failureMechanism1.CalculationsGroup.Children[0] as GrassCoverErosionInwardsCalculation;
-            GrassCoverErosionInwardsCalculation calculation2 = failureMechanism2.CalculationsGroup.Children[0] as GrassCoverErosionInwardsCalculation;
-            Assert.IsNull(calculation1.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(calculation2.InputParameters.HydraulicBoundaryLocation);
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationFromCalculations_WithMultipleHeightStructuresFailureMechanisms_ClearsHydraulicBoundaryLocationsAndReturnsAffectedItems()
-        {
-            // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
-
-            HeightStructuresFailureMechanism failureMechanism1 = new HeightStructuresFailureMechanism();
-            failureMechanism1.CalculationsGroup.Children.Add(new HeightStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            });
-            HeightStructuresFailureMechanism failureMechanism2 = new HeightStructuresFailureMechanism();
-            failureMechanism2.CalculationsGroup.Children.Add(new HeightStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            });
-
-            MockRepository mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
-            mocks.ReplayAll();
-
-            // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationFromCalculations(assessmentSection);
-
-            // Assert
-            HeightStructuresCalculation calculation1 = failureMechanism1.CalculationsGroup.Children[0] as HeightStructuresCalculation;
-            HeightStructuresCalculation calculation2 = failureMechanism2.CalculationsGroup.Children[0] as HeightStructuresCalculation;
-            Assert.IsNull(calculation1.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(calculation2.InputParameters.HydraulicBoundaryLocation);
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void NotifyCalculationObservers_Always_NotifiesAllCalculationsInAssessmentSection()
-        {
-            // Setup
-            MockRepository mocks = new MockRepository();
-            IObserver observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(3);
-            mocks.ReplayAll();
-
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            pipingCalculation.Attach(observer);
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            grassCoverErosionInwardsCalculation.Attach(observer);
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation();
-            heightStructuresCalculation.Attach(observer);
-
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+
+            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            {
+                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
+            };
+
+            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
 
             // Call
-            RingtoetsDataSynchronizationService.NotifyCalculationObservers(assessmentSection);
+            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
 
             // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void NotifyCalculationObservers_Always_NotifiesGivenCalculations()
-        {
-            // Setup
-            MockRepository mocks = new MockRepository();
-            IObserver observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Times(3);
-            mocks.ReplayAll();
-
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            pipingCalculation.Attach(observer);
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            grassCoverErosionInwardsCalculation.Attach(observer);
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation();
-            heightStructuresCalculation.Attach(observer);
-
-            // Call
-            RingtoetsDataSynchronizationService.NotifyCalculationObservers(new ICalculation[]
+            Assert.IsNull(pipingCalculation.Output);
+            Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
+            Assert.IsNull(heightStructuresCalculation.Output);
+            CollectionAssert.AreEqual(new ICalculation[]
             {
                 pipingCalculation,
                 grassCoverErosionInwardsCalculation,
                 heightStructuresCalculation
-            });
-
-            // Assert
-            mocks.VerifyAll();
+            }, affectedItems);
         }
     }
 }

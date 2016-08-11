@@ -49,6 +49,7 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Setup
             const int normValue = 200;
+            const int numberOfCalculations = 3;
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
@@ -91,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Test
             IObserver observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
             IObserver calculationObserver = mockRepository.StrictMock<IObserver>();
-            calculationObserver.Expect(co => co.UpdateObserver()).Repeat.Times(3);
+            calculationObserver.Expect(co => co.UpdateObserver()).Repeat.Times(numberOfCalculations);
             IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
             mockRepository.ReplayAll();
@@ -136,7 +137,7 @@ namespace Ringtoets.Integration.Forms.Test
                 TestHelper.AssertLogMessages(call, msgs =>
                 {
                     string[] messages = msgs.ToArray();
-                    Assert.AreEqual(string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_0_calculations_cleared, 3), messages[0]);
+                    Assert.AreEqual(string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared, numberOfCalculations), messages[0]);
                     Assert.AreEqual(Resources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared, messages[1]);
                 });
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);

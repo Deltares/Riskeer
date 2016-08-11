@@ -178,7 +178,6 @@
     <Compile Include="ContextMenu\GuiContextMenuItemFactory.cs" />
     <Compile Include="Forms\IRibbonCommandHandler.cs" />
     <Compile Include="Forms\IProjectExplorer.cs" />
-    <Compile Include="Forms\IPropertyGrid.cs" />
     <Compile Include="Forms\MainWindow\IMainWindow.cs" />
     <Compile Include="Forms\MainWindow\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

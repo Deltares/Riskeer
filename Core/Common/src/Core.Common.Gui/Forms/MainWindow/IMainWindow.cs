@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.ViewHost;
 
@@ -38,7 +39,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// <summary>
         /// Gets the property grid tool window.
         /// </summary>
-        IPropertyGrid PropertyGrid { get; }
+        IView PropertyGrid { get; }
 
         /// <summary>
         /// Gets the log messages tool window.
