@@ -31,27 +31,28 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     internal class NormDependentFactorCollection
     {
-        private readonly Tuple<int,double>[] points;
+        private readonly Tuple<int,double>[] knownFactors;
 
         /// <summary>
-        /// Creates a new instance of <see cref="NormDependentFactorCollection"/>. The <paramref name="points"/> 
+        /// Creates a new instance of <see cref="NormDependentFactorCollection"/>. The <paramref name="knownFactors"/> 
         /// are considered to be following a logarithmic function perfectly.
         /// </summary>
-        /// <param name="points">Points that form a logarthmic function when fitted.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="points"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException"><paramref name="points"/> is contains fewer than 2 points.</exception>
-        public NormDependentFactorCollection(params Tuple<int, double>[] points)
+        /// <param name="knownFactors">Combinations of norms and calculated factors, which form a logarthmic function
+        /// when fitted.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="knownFactors"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="knownFactors"/> is contains fewer than 2 points.</exception>
+        public NormDependentFactorCollection(params Tuple<int, double>[] knownFactors)
         {
-            if (points == null)
+            if (knownFactors == null)
             {
-                throw new ArgumentNullException("points", "Point collection requires a value.");
+                throw new ArgumentNullException("knownFactors", "Point collection requires a value.");
             }
-            if (points.Length < 2)
+            if (knownFactors.Length < 2)
             {
                 throw new ArgumentException("Need at least two points to be able to obtain norm dependent factors.");
             }
 
-            this.points = points.OrderBy(p => p.Item1).ToArray();
+            this.knownFactors = knownFactors.OrderBy(p => p.Item1).ToArray();
         }
 
         /// <summary>
@@ -63,36 +64,50 @@ namespace Ringtoets.Piping.Data
         /// greater than the maximum norm for which a factor has been defined.</exception>
         public double GetFactorFromNorm(int norm)
         {
-            if (norm < points.First().Item1 || norm > points.Last().Item1)
+            var minimumNorm = knownFactors.First().Item1;
+            var maximumNorm = knownFactors.Last().Item1;
+
+            if (norm < minimumNorm || norm > maximumNorm)
             {
-                var message = string.Format("The value of norm needs to be in range [{0},{1}].", points.First().Item1, points.Last().Item1);
+                var message = string.Format("The value of norm needs to be in range [{0}, {1}].", minimumNorm, maximumNorm);
                 throw new ArgumentOutOfRangeException("norm", message);
             }
 
+            var factorRightOfNormIndex = FactorRightOfNormIndex(norm);
+
+            var normLog = Math.Log10(norm);
+            var firstPoint = ToPointInLogXScale(knownFactors[factorRightOfNormIndex-1]);
+            var secondPoint = ToPointInLogXScale(knownFactors[factorRightOfNormIndex]);
+
+            return Math2D.GetInterpolatedPointAtFraction(
+                new Segment2D(firstPoint,secondPoint),
+                (normLog - firstPoint.X) / (secondPoint.X - firstPoint.X)).Y;
+        }
+
+        /// <summary>
+        /// Gets the index of the known factor for which the norm is the minimum in the subset of factors for which the norm
+        /// is larger that the given <paramref name="norm"/>.
+        /// </summary>
+        /// <param name="norm">The norm to compare the known factors' norms with.</param>
+        /// <returns>The index of the factor with minimum norm larger than <paramref name="norm"/>.</returns>
+        private int FactorRightOfNormIndex(int norm)
+        {
             int i = 1;
-            for (; i < points.Length; i++)
+            for (; i < knownFactors.Length; i++)
             {
-                if (points[i].Item1 >= norm)
+                if (knownFactors[i].Item1 >= norm)
                 {
                     break;
                 }
             }
-
-            var normLog = Math.Log10(norm);
-            var firstPoint = ToPointInLogXScale(points[i-1]);
-            var secondPoint = ToPointInLogXScale(points[i]);
-
-            return Math2D.GetInterpolatedPointAtFraction(new Segment2D(
-                                            firstPoint,
-                                            secondPoint),
-                                        (normLog - firstPoint.X) / (secondPoint.X - firstPoint.X)).Y;
+            return i;
         }
 
         private static Point2D ToPointInLogXScale(Tuple<int, double> point)
         {
-            var x1 = Math.Log10(point.Item1);
-            var y1 = point.Item2;
-            return new Point2D(x1, y1);
+            var x = Math.Log10(point.Item1);
+            var y = point.Item2;
+            return new Point2D(x, y);
         }
     }
 }

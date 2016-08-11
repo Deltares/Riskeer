@@ -258,6 +258,10 @@ namespace Core.Common.Base.Geometry
         /// <returns>A new <see cref="Point2D"/> at the interpolated point.</returns>
         public static Point2D GetInterpolatedPointAtFraction(Segment2D lineSegment, double fraction)
         {
+            if (double.IsNaN(fraction)|| fraction < 0.0 || fraction > 1.0)
+            {
+                throw new ArgumentOutOfRangeException("fraction", "Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");
+            }
             Vector<double> segmentVector = lineSegment.SecondPoint - lineSegment.FirstPoint;
             return lineSegment.FirstPoint + segmentVector.Multiply(fraction);
         }

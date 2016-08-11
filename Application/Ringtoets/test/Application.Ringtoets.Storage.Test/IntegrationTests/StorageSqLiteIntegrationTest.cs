@@ -724,6 +724,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertProbabilityAssessmentInput(PipingProbabilityAssessmentInput expectedModel, PipingProbabilityAssessmentInput actualModel)
         {
             Assert.AreEqual(expectedModel.A, actualModel.A);
+            Assert.AreEqual(expectedModel.UpliftCriticalSafetyFactor, actualModel.UpliftCriticalSafetyFactor);
         }
 
         private static void AssertStochasticSoilModels(ObservableList<StochasticSoilModel> expectedModels, ObservableList<StochasticSoilModel> actualModels)

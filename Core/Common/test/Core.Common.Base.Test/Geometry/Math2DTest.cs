@@ -1133,35 +1133,25 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void GetInterpolatedPoint_BeyondSecondEndPoint_ReturnsExtrapolatedPoint()
+        [TestCase(double.NaN)]
+        [TestCase(-1e-9)]
+        [TestCase(1+1e-9)]
+        [TestCase(3)]
+        [TestCase(-2)]
+        public void GetInterpolatedPoint_WithInvalidFraction_ThrowsArgumentOutOfRangeException(double fraction)
         {
             // Setup
             var pointA = new Point2D(1.8, 5.02);
             var pointB = new Point2D(3.8, -2.2);
             var segment = new Segment2D(pointA, pointB);
-            var fraction = 1.5;
 
             // Call
-            Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
+            TestDelegate test = () => Math2D.GetInterpolatedPointAtFraction(segment, fraction);
 
             // Assert
-            Assert.AreEqual(new Point2D(4.8, 5.02 + (-2.2 - 5.02) * fraction), result);
-        }
-
-        [Test]
-        public void GetInterpolatedPoint_BeforeFirstEndPoint_ReturnsExtrapolatedPoint()
-        {
-            // Setup
-            var pointA = new Point2D(1.8, 5.02);
-            var pointB = new Point2D(3.8, -2.2);
-            var segment = new Segment2D(pointA, pointB);
-            var fraction = -0.5;
-
-            // Call
-            Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
-
-            // Assert
-            Assert.AreEqual(new Point2D(1.8 + (3.8 - 1.8) * fraction, 5.02 + ((-2.2 - 5.02) * fraction)), result);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
+                test, 
+                "Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");
         }
 
         private static void CollectionAssertAreEquivalent(Point2D[] expected, Point2D[] actual)

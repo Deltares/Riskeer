@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -93,11 +94,11 @@ namespace Ringtoets.Piping.Data.Test
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
 
             // Call
-            TestDelegate call = () => pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = (RoundedDouble) value;
+            TestDelegate test = () => pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = (RoundedDouble) value;
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("Kritische veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen.", exception.Message);
+            var expectedMessage = "Kritische veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
@@ -128,7 +129,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => pipingProbabilityAssessmentInput.GetSellmeijerNormDependentFactor(norm);
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(test);
+            var expectedMessage = "The value of norm needs to be in range [100, 300000].";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
@@ -164,7 +166,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => pipingProbabilityAssessmentInput.GetHeaveNormDependentFactor(norm);
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(test);
+            var expectedMessage = "The value of norm needs to be in range [100, 300000].";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]

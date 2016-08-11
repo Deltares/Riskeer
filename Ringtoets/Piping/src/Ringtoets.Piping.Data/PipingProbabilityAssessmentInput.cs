@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets 'a' parameter used to factor in the 'length effect' when determining the
+        /// Gets or sets 'a' parameter used to factor in the 'length effect' when determining the
         /// maximum tolerated probability of failure.
         /// </summary>
         public double A
@@ -86,8 +86,10 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Gets the critical safety factor to which the calculated uplift stability factor is compared.
+        /// Gets or sets the critical safety factor to which the calculated uplift stability factor is compared.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the rounded <paramref name="value"/> is outside
+        /// range (0, 50].</exception>
         public RoundedDouble UpliftCriticalSafetyFactor
         {
             get
@@ -99,7 +101,9 @@ namespace Ringtoets.Piping.Data
                 var roundedValue = new RoundedDouble(upliftCriticalSafetyFactor.NumberOfDecimalPlaces, value);
                 if (roundedValue <= 0 || roundedValue > 50)
                 {
-                    throw new ArgumentException(Resources.PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_range_zero_and_fifty);
+                    throw new ArgumentOutOfRangeException(
+                        "value",
+                        Resources.PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_range_zero_and_fifty);
                 }
                 upliftCriticalSafetyFactor = roundedValue;
             }

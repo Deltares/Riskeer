@@ -115,6 +115,9 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void ConfigurePipingFailureMechanism(PipingFailureMechanism pipingFailureMechanism, AssessmentSection assessmentSection)
         {
+            pipingFailureMechanism.PipingProbabilityAssessmentInput.A = 0.9;
+            pipingFailureMechanism.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = (RoundedDouble) 1.9;
+
             var referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
 
             PipingSoilProfile pipingSoilProfile = new TestPipingSoilProfile();

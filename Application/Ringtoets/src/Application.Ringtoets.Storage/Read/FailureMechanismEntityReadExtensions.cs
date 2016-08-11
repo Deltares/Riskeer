@@ -116,6 +116,7 @@ namespace Application.Ringtoets.Storage.Read
 
             pipingProbabilityAssessmentInput.StorageId = probabilityAssessmentInput.StorageId;
             pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
+            pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = probabilityAssessmentInput.UpliftCriticalSafetyFactor;
         }
 
         private static void ReadPipingMechanismSectionResults(this FailureMechanismEntity entity, PipingFailureMechanism failureMechanism, ReadConversionCollector collector)
