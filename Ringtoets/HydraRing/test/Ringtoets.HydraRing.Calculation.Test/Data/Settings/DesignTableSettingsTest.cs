@@ -31,12 +31,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Settings
         public void Constructor_ExpectedValues()
         {
             // Call
-            var designTableSettings = new DesignTableSettings(1.1, 2.2, 3.3);
+            var designTableSettings = new DesignTableSettings(1.1, 2.2);
 
             // Assert
             Assert.AreEqual(1.1, designTableSettings.ValueMin);
             Assert.AreEqual(2.2, designTableSettings.ValueMax);
-            Assert.AreEqual(3.3, designTableSettings.FaultTreeModelId);
         }
     }
 }

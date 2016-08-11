@@ -28,18 +28,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
     [TestFixture]
     public class DesignTableSettingsProviderTest
     {
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 5.0, 15.0, 1)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 5.0, 15.0, 7)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, 5.0, 15.0, 11)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 5.0, 15.0, 14)]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 5.0, 15.0, 16)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, double.NaN, double.NaN, 1017)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, 5.0, 15.0, 1017)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, double.NaN, double.NaN, 3015)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, double.NaN, double.NaN, 4404)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, double.NaN, double.NaN, 4505)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, double.NaN, double.NaN, 4607)]
-        public void GetDesignTableSettings_DefaultsOnly_ReturnsExpectedDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax, double expectedFaultTreeModelId)
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesPiping, double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, double.NaN, double.NaN)]
+        public void GetDesignTableSettings_DefaultsOnly_ReturnsExpectedDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax)
         {
             // Setup
             var designTablesSettingsProvider = new DesignTableSettingsProvider();
@@ -50,7 +50,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             // Assert
             Assert.AreEqual(expectedValueMin, designTableSettings.ValueMin);
             Assert.AreEqual(expectedValueMax, designTableSettings.ValueMax);
-            Assert.AreEqual(expectedFaultTreeModelId, designTableSettings.FaultTreeModelId);
         }
     }
 }

@@ -604,7 +604,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
                 var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                var designTableSettings = designTableSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -621,7 +620,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                     },
                     {
-                        "FaultTreeModelId", designTableSettings.FaultTreeModelId
+                        "FaultTreeModelId",failureMechanismDefaults.FaultTreeModelId
                     }
                 });
             }

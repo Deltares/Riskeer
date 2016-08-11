@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Defaults
             {
                 2,
                 3
-            });
+            }, 4);
 
             // Assert
             Assert.AreEqual(1, failureMechanismDefaults.MechanismId);
@@ -44,6 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Defaults
                 2,
                 3
             }, failureMechanismDefaults.SubMechanismIds);
+            Assert.AreEqual(4, failureMechanismDefaults.FaultTreeModelId);
         }
     }
 }
