@@ -42,7 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         public void GetDesignTableSettings_DefaultsOnly_ReturnsExpectedDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax, double expectedFaultTreeModelId)
         {
             // Setup
-            var designTablesSettingsProvider = new DesignTablesSettingsProvider();
+            var designTablesSettingsProvider = new DesignTableSettingsProvider();
 
             // Call
             var designTableSettings = designTablesSettingsProvider.GetDesignTableSettings(failureMechanismType);

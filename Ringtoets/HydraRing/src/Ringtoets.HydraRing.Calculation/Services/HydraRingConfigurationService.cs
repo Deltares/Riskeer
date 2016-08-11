@@ -64,7 +64,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private readonly string ringId;
         private readonly IList<HydraRingCalculationInput> hydraRingCalculationInputs;
         private readonly NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
-        private readonly DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
+        private readonly DesignTableSettingsProvider designTableSettingsProvider = new DesignTableSettingsProvider();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
         private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
@@ -252,7 +252,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
                 var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                var designTableSettings = designTablesSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType);
+                var designTableSettings = designTableSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -604,7 +604,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
                 var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                var designTableSettings = designTablesSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType);
+                var designTableSettings = designTableSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {

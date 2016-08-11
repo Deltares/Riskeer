@@ -28,14 +28,14 @@ namespace Ringtoets.HydraRing.Calculation.Providers
     /// <summary>
     /// Provider of <see cref="DesignTableSettings"/>.
     /// </summary>
-    internal class DesignTablesSettingsProvider
+    internal class DesignTableSettingsProvider
     {
         private readonly IDictionary<HydraRingFailureMechanismType, DesignTableSettings> defaultDesignTableSettings;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DesignTablesSettingsProvider"/> class.
+        /// Creates a new instance of the <see cref="DesignTableSettingsProvider"/> class.
         /// </summary>
-        public DesignTablesSettingsProvider()
+        public DesignTableSettingsProvider()
         {
             defaultDesignTableSettings = new Dictionary<HydraRingFailureMechanismType, DesignTableSettings>
             {

@@ -88,7 +88,7 @@
     <Compile Include="Data\Defaults\FailureMechanismDefaults.cs" />
     <Compile Include="Providers\FailureMechanismDefaultsProvider.cs" />
     <Compile Include="Data\Settings\DesignTableSettings.cs" />
-    <Compile Include="Providers\DesignTablesSettingsProvider.cs" />
+    <Compile Include="Providers\DesignTableSettingsProvider.cs" />
     <Compile Include="Providers\NumericsSettingsProvider.cs" />
     <Compile Include="Data\HydraRingFailureMechanismType.cs" />
     <Compile Include="Services\HydraRingConfigurationService.cs" />
