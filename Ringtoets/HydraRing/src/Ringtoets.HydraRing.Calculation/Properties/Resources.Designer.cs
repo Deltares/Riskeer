@@ -61,6 +61,39 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;TrajectID&quot;;&quot;Variabele&quot;;&quot;Min&quot;;&quot;Max&quot;
+        ///&quot;205&quot;;&quot;Toetspeil&quot;;5;15
+        ///&quot;205&quot;;&quot;Q&quot;;5;15
+        ///&quot;205&quot;;&quot;Hs&quot;;5;15
+        ///&quot;205&quot;;&quot;Tp&quot;;5;15
+        ///&quot;205&quot;;&quot;Tm-1,0&quot;;5;15
+        ///&quot;205&quot;;&quot;HBN&quot;;5;15
+        ///&quot;11-1&quot;;&quot;Toetspeil&quot;;5;15
+        ///&quot;11-1&quot;;&quot;Q&quot;;5;15
+        ///&quot;11-1&quot;;&quot;Hs&quot;;5;15
+        ///&quot;11-1&quot;;&quot;Tp&quot;;5;15
+        ///&quot;11-1&quot;;&quot;Tm-1,0&quot;;5;15
+        ///&quot;11-1&quot;;&quot;HBN&quot;;5;15
+        ///&quot;34-1&quot;;&quot;Toetspeil&quot;;5;15
+        ///&quot;34-1&quot;;&quot;Q&quot;;5;15
+        ///&quot;34-1&quot;;&quot;Hs&quot;;5;15
+        ///&quot;34-1&quot;;&quot;Tp&quot;;5;15
+        ///&quot;34-1&quot;;&quot;Tm-1,0&quot;;5;15
+        ///&quot;34-1&quot;;&quot;HBN&quot;;5;15
+        ///&quot;34-2&quot;;&quot;Toetspeil&quot;;5;15
+        ///&quot;34-2&quot;;&quot;Q&quot;;5;15
+        ///&quot;34-2&quot;;&quot;Hs&quot;;5;15
+        ///&quot;34-2&quot;;&quot;Tp&quot;;5;15
+        ///&quot;34-2&quot;;&quot;Tm-1,0&quot;;5;15
+        ///&quot;34-2&quot;;&quot;HBN&quot;;....
+        /// </summary>
+        internal static string DesignTableSettings {
+            get {
+                return ResourceManager.GetString("DesignTableSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to HydraRing berekeningsverslag. Klik op details voor meer informatie.
         ///{0}.
         /// </summary>

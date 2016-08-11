@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Settings;
 using Ringtoets.HydraRing.Calculation.Providers;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Providers
@@ -28,28 +29,47 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
     [TestFixture]
     public class DesignTableSettingsProviderTest
     {
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, double.NaN, double.NaN)]
-        public void GetDesignTableSettings_DefaultsOnly_ReturnsExpectedDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, double expectedValueMin, double expectedValueMax)
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "4", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "4", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, "205", double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesPiping, "205", double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, "205", double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, "205", double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, "205", double.NaN, double.NaN)]
+        public void GetDesignTableSettings_UnknownFailureMechanismTypeOrRingId_ReturnsDefaultDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
         {
             // Setup
-            var designTablesSettingsProvider = new DesignTableSettingsProvider();
+            DesignTableSettingsProvider designTablesSettingsProvider = new DesignTableSettingsProvider();
 
             // Call
-            var designTableSettings = designTablesSettingsProvider.GetDesignTableSettings(failureMechanismType);
+            DesignTableSettings designTableSettings = designTablesSettingsProvider.GetDesignTableSettings(failureMechanismType, ringId);
 
             // Assert
             Assert.AreEqual(expectedValueMin, designTableSettings.ValueMin);
             Assert.AreEqual(expectedValueMax, designTableSettings.ValueMax);
+        }
+
+        [Test]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "205")]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "205")]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "11-1")]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "11-1")]
+        public void GetDesignTableSettings_KnownRingIdAndFailureMechanismType_ReturnsExpectedDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, string ringId)
+        {
+            // Setup
+            DesignTableSettingsProvider designTableSettingsProvider = new DesignTableSettingsProvider();
+            DesignTableSettings expectedSettings = new DesignTableSettings(5, 15);
+
+            // Call
+            DesignTableSettings settings = designTableSettingsProvider.GetDesignTableSettings(failureMechanismType, ringId);
+
+            // Assert
+            Assert.AreEqual(expectedSettings.ValueMin, settings.ValueMin);
+            Assert.AreEqual(expectedSettings.ValueMax, settings.ValueMax);
         }
     }
 }

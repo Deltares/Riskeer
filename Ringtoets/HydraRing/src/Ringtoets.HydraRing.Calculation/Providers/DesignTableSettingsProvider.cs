@@ -22,6 +22,8 @@
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
+using Ringtoets.HydraRing.Calculation.IO;
+using Ringtoets.HydraRing.Calculation.Properties;
 
 namespace Ringtoets.HydraRing.Calculation.Providers
 {
@@ -30,12 +32,38 @@ namespace Ringtoets.HydraRing.Calculation.Providers
     /// </summary>
     internal class DesignTableSettingsProvider
     {
-        private readonly IDictionary<HydraRingFailureMechanismType, DesignTableSettings> defaultDesignTableSettings;
+        private readonly IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>> fileDesignTableSettings;
+        private IDictionary<HydraRingFailureMechanismType, DesignTableSettings> defaultDesignTableSettings;
 
         /// <summary>
         /// Creates a new instance of the <see cref="DesignTableSettingsProvider"/> class.
         /// </summary>
         public DesignTableSettingsProvider()
+        {
+            InitializeDefaultDesignTableSettings();
+
+            fileDesignTableSettings = new DesignTableSettingsCsvReader(Resources.DesignTableSettings).ReadSettings();
+        }
+
+        /// <summary>
+        /// Returns <see cref="DesignTableSettings"/> based on the provided <see cref="HydraRingFailureMechanismType"/>.
+        /// </summary>
+        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="DesignTableSettings"/> for.</param>
+        /// <param name="ringId"></param>
+        /// <returns>The <see cref="DesignTableSettings"/> corresponding to the provided <see cref="HydraRingFailureMechanismType"/>.</returns>
+        public DesignTableSettings GetDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, string ringId)
+        {
+            if (fileDesignTableSettings.ContainsKey(failureMechanismType) &&
+                ringId != null &&
+                fileDesignTableSettings[failureMechanismType].ContainsKey(ringId))
+            {
+                return fileDesignTableSettings[failureMechanismType][ringId];
+            }
+
+            return defaultDesignTableSettings[failureMechanismType];
+        }
+
+        private void InitializeDefaultDesignTableSettings()
         {
             defaultDesignTableSettings = new Dictionary<HydraRingFailureMechanismType, DesignTableSettings>
             {
@@ -84,16 +112,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     new DesignTableSettings(double.NaN, double.NaN)
                 }
             };
-        }
-
-        /// <summary>
-        /// Returns <see cref="DesignTableSettings"/> based on the provided <see cref="HydraRingFailureMechanismType"/>.
-        /// </summary>
-        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="DesignTableSettings"/> for.</param>
-        /// <returns>The <see cref="DesignTableSettings"/> corresponding to the provided <see cref="HydraRingFailureMechanismType"/>.</returns>
-        public DesignTableSettings GetDesignTableSettings(HydraRingFailureMechanismType failureMechanismType)
-        {
-            return defaultDesignTableSettings[failureMechanismType];
         }
     }
 }

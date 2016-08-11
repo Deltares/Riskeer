@@ -252,7 +252,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
                 var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                var designTableSettings = designTableSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType);
+                var designTableSettings = designTableSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType, ringId);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
