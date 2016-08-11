@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meerdere aaneengesloten deklagen gevonden. Er wordt geprobeerd de gemiddelden van de definities voor het verzadigd gewicht van de deklagen te combineren..
+        ///   Looks up a localized string similar to Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen zullen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaard deviaties en verschuivingen voor alle lagen gelijk zijn..
         /// </summary>
         internal static string PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination {
             get {

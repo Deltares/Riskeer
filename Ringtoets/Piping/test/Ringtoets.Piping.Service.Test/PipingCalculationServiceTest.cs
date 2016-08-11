@@ -640,7 +640,7 @@ namespace Ringtoets.Piping.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                StringAssert.StartsWith("Meerdere aaneengesloten deklagen gevonden. Er wordt geprobeerd de gemiddelden van de definities voor het verzadigd gewicht van de deklagen te combineren.", msgs[1]);
+                StringAssert.StartsWith("Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen zullen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaard deviaties en verschuivingen voor alle lagen gelijk zijn.", msgs[1]);
                 StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsTrue(isValid);

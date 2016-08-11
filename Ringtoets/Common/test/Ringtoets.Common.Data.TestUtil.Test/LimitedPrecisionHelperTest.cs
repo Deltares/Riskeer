@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var accuracy = roundedDouble.GetAccuracy();
 
             // Assert
-            var expectedPrecision = Math.Pow(10.0, -precision);
+            var expectedPrecision = 0.5 * Math.Pow(10.0, -precision);
             Assert.AreEqual(expectedPrecision, accuracy);
         }
 
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var accuracy = distribution.GetAccuracy();
 
             // Assert
-            var expectedPrecision = Math.Pow(10.0, -precision);
+            var expectedPrecision = 0.5 * Math.Pow(10.0, -precision);
             Assert.AreEqual(expectedPrecision, accuracy);
         }
 
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var accuracy = roundedCollectoin.GetAccuracy();
 
             // Assert
-            var expectedPrecision = Math.Pow(10.0, -precision);
+            var expectedPrecision = 0.5 * Math.Pow(10.0, -precision);
             Assert.AreEqual(expectedPrecision, accuracy);
         }
 

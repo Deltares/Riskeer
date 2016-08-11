@@ -713,7 +713,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersEqualShiftAndStandardDeviation_ReturnsWithWeightedMean()
+        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersEqualStandardDeviationAndShift_ReturnsWithWeightedMean()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
@@ -750,6 +750,54 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5, result.Mean, result.Mean.GetAccuracy());
             Assert.AreEqual(shift, result.Shift, result.Shift.GetAccuracy());
             Assert.AreEqual(deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(0.01, 0)]
+        [TestCase(0, 0.01)]
+        [TestCase(2, 1)]
+        [TestCase(3, -1)]
+        [TestCase(-0.01, 0)]
+        [TestCase(0, -0.01)]
+        [TestCase(-2, 1)]
+        [TestCase(-3, -1)]
+        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShift_ReturnsNaNValues(double deviationDelta, double shiftDelta)
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var random = new Random(21);
+            var belowPhreaticLevelMeanA = random.NextDouble();
+            var belowPhreaticLevelMeanB = random.NextDouble();
+            double deviation = random.NextDouble();
+            double shift = random.NextDouble();
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
+            {
+                new PipingSoilLayer(2.5)
+                {
+                    BelowPhreaticLevelDeviation = deviation,
+                    BelowPhreaticLevelShift = shift,
+                    BelowPhreaticLevelMean = belowPhreaticLevelMeanA
+                },
+                new PipingSoilLayer(-0.5)
+                {
+                    BelowPhreaticLevelDeviation = deviation + deviationDelta,
+                    BelowPhreaticLevelShift = shift + shiftDelta,
+                    BelowPhreaticLevelMean = belowPhreaticLevelMeanB
+                },
+                new PipingSoilLayer(-1.5)
+                {
+                    IsAquifer = true
+                }, 
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.IsNaN(result.Mean);
+            Assert.IsNaN(result.Shift);
+            Assert.IsNaN(result.StandardDeviation);
         }
 
         [Test]

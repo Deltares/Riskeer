@@ -298,9 +298,11 @@ namespace Ringtoets.Piping.Data
                 return true;
             }
 
-            return consecutiveAquitardLayers.All(al =>
-                                                 AlmostEquals(al.BelowPhreaticLevelDeviation, consecutiveAquitardLayers[0].BelowPhreaticLevelDeviation, deviationNumberOfDecimals)
-                                                 && AlmostEquals(al.BelowPhreaticLevelShift, consecutiveAquitardLayers[0].BelowPhreaticLevelShift, shiftNumberOfDecimals));
+            var belowPhreaticLevelDeviation = consecutiveAquitardLayers[0].BelowPhreaticLevelDeviation;
+            var belowPhreaticLevelShift = consecutiveAquitardLayers[0].BelowPhreaticLevelShift;
+
+            return consecutiveAquitardLayers.All(al => AlmostEquals(belowPhreaticLevelDeviation, al.BelowPhreaticLevelDeviation, deviationNumberOfDecimals) &&
+                                                       AlmostEquals(belowPhreaticLevelShift, al.BelowPhreaticLevelShift, shiftNumberOfDecimals));
         }
 
         private static double GetWeightedMeanForVolumicWeightOfCoverageLayer(PipingSoilLayer[] aquitardLayers, PipingSoilProfile profile, double surfaceLevel)
@@ -355,7 +357,7 @@ namespace Ringtoets.Piping.Data
 
         private bool AlmostEquals(double a, double b, int numberOfDecimals)
         {
-            return Math.Abs(a - b) < Math.Pow(10.0, -numberOfDecimals);
+            return Math.Abs(a - b) < 0.5 * Math.Pow(10.0, -numberOfDecimals);
         }
 
         private static double GetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, RoundedDouble exitPointL)

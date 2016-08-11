@@ -123,47 +123,47 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Polderpeil [m+NAP]", phreaticLevelExitProperty.DisplayName);
             Assert.AreEqual("Polderpeil.", phreaticLevelExitProperty.Description);
 
-            PropertyDescriptor surfaceLineProperty = dynamicProperties[4];
+            PropertyDescriptor piezometricHeadExitProperty = dynamicProperties[4];
+            Assert.IsNotNull(piezometricHeadExitProperty);
+            Assert.IsTrue(piezometricHeadExitProperty.IsReadOnly);
+            Assert.AreEqual(hydraulicDataCategory, piezometricHeadExitProperty.Category);
+            Assert.AreEqual("Stijghoogte bij uittredepunt [m+NAP]", piezometricHeadExitProperty.DisplayName);
+            Assert.AreEqual("Stijghoogte bij uittredepunt.", piezometricHeadExitProperty.Description);
+
+            PropertyDescriptor surfaceLineProperty = dynamicProperties[5];
             Assert.IsNotNull(surfaceLineProperty);
             Assert.IsFalse(surfaceLineProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, surfaceLineProperty.Category);
             Assert.AreEqual("Profielschematisatie", surfaceLineProperty.DisplayName);
             Assert.AreEqual("De schematisatie van de hoogte van het dwarsprofiel.", surfaceLineProperty.Description);
 
-            PropertyDescriptor stochasticSoilModelProperty = dynamicProperties[5];
+            PropertyDescriptor stochasticSoilModelProperty = dynamicProperties[6];
             Assert.IsNotNull(stochasticSoilModelProperty);
             Assert.IsFalse(stochasticSoilModelProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, stochasticSoilModelProperty.Category);
             Assert.AreEqual("Stochastisch ondergrondmodel", stochasticSoilModelProperty.DisplayName);
             Assert.AreEqual("De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.", stochasticSoilModelProperty.Description);
 
-            PropertyDescriptor stochasticSoilProfileProperty = dynamicProperties[6];
+            PropertyDescriptor stochasticSoilProfileProperty = dynamicProperties[7];
             Assert.IsNotNull(stochasticSoilProfileProperty);
             Assert.IsFalse(stochasticSoilProfileProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, stochasticSoilProfileProperty.Category);
             Assert.AreEqual("Ondergrondschematisatie", stochasticSoilProfileProperty.DisplayName);
             Assert.AreEqual("De opbouw van de ondergrond.", stochasticSoilProfileProperty.Description);
 
-            PropertyDescriptor entryPointLProperty = dynamicProperties[7];
+            PropertyDescriptor entryPointLProperty = dynamicProperties[8];
             Assert.IsNotNull(entryPointLProperty);
             Assert.IsFalse(entryPointLProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, entryPointLProperty.Category);
             Assert.AreEqual("Intredepunt", entryPointLProperty.DisplayName);
             Assert.AreEqual("De positie in het dwarsprofiel van het intredepunt.", entryPointLProperty.Description);
 
-            PropertyDescriptor exitPointLProperty = dynamicProperties[8];
+            PropertyDescriptor exitPointLProperty = dynamicProperties[9];
             Assert.IsNotNull(exitPointLProperty);
             Assert.IsFalse(exitPointLProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, exitPointLProperty.Category);
             Assert.AreEqual("Uittredepunt", exitPointLProperty.DisplayName);
             Assert.AreEqual("De positie in het dwarsprofiel van het uittredepunt.", exitPointLProperty.Description);
-
-            PropertyDescriptor piezometricHeadExitProperty = dynamicProperties[9];
-            Assert.IsNotNull(piezometricHeadExitProperty);
-            Assert.IsTrue(piezometricHeadExitProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, piezometricHeadExitProperty.Category);
-            Assert.AreEqual("Stijghoogte bij uittredepunt [m+NAP]", piezometricHeadExitProperty.DisplayName);
-            Assert.AreEqual("Stijghoogte bij uittredepunt.", piezometricHeadExitProperty.Description);
 
             PropertyDescriptor seepageLengthProperty = dynamicProperties[10];
             Assert.IsNotNull(seepageLengthProperty);

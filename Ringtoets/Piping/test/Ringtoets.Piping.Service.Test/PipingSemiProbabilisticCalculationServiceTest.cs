@@ -192,7 +192,8 @@ namespace Ringtoets.Piping.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.PipingFactorOfSafety;
 
             // Assert
-            Assert.AreEqual(calculation.SemiProbabilisticOutput.PipingReliability/calculation.SemiProbabilisticOutput.RequiredReliability, result, result.GetAccuracy());
+            var accuracy = Math.Pow(10.0, -result.NumberOfDecimalPlaces); // Less strict accuracy because of calculation using rounded doubles
+            Assert.AreEqual(calculation.SemiProbabilisticOutput.PipingReliability/calculation.SemiProbabilisticOutput.RequiredReliability, result, accuracy);
         }
 
         [Test]

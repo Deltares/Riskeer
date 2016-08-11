@@ -138,6 +138,17 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadExit_Description")]
+        public RoundedDouble PiezometricHeadExit
+        {
+            get
+            {
+                return data.WrappedData.PiezometricHeadExit;
+            }
+        }
+
         #endregion
 
         #region Schematization
@@ -233,17 +244,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             {
                 data.WrappedData.ExitPointL = value;
                 data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "PipingInput_PiezometricHeadExit_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingInput_PiezometricHeadExit_Description")]
-        public RoundedDouble PiezometricHeadExit
-        {
-            get
-            {
-                return data.WrappedData.PiezometricHeadExit;
             }
         }
 
