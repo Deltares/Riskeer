@@ -59,20 +59,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
         public void ReadSettings_ValidFile_ReturnsSettings()
         {
             // Setup
-            var testFile = Path.Combine(testDataPath, "NumericsSettingsTest.csv");
+            string testFile = Path.Combine(testDataPath, "NumericsSettingsTest.csv");
 
-            using (var streamReader = new StreamReader(testFile))
+            using (StreamReader streamReader = new StreamReader(testFile))
             {
-                var fileContents = streamReader.ReadToEnd();
+                string fileContents = streamReader.ReadToEnd();
 
-                var reader = new NumericsSettingsCsvReader(fileContents);
-                var expectedDictionary = GetDictionary();
+                NumericsSettingsCsvReader reader = new NumericsSettingsCsvReader(fileContents);
+                IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> expectedDictionary = GetDictionary();
 
                 // Call
-                var settings = reader.ReadSettings();
+                IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> settings = reader.ReadSettings();
 
                 // Assert
-                Assert.IsInstanceOf<IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>>>(settings);
                 Assert.AreEqual(2, settings.Count);
 
                 foreach (KeyValuePair<int, IDictionary<int, IDictionary<string, NumericsSettings>>> expectedMechanism in expectedDictionary)
