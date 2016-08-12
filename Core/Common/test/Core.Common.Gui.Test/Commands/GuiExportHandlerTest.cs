@@ -272,7 +272,14 @@ namespace Core.Common.Gui.Test.Commands
             var dialogParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
 
-            var commandHandler = new GuiExportHandler(dialogParent, Enumerable.Empty<ExportInfo>());
+            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>()
+            {
+                new ExportInfo<int>(), // Wrong object type
+                new ExportInfo<object> // Disabled
+                {
+                    IsEnabled = o => false
+                }
+            });
 
             // Call
             var isExportPossible = commandHandler.CanExportFrom(new object());
