@@ -297,11 +297,7 @@ namespace Application.Ringtoets
             if (control != null && control.InvokeRequired)
             {
                 // Invoke executes a delegate on the thread that owns _MainForms's underlying window handle.
-                control.Invoke(new ExceptionDelegate(HandleException), new object[]
-                {
-                    exception,
-                    isTerminating
-                });
+                control.Invoke(new ExceptionDelegate(HandleException), exception, isTerminating);
             }
             else
             {

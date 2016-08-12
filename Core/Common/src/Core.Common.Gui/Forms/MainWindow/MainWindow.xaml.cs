@@ -312,7 +312,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 var showGroup = false;
                 foreach (var tabItem in tabGroup.Items)
                 {
-                    var tabItemVisible = ribbonCommandHandlers.Any(h => h.IsContextualTabVisible(tabGroup.Name, tabItem.Name));
+                    var tabItemVisible = ribbonCommandHandlers.Any(h => h.IsContextualTabVisible(tabGroup.Name));
                     tabItem.Visibility = tabItemVisible ? Visibility.Visible : Visibility.Collapsed;
 
                     if (tabItemVisible && !showGroup)

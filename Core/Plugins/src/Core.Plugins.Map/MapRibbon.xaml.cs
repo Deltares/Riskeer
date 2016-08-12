@@ -72,17 +72,6 @@ namespace Core.Plugins.Map
         /// </summary>
         public ICommand ToggleLegendViewCommand { private get; set; }
 
-        public IEnumerable<ICommand> Commands
-        {
-            get
-            {
-                if (ToggleLegendViewCommand != null)
-                {
-                    yield return ToggleLegendViewCommand;
-                }
-            }
-        }
-
         public Ribbon GetRibbonControl()
         {
             return RibbonControl;
@@ -96,7 +85,7 @@ namespace Core.Plugins.Map
             ToggleMouseCoordinatesButton.IsChecked = Map != null && Map.IsMouseCoordinatesVisible;
         }
 
-        public bool IsContextualTabVisible(string tabGroupName, string tabName)
+        public bool IsContextualTabVisible(string tabGroupName)
         {
             // TODO: Required only because this method is called each time ValidateItems is called in MainWindow
             // Once ValidateItems isn't responsible for showing/hiding contextual tabs, then this method can return false,

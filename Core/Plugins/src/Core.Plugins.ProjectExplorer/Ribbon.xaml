@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
              xmlns:resx="clr-namespace:Core.Plugins.ProjectExplorer.Properties"
-             xmlns:gui="clr-namespace:Core.Common.Gui;assembly=Core.Common.Gui"
              xmlns:Converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <UserControl.Resources>

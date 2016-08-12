@@ -16,27 +16,6 @@ namespace Demo.Ringtoets.Test.Ribbons
     {
         [Test]
         [RequiresSTA]
-        public void DefaultContructor_CreatesCommands()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var viewController = mocks.Stub<IViewController>();
-            mocks.ReplayAll();
-
-            // Call
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwner, viewController);
-            var commands = ribbon.Commands.ToArray();
-
-            // Assert
-            CollectionAssert.IsNotEmpty(commands);
-            CollectionAssert.AllItemsAreInstancesOfType(commands, typeof(ICommand));
-            CollectionAssert.AllItemsAreUnique(commands);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
         public void DefaultConstructor_Always_CreatesControl()
         {
             // Setup
@@ -68,7 +47,7 @@ namespace Demo.Ringtoets.Test.Ribbons
             var ribbon = new RingtoetsDemoProjectRibbon(projectOwnerStub, viewController);
 
             // Assert
-            Assert.IsFalse(ribbon.IsContextualTabVisible(null, null));
+            Assert.IsFalse(ribbon.IsContextualTabVisible(null));
             mocks.VerifyAll();
         }
 

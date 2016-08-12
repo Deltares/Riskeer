@@ -24,16 +24,6 @@ namespace Demo.Ringtoets.Ribbons
             openMapViewCommand = new OpenMapViewCommand(viewController);
         }
 
-        public IEnumerable<ICommand> Commands
-        {
-            get
-            {
-                yield return addNewAssessmentSection;
-                yield return openChartViewCommand;
-                yield return openMapViewCommand;
-            }
-        }
-
         public Ribbon GetRibbonControl()
         {
             return RingtoetsDemoProjectRibbonControl;
@@ -41,7 +31,7 @@ namespace Demo.Ringtoets.Ribbons
 
         public void ValidateItems() {}
 
-        public bool IsContextualTabVisible(string tabGroupName, string tabName)
+        public bool IsContextualTabVisible(string tabGroupName)
         {
             return false;
         }

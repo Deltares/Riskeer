@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 
 namespace Core.Common.Gui.Forms
@@ -28,11 +27,5 @@ namespace Core.Common.Gui.Forms
     /// <summary>
     /// View to show the contents of a <see cref="IProject"/> instance.
     /// </summary>
-    public interface IProjectExplorer : ISelectionProvider
-    {
-        /// <summary>
-        /// Gets the internal <see cref="TreeViewControl"/>.
-        /// </summary>
-        TreeViewControl TreeViewControl { get; }
-    }
+    public interface IProjectExplorer : ISelectionProvider { }
 }

@@ -23,7 +23,6 @@ using System;
 using System.Drawing;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Builders;
-using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Test.Builders
 {

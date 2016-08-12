@@ -275,7 +275,6 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             if (orderColumnIndex > -1)
             {
                 columnsInFile[orderNumberKey] = orderColumnIndex;
-                return;
             }
         }
 

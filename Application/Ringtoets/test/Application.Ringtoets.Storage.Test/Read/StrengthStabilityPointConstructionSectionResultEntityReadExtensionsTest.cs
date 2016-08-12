@@ -32,27 +32,13 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class StrengthStabilityPointConstructionSectionResultEntityReadExtensionsTest
     {
         [Test]
-        public void Read_CollectorIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var entity = new StrengthStabilityPointConstructionSectionResultEntity();
-
-            // Call
-            TestDelegate call = () => entity.Read(new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection()), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
-        }
-
-        [Test]
         public void Read_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup
             var entity = new StrengthStabilityPointConstructionSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
+            TestDelegate call = () => entity.Read(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -81,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult, collector);
+            entity.Read(sectionResult);
 
             // Assert
             Assert.IsNotNull(sectionResult);
@@ -106,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection()); 
 
             // Call
-            entity.Read(sectionResult, collector);
+            entity.Read(sectionResult);
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
@@ -128,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection()); 
 
             // Call
-            entity.Read(sectionResult, collector);
+            entity.Read(sectionResult);
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);

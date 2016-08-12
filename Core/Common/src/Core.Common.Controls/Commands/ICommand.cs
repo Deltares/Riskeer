@@ -27,11 +27,6 @@ namespace Core.Common.Controls.Commands
     public interface ICommand
     {
         /// <summary>
-        /// Gets a value indicating whether or not the <see cref="ICommand"/> is enabled.
-        /// </summary>
-        bool Enabled { get; }
-
-        /// <summary>
         /// Gets a value indicating whether or not the <see cref="ICommand"/> is checked.
         /// </summary>
         bool Checked { get; }
@@ -39,7 +34,6 @@ namespace Core.Common.Controls.Commands
         /// <summary>
         /// This method implements the logic that should be performed after clicking the (Ribbon) button and/or menu item.
         /// </summary>
-        /// <param name="arguments">The arguments to use during execution.</param>
-        void Execute(params object[] arguments);
+        void Execute();
     }
 }

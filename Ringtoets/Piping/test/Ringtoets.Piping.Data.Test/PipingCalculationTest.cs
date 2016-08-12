@@ -21,11 +21,9 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 
 namespace Ringtoets.Piping.Data.Test

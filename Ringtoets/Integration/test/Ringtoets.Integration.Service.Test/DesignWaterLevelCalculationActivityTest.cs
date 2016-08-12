@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;

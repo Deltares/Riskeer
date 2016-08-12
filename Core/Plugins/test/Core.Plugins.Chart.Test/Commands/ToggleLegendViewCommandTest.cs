@@ -45,16 +45,6 @@ namespace Core.Plugins.Chart.Test.Commands
         }
 
         [Test]
-        public void Enabled_Always_ReturnsTrue()
-        {
-            // Setup
-            var command = new ToggleLegendViewCommand(null);
-
-            // Call & Assert
-            Assert.IsTrue(command.Enabled);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Checked_LegendViewOpenOrClosed_ReturnsExpectedState(bool open)

@@ -281,7 +281,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble = new RoundedDouble(2);
 
             // Call
-            bool isEqual = roundedDouble.Equals((object)null);
+            bool isEqual = roundedDouble.Equals(null);
 
             // Assert
             Assert.IsFalse(isEqual);

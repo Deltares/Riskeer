@@ -37,7 +37,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             double waveHeight = 3.2934;
-            bool isOvertoppingDominant = true;
             double dikeHeight = 7.3892;
             double requiredProbability = 0.2;
             double requiredReliability = 0.3;
@@ -48,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             ProbabilityAssessmentOutput probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
 
             // Call
-            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(waveHeight, isOvertoppingDominant, probabilityAssessmentOutput, dikeHeight);
+            GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(waveHeight, true, probabilityAssessmentOutput, dikeHeight);
 
             // Assert
             Assert.IsInstanceOf<ICalculationOutput>(output);
@@ -57,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             Assert.AreEqual(new RoundedDouble(2, waveHeight), output.WaveHeight);
             Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
-            Assert.AreEqual(isOvertoppingDominant, output.IsOvertoppingDominant);
+            Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.AreEqual(new RoundedDouble(2, dikeHeight), output.DikeHeight);
             Assert.AreEqual(2, output.DikeHeight.NumberOfDecimalPlaces);
             Assert.IsTrue(output.DikeHeightCalculated);

@@ -29,8 +29,7 @@ namespace Core.Common.Gui.Commands
         /// <summary>
         /// Makes the properties window visible for the given object and selects it.
         /// </summary>
-        /// <param name="obj">The object for which to show its properties.</param>
-        void ShowPropertiesFor(object obj);
+        void ShowPropertiesForSelection();
 
         /// <summary>
         /// Indicates if there is a property-edit window defined for some object.

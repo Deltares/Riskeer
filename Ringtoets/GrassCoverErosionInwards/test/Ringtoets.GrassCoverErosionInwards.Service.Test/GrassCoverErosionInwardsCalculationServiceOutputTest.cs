@@ -32,16 +32,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             double beta = 3.452;
             double waveHeight = 8.261;
-            bool isOvertoppingDominant = true;
             double dikeHeight = 9.3876;
 
             // Call
-            GrassCoverErosionInwardsCalculationServiceOutput output = new GrassCoverErosionInwardsCalculationServiceOutput(beta, waveHeight, isOvertoppingDominant, dikeHeight);
+            GrassCoverErosionInwardsCalculationServiceOutput output = new GrassCoverErosionInwardsCalculationServiceOutput(beta, waveHeight, true, dikeHeight);
 
             // Assert
             Assert.AreEqual(beta, output.Beta);
             Assert.AreEqual(waveHeight, output.WaveHeight);
-            Assert.AreEqual(isOvertoppingDominant, output.IsOvertoppingDominant);
+            Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.AreEqual(dikeHeight, output.DikeHeight);
         }
     }

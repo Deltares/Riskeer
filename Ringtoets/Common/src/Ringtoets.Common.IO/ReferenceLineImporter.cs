@@ -222,11 +222,7 @@ namespace Ringtoets.Common.IO
         {
             failureMechanism.ClearAllSections();
 
-            var observableFailureMechanism = failureMechanism as IObservable;
-            if (observableFailureMechanism != null)
-            {
-                changedObservables.Add(observableFailureMechanism);
-            }
+            changedObservables.Add(failureMechanism);
         }
 
         private void ClearHydraulicBoundaryOutput(IAssessmentSection assessmentSection)

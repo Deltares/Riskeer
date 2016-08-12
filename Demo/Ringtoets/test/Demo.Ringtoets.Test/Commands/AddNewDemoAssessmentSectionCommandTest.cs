@@ -37,7 +37,6 @@ namespace Demo.Ringtoets.Test.Commands
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
-            Assert.IsTrue(command.Enabled);
             Assert.IsFalse(command.Checked);
             mocks.VerifyAll();
         }

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
@@ -44,23 +43,12 @@ namespace Core.Plugins.ProjectExplorer
         /// </summary>
         public ICommand ToggleExplorerCommand { private get; set; }
 
-        public IEnumerable<ICommand> Commands
-        {
-            get
-            {
-                if (ToggleExplorerCommand != null)
-                {
-                    yield return ToggleExplorerCommand;
-                }
-            }
-        }
-
         public void ValidateItems()
         {
             ToggleProjectExplorerButton.IsChecked = ToggleExplorerCommand.Checked;
         }
 
-        public bool IsContextualTabVisible(string tabGroupName, string tabName)
+        public bool IsContextualTabVisible(string tabGroupName)
         {
             return false;
         }

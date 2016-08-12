@@ -31,24 +31,6 @@ namespace Demo.Ringtoets.Test.Commands
         }
 
         [Test]
-        public void Enabled_Always_ReturnsTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var documentViewControler = mocks.Stub<IViewController>();
-            mocks.ReplayAll();
-
-            var command = new OpenChartViewCommand(documentViewControler);
-
-            // Call
-            var isEnabled = command.Enabled;
-
-            // Assert
-            Assert.IsTrue(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Checked_Always_ReturnsFalse()
         {
             // Setup

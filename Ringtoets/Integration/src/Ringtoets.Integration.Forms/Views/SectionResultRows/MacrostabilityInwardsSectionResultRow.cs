@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 
 using Core.Common.Base.Data;
-using Core.Common.Base.Properties;
 
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;

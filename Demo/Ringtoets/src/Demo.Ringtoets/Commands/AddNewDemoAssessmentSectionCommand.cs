@@ -34,14 +34,6 @@ namespace Demo.Ringtoets.Commands
             this.projectOwner = projectOwner;
         }
 
-        public bool Enabled
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public bool Checked
         {
             get
@@ -50,7 +42,7 @@ namespace Demo.Ringtoets.Commands
             }
         }
 
-        public void Execute(params object[] arguments)
+        public void Execute()
         {
             var project = (RingtoetsProject) projectOwner.Project;
             project.AssessmentSections.Add(CreateNewDemoAssessmentSection());

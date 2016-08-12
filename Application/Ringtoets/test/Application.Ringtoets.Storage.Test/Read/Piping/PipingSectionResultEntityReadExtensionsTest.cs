@@ -33,27 +33,13 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
     public class PipingSectionResultEntityReadExtensionsTest
     {
         [Test]
-        public void Read_CollectorIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var entity = new PipingSectionResultEntity();
-
-            // Call
-            TestDelegate call = () => entity.Read(new PipingFailureMechanismSectionResult(new TestFailureMechanismSection()), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
-        }
-
-        [Test]
         public void Read_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup
             var entity = new ClosingStructureSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
+            TestDelegate call = () => entity.Read(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -84,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult, collector);
+            entity.Read(sectionResult);
 
             // Assert
             Assert.IsNotNull(sectionResult);
@@ -111,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult, collector);
+            entity.Read(sectionResult);
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);

@@ -335,7 +335,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             commandHandlerMock.Expect(ch => ch.CanShowPropertiesFor(nodeData)).Return(hasPropertyInfoForNodeData);
             if (hasPropertyInfoForNodeData)
             {
-                commandHandlerMock.Expect(ch => ch.ShowPropertiesFor(nodeData));
+                commandHandlerMock.Expect(ch => ch.ShowPropertiesForSelection());
             }
 
             var contextMenuFactory = new GuiContextMenuItemFactory(commandHandlerMock,

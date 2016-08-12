@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;

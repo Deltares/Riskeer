@@ -47,16 +47,6 @@ namespace Core.Plugins.Map.Test.Commands
         }
 
         [Test]
-        public void Enabled_Always_ReturnsTrue()
-        {
-            // Call
-            var command = new ToggleMapLegendViewCommand(null);
-
-            // Assert
-            Assert.IsTrue(command.Enabled);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Checked_LegendViewOpenOrClosed_ReturnsExpectedState(bool open)

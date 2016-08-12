@@ -158,21 +158,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var newDikeHeight = new RoundedDouble(2, 9);
             var newOrientation = new RoundedDouble(2, 5);
             var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
-            var newCalculateDikeHeight = true;
 
             // Call
             properties.DikeProfile = newDikeProfile;
             properties.Orientation = newOrientation;
             properties.DikeHeight = newDikeHeight;
             properties.HydraulicBoundaryLocation = newHydraulicBoundaryLocation;
-            properties.CalculateDikeHeight = newCalculateDikeHeight;
+            properties.CalculateDikeHeight = true;
 
             // Assert
             Assert.AreSame(newDikeProfile, input.DikeProfile);
             Assert.AreEqual(newOrientation, input.Orientation);
             Assert.AreEqual(newDikeHeight, input.DikeHeight);
             Assert.AreSame(newHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
-            Assert.AreEqual(newCalculateDikeHeight, input.CalculateDikeHeight);
+            Assert.IsTrue(input.CalculateDikeHeight);
             mockRepository.VerifyAll();
         }
 

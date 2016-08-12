@@ -60,7 +60,6 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
-            Assert.IsTrue(command.Enabled);
             Assert.IsTrue(command.Checked);
             mockRepository.VerifyAll();
         }

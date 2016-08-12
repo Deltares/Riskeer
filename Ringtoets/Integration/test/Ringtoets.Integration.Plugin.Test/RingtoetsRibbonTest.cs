@@ -23,7 +23,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
-using Core.Common.Gui.Forms;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -33,18 +32,6 @@ namespace Ringtoets.Integration.Plugin.Test
     [TestFixture]
     public class RingtoetsRibbonTest
     {
-        [Test]
-        [STAThread] // Due to creating fluent ribbon
-        public void DefaultConstructor_ExpectedValues()
-        {
-            // Call
-            var ribbon = new RingtoetsRibbon();
-
-            // Assert
-            Assert.IsInstanceOf<IRibbonCommandHandler>(ribbon);
-            CollectionAssert.IsEmpty(ribbon.Commands);
-        }
-
         [Test]
         [STAThread] // Due to creating fluent Ribbon
         public void GetRibbonControl_Always_ReturnRibbon()
@@ -67,32 +54,10 @@ namespace Ringtoets.Integration.Plugin.Test
             var ribbon = new RingtoetsRibbon();
 
             // Call
-            var isVisible = ribbon.IsContextualTabVisible(null, null);
+            var isVisible = ribbon.IsContextualTabVisible(null);
 
             // Assert
             Assert.IsFalse(isVisible);
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void Commands_ToggleExplorerCommandSet_ReturnsToggleExplorerCommand()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var command = mockRepository.StrictMock<ICommand>();
-            mockRepository.ReplayAll();
-
-            var ribbon = new RingtoetsRibbon
-            {
-                AddAssessmentSectionButtonCommand = command
-            };
-
-            // Call
-            var result = ribbon.Commands;
-
-            // Assert
-            CollectionAssert.AreEqual(new[] { command }, result);
-            mockRepository.VerifyAll();
         }
 
         [Test]

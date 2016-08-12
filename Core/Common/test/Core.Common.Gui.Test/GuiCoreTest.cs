@@ -167,14 +167,15 @@ namespace Core.Common.Gui.Test
 
             var guiCoreSettings = new GuiCoreSettings();
 
-            // Call
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
-                // Call
+
+            // Call
             using (var gui2 = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
-                // Assert
-                Assert.Fail("Expected an InvalidOperationException to be thrown.");
+
+            // Assert
             mocks.VerifyAll();
+            Assert.Fail("Expected an InvalidOperationException to be thrown.");
         }
 
         [Test]

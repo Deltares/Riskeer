@@ -39,15 +39,10 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/> to create <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static void Read(this GrassCoverSlipOffOutwardsSectionResultEntity entity, GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        internal static void Read(this GrassCoverSlipOffOutwardsSectionResultEntity entity, GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult)
         {
-            if (collector == null)
-            {
-                throw new ArgumentNullException("collector");
-            } 
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");

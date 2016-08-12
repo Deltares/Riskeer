@@ -40,14 +40,6 @@ namespace Core.Plugins.Chart.Commands
             this.controller = controller;
         }
 
-        public bool Enabled
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public bool Checked
         {
             get
@@ -56,7 +48,7 @@ namespace Core.Plugins.Chart.Commands
             }
         }
 
-        public void Execute(params object[] arguments)
+        public void Execute()
         {
             controller.ToggleView();
         }

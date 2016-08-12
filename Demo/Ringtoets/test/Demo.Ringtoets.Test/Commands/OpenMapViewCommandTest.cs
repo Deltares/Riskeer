@@ -23,7 +23,6 @@ namespace Demo.Ringtoets.Test.Commands
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
-            Assert.IsTrue(command.Enabled);
             Assert.IsFalse(command.Checked);
             mocks.VerifyAll();
         }
@@ -46,22 +45,6 @@ namespace Demo.Ringtoets.Test.Commands
             command.Execute();
 
             // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Enabled_Always_ReturnsTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewController = mocks.Stub<IViewController>();
-            mocks.ReplayAll();
-
-            // Call
-            var command = new OpenMapViewCommand(viewController);
-
-            // Assert
-            Assert.IsTrue(command.Enabled);
             mocks.VerifyAll();
         }
 

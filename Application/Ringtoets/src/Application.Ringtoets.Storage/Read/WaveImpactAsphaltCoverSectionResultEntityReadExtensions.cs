@@ -38,15 +38,10 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> to create <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static void Read(this WaveImpactAsphaltCoverSectionResultEntity entity, WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        internal static void Read(this WaveImpactAsphaltCoverSectionResultEntity entity, WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
-            if (collector == null)
-            {
-                throw new ArgumentNullException("collector");
-            }
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");

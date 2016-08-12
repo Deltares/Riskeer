@@ -158,16 +158,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var dbName = "emptyschema.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
-            bool isPrepared = true;
 
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                isPrepared = stochasticSoilModelDatabaseReader.HasNext;
+                bool isPrepared = stochasticSoilModelDatabaseReader.HasNext;
+
+                // Assert
+                Assert.IsFalse(isPrepared);
             }
 
-            // Assert
-            Assert.IsFalse(isPrepared);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -177,16 +177,16 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             var dbName = "complete.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
-            bool hasNext = false;
 
             using (var stochasticSoilModelDatabaseReader = new StochasticSoilModelReader(dbFile))
             {
                 // Call
-                hasNext = stochasticSoilModelDatabaseReader.HasNext;
+                bool hasNext = stochasticSoilModelDatabaseReader.HasNext;
+
+                // Assert
+                Assert.IsTrue(hasNext);
             }
 
-            // Assert
-            Assert.IsTrue(hasNext);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 

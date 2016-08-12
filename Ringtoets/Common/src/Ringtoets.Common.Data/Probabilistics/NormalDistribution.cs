@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// </exception>
         public NormalDistribution(int numberOfDecimalPlaces)
         {
-            mean = new RoundedDouble(numberOfDecimalPlaces, 0.0);
+            mean = new RoundedDouble(numberOfDecimalPlaces);
             standardDeviation = new RoundedDouble(numberOfDecimalPlaces, 1.0);
         }
 

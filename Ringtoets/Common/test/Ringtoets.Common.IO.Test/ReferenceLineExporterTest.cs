@@ -111,22 +111,21 @@ namespace Ringtoets.Common.IO.Test
 
             var exporter = new ReferenceLineExporter(referenceLine, "anId", filePath);
 
-            bool isExported = true;
             try
             {
                 using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
                 {
                     // Call
-                    isExported = exporter.Export();
+                    bool isExported = exporter.Export();
+
+                    // Assert
+                    Assert.IsFalse(isExported);
                 }
             }
             finally
             {
                 Directory.Delete(directoryPath, true);
             }
-
-            // Assert
-            Assert.IsFalse(isExported);
         }
     }
 }

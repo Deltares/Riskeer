@@ -74,7 +74,6 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
 
                 // Assert
                 Assert.IsInstanceOf<ICommand>(command);
-                Assert.IsTrue(command.Enabled);
             }
             mocks.VerifyAll();
         }

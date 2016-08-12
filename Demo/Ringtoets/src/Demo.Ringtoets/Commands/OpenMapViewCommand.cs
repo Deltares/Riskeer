@@ -24,14 +24,6 @@ namespace Demo.Ringtoets.Commands
             this.viewController = viewController;
         }
 
-        public bool Enabled
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public bool Checked
         {
             get
@@ -40,7 +32,7 @@ namespace Demo.Ringtoets.Commands
             }
         }
 
-        public void Execute(params object[] arguments)
+        public void Execute()
         {
             var mapDataCollection = new MapDataCollection(Resources.OpenMapViewCommand_Execute_Demo_map_netherlands);
 

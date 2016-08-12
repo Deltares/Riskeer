@@ -46,14 +46,6 @@ namespace Core.Plugins.ProjectExplorer.Commands
             this.viewController = viewController;
         }
 
-        public bool Enabled
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public bool Checked
         {
             get
@@ -62,7 +54,7 @@ namespace Core.Plugins.ProjectExplorer.Commands
             }
         }
 
-        public void Execute(params object[] arguments)
+        public void Execute()
         {
             viewController.ToggleView();
         }

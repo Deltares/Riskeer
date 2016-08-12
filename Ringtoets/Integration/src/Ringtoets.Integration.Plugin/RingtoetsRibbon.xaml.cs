@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
@@ -45,17 +44,6 @@ namespace Ringtoets.Integration.Plugin
         /// </summary>
         public ICommand AddAssessmentSectionButtonCommand { set; private get; }
 
-        public IEnumerable<ICommand> Commands
-        {
-            get
-            {
-                if (AddAssessmentSectionButtonCommand != null)
-                {
-                    yield return AddAssessmentSectionButtonCommand;
-                }
-            }
-        }
-
         public Ribbon GetRibbonControl()
         {
             return RingtoetsRibbonControl;
@@ -63,7 +51,7 @@ namespace Ringtoets.Integration.Plugin
 
         public void ValidateItems() {}
 
-        public bool IsContextualTabVisible(string tabGroupName, string tabName)
+        public bool IsContextualTabVisible(string tabGroupName)
         {
             return false;
         }

@@ -45,14 +45,6 @@ namespace Ringtoets.Integration.Forms.Commands
             this.assessmentSectionFromFileCommandHandler = assessmentSectionFromFileCommandHandler;
         }
 
-        public bool Enabled
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public bool Checked
         {
             get
@@ -61,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Commands
             }
         }
 
-        public void Execute(params object[] arguments)
+        public void Execute()
         {
             assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile();
         }

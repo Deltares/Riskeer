@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Geometry

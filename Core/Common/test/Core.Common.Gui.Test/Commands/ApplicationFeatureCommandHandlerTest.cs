@@ -23,7 +23,6 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Gui.Selection;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -36,8 +35,6 @@ namespace Core.Common.Gui.Test.Commands
         public void ShowPropertiesFor_InitializeAndShowPropertyGrid()
         {
             // Setup
-            var target = new object();
-
             var mocks = new MockRepository();
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             var mainWindow = mocks.Stub<IMainWindow>();
@@ -47,7 +44,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);
 
             // Call
-            commandHandler.ShowPropertiesFor(target);
+            commandHandler.ShowPropertiesForSelection();
 
             // Assert
             mocks.VerifyAll();

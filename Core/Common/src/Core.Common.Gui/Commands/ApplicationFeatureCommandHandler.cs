@@ -53,7 +53,7 @@ namespace Core.Common.Gui.Commands
             this.mainWindow = mainWindow;
         }
 
-        public void ShowPropertiesFor(object obj)
+        public void ShowPropertiesForSelection()
         {
             mainWindow.InitPropertiesWindowAndActivate();
         }

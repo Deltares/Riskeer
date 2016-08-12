@@ -19,15 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using System.Windows;
-using System.Windows.Forms;
 using Core.Common.Controls.Commands;
-using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
 using Core.Components.Gis.Forms;
-using Core.Plugins.Map.Commands;
-using Core.Plugins.Map.Legend;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -54,54 +48,13 @@ namespace Core.Plugins.Map.Test
 
         [Test]
         [RequiresSTA]
-        public void Commands_NoCommandsAssigned_ReturnsEmptyCommandsCollection()
-        {
-            // Setup
-            var ribbon = new MapRibbon();
-
-            // Call & Assert
-            CollectionAssert.IsEmpty(ribbon.Commands);
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void Commands_CommandsAssigned_ReturnsAssignedCommands()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewController = mocks.Stub<IViewController>();
-            var contextMenuBuilderProvider = mocks.StrictMock<IContextMenuBuilderProvider>();
-            var parentWindow = mocks.StrictMock<IWin32Window>();
-
-            mocks.ReplayAll();
-
-            var toggleLegendViewCommand = new ToggleMapLegendViewCommand(new MapLegendController(viewController, contextMenuBuilderProvider, parentWindow));
-
-            var ribbon = new MapRibbon
-            {
-                ToggleLegendViewCommand = toggleLegendViewCommand
-            };
-
-            // Call
-            var commands = ribbon.Commands.ToArray();
-
-            // Assert
-            CollectionAssert.AreEqual(new ICommand[]
-            {
-                toggleLegendViewCommand
-            }, commands);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
         public void IsContextualTabVisible_Always_ReturnsFalse()
         {
             // Setup
             var ribbon = new MapRibbon();
 
             // Call & Assert
-            Assert.IsFalse(ribbon.IsContextualTabVisible(null, null));
+            Assert.IsFalse(ribbon.IsContextualTabVisible(null));
         }
 
         [Test]

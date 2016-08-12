@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
 using Fluent;
 
@@ -36,14 +34,6 @@ namespace Ringtoets.Piping.Plugin
             InitializeComponent();
         }
 
-        public IEnumerable<ICommand> Commands
-        {
-            get
-            {
-                yield break;
-            }
-        }
-
         public Ribbon GetRibbonControl()
         {
             return RingtoetsRibbonControl;
@@ -51,7 +41,7 @@ namespace Ringtoets.Piping.Plugin
 
         public void ValidateItems() {}
 
-        public bool IsContextualTabVisible(string tabGroupName, string tabName)
+        public bool IsContextualTabVisible(string tabGroupName)
         {
             return false;
         }

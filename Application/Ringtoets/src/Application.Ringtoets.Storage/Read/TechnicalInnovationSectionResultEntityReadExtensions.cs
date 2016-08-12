@@ -38,15 +38,10 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="TechnicalInnovationSectionResultEntity"/> to create <see cref="TechnicalInnovationFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static TechnicalInnovationFailureMechanismSectionResult Read(this TechnicalInnovationSectionResultEntity entity, TechnicalInnovationFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        internal static void Read(this TechnicalInnovationSectionResultEntity entity, TechnicalInnovationFailureMechanismSectionResult sectionResult)
         {
-            if (collector == null)
-            {
-                throw new ArgumentNullException("collector");
-            }
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");
@@ -54,7 +49,6 @@ namespace Application.Ringtoets.Storage.Read
             sectionResult.StorageId = entity.TechnicalInnovationSectionResultEntityId;
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
-            return sectionResult;
         }
     }
 }

@@ -39,15 +39,10 @@ namespace Application.Ringtoets.Storage.Read
         /// </summary>
         /// <param name="entity">The <see cref="MicrostabilitySectionResultEntity"/> to create <see cref="MicrostabilityFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="MicrostabilityFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static void Read(this MicrostabilitySectionResultEntity entity, MicrostabilityFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        internal static void Read(this MicrostabilitySectionResultEntity entity, MicrostabilityFailureMechanismSectionResult sectionResult)
         {
-            if (collector == null)
-            {
-                throw new ArgumentNullException("collector");
-            }
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");

@@ -54,17 +54,6 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Returns the <see cref="DataGridView.DataSource"/>.
-        /// </summary>
-        public object DataSource
-        {
-            get
-            {
-                return dataGridView.DataSource;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether the user is allowed to select more than 
         /// one cell, row, or column of the <see cref="DataGridViewControl"/> at a time.
         /// </summary>

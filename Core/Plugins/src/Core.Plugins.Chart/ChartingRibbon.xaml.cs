@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Windows;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui.Forms;
@@ -72,17 +71,6 @@ namespace Core.Plugins.Chart
         /// </summary>
         public ICommand ToggleLegendViewCommand { private get; set; }
 
-        public IEnumerable<ICommand> Commands
-        {
-            get
-            {
-                if (ToggleLegendViewCommand != null)
-                {
-                    yield return ToggleLegendViewCommand;
-                }
-            }
-        }
-
         /// <summary>
         /// Shows the charting contextual tab.
         /// </summary>
@@ -112,7 +100,7 @@ namespace Core.Plugins.Chart
             ToggleRectangleZoomingButton.IsChecked = Chart != null && Chart.IsRectangleZoomingEnabled;
         }
 
-        public bool IsContextualTabVisible(string tabGroupName, string tabName)
+        public bool IsContextualTabVisible(string tabGroupName)
         {
             // TODO: Required only because this method is called each time ValidateItems is called in MainWindow
             // Once ValidateItems isn't responsible for showing/hiding contextual tabs, then this method can return false,

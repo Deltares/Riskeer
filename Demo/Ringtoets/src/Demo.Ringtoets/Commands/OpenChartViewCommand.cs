@@ -25,14 +25,6 @@ namespace Demo.Ringtoets.Commands
             this.viewController = viewController;
         }
 
-        public bool Enabled
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public bool Checked
         {
             get
@@ -41,7 +33,7 @@ namespace Demo.Ringtoets.Commands
             }
         }
 
-        public void Execute(params object[] arguments)
+        public void Execute()
         {
             var line1 = new ChartLineData(Resources.OpenChartViewCommand_Execute_Line_one)
             {

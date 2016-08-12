@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Core.Common.Controls.Commands;
 using Fluent;
 
 namespace Core.Common.Gui.Forms
@@ -31,11 +29,6 @@ namespace Core.Common.Gui.Forms
     /// </summary>
     public interface IRibbonCommandHandler
     {
-        /// <summary>
-        /// Gets all commands provided by this command handler.
-        /// </summary>
-        IEnumerable<ICommand> Commands { get; }
-
         /// <summary>
         /// Gets the <see cref="Ribbon"/> control.
         /// </summary>
@@ -51,8 +44,7 @@ namespace Core.Common.Gui.Forms
         /// contextual group to be shown or not.
         /// </summary>
         /// <param name="tabGroupName">Name of the contextual group.</param>
-        /// <param name="tabName">Name of the tab.</param>
         /// <returns>Returns <c>true</c> if the tab should be shown; <c>false</c> otherwise.</returns>
-        bool IsContextualTabVisible(string tabGroupName, string tabName);
+        bool IsContextualTabVisible(string tabGroupName);
     }
 }

@@ -209,7 +209,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string validPath = Path.Combine(testDataPath, "tempFile.rtd");
             const string validScript = "select * from sqlite_master;";
 
-            using (var fileDisposeHelper = new FileDisposeHelper(validPath))
+            using (new FileDisposeHelper(validPath))
             {
                 // Call
                 TestDelegate test = () => SqLiteDatabaseHelper.CreateDatabaseFile(validPath, validScript);

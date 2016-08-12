@@ -19,12 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
 using System.Windows;
-using Core.Common.Gui;
 using Core.Components.Charting.Forms;
-using Core.Plugins.Chart.Commands;
-using Core.Plugins.Chart.Legend;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -38,41 +34,6 @@ namespace Core.Plugins.Chart.Test
     [TestFixture]
     public class ChartingRibbonTest
     {
-        [Test]
-        [RequiresSTA]
-        public void Commands_NoCommandsAssigned_ReturnsEmptyCommandsCollection()
-        {
-            // Setup
-            var ribbon = new ChartingRibbon();
-
-            // Call & Assert
-            CollectionAssert.IsEmpty(ribbon.Commands);
-        }
-
-        [Test]
-        [RequiresSTA]
-        public void Commands_CommandsAssigned_ReturnsAssignedCommands()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewController = mocks.Stub<IViewController>();
-            mocks.ReplayAll();
-
-            var toggleLegendViewCommand = new ToggleLegendViewCommand(new ChartLegendController(viewController));
-            var ribbon = new ChartingRibbon
-            {
-                ToggleLegendViewCommand = toggleLegendViewCommand
-            };
-
-            // Call
-            var commands = ribbon.Commands.ToArray();
-
-            // Assert
-            CollectionAssert.AreEqual(new ICommand[]{toggleLegendViewCommand}, commands);
-
-            mocks.VerifyAll();
-        }
-
         [Test]
         [RequiresSTA]
         public void DefaultConstructor_Always_CreatesControl()
@@ -92,7 +53,7 @@ namespace Core.Plugins.Chart.Test
             var ribbon = new ChartingRibbon();
 
             // Call & Assert
-            Assert.IsFalse(ribbon.IsContextualTabVisible(null,null));
+            Assert.IsFalse(ribbon.IsContextualTabVisible(null));
         }
 
         [Test]

@@ -159,7 +159,7 @@ namespace Core.Common.Gui.ContextMenu
                 Image = Resources.PropertiesHS,
                 Enabled = canShowProperties
             };
-            newItem.Click += (s, e) => applicationFeatureCommandHandler.ShowPropertiesFor(dataObject);
+            newItem.Click += (s, e) => applicationFeatureCommandHandler.ShowPropertiesForSelection();
 
             return newItem;
         }
