@@ -99,7 +99,7 @@ namespace Core.Common.Gui.Commands
                 return supportedExportInfos[0];
             }
 
-            using (var selectExportInfoDialog = new SelectItemDialog(dialogParent))
+            using (var selectExportInfoDialog = new SelectItemDialog(dialogParent, Resources.GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter))
             {
                 foreach (var exportInfo in supportedExportInfos)
                 {

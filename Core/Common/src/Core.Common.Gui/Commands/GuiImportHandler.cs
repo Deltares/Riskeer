@@ -86,7 +86,7 @@ namespace Core.Common.Gui.Commands
                 return importers[0];
             }
 
-            using (var selectImporterDialog = new SelectItemDialog(dialogParent))
+            using (var selectImporterDialog = new SelectItemDialog(dialogParent, Resources.GuiImportHandler_GetSupportedImporterUsingDialog_Select_importer))
             {
                 foreach (IFileImporter importer in importers)
                 {

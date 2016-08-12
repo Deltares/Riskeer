@@ -34,7 +34,7 @@ namespace Core.Common.Gui.Test.Forms
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SelectItemDialog(null);
+            TestDelegate test = () => new SelectItemDialog(null, string.Empty);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,9 +50,10 @@ namespace Core.Common.Gui.Test.Forms
             mocks.ReplayAll();
 
             // Call
-            using (var dialog = new SelectItemDialog(parent))
+            using (var dialog = new SelectItemDialog(parent, "Dialog text"))
             {
                 // Assert
+                Assert.AreEqual("Dialog text", dialog.Text);
                 Assert.IsNull(dialog.SelectedItemTag);
                 Assert.IsNull(dialog.SelectedItemTypeName);
             }

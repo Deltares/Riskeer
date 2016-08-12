@@ -38,9 +38,12 @@ namespace Core.Common.Gui.Forms
         /// </summary>
         /// <param name="dialogParent">The dialog parent for which this dialog should be 
         /// shown on top.</param>
-        public SelectItemDialog(IWin32Window dialogParent) : base(dialogParent, Resources.plus, 320, 220)
+        /// <param name="text">The text to show in the dialog.</param>
+        public SelectItemDialog(IWin32Window dialogParent, string text) : base(dialogParent, Resources.plus, 320, 220)
         {
             InitializeComponent();
+
+            Text = text;
 
             imageList.Images.Clear();
             listViewItemTypes.Clear();

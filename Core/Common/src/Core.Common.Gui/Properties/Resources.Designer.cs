@@ -758,6 +758,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kies wat u wilt exporteren.
+        /// </summary>
+        public static string GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter {
+            get {
+                return ResourceManager.GetString("GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecteer een bestand met {0} om eruit te importeren....
         /// </summary>
         public static string GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from {
@@ -811,6 +820,15 @@ namespace Core.Common.Gui.Properties {
             get {
                 return ResourceManager.GetString("GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this" +
                         "_item_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kies wat u wilt importeren.
+        /// </summary>
+        public static string GuiImportHandler_GetSupportedImporterUsingDialog_Select_importer {
+            get {
+                return ResourceManager.GetString("GuiImportHandler_GetSupportedImporterUsingDialog_Select_importer", resourceCulture);
             }
         }
         

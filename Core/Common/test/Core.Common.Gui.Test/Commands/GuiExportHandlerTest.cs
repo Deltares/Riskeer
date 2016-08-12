@@ -231,6 +231,40 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
+        [RequiresSTA]
+        public void ExportFrom_MultipleSupportedExportersAvailable_GivesSelectionDialog()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var mainWindow = mockRepository.Stub<IMainWindow>();
+            mockRepository.ReplayAll();
+
+            var dialogText = "";
+
+            ModalFormHandler = (name, wnd, form) =>
+            {
+                var dialog = new FormTester(name);
+
+                dialogText = dialog.Text;
+
+                dialog.Close();
+            };
+
+            var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
+            {
+                new ExportInfo<int>(),
+                new ExportInfo<int>()
+            });
+
+            // Call
+            exportHandler.ExportFrom(1234);
+
+            // Assert
+            Assert.AreEqual("Kies wat u wilt exporteren", dialogText);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void CanExportFrom_HasNoFileExportersForTarget_ReturnFalse()
         {
             // Setup
