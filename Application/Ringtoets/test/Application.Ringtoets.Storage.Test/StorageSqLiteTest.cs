@@ -173,7 +173,7 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}",
                                                    tempRingtoetsFile,
-                                                   @"Database moet 1 rij in de VersionEntity tabel hebben.");
+                                                   @"Database moet één rij in de VersionEntity tabel hebben.");
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -206,7 +206,7 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}",
                                                    tempRingtoetsFile,
-                                                   @"Database moet 1 rij in de VersionEntity tabel hebben.");
+                                                   @"Database moet één rij in de VersionEntity tabel hebben.");
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -241,7 +241,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException(int versionCode)
         {
             // Setup
-            string subMessage = string.Format("Database versie '{0}' is hoger dan de huidig ondersteunde versie (1). Update Ringtoets naar een nieuwere versie.",
+            string subMessage = string.Format("Database versie '{0}' is hoger dan de huidig ondersteunde versie ('1'). Update Ringtoets naar een nieuwere versie.",
                                               versionCode);
             string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}",
                                                    tempRingtoetsFile,
@@ -278,7 +278,7 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException(int versionCode)
         {
             // Setup
-            string subMessage = string.Format("Database versie '{0}' is niet valide. Database versie dient 1 of hoger te zijn.",
+            string subMessage = string.Format("Database versie '{0}' is niet valide. Database versie dient '1' of hoger te zijn.",
                                               versionCode);
             string expectedMessage = String.Format(@"Fout bij het lezen van bestand '{0}': {1}",
                                                    tempRingtoetsFile,

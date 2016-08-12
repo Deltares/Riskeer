@@ -175,7 +175,7 @@ namespace Application.Ringtoets.Storage.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database moet 1 rij in de VersionEntity tabel hebben..
+        ///   Looks up a localized string similar to Database moet één rij in de VersionEntity tabel hebben..
         /// </summary>
         internal static string StorageSqLite_ValidateDatabaseVersion_Database_must_have_one_VersionEntity_row {
             get {
@@ -184,7 +184,7 @@ namespace Application.Ringtoets.Storage.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database versie &apos;{0}&apos; is hoger dan de huidig ondersteunde versie ({1}). Update Ringtoets naar een nieuwere versie..
+        ///   Looks up a localized string similar to Database versie &apos;{0}&apos; is hoger dan de huidig ondersteunde versie (&apos;{1}&apos;). Update Ringtoets naar een nieuwere versie..
         /// </summary>
         internal static string StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_ {
             get {
@@ -194,7 +194,7 @@ namespace Application.Ringtoets.Storage.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database versie &apos;{0}&apos; is niet valide. Database versie dient 1 of hoger te zijn..
+        ///   Looks up a localized string similar to Database versie &apos;{0}&apos; is niet valide. Database versie dient &apos;1&apos; of hoger te zijn..
         /// </summary>
         internal static string StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid {
             get {
