@@ -74,14 +74,11 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBaseTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputTest.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
-    <Compile Include="Data\Settings\HydraulicModelSettingsTest.cs" />
     <Compile Include="IO\DesignTableSettingsCsvReaderTest.cs" />
-    <Compile Include="IO\HydraulicModelSettingsCsvReaderTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\LogFileParserTest.cs" />
     <Compile Include="Parsers\TargetProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />
-    <Compile Include="Providers\HydraulicModelSettingsProviderTest.cs" />
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />
     <Compile Include="Data\HydraRingSectionTest.cs" />
     <Compile Include="Data\HydraRingProfilePointTest.cs" />

@@ -67,14 +67,11 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBase.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutput.cs" />
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutput.cs" />
-    <Compile Include="Data\Settings\HydraulicModelSettings.cs" />
     <Compile Include="IO\DesignTableSettingsCsvReader.cs" />
-    <Compile Include="IO\HydraulicModelSettingsCsvReader.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
     <Compile Include="Parsers\IHydraRingFileParser.cs" />
     <Compile Include="Parsers\HydraRingLogFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
-    <Compile Include="Providers\HydraulicModelSettingsProvider.cs" />
     <Compile Include="Services\HydraRingCalculationService.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInput.cs" />
