@@ -245,7 +245,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subonderdelen verwijderen....
+        ///   Looks up a localized string similar to Berekeningen map &amp;leegmaken....
         /// </summary>
         public static string CalculationGroup_RemoveAllChildrenFromGroup_Remove_all {
             get {
@@ -254,7 +254,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verwijder alle groepen en berekeningen uit deze groep..
+        ///   Looks up a localized string similar to Verwijder alle berekeningen en mappen binnen deze Berekeningen map..
         /// </summary>
         public static string CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip {
             get {

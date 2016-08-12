@@ -1317,7 +1317,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
 
             // Assert
-            Assert.AreEqual("Subonderdelen verwijderen...", toolStripItem.Text);
+            Assert.AreEqual("Berekeningen map &leegmaken...", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen groepen of berekeningen om te verwijderen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.RemoveAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
@@ -1340,8 +1340,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
 
             // Assert
-            Assert.AreEqual("Subonderdelen verwijderen...", toolStripItem.Text);
-            Assert.AreEqual("Verwijder alle groepen en berekeningen uit deze groep.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Berekeningen map &leegmaken...", toolStripItem.Text);
+            Assert.AreEqual("Verwijder alle berekeningen en mappen binnen deze Berekeningen map.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.RemoveAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
         }

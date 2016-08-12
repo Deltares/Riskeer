@@ -440,7 +440,7 @@
     <value>..\resources\broom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CalculationGroup_RemoveAllChildrenFromGroup_Remove_all" xml:space="preserve">
-    <value>Subonderdelen verwijderen...</value>
+    <value>Berekeningen map &amp;leegmaken...</value>
   </data>
   <data name="CalculationGroup_RemoveAllChildrenFromGroup_Are_you_sure_you_want_to_remove_everything_from_this_group" xml:space="preserve">
     <value>Weet u zeker dat u alles binnen deze groep wilt verwijderen?</value>
@@ -449,6 +449,6 @@
     <value>Er zijn geen groepen of berekeningen om te verwijderen.</value>
   </data>
   <data name="CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip" xml:space="preserve">
-    <value>Verwijder alle groepen en berekeningen uit deze groep.</value>
+    <value>Verwijder alle berekeningen en mappen binnen deze Berekeningen map.</value>
   </data>
 </root>

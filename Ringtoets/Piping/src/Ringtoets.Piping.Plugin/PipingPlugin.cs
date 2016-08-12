@@ -648,10 +648,15 @@ namespace Ringtoets.Piping.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddCalculationScenario)
-                   .AddSeparator()
-                   .AddRemoveAllChildrenItem(group)
-                   .AddSeparator()
+                   .AddCreateCalculationItem(nodeData, AddCalculationScenario);
+
+            if (!isNestedGroup)
+            {
+                builder.AddSeparator()
+                       .AddRemoveAllChildrenItem(group);
+            }
+
+            builder.AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData, c => ValidateAll(c.WrappedData.GetCalculations().OfType<PipingCalculation>()))
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll)
                    .AddClearAllCalculationOutputInGroupItem(group)
