@@ -60,7 +60,7 @@ namespace Ringtoets.Common.IO
 
             MapLineData mapLineData = CreateMapLineData(referenceLine, id);
 
-            polyLineShapeFileWriter.AddFeature(mapLineData);
+            polyLineShapeFileWriter.CopyToFeature(mapLineData);
 
             polyLineShapeFileWriter.SaveAs(filePath);
         }

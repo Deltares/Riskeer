@@ -129,4 +129,7 @@
   <data name="HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception" xml:space="preserve">
     <value>Het bevragen van de database is mislukt.</value>
   </data>
+  <data name="HydraulicBoundaryLocationsExporter_Error_0_no_HydraulicBoundaryLocations_exported" xml:space="preserve">
+    <value>{0}Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.</value>
+  </data>
 </root>

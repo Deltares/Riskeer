@@ -24,8 +24,9 @@ using System.IO;
 using System.Security.AccessControl;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-using Core.Components.Gis.Data;
+using Core.Components.Gis.Features;
 using Core.Components.Gis.IO.Writers;
+using DotSpatial.Data;
 using NUnit.Framework;
 
 namespace Core.Components.Gis.IO.Test.Writers
@@ -128,11 +129,11 @@ namespace Core.Components.Gis.IO.Test.Writers
             }
         }
 
-        private class TestShapeFileWriterBase : ShapeFileWriterBase<MapLineData>
+        private class TestShapeFileWriterBase : ShapeFileWriterBase
         {
-            public override void AddFeature(MapLineData mapData)
+            protected override IFeature AddFeature(MapFeature mapFeature)
             {
-                // do nothing
+                return null;
             }
         }
     }

@@ -368,6 +368,13 @@ namespace Ringtoets.Integration.Plugin
                 IsEnabled = context => context.WrappedData.ReferenceLine != null,
                 FileFilter = string.Format(RingtoetsCommonIoResources.DataTypeDisplayName_0_shape_file_filter, "Referentielijn")
             };
+
+            yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
+            {
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath),
+                IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase != null,
+                FileFilter = string.Format(RingtoetsCommonIoResources.DataTypeDisplayName_0_shape_file_filter, "Hydraulische randvoorwaarden")
+            };
         }
 
         /// <summary>
@@ -1101,6 +1108,7 @@ namespace Ringtoets.Integration.Plugin
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(connectionItem)
+                      .AddExportItem()
                       .AddSeparator()
                       .AddExpandAllItem()
                       .AddCollapseAllItem()

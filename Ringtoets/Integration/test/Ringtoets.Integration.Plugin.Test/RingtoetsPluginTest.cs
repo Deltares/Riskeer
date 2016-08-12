@@ -264,9 +264,11 @@ namespace Ringtoets.Integration.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, exportInfos.Length);
+                Assert.AreEqual(2, exportInfos.Length);
                 var referenceLineExportInfo = exportInfos.Single(ei => ei.DataType == typeof(ReferenceLineContext));
                 Assert.AreEqual("Referentielijn shapebestand (*.shp)|*.shp", referenceLineExportInfo.FileFilter);
+                var hydraulicBoundaryExportInfo = exportInfos.Single(ei => ei.DataType == typeof(HydraulicBoundaryDatabaseContext));
+                Assert.AreEqual("Hydraulische randvoorwaarden shapebestand (*.shp)|*.shp", hydraulicBoundaryExportInfo.FileFilter);
             }
         }
 

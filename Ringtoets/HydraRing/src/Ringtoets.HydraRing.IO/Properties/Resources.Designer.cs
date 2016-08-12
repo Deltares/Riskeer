@@ -79,6 +79,16 @@ namespace Ringtoets.HydraRing.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd..
+        /// </summary>
+        public static string HydraulicBoundaryLocationsExporter_Error_0_no_HydraulicBoundaryLocations_exported {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationsExporter_Error_0_no_HydraulicBoundaryLocations_exported" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bevragen van de database is mislukt..
         /// </summary>
         public static string HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception {

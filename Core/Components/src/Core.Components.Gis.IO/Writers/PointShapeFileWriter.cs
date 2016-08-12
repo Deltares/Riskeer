@@ -30,37 +30,37 @@ using DotSpatial.Topology;
 namespace Core.Components.Gis.IO.Writers
 {
     /// <summary>
-    /// Class to be used to write polylines to a shapefile.
+    /// Class to be used to write points to a shapefile.
     /// </summary>
-    public class PolylineShapeFileWriter : ShapeFileWriterBase
+    public class PointShapeFileWriter : ShapeFileWriterBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolylineShapeFileWriter"/> class.
+        /// Initializes a new instance of the <see cref="PointShapeFileWriter"/> class.
         /// </summary>
-        public PolylineShapeFileWriter()
+        public PointShapeFileWriter()
         {
-            ShapeFile = new LineShapefile
+            ShapeFile = new PointShapefile
             {
-                FeatureType = FeatureType.Line
+                FeatureType = FeatureType.Point
             };
         }
 
         protected override IFeature AddFeature(MapFeature mapFeature)
         {
-            LineString lineString = CreateLineStringFromMapFeature(mapFeature);
+            Point point = CreatePointFromMapFeature(mapFeature);
 
-            return ShapeFile.AddFeature(lineString);
+            return ShapeFile.AddFeature(point);
         }
 
-        private static LineString CreateLineStringFromMapFeature(MapFeature mapFeature)
+        private static Point CreatePointFromMapFeature(MapFeature mapFeature)
         {
             MapGeometry geometry = mapFeature.MapGeometries.First();
 
             IEnumerable<Point2D> mapGeometryPointCollection = geometry.PointCollections.First();
 
-            IList<Coordinate> coordinates = mapGeometryPointCollection.Select(p => new Coordinate(p.X, p.Y)).ToList();
+            Coordinate coordinate = mapGeometryPointCollection.Select(p => new Coordinate(p.X, p.Y)).First();
 
-            return new LineString(coordinates);
+            return new Point(coordinate);
         }
     }
 }

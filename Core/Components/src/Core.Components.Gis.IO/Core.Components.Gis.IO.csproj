@@ -61,6 +61,7 @@
     <Compile Include="Readers\PolygonShapeFileReader.cs" />
     <Compile Include="Readers\PolylineShapeFileReader.cs" />
     <Compile Include="Readers\ShapeFileReaderBase.cs" />
+    <Compile Include="Writers\PointShapeFileWriter.cs" />
     <Compile Include="Writers\PolylineShapeFileWriter.cs" />
     <Compile Include="Writers\ShapeFileWriterBase.cs" />
   </ItemGroup>

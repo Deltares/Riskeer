@@ -23,7 +23,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
@@ -35,13 +34,13 @@ using NUnit.Framework;
 namespace Core.Components.Gis.IO.Test.Writers
 {
     [TestFixture]
-    public class PolylineShapeFileWriterTest
+    public class PointShapeFileWriterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            using (var writer = new PolylineShapeFileWriter())
+            using (var writer = new PointShapeFileWriter())
             {
                 // Assert
                 Assert.IsInstanceOf<ShapeFileWriterBase>(writer);
@@ -49,31 +48,31 @@ namespace Core.Components.Gis.IO.Test.Writers
         }
 
         [Test]
-        public void CopyToFeature_InconsistentMetaDataBetweenMapLineDatas_ThrowArgumentException()
+        public void CopyToFeature_InconsistentMetaDataBetweenMapPointDatas_ThrowArgumentException()
         {
             // Setup
             MapFeature[] features1 = CreateFeatures(0.0);
-            var mapLineData1 = new MapLineData("test data 1")
+            var mapPointData1 = new MapPointData("test data 1")
             {
                 Features = features1
             };
-            mapLineData1.Features.First().MetaData["firstKey"] = 123;
-            mapLineData1.Features.First().MetaData["secondKey"] = "aValue";
+            mapPointData1.Features.First().MetaData["firstKey"] = 123;
+            mapPointData1.Features.First().MetaData["secondKey"] = "aValue";
 
             MapFeature[] features2 = CreateFeatures(10.0);
-            var mapLineData2 = new MapLineData("test data 2")
+            var mapPointData2 = new MapPointData("test data 2")
             {
                 Features = features2
             };
-            mapLineData2.Features.First().MetaData["firstKey"] = 123;
-            mapLineData2.Features.First().MetaData["anotherKey"] = "anotherValue";
+            mapPointData2.Features.First().MetaData["firstKey"] = 123;
+            mapPointData2.Features.First().MetaData["anotherKey"] = "anotherValue";
 
-            using (var writer = new PolylineShapeFileWriter())
+            using (var writer = new PointShapeFileWriter())
             {
-                writer.CopyToFeature(mapLineData1);
+                writer.CopyToFeature(mapPointData1);
 
                 // Call
-                TestDelegate call = () => writer.CopyToFeature(mapLineData2);
+                TestDelegate call = () => writer.CopyToFeature(mapPointData2);
 
                 // Assert
                 Assert.Throws<ArgumentException>(call);
@@ -81,29 +80,29 @@ namespace Core.Components.Gis.IO.Test.Writers
         }
 
         [Test]
-        public void SaveAs_ValidMapLineData_WritesShapeFile()
+        public void SaveAs_ValidMapPointData_WritesShapeFile()
         {
             // Setup
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                              "SaveAs_ValidMapLineData_WritesShapeFile");
+                                                              "SaveAs_ValidMapPointData_WritesShapeFile");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";
 
             MapFeature[] features = CreateFeatures(0.0);
 
-            var mapLineData = new MapLineData("test data")
+            var mapPointData = new MapPointData("test data")
             {
                 Features = features
             };
 
-            mapLineData.Features.First().MetaData["<some key>"] = 123;
+            mapPointData.Features.First().MetaData["<some key>"] = 123;
 
             try
             {
-                using (var writer = new PolylineShapeFileWriter())
+                using (var writer = new PointShapeFileWriter())
                 {
-                    writer.CopyToFeature(mapLineData);
+                    writer.CopyToFeature(mapPointData);
 
                     // Precondition
                     AssertEssentialShapefileExists(directoryPath, baseName, false);
@@ -131,9 +130,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                     {
                         new[]
                         {
-                            new Point2D(seed, seed),
-                            new Point2D(seed + 1, seed + 1),
-                            new Point2D(seed + 2, seed + 2)
+                            new Point2D(seed, seed)
                         }
                     })
                 })

@@ -134,6 +134,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);

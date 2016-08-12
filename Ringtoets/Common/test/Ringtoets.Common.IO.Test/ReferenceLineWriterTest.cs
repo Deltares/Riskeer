@@ -21,6 +21,8 @@
 
 using System;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -36,7 +38,8 @@ namespace Ringtoets.Common.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("ParameteredConstructor_ExpectedValues", "test.shp"));
+                                                         Path.Combine("WriteReferenceLine_NullReferenceLine_ThrowArgumentNullException",
+                                                                      "test.shp"));
 
             var writer = new ReferenceLineWriter();
 
@@ -59,7 +62,8 @@ namespace Ringtoets.Common.IO.Test
             });
 
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("WriteReferenceLine_NullId_ThrowArgumentException", "test.shp"));
+                                                         Path.Combine("WriteReferenceLine_NullId_ThrowArgumentNullException",
+                                                                      "test.shp"));
 
             var writer = new ReferenceLineWriter();
 
@@ -85,7 +89,8 @@ namespace Ringtoets.Common.IO.Test
             });
 
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("WriteReferenceLine_InvalidId_ThrowArgumentException", "test.shp"));
+                                                         Path.Combine("WriteReferenceLine_InvalidId_ThrowArgumentException",
+                                                                      "test.shp"));
 
             var writer = new ReferenceLineWriter();
 
@@ -145,6 +150,7 @@ namespace Ringtoets.Common.IO.Test
 
                 // Assert
                 AssertEssentialShapefileExists(directoryPath, baseName, true);
+                AssertEssentialShapefileMd5Hashes(directoryPath, baseName);
             }
             finally
             {
@@ -158,6 +164,25 @@ namespace Ringtoets.Common.IO.Test
             Assert.AreEqual(shouldExist, File.Exists(pathName + ".shp"));
             Assert.AreEqual(shouldExist, File.Exists(pathName + ".shx"));
             Assert.AreEqual(shouldExist, File.Exists(pathName + ".dbf"));
+        }
+
+        private void AssertEssentialShapefileMd5Hashes(string directoryPath, string baseName)
+        {
+            string refPathName = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO), "LineShapefileMd5");
+            string pathName = Path.Combine(directoryPath, baseName);
+
+            AssertBinaryFileContent(refPathName, pathName, ".shp", 100, 88);
+            AssertBinaryFileContent(refPathName, pathName, ".shx", 100, 8);
+            AssertBinaryFileContent(refPathName, pathName, ".dbf", 32, 289);
+        }
+
+        private static void AssertBinaryFileContent(string refPathName, string pathName, string extension, int headerLength, int bodyLength)
+        {
+            var refContent = File.ReadAllBytes(refPathName + extension);
+            var content = File.ReadAllBytes(pathName + extension);
+            Assert.AreEqual(headerLength + bodyLength, content.Length);
+            Assert.AreEqual(refContent.Skip(headerLength).Take(bodyLength),
+                            content.Skip(headerLength).Take(bodyLength));
         }
     }
 }
