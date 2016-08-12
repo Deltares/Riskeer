@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
 
@@ -30,14 +29,8 @@ namespace Ringtoets.HydraRing.Calculation.IO
     /// <summary>
     /// The reader for the <see cref="DesignTableSettings"/> in csv format.
     /// </summary>
-    internal class DesignTableSettingsCsvReader
+    internal class DesignTableSettingsCsvReader : HydraRingSettingsCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>>>
     {
-        private const char separator = ';';
-
-        private readonly string fileContents;
-
-        private readonly IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>> settings = new Dictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>>();
-
         private readonly Dictionary<string, int> columns = new Dictionary<string, int>
         {
             {
@@ -81,47 +74,23 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// </summary>
         /// <param name="file">The file to read.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="file"/> is not set.</exception>
-        public DesignTableSettingsCsvReader(string file)
-        {
-            if (file == null)
-            {
-                throw new ArgumentNullException("file", @"A file must be set.");
-            }
+        public DesignTableSettingsCsvReader(string file) : base(file, new Dictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>>()) {}
 
-            fileContents = file;
-        }
-
-        /// <summary>
-        /// Reads the settings from the file.
-        /// </summary>
-        /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the settings.</returns>
-        public IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>> ReadSettings()
-        {
-            string[] lines = fileContents.Split('\n');
-
-            foreach (string line in lines.Skip(1).Where(s => !string.IsNullOrEmpty(s)))
-            {
-                CreateSetting(TokenizeString(line));
-            }
-
-            return settings;
-        }
-
-        private void CreateSetting(IList<string> line)
+        protected override void CreateSetting(IList<string> line)
         {
             // Get failure mechanism
-            HydraRingFailureMechanismType failureMechanismType = GetFailureMechanismType(line);
+            var failureMechanismType = GetFailureMechanismType(line);
 
-            if (!settings.ContainsKey(failureMechanismType))
+            if (!Settings.ContainsKey(failureMechanismType))
             {
-                settings.Add(failureMechanismType, new Dictionary<string, DesignTableSettings>());
+                Settings.Add(failureMechanismType, new Dictionary<string, DesignTableSettings>());
             }
 
             // Get TrajectId
-            string ringId = GetRingId(line);
-            if (!settings[failureMechanismType].ContainsKey(ringId))
+            var ringId = GetRingId(line);
+            if (!Settings[failureMechanismType].ContainsKey(ringId))
             {
-                settings[failureMechanismType].Add(ringId, GetDesignTableSettings(line));
+                Settings[failureMechanismType].Add(ringId, GetDesignTableSettings(line));
             }
         }
 
@@ -139,28 +108,6 @@ namespace Ringtoets.HydraRing.Calculation.IO
         {
             return new DesignTableSettings(GetIntValueFromElement(line[columns[minKey]]),
                                            GetIntValueFromElement(line[columns[maxKey]]));
-        }
-
-        private string GetStringValueFromElement(string element)
-        {
-            return element.Trim().Replace("\"", "");
-        }
-
-        private int GetIntValueFromElement(string element)
-        {
-            return int.Parse(GetStringValueFromElement(element));
-        }
-
-        private string[] TokenizeString(string readText)
-        {
-            if (!readText.Contains(separator))
-            {
-                return new string[]
-                {};
-            }
-            return readText.Split(separator)
-                           .TakeWhile(text => !string.IsNullOrEmpty(text))
-                           .ToArray();
         }
 
         #region Csv column names

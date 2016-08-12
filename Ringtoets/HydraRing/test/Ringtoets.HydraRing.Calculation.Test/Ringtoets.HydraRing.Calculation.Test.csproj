@@ -75,6 +75,7 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputTest.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
     <Compile Include="IO\DesignTableSettingsCsvReaderTest.cs" />
+    <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\LogFileParserTest.cs" />
     <Compile Include="Parsers\TargetProbabilityCalculationParserTest.cs" />

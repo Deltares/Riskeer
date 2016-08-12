@@ -36,13 +36,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Settings");
 
         [Test]
-        public void Constructor_PathSet_DoesNotThrowArgumentNullException()
+        public void Constructor_ExpectedSettings()
         {
             // Call
-            TestDelegate call = () => new DesignTableSettingsCsvReader("path.csv");
+            DesignTableSettingsCsvReader reader = new DesignTableSettingsCsvReader("path.csv");
 
             // Assert
-            Assert.DoesNotThrow(call);
+            Assert.IsInstanceOf<HydraRingSettingsCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>>>>(reader);
         }
 
         [Test]

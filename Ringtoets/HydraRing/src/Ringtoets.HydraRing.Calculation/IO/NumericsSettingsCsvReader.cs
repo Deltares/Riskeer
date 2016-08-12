@@ -21,8 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data.Settings;
 
 namespace Ringtoets.HydraRing.Calculation.IO
@@ -30,14 +28,8 @@ namespace Ringtoets.HydraRing.Calculation.IO
     /// <summary>
     /// The reader for the <see cref="NumericsSettings"/> in csv format.
     /// </summary>
-    internal class NumericsSettingsCsvReader
+    internal class NumericsSettingsCsvReader : HydraRingSettingsCsvReader<IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>>>
     {
-        private const char separator = ';';
-
-        private readonly string fileContents;
-
-        private readonly IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> settings = new Dictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>>();
-
         private readonly Dictionary<string, int> columns = new Dictionary<string, int>
         {
             {
@@ -98,56 +90,32 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// </summary>
         /// <param name="file">The file to read.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="file"/> is not set.</exception>
-        public NumericsSettingsCsvReader(string file)
-        {
-            if (string.IsNullOrEmpty(file))
-            {
-                throw new ArgumentNullException("file", @"A file must be set.");
-            }
+        public NumericsSettingsCsvReader(string file) : base(file, new Dictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>>()) {}
 
-            fileContents = file;
-        }
-
-        /// <summary>
-        /// Reads the settings from the file.
-        /// </summary>
-        /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the settings.</returns>
-        public IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> ReadSettings()
-        {
-            string[] lines = fileContents.Split('\n');
-
-            foreach (string line in lines.Skip(1).Where(s => !string.IsNullOrEmpty(s)))
-            {
-                CreateSetting(TokenizeString(line));
-            }
-
-            return settings;
-        }
-
-        private void CreateSetting(IList<string> line)
+        protected override void CreateSetting(IList<string> line)
         {
             // Get failure mechanism
-            int failureMechanismType = GetFailureMechanismType(line);
+            var failureMechanismType = GetFailureMechanismType(line);
 
-            if (!settings.ContainsKey(failureMechanismType))
+            if (!Settings.ContainsKey(failureMechanismType))
             {
-                settings.Add(failureMechanismType, new Dictionary<int, IDictionary<string, NumericsSettings>>());
+                Settings.Add(failureMechanismType, new Dictionary<int, IDictionary<string, NumericsSettings>>());
             }
 
             // Get sub mechanism
-            int subMechanism = GetSubMechanismType(line);
+            var subMechanism = GetSubMechanismType(line);
 
-            if (!settings[failureMechanismType].ContainsKey(subMechanism))
+            if (!Settings[failureMechanismType].ContainsKey(subMechanism))
             {
-                settings[failureMechanismType].Add(subMechanism, new Dictionary<string, NumericsSettings>());
+                Settings[failureMechanismType].Add(subMechanism, new Dictionary<string, NumericsSettings>());
             }
 
             // Get TrajectId
-            string ringId = GetRingId(line);
+            var ringId = GetRingId(line);
 
-            if (!settings[failureMechanismType][subMechanism].ContainsKey(ringId))
+            if (!Settings[failureMechanismType][subMechanism].ContainsKey(ringId))
             {
-                settings[failureMechanismType][subMechanism].Add(ringId, GetNumericSettings(line));
+                Settings[failureMechanismType][subMechanism].Add(ringId, GetNumericSettings(line));
             }
         }
 
@@ -163,47 +131,25 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         private string GetRingId(IList<string> line)
         {
-            return line[columns[ringIdKey]].Trim().Replace("\"", "");
+            return GetStringValueFromElement(line[columns[ringIdKey]]);
         }
 
         private NumericsSettings GetNumericSettings(IList<string> line)
         {
             return new NumericsSettings(GetIntValueFromElement(line[columns[calculationMethodKey]]),
-                                            GetIntValueFromElement(line[columns[formStartMethodKey]]),
-                                            GetIntValueFromElement(line[columns[formIterationsKey]]),
-                                            GetDoubleValueFromElement(line[columns[formRelaxationFactorKey]]),
-                                            GetDoubleValueFromElement(line[columns[formEpsBetaKey]]),
-                                            GetDoubleValueFromElement(line[columns[formEpsHohKey]]),
-                                            GetDoubleValueFromElement(line[columns[formEpsZFuncKey]]),
-                                            GetIntValueFromElement(line[columns[dsStartMethodKey]]),
-                                            GetIntValueFromElement(line[columns[dsMinNumberOfIterationsKey]]),
-                                            GetIntValueFromElement(line[columns[dsMaxNumberOfIterationsKey]]),
-                                            GetDoubleValueFromElement(line[columns[dsVarCoefficientKey]]),
-                                            GetDoubleValueFromElement(line[columns[niUMinKey]]),
-                                            GetDoubleValueFromElement(line[columns[niUMaxKey]]),
-                                            GetIntValueFromElement(line[columns[niNumberStepsKey]]));
-        }
-
-        private static int GetIntValueFromElement(string element)
-        {
-            return int.Parse(element.Trim());
-        }
-
-        private static double GetDoubleValueFromElement(string element)
-        {
-            return double.Parse(element.Trim(), CultureInfo.InvariantCulture);
-        }
-
-        private string[] TokenizeString(string readText)
-        {
-            if (!readText.Contains(separator))
-            {
-                return new string[]
-                {};
-            }
-            return readText.Split(separator)
-                           .TakeWhile(text => !string.IsNullOrEmpty(text))
-                           .ToArray();
+                                        GetIntValueFromElement(line[columns[formStartMethodKey]]),
+                                        GetIntValueFromElement(line[columns[formIterationsKey]]),
+                                        GetDoubleValueFromElement(line[columns[formRelaxationFactorKey]]),
+                                        GetDoubleValueFromElement(line[columns[formEpsBetaKey]]),
+                                        GetDoubleValueFromElement(line[columns[formEpsHohKey]]),
+                                        GetDoubleValueFromElement(line[columns[formEpsZFuncKey]]),
+                                        GetIntValueFromElement(line[columns[dsStartMethodKey]]),
+                                        GetIntValueFromElement(line[columns[dsMinNumberOfIterationsKey]]),
+                                        GetIntValueFromElement(line[columns[dsMaxNumberOfIterationsKey]]),
+                                        GetDoubleValueFromElement(line[columns[dsVarCoefficientKey]]),
+                                        GetDoubleValueFromElement(line[columns[niUMinKey]]),
+                                        GetDoubleValueFromElement(line[columns[niUMaxKey]]),
+                                        GetIntValueFromElement(line[columns[niNumberStepsKey]]));
         }
 
         #region Csv column names
