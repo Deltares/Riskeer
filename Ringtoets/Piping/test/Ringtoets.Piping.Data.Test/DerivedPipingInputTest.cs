@@ -801,6 +801,43 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void SaturatedVolumicWeightOfCoverageLayer_MultipleLayersInequalStandardDeviationOrShiftButEqualWhenRounded_ReturnsWithWeightedMean()
+        {
+            // Setup
+            var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
+            var derivedInput = new DerivedPipingInput(input);
+            var belowPhreaticLevelMeanA = 2.5;
+            var belowPhreaticLevelMeanB = 3.4;
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
+            {
+                new PipingSoilLayer(2.5)
+                {
+                    BelowPhreaticLevelDeviation = 1.014,
+                    BelowPhreaticLevelShift = 1.014,
+                    BelowPhreaticLevelMean = belowPhreaticLevelMeanA
+                },
+                new PipingSoilLayer(-0.5)
+                {
+                    BelowPhreaticLevelDeviation = 1.006,
+                    BelowPhreaticLevelShift = 1.006,
+                    BelowPhreaticLevelMean = belowPhreaticLevelMeanB
+                },
+                new PipingSoilLayer(-1.5)
+                {
+                    IsAquifer = true
+                }, 
+            }, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
+
+            // Assert
+            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 1.01, result.Shift);
+            Assert.AreEqual((RoundedDouble)1.01, result.StandardDeviation);
+        }
+
+        [Test]
         public void DarcyPermeability_NoSoilProfile_ReturnsNaNForParameters()
         {
             // Setup

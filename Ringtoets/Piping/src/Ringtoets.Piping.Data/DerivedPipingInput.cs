@@ -298,11 +298,23 @@ namespace Ringtoets.Piping.Data
                 return true;
             }
 
-            var belowPhreaticLevelDeviation = consecutiveAquitardLayers[0].BelowPhreaticLevelDeviation;
-            var belowPhreaticLevelShift = consecutiveAquitardLayers[0].BelowPhreaticLevelShift;
+            return consecutiveAquitardLayers.All(currentLayer => AreShiftAndDeviationEqual(
+                currentLayer, 
+                consecutiveAquitardLayers[0], 
+                deviationNumberOfDecimals, 
+                shiftNumberOfDecimals));
+        }
 
-            return consecutiveAquitardLayers.All(al => AlmostEquals(belowPhreaticLevelDeviation, al.BelowPhreaticLevelDeviation, deviationNumberOfDecimals) &&
-                                                       AlmostEquals(belowPhreaticLevelShift, al.BelowPhreaticLevelShift, shiftNumberOfDecimals));
+        private bool AreShiftAndDeviationEqual(PipingSoilLayer currentLayer, PipingSoilLayer baseLayer, int deviationNumberOfDecimals, int shiftNumberOfDecimals)
+        {
+            var belowPhreaticLevelDeviationBase = new RoundedDouble(deviationNumberOfDecimals, baseLayer.BelowPhreaticLevelDeviation);
+            var belowPhreaticLevelShiftBase = new RoundedDouble(shiftNumberOfDecimals, baseLayer.BelowPhreaticLevelShift);
+
+            var belowPhreaticLevelDeviationCurrent = new RoundedDouble(deviationNumberOfDecimals, currentLayer.BelowPhreaticLevelDeviation);
+            var belowPhreaticLevelShiftCurrent = new RoundedDouble(shiftNumberOfDecimals, currentLayer.BelowPhreaticLevelShift);
+
+            return belowPhreaticLevelDeviationCurrent == belowPhreaticLevelDeviationBase &&
+                   belowPhreaticLevelShiftCurrent == belowPhreaticLevelShiftBase;
         }
 
         private static double GetWeightedMeanForVolumicWeightOfCoverageLayer(PipingSoilLayer[] aquitardLayers, PipingSoilProfile profile, double surfaceLevel)
@@ -353,11 +365,6 @@ namespace Ringtoets.Piping.Data
                 return consecutiveAquitardLayersBelowLevel;
             }
             return new PipingSoilLayer[0];
-        }
-
-        private bool AlmostEquals(double a, double b, int numberOfDecimals)
-        {
-            return Math.Abs(a - b) < 0.5 * Math.Pow(10.0, -numberOfDecimals);
         }
 
         private static double GetThicknessTopAquiferLayer(PipingSoilProfile soilProfile, RingtoetsPipingSurfaceLine surfaceLine, RoundedDouble exitPointL)
