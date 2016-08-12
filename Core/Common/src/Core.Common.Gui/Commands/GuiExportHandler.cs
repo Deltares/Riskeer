@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.IO;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Properties;
@@ -60,7 +61,7 @@ namespace Core.Common.Gui.Commands
 
         public void ExportFrom(object source)
         {
-            var exportInfo = GetSupportedExportInfoUsingDialog(source);
+            ExportInfo exportInfo = GetSupportedExportInfoUsingDialog(source);
             if (exportInfo == null)
             {
                 return;
@@ -83,13 +84,13 @@ namespace Core.Common.Gui.Commands
 
         private ExportInfo GetSupportedExportInfoUsingDialog(object source)
         {
-            var supportedExportInfos = GetSupportedExportInfos(source).ToArray();
+            ExportInfo[] supportedExportInfos = GetSupportedExportInfos(source).ToArray();
 
             if (supportedExportInfos.Length == 0)
             {
                 MessageBox.Show(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available,
                                 Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_Error);
-                var itemToExportType = source == null ? "null" : source.GetType().FullName;
+                string itemToExportType = source == null ? "null" : source.GetType().FullName;
                 log.Warn(string.Format(Resources.GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available, itemToExportType));
                 return null;
             }
@@ -117,7 +118,8 @@ namespace Core.Common.Gui.Commands
 
         private void ExportItemUsingFileOpenDialog(ExportInfo exportInfo, object source)
         {
-            var windowTitle = string.Format(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to, exportInfo.Name);
+            string windowTitle = string.Format(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to,
+                                               exportInfo.Name);
             using (var saveFileDialog = new SaveFileDialog
             {
                 Filter = exportInfo.FileFilter,
@@ -129,7 +131,7 @@ namespace Core.Common.Gui.Commands
                 {
                     log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
 
-                    var exporter = exportInfo.CreateFileExporter(source, saveFileDialog.FileName);
+                    IFileExporter exporter = exportInfo.CreateFileExporter(source, saveFileDialog.FileName);
 
                     if (exporter.Export())
                     {

@@ -148,15 +148,15 @@ namespace Core.Common.Gui.Plugin
             {
                 DataType = typeof(TObject),
                 PropertyObjectType = typeof(TProperty),
-                AdditionalDataCheck = propertyInfo.AdditionalDataCheck != null
-                                          ? o => propertyInfo.AdditionalDataCheck((TObject) o)
-                                          : (Func<object, bool>) null,
-                GetObjectPropertiesData = propertyInfo.GetObjectPropertiesData != null
-                                              ? o => propertyInfo.GetObjectPropertiesData((TObject) o)
-                                              : (Func<object, object>) null,
-                AfterCreate = propertyInfo.AfterCreate != null
-                                  ? op => propertyInfo.AfterCreate((TProperty) op)
-                                  : (Action<object>) null
+                AdditionalDataCheck = propertyInfo.AdditionalDataCheck != null ?
+                                          o => propertyInfo.AdditionalDataCheck((TObject) o) :
+                                          (Func<object, bool>) null,
+                GetObjectPropertiesData = propertyInfo.GetObjectPropertiesData != null ?
+                                              o => propertyInfo.GetObjectPropertiesData((TObject) o) :
+                                              (Func<object, object>) null,
+                AfterCreate = propertyInfo.AfterCreate != null ?
+                                  op => propertyInfo.AfterCreate((TProperty) op) :
+                                  (Action<object>) null
             };
         }
     }

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
@@ -65,7 +66,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => exportHandler.ExportFrom(source);
 
             // Assert
-            var sourceTypeName = source == null ? "null" : source.GetType().FullName;
+            string sourceTypeName = source == null ? "null" : source.GetType().FullName;
             TestHelper.AssertLogMessageIsGenerated(call, string.Format("Ringtoets kan de huidige selectie ({0}) niet exporteren.", sourceTypeName));
             Assert.AreEqual("Fout", messageBoxTitle);
             Assert.AreEqual("Ringtoets kan de huidige selectie niet exporteren.", messageBoxText);
@@ -104,7 +105,7 @@ namespace Core.Common.Gui.Test.Commands
             Action call = () => exportHandler.ExportFrom(source);
 
             // Assert
-            var sourceTypeName = source == null ? "null" : source.GetType().FullName;
+            string sourceTypeName = source == null ? "null" : source.GetType().FullName;
             TestHelper.AssertLogMessageIsGenerated(call, string.Format("Ringtoets kan de huidige selectie ({0}) niet exporteren.", sourceTypeName));
             Assert.AreEqual("Fout", messageBoxTitle);
             Assert.AreEqual("Ringtoets kan de huidige selectie niet exporteren.", messageBoxText);
@@ -155,22 +156,30 @@ namespace Core.Common.Gui.Test.Commands
 
             mockRepository.ReplayAll();
 
+            const int expectedData = 1234;
+            string expectedExportPath = Path.GetFullPath("exportFile.txt");
+
             ModalFormHandler = (name, wnd, form) =>
             {
                 var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile("exportFile.txt");
+                messageBox.SaveFile(expectedExportPath);
             };
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
                 new ExportInfo<int>
                 {
-                    CreateFileExporter = (data, filePath) => exporterMock
+                    CreateFileExporter = (data, filePath) =>
+                    {
+                        Assert.AreEqual(expectedData, data);
+                        Assert.AreEqual(expectedExportPath, filePath);
+                        return exporterMock;
+                    }
                 }
             });
 
             // Call
-            Action call = () => exportHandler.ExportFrom(1234);
+            Action call = () => exportHandler.ExportFrom(expectedData);
 
             // Assert
             TestHelper.AssertLogMessagesAreGenerated(call, new[]

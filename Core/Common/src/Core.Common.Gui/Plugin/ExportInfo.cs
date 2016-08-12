@@ -149,9 +149,9 @@ namespace Core.Common.Gui.Plugin
             return new ExportInfo
             {
                 DataType = exportInfo.DataType,
-                CreateFileExporter = (data, filePath) => exportInfo.CreateFileExporter != null
-                                                             ? exportInfo.CreateFileExporter((TData) data, filePath)
-                                                             : null,
+                CreateFileExporter = (data, filePath) => exportInfo.CreateFileExporter != null ?
+                                                             exportInfo.CreateFileExporter((TData) data, filePath) :
+                                                             null,
                 IsEnabled = data => exportInfo.IsEnabled == null || exportInfo.IsEnabled((TData) data),
                 Name = exportInfo.Name,
                 Category = exportInfo.Category,

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
@@ -59,7 +60,7 @@ namespace Core.Common.Gui.Commands
 
         public void ImportOn(object target)
         {
-            var importer = GetSupportedImporterUsingDialog(target);
+            IFileImporter importer = GetSupportedImporterUsingDialog(target);
             if (importer == null)
             {
                 return;
@@ -70,7 +71,7 @@ namespace Core.Common.Gui.Commands
 
         private IFileImporter GetSupportedImporterUsingDialog(object target)
         {
-            var importers = fileImporters.Where(fileImporter => fileImporter.CanImportOn(target)).ToArray();
+            IFileImporter[] importers = fileImporters.Where(fileImporter => fileImporter.CanImportOn(target)).ToArray();
 
             if (!importers.Any())
             {
@@ -90,8 +91,10 @@ namespace Core.Common.Gui.Commands
             {
                 foreach (IFileImporter importer in importers)
                 {
-                    var category = string.IsNullOrEmpty(importer.Category) ? Resources.GuiImportHandler_GetSupportedImporterForTargetType_Data_Import : importer.Category;
-                    var itemImage = importer.Image ?? Resources.brick;
+                    string category = string.IsNullOrEmpty(importer.Category) ?
+                                          Resources.GuiImportHandler_GetSupportedImporterForTargetType_Data_Import :
+                                          importer.Category;
+                    Bitmap itemImage = importer.Image ?? Resources.brick;
 
                     selectImporterDialog.AddItemType(importer.Name, category, itemImage, null);
                 }
@@ -121,7 +124,8 @@ namespace Core.Common.Gui.Commands
                 {
                     log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
 
-                    ActivityProgressDialogRunner.Run(dialogParent, dialog.FileNames.Select(f => new FileImportActivity(importer, target, f)).ToList());
+                    FileImportActivity[] importActivitiesToRun = dialog.FileNames.Select(f => new FileImportActivity(importer, target, f)).ToArray();
+                    ActivityProgressDialogRunner.Run(dialogParent, importActivitiesToRun);
                 }
             }
         }

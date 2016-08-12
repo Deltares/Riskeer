@@ -112,7 +112,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new GuiImportHandler(dialogParent, fileImporters);
 
             // Call
-            var isImportPossible = commandHandler.CanImportOn(new object());
+            bool isImportPossible = commandHandler.CanImportOn(new object());
 
             // Assert
             Assert.IsFalse(isImportPossible);
@@ -139,7 +139,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new GuiImportHandler(dialogParent, fileImporters);
 
             // Call
-            var isImportPossible = commandHandler.CanImportOn(target);
+            bool isImportPossible = commandHandler.CanImportOn(target);
 
             // Assert
             Assert.IsTrue(isImportPossible);
@@ -165,7 +165,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new GuiImportHandler(dialogParent, fileImporters);
 
             // Call
-            var isImportPossible = commandHandler.CanImportOn(target);
+            bool isImportPossible = commandHandler.CanImportOn(target);
 
             // Assert
             Assert.IsFalse(isImportPossible);
@@ -193,7 +193,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new GuiImportHandler(dialogParent, fileImporters);
 
             // Call
-            var isImportPossible = commandHandler.CanImportOn(target);
+            bool isImportPossible = commandHandler.CanImportOn(target);
 
             // Assert
             Assert.IsTrue(isImportPossible);
@@ -221,7 +221,7 @@ namespace Core.Common.Gui.Test.Commands
             var commandHandler = new GuiImportHandler(dialogParent, fileImporters);
 
             // Call
-            var isImportPossible = commandHandler.CanImportOn(target);
+            bool isImportPossible = commandHandler.CanImportOn(target);
 
             // Assert
             Assert.IsFalse(isImportPossible);

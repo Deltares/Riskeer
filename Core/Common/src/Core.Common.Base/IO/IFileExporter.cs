@@ -30,7 +30,6 @@ namespace Core.Common.Base.IO
         /// This method performs the export routine.
         /// </summary>
         /// <returns><c>true</c> if the export was successful, <c>false</c> otherwise.</returns>
-        /// <remarks>Implementations of this export method are allowed to throw exceptions of any kind.</remarks>
         bool Export();
     }
 }
