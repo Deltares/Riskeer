@@ -37,9 +37,12 @@ namespace Ringtoets.HeightStructures.Service
         /// <summary>
         /// Clears the output for all calculations in the <see cref="HeightStructuresFailureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<HeightStructuresCalculation> ClearAllCalculationOutput(HeightStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -60,8 +63,10 @@ namespace Ringtoets.HeightStructures.Service
         /// <summary>
         /// Clears the output of the given <see cref="HeightStructuresCalculation"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> to clear the output for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> to clear
+        /// the output for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
+        /// is <c>null</c>.</exception>
         public static void ClearCalculationOutput(HeightStructuresCalculation calculation)
         {
             if (calculation == null)
@@ -73,11 +78,15 @@ namespace Ringtoets.HeightStructures.Service
         }
 
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="HeightStructuresFailureMechanism"/>.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in
+        /// the <see cref="HeightStructuresFailureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removing <see cref="HydraulicBoundaryLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<HeightStructuresCalculation> ClearHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -96,11 +105,15 @@ namespace Ringtoets.HeightStructures.Service
         }
 
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations in the <see cref="HeightStructuresFailureMechanism"/>.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
+        /// in the <see cref="HeightStructuresFailureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removing data.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<HeightStructuresCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)

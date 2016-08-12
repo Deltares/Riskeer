@@ -118,7 +118,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                 return;
             }
 
-            Data = selection; //GetObjectProperties(selection);
+            Data = selection;
         }
 
         #region IView Members
@@ -153,7 +153,6 @@ namespace Core.Common.Gui.Forms.PropertyGridView
                             observable.Attach(this);
                         }
                     }
-                    ;
                 }
             }
         }

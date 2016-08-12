@@ -37,9 +37,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <summary>
         /// Clears the output for all calculations in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<GrassCoverErosionInwardsCalculation> ClearAllCalculationOutput(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -51,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                 .Cast<GrassCoverErosionInwardsCalculation>()
                                                 .Where(c => c.HasOutput)
                                                 .ToArray();
-            
+
             affectedItems.ForEachElementDo(ClearCalculationOutput);
 
             return affectedItems;
@@ -60,8 +63,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <summary>
         /// Clears the output of the given <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> to clear the output for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>
+        /// to clear the output for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
+        /// is <c>null</c>.</exception>
         public static void ClearCalculationOutput(GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculation == null)
@@ -73,11 +78,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in
+        /// the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removing <see cref="HydraulicBoundaryLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<GrassCoverErosionInwardsCalculation> ClearHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -96,11 +105,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
+        /// in the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removal of data.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
         public static IEnumerable<GrassCoverErosionInwardsCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
@@ -109,7 +122,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             Collection<GrassCoverErosionInwardsCalculation> affectedItems = new Collection<GrassCoverErosionInwardsCalculation>();
-
             foreach (var calculation in failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>())
             {
                 var calculationChanged = false;

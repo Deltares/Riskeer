@@ -76,7 +76,8 @@ namespace Ringtoets.Piping.Service
         /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removing <see cref="HydraulicBoundaryLocation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<PipingCalculation> ClearHydraulicBoundaryLocations(PipingFailureMechanism failureMechanism)
         {
@@ -99,7 +100,8 @@ namespace Ringtoets.Piping.Service
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations in the <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<PipingCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(PipingFailureMechanism failureMechanism)
         {

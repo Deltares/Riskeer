@@ -59,7 +59,8 @@ namespace Ringtoets.Integration.Service
         /// Clears all the output data and hydraulic boundary locations within the <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the data for.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removing data.</returns>
         /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static IEnumerable<ICalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(IAssessmentSection assessmentSection)
         {
