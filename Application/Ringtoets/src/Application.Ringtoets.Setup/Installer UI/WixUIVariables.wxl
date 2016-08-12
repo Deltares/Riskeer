@@ -23,10 +23,11 @@
   <String Id="ProgressDlgTextUpdating" />
   <String Id="ProgressDlgTitleUpdating" />
 
-  <!-- Change the colour of the description texts in the banners to white -->
+  <!-- Change the color of the description texts in the banners to white -->
   <String Id="BrowseDlgDescription">{\WixUI_Font_Banner_Description}Configureer de installatie locatie.</String>
   <String Id="DiskCostDlgDescription">{\WixUI_Font_Banner_Description}De hoeveelheid geheugen nodig voor de geconfigureerde installatie.</String>
   <String Id="MaintenanceTypeDlgDescription">{\WixUI_Font_Banner_Description}Selecteer de operatie die u wenst uit te voeren.</String>
+  <String Id="FilesInUseDescription">{\WixUI_Font_Banner_Description}Bestanden die moeten worden bijgewerkt, zijn in gebruik.</String>
   <String Id="OutOfDiskDlgDescription">{\WixUI_Font_Banner_Description}Het benodigde geheugen voor de installatie is groter dan beschikbare schijfruimte.</String>
   <String Id="OutOfRbDiskDlgDescription">{\WixUI_Font_Banner_Description}Het benodigde geheugen voor de installatie is groter dan beschikbare schijfruimte.</String>
 
