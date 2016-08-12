@@ -78,6 +78,10 @@
               <File Id="RingtoetsLicense" Name="Licentie.rtf" Source="Licentie.rtf" KeyPath="yes"/>  
             </Component>
 
+            <Component Id="UserManual" Guid="{8672917E-47B3-47BF-AF8A-A2B536A53DC1}">
+              <File Id="RingtoestUserManual" Name="Ringtoets_Manual.pdf" Source="Ringtoets_Manual.pdf" KeyPath="yes"/>
+            </Component>
+
           </Directory>
         </Directory>
       </Directory>
@@ -154,6 +158,7 @@
       <ComponentRef Id="ProgramMenuShortcut"/>
       <ComponentRef Id="DesktopShortcut"/>
       <ComponentRef Id="LicenseFile"/>
+      <ComponentRef Id="UserManual"/>
       <ComponentRef Id="IHWFile"/>
       <ComponentRef Id="FileAssociation"/>
 		</Feature>
