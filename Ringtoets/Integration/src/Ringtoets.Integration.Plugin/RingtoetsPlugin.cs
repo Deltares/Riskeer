@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
@@ -282,6 +281,16 @@ namespace Ringtoets.Integration.Plugin
                     view.AssessmentSection = context.Parent;
                     view.ViewCommands = Gui.ViewCommands;
                 }
+            };
+
+            yield return new ViewInfo<DesignWaterLevelContext, HydraulicBoundaryDatabase, HydraulicBoundaryLocationDesignWaterLevelsView>
+            {
+                GetViewName = (v, o) => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
+                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase,
+                AdditionalDataCheck = context => context.WrappedData.HydraulicBoundaryDatabase != null,
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CloseForData = CloseHydraulicBoundaryLocationsViewForData,
+                AfterCreate = (view, context) => { view.AssessmentSection = context.WrappedData; }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -993,6 +1002,12 @@ namespace Ringtoets.Integration.Plugin
 
         #region HydraulicBoundaryDatabase
 
+        private static bool CloseHydraulicBoundaryLocationsViewForData(HydraulicBoundaryLocationDesignWaterLevelsView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            return assessmentSection != null && assessmentSection == view.AssessmentSection && assessmentSection.HydraulicBoundaryDatabase == view.Data;
+        }
+
         private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
         {
             return new object[]
@@ -1033,6 +1048,7 @@ namespace Ringtoets.Integration.Plugin
             }
 
             return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
                       .AddCustomItem(designWaterLevelItem)
                       .AddSeparator()
                       .AddPropertiesItem()

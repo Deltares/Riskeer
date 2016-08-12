@@ -280,11 +280,15 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(18, viewInfos.Length);
+                Assert.AreEqual(19, viewInfos.Length);
 
                 var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismContributionContext));
                 Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismContributionIcon, contributionViewInfo.Image);
+
+                var designWaterLevelsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(DesignWaterLevelContext));
+                Assert.AreEqual(typeof(HydraulicBoundaryLocationDesignWaterLevelsView), designWaterLevelsViewInfo.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, designWaterLevelsViewInfo.Image);
 
                 var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionView), mapViewInfo.ViewType);

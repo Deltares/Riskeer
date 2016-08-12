@@ -119,6 +119,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var nodeData = new DesignWaterLevelContext(assessmentSectionMock);
 
+            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
