@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base;
 
 namespace Ringtoets.HydraRing.Data
@@ -30,11 +31,11 @@ namespace Ringtoets.HydraRing.Data
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabase"/>
-        /// and creates a <see cref="ObservableList{T}"/> with <see cref="HydraulicBoundaryLocation"/>.
+        /// and creates a <see cref="List{T}"/> with <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         public HydraulicBoundaryDatabase()
         {
-            Locations = new ObservableList<HydraulicBoundaryLocation>();
+            Locations = new List<HydraulicBoundaryLocation>();
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace Ringtoets.HydraRing.Data
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
-        public ObservableList<HydraulicBoundaryLocation> Locations { get; private set; }
+        public List<HydraulicBoundaryLocation> Locations { get; private set; }
 
         /// <summary>
         /// Clears all the locations from the <see cref="HydraulicBoundaryDatabase"/>.
