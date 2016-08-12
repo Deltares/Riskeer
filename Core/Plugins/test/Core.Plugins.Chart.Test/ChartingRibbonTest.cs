@@ -47,17 +47,6 @@ namespace Core.Plugins.Chart.Test
         
         [Test]
         [RequiresSTA]
-        public void IsContextualTabVisible_Always_ReturnsFalse()
-        {
-            // Setup
-            var ribbon = new ChartingRibbon();
-
-            // Call & Assert
-            Assert.IsFalse(ribbon.IsContextualTabVisible(null));
-        }
-
-        [Test]
-        [RequiresSTA]
         public void TogglePanning_OnClick_TogglePanning()
         {
             // Setup

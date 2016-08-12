@@ -48,11 +48,6 @@ namespace Core.Plugins.ProjectExplorer
             ToggleProjectExplorerButton.IsChecked = ToggleExplorerCommand.Checked;
         }
 
-        public bool IsContextualTabVisible(string tabGroupName)
-        {
-            return false;
-        }
-
         public Fluent.Ribbon GetRibbonControl()
         {
             return RibbonControl;

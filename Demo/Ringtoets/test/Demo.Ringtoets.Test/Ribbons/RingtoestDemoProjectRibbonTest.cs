@@ -35,24 +35,6 @@ namespace Demo.Ringtoets.Test.Ribbons
 
         [Test]
         [RequiresSTA]
-        public void IsContextualTabVisible_Always_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectOwnerStub = mocks.Stub<IProjectOwner>();
-            var viewController = mocks.Stub<IViewController>();
-            mocks.ReplayAll();
-
-            // Call
-            var ribbon = new RingtoetsDemoProjectRibbon(projectOwnerStub, viewController);
-
-            // Assert
-            Assert.IsFalse(ribbon.IsContextualTabVisible(null));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [RequiresSTA]
         public void OpenChartViewButton_OnClick_ExecutesOpenChartViewCommand()
         {
             // Setup

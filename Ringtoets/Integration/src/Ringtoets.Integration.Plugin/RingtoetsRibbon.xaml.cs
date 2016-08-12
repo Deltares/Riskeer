@@ -51,11 +51,6 @@ namespace Ringtoets.Integration.Plugin
 
         public void ValidateItems() {}
 
-        public bool IsContextualTabVisible(string tabGroupName)
-        {
-            return false;
-        }
-
         private void ButtonAddAssessmentSectionToolWindowClick(object sender, RoutedEventArgs e)
         {
             AddAssessmentSectionButtonCommand.Execute();

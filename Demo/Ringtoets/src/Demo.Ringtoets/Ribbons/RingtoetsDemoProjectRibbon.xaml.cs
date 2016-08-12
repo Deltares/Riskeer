@@ -31,11 +31,6 @@ namespace Demo.Ringtoets.Ribbons
 
         public void ValidateItems() {}
 
-        public bool IsContextualTabVisible(string tabGroupName)
-        {
-            return false;
-        }
-
         private void AddNewDemoAssessmentSectionButton_Click(object sender, RoutedEventArgs e)
         {
             addNewAssessmentSection.Execute();

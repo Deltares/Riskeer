@@ -40,10 +40,5 @@ namespace Ringtoets.Piping.Plugin
         }
 
         public void ValidateItems() {}
-
-        public bool IsContextualTabVisible(string tabGroupName)
-        {
-            return false;
-        }
     }
 }

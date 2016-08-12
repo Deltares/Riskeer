@@ -306,24 +306,6 @@ namespace Core.Common.Gui.Forms.MainWindow
                 return;
             }
 
-            // activate all context-specific groups (ValidateItems implementations should activate them)
-            foreach (var tabGroup in Ribbon.ContextualGroups)
-            {
-                var showGroup = false;
-                foreach (var tabItem in tabGroup.Items)
-                {
-                    var tabItemVisible = ribbonCommandHandlers.Any(h => h.IsContextualTabVisible(tabGroup.Name));
-                    tabItem.Visibility = tabItemVisible ? Visibility.Visible : Visibility.Collapsed;
-
-                    if (tabItemVisible && !showGroup)
-                    {
-                        showGroup = true;
-                    }
-                }
-
-                tabGroup.Visibility = showGroup ? Visibility.Visible : Visibility.Collapsed;
-            }
-
             foreach (var ribbonCommandHandler in ribbonCommandHandlers)
             {
                 ribbonCommandHandler.ValidateItems();

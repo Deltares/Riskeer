@@ -48,17 +48,6 @@ namespace Core.Plugins.Map.Test
 
         [Test]
         [RequiresSTA]
-        public void IsContextualTabVisible_Always_ReturnsFalse()
-        {
-            // Setup
-            var ribbon = new MapRibbon();
-
-            // Call & Assert
-            Assert.IsFalse(ribbon.IsContextualTabVisible(null));
-        }
-
-        [Test]
-        [RequiresSTA]
         [TestCase(true)]
         [TestCase(false)]
         public void ValidateItems_WithOrWithoutMap_UpdatesMapContextualVisiblity(bool mapVisible)

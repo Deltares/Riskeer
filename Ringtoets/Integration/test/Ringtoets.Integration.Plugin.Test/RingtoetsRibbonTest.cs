@@ -48,20 +48,6 @@ namespace Ringtoets.Integration.Plugin.Test
 
         [Test]
         [STAThread] // Due to creating fluent Ribbon
-        public void IsContextualTabVisible_Always_ReturnFalse()
-        {
-            // Setup
-            var ribbon = new RingtoetsRibbon();
-
-            // Call
-            var isVisible = ribbon.IsContextualTabVisible(null);
-
-            // Assert
-            Assert.IsFalse(isVisible);
-        }
-
-        [Test]
-        [STAThread] // Due to creating fluent Ribbon
         public void AddAssessmentSectionButtonCommand_AddAssessmentSectionButtonClicked_ExecutesCommand()
         {
             // Setup

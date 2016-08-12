@@ -85,14 +85,6 @@ namespace Core.Plugins.Map
             ToggleMouseCoordinatesButton.IsChecked = Map != null && Map.IsMouseCoordinatesVisible;
         }
 
-        public bool IsContextualTabVisible(string tabGroupName)
-        {
-            // TODO: Required only because this method is called each time ValidateItems is called in MainWindow
-            // Once ValidateItems isn't responsible for showing/hiding contextual tabs, then this method can return false,
-            // but more ideally be removed.
-            return MapContextualGroup.Name == tabGroupName && MapContextualGroup.Visibility == Visibility.Visible;
-        }
-
         private void ShowMapTab()
         {
             MapContextualGroup.Visibility = Visibility.Visible;

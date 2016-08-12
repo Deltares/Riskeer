@@ -34,20 +34,6 @@ namespace Core.Plugins.ProjectExplorer.Test
     {
         [Test]
         [RequiresSTA]
-        public void IsContextualTabVisible_Always_ReturnFalse()
-        {
-            // Setup
-            var ribbon = new Ribbon();
-
-            // Call
-            var visible = ribbon.IsContextualTabVisible(null);
-
-            // Assert
-            Assert.IsFalse(visible);
-        }
-
-        [Test]
-        [RequiresSTA]
         public void ValidateItems_ShowProjectExplorerCommandNotSet_ThrowsNullReferenceException()
         {
             // Setup

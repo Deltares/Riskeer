@@ -38,13 +38,5 @@ namespace Core.Common.Gui.Forms
         /// Updates/Validates the ribbon elements, such as enabled state.
         /// </summary>
         void ValidateItems();
-
-        /// <summary>
-        /// Indicates if this command handler requires a particular contextual tab of a
-        /// contextual group to be shown or not.
-        /// </summary>
-        /// <param name="tabGroupName">Name of the contextual group.</param>
-        /// <returns>Returns <c>true</c> if the tab should be shown; <c>false</c> otherwise.</returns>
-        bool IsContextualTabVisible(string tabGroupName);
     }
 }
