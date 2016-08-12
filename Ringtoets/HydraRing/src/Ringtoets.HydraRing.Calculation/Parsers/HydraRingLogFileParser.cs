@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using Core.Common.Utils;
 using log4net;
 using Ringtoets.HydraRing.Calculation.Properties;
 
@@ -36,18 +35,24 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            if (workingDirectory == null)
+            try
+            {
+                Path.GetFullPath(workingDirectory);
+            }
+            catch (ArgumentNullException)
             {
                 throw new ArgumentNullException("workingDirectory");
             }
-            FileUtils.ValidateFilePath(workingDirectory);
+            catch
+            {
+                throw new ArgumentException("workingDirectory");
+            }
 
             string logFileName = sectionId + ".log";
-            string logFilePath = Path.Combine(workingDirectory, logFileName);
 
             try
             {
-                LogFileContent = File.ReadAllText(logFilePath);
+                LogFileContent = File.ReadAllText(Path.Combine(workingDirectory, logFileName));
             }
             catch
             {

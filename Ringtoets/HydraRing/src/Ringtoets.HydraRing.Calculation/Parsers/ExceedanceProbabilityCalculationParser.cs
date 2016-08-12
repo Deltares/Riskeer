@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using Core.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Services;
 
@@ -55,11 +54,18 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            if (workingDirectory == null)
+            try
+            {
+                Path.GetFullPath(workingDirectory);
+            }
+            catch (ArgumentNullException)
             {
                 throw new ArgumentNullException("workingDirectory");
             }
-            FileUtils.ValidateFilePath(workingDirectory);
+            catch
+            {
+                throw new ArgumentException("workingDirectory");
+            }
 
             try
             {
