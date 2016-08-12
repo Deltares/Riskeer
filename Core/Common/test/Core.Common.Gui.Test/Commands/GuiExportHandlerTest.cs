@@ -144,23 +144,21 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [RequiresSTA]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ExportFrom_SupportedExporterAvailableSaveClicked_CallsExportAndLogsMessages(bool exportResult)
+        public void ExportFrom_SupportedExporterAvailableWhichRunsSuccessfulSaveClicked_CallsExportAndLogsMessages()
         {
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
             var exporterMock = mockRepository.StrictMock<IFileExporter>();
 
-            exporterMock.Stub(e => e.Export()).Return(exportResult);
+            exporterMock.Stub(e => e.Export()).Return(true);
 
             mockRepository.ReplayAll();
 
             ModalFormHandler = (name, wnd, form) =>
             {
                 var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile(".\\exportFile.txt");
+                messageBox.SaveFile("exportFile.txt");
             };
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
@@ -178,42 +176,35 @@ namespace Core.Common.Gui.Test.Commands
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
                 "Exporteren gestart.",
-                exportResult ? "Exporteren afgerond." : "Exporteren mislukt."
+                "Exporteren afgerond."
             });
             mockRepository.VerifyAll();
         }
 
         [Test]
         [RequiresSTA]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ExportFrom_SupportedAndUnsupportedExporterAvailableSaveClicked_CallsExportAndLogsMessages(bool exportResult)
+        public void ExportFrom_SupportedExporterAvailableWhichFailsSaveClicked_CallsExportAndLogsMessages()
         {
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
-            var exporterMock1 = mockRepository.StrictMock<IFileExporter>();
-            var exporterMock2 = mockRepository.StrictMock<IFileExporter>();
+            var exporterMock = mockRepository.StrictMock<IFileExporter>();
 
-            exporterMock2.Stub(e => e.Export()).Return(exportResult);
+            exporterMock.Stub(e => e.Export()).Return(false);
 
             mockRepository.ReplayAll();
 
             ModalFormHandler = (name, wnd, form) =>
             {
                 var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile(".\\exportFile.txt");
+                messageBox.SaveFile("exportFile.txt");
             };
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
-                new ExportInfo<string>
-                {
-                    CreateFileExporter = (data, filePath) => exporterMock1
-                },
                 new ExportInfo<int>
                 {
-                    CreateFileExporter = (data, filePath) => exporterMock2
+                    CreateFileExporter = (data, filePath) => exporterMock
                 }
             });
 
@@ -224,7 +215,7 @@ namespace Core.Common.Gui.Test.Commands
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
                 "Exporteren gestart.",
-                exportResult ? "Exporteren afgerond." : "Exporteren mislukt."
+                "Exporteren mislukt."
             });
             mockRepository.VerifyAll();
         }
@@ -271,7 +262,7 @@ namespace Core.Common.Gui.Test.Commands
             var dialogParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
 
-            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>()
+            var commandHandler = new GuiExportHandler(dialogParent, new List<ExportInfo>
             {
                 new ExportInfo<int>(), // Wrong object type
                 new ExportInfo<object> // Disabled
