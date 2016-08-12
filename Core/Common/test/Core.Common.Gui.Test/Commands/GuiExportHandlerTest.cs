@@ -120,7 +120,6 @@ namespace Core.Common.Gui.Test.Commands
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
             var exporterMock = mockRepository.StrictMock<IFileExporter>();
-
             mockRepository.ReplayAll();
 
             ModalFormHandler = (name, wnd, form) =>
@@ -146,11 +145,17 @@ namespace Core.Common.Gui.Test.Commands
 
         [Test]
         [RequiresSTA]
-        public void ExportFrom_SupportedExporterAvailableSaveClicked_ExportsAndLogsMessages()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ExportFrom_SupportedExporterAvailableSaveClicked_CallsExportAndLogsMessages(bool exportResult)
         {
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
+            var exporterMock = mockRepository.StrictMock<IFileExporter>();
+
+            exporterMock.Stub(e => e.Export()).Return(exportResult);
+
             mockRepository.ReplayAll();
 
             ModalFormHandler = (name, wnd, form) =>
@@ -163,7 +168,7 @@ namespace Core.Common.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
-                    CreateFileExporter = (data, filePath) => new IntegerFileExporter()
+                    CreateFileExporter = (data, filePath) => exporterMock
                 }
             });
 
@@ -174,18 +179,25 @@ namespace Core.Common.Gui.Test.Commands
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
                 "Exporteren gestart.",
-                "Exporteren afgerond."
+                exportResult ? "Exporteren afgerond." : "Exporteren mislukt."
             });
             mockRepository.VerifyAll();
         }
 
         [Test]
         [RequiresSTA]
-        public void ExportFrom_SupportedAndUnsupportedExporterAvailableSaveClicked_ExportsAndLogsMessages()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ExportFrom_SupportedAndUnsupportedExporterAvailableSaveClicked_CallsExportAndLogsMessages(bool exportResult)
         {
             // Setup
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.Stub<IMainWindow>();
+            var exporterMock1 = mockRepository.StrictMock<IFileExporter>();
+            var exporterMock2 = mockRepository.StrictMock<IFileExporter>();
+
+            exporterMock2.Stub(e => e.Export()).Return(exportResult);
+
             mockRepository.ReplayAll();
 
             ModalFormHandler = (name, wnd, form) =>
@@ -196,10 +208,13 @@ namespace Core.Common.Gui.Test.Commands
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
             {
-                new ExportInfo<string>(),
+                new ExportInfo<string>
+                {
+                    CreateFileExporter = (data, filePath) => exporterMock1
+                },
                 new ExportInfo<int>
                 {
-                    CreateFileExporter = (data, filePath) => new IntegerFileExporter()
+                    CreateFileExporter = (data, filePath) => exporterMock2
                 }
             });
 
@@ -210,7 +225,7 @@ namespace Core.Common.Gui.Test.Commands
             TestHelper.AssertLogMessagesAreGenerated(call, new[]
             {
                 "Exporteren gestart.",
-                "Exporteren afgerond."
+                exportResult ? "Exporteren afgerond." : "Exporteren mislukt."
             });
             mockRepository.VerifyAll();
         }
@@ -274,14 +289,6 @@ namespace Core.Common.Gui.Test.Commands
             // Assert
             Assert.IsTrue(isExportPossible);
             mocks.VerifyAll();
-        }
-
-        private class IntegerFileExporter : IFileExporter
-        {
-            public bool Export()
-            {
-                return true;
-            }
         }
     }
 }
