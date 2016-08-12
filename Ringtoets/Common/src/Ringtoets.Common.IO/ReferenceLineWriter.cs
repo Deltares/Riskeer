@@ -51,14 +51,6 @@ namespace Ringtoets.Common.IO
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
         public void WriteReferenceLine(ReferenceLine referenceLine, string id, string filePath)
         {
-            if (referenceLine == null)
-            {
-                throw new ArgumentNullException("referenceLine");
-            }
-            if (id == null)
-            {
-                throw new ArgumentNullException("id");
-            }
             if (filePath == null)
             {
                 throw new ArgumentNullException("filePath");
@@ -80,10 +72,20 @@ namespace Ringtoets.Common.IO
         /// for the new <see cref="MapLineData"/> object.</param>
         /// <param name="id">The id of the assessment section to which the reference line is associated.</param>
         /// <returns>A new instance of <see cref="MapLineData"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> or <paramref name="id"/> 
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is empty or consists of whitespace.</exception>
         private static MapLineData CreateMapLineData(ReferenceLine referenceLine, string id)
         {
-            if (id.Length == 0 || string.IsNullOrWhiteSpace(id))
+            if (referenceLine == null)
+            {
+                throw new ArgumentNullException("referenceLine");
+            }
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+            if (string.IsNullOrWhiteSpace(id))
             {
                 throw new ArgumentException("id");
             }
