@@ -33,7 +33,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
     internal class NumericsSettingsProvider
     {
         private readonly IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> fileNumericsSettings;
-        private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider;
         private IDictionary<HydraRingFailureMechanismType, IDictionary<int, NumericsSettings>> defaultNumericsSettings;
 
         /// <summary>
@@ -41,8 +40,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
         /// </summary>
         public NumericsSettingsProvider()
         {
-            failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
-
             InitializeDefaultNumericsSettings();
 
             fileNumericsSettings = new NumericsSettingsCsvReader(Resources.NumericsSettings).ReadSettings();
@@ -51,13 +48,13 @@ namespace Ringtoets.HydraRing.Calculation.Providers
         /// <summary>
         /// Returns <see cref="NumericsSettings"/> based on the provided <see cref="HydraRingFailureMechanismType"/> and sub mechanism id.
         /// </summary>
-        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="DesignTableSettings"/> for.</param>
-        /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="DesignTableSettings"/> for.</param>
-        /// <param name="ringId">The ring id to obtain the <see cref="DesignTableSettings"/> for.</param>
-        /// <returns>The <see cref="DesignTableSettings"/> corresponding to the provided <see cref="HydraRingFailureMechanismType"/> and sub mechanism id.</returns>
+        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="NumericsSettings"/> for.</param>
+        /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="NumericsSettings"/> for.</param>
+        /// <param name="ringId">The ring id to obtain the <see cref="NumericsSettings"/> for.</param>
+        /// <returns>The <see cref="NumericsSettings"/> corresponding to the provided <see cref="HydraRingFailureMechanismType"/> and sub mechanism id.</returns>
         public NumericsSettings GetNumericsSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, string ringId)
         {
-            var mechanismId = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(failureMechanismType).MechanismId;
+            var mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType).MechanismId;
 
             if (fileNumericsSettings.ContainsKey(mechanismId) &&
                 fileNumericsSettings[mechanismId].ContainsKey(subMechanismId) &&

@@ -33,11 +33,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         public void GetNumericsSettings_KnownRingId_ReturnsExpectedNumericsSettings()
         {
             // Setup
-            var numericsSettingsProvider = new NumericsSettingsProvider();
-            var expectedValues = GetExpectedNumericsSettings();
+            NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
+            NumericsSettings expectedValues = GetExpectedNumericsSettings();
 
             // Call
-            var settings = numericsSettingsProvider.GetNumericsSettings(HydraRingFailureMechanismType.AssessmentLevel, 1, "205");
+            NumericsSettings settings = numericsSettingsProvider.GetNumericsSettings(HydraRingFailureMechanismType.AssessmentLevel, 1, "205");
 
             // Assert
             Assert.AreEqual(expectedValues.CalculationTechniqueId, settings.CalculationTechniqueId);
@@ -91,10 +91,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         public void GetNumericsSettings_UnknownRingId_ReturnsExpectedDefaultNumericsSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId, int expectedFormStartMethod)
         {
             // Setup
-            var numericsSettingsProvider = new NumericsSettingsProvider();
+            NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
 
             // Call
-            var numericsSettings = numericsSettingsProvider.GetNumericsSettings(failureMechanismType, subMechanismId, "unknown ringId");
+            NumericsSettings numericsSettings = numericsSettingsProvider.GetNumericsSettings(failureMechanismType, subMechanismId, "unknown ringId");
 
             // Assert
             Assert.AreEqual(expectedCalculationTechniqueId, numericsSettings.CalculationTechniqueId);

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Settings;
 
 namespace Ringtoets.HydraRing.Calculation.IO
 {
@@ -35,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         private readonly string fileContents;
 
-        private readonly IDictionary<int, IDictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>> settings = new Dictionary<int, IDictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>>();
+        private readonly IDictionary<int, IDictionary<int, IDictionary<string, HydraulicModelSettings>>> settings = new Dictionary<int, IDictionary<int, IDictionary<string, HydraulicModelSettings>>>();
 
         private readonly Dictionary<string, int> columns = new Dictionary<string, int>
         {
@@ -71,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// Reads the settings from the file.
         /// </summary>
         /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the settings.</returns>
-        public IDictionary<int, IDictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>> ReadSettings()
+        public IDictionary<int, IDictionary<int, IDictionary<string, HydraulicModelSettings>>> ReadSettings()
         {
             string[] lines = fileContents.Split('\n');
 
@@ -90,7 +91,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!settings.ContainsKey(failureMechanismType))
             {
-                settings.Add(failureMechanismType, new Dictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>());
+                settings.Add(failureMechanismType, new Dictionary<int, IDictionary<string, HydraulicModelSettings>>());
             }
 
             // Get sub mechanism
@@ -98,7 +99,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!settings[failureMechanismType].ContainsKey(subMechanism))
             {
-                settings[failureMechanismType].Add(subMechanism, new Dictionary<string, HydraRingTimeIntegrationSchemeType>());
+                settings[failureMechanismType].Add(subMechanism, new Dictionary<string, HydraulicModelSettings>());
             }
 
             // Get TrajectId
@@ -106,7 +107,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!settings[failureMechanismType][subMechanism].ContainsKey(ringId))
             {
-                settings[failureMechanismType][subMechanism].Add(ringId, (HydraRingTimeIntegrationSchemeType) GetIntValueFromElement(line[columns[timeIntegrationKey]]));
+                settings[failureMechanismType][subMechanism].Add(ringId, new HydraulicModelSettings((HydraRingTimeIntegrationSchemeType) GetIntValueFromElement(line[columns[timeIntegrationKey]])));
             }
         }
 

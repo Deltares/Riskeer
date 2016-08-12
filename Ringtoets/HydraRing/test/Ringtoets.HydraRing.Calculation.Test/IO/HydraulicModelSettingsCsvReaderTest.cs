@@ -25,6 +25,7 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Settings;
 using Ringtoets.HydraRing.Calculation.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Test.IO
@@ -66,69 +67,69 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
                 string fileContents = streamReader.ReadToEnd();
 
                 HydraulicModelSettingsCsvReader reader = new HydraulicModelSettingsCsvReader(fileContents);
-                IDictionary<int, IDictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>> expectedDictionary = GetDictionary();
+                IDictionary<int, IDictionary<int, IDictionary<string, HydraulicModelSettings>>> expectedDictionary = GetDictionary();
 
                 // Call
-                IDictionary<int, IDictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>> settings = reader.ReadSettings();
+                IDictionary<int, IDictionary<int, IDictionary<string, HydraulicModelSettings>>> settings = reader.ReadSettings();
 
                 // Assert
                 Assert.AreEqual(2, settings.Count);
 
-                foreach (KeyValuePair<int, IDictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>> expectedMechanism in expectedDictionary)
+                foreach (KeyValuePair<int, IDictionary<int, IDictionary<string, HydraulicModelSettings>>> expectedMechanism in expectedDictionary)
                 {
                     Assert.IsTrue(settings.ContainsKey(expectedMechanism.Key));
-                    Assert.IsInstanceOf<IDictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>>(settings[expectedMechanism.Key]);
+                    Assert.IsInstanceOf<IDictionary<int, IDictionary<string, HydraulicModelSettings>>>(settings[expectedMechanism.Key]);
 
-                    foreach (KeyValuePair<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>> expectedSubMechanism in expectedMechanism.Value)
+                    foreach (KeyValuePair<int, IDictionary<string, HydraulicModelSettings>> expectedSubMechanism in expectedMechanism.Value)
                     {
                         Assert.IsTrue(settings[expectedMechanism.Key].ContainsKey(expectedSubMechanism.Key));
-                        Assert.IsInstanceOf<IDictionary<string, HydraRingTimeIntegrationSchemeType>>(settings[expectedMechanism.Key][expectedSubMechanism.Key]);
+                        Assert.IsInstanceOf<IDictionary<string, HydraulicModelSettings>>(settings[expectedMechanism.Key][expectedSubMechanism.Key]);
 
-                        foreach (KeyValuePair<string, HydraRingTimeIntegrationSchemeType> expectedHydraRingTimeIntegrationSchemeType in expectedSubMechanism.Value)
+                        foreach (KeyValuePair<string, HydraulicModelSettings> expectedHydraRingTimeIntegrationSchemeType in expectedSubMechanism.Value)
                         {
                             Assert.IsTrue(settings[expectedMechanism.Key][expectedSubMechanism.Key].ContainsKey(expectedHydraRingTimeIntegrationSchemeType.Key));
-                            Assert.IsInstanceOf<HydraRingTimeIntegrationSchemeType>(settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedHydraRingTimeIntegrationSchemeType.Key]);
+                            Assert.IsInstanceOf<HydraulicModelSettings>(settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedHydraRingTimeIntegrationSchemeType.Key]);
 
-                            HydraRingTimeIntegrationSchemeType setting = settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedHydraRingTimeIntegrationSchemeType.Key];
+                            HydraulicModelSettings setting = settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedHydraRingTimeIntegrationSchemeType.Key];
 
-                            Assert.AreEqual(expectedHydraRingTimeIntegrationSchemeType.Value, setting);
+                            Assert.AreEqual(expectedHydraRingTimeIntegrationSchemeType.Value.RingTimeIntegrationSchemeType, setting.RingTimeIntegrationSchemeType);
                         }
                     }
                 }
             }
         }
 
-        private IDictionary<int, IDictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>> GetDictionary()
+        private IDictionary<int, IDictionary<int, IDictionary<string, HydraulicModelSettings>>> GetDictionary()
         {
-            return new Dictionary<int, IDictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>>
+            return new Dictionary<int, IDictionary<int, IDictionary<string, HydraulicModelSettings>>>
             {
                 {
-                    1, new Dictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>
+                    1, new Dictionary<int, IDictionary<string, HydraulicModelSettings>>
                     {
                         {
-                            1, new Dictionary<string, HydraRingTimeIntegrationSchemeType>
+                            1, new Dictionary<string, HydraulicModelSettings>
                             {
                                 {
-                                    "205", HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta
+                                    "205", new HydraulicModelSettings(HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta)
                                 },
                                 {
-                                    "11-1", HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta
+                                    "11-1", new HydraulicModelSettings(HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta)
                                 }
                             }
                         }
                     }
                 },
                 {
-                    11, new Dictionary<int, IDictionary<string, HydraRingTimeIntegrationSchemeType>>
+                    11, new Dictionary<int, IDictionary<string, HydraulicModelSettings>>
                     {
                         {
-                            11, new Dictionary<string, HydraRingTimeIntegrationSchemeType>
+                            11, new Dictionary<string, HydraulicModelSettings>
                             {
                                 {
-                                    "205", HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta
+                                    "205", new HydraulicModelSettings(HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta)
                                 },
                                 {
-                                    "11-1", HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration
+                                    "11-1", new HydraulicModelSettings(HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration)
                                 }
                             }
                         }
