@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private bool HasUniqueShiftAndDeviationSaturatedWeightDefinition(IList<PipingSoilLayer> consecutiveAquitardLayers, int deviationNumberOfDecimals, int shiftNumberOfDecimals)
+        private static bool HasUniqueShiftAndDeviationSaturatedWeightDefinition(IList<PipingSoilLayer> consecutiveAquitardLayers, int deviationNumberOfDecimals, int shiftNumberOfDecimals)
         {
             if (!consecutiveAquitardLayers.Any())
             {
@@ -305,7 +305,7 @@ namespace Ringtoets.Piping.Data
                 shiftNumberOfDecimals));
         }
 
-        private bool AreShiftAndDeviationEqual(PipingSoilLayer currentLayer, PipingSoilLayer baseLayer, int deviationNumberOfDecimals, int shiftNumberOfDecimals)
+        private static bool AreShiftAndDeviationEqual(PipingSoilLayer currentLayer, PipingSoilLayer baseLayer, int deviationNumberOfDecimals, int shiftNumberOfDecimals)
         {
             var belowPhreaticLevelDeviationBase = new RoundedDouble(deviationNumberOfDecimals, baseLayer.BelowPhreaticLevelDeviation);
             var belowPhreaticLevelShiftBase = new RoundedDouble(shiftNumberOfDecimals, baseLayer.BelowPhreaticLevelShift);
