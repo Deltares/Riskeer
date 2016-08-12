@@ -266,9 +266,11 @@ namespace Ringtoets.Piping.Data
         {
             PipingSoilLayer[] coverageLayers = GetConsecutiveCoverageLayers();
 
-            if (HasUniqueShiftAndDeviationSaturatedWeightDefinition(
+            var numberOfDecimals = GetNumberOfDecimals(volumicWeightDistribution);
+
+            if (HasCorrectSaturatedWeightDistributionParameterDefinition(
                 coverageLayers,
-                volumicWeightDistribution.StandardDeviation.NumberOfDecimalPlaces, volumicWeightDistribution.Shift.NumberOfDecimalPlaces))
+                numberOfDecimals))
             {
                 PipingSoilLayer topMostAquitardLayer = coverageLayers.First();
                 volumicWeightDistribution.Shift = (RoundedDouble) topMostAquitardLayer.BelowPhreaticLevelShift;
@@ -287,34 +289,57 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private static bool HasUniqueShiftAndDeviationSaturatedWeightDefinition(IList<PipingSoilLayer> consecutiveAquitardLayers, int deviationNumberOfDecimals, int shiftNumberOfDecimals)
+        private int GetNumberOfDecimals(LogNormalDistribution volumicWeightDistribution)
+        {
+            return volumicWeightDistribution.Mean.NumberOfDecimalPlaces;
+        }
+
+        private static bool HasCorrectSaturatedWeightDistributionParameterDefinition(IList<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
         {
             if (!consecutiveAquitardLayers.Any())
             {
                 return false;
             }
-            if (consecutiveAquitardLayers.Count == 1)
+
+            var distributions = GetLayerDistributionDefinitions(consecutiveAquitardLayers, numberOfDecimals);
+
+            if (distributions == null)
+            {
+                return false;
+            }
+
+            if (distributions.Length == 1)
             {
                 return true;
             }
 
-            return consecutiveAquitardLayers.All(currentLayer => AreShiftAndDeviationEqual(
-                currentLayer, 
-                consecutiveAquitardLayers[0], 
-                deviationNumberOfDecimals, 
-                shiftNumberOfDecimals));
+            return distributions.All(currentLayerDistribution => AreShiftAndDeviationEqual(
+                currentLayerDistribution, 
+                distributions[0], 
+                numberOfDecimals));
         }
 
-        private static bool AreShiftAndDeviationEqual(PipingSoilLayer currentLayer, PipingSoilLayer baseLayer, int deviationNumberOfDecimals, int shiftNumberOfDecimals)
+        private static LogNormalDistribution[] GetLayerDistributionDefinitions(IList<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
         {
-            var belowPhreaticLevelDeviationBase = new RoundedDouble(deviationNumberOfDecimals, baseLayer.BelowPhreaticLevelDeviation);
-            var belowPhreaticLevelShiftBase = new RoundedDouble(shiftNumberOfDecimals, baseLayer.BelowPhreaticLevelShift);
+            try
+            {
+                return consecutiveAquitardLayers.Select(layer => new LogNormalDistribution(numberOfDecimals)
+                {
+                    Mean = (RoundedDouble) layer.BelowPhreaticLevelMean,
+                    StandardDeviation = (RoundedDouble) layer.BelowPhreaticLevelDeviation,
+                    Shift = (RoundedDouble) layer.BelowPhreaticLevelShift
+                }).ToArray();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return null;
+            }
+        }
 
-            var belowPhreaticLevelDeviationCurrent = new RoundedDouble(deviationNumberOfDecimals, currentLayer.BelowPhreaticLevelDeviation);
-            var belowPhreaticLevelShiftCurrent = new RoundedDouble(shiftNumberOfDecimals, currentLayer.BelowPhreaticLevelShift);
-
-            return belowPhreaticLevelDeviationCurrent == belowPhreaticLevelDeviationBase &&
-                   belowPhreaticLevelShiftCurrent == belowPhreaticLevelShiftBase;
+        private static bool AreShiftAndDeviationEqual(LogNormalDistribution currentLayerDistribution, LogNormalDistribution baseLayerDistribution, int numberOfDecimals)
+        {
+            return currentLayerDistribution.StandardDeviation == baseLayerDistribution.StandardDeviation &&
+                   currentLayerDistribution.Shift == baseLayerDistribution.Shift;
         }
 
         private static double GetWeightedMeanForVolumicWeightOfCoverageLayer(PipingSoilLayer[] aquitardLayers, PipingSoilProfile profile, double surfaceLevel)
