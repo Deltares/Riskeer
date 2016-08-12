@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Commands;
@@ -161,7 +160,7 @@ namespace Core.Common.Gui.Test.Commands
             ModalFormHandler = (name, wnd, form) =>
             {
                 var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile("exportFile.txt");
+                messageBox.SaveFile(".\\exportFile.txt");
             };
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
@@ -203,7 +202,7 @@ namespace Core.Common.Gui.Test.Commands
             ModalFormHandler = (name, wnd, form) =>
             {
                 var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile("exportFile.txt");
+                messageBox.SaveFile(".\\exportFile.txt");
             };
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>

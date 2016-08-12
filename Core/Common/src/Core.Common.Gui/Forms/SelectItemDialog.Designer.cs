@@ -34,7 +34,6 @@ namespace Core.Common.Gui.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectItemDialog));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.listViewItemTypes = new System.Windows.Forms.ListView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
@@ -54,11 +53,6 @@ namespace Core.Common.Gui.Forms
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
             // listViewItemTypes
             // 
             resources.ApplyResources(this.listViewItemTypes, "listViewItemTypes");
@@ -68,13 +62,6 @@ namespace Core.Common.Gui.Forms
             ((System.Windows.Forms.ListViewGroup)(resources.GetObject("listViewItemTypes.Groups2")))});
             this.listViewItemTypes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewItemTypes.HideSelection = false;
-            this.listViewItemTypes.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            ((System.Windows.Forms.ListViewItem)(resources.GetObject("listViewItemTypes.Items"))),
-            ((System.Windows.Forms.ListViewItem)(resources.GetObject("listViewItemTypes.Items1"))),
-            ((System.Windows.Forms.ListViewItem)(resources.GetObject("listViewItemTypes.Items2"))),
-            ((System.Windows.Forms.ListViewItem)(resources.GetObject("listViewItemTypes.Items3"))),
-            ((System.Windows.Forms.ListViewItem)(resources.GetObject("listViewItemTypes.Items4"))),
-            ((System.Windows.Forms.ListViewItem)(resources.GetObject("listViewItemTypes.Items5")))});
             this.listViewItemTypes.LargeImageList = this.imageList;
             this.listViewItemTypes.MultiSelect = false;
             this.listViewItemTypes.Name = "listViewItemTypes";
@@ -97,12 +84,10 @@ namespace Core.Common.Gui.Forms
             this.AcceptButton = this.buttonOk;
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.listViewItemTypes);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Name = "SelectItemDialog";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -110,7 +95,6 @@ namespace Core.Common.Gui.Forms
 
         private System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.Label label1;
         private ListView listViewItemTypes;
         private System.Windows.Forms.ImageList imageList;
     }
