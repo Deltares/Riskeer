@@ -8,6 +8,9 @@
   <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
   <String Id="StartApplicationDescription">Start !(loc.ApplicationLongName).</String>
 
+  <String Id="UserManualName">Handleiding</String>
+  <String Id="UserManualDescription">Handleiding openen.</String>
+
   <String Id="Dlg_Title">[ProductName] Installatiehulpprogramma</String>
   
   <String Id="RtdDescription">!(loc.ApplicationShortName)-databasebestand</String>

@@ -71,6 +71,7 @@
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.shp" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.shx" />
     <Content Include="Licentie.rtf" />
+    <Content Include="Manual.ico" />
     <Content Include="Ringtoets.ico" />
     <Content Include="Ringtoets_manual.pdf" />
     <Content Include="Start_493x312.bmp" />
