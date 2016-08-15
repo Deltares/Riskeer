@@ -23,10 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin;
@@ -34,7 +31,7 @@ using Ringtoets.Integration.Plugin;
 namespace Ringtoets.Integration.Forms.Test.PropertyInfos
 {
     [TestFixture]
-    public class WaveHeightContextPropertyInfoTest
+    public class HydraulicBoundaryLocationDesignWaterLevelPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -42,26 +39,25 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
-                
+
                 // Call
                 Type propertyObjectType = info.PropertyObjectType;
-                
+
                 // Assert
-                Assert.AreEqual(typeof(WaveHeightContextProperties), propertyObjectType);
+                Assert.AreEqual(typeof(HydraulicBoundaryLocationDesignWaterLevelProperties), propertyObjectType);
             }
         }
 
         [Test]
-        public void GetObjectPropertiesData_Always_ReturnsHydraulicBoundaryDatabase()
+        public void GetObjectPropertiesData_Always_ReturnsHydraulicBoundaryLocation()
         {
             // Setup
-            MockRepository mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            mockRepository.ReplayAll();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Name", 1.0, 2.0)
+            {
+                DesignWaterLevel = 3.0
+            };
 
-            WaveHeightContext context = new WaveHeightContext(assessmentSectionMock);
+            DesignWaterLevelLocationContext context = new DesignWaterLevelLocationContext(hydraulicBoundaryLocation);
 
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
@@ -71,14 +67,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
                 var objectPropertiesData = info.GetObjectPropertiesData(context);
 
                 // Assert
-                Assert.AreSame(hydraulicBoundaryDatabase, objectPropertiesData);
+                Assert.AreSame(hydraulicBoundaryLocation, objectPropertiesData);
             }
-            mockRepository.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveHeightContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DesignWaterLevelLocationContext));
         }
     }
 }

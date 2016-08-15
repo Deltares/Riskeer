@@ -21,30 +21,26 @@
 
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class DesignWaterLevelLocationsContextTest
+    public class DesignWaterLevelLocationContextTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
 
             // Call
-            var presentationObject = new DesignWaterLevelLocationsContext(assessmentSectionMock);
+            var presentationObject = new DesignWaterLevelLocationContext(hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
-            Assert.AreSame(assessmentSectionMock, presentationObject.WrappedData);
-            mockRepository.VerifyAll();
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>>(presentationObject);
+            Assert.AreSame(hydraulicBoundaryLocation, presentationObject.WrappedData);
         }
     }
 }

@@ -35,7 +35,7 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class DesignWaterLevelViewInfoTest
+    public class HydraulicBoundaryLocationDesignWaterLevelsViewInfoTest
     {
         private MockRepository mocks;
         private RingtoetsPlugin plugin;
@@ -217,6 +217,26 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreSame(view.AssessmentSection, assessmentSection);
             }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AfterCreate_Always_SetsSpecificPropertiesToView()
+        {
+            // Setup
+            var viewMock = mocks.StrictMock<HydraulicBoundaryLocationDesignWaterLevelsView>();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
+
+            viewMock.Expect(v => v.AssessmentSection = assessmentSectionMock);
+            viewMock.Expect(v => v.ApplicationSelection = plugin.Gui);
+
+            mocks.ReplayAll();
+
+            // Call
+            info.AfterCreate(viewMock, context);
+
+            // Assert
             mocks.VerifyAll();
         }
     }

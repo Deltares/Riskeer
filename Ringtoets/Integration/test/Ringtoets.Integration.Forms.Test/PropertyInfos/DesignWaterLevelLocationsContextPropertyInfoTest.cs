@@ -23,9 +23,9 @@ using System;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Plugin;
@@ -41,10 +41,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
-                
+
                 // Call
                 Type propertyObjectType = info.PropertyObjectType;
-                
+
                 // Assert
                 Assert.AreEqual(typeof(DesignWaterLevelLocationsContextProperties), propertyObjectType);
             }
@@ -54,12 +54,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
         public void GetObjectPropertiesData_Always_ReturnsHydraulicBoundaryDatabase()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
-            };
+            MockRepository mockRepository = new MockRepository();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            mockRepository.ReplayAll();
 
-            DesignWaterLevelLocationsContext context = new DesignWaterLevelLocationsContext(assessmentSection);
+            DesignWaterLevelLocationsContext context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
 
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
@@ -69,8 +70,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
                 var objectPropertiesData = info.GetObjectPropertiesData(context);
 
                 // Assert
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, objectPropertiesData);
+                Assert.AreSame(hydraulicBoundaryDatabase, objectPropertiesData);
             }
+            mockRepository.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
