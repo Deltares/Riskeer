@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
         /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="NumericsSetting"/> for.</param>
         /// <param name="ringId">The ring id to obtain the <see cref="NumericsSetting"/> for.</param>
         /// <returns>The <see cref="NumericsSetting"/> corresponding to the provided failure mechanism type, sub mechanism id and ring id.</returns>
-        public NumericsSetting GetNumericsSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, string ringId)
+        public NumericsSetting GetNumericsSetting(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, string ringId)
         {
             var mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType).MechanismId;
 

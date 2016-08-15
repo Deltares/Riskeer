@@ -1,6 +1,6 @@
 ﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
-// This fileContents is part of Ringtoets.
+// This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingSettingsCsvReader{T}"/>.
         /// </summary>
-        /// <param name="fileContents">The fileContents to read.</param>
+        /// <param name="fileContents">The file contents to read.</param>
         /// <param name="settings">The provided settings object to add the read settings to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fileContents"/> or <paramref name="settings"/> is <c>null</c>.</exception>
         protected HydraRingSettingsCsvReader(string fileContents, TOutput settings)
@@ -60,7 +60,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         }
 
         /// <summary>
-        /// Reads the settings from the fileContents.
+        /// Reads the settings from the file contents.
         /// </summary>
         /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the settings.</returns>
         public TOutput ReadSettings()

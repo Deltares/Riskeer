@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
     public class HydraRingSettingsCsvReaderTest
     {
         [Test]
-        public void Constructor_FileNull_ThrowsArgumentNullException()
+        public void Constructor_FileContentsNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new TestCsvReader(null, new object());

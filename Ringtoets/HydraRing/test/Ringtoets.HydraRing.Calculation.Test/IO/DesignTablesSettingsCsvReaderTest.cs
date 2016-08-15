@@ -79,15 +79,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
                     Assert.IsTrue(settings.ContainsKey(expectedMechanism.Key));
                     Assert.IsInstanceOf<IDictionary<string, DesignTablesSetting>>(settings[expectedMechanism.Key]);
 
-                    foreach (KeyValuePair<string, DesignTablesSetting> expectedDesignTablesSettings in expectedMechanism.Value)
+                    foreach (KeyValuePair<string, DesignTablesSetting> expectedDesignTablesSetting in expectedMechanism.Value)
                     {
-                        Assert.IsTrue(settings[expectedMechanism.Key].ContainsKey(expectedDesignTablesSettings.Key));
-                        Assert.IsInstanceOf<DesignTablesSetting>(settings[expectedMechanism.Key][expectedDesignTablesSettings.Key]);
+                        Assert.IsTrue(settings[expectedMechanism.Key].ContainsKey(expectedDesignTablesSetting.Key));
+                        Assert.IsInstanceOf<DesignTablesSetting>(settings[expectedMechanism.Key][expectedDesignTablesSetting.Key]);
 
-                        DesignTablesSetting setting = settings[expectedMechanism.Key][expectedDesignTablesSettings.Key];
+                        DesignTablesSetting setting = settings[expectedMechanism.Key][expectedDesignTablesSetting.Key];
 
-                        Assert.AreEqual(expectedDesignTablesSettings.Value.ValueMin, setting.ValueMin);
-                        Assert.AreEqual(expectedDesignTablesSettings.Value.ValueMax, setting.ValueMax);
+                        Assert.AreEqual(expectedDesignTablesSetting.Value.ValueMin, setting.ValueMin);
+                        Assert.AreEqual(expectedDesignTablesSetting.Value.ValueMax, setting.ValueMax);
                     }
                 }
             }

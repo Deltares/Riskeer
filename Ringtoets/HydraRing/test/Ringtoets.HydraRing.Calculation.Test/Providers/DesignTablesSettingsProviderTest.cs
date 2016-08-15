@@ -40,13 +40,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, "205", double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, "205", double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, "205", double.NaN, double.NaN)]
-        public void GetDesignTablesSettings_UnknownFailureMechanismTypeOrRingId_ReturnsDefaultDesignTablesSettings(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
+        public void GetDesignTablesSetting_UnknownFailureMechanismTypeOrRingId_ReturnsDefaultDesignTablesSetting(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
         {
             // Setup
             DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
 
             // Call
-            DesignTablesSetting designTablesSetting = designTablesSettingsProvider.GetDesignTablesSettings(failureMechanismType, ringId);
+            DesignTablesSetting designTablesSetting = designTablesSettingsProvider.GetDesignTablesSetting(failureMechanismType, ringId);
 
             // Assert
             Assert.AreEqual(expectedValueMin, designTablesSetting.ValueMin);
@@ -58,17 +58,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.QVariant, "205", 5.0, 15.0)]
         [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "11-1", 5.0, 15.0)]
         [TestCase(HydraRingFailureMechanismType.QVariant, "11-1", 5.0, 15.0)]
-        public void GetDesignTablesSettings_KnownRingIdAndFailureMechanismType_ReturnsExpectedDesignTablesSettings(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
+        public void GetDesignTablesSetting_KnownRingIdAndFailureMechanismType_ReturnsExpectedDesignTablesSetting(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
         {
             // Setup
             DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
 
             // Call
-            DesignTablesSetting settings = designTablesSettingsProvider.GetDesignTablesSettings(failureMechanismType, ringId);
+            DesignTablesSetting designTablesSetting = designTablesSettingsProvider.GetDesignTablesSetting(failureMechanismType, ringId);
 
             // Assert
-            Assert.AreEqual(expectedValueMin, settings.ValueMin);
-            Assert.AreEqual(expectedValueMax, settings.ValueMax);
+            Assert.AreEqual(expectedValueMin, designTablesSetting.ValueMin);
+            Assert.AreEqual(expectedValueMax, designTablesSetting.ValueMax);
         }
     }
 }

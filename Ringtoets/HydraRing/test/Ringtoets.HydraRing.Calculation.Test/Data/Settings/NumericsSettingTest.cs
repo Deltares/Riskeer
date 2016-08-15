@@ -31,23 +31,23 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Settings
         public void Constructor_ExpectedValues()
         {
             // Call
-            var numericsSettings = new NumericsSetting(1, 2, 3, 4.4, 5.5, 6.6, 7.7, 8, 9, 10, 11.11, 12.12, 13.13, 14);
+            var numericsSetting = new NumericsSetting(1, 2, 3, 4.4, 5.5, 6.6, 7.7, 8, 9, 10, 11.11, 12.12, 13.13, 14);
 
             // Assert
-            Assert.AreEqual(1, numericsSettings.CalculationTechniqueId);
-            Assert.AreEqual(2, numericsSettings.FormStartMethod);
-            Assert.AreEqual(3, numericsSettings.FormNumberOfIterations);
-            Assert.AreEqual(4.4, numericsSettings.FormRelaxationFactor);
-            Assert.AreEqual(5.5, numericsSettings.FormEpsBeta);
-            Assert.AreEqual(6.6, numericsSettings.FormEpsHoh);
-            Assert.AreEqual(7.7, numericsSettings.FormEpsZFunc);
-            Assert.AreEqual(8, numericsSettings.DsStartMethod);
-            Assert.AreEqual(9, numericsSettings.DsMinNumberOfIterations);
-            Assert.AreEqual(10, numericsSettings.DsMaxNumberOfIterations);
-            Assert.AreEqual(11.11, numericsSettings.DsVarCoefficient);
-            Assert.AreEqual(12.12, numericsSettings.NiUMin);
-            Assert.AreEqual(13.13, numericsSettings.NiUMax);
-            Assert.AreEqual(14, numericsSettings.NiNumberSteps);
+            Assert.AreEqual(1, numericsSetting.CalculationTechniqueId);
+            Assert.AreEqual(2, numericsSetting.FormStartMethod);
+            Assert.AreEqual(3, numericsSetting.FormNumberOfIterations);
+            Assert.AreEqual(4.4, numericsSetting.FormRelaxationFactor);
+            Assert.AreEqual(5.5, numericsSetting.FormEpsBeta);
+            Assert.AreEqual(6.6, numericsSetting.FormEpsHoh);
+            Assert.AreEqual(7.7, numericsSetting.FormEpsZFunc);
+            Assert.AreEqual(8, numericsSetting.DsStartMethod);
+            Assert.AreEqual(9, numericsSetting.DsMinNumberOfIterations);
+            Assert.AreEqual(10, numericsSetting.DsMaxNumberOfIterations);
+            Assert.AreEqual(11.11, numericsSetting.DsVarCoefficient);
+            Assert.AreEqual(12.12, numericsSetting.NiUMin);
+            Assert.AreEqual(13.13, numericsSetting.NiUMax);
+            Assert.AreEqual(14, numericsSetting.NiNumberSteps);
         }
     }
 }

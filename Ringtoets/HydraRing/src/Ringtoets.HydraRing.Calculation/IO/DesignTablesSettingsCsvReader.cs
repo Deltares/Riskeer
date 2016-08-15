@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// <summary>
         /// Creates a new instance of <see cref="DesignTablesSettingsCsvReader"/>.
         /// </summary>
-        /// <param name="fileContents">The fileContents to read.</param>
+        /// <param name="fileContents">The file contents to read.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fileContents"/> is not set.</exception>
         public DesignTablesSettingsCsvReader(string fileContents) 
             : base(fileContents, new Dictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>>()) {}
@@ -91,7 +91,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
             var ringId = GetRingId(line);
             if (!Settings[failureMechanismType].ContainsKey(ringId))
             {
-                Settings[failureMechanismType].Add(ringId, GetDesignTablesSettings(line));
+                Settings[failureMechanismType].Add(ringId, GetDesignTablesSetting(line));
             }
         }
 
@@ -105,7 +105,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return GetStringValueFromElement(line[columns[ringIdKey]]);
         }
 
-        private DesignTablesSetting GetDesignTablesSettings(IList<string> line)
+        private DesignTablesSetting GetDesignTablesSetting(IList<string> line)
         {
             return new DesignTablesSetting(GetIntValueFromElement(line[columns[minKey]]),
                                            GetIntValueFromElement(line[columns[maxKey]]));

@@ -88,7 +88,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// <summary>
         /// Creates a new instance of <see cref="NumericsSettingsCsvReader"/>.
         /// </summary>
-        /// <param name="fileContents">The fileContents to read.</param>
+        /// <param name="fileContents">The file contents to read.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fileContents"/> is not set.</exception>
         public NumericsSettingsCsvReader(string fileContents) : base(fileContents, new Dictionary<int, IDictionary<int, IDictionary<string, NumericsSetting>>>()) {}
 
@@ -115,7 +115,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!Settings[failureMechanismType][subMechanism].ContainsKey(ringId))
             {
-                Settings[failureMechanismType][subMechanism].Add(ringId, GetNumericSettings(line));
+                Settings[failureMechanismType][subMechanism].Add(ringId, GetNumericsSetting(line));
             }
         }
 
@@ -134,7 +134,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return GetStringValueFromElement(line[columns[ringIdKey]]);
         }
 
-        private NumericsSetting GetNumericSettings(IList<string> line)
+        private NumericsSetting GetNumericsSetting(IList<string> line)
         {
             return new NumericsSetting(GetIntValueFromElement(line[columns[calculationMethodKey]]),
                                         GetIntValueFromElement(line[columns[formStartMethodKey]]),
