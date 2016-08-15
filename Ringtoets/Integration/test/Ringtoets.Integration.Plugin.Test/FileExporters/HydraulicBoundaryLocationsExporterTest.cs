@@ -26,8 +26,9 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Plugin.FileExporters;
 
-namespace Ringtoets.HydraRing.IO.Test
+namespace Ringtoets.Integration.Plugin.Test.FileExporters
 {
     public class HydraulicBoundaryLocationsExporterTest
     {

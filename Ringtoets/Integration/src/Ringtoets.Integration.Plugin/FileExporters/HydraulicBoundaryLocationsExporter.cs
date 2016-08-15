@@ -26,9 +26,10 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.IO;
 using Ringtoets.HydraRing.IO.Properties;
 
-namespace Ringtoets.HydraRing.IO
+namespace Ringtoets.Integration.Plugin.FileExporters
 {
     /// <summary>
     /// Exports the locations of a <see cref="HydraulicBoundaryDatabase"/> and stores them as a shapefile.

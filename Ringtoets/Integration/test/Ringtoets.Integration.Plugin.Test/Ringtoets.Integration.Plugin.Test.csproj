@@ -65,6 +65,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileExporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
     <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
