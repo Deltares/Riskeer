@@ -61,6 +61,16 @@ namespace Ringtoets.Integration.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toetspeil berekening voor locatie {0} is niet geconvergeerd..
+        /// </summary>
+        internal static string DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged {
+            get {
+                return ResourceManager.GetString("DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_n" +
+                        "ot_converged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;: inspecteer het logbestand..
         /// </summary>
         internal static string DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation {
@@ -86,6 +96,16 @@ namespace Ringtoets.Integration.Service.Properties {
             get {
                 return ResourceManager.GetString("DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0" +
                         "_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogte berekening voor locatie {0} is niet geconvergeerd..
+        /// </summary>
+        internal static string WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged" +
+                        "", resourceCulture);
             }
         }
         

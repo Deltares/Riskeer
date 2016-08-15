@@ -135,4 +135,10 @@
   <data name="WaveHeightCalculationService_Name_Wave_height_for_location_0_" xml:space="preserve">
     <value>Golfhoogte voor locatie {0}</value>
   </data>
+  <data name="DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged" xml:space="preserve">
+    <value>Toetspeil berekening voor locatie {0} is niet geconvergeerd.</value>
+  </data>
+  <data name="WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged" xml:space="preserve">
+    <value>Golfhoogte berekening voor locatie {0} is niet geconvergeerd.</value>
+  </data>
 </root>

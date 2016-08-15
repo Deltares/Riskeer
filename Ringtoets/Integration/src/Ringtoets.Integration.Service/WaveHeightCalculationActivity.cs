@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.Service
                     Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
                 if (!waveHeightCalculationConvergence)
                 {
-                    log.WarnFormat("Golfhoogte berekening voor locatie {0} is is niet geconvergeerd.", hydraulicBoundaryLocation.Name);
+                    log.WarnFormat(Resources.WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);
                 }
                 hydraulicBoundaryLocation.WaveHeightCalculationConvergence = waveHeightCalculationConvergence;
             });

@@ -300,6 +300,46 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
+        public void Finish_ValidCalculationAndRun_LogWarningNoConvergence()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.Expect(o => o.Id).Return(null);
+            assessmentSectionStub.Expect(o => o.NotifyObservers());
+
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
+            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution).Repeat.Twice();
+            mockRepository.ReplayAll();
+
+            ImportHydraulicBoundaryDatabase(assessmentSectionStub);
+
+            var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
+            hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = true;
+
+            var activity = new DesignWaterLevelCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
+
+            activity.Run();
+
+            // Precondition
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+
+            // Call
+            Action call = () => activity.Finish();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith("Toetspeil berekening voor locatie punt_flw_ 1 is niet geconvergeerd.", msgs[0]);
+                StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie 'punt_flw_ 1'' is gelukt.", msgs[1]);
+            });
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Finish_CalculationAlreadyRan_FinishNotPerformed()
         {
             // Setup
