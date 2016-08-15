@@ -52,6 +52,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets", "Ap
 		{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB} = {CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}
 		{20DD96D3-001E-407A-AE2E-432887088F1F} = {20DD96D3-001E-407A-AE2E-432887088F1F}
 		{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99} = {1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 		{D951D6DA-FE83-4920-9FDB-63BF96480B54} = {D951D6DA-FE83-4920-9FDB-63BF96480B54}
 		{7CD038E1-E111-4969-ACED-22C5BD2974E1} = {7CD038E1-E111-4969-ACED-22C5BD2974E1}
 	EndProjectSection
@@ -61,12 +62,24 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8261CCE1-98D7-465B-BC94-4ED239DE7F2E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Utils", "Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj", "{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Gui", "Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj", "{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Base", "Core\Common\src\Core.Common.Base\Core.Common.Base.csproj", "{3BBFD65B-B277-4E50-AE6D-BD24C3434609}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls", "Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj", "{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0D9858E1-CF2D-4DE5-AC0E-64401900D531}"
 EndProject
@@ -91,22 +104,43 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1F0D20C2-7F04-431D-AF22-95A31FD53733}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools", "Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj", "{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer", "Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj", "{ED20DBA9-D577-423F-A68D-A0A8130FB10B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.CommonTools.Test", "Core\Plugins\test\Core.Plugins.CommonTools.Test\Core.Plugins.CommonTools.Test.csproj", "{8BD31773-6F6D-42EE-810D-0A5DAD809F9D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.ProjectExplorer.Test", "Core\Plugins\test\Core.Plugins.ProjectExplorer.Test\Core.Plugins.ProjectExplorer.Test.csproj", "{07206938-9671-4DC7-BDE4-35B0F6E20DBC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper", "Ringtoets\Piping\src\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj", "{D64E4F0E-E341-496F-82B2-941AD202B4E3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data", "Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj", "{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Forms", "Ringtoets\Piping\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj", "{7CD038E1-E111-4969-ACED-22C5BD2974E1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.IO", "Ringtoets\Piping\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj", "{35B87B7A-7F50-4139-B563-589EE522B1ED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Plugin", "Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj", "{1D3D58B6-EF7E-401E-92A0-104067D222EE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Service", "Ringtoets\Piping\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj", "{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -146,16 +180,28 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{88E04195-C43E-40D3-B5F2-3A25E1E79E03}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Data", "Ringtoets\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj", "{11F1F874-45AF-43E4-8AE5-15A5C9593E28}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Data.Test", "Ringtoets\Integration\test\Ringtoets.Integration.Data.Test\Ringtoets.Integration.Data.Test.csproj", "{16F1694E-1237-4B03-B34E-70E6871898FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Plugin", "Ringtoets\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj", "{C8383B76-B3F1-4E6E-B56C-527B469FA20A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Plugin.Test", "Ringtoets\Integration\test\Ringtoets.Integration.Plugin.Test\Ringtoets.Integration.Plugin.Test.csproj", "{15E7B9D9-A177-42AE-8BC7-91B6DFBAB0EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Forms", "Ringtoets\Integration\src\Ringtoets.Integration.Forms\Ringtoets.Integration.Forms.csproj", "{AD0CDC89-0A00-4068-AEEC-9838863C2FE8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Forms", "Ringtoets\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj", "{4D840673-3812-4338-A352-84854E32B8A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Forms.Test", "Ringtoets\Integration\test\Ringtoets.Integration.Forms.Test\Ringtoets.Integration.Forms.Test.csproj", "{96C8FDAE-9F59-4D2F-A66E-BE512BB5EECB}"
 EndProject
@@ -177,12 +223,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Data.Test", "Ringtoets\Common\test\Ringtoets.Common.Data.Test\Ringtoets.Common.Data.Test.csproj", "{7BABA02F-4809-43D2-93E5-DA9ED69BDDE2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls.TreeView", "Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj", "{1D27F91F-4E62-4EAF-A0A8-A32708B9A9B1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Controls.TreeView.Test", "Core\Common\test\Core.Common.Controls.TreeView.Test\Core.Common.Controls.TreeView.Test.csproj", "{0EDC6D7D-E9CD-408A-9EA9-3E7D426809C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{502CA963-E0E9-4F4A-A1D4-612C6A08386B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.OxyPlot", "Core\Components\src\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj", "{2344A7BD-7E25-4A1A-982E-6C674AF5167A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7A696ACF-BA09-41A2-A912-A26E82C494CF}"
 EndProject
@@ -197,16 +249,28 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EE8D5A6C-4871-452A-A69B-F04E374D715E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Storage", "Application\Ringtoets\src\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj", "{50963F12-448C-41BA-A62C-CDB0AB8D21E0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Storage.Test", "Application\Ringtoets\test\Application.Ringtoets.Storage.Test\Application.Ringtoets.Storage.Test.csproj", "{594C5C6D-5833-4E1C-9F30-13A202628EEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.OxyPlot.Forms", "Core\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj", "{DADAA0A5-288C-49CB-9F08-337F16832C86}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.OxyPlot.Forms.Test", "Core\Components\test\Core.Components.OxyPlot.Forms.Test\Core.Components.OxyPlot.Forms.Test.csproj", "{D07BB841-15D7-4127-8B46-CFC61C546B45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Charting", "Core\Components\src\Core.Components.Charting\Core.Components.Charting.csproj", "{516EBC95-B8F2-428C-B7F6-733F01BF8FDD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial", "Core\Components\src\Core.Components.DotSpatial\Core.Components.DotSpatial.csproj", "{AA47E858-A2A7-470E-8B2D-C76AE8ED9CCD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.Test", "Core\Components\test\Core.Components.DotSpatial.Test\Core.Components.DotSpatial.Test.csproj", "{DD7ECAFF-D8A1-4D92-99C0-27498ACB32D4}"
 EndProject
@@ -223,12 +287,18 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7E26AAA5-22ED-43CC-9B21-23EEA60A5A87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Ringtoets", "Demo\Ringtoets\src\Demo.Ringtoets\Demo.Ringtoets.csproj", "{FFE3A667-3A4C-4F48-BC6B-1589867FCB41}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Ringtoets.Test", "Demo\Ringtoets\test\Demo.Ringtoets.Test\Demo.Ringtoets.Test.csproj", "{C48E2C11-3FDA-4356-A10F-757469A108FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.TestUtil", "Core\Components\test\Core.Components.DotSpatial.TestUtil\Core.Components.DotSpatial.TestUtil.csproj", "{9B6F3987-EAF7-4733-80C1-3DCAB44D87AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis", "Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj", "{318BA582-88C9-4816-A54A-A7E431461DE3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HydraRing", "HydraRing", "{79559D7B-0ECC-4CB5-8ED1-D745F8482BA7}"
 EndProject
@@ -237,8 +307,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{435F0AB1-1180-47D3-9BCB-3B5FF365236C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Data", "Ringtoets\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj", "{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Calculation", "Ringtoets\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj", "{888D4097-8BC2-4703-9FB1-8744C94D525E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Calculation.Test", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.Calculation.Test\Ringtoets.HydraRing.Calculation.Test.csproj", "{175406DB-C0DA-42A7-968C-0C17CF2257B1}"
 EndProject
@@ -247,28 +323,49 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Test", "Core\Components\test\Core.Components.Gis.Test\Core.Components.Gis.Test.csproj", "{CCA12632-92B8-46DB-A3CA-E3C7C92B1AB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.Forms", "Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj", "{5A91174A-FB95-4C9D-9CA5-81C0B8D4361A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.DotSpatial.Forms.Test", "Core\Components\test\Core.Components.DotSpatial.Forms.Test\Core.Components.DotSpatial.Forms.Test.csproj", "{73AB8619-65A0-4CC7-9024-A8D08C76FBF5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.IO", "Core\Common\src\Core.Common.IO\Core.Common.IO.csproj", "{E344867E-9AC9-44C8-88A5-8185681679A9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.IO.Test", "Core\Common\test\Core.Common.IO.Test\Core.Common.IO.Test.csproj", "{06EAFA1E-707B-488A-B360-ECE0F870CACF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.IO", "Core\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj", "{FD264FAD-E6F9-47CC-97CD-770199A8E629}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.IO.Test", "Core\Components\test\Core.Components.Gis.IO.Test\Core.Components.Gis.IO.Test.csproj", "{2A542599-87A4-4BDE-8BE1-8C77D178E5E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.IO", "Ringtoets\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj", "{52BA7627-CBAB-4209-BE77-3B5F31378277}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.IO.Test", "Ringtoets\Common\test\Ringtoets.Common.IO.Test\Ringtoets.Common.IO.Test.csproj", "{7537DE22-3330-4F21-ABA2-FCEF117B4223}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.IO", "Ringtoets\HydraRing\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj", "{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.IO.Test", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.IO.Test\Ringtoets.HydraRing.IO.Test.csproj", "{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Gis.Forms", "Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj", "{4A06DF0D-5D75-4BAD-A95A-A3DB9B7C4AD5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Components.Charting.Forms", "Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj", "{2465CCA1-C505-4827-9454-4FD5FD9194CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.KernelWrapper.TestUtil.Test", "Ringtoets\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil.Test\Ringtoets.Piping.KernelWrapper.TestUtil.Test.csproj", "{529C4919-27DE-4DDA-ABD6-537F21B3F223}"
 EndProject
@@ -277,10 +374,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Storage.TestUtil.Test", "Application\Ringtoets\test\Application.Ringtoets.Storage.TestUtil.Test\Application.Ringtoets.Storage.TestUtil.Test.csproj", "{3EDE00E5-C462-43EF-B8BC-E65D14D7FCF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Primitives", "Ringtoets\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj", "{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Primitives.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Primitives.Test\Ringtoets.Piping.Primitives.Test.csproj", "{9FA83BA2-249B-4A66-A501-1C3DA07F8F86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.InputParameterCalculation", "Ringtoets\Piping\src\Ringtoets.Piping.InputParameterCalculation\Ringtoets.Piping.InputParameterCalculation.csproj", "{97F6406A-6338-4863-92A6-0D5C00A5F7C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.InputParameterCalculation.Test", "Ringtoets\Piping\test\Ringtoets.Piping.InputParameterCalculation.Test\Ringtoets.Piping.InputParameterCalculation.Test.csproj", "{74E55618-31E4-429A-81FB-30C16C4891ED}"
 EndProject
@@ -291,12 +394,24 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1C1E8754-CF61-4858-9CEE-3E5DE344474F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Data", "Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj", "{90DE728E-48EF-4665-AB38-3D88E41D9F4D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Forms", "Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj", "{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.IO", "Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.IO\Ringtoets.GrassCoverErosionInwards.IO.csproj", "{F55CCA9C-3B25-417D-9AF4-797D1F5EB95E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Plugin", "Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Plugin\Ringtoets.GrassCoverErosionInwards.Plugin.csproj", "{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Data.Test", "Ringtoets\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Data.Test\Ringtoets.GrassCoverErosionInwards.Data.Test.csproj", "{8E37F9DA-8FA8-4DF0-A639-47A7B44F2ECA}"
 EndProject
@@ -315,14 +430,29 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E550D725-9C80-4242-8A3F-C1A3E020DEA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.Data", "Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj", "{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.Forms", "Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Forms\Ringtoets.HeightStructures.Forms.csproj", "{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.IO", "Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.IO\Ringtoets.HeightStructures.IO.csproj", "{095999A2-326A-4936-97A6-97BFE3F678F0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.Plugin", "Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Plugin\Ringtoets.HeightStructures.Plugin.csproj", "{9AF85B2B-8D78-43C5-9542-FBB3A14EAB36}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.Service", "Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Service\Ringtoets.HeightStructures.Service.csproj", "{20DD96D3-001E-407A-AE2E-432887088F1F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.Data.Test", "Ringtoets\HeightStructures\test\Ringtoets.HeightStructures.Data.Test\Ringtoets.HeightStructures.Data.Test.csproj", "{18078167-A1C8-4545-BFAC-236E5386D4AA}"
 EndProject
@@ -341,18 +471,30 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Data.TestUtil.Test", "Ringtoets\Common\test\Ringtoets.Common.Data.TestUtil.Test\Ringtoets.Common.Data.TestUtil.Test.csproj", "{7C78463D-09B1-455C-B58E-B8EDC9FBCB60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Service", "Ringtoets\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj", "{D951D6DA-FE83-4920-9FDB-63BF96480B54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Service.Test", "Ringtoets\Common\test\Ringtoets.Common.Service.Test\Ringtoets.Common.Service.Test.csproj", "{915A3B93-38F6-4D8B-8204-BE7F4FB0043F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Service", "Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Service\Ringtoets.GrassCoverErosionInwards.Service.csproj", "{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Service.Test", "Ringtoets\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Service.Test\Ringtoets.GrassCoverErosionInwards.Service.Test.csproj", "{D7801688-3DD7-407F-9302-F4FD82B1F499}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Service", "Ringtoets\Integration\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj", "{28811C4A-6C18-42C1-88B2-A03A3784E2D0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Service.Test", "Ringtoets\Integration\test\Ringtoets.Integration.Service.Test\Ringtoets.Integration.Service.Test.csproj", "{BCD3E6DD-FF6D-47CC-8299-667B154BC565}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Geometry", "Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj", "{88665510-CE20-4EF5-BE4A-39800720AA2C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Geometry.Test", "Core\Common\test\Core.Common.Geometry.Test\Core.Common.Geometry.Test.csproj", "{E23513DE-B7D0-4415-BCDF-5A33CD084388}"
 EndProject
@@ -361,16 +503,25 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Calculation.TestUtil.Test", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil.Test\Ringtoets.HydraRing.Calculation.TestUtil.Test.csproj", "{89A94832-5337-4177-97D0-92CD77A375D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Utils", "Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Utils\Ringtoets.GrassCoverErosionInwards.Utils.csproj", "{99573570-EE00-4264-8147-26A1B25DB23F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Utils.Test", "Ringtoets\GrassCoverErosionInwards\test\Ringtoets.GrassCoverErosionInwards.Utils.Test\Ringtoets.GrassCoverErosionInwards.Utils.Test.csproj", "{5C19638A-3CC5-496F-8552-385785E728E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Test", "Application\Ringtoets\test\Application.Ringtoets.Test\Application.Ringtoets.Test.csproj", "{A2451981-99DA-4605-8396-F2222D25EBB7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Chart", "Core\Plugins\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj", "{4163B996-3455-4324-A38A-9F2F0E6FCB52}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Chart.Test", "Core\Plugins\test\Core.Plugins.Chart.Test\Core.Plugins.Chart.Test.csproj", "{45EF3071-5C30-40AA-8B99-CE174DCEEE48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Map", "Core\Plugins\src\Core.Plugins.Map\Core.Plugins.Map.csproj", "{610E0A9C-1997-4C43-A10E-39D4C66ADA93}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Plugins.Map.Test", "Core\Plugins\test\Core.Plugins.Map.Test\Core.Plugins.Map.Test.csproj", "{93AB5AFB-F58E-4EC4-A25E-FF439B1895E7}"
 EndProject

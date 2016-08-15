@@ -96,11 +96,6 @@
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj">
-      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
-      <Name>Core.Common.Version</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>

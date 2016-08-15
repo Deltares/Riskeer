@@ -98,11 +98,6 @@
       <Name>Core.Common.Gui</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
-      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
-      <Name>Core.Common.Version</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
       <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
       <Name>Core.Components.Charting.Forms</Name>

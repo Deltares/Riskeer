@@ -54,11 +54,6 @@
       <Name>Core.Common.Controls</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Version\Core.Common.Version.csproj">
-      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
-      <Name>Core.Common.Version</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
