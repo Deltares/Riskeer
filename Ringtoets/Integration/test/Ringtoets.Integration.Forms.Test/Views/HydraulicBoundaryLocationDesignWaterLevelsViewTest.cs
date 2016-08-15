@@ -68,7 +68,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.AssessmentSection);
-                Assert.IsNull(view.ApplicationSelection);
             }
         }
 

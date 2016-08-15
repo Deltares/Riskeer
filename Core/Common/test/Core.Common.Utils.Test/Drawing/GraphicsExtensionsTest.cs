@@ -59,12 +59,12 @@ namespace Core.Common.Utils.Test.Drawing
         public void DrawImageTransparent_DrawWithOpacity0OrLess_TargetShouldBeUnaffected(float opacity)
         {
             // Setup
-            var rect2x2 = new RectangleF(0f, 0f, 2f, 2f);
+            var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
             var imageFormat = PixelFormat.Format32bppArgb;
 
-            using (var image = Resources.TestImage2x2.Clone(rect2x2, imageFormat))
-            using (var target = Resources.Black2x2.Clone(rect2x2, imageFormat))
-            using (var expectedtarget = Resources.Black2x2.Clone(rect2x2, imageFormat))
+            using (var image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
+            using (var target = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (var expectedtarget = Resources.Black2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
                 Graphics.FromImage(target).DrawImageTransparent(image, 0, 0, opacity);
@@ -78,12 +78,12 @@ namespace Core.Common.Utils.Test.Drawing
         public void DrawImageTransparent_DrawWithOpacity50Percent_TargetShouldBeUpdated()
         {
             // Setup
-            var rect2x2 = new RectangleF(0f, 0f, 2f, 2f);
+            var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
             var imageFormat = PixelFormat.Format32bppArgb;
 
-            using (var image = Resources.TestImage2x2.Clone(rect2x2, imageFormat))
-            using (var target = Resources.Black2x2.Clone(rect2x2, imageFormat))
-            using (var expectedtarget = Resources.TestImageHalfOpacityOnBlack2x2.Clone(rect2x2, imageFormat))
+            using (var image = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
+            using (var target = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (var expectedtarget = Resources.TestImageHalfOpacityOnBlack2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
                 Graphics.FromImage(target).DrawImageTransparent(image, 0, 0, 0.5f);

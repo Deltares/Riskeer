@@ -440,7 +440,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = newValue.ToString();
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
@@ -534,8 +534,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            var PipingScenarioView = ShowPipingCalculationsView();
-            PipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
+            var pipingScenarioView = ShowPipingCalculationsView();
+            pipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
 
             var listBox = (ListBox)new ControlTester("listBox").TheObject;
 

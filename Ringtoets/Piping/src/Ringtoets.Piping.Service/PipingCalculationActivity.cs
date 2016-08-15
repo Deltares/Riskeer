@@ -61,14 +61,8 @@ namespace Ringtoets.Piping.Service
             this.pipingProbabilityAssessmentInput = pipingProbabilityAssessmentInput;
             this.norm = norm;
             this.contribution = contribution;
-        }
-
-        public override string Name
-        {
-            get
-            {
-                return calculation.Name;
-            }
+            
+            Name = calculation.Name;
         }
 
         protected override void OnRun()

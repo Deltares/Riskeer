@@ -273,14 +273,7 @@ namespace Application.Ringtoets
 
         private static void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Exception exception;
-
-            exception = e.ExceptionObject as Exception;
-
-            if (exception == null)
-            {
-                exception = new Exception(Core.Common.Gui.Properties.Resources.App_AppDomain_UnhandledException_Unknown_exception_);
-            }
+            Exception exception = e.ExceptionObject as Exception ?? new Exception(Core.Common.Gui.Properties.Resources.App_AppDomain_UnhandledException_Unknown_exception_);
 
             HandleExceptionOnMainThread(exception, e.IsTerminating);
         }

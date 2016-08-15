@@ -59,7 +59,7 @@ namespace Core.Common.Base.Service
         /// <summary>
         /// Gets or sets the name of the <see cref="Activity"/>.
         /// </summary>
-        public virtual string Name { get; set; }
+        public string Name { get; protected set; }
 
         /// <summary>
         /// Gets or sets the <see cref="ActivityState"/> of the <see cref="Activity"/>.

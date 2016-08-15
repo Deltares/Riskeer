@@ -218,13 +218,13 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// </summary>
         private abstract class DroppingCalculationInContainerStrategy
         {
-            protected readonly CalculationGroup targetCalculationGroup;
+            protected readonly CalculationGroup TargetCalculationGroup;
             private readonly CalculationGroup sourceCalculationGroup;
 
             protected DroppingCalculationInContainerStrategy(CalculationGroup sourceCalculationGroup, CalculationGroup targetCalculationGroup)
             {
                 this.sourceCalculationGroup = sourceCalculationGroup;
-                this.targetCalculationGroup = targetCalculationGroup;
+                TargetCalculationGroup = targetCalculationGroup;
             }
 
             /// <summary>
@@ -250,7 +250,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             protected void MoveCalculationItemToNewOwner(ICalculationBase calculationBase, int position)
             {
                 sourceCalculationGroup.Children.Remove(calculationBase);
-                targetCalculationGroup.Children.Insert(position, calculationBase);
+                TargetCalculationGroup.Children.Insert(position, calculationBase);
             }
 
             /// <summary>
@@ -298,7 +298,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 NotifyObservers();
 
                 // Try to start a name edit action when an item with the same name was already present
-                if (targetCalculationGroup.Children.Except(new[]
+                if (TargetCalculationGroup.Children.Except(new[]
                 {
                     calculationBase
                 }).Any(c => c.Name.Equals(calculationBase.Name)))
@@ -310,7 +310,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             protected override void NotifyObservers()
             {
                 base.NotifyObservers();
-                targetCalculationGroup.NotifyObservers();
+                TargetCalculationGroup.NotifyObservers();
             }
         }
 

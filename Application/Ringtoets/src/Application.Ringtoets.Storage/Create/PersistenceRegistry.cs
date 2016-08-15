@@ -1706,7 +1706,7 @@ namespace Application.Ringtoets.Storage.Create
             return new Dictionary<TEntity, TModel>(new ReferenceEqualityComparer<TEntity>());
         }
 
-        private bool ContainsValue<T, U>(Dictionary<T, U> collection, U model)
+        private bool ContainsValue<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TModel model)
         {
             if (model == null)
             {
@@ -1716,7 +1716,7 @@ namespace Application.Ringtoets.Storage.Create
             return collection.ContainsValue(model);
         }
 
-        private void Register<T, U>(Dictionary<T, U> collection, T entity, U model)
+        private void Register<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TEntity entity, TModel model)
         {
             if (entity == null)
             {
@@ -1730,7 +1730,7 @@ namespace Application.Ringtoets.Storage.Create
             collection[entity] = model;
         }
 
-        private T Get<T, U>(Dictionary<T, U> collection, U model)
+        private TEntity Get<TEntity, TModel>(Dictionary<TEntity, TModel> collection, TModel model)
         {
             if (model == null)
             {

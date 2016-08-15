@@ -43,7 +43,8 @@ namespace Core.Common.Gui.Forms
         /// process can send messages only to message queues of threads in processes of 
         /// lesser or equal integrity level.</param>
         /// <param name="wMsg">The message to be sent. For lists of the system-provided 
-        /// messages, see <see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644927(v=vs.85).aspx#system_defined"/>.</param>
+        /// messages, see https://msdn.microsoft.com/en-us/library/windows/desktop/ms644927(v=vs.85).aspx#system_defined.
+        /// </param>
         /// <param name="wParam">Additional message-specific information.</param>
         /// <param name="lParam">Additional message-specific information.</param>
         /// <returns></returns>

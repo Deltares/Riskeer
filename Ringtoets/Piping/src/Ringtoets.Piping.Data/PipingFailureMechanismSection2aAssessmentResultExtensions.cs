@@ -28,6 +28,9 @@ using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data
 {
+    /// <summary>
+    /// Extension methods for obtaining level 2a results from output for an assessment of the piping failure mechanism.
+    /// </summary>
     public static class PipingFailureMechanismSection2aAssessmentResultExtensions
     {
         /// <summary>

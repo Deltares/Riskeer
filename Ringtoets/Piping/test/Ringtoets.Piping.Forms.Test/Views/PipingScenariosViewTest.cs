@@ -111,10 +111,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Data_SetToNull_DoesNotThrow()
         {
             // Setup
-            var PipingScenarioView = ShowPipingScenarioView();
+            var pipingScenarioView = ShowPipingScenarioView();
 
             // Call
-            var testDelegate = new TestDelegate(() => PipingScenarioView.Data = null);
+            var testDelegate = new TestDelegate(() => pipingScenarioView.Data = null);
 
             // Assert
             Assert.DoesNotThrow(testDelegate);
@@ -145,10 +145,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             pipingFailureMechanism.AddSection(failureMechanismSection2);
             pipingFailureMechanism.AddSection(failureMechanismSection3);
 
-            var PipingScenarioView = ShowPipingScenarioView();
+            var pipingScenarioView = ShowPipingScenarioView();
 
             // Call
-            PipingScenarioView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingScenarioView.PipingFailureMechanism = pipingFailureMechanism;
 
             // Assert
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
@@ -179,8 +179,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            var PipingScenarioView = ShowPipingScenarioView();
-            PipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
+            var pipingScenarioView = ShowPipingScenarioView();
+            pipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
 
             var listBox = (ListBox)new ControlTester("listBox").TheObject;
 
@@ -262,7 +262,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = newValue.ToString();
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newValue;
             
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
@@ -346,9 +346,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(10.0, 0.0)
             }));
 
-            var PipingScenarioView = ShowPipingScenarioView();
+            var pipingScenarioView = ShowPipingScenarioView();
 
-            PipingScenarioView.Data = new CalculationGroup("Group", true)
+            pipingScenarioView.Data = new CalculationGroup("Group", true)
             {
                 Children =
                 {
@@ -405,19 +405,19 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 }
             };
 
-            PipingScenarioView.PipingFailureMechanism = pipingFailureMechanism;
+            pipingScenarioView.PipingFailureMechanism = pipingFailureMechanism;
 
-            return PipingScenarioView;
+            return pipingScenarioView;
         }
 
         private PipingScenariosView ShowPipingScenarioView()
         {
-            var PipingScenarioView = new PipingScenariosView();
+            var pipingScenarioView = new PipingScenariosView();
 
-            testForm.Controls.Add(PipingScenarioView);
+            testForm.Controls.Add(pipingScenarioView);
             testForm.Show();
 
-            return PipingScenarioView;
+            return pipingScenarioView;
         }
     }
 }

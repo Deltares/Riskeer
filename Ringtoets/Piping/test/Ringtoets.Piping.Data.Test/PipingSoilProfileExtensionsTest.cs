@@ -29,21 +29,21 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class PipingSoilProfileExtensionsTest
     {
-        private PipingSoilLayer[] testCaseOneAquiferLayer = {
+        private readonly PipingSoilLayer[] testCaseOneAquiferLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
             }
         };
 
-        private PipingSoilLayer[] testCaseOneAquitardLayer = {
+        private readonly PipingSoilLayer[] testCaseOneAquitardLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
             }
         };
 
-        private PipingSoilLayer[] testCaseOneCoverageLayer = {
+        private readonly PipingSoilLayer[] testCaseOneCoverageLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoAquitardLayers = {
+        private readonly PipingSoilLayer[] testCaseTwoAquitardLayers = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoAquiferLayers = {
+        private readonly PipingSoilLayer[] testCaseTwoAquiferLayers = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
@@ -76,7 +76,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoCoverageLayers = {
+        private readonly PipingSoilLayer[] testCaseTwoCoverageLayers = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseOneAquiferLayerOneAquitardLayer = {
+        private readonly PipingSoilLayer[] testCaseOneAquiferLayerOneAquitardLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseOneAquitardLayerOneAquiferLayer = {
+        private readonly PipingSoilLayer[] testCaseOneAquitardLayerOneAquiferLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoAquiferLayersOneAquitardLayerOneAquiferLayer = {
+        private readonly PipingSoilLayer[] testCaseTwoAquiferLayersOneAquitardLayerOneAquiferLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
@@ -132,7 +132,7 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private PipingSoilLayer[] testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer = {
+        private readonly PipingSoilLayer[] testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer = {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false

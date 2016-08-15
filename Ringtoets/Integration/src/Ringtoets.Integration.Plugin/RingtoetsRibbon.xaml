@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
-             xmlns:Converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
+             xmlns:converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
              xmlns:resx="clr-namespace:Ringtoets.Integration.Plugin.Properties"
              xmlns:properties="clr-namespace:Ringtoets.Integration.Forms.Properties;assembly=Ringtoets.Integration.Forms"
              xmlns:guiProperties="clr-namespace:Core.Common.Gui.Properties;assembly=Core.Common.Gui"
              mc:Ignorable="d" Width="686.4" Height="168" Background="White">
     <UserControl.Resources>
-        <Converters:PngToIconConverter x:Key="IconConverter" />
+        <converters:PngToIconConverter x:Key="IconConverter" />
     </UserControl.Resources>
     <fluent:Ribbon x:Name="RingtoetsRibbonControl" x:FieldModifier="private">
         <fluent:RibbonTabItem Header="{x:Static guiProperties:Resources.Ribbon_TabItem_Start}" fluent:KeyTip.Keys="S" >

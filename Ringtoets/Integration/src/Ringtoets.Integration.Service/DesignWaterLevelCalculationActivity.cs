@@ -57,15 +57,9 @@ namespace Ringtoets.Integration.Service
 
             this.assessmentSection = assessmentSection;
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
-        }
 
-        public override string Name
-        {
-            get
-            {
-                return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_,
+            Name = string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_,
                                      hydraulicBoundaryLocation.Name);
-            }
         }
 
         protected override void OnRun()

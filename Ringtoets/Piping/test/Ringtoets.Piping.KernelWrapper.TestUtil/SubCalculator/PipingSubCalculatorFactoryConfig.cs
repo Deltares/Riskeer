@@ -1,8 +1,7 @@
 ﻿using System;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
-using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 
-namespace Ringtoets.Piping.KernelWrapper.TestUtil
+namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestPipingSubCalculatorFactory"/> 

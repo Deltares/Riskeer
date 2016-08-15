@@ -24,6 +24,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
@@ -45,17 +46,9 @@ namespace Core.Components.DotSpatial.Converter
             foreach (var mapFeature in data.Features)
             {
                 var feature = new Feature();
-                var geometryList = new List<IBasicLineString>();
-
-                foreach (var mapGeometry in mapFeature.MapGeometries)
-                {
-                    var coordinates = ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First());
-                    IBasicLineString lineString = new LineString(coordinates);
-                    geometryList.Add(lineString);
-                }
 
                 GeometryFactory factory = new GeometryFactory();
-                feature.BasicGeometry = factory.CreateMultiLineString(geometryList.ToArray());
+                feature.BasicGeometry = factory.CreateMultiLineString(mapFeature.MapGeometries.Select(AsLineString).ToArray());
 
                 featureSet.Features.Add(feature);
             }
@@ -72,6 +65,13 @@ namespace Core.Components.DotSpatial.Converter
             {
                 layer
             };
+        }
+
+        private static IBasicLineString AsLineString(MapGeometry mapGeometry)
+        {
+            var coordinates = ConvertPoint2DElementsToCoordinates(mapGeometry.PointCollections.First());
+            IBasicLineString lineString = new LineString(coordinates);
+            return lineString;
         }
 
         private void CreateStyle(MapLineLayer layer, LineStyle style)

@@ -50,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
         /// </summary>
         /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="DesignTablesSetting"/> for.</param>
         /// <param name="ringId">The ring id to obtain the <see cref="DesignTablesSetting"/> for.</param>
-        /// <returns>The <see cref="DesignTablesSetting"/> corresponding to the provided failure mechanism type and ring id.</returns
+        /// <returns>The <see cref="DesignTablesSetting"/> corresponding to the provided failure mechanism type and ring id.</returns>
         public DesignTablesSetting GetDesignTablesSetting(HydraRingFailureMechanismType failureMechanismType, string ringId)
         {
             if (fileDesignTablesSettings.ContainsKey(failureMechanismType) &&

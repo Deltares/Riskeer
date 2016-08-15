@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 collection.Remove(e);
             }
-            return entities;
+            return list;
         }
 
         public override T Add(T entity)

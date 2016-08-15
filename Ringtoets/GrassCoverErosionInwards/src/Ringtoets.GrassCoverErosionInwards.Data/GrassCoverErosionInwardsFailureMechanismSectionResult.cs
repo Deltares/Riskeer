@@ -32,8 +32,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
     {
-        private readonly double assessmentLayerTwoA;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
@@ -41,8 +39,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            assessmentLayerTwoA = double.NaN;
-            AssessmentLayerThree = (RoundedDouble)double.NaN;
+            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
 
         /// <summary>
@@ -70,11 +67,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public bool AssessmentLayerOne { get; set; }
 
-        public long StorageId { get; set; }
-
         /// <summary>
         /// Gets or sets the single relevant <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
         public GrassCoverErosionInwardsCalculation Calculation { get; set; }
+
+        public long StorageId { get; set; }
     }
 }

@@ -145,12 +145,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException("points", Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null);
             }
 
-            if (points.Any(p => p == null))
+            var roughnessPoints = points.ToArray();
+            if (roughnessPoints.Any(p => p == null))
             {
                 throw new ArgumentException(Resources.DikeProfile_SetGeometry_A_point_in_the_collection_is_null);
             }
 
-            DikeGeometry = points.ToArray();
+            DikeGeometry = roughnessPoints;
         }
 
         private void SetForeshoreGeometry(IEnumerable<Point2D> points)
@@ -160,12 +161,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException("points", Resources.DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null);
             }
 
-            if (points.Any(p => p == null))
+            var foreshorePoints = points.ToArray();
+            if (foreshorePoints.Any(p => p == null))
             {
                 throw new ArgumentException(Resources.DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null);
             }
 
-            ForeshoreGeometry = new RoundedPoint2DCollection(2, points);
+            ForeshoreGeometry = new RoundedPoint2DCollection(2, foreshorePoints);
         }
 
         /// <summary>

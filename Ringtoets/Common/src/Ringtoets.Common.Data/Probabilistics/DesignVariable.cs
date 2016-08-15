@@ -30,17 +30,19 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// This class is a representation of a variable derived from a probabilistic distribution,
     /// based on a percentile.
     /// </summary>
-    public abstract class DesignVariable<DistributionType> where DistributionType : IDistribution
+    /// <typeparam name="TDistributionType">The type of the underlying distribution from which a value is 
+    /// derived.</typeparam>
+    public abstract class DesignVariable<TDistributionType> where TDistributionType : IDistribution
     {
         private double percentile;
-        private DistributionType distribution;
+        private TDistributionType distribution;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DesignVariable{T}"/> class with 
         /// <see cref="Percentile"/> equal to 0.5.
         /// </summary>
         /// <exception cref="ArgumentNullException"><see cref="Distribution"/> is null.</exception>
-        protected DesignVariable(DistributionType distribution)
+        protected DesignVariable(TDistributionType distribution)
         {
             Distribution = distribution;
             percentile = 0.5;
@@ -50,7 +52,7 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// Gets or sets the probabilistic distribution of the parameter being modeled.
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        public DistributionType Distribution
+        public TDistributionType Distribution
         {
             get
             {

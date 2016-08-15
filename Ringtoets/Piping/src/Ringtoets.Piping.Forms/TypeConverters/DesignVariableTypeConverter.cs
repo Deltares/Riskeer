@@ -152,17 +152,18 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         /// <summary>
         /// A generic parameter description class.
         /// </summary>
-        /// <typeparam name="DistributionType">Type of object which as the parameter.</typeparam>
-        protected class ParameterDefinition<DistributionType>
+        /// <typeparam name="TDistributionType">Type of the distribution object for which the parameter 
+        /// definition is obtained.</typeparam>
+        protected class ParameterDefinition<TDistributionType>
         {
-            private readonly Func<DistributionType, RoundedDouble> getRoundedDouble;
+            private readonly Func<TDistributionType, RoundedDouble> getRoundedDouble;
 
             /// <summary>
             /// Instantiates a new instance of <see cref="ParameterDefinition{T}"/> for a
             /// given parameter.
             /// </summary>
             /// <param name="expression">The parameter expression.</param>
-            public ParameterDefinition(Expression<Func<DistributionType, RoundedDouble>> expression)
+            public ParameterDefinition(Expression<Func<TDistributionType, RoundedDouble>> expression)
             {
                 PropertyName = ((MemberExpression) expression.Body).Member.Name;
                 getRoundedDouble = expression.Compile();
@@ -190,7 +191,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             /// <param name="distribution">The distribution of evaluate.</param>
             /// <param name="culture">The culture used to print text in.</param>
             /// <returns>The summay text of the parameter.</returns>
-            public string GetSummary(DistributionType distribution, CultureInfo culture)
+            public string GetSummary(TDistributionType distribution, CultureInfo culture)
             {
                 return string.Format("{0} = {1}",
                                      Symbol,
@@ -202,7 +203,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             /// <summary>
             /// Method to retrieve the value of the parameter from a distribution.
             /// </summary>
-            private Func<DistributionType, double> GetValue { get; set; }
+            private Func<TDistributionType, double> GetValue { get; set; }
         }
     }
 }

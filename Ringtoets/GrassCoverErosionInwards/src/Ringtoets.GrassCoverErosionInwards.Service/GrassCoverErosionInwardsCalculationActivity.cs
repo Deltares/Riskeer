@@ -77,14 +77,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             this.hlcdDirectory = hlcdDirectory;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
-        }
 
-        public override string Name
-        {
-            get
-            {
-                return calculation.Name;
-            }
+            Name = calculation.Name;
         }
 
         protected override void OnRun()

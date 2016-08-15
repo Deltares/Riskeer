@@ -24,8 +24,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-using log4net;
-
 namespace Core.Common.Utils.Reflection
 {
     /// <summary>

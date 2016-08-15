@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;

@@ -34,8 +34,7 @@ namespace Ringtoets.Piping.Service
 {
     /// <summary>
     /// This class is responsible for invoking operations on the <see cref="PipingCalculator"/>. Error and status information is 
-    /// logged during the execution of the operation. At the end of an operation, a <see cref="PipingCalculationResult"/> is returned,
-    /// representing the result of the operation.
+    /// logged during the execution of the operation.
     /// </summary>
     public static class PipingCalculationService
     {

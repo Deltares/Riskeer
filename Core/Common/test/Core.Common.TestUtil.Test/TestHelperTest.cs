@@ -85,9 +85,7 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void GetTestDataPath_Always_VerifiedTestPaths()
         {
-            string path;
-
-            path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage);
+            string path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage);
             Assert.IsTrue(Directory.Exists(path));
             
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui);

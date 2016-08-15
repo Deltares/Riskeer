@@ -366,13 +366,15 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             var random = new Random(21);
             bool firstSectionResultHasCalculation = false;
+            var grassCoverErosionInwardsCalculation = calculations.First();
+
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
                 if (!firstSectionResultHasCalculation)
                 {
-                    sectionResult.Calculation = calculations.First();
+                    sectionResult.Calculation = grassCoverErosionInwardsCalculation;
                     firstSectionResultHasCalculation = true;
                 }
             }

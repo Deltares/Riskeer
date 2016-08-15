@@ -235,7 +235,7 @@ namespace Core.Common.Base.Test.IO
             }
 
             public override ProgressChangedDelegate ProgressChanged { protected get; set; }
-            public IObservable[] GetAffectedNonTargetObservableInstancesOverride { get; set; }
+            public IObservable[] GetAffectedNonTargetObservableInstancesOverride { private get; set; }
 
             protected override IEnumerable<IObservable> GetAffectedNonTargetObservableInstances()
             {

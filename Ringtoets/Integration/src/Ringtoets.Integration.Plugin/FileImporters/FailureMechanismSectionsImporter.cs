@@ -380,12 +380,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private static List<FailureMechanismSection> CreateFailureMechanismSectionsSnappedOnReferenceLine(IList<FailureMechanismSection> orderedReadSections, Point2D[][] splitResults)
         {
-            var snappedSections = new List<FailureMechanismSection>(orderedReadSections.Count);
-            for (int i = 0; i < orderedReadSections.Count; i++)
-            {
-                snappedSections.Add(new FailureMechanismSection(orderedReadSections[i].Name, splitResults[i]));
-            }
-            return snappedSections;
+            return orderedReadSections.Select((t, i) => new FailureMechanismSection(t.Name, splitResults[i])).ToList();
         }
     }
 }

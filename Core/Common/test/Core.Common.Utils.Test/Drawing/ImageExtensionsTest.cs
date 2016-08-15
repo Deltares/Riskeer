@@ -57,12 +57,12 @@ namespace Core.Common.Utils.Test.Drawing
         public void AddOverlayImage_SourceDrawnPartiallyOverTarget_TargetPartiallyChanged()
         {
             // Setup
-            var rect2x2 = new RectangleF(0f, 0f, 2f, 2f);
+            var rect2By2 = new RectangleF(0f, 0f, 2f, 2f);
             var imageFormat = PixelFormat.Format32bppArgb;
 
-            using (var target = Resources.TestImage2x2.Clone(rect2x2, imageFormat))
-            using (var image = Resources.Black2x2.Clone(rect2x2, imageFormat))
-            using (var expectedImage = Resources.TestImageWithBlack2x2.Clone(rect2x2, imageFormat))
+            using (var target = Resources.TestImage2x2.Clone(rect2By2, imageFormat))
+            using (var image = Resources.Black2x2.Clone(rect2By2, imageFormat))
+            using (var expectedImage = Resources.TestImageWithBlack2x2.Clone(rect2By2, imageFormat))
             {
                 // Call
                 using (var result = target.AddOverlayImage(image, 1, 1, 2, 2))

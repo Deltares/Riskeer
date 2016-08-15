@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
     [TestFixture]
     public class HydraRingInitializationServiceTest
     {
-        private string hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
+        private readonly string hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"HydraRing");
 
         [Test]
         public void ParameteredConstructor_ExpectedValues()

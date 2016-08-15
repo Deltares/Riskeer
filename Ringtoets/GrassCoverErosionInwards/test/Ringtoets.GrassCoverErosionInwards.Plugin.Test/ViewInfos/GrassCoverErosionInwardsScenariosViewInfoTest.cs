@@ -118,7 +118,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 Data = new CalculationGroup()
             })
             {
-                var mocks = new MockRepository();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
                 mocks.ReplayAll();
@@ -143,7 +142,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             {
                 var unrelatedFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-                var mocks = new MockRepository();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
                 {
@@ -174,7 +172,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 Data = relatedFailureMechanism.CalculationsGroup
             })
             {
-                var mocks = new MockRepository();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
                 {

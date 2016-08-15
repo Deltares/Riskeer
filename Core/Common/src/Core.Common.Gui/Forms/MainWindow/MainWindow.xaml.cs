@@ -26,7 +26,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
@@ -38,7 +37,6 @@ using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
 using Fluent;
 using Button = Fluent.Button;
-using Cursors = System.Windows.Input.Cursors;
 using WindowsFormApplication = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui.Forms.MainWindow

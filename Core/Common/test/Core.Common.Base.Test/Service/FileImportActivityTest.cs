@@ -107,6 +107,7 @@ namespace Core.Common.Base.Test.Service
             var target = new object();
 
             fileImporter.Stub(x => x.ProgressChanged = null).IgnoreArguments();
+            fileImporter.Expect(x => x.Name).Return(string.Empty);
             fileImporter.Expect(i => i.Import(target, "file")).Return(true);
 
             mocks.ReplayAll();
@@ -129,6 +130,7 @@ namespace Core.Common.Base.Test.Service
             var target = new object();
 
             fileImporter.Stub(x => x.ProgressChanged = null).IgnoreArguments();
+            fileImporter.Expect(x => x.Name).Return(string.Empty);
             fileImporter.Expect(x => x.Cancel());
 
             mocks.ReplayAll();

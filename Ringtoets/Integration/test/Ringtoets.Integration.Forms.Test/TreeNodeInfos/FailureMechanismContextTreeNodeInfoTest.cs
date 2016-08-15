@@ -480,8 +480,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        /* Used in ChildNodeObjects_FailureMechanismIsRelevantWithDifferentFailureMechanismSectionResults_OutputNodeAdded(Type) */
-        public void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
+        /* Used in ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type) */
+        private void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

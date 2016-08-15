@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Gets or sets the <see cref="IApplicationSelection"/>.
         /// </summary>
-        public IApplicationSelection ApplicationSelection { get; set; }
+        public IApplicationSelection ApplicationSelection { private get; set; }
 
         public object Selection
         {

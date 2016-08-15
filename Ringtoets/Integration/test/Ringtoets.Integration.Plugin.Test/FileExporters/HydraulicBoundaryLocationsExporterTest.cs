@@ -117,13 +117,15 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
 
             var exporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
 
-            bool isExported = true;
             try
             {
                 using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
                 {
                     // Call
-                    isExported = exporter.Export();
+                    var isExported = exporter.Export();
+
+                    // Assert
+                    Assert.IsFalse(isExported);
                 }
             }
             finally
@@ -131,8 +133,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
                 Directory.Delete(directoryPath, true);
             }
 
-            // Assert
-            Assert.IsFalse(isExported);
         }
     }
 }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
              xmlns:resx="clr-namespace:Demo.Ringtoets.Properties"
-             xmlns:Converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
+             xmlns:converters="clr-namespace:Core.Common.Gui.Converters;assembly=Core.Common.Gui"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
-            <Converters:PngToIconConverter x:Key="IconConverter"/>
+            <converters:PngToIconConverter x:Key="IconConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
 

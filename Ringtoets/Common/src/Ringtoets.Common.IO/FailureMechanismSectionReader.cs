@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO
     /// </summary>
     public class FailureMechanismSectionReader : IDisposable
     {
-        private const string SectionNameAttributeKey = "Vaknaam";
+        private const string sectionNameAttributeKey = "Vaknaam";
         private readonly PolylineShapeFileReader polylineShapeFileReader;
 
         /// <summary>
@@ -106,10 +106,10 @@ namespace Ringtoets.Common.IO
         /// a required attribute defined.</exception>
         private void ValidateExistenceOfRequiredAttributes()
         {
-            if (!polylineShapeFileReader.HasAttribute(SectionNameAttributeKey))
+            if (!polylineShapeFileReader.HasAttribute(sectionNameAttributeKey))
             {
                 var message = string.Format(RingtoetsCommonIOResources.FailureMechanismSectionReader_File_lacks_required_Attribute_0_,
-                                            SectionNameAttributeKey);
+                                            sectionNameAttributeKey);
                 throw new CriticalFileReadException(message);
             }
         }
@@ -154,7 +154,7 @@ namespace Ringtoets.Common.IO
 
         private string GetSectionName(MapFeature lineFeature)
         {
-            return (string) lineFeature.MetaData[SectionNameAttributeKey];
+            return (string) lineFeature.MetaData[sectionNameAttributeKey];
         }
 
         private IEnumerable<Point2D> GetSectionGeometry(MapFeature lineFeature)

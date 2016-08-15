@@ -61,14 +61,8 @@ namespace Core.Common.Base.Service
             this.fileImporter = fileImporter;
             this.target = target;
             this.filePath = filePath;
-        }
 
-        public override string Name
-        {
-            get
-            {
-                return fileImporter.Name;
-            }
+            Name = fileImporter.Name;
         }
 
         /// <summary>

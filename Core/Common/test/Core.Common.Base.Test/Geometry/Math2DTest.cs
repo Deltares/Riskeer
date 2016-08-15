@@ -123,7 +123,7 @@ namespace Core.Common.Base.Test.Geometry
         /// Test cases for non intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
         /// which represent the coordinate of a point. Each pair of coordinates form a segment.
         /// </summary>
-        private static readonly Point2D[][] NonIntersectingSegments =
+        private static readonly Point2D[][] nonIntersectingSegments =
         {
             //  |
             // ___
@@ -163,7 +163,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        [TestCaseSource("NonIntersectingSegments")]
+        [TestCaseSource("nonIntersectingSegments")]
         public void LineIntersectionWithLine_DifferentLineSegmentsWithNoIntersection_ReturnsPoint(Point2D[] points)
         {
             // Call
@@ -353,7 +353,7 @@ namespace Core.Common.Base.Test.Geometry
             };
 
             // Call
-            IEnumerable<Point2D>[] lineSplits = Math2D.SplitLineAtLengths(originalLine, lengths);
+            Point2D[][] lineSplits = Math2D.SplitLineAtLengths(originalLine, lengths);
 
             // Assert
             Assert.AreEqual(1, lineSplits.Length);

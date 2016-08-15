@@ -43,21 +43,6 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Name_SetAndGetValue_ReturnSetValue()
-        {
-            // Setup / Call
-            const string someName = "Some name";
-
-            var activity = new SimpleActivity(false, false, false)
-            {
-                Name = someName
-            };
-
-            // Assert
-            Assert.AreEqual(someName, activity.Name);
-        }
-
-        [Test]
         public void ProgressText_SetValue_ProgressChangedListenersAreNotified()
         {
             // Setup
@@ -132,7 +117,7 @@ namespace Core.Common.Base.Test.Service
         public void Finish_ActivityWithSuccessfulFinish_MessageIsSendToLogAndStateIsChangedToFinished()
         {
             // Setup
-            var activity = new SimpleActivity(false, false, false) { Name = "Activity" };
+            var activity = new SimpleActivity(false, false, false);
 
             activity.Run();
 
@@ -142,7 +127,7 @@ namespace Core.Common.Base.Test.Service
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
             {
-                "Uitvoeren van 'Activity' is gelukt."
+                "Uitvoeren van '' is gelukt."
             });
 
             Assert.AreEqual(ActivityState.Finished, activity.State);
@@ -152,7 +137,7 @@ namespace Core.Common.Base.Test.Service
         public void Finish_ActivityWithFailingFinish_MessageIsSendToLogAndStateIsChangedToFailed()
         {
             // Setup
-            var activity = new SimpleActivity(false, false, true) { Name = "Activity" };
+            var activity = new SimpleActivity(false, false, true);
 
             activity.Run();
 
@@ -162,7 +147,7 @@ namespace Core.Common.Base.Test.Service
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
             {
-                "Uitvoeren van 'Activity' is mislukt."
+                "Uitvoeren van '' is mislukt."
             });
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -185,14 +170,14 @@ namespace Core.Common.Base.Test.Service
         public void Finish_CancelledActivityWithSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
         {
             // Setup
-            var activity = new SimpleActivity(false, false, false) { Name = "Activity" };
+            var activity = new SimpleActivity(false, false, false);
 
             activity.Cancel();
 
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
             {
-                "Uitvoeren van 'Activity' is geannuleerd."
+                "Uitvoeren van '' is geannuleerd."
             });
 
             Assert.AreEqual(ActivityState.Cancelled, activity.State);
@@ -202,7 +187,7 @@ namespace Core.Common.Base.Test.Service
         public void Finish_FailedActivityWithSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
         {
             // Setup
-            var activity = new SimpleActivity(true, false, false) { Name = "Activity" };
+            var activity = new SimpleActivity(true, false, false);
 
             activity.Run();
 
@@ -212,7 +197,7 @@ namespace Core.Common.Base.Test.Service
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
             {
-                "Uitvoeren van 'Activity' is mislukt."
+                "Uitvoeren van '' is mislukt."
             });
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -222,7 +207,7 @@ namespace Core.Common.Base.Test.Service
         public void Finish_SkippedActivityWithcSuccessfulFinish_MessageIsSendToLogAndPreviousStateIsPreserved()
         {
             // Setup
-            var activity = new SimpleActivity(false, false, false, true) { Name = "Activity" };
+            var activity = new SimpleActivity(false, false, false, true);
 
             activity.Run();
 
@@ -232,7 +217,7 @@ namespace Core.Common.Base.Test.Service
             // Call / Assert
             TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
             {
-                "Uitvoeren van 'Activity' is overgeslagen."
+                "Uitvoeren van '' is overgeslagen."
             });
 
             Assert.AreEqual(ActivityState.Skipped, activity.State);
