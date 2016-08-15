@@ -347,7 +347,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De uitvoer van {0} berekeningen is verwijderd..
+        ///   Looks up a localized string similar to De resultaten van {0} berekeningen zijn verwijderd..
         /// </summary>
         public static string FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared {
             get {

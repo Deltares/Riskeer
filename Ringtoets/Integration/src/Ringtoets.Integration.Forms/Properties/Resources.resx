@@ -324,7 +324,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Hs [m]</value>
   </data>
   <data name="FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared" xml:space="preserve">
-    <value>De uitvoer van {0} berekeningen is verwijderd.</value>
+    <value>De resultaten van {0} berekeningen zijn verwijderd.</value>
   </data>
   <data name="FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
     <value>De berekende toetspeilen en golfhoogtes van alle hydraulische randvoorwaarden locaties zijn verwijderd.</value>

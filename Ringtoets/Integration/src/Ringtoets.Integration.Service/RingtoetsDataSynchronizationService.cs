@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -39,23 +40,6 @@ namespace Ringtoets.Integration.Service
     public static class RingtoetsDataSynchronizationService
     {
         /// <summary>
-        /// Clears all the output data within the <see cref="IAssessmentSection"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the data for.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<ICalculation> ClearAssessmentSectionData(IAssessmentSection assessmentSection)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException("assessmentSection");
-            }
-
-            ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase);
-            return ClearFailureMechanismCalculationOutputs(assessmentSection);
-        }
-
-        /// <summary>
         /// Clears all the output data and hydraulic boundary locations within the <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the data for.</param>
@@ -69,7 +53,7 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException("assessmentSection");
             }
 
-            List<ICalculation> affectedItems = new List<ICalculation>();
+            var affectedItems = new List<ICalculation>();
 
             foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -107,7 +91,7 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException("assessmentSection");
             }
 
-            List<ICalculation> affectedItems = new List<ICalculation>();
+            var affectedItems = new List<ICalculation>();
 
             foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
             {
@@ -132,18 +116,32 @@ namespace Ringtoets.Integration.Service
             return affectedItems;
         }
 
-        private static void ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <summary>
+        /// Clears the output of the hydraulic boundary locations within the <see cref="HydraulicBoundaryDatabase"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> wich contains the locations.</param>
+        /// <returns><c>true</c> when one or multiple locations are affected by clearing the output. <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        public static bool ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)
             {
-                return;
+                throw new ArgumentNullException("hydraulicBoundaryDatabase");
             }
 
-            foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations)
+            var locationAffected = false;
+
+            foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations
+                                                                               .Where(hydraulicBoundaryLocation =>
+                                                                                      !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel) ||
+                                                                                      !double.IsNaN(hydraulicBoundaryLocation.WaveHeight)))
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = double.NaN;
                 hydraulicBoundaryLocation.WaveHeight = double.NaN;
+                locationAffected = true;
             }
+
+            return locationAffected;
         }
     }
 }

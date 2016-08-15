@@ -273,7 +273,19 @@ namespace Ringtoets.Integration.Forms.Views
         private void NormValueChanged(object sender, EventArgs eventArgs)
         {
             data.Norm = Convert.ToInt32(normInput.Value);
-            var affectedCalculations = RingtoetsDataSynchronizationService.ClearAssessmentSectionData(assessmentSection).ToArray();
+            ClearAssessmentSectionData();
+
+            data.NotifyObservers();
+
+            foreach (var fm in AssessmentSection.GetFailureMechanisms())
+            {
+                fm.NotifyObservers();
+            }
+        }
+
+        private void ClearAssessmentSectionData()
+        {
+            var affectedCalculations = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToArray();
 
             if (affectedCalculations.Length > 0)
             {
@@ -283,15 +295,13 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)
             {
-                assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-                log.Info(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
-            }
+                var hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase);
 
-            data.NotifyObservers();
-
-            foreach (var fm in AssessmentSection.GetFailureMechanisms())
-            {
-                fm.NotifyObservers();
+                if (hydraulicBoundaryLocationAffected)
+                {
+                    assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+                    log.Info(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
+                }
             }
         }
 
