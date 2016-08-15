@@ -186,10 +186,12 @@ namespace Core.Common.Gui.Forms.ViewHost
                 }
 
                 GetLayoutContent<LayoutDocument>(view).Close();
+                UpdateDockingManager();
             }
             else if (toolViews.Contains(view))
             {
                 GetLayoutContent<LayoutAnchorable>(view).Hide();
+                UpdateDockingManager();
             }
 
             removingProgrammatically = false;
@@ -213,6 +215,8 @@ namespace Core.Common.Gui.Forms.ViewHost
                     dockingManager.Layout.ActiveContent = layoutAnchorable;
                 }
             }
+
+            UpdateDockingManager();
         }
 
         public void SetImage(IView view, Image image)
@@ -347,6 +351,14 @@ namespace Core.Common.Gui.Forms.ViewHost
             view.Dispose();
 
             OnViewClosedEvent();
+        }
+
+        /// <summary>
+        /// This method can be called in order to get rid of problems caused by AvalonDock's latency.
+        /// </summary>
+        private void UpdateDockingManager()
+        {
+            dockingManager.UpdateLayout();
         }
 
         private void CleanupHostControl(IView view)
