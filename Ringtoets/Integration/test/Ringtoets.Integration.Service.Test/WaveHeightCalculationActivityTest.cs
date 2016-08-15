@@ -236,7 +236,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void Finish_ValidCalculationAndRun_SetsWaveHeightAndNotifyObservers()
+        public void Finish_ValidCalculationAndRun_SetsPropertiesAndNotifyObservers()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -248,28 +248,34 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSectionStub.Expect(o => o.NotifyObservers());
 
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
-            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution);
+            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution).Repeat.Twice();
             mockRepository.ReplayAll();
 
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
+            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = true;
             hydraulicBoundaryLocation.Attach(observerMock);
 
             var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 
             activity.Run();
 
+            // Precondition
+            Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.WaveHeight));
+            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Finish_InvalidCalculationAndRun_DoesNotSetWaveHeightAndUpdateObserver()
+        public void Finish_InvalidCalculationAndRun_DoesNotSetPropertiesAndUpdateObserver()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -287,17 +293,23 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
+            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = true;
             hydraulicBoundaryLocation.Attach(observerMock);
 
             var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 
             activity.Run();
 
+            // Precondition
+            Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
         }
 

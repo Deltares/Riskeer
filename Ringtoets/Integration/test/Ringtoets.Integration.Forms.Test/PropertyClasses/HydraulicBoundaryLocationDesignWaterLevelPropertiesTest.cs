@@ -57,6 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.AreEqual(string.Empty, properties.DesignWaterLevel);
+            Assert.IsFalse(properties.Convergence);
         }
 
         [Test]
@@ -88,6 +89,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(coordinates, properties.Location);
             string expectedDesignWaterLevel = designWaterLevel.ToString("F2", CultureInfo.InvariantCulture);
             Assert.AreEqual(expectedDesignWaterLevel, properties.DesignWaterLevel);
+            Assert.IsFalse(properties.Convergence);
         }
 
         [Test]
@@ -111,16 +113,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const string expectedNameDisplayName = "Naam";
             const string expectedLocationDisplayName = "Coördinaten [m]";
             const string expectedDesignWaterLevelDisplayName = "Toetspeil [m+NAP]";
+            const string expectedConvergenceDisplayName = "Convergentie";
             const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
             const string expectedDesignWaterLevelDescription = "Berekend toetspeil.";
+            const string expectedConvergenceDisplayDescription = "Convergentie status van de toetspeil berekening.";
 
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
             PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);
             PropertyDescriptor locationProperty = dynamicProperties.Find("Location", false);
             PropertyDescriptor designWaterLevelProperty = dynamicProperties.Find("DesignWaterLevel", false);
+            PropertyDescriptor convergenceProperty = dynamicProperties.Find("Convergence", false);
 
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
@@ -155,6 +160,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedDesignWaterLevelDisplayName, designWaterLevelProperty.DisplayName);
             Assert.AreEqual(expectedDesignWaterLevelDescription, designWaterLevelProperty.Description);
             Assert.AreEqual(4, designWaterLevelProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
+
+            Assert.IsNotNull(convergenceProperty);
+            Assert.IsTrue(convergenceProperty.IsReadOnly);
+            Assert.IsTrue(convergenceProperty.IsBrowsable);
+            Assert.AreEqual(expectedConvergenceDisplayName, convergenceProperty.DisplayName);
+            Assert.AreEqual(expectedConvergenceDisplayDescription, convergenceProperty.Description);
+            Assert.AreEqual(5, convergenceProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
         }
     }
 }

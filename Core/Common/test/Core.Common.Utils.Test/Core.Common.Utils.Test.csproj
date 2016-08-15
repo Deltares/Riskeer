@@ -97,6 +97,7 @@
     <Compile Include="ReferenceEqualityComparerTest.cs" />
     <Compile Include="Reflection\AssemblyUtilsTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />
+    <Compile Include="StatisticsConverterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core.Common.Utils\Core.Common.Utils.csproj">

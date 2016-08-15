@@ -74,5 +74,19 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 return double.IsNaN(data.WaveHeight) ? string.Empty : data.WaveHeight.ToString("F2", CultureInfo.InvariantCulture);
             }
         }
+
+        /// <summary>
+        /// Gets the convergence status of the waveheight calculation.
+        /// </summary>
+        [PropertyOrder(5)]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_WaveHeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_WaveHeight_Description")]
+        public bool Convergence
+        {
+            get
+            {
+                return data.WaveHeightCalculationConvergence;
+            }
+        }
     }
 }

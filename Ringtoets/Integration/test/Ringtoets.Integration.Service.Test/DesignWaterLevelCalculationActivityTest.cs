@@ -230,7 +230,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void Finish_ValidCalculationAndRun_SetsDesignWaterLevel()
+        public void Finish_ValidCalculationAndRun_SetsDesignWaterLevelAndConvergence()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -239,27 +239,33 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSectionStub.Expect(o => o.NotifyObservers());
 
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
-            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution);
+            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution).Repeat.Twice();
             mockRepository.ReplayAll();
 
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
+            hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = true;
 
             var activity = new DesignWaterLevelCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 
             activity.Run();
+
+            // Precondition
+            Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
 
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel));
+            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Finish_InvalidCalculationAndRun_DoesNotSetDesignWaterlevel()
+        public void Finish_InvalidCalculationAndRun_DoesNotSetDesignWaterlevelAndConvergence()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -274,16 +280,22 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
+            hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = true;
 
             var activity = new DesignWaterLevelCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 
             activity.Run();
+
+            // Precondition
+            Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
 
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             mockRepository.VerifyAll();
         }
 

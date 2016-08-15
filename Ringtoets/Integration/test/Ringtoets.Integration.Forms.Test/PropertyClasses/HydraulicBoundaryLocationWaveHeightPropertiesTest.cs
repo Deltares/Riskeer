@@ -57,6 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.AreEqual(string.Empty, properties.WaveHeight);
+            Assert.IsFalse(properties.Convergence);
         }
 
         [Test]
@@ -87,6 +88,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(coordinates, properties.Location);
             string expectedWaveHeight = waveHeight.ToString("F2", CultureInfo.InvariantCulture);
             Assert.AreEqual(expectedWaveHeight, properties.WaveHeight);
+            Assert.IsFalse(properties.Convergence);
         }
 
         [Test]
@@ -109,15 +111,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const string expectedNameDisplayName = "Naam";
             const string expectedLocationDisplayName = "Coördinaten [m]";
             const string expectedWaveHeightDisplayName = "Hs [m]";
+            const string expectedConvergenceDisplayName = "Convergentie";
             const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
             const string expectedWaveHeightDescription = "Berekende golfhoogte.";
+            const string expectedConvergenceDisplayDescription = "Convergentie status van de golfhoogte berekening.";
+
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
             PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);
             PropertyDescriptor locationProperty = dynamicProperties.Find("Location", false);
             PropertyDescriptor waveHeightProperty = dynamicProperties.Find("WaveHeight", false);
+            PropertyDescriptor convergenceProperty = dynamicProperties.Find("Convergence", false);
 
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
@@ -152,6 +158,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedWaveHeightDisplayName, waveHeightProperty.DisplayName);
             Assert.AreEqual(expectedWaveHeightDescription, waveHeightProperty.Description);
             Assert.AreEqual(4, waveHeightProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
+
+            Assert.IsNotNull(convergenceProperty);
+            Assert.IsTrue(convergenceProperty.IsReadOnly);
+            Assert.IsTrue(convergenceProperty.IsBrowsable);
+            Assert.AreEqual(expectedConvergenceDisplayName, convergenceProperty.DisplayName);
+            Assert.AreEqual(expectedConvergenceDisplayDescription, convergenceProperty.Description);
+            Assert.AreEqual(5, convergenceProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
         }
     }
 }

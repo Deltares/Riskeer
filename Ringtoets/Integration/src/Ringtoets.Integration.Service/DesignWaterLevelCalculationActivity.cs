@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Service;
+using Core.Common.Utils;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -88,6 +89,8 @@ namespace Ringtoets.Integration.Service
             PerformFinish(() =>
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = Output.Result;
+                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = 
+                    Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
             });
         }
     }

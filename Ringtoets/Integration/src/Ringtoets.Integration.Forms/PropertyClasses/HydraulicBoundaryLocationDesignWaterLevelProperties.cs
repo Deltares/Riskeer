@@ -74,5 +74,18 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 return double.IsNaN(data.DesignWaterLevel) ? string.Empty : data.DesignWaterLevel.ToString("F2", CultureInfo.InvariantCulture);
             }
         }
+
+        /// <summary>
+        /// Gets the convergence status of the designwaterlevel calculation.
+        /// </summary>
+        [PropertyOrder(5)]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description")]
+        public bool Convergence {
+            get
+            {
+                return data.DesignWaterLevelCalculationConvergence;
+            }
+        }
     }
 }

@@ -82,6 +82,16 @@ namespace Ringtoets.HydraRing.Data
         /// </summary>
         public long StorageId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the convergence status of the design waterlevel calculation.
+        /// </summary>
+        public bool DesignWaterLevelCalculationConvergence { get; set; }
+
+        /// <summary>
+        /// Gets sets the convergence status of the waveheight calculation.
+        /// </summary>
+        public bool WaveHeightCalculationConvergence { get; set; }
+
         public override string ToString()
         {
             return Name;

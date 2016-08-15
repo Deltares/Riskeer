@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Service;
+using Core.Common.Utils;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -85,7 +86,13 @@ namespace Ringtoets.Integration.Service
 
         protected override void OnFinish()
         {
-            PerformFinish(() => { hydraulicBoundaryLocation.WaveHeight = Output.Result; });
+            PerformFinish(() =>
+            {
+                hydraulicBoundaryLocation.WaveHeight = Output.Result;
+                var waveHeightCalculationConvergence = Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
+                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = 
+                    waveHeightCalculationConvergence;
+            });
             hydraulicBoundaryLocation.NotifyObservers();
         }
     }

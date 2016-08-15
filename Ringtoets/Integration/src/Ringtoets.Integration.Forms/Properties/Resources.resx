@@ -329,4 +329,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared" xml:space="preserve">
     <value>De berekende toetspeilen en golfhoogtes van alle hydraulische randvoorwaarden locaties zijn verwijderd.</value>
   </data>
+  <data name="HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description" xml:space="preserve">
+    <value>Convergentie status van de toetspeil berekening.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_DisplayName" xml:space="preserve">
+    <value>Convergentie</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Convergence_WaveHeight_Description" xml:space="preserve">
+    <value>Convergentie status van de golfhoogte berekening.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Convergence_WaveHeight_DisplayName" xml:space="preserve">
+    <value>Convergentie</value>
+  </data>
 </root>
