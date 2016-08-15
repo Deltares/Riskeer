@@ -224,8 +224,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type t)
         {
             // Delegate actual test
-            MethodInfo method = GetType().GetMethod(TypeUtils.GetMemberName<FailureMechanismContextTreeNodeInfoTest>(
-                s => s.ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<FailureMechanismSectionResult>()));
+            MethodInfo method = GetType().GetMethod(
+                TypeUtils.GetMemberName<FailureMechanismContextTreeNodeInfoTest>(
+                    s => s.ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<FailureMechanismSectionResult>()),
+                BindingFlags.NonPublic | BindingFlags.Instance);
             MethodInfo genericMethod = method.MakeGenericMethod(t);
             genericMethod.Invoke(this, null);
         }

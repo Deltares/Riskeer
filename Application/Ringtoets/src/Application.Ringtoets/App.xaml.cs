@@ -86,7 +86,7 @@ namespace Application.Ringtoets
         /// <summary>
         /// Runs the main Ringtoets application.
         /// </summary>
-        public static void RunRingtoets()
+        private static void RunRingtoets()
         {
             var loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (loaderDirectory != null)
