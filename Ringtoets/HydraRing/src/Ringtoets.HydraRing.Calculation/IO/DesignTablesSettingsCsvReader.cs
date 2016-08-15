@@ -27,9 +27,9 @@ using Ringtoets.HydraRing.Calculation.Data.Settings;
 namespace Ringtoets.HydraRing.Calculation.IO
 {
     /// <summary>
-    /// The reader for the <see cref="DesignTableSettings"/> in csv format.
+    /// The reader for <see cref="DesignTablesSetting"/> in csv format.
     /// </summary>
-    internal class DesignTableSettingsCsvReader : HydraRingSettingsCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>>>
+    internal class DesignTablesSettingsCsvReader : HydraRingSettingsCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>>>
     {
         private readonly Dictionary<string, int> columns = new Dictionary<string, int>
         {
@@ -70,11 +70,12 @@ namespace Ringtoets.HydraRing.Calculation.IO
         };
 
         /// <summary>
-        /// Creates a new instance of <see cref="DesignTableSettingsCsvReader"/>.
+        /// Creates a new instance of <see cref="DesignTablesSettingsCsvReader"/>.
         /// </summary>
-        /// <param name="file">The file to read.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="file"/> is not set.</exception>
-        public DesignTableSettingsCsvReader(string file) : base(file, new Dictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>>()) {}
+        /// <param name="fileContents">The fileContents to read.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fileContents"/> is not set.</exception>
+        public DesignTablesSettingsCsvReader(string fileContents) 
+            : base(fileContents, new Dictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>>()) {}
 
         protected override void CreateSetting(IList<string> line)
         {
@@ -83,14 +84,14 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!Settings.ContainsKey(failureMechanismType))
             {
-                Settings.Add(failureMechanismType, new Dictionary<string, DesignTableSettings>());
+                Settings.Add(failureMechanismType, new Dictionary<string, DesignTablesSetting>());
             }
 
             // Get TrajectId
             var ringId = GetRingId(line);
             if (!Settings[failureMechanismType].ContainsKey(ringId))
             {
-                Settings[failureMechanismType].Add(ringId, GetDesignTableSettings(line));
+                Settings[failureMechanismType].Add(ringId, GetDesignTablesSettings(line));
             }
         }
 
@@ -104,9 +105,9 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return GetStringValueFromElement(line[columns[ringIdKey]]);
         }
 
-        private DesignTableSettings GetDesignTableSettings(IList<string> line)
+        private DesignTablesSetting GetDesignTablesSettings(IList<string> line)
         {
-            return new DesignTableSettings(GetIntValueFromElement(line[columns[minKey]]),
+            return new DesignTablesSetting(GetIntValueFromElement(line[columns[minKey]]),
                                            GetIntValueFromElement(line[columns[maxKey]]));
         }
 
@@ -119,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         #endregion
 
-        #region Failure mechanism type names
+        #region Variable names
 
         private const string assessmentLevelKey = "Toetspeil";
         private const string waveHeightKey = "Hs";

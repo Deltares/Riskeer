@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Calculation.Providers;
 namespace Ringtoets.HydraRing.Calculation.Test.Providers
 {
     [TestFixture]
-    public class DesignTableSettingsProviderTest
+    public class DesignTablesSettingsProviderTest
     {
         [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "4", 5.0, 15.0)]
         [TestCase(HydraRingFailureMechanismType.QVariant, "4", 5.0, 15.0)]
@@ -40,36 +40,35 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, "205", double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, "205", double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, "205", double.NaN, double.NaN)]
-        public void GetDesignTableSettings_UnknownFailureMechanismTypeOrRingId_ReturnsDefaultDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
+        public void GetDesignTablesSettings_UnknownFailureMechanismTypeOrRingId_ReturnsDefaultDesignTablesSettings(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
         {
             // Setup
-            DesignTableSettingsProvider designTablesSettingsProvider = new DesignTableSettingsProvider();
+            DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
 
             // Call
-            DesignTableSettings designTableSettings = designTablesSettingsProvider.GetDesignTableSettings(failureMechanismType, ringId);
+            DesignTablesSetting designTablesSetting = designTablesSettingsProvider.GetDesignTablesSettings(failureMechanismType, ringId);
 
             // Assert
-            Assert.AreEqual(expectedValueMin, designTableSettings.ValueMin);
-            Assert.AreEqual(expectedValueMax, designTableSettings.ValueMax);
+            Assert.AreEqual(expectedValueMin, designTablesSetting.ValueMin);
+            Assert.AreEqual(expectedValueMax, designTablesSetting.ValueMax);
         }
 
         [Test]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "205")]
-        [TestCase(HydraRingFailureMechanismType.QVariant, "205")]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "11-1")]
-        [TestCase(HydraRingFailureMechanismType.QVariant, "11-1")]
-        public void GetDesignTableSettings_KnownRingIdAndFailureMechanismType_ReturnsExpectedDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, string ringId)
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "11-1", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "11-1", 5.0, 15.0)]
+        public void GetDesignTablesSettings_KnownRingIdAndFailureMechanismType_ReturnsExpectedDesignTablesSettings(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
         {
             // Setup
-            DesignTableSettingsProvider designTableSettingsProvider = new DesignTableSettingsProvider();
-            DesignTableSettings expectedSettings = new DesignTableSettings(5, 15);
+            DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
 
             // Call
-            DesignTableSettings settings = designTableSettingsProvider.GetDesignTableSettings(failureMechanismType, ringId);
+            DesignTablesSetting settings = designTablesSettingsProvider.GetDesignTablesSettings(failureMechanismType, ringId);
 
             // Assert
-            Assert.AreEqual(expectedSettings.ValueMin, settings.ValueMin);
-            Assert.AreEqual(expectedSettings.ValueMax, settings.ValueMax);
+            Assert.AreEqual(expectedValueMin, settings.ValueMin);
+            Assert.AreEqual(expectedValueMax, settings.ValueMax);
         }
     }
 }

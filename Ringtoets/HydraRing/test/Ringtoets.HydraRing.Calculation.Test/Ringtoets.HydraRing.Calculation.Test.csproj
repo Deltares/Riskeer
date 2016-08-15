@@ -48,9 +48,6 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
@@ -74,7 +71,7 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBaseTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputTest.cs" />
     <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
-    <Compile Include="IO\DesignTableSettingsCsvReaderTest.cs" />
+    <Compile Include="IO\DesignTablesSettingsCsvReaderTest.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\LogFileParserTest.cs" />
@@ -87,13 +84,13 @@
     <Compile Include="Integration\HydraRingConfigurationServiceIntegrationTest.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInputTest.cs" />
     <Compile Include="Data\Input\TargetProbabilityCalculationInputTest.cs" />
-    <Compile Include="IO\NumericSettingsCsvReaderTest.cs" />
+    <Compile Include="IO\NumericsSettingsCsvReaderTest.cs" />
     <Compile Include="Providers\FailureMechanismDefaultsProviderTest.cs" />
     <Compile Include="Data\Defaults\FailureMechanismDefaultsTest.cs" />
-    <Compile Include="Providers\DesignTableSettingsProviderTest.cs" />
-    <Compile Include="Data\Settings\DesignTableSettingsTest.cs" />
+    <Compile Include="Providers\DesignTablesSettingsProviderTest.cs" />
+    <Compile Include="Data\Settings\DesignTablesSettingTest.cs" />
     <Compile Include="Providers\NumericsSettingsProviderTest.cs" />
-    <Compile Include="Data\Settings\NumericsSettingsTest.cs" />
+    <Compile Include="Data\Settings\NumericsSettingTest.cs" />
     <Compile Include="Providers\VariableDefaultsProviderTest.cs" />
     <Compile Include="Data\Defaults\VariableDefaultsTest.cs" />
     <Compile Include="Data\HydraRingDeviationTypeTest.cs" />
@@ -110,10 +107,6 @@
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtil</Name>
@@ -121,10 +114,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
-      <Project>{74cba865-9338-447f-bad9-28312446ae84}</Project>
-      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

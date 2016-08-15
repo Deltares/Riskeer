@@ -28,88 +28,88 @@ using Ringtoets.HydraRing.Calculation.Properties;
 namespace Ringtoets.HydraRing.Calculation.Providers
 {
     /// <summary>
-    /// Provider of <see cref="DesignTableSettings"/>.
+    /// Provider of <see cref="DesignTablesSetting"/>.
     /// </summary>
-    internal class DesignTableSettingsProvider
+    internal class DesignTablesSettingsProvider
     {
-        private readonly IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTableSettings>> fileDesignTableSettings;
-        private IDictionary<HydraRingFailureMechanismType, DesignTableSettings> defaultDesignTableSettings;
+        private readonly IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>> fileDesignTablesSettings;
+        private IDictionary<HydraRingFailureMechanismType, DesignTablesSetting> defaultDesignTablesSettings;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="DesignTableSettingsProvider"/> class.
+        /// Creates a new instance of the <see cref="DesignTablesSettingsProvider"/> class.
         /// </summary>
-        public DesignTableSettingsProvider()
+        public DesignTablesSettingsProvider()
         {
-            InitializeDefaultDesignTableSettings();
+            InitializeDefaultDesignTablesSettings();
 
-            fileDesignTableSettings = new DesignTableSettingsCsvReader(Resources.DesignTableSettings).ReadSettings();
+            fileDesignTablesSettings = new DesignTablesSettingsCsvReader(Resources.DesignTablesSettings).ReadSettings();
         }
 
         /// <summary>
-        /// Returns <see cref="DesignTableSettings"/> based on the provided <see cref="HydraRingFailureMechanismType"/>.
+        /// Gets <see cref="DesignTablesSetting"/> based on the provided failure mechanism type and ring id.
         /// </summary>
-        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="DesignTableSettings"/> for.</param>
-        /// <param name="ringId"></param>
-        /// <returns>The <see cref="DesignTableSettings"/> corresponding to the provided <see cref="HydraRingFailureMechanismType"/>.</returns>
-        public DesignTableSettings GetDesignTableSettings(HydraRingFailureMechanismType failureMechanismType, string ringId)
+        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="DesignTablesSetting"/> for.</param>
+        /// <param name="ringId">The ring id to obtain the <see cref="DesignTablesSetting"/> for.</param>
+        /// <returns>The <see cref="DesignTablesSetting"/> corresponding to the provided failure mechanism type and ring id.</returns
+        public DesignTablesSetting GetDesignTablesSettings(HydraRingFailureMechanismType failureMechanismType, string ringId)
         {
-            if (fileDesignTableSettings.ContainsKey(failureMechanismType) &&
+            if (fileDesignTablesSettings.ContainsKey(failureMechanismType) &&
                 ringId != null &&
-                fileDesignTableSettings[failureMechanismType].ContainsKey(ringId))
+                fileDesignTablesSettings[failureMechanismType].ContainsKey(ringId))
             {
-                return fileDesignTableSettings[failureMechanismType][ringId];
+                return fileDesignTablesSettings[failureMechanismType][ringId];
             }
 
-            return defaultDesignTableSettings[failureMechanismType];
+            return defaultDesignTablesSettings[failureMechanismType];
         }
 
-        private void InitializeDefaultDesignTableSettings()
+        private void InitializeDefaultDesignTablesSettings()
         {
-            defaultDesignTableSettings = new Dictionary<HydraRingFailureMechanismType, DesignTableSettings>
+            defaultDesignTablesSettings = new Dictionary<HydraRingFailureMechanismType, DesignTablesSetting>
             {
                 {
                     HydraRingFailureMechanismType.AssessmentLevel,
-                    new DesignTableSettings(5, 15)
+                    new DesignTablesSetting(5, 15)
                 },
                 {
                     HydraRingFailureMechanismType.WaveHeight,
-                    new DesignTableSettings(5, 15)
+                    new DesignTablesSetting(5, 15)
                 },
                 {
                     HydraRingFailureMechanismType.WavePeakPeriod,
-                    new DesignTableSettings(5, 15)
+                    new DesignTablesSetting(5, 15)
                 },
                 {
                     HydraRingFailureMechanismType.WaveSpectralPeriod,
-                    new DesignTableSettings(5, 15)
+                    new DesignTablesSetting(5, 15)
                 },
                 {
                     HydraRingFailureMechanismType.QVariant,
-                    new DesignTableSettings(5, 15)
+                    new DesignTablesSetting(5, 15)
                 },
                 {
                     HydraRingFailureMechanismType.DikesOvertopping,
-                    new DesignTableSettings(double.NaN, double.NaN)
+                    new DesignTablesSetting(double.NaN, double.NaN)
                 },
                 {
                     HydraRingFailureMechanismType.DikesHeight,
-                    new DesignTableSettings(5, 15)
+                    new DesignTablesSetting(5, 15)
                 },
                 {
                     HydraRingFailureMechanismType.DikesPiping,
-                    new DesignTableSettings(double.NaN, double.NaN)
+                    new DesignTablesSetting(double.NaN, double.NaN)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresOvertopping,
-                    new DesignTableSettings(double.NaN, double.NaN)
+                    new DesignTablesSetting(double.NaN, double.NaN)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresClosure,
-                    new DesignTableSettings(double.NaN, double.NaN)
+                    new DesignTablesSetting(double.NaN, double.NaN)
                 },
                 {
                     HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    new DesignTableSettings(double.NaN, double.NaN)
+                    new DesignTablesSetting(double.NaN, double.NaN)
                 }
             };
         }

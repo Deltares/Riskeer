@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// <summary>
     /// Container for numerics settings.
     /// </summary>
-    internal class NumericsSettings
+    internal class NumericsSetting
     {
         private readonly int calculationTechniqueId;
         private readonly int formStartMethod;
@@ -42,7 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         private readonly int niNumberSteps;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="NumericsSettings"/> class.
+        /// Creates a new instance of the <see cref="NumericsSetting"/> class.
         /// </summary>
         /// <param name="calculationTechniqueId">The id of the calculation technique that should be used.</param>
         /// <param name="formStartMethod">The FORM start method.</param>
@@ -58,7 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         /// <param name="niUMin">The lower size limit of a uniform grid deployed by NINT.</param>
         /// <param name="niUMax">The upper size limit of a uniform grid deployed by NINT.</param>
         /// <param name="niNumberSteps">The number of steps between <paramref name="niUMin"/> and <paramref name="niUMax"/> for NINT</param>
-        public NumericsSettings(int calculationTechniqueId, int formStartMethod, int formNumberOfIterations, double formRelaxationFactor, double formEpsBeta, double formEpsHoh, double formEpsZFunc, int dsStartMethod, int dsMinNumberOfIterations, int dsMaxNumberOfIterations, double dsVarCoefficient, double niUMin, double niUMax, int niNumberSteps)
+        public NumericsSetting(int calculationTechniqueId, int formStartMethod, int formNumberOfIterations, double formRelaxationFactor, double formEpsBeta, double formEpsHoh, double formEpsZFunc, int dsStartMethod, int dsMinNumberOfIterations, int dsMaxNumberOfIterations, double dsVarCoefficient, double niUMin, double niUMax, int niNumberSteps)
         {
             this.calculationTechniqueId = calculationTechniqueId;
             this.formStartMethod = formStartMethod;

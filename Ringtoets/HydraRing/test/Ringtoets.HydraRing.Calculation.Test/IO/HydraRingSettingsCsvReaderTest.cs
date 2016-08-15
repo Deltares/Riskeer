@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             TestDelegate call = () => new TestCsvReader(null, new object());
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "A file must be set.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "File contents must be set.");
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             TestDelegate call = () => new TestCsvReader("path.csv", null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "The settinsg object must be provided.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "The settings object must be provided.");
         }
 
         [Test]
@@ -65,7 +65,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
 
         private class TestCsvReader : HydraRingSettingsCsvReader<object>
         {
-            public TestCsvReader(string file, object settings) : base(file, settings) {}
+            public TestCsvReader(string fileContents, object settings) 
+                : base(fileContents, settings) {}
+
             protected override void CreateSetting(IList<string> line)
             {
                 throw new NotImplementedException();

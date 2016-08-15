@@ -87,9 +87,9 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         ///&quot;34-2&quot;;&quot;Tm-1,0&quot;;5;15
         ///&quot;34-2&quot;;&quot;HBN&quot;;....
         /// </summary>
-        internal static string DesignTableSettings {
+        internal static string DesignTablesSettings {
             get {
-                return ResourceManager.GetString("DesignTableSettings", resourceCulture);
+                return ResourceManager.GetString("DesignTablesSettings", resourceCulture);
             }
         }
         
@@ -100,51 +100,6 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         internal static string HydraRingCalculationService_HydraRing_calculation_report_message_text_0 {
             get {
                 return ResourceManager.GetString("HydraRingCalculationService_HydraRing_calculation_report_message_text_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TrajectID;MechanismID;SubMechanism;TimeIntegration
-        ///205;1;1;1
-        ///205;11;11;1
-        ///205;11;14;1
-        ///205;11;16;1
-        ///205;3;3;1
-        ///205;101;102;1
-        ///205;101;103;1
-        ///11-1;1;1;1
-        ///11-1;11;11;3
-        ///11-1;11;14;3
-        ///11-1;11;16;3
-        ///11-1;3;5;3
-        ///11-1;101;102;3
-        ///11-1;101;103;3
-        ///34-1;1;1;1
-        ///34-1;11;11;3
-        ///34-1;11;14;3
-        ///34-1;11;16;3
-        ///34-1;3;5;3
-        ///34-1;101;102;3
-        ///34-1;101;103;3
-        ///34-2;1;1;3
-        ///34-2;11;11;3
-        ///34-2;11;14;3
-        ///34-2;11;16;3
-        ///34-2;3;5;3
-        ///34-2;101;102;3
-        ///34-2;101;103;3
-        ///34a-1;1;1;1
-        ///34a-1;11;11;1
-        ///34a-1;11;14;1
-        ///34a-1;11;16;1
-        ///34a-1;3;5;1
-        ///34a-1;101;102;1
-        ///34a-1;101;103;1
-        ///35-2;1 [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string HydraulicModelSettings {
-            get {
-                return ResourceManager.GetString("HydraulicModelSettings", resourceCulture);
             }
         }
         

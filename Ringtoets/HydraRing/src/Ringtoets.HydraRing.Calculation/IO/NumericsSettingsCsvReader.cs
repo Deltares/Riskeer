@@ -26,9 +26,9 @@ using Ringtoets.HydraRing.Calculation.Data.Settings;
 namespace Ringtoets.HydraRing.Calculation.IO
 {
     /// <summary>
-    /// The reader for the <see cref="NumericsSettings"/> in csv format.
+    /// The reader for <see cref="NumericsSetting"/> in csv format.
     /// </summary>
-    internal class NumericsSettingsCsvReader : HydraRingSettingsCsvReader<IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>>>
+    internal class NumericsSettingsCsvReader : HydraRingSettingsCsvReader<IDictionary<int, IDictionary<int, IDictionary<string, NumericsSetting>>>>
     {
         private readonly Dictionary<string, int> columns = new Dictionary<string, int>
         {
@@ -88,9 +88,9 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// <summary>
         /// Creates a new instance of <see cref="NumericsSettingsCsvReader"/>.
         /// </summary>
-        /// <param name="file">The file to read.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="file"/> is not set.</exception>
-        public NumericsSettingsCsvReader(string file) : base(file, new Dictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>>()) {}
+        /// <param name="fileContents">The fileContents to read.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fileContents"/> is not set.</exception>
+        public NumericsSettingsCsvReader(string fileContents) : base(fileContents, new Dictionary<int, IDictionary<int, IDictionary<string, NumericsSetting>>>()) {}
 
         protected override void CreateSetting(IList<string> line)
         {
@@ -99,7 +99,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!Settings.ContainsKey(failureMechanismType))
             {
-                Settings.Add(failureMechanismType, new Dictionary<int, IDictionary<string, NumericsSettings>>());
+                Settings.Add(failureMechanismType, new Dictionary<int, IDictionary<string, NumericsSetting>>());
             }
 
             // Get sub mechanism
@@ -107,7 +107,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!Settings[failureMechanismType].ContainsKey(subMechanism))
             {
-                Settings[failureMechanismType].Add(subMechanism, new Dictionary<string, NumericsSettings>());
+                Settings[failureMechanismType].Add(subMechanism, new Dictionary<string, NumericsSetting>());
             }
 
             // Get TrajectId
@@ -134,9 +134,9 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return GetStringValueFromElement(line[columns[ringIdKey]]);
         }
 
-        private NumericsSettings GetNumericSettings(IList<string> line)
+        private NumericsSetting GetNumericSettings(IList<string> line)
         {
-            return new NumericsSettings(GetIntValueFromElement(line[columns[calculationMethodKey]]),
+            return new NumericsSetting(GetIntValueFromElement(line[columns[calculationMethodKey]]),
                                         GetIntValueFromElement(line[columns[formStartMethodKey]]),
                                         GetIntValueFromElement(line[columns[formIterationsKey]]),
                                         GetDoubleValueFromElement(line[columns[formRelaxationFactorKey]]),

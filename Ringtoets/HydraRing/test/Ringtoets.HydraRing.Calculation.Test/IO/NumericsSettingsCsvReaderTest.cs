@@ -30,7 +30,7 @@ using Ringtoets.HydraRing.Calculation.IO;
 namespace Ringtoets.HydraRing.Calculation.Test.IO
 {
     [TestFixture]
-    public class NumericSettingsCsvReaderTest
+    public class NumericsSettingsCsvReaderTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Settings");
 
@@ -41,7 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             NumericsSettingsCsvReader reader = new NumericsSettingsCsvReader("path.csv");
 
             // Assert
-            Assert.IsInstanceOf<HydraRingSettingsCsvReader<IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>>>>(reader);
+            Assert.IsInstanceOf<HydraRingSettingsCsvReader<IDictionary<int, IDictionary<int, IDictionary<string, NumericsSetting>>>>>(reader);
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             TestDelegate call = () => new NumericsSettingsCsvReader(null);
 
             // Assert
-            const string expectedMessage = "A file must be set.";
+            const string expectedMessage = "File contents must be set.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
@@ -66,30 +66,30 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
                 string fileContents = streamReader.ReadToEnd();
 
                 NumericsSettingsCsvReader reader = new NumericsSettingsCsvReader(fileContents);
-                IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> expectedDictionary = GetDictionary();
+                IDictionary<int, IDictionary<int, IDictionary<string, NumericsSetting>>> expectedDictionary = GetDictionary();
 
                 // Call
-                IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> settings = reader.ReadSettings();
+                IDictionary<int, IDictionary<int, IDictionary<string, NumericsSetting>>> settings = reader.ReadSettings();
 
                 // Assert
                 Assert.AreEqual(2, settings.Count);
 
-                foreach (KeyValuePair<int, IDictionary<int, IDictionary<string, NumericsSettings>>> expectedMechanism in expectedDictionary)
+                foreach (KeyValuePair<int, IDictionary<int, IDictionary<string, NumericsSetting>>> expectedMechanism in expectedDictionary)
                 {
                     Assert.IsTrue(settings.ContainsKey(expectedMechanism.Key));
-                    Assert.IsInstanceOf<IDictionary<int, IDictionary<string, NumericsSettings>>>(settings[expectedMechanism.Key]);
+                    Assert.IsInstanceOf<IDictionary<int, IDictionary<string, NumericsSetting>>>(settings[expectedMechanism.Key]);
 
-                    foreach (KeyValuePair<int, IDictionary<string, NumericsSettings>> expectedSubMechanism in expectedMechanism.Value)
+                    foreach (KeyValuePair<int, IDictionary<string, NumericsSetting>> expectedSubMechanism in expectedMechanism.Value)
                     {
                         Assert.IsTrue(settings[expectedMechanism.Key].ContainsKey(expectedSubMechanism.Key));
-                        Assert.IsInstanceOf<IDictionary<string, NumericsSettings>>(settings[expectedMechanism.Key][expectedSubMechanism.Key]);
+                        Assert.IsInstanceOf<IDictionary<string, NumericsSetting>>(settings[expectedMechanism.Key][expectedSubMechanism.Key]);
 
-                        foreach (KeyValuePair<string, NumericsSettings> expectedNumericsSettings in expectedSubMechanism.Value)
+                        foreach (KeyValuePair<string, NumericsSetting> expectedNumericsSettings in expectedSubMechanism.Value)
                         {
                             Assert.IsTrue(settings[expectedMechanism.Key][expectedSubMechanism.Key].ContainsKey(expectedNumericsSettings.Key));
-                            Assert.IsInstanceOf<NumericsSettings>(settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedNumericsSettings.Key]);
+                            Assert.IsInstanceOf<NumericsSetting>(settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedNumericsSettings.Key]);
 
-                            NumericsSettings setting = settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedNumericsSettings.Key];
+                            NumericsSetting setting = settings[expectedMechanism.Key][expectedSubMechanism.Key][expectedNumericsSettings.Key];
 
                             Assert.AreEqual(expectedNumericsSettings.Value.CalculationTechniqueId, setting.CalculationTechniqueId);
                             Assert.AreEqual(expectedNumericsSettings.Value.FormStartMethod, setting.FormStartMethod);
@@ -111,31 +111,31 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             }
         }
 
-        private static IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> GetDictionary()
+        private static IDictionary<int, IDictionary<int, IDictionary<string, NumericsSetting>>> GetDictionary()
         {
-            return new Dictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>>
+            return new Dictionary<int, IDictionary<int, IDictionary<string, NumericsSetting>>>
             {
                 {
-                    1, new Dictionary<int, IDictionary<string, NumericsSettings>>
+                    1, new Dictionary<int, IDictionary<string, NumericsSetting>>
                     {
                         {
-                            1, new Dictionary<string, NumericsSettings>
+                            1, new Dictionary<string, NumericsSetting>
                             {
                                 {
-                                    "205", new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 20000, 100000, 0.1, -6, 6, 25)
+                                    "205", new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 20000, 100000, 0.1, -6, 6, 25)
                                 }
                             }
                         }
                     }
                 },
                 {
-                    11, new Dictionary<int, IDictionary<string, NumericsSettings>>
+                    11, new Dictionary<int, IDictionary<string, NumericsSetting>>
                     {
                         {
-                            11, new Dictionary<string, NumericsSettings>
+                            11, new Dictionary<string, NumericsSetting>
                             {
                                 {
-                                    "205", new NumericsSettings(2, 6, 30, 0.50, 0.06, 0.08, 0.02, 3, 1000, 2000, 0.4, -10, 10, 14)
+                                    "205", new NumericsSetting(2, 6, 30, 0.50, 0.06, 0.08, 0.02, 3, 1000, 2000, 0.4, -10, 10, 14)
                                 }
                             }
                         }

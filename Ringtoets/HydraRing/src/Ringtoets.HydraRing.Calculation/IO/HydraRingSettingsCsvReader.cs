@@ -1,6 +1,6 @@
 ﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
-// This file is part of Ringtoets.
+// This fileContents is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -27,43 +27,43 @@ using System.Linq;
 namespace Ringtoets.HydraRing.Calculation.IO
 {
     /// <summary>
-    /// An abstract reader base for HydraRing settings readers.
+    /// An abstract base for Hydra-Ring settings readers.
     /// </summary>
-    /// <typeparam name="TOuput">The output format of the read settings.</typeparam>
-    internal abstract class HydraRingSettingsCsvReader<TOuput>
+    /// <typeparam name="TOutput">The output format of the read settings.</typeparam>
+    internal abstract class HydraRingSettingsCsvReader<TOutput>
     {
         private const char separator = ';';
 
         private readonly string fileContents;
-        private readonly TOuput settings;
+        private readonly TOutput settings;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingSettingsCsvReader{T}"/>.
         /// </summary>
-        /// <param name="file">The file to read.</param>
-        /// <param name="settings">The provided settings object to import the read settings on.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="file"/> or <paramref name="settings"/> is <c>null</c>.</exception>
-        protected HydraRingSettingsCsvReader(string file, TOuput settings)
+        /// <param name="fileContents">The fileContents to read.</param>
+        /// <param name="settings">The provided settings object to add the read settings to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fileContents"/> or <paramref name="settings"/> is <c>null</c>.</exception>
+        protected HydraRingSettingsCsvReader(string fileContents, TOutput settings)
         {
-            if (string.IsNullOrEmpty(file))
+            if (string.IsNullOrEmpty(fileContents))
             {
-                throw new ArgumentNullException("file", @"A file must be set.");
+                throw new ArgumentNullException("fileContents", @"File contents must be set.");
             }
 
             if (settings == null)
             {
-                throw new ArgumentNullException("settings", @"The settinsg object must be provided.");
+                throw new ArgumentNullException("settings", @"The settings object must be provided.");
             }
 
-            fileContents = file;
+            this.fileContents = fileContents;
             this.settings = settings;
         }
 
         /// <summary>
-        /// Reads the settings from the file.
+        /// Reads the settings from the fileContents.
         /// </summary>
         /// <returns>A <see cref="Dictionary{TKey,TValue}"/> with the settings.</returns>
-        public TOuput ReadSettings()
+        public TOutput ReadSettings()
         {
             var lines = fileContents.Split('\n');
 
@@ -75,7 +75,10 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return settings;
         }
 
-        protected TOuput Settings
+        /// <summary>
+        /// Gets the read settings.
+        /// </summary>
+        protected TOutput Settings
         {
             get
             {
@@ -84,21 +87,36 @@ namespace Ringtoets.HydraRing.Calculation.IO
         }
 
         /// <summary>
-        /// Creates a setting from one line in the file.
+        // Creates a setting object from the provided line and adds it to <see cref="Settings"/>.
         /// </summary>
         /// <param name="line">The line to create the setting for.</param>
         protected abstract void CreateSetting(IList<string> line);
 
+        /// <summary>
+        /// Gets a string value from the given <paramref name="element"/>.
+        /// </summary>
+        /// <param name="element">The element to extract the string value from.</param>
+        /// <returns>The extracted string value.</returns>
         protected static string GetStringValueFromElement(string element)
         {
             return element.Trim().Replace("\"", "");
         }
 
+        /// <summary>
+        /// Gets an int value from the given <paramref name="element"/>.
+        /// </summary>
+        /// <param name="element">The element to extract the int value from.</param>
+        /// <returns>The extracted int value.</returns>
         protected static int GetIntValueFromElement(string element)
         {
-            return int.Parse(GetStringValueFromElement(element));
+            return int.Parse(GetStringValueFromElement(element), CultureInfo.InvariantCulture);
         }
 
+        /// <summary>
+        /// Gets a double value from the given <paramref name="element"/>.
+        /// </summary>
+        /// <param name="element">The element to extract the double value from.</param>
+        /// <returns>The extracted double value.</returns>
         protected static double GetDoubleValueFromElement(string element)
         {
             return double.Parse(GetStringValueFromElement(element), CultureInfo.InvariantCulture);
@@ -106,14 +124,11 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         private static string[] TokenizeString(string readText)
         {
-            if (!readText.Contains(separator))
-            {
-                return new string[]
-                {};
-            }
-            return readText.Split(separator)
-                           .TakeWhile(text => !string.IsNullOrEmpty(text))
-                           .ToArray();
+            return !readText.Contains(separator)
+                       ? new string[0]
+                       : readText.Split(separator)
+                                 .TakeWhile(text => !string.IsNullOrEmpty(text))
+                                 .ToArray();
         }
     }
 }

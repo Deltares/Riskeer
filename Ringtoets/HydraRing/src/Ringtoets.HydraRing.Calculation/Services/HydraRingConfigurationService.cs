@@ -64,7 +64,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private readonly string ringId;
         private readonly IList<HydraRingCalculationInput> hydraRingCalculationInputs;
         private readonly NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
-        private readonly DesignTableSettingsProvider designTableSettingsProvider = new DesignTableSettingsProvider();
+        private readonly DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
         private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
@@ -252,7 +252,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (var hydraRingCalculationInput in hydraRingCalculationInputs)
             {
                 var failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                var designTableSettings = designTableSettingsProvider.GetDesignTableSettings(hydraRingCalculationInput.FailureMechanismType, ringId);
+                var designTablesSettings = designTablesSettingsProvider.GetDesignTablesSettings(hydraRingCalculationInput.FailureMechanismType, ringId);
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -287,10 +287,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "TableStepSize", defaultHydraRingValue // Fixed: no support for type III computations (see "Method")
                     },
                     {
-                        "ValueMin", GetHydraRingValue(designTableSettings.ValueMin)
+                        "ValueMin", GetHydraRingValue(designTablesSettings.ValueMin)
                     },
                     {
-                        "ValueMax", GetHydraRingValue(designTableSettings.ValueMax)
+                        "ValueMax", GetHydraRingValue(designTablesSettings.ValueMax)
                     },
                     {
                         "Beta", GetHydraRingValue(hydraRingCalculationInput.Beta)

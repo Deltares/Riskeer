@@ -25,17 +25,17 @@ using Ringtoets.HydraRing.Calculation.Data.Settings;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Settings
 {
     [TestFixture]
-    public class DesignTableSettingsTest
+    public class DesignTablesSettingTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var designTableSettings = new DesignTableSettings(1.1, 2.2);
+            var designTablesSetting = new DesignTablesSetting(1.1, 2.2);
 
             // Assert
-            Assert.AreEqual(1.1, designTableSettings.ValueMin);
-            Assert.AreEqual(2.2, designTableSettings.ValueMax);
+            Assert.AreEqual(1.1, designTablesSetting.ValueMin);
+            Assert.AreEqual(2.2, designTablesSetting.ValueMax);
         }
     }
 }

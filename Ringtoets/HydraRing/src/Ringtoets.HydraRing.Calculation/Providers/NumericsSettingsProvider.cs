@@ -28,12 +28,12 @@ using Ringtoets.HydraRing.Calculation.Properties;
 namespace Ringtoets.HydraRing.Calculation.Providers
 {
     /// <summary>
-    /// Provider of <see cref="NumericsSettings"/>.
+    /// Provider of <see cref="NumericsSetting"/>.
     /// </summary>
     internal class NumericsSettingsProvider
     {
-        private readonly IDictionary<int, IDictionary<int, IDictionary<string, NumericsSettings>>> fileNumericsSettings;
-        private IDictionary<HydraRingFailureMechanismType, IDictionary<int, NumericsSettings>> defaultNumericsSettings;
+        private readonly IDictionary<int, IDictionary<int, IDictionary<string, NumericsSetting>>> fileNumericsSettings;
+        private IDictionary<HydraRingFailureMechanismType, IDictionary<int, NumericsSetting>> defaultNumericsSettings;
 
         /// <summary>
         /// Creates a new instance of the <see cref="NumericsSettingsProvider"/> class.
@@ -46,13 +46,13 @@ namespace Ringtoets.HydraRing.Calculation.Providers
         }
 
         /// <summary>
-        /// Returns <see cref="NumericsSettings"/> based on the provided <see cref="HydraRingFailureMechanismType"/> and sub mechanism id.
+        /// Returns <see cref="NumericsSetting"/> based on the provided combination of failure mechanism type, sub mechanism id and ring id.
         /// </summary>
-        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="NumericsSettings"/> for.</param>
-        /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="NumericsSettings"/> for.</param>
-        /// <param name="ringId">The ring id to obtain the <see cref="NumericsSettings"/> for.</param>
-        /// <returns>The <see cref="NumericsSettings"/> corresponding to the provided <see cref="HydraRingFailureMechanismType"/> and sub mechanism id.</returns>
-        public NumericsSettings GetNumericsSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, string ringId)
+        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="NumericsSetting"/> for.</param>
+        /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="NumericsSetting"/> for.</param>
+        /// <param name="ringId">The ring id to obtain the <see cref="NumericsSetting"/> for.</param>
+        /// <returns>The <see cref="NumericsSetting"/> corresponding to the provided failure mechanism type, sub mechanism id and ring id.</returns>
+        public NumericsSetting GetNumericsSettings(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, string ringId)
         {
             var mechanismId = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType).MechanismId;
 
@@ -69,153 +69,153 @@ namespace Ringtoets.HydraRing.Calculation.Providers
 
         private void InitializeDefaultNumericsSettings()
         {
-            defaultNumericsSettings = new Dictionary<HydraRingFailureMechanismType, IDictionary<int, NumericsSettings>>
+            defaultNumericsSettings = new Dictionary<HydraRingFailureMechanismType, IDictionary<int, NumericsSetting>>
             {
                 {
-                    HydraRingFailureMechanismType.AssessmentLevel, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.AssessmentLevel, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            1, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            1, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.WaveHeight, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.WaveHeight, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            11, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            11, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            14, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            14, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            16, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            16, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.QVariant, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.QVariant, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            3, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            3, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            4, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            4, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            5, new NumericsSettings(4, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            5, new NumericsSetting(4, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            102, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            102, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            103, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            103, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            102, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            102, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            103, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            103, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesPiping, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.DikesPiping, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            311, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            311, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            313, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            313, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            314, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            314, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            421, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            421, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            422, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            422, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            423, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            423, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresClosure, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.StructuresClosure, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            422, new NumericsSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            422, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            424, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            424, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            425, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            425, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            426, new NumericsSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            426, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            427, new NumericsSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            427, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<int, NumericsSettings>
+                    HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            422, new NumericsSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            422, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            424, new NumericsSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            424, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            425, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            425, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            430, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            430, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            431, new NumericsSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            431, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            432, new NumericsSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            432, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            433, new NumericsSettings(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            433, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            434, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            434, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            435, new NumericsSettings(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            435, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 }
