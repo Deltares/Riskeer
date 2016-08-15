@@ -209,7 +209,30 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
+        public void ChildNodeObjects_NoHydraulicBoundaryDatabaseSet_ReturnsEmpty()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
+            mocks.ReplayAll();
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                var info = GetInfo(plugin);
+                // Call
+                var objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
+
+                // Assert
+                Assert.AreEqual(0, objects.Length);
+            }
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void ChildNodeObjects_HydraulicBoundaryDatabaseSet_ReturnsChildrenOfData()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

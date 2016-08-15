@@ -107,9 +107,9 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
             
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.Name),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.Id),
                                                  Resources.HydraulicBoundaryDatabase_Locations_Name_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.Id),
+                                                 Resources.HydraulicBoundaryDatabase_Locations_Id_DisplayName);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.Location),
                                                  Resources.HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.DesignWaterLevel),
