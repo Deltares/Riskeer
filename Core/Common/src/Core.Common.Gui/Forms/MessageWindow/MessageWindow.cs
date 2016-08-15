@@ -185,7 +185,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
         private void ButtonClearAllClick(object sender, EventArgs e)
         {
-            Clear();
+            Messages.Clear();
         }
 
         private void ButtonCopyClick(object sender, EventArgs e)
@@ -288,11 +288,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 ImageName = level.ToString(), Time = time, Message = message
             });
             Invalidate();
-        }
-
-        public void Clear()
-        {
-            Messages.Clear();
         }
 
         #endregion

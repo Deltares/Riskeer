@@ -37,10 +37,5 @@ namespace Core.Common.Gui.Forms.MessageWindow
         /// <param name="time">Time when the message was logged.</param>
         /// <param name="message">The message text.</param>
         void AddMessage(Level level, DateTime time, string message);
-
-        /// <summary>
-        /// Clears all messages in the view.
-        /// </summary>
-        void Clear();
     }
 }

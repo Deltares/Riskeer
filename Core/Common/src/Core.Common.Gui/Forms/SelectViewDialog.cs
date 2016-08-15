@@ -70,17 +70,13 @@ namespace Core.Common.Gui.Forms
         }
 
         /// <summary>
-        /// Gets or sets the selected item.
+        /// Gets the selected item.
         /// </summary>
         public string SelectedItem
         {
             get
             {
                 return (string) listBox.SelectedItem;
-            }
-            set
-            {
-                listBox.SelectedItem = value;
             }
         }
 

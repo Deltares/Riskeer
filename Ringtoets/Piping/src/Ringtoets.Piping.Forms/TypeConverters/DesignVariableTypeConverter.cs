@@ -170,17 +170,6 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             }
 
             /// <summary>
-            /// Instantiates a new instance of <see cref="ParameterDefinition{T}"/> for a
-            /// given parameter.
-            /// </summary>
-            /// <param name="expression">The parameter expression.</param>
-            public ParameterDefinition(Expression<Func<DistributionType, double>> expression)
-            {
-                PropertyName = ((MemberExpression) expression.Body).Member.Name;
-                GetValue = expression.Compile();
-            }
-
-            /// <summary>
             /// The symbol of name of the parameter.
             /// </summary>
             public string Symbol { get; set; }

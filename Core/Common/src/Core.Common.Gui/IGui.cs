@@ -41,20 +41,7 @@ namespace Core.Common.Gui
         /// instance for a given data object for the application to use.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
-
-        /// <summary>
-        /// Runs the user interface, causing all user interface components to initialize, 
-        /// loading plugins and displaying the main window.
-        /// </summary>
-        void Run();
-
-        /// <summary>
-        /// Runs the user interface, causing all user interface components to initialize, 
-        /// loading plugins, opening a saved project and displaying the main window.
-        /// </summary>
-        /// <param name="projectPath">Path to the project to be opened.</param>
-        void Run(string projectPath);
-
+        
         /// <summary>
         /// Terminates the application.
         /// </summary>

@@ -21,8 +21,6 @@
 
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Forms.MessageWindow;
-using Core.Common.Gui.Forms.ViewHost;
 
 namespace Core.Common.Gui.Forms.MainWindow
 {
@@ -32,59 +30,9 @@ namespace Core.Common.Gui.Forms.MainWindow
     public interface IMainWindow : IWin32Window
     {
         /// <summary>
-        /// Gets the view host.
-        /// </summary>
-        IViewHost ViewHost { get; }
-
-        /// <summary>
         /// Gets the property grid tool window.
         /// </summary>
         IView PropertyGrid { get; }
-
-        /// <summary>
-        /// Gets the log messages tool window.
-        /// </summary>
-        IMessageWindow MessageWindow { get; }
-
-        /// <summary>
-        /// Gets or sets the title of the main user interface.
-        /// </summary>
-        string Title { get; set; }
-
-        /// <summary>
-        /// Gets a value indicating whether or not the main user interface is visible.
-        /// </summary>
-        bool Visible { get; }
-
-        /// <summary>
-        /// Gets or sets the status bar text.
-        /// </summary>
-        string StatusBarMessage { get; set; }
-
-        /// <summary>
-        /// Shows main user interface.
-        /// </summary>
-        void Show();
-
-        /// <summary>
-        /// Closes main user interface, shutting it down.
-        /// </summary>
-        void Close();
-
-        /// <summary>
-        /// Updates the state of the child controls of the main user interface.
-        /// </summary>
-        void ValidateItems();
-
-        /// <summary>
-        /// Changes the cursor to display a 'waiting' or 'busy' state.
-        /// </summary>
-        void SetWaitCursorOn();
-
-        /// <summary>
-        /// Changes the cursor to display the default cursor.
-        /// </summary>
-        void SetWaitCursorOff();
 
         /// <summary>
         /// Initializes and shows the property grid tool window.

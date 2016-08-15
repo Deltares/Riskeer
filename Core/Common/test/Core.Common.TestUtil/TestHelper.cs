@@ -26,7 +26,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using log4net.Appender;
 using log4net.Config;
@@ -51,97 +50,25 @@ namespace Core.Common.TestUtil
             }
         }
 
-        //TODO: Replace this property
-        public static string TestDataDirectory
-        {
-            get
-            {
-                return Path.GetDirectoryName(SolutionRoot);
-            }
-        }
-
-        public static string GetCurrentMethodName()
-        {
-            MethodBase callingMethod = new StackFrame(1, false).GetMethod();
-            return callingMethod.DeclaringType.Name + "." + callingMethod.Name;
-        }
-
         /// <summary>
-        /// Returns full path to the file or directory in "test-data"
+        /// Returns a full path to a test data directory given the <paramref name="testDataPath"/>.
         /// </summary>
-        /// <param name="testDataPath"></param>
-        /// <returns></returns>
+        /// <param name="testDataPath">The path to construct a full test data path for.</param>
+        /// <returns>A full path to the test data.</returns>
         public static string GetTestDataPath(TestDataPath testDataPath)
         {
-            return Path.Combine(TestDataDirectory, testDataPath.Path, "test-data");
+            return Path.Combine(Path.GetDirectoryName(SolutionRoot), testDataPath.Path, "test-data");
         }
 
         /// <summary>
-        /// Returns full path to the file or directory in "test-data"
+        /// Returns a full path to a file or directory in the test data directory.
         /// </summary>
-        /// <param name="testDataPath"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="testDataPath">The path to construct a full test data path for.</param>
+        /// <param name="path">The path to a file or directory in the test data directory.</param>
+        /// <returns>A full path to the file or directory from the test data directory.</returns>
         public static string GetTestDataPath(TestDataPath testDataPath, string path)
         {
             return Path.Combine(GetTestDataPath(testDataPath.Path), path);
-        }
-
-        public static string GetTestProjectDirectory()
-        {
-            var stackFrames = new StackTrace().GetFrames();
-            if (stackFrames == null)
-            {
-                throw new Exception("Could not get stacktrace.");
-            }
-
-            var testMethod = stackFrames.FirstOrDefault(f => f.GetMethod().GetCustomAttributes(typeof(TestAttribute), true).Any() ||
-                                                             f.GetMethod().GetCustomAttributes(typeof(SetUpAttribute), true).Any() ||
-                                                             f.GetMethod().GetCustomAttributes(typeof(TestFixtureSetUpAttribute), true).Any());
-
-            if (testMethod == null)
-            {
-                throw new Exception("Could not determine the test method.");
-            }
-
-            var testClassType = testMethod.GetMethod().DeclaringType;
-            if (testClassType == null)
-            {
-                throw new Exception("Could not find test class type.");
-            }
-
-            return Path.GetDirectoryName((new Uri(testClassType.Assembly.CodeBase)).AbsolutePath);
-        }
-
-        /// <summary>
-        /// Gets the test-data directory for the current test project.
-        /// </summary>
-        public static string GetDataDir()
-        {
-            var testProjectDirectory = GetTestProjectDirectory();
-            var rootedTestProjectFolderPath = Path.GetFullPath(Path.Combine(testProjectDirectory, "..", ".."));
-
-            return Path.GetFullPath(Path.Combine(rootedTestProjectFolderPath, "test-data") + Path.DirectorySeparatorChar);
-        }
-
-        /// <summary>
-        /// Get's the path in test-data tree section
-        /// </summary>
-        /// <param name="filename"></param>
-        /// <returns></returns>
-        public static string GetTestFilePath(string filename)
-        {
-            var path = Path.Combine(GetDataDir(), filename);
-            var uri = new UriBuilder(path);
-
-            path = Uri.UnescapeDataString(uri.Path);
-            if (File.Exists(path))
-            {
-                return path;
-            }
-
-            // file not found..exception
-            throw new FileNotFoundException(String.Format("File not found: {0}", path), path);
         }
 
         /// <summary>
@@ -172,64 +99,14 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// 
+        /// Asserts that the execution of some implementation of a functionality runs faster than a given allowed time.
         /// </summary>
-        /// <param name="maxMilliseconds"></param>
-        /// <param name="action"></param>
+        /// <param name="maxMilliseconds">The maximum time in milliseconds that the functionality is allowed to run.</param>
+        /// <param name="action">The functionality to execute.</param>
         /// <param name="rankHddAccess">Take HDD speed into account, makes sure that test timing is divided by MACHINE_HDD_PERFORMANCE_RANK environmental variable.</param>
-        /// <returns></returns>
-        public static double AssertIsFasterThan(float maxMilliseconds, Action action, bool rankHddAccess = false)
+        public static void AssertIsFasterThan(float maxMilliseconds, Action action, bool rankHddAccess = false)
         {
-            return AssertIsFasterThan(maxMilliseconds, null, action, rankHddAccess);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="maxMilliseconds"></param>
-        /// <param name="message"></param>
-        /// <param name="action"></param>
-        /// <param name="rankHddAccess">Take HDD speed into account, makes sure that test timing is divided by MACHINE_HDD_PERFORMANCE_RANK environmental variable.</param>
-        /// <returns></returns>
-        public static double AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess)
-        {
-            var stopwatch = new Stopwatch();
-            var actualMillisecond = default(double);
-
-            stopwatch.Start();
-            action();
-            stopwatch.Stop();
-
-            actualMillisecond = Math.Abs(actualMillisecond - default(double)) > 1e-5
-                                    ? Math.Min(stopwatch.ElapsedMilliseconds, actualMillisecond)
-                                    : stopwatch.ElapsedMilliseconds;
-
-            stopwatch.Reset();
-
-            var machineHddPerformanceRank = GetMachineHddPerformanceRank();
-            var rank = machineHddPerformanceRank;
-
-            if (rankHddAccess) // when test relies a lot on HDD - multiply rank by hdd speed factor
-            {
-                rank *= machineHddPerformanceRank;
-            }
-
-            var userMessage = string.IsNullOrEmpty(message) ? "" : message + ". ";
-            if (!rank.Equals(1.0f))
-            {
-                Assert.IsTrue(rank*actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
-                              maxMilliseconds, actualMillisecond, actualMillisecond*rank);
-                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
-                                                              maxMilliseconds, actualMillisecond, actualMillisecond*rank));
-            }
-            else
-            {
-                Assert.IsTrue(actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}", maxMilliseconds,
-                              actualMillisecond);
-                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds. Maximum was {0}", maxMilliseconds, actualMillisecond));
-            }
-
-            return actualMillisecond;
+            AssertIsFasterThan(maxMilliseconds, null, action, rankHddAccess);
         }
 
         /// <summary>
@@ -413,6 +290,45 @@ namespace Core.Common.TestUtil
             }
         }
 
+        private static void AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess)
+        {
+            var stopwatch = new Stopwatch();
+            var actualMillisecond = default(double);
+
+            stopwatch.Start();
+            action();
+            stopwatch.Stop();
+
+            actualMillisecond = Math.Abs(actualMillisecond - default(double)) > 1e-5
+                                    ? Math.Min(stopwatch.ElapsedMilliseconds, actualMillisecond)
+                                    : stopwatch.ElapsedMilliseconds;
+
+            stopwatch.Reset();
+
+            var machineHddPerformanceRank = GetMachineHddPerformanceRank();
+            var rank = machineHddPerformanceRank;
+
+            if (rankHddAccess) // when test relies a lot on HDD - multiply rank by hdd speed factor
+            {
+                rank *= machineHddPerformanceRank;
+            }
+
+            var userMessage = string.IsNullOrEmpty(message) ? "" : message + ". ";
+            if (!rank.Equals(1.0f))
+            {
+                Assert.IsTrue(rank*actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}, machine performance weighted actual was {2}",
+                              maxMilliseconds, actualMillisecond, actualMillisecond*rank);
+                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds (machine performance weighted {2}). Maximum was {0}",
+                                                              maxMilliseconds, actualMillisecond, actualMillisecond*rank));
+            }
+            else
+            {
+                Assert.IsTrue(actualMillisecond < maxMilliseconds, userMessage + "Maximum of {0} milliseconds exceeded. Actual was {1}", maxMilliseconds,
+                              actualMillisecond);
+                Console.WriteLine(userMessage + string.Format("Test took {1} milliseconds. Maximum was {0}", maxMilliseconds, actualMillisecond));
+            }
+        }
+
         private static void AssertExpectedMessagesInRenderedMessages(IEnumerable<string> messages, IEnumerable<Tuple<string, Level>> renderedMessages)
         {
             foreach (string message in messages)
@@ -447,48 +363,6 @@ namespace Core.Common.TestUtil
             AssertImagesAreEqual(icon, item.Image);
         }
 
-        /// <summary>
-        /// Create dir if not exists.
-        /// </summary>
-        /// <param name="path">File path to a directory.</param>
-        /// <exception cref="IOException"> When:
-        ///   The directory specified by <paramref name="path"/> is read-only
-        /// </exception>
-        /// <exception cref="UnauthorizedAccessException"> When: The caller does not have the required permission.</exception>
-        /// <exception cref="ArgumentException">
-        ///   <paramref name="path"/> is a zero-length string, contains only white space, or contains one or more invalid characters as defined by <see cref="Path.GetInvalidPathChars"/>. -or- 
-        ///   <paramref name="path"/> is prefixed with, or contains only a colon character (:).</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="path"/> is null.</exception>
-        /// <exception cref="PathTooLongException">
-        ///   The specified path, file name, or both exceed the system-defined maximum length. 
-        ///   For example, on Windows-based platforms, paths must be less than 248 characters and file names must be less than 260 characters. </exception>
-        /// <exception cref="DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive).</exception>
-        /// <exception cref="NotSupportedException"><paramref name="path"/> contains a colon character (:) that is not part of a drive label ("C:\").</exception>
-        private static void CreateDirectoryIfNotExists(string path)
-        {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-        }
-
-        private static string GetCurrentTestClassMethodName()
-        {
-            var stackTrace = new StackTrace(false);
-
-            for (int i = 1; i < stackTrace.FrameCount; i++)
-            {
-                StackFrame stackFrame = stackTrace.GetFrame(i);
-                if (stackFrame.GetMethod().GetCustomAttributes(true).OfType<TestAttribute>().Count() != 0)
-                {
-                    MethodBase method = stackFrame.GetMethod();
-                    return method.DeclaringType.Name + "." + method.Name;
-                }
-            }
-
-            return "<unknown test method>";
-        }
-
         private static string GetSolutionRoot()
         {
             const string solutionName = "Ringtoets.sln";
@@ -511,17 +385,6 @@ namespace Core.Common.TestUtil
         private static float GetMachineHddPerformanceRank()
         {
             string rank = Environment.GetEnvironmentVariable("MACHINE_HDD_PERFORMANCE_RANK");
-            if (!String.IsNullOrEmpty(rank))
-            {
-                return Single.Parse(rank);
-            }
-
-            return 1.0f;
-        }
-
-        private static float GetMachinePerformanceRank()
-        {
-            string rank = Environment.GetEnvironmentVariable("MACHINE_PERFORMANCE_RANK");
             if (!String.IsNullOrEmpty(rank))
             {
                 return Single.Parse(rank);

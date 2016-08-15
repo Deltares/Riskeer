@@ -45,7 +45,7 @@ namespace Core.Common.IO.Test.Readers
             var uncPath = Path.Combine(@"\\localhost\c$", fileName);
 
             // Call
-            using (var fileDisposeHelper = new FileDisposeHelper(localPath))
+            using (new FileDisposeHelper(localPath))
             {
                 using (var reader = new TestReader(uncPath))
                 {

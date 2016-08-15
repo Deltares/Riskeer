@@ -78,7 +78,6 @@
     <Compile Include="PropertyClasses\PipingInputContextPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\StochasticSoilModelContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingCalculationScenarioContextTreeNodeInfoTest.cs" />
-    <Compile Include="Helper\PipingOutputCreator.cs" />
     <Compile Include="TreeNodeInfos\PipingFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\PipingSemiProbabilisticOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StochasticSoilModelTreeNodeInfoTest.cs" />
@@ -211,6 +210,9 @@
     </None>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -98,6 +98,9 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </summary>
         public bool IsWindowDisposed { get; private set; }
 
+        /// <summary>
+        /// Gets the log messages tool window.
+        /// </summary>
         public IMessageWindow MessageWindow
         {
             get
@@ -106,6 +109,9 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
+        /// <summary>
+        /// Gets the view host.
+        /// </summary>
         public IViewHost ViewHost
         {
             get
@@ -149,18 +155,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
                     Hide();
                 }
-            }
-        }
-
-        public string StatusBarMessage
-        {
-            get
-            {
-                return StatusMessageTextBlock.Text;
-            }
-            set
-            {
-                StatusMessageTextBlock.Text = value;
             }
         }
 
@@ -310,24 +304,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 ribbonCommandHandler.ValidateItems();
             }
-
-            foreach (var ribbonGroupBox in Ribbon.Tabs.SelectMany(tab => tab.Groups))
-            {
-                // Colapse all groups without visible items
-                ribbonGroupBox.Visibility = ribbonGroupBox.Items.OfType<UIElement>().All(e => e.Visibility == Visibility.Collapsed || e is Separator)
-                                                ? Visibility.Collapsed
-                                                : Visibility.Visible;
-            }
-        }
-
-        public void SetWaitCursorOn()
-        {
-            Mouse.OverrideCursor = Cursors.Wait;
-        }
-
-        public void SetWaitCursorOff()
-        {
-            Mouse.OverrideCursor = null;
         }
 
         private void OnActiveDocumentViewChanging(object sender, EventArgs e)

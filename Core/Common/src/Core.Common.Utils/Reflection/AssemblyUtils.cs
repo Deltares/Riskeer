@@ -33,8 +33,6 @@ namespace Core.Common.Utils.Reflection
     /// </summary>
     public static class AssemblyUtils
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(AssemblyUtils));
-
         /// <summary>
         /// Return attributes for a specific assembly
         /// </summary>

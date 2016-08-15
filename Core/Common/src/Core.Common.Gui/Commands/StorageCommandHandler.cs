@@ -60,7 +60,7 @@ namespace Core.Common.Gui.Commands
         public bool ContinueIfHasChanges()
         {
             var project = projectOwner.Project;
-            if (project == null || projectOwner.EqualsToNew(project))
+            if (project == null || projectOwner.IsCurrentNew())
             {
                 return true;
             }

@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.ViewHost;
 using Demo.Ringtoets.Ribbons;

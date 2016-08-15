@@ -51,7 +51,7 @@ namespace Core.Plugins.Chart
         public override void Activate()
         {
             chartLegendController = CreateLegendController(Gui);
-            chartingRibbon = CreateRibbon(chartLegendController, Gui);
+            chartingRibbon = CreateRibbon(chartLegendController);
 
             chartLegendController.ToggleView();
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
@@ -86,9 +86,8 @@ namespace Core.Plugins.Chart
         /// </summary>
         /// <param name="chartLegendController">The <see cref="ChartLegendController"/> to use for the 
         /// <see cref="ChartingRibbon"/>.</param>
-        /// <param name="viewController">The controller for views.</param>
         /// <returns>A new <see cref="ChartingRibbon"/> instance.</returns>
-        private static ChartingRibbon CreateRibbon(ChartLegendController chartLegendController, IViewController viewController)
+        private static ChartingRibbon CreateRibbon(ChartLegendController chartLegendController)
         {
             return new ChartingRibbon
             {

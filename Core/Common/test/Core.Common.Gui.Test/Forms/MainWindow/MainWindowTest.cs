@@ -75,8 +75,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.IsNull(mainWindow.MessageWindow);
                 Assert.IsNull(mainWindow.PropertyGrid);
 
-                Assert.AreEqual(string.Empty, mainWindow.StatusBarMessage);
-
                 Assert.IsNotNull(mainWindow.Handle);
                 Assert.IsFalse(mainWindow.InvokeRequired,
                                "'mainWindow' instance on same thread as test, therefore invocation not required.");
@@ -180,23 +178,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.AreEqual(Visibility.Hidden, mainWindow.Visibility);
             }
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [STAThread]
-        public void StatusBarMessage_SetValue_ReturnNewlySetValue()
-        {
-            // Setup
-            const string message = "<some message>";
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            {
-                // Call
-                mainWindow.StatusBarMessage = message;
-
-                // Assert
-                Assert.AreEqual(message, TypeUtils.GetField<TextBlock>(mainWindow, "StatusMessageTextBlock").Text);
-                Assert.AreEqual(message, mainWindow.StatusBarMessage);
-            }
         }
 
         [Test]
@@ -435,56 +416,6 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.IsNull(viewHost.ActiveDocumentView);
             }
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [STAThread]
-        public void SetWaitCursorOn_SetMouseOverrideToWait()
-        {
-            // Setup
-            Cursor originalValue = Mouse.OverrideCursor;
-
-            try
-            {
-                using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-                {
-                    // Call
-                    mainWindow.SetWaitCursorOn();
-
-                    // Assert
-                    Assert.AreEqual(Cursors.Wait, Mouse.OverrideCursor);
-                }
-            }
-            finally
-            {
-                Mouse.OverrideCursor = originalValue;
-            }
-        }
-
-        [Test]
-        [STAThread]
-        public void SetWaitCursorOff_SetMouseOverrideToNull()
-        {
-            // Setup
-            Cursor originalValue = Mouse.OverrideCursor;
-
-            try
-            {
-                using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-                {
-                    mainWindow.SetWaitCursorOn();
-
-                    // Call
-                    mainWindow.SetWaitCursorOff();
-
-                    // Assert
-                    Assert.IsNull(Mouse.OverrideCursor);
-                }
-            }
-            finally
-            {
-                Mouse.OverrideCursor = originalValue;
-            }
         }
     }
 }

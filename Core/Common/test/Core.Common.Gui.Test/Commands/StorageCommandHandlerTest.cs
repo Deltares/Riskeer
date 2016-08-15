@@ -86,7 +86,7 @@ namespace Core.Common.Gui.Test.Commands
             projectOwner.Project = projectMock;
             projectOwner.ProjectFilePath = savedProjectPath;
             projectOwner.Expect(po => po.CreateNewProject());
-            projectOwner.Expect(po => po.EqualsToNew(projectMock)).Return(true);
+            projectOwner.Expect(po => po.IsCurrentNew()).Return(true);
             projectOwner.Expect(po => po.CloseProject());
 
             var mainWindowController = mocks.Stub<IWin32Window>();

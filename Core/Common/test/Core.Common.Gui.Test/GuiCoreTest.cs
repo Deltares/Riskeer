@@ -168,10 +168,10 @@ namespace Core.Common.Gui.Test
             var guiCoreSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
+            using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
 
             // Call
-            using (var gui2 = new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
+            using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
 
             // Assert
             mocks.VerifyAll();

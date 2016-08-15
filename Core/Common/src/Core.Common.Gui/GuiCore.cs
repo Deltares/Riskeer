@@ -141,12 +141,12 @@ namespace Core.Common.Gui
             Dispose(true);
         }
 
-        public void Run()
-        {
-            Run(null);
-        }
-
-        public void Run(string projectPath)
+        /// <summary>
+        /// Runs the user interface, causing all user interface components to initialize, 
+        /// loading plugins, opening a saved project and displaying the main window.
+        /// </summary>
+        /// <param name="projectPath">Path to the project to be opened. (optional)</param>
+        public void Run(string projectPath = null)
         {
             var startTime = DateTime.Now;
 
@@ -182,9 +182,6 @@ namespace Core.Common.Gui
             }
 
             isExiting = true;
-
-            // close faster (hide main window)
-            mainWindow.Visible = false;
 
             if (Application.Current != null)
             {
@@ -375,17 +372,12 @@ namespace Core.Common.Gui
             Plugins.Remove(plugin);
         }
 
-        private void ResumeUI()
+        private void ApplicationProjectOpened(IProject newProject)
         {
             if (mainWindow != null)
             {
                 mainWindow.ValidateItems();
             }
-        }
-
-        private void ApplicationProjectOpened(IProject newProject)
-        {
-            ResumeUI();
         }
 
         private void ConfigureLogging()
@@ -586,7 +578,7 @@ namespace Core.Common.Gui
             }
         }
 
-        public bool EqualsToNew(IProject other)
+        public bool IsCurrentNew()
         {
             return Project != null && Project.Equals(projectFactory.CreateNewProject());
         }

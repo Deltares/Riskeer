@@ -176,7 +176,7 @@ namespace Core.Plugins.Map.Legend
                 MapResources.MapLegendView_MapDataCollectionContextMenuStrip__Add_MapLayer,
                 MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
                 MapResources.MapPlusIcon,
-                (sender, args) => ShowSelectShapeFileDialog(sender, args, mapDataCollection));
+                (sender, args) => ShowSelectShapeFileDialog(mapDataCollection));
 
             return contextMenuBuilderProvider.Get(mapDataCollection, treeView).AddCustomItem(addMapLayerMenuItem).Build();
         }
@@ -185,7 +185,7 @@ namespace Core.Plugins.Map.Legend
 
         #region ShapeFileImporter
 
-        private void ShowSelectShapeFileDialog(object sender, EventArgs eventArgs, MapDataCollection mapDataCollection)
+        private void ShowSelectShapeFileDialog(MapDataCollection mapDataCollection)
         {
             var windowTitle = MapResources.MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File;
             using (var dialog = new OpenFileDialog

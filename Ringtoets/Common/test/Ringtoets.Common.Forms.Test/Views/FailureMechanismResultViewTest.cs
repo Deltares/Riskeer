@@ -93,9 +93,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
-
         private TestFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {
             var failureMechanism = new TestFailureMechanism();

@@ -131,14 +131,5 @@
 
         <viewHost:AvalonDockViewHost Grid.Row="1" x:Name="avalonDockViewHost" />
 
-        <fluent:StatusBar HorizontalAlignment="Stretch"
-                        VerticalAlignment="Bottom"
-                        Grid.Row="2">
-
-            <fluent:StatusBarItem HorizontalAlignment="Left" Title="{x:Static Properties:Resources.Ribbon_StatusBar_Status_text}">
-                <TextBlock x:Name="StatusMessageTextBlock" Text="" />
-            </fluent:StatusBarItem>
-            
-        </fluent:StatusBar>
     </Grid>
 </fluent:RibbonWindow>

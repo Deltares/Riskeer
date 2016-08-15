@@ -315,8 +315,7 @@ namespace Ringtoets.Piping.Data
 
             return distributions.All(currentLayerDistribution => AreShiftAndDeviationEqual(
                 currentLayerDistribution, 
-                distributions[0], 
-                numberOfDecimals));
+                distributions[0]));
         }
 
         private static LogNormalDistribution[] GetLayerDistributionDefinitions(IList<PipingSoilLayer> consecutiveAquitardLayers, int numberOfDecimals)
@@ -336,7 +335,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        private static bool AreShiftAndDeviationEqual(LogNormalDistribution currentLayerDistribution, LogNormalDistribution baseLayerDistribution, int numberOfDecimals)
+        private static bool AreShiftAndDeviationEqual(LogNormalDistribution currentLayerDistribution, LogNormalDistribution baseLayerDistribution)
         {
             return currentLayerDistribution.StandardDeviation == baseLayerDistribution.StandardDeviation &&
                    currentLayerDistribution.Shift == baseLayerDistribution.Shift;

@@ -61,8 +61,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
                 WaveHeight = 222.222
             };
 
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
-
             // Call
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, null);
 

@@ -83,21 +83,6 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void TestDataDirectory()
-        {
-            var dir = TestHelper.TestDataDirectory;
-            Assert.IsTrue(Directory.Exists(dir));
-        }
-
-        [Test]
-        public void GetFullPathForTestFile()
-        {
-            Directory.SetCurrentDirectory(Path.Combine(Directory.GetCurrentDirectory(), ".."));
-            string fullPath = TestHelper.GetTestFilePath("Test.txt");
-            Assert.IsTrue(File.Exists(fullPath));
-        }
-
-        [Test]
         public void GetTestDataPath_Always_VerifiedTestPaths()
         {
             string path;

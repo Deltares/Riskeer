@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using log4net;
-using log4net.Config;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
 
@@ -53,16 +52,6 @@ namespace Core.Common.TestUtil
             var h = (Hierarchy) LogManager.GetRepository();
             var rootLogger = h.Root;
             rootLogger.Level = h.LevelMap[level.ToString()];
-        }
-
-        /// <summary>
-        /// Configures logging. In case of log4net reads log4net section from app.config file.
-        /// </summary>
-        public static void ConfigureLogging(Level level = null)
-        {
-            ResetLogging();
-            BasicConfigurator.Configure();
-            SetLoggingLevel(level ?? Level.Error);
         }
 
         /// <summary>

@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             // Call
-            TestDelegate test = () => { using (var s = new StochasticSoilProfileReader(dbFile)) {} };
+            TestDelegate test = () => { using (new StochasticSoilProfileReader(dbFile)) {} };
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);

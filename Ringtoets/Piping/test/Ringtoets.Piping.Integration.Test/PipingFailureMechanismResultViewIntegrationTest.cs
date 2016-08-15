@@ -156,10 +156,6 @@ namespace Ringtoets.Piping.Integration.Test
             }
         }
 
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
         private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerTwoBIndex = 3;
-        private const int assessmentLayerThreeIndex = 4;
     }
 }

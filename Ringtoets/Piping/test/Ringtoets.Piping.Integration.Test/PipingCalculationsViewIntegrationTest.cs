@@ -134,9 +134,6 @@ namespace Ringtoets.Piping.Integration.Test
         private const int stochasticSoilModelsColumnIndex = 1;
         private const int stochasticSoilProfilesColumnIndex = 2;
         private const int hydraulicBoundaryLocationsColumnIndex = 4;
-        private const int dampingFactorExitMeanColumnIndex = 5;
-        private const int phreaticLevelExitMeanColumnIndex = 6;
-        private const int entryPointLColumnIndex = 7;
         private const int exitPointLColumnIndex = 8;
     }
 }

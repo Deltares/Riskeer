@@ -206,7 +206,7 @@ namespace Ringtoets.Common.IO
             }
             NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output,
                            4, 4);
-            ClearHydraulicBoundaryOutput(assessmentSection);
+            ClearHydraulicBoundaryOutput();
         }
 
         private void ClearCalculationOutput(IFailureMechanism failureMechanism)
@@ -225,7 +225,7 @@ namespace Ringtoets.Common.IO
             changedObservables.Add(failureMechanism);
         }
 
-        private void ClearHydraulicBoundaryOutput(IAssessmentSection assessmentSection)
+        private void ClearHydraulicBoundaryOutput()
         {
             // TODO: WTI-440 - Clear all 'Toetspeil' calculation output
             //changedObservables.Add(clearedInstance);

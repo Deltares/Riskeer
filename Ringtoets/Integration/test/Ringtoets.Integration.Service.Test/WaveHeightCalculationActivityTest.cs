@@ -133,6 +133,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.Expect(o => o.Id).Return(null);
             assessmentSectionStub.Expect(o => o.NotifyObservers());
 
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
@@ -169,6 +170,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.Expect(o => o.Id).Return(null);
             assessmentSectionStub.Expect(o => o.NotifyObservers());
 
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
@@ -242,6 +244,7 @@ namespace Ringtoets.Integration.Service.Test
             observerMock.Expect(o => o.UpdateObserver());
 
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.Expect(o => o.Id).Return(null);
             assessmentSectionStub.Expect(o => o.NotifyObservers());
 
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
@@ -274,6 +277,7 @@ namespace Ringtoets.Integration.Service.Test
             observerMock.Expect(o => o.UpdateObserver());
 
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.Expect(o => o.Id).Return(null);
             assessmentSectionStub.Expect(o => o.NotifyObservers());
 
             var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);

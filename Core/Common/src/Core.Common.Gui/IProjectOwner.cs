@@ -45,11 +45,10 @@ namespace Core.Common.Gui
         string ProjectFilePath { get; set; }
 
         /// <summary>
-        /// Indicates whether the current <see cref="IProjectOwner.Project"/> is equal to <paramref name="other"/>.
+        /// Indicates whether the current <see cref="IProjectOwner.Project"/> is a new project.
         /// </summary>
-        /// <param name="other">The <see cref="IProject"/> to compare with <see cref="IProjectOwner.Project"/>.</param>
-        /// <returns><c>true</c> if <see cref="IProjectOwner.Project"/> is equal to <paramref name="other"/>; <c>false</c> otherwise.</returns>
-        bool EqualsToNew(IProject other);
+        /// <returns><c>true</c> if <see cref="IProjectOwner.Project"/> is equal to a new project, <c>false</c> otherwise.</returns>
+        bool IsCurrentNew();
 
         /// <summary>
         /// Creates a new <see cref="IProject"/>.
