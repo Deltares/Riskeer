@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(9, propertyInfos.Length);
+                Assert.AreEqual(10, propertyInfos.Length);
 
                 var ringtoetsProjectProperties = propertyInfos.Single(pi => pi.DataType == typeof(IProject));
                 Assert.AreEqual(typeof(RingtoetsProjectProperties), ringtoetsProjectProperties.PropertyObjectType);
@@ -240,11 +240,17 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(outputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(outputContextProperties.AfterCreate);
 
-                var designWaterLevelContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(DesignWaterLevelLocationsContext));
-                Assert.AreEqual(typeof(DesignWaterLevelContextProperties), designWaterLevelContextProperties.PropertyObjectType);
-                Assert.IsNull(designWaterLevelContextProperties.AdditionalDataCheck);
-                Assert.IsNotNull(designWaterLevelContextProperties.GetObjectPropertiesData);
-                Assert.IsNull(designWaterLevelContextProperties.AfterCreate);
+                var designWaterLevelLocationsContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(DesignWaterLevelLocationsContext));
+                Assert.AreEqual(typeof(DesignWaterLevelLocationsContextProperties), designWaterLevelLocationsContextProperties.PropertyObjectType);
+                Assert.IsNull(designWaterLevelLocationsContextProperties.AdditionalDataCheck);
+                Assert.IsNotNull(designWaterLevelLocationsContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(designWaterLevelLocationsContextProperties.AfterCreate);
+
+                var designWaterLevelLocationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(DesignWaterLevelLocationContext));
+                Assert.AreEqual(typeof(HydraulicBoundaryLocationDesignWaterLevelProperties), designWaterLevelLocationContextProperties.PropertyObjectType);
+                Assert.IsNull(designWaterLevelLocationContextProperties.AdditionalDataCheck);
+                Assert.IsNotNull(designWaterLevelLocationContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(designWaterLevelLocationContextProperties.AfterCreate);
 
                 var waveHeightContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(WaveHeightContext));
                 Assert.AreEqual(typeof(WaveHeightContextProperties), waveHeightContextProperties.PropertyObjectType);
@@ -288,9 +294,9 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismContributionIcon, contributionViewInfo.Image);
 
-                var designWaterLevelsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(DesignWaterLevelLocationsContext));
-                Assert.AreEqual(typeof(HydraulicBoundaryLocationDesignWaterLevelsView), designWaterLevelsViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, designWaterLevelsViewInfo.Image);
+                var designWaterLevelLocationsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(DesignWaterLevelLocationsContext));
+                Assert.AreEqual(typeof(HydraulicBoundaryLocationDesignWaterLevelsView), designWaterLevelLocationsViewInfo.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, designWaterLevelLocationsViewInfo.Image);
 
                 var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionView), mapViewInfo.ViewType);

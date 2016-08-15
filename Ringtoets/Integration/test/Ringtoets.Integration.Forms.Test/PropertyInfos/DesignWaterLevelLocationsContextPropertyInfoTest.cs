@@ -33,7 +33,7 @@ using Ringtoets.Integration.Plugin;
 namespace Ringtoets.Integration.Forms.Test.PropertyInfos
 {
     [TestFixture]
-    public class DesignWaterLevelContextPropertyInfoTest
+    public class DesignWaterLevelLocationsContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
                 Type propertyObjectType = info.PropertyObjectType;
                 
                 // Assert
-                Assert.AreEqual(typeof(DesignWaterLevelContextProperties), propertyObjectType);
+                Assert.AreEqual(typeof(DesignWaterLevelLocationsContextProperties), propertyObjectType);
             }
         }
 

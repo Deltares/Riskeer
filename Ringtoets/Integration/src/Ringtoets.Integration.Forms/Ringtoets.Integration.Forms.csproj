@@ -58,7 +58,7 @@
     <Compile Include="PresentationObjects\WaveHeightContext.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelContextProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelLocationsContextProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationDesignWaterLevelProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationWaveHeightProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectProperties.cs" />

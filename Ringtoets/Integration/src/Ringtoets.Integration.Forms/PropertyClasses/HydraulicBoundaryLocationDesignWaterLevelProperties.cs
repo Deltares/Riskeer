@@ -33,12 +33,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryLocationDesignWaterLevelProperties : HydraulicBoundaryLocationProperties
     {
-        /// <summary>
-        /// New instance of <see cref="HydraulicBoundaryLocationDesignWaterLevelProperties"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocationContext"><see cref="HydraulicBoundaryLocation"/> whose data will be used for the properties panel.</param>
-        public HydraulicBoundaryLocationDesignWaterLevelProperties(HydraulicBoundaryLocation hydraulicBoundaryLocationContext) : base(hydraulicBoundaryLocationContext) {}
-
         [PropertyOrder(1)]
         public override long Id
         {

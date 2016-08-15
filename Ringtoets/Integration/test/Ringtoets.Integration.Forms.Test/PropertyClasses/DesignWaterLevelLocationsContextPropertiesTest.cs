@@ -34,13 +34,13 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DesignWaterLevelContextPropertiesTest
+    public class DesignWaterLevelLocationsContextPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new DesignWaterLevelContextProperties();
+            var properties = new DesignWaterLevelLocationsContextProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            DesignWaterLevelLocationsContext designWaterLevelContext = new DesignWaterLevelLocationsContext(assessmentSectionMock)
+            DesignWaterLevelLocationsContext designWaterLevelLocationsContext = new DesignWaterLevelLocationsContext(assessmentSectionMock)
             {
                 WrappedData =
                 {
@@ -69,10 +69,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             {
                 DesignWaterLevel = designWaterLevel
             };
-            designWaterLevelContext.WrappedData.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            designWaterLevelLocationsContext.WrappedData.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
-            DesignWaterLevelContextProperties properties = new DesignWaterLevelContextProperties
+            DesignWaterLevelLocationsContextProperties properties = new DesignWaterLevelLocationsContextProperties
             {
                 Data = hydraulicBoundaryDatabase
             };
@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var properties = new DesignWaterLevelContextProperties();
+            var properties = new DesignWaterLevelLocationsContextProperties();
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             const string expectedLocationsDisplayName = "Locaties";

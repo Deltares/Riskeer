@@ -36,15 +36,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
     {
         /// <summary>
-        /// New instance of <see cref="HydraulicBoundaryLocationProperties"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocation"><see cref="HydraulicBoundaryLocation"/> whose data will be used for the properties panel.</param>
-        public HydraulicBoundaryLocationProperties(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            data = hydraulicBoundaryLocation;
-        }
-
-        /// <summary>
         /// Gets the <see cref="HydraulicBoundaryLocation.Id"/>.
         /// </summary>
         [PropertyOrder(1)]

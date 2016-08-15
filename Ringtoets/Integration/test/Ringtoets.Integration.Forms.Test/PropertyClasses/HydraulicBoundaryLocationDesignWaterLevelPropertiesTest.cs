@@ -46,7 +46,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call
             HydraulicBoundaryLocationDesignWaterLevelProperties properties =
-                new HydraulicBoundaryLocationDesignWaterLevelProperties(hydraulicBoundaryLocation);
+                new HydraulicBoundaryLocationDesignWaterLevelProperties
+                {
+                    Data = hydraulicBoundaryLocation
+                };
 
             // Assert
             Assert.AreEqual(id, properties.Id);
@@ -73,7 +76,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call
             HydraulicBoundaryLocationDesignWaterLevelProperties properties =
-                new HydraulicBoundaryLocationDesignWaterLevelProperties(hydraulicBoundaryLocation);
+                new HydraulicBoundaryLocationDesignWaterLevelProperties
+                {
+                    Data = hydraulicBoundaryLocation
+                };
 
             // Assert
             Assert.AreEqual(id, properties.Id);
@@ -90,7 +96,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
             HydraulicBoundaryLocationDesignWaterLevelProperties properties =
-                new HydraulicBoundaryLocationDesignWaterLevelProperties(hydraulicBoundaryLocation);
+                new HydraulicBoundaryLocationDesignWaterLevelProperties
+                {
+                    Data = hydraulicBoundaryLocation
+                };
 
             // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);

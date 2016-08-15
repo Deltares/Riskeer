@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="HydraulicBoundaryLocation"/>.
+    /// This class represents a row of <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/>.
     /// </summary>
     internal class HydraulicBoundaryLocationDesignWaterLevelRow
     {
@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationDesignWaterLevelRow"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for this row.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/> for this row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
         internal HydraulicBoundaryLocationDesignWaterLevelRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
@@ -92,6 +92,9 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/>.
+        /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation
         {
             get

@@ -23,9 +23,11 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.Selection;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.Views
@@ -33,12 +35,13 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
     /// </summary>
-    public partial class HydraulicBoundaryLocationDesignWaterLevelsView : UserControl, IView
+    public partial class HydraulicBoundaryLocationDesignWaterLevelsView : UserControl, ISelectionProvider
     {
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
         private IAssessmentSection assessmentSection;
         private HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
+        private bool updatingDataSource;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationDesignWaterLevelsView"/>.
@@ -89,6 +92,8 @@ namespace Ringtoets.Integration.Forms.Views
             assessmentSectionObserver.Dispose();
             hydraulicBoundaryDatabaseObserver.Dispose();
 
+            dataGridViewControl.RemoveCellClickHandler(DataGridViewOnCellClick);
+
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -99,6 +104,8 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeDataGridView()
         {
+            dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
+            
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.Name),
                                                  Resources.HydraulicBoundaryDatabase_Locations_Id_DisplayName);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.Id),
@@ -111,10 +118,67 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
+            updatingDataSource = true;
             dataGridViewControl.SetDataSource(hydraulicBoundaryDatabase != null
                                                   ? hydraulicBoundaryDatabase.Locations.Select(hl => new HydraulicBoundaryLocationDesignWaterLevelRow(hl)).ToArray()
                                                   : null);
             dataGridViewControl.RefreshDataGridView();
+            updatingDataSource = false;
         }
+
+        /// <summary>
+        /// Gets or sets the <see cref="IApplicationSelection"/>.
+        /// </summary>
+        public IApplicationSelection ApplicationSelection { get; set; }
+
+        public object Selection
+        {
+            get
+            {
+                return CreateSelectedItemFromCurrentRow();
+            }
+        }
+        
+        #region Event handling
+        
+        private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (updatingDataSource)
+            {
+                return;
+            }
+
+            UpdateApplicationSelection();
+        }
+
+        private void UpdateApplicationSelection()
+        {
+            if (ApplicationSelection == null)
+            {
+                return;
+            }
+
+            DesignWaterLevelLocationContext selection = CreateSelectedItemFromCurrentRow();
+            if ((ApplicationSelection.Selection == null && selection != null) ||
+                (ApplicationSelection.Selection != null && !ApplicationSelection.Selection.Equals(selection)))
+            {
+                ApplicationSelection.Selection = selection;
+            }
+        }
+
+        private DesignWaterLevelLocationContext CreateSelectedItemFromCurrentRow()
+        {
+            var currentRow = dataGridViewControl.GetCurrentRow();
+
+            var designWaterLevelRow = currentRow != null
+                                           ? (HydraulicBoundaryLocationDesignWaterLevelRow)currentRow.DataBoundItem
+                                           : null;
+
+            return designWaterLevelRow != null 
+                ? new DesignWaterLevelLocationContext(designWaterLevelRow.HydraulicBoundaryLocation) 
+                : null;
+        }
+
+        #endregion
     }
 }

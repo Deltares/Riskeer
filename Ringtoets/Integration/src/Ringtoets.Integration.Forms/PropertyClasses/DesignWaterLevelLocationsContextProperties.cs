@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
     /// </summary>
-    public class DesignWaterLevelContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
+    public class DesignWaterLevelLocationsContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
         /// <summary>
         /// Gets the <see cref="HydraulicBoundaryLocationDesignWaterLevelProperties"/> from the <see cref="HydraulicBoundaryDatabase"/>.
@@ -46,7 +46,10 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             get
             {
                 return data != null
-                           ? data.Locations.Select(loc => new HydraulicBoundaryLocationDesignWaterLevelProperties(loc)).ToArray()
+                           ? data.Locations.Select(loc => new HydraulicBoundaryLocationDesignWaterLevelProperties
+                           {
+                               Data = loc
+                           }).ToArray()
                            : new HydraulicBoundaryLocationDesignWaterLevelProperties[0];
             }
         }

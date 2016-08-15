@@ -27,7 +27,7 @@ using Core.Common.Base.Storage;
 namespace Ringtoets.HydraRing.Data
 {
     /// <summary>
-    /// Location of an hydraulic boundary.
+    /// Location of a hydraulic boundary.
     /// </summary>
     public class HydraulicBoundaryLocation : Observable, IStorable
     {

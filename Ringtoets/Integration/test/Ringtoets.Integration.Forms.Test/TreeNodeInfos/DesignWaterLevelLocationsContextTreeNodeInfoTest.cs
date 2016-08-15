@@ -41,7 +41,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class DesignWaterLevelContextTreeNodeInfoTest : NUnitFormTest
+    public class DesignWaterLevelLocationsContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mockRepository;
 

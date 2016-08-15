@@ -256,9 +256,13 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>();
-            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelContextProperties>
+            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>
             {
                 GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
+            };
+            yield return new PropertyInfo<DesignWaterLevelLocationContext, HydraulicBoundaryLocationDesignWaterLevelProperties>
+            {
+                GetObjectPropertiesData = context => context.WrappedData
             };
             yield return new PropertyInfo<WaveHeightContext, WaveHeightContextProperties>
             {
@@ -291,7 +295,11 @@ namespace Ringtoets.Integration.Plugin
                 AdditionalDataCheck = context => context.WrappedData.HydraulicBoundaryDatabase != null,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
-                AfterCreate = (view, context) => { view.AssessmentSection = context.WrappedData; }
+                AfterCreate = (view, context) =>
+                {
+                    view.ApplicationSelection = Gui; 
+                    view.AssessmentSection = context.WrappedData;
+                }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
