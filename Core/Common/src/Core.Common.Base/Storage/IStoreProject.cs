@@ -99,7 +99,7 @@ namespace Core.Common.Base.Storage
         /// from the staged project, <c>false</c> otherwise.</returns>
         /// <exception cref="InvalidOperationException">Thrown when no project has been staged.</exception>
         /// <exception cref="StorageException">Thrown when the staged project contains
-        /// more then <see cref="int.MaxValue"/> unique object instances.</exception>
+        /// more than <see cref="int.MaxValue"/> unique object instances.</exception>
         bool HasStagedProjectChanges();
     }
 }

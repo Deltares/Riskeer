@@ -157,4 +157,7 @@
   <data name="StorageSqLite_ValidateDatabaseVersion_Database_must_have_one_VersionEntity_row" xml:space="preserve">
     <value>Database moet één rij in de VersionEntity tabel hebben.</value>
   </data>
+  <data name="StorageSqLite_HasStagedProjectChanges_Project_contains_too_many_objects_to_generate_fingerprint" xml:space="preserve">
+    <value>Het project bevat te veel unieke objecten om een digitale vingerafdruk van te genereren.</value>
+  </data>
 </root>

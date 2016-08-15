@@ -181,7 +181,7 @@ namespace Application.Ringtoets.Storage
             }
             catch (QuotaExceededException e)
             {
-                throw new StorageException("Het project bevat te veel unieke objecten om een digitale vingerafdruk van te genereren.", e);
+                throw new StorageException(Resources.StorageSqLite_HasStagedProjectChanges_Project_contains_too_many_objects_to_generate_fingerprint, e);
             }
         }
 
