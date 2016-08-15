@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -67,6 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.AssessmentSection);
+                Assert.IsNull(view.ApplicationSelection);
             }
         }
 
@@ -98,6 +100,38 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void Data_HydraulicBoundaryDatabase_DataSet()
+        {
+            // Setup
+            using (var view = new HydraulicBoundaryLocationDesignWaterLevelsView())
+            {
+                var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+
+                // Call
+                view.Data = hydraulicBoundaryDatabase;
+
+                // Assert
+                Assert.AreSame(hydraulicBoundaryDatabase, view.Data);
+            }
+        }
+
+        [Test]
+        public void Data_OtherThanHydraulicBoundaryDatabase_DataNull()
+        {
+            // Setup
+            using (var view = new HydraulicBoundaryLocationDesignWaterLevelsView())
+            {
+                var data = new object();
+
+                // Call
+                view.Data = data;
+
+                // Assert
+                Assert.IsNull(view.Data);
+            }
+        }
+
+        [Test]
         public void HydraulicBoundaryLocationDesignWaterLevelsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
@@ -120,7 +154,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("1.23", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
             cells = rows[2].Cells;
             Assert.AreEqual(4, cells.Count);
@@ -128,6 +162,61 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual("NaN", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void HydraulicBoundaryLocationDesignWaterLevelsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
+        {
+            // Setup
+            HydraulicBoundaryLocationDesignWaterLevelsView view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
+            HydraulicBoundaryDatabase newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            newHydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
+            {
+                DesignWaterLevel = 10.23
+            });
+
+            // Precondition
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var rows = dataGridView.Rows;
+            Assert.AreEqual(3, rows.Count);
+
+            // Call
+            view.Data = newHydraulicBoundaryDatabase;
+
+            // Assert
+            Assert.AreEqual(1, rows.Count);
+            var cells = rows[0].Cells;
+            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
+            Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
+            Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
+            Assert.AreEqual(10.23.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void HydraulicBoundaryLocationDesignWaterLevelsView_AssessmentSectionUpdated_DataGridViewCorrectlyUpdated()
+        {
+            // Setup
+            HydraulicBoundaryLocationDesignWaterLevelsView view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
+            IAssessmentSection section = view.AssessmentSection;
+
+            // Precondition
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var rows = dataGridView.Rows;
+            Assert.AreEqual(3, rows.Count);
+            Assert.AreEqual("NaN", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("NaN", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+
+            // Call
+            section.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevel = double.NaN);
+            section.NotifyObservers();
+
+            // Assert
+            Assert.AreEqual(3, rows.Count);
+            Assert.AreEqual("NaN", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("NaN", rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("NaN", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -200,38 +289,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreSame(dataRow.HydraulicBoundaryLocation, ((DesignWaterLevelLocationContext) selection).WrappedData);
         }
 
-        [Test]
-        public void Data_HydraulicBoundaryDatabase_DataSet()
-        {
-            // Setup
-            using (var view = new HydraulicBoundaryLocationDesignWaterLevelsView())
-            {
-                var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
-
-                // Call
-                view.Data = hydraulicBoundaryDatabase;
-
-                // Assert
-                Assert.AreSame(hydraulicBoundaryDatabase, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanHydraulicBoundaryDatabase_DataNull()
-        {
-            // Setup
-            using (var view = new HydraulicBoundaryLocationDesignWaterLevelsView())
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
-        }
-
         private const int locationNameColumnIndex = 0;
         private const int locationIdColumnIndex = 1;
         private const int locationColumnIndex = 2;
@@ -260,43 +317,43 @@ namespace Ringtoets.Integration.Forms.Test.Views
             view.AssessmentSection = assessmentSection;
             return view;
         }
-    }
 
-    public class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
-    {
-        public TestHydraulicBoundaryDatabase()
+        private class TestHydraulicBoundaryDatabase : HydraulicBoundaryDatabase
         {
-            Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
-            Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+            public TestHydraulicBoundaryDatabase()
             {
-                DesignWaterLevel = 1.23
-            });
-            Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
-            {
-                WaveHeight = 2.45
-            });
-        }
-    }
-
-    public class TestAssessmentSection : Observable, IAssessmentSection
-    {
-        public string Comments { get; set; }
-        public long StorageId { get; set; }
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public AssessmentSectionComposition Composition { get; private set; }
-        public ReferenceLine ReferenceLine { get; set; }
-        public FailureMechanismContribution FailureMechanismContribution { get; private set; }
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
-
-        public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-        {
-            throw new NotImplementedException();
+                Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
+                Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+                {
+                    DesignWaterLevel = 1.23
+                });
+                Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
+                {
+                    WaveHeight = 2.45
+                });
+            }
         }
 
-        public void ChangeComposition(AssessmentSectionComposition newComposition)
+        private class TestAssessmentSection : Observable, IAssessmentSection
         {
-            throw new NotImplementedException();
+            public string Comments { get; set; }
+            public long StorageId { get; set; }
+            public string Id { get; set; }
+            public string Name { get; set; }
+            public AssessmentSectionComposition Composition { get; private set; }
+            public ReferenceLine ReferenceLine { get; set; }
+            public FailureMechanismContribution FailureMechanismContribution { get; private set; }
+            public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
+
+            public IEnumerable<IFailureMechanism> GetFailureMechanisms()
+            {
+                throw new NotImplementedException();
+            }
+
+            public void ChangeComposition(AssessmentSectionComposition newComposition)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

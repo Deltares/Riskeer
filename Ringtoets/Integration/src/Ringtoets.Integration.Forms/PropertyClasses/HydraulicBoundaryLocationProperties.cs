@@ -39,6 +39,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Gets the <see cref="HydraulicBoundaryLocation.Id"/>.
         /// </summary>
         [PropertyOrder(1)]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Id_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Id_Description")]
         public virtual long Id
@@ -53,6 +54,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Gets the <see cref="HydraulicBoundaryLocation.Name"/>.
         /// </summary>
         [PropertyOrder(2)]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Name_Description")]
         public virtual string Name
@@ -67,6 +69,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Gets the <see cref="HydraulicBoundaryLocation.Location"/>.
         /// </summary>
         [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Coordinates_Description")]
         public virtual Point2D Location

@@ -64,6 +64,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Gets the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
         /// </summary>
         [PropertyOrder(4)]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description")]
         public string DesignWaterLevel

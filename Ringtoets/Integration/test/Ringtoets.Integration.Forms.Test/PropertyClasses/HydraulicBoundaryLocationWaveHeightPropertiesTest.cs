@@ -104,6 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            const string expectedCategory = "Algemeen";
             const string expectedIdDisplayName = "ID";
             const string expectedNameDisplayName = "Naam";
             const string expectedLocationDisplayName = "Coördinaten [m]";
@@ -123,6 +124,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsNotNull(idProperty);
             Assert.IsTrue(idProperty.IsReadOnly);
             Assert.IsTrue(idProperty.IsBrowsable);
+            Assert.AreEqual(expectedCategory, idProperty.Category);
             Assert.AreEqual(expectedIdDisplayName, idProperty.DisplayName);
             Assert.AreEqual(expectedIdDescription, idProperty.Description);
             Assert.AreEqual(1, idProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
@@ -130,6 +132,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsNotNull(nameProperty);
             Assert.IsTrue(nameProperty.IsReadOnly);
             Assert.IsTrue(nameProperty.IsBrowsable);
+            Assert.AreEqual(expectedCategory, nameProperty.Category);
             Assert.AreEqual(expectedNameDisplayName, nameProperty.DisplayName);
             Assert.AreEqual(expectedNameDescription, nameProperty.Description);
             Assert.AreEqual(2, nameProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
@@ -137,6 +140,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsNotNull(locationProperty);
             Assert.IsTrue(locationProperty.IsReadOnly);
             Assert.IsTrue(locationProperty.IsBrowsable);
+            Assert.AreEqual(expectedCategory, locationProperty.Category);
             Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
             Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
             Assert.AreEqual(3, locationProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
@@ -144,6 +148,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsNotNull(waveHeightProperty);
             Assert.IsTrue(waveHeightProperty.IsReadOnly);
             Assert.IsTrue(waveHeightProperty.IsBrowsable);
+            Assert.AreEqual(expectedCategory, waveHeightProperty.Category);
             Assert.AreEqual(expectedWaveHeightDisplayName, waveHeightProperty.DisplayName);
             Assert.AreEqual(expectedWaveHeightDescription, waveHeightProperty.Description);
             Assert.AreEqual(4, waveHeightProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);

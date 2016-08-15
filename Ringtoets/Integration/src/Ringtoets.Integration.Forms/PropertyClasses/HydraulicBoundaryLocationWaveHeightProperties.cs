@@ -64,6 +64,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Gets the <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
         /// </summary>
         [PropertyOrder(4)]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_Description")]
         public string WaveHeight
