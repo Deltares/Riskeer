@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
 
-            DesignWaterLevelContext context = new DesignWaterLevelContext(assessmentSection);
+            DesignWaterLevelLocationsContext context = new DesignWaterLevelLocationsContext(assessmentSection);
 
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DesignWaterLevelContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DesignWaterLevelLocationsContext));
         }
     }
 }

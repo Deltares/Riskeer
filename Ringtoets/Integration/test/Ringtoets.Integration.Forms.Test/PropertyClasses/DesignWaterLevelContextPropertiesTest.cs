@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            DesignWaterLevelContext designWaterLevelContext = new DesignWaterLevelContext(assessmentSectionMock)
+            DesignWaterLevelLocationsContext designWaterLevelContext = new DesignWaterLevelLocationsContext(assessmentSectionMock)
             {
                 WrappedData =
                 {

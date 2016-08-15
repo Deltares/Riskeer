@@ -228,7 +228,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(2, objects.Length);
-                var designWaterLevelContext = (DesignWaterLevelContext)objects[0];
+                var designWaterLevelContext = (DesignWaterLevelLocationsContext)objects[0];
                 Assert.AreSame(assessmentSection, designWaterLevelContext.WrappedData);
 
                 var waveHeightContext = (WaveHeightContext)objects[1];

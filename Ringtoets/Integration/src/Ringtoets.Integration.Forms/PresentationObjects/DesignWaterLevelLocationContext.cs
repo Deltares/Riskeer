@@ -21,20 +21,20 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="DesignWaterLevelContext"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="DesignWaterLevelLocationContext"/>.
     /// </summary>
-    public class DesignWaterLevelContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    public class DesignWaterLevelLocationContext : ObservableWrappedObjectContextBase<HydraulicBoundaryLocation>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelContext"/>.
+        /// Creates a new instance of <see cref="DesignWaterLevelLocationsContext"/>.
         /// </summary>
-        /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the <see cref="DesignWaterLevelContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
-        public DesignWaterLevelContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) { }
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocation"/> which the <see cref="DesignWaterLevelLocationContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        public DesignWaterLevelLocationContext(HydraulicBoundaryLocation wrappedData) : base(wrappedData) {}
     }
 }

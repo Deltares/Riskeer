@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DesignWaterLevelContext), info.TagType);
+                Assert.AreEqual(typeof(DesignWaterLevelLocationsContext), info.TagType);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.IsChecked);
                 Assert.IsNull(info.OnNodeChecked);
@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new DesignWaterLevelContext(assessmentSectionMock);
+            var nodeData = new DesignWaterLevelLocationsContext(assessmentSectionMock);
 
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -154,7 +154,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var guiMock = mockRepository.StrictMock<IGui>();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new DesignWaterLevelContext(assessmentSectionMock);
+            var nodeData = new DesignWaterLevelLocationsContext(assessmentSectionMock);
 
             guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
@@ -191,7 +191,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var guiMock = mockRepository.StrictMock<IGui>();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new DesignWaterLevelContext(assessmentSectionMock);
+            var nodeData = new DesignWaterLevelLocationsContext(assessmentSectionMock);
             nodeData.WrappedData.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
@@ -249,7 +249,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
-            var designWaterLevelContext = new DesignWaterLevelContext(assessmentSectionMock);
+            var designWaterLevelContext = new DesignWaterLevelLocationsContext(assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -286,7 +286,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var designWaterLevelContext = new DesignWaterLevelContext(assessmentSectionMock);
+            var designWaterLevelContext = new DesignWaterLevelLocationsContext(assessmentSectionMock);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -309,7 +309,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             mockRepository.ReplayAll();
 
-            var designWaterLevelContext = new DesignWaterLevelContext(assessmentSectionMock);
+            var designWaterLevelContext = new DesignWaterLevelLocationsContext(assessmentSectionMock);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -326,7 +326,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DesignWaterLevelContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DesignWaterLevelLocationsContext));
         }
     }
 }

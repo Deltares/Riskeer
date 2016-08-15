@@ -31,6 +31,8 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     internal class HydraulicBoundaryLocationDesignWaterLevelRow
     {
+        private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationDesignWaterLevelRow"/>.
         /// </summary>
@@ -42,30 +44,60 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 throw new ArgumentNullException("hydraulicBoundaryLocation");
             }
-            Name = hydraulicBoundaryLocation.Name;
-            Id = hydraulicBoundaryLocation.Id;
-            Location = hydraulicBoundaryLocation.Location;
-            DesignWaterLevel = new RoundedDouble(2, hydraulicBoundaryLocation.DesignWaterLevel);
+
+            this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Name"/>.
+        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Name"/>.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Name;
+            }
+        }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Id"/>.
+        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Id"/>.
         /// </summary>
-        public long Id { get; private set; }
+        public long Id
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Id;
+            }
+        }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Location"/>.
+        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Location"/>.
         /// </summary>
-        public Point2D Location { get; private set; }
+        public Point2D Location
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Location;
+            }
+        }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
+        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.DesignWaterLevel"/>.
         /// </summary>
-        public RoundedDouble DesignWaterLevel { get; private set; }
+        public RoundedDouble DesignWaterLevel
+        {
+            get
+            {
+                return new RoundedDouble(2, hydraulicBoundaryLocation.DesignWaterLevel);
+            }
+        }
+
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get
+            {
+                return hydraulicBoundaryLocation;
+            }
+        }
     }
 }

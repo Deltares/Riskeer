@@ -240,7 +240,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(outputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(outputContextProperties.AfterCreate);
 
-                var designWaterLevelContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(DesignWaterLevelContext));
+                var designWaterLevelContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(DesignWaterLevelLocationsContext));
                 Assert.AreEqual(typeof(DesignWaterLevelContextProperties), designWaterLevelContextProperties.PropertyObjectType);
                 Assert.IsNull(designWaterLevelContextProperties.AdditionalDataCheck);
                 Assert.IsNotNull(designWaterLevelContextProperties.GetObjectPropertiesData);
@@ -288,7 +288,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismContributionIcon, contributionViewInfo.Image);
 
-                var designWaterLevelsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(DesignWaterLevelContext));
+                var designWaterLevelsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(DesignWaterLevelLocationsContext));
                 Assert.AreEqual(typeof(HydraulicBoundaryLocationDesignWaterLevelsView), designWaterLevelsViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, designWaterLevelsViewInfo.Image);
 
@@ -402,7 +402,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContributionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DesignWaterLevelContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DesignWaterLevelLocationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveHeightContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));

@@ -65,7 +65,7 @@
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
-    <Compile Include="PresentationObjects\DesignWaterLevelContextTest.cs" />
+    <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PresentationObjects\WaveHeightContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />

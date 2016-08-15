@@ -256,7 +256,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>();
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>();
-            yield return new PropertyInfo<DesignWaterLevelContext, DesignWaterLevelContextProperties>
+            yield return new PropertyInfo<DesignWaterLevelLocationsContext, DesignWaterLevelContextProperties>
             {
                 GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
             };
@@ -284,7 +284,7 @@ namespace Ringtoets.Integration.Plugin
                 }
             };
 
-            yield return new ViewInfo<DesignWaterLevelContext, HydraulicBoundaryDatabase, HydraulicBoundaryLocationDesignWaterLevelsView>
+            yield return new ViewInfo<DesignWaterLevelLocationsContext, HydraulicBoundaryDatabase, HydraulicBoundaryLocationDesignWaterLevelsView>
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
                 GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase,
@@ -477,7 +477,7 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<DesignWaterLevelContext>
+            yield return new TreeNodeInfo<DesignWaterLevelLocationsContext>
             {
                 Text = designWaterLevel => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
                 Image = designWaterLevel => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -1018,14 +1018,18 @@ namespace Ringtoets.Integration.Plugin
 
         private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
         {
+            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+            {
+                return new object[0];
+            }
             return new object[]
             {
-                new DesignWaterLevelContext(nodeData.WrappedData),
+                new DesignWaterLevelLocationsContext(nodeData.WrappedData),
                 new WaveHeightContext(nodeData.WrappedData)
             };
         }
 
-        private ContextMenuStrip DesignWaterLevelContextMenuStrip(DesignWaterLevelContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip DesignWaterLevelContextMenuStrip(DesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.DesignWaterLevel_Calculate,

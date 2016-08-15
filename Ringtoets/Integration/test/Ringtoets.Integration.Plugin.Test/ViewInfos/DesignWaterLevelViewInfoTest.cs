@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(DesignWaterLevelContext), dataType);
+            Assert.AreEqual(typeof(DesignWaterLevelLocationsContext), dataType);
         }
 
         [Test]
@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
-            var designWaterLevelContext = new DesignWaterLevelContext(assessmentSection);
+            var designWaterLevelContext = new DesignWaterLevelLocationsContext(assessmentSection);
 
             // Call
             var viewData = info.GetViewData(designWaterLevelContext);
@@ -202,7 +202,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            var context = new DesignWaterLevelContext(assessmentSection);
+            var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
             var view = new HydraulicBoundaryLocationDesignWaterLevelsView();
 

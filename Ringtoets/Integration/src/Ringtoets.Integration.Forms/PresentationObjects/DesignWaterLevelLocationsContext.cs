@@ -19,32 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
-using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Integration.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.Test.PresentationObjects
+namespace Ringtoets.Integration.Forms.PresentationObjects
 {
-    [TestFixture]
-    public class DesignWaterLevelContextTest
+    /// <summary>
+    /// Presentation object for all data required to configure an instance of <see cref="DesignWaterLevelLocationsContext"/>.
+    /// </summary>
+    public class DesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
-        [Test]
-        public void DefaultConstructor_ExpectedValues()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            var presentationObject = new DesignWaterLevelContext(assessmentSectionMock);
-
-            // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
-            Assert.AreSame(assessmentSectionMock, presentationObject.WrappedData);
-            mockRepository.VerifyAll();
-        }  
+        /// <summary>
+        /// Creates a new instance of <see cref="DesignWaterLevelLocationsContext"/>.
+        /// </summary>
+        /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the <see cref="DesignWaterLevelLocationsContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
+        public DesignWaterLevelLocationsContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
     }
 }
