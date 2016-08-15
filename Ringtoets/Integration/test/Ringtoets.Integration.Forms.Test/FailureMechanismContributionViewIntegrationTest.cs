@@ -155,7 +155,6 @@ namespace Ringtoets.Integration.Forms.Test
         {
             // Setup
             const int normValue = 200;
-            const int numberOfCalculations = 3;
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
@@ -216,11 +215,8 @@ namespace Ringtoets.Integration.Forms.Test
                 Action call = () => normTester.Properties.Text = normValue.ToString();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, msgs =>
-                {
-                    string[] messages = msgs.ToArray();
-                    Assert.AreEqual(Resources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared, messages[0]);
-                });
+                TestHelper.AssertLogMessageIsGenerated(call, Resources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared, 1);
+
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
@@ -309,11 +305,10 @@ namespace Ringtoets.Integration.Forms.Test
                 Action call = () => normTester.Properties.Text = normValue.ToString();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, msgs =>
-                {
-                    string[] messages = msgs.ToArray();
-                    Assert.AreEqual(string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared, numberOfCalculations), messages[0]);
-                });
+                string expectedMessage = string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared,
+                                                       numberOfCalculations);
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+                
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNull(pipingCalculation.Output);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -395,11 +390,10 @@ namespace Ringtoets.Integration.Forms.Test
                 Action call = () => normTester.Properties.Text = normValue.ToString();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, msgs =>
-                {
-                    string[] messages = msgs.ToArray();
-                    Assert.AreEqual(string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared, numberOfCalculations), messages[0]);
-                });
+                string expectedMessage = string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared,
+                                                       numberOfCalculations);
+                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNull(pipingCalculation.Output);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);

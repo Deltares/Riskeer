@@ -30,6 +30,7 @@ using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Service;
@@ -285,8 +286,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void ClearAssessmentSectionData()
         {
-            var affectedCalculations = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToArray();
-
+            ICalculation[] affectedCalculations = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToArray();
             if (affectedCalculations.Length > 0)
             {
                 affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
@@ -295,8 +295,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)
             {
-                var hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase);
-
+                bool hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase);
                 if (hydraulicBoundaryLocationAffected)
                 {
                     assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
