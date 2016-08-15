@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithPersistenceRegistryAndDesignWaterLevel_ReturnsHydraulicBoundaryLocationEntityWithDesignWaterLevelSet()
+        public void Create_WithPersistenceRegistryAndInitializer_ReturnsHydraulicBoundaryLocationEntityWithDesignWaterLevelSet()
         {
             // Setup
             var random = new Random(21);
@@ -99,7 +99,9 @@ namespace Application.Ringtoets.Storage.Test.Create
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
                 DesignWaterLevel = waterLevel,
-                WaveHeight = waveHeight
+                WaveHeight = waveHeight,
+                DesignWaterLevelCalculationConvergence = true,
+                WaveHeightCalculationConvergence = true
             };
             var registry = new PersistenceRegistry();
 
@@ -110,6 +112,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity);
             Assert.AreEqual(waterLevel, entity.DesignWaterLevel);
             Assert.AreEqual(waveHeight, entity.WaveHeight);
+            Assert.AreEqual(Convert.ToByte(true), entity.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(Convert.ToByte(true), entity.WaveHeightCalculationConvergence);
         }
 
         [Test]

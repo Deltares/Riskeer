@@ -639,7 +639,9 @@ namespace Application.Ringtoets.Storage.TestUtil
             };
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
             {
-                DesignWaterLevel = 12.4
+                DesignWaterLevel = 12.4,
+                DesignWaterLevelCalculationConvergence = true,
+                WaveHeightCalculationConvergence = true
             });
 
             return hydraulicBoundaryDatabase;

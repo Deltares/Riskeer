@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using Core.Common.Utils;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -35,6 +36,8 @@ namespace Ringtoets.Integration.Service
     /// </summary>
     public class WaveHeightCalculationActivity : HydraRingActivity<TargetProbabilityCalculationOutput>
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(WaveHeightCalculationActivity));
+
         private readonly IAssessmentSection assessmentSection;
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
 
@@ -83,9 +86,13 @@ namespace Ringtoets.Integration.Service
             PerformFinish(() =>
             {
                 hydraulicBoundaryLocation.WaveHeight = Output.Result;
-                var waveHeightCalculationConvergence = Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
-                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = 
-                    waveHeightCalculationConvergence;
+                bool waveHeightCalculationConvergence =
+                    Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
+                if (!waveHeightCalculationConvergence)
+                {
+                    log.WarnFormat("Golfhoogte berekening voor locatie {0} is is niet geconvergeerd.", hydraulicBoundaryLocation.Name);
+                }
+                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = waveHeightCalculationConvergence;
             });
             hydraulicBoundaryLocation.NotifyObservers();
         }

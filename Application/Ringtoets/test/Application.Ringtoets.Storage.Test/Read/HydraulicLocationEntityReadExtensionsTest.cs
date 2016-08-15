@@ -61,7 +61,9 @@ namespace Application.Ringtoets.Storage.Test.Read
                 LocationId = testId,
                 Name = testName,
                 LocationX = x,
-                LocationY = y
+                LocationY = y,
+                DesignWaterLevelCalculationConvergence = Convert.ToByte(true),
+                WaveHeightCalculationConvergence = Convert.ToByte(true)
             };
 
             var collector = new ReadConversionCollector();
@@ -78,6 +80,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(y, location.Location.Y, 1e-6);
             Assert.IsNaN(location.DesignWaterLevel);
             Assert.IsNaN(location.WaveHeight);
+            Assert.IsTrue(location.DesignWaterLevelCalculationConvergence);
+            Assert.IsTrue(location.WaveHeightCalculationConvergence);
         } 
 
         [Test]

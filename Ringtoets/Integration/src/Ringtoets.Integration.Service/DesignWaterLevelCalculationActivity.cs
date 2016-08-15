@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using Core.Common.Utils;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -35,6 +36,8 @@ namespace Ringtoets.Integration.Service
     /// </summary>
     public class DesignWaterLevelCalculationActivity : HydraRingActivity<TargetProbabilityCalculationOutput>
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationActivity));
+
         private readonly IAssessmentSection assessmentSection;
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
 
@@ -83,8 +86,13 @@ namespace Ringtoets.Integration.Service
             PerformFinish(() =>
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = Output.Result;
-                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = 
+                bool designWaterLevelCalculationConvergence = 
                     Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
+                if (!designWaterLevelCalculationConvergence)
+                {
+                    log.WarnFormat("Toetspeil berekening voor locatie {0} is niet geconvergeerd.", hydraulicBoundaryLocation.Name);
+                }
+                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = designWaterLevelCalculationConvergence;
             });
         }
     }

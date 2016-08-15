@@ -704,6 +704,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevel, actualBoundaryLocation.DesignWaterLevel);
             Assert.AreEqual(expectedBoundaryLocation.WaveHeight, actualBoundaryLocation.WaveHeight);
             Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
+            Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevelCalculationConvergence,
+                            actualBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(expectedBoundaryLocation.WaveHeightCalculationConvergence,
+                            actualBoundaryLocation.WaveHeightCalculationConvergence);
         }
 
         private static void AssertReferenceLine(ReferenceLine expectedReferenceLine, ReferenceLine actualReferenceLine)

@@ -51,6 +51,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> DesignWaterLevel { get; set; }
         public Nullable<double> WaveHeight { get; set; }
         public int Order { get; set; }
+        public byte DesignWaterLevelCalculationConvergence { get; set; }
+        public byte WaveHeightCalculationConvergence { get; set; }
     
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

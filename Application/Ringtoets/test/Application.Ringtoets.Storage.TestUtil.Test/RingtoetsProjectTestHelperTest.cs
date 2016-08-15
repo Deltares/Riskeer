@@ -71,6 +71,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(locationX, hydraulicBoundaryLocation.Location.X);
             Assert.AreEqual(locationY, hydraulicBoundaryLocation.Location.Y);
             Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.PipingFailureMechanism;
             Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
