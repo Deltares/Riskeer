@@ -1318,7 +1318,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Berekeningen map &leegmaken...", toolStripItem.Text);
-            Assert.AreEqual("Er zijn geen groepen of berekeningen om te verwijderen.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Er zijn geen berekeningen of mappen om te verwijderen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.RemoveAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
         }
@@ -1364,7 +1364,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             DialogBoxHandler = (name, wnd) =>
             {
                 var dialog = new MessageBoxTester(wnd);
-                Assert.AreEqual("Weet u zeker dat u alles binnen deze groep wilt verwijderen?", dialog.Text);
+                Assert.AreEqual("Weet u zeker dat u alles binnen deze Berekeningen map wilt verwijderen?", dialog.Text);
                 dialog.ClickCancel();
             };
 
@@ -1393,7 +1393,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             DialogBoxHandler = (name, wnd) =>
             {
                 var dialog = new MessageBoxTester(wnd);
-                Assert.AreEqual("Weet u zeker dat u alles binnen deze groep wilt verwijderen?", dialog.Text);
+                Assert.AreEqual("Weet u zeker dat u alles binnen deze Berekeningen map wilt verwijderen?", dialog.Text);
                 dialog.ClickOk();
             };
 

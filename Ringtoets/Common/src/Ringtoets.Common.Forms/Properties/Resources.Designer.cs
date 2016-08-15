@@ -226,7 +226,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weet u zeker dat u alles binnen deze groep wilt verwijderen?.
+        ///   Looks up a localized string similar to Weet u zeker dat u alles binnen deze Berekeningen map wilt verwijderen?.
         /// </summary>
         public static string CalculationGroup_RemoveAllChildrenFromGroup_Are_you_sure_you_want_to_remove_everything_from_this_group {
             get {
@@ -236,7 +236,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen groepen of berekeningen om te verwijderen..
+        ///   Looks up a localized string similar to Er zijn geen berekeningen of mappen om te verwijderen..
         /// </summary>
         public static string CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove {
             get {
