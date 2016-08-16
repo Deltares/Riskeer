@@ -132,7 +132,7 @@ namespace Core.Common.Controls.TextEditor
             richTextBox.SelectionFont = CreateFontWithToggledStyle(richTextBox.SelectionFont, newFontStyle);
         }
 
-        private Font CreateFontWithToggledStyle(Font originalFont, FontStyle newFontStyle)
+        private static Font CreateFontWithToggledStyle(Font originalFont, FontStyle newFontStyle)
         {
             FontStyle newStyle = originalFont.Style ^ newFontStyle;
             return new Font(originalFont, newStyle);

@@ -320,7 +320,7 @@ namespace Core.Common.Controls.DataGrid
             SetCellStyle(cell, CellStyle.Disabled);
         }
 
-        private void SetCellStyle(DataGridViewCell cell, CellStyle style)
+        private static void SetCellStyle(DataGridViewCell cell, CellStyle style)
         {
             cell.Style.BackColor = style.BackgroundColor;
             cell.Style.ForeColor = style.TextColor;

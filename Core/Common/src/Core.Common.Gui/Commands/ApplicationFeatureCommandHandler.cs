@@ -77,7 +77,7 @@ namespace Core.Common.Gui.Commands
             TryOpenLogFileExternal(fileAppender.File);
         }
 
-        private void TryOpenLogFileExternal(string logFile)
+        private static void TryOpenLogFileExternal(string logFile)
         {
             var logFolderPath = Path.GetDirectoryName(logFile);
 

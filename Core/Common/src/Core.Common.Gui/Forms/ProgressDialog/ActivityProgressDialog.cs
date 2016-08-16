@@ -38,8 +38,6 @@ namespace Core.Common.Gui.Forms.ProgressDialog
     /// </summary>
     public partial class ActivityProgressDialog : DialogBase
     {
-        private const int maximumNumberOfProgressTextCharacters = 80;
-
         private Task task;
         private Activity runningActivity;
         private readonly IEnumerable<Activity> activities;
@@ -197,11 +195,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 labelActivityProgressText.Visible = !progressTextNullOrEmpty;
 
                 // Update the activity progress text label
-                labelActivityProgressText.Text = !progressTextNullOrEmpty
-                                                     ? activity.ProgressText.Length <= maximumNumberOfProgressTextCharacters
-                                                           ? activity.ProgressText
-                                                           : activity.ProgressText.Substring(0, maximumNumberOfProgressTextCharacters) + "..."
-                                                     : "";
+                labelActivityProgressText.Text = progressTextNullOrEmpty ? string.Empty : activity.ProgressText;
             });
         }
     }
