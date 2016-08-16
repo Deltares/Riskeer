@@ -265,8 +265,8 @@
   <data name="SelectItemDialog_buttonOk_Click_Error" xml:space="preserve">
     <value>Fout</value>
   </data>
-  <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from" xml:space="preserve">
-    <value>Selecteer een bestand met {0} om eruit te importeren...</value>
+  <data name="OpenFileDialog_Title" xml:space="preserve">
+    <value>Openen</value>
   </data>
   <data name="StorageCommandHandler_NewProject_Creating_new_project" xml:space="preserve">
     <value>Openen van nieuw Ringtoetsproject.</value>

@@ -110,8 +110,7 @@ namespace Core.Common.Gui.Commands
             using (var openFileDialog = new OpenFileDialog
             {
                 Filter = projectPersistor.FileFilter,
-                FilterIndex = 1,
-                RestoreDirectory = true
+                Title = Resources.OpenFileDialog_Title
             })
             {
                 if (openFileDialog.ShowDialog(dialogParent) != DialogResult.Cancel && ContinueIfHasChanges())

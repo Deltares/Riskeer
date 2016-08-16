@@ -110,14 +110,11 @@ namespace Core.Common.Gui.Commands
 
         private void ImportItemsUsingFileOpenDialog(IFileImporter importer, object target)
         {
-            var windowTitle = string.Format(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from, importer.Name);
-
             using (var dialog = new OpenFileDialog
             {
-                Filter = importer.FileFilter,
                 Multiselect = true,
-                Title = windowTitle,
-                RestoreDirectory = true
+                Filter = importer.FileFilter,
+                Title = Resources.OpenFileDialog_Title
             })
             {
                 if (dialog.ShowDialog(dialogParent) == DialogResult.OK)

@@ -1132,14 +1132,10 @@ namespace Ringtoets.Integration.Plugin
 
         private void SelectDatabaseFile(IAssessmentSection assessmentSection)
         {
-            var windowTitle = RingtoetsFormsResources.SelectHydraulicBoundaryDatabaseFile_Title;
             using (var dialog = new OpenFileDialog
             {
                 Filter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsFormsResources.SelectHydraulicBoundaryDatabaseFile_FilterName),
-                Multiselect = false,
-                Title = windowTitle,
-                RestoreDirectory = true,
-                CheckFileExists = false
+                Title = GuiResources.OpenFileDialog_Title
             })
             {
                 if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)

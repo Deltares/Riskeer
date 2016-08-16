@@ -187,14 +187,10 @@ namespace Core.Plugins.Map.Legend
 
         private void ShowSelectShapeFileDialog(MapDataCollection mapDataCollection)
         {
-            var windowTitle = MapResources.MapLegendView_ShowSelectShapeFileDialog_Select_Shape_File;
             using (var dialog = new OpenFileDialog
             {
                 Filter = string.Format("{0} (*.shp)|*.shp", MapResources.MapLegendView_ShowSelectShapeFileDialog_Shape_file),
-                Multiselect = false,
-                Title = windowTitle,
-                RestoreDirectory = true,
-                CheckFileExists = false
+                Title = GuiResources.OpenFileDialog_Title
             })
             {
                 if (dialog.ShowDialog(parentWindow) == DialogResult.OK)

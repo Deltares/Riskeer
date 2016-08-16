@@ -703,15 +703,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer database.
-        /// </summary>
-        public static string SelectHydraulicBoundaryDatabaseFile_Title {
-            get {
-                return ResourceManager.GetString("SelectHydraulicBoundaryDatabaseFile_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &amp;Berekenen.
         /// </summary>
         public static string WaveHeight_Calculate {

@@ -767,16 +767,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer een bestand met {0} om eruit te importeren....
-        /// </summary>
-        public static string GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_import_from {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_DataType_0_file_to_" +
-                        "import_from", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Begonnen met het importeren van gegevens..
         /// </summary>
         public static string GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data {
@@ -943,6 +933,15 @@ namespace Core.Common.Gui.Properties {
         public static string Open_ToolTip {
             get {
                 return ResourceManager.GetString("Open_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Openen.
+        /// </summary>
+        public static string OpenFileDialog_Title {
+            get {
+                return ResourceManager.GetString("OpenFileDialog_Title", resourceCulture);
             }
         }
         
