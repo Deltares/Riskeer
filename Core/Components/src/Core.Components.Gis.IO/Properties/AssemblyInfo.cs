@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
@@ -27,6 +28,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("Core.Components.Gis.IO")]
 [assembly: AssemblyProduct("Core.Components.Gis.IO")]
+[assembly: InternalsVisibleTo("Core.Components.Gis.IO.Test")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("FD264FAD-E6F9-47CC-97CD-770199A8E629")]

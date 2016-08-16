@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         {
             get
             {
-                return string.Format(RingtoetsCommonIOResources.DataTypeDisplayName_0_shape_file_filter, Name);
+                return string.Format(RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter, Name);
             }
         }
 

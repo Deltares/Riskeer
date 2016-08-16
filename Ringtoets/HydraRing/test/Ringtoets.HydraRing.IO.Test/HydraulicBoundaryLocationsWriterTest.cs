@@ -32,7 +32,7 @@ namespace Ringtoets.HydraRing.IO.Test
     public class HydraulicBoundaryLocationsWriterTest
     {
         [Test]
-        public void WriteHydraulicBoundaryLocations_NullhydraulicBoundaryLocations_ThrowArgumentNullException()
+        public void WriteHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
@@ -49,7 +49,7 @@ namespace Ringtoets.HydraRing.IO.Test
         }
 
         [Test]
-        public void WriteHydraulicBoundaryLocations_NullFilePath_ThrowArgumentNullException()
+        public void WriteHydraulicBoundaryLocations_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
@@ -84,9 +84,9 @@ namespace Ringtoets.HydraRing.IO.Test
             // Precondition
             AssertEssentialShapefileExists(directoryPath, baseName, false);
 
-            // Call
             try
             {
+                // Call
                 writer.WriteHydraulicBoundaryLocations(new[] { hydraulicBoundaryLocation }, filePath);
 
                 // Assert

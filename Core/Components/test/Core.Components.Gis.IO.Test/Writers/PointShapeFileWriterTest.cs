@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.IO.Properties;
 using Core.Components.Gis.IO.Writers;
 using NUnit.Framework;
 
@@ -44,6 +45,66 @@ namespace Core.Components.Gis.IO.Test.Writers
             {
                 // Assert
                 Assert.IsInstanceOf<ShapeFileWriterBase>(writer);
+            }
+        }
+
+        [Test]
+        public void CopyToFeature_FeatureContainsNoGeometries_ThrowsArgumentException()
+        {
+            // Setup
+            MapFeature feature = new MapFeature(new MapGeometry[0]);
+
+            MapPointData mapData = new MapPointData("test")
+            {
+                Features = new[]
+                {
+                    feature
+                }
+            };
+
+            using (var writer = new PointShapeFileWriter())
+            {
+                // Call
+                TestDelegate call = () => writer.CopyToFeature(mapData);
+
+                // Assert
+                var expectedMessage = Resources.PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry;
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            }
+        }
+
+        [Test]
+        public void CopyToFeature_FeatureContainsMultipleGeometries_ThrowsArgumentException()
+        {
+            // Setup
+            MapFeature feature = new MapFeature(new[]
+            {
+                new MapGeometry(new[]
+                {
+                    Enumerable.Empty<Point2D>()
+                }),
+                new MapGeometry(new[]
+                {
+                    Enumerable.Empty<Point2D>()
+                }),
+            });
+
+            MapPointData mapData = new MapPointData("test")
+            {
+                Features = new[]
+                {
+                    feature
+                }
+            };
+
+            using (var writer = new PointShapeFileWriter())
+            {
+                // Call
+                TestDelegate call = () => writer.CopyToFeature(mapData);
+
+                // Assert
+                var expectedMessage = Resources.PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry;
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
             }
         }
 
@@ -75,7 +136,8 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate call = () => writer.CopyToFeature(mapPointData2);
 
                 // Assert
-                Assert.Throws<ArgumentException>(call);
+                var message = "Column 'anotherKey' does not belong to table .";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message);
             }
         }
 

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, GeneratedVersion=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, GeneratedVersion=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Error_HydraulicBoundaryLocation_read_from_database" xml:space="preserve">
     <value>Kon geen locaties verkrijgen van de database.</value>
@@ -128,8 +128,5 @@
   </data>
   <data name="HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception" xml:space="preserve">
     <value>Het bevragen van de database is mislukt.</value>
-  </data>
-  <data name="HydraulicBoundaryLocationsExporter_Error_0_no_HydraulicBoundaryLocations_exported" xml:space="preserve">
-    <value>{0}Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.</value>
   </data>
 </root>

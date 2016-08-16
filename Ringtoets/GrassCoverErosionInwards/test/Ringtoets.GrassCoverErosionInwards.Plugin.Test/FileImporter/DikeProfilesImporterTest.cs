@@ -37,6 +37,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
+using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
 {
@@ -64,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             Assert.AreEqual("Dijkprofiel locaties", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
             TestHelper.AssertImagesAreEqual(GrassCoverErosionInwardsPluginResources.DikeProfile, importer.Image);
-            Assert.AreEqual("Dijkprofiel locaties shapebestand (*.shp)|*.shp", importer.FileFilter);
+            Assert.AreEqual(RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter, importer.FileFilter);
         }
 
         [Test]

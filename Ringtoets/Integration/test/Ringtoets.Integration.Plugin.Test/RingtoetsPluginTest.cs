@@ -272,9 +272,13 @@ namespace Ringtoets.Integration.Plugin.Test
                 // Assert
                 Assert.AreEqual(2, exportInfos.Length);
                 var referenceLineExportInfo = exportInfos.Single(ei => ei.DataType == typeof(ReferenceLineContext));
-                Assert.AreEqual("Referentielijn shapebestand (*.shp)|*.shp", referenceLineExportInfo.FileFilter);
+                Assert.IsNull(referenceLineExportInfo.Name);
+                Assert.IsNull(referenceLineExportInfo.Image);
+                Assert.IsNull(referenceLineExportInfo.Category);
                 var hydraulicBoundaryExportInfo = exportInfos.Single(ei => ei.DataType == typeof(HydraulicBoundaryDatabaseContext));
-                Assert.AreEqual("Hydraulische randvoorwaarden shapebestand (*.shp)|*.shp", hydraulicBoundaryExportInfo.FileFilter);
+                Assert.IsNull(hydraulicBoundaryExportInfo.Name);
+                Assert.IsNull(hydraulicBoundaryExportInfo.Image);
+                Assert.IsNull(hydraulicBoundaryExportInfo.Category);
             }
         }
 

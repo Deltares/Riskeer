@@ -106,6 +106,7 @@ namespace Core.Components.Gis.Test.Data
         [TestCase(0)]
         [TestCase(2)]
         [TestCase(7)]
+        [TestCase(null)]
         public void Features_SetInvalidValue_ThrowsArgumentException(int numberOfPointCollections)
         {
             // Setup

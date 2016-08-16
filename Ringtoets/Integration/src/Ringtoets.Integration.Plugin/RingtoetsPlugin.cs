@@ -297,7 +297,7 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = CloseHydraulicBoundaryLocationsViewForData,
                 AfterCreate = (view, context) =>
                 {
-                    view.ApplicationSelection = Gui; 
+                    view.ApplicationSelection = Gui;
                     view.AssessmentSection = context.WrappedData;
                 }
             };
@@ -375,14 +375,14 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData.ReferenceLine, context.WrappedData.Id, filePath),
                 IsEnabled = context => context.WrappedData.ReferenceLine != null,
-                FileFilter = string.Format(RingtoetsCommonIoResources.DataTypeDisplayName_0_shape_file_filter, "Referentielijn")
+                FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };
 
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath),
                 IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase != null,
-                FileFilter = string.Format(RingtoetsCommonIoResources.DataTypeDisplayName_0_shape_file_filter, "Hydraulische randvoorwaarden")
+                FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };
         }
 

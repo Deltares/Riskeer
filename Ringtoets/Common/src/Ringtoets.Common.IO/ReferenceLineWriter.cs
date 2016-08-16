@@ -28,6 +28,8 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Writers;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.IO
 {
@@ -74,20 +76,22 @@ namespace Ringtoets.Common.IO
         /// <returns>A new instance of <see cref="MapLineData"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> or <paramref name="id"/> 
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is empty or consists of whitespace.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is empty or consists only of whitespace.</exception>
         private static MapLineData CreateMapLineData(ReferenceLine referenceLine, string id)
         {
             if (referenceLine == null)
             {
                 throw new ArgumentNullException("referenceLine");
             }
+
             if (id == null)
             {
                 throw new ArgumentNullException("id");
             }
+
             if (string.IsNullOrWhiteSpace(id))
             {
-                throw new ArgumentException("id");
+                throw new ArgumentException(Resources.ReferenceLineWriter_CreateMapLineData_Traject_cannot_be_empty, "id");
             }
 
             MapGeometry referenceLineGeometry = new MapGeometry(
@@ -101,9 +105,9 @@ namespace Ringtoets.Common.IO
                 referenceLineGeometry
             });
 
-            mapFeature.MetaData.Add("TRAJECT_ID", id);
+            mapFeature.MetaData.Add(Resources.ReferenceLineWriter_CreateMapLineData_Traject_id, id);
 
-            return new MapLineData("referentielijn")
+            return new MapLineData(RingtoetsCommonDataResources.ReferenceLine_DisplayName)
             {
                 Features = new[]
                 {

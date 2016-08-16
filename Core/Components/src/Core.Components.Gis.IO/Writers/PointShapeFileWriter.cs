@@ -19,11 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
+using Core.Components.Gis.IO.Properties;
 using DotSpatial.Data;
 using DotSpatial.Topology;
 
@@ -47,6 +49,11 @@ namespace Core.Components.Gis.IO.Writers
 
         protected override IFeature AddFeature(MapFeature mapFeature)
         {
+            if (mapFeature == null)
+            {
+                throw new ArgumentNullException("mapFeature");
+            }
+
             Point point = CreatePointFromMapFeature(mapFeature);
 
             return ShapeFile.AddFeature(point);
@@ -54,6 +61,11 @@ namespace Core.Components.Gis.IO.Writers
 
         private static Point CreatePointFromMapFeature(MapFeature mapFeature)
         {
+            if (mapFeature.MapGeometries.Count() != 1)
+            {
+                throw new ArgumentException(Resources.PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry);
+            }
+
             MapGeometry geometry = mapFeature.MapGeometries.First();
 
             IEnumerable<Point2D> mapGeometryPointCollection = geometry.PointCollections.First();

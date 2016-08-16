@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Components.Gis.Data;
@@ -58,10 +59,8 @@ namespace Ringtoets.HydraRing.IO
 
             var pointShapeFileWriter = new PointShapeFileWriter();
 
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
+            foreach (var mapLineData in hydraulicBoundaryLocations.Select(CreateMapPointData)) 
             {
-                var mapLineData = CreateMapPointData(hydraulicBoundaryLocation);
-
                 pointShapeFileWriter.CopyToFeature(mapLineData);
             }
 

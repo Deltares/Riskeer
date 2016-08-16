@@ -35,6 +35,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Plugin.FileImporters;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters
 {
@@ -44,8 +45,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var importer = new FailureMechanismSectionsImporter();
 
@@ -54,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreEqual("Vakindeling", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.Sections, importer.Image);
-            Assert.AreEqual("Vakindeling shapebestand (*.shp)|*.shp", importer.FileFilter);
+            Assert.AreEqual(RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter, importer.FileFilter);
         }
 
         [Test]

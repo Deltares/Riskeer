@@ -27,7 +27,7 @@ using Core.Common.Utils;
 using log4net;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.HydraRing.IO.Properties;
+using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.FileExporters
 {
@@ -46,9 +46,15 @@ namespace Ringtoets.Integration.Plugin.FileExporters
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public HydraulicBoundaryLocationsExporter(ICollection<HydraulicBoundaryLocation> hydraulicBoundaryLocations, string filePath)
         {
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException("hydraulicBoundaryLocations");
+            }
+
             FileUtils.ValidateFilePath(filePath);
 
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
@@ -65,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.FileExporters
             }
             catch (CriticalFileWriteException e)
             {
-                log.Error(string.Format(Resources.HydraulicBoundaryLocationsExporter_Error_0_no_HydraulicBoundaryLocations_exported, e.Message));
+                log.ErrorFormat(Resources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
                 return false;
             }
 

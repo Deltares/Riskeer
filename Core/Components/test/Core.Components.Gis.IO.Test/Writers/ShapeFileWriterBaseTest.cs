@@ -24,7 +24,9 @@ using System.IO;
 using System.Security.AccessControl;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
+using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.IO.Properties;
 using Core.Components.Gis.IO.Writers;
 using DotSpatial.Data;
 using NUnit.Framework;
@@ -42,6 +44,59 @@ namespace Core.Components.Gis.IO.Test.Writers
             {
                 // Assert
                 Assert.IsInstanceOf<IDisposable>(writer);
+            }
+        }
+
+        [Test]
+        public void CopyToFeature_MapDataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            using (var writer = new TestShapeFileWriterBase())
+            {
+                // Call
+                TestDelegate test = () => writer.CopyToFeature(null);
+
+                // Assert
+                var excpetion = Assert.Throws<ArgumentNullException>(test);
+                Assert.AreEqual("mapData", excpetion.ParamName);
+            }
+        }
+
+        [Test]
+        public void CopyToFeature_MapFeaturesEmpty_ThrowsArgumentException()
+        {
+            // Setup
+            using (var writer = new TestShapeFileWriterBase())
+            {
+                // Call
+                TestDelegate test = () => writer.CopyToFeature(new MapLineData("test"));
+
+                // Assert
+                var expectedMessage = Resources.ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature;
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            }
+        }
+
+        [Test]
+        public void CopyToFeature_MapFeatureNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            MapPointData mapData = new MapPointData("test")
+            {
+                Features = new MapFeature[]
+                {
+                    null
+                }
+            };
+
+            using (var writer = new TestShapeFileWriterBase())
+            {
+                // Call
+                TestDelegate call = () => writer.CopyToFeature(mapData);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(call);
+                Assert.AreEqual("mapFeature", exception.ParamName);
             }
         }
 
@@ -110,17 +165,15 @@ namespace Core.Components.Gis.IO.Test.Writers
             try
             {
                 using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
+                using (var writer = new TestShapeFileWriterBase())
                 {
-                    using (var writer = new TestShapeFileWriterBase())
-                    {
-                        // Call
-                        TestDelegate call = () => writer.SaveAs(filePath);
+                    // Call
+                    TestDelegate call = () => writer.SaveAs(filePath);
 
-                        // Assert
-                        var expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand: {0}", filePath);
-                        var message = Assert.Throws<CriticalFileWriteException>(call).Message;
-                        Assert.AreEqual(expectedMessage, message);
-                    }
+                    // Assert
+                    var expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand: {0}", filePath);
+                    var message = Assert.Throws<CriticalFileWriteException>(call).Message;
+                    Assert.AreEqual(expectedMessage, message);
                 }
             }
             finally
@@ -133,7 +186,7 @@ namespace Core.Components.Gis.IO.Test.Writers
         {
             protected override IFeature AddFeature(MapFeature mapFeature)
             {
-                return null;
+                throw new NotImplementedException();
             }
         }
     }

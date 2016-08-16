@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using Core.Components.Gis.Style;
 
 namespace Core.Components.Gis.Data
@@ -65,7 +66,8 @@ namespace Core.Components.Gis.Data
 
         private static bool HasFeatureWithMultiplePointCollections(IEnumerable<MapFeature> pointFeatures)
         {
-            return pointFeatures.SelectMany(feature => feature.MapGeometries)
+            return pointFeatures.Where(feature => feature != null)
+                                .SelectMany(feature => feature.MapGeometries)
                                 .Any(geometry => geometry.PointCollections.Count() != 1);
         }
     }

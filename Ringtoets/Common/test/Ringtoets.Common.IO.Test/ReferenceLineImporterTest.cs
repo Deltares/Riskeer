@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Common.IO.Test
 {
@@ -51,7 +52,7 @@ namespace Ringtoets.Common.IO.Test
             Assert.AreEqual("Referentielijn", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ReferenceLineIcon, importer.Image);
-            Assert.AreEqual("Referentielijn shapebestand (*.shp)|*.shp", importer.FileFilter);
+            Assert.AreEqual(RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter, importer.FileFilter);
         }
 
         [Test]

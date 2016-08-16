@@ -153,8 +153,8 @@ Er is geen referentielijn geïmporteerd.</value>
   <data name="ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output" xml:space="preserve">
     <value>Verwijderen uitvoer van hydraulische randvoorwaarden.</value>
   </data>
-  <data name="DataTypeDisplayName_0_shape_file_filter" xml:space="preserve">
-    <value>{0} shapebestand (*.shp)|*.shp</value>
+  <data name="DataTypeDisplayName_shape_file_filter" xml:space="preserve">
+    <value>ESRI Shapefile (*.shp)|*.shp</value>
   </data>
   <data name="ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_" xml:space="preserve">
     <value>Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.</value>
@@ -184,5 +184,11 @@ Er is geen referentielijn geïmporteerd.</value>
   <data name="ReferenceLineExporter_Error_0_no_ReferenceLine_exported" xml:space="preserve">
     <value>{0}
 Er is geen referentielijn geëxporteerd.</value>
+  </data>
+  <data name="ReferenceLineWriter_CreateMapLineData_Traject_id" xml:space="preserve">
+    <value>TRAJECT_ID</value>
+  </data>
+  <data name="ReferenceLineWriter_CreateMapLineData_Traject_cannot_be_empty" xml:space="preserve">
+    <value>Traject id mag niet leeg zijn.</value>
   </data>
 </root>

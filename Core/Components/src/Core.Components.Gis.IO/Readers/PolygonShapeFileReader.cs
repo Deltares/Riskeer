@@ -69,7 +69,7 @@ namespace Core.Components.Gis.IO.Readers
             }
             catch (IOException exception)
             {
-                var message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilsResources.Error_General_IO_ErrorMessage);
+                var message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);
                 throw new CriticalFileReadException(message, exception);
             }
         }

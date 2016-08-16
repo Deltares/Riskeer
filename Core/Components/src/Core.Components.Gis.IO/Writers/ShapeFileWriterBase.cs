@@ -27,6 +27,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.IO.Properties;
 using DotSpatial.Data;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -44,16 +45,29 @@ namespace Core.Components.Gis.IO.Writers
         /// Creates a new feature from <paramref name="mapData"/> and adds it to the in-memory shapefile.
         /// </summary>
         /// <param name="mapData">The <see cref="FeatureBasedMapData"/> to add to the in-memory shapefile as a feature.</param>
-        /// <exception cref="ArgumentException">Thrown when a <paramref name="mapData"/> contains different metadata keys
-        /// than the <paramref name="mapData"/> of the first call to <see cref="CopyToFeature"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapData"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item>A <paramref name="mapData"/> contains different metadata keys
+        /// than the <paramref name="mapData"/> of the first call to <see cref="CopyToFeature"/>.</item>
+        /// <item><paramref name="mapData"/> does not contain exactly one <see cref="Feature"/>.</item>
+        /// </list>
+        /// </exception>
         public void CopyToFeature(FeatureBasedMapData mapData)
         {
-            MapFeature mapFeature = mapData.Features.First();
+            if (mapData == null)
+            {
+                throw new ArgumentNullException("mapData");
+            }
 
+            if (mapData.Features.Length != 1)
+            {
+                throw new ArgumentException(Resources.ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature);
+            }
+
+            var mapFeature = mapData.Features.First();
             EnsureAttributeTableExists(mapFeature);
-
-            IFeature feature = AddFeature(mapFeature);
-
+            var feature = AddFeature(mapFeature);
             CopyMetaDataFromMapFeatureToAttributeTable(mapFeature, feature);
         }
 
@@ -90,13 +104,16 @@ namespace Core.Components.Gis.IO.Writers
         /// </summary>
         /// <param name="mapFeature">The <see cref="MapFeature"/> from which to create a feature.</param>
         /// <returns>The created feature.</returns>
-        protected virtual IFeature AddFeature(MapFeature mapFeature)
-        {
-            return null;
-        }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapFeature"/> is <c>null</c>.</exception>
+        protected abstract IFeature AddFeature(MapFeature mapFeature);        
 
         private void EnsureAttributeTableExists(MapFeature mapFeature)
         {
+            if (mapFeature == null)
+            {
+                throw new ArgumentNullException("mapFeature");
+            }
+
             if (hasPropertyTable)
             {
                 return;
@@ -106,20 +123,13 @@ namespace Core.Components.Gis.IO.Writers
             hasPropertyTable = true;
         }
 
-        /// <summary>
-        /// Copy the content of a feature's metadata to the attribute table of the shapefile.
-        /// </summary>
-        /// <param name="mapFeature">The <see cref="MapFeature"/> whose metadata is to be copied.</param>
-        /// <param name="feature">The shapefile feature to whose attribute table row the metadata is copied.</param>
-        /// <exception cref="ArgumentException">Thrown when a <paramref name="mapFeature"/> contains different metadata keys
-        /// than the <paramref name="mapFeature"/> of the first call to <see cref="AddFeature"/>.</exception>
         private static void CopyMetaDataFromMapFeatureToAttributeTable(MapFeature mapFeature, IFeature feature)
         {
             IDictionary<string, object> metaData = mapFeature.MetaData;
-            List<string> sortedKeys = metaData.Keys.ToList();
+            var sortedKeys = metaData.Keys.ToList();
             sortedKeys.Sort();
 
-            foreach (string key in sortedKeys)
+            foreach (var key in sortedKeys)
             {
                 var value = metaData[key];
                 feature.DataRow.BeginEdit();
@@ -131,11 +141,11 @@ namespace Core.Components.Gis.IO.Writers
         private void CreateAttributeTable(MapFeature mapFeature)
         {
             IDictionary<string, object> metaData = mapFeature.MetaData;
-            List<string> sortedKeys = metaData.Keys.ToList();
+            var sortedKeys = metaData.Keys.ToList();
             sortedKeys.Sort();
 
             var columns = ShapeFile.DataTable.Columns;
-            foreach (string key in sortedKeys)
+            foreach (var key in sortedKeys)
             {
                 var value = metaData[key];
                 columns.Add(new DataColumn
