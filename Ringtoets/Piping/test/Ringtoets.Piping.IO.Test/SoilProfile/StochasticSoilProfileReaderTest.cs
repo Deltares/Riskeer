@@ -31,7 +31,6 @@ using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
-
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
@@ -51,8 +50,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => { using (new StochasticSoilProfileReader(testFile)) {} };
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
-            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -68,7 +67,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => { using (new StochasticSoilProfileReader(fileName)) {} };
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -127,7 +126,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => { using (new StochasticSoilProfileReader(dbFile)) {} };
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedVersionMessage, exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }

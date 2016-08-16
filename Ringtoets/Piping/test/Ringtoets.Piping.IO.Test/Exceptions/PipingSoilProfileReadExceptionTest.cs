@@ -33,7 +33,8 @@ namespace Ringtoets.Piping.IO.Test.Exceptions
         {
             // Setup
             var profileName = "name";
-            var expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(PipingSoilProfileReadException).FullName);
+            var expectedMessage = string.Format("Exception of type '{0}' was thrown.",
+                                                typeof(PipingSoilProfileReadException).FullName);
 
             // Call
             var exception = new PipingSoilProfileReadException(profileName);

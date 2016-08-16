@@ -43,8 +43,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => new SoilProfileBuilder2D(name, double.NaN, 0);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            var message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN, name);
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
+            string message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_SoilProfileName_0_at_double_NaN, name);
             Assert.AreEqual(message, exception.Message);
         }
 
@@ -68,23 +68,16 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var atX = 0.0;
             var builder = new SoilProfileBuilder2D(profileName, atX, 0);
 
-            SoilLayer2D soilLayer = new SoilLayer2D
+            var soilLayer = new SoilLayer2D
             {
                 OuterLoop = new List<Segment2D>
                 {
-                    new Segment2D
-                        (
-                        new Point2D(atX, 0.0),
-                        new Point2D(atX, 1.0)
-                        ),
-                    new Segment2D(
-                        new Point2D(atX, 1.0),
-                        new Point2D(0.5, 0.5)
-                        ),
-                    new Segment2D(
-                        new Point2D(0.5, 0.5),
-                        new Point2D(atX, 0.0)
-                        )
+                    new Segment2D(new Point2D(atX, 0.0),
+                                  new Point2D(atX, 1.0)),
+                    new Segment2D(new Point2D(atX, 1.0),
+                                  new Point2D(0.5, 0.5)),
+                    new Segment2D(new Point2D(0.5, 0.5),
+                                  new Point2D(atX, 0.0))
                 }
             };
 
@@ -92,7 +85,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => builder.Add(soilLayer);
 
             // Assert
-            var exception = Assert.Throws<SoilProfileBuilderException>(test);
+            SoilProfileBuilderException exception = Assert.Throws<SoilProfileBuilderException>(test);
             Assert.IsInstanceOf<SoilLayerConversionException>(exception.InnerException);
             var message = string.Format("Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.", atX);
             Assert.AreEqual(message, exception.Message);
@@ -167,8 +160,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                        "...",
                                                                                        "1.2",
                                                                                        "4.3",
-                                                                                       "..."
-                                                                               ))
+                                                                                       "..."))
             }).Add(new SoilLayer2D
             {
                 OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
@@ -182,8 +174,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                        "...",
                                                                                        "1.2",
                                                                                        "...",
-                                                                                       "..."
-                                                                               ))
+                                                                                       "..."))
             }).Add(new SoilLayer2D
             {
                 OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
@@ -197,8 +188,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                        "...",
                                                                                        "...",
                                                                                        "...",
-                                                                                       "..."
-                                                                               )),
+                                                                                       "...")),
                 IsAquifer = 1.0
             });
 
@@ -225,14 +215,13 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var profileName = "SomeProfile";
             const long pipingSoilProfileId = 1234L;
             var builder = new SoilProfileBuilder2D(profileName, 2.0, pipingSoilProfileId);
-            var loopHole = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                                      "5",
-                                                                                      ".....",
-                                                                                      ".4.1.",
-                                                                                      ".3.2.",
-                                                                                      ".....",
-                                                                                      "....."
-                                                                              ));
+            List<Segment2D> loopHole = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                  "5",
+                                                                                                  ".....",
+                                                                                                  ".4.1.",
+                                                                                                  ".3.2.",
+                                                                                                  ".....",
+                                                                                                  "....."));
             var soilLayer2D = new SoilLayer2D
             {
                 OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
@@ -241,8 +230,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                        ".....",
                                                                                        ".....",
                                                                                        ".....",
-                                                                                       "1...4"
-                                                                               )),
+                                                                                       "1...4")),
                 IsAquifer = 1.0
             };
             soilLayer2D.AddInnerLoop(loopHole);

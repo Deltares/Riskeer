@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             const string expectedQuery = "SELECT (" +
                                          "SELECT COUNT(DISTINCT sl1D.SP1D_ID) " +
                                          "FROM Mechanism AS m " +
-                                         "JOIN Segment AS segment USING(ME_ID) "+
+                                         "JOIN Segment AS segment USING(ME_ID) " +
                                          "JOIN StochasticSoilProfile ssp USING(SSM_ID) " +
                                          "JOIN SoilLayer1D sl1D USING(SP1D_ID) " +
                                          "WHERE m.ME_Name = @ME_Name" +

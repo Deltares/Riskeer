@@ -32,7 +32,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            var expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(SoilProfileBuilderException).FullName);
+            var expectedMessage = string.Format("Exception of type '{0}' was thrown.",
+                                                typeof(SoilProfileBuilderException).FullName);
 
             // Call
             var exception = new SoilProfileBuilderException();
@@ -69,6 +70,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Assert
             Assert.AreSame(expectedInnerException, exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
-}
+        }
     }
 }

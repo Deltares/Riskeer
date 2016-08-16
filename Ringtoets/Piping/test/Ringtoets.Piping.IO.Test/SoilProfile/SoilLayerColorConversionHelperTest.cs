@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void FromNullableDouble_Null_ReturnsEmptyColor()
         {
             // Call
-            var color = SoilLayerColorConversionHelper.ColorFromNullableDouble(null);
+            Color color = SoilLayerColorConversionHelper.ColorFromNullableDouble(null);
 
             // Assert
             Assert.AreEqual(Color.Empty, color);
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void FromNullableDouble_DifferentDoubleValues_ReturnsExpectedColor(double colorValue, int r, int g, int b)
         {
             // Call
-            var color = SoilLayerColorConversionHelper.ColorFromNullableDouble(colorValue);
+            Color color = SoilLayerColorConversionHelper.ColorFromNullableDouble(colorValue);
 
             // Assert
             Assert.AreEqual(Color.FromArgb(r, g, b), color);

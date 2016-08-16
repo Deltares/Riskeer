@@ -32,7 +32,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            var expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(SoilLayerConversionException).FullName);
+            var expectedMessage = string.Format("Exception of type '{0}' was thrown.",
+                                                typeof(SoilLayerConversionException).FullName);
 
             // Call
             var exception = new SoilLayerConversionException();

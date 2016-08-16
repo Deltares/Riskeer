@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => new LayerProperties(null, "");
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("reader", paramName);
         }
 
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => new LayerProperties(reader, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("profileName", paramName);
             mocks.VerifyAll();
         }
@@ -98,7 +98,6 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             reader.Expect(r => r.ReadOrDefault<double?>(SoilProfileDatabaseColumns.PermeabilityDeviation)).Return(permeabilityDeviation);
             mocks.ReplayAll();
 
-
             // Call
             var properties = new LayerProperties(reader, "");
 
@@ -118,6 +117,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             Assert.AreEqual(permeabilityDeviation, properties.PermeabilityDeviation);
             mocks.VerifyAll();
         }
+
         [Test]
         public void LayerProperties_ReaderThrowsInvalidCastException_ThrowsPipingSoilProfileReadException()
         {
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 path,
                 profileName);
 
-            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.AreEqual(profileName, exception.ProfileName);
             mocks.VerifyAll();

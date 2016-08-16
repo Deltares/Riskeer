@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Builders
 {
@@ -63,7 +64,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
         [Test]
         [TestCase(1.0)]
-        [TestCase(1.0+1e-12)]
+        [TestCase(1.0 + 1e-12)]
         [TestCase(2.0)]
         public void AsPipingSoilLayer_PropertiesSetWithCorrectDistributionsAndDifferentLayerParameters_PropertiesAreSetInPipingSoilLayer(double isAquifer)
         {
@@ -93,17 +94,14 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 MaterialName = materialName,
                 IsAquifer = isAquifer,
                 Color = color.ToArgb(),
-
                 BelowPhreaticLevelDistribution = belowPhreaticLevelDistribution,
                 BelowPhreaticLevelShift = belowPhreaticLevelShift,
                 BelowPhreaticLevelMean = belowPhreaticLevelMean,
                 BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
-
                 DiameterD70Distribution = diameterD70Distribution,
                 DiameterD70Shift = diameterD70Shift,
                 DiameterD70Mean = diameterD70Mean,
                 DiameterD70Deviation = diameterD70Deviation,
-
                 PermeabilityDistribution = permeabilityDistribution,
                 PermeabilityShift = permeabilityShift,
                 PermeabilityMean = permeabilityMean,
@@ -140,7 +138,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayer();
 
             // Assert
-            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            string message = Assert.Throws<SoilLayerConversionException>(test).Message;
             Assert.AreEqual(string.Format("Parameter '{0}' is niet verschoven lognormaal verdeeld.", "Verzadigd gewicht"), message);
         }
 
@@ -167,20 +165,20 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayer();
 
             // Assert
-            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            string message = Assert.Throws<SoilLayerConversionException>(test).Message;
             Assert.AreEqual(string.Format("Parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
         }
 
         [Test]
-        [TestCase(-1e-6,0.0,"Korrelgrootte")]
-        [TestCase(0.0,9,"Doorlatendheid")]
+        [TestCase(-1e-6, 0.0, "Korrelgrootte")]
+        [TestCase(0.0, 9, "Doorlatendheid")]
         public void AsPipingSoilLayer_ShiftNotZero_ThrowsSoilLayerConversionException(
             double diameterD70Shift,
             double permeabilityShift,
             string expectedParameter)
         {
             // Setup
-            var validDistribution = SoilLayerConstants.LogNormalDistributionValue;
+            long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
             var layer = new SoilLayer1D(1.0)
             {
                 DiameterD70Distribution = validDistribution,
@@ -193,7 +191,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayer();
 
             // Assert
-            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            string message = Assert.Throws<SoilLayerConversionException>(test).Message;
             Assert.AreEqual(string.Format("Parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
         }
 
@@ -206,7 +204,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer1D(top);
 
             // Call
-            var result = layer.AsPipingSoilLayer();
+            PipingSoilLayer result = layer.AsPipingSoilLayer();
 
             // Assert
             Assert.IsEmpty(result.MaterialName);

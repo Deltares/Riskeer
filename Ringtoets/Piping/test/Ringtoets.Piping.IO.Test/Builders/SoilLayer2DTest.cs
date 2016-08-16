@@ -23,14 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.Builders
 {
@@ -85,7 +83,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             };
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
@@ -96,21 +94,21 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var layer = new SoilLayer2D();
-            var pointA = new Point2D(0.0,0.0);
-            var pointB = new Point2D(1.0,0.0);
-            var pointC = new Point2D(1.0,1.0);
-            var pointD = new Point2D(0.0,diff);
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+            var pointD = new Point2D(0.0, diff);
 
             // Call
             TestDelegate test = () => layer.OuterLoop = new List<Segment2D>
             {
-                new Segment2D(pointA,pointB),
-                new Segment2D(pointB,pointC),
-                new Segment2D(pointC,pointD),
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointC),
+                new Segment2D(pointC, pointD),
             };
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
@@ -125,14 +123,14 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Call
             layer.OuterLoop = new List<Segment2D>
             {
-                new Segment2D(pointA,pointB),
-                new Segment2D(pointB,pointA)
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointA)
             };
 
             // Assert
             Assert.NotNull(layer.OuterLoop);
-            Assert.AreEqual(new Segment2D(pointA,pointB), layer.OuterLoop.ElementAt(0));
-            Assert.AreEqual(new Segment2D(pointB,pointA), layer.OuterLoop.ElementAt(1));
+            Assert.AreEqual(new Segment2D(pointA, pointB), layer.OuterLoop.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB, pointA), layer.OuterLoop.ElementAt(1));
         }
 
         [Test]
@@ -147,9 +145,9 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Call
             layer.OuterLoop = new List<Segment2D>
             {
-                new Segment2D(pointA,pointB),
-                new Segment2D(pointB,pointC),
-                new Segment2D(pointC,pointA)
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointC),
+                new Segment2D(pointC, pointA)
             };
 
             // Assert
@@ -178,7 +176,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             });
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
@@ -189,21 +187,21 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var layer = new SoilLayer2D();
-            var pointA = new Point2D(0.0,0.0);
-            var pointB = new Point2D(1.0,0.0);
-            var pointC = new Point2D(1.0,1.0);
-            var pointD = new Point2D(0.0,diff);
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+            var pointD = new Point2D(0.0, diff);
 
             // Call
             TestDelegate test = () => layer.AddInnerLoop(new List<Segment2D>
             {
-                new Segment2D(pointA,pointB),
-                new Segment2D(pointB,pointC),
-                new Segment2D(pointC,pointD),
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointC),
+                new Segment2D(pointC, pointD),
             });
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            ArgumentException exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
@@ -218,8 +216,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Call
             layer.AddInnerLoop(new List<Segment2D>
             {
-                new Segment2D(pointA,pointB),
-                new Segment2D(pointB,pointA)
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointA)
             });
 
             // Assert
@@ -240,14 +238,14 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Call
             layer.AddInnerLoop(new List<Segment2D>
             {
-                new Segment2D(pointA,pointB),
-                new Segment2D(pointB,pointC),
-                new Segment2D(pointC,pointA)
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointC),
+                new Segment2D(pointC, pointA)
             });
 
             // Assert
             Assert.AreEqual(1, layer.InnerLoops.Count());
-            Assert.AreEqual(new Segment2D(pointA,pointB), layer.InnerLoops.ElementAt(0)[0]);
+            Assert.AreEqual(new Segment2D(pointA, pointB), layer.InnerLoops.ElementAt(0)[0]);
             Assert.AreEqual(new Segment2D(pointB, pointC), layer.InnerLoops.ElementAt(0)[1]);
             Assert.AreEqual(new Segment2D(pointC, pointA), layer.InnerLoops.ElementAt(0)[2]);
         }
@@ -260,7 +258,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             double bottom;
 
             // Call
-            var result = layer.AsPipingSoilLayers(0.0, out bottom);
+            IEnumerable<PipingSoilLayer> result = layer.AsPipingSoilLayers(0.0, out bottom);
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -298,50 +296,38 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 MaterialName = materialName,
                 IsAquifer = 1.0,
                 Color = color.ToArgb(),
-
                 BelowPhreaticLevelDistribution = logNormalDistribution,
                 BelowPhreaticLevelShift = logNormalShift,
                 BelowPhreaticLevelMean = belowPhreaticLevelMean,
                 BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
-
                 DiameterD70Distribution = logNormalDistribution,
                 DiameterD70Shift = logNormalShift,
                 DiameterD70Mean = diameterD70Mean,
                 DiameterD70Deviation = diameterD70Deviation,
-
                 PermeabilityDistribution = logNormalDistribution,
                 PermeabilityShift = logNormalShift,
                 PermeabilityMean = permeabilityMean,
                 PermeabilityDeviation = permeabilityDeviation,
-
                 OuterLoop = new List<Segment2D>
                 {
-                    new Segment2D(
-                        new Point2D(x1, y1),
-                        new Point2D(x3, y1)
-                        ),
-                    new Segment2D(
-                        new Point2D(x3, y1),
-                        new Point2D(x3, y2)
-                        ),
-                    new Segment2D(
-                        new Point2D(x3, y2),
-                        new Point2D(x1, y2)
-                        ),
-                    new Segment2D(
-                        new Point2D(x1, y1),
-                        new Point2D(x1, y2)
-                        )
+                    new Segment2D(new Point2D(x1, y1),
+                                  new Point2D(x3, y1)),
+                    new Segment2D(new Point2D(x3, y1),
+                                  new Point2D(x3, y2)),
+                    new Segment2D(new Point2D(x3, y2),
+                                  new Point2D(x1, y2)),
+                    new Segment2D(new Point2D(x1, y1),
+                                  new Point2D(x1, y2))
                 }
             };
 
             // Call
-            var result = layer.AsPipingSoilLayers(x2, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(x2, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
             Assert.AreEqual(y1, bottom, 1e-6);
-            var resultLayer = result.First();
+            PipingSoilLayer resultLayer = result.First();
             Assert.AreEqual(y2, resultLayer.Top, 1e-6);
             Assert.IsTrue(resultLayer.IsAquifer);
             Assert.AreEqual(materialName, resultLayer.MaterialName);
@@ -363,20 +349,16 @@ namespace Ringtoets.Piping.IO.Test.Builders
             {
                 OuterLoop = new List<Segment2D>
                 {
-                    new Segment2D(
-                        new Point2D(0, 1),
-                        new Point2D(1, 1)
-                        ),
-                    new Segment2D(
-                        new Point2D(1, 1),
-                        new Point2D(0, 1)
-                        )
+                    new Segment2D(new Point2D(0, 1),
+                                  new Point2D(1, 1)),
+                    new Segment2D(new Point2D(1, 1),
+                                  new Point2D(0, 1))
                 }
             };
             double bottom;
 
             // Call
-            var result = layer.AsPipingSoilLayers(0, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(0, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -395,20 +377,16 @@ namespace Ringtoets.Piping.IO.Test.Builders
             {
                 OuterLoop = new List<Segment2D>
                 {
-                    new Segment2D(
-                        new Point2D(1.0, y1),
-                        new Point2D(1.2, y2)
-                        ),
-                    new Segment2D(
-                        new Point2D(1.2, y2),
-                        new Point2D(1.0, y1)
-                        )
+                    new Segment2D(new Point2D(1.0, y1),
+                                  new Point2D(1.2, y2)),
+                    new Segment2D(new Point2D(1.2, y2),
+                                  new Point2D(1.0, y1))
                 }
             };
             double bottom;
 
             // Call
-            var result = layer.AsPipingSoilLayers(0.0, out bottom);
+            IEnumerable<PipingSoilLayer> result = layer.AsPipingSoilLayers(0.0, out bottom);
 
             // Assert
             CollectionAssert.IsEmpty(result);
@@ -424,20 +402,16 @@ namespace Ringtoets.Piping.IO.Test.Builders
             {
                 OuterLoop = new List<Segment2D>
                 {
-                    new Segment2D(
-                        new Point2D(-0.1, expectedZ),
-                        new Point2D(0.1, expectedZ)
-                        ),
-                    new Segment2D(
-                        new Point2D(-0.1, expectedZ),
-                        new Point2D(0.1, expectedZ)
-                        )
+                    new Segment2D(new Point2D(-0.1, expectedZ),
+                                  new Point2D(0.1, expectedZ)),
+                    new Segment2D(new Point2D(-0.1, expectedZ),
+                                  new Point2D(0.1, expectedZ))
                 }
             };
             double bottom;
 
             // Call
-            var result = layer.AsPipingSoilLayers(0.0, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(0.0, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -449,14 +423,14 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopComplex_ReturnsTwoLayers()
         {
             // Setup
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "..8.7...",
-                                                                               "..5.6...",
-                                                                               "..4..3..",
-                                                                               "........"));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "..8.7...",
+                                                                                                   "..5.6...",
+                                                                                                   "..4..3..",
+                                                                                                   "........"));
 
             var layer = new SoilLayer2D
             {
@@ -465,35 +439,39 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             double bottom;
-            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);
             Assert.AreEqual(1.0, bottom);
-            CollectionAssert.AreEquivalent(new[] { 5.0, 2.0 }, result.Select(rl => rl.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                2.0
+            }, result.Select(rl => rl.Top));
         }
 
         [Test]
         public void AsPipingSoilLayers_OuterLoopInnerLoopSimple_ReturnsTwoLayers()
         {
             // Setup
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine, 
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "..4..3.."));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "..4..3.."));
 
-            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "........",
-                                                                               "...12...",
-                                                                               "........",
-                                                                               "........",
-                                                                               "...43...",
-                                                                               "........"));
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "........",
+                                                                                                   "...12...",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "...43...",
+                                                                                                   "........"));
 
             var layer = new SoilLayer2D
             {
@@ -503,35 +481,39 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             double bottom;
-            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);
             Assert.AreEqual(0, bottom);
-            CollectionAssert.AreEquivalent(new [] {5.0, 1.0}, result.Select(rl => rl.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                1.0
+            }, result.Select(rl => rl.Top));
         }
 
         [Test]
         public void AsPipingSoilLayers_OuterLoopInnerLoopComplex_ReturnsThreeLayers()
         {
             // Setup
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "..4..3.."));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "..4..3.."));
 
-            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "........",
-                                                                               "...1.2..",
-                                                                               "...87...",
-                                                                               "...56...",
-                                                                               "...4.3..",
-                                                                               "........"));
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "........",
+                                                                                                   "...1.2..",
+                                                                                                   "...87...",
+                                                                                                   "...56...",
+                                                                                                   "...4.3..",
+                                                                                                   "........"));
 
             var layer = new SoilLayer2D
             {
@@ -541,44 +523,49 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             double bottom;
-            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(3, result.Length);
             Assert.AreEqual(0, bottom);
-            CollectionAssert.AreEquivalent(new[] { 5.0, 3.0, 1.0 }, result.Select(rl => rl.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                3.0,
+                1.0
+            }, result.Select(rl => rl.Top));
         }
 
         [Test]
         public void AsPipingSoilLayers_OuterLoopMultipleInnerLoops_ReturnsThreeLayers()
         {
             // Setup
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "..4..3.."));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "..4..3.."));
 
-            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "........",
-                                                                               "...12...",
-                                                                               "...43...",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........"));
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "........",
+                                                                                                   "...12...",
+                                                                                                   "...43...",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........"));
 
-            var innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                                "6",
-                                                                                "........",
-                                                                                "........",
-                                                                                "........",
-                                                                                "........",
-                                                                                "...12...",
-                                                                                "........"));
+            List<Segment2D> innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                    "6",
+                                                                                                    "........",
+                                                                                                    "........",
+                                                                                                    "........",
+                                                                                                    "........",
+                                                                                                    "...12...",
+                                                                                                    "........"));
 
             var layer = new SoilLayer2D
             {
@@ -589,35 +576,40 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             double bottom;
-            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(3, result.Length);
             Assert.AreEqual(0, bottom);
-            CollectionAssert.AreEquivalent(new[] { 5.0, 3.0, 1.0 }, result.Select(rl => rl.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                3.0,
+                1.0
+            }, result.Select(rl => rl.Top));
         }
 
         [Test]
         public void AsPipingSoilLayers_OuterLoopOverlappingInnerLoop_ReturnsOneLayer()
         {
             // Setup
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               ".4....3.",
-                                                                               "........"));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   ".4....3.",
+                                                                                                   "........"));
 
-            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "...12...",
-                                                                               "........",
-                                                                               "...43..."));
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "...12...",
+                                                                                                   "........",
+                                                                                                   "...43..."));
 
             var layer = new SoilLayer2D
             {
@@ -627,44 +619,47 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             double bottom;
-            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
             Assert.AreEqual(2.0, bottom);
-            CollectionAssert.AreEquivalent(new[] { 5.0 }, result.Select(rl => rl.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0
+            }, result.Select(rl => rl.Top));
         }
 
         [Test]
         public void AsPipingSoilLayers_OuterLoopOverlappingInnerLoopsFirstInnerLoopNotOverBottom_ReturnsOneLayer()
         {
             // Setup
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               ".4....3.",
-                                                                               "........"));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   ".4....3.",
+                                                                                                   "........"));
 
-            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "........",
-                                                                               "...12...",
-                                                                               "........",
-                                                                               "...43...",
-                                                                               "........",
-                                                                               "........"));
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "........",
+                                                                                                   "...12...",
+                                                                                                   "........",
+                                                                                                   "...43...",
+                                                                                                   "........",
+                                                                                                   "........"));
 
-            var innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                                "6",
-                                                                                "........",
-                                                                                "........",
-                                                                                "...12...",
-                                                                                "........",
-                                                                                "........",
-                                                                                "...43..."));
+            List<Segment2D> innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                    "6",
+                                                                                                    "........",
+                                                                                                    "........",
+                                                                                                    "...12...",
+                                                                                                    "........",
+                                                                                                    "........",
+                                                                                                    "...43..."));
 
             var layer = new SoilLayer2D
             {
@@ -675,35 +670,38 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             double bottom;
-            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
             Assert.AreEqual(4.0, bottom);
-            CollectionAssert.AreEquivalent(new[] { 5.0 }, result.Select(rl => rl.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0
+            }, result.Select(rl => rl.Top));
         }
 
         [Test]
         public void AsPipingSoilLayers_OuterLoopInnerLoopOnBorderBottom_ReturnsTwoLayers()
         {
             // Setup
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               ".4....3.",
-                                                                               "........"));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   ".4....3.",
+                                                                                                   "........"));
 
-            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "........",
-                                                                               "........",
-                                                                               "...12...",
-                                                                               "........",
-                                                                               "...43...",
-                                                                               "........"));
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "...12...",
+                                                                                                   "........",
+                                                                                                   "...43...",
+                                                                                                   "........"));
 
             var layer = new SoilLayer2D
             {
@@ -713,35 +711,39 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             double bottom;
-            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);
             Assert.AreEqual(3.0, bottom);
-            CollectionAssert.AreEquivalent(new[] { 5.0, 1.0 }, result.Select(rl => rl.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                5.0,
+                1.0
+            }, result.Select(rl => rl.Top));
         }
 
         [Test]
         public void AsPipingSoilLayers_OuterLoopInnerLoopOverlapTop_ReturnsOneLayer()
         {
             // Setup
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "........",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               ".4....3.",
-                                                                               "........"));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "........",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   ".4....3.",
+                                                                                                   "........"));
 
-            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "...43...",
-                                                                               "........",
-                                                                               "...12...",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........"));
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "...43...",
+                                                                                                   "........",
+                                                                                                   "...12...",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........"));
 
             var layer = new SoilLayer2D
             {
@@ -751,35 +753,38 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             double bottom;
-            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
             Assert.AreEqual(1.0, bottom);
-            CollectionAssert.AreEquivalent(new[] { 3.0 }, result.Select(rl => rl.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                3.0
+            }, result.Select(rl => rl.Top));
         }
 
         [Test]
         public void AsPipingSoilLayers_OuterLoopInnerLoopOnBorderTop_ReturnsOneLayer()
         {
             // Setup
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               ".4....3.",
-                                                                               "........"));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   ".4....3.",
+                                                                                                   "........"));
 
-            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "...43...",
-                                                                               "........",
-                                                                               "...12...",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........"));
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "...43...",
+                                                                                                   "........",
+                                                                                                   "...12...",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........"));
 
             var layer = new SoilLayer2D
             {
@@ -789,12 +794,15 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Call
             double bottom;
-            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+            PipingSoilLayer[] result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
             Assert.AreEqual(1.0, bottom);
-            CollectionAssert.AreEquivalent(new[] { 3.0 }, result.Select(rl => rl.Top));
+            CollectionAssert.AreEquivalent(new[]
+            {
+                3.0
+            }, result.Select(rl => rl.Top));
         }
 
         [Test]
@@ -802,14 +810,14 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var atX = 2.0;
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "..4..3.."));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                       "6",
+                                                                                       "..1..2..",
+                                                                                       "........",
+                                                                                       "........",
+                                                                                       "........",
+                                                                                       "........",
+                                                                                       "..4..3.."))
 
             var layer = new SoilLayer2D
             {
@@ -821,7 +829,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayers(atX, out bottom);
 
             // Assert
-            var exception = Assert.Throws<SoilLayerConversionException>(test);
+            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
 
@@ -830,23 +838,23 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var atX = 3.0;
-            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "..1..2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "........",
-                                                                               "..4..3.."));
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "..4..3.."));
 
-            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                               "6",
-                                                                               "........",
-                                                                               "...1.2..",
-                                                                               "........",
-                                                                               "........",
-                                                                               "...4.3..",
-                                                                               "........"));
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                                                                                                   "6",
+                                                                                                   "........",
+                                                                                                   "...1.2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "...4.3..",
+                                                                                                   "........"));
 
             var layer = new SoilLayer2D
             {
@@ -859,7 +867,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayers(atX, out bottom);
 
             // Assert
-            var exception = Assert.Throws<SoilLayerConversionException>(test);
+            SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
             Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
 
@@ -878,7 +886,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayers(0, out bottom);
 
             // Assert
-            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            string message = Assert.Throws<SoilLayerConversionException>(test).Message;
             Assert.AreEqual(string.Format("Parameter '{0}' is niet verschoven lognormaal verdeeld.", "Verzadigd gewicht"), message);
         }
 
@@ -907,7 +915,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayers(0, out bottom);
 
             // Assert
-            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            string message = Assert.Throws<SoilLayerConversionException>(test).Message;
             Assert.AreEqual(string.Format("Parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
         }
 
@@ -920,7 +928,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             string expectedParameter)
         {
             // Setup
-            var validDistribution = SoilLayerConstants.LogNormalDistributionValue;
+            long validDistribution = SoilLayerConstants.LogNormalDistributionValue;
             var layer = new SoilLayer2D
             {
                 DiameterD70Distribution = validDistribution,
@@ -935,7 +943,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => layer.AsPipingSoilLayers(0, out bottom);
 
             // Assert
-            var message = Assert.Throws<SoilLayerConversionException>(test).Message;
+            string message = Assert.Throws<SoilLayerConversionException>(test).Message;
             Assert.AreEqual(string.Format("Parameter '{0}' is niet lognormaal verdeeld.", expectedParameter), message);
         }
     }

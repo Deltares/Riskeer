@@ -31,6 +31,7 @@ using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.IO.Test.TestHelpers;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
@@ -74,8 +75,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            string expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -99,8 +100,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Ondergrondschematisatie bevat geen geldige waarde in kolom 'IntersectionX'.");
+            PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            string expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Ondergrondschematisatie bevat geen geldige waarde in kolom 'IntersectionX'.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -124,8 +125,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, string.Format("Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.", name));
+            PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            string expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, string.Format("Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.", name));
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -147,8 +148,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Geen lagen gevonden voor de ondergrondschematisatie.");
+            PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            string expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Geen lagen gevonden voor de ondergrondschematisatie.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -170,8 +171,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "De geometrie is leeg.");
+            PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            string expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "De geometrie is leeg.");
             StringAssert.StartsWith(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -193,8 +194,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.");
+            PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            string expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -217,8 +218,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            var expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Ondergrondschematisatie bevat geen geldige waarde in kolom 'IsAquifer'.");
+            PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            string expectedMessage = GetExpectedSoilProfileReaderErrorMessage(path, name, "Ondergrondschematisatie bevat geen geldige waarde in kolom 'IsAquifer'.");
             Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
@@ -233,13 +234,13 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             mocks.ReplayAll();
 
             // Call
-            var profile = SoilProfile2DReader.ReadFrom(reader);
+            PipingSoilProfile profile = SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
             Assert.AreEqual(1, profile.Layers.Count());
             Assert.AreEqual(1.1, profile.Bottom);
 
-            var pipingSoilLayer = profile.Layers.First();
+            PipingSoilLayer pipingSoilLayer = profile.Layers.First();
 
             Assert.AreEqual(1.1, pipingSoilLayer.Top);
             Assert.IsFalse(pipingSoilLayer.IsAquifer);
@@ -266,7 +267,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var random = new Random(22);
             var intersectionX = 0.5;
             var materialName = "material";
-            var color = Color.FromArgb(Color.AliceBlue.ToArgb());
+            Color color = Color.FromArgb(Color.AliceBlue.ToArgb());
 
             var belowPhreaticLevelMean = random.NextDouble();
             var belowPhreaticLevelDeviation = random.NextDouble();
@@ -293,14 +294,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             mocks.ReplayAll();
 
             // Call
-            var profile = SoilProfile2DReader.ReadFrom(reader);
+            PipingSoilProfile profile = SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
             Assert.AreEqual(layerCount, profile.Layers.Count());
 
             Assert.AreEqual(1.1, profile.Bottom);
 
-            var pipingSoilLayer = profile.Layers.First();
+            PipingSoilLayer pipingSoilLayer = profile.Layers.First();
             Assert.AreEqual(1.1, pipingSoilLayer.Top);
             Assert.IsTrue(pipingSoilLayer.IsAquifer);
             Assert.AreEqual(materialName, pipingSoilLayer.MaterialName);
@@ -315,6 +316,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             mocks.VerifyAll();
         }
+
         [Test]
         public void ReadFrom_InvalidBelowPhreaticLevelDistributionValue_ThrowsPipingSoilProfileReadException()
         {
@@ -330,9 +332,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
-            var expected = string.Format(
-                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet verschoven lognormaal verdeeld.", 
+            string message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            string expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet verschoven lognormaal verdeeld.",
                 "Verzadigd gewicht");
             Assert.AreEqual(expected, message);
             mocks.VerifyAll();
@@ -353,9 +355,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
-            var expected = string.Format(
-                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet lognormaal verdeeld.", 
+            string message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            string expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet lognormaal verdeeld.",
                 "Korrelgrootte");
             Assert.AreEqual(expected, message);
             mocks.VerifyAll();
@@ -377,9 +379,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
-            var expected = string.Format(
-                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet lognormaal verdeeld.", 
+            string message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            string expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet lognormaal verdeeld.",
                 "Korrelgrootte");
             Assert.AreEqual(expected, message);
             mocks.VerifyAll();
@@ -400,9 +402,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
-            var expected = string.Format(
-                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet lognormaal verdeeld.", 
+            string message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            string expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet lognormaal verdeeld.",
                 "Doorlatendheid");
             Assert.AreEqual(expected, message);
             mocks.VerifyAll();
@@ -424,9 +426,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            var message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
-            var expected = string.Format(
-                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet lognormaal verdeeld.", 
+            string message = Assert.Throws<PipingSoilProfileReadException>(test).Message;
+            string expected = string.Format(
+                "Fout bij het lezen van bestand '' (ondergrondschematisatie ''): Parameter '{0}' is niet lognormaal verdeeld.",
                 "Doorlatendheid");
             Assert.AreEqual(expected, message);
             mocks.VerifyAll();

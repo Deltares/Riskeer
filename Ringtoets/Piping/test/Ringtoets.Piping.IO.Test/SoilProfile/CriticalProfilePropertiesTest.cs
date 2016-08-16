@@ -86,9 +86,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => new CriticalProfileProperties(reader);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreSame(invalidCastException, exception.InnerException);
-            var expectedMessage = new FileReaderErrorMessageBuilder(path)
+            string expectedMessage = new FileReaderErrorMessageBuilder(path)
                 .Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -114,9 +114,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => new CriticalProfileProperties(reader);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreSame(invalidCastException, exception.InnerException);
-            var expectedMessage = new FileReaderErrorMessageBuilder(path)
+            string expectedMessage = new FileReaderErrorMessageBuilder(path)
                 .WithSubject(string.Format("ondergrondschematisatie '{0}'", profileName))
                 .Build(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column);
             Assert.AreEqual(expectedMessage, exception.Message);

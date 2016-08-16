@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => parameters.CallSetOptionalStochasticParameters(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("pipingSoilLayer", paramName);
         }
 
@@ -136,8 +136,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(permeabilityDeviation, soilLayer.PermeabilityDeviation);
         }
 
-        private class TestGenericSoilLayerParameters : GenericSoilLayerParameters {
-
+        private class TestGenericSoilLayerParameters : GenericSoilLayerParameters
+        {
             /// <summary>
             /// Simply calls the implementation of the protected 
             /// <see cref="GenericSoilLayerParameters.SetOptionalStochasticParameters"/>.

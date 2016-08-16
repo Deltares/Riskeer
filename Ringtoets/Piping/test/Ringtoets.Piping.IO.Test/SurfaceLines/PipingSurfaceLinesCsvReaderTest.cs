@@ -22,11 +22,13 @@
 using System;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Piping.IO.SurfaceLines;
+using Ringtoets.Piping.Primitives;
 using IOResources = Ringtoets.Piping.IO.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -47,7 +49,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(path);
 
             // Assert
-            var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Path_must_be_specified);
+            string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Path_must_be_specified);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -57,16 +59,17 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
 
-            var invalidCharacters = Path.GetInvalidPathChars();
+            char[] invalidCharacters = Path.GetInvalidPathChars();
 
-            var corruptPath = path.Replace('V', invalidCharacters[0]);
+            string corruptPath = path.Replace('V', invalidCharacters[0]);
 
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(corruptPath);
 
             // Assert
-            var expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
-                                                                                              string.Join(", ", Path.GetInvalidFileNameChars())));
+            string innerExpectedMessage = string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
+                                                        string.Join(", ", Path.GetInvalidFileNameChars()));
+            string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerExpectedMessage);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -77,8 +80,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(testDataPath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilsResources.Error_Path_must_not_point_to_empty_file_name);
+            ArgumentException exception = Assert.Throws<ArgumentException>(call);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testDataPath).Build(UtilsResources.Error_Path_must_not_point_to_empty_file_name);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -134,7 +137,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             // Setup
             string path = Path.Combine(testDataPath, "ValidFileWithoutSurfaceLines.csv");
 
-            using (var reader = new PipingSurfaceLinesCsvReader(path)) 
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
                 int linesCount = reader.GetSurfaceLinesCount();
@@ -159,8 +162,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedError = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedError = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
                 Assert.AreEqual(expectedError, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
             }
@@ -181,8 +184,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }
@@ -203,8 +206,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(UtilsResources.Error_File_empty);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(UtilsResources.Error_File_empty);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -224,8 +227,10 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(IOResources.PipingSurfaceLinesCsvReader_File_invalid_header);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 1")
+                    .Build(IOResources.PipingSurfaceLinesCsvReader_File_invalid_header);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -237,7 +242,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
         public void GetSurfaceLinesCount_InvalidHeader2_ThrowCriticalFileReadException(string missingVariableName)
         {
             // Setup
-            var filename = string.Format("InvalidHeader_Lacks{0}1.csv", missingVariableName);
+            string filename = string.Format("InvalidHeader_Lacks{0}1.csv", missingVariableName);
             string path = Path.Combine(testDataPath, filename);
 
             // Precondition
@@ -249,8 +254,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.GetSurfaceLinesCount();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
@@ -283,15 +288,15 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                var surfaceLine1 = reader.ReadSurfaceLine();
-                var surfaceLine2 = reader.ReadSurfaceLine();
+                RingtoetsPipingSurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
+                RingtoetsPipingSurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
 
                 #region 1st surfaceline
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
-                Assert.AreEqual(8, surfaceLine1.Points.Count());
+                Assert.AreEqual(8, surfaceLine1.Points.Length);
                 Assert.AreEqual(94263.0026213, surfaceLine1.StartingWorldPoint.X);
                 Assert.AreEqual(427776.654093, surfaceLine1.StartingWorldPoint.Y);
                 Assert.AreEqual(-1.02, surfaceLine1.StartingWorldPoint.Z);
@@ -306,7 +311,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 #region 2nd surfaceline
 
                 Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
-                Assert.AreEqual(3, surfaceLine2.Points.Count());
+                Assert.AreEqual(3, surfaceLine2.Points.Length);
                 Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
                 Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
                 Assert.AreEqual(1, surfaceLine2.StartingWorldPoint.Z);
@@ -332,15 +337,15 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                var surfaceLine1 = reader.ReadSurfaceLine();
-                var surfaceLine2 = reader.ReadSurfaceLine();
+                RingtoetsPipingSurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
+                RingtoetsPipingSurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
 
                 #region 1st surfaceline
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
-                Assert.AreEqual(8, surfaceLine1.Points.Count());
+                Assert.AreEqual(8, surfaceLine1.Points.Length);
                 Assert.AreEqual(94263.0026213, surfaceLine1.StartingWorldPoint.X);
                 Assert.AreEqual(427776.654093, surfaceLine1.StartingWorldPoint.Y);
                 Assert.AreEqual(-1.02, surfaceLine1.StartingWorldPoint.Z);
@@ -355,7 +360,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 #region 2nd surfaceline
 
                 Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
-                Assert.AreEqual(3, surfaceLine2.Points.Count());
+                Assert.AreEqual(3, surfaceLine2.Points.Length);
                 Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
                 Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
                 Assert.AreEqual(1, surfaceLine2.StartingWorldPoint.Z);
@@ -387,11 +392,11 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
-                var geometryPoints = surfaceLine1.Points.ToArray();
+                Point3D[] geometryPoints = surfaceLine1.Points.ToArray();
                 Assert.AreNotEqual(geometryPoints.Length, geometryPoints.Distinct().Count(),
-                    "Duplicate points should be parsed.");
+                                   "Duplicate points should be parsed.");
                 Assert.AreEqual(geometryPoints[0].X, geometryPoints[1].X,
-                    "Consecutive duplicate points are still parsed.");
+                                "Consecutive duplicate points are still parsed.");
                 Assert.AreEqual(surfaceLine1.StartingWorldPoint, geometryPoints.First());
                 Assert.AreEqual(surfaceLine1.EndingWorldPoint, geometryPoints.Last());
             }
@@ -408,14 +413,14 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 int surfaceLinesCount = reader.GetSurfaceLinesCount();
                 for (int i = 0; i < surfaceLinesCount; i++)
                 {
-                    var pipingSurfaceLine = reader.ReadSurfaceLine();
+                    RingtoetsPipingSurfaceLine pipingSurfaceLine = reader.ReadSurfaceLine();
                     Assert.IsNotInstanceOf<IDisposable>(pipingSurfaceLine,
                                                         "Fail Fast: Disposal logic required to be implemented in test.");
                     Assert.IsNotNull(pipingSurfaceLine);
                 }
 
                 // Call
-                var result = reader.ReadSurfaceLine();
+                RingtoetsPipingSurfaceLine result = reader.ReadSurfaceLine();
 
                 // Assert
                 Assert.IsNull(result);
@@ -437,8 +442,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_File_does_not_exist);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
             }
@@ -459,8 +464,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path).Build(UtilsResources.Error_Directory_missing);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
             }
@@ -481,8 +486,10 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(UtilsResources.Error_File_empty);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 1")
+                    .Build(UtilsResources.Error_File_empty);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -502,8 +509,10 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 1").Build(IOResources.PipingSurfaceLinesCsvReader_File_invalid_header);
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 1")
+                    .Build(IOResources.PipingSurfaceLinesCsvReader_File_invalid_header);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -527,8 +536,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileReadException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 1")
                     .Build("Het bestand is niet geschikt om profielschematisaties uit te lezen (Verwachte koptekst: locationid;X1;Y1;Z1).");
                 Assert.AreEqual(expectedMessage, exception.Message);
@@ -553,8 +562,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                LineParseException exception = Assert.Throws<LineParseException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
                     .Build(IOResources.Error_SurfaceLine_has_not_double);
@@ -584,8 +593,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                LineParseException exception = Assert.Throws<LineParseException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'InvalidSurfaceLine'")
                     .Build(IOResources.Error_SurfaceLine_parsing_causes_overflow);
@@ -610,12 +619,16 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 // 1st line has no text at all:
-                var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                LineParseException exception = Assert.Throws<LineParseException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 2")
+                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
-                expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 3").Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 3")
+                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -637,12 +650,16 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 // 1st line has no text at all:
-                var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                LineParseException exception = Assert.Throws<LineParseException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 2")
+                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
-                expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 4").Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
+                expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 4")
+                    .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID);
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -663,8 +680,10 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path).WithLocation("op regel 2").Build(string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_, ';'));
+                LineParseException exception = Assert.Throws<LineParseException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
+                    .WithLocation("op regel 2")
+                    .Build(string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_, ';'));
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -684,8 +703,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                LineParseException exception = Assert.Throws<LineParseException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .Build(string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_, ';'));
                 Assert.AreEqual(expectedMessage, exception.Message);
@@ -708,8 +727,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
 
                 // Assert
                 // 1st row lacks 1 coordinate value:
-                var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                LineParseException exception = Assert.Throws<LineParseException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'LacksOneCoordinate'")
                     .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet);
@@ -740,8 +759,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                LineParseException exception = Assert.Throws<LineParseException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'ArtificialLocal'")
                     .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_reclining_geometry);
@@ -766,8 +785,8 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 TestDelegate call = () => reader.ReadSurfaceLine();
 
                 // Assert
-                var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = new FileReaderErrorMessageBuilder(path)
+                LineParseException exception = Assert.Throws<LineParseException>(call);
+                string expectedMessage = new FileReaderErrorMessageBuilder(path)
                     .WithLocation("op regel 2")
                     .WithSubject("profielschematisatie 'Rotterdam1'")
                     .Build(IOResources.PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length);
@@ -806,15 +825,15 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 // Call
-                var surfaceLine1 = reader.ReadSurfaceLine();
-                var surfaceLine2 = reader.ReadSurfaceLine();
+                RingtoetsPipingSurfaceLine surfaceLine1 = reader.ReadSurfaceLine();
+                RingtoetsPipingSurfaceLine surfaceLine2 = reader.ReadSurfaceLine();
 
                 // Assert
 
                 #region 1st surfaceline
 
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
-                Assert.AreEqual(8, surfaceLine1.Points.Count());
+                Assert.AreEqual(8, surfaceLine1.Points.Length);
                 Assert.AreEqual(94263.0026213, surfaceLine1.StartingWorldPoint.X);
                 Assert.AreEqual(427776.654093, surfaceLine1.StartingWorldPoint.Y);
                 Assert.AreEqual(-1.02, surfaceLine1.StartingWorldPoint.Z);
@@ -829,7 +848,7 @@ namespace Ringtoets.Piping.IO.Test.SurfaceLines
                 #region 2nd surfaceline
 
                 Assert.AreEqual("ArtifcialLocal", surfaceLine2.Name);
-                Assert.AreEqual(3, surfaceLine2.Points.Count());
+                Assert.AreEqual(3, surfaceLine2.Points.Length);
                 Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
                 Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
                 Assert.AreEqual(1, surfaceLine2.StartingWorldPoint.Z);

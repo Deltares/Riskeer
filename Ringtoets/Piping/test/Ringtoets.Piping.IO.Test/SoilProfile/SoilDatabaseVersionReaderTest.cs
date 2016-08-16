@@ -45,8 +45,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => { using (new SoilDatabaseVersionReader(testFile)) {} };
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
-            var expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
+            string expectedMessage = new FileReaderErrorMessageBuilder(testFile).Build(UtilsResources.Error_File_does_not_exist);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -62,7 +62,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => { using (new SoilDatabaseVersionReader(fileName)) {} };
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             const string version = "15.0.5.0";
             string expectedVersionMessage = string.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version);
             const string dbName = "incorrectversion.soil";
-            var dbFile = Path.Combine(testDataPath, dbName);
+            string dbFile = Path.Combine(testDataPath, dbName);
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
