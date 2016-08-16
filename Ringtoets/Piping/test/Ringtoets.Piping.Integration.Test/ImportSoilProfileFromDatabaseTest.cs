@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Integration.Test
         public void GivenDatabaseWithSimple1DProfile_WhenImportingPipingProfile_ThenPipingProfileHasValuesCorrectlySet()
         {
             // Given
-            var databasePath = Path.Combine(testDataPath, "1dprofile.soil");
+            string databasePath = Path.Combine(testDataPath, "1dprofile.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.Integration.Test
         public void GivenDatabaseWithValid2DProfileAnd2dProfileWithInvalidLayerGeometry_WhenImportingPipingProfile_ThenValidPipingProfileHasValuesCorrectlySet()
         {
             // Given
-            var databasePath = Path.Combine(testDataPath, "invalid2dGeometry.soil");
+            string databasePath = Path.Combine(testDataPath, "invalid2dGeometry.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();

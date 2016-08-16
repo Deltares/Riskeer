@@ -53,7 +53,6 @@ namespace Ringtoets.Piping.Integration.Test
                 var activity = new FileImportActivity(new ReferenceLineImporter(),
                                                       new ReferenceLineContext(assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
-
                 activity.Run();
                 activity.Finish();
             }
@@ -77,7 +76,6 @@ namespace Ringtoets.Piping.Integration.Test
                 var activity = new FileImportActivity(new FailureMechanismSectionsImporter(),
                                                       new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
-
                 activity.Run();
                 activity.Finish();
             }
@@ -94,12 +92,10 @@ namespace Ringtoets.Piping.Integration.Test
                                                                                    false,
                                                                                    "HRD dutch coast south.sqlite",
                                                                                    "HLCD.sqlite"))
+            using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
             {
-                using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
-                {
-                    var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
-                    hydraulicBoundaryDatabaseImporter.Import(assessmentSection, filePath);
-                }
+                var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
+                hydraulicBoundaryDatabaseImporter.Import(assessmentSection, filePath);
             }
         }
 
@@ -118,7 +114,6 @@ namespace Ringtoets.Piping.Integration.Test
                 var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(),
                                                       new RingtoetsPipingSurfaceLinesContext(assessmentSection.PipingFailureMechanism, assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
-
                 activity.Run();
                 activity.Finish();
             }
@@ -138,7 +133,6 @@ namespace Ringtoets.Piping.Integration.Test
                 var activity = new FileImportActivity(new PipingSoilProfilesImporter(),
                                                       new StochasticSoilModelContext(assessmentSection.PipingFailureMechanism.StochasticSoilModels, assessmentSection.PipingFailureMechanism, assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
-
                 activity.Run();
                 activity.Finish();
             }
