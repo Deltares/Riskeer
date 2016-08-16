@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingCalculatorInput input = new TestPipingInput
             {
                 PhreaticLevelExit = level,
-                PiezometricHeadExit = (RoundedDouble)level
+                PiezometricHeadExit = (RoundedDouble) level
             }.AsRealInput();
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
@@ -263,7 +263,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
-                AssessmentLevel = (RoundedDouble)assessmentLevel,
+                AssessmentLevel = (RoundedDouble) assessmentLevel,
                 PhreaticLevelExit = phreaticLevelExit,
                 SellmeijerReductionFactor = sellmeijerReductionFactor,
                 ThicknessCoverageLayer = thicknessCoverageLayer
@@ -316,7 +316,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual("Een ondergrondschematisatie moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
         }
-        
+
         [Test]
         [TestCase(-1e-6)]
         [TestCase(0)]
@@ -328,7 +328,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             {
                 SoilProfile = new PipingSoilProfile(String.Empty, bottom, new[]
                 {
-                    new PipingSoilLayer(top) 
+                    new PipingSoilLayer(top)
                 }, SoilProfileType.SoilProfile1D, 0)
             }.AsRealInput();
 
@@ -351,7 +351,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             {
                 SoilProfile = new PipingSoilProfile(String.Empty, -1.0, new[]
                 {
-                    new PipingSoilLayer(0) 
+                    new PipingSoilLayer(0)
                 }, SoilProfileType.SoilProfile1D, 0)
             }.AsRealInput();
 
@@ -385,11 +385,11 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             PipingCalculatorInput input = new TestPipingInput().AsRealInput();
-            input.SurfaceLine.SetGeometry(new []
+            input.SurfaceLine.SetGeometry(new[]
             {
-                new Point3D(0, 0, 0.5), 
-                new Point3D(1, 0, 1.5), 
-                new Point3D(2, 0, -1) 
+                new Point3D(0, 0, 0.5),
+                new Point3D(1, 0, 1.5),
+                new Point3D(2, 0, -1)
             });
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
@@ -407,7 +407,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Setup
             PipingCalculatorInput input = new TestPipingInput
             {
-                ExitPointXCoordinate = (RoundedDouble)2.1
+                ExitPointXCoordinate = (RoundedDouble) 2.1
             }.AsRealInput();
 
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);

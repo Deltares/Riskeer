@@ -43,9 +43,9 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D (0.0, 0.0, 1.1), 
-                new Point3D (2.2, 0.0, 3.3), 
-                new Point3D (4.4, 0.0, 5.5)
+                new Point3D(0.0, 0.0, 1.1),
+                new Point3D(2.2, 0.0, 3.3),
+                new Point3D(4.4, 0.0, 5.5)
             });
 
             // Call
@@ -64,23 +64,23 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Local coordinate surfaceline";
+            const double firstX = 4.6;
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
             };
-            const double firstX = 4.6;
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D (firstX, 0.0, 1.1), 
-                new Point3D (7.8, 0.0, 3.3), 
-                new Point3D (9.9, 0.0, 5.5)
+                new Point3D(firstX, 0.0, 1.1),
+                new Point3D(7.8, 0.0, 3.3),
+                new Point3D(9.9, 0.0, 5.5)
             });
 
             // Call
             PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            var expectedCoordinatesX = surfaceLine.Points.Select(p => p.X - firstX).ToArray();
+            double[] expectedCoordinatesX = surfaceLine.Points.Select(p => p.X - firstX).ToArray();
             Assert.AreEqual(name, actual.Name);
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Y).ToArray(), actual.Points.Select(p => p.Y).ToArray());
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             var length = Math.Sqrt(2*2 + 3*3);
             const double secondCoordinateFactor = (2.0*1.0 + 3.0*2.0)/(2.0*2.0 + 3.0*3.0);
-            var expectedCoordinatesX = new[]
+            double[] expectedCoordinatesX = 
             {
                 0.0,
                 secondCoordinateFactor*length,
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            var expectedCoordinatesX = new[]
+            double[] expectedCoordinatesX = 
             {
                 0.0
             };
@@ -175,11 +175,11 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Surfaceline without points";
+            var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
             };
-            var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
                 point
@@ -200,11 +200,11 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Surfaceline without points";
+            var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
             };
-            var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
                 point
@@ -225,11 +225,11 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Surfaceline without points";
+            var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
             };
-            var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
                 point
@@ -250,11 +250,11 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Surfaceline without points";
+            var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
             };
-            var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
                 point
@@ -275,11 +275,11 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         {
             // Setup
             const string name = "Surfaceline without points";
+            var point = new Point3D(1.0, 1.0, 2.2);
             var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = name
             };
-            var point = new Point3D(1.0, 1.0, 2.2);
             surfaceLine.SetGeometry(new[]
             {
                 point

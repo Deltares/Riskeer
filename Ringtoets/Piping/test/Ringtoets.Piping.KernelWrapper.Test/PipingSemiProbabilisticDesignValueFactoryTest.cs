@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.KernelWrapper.Test
@@ -36,7 +37,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            var thicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters);
+            DesignVariable<LogNormalDistribution> thicknessCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters);
 
             // Assert
             Assert.AreEqual(inputParameters.ThicknessCoverageLayer.Mean, thicknessCoverageLayer.Distribution.Mean);
@@ -51,7 +52,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            var freaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters);
+            DesignVariable<NormalDistribution> freaticLevelExit = PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters);
 
             // Assert
             Assert.AreSame(inputParameters.PhreaticLevelExit, freaticLevelExit.Distribution);
@@ -65,7 +66,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            var dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters);
+            DesignVariable<LogNormalDistribution> dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters);
 
             // Assert
             Assert.AreSame(inputParameters.DampingFactorExit, dampingFactorExit.Distribution);
@@ -83,7 +84,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            var seepageLength = PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters);
+            DesignVariable<LogNormalDistribution> seepageLength = PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters);
 
             // Assert
             Assert.AreEqual(inputParameters.SeepageLength.Mean, seepageLength.Distribution.Mean);
@@ -98,7 +99,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            var d70 = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters);
+            DesignVariable<LogNormalDistribution> d70 = PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters);
 
             // Assert
             Assert.AreEqual(inputParameters.Diameter70.Mean, d70.Distribution.Mean);
@@ -113,7 +114,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            var darcyPermeability = PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters);
+            DesignVariable<LogNormalDistribution> darcyPermeability = PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters);
 
             // Assert
             Assert.AreEqual(inputParameters.DarcyPermeability.Mean, darcyPermeability.Distribution.Mean);
@@ -128,18 +129,15 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            var saturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
+            DesignVariable<LogNormalDistribution> saturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
 
             // Assert
-            Assert.AreEqual(
-                inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean, 
-                saturatedVolumicWeightOfCoverageLayer.Distribution.Mean);
-            Assert.AreEqual(
-                inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation, 
-                saturatedVolumicWeightOfCoverageLayer.Distribution.StandardDeviation);
-            Assert.AreEqual(
-                inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift, 
-                saturatedVolumicWeightOfCoverageLayer.Distribution.Shift);
+            Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean,
+                            saturatedVolumicWeightOfCoverageLayer.Distribution.Mean);
+            Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation,
+                            saturatedVolumicWeightOfCoverageLayer.Distribution.StandardDeviation);
+            Assert.AreEqual(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift,
+                            saturatedVolumicWeightOfCoverageLayer.Distribution.Shift);
             Assert.AreEqual(0.05, saturatedVolumicWeightOfCoverageLayer.Percentile);
         }
 
@@ -150,7 +148,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            var thicknessAquiferLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters);
+            DesignVariable<LogNormalDistribution> thicknessAquiferLayer = PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters);
 
             // Assert
             Assert.AreEqual(inputParameters.ThicknessAquiferLayer.Mean, thicknessAquiferLayer.Distribution.Mean);

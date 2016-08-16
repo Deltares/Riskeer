@@ -36,6 +36,6 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             // Assert
             Assert.IsInstanceOf<IPiezoHeadCalculator>(calculator);
             Assert.AreEqual(0.0, calculator.PhiExit);
-        } 
+        }
     }
 }

@@ -38,6 +38,6 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             Assert.IsInstanceOf<IEffectiveThicknessCalculator>(calculator);
 
             Assert.Throws<NullReferenceException>(() => { var x = calculator.EffectiveHeight; });
-        } 
+        }
     }
 }

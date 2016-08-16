@@ -41,12 +41,12 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var expectedBottom = expectedTop - random.NextDouble();
             const long pipingSoilProfileId = 1234L;
 
-            IEnumerable<PipingSoilLayer> layers = new[]
+            var layers = new[]
             {
                 new PipingSoilLayer(expectedTop)
                 {
                     IsAquifer = true
-                },
+                }
             };
             var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, SoilProfileType.SoilProfile1D, pipingSoilProfileId);
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var expectedTopC = expectedTopB - random.NextDouble();
             var expectedBottom = expectedTopC - random.NextDouble();
             const long pipingSoilProfileId = 1234L;
-            IEnumerable<PipingSoilLayer> layers = new[]
+            var layers = new[]
             {
                 new PipingSoilLayer(expectedTopA)
                 {
@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             var expectedTopC = random.NextDouble() + expectedTopB;
             var expectedBottom = expectedTopA - random.NextDouble();
             const long pipingSoilProfileId = 1234L;
-            IEnumerable<PipingSoilLayer> layers = new[]
+            var layers = new[]
             {
                 new PipingSoilLayer(expectedTopA)
                 {

@@ -41,11 +41,11 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         [Test]
         public void Instance_WhenSetToNull_ReturnsANewInstance()
         {
-            var firstFactory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory firstFactory = PipingSubCalculatorFactory.Instance;
             PipingSubCalculatorFactory.Instance = null;
 
             // Call
-            var secondFactory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory secondFactory = PipingSubCalculatorFactory.Instance;
 
             // Assert
             Assert.AreNotSame(firstFactory, secondFactory);
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             PipingSubCalculatorFactory.Instance = firstFactory;
 
             // Call
-            var secondFactory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory secondFactory = PipingSubCalculatorFactory.Instance;
 
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
@@ -69,10 +69,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         public void CreateHeaveCalculator_Always_NewHeaveCalculator()
         {
             // Setup
-            var factory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
 
             // Call
-            var calculator = factory.CreateHeaveCalculator();
+            IHeaveCalculator calculator = factory.CreateHeaveCalculator();
 
             // Assert
             Assert.IsInstanceOf<IHeaveCalculator>(calculator);
@@ -82,10 +82,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         public void CreateUpliftCalculator_Always_NewUpliftCalculator()
         {
             // Setup
-            var factory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
 
             // Call
-            var calculator = factory.CreateUpliftCalculator();
+            IUpliftCalculator calculator = factory.CreateUpliftCalculator();
 
             // Assert
             Assert.IsInstanceOf<IUpliftCalculator>(calculator);
@@ -95,10 +95,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         public void CreateSellmeijerCalculator_Always_NewSellmeijerCalculator()
         {
             // Setup
-            var factory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
 
             // Call
-            var calculator = factory.CreateSellmeijerCalculator();
+            ISellmeijerCalculator calculator = factory.CreateSellmeijerCalculator();
 
             // Assert
             Assert.IsInstanceOf<ISellmeijerCalculator>(calculator);
@@ -108,10 +108,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         public void CreateEffectiveThicknessCalculator_Always_NewSellmeijerCalculator()
         {
             // Setup
-            var factory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
 
             // Call
-            var calculator = factory.CreateEffectiveThicknessCalculator();
+            IEffectiveThicknessCalculator calculator = factory.CreateEffectiveThicknessCalculator();
 
             // Assert
             Assert.IsInstanceOf<IEffectiveThicknessCalculator>(calculator);
@@ -121,10 +121,10 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
         public void CreatPiezometricHeadAtExitCalculator_Always_NewPizometricHeadAtExitCalculator()
         {
             // Setup
-            var factory = PipingSubCalculatorFactory.Instance;
+            IPipingSubCalculatorFactory factory = PipingSubCalculatorFactory.Instance;
 
             // Call
-            var calculator = factory.CreatePiezometricHeadAtExitCalculator();
+            IPiezoHeadCalculator calculator = factory.CreatePiezometricHeadAtExitCalculator();
 
             // Assert
             Assert.IsInstanceOf<IPiezoHeadCalculator>(calculator);

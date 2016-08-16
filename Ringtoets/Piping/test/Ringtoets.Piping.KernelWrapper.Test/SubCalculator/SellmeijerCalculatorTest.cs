@@ -37,6 +37,6 @@ namespace Ringtoets.Piping.KernelWrapper.Test.SubCalculator
             Assert.IsInstanceOf<ISellmeijerCalculator>(calculator);
             Assert.AreEqual(0.0, calculator.Zp);
             Assert.AreEqual(0.0, calculator.FoSp);
-        } 
+        }
     }
 }

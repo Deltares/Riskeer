@@ -31,7 +31,8 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void DefaultConstructor_InnerExceptionNullAndMessageDefault()
         {
             // Setup
-            var expectedMessage = string.Format("Exception of type '{0}' was thrown.", typeof(PipingCalculatorException).FullName);
+            var expectedMessage = string.Format("Exception of type '{0}' was thrown.",
+                                                typeof(PipingCalculatorException).FullName);
 
             // Call
             var exception = new PipingCalculatorException();
@@ -45,7 +46,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
         public void Constructor_WithCustomMessage_InnerExceptionNullAndMessageSetToCustom()
         {
             // Setup
-            var expectedMessage ="Some exception message";
+            var expectedMessage = "Some exception message";
 
             // Call
             var exception = new PipingCalculatorException(expectedMessage);
