@@ -171,5 +171,10 @@ namespace Core.Common.Gui.ContextMenu
                 contextMenu.Items.Add(item);
             }
         }
+
+        public void Dispose()
+        {
+            contextMenu.Dispose();
+        }
     }
 }

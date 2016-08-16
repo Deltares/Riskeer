@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private IEnumerable<HydraulicBoundaryLocationDesignWaterLevelRow> GetHydraulicBoundaryLocationDesignWaterLevelRows()
         {
-            return from DataGridViewRow row in dataGridViewControl.GetRows() select (HydraulicBoundaryLocationDesignWaterLevelRow) row.DataBoundItem;
+            return from DataGridViewRow row in dataGridViewControl.Rows select (HydraulicBoundaryLocationDesignWaterLevelRow) row.DataBoundItem;
         }
 
         private IEnumerable<HydraulicBoundaryLocation> GetSelectedHydraulicBoundaryLocations()
@@ -194,7 +194,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private DesignWaterLevelLocationContext CreateSelectedItemFromCurrentRow()
         {
-            var currentRow = dataGridViewControl.GetCurrentRow();
+            var currentRow = dataGridViewControl.CurrentRow;
 
             var designWaterLevelRow = currentRow != null
                                           ? (HydraulicBoundaryLocationDesignWaterLevelRow) currentRow.DataBoundItem

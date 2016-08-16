@@ -45,7 +45,7 @@ namespace Core.Plugins.ProjectExplorer
         /// <summary>
         /// Fired when the project explorer view has been opened.
         /// </summary>
-        public EventHandler<EventArgs> OnOpenView;
+        public event EventHandler<EventArgs> OnOpenView;
 
         private ProjectExplorer projectExplorer;
 

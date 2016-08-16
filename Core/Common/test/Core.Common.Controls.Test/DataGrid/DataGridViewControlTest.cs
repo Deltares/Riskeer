@@ -728,7 +728,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 };
 
                 // Call
-                DataGridViewRowCollection rows = control.GetRows();
+                DataGridViewRowCollection rows = control.Rows;
 
                 // Assert
                 Assert.AreEqual(2, rows.Count);
@@ -811,7 +811,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 dataGridView.CurrentCell = dataGridViewCell;
 
                 // Call
-                DataGridViewRow row = control.GetCurrentRow();
+                DataGridViewRow row = control.CurrentRow;
 
                 // Assert
                 Assert.IsNotNull(row);
@@ -839,7 +839,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 dataGridView.CurrentCell = null;
 
                 // Call
-                DataGridViewRow row = control.GetCurrentRow();
+                DataGridViewRow row = control.CurrentRow;
 
                 // Assert
                 Assert.IsNull(row);

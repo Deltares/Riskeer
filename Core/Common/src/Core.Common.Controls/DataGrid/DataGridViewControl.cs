@@ -229,12 +229,14 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Gets all the rows of the <see cref="DataGridView"/>.
+        /// Gets a <see cref="DataGridViewRowCollection"/> with all the rows of the <see cref="DataGridView"/>.
         /// </summary>
-        /// <returns>A <see cref="DataGridViewRowCollection"/> with all the rows of the <see cref="DataGridView"/>.</returns>
-        public DataGridViewRowCollection GetRows()
+        public DataGridViewRowCollection Rows
         {
-            return dataGridView.Rows;
+            get
+            {
+                return dataGridView.Rows;
+            }
         }
 
         /// <summary>
@@ -249,13 +251,15 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Gets the row containing the current cell.
+        /// Gets the <see cref="DataGridViewRow"/> that represents the row containing the current cell, 
+        /// or <c>null</c> if there is no current cell.
         /// </summary>
-        /// <returns>The <see cref="DataGridViewRow"/> that represents the row containing the current cell, 
-        /// or <c>null</c> if there is no current cell.</returns>
-        public DataGridViewRow GetCurrentRow()
+        public DataGridViewRow CurrentRow
         {
-            return dataGridView.CurrentRow;
+            get
+            {
+                return dataGridView.CurrentRow;
+            }
         }
 
         /// <summary>

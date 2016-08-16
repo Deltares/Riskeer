@@ -26,6 +26,7 @@ namespace Core.Common.Base.Storage
     /// <summary>
     /// The exception that is thrown when a storage is not valid.
     /// </summary>
+    [Serializable]
     public class StorageValidationException : StorageException
     {
         /// <summary>

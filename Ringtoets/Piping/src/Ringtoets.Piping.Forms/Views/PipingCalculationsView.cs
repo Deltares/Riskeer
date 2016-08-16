@@ -277,7 +277,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(stochasticSoilModelColumnIndex)))
             {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.GetRows())
+                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
                 {
                     FillAvailableSoilModelsList(dataGridViewRow);
                 }
@@ -288,7 +288,7 @@ namespace Ringtoets.Piping.Forms.Views
         {
             using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex)))
             {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.GetRows())
+                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
                 {
                     FillAvailableSoilProfilesList(dataGridViewRow);
                 }
@@ -575,7 +575,7 @@ namespace Ringtoets.Piping.Forms.Views
 
         private PipingInputContext CreateSelectedItemFromCurrentRow()
         {
-            var currentRow = dataGridViewControl.GetCurrentRow();
+            var currentRow = dataGridViewControl.CurrentRow;
 
             var pipingCalculationRow = currentRow != null
                                            ? (PipingCalculationRow)currentRow.DataBoundItem

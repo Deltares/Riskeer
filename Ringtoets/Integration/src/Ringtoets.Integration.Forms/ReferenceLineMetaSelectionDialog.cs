@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Forms
 
         private ReferenceLineMetaSelectionRow GetSelectedReferenceLineMetaSelectionRow()
         {
-            var selectedRow = ReferenceLineMetaDataGridViewControl.GetCurrentRow();
+            var selectedRow = ReferenceLineMetaDataGridViewControl.CurrentRow;
             return selectedRow == null ? null : (ReferenceLineMetaSelectionRow) selectedRow.DataBoundItem;
         }
 

@@ -230,7 +230,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
                 var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
-                rowCount = grid.GetRows().Count;
+                rowCount = grid.Rows.Count;
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
@@ -347,7 +347,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
                 var grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", selectionDialog).TheObject;
-                rowCount = grid.GetRows().Count;
+                rowCount = grid.Rows.Count;
                 var dataGridView = grid.Controls.OfType<DataGridView>().First();
                 dataGridView[0, 1].Selected = true;
 

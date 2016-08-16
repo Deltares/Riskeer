@@ -165,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(failureMechanism.SectionResults, data.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>());
 
-            foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.GetRows())
+            foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
             {
                 FillAvailableCalculationsList(dataGridViewRow, calculationsPerSegmentName);
             }
