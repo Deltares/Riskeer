@@ -260,9 +260,8 @@ namespace Core.Common.Gui.Commands
             // show file open dialog and select project file
             using (var saveFileDialog = new SaveFileDialog
             {
+                Title = Resources.SaveFileDialog_Title,
                 Filter = projectPersistor.FileFilter,
-                FilterIndex = 1,
-                RestoreDirectory = true,
                 FileName = projectName
             })
             {

@@ -118,13 +118,10 @@ namespace Core.Common.Gui.Commands
 
         private void ExportItemUsingFileOpenDialog(ExportInfo exportInfo, object source)
         {
-            string windowTitle = string.Format(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to,
-                                               exportInfo.Name);
             using (var saveFileDialog = new SaveFileDialog
             {
                 Filter = exportInfo.FileFilter,
-                Title = windowTitle,
-                FilterIndex = 2
+                Title = Resources.SaveFileDialog_Title
             })
             {
                 if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)

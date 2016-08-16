@@ -1271,6 +1271,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opslaan als.
+        /// </summary>
+        public static string SaveFileDialog_Title {
+            get {
+                return ResourceManager.GetString("SaveFileDialog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap saveHS {
