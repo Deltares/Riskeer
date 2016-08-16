@@ -67,6 +67,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
             Assert.AreEqual(hydraulicBoundaryLocation, row.HydraulicBoundaryLocation);
+            Assert.IsFalse(row.ToCalculate);
+        } 
+        
+        [Test]
+        public void Constructor_Property_SetPropertyAsExpected()
+        {
+            // Setup
+            var row = new HydraulicBoundaryLocationDesignWaterLevelRow(new HydraulicBoundaryLocation(1, "LocationName", 1.0, 2.0));
+
+            // Call
+            row.ToCalculate = true;
+
+            // Assert
+            Assert.IsTrue(row.ToCalculate);
         }
     }
 }

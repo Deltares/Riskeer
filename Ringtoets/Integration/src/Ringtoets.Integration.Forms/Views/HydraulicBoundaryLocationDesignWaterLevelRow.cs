@@ -49,6 +49,11 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
+        /// Gets wether the <see cref="HydraulicBoundaryLocationDesignWaterLevelRow"/> is set to be calculated.
+        /// </summary>
+        public bool ToCalculate { get; set; }
+
+        /// <summary>
         /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Name"/>.
         /// </summary>
         public string Name

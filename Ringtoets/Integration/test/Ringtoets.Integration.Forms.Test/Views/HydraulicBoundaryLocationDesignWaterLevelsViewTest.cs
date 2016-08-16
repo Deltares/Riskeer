@@ -79,7 +79,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            Assert.AreEqual(4, dataGridView.ColumnCount);
+            Assert.AreEqual(5, dataGridView.ColumnCount);
+
+            var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationCalculateColumnIndex];
+            const string expectedLocationCalculateHeaderText = "Berekenen";
+            Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
 
             var locationNameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationNameColumnIndex];
             const string expectedLocationNameHeaderText = "Naam";
@@ -142,21 +146,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(3, rows.Count);
 
             var cells = rows[0].Cells;
-            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual("NaN", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
             cells = rows[2].Cells;
-            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
@@ -185,7 +192,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, rows.Count);
             var cells = rows[0].Cells;
-            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual(5, cells.Count);
+            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
@@ -236,7 +244,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
+            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationNameColumnIndex];
             EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
 
             // Assert
@@ -260,8 +268,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
+            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationNameColumnIndex];
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(locationNameColumnIndex, 0));
 
             // Assert
             mocks.VerifyAll();
@@ -276,7 +284,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             var view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
+            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[locationNameColumnIndex];
 
             // Call
             var selection = view.Selection;
@@ -288,10 +296,64 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreSame(dataRow.HydraulicBoundaryLocation, ((DesignWaterLevelLocationContext) selection).WrappedData);
         }
 
-        private const int locationNameColumnIndex = 0;
-        private const int locationIdColumnIndex = 1;
-        private const int locationColumnIndex = 2;
-        private const int locationDesignWaterlevelColumnIndex = 3;
+        [Test]
+        public void SelectAllButton_SelectAllButtonClicked_AllLocationsSelected()
+        {
+            // Setup
+            ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var rows = dataGridView.Rows;
+            var button = new ButtonTester("SelectAllButton", testForm);
+
+            // Precondition
+            Assert.IsFalse((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
+
+            // Call
+            button.Click();
+
+            // Assert
+            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
+        }
+
+        [Test]
+        public void DeselectAllButton_AllLocationsSelectedDeselectAllButtonClicked_AllLocationsNotSelected()
+        {
+            // Setup
+            ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var rows = dataGridView.Rows;
+            var button = new ButtonTester("DeselectAllButton", testForm);
+
+            foreach (DataGridViewRow row in rows)
+            {
+                row.Cells[locationCalculateColumnIndex].Value = true;
+            }
+
+            // Precondition
+            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
+
+            // Call
+            button.Click();
+
+            // Assert
+            Assert.IsFalse((bool)rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool)rows[1].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool)rows[2].Cells[locationCalculateColumnIndex].Value);
+        }
+
+        private const int locationCalculateColumnIndex = 0;
+        private const int locationNameColumnIndex = 1;
+        private const int locationIdColumnIndex = 2;
+        private const int locationColumnIndex = 3;
+        private const int locationDesignWaterlevelColumnIndex = 4;
 
         private HydraulicBoundaryLocationDesignWaterLevelsView ShowHydraulicBoundaryLocationDesignWaterLevelsView()
         {

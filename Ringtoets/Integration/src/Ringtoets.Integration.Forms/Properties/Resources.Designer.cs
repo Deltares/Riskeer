@@ -585,6 +585,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekenen.
+        /// </summary>
+        public static string HydraulicBoundaryLocationDesignWaterLevelRow_Calculate {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationDesignWaterLevelRow_Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Locaties van de hydraulische randvoorwaarden.
         /// </summary>
         public static string HydraulicBoundaryLocationsCollection_DisplayName {
