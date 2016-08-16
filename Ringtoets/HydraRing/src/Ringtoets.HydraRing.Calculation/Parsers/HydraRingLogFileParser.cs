@@ -56,7 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch
             {
-                log.Error(string.Format(Resources.Parse_Cannot_read_file_0_from_folder_1_, logFileName, workingDirectory));
+                log.ErrorFormat(Resources.Parse_Cannot_read_file_0_from_folder_1_, logFileName, workingDirectory);
             }
         }
 

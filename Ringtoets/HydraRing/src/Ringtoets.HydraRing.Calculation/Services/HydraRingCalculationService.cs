@@ -96,7 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             string logFileContent = logFileParser.LogFileContent;
             if (!string.IsNullOrEmpty(logFileContent))
             {
-                log.Info(string.Format(Resources.HydraRingCalculationService_HydraRing_calculation_report_message_text_0, logFileContent));
+                log.InfoFormat(Resources.HydraRingCalculationService_HydraRing_calculation_report_message_text_0, logFileContent);
             }
         }
 
