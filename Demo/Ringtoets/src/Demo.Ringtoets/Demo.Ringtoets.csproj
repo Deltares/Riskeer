@@ -198,6 +198,9 @@
     <EmbeddedResource Include="Views\MapDataView.resx">
       <DependentUpon>MapDataView.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\DR6_surfacelines.csv" />
     <EmbeddedResource Include="Resources\traject_6-3.dbf" />
