@@ -89,6 +89,7 @@ namespace Core.Plugins.Map.Test
                 viewHost.Expect(vm => vm.ActiveDocumentView).Return(null);
                 viewHost.Expect(vm => vm.ActiveDocumentViewChanged += null).IgnoreArguments();
                 viewHost.Expect(vm => vm.ActiveDocumentViewChanged -= null).IgnoreArguments();
+                viewHost.Expect(vm => vm.Remove(Arg<MapLegendView>.Matches(c => true)));
 
                 mocks.ReplayAll();
 

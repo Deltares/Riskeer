@@ -46,6 +46,19 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
         }
 
         [Test]
+        public void Render_NoContext_ThrowsArgumentNullException()
+        {
+            var series = new MultipleAreaSeries();
+
+            // Call
+            TestDelegate test = () =>series.Render(null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("renderContext", paramName);
+        }
+
+        [Test]
         public void Render_NoAreas_NoCallForRenderArea()
         {
             // Setup

@@ -62,6 +62,11 @@ namespace Core.Plugins.Map
             {
                 Gui.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
             }
+            if (mapLegendController != null)
+            {
+                mapLegendController.Dispose();
+            }
+
             base.Dispose();
         }
 

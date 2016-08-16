@@ -34,7 +34,7 @@ namespace Core.Plugins.Map.Legend
     /// <summary>
     /// This class controls the actions which are related to controlling visibility and updating contents of a <see cref="MapLegendView"/>.
     /// </summary>
-    public class MapLegendController
+    public class MapLegendController : IDisposable
     {
         private readonly IViewController viewController;
         private readonly IContextMenuBuilderProvider contextMenuBuilderProvider;
@@ -135,6 +135,11 @@ namespace Core.Plugins.Map.Legend
         {
             viewController.ViewHost.Remove(legendView);
             legendView = null;
+        }
+
+        public void Dispose()
+        {
+            CloseLegendView();
         }
     }
 }

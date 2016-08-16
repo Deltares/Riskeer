@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using OxyPlot;
@@ -87,8 +88,13 @@ namespace Core.Components.OxyPlot.CustomSeries
             }
         }
 
-        public override void Render(IRenderContext rc)
+        public override void Render(IRenderContext renderContext)
         {
+            if (renderContext == null)
+            {
+                throw new ArgumentNullException("renderContext");
+            }
+
             var areas = Areas;
             int numberOfAreas = areas.Count;
             if (numberOfAreas == 0)
@@ -103,7 +109,7 @@ namespace Core.Components.OxyPlot.CustomSeries
             VerifyAxes();
 
             var clippingRect = GetClippingRect();
-            rc.SetClip(clippingRect);
+            renderContext.SetClip(clippingRect);
 
             // Transform all points to screen coordinates
             foreach (var area in areas)
@@ -112,10 +118,10 @@ namespace Core.Components.OxyPlot.CustomSeries
                 IList<ScreenPoint> pts0 = new ScreenPoint[n0];
                 TransformToScreenCoordinates(n0, pts0, area);
 
-                rc.DrawClippedPolygon(clippingRect, pts0, 1, GetSelectableFillColor(ActualFill), ActualColor, StrokeThickness);
+                renderContext.DrawClippedPolygon(clippingRect, pts0, 1, GetSelectableFillColor(ActualFill), ActualColor, StrokeThickness);
             }
 
-            rc.ResetClip();
+            renderContext.ResetClip();
         }
 
         protected override void UpdateMaxMin()
