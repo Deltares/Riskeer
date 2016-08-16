@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 
@@ -344,9 +345,80 @@ namespace Ringtoets.Integration.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsFalse((bool)rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool)rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool)rows[2].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
+        }
+
+        [Test]
+        public void CalculateForSelectedButton_NoneSelected_CallsCalculateDesignWaterLevels()
+        {
+            // Setup
+            HydraulicBoundaryLocationDesignWaterLevelsView view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
+
+            var mockRepository = new MockRepository();
+            var commandHandlerMock = mockRepository.StrictMock<ICalculateDesignWaterLevelCommandHandler>();
+
+            IEnumerable<HydraulicBoundaryLocation> locations = null;
+            commandHandlerMock.Expect(ch => ch.CalculateDesignWaterLevels(null)).IgnoreArguments().WhenCalled(
+                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]; });
+            mockRepository.ReplayAll();
+
+            view.CalculationCommandHandler = commandHandlerMock;
+            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            // Call
+            button.Click();
+
+            // Assert
+            Assert.AreEqual(0, locations.Count());
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels()
+        {
+            // Setup
+            HydraulicBoundaryLocationDesignWaterLevelsView view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+            var mockRepository = new MockRepository();
+            var commandHandlerMock = mockRepository.StrictMock<ICalculateDesignWaterLevelCommandHandler>();
+
+            IEnumerable<HydraulicBoundaryLocation> locations = null;
+            commandHandlerMock.Expect(ch => ch.CalculateDesignWaterLevels(null)).IgnoreArguments().WhenCalled(
+                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]; });
+            mockRepository.ReplayAll();
+
+            view.CalculationCommandHandler = commandHandlerMock;
+            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            // Call
+            button.Click();
+
+            // Assert
+            var hydraulicBoundaryLocations = locations.ToArray();
+            Assert.AreEqual(1, hydraulicBoundaryLocations.Length);
+            HydraulicBoundaryLocation expectedLocation = view.AssessmentSection.HydraulicBoundaryDatabase.Locations.First();
+            Assert.AreEqual(expectedLocation, hydraulicBoundaryLocations.First());
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateForSelectedButton_CalculationCommandHandlerNotSet_DoesNotThrowException()
+        {
+            // Setup
+            ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
+            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            // Call
+            TestDelegate test = () => button.Click();
+
+            // Assert
+            Assert.DoesNotThrow(test);
         }
 
         private const int locationCalculateColumnIndex = 0;
