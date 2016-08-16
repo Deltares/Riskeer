@@ -211,7 +211,10 @@ namespace Ringtoets.Piping.IO.SoilProfile
             }
             catch (SQLiteException e)
             {
-                Dispose();
+                if (dataReader != null)
+                {
+                    dataReader.Dispose();
+                }
                 var message = new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_SoilProfile_read_from_database);
                 throw new CriticalFileReadException(message, e);
             }

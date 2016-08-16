@@ -187,6 +187,9 @@ namespace Ringtoets.Integration.Forms.Views
                 {
                     failureMechanism.Detach(isFailureMechanismRelevantObserver);
                     failureMechanism.Detach(closeViewsForIrrelevantFailureMechanismObserver);
+
+                    isFailureMechanismRelevantObserver.Dispose();
+                    closeViewsForIrrelevantFailureMechanismObserver.Dispose();
                 }
             }
         }

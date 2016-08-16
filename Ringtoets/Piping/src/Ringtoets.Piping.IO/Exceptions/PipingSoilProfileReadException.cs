@@ -29,9 +29,9 @@ namespace Ringtoets.Piping.IO.Exceptions
     /// Exception thrown when something went wrong while reading <see cref="PipingSoilProfile"/> in <see cref="PipingSoilProfileReader"/>.
     /// </summary>
     [Serializable]
-    public class PipingSoilProfileReadException : Exception
+    public sealed class PipingSoilProfileReadException : Exception
     {
-        private readonly string ProfileNameKey = "ProfileName";
+        private const string profileNameKey = "ProfileName";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingSoilProfileReadException"/> class.
@@ -75,11 +75,11 @@ namespace Ringtoets.Piping.IO.Exceptions
         {
             get
             {
-                return (string)Data[ProfileNameKey];
+                return (string)Data[profileNameKey];
             }
             private set
             {
-                Data[ProfileNameKey] = value;
+                Data[profileNameKey] = value;
             }
         }
     }

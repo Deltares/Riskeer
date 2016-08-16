@@ -79,21 +79,19 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private static ExceedanceProbabilityCalculationOutput DoParse(string outputFilePath, int sectionId)
         {
-            using (var sqLiteConnection = CreateConnection(outputFilePath))
+            var sqLiteConnection = CreateConnection(outputFilePath);
+            sqLiteConnection.Open();
+
+            int betaId;
+            var exceedanceProbabilityCalculationOutput = ReadExceedanceProbabilityCalculationOutput(sectionId, sqLiteConnection, out betaId);
+
+            foreach (var alpha in ReadExceedanceProbabilityCalculationAlphaOutput(sectionId, betaId, sqLiteConnection))
             {
-                sqLiteConnection.Open();
-
-                int betaId;
-                var exceedanceProbabilityCalculationOutput = ReadExceedanceProbabilityCalculationOutput(sectionId, sqLiteConnection, out betaId);
-
-                foreach (var alpha in ReadExceedanceProbabilityCalculationAlphaOutput(sectionId, betaId, sqLiteConnection))
-                {
-                    exceedanceProbabilityCalculationOutput.Alphas.Add(alpha);
-                }
-
-                sqLiteConnection.Close();
-                return exceedanceProbabilityCalculationOutput;
+                exceedanceProbabilityCalculationOutput.Alphas.Add(alpha);
             }
+
+            sqLiteConnection.Close();
+            return exceedanceProbabilityCalculationOutput;
         }
 
         private static SQLiteDataReader CreateDataReader(SQLiteConnection connection, string queryString, params SQLiteParameter[] parameters)
