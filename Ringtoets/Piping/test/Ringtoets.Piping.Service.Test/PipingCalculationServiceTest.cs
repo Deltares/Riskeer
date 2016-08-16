@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Service.Test
             invalidPipingCalculation.Output = output;
 
             // Call
-            var isValid = PipingCalculationService.Validate(invalidPipingCalculation);
+            bool isValid = PipingCalculationService.Validate(invalidPipingCalculation);
 
             // Assert
             Assert.IsFalse(isValid);
@@ -80,8 +80,10 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var calculation = new PipingCalculation(new GeneralPipingInput());
-            calculation.Name = name;
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                Name = name
+            };
 
             // Call
             bool isValid = false;
@@ -108,7 +110,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             const string name = "<very nice name>";
-            
+
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
             calculation.Name = name;
@@ -161,7 +163,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             const string name = "<very nice name>";
-            
+
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             calculation.InputParameters.EntryPointL = (RoundedDouble) double.NaN;
             calculation.Name = name;
@@ -189,7 +191,7 @@ namespace Ringtoets.Piping.Service.Test
             const string name = "<very nice name>";
 
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-            calculation.InputParameters.ExitPointL = (RoundedDouble)double.NaN;
+            calculation.InputParameters.ExitPointL = (RoundedDouble) double.NaN;
             calculation.Name = name;
 
             // Call
@@ -213,7 +215,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             const string name = "<very nice name>";
-            
+
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             calculation.InputParameters.SurfaceLine = null;
             calculation.InputParameters.ExitPointL = (RoundedDouble) 0.9;
@@ -241,7 +243,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             const string name = "<very nice name>";
-            
+
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             calculation.InputParameters.StochasticSoilProfile = null;
             calculation.Name = name;
@@ -268,20 +270,19 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             const string name = "<very nice name>";
-            
+
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                    new[]
+                                                {
+                                                    new PipingSoilLayer(2.0)
+                                                    {
+                                                        IsAquifer = false
+                                                    }
+                                                },
+                                    SoilProfileType.SoilProfile1D, -1);
+
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
-                string.Empty,
-                0.0,
-                new[]
-                {
-                    new PipingSoilLayer(2.0)
-                    {
-                        IsAquifer = false
-                    }, 
-                }, 
-                SoilProfileType.SoilProfile1D, 
-                -1);
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
             bool isValid = false;
@@ -309,25 +310,24 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             const string name = "<very nice name>";
-            
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+
             var random = new Random(21);
-            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
-                string.Empty,
-                0.0,
-                new[]
-                {
-                    new PipingSoilLayer(2.0)
-                    {
-                        IsAquifer = true,
-                        DiameterD70Deviation = random.NextDouble(),
-                        DiameterD70Mean = 0.1 + random.NextDouble(),
-                        PermeabilityDeviation = random.NextDouble(),
-                        PermeabilityMean = 0.1 + random.NextDouble()
-                    }, 
-                }, 
-                SoilProfileType.SoilProfile1D, 
-                -1);
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    new PipingSoilLayer(2.0)
+                                                    {
+                                                        IsAquifer = true,
+                                                        DiameterD70Deviation = random.NextDouble(),
+                                                        DiameterD70Mean = 0.1 + random.NextDouble(),
+                                                        PermeabilityDeviation = random.NextDouble(),
+                                                        PermeabilityMean = 0.1 + random.NextDouble()
+                                                    }
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
             bool isValid = false;
@@ -354,28 +354,27 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             var random = new Random(21);
-            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
-                string.Empty,
-                0.0,
-                new[]
-                {
-                    new PipingSoilLayer(13.0)
-                    {
-                        IsAquifer = false
-                    },
-                    new PipingSoilLayer(11.0)
-                    {
-                        IsAquifer = true,
-                        DiameterD70Deviation = random.NextDouble(),
-                        DiameterD70Mean = 0.1 + random.NextDouble(),
-                        PermeabilityDeviation = random.NextDouble(),
-                        PermeabilityMean = 0.1 + random.NextDouble()
-                    }, 
-                }, 
-                SoilProfileType.SoilProfile1D, 
-                -1);
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    new PipingSoilLayer(13.0)
+                                                    {
+                                                        IsAquifer = false
+                                                    },
+                                                    new PipingSoilLayer(11.0)
+                                                    {
+                                                        IsAquifer = true,
+                                                        DiameterD70Deviation = random.NextDouble(),
+                                                        DiameterD70Mean = 0.1 + random.NextDouble(),
+                                                        PermeabilityDeviation = random.NextDouble(),
+                                                        PermeabilityMean = 0.1 + random.NextDouble()
+                                                    }
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
             bool isValid = false;
@@ -397,15 +396,13 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(false,false)]
-        [TestCase(false,true)]
-        [TestCase(true,false)]
+        [TestCase(false, false)]
+        [TestCase(false, true)]
+        [TestCase(true, false)]
         public void Validate_CalculationWithIncompleteDiameterD70Definition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet)
         {
             // Setup
             const string name = "<very nice name>";
-
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
 
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
@@ -423,22 +420,22 @@ namespace Ringtoets.Piping.Service.Test
                 incompletePipingSoilLayer.DiameterD70Deviation = random.NextDouble();
             }
 
-            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
-                string.Empty,
-                0.0,
-                new[]
-                {
-                    new PipingSoilLayer(10.5)
-                    {
-                        IsAquifer = false,
-                        BelowPhreaticLevelDeviation = GetRandomDoubleFromRange(random, 1e-6, 999.999),
-                        BelowPhreaticLevelMean = GetRandomDoubleFromRange(random, 10.0, 999.999),
-                        BelowPhreaticLevelShift = GetRandomDoubleFromRange(random, 1e-6, 10.0)
-                    },
-                    incompletePipingSoilLayer
-                },
-                SoilProfileType.SoilProfile1D,
-                -1);
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    new PipingSoilLayer(10.5)
+                                                    {
+                                                        IsAquifer = false,
+                                                        BelowPhreaticLevelDeviation = GetRandomDoubleFromRange(random, 1e-6, 999.999),
+                                                        BelowPhreaticLevelMean = GetRandomDoubleFromRange(random, 10.0, 999.999),
+                                                        BelowPhreaticLevelShift = GetRandomDoubleFromRange(random, 1e-6, 10.0)
+                                                    },
+                                                    incompletePipingSoilLayer
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
             bool isValid = false;
@@ -459,15 +456,13 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(false,false)]
-        [TestCase(false,true)]
-        [TestCase(true,false)]
+        [TestCase(false, false)]
+        [TestCase(false, true)]
+        [TestCase(true, false)]
         public void Validate_CalculationWithIncompletePermeabilityDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet)
         {
             // Setup
             const string name = "<very nice name>";
-
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
 
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(5.0)
@@ -485,22 +480,22 @@ namespace Ringtoets.Piping.Service.Test
                 incompletePipingSoilLayer.PermeabilityDeviation = random.NextDouble();
             }
 
-            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
-                string.Empty,
-                0.0,
-                new[]
-                {
-                    new PipingSoilLayer(10.5)
-                    {
-                        IsAquifer = false,
-                        BelowPhreaticLevelDeviation = GetRandomDoubleFromRange(random, 1e-6, 999.999),
-                        BelowPhreaticLevelMean = GetRandomDoubleFromRange(random, 10.0, 999.999),
-                        BelowPhreaticLevelShift = GetRandomDoubleFromRange(random, 1e-6, 10.0)
-                    },
-                    incompletePipingSoilLayer
-                },
-                SoilProfileType.SoilProfile1D,
-                -1);
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    new PipingSoilLayer(10.5)
+                                                    {
+                                                        IsAquifer = false,
+                                                        BelowPhreaticLevelDeviation = GetRandomDoubleFromRange(random, 1e-6, 999.999),
+                                                        BelowPhreaticLevelMean = GetRandomDoubleFromRange(random, 10.0, 999.999),
+                                                        BelowPhreaticLevelShift = GetRandomDoubleFromRange(random, 1e-6, 10.0)
+                                                    },
+                                                    incompletePipingSoilLayer
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
             bool isValid = false;
@@ -521,16 +516,14 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(false,false,false)]
-        [TestCase(false,true,true)]
-        [TestCase(true,false,true)]
-        [TestCase(true,true,false)]
+        [TestCase(false, false, false)]
+        [TestCase(false, true, true)]
+        [TestCase(true, false, true)]
+        [TestCase(true, true, false)]
         public void Validate_CalculationWithIncompletSaturatedVolumicWeightDefinition_LogsErrorAndReturnsFalse(bool meanSet, bool deviationSet, bool shiftSet)
         {
             // Setup
             const string name = "<very nice name>";
-
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
 
             var random = new Random(21);
             var incompletePipingSoilLayer = new PipingSoilLayer(10.5)
@@ -550,23 +543,23 @@ namespace Ringtoets.Piping.Service.Test
                 incompletePipingSoilLayer.BelowPhreaticLevelMean = 0.1 + incompletePipingSoilLayer.BelowPhreaticLevelShift + random.NextDouble();
             }
 
-            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
-                string.Empty,
-                0.0,
-                new[]
-                {
-                    incompletePipingSoilLayer,
-                    new PipingSoilLayer(5.0)
-                    {
-                        IsAquifer = true,
-                        PermeabilityDeviation = random.NextDouble(),
-                        PermeabilityMean = 0.1 + random.NextDouble(),
-                        DiameterD70Deviation = random.NextDouble(),
-                        DiameterD70Mean = 0.1 + random.NextDouble()
-                    }
-                },
-                SoilProfileType.SoilProfile1D,
-                -1);
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    incompletePipingSoilLayer,
+                                                    new PipingSoilLayer(5.0)
+                                                    {
+                                                        IsAquifer = true,
+                                                        PermeabilityDeviation = random.NextDouble(),
+                                                        PermeabilityMean = 0.1 + random.NextDouble(),
+                                                        DiameterD70Deviation = random.NextDouble(),
+                                                        DiameterD70Mean = 0.1 + random.NextDouble()
+                                                    }
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+            
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
             bool isValid = false;
@@ -592,41 +585,39 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-
             var random = new Random(21);
             var belowPhreaticLevelDeviation = random.NextDouble();
             var belowPhreaticLevelShift = random.NextDouble();
-            calculation.InputParameters.StochasticSoilProfile.SoilProfile = new PipingSoilProfile(
-                string.Empty,
-                0.0,
-                new[]
-                {
-                    new PipingSoilLayer(10.5)
-                    {
-                        IsAquifer = false,
-                        BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
-                        BelowPhreaticLevelShift = belowPhreaticLevelShift,
-                        BelowPhreaticLevelMean = 0.1 + belowPhreaticLevelShift + random.NextDouble()
-                    },
-                    new PipingSoilLayer(8.5)
-                    {
-                        IsAquifer = false,
-                        BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
-                        BelowPhreaticLevelShift = belowPhreaticLevelShift,
-                        BelowPhreaticLevelMean = 0.1 + belowPhreaticLevelShift + random.NextDouble()
-                    },
-                    new PipingSoilLayer(5.0)
-                    {
-                        IsAquifer = true,
-                        PermeabilityDeviation = random.NextDouble(),
-                        PermeabilityMean = 0.1 + random.NextDouble(),
-                        DiameterD70Deviation = random.NextDouble(),
-                        DiameterD70Mean = 0.1 + random.NextDouble()
-                    }
-                },
-                SoilProfileType.SoilProfile1D,
-                -1);
+            var profile = new PipingSoilProfile(string.Empty, 0.0,
+                                                new[]
+                                                {
+                                                    new PipingSoilLayer(10.5)
+                                                    {
+                                                        IsAquifer = false,
+                                                        BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
+                                                        BelowPhreaticLevelShift = belowPhreaticLevelShift,
+                                                        BelowPhreaticLevelMean = 0.1 + belowPhreaticLevelShift + random.NextDouble()
+                                                    },
+                                                    new PipingSoilLayer(8.5)
+                                                    {
+                                                        IsAquifer = false,
+                                                        BelowPhreaticLevelDeviation = belowPhreaticLevelDeviation,
+                                                        BelowPhreaticLevelShift = belowPhreaticLevelShift,
+                                                        BelowPhreaticLevelMean = 0.1 + belowPhreaticLevelShift + random.NextDouble()
+                                                    },
+                                                    new PipingSoilLayer(5.0)
+                                                    {
+                                                        IsAquifer = true,
+                                                        PermeabilityDeviation = random.NextDouble(),
+                                                        PermeabilityMean = 0.1 + random.NextDouble(),
+                                                        DiameterD70Deviation = random.NextDouble(),
+                                                        DiameterD70Mean = 0.1 + random.NextDouble()
+                                                    }
+                                                },
+                                                SoilProfileType.SoilProfile1D, -1);
+
+            PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;
 
             bool isValid = false;
@@ -753,25 +744,32 @@ namespace Ringtoets.Piping.Service.Test
             var upliftCalculator = testFactory.LastCreatedUpliftCalculator;
             var sellmeijerCalculator = testFactory.LastCreatedSellmeijerCalculator;
 
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(), heaveCalculator.DTotal,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
+                            heaveCalculator.DTotal,
                             input.ThicknessCoverageLayer.GetAccuracy());
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), heaveCalculator.HExit,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                            heaveCalculator.HExit,
                             input.PhreaticLevelExit.GetAccuracy());
             Assert.AreEqual(input.CriticalHeaveGradient, heaveCalculator.Ich);
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), heaveCalculator.PhiPolder,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                            heaveCalculator.PhiPolder,
                             input.PhreaticLevelExit.GetAccuracy());
             Assert.AreEqual(input.PiezometricHeadExit.Value, heaveCalculator.PhiExit);
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), heaveCalculator.RExit,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(),
+                            heaveCalculator.RExit,
                             input.DampingFactorExit.GetAccuracy());
 
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), upliftCalculator.HExit,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                            upliftCalculator.HExit,
                             input.PhreaticLevelExit.GetAccuracy());
             Assert.AreEqual(input.AssessmentLevel.Value, upliftCalculator.HRiver);
             Assert.AreEqual(input.UpliftModelFactor, upliftCalculator.ModelFactorUplift);
             Assert.AreEqual(input.PiezometricHeadExit.Value, upliftCalculator.PhiExit);
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), upliftCalculator.PhiPolder,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                            upliftCalculator.PhiPolder,
                             input.PhreaticLevelExit.GetAccuracy());
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(), upliftCalculator.RExit,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(input).GetDesignValue(),
+                            upliftCalculator.RExit,
                             input.DampingFactorExit.GetAccuracy());
             Assert.AreEqual(input.WaterVolumetricWeight, upliftCalculator.VolumetricWeightOfWater);
             RoundedDouble effectiveStress = PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue()*
@@ -779,9 +777,11 @@ namespace Ringtoets.Piping.Service.Test
             Assert.AreEqual(effectiveStress, upliftCalculator.EffectiveStress,
                             effectiveStress.GetAccuracy());
 
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(input).GetDesignValue(), sellmeijerCalculator.SeepageLength,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(input).GetDesignValue(),
+                            sellmeijerCalculator.SeepageLength,
                             input.SeepageLength.GetAccuracy());
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(), sellmeijerCalculator.HExit,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                            sellmeijerCalculator.HExit,
                             input.PhreaticLevelExit.GetAccuracy());
             Assert.AreEqual(input.AssessmentLevel.Value, sellmeijerCalculator.HRiver);
             Assert.AreEqual(input.WaterKinematicViscosity, sellmeijerCalculator.KinematicViscosityWater);
@@ -790,24 +790,27 @@ namespace Ringtoets.Piping.Service.Test
             Assert.AreEqual(input.WaterVolumetricWeight, sellmeijerCalculator.VolumetricWeightOfWater);
             Assert.AreEqual(input.WhitesDragCoefficient, sellmeijerCalculator.WhitesDragCoefficient);
             Assert.AreEqual(input.BeddingAngle, sellmeijerCalculator.BeddingAngle);
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(), sellmeijerCalculator.DTotal,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
+                            sellmeijerCalculator.DTotal,
                             input.ThicknessCoverageLayer.GetAccuracy());
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDiameter70(input).GetDesignValue(), sellmeijerCalculator.D70,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDiameter70(input).GetDesignValue(),
+                            sellmeijerCalculator.D70,
                             input.Diameter70.GetAccuracy());
             Assert.AreEqual(input.MeanDiameter70, sellmeijerCalculator.D70Mean);
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(input).GetDesignValue(), sellmeijerCalculator.DAquifer,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(input).GetDesignValue(),
+                            sellmeijerCalculator.DAquifer,
                             input.ThicknessAquiferLayer.GetAccuracy());
-            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(input).GetDesignValue(), sellmeijerCalculator.DarcyPermeability,
+            Assert.AreEqual(PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(input).GetDesignValue(),
+                            sellmeijerCalculator.DarcyPermeability,
                             input.DarcyPermeability.GetAccuracy());
             Assert.AreEqual(input.SandParticlesVolumicWeight, sellmeijerCalculator.GammaSubParticles);
             Assert.AreEqual(input.Gravity, sellmeijerCalculator.Gravity);
         }
 
-
         private double GetRandomDoubleFromRange(Random random, double lowerLimit, double upperLimit)
         {
             double difference = upperLimit - lowerLimit;
-            return lowerLimit + random.NextDouble() * difference;
+            return lowerLimit + random.NextDouble()*difference;
         }
     }
 }

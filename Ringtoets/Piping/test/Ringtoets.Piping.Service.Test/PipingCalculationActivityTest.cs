@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var originalOutput = new TestPipingOutput();
 
-            var invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
+            PipingCalculationScenario invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithInvalidData();
             invalidPipingCalculation.Output = originalOutput;
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation, new PipingProbabilityAssessmentInput(), int.MinValue, double.NaN);
@@ -111,10 +111,10 @@ namespace Ringtoets.Piping.Service.Test
         public void Run_ValidPipingCalculation_PerformPipingValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            var validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculationScenario validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validPipingCalculation.Output = null;
 
-            var norm = new Random(21).Next(100, 300000);
+            int norm = new Random(21).Next(100, 300000);
             var activity = new PipingCalculationActivity(validPipingCalculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
             activity.Run();
 
@@ -144,7 +144,7 @@ namespace Ringtoets.Piping.Service.Test
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
+            PipingCalculationScenario validPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observerMock);
 

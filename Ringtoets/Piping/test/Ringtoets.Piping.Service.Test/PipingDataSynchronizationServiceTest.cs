@@ -48,17 +48,17 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
-            PipingCalculation calculation1 = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            };
-            
-            PipingCalculation calculation2 = new PipingCalculation(new GeneralPipingInput())
+            var calculation1 = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             };
 
-            PipingCalculation calculation3 = new PipingCalculation(new GeneralPipingInput());
+            var calculation2 = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = new TestPipingOutput()
+            };
+
+            var calculation3 = new PipingCalculation(new GeneralPipingInput());
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
@@ -72,7 +72,11 @@ namespace Ringtoets.Piping.Service.Test
             {
                 Assert.IsNull(calculation.Output);
             }
-            CollectionAssert.AreEqual(new[] { calculation1, calculation2 }, affectedItems);
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
         }
 
         [Test]
@@ -90,7 +94,7 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutput()
         {
             // Setup
-            PipingCalculation calculation = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             };
@@ -117,10 +121,10 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearHydraulicBoundaryLocations_WithHydraulicBoundaryLocation_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-            
-            PipingCalculation calculation1 = new PipingCalculation(new GeneralPipingInput())
+            var failureMechanism = new PipingFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            var calculation1 = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -128,7 +132,7 @@ namespace Ringtoets.Piping.Service.Test
                 }
             };
 
-            PipingCalculation calculation2 = new PipingCalculation(new GeneralPipingInput())
+            var calculation2 = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -136,7 +140,7 @@ namespace Ringtoets.Piping.Service.Test
                 }
             };
 
-            PipingCalculation calculation3 = new PipingCalculation(new GeneralPipingInput());
+            var calculation3 = new PipingCalculation(new GeneralPipingInput());
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
@@ -172,10 +176,10 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var failureMechanism = new PipingFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            PipingCalculation calculation1 = new PipingCalculation(new GeneralPipingInput())
+            var calculation1 = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -184,7 +188,7 @@ namespace Ringtoets.Piping.Service.Test
                 Output = new TestPipingOutput()
             };
 
-            PipingCalculation calculation2 = new PipingCalculation(new GeneralPipingInput())
+            var calculation2 = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -193,7 +197,7 @@ namespace Ringtoets.Piping.Service.Test
                 Output = new TestPipingOutput()
             };
 
-            PipingCalculation calculation3 = new PipingCalculation(new GeneralPipingInput());
+            var calculation3 = new PipingCalculation(new GeneralPipingInput());
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
@@ -219,10 +223,10 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var failureMechanism = new PipingFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            PipingCalculation calculation1 = new PipingCalculation(new GeneralPipingInput())
+            var calculation1 = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -230,7 +234,7 @@ namespace Ringtoets.Piping.Service.Test
                 }
             };
 
-            PipingCalculation calculation2 = new PipingCalculation(new GeneralPipingInput())
+            var calculation2 = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -238,7 +242,7 @@ namespace Ringtoets.Piping.Service.Test
                 }
             };
 
-            PipingCalculation calculation3 = new PipingCalculation(new GeneralPipingInput());
+            var calculation3 = new PipingCalculation(new GeneralPipingInput());
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
@@ -263,19 +267,19 @@ namespace Ringtoets.Piping.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOuputAndReturnsAffectedCalculations()
         {
             // Setup
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
-            PipingCalculation calculation1 = new PipingCalculation(new GeneralPipingInput())
+            var calculation1 = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             };
 
-            PipingCalculation calculation2 = new PipingCalculation(new GeneralPipingInput())
+            var calculation2 = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             };
 
-            PipingCalculation calculation3 = new PipingCalculation(new GeneralPipingInput());
+            var calculation3 = new PipingCalculation(new GeneralPipingInput());
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
