@@ -811,13 +811,13 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var atX = 2.0;
             List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                                                                                       "6",
-                                                                                       "..1..2..",
-                                                                                       "........",
-                                                                                       "........",
-                                                                                       "........",
-                                                                                       "........",
-                                                                                       "..4..3.."))
+                                                                                                   "6",
+                                                                                                   "..1..2..",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "........",
+                                                                                                   "..4..3.."));
 
             var layer = new SoilLayer2D
             {
