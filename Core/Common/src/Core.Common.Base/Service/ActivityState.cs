@@ -48,7 +48,7 @@ namespace Core.Common.Base.Service
         /// The state of an <see cref="Activity"/> that is successfully cancelled.
         /// <seealso cref="Activity.Cancel"/>
         /// </summary>
-        Cancelled,
+        Canceled,
 
         /// <summary>
         /// The state of an <see cref="Activity"/> that is skipped during run.

@@ -28,6 +28,7 @@ namespace Ringtoets.Piping.IO.Exceptions
     /// <summary>
     /// Exception thrown when something went wrong while reading <see cref="PipingSoilProfile"/> in <see cref="PipingSoilProfileReader"/>.
     /// </summary>
+    [Serializable]
     public class PipingSoilProfileReadException : Exception
     {
         private readonly string ProfileNameKey = "ProfileName";

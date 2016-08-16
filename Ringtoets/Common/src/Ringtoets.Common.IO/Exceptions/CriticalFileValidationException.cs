@@ -26,6 +26,7 @@ namespace Ringtoets.Common.IO.Exceptions
     /// <summary>
     /// The exception that is thrown when a file read successfully, but did not pass the validation process.
     /// </summary>
+    [Serializable]
     public class CriticalFileValidationException : Exception
     {
         /// <summary>

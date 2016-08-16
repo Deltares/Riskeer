@@ -97,7 +97,7 @@ namespace Core.Common.Base.Test.Service
             activity.Cancel();
 
             // Assert
-            Assert.AreEqual(ActivityState.Cancelled, activity.State);
+            Assert.AreEqual(ActivityState.Canceled, activity.State);
         }
 
         [Test]
@@ -180,7 +180,7 @@ namespace Core.Common.Base.Test.Service
                 "Uitvoeren van '' is geannuleerd."
             });
 
-            Assert.AreEqual(ActivityState.Cancelled, activity.State);
+            Assert.AreEqual(ActivityState.Canceled, activity.State);
         }
 
         [Test]

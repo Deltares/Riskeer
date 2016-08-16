@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -122,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -166,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             int totalNumberOfSteps = dikeProfileLocationReader.GetLocationCount;
             for (int i = 0; i < totalNumberOfSteps; i++)
             {
-                if (ImportIsCancelled)
+                if (Canceled)
                 {
                     return new ReadResult<DikeProfileLocation>(false);
                 }
@@ -236,7 +236,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
             for (int i = 0; i < totalNumberOfSteps; i++)
             {
-                if (ImportIsCancelled)
+                if (Canceled)
                 {
                     return new ReadResult<DikeProfileData>(false);
                 }
@@ -344,7 +344,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         private void HandleUserCancellingImport()
         {
             log.Info(Resources.DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted);
-            ImportIsCancelled = false;
+            Canceled = false;
         }
 
         private static bool IsReferenceLineAvailable(object targetItem)

@@ -86,7 +86,7 @@ namespace Ringtoets.Common.IO
 
         public override bool Import(object targetItem, string filePath)
         {
-            ImportIsCancelled = false;
+            Canceled = false;
             changedObservables.Clear();
 
             bool clearReferenceLineDependentData = false;
@@ -97,7 +97,7 @@ namespace Ringtoets.Common.IO
                 clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData(importTarget.WrappedData);
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.IO
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -135,7 +135,7 @@ namespace Ringtoets.Common.IO
                                                   MessageBoxButtons.OKCancel);
             if (result == DialogResult.Cancel)
             {
-                ImportIsCancelled = true;
+                Canceled = true;
             }
             else
             {

@@ -26,6 +26,7 @@ namespace Ringtoets.Piping.KernelWrapper
     /// <summary>
     /// Exception thrown when something went wrong in the <see cref="PipingCalculator"/>
     /// </summary>
+    [Serializable]
     public class PipingProfileCreatorException : Exception
     {
         /// <summary>

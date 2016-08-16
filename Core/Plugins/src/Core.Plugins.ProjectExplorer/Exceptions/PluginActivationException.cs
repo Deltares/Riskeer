@@ -26,6 +26,7 @@ namespace Core.Plugins.ProjectExplorer.Exceptions
     /// <summary>
     /// This class describes exceptions thrown when activating the plugin failed.
     /// </summary>
+    [Serializable]
     public class PluginActivationException : Exception
     {
         /// <summary>

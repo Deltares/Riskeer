@@ -27,6 +27,7 @@ namespace Core.Common.IO.Exceptions
     /// The exception that is thrown when a file writer class encounters a critical error
     /// during the write.
     /// </summary>
+    [Serializable]
     public class CriticalFileWriteException : Exception
     {
         /// <summary>

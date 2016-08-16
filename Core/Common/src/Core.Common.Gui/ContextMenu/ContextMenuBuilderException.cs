@@ -26,6 +26,7 @@ namespace Core.Common.Gui.ContextMenu
     /// <summary>
     /// Exception thrown when something went wrong while initializing a <see cref="ContextMenuBuilder"/>.
     /// </summary>
+    [Serializable]
     public class ContextMenuBuilderException : Exception
     {
         /// <summary>

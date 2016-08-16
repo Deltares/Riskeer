@@ -26,6 +26,7 @@ namespace Application.Ringtoets.Storage.Exceptions
     /// <summary>
     /// The exception that is thrown when the original file cannot be restored by <see cref="BackedUpFileWriter"/>.
     /// </summary>
+    [Serializable]
     public class CannotDeleteBackupFileException : Exception
     {
         /// <summary>

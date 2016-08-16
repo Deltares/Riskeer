@@ -26,6 +26,7 @@ namespace Application.Ringtoets.Storage.Exceptions
     /// <summary>
     /// The exception that is thrown when an entity is not found.
     /// </summary>
+    [Serializable]
     public class EntityNotFoundException : Exception
     {
         /// <summary>

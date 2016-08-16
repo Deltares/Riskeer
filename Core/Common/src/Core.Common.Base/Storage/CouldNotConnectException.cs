@@ -26,6 +26,7 @@ namespace Core.Common.Base.Storage
     /// <summary>
     /// The exception that is thrown when a class is unable to connect.
     /// </summary>
+    [Serializable]
     public class CouldNotConnectException : StorageException
     {
         /// <summary>

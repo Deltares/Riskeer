@@ -27,6 +27,7 @@ namespace Core.Common.Base.Storage
     /// The exception that is thrown when a database updater class encounters an error while
     /// parsing a row/line during the read.
     /// </summary>
+    [Serializable]
     public class UpdateStorageException : Exception
     {
         /// <summary>

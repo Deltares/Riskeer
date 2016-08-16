@@ -155,6 +155,7 @@ namespace Core.Common.TestUtil
         /// <summary>
         /// Defines unhandled exception which provides stack trace of inner exception as its stack trace.
         /// </summary>
+        [Serializable]
         public class UnhandledException : Exception
         {
             private readonly string stackTrace;

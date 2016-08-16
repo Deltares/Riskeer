@@ -26,6 +26,7 @@ namespace Core.Common.Base.Storage
     /// <summary>
     /// The exception that is thrown when a storage execution failed.
     /// </summary>
+    [Serializable]
     public class StorageException : Exception
     {
         /// <summary>

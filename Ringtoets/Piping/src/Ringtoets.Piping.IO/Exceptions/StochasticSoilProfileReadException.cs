@@ -26,6 +26,7 @@ namespace Ringtoets.Piping.IO.Exceptions
     /// <summary>
     /// The exception that is thrown when failed to read a <see cref="Ringtoets.Piping.Data.StochasticSoilProfile"/> from the DSoil-database.
     /// </summary>
+    [Serializable]
     public class StochasticSoilProfileReadException : Exception
     {
         /// <summary>

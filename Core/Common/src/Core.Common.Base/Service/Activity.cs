@@ -106,12 +106,12 @@ namespace Core.Common.Base.Service
 
         /// <summary>
         /// This method cancels a running <see cref="Activity"/>.
-        /// The <see cref="State"/> of a successfully cancelled <see cref="Activity"/> will become <see cref="ActivityState.Cancelled"/>.
+        /// The <see cref="State"/> of a successfully cancelled <see cref="Activity"/> will become <see cref="ActivityState.Canceled"/>.
         /// When the <see cref="Activity"/> cancel action fails, the <see cref="State"/> will become <see cref="ActivityState.Failed"/>.
         /// </summary>
         public void Cancel()
         {
-            ChangeState(OnCancel, ActivityState.Cancelled);
+            ChangeState(OnCancel, ActivityState.Canceled);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Core.Common.Base.Service
                 log.InfoFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_succeeded, Name);
             }
 
-            if (State == ActivityState.Cancelled)
+            if (State == ActivityState.Canceled)
             {
                 log.WarnFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_been_cancelled, Name);
             }
@@ -187,7 +187,7 @@ namespace Core.Common.Base.Service
             {
                 transitionAction();
 
-                if (State == ActivityState.Failed || State == ActivityState.Cancelled || State == ActivityState.Skipped)
+                if (State == ActivityState.Failed || State == ActivityState.Canceled || State == ActivityState.Skipped)
                 {
                     return;
                 }

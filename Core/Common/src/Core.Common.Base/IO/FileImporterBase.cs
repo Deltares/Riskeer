@@ -41,7 +41,7 @@ namespace Core.Common.Base.IO
         /// made to the data model unless the importer is already in progress of changing
         /// the data model.
         /// </summary>
-        protected bool ImportIsCancelled;
+        protected bool Canceled;
 
         public abstract string Name { get; }
         public abstract string Category { get; }
@@ -58,12 +58,12 @@ namespace Core.Common.Base.IO
 
         public void Cancel()
         {
-            ImportIsCancelled = true;
+            Canceled = true;
         }
 
         public void DoPostImportUpdates(object targetItem)
         {
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 return;
             }

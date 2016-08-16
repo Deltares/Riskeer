@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -292,7 +292,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             log.Info(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_Import_Import_cancelled);
 
-            ImportIsCancelled = false;
+            Canceled = false;
         }
 
         private class ReferenceLineIntersectionResult
@@ -359,7 +359,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             NotifyProgress(stepName, 0, itemCount);
 
             var readSurfaceLines = new List<RingtoetsPipingSurfaceLine>(itemCount);
-            for (int i = 0; i < itemCount && !ImportIsCancelled; i++)
+            for (int i = 0; i < itemCount && !Canceled; i++)
             {
                 try
                 {
@@ -517,7 +517,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             NotifyProgress(stepName, 0, itemCount);
 
             var readCharacteristicPointsLocations = new List<CharacteristicPoints>(itemCount);
-            for (int i = 0; i < itemCount && !ImportIsCancelled; i++)
+            for (int i = 0; i < itemCount && !Canceled; i++)
             {
                 try
                 {

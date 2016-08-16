@@ -29,7 +29,7 @@ using System.Linq.Expressions;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {
-    public class TestDbSet<T> : DbSet<T>, IDbSet<T> where T : class
+    public sealed class TestDbSet<T> : DbSet<T>, IDbSet<T> where T : class
     {
         private readonly IQueryable<T> queryable;
         private readonly ObservableCollection<T> collection;

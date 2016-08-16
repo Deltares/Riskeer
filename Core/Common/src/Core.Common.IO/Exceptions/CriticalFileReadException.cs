@@ -27,6 +27,7 @@ namespace Core.Common.IO.Exceptions
     /// The exception that is thrown when a file reader class encounters a critical error
     /// during the read.
     /// </summary>
+    [Serializable]
     public class CriticalFileReadException : Exception
     {
         /// <summary>

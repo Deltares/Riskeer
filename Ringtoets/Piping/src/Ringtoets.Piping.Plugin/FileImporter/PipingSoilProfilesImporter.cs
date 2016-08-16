@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             CheckIfAllProfilesAreUsed(importSoilProfileResult.ImportedItems, importStochasticSoilModelResult.ImportedItems);
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -229,7 +229,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             log.Info(RingtoetsPluginResources.PipingSoilProfilesImporter_Import_Import_cancelled);
 
-            ImportIsCancelled = false;
+            Canceled = false;
         }
 
         #region read stochastic soil models
@@ -259,7 +259,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var soilModels = new Collection<StochasticSoilModel>();
             while (stochasticSoilModelReader.HasNext)
             {
-                if (ImportIsCancelled)
+                if (Canceled)
                 {
                     return new ReadResult<StochasticSoilModel>(false);
                 }
@@ -309,7 +309,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var profiles = new Collection<PipingSoilProfile>();
             while (soilProfileReader.HasNext)
             {
-                if (ImportIsCancelled)
+                if (Canceled)
                 {
                     return new ReadResult<PipingSoilProfile>(false);
                 }

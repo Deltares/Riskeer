@@ -51,14 +51,16 @@ namespace Application.Ringtoets.Storage.Serializers
                 throw new ArgumentNullException("elements");
             }
 
-            using (var memoryStream = new MemoryStream())
+            var memoryStream = new MemoryStream();
+
             using (var writer = XmlDictionaryWriter.CreateTextWriter(memoryStream, encoding, false))
-            using (var streamReader = new StreamReader(memoryStream))
             {
                 var formatter = new DataContractSerializer(serializationRootType);
                 formatter.WriteObject(writer, ToSerializableData(elements));
                 writer.Flush();
-
+            }
+            using (var streamReader = new StreamReader(memoryStream))
+            {
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 return streamReader.ReadToEnd();
             }
@@ -79,7 +81,7 @@ namespace Application.Ringtoets.Storage.Serializers
                 throw new ArgumentNullException("xml");
             }
 
-            using (var stream = new MemoryStream())
+            var stream = new MemoryStream();
             using (var streamWriter = new StreamWriter(stream, encoding))
             {
                 streamWriter.Write(xml);

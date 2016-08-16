@@ -26,6 +26,7 @@ namespace Ringtoets.HydraRing.IO.Exceptions
     /// <summary>
     /// Represents errors that occur while reading a hydraulic boundary database.
     /// </summary>
+    [Serializable]
     public class HydraulicBoundaryDatabaseReadException : Exception
     {
         /// <summary>

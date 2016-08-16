@@ -27,6 +27,7 @@ namespace Ringtoets.Piping.IO.Builders
     /// <summary>
     /// Exception thrown when something went wrong while converting soil layers for a <see cref="PipingSoilProfile"/>.
     /// </summary>
+    [Serializable]
     public class SoilLayerConversionException : Exception
     {
         /// <summary>

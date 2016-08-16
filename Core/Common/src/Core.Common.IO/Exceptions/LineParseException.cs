@@ -27,6 +27,7 @@ namespace Core.Common.IO.Exceptions
     /// The exception that is thrown when a file reader class encounters an error while
     /// parsing a row/line during the read.
     /// </summary>
+    [Serializable]
     public class LineParseException : Exception
     {
         /// <summary>

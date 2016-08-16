@@ -27,6 +27,7 @@ namespace Ringtoets.Piping.Primitives.Exceptions
     /// The exception that is thrown when operations on <see cref="RingtoetsPipingSurfaceLine"/> encounter 
     /// an error.
     /// </summary>
+    [Serializable]
     public class RingtoetsPipingSurfaceLineException : Exception
     {
         /// <summary>

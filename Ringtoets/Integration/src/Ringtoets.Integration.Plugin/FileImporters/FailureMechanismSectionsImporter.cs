@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 return false;
             }
 
-            if (ImportIsCancelled)
+            if (Canceled)
             {
                 HandleUserCancellingImport();
                 return false;
@@ -135,7 +135,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         private void HandleUserCancellingImport()
         {
             log.Info(Resources.FailureMechanismSectionsImporter_Import_cancelled_no_data_read);
-            ImportIsCancelled = false;
+            Canceled = false;
         }
 
         private ReadResult<FailureMechanismSection> ReadFailureMechanismSections(string filePath)
