@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
 
-            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.CheckedToBeCalculated),
+            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.ToCalculate),
                                                   Resources.HydraulicBoundaryLocationDesignWaterLevelRow_Calculate);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationDesignWaterLevelRow>(row => row.Name),
                                                  Resources.HydraulicBoundaryDatabase_Locations_Name_DisplayName);
@@ -191,13 +191,13 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {
-            GetHydraulicBoundaryLocationDesignWaterLevelRows().ForEachElementDo(row => row.CheckedToBeCalculated = true);
+            GetHydraulicBoundaryLocationDesignWaterLevelRows().ForEachElementDo(row => row.ToCalculate = true);
             dataGridViewControl.RefreshDataGridView();
         }
 
         private void DeselectAllButton_Click(object sender, EventArgs e)
         {
-            GetHydraulicBoundaryLocationDesignWaterLevelRows().ForEachElementDo(row => row.CheckedToBeCalculated = false);
+            GetHydraulicBoundaryLocationDesignWaterLevelRows().ForEachElementDo(row => row.ToCalculate = false);
             dataGridViewControl.RefreshDataGridView();
         }
 
