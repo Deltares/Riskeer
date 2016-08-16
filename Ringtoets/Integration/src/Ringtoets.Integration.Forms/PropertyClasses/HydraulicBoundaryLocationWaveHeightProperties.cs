@@ -79,6 +79,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Gets the convergence status of the waveheight calculation.
         /// </summary>
         [PropertyOrder(5)]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_WaveHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_WaveHeight_Description")]
         public bool Convergence

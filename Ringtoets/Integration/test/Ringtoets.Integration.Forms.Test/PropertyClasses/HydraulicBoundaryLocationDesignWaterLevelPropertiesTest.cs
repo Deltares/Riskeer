@@ -164,6 +164,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.IsNotNull(convergenceProperty);
             Assert.IsTrue(convergenceProperty.IsReadOnly);
             Assert.IsTrue(convergenceProperty.IsBrowsable);
+            Assert.AreEqual(expectedCategory, convergenceProperty.Category);
             Assert.AreEqual(expectedConvergenceDisplayName, convergenceProperty.DisplayName);
             Assert.AreEqual(expectedConvergenceDisplayDescription, convergenceProperty.Description);
             Assert.AreEqual(5, convergenceProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
