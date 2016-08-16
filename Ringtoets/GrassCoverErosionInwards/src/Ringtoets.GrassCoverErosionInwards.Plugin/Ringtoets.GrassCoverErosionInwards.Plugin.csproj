@@ -83,10 +83,12 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
       <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
       <Name>Core.Common.IO</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Charting.Forms\Core.Components.Charting.Forms.csproj">
       <Project>{2465cca1-c505-4827-9454-4fd5fd9194cd}</Project>
@@ -141,6 +143,7 @@
     <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.IO\Ringtoets.GrassCoverErosionInwards.IO.csproj">
       <Project>{F55CCA9C-3B25-417D-9AF4-797D1F5EB95E}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.IO</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Service\Ringtoets.GrassCoverErosionInwards.Service.csproj">
       <Project>{5D158D8E-A5EB-489C-A885-87E13BC0D3B3}</Project>
@@ -150,6 +153,7 @@
     <ProjectReference Include="..\Ringtoets.GrassCoverErosionInwards.Utils\Ringtoets.GrassCoverErosionInwards.Utils.csproj">
       <Project>{99573570-EE00-4264-8147-26A1B25DB23F}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Utils</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
