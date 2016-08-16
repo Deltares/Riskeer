@@ -62,6 +62,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using Ringtoets.Integration.Plugin.Commands;
 using Ringtoets.Integration.Plugin.FileExporters;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
@@ -298,6 +299,7 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.ApplicationSelection = Gui;
+                    view.CalculationCommandHandler = new CalculateDesignWaterLevelCommandHandler(Gui.MainWindow, context.WrappedData);
                     view.AssessmentSection = context.WrappedData;
                 }
             };
@@ -1045,20 +1047,8 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.FailureMechanismIcon,
                 (sender, args) =>
                 {
-                    var hrdFile = nodeData.WrappedData.HydraulicBoundaryDatabase.FilePath;
-                    var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
-                    if (validationProblem == null)
-                    {
-                        var activities = nodeData.WrappedData.HydraulicBoundaryDatabase.Locations.Select(hbl => new DesignWaterLevelCalculationActivity(nodeData.WrappedData, hbl)).ToArray();
-
-                        ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
-
-                        nodeData.WrappedData.HydraulicBoundaryDatabase.NotifyObservers();
-                    }
-                    else
-                    {
-                        log.ErrorFormat(Resources.RingtoetsPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_, validationProblem);
-                    }
+                    var command = new CalculateDesignWaterLevelCommandHandler(Gui.MainWindow, nodeData.WrappedData);
+                    command.CalculateDesignWaterLevels(nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)

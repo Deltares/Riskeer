@@ -39,9 +39,9 @@ namespace Ringtoets.Integration.Forms.Views
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
-            this.SelectAllButton = new System.Windows.Forms.Button();
-            this.DeselectAllButton = new System.Windows.Forms.Button();
             this.CalculateForSelectedButton = new System.Windows.Forms.Button();
+            this.DeselectAllButton = new System.Windows.Forms.Button();
+            this.SelectAllButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             this.ButtonGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +87,26 @@ namespace Ringtoets.Integration.Forms.Views
             this.ButtonGroupBox.TabStop = false;
             this.ButtonGroupBox.Text = "Toetspeilen berekenen";
             // 
+            // CalculateForSelectedButton
+            // 
+            this.CalculateForSelectedButton.Location = new System.Drawing.Point(227, 19);
+            this.CalculateForSelectedButton.Name = "CalculateForSelectedButton";
+            this.CalculateForSelectedButton.Size = new System.Drawing.Size(207, 23);
+            this.CalculateForSelectedButton.TabIndex = 2;
+            this.CalculateForSelectedButton.Text = "Bereken voor geselecteerde locaties";
+            this.CalculateForSelectedButton.UseVisualStyleBackColor = true;
+            this.CalculateForSelectedButton.Click += new System.EventHandler(this.CalculateForSelectedButton_Click);
+            // 
+            // DeselectAllButton
+            // 
+            this.DeselectAllButton.Location = new System.Drawing.Point(110, 19);
+            this.DeselectAllButton.Name = "DeselectAllButton";
+            this.DeselectAllButton.Size = new System.Drawing.Size(111, 23);
+            this.DeselectAllButton.TabIndex = 1;
+            this.DeselectAllButton.Text = "Deselecteer alles";
+            this.DeselectAllButton.UseVisualStyleBackColor = true;
+            this.DeselectAllButton.Click += new System.EventHandler(this.DeselectAllButton_Click);
+            // 
             // SelectAllButton
             // 
             this.SelectAllButton.Location = new System.Drawing.Point(6, 19);
@@ -96,25 +116,6 @@ namespace Ringtoets.Integration.Forms.Views
             this.SelectAllButton.Text = "Selecteer alles";
             this.SelectAllButton.UseVisualStyleBackColor = true;
             this.SelectAllButton.Click += new System.EventHandler(this.SelectAllButton_Click);
-            // 
-            // DeselectAllButton
-            // 
-            this.DeselectAllButton.Location = new System.Drawing.Point(110, 19);
-            this.DeselectAllButton.Name = "DeselectAllButton";
-            this.DeselectAllButton.Size = new System.Drawing.Size(98, 23);
-            this.DeselectAllButton.TabIndex = 1;
-            this.DeselectAllButton.Text = "Deselecteer alles";
-            this.DeselectAllButton.UseVisualStyleBackColor = true;
-            this.DeselectAllButton.Click += new System.EventHandler(this.DeselectAllButton_Click);
-            // 
-            // CalculateForSelectedButton
-            // 
-            this.CalculateForSelectedButton.Location = new System.Drawing.Point(214, 19);
-            this.CalculateForSelectedButton.Name = "CalculateForSelectedButton";
-            this.CalculateForSelectedButton.Size = new System.Drawing.Size(191, 23);
-            this.CalculateForSelectedButton.TabIndex = 2;
-            this.CalculateForSelectedButton.Text = "Bereken voor geselecteerde locaties";
-            this.CalculateForSelectedButton.UseVisualStyleBackColor = true;
             // 
             // HydraulicBoundaryLocationDesignWaterLevelsView
             // 

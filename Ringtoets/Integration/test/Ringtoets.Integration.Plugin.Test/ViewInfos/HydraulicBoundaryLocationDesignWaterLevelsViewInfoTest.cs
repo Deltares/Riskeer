@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,6 +32,7 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.Plugin.Commands;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
@@ -248,7 +250,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AfterCreate_WithGuiSet_SetsAssessmentSection()
+        public void AfterCreate_WithGuiSet_SetsSpecificPropertiesToView()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -259,6 +261,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+            guiStub.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
 
             mocks.ReplayAll();
 
@@ -276,27 +279,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.AreSame(view.AssessmentSection, assessmentSection);
+                Assert.AreSame(view.ApplicationSelection, guiStub);
             }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            var viewMock = mocks.StrictMock<HydraulicBoundaryLocationDesignWaterLevelsView>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
-
-            viewMock.Expect(v => v.AssessmentSection = assessmentSectionMock);
-            viewMock.Expect(v => v.ApplicationSelection = plugin.Gui);
-
-            mocks.ReplayAll();
-
-            // Call
-            info.AfterCreate(viewMock, context);
-
-            // Assert
             mocks.VerifyAll();
         }
     }

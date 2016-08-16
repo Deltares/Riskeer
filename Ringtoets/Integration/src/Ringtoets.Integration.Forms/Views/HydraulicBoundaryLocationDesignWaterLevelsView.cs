@@ -30,6 +30,7 @@ using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
 
@@ -55,7 +56,12 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeDataGridView();
 
             assessmentSectionObserver = new Observer(UpdateDataGridViewDataSource);
-            hydraulicBoundaryDatabaseObserver = new Observer(UpdateDataGridViewDataSource);
+            hydraulicBoundaryDatabaseObserver = new Observer(RefreshDataGridView);
+        }
+
+        private void RefreshDataGridView()
+        {
+            dataGridViewControl.RefreshDataGridView();
         }
 
         /// <summary>
@@ -78,6 +84,11 @@ namespace Ringtoets.Integration.Forms.Views
         /// Gets or sets the <see cref="IApplicationSelection"/>.
         /// </summary>
         public IApplicationSelection ApplicationSelection { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="ICalculateDesignWaterLevelCommandHandler"/>.
+        /// </summary>
+        public ICalculateDesignWaterLevelCommandHandler CalculationCommandHandler { private get; set; }
 
         public object Data
         {
@@ -140,13 +151,18 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.SetDataSource(hydraulicBoundaryDatabase != null
                                                   ? hydraulicBoundaryDatabase.Locations.Select(hl => new HydraulicBoundaryLocationDesignWaterLevelRow(hl)).ToArray()
                                                   : null);
-            dataGridViewControl.RefreshDataGridView();
+            RefreshDataGridView();
             updatingDataSource = false;
         }
 
         private IEnumerable<HydraulicBoundaryLocationDesignWaterLevelRow> GetHydraulicBoundaryLocationDesignWaterLevelRows()
         {
             return from DataGridViewRow row in dataGridViewControl.GetRows() select (HydraulicBoundaryLocationDesignWaterLevelRow) row.DataBoundItem;
+        }
+
+        private IEnumerable<HydraulicBoundaryLocation> GetSelectedHydraulicBoundaryLocations()
+        {
+            return GetHydraulicBoundaryLocationDesignWaterLevelRows().Where(r => r.ToCalculate).Select(r => r.HydraulicBoundaryLocation);
         }
 
         #region Event handling
@@ -199,6 +215,16 @@ namespace Ringtoets.Integration.Forms.Views
         {
             GetHydraulicBoundaryLocationDesignWaterLevelRows().ForEachElementDo(row => row.ToCalculate = false);
             dataGridViewControl.RefreshDataGridView();
+        }
+
+        private void CalculateForSelectedButton_Click(object sender, EventArgs e)
+        {
+            if (CalculationCommandHandler == null)
+            {
+                return;
+            }
+            var locations = GetSelectedHydraulicBoundaryLocations();
+            CalculationCommandHandler.CalculateDesignWaterLevels(locations);
         }
 
         #endregion
