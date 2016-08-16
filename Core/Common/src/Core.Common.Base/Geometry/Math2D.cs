@@ -106,11 +106,29 @@ namespace Core.Common.Base.Geometry
         /// <para>Taken from: https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/ </para>
         /// <para>Based on https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection </para>
         /// </remarks>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="line1Point1"/>, <paramref name="line1Point2"/>,
+        /// <paramref name="line2Point1"/> or <paramref name="line2Point2"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="line1Point1"/> equals <paramref name="line1Point2"/> or 
         /// <paramref name="line2Point1"/> equals <paramref name="line2Point2"/>, which makes it impossible to determine
         /// a line through the points.</exception>
         public static Point2D LineIntersectionWithLine(Point2D line1Point1, Point2D line1Point2, Point2D line2Point1, Point2D line2Point2)
         {
+            if (line1Point1 == null)
+            {
+                throw new ArgumentNullException("line1Point1");
+            }
+            if (line1Point2 == null)
+            {
+                throw new ArgumentNullException("line1Point2");
+            }
+            if (line2Point1 == null)
+            {
+                throw new ArgumentNullException("line2Point1");
+            }
+            if (line2Point2 == null)
+            {
+                throw new ArgumentNullException("line2Point2");
+            }
             if (line1Point1.Equals(line1Point2) || line2Point1.Equals(line2Point2))
             {
                 throw new ArgumentException(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal);
@@ -143,6 +161,14 @@ namespace Core.Common.Base.Geometry
         /// <returns><c>True</c> when the points are equal. <c>False</c> otherwise.</returns>
         public static bool AreEqualPoints(Point2D point1, Point2D point2)
         {
+            if (point1 == null)
+            {
+                throw new ArgumentNullException("point1");
+            }
+            if (point2 == null)
+            {
+                throw new ArgumentNullException("point2");
+            }
             return Math.Abs(point1.X - point2.X) < epsilonForComparisons && Math.Abs(point1.Y - point2.Y) < epsilonForComparisons;
         }
 
@@ -158,6 +184,11 @@ namespace Core.Common.Base.Geometry
         /// <remark>Segments which have length=0 or which are vertical, will not return an intersection point.</remark>
         public static IEnumerable<Point2D> SegmentsIntersectionWithVerticalLine(IEnumerable<Segment2D> segments, double verticalLineX)
         {
+            if (segments == null)
+            {
+                throw new ArgumentNullException("segments");
+            }
+
             var intersectionPointY = new Collection<Point2D>();
 
             foreach (Segment2D segment in segments.Where(s => s.ContainsX(verticalLineX)))
@@ -180,6 +211,11 @@ namespace Core.Common.Base.Geometry
         /// <returns>The sum of the distances between consecutive points.</returns>
         public static double Length(IEnumerable<Point2D> points)
         {
+            if (points == null)
+            {
+                throw new ArgumentNullException("points");
+            }
+
             double length = 0;
             Point2D previousPoint = null;
 
@@ -205,6 +241,15 @@ namespace Core.Common.Base.Geometry
         /// based on method <c>intersect2D_2Segments</c>.</remarks>
         public static Segment2DIntersectSegment2DResult GetIntersectionBetweenSegments(Segment2D segment1, Segment2D segment2)
         {
+            if (segment1 == null)
+            {
+                throw new ArgumentNullException("segment1");
+            }
+            if (segment2 == null)
+            {
+                throw new ArgumentNullException("segment2");
+            }
+
             Vector<double> u = segment1.SecondPoint - segment1.FirstPoint;
             Vector<double> v = segment2.SecondPoint - segment2.FirstPoint;
             Vector<double> w = segment1.FirstPoint - segment2.FirstPoint;
@@ -258,6 +303,11 @@ namespace Core.Common.Base.Geometry
         /// <returns>A new <see cref="Point2D"/> at the interpolated point.</returns>
         public static Point2D GetInterpolatedPointAtFraction(Segment2D lineSegment, double fraction)
         {
+            if (lineSegment == null)
+            {
+                throw new ArgumentNullException("lineSegment");
+            }
+
             if (double.IsNaN(fraction)|| fraction < 0.0 || fraction > 1.0)
             {
                 throw new ArgumentOutOfRangeException("fraction", "Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");

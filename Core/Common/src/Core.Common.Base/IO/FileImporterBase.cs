@@ -37,11 +37,11 @@ namespace Core.Common.Base.IO
     public abstract class FileImporterBase<T> : IFileImporter
     {
         /// <summary>
-        /// Indicates if a cancel request has been made. When true, no changes should be
-        /// made to the data model unless the importer is already in progress of changing
-        /// the data model.
+        /// Gets or sets value indicating if a cancel request has been made. When true, no 
+        /// changes should be made to the data model unless the importer is already in progress 
+        /// of changing the data model.
         /// </summary>
-        protected bool Canceled;
+        protected bool Canceled { get; set; }
 
         public abstract string Name { get; }
         public abstract string Category { get; }
@@ -51,7 +51,7 @@ namespace Core.Common.Base.IO
 
         public virtual bool CanImportOn(object targetItem)
         {
-            return targetItem.GetType().Implements<T>();
+            return targetItem != null && targetItem.GetType().Implements<T>();
         }
 
         public abstract bool Import(object targetItem, string filePath);

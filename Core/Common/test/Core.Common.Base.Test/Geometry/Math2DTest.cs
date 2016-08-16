@@ -140,6 +140,32 @@ namespace Core.Common.Base.Test.Geometry
         #endregion
 
         [Test]
+        [TestCase(0, "line1Point1")]
+        [TestCase(1, "line1Point2")]
+        [TestCase(2, "line2Point1")]
+        [TestCase(3, "line2Point2")]
+        public void LineIntersectionWithLine_APointIsNull_ThrowsArgumentNullException(int nullIndex, string expectedParameter)
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 0),
+                new Point2D(0, -1),
+                new Point2D(1, 2)
+            };
+
+            points[nullIndex] = null;
+
+            // Call
+            TestDelegate test = () => Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual(expectedParameter, paramName);
+        }
+
+        [Test]
         [TestCaseSource("IntersectingSegments")]
         public void LineIntersectionWithLine_DifferentLineSegmentsWithIntersections_ReturnsPoint(Point2D[] points, string testname = "")
         {
@@ -200,6 +226,17 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual((y1 + y2)/2, result.Y, 1e-6);
+        }
+
+        [Test]
+        public void SegmentsIntersectionWithVerticalLine_SegmentsIsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => Math2D.SegmentsIntersectionWithVerticalLine(null, 0.0);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("segments", paramName);
         }
 
         [Test]
@@ -405,6 +442,29 @@ namespace Core.Common.Base.Test.Geometry
                 new Point2D(13.0, 39.0),
                 new Point2D(20.0, 60.0)
             }, lineSplits[3], doubleToleranceComparer);
+        }
+
+
+        [Test]
+        [TestCase(0, "segment1")]
+        [TestCase(1, "segment2")]
+        public void GetIntersectionBetweenSegments_ASegmentIsNull_ThrowsArgumentNullException(int nullIndex, string expectedParameter)
+        {
+            // Setup
+            var segments = new[]
+            {
+                new Segment2D(new Point2D(0,0), new Point2D(0,1)), 
+                new Segment2D(new Point2D(0,0), new Point2D(0,1))
+            };
+
+            segments[nullIndex] = null;
+
+            // Call
+            TestDelegate test = () => Math2D.GetIntersectionBetweenSegments(segments[0], segments[1]);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual(expectedParameter, paramName);
         }
 
         [Test]
@@ -983,6 +1043,28 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
+        [TestCase(0, "point1")]
+        [TestCase(1, "point2")]
+        public void AreEqualPoints_APointIsNull_ThrowsArgumentNullException(int nullIndex, string expectedParameter)
+        {
+            // Setup
+            var points = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 0),
+            };
+
+            points[nullIndex] = null;
+
+            // Call
+            TestDelegate test = () => Math2D.AreEqualPoints(points[0], points[1]);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual(expectedParameter, paramName);
+        }
+
+        [Test]
         public void AreEqualPoints_PointsEqual_ReturnsTrue()
         {
             // Call
@@ -1000,6 +1082,17 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Length_NullPoints_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => Math2D.Length(null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("points", paramName);
         }
 
         [Test]
@@ -1082,6 +1175,17 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(expectedLength, length);
+        }
+
+        [Test]
+        public void GetInterpolatedPointAtFraction_LineSegmentIsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => Math2D.GetInterpolatedPointAtFraction(null, 0.0);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("lineSegment", paramName);
         }
 
         [Test]

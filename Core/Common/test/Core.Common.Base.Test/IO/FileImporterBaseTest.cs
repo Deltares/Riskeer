@@ -47,6 +47,19 @@ namespace Core.Common.Base.Test.IO
         }
 
         [Test]
+        public void CanImportOn_ObjectIsNull_ReturnFalse()
+        {
+            // Setup
+            var importer = new SimpleFileImporter();
+
+            // Call
+            var canImportOn = importer.CanImportOn(null);
+
+            // Assert
+            Assert.IsFalse(canImportOn);
+        }
+
+        [Test]
         public void CanImportOn_ObjectIsOfCorrectType_ReturnTrue()
         {
             // Setup
