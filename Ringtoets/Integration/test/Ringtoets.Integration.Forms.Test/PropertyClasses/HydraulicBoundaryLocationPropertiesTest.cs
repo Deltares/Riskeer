@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocationProperties
+            TestDelegate test = () => new TestHydraulicBoundaryLocationProperties
             {
                 Data = hydraulicBoundaryLocationMock
             };
@@ -64,18 +64,18 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
             // Setup
-            long id = 1234L;
-            double x = 567.0;
-            double y = 890.0;
+            const long id = 1234L;
+            const double x = 567.0;
+            const double y = 890.0;
             Point2D coordinates = new Point2D(x, y);
-            string name = "<some name>";
+            const string name = "<some name>";
 
             var mockRepository = new MockRepository();
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(id, name, x, y);
             mockRepository.ReplayAll();
 
             // Call
-            HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new HydraulicBoundaryLocationProperties
+            HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
             {
                 Data = hydraulicBoundaryLocationMock
             };
@@ -93,9 +93,9 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void ToString_WithName_ReturnsName(string name)
         {
             // Setup
-            long id = 1234L;
-            double x = 567.0;
-            double y = 890.0;
+            const long id = 1234L;
+            const double x = 567.0;
+            const double y = 890.0;
             var mockRepository = new MockRepository();
             object[] hydraulicBoundaryLocationArguments =
             {
@@ -110,7 +110,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var expectedString = string.Format("{0} {1}", name, new Point2D(x, y));
 
             // Call
-            HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new HydraulicBoundaryLocationProperties
+            HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
             {
                 Data = hydraulicBoundaryLocationMock
             };
@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(0, "", 0.0, 0.0);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocationProperties = new HydraulicBoundaryLocationProperties
+            var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
             {
                 Data = hydraulicBoundaryLocationMock
             };
@@ -158,7 +158,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedCategory, idProperty.Category);
             Assert.AreEqual(expectedIdDisplayName, idProperty.DisplayName);
             Assert.AreEqual(expectedIdDescription, idProperty.Description);
-            Assert.AreEqual(1, idProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
 
             Assert.IsNotNull(nameProperty);
             Assert.IsTrue(nameProperty.IsReadOnly);
@@ -166,7 +165,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedCategory, nameProperty.Category);
             Assert.AreEqual(expectedNameDisplayName, nameProperty.DisplayName);
             Assert.AreEqual(expectedNameDescription, nameProperty.Description);
-            Assert.AreEqual(2, nameProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
 
             Assert.IsNotNull(locationProperty);
             Assert.IsTrue(locationProperty.IsReadOnly);
@@ -174,9 +172,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedCategory, locationProperty.Category);
             Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
             Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
-            Assert.AreEqual(3, locationProperty.Attributes.OfType<PropertyOrderAttribute>().First().Order);
 
             mockRepository.VerifyAll();
         }
+
+        private class TestHydraulicBoundaryLocationProperties : HydraulicBoundaryLocationProperties {}
     }
 }

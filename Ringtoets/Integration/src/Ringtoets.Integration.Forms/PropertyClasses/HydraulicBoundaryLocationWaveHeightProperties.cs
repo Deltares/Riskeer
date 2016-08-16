@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Globalization;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Properties;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -64,14 +64,14 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Gets the <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
         /// </summary>
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_Description")]
         public string WaveHeight
         {
             get
             {
-                return double.IsNaN(data.WaveHeight) ? string.Empty : data.WaveHeight.ToString("F2", CultureInfo.InvariantCulture);
+                return double.IsNaN(data.WaveHeight) ? string.Empty : new RoundedDouble(2, data.WaveHeight).ToString();
             }
         }
 
@@ -79,9 +79,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         /// Gets the convergence status of the waveheight calculation.
         /// </summary>
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_WaveHeight_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_WaveHeight_Description")]
         public bool Convergence
         {
             get

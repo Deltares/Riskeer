@@ -20,15 +20,12 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -51,25 +48,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            DesignWaterLevelLocationsContext designWaterLevelLocationsContext = new DesignWaterLevelLocationsContext(assessmentSectionMock)
-            {
-                WrappedData =
-                {
-                    HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
-                }
-            };
 
             const double designWaterLevel = 12.34;
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0)
             {
                 DesignWaterLevel = designWaterLevel
             };
-            designWaterLevelLocationsContext.WrappedData.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
             DesignWaterLevelLocationsContextProperties properties = new DesignWaterLevelLocationsContextProperties
@@ -85,9 +71,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelLocationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelLocationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelLocationProperties.Location);
-            var expectedDesignWaterLevelValue = designWaterLevel.ToString("F2", CultureInfo.InvariantCulture);
+            var expectedDesignWaterLevelValue = new RoundedDouble(2, designWaterLevel).ToString();
             Assert.AreEqual(expectedDesignWaterLevelValue, designWaterLevelLocationProperties.DesignWaterLevel);
-            mockRepository.VerifyAll();
         }
 
         [Test]

@@ -45,12 +45,10 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data != null
-                           ? data.Locations.Select(loc => new HydraulicBoundaryLocationDesignWaterLevelProperties
-                           {
-                               Data = loc
-                           }).ToArray()
-                           : new HydraulicBoundaryLocationDesignWaterLevelProperties[0];
+                return data.Locations.Select(loc => new HydraulicBoundaryLocationDesignWaterLevelProperties
+                {
+                    Data = loc
+                }).ToArray();
             }
         }
     }

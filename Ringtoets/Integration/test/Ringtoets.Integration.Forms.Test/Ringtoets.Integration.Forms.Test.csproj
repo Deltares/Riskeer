@@ -93,7 +93,6 @@
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\DesignWaterLevelLocationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsProjectTreeNodeInfoTest.cs" />

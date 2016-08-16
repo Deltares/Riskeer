@@ -217,11 +217,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
+                
                 // Call
                 var objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
 
@@ -241,11 +240,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
-            mocks.ReplayAll();
-
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
+                
                 // Call
                 var objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
 
