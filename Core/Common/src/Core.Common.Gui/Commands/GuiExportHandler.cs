@@ -67,7 +67,7 @@ namespace Core.Common.Gui.Commands
                 return;
             }
 
-            ExportItemUsingFileOpenDialog(exportInfo, source);
+            ExportItemUsingDialog(exportInfo, source);
         }
 
         private IEnumerable<ExportInfo> GetSupportedExportInfos(object source)
@@ -116,7 +116,7 @@ namespace Core.Common.Gui.Commands
             return null;
         }
 
-        private void ExportItemUsingFileOpenDialog(ExportInfo exportInfo, object source)
+        private void ExportItemUsingDialog(ExportInfo exportInfo, object source)
         {
             using (var saveFileDialog = new SaveFileDialog
             {
@@ -126,17 +126,17 @@ namespace Core.Common.Gui.Commands
             {
                 if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)
                 {
-                    log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting);
+                    log.Info(Resources.GuiExportHandler_ExportItemUsingDialog_Start_exporting);
 
                     IFileExporter exporter = exportInfo.CreateFileExporter(source, saveFileDialog.FileName);
 
                     if (exporter.Export())
                     {
-                        log.Info(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting);
+                        log.Info(Resources.GuiExportHandler_ExportItemUsingDialog_Finished_exporting);
                     }
                     else
                     {
-                        log.Error(Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed);
+                        log.Error(Resources.GuiExportHandler_ExportItemUsingDialog_Export_failed);
                     }
                 }
             }

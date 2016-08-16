@@ -154,7 +154,7 @@ namespace Core.Common.Gui.Commands
                 return false;
             }
 
-            var filePath = OpenProjectFileSaveDialog(project.Name);
+            var filePath = OpenProjectSaveFileDialog(project.Name);
             if (String.IsNullOrWhiteSpace(filePath))
             {
                 return false;
@@ -255,9 +255,8 @@ namespace Core.Common.Gui.Commands
         /// </summary>
         /// <param name="projectName">A string containing the file name selected in the file dialog box.</param>
         /// <returns>The selected project file, or <c>null</c> otherwise.</returns>
-        private string OpenProjectFileSaveDialog(string projectName)
+        private string OpenProjectSaveFileDialog(string projectName)
         {
-            // show file open dialog and select project file
             using (var saveFileDialog = new SaveFileDialog
             {
                 Title = Resources.SaveFileDialog_Title,

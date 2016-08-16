@@ -256,7 +256,7 @@
   <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data" xml:space="preserve">
+  <data name="GuiImportHandler_ImportItemsUsingDialog_Start_importing_data" xml:space="preserve">
     <value>Begonnen met het importeren van gegevens.</value>
   </data>
   <data name="ViewList_Insert_No_default_location_specified_Cannot_add_a_view_without_location_parameter_" xml:space="preserve">
@@ -328,16 +328,13 @@
   <data name="ProjectCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item" xml:space="preserve">
     <value>Er moet een project zijn om gegevens te kunnen toevoegen.</value>
   </data>
-  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed" xml:space="preserve">
+  <data name="GuiExportHandler_ExportItemUsingDialog_Export_failed" xml:space="preserve">
     <value>Exporteren mislukt.</value>
   </data>
-  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting" xml:space="preserve">
+  <data name="GuiExportHandler_ExportItemUsingDialog_Finished_exporting" xml:space="preserve">
     <value>Exporteren afgerond.</value>
   </data>
-  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to" xml:space="preserve">
-    <value>Selecteer een bestand met {0} om naartoe te exporteren.</value>
-  </data>
-  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting" xml:space="preserve">
+  <data name="GuiExportHandler_ExportItemUsingDialog_Start_exporting" xml:space="preserve">
     <value>Exporteren gestart.</value>
   </data>
   <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available" xml:space="preserve">

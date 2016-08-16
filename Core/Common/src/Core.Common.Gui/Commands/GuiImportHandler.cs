@@ -66,7 +66,7 @@ namespace Core.Common.Gui.Commands
                 return;
             }
 
-            ImportItemsUsingFileOpenDialog(importer, target);
+            ImportItemsUsingDialog(importer, target);
         }
 
         private IFileImporter GetSupportedImporterUsingDialog(object target)
@@ -108,7 +108,7 @@ namespace Core.Common.Gui.Commands
             return null;
         }
 
-        private void ImportItemsUsingFileOpenDialog(IFileImporter importer, object target)
+        private void ImportItemsUsingDialog(IFileImporter importer, object target)
         {
             using (var dialog = new OpenFileDialog
             {
@@ -119,7 +119,7 @@ namespace Core.Common.Gui.Commands
             {
                 if (dialog.ShowDialog(dialogParent) == DialogResult.OK)
                 {
-                    log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
+                    log.Info(Resources.GuiImportHandler_ImportItemsUsingDialog_Start_importing_data);
 
                     FileImportActivity[] importActivitiesToRun = dialog.FileNames.Select(f => new FileImportActivity(importer, target, f)).ToArray();
                     ActivityProgressDialogRunner.Run(dialogParent, importActivitiesToRun);

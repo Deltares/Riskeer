@@ -694,37 +694,27 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Exporteren mislukt..
         /// </summary>
-        public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed {
+        public static string GuiExportHandler_ExportItemUsingDialog_Export_failed {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Export_failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Exporteren afgerond..
         /// </summary>
-        public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting {
+        public static string GuiExportHandler_ExportItemUsingDialog_Finished_exporting {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer een bestand met {0} om naartoe te exporteren..
-        /// </summary>
-        public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_export_to {
-            get {
-                return ResourceManager.GetString("GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_DataType_0_file_to_expo" +
-                        "rt_to", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Finished_exporting", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Exporteren gestart..
         /// </summary>
-        public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting {
+        public static string GuiExportHandler_ExportItemUsingDialog_Start_exporting {
             get {
-                return ResourceManager.GetString("GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting", resourceCulture);
+                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Start_exporting", resourceCulture);
             }
         }
         
@@ -763,15 +753,6 @@ namespace Core.Common.Gui.Properties {
         public static string GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter {
             get {
                 return ResourceManager.GetString("GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Begonnen met het importeren van gegevens..
-        /// </summary>
-        public static string GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data", resourceCulture);
             }
         }
         
@@ -819,6 +800,15 @@ namespace Core.Common.Gui.Properties {
         public static string GuiImportHandler_GetSupportedImporterUsingDialog_Select_importer {
             get {
                 return ResourceManager.GetString("GuiImportHandler_GetSupportedImporterUsingDialog_Select_importer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begonnen met het importeren van gegevens..
+        /// </summary>
+        public static string GuiImportHandler_ImportItemsUsingDialog_Start_importing_data {
+            get {
+                return ResourceManager.GetString("GuiImportHandler_ImportItemsUsingDialog_Start_importing_data", resourceCulture);
             }
         }
         
