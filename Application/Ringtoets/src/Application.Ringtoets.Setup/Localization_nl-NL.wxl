@@ -6,10 +6,10 @@
   <String Id="Manufacturer">Deltares</String>
   <String Id="NetFramework40Required">De installatie vereist dat Microsoft .NET Framework 4.0 geïnstalleerd is om verder te gaan.</String>
   <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
-  <String Id="StartApplicationDescription">Start !(loc.ApplicationLongName).</String>
+  <String Id="StartApplicationDescription">Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName).</String>
 
   <String Id="UserManualName">Handleiding</String>
-  <String Id="UserManualDescription">Handleiding openen.</String>
+  <String Id="UserManualDescription">Open de handleiding van Ringtoets.</String>
 
   <String Id="Dlg_Title">[ProductName] Installatiehulpprogramma</String>
   
