@@ -29,7 +29,11 @@ namespace Core.Common.Utils.Test
         [Test]
         public void NormToBeta_ConvertNorm_CorrectBeta()
         {
-            Assert.AreEqual(-1.335177736, StatisticsConverter.NormToBeta(1.1), 1.0e-8);
+            // Call
+            double normToBeta = StatisticsConverter.NormToBeta(1.1);
+
+            // Assert
+            Assert.AreEqual(-1.335177736, normToBeta, 1.0e-6);
         }
     }
 }
