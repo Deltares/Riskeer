@@ -68,9 +68,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsInputResourceName()
         {
             // Setup
-            using (PipingInputView view = new PipingInputView())
+            using (var view = new PipingInputView())
             {
-                PipingCalculationScenario calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
+                var calculationScenario = new PipingCalculationScenario(new GeneralPipingInput());
 
                 // Call
                 string viewName = info.GetViewName(view, calculationScenario);
@@ -87,13 +87,13 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingInput pipingInput = new PipingInput(new GeneralPipingInput());
+            var pipingInput = new PipingInput(new GeneralPipingInput());
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingInputContext calculationInputContext = new PipingInputContext(pipingInput, calculation, Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                Enumerable.Empty<StochasticSoilModel>(),
-                                                                                new PipingFailureMechanism(),
-                                                                                assessmentSection);
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationInputContext = new PipingInputContext(pipingInput, calculation, Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                 Enumerable.Empty<StochasticSoilModel>(),
+                                                                 new PipingFailureMechanism(),
+                                                                 assessmentSection);
 
             // Call
             object viewData = info.GetViewData(calculationInputContext);
@@ -110,14 +110,14 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingCalculationScenarioContext pipingCalculationScenarioContext = new PipingCalculationScenarioContext(pipingCalculation,
-                                                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                                     Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                                     new PipingFailureMechanism(),
-                                                                                                                     assessmentSection);
+            var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var pipingCalculationScenarioContext = new PipingCalculationScenarioContext(pipingCalculation,
+                                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                        Enumerable.Empty<StochasticSoilModel>(),
+                                                                                        new PipingFailureMechanism(),
+                                                                                        assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = pipingCalculation
             })
@@ -138,16 +138,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingCalculationScenario calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput());
+            var pipingCalculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationToRemove = new PipingCalculationScenario(new GeneralPipingInput());
 
-            PipingCalculationScenarioContext pipingCalculationScenarioContext = new PipingCalculationScenarioContext(calculationToRemove,
-                                                                                                                     Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                                     Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                                     new PipingFailureMechanism(),
-                                                                                                                     assessmentSection);
+            var pipingCalculationScenarioContext = new PipingCalculationScenarioContext(calculationToRemove,
+                                                                                        Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                                        Enumerable.Empty<StochasticSoilModel>(),
+                                                                                        new PipingFailureMechanism(),
+                                                                                        assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = pipingCalculation
             })
@@ -168,16 +168,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingCalculationGroupContext calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
-                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                      Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                      new PipingFailureMechanism(),
-                                                                                                      assessmentSection);
-            using (PipingInputView view = new PipingInputView
+            var calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
+                                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                                            new PipingFailureMechanism(),
+                                                                            assessmentSection);
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -198,16 +198,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingCalculationGroupContext calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                      Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                      new PipingFailureMechanism(),
-                                                                                                      assessmentSection);
-            using (PipingInputView view = new PipingInputView
+            var calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
+                                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                                            new PipingFailureMechanism(),
+                                                                            assessmentSection);
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -228,18 +228,18 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
-            CalculationGroup nestedGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(nestedGroup);
 
-            PipingCalculationGroupContext calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
-                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                      Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                      new PipingFailureMechanism(),
-                                                                                                      assessmentSection);
-            using (PipingInputView view = new PipingInputView
+            var calculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
+                                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                                            new PipingFailureMechanism(),
+                                                                            assessmentSection);
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -260,18 +260,18 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
-            CalculationGroup nestedGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(nestedGroup);
 
-            PipingCalculationGroupContext calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
-                                                                                                      Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                                                      Enumerable.Empty<StochasticSoilModel>(),
-                                                                                                      new PipingFailureMechanism(),
-                                                                                                      assessmentSection);
-            using (PipingInputView view = new PipingInputView
+            var calculationGroupContext = new PipingCalculationGroupContext(new CalculationGroup(),
+                                                                            Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
+                                                                            Enumerable.Empty<StochasticSoilModel>(),
+                                                                            new PipingFailureMechanism(),
+                                                                            assessmentSection);
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -292,13 +292,13 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -319,13 +319,13 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+            var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -346,16 +346,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -376,16 +376,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            PipingFailureMechanismContext failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+            var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -398,16 +398,16 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 mocks.VerifyAll();
             }
         }
-        
+
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -424,11 +424,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -445,14 +445,14 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -469,14 +469,14 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -493,8 +493,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -505,7 +505,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -523,8 +523,8 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -535,7 +535,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = new PipingCalculationScenario(new GeneralPipingInput())
             })
@@ -553,11 +553,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -568,7 +568,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = calculation
             })
@@ -586,11 +586,11 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            CalculationGroup calculationGroup = new CalculationGroup();
+            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
-            PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -601,7 +601,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (PipingInputView view = new PipingInputView
+            using (var view = new PipingInputView
             {
                 Data = new PipingCalculationScenario(new GeneralPipingInput())
             })

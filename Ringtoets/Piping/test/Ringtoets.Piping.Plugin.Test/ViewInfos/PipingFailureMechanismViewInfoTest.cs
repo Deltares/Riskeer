@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -67,90 +68,109 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsTextFromResources()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingFailureMechanismView>();
+            using (var view = new PipingFailureMechanismView())
+            {
+                // Call
+                string viewName = info.GetViewName(view, null);
 
-            mocks.ReplayAll();
-
-            // Call & Assert
-            Assert.AreEqual(PipingDataResources.PipingFailureMechanism_DisplayName, info.GetViewName(viewMock, null));
+                // Assert
+                Assert.AreEqual(PipingDataResources.PipingFailureMechanism_DisplayName, viewName);
+            }
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingFailureMechanismView>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var otherAssessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
-
-            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismContextMock);
-
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var otherAssessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            // Call & Assert
-            Assert.IsFalse(info.CloseForData(viewMock, otherAssessmentSectionMock));
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+
+            using (var view = new PipingFailureMechanismView
+            {
+                Data = pipingFailureMechanismContext
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, otherAssessmentSectionMock);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingFailureMechanismView>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var pipingFailureMechanismMock = mocks.StrictMock<PipingFailureMechanism>();
-            var pipingFailureMechanismContextMock = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
-
-            viewMock.Expect(vm => vm.Data).Return(pipingFailureMechanismContextMock);
-
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            // Call & Assert
-            Assert.IsTrue(info.CloseForData(viewMock, assessmentSectionMock));
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
+
+            using (var view = new PipingFailureMechanismView
+            {
+                Data = pipingFailureMechanismContext
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSectionMock);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var view = new PipingFailureMechanismView();
-            var pipingFailureMechanismMock = new PipingFailureMechanism();
-            var otherPipingFailureMechanismMock = new PipingFailureMechanism();
-
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            var pipingFailureMechanismContext = mocks.StrictMock<PipingFailureMechanismContext>(pipingFailureMechanismMock, assessmentSectionMock);
-
             mocks.ReplayAll();
 
-            view.Data = pipingFailureMechanismContext;
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var otherPipingFailureMechanism = new PipingFailureMechanism();
 
-            // Call
-            var closeForData = info.CloseForData(view, otherPipingFailureMechanismMock);
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
 
-            // Assert
-            Assert.IsFalse(closeForData);
+            using (var view = new PipingFailureMechanismView
+            {
+                Data = pipingFailureMechanismContext
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, otherPipingFailureMechanism);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var view = new PipingFailureMechanismView();
-            var pipingFailureMechanism = new PipingFailureMechanism();
-
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
-
             mocks.ReplayAll();
 
-            view.Data = pipingFailureMechanismContext;
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSectionMock);
 
-            // Call
-            var closeForData = info.CloseForData(view, pipingFailureMechanism);
+            using (var view = new PipingFailureMechanismView
+            {
+                Data = pipingFailureMechanismContext
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, pipingFailureMechanism);
 
-            // Assert
-            Assert.IsTrue(closeForData);
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
         }
 
         [Test]

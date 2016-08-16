@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -71,10 +73,9 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             var context = new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-            mocks.ReplayAll();
 
             // Call
-            var viewData = info.GetViewData(context);
+            object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(failureMechanism.SectionResults, viewData);
@@ -85,22 +86,21 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
+            using (var view = new PipingFailureMechanismResultView())
+            {
+                // Call
+                string viewName = info.GetViewName(view, failureMechanism.SectionResults);
 
-            mocks.ReplayAll();
-
-            // Call
-            var viewName = info.GetViewName(viewMock, failureMechanism.SectionResults);
-
-            // Assert
-            Assert.AreEqual("Resultaat", viewName);
+                // Assert
+                Assert.AreEqual("Resultaat", viewName);
+            }
         }
 
         [Test]
         public void ViewType_Always_ReturnsViewType()
         {
             // Call
-            var viewType = info.ViewType;
+            Type viewType = info.ViewType;
 
             // Assert
             Assert.AreEqual(typeof(PipingFailureMechanismResultView), viewType);
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void DataType_Always_ReturnsDataType()
         {
             // Call
-            var dataType = info.DataType;
+            Type dataType = info.DataType;
 
             // Assert
             Assert.AreEqual(typeof(FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>), dataType);
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void ViewDataType_Always_ReturnsViewDataType()
         {
             // Call
-            var viewDataType = info.ViewDataType;
+            Type viewDataType = info.ViewDataType;
 
             // Assert
             Assert.AreEqual(typeof(IEnumerable<PipingFailureMechanismSectionResult>), viewDataType);
@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Call
-            var image = info.Image;
+            Image image = info.Image;
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, image);
@@ -140,32 +140,32 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new PipingFailureMechanism();
-
-            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-
             mocks.ReplayAll();
 
-            // Call
-            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
+            var failureMechanism = new PipingFailureMechanism();
 
-            // Assert
-            Assert.IsFalse(closeForData);
+            using (var view = new PipingFailureMechanismResultView
+            {
+                Data = failureMechanism.SectionResults
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSectionMock);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
-            var failureMechanism = new PipingFailureMechanism();
 
-            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanismMock
@@ -173,22 +173,28 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            // Call
-            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
+            var failureMechanism = new PipingFailureMechanism();
 
-            // Assert
-            Assert.IsFalse(closeForData);
+            using (var view = new PipingFailureMechanismResultView
+            {
+                Data = failureMechanism.SectionResults
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSectionMock);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanism = new PipingFailureMechanism();
 
-            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 new TestFailureMechanism(),
@@ -197,45 +203,54 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            // Call
-            var closeForData = info.CloseForData(viewMock, assessmentSectionMock);
+            using (var view = new PipingFailureMechanismResultView
+            {
+                Data = failureMechanism.SectionResults
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSectionMock);
 
-            // Assert
-            Assert.IsTrue(closeForData);
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             var failureMechanism = new PipingFailureMechanism();
-            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
 
-            mocks.ReplayAll();
+            using (var view = new PipingFailureMechanismResultView
+            {
+                Data = failureMechanism.SectionResults
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
-            // Call
-            var closeForData = info.CloseForData(viewMock, failureMechanism);
-
-            // Assert
-            Assert.IsTrue(closeForData);
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             var failureMechanism = new PipingFailureMechanism();
-            viewMock.Expect(vm => vm.Data).Return(failureMechanism.SectionResults);
+            using (var view = new PipingFailureMechanismResultView
+            {
+                Data = failureMechanism.SectionResults
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, new PipingFailureMechanism());
 
-            mocks.ReplayAll();
-
-            // Call
-            var closeForData = info.CloseForData(viewMock, new PipingFailureMechanism());
-
-            // Assert
-            Assert.IsFalse(closeForData);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
         }
 
         [Test]
@@ -247,16 +262,17 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            var view = new PipingFailureMechanismResultView
+            using (var view = new PipingFailureMechanismResultView
             {
                 Data = failureMechanism.SectionResults
-            };
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
-            // Call
-            var closeForData = info.CloseForData(view, failureMechanismContext);
-
-            // Assert
-            Assert.IsTrue(closeForData);
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
         }
 
         [Test]
@@ -267,31 +283,30 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var view = new PipingFailureMechanismResultView
+            using (var view = new PipingFailureMechanismResultView
             {
                 Data = failureMechanism.SectionResults
-            };
+            })
+            {
+                var failureMechanismContext = new PipingFailureMechanismContext(
+                    new PipingFailureMechanism(),
+                    assessmentSectionMock);
 
-            var failureMechanismContext = new PipingFailureMechanismContext(
-                new PipingFailureMechanism(),
-                assessmentSectionMock
-                );
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
-            // Call
-            var closeForData = info.CloseForData(view, failureMechanismContext);
-
-            // Assert
-            Assert.IsFalse(closeForData);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
         }
 
         [Test]
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
-            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             var failureMechanism = new PipingFailureMechanism();
             var context = new FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-
+            var viewMock = mocks.StrictMock<PipingFailureMechanismResultView>();
             viewMock.Expect(v => v.FailureMechanism = failureMechanism);
 
             mocks.ReplayAll();
