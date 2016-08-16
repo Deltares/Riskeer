@@ -24,6 +24,11 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper.TestUtil
 {
+    /// <summary>
+    /// A <see cref="PipingSoilProfile"/> configured to be usable immediately for testing
+    /// purposes.
+    /// </summary>
+    /// <seealso cref="Ringtoets.Piping.Primitives.PipingSoilProfile" />
     public class TestPipingSoilProfile : PipingSoilProfile
     {
         /// <summary>

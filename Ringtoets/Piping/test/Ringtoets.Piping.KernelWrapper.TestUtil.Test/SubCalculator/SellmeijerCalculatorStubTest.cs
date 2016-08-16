@@ -27,7 +27,6 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
     [TestFixture]
     public class SellmeijerCalculatorStubTest
     {
-
         [Test]
         public void DefaultConstructor_PropertiesSet()
         {

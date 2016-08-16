@@ -58,7 +58,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.Test.SubCalculator
             var expectedFactory = PipingSubCalculatorFactory.Instance;
 
             // Call
-            using (new PipingSubCalculatorFactoryConfig()) { }
+            using (new PipingSubCalculatorFactoryConfig()) {}
 
             // Assert
             Assert.AreSame(expectedFactory, PipingSubCalculatorFactory.Instance);

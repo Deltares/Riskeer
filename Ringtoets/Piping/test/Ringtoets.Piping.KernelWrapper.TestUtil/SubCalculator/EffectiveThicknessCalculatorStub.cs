@@ -34,6 +34,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator
         public double VolumicWeightOfWater { get; set; }
         public PipingProfile SoilProfile { get; set; }
         public PipingSurfaceLine SurfaceLine { get; set; }
+
         public double EffectiveHeight
         {
             get

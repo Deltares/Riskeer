@@ -23,6 +23,10 @@ using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.KernelWrapper.TestUtil
 {
+    /// <summary>
+    /// A <see cref="PipingOutput"/> configured to be used immediately for testing purposes.
+    /// </summary>
+    /// <seealso cref="Ringtoets.Piping.Data.PipingOutput" />
     public class TestPipingOutput : PipingOutput
     {
         public TestPipingOutput() : base(0, 0, 0, 0, 0, 0) {}

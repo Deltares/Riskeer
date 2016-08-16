@@ -26,6 +26,10 @@ using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.KernelWrapper.TestUtil
 {
+    /// <summary>
+    /// Class that holds a configuration that can be changed and used to create a <see cref="PipingCalculatorInput"/>
+    /// with.
+    /// </summary>
     public class TestPipingInput
     {
         private readonly Random random = new Random(22);
@@ -55,6 +59,10 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
         public PipingSoilProfile SoilProfile;
         private double last;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestPipingInput"/> class with all
+        /// parameters relevant for <see cref="PipingCalculatorInput"/> set.
+        /// </summary>
         public TestPipingInput()
         {
             WaterVolumetricWeight = NextIncrementalDouble();
