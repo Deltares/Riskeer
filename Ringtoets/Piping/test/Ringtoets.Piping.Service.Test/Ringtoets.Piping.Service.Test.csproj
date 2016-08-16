@@ -57,6 +57,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="PipingCalculationActivityTest.cs" />
     <Compile Include="PipingCalculationServiceTest.cs" />
     <Compile Include="PipingDataSynchronizationServiceTest.cs" />

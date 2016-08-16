@@ -74,22 +74,25 @@ namespace Core.Common.Base.IO
                 observableTarget.NotifyObservers();
             }
 
-            foreach (var changedObservableObject in GetAffectedNonTargetObservableInstances())
+            foreach (var changedObservableObject in AffectedNonTargetObservableInstances)
             {
                 changedObservableObject.NotifyObservers();
             }
         }
 
         /// <summary>
-        /// Returns all objects that have been affected during the <see cref="Import"/> call
+        /// Gets all objects that have been affected during the <see cref="Import"/> call
         /// that implement <see cref="IObservable"/> and which are were not the targeted object
         /// to import the data to.
         /// </summary>
         /// <remarks>If no changes were made to the data model (for example during a cancel),
         /// no elements should be returned by the implementer.</remarks>
-        protected virtual IEnumerable<IObservable> GetAffectedNonTargetObservableInstances()
+        protected virtual IEnumerable<IObservable> AffectedNonTargetObservableInstances
         {
-            return Enumerable.Empty<IObservable>();
+            get
+            {
+                return Enumerable.Empty<IObservable>();
+            }
         }
 
         protected void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)

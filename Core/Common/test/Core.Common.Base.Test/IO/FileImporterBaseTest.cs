@@ -120,7 +120,7 @@ namespace Core.Common.Base.Test.IO
 
             var simpleImporter = new SimpleFileImporter
             {
-                GetAffectedNonTargetObservableInstancesOverride = new[]
+                AffectedNonTargetObservableInstancesOverride = new[]
                 {
                     observableInstance
                 }
@@ -145,7 +145,7 @@ namespace Core.Common.Base.Test.IO
 
             var simpleImporter = new SimpleFileImporter
             {
-                GetAffectedNonTargetObservableInstancesOverride = new[]
+                AffectedNonTargetObservableInstancesOverride = new[]
                 {
                     observableInstance
                 }
@@ -235,11 +235,14 @@ namespace Core.Common.Base.Test.IO
             }
 
             public override ProgressChangedDelegate ProgressChanged { protected get; set; }
-            public IObservable[] GetAffectedNonTargetObservableInstancesOverride { private get; set; }
+            public IObservable[] AffectedNonTargetObservableInstancesOverride { private get; set; }
 
-            protected override IEnumerable<IObservable> GetAffectedNonTargetObservableInstances()
+            protected override IEnumerable<IObservable> AffectedNonTargetObservableInstances
             {
-                return GetAffectedNonTargetObservableInstancesOverride ?? base.GetAffectedNonTargetObservableInstances();
+                get
+                {
+                    return AffectedNonTargetObservableInstancesOverride ?? base.AffectedNonTargetObservableInstances;
+                }
             }
 
             public override bool Import(object targetItem, string filePath)

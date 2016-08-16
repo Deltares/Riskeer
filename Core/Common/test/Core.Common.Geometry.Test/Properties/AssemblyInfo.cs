@@ -28,10 +28,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Core.Common.Geometry.Test")]
 [assembly: AssemblyProduct("Core.Common.Geometry.Test")]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
-
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("df8ad118-f614-49c8-b17d-9c0a747b7b94")]

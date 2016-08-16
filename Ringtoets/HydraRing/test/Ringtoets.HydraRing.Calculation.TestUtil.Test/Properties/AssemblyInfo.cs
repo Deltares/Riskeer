@@ -24,5 +24,4 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.HydraRing.Calculation.TestUtil.Test")]
 [assembly: AssemblyProduct("Ringtoets.HydraRing.Calculation.TestUtil.Test")]
-[assembly: ComVisible(false)]
 [assembly: Guid("1ef65172-c54c-489d-a271-0e7a3e375252")]

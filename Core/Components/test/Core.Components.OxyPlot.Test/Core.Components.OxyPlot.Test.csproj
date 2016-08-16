@@ -54,6 +54,9 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Converter\ChartAreaDataConverterTest.cs" />
     <Compile Include="Converter\ChartDataCollectionConverterTest.cs" />
     <Compile Include="Converter\ChartDataConverterTest.cs" />

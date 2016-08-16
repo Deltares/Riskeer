@@ -25,11 +25,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Ringtoets.GrassCoverErosionInwards.Forms.Test")]
 [assembly: AssemblyProduct("Ringtoets.GrassCoverErosionInwards.Forms.Test")]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-
-[assembly: ComVisible(false)]
-
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("fda93a67-f45b-4b34-ab58-d1a0acdc259d")]

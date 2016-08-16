@@ -95,6 +95,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Commands\ToggleProjectExplorerCommandTest.cs" />
     <Compile Include="Exceptions\PluginActivationExceptionTest.cs" />
     <Compile Include="ProjectExplorerTest.cs" />

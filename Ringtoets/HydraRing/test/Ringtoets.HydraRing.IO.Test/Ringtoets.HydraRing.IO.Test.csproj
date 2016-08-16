@@ -53,6 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Exceptions\HydraulicBoundaryDatabaseReadExceptionTest.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseQueryBuilderTest.cs" />
     <Compile Include="HydraulicBoundaryDatabaseContext\HydraulicBoundaryDatabaseReaderTest.cs" />

@@ -47,6 +47,9 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Data\ChartAreaDataTest.cs" />
     <Compile Include="Data\ChartDataCollectionTest.cs" />
     <Compile Include="Data\ChartDataTest.cs" />

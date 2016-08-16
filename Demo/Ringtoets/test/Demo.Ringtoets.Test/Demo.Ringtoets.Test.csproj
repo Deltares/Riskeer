@@ -61,6 +61,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Commands\AddNewDemoAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\OpenChartViewCommandTest.cs" />
     <Compile Include="Commands\OpenMapViewCommandTest.cs" />

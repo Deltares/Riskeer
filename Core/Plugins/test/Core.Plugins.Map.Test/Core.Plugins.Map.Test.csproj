@@ -60,6 +60,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Commands\ToggleMapLegendViewCommandTest.cs" />
     <Compile Include="MapPluginTest.cs" />
     <Compile Include="Legend\MapDataCollectionTreeNodeInfoTest.cs" />

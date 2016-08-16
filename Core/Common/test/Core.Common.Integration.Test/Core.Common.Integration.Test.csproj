@@ -86,6 +86,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Ringtoets\Application.Ringtoets\GuiCoreIntegrationTest.cs">
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -121,9 +121,12 @@ namespace Ringtoets.Common.IO
             return true;
         }
 
-        protected override IEnumerable<IObservable> GetAffectedNonTargetObservableInstances()
+        protected override IEnumerable<IObservable> AffectedNonTargetObservableInstances
         {
-            return changedObservables;
+            get
+            {
+                return changedObservables;
+            }
         }
 
         private bool ConfirmImportOfReferenceLineToClearReferenceLineDependentData(IAssessmentSection assessmentSection)

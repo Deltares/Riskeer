@@ -48,6 +48,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="AdvancedMath2DTest.cs" />
     <Compile Include="InvalidPolygonExceptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

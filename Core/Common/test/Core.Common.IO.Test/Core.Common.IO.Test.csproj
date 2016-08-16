@@ -47,6 +47,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Exceptions\CriticalFileReadExceptionTest.cs" />
     <Compile Include="Exceptions\CriticalFileWriteExceptionTest.cs" />
     <Compile Include="Exceptions\LineParseExceptionTest.cs" />

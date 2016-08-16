@@ -61,6 +61,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Builders\GenericSoilLayerParametersTest.cs" />
     <Compile Include="Builders\SoilLayer1DTest.cs" />
     <Compile Include="Builders\SoilLayerConversionExceptionTest.cs" />
