@@ -33,14 +33,14 @@ namespace Ringtoets.Piping.Primitives.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLineException"/> class.
         /// </summary>
-        public RingtoetsPipingSurfaceLineException(){}
+        public RingtoetsPipingSurfaceLineException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLineException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public RingtoetsPipingSurfaceLineException(string message) : base(message){}
+        public RingtoetsPipingSurfaceLineException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLineException"/> class
@@ -50,6 +50,6 @@ namespace Ringtoets.Piping.Primitives.Exceptions
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public RingtoetsPipingSurfaceLineException(string message, Exception inner) : base(message, inner) { }
+        public RingtoetsPipingSurfaceLineException(string message, Exception inner) : base(message, inner) {}
     }
 }
