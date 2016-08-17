@@ -395,12 +395,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
-            Assert.AreEqual((RoundedDouble)0.645, probabilisticAssessmentOutput.FactorOfSafety);
-            Assert.AreEqual(0.0020003050479188711, probabilisticAssessmentOutput.Probability);
-            Assert.AreEqual((RoundedDouble)2.878, probabilisticAssessmentOutput.Reliability);
-            Assert.AreEqual(1.0 / 250000.0, probabilisticAssessmentOutput.RequiredProbability);
-            Assert.AreEqual((RoundedDouble)4.465, probabilisticAssessmentOutput.RequiredReliability);
+            Assert.AreEqual((RoundedDouble) 5.954, calculation.Output.ProbabilityAssessmentOutput.Reliability);
             Assert.IsNaN(calculation.Output.DikeHeight);
             Assert.IsFalse(calculation.Output.DikeHeightCalculated);
             mocks.VerifyAll();
@@ -479,12 +474,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
-            Assert.AreEqual((RoundedDouble)0.645, probabilisticAssessmentOutput.FactorOfSafety);
-            Assert.AreEqual(0.0020003050479188711, probabilisticAssessmentOutput.Probability);
-            Assert.AreEqual((RoundedDouble)2.878, probabilisticAssessmentOutput.Reliability);
-            Assert.AreEqual(1.0 / 250000.0, probabilisticAssessmentOutput.RequiredProbability);
-            Assert.AreEqual((RoundedDouble)4.465, probabilisticAssessmentOutput.RequiredReliability);
-            Assert.AreEqual((RoundedDouble)5.76, calculation.Output.DikeHeight);
+            Assert.AreEqual((RoundedDouble) 5.954, probabilisticAssessmentOutput.Reliability);
+            Assert.AreEqual((RoundedDouble) 5.76, calculation.Output.DikeHeight);
             Assert.IsTrue(calculation.Output.DikeHeightCalculated);
             mocks.VerifyAll();
         }

@@ -259,7 +259,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(true, 15.733)]
+        [TestCase(true, 15.7348)]
         [TestCase(false, 15.5937)]
         public void CalculateDikeHeight_CalculationValid_DikeHeightCalculated(bool useForeland, double expectedHeight)
         {
