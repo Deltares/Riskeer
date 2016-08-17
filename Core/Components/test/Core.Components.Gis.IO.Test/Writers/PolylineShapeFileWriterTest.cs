@@ -85,7 +85,7 @@ namespace Core.Components.Gis.IO.Test.Writers
                 new MapGeometry(new[]
                 {
                     Enumerable.Empty<Point2D>()
-                }),
+                })
             });
 
             MapLineData mapData = new MapLineData("test")

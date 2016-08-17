@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Components.Gis.Features;
 
 namespace Core.Components.Gis.Data
@@ -45,7 +46,8 @@ namespace Core.Components.Gis.Data
         /// <summary>
         /// Gets or sets an array of features.
         /// </summary>
-        /// <remarks>Calls <see cref="ValidateFeatures"/> and so can throw all corresponding exceptions.</remarks>
+        /// <remarks>Calls <see cref="ValidateFeatures"/> and so can throw all corresponding exceptions.
+        /// This collection will not contain <c>null</c> elements.</remarks>
         public MapFeature[] Features
         {
             get
@@ -64,13 +66,14 @@ namespace Core.Components.Gis.Data
         /// This method validates newly set features.
         /// </summary>
         /// <param name="featuresToValidate">The new features to validate.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="featuresToValidate"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="featuresToValidate"/>
+        /// is <c>null</c> or contains <c>null</c>.</exception>
         /// <seealso cref="Features"/>
         protected virtual void ValidateFeatures(MapFeature[] featuresToValidate)
         {
-            if (featuresToValidate == null)
+            if (featuresToValidate == null || featuresToValidate.Any(e => e == null))
             {
-                throw new ArgumentNullException("featuresToValidate", @"The array of features cannot be null.");
+                throw new ArgumentNullException("featuresToValidate", @"The array of features cannot be null or contain null.");
             }
         }
     }

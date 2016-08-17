@@ -99,7 +99,21 @@ namespace Core.Components.Gis.Test.Data
             TestDelegate test = () => data.Features = null;
 
             // Assert
-            const string expectedMessage = "The array of features cannot be null.";
+            const string expectedMessage = "The array of features cannot be null or contain null.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void Features_SetCollectionWithNullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var data = new MapPolygonData("test data");
+
+            // Call
+            TestDelegate test = () => data.Features = new MapFeature[]{ null };
+
+            // Assert
+            const string expectedMessage = "The array of features cannot be null or contain null.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
         }
 

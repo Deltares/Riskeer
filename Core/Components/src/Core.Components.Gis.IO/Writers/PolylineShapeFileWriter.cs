@@ -49,11 +49,6 @@ namespace Core.Components.Gis.IO.Writers
 
         protected override IFeature AddFeature(MapFeature mapFeature)
         {
-            if (mapFeature == null)
-            {
-                throw new ArgumentNullException("mapFeature");
-            }
-
             LineString lineString = CreateLineStringFromMapFeature(mapFeature);
 
             return ShapeFile.AddFeature(lineString);

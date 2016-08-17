@@ -78,7 +78,7 @@ namespace Ringtoets.Common.IO
         {
             get
             {
-                return string.Format(RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter, Name);
+                return RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter;
             }
         }
 

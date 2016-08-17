@@ -65,9 +65,9 @@ namespace Core.Components.Gis.IO.Writers
                 throw new ArgumentException(Resources.ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature);
             }
 
-            var mapFeature = mapData.Features.First();
+            MapFeature mapFeature = mapData.Features.First();
             EnsureAttributeTableExists(mapFeature);
-            var feature = AddFeature(mapFeature);
+            IFeature feature = AddFeature(mapFeature);
             CopyMetaDataFromMapFeatureToAttributeTable(mapFeature, feature);
         }
 
@@ -102,9 +102,9 @@ namespace Core.Components.Gis.IO.Writers
         /// <summary>
         /// Create a new feature from a <see cref="MapFeature"/>.
         /// </summary>
-        /// <param name="mapFeature">The <see cref="MapFeature"/> from which to create a feature.</param>
+        /// <param name="mapFeature">The <see cref="MapFeature"/> from which to create a feature.
+        /// This cannot be null.</param>
         /// <returns>The created feature.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mapFeature"/> is <c>null</c>.</exception>
         protected abstract IFeature AddFeature(MapFeature mapFeature);        
 
         private void EnsureAttributeTableExists(MapFeature mapFeature)
@@ -126,12 +126,12 @@ namespace Core.Components.Gis.IO.Writers
         private static void CopyMetaDataFromMapFeatureToAttributeTable(MapFeature mapFeature, IFeature feature)
         {
             IDictionary<string, object> metaData = mapFeature.MetaData;
-            var sortedKeys = metaData.Keys.ToList();
+            List<string> sortedKeys = metaData.Keys.ToList();
             sortedKeys.Sort();
 
-            foreach (var key in sortedKeys)
+            foreach (string key in sortedKeys)
             {
-                var value = metaData[key];
+                object value = metaData[key];
                 feature.DataRow.BeginEdit();
                 feature.DataRow[key] = value;
                 feature.DataRow.EndEdit();
@@ -141,13 +141,13 @@ namespace Core.Components.Gis.IO.Writers
         private void CreateAttributeTable(MapFeature mapFeature)
         {
             IDictionary<string, object> metaData = mapFeature.MetaData;
-            var sortedKeys = metaData.Keys.ToList();
+            List<string> sortedKeys = metaData.Keys.ToList();
             sortedKeys.Sort();
 
-            var columns = ShapeFile.DataTable.Columns;
-            foreach (var key in sortedKeys)
+            DataColumnCollection columns = ShapeFile.DataTable.Columns;
+            foreach (string key in sortedKeys)
             {
-                var value = metaData[key];
+                object value = metaData[key];
                 columns.Add(new DataColumn
                 {
                     DataType = value.GetType(),

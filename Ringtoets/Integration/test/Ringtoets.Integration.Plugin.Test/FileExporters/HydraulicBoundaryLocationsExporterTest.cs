@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
 
             // Call
-            HydraulicBoundaryLocationsExporter hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
+            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(hydraulicBoundaryLocationsExporter);
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
         public void ParameteredConstructor_FilePathNull_ThrowArgumentException()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
                 DesignWaterLevel = 111.111,
                 WaveHeight = 222.222
@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
         public void Export_ValidData_ReturnTrue()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
                 DesignWaterLevel = 111.111,
                 WaveHeight = 222.222
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 
-            HydraulicBoundaryLocationsExporter exporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
+            var exporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
 
             bool isExported;
             try
@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
                 DesignWaterLevel = 111.111,
                 WaveHeight = 222.222
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 
-            HydraulicBoundaryLocationsExporter exporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
+            var exporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
 
             try
             {

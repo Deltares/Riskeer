@@ -57,8 +57,8 @@ namespace Core.Components.Gis.IO.Test.Writers
                 TestDelegate test = () => writer.CopyToFeature(null);
 
                 // Assert
-                var excpetion = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("mapData", excpetion.ParamName);
+                var exception = Assert.Throws<ArgumentNullException>(test);
+                Assert.AreEqual("mapData", exception.ParamName);
             }
         }
 
@@ -74,29 +74,6 @@ namespace Core.Components.Gis.IO.Test.Writers
                 // Assert
                 var expectedMessage = Resources.ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature;
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-            }
-        }
-
-        [Test]
-        public void CopyToFeature_MapFeatureNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            MapPointData mapData = new MapPointData("test")
-            {
-                Features = new MapFeature[]
-                {
-                    null
-                }
-            };
-
-            using (var writer = new TestShapeFileWriterBase())
-            {
-                // Call
-                TestDelegate call = () => writer.CopyToFeature(mapData);
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(call);
-                Assert.AreEqual("mapFeature", exception.ParamName);
             }
         }
 

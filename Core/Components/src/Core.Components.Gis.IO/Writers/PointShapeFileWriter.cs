@@ -49,11 +49,6 @@ namespace Core.Components.Gis.IO.Writers
 
         protected override IFeature AddFeature(MapFeature mapFeature)
         {
-            if (mapFeature == null)
-            {
-                throw new ArgumentNullException("mapFeature");
-            }
-
             Point point = CreatePointFromMapFeature(mapFeature);
 
             return ShapeFile.AddFeature(point);
