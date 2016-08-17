@@ -32,11 +32,11 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         {
             // Call
             var result = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "3",
-                "..1..",
-                ".....",
-                "....."
-                )).ToArray();
+                                                                                    "3",
+                                                                                    "..1..",
+                                                                                    ".....",
+                                                                                    "....."
+                                                                            )).ToArray();
 
             // Assert
             Assert.AreEqual(1, result.Length);
@@ -49,11 +49,11 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         {
             // Call
             var result = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "3",
-                "..1..",
-                ".....",
-                "....2"
-                )).ToArray();
+                                                                                    "3",
+                                                                                    "..1..",
+                                                                                    ".....",
+                                                                                    "....2"
+                                                                            )).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);
@@ -68,11 +68,11 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         {
             // Call
             var result = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "3",
-                "..2..",
-                ".....",
-                "....1"
-                )).ToArray();
+                                                                                    "3",
+                                                                                    "..2..",
+                                                                                    ".....",
+                                                                                    "....1"
+                                                                            )).ToArray();
 
             // Assert
             Assert.AreEqual(2, result.Length);

@@ -108,7 +108,11 @@ namespace Ringtoets.Piping.Data.TestUtil
             }
             var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
             var p = section.Points.First();
-            ringtoetsPipingSurfaceLine.SetGeometry(new [] { new Point3D(p.X, p.Y, 0), new Point3D(p.X+2, p.Y+2, 0) } );
+            ringtoetsPipingSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(p.X, p.Y, 0),
+                new Point3D(p.X + 2, p.Y + 2, 0)
+            });
             ringtoetsPipingSurfaceLine.ReferenceLineIntersectionWorldPoint = section.Points.First();
 
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())

@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Data.TestUtil
     {
         public TestStochasticSoilModel() : base(0, string.Empty, string.Empty)
         {
-            StochasticSoilProfiles.AddRange(new []
+            StochasticSoilProfiles.AddRange(new[]
             {
                 new StochasticSoilProfile(0.5, SoilProfileType.SoilProfile1D, 0)
                 {

@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Piping.Data.TestUtil
@@ -54,7 +53,10 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static List<Segment2D> CreateFromString(string s)
         {
             var points = new SortedDictionary<int, Point2D>();
-            var lines = s.Split(new [] { Environment.NewLine }, StringSplitOptions.None);
+            var lines = s.Split(new[]
+            {
+                Environment.NewLine
+            }, StringSplitOptions.None);
             var height = int.Parse(lines[0]);
             var lineIndex = 1;
             for (int y = height - 1; y >= 0; y--, lineIndex++)
@@ -74,8 +76,8 @@ namespace Ringtoets.Piping.Data.TestUtil
             for (int i = 0; i < count; i++)
             {
                 var firstPoint = points.Values.ElementAt(i);
-                var secondPoint = points.Values.ElementAt((i+1)%count);
-                loop.Add(new Segment2D(firstPoint,secondPoint));
+                var secondPoint = points.Values.ElementAt((i + 1)%count);
+                loop.Add(new Segment2D(firstPoint, secondPoint));
             }
             return loop;
         }
@@ -89,7 +91,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// which contains the digits and the index of those digits.</returns>
         /// <exception cref="Exception">Thrown when the regex magically matches more or less than it should
         /// have (1 digit).</exception>
-        private static IEnumerable<Tuple<int,int>> AllIndexesOfDigit(string line)
+        private static IEnumerable<Tuple<int, int>> AllIndexesOfDigit(string line)
         {
             var guess = @"\d";
             var matches = Regex.Matches(line, guess);
@@ -102,7 +104,7 @@ namespace Ringtoets.Piping.Data.TestUtil
                 }
                 catch (ArgumentNullException e)
                 {
-                    throw new Exception(e.Message,e);
+                    throw new Exception(e.Message, e);
                 }
                 catch (FormatException e)
                 {
