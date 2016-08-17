@@ -72,10 +72,9 @@ namespace Core.Plugins.ProjectExplorer.Test
             IViewHost viewHost = mocks.Stub<IViewHost>();
             var toolViewList = new List<IView>();
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
-            {
-                toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
-            });
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+                                                 Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
+                    .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
             viewHost.Expect(vm => vm.Remove(Arg<ProjectExplorer>.Is.TypeOf));
 
@@ -144,10 +143,9 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             if (isOpen)
             {
-                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
-                {
-                    toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
-                });
+                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+                                                     Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
+                        .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
                 viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
             }
 
@@ -182,10 +180,9 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             var toolViewList = new List<IView>();
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
-            {
-                toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
-            });
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+                                                 Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
+                    .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
             IViewController viewController = mocks.Stub<IViewController>();

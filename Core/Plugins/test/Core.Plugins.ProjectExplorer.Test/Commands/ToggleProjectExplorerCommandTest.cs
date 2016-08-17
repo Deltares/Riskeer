@@ -94,16 +94,14 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
             if (isViewOpen)
             {
-                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
-                {
-                    toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
-                });
+                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+                                                     Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
+                        .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
                 viewHost.Expect(tvc => tvc.SetImage(null, null)).IgnoreArguments();
             }
 
             var viewController = mocks.StrictMock<IViewController>();
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
-
 
             mocks.ReplayAll();
 
@@ -140,10 +138,9 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             var toolViewList = new List<IView>();
             var viewHost = mocks.StrictMock<IViewHost>();
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
-            {
-                toolViewList.Add(invocation.Arguments[0] as ProjectExplorer);
-            });
+            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Matches(c => true),
+                                                 Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
+                    .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
             if (isViewOpen)
             {

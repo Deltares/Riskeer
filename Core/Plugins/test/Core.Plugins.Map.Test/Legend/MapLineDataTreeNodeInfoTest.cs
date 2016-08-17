@@ -127,6 +127,20 @@ namespace Core.Plugins.Map.Test.Legend
             Assert.IsTrue(canCheck);
         }
 
+        [Test]
+        public void CanDrag_Always_ReturnsTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+            var mapLineData = new MapLineData("test data");
+
+            // Call
+            var canDrag = info.CanDrag(mapLineData, null);
+
+            // Assert
+            Assert.IsTrue(canDrag);
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void IsChecked_Always_ReturnsAccordingToVisibleStateOfLineData(bool isVisible)
@@ -183,20 +197,6 @@ namespace Core.Plugins.Map.Test.Legend
 
             // Assert
             Assert.AreEqual(!initialVisibleState, mapLineData.IsVisible);
-        }
-
-        [Test]
-        public void CanDrag_Always_ReturnsTrue()
-        {
-            // Setup
-            mocks.ReplayAll();
-            var mapLineData = new MapLineData("test data");
-
-            // Call
-            var canDrag = info.CanDrag(mapLineData, null);
-
-            // Assert
-            Assert.IsTrue(canDrag);
         }
     }
 }

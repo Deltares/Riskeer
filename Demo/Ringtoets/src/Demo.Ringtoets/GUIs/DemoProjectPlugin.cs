@@ -26,7 +26,6 @@ using Core.Components.Charting.Data;
 using Core.Components.Gis.Data;
 using Demo.Ringtoets.Ribbons;
 using Demo.Ringtoets.Views;
-
 using ChartResources = Core.Plugins.Chart.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 

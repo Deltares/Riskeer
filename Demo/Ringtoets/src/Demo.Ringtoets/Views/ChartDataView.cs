@@ -48,7 +48,7 @@ namespace Demo.Ringtoets.Views
             }
             set
             {
-                data = (ChartDataCollection)value;
+                data = (ChartDataCollection) value;
 
                 if (data != null)
                 {

@@ -112,6 +112,11 @@ namespace Core.Plugins.Map.Legend
             }
         }
 
+        public void Dispose()
+        {
+            CloseLegendView();
+        }
+
         /// <summary>
         /// Opens the <see cref="MapLegendView"/>.
         /// </summary>
@@ -135,11 +140,6 @@ namespace Core.Plugins.Map.Legend
         {
             viewController.ViewHost.Remove(legendView);
             legendView = null;
-        }
-
-        public void Dispose()
-        {
-            CloseLegendView();
         }
     }
 }

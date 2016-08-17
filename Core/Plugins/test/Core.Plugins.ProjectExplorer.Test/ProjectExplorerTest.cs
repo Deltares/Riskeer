@@ -238,7 +238,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                 viewCommands.Expect(a => a.OpenViewForSelection());
             }
 
-
             using (var explorer = new ProjectExplorer(applicationSelection, viewCommands, treeNodeInfos)
             {
                 Data = projectStub

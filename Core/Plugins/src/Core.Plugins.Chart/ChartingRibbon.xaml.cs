@@ -71,6 +71,18 @@ namespace Core.Plugins.Chart
         /// </summary>
         public ICommand ToggleLegendViewCommand { private get; set; }
 
+        public Ribbon GetRibbonControl()
+        {
+            return RibbonControl;
+        }
+
+        public void ValidateItems()
+        {
+            ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand != null && ToggleLegendViewCommand.Checked;
+            TogglePanningButton.IsChecked = Chart != null && Chart.IsPanningEnabled;
+            ToggleRectangleZoomingButton.IsChecked = Chart != null && Chart.IsRectangleZoomingEnabled;
+        }
+
         /// <summary>
         /// Shows the charting contextual tab.
         /// </summary>
@@ -86,18 +98,6 @@ namespace Core.Plugins.Chart
         private void HideChartingTab()
         {
             ChartingContextualGroup.Visibility = Visibility.Collapsed;
-        }
-
-        public Ribbon GetRibbonControl()
-        {
-            return RibbonControl;
-        }
-
-        public void ValidateItems()
-        {
-            ToggleLegendViewButton.IsChecked = ToggleLegendViewCommand != null && ToggleLegendViewCommand.Checked;
-            TogglePanningButton.IsChecked = Chart != null && Chart.IsPanningEnabled;
-            ToggleRectangleZoomingButton.IsChecked = Chart != null && Chart.IsRectangleZoomingEnabled;
         }
 
         private void ButtonToggleLegend_Click(object sender, RoutedEventArgs e)

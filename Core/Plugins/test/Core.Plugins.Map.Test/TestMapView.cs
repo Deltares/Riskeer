@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Forms;
 

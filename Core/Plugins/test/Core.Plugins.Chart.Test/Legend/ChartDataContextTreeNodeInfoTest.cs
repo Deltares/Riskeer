@@ -44,6 +44,61 @@ namespace Core.Plugins.Chart.Test.Legend
         private ChartLegendView chartLegendView;
         private TreeNodeInfo info;
 
+        private static IEnumerable<TestCaseData> ChartDataLegendImages
+        {
+            get
+            {
+                yield return new TestCaseData(new ChartPointData("test"), Resources.PointsIcon);
+                yield return new TestCaseData(new ChartLineData("test"), Resources.LineIcon);
+                yield return new TestCaseData(new ChartAreaData("test"), Resources.AreaIcon);
+                yield return new TestCaseData(new ChartMultipleAreaData("test data"), Resources.AreaIcon);
+                yield return new TestCaseData(new ChartDataCollection("test"), GuiResources.folder);
+            }
+        }
+
+        private static IEnumerable<ChartData> DragChartData
+        {
+            get
+            {
+                return new ChartData[]
+                {
+                    new ChartPointData("test"),
+                    new ChartLineData("test"),
+                    new ChartAreaData("Test"),
+                    new ChartDataCollection("test")
+                };
+            }
+        }
+
+        private static IEnumerable<ChartData> NoChartDataCollection
+        {
+            get
+            {
+                return new ChartData[]
+                {
+                    new ChartPointData("test"),
+                    new ChartLineData("test"),
+                    new ChartAreaData("Test"),
+                    new ChartMultipleAreaData("test data")
+                };
+            }
+        }
+
+        private static IEnumerable<TestCaseData> IsCheckedChartData
+        {
+            get
+            {
+                yield return new TestCaseData(new ChartPointData("test"), false);
+                yield return new TestCaseData(new ChartPointData("test"), true);
+                yield return new TestCaseData(new ChartLineData("test"), false);
+                yield return new TestCaseData(new ChartLineData("test"), true);
+                yield return new TestCaseData(new ChartAreaData("test"), false);
+                yield return new TestCaseData(new ChartAreaData("test"), true);
+                yield return new TestCaseData(new ChartMultipleAreaData("test data"), false);
+                yield return new TestCaseData(new ChartMultipleAreaData("test data"), true);
+            }
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -121,7 +176,7 @@ namespace Core.Plugins.Chart.Test.Legend
             var objects = info.ChildNodeObjects(context);
 
             // Assert
-            var expectedChildren= new[]
+            var expectedChildren = new[]
             {
                 new ChartDataContext(chartData3, new ChartDataCollection("test")),
                 new ChartDataContext(chartData2, new ChartDataCollection("test")),
@@ -374,7 +429,7 @@ namespace Core.Plugins.Chart.Test.Legend
 
                 // Assert
                 var reversedIndex = 2 - position;
-                ChartDataCollection wrappedCollectionData = (ChartDataCollection)collectionContext.WrappedData;
+                ChartDataCollection wrappedCollectionData = (ChartDataCollection) collectionContext.WrappedData;
                 Assert.AreSame(context1.WrappedData, wrappedCollectionData.Collection.ElementAt(reversedIndex));
 
                 mocks.VerifyAll();
@@ -427,61 +482,6 @@ namespace Core.Plugins.Chart.Test.Legend
         private static ChartDataContext GetContext(ChartData chartData, ChartDataCollection chartDataCollection = null)
         {
             return new ChartDataContext(chartData, chartDataCollection ?? new ChartDataCollection("test"));
-        }
-
-        private static IEnumerable<TestCaseData> ChartDataLegendImages
-        {
-            get
-            {
-                yield return new TestCaseData(new ChartPointData("test"), Resources.PointsIcon);
-                yield return new TestCaseData(new ChartLineData("test"), Resources.LineIcon);
-                yield return new TestCaseData(new ChartAreaData("test"), Resources.AreaIcon);
-                yield return new TestCaseData(new ChartMultipleAreaData("test data"), Resources.AreaIcon);
-                yield return new TestCaseData(new ChartDataCollection("test"), GuiResources.folder);
-            }
-        }
-
-        private static IEnumerable<ChartData> DragChartData
-        {
-            get
-            {
-                return new ChartData[]
-                {
-                    new ChartPointData("test"), 
-                    new ChartLineData("test"), 
-                    new ChartAreaData("Test"),
-                    new ChartDataCollection("test")
-                };
-            }
-        }
-
-        private static IEnumerable<ChartData> NoChartDataCollection
-        {
-            get
-            {
-                return new ChartData[]
-                {
-                    new ChartPointData("test"),
-                    new ChartLineData("test"),
-                    new ChartAreaData("Test"),
-                    new ChartMultipleAreaData("test data")
-                };
-            }
-        }
-        
-        private static IEnumerable<TestCaseData> IsCheckedChartData
-        {
-            get
-            {
-                yield return new TestCaseData(new ChartPointData("test"), false);
-                yield return new TestCaseData(new ChartPointData("test"), true);
-                yield return new TestCaseData(new ChartLineData("test"), false);
-                yield return new TestCaseData(new ChartLineData("test"), true);
-                yield return new TestCaseData(new ChartAreaData("test"), false);
-                yield return new TestCaseData(new ChartAreaData("test"), true);
-                yield return new TestCaseData(new ChartMultipleAreaData("test data"), false);
-                yield return new TestCaseData(new ChartMultipleAreaData("test data"), true);
-            }
         }
     }
 }

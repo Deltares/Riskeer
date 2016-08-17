@@ -20,14 +20,14 @@
 // All rights reserved.
 
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Core.Common.Controls.Commands;
 using Core.Components.Gis.Forms;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Button = Fluent.Button;
-using ButtonBase = System.Windows.Controls.Primitives.ButtonBase;
-using Control = System.Windows.Controls.Control;
 using ToggleButton = Fluent.ToggleButton;
 
 namespace Core.Plugins.Map.Test
@@ -192,7 +192,7 @@ namespace Core.Plugins.Map.Test
             Assert.AreEqual(mouseCoordinatesChecked, button.IsChecked);
             mocks.VerifyAll();
         }
-				
+
         [Test]
         [RequiresSTA]
         public void ToggleLegendViewButton_OnClick_ExecutesToggleLegendViewCommand()
@@ -273,7 +273,7 @@ namespace Core.Plugins.Map.Test
             // Assert
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [RequiresSTA]
         public void ZoomToAll_OnClick_ZoomToAll()

@@ -79,6 +79,14 @@ namespace Core.Plugins.ProjectExplorer
             BindTreeInteractionEvents();
         }
 
+        public TreeViewControl TreeViewControl
+        {
+            get
+            {
+                return treeViewControl;
+            }
+        }
+
         public object Data
         {
             get
@@ -91,14 +99,6 @@ namespace Core.Plugins.ProjectExplorer
                 {
                     treeViewControl.Data = value;
                 }
-            }
-        }
-
-        public TreeViewControl TreeViewControl
-        {
-            get
-            {
-                return treeViewControl;
             }
         }
 

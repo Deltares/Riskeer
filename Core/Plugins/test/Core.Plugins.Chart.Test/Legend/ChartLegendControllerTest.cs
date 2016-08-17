@@ -76,10 +76,7 @@ namespace Core.Plugins.Chart.Test.Legend
 
                 viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
                 viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-                viewHost.Expect(vm => vm.AddToolView(Arg<ChartLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
-                {
-                    toolViewList.Add(invocation.Arguments[0] as ChartLegendView);
-                });
+                viewHost.Expect(vm => vm.AddToolView(Arg<ChartLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ChartLegendView); });
                 viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
             }
 
@@ -116,10 +113,7 @@ namespace Core.Plugins.Chart.Test.Legend
             var toolViewList = new List<IView>();
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ChartLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation =>
-            {
-                toolViewList.Add(invocation.Arguments[0] as ChartLegendView);
-            });
+            viewHost.Expect(vm => vm.AddToolView(Arg<ChartLegendView>.Matches(c => true), Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left))).WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ChartLegendView); });
 
             if (open)
             {

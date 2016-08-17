@@ -20,13 +20,14 @@
 // All rights reserved.
 
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using Core.Common.Controls.Commands;
 using Core.Components.Charting.Forms;
 using Fluent;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Button = Fluent.Button;
-using ButtonBase = System.Windows.Controls.Primitives.ButtonBase;
-using ICommand = Core.Common.Controls.Commands.ICommand;
 using ToggleButton = Fluent.ToggleButton;
 
 namespace Core.Plugins.Chart.Test
@@ -42,9 +43,9 @@ namespace Core.Plugins.Chart.Test
             var ribbon = new ChartingRibbon();
 
             // Call & Assert
-            Assert.IsInstanceOf<System.Windows.Controls.Control>(ribbon.GetRibbonControl());
+            Assert.IsInstanceOf<Control>(ribbon.GetRibbonControl());
         }
-        
+
         [Test]
         [RequiresSTA]
         public void TogglePanning_OnClick_TogglePanning()
@@ -233,7 +234,7 @@ namespace Core.Plugins.Chart.Test
             };
 
             var toggleLegendViewButton = ribbon.GetRibbonControl().FindName("ToggleLegendViewButton") as ToggleButton;
-            
+
             // Precondition
             Assert.IsNotNull(toggleLegendViewButton, "Ribbon should have a toggle legend view button.");
 
