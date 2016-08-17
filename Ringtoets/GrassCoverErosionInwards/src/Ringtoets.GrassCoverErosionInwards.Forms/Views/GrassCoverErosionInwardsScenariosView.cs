@@ -131,8 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 Properties.Resources.GrassCoverErosionInwardsScenariosView_AddDataGridColumns_Calculation,
                 null,
                 TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>(wrapper => wrapper.WrappedObject),
-                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>(wrapper => wrapper.DisplayName)
-                );
+                TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>(wrapper => wrapper.DisplayName));
         }
 
         private void UpdateDataGridViewDataSource()

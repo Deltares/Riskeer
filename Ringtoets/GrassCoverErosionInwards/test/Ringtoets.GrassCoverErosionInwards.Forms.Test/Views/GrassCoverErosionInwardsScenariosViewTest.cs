@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
@@ -60,6 +61,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
+                Assert.AreEqual(new Size(0, 0), dataGridView.MinimumSize);
+                Assert.IsTrue(view.AutoScroll);
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.FailureMechanism);
 

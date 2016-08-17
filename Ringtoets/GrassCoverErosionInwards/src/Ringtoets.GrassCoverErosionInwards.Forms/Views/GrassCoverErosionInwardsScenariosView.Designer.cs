@@ -47,20 +47,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             // 
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewControl.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewControl.Margin = new System.Windows.Forms.Padding(5);
-            this.dataGridViewControl.MinimumSize = new System.Drawing.Size(667, 369);
+            this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
-            this.dataGridViewControl.Size = new System.Drawing.Size(667, 555);
+            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.dataGridViewControl.Size = new System.Drawing.Size(368, 426);
             this.dataGridViewControl.TabIndex = 0;
             // 
             // GrassCoverErosionInwardsScenariosView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.dataGridViewControl);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GrassCoverErosionInwardsScenariosView";
-            this.Size = new System.Drawing.Size(664, 555);
+            this.Size = new System.Drawing.Size(368, 426);
             this.ResumeLayout(false);
 
         }
