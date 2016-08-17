@@ -29,10 +29,21 @@ namespace Ringtoets.HydraRing.Data
     /// </summary>
     public enum CalculationConvergence
     {
+        /// <summary>
+        /// The calculation has not been performed.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), "CalculationConvergence_NotCalculated")]
         NotCalculated = 0,
+
+        /// <summary>
+        /// The calculation has not converged.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), "CalculationConvergence_CalculatedNotConverged")]
         CalculatedNotConverged = 1,
+
+        /// <summary>
+        /// The calculation has converged.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), "CalculationConvergence_CalculatedConverged")]
         CalculatedConverged = 2
     }
