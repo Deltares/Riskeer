@@ -107,8 +107,8 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         private DesignTablesSetting GetDesignTablesSetting(IList<string> line)
         {
-            return new DesignTablesSetting(GetIntValueFromElement(line[columns[minKey]]),
-                                           GetIntValueFromElement(line[columns[maxKey]]));
+            return new DesignTablesSetting(GetDoubleValueFromElement(line[columns[minKey]]),
+                                           GetDoubleValueFromElement(line[columns[maxKey]]));
         }
 
         #region Csv column names
