@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -80,19 +79,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            try
-            {
-                Path.GetFullPath(workingDirectory);
-            }
-            catch (ArgumentNullException)
-            {
-                throw new ArgumentNullException("workingDirectory");
-            }
-            catch
-            {
-                throw new ArgumentException("workingDirectory");
-            }
-
             string fileName = string.Format("{0}{1}", sectionId, HydraRingFileName.OutputFileSuffix);
 
             try

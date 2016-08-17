@@ -56,19 +56,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             try
             {
-                Path.GetFullPath(workingDirectory);
-            }
-            catch (ArgumentNullException)
-            {
-                throw new ArgumentNullException("workingDirectory");
-            }
-            catch
-            {
-                throw new ArgumentException("workingDirectory");
-            }
-
-            try
-            {
                 Output = DoParse(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName), sectionId);
             }
             catch

@@ -86,50 +86,5 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var expectedMessage = "In dit bestand staan veschillende log berichten, welke door Hydra-Ring gegenereerd zijn.";
             Assert.AreEqual(expectedMessage, logFileParser.LogFileContent);
         }
-
-        [Test]
-        public void Parse_NullWorkingDirectory_ThrowArgumentNullException()
-        {
-            // Setup
-            var logFileParser = new HydraRingLogFileParser();
-
-            // Call
-            TestDelegate call =() => logFileParser.Parse(null, 1); 
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
-        [TestCase("")]
-        [TestCase("      ")]
-        public void Parse_NoWorkingDirectory_ThrowArgumentException(string directoryPath)
-        {
-            // Setup
-            var logFileParser = new HydraRingLogFileParser();
-
-            // Call
-            TestDelegate call = () => logFileParser.Parse(directoryPath, 1);
-
-            // Assert
-            Assert.Throws<ArgumentException>(call);
-        }
-
-        [Test]
-        public void Parse_NoWorkingDirectory_ThrowArgumentException()
-        {
-            // Setup
-            var logFileParser = new HydraRingLogFileParser();
-
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-            string invalidCharacter = invalidFileNameChars[0].ToString();
-            var directoryPath = "c:/test_directory".Replace("_", invalidCharacter);
-
-            // Call
-            TestDelegate call = () => logFileParser.Parse(directoryPath, 1);
-
-            // Assert
-            Assert.Throws<ArgumentException>(call);
-        }
     }
 }

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.IO;
 using log4net;
 using Ringtoets.HydraRing.Calculation.Properties;
@@ -35,24 +34,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            try
-            {
-                Path.GetFullPath(workingDirectory);
-            }
-            catch (ArgumentNullException)
-            {
-                throw new ArgumentNullException("workingDirectory");
-            }
-            catch
-            {
-                throw new ArgumentException("workingDirectory");
-            }
-
             string logFileName = sectionId + ".log";
 
             try
             {
-                LogFileContent = File.ReadAllText(Path.Combine(workingDirectory, logFileName));
+                LogFileContent = File.ReadAllText(Path.Combine(workingDirectory, sectionId + ".log"));
             }
             catch
             {

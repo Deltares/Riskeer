@@ -45,19 +45,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             try
             {
-                Path.GetFullPath(workingDirectory);
-            }
-            catch (ArgumentNullException)
-            {
-                throw new ArgumentNullException("workingDirectory");
-            }
-            catch
-            {
-                throw new ArgumentException("workingDirectory");
-            }
-
-            try
-            {
                 using (var streamReader = new StreamReader(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)))
                 {
                     var fileContents = streamReader.ReadToEnd();
