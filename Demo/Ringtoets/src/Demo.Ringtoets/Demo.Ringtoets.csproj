@@ -234,6 +234,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\chart_line.png" />
+    <Content Include="Resources\folder-horizontal.png" />
+    <Content Include="Resources\folder-horizontal_large.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

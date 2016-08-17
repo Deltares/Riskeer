@@ -43,7 +43,7 @@ All rights reserved.
     <fluent:Ribbon x:Name="RingtoetsDemoProjectRibbonControl" x:FieldModifier="private">
         <fluent:RibbonTabItem Header="{x:Static resx:Resources.Demo}" fluent:KeyTip.Keys="D">
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.ExampleData}" fluent:KeyTip.Keys="E" Height="Auto">
-                <fluent:Button LargeIcon="pack://application:,,,/Demo.Ringtoets;component/Resources/folder-horizontal_large.png" Icon="pack://application:,,,/Demo.Ringtoets;component/Resources/folder-horizontal.png" Header="{x:Static resx:Resources.DemoAssessmentSection}" SizeDefinition="Large,Medium,Small" KeyTip="P" Click="AddNewDemoAssessmentSectionButton_Click"/>
+                <fluent:Button LargeIcon="{Binding Source={x:Static resx:Resources.FolderIconLarge}, Converter={StaticResource IconConverter}}" Icon="{Binding Source={x:Static resx:Resources.FolderIcon}, Converter={StaticResource IconConverter}}" Header="{x:Static resx:Resources.DemoAssessmentSection}" SizeDefinition="Large,Medium,Small" fluent:KeyTip.Keys="P" Click="AddNewDemoAssessmentSectionButton_Click"/>
                 <fluent:Button x:Name="OpenMapViewButton" Header="{x:Static resx:Resources.General_Map}" ToolTip="{x:Static resx:Resources.OpenMapView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenMapView_Click" fluent:KeyTip.Keys="K"/>
             </fluent:RibbonGroupBox>
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_Chart}" fluent:KeyTip.Keys="C">
