@@ -282,6 +282,9 @@
   <data name="&gt;&gt;buttonOpenLog.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="buttonSaveProject.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
   <data name="buttonSaveProject.Location" type="System.Drawing.Point, System.Drawing">
     <value>287, 242</value>
   </data>

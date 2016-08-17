@@ -1177,7 +1177,7 @@ namespace Ringtoets.Integration.Plugin
                 BaseResources.Confirm,
                 MessageBoxButtons.OKCancel);
 
-            return (confirmation == DialogResult.OK);
+            return confirmation == DialogResult.OK;
         }
 
         private static void ClearCalculations(IAssessmentSection nodeData)
