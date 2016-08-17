@@ -124,9 +124,6 @@
   <data name="SplashScreenBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SplashScreenBackground.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="brick_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>../Resources/brick_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="SelectItemDialog_ListViewItemTypesOnHandleCreated_Explorer" xml:space="preserve">
     <value>Verkenner</value>
   </data>
@@ -162,9 +159,6 @@
   </data>
   <data name="Messages" xml:space="preserve">
     <value>Berichten</value>
-  </data>
-  <data name="Ribbon_GroupBox_Layout" xml:space="preserve">
-    <value>Opmaak</value>
   </data>
   <data name="chart_curve" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,9 +226,6 @@
   <data name="SaveAsHH" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveAsHH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ribbon_StatusBar_Status_text" xml:space="preserve">
-    <value>Statustekst</value>
-  </data>
   <data name="GuiCore_Run_Started_in_0_f2_sec" xml:space="preserve">
     <value>Gestart in {0:f2} seconden.</value>
   </data>
@@ -259,9 +250,6 @@
   <data name="GuiImportHandler_ImportItemsUsingDialog_Start_importing_data" xml:space="preserve">
     <value>Begonnen met het importeren van gegevens.</value>
   </data>
-  <data name="ViewList_Insert_No_default_location_specified_Cannot_add_a_view_without_location_parameter_" xml:space="preserve">
-    <value>Er is geen standaardlocatie opgegeven. Kan geen documentvenster toevoegen zonder de locatie parameter.</value>
-  </data>
   <data name="SelectItemDialog_buttonOk_Click_Error" xml:space="preserve">
     <value>Fout</value>
   </data>
@@ -270,9 +258,6 @@
   </data>
   <data name="StorageCommandHandler_NewProject_Creating_new_project" xml:space="preserve">
     <value>Openen van nieuw Ringtoetsproject.</value>
-  </data>
-  <data name="App_ParseArguments_Run_activity_or_model_available_in_the_project_" xml:space="preserve">
-    <value>Berekenen activiteit of model is beschikbaar in het project.</value>
   </data>
   <data name="ApplicationFeatureCommandHandler_OpenLogFileExternal_Unable_to_open_log_file" xml:space="preserve">
     <value>Logbestand kan niet worden geopend.</value>
@@ -301,9 +286,6 @@
   <data name="information" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\information.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ribbon_Command_Close" xml:space="preserve">
-    <value>Afsluiten</value>
-  </data>
   <data name="GuiCore_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0" xml:space="preserve">
     <value>Slechts één instantie van de Ringtoets grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. 'Stack trace': {0}</value>
   </data>
@@ -324,9 +306,6 @@
   </data>
   <data name="ExpandableArrayConverter_ConvertTo_Count_0_" xml:space="preserve">
     <value>Aantal ({0})</value>
-  </data>
-  <data name="ProjectCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item" xml:space="preserve">
-    <value>Er moet een project zijn om gegevens te kunnen toevoegen.</value>
   </data>
   <data name="GuiExportHandler_ExportItemUsingDialog_Export_failed" xml:space="preserve">
     <value>Exporteren mislukt.</value>
@@ -555,9 +534,6 @@
   </data>
   <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_Error" xml:space="preserve">
     <value>Fout</value>
-  </data>
-  <data name="PlusIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ProjectIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\project-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

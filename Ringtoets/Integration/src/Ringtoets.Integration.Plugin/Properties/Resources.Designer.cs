@@ -120,15 +120,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren..
-        /// </summary>
-        public static string FailureMechanismSectionsImporter_Import_Required_reference_line_is_missing {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_Required_reference_line_is_missing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar om een vakindeling voor te definiëren..
         /// </summary>
         public static string FailureMechanismSectionsImporter_Import_Required_referenceline_missing {
@@ -180,15 +171,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         public static string HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is nog geen bestand geopend..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseImporter_File_not_opened {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_File_not_opened", resourceCulture);
             }
         }
         

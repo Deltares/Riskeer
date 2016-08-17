@@ -226,12 +226,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\folder-horizontal_large.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\folder-horizontal.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\HRD dutch coast south.sqlite" />
     <EmbeddedResource Include="Resources\DR6_surfacelines.krp.csv" />
     <EmbeddedResource Include="Resources\HLCD.sqlite" />

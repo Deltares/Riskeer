@@ -177,9 +177,6 @@
   <data name="PipingInput_PiezometricHeadExit_DisplayName" xml:space="preserve">
     <value>Stijghoogte bij uittredepunt [m+NAP]</value>
   </data>
-  <data name="PipingCalculationContextProperties_DisplayName" xml:space="preserve">
-    <value>Piping</value>
-  </data>
   <data name="GeneralPipingInput_SandParticlesVolumicWeight_Description" xml:space="preserve">
     <value>Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag.</value>
   </data>
@@ -271,20 +268,8 @@
   <data name="ImportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\table-import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Import_SurfaceLines" xml:space="preserve">
-    <value>Importeer Profielschematisaties</value>
-  </data>
-  <data name="Import_SurfaceLines_Tooltip" xml:space="preserve">
-    <value>Importeer nieuwe profielschematisaties van een *.csv bestand.</value>
-  </data>
   <data name="StochasticSoilProfileCollection_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisaties</value>
-  </data>
-  <data name="Import_SoilProfiles" xml:space="preserve">
-    <value>Importeer ondergrondschematisaties</value>
-  </data>
-  <data name="Import_SoilProfiles_Tooltip" xml:space="preserve">
-    <value>Importeer nieuwe ondergrondschematisaties van een *.soil bestand.</value>
   </data>
   <data name="PipingSoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -388,9 +373,6 @@
   <data name="PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null" xml:space="preserve">
     <value>{0} mag niet 'null' zijn.</value>
   </data>
-  <data name="PipingContext_DataDescription_WrappedData" xml:space="preserve">
-    <value>Het piping data object</value>
-  </data>
   <data name="PipingContext_DataDescription_Surfacelines" xml:space="preserve">
     <value>De verzameling van profielschematisaties</value>
   </data>
@@ -414,9 +396,6 @@
   </data>
   <data name="DesignVariableTypeConverter_DistributionType_Description" xml:space="preserve">
     <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
-  </data>
-  <data name="PipingCalculationGroup_Add_PipingCalculation_ToolTip" xml:space="preserve">
-    <value>Voeg een nieuwe berekening toe aan deze berekeningsmap.</value>
   </data>
   <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description" xml:space="preserve">
     <value>De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.</value>
@@ -460,12 +439,6 @@
   <data name="PipingInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
-  <data name="PipingInputContextProperties_HydraulicBoundaryLocation_Could_not_set_Location_0_Cause_1_" xml:space="preserve">
-    <value>Kan locatie '{0}' niet gebruiken als invoer. {1}</value>
-  </data>
-  <data name="PipingInputExtensions_NaN_is_not_valid_for_Property_0_" xml:space="preserve">
-    <value>NaN is geen geldige waarde voor {0}</value>
-  </data>
   <data name="Categories_SemiProbabilisticParameters" xml:space="preserve">
     <value>Semi-probabilistische parameters</value>
   </data>
@@ -481,9 +454,6 @@
   <data name="GeneralPipingInput_B_DisplayName" xml:space="preserve">
     <value>b</value>
   </data>
-  <data name="PipingInputContextProperties_AssessmentLevel_cannot_be_NaN" xml:space="preserve">
-    <value>Toetspeil moet een geldige waarde hebben.</value>
-  </data>
   <data name="Categories_HydraulicData" xml:space="preserve">
     <value>Hydraulische gegevens</value>
   </data>
@@ -492,9 +462,6 @@
   </data>
   <data name="Categories_Schematization" xml:space="preserve">
     <value>Schematisatie</value>
-  </data>
-  <data name="Categories_SoilProperties" xml:space="preserve">
-    <value>Grondeigenschappen</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_PipingFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor deze berekening.</value>
@@ -555,18 +522,6 @@
   </data>
   <data name="PipingSemiProbabilisticOutput_UpliftProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
-  </data>
-  <data name="PipingSemiProbabilisticOutput_Categories_Heave" xml:space="preserve">
-    <value>Heave</value>
-  </data>
-  <data name="PipingSemiProbabilisticOutput_Categories_Piping" xml:space="preserve">
-    <value>Piping</value>
-  </data>
-  <data name="PipingSemiProbabilisticOutput_Categories_Sellmeijer" xml:space="preserve">
-    <value>Terugschrijdende erosie (Sellmeijer)</value>
-  </data>
-  <data name="PipingSemiProbabilisticOutput_Categories_Uplift" xml:space="preserve">
-    <value>Opbarsten</value>
   </data>
   <data name="PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description" xml:space="preserve">
     <value>Verzadigd gewicht deklaag.</value>

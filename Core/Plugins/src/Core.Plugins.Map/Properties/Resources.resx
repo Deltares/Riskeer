@@ -133,15 +133,6 @@
   <data name="Ribbon_Toggle_Legend_ToolTip" xml:space="preserve">
     <value>Open het kaartenpaneel.</value>
   </data>
-  <data name="MapData_Line_data_label" xml:space="preserve">
-    <value>Lijn</value>
-  </data>
-  <data name="MapData_Point_data_label" xml:space="preserve">
-    <value>Punten</value>
-  </data>
-  <data name="MapData_Polygon_data_label" xml:space="preserve">
-    <value>Gebied</value>
-  </data>
   <data name="AreaIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\area.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -180,9 +171,6 @@
   </data>
   <data name="ZoomToAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zoomextents.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MapData_MultiLine_data_label" xml:space="preserve">
-    <value>Lijnen</value>
   </data>
   <data name="MapPointIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map-pin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

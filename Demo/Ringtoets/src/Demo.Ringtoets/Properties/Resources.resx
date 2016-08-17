@@ -126,24 +126,15 @@
   <data name="ExampleData" xml:space="preserve">
     <value>Voorbeeld data</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="folder_horizontal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder-horizontal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="folder_horizontal_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder-horizontal_large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="General_Map" xml:space="preserve">
     <value>Kaart</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="map" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="OpenMapView_ToolTip" xml:space="preserve">
     <value>Open een documentvenster met een kaart.</value>
-  </data>
-  <data name="Ribbon_Demo_Header" xml:space="preserve">
-    <value>Demo</value>
   </data>
   <data name="ChartIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\chart_line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -153,18 +144,6 @@
   </data>
   <data name="OpenChartView_ToolTip" xml:space="preserve">
     <value>Open een documentvenster met een diagram.</value>
-  </data>
-  <data name="OpenMapViewCommand_Execute_Point_demo_data" xml:space="preserve">
-    <value>Punt demo data</value>
-  </data>
-  <data name="OpenMapViewCommand_Execute_Line_demo_data" xml:space="preserve">
-    <value>Lijn demo data</value>
-  </data>
-  <data name="OpenMapViewCommand_Execute_Polygon_demo_data" xml:space="preserve">
-    <value>Polygoon demo data</value>
-  </data>
-  <data name="OpenMapViewCommand_Execute_List" xml:space="preserve">
-    <value>Lijst</value>
   </data>
   <data name="OpenChartViewCommand_Execute_Line_one" xml:space="preserve">
     <value>Lijn 1</value>

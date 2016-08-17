@@ -150,9 +150,6 @@
   <data name="PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_ID" xml:space="preserve">
     <value>Regel heeft geen ID.</value>
   </data>
-  <data name="PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_" xml:space="preserve">
-    <value>Kan de geometrie van laag nummer '{0}' in profielschematisatie '{1}' niet interpreteren.</value>
-  </data>
   <data name="PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_" xml:space="preserve">
     <value>De database heeft niet de vereiste versie informatie. Vereiste versie is '{0}'.</value>
   </data>
@@ -201,14 +198,8 @@
   <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_has_zero_length" xml:space="preserve">
     <value>Profielschematisatie heeft een geometrie die een lijn met lengte 0 beschrijft.</value>
   </data>
-  <data name="StochasticSoilModelDatabaseReader_Failed_to_read_soil_model" xml:space="preserve">
-    <value>Het uitlezen van een stochastisch ondergrondmodel is mislukt, dit zal worden overgeslagen.</value>
-  </data>
   <data name="StochasticSoilModelDatabaseReader_Failed_to_read_database" xml:space="preserve">
     <value>Kon geen stochastische ondergrondmodellen verkrijgen uit de database.</value>
-  </data>
-  <data name="StochasticSoilModelDatabaseReader_SegmentPoint_has_invalid_value" xml:space="preserve">
-    <value>De coördinaten van het stochastische ondergrondmodel bevatten geen geldige waarde.</value>
   </data>
   <data name="StochasticSoilProfileDatabaseReader_StochasticSoilProfile_has_invalid_value" xml:space="preserve">
     <value>De ondergrondschematisatie verwijst naar een ongeldige waarde.</value>

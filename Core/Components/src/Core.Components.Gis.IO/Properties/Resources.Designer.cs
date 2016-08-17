@@ -146,24 +146,6 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ingelezen element is een &apos;multi-lijn&apos;; alleen enkelvoudige lijn elementen worden ondersteund..
-        /// </summary>
-        internal static string PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline {
-            get {
-                return ResourceManager.GetString("PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to op index {0}.
-        /// </summary>
-        internal static string ShapeFileReaderBase_GetFeature_At_shapefile_index_0_ {
-            get {
-                return ResourceManager.GetString("ShapeFileReaderBase_GetFeature_At_shapefile_index_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mapdata mag maar 1 feature bevatten..
         /// </summary>
         internal static string ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature {

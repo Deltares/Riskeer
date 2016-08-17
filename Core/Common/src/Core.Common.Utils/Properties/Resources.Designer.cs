@@ -91,15 +91,6 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand bestaat reeds..
-        /// </summary>
-        public static string Error_File_already_exists {
-            get {
-                return ResourceManager.GetString("Error_File_already_exists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het bestand bestaat niet..
         /// </summary>
         public static string Error_File_does_not_exist {

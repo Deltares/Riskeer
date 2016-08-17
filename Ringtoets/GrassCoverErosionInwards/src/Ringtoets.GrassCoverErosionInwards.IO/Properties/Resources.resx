@@ -120,15 +120,6 @@
   <data name="DikeProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points" xml:space="preserve">
     <value>Het bestand mag uitsluitend punten bevatten.</value>
   </data>
-  <data name="DikeProfileLocation_Constructor_Invalid_Id" xml:space="preserve">
-    <value>Fout bij het aanmaken van een dijk profiel locatie: ID is ongeldig.</value>
-  </data>
-  <data name="DikeProfileLocation_Constructor_Invalid_Point" xml:space="preserve">
-    <value>Fout bij het aanmaken van een dijk profiel locatie: Punt is ongeldig.</value>
-  </data>
-  <data name="DikeProfileLocation_Constructor_Invalid_X0" xml:space="preserve">
-    <value>Fout bij het aanmaken van een dijk profiel locatie: X0 is ongeldig.</value>
-  </data>
   <data name="DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0" xml:space="preserve">
     <value>Het dijkprofiel heeft geen geldige waarde voor attribuut 'X0'.</value>
   </data>
@@ -176,9 +167,6 @@
   </data>
   <data name="DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows" xml:space="preserve">
     <value>De ingelezen dijkhoogte ('{0}') is te groot of te klein om ingelezen te worden.</value>
-  </data>
-  <data name="DikeProfileLocation_DikeProfileLocation_Invalid_point" xml:space="preserve">
-    <value>Het bestand bevat een ongeldig punt als locatie.</value>
   </data>
   <data name="DikeProfileLocation_DikeProfileLocation_Id_is_null" xml:space="preserve">
     <value>De locatie parameter 'ID' heeft geen waarde.</value>

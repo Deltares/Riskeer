@@ -156,9 +156,6 @@
   <data name="FileUtils_DeleteOldFiles_Error_occured_deleting_files_in_folder_0" xml:space="preserve">
     <value>Er is een fout opgetreden bij het verwijderen van bestanden in de map '{0}'.</value>
   </data>
-  <data name="Error_File_already_exists" xml:space="preserve">
-    <value>Het bestand bestaat reeds.</value>
-  </data>
   <data name="Error_General_output_error_0" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand: {0}</value>
   </data>

@@ -120,12 +120,6 @@
   <data name="LineShapeFileReader_File_contains_geometries_not_line" xml:space="preserve">
     <value>Bestand bevat geen enkele lijn.</value>
   </data>
-  <data name="PolylineShapeFileReader_ReadLine_Read_unsupported_multipolyline" xml:space="preserve">
-    <value>Ingelezen element is een 'multi-lijn'; alleen enkelvoudige lijn elementen worden ondersteund.</value>
-  </data>
-  <data name="ShapeFileReaderBase_GetFeature_At_shapefile_index_0_" xml:space="preserve">
-    <value>op index {0}</value>
-  </data>
   <data name="PolylineShapeFileReader_ReadLine_Line" xml:space="preserve">
     <value>Lijn</value>
   </data>

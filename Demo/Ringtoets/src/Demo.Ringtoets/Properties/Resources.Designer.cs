@@ -119,26 +119,6 @@ namespace Demo.Ringtoets.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap folder_horizontal {
-            get {
-                object obj = ResourceManager.GetObject("folder_horizontal", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap folder_horizontal_large {
-            get {
-                object obj = ResourceManager.GetObject("folder_horizontal_large", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Grafiek.
         /// </summary>
         public static string General_Chart {
@@ -284,42 +264,6 @@ namespace Demo.Ringtoets.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lijn demo data.
-        /// </summary>
-        public static string OpenMapViewCommand_Execute_Line_demo_data {
-            get {
-                return ResourceManager.GetString("OpenMapViewCommand_Execute_Line_demo_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lijst.
-        /// </summary>
-        public static string OpenMapViewCommand_Execute_List {
-            get {
-                return ResourceManager.GetString("OpenMapViewCommand_Execute_List", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Punt demo data.
-        /// </summary>
-        public static string OpenMapViewCommand_Execute_Point_demo_data {
-            get {
-                return ResourceManager.GetString("OpenMapViewCommand_Execute_Point_demo_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Polygoon demo data.
-        /// </summary>
-        public static string OpenMapViewCommand_Execute_Polygon_demo_data {
-            get {
-                return ResourceManager.GetString("OpenMapViewCommand_Execute_Polygon_demo_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Randstad.
         /// </summary>
         public static string OpenMapViewCommand_Execute_Randstad {
@@ -370,15 +314,6 @@ namespace Demo.Ringtoets.Properties {
         public static string OpenMapViewCommand_Execute_Vlieland {
             get {
                 return ResourceManager.GetString("OpenMapViewCommand_Execute_Vlieland", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Demo.
-        /// </summary>
-        public static string Ribbon_Demo_Header {
-            get {
-                return ResourceManager.GetString("Ribbon_Demo_Header", resourceCulture);
             }
         }
     }

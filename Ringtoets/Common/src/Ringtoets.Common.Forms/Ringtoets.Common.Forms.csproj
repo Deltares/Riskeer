@@ -180,7 +180,6 @@
     <Content Include="Resources\broom.png" />
     <Content Include="Resources\wand-hat.png" />
     <None Include="Resources\database.png" />
-    <None Include="Resources\database--exclamation.png" />
     <None Include="Resources\chart_single_line.png" />
     <None Include="Resources\blue-document-list.png" />
     <None Include="Resources\blue-document--pencil.png" />

@@ -80,16 +80,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap AddAssessmentSectionFolderIcon {
-            get {
-                object obj = ResourceManager.GetObject("AddAssessmentSectionFolderIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Traject.
         /// </summary>
         public static string AssessmentSection_DisplayName {
@@ -301,18 +291,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string DesignWaterLevelLocationsContext_DisplayName {
             get {
                 return ResourceManager.GetString("DesignWaterLevelLocationsContext_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to U heeft een ander trajecttype geselecteerd. Als gevolg hiervan moet de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string FailureMechanismContributionView_ChangeComposition_Change_will_clear_calculation_output_accept_question {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_ChangeComposition_Change_will_clear_calculation_" +
-                        "output_accept_question", resourceCulture);
             }
         }
         
@@ -556,40 +534,11 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseContext_HydraulicBoundaryDatabaseContext__0__cannot_bet__null__ {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseContext_HydraulicBoundaryDatabaseContext__0__cannot_bet_" +
-                        "_null__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het traject.
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseContext_HydraulicBoundaryDatabaseContext_The_assessment_section {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseContext_HydraulicBoundaryDatabaseContext_The_assessment_" +
-                        "section", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekenen.
         /// </summary>
         public static string HydraulicBoundaryLocationDesignWaterLevelRow_Calculate {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocationDesignWaterLevelRow_Calculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locaties van de hydraulische randvoorwaarden.
-        /// </summary>
-        public static string HydraulicBoundaryLocationsCollection_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationsCollection_DisplayName", resourceCulture);
             }
         }
         

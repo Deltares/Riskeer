@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HydraulicBoundaryDatabaseImporter_File_not_opened" xml:space="preserve">
-    <value>Er is nog geen bestand geopend.</value>
-  </data>
   <data name="HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read" xml:space="preserve">
     <value>De hydraulische randvoorwaardenlocaties zijn ingelezen.</value>
   </data>
@@ -129,9 +126,6 @@
   <data name="FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported" xml:space="preserve">
     <value>{0} 
 Er is geen vakindeling geïmporteerd.</value>
-  </data>
-  <data name="FailureMechanismSectionsImporter_Import_Required_reference_line_is_missing" xml:space="preserve">
-    <value>Er is geen referentielijn beschikbaar om een vakindeling voor de definiëren.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_Import_Required_referenceline_missing" xml:space="preserve">
     <value>Er is geen referentielijn beschikbaar om een vakindeling voor te definiëren.</value>

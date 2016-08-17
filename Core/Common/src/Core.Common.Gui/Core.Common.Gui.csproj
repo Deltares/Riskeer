@@ -329,7 +329,6 @@
     <Resource Include="Resources\application_import_blue.png" />
     <Resource Include="Resources\application_view_list.png" />
     <Resource Include="Resources\brick.png" />
-    <Resource Include="Resources\brick_add.png" />
     <Resource Include="Resources\chart_curve.png" />
     <Resource Include="Resources\ClosePreviewHH.png" />
     <Resource Include="Resources\Copy.png" />
@@ -362,7 +361,6 @@
     <Resource Include="Resources\key.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\plus.png" />
     <None Include="Resources\project-16.png" />
     <Content Include="Resources\textfield_rename.png" />
   </ItemGroup>
