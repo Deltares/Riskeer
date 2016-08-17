@@ -133,7 +133,7 @@
     <value>Both</value>
   </data>
   <data name="textBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>260, 238</value>
+    <value>500, 238</value>
   </data>
   <data name="textBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -178,7 +178,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>284, 262</value>
+    <value>524, 262</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Berichtdetails</value>
