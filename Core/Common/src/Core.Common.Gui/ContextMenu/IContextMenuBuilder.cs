@@ -27,7 +27,7 @@ namespace Core.Common.Gui.ContextMenu
     /// <summary>
     /// Specifies the interface for objects that build context menus.
     /// </summary>
-    public interface IContextMenuBuilder : IDisposable
+    public interface IContextMenuBuilder
     {
         /// <summary>
         /// Adds an item to the <see cref="ContextMenuStrip"/>, which starts edit mode for the name of <see cref="TreeNode"/>.

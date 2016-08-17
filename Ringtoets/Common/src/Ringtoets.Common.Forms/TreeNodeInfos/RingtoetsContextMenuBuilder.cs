@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
     /// <summary>
     /// Decorator for <see cref="IContextMenuBuilder"/>.
     /// </summary>
-    public class RingtoetsContextMenuBuilder : IDisposable
+    public class RingtoetsContextMenuBuilder
     {
         private readonly IContextMenuBuilder contextMenuBuilder;
 
@@ -372,11 +372,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         public ContextMenuStrip Build()
         {
             return contextMenuBuilder.Build();
-        }
-
-        public void Dispose()
-        {
-            contextMenuBuilder.Dispose();
         }
 
         # endregion
