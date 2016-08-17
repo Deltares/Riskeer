@@ -247,16 +247,16 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(designWaterLevelLocationsContextProperties.AfterCreate);
 
                 var designWaterLevelLocationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(DesignWaterLevelLocationContext));
-                Assert.AreEqual(typeof(HydraulicBoundaryLocationDesignWaterLevelProperties), designWaterLevelLocationContextProperties.PropertyObjectType);
+                Assert.AreEqual(typeof(DesignWaterLevelLocationContextProperties), designWaterLevelLocationContextProperties.PropertyObjectType);
                 Assert.IsNull(designWaterLevelLocationContextProperties.AdditionalDataCheck);
                 Assert.IsNotNull(designWaterLevelLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelLocationContextProperties.AfterCreate);
 
-                var waveHeightContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(WaveHeightContext));
-                Assert.AreEqual(typeof(WaveHeightContextProperties), waveHeightContextProperties.PropertyObjectType);
-                Assert.IsNull(waveHeightContextProperties.AdditionalDataCheck);
-                Assert.IsNotNull(waveHeightContextProperties.GetObjectPropertiesData);
-                Assert.IsNull(waveHeightContextProperties.AfterCreate);
+                var waveHeightLocationsContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(WaveHeightLocationsContext));
+                Assert.AreEqual(typeof(WaveHeightLocationsContextProperties), waveHeightLocationsContextProperties.PropertyObjectType);
+                Assert.IsNull(waveHeightLocationsContextProperties.AdditionalDataCheck);
+                Assert.IsNotNull(waveHeightLocationsContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(waveHeightLocationsContextProperties.AfterCreate);
             }
         }
 
@@ -413,7 +413,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContributionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DesignWaterLevelLocationsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveHeightContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveHeightLocationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>)));

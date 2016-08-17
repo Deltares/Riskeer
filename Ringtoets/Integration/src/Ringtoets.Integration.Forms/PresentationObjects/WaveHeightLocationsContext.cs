@@ -22,19 +22,21 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="WaveHeightContext"/>.
+    /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
+    /// with <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
     /// </summary>
-    public class WaveHeightContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    public class WaveHeightLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightContext"/>.
+        /// Creates a new instance of <see cref="WaveHeightLocationsContext"/>.
         /// </summary>
-        /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the <see cref="WaveHeightContext"/> belongs to.</param>
+        /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the <see cref="WaveHeightLocationsContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
-        public WaveHeightContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
+        public WaveHeightLocationsContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
     }
 }

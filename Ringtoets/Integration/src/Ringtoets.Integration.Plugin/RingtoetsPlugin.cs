@@ -261,11 +261,11 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
             };
-            yield return new PropertyInfo<DesignWaterLevelLocationContext, HydraulicBoundaryLocationDesignWaterLevelProperties>
+            yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>
             {
                 GetObjectPropertiesData = context => context.WrappedData
             };
-            yield return new PropertyInfo<WaveHeightContext, WaveHeightContextProperties>
+            yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsContextProperties>
             {
                 GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
             };
@@ -291,7 +291,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<DesignWaterLevelLocationsContext, IAssessmentSection, HydraulicBoundaryLocationDesignWaterLevelsView>
             {
-                GetViewName = (v, o) => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
+                GetViewName = (v, o) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 AfterCreate = (view, context) =>
@@ -486,22 +486,22 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<DesignWaterLevelLocationsContext>
             {
-                Text = designWaterLevel => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
+                Text = designWaterLevel => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
                 Image = designWaterLevel => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
-                ContextMenuStrip = DesignWaterLevelContextMenuStrip
+                ContextMenuStrip = DesignWaterLevelLocationsContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<WaveHeightContext>
+            yield return new TreeNodeInfo<WaveHeightLocationsContext>
             {
-                Text = waveHeight => RingtoetsFormsResources.WaveHeightContext_DisplayName,
+                Text = waveHeight => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
                 Image = waveHeight => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
-                ContextMenuStrip = WaveHeightContextMenuStrip
+                ContextMenuStrip = WaveHeightLocationsContextMenuStrip
             };
 
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
@@ -1026,11 +1026,11 @@ namespace Ringtoets.Integration.Plugin
             return new object[]
             {
                 new DesignWaterLevelLocationsContext(nodeData.WrappedData),
-                new WaveHeightContext(nodeData.WrappedData)
+                new WaveHeightLocationsContext(nodeData.WrappedData)
             };
         }
 
-        private ContextMenuStrip DesignWaterLevelContextMenuStrip(DesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip DesignWaterLevelLocationsContextMenuStrip(DesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.DesignWaterLevel_Calculate,
@@ -1056,7 +1056,7 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private ContextMenuStrip WaveHeightContextMenuStrip(WaveHeightContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip WaveHeightLocationsContextMenuStrip(WaveHeightLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var waveHeightItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.WaveHeight_Calculate,

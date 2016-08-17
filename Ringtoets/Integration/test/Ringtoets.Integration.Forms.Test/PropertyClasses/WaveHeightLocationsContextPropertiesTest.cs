@@ -34,13 +34,13 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class WaveHeightContextPropertiesTest
+    public class WaveHeightLocationsContextPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new WaveHeightContextProperties();
+            var properties = new WaveHeightLocationsContextProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryDatabase>>(properties);
@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            WaveHeightContext waveHeightContext = new WaveHeightContext(assessmentSectionMock)
+            WaveHeightLocationsContext context = new WaveHeightLocationsContext(assessmentSectionMock)
             {
                 WrappedData =
                 {
@@ -69,19 +69,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             {
                 WaveHeight = waveHeight
             };
-            waveHeightContext.WrappedData.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            context.WrappedData.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
-            WaveHeightContextProperties properties = new WaveHeightContextProperties
+            WaveHeightLocationsContextProperties properties = new WaveHeightLocationsContextProperties
             {
                 Data = hydraulicBoundaryDatabase
             };
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(HydraulicBoundaryLocationWaveHeightProperties));
+            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(WaveHeightLocationContextProperties));
             Assert.AreEqual(1, properties.Locations.Length);
 
-            HydraulicBoundaryLocationWaveHeightProperties waveHeightLocationProperties = properties.Locations.First();
+            WaveHeightLocationContextProperties waveHeightLocationProperties = properties.Locations.First();
             Assert.AreEqual(hydraulicBoundaryLocation.Name, waveHeightLocationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightLocationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, waveHeightLocationProperties.Location);
@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var properties = new WaveHeightContextProperties();
+            var properties = new WaveHeightLocationsContextProperties();
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             const string expectedLocationsDisplayName = "Locaties";

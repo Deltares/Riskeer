@@ -40,7 +40,7 @@ using Ringtoets.Integration.Plugin;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
-    public class WaveHeightContextTreeNodeInfoTest : NUnitFormTest
+    public class WaveHeightLocationsContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mockRepository;
 
@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(WaveHeightContext), info.TagType);
+                Assert.AreEqual(typeof(WaveHeightLocationsContext), info.TagType);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.IsChecked);
                 Assert.IsNull(info.OnNodeChecked);
@@ -117,7 +117,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var menuBuilderMock = mockRepository.StrictMock<IContextMenuBuilder>();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new WaveHeightContext(assessmentSectionMock);
+            var nodeData = new WaveHeightLocationsContext(assessmentSectionMock);
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var guiMock = mockRepository.StrictMock<IGui>();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new WaveHeightContext(assessmentSectionMock);
+            var nodeData = new WaveHeightLocationsContext(assessmentSectionMock);
 
             guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
@@ -189,7 +189,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var guiMock = mockRepository.StrictMock<IGui>();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new WaveHeightContext(assessmentSectionMock)
+            var nodeData = new WaveHeightLocationsContext(assessmentSectionMock)
             {
                 WrappedData =
                 {
@@ -231,14 +231,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var waveHeightContext = new WaveHeightContext(assessmentSectionMock);
+            var context = new WaveHeightLocationsContext(assessmentSectionMock);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color color = info.ForeColor(waveHeightContext);
+                Color color = info.ForeColor(context);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -254,14 +254,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             mockRepository.ReplayAll();
 
-            var waveHeightContext = new WaveHeightContext(assessmentSectionMock);
+            var context = new WaveHeightLocationsContext(assessmentSectionMock);
 
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Color color = info.ForeColor(waveHeightContext);
+                Color color = info.ForeColor(context);
 
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
@@ -298,11 +298,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
-            var waveHeightContext = new WaveHeightContext(assessmentSectionMock);
+            var context = new WaveHeightLocationsContext(assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(waveHeightContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiMock.Expect(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mockRepository.ReplayAll();
 
@@ -311,7 +311,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = guiMock;
 
-                    ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(waveHeightContext, null, treeViewControl);
+                    ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl);
 
                     // When
                     Action action = () => { contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick(); };
@@ -330,7 +330,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveHeightContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveHeightLocationsContext));
         }
     }
 }

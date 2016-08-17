@@ -111,10 +111,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
-            var designWaterLevelContext = new DesignWaterLevelLocationsContext(assessmentSection);
+            var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
             // Call
-            var viewData = info.GetViewData(designWaterLevelContext);
+            var viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(assessmentSection, viewData);

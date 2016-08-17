@@ -30,19 +30,20 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryDatabase"/> for properties panel.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/>  with 
+    /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> for properties panel.
     /// </summary>
-    public class WaveHeightContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
+    public class WaveHeightLocationsContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Description")]
-        public HydraulicBoundaryLocationWaveHeightProperties[] Locations
+        public WaveHeightLocationContextProperties[] Locations
         {
             get
             {
-                return data.Locations.Select(loc => new HydraulicBoundaryLocationWaveHeightProperties
+                return data.Locations.Select(loc => new WaveHeightLocationContextProperties
                 {
                     Data = loc
                 }).ToArray();

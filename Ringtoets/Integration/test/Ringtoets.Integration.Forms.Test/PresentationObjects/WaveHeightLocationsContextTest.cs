@@ -28,7 +28,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class WaveHeightContextTest
+    public class WaveHeightLocationsContextTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            var presentationObject = new WaveHeightContext(assessmentSectionMock);
+            var presentationObject = new WaveHeightLocationsContext(assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);

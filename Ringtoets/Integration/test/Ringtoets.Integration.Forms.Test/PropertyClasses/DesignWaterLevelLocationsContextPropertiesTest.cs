@@ -64,10 +64,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(HydraulicBoundaryLocationDesignWaterLevelProperties));
+            CollectionAssert.AllItemsAreInstancesOfType(properties.Locations, typeof(DesignWaterLevelLocationContextProperties));
             Assert.AreEqual(1, properties.Locations.Length);
 
-            HydraulicBoundaryLocationDesignWaterLevelProperties designWaterLevelLocationProperties = properties.Locations.First();
+            DesignWaterLevelLocationContextProperties designWaterLevelLocationProperties = properties.Locations.First();
             Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelLocationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelLocationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelLocationProperties.Location);

@@ -32,7 +32,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationWaveHeightPropertiesTest
+    public class WaveHeightLocationContextPropertiesTest
     {
         [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
 
             // Call
-            var properties = new HydraulicBoundaryLocationWaveHeightProperties
+            var properties = new WaveHeightLocationContextProperties
             {
                 Data = hydraulicBoundaryLocation
             };
@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HydraulicBoundaryLocationWaveHeightProperties
+            var properties = new WaveHeightLocationContextProperties
             {
                 Data = hydraulicBoundaryLocation
             };
@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            var properties = new HydraulicBoundaryLocationWaveHeightProperties
+            var properties = new WaveHeightLocationContextProperties
             {
                 Data = hydraulicBoundaryLocation
             };

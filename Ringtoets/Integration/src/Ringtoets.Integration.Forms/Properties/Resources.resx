@@ -299,10 +299,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AddAssessmentSection_DisplayName" xml:space="preserve">
     <value>T&amp;raject toevoegen...</value>
   </data>
-  <data name="DesignWaterLevel_DisplayName" xml:space="preserve">
+  <data name="DesignWaterLevelLocationsContext_DisplayName" xml:space="preserve">
     <value>Toetspeilen</value>
   </data>
-  <data name="WaveHeightContext_DisplayName" xml:space="preserve">
+  <data name="WaveHeightLocationsContext_DisplayName" xml:space="preserve">
     <value>Golfhoogtes</value>
   </data>
   <data name="WaveHeight_No_HRD_To_Calculate" xml:space="preserve">

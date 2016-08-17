@@ -32,7 +32,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationDesignWaterLevelPropertiesTest
+    public class DesignWaterLevelLocationContextPropertiesTest
     {
         [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
@@ -45,8 +45,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
 
             // Call
-            HydraulicBoundaryLocationDesignWaterLevelProperties properties =
-                new HydraulicBoundaryLocationDesignWaterLevelProperties
+            DesignWaterLevelLocationContextProperties properties =
+                new DesignWaterLevelLocationContextProperties
                 {
                     Data = hydraulicBoundaryLocation
                 };
@@ -76,8 +76,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            HydraulicBoundaryLocationDesignWaterLevelProperties properties =
-                new HydraulicBoundaryLocationDesignWaterLevelProperties
+            DesignWaterLevelLocationContextProperties properties =
+                new DesignWaterLevelLocationContextProperties
                 {
                     Data = hydraulicBoundaryLocation
                 };
@@ -97,8 +97,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
-            HydraulicBoundaryLocationDesignWaterLevelProperties properties =
-                new HydraulicBoundaryLocationDesignWaterLevelProperties
+            DesignWaterLevelLocationContextProperties properties =
+                new DesignWaterLevelLocationContextProperties
                 {
                     Data = hydraulicBoundaryLocation
                 };

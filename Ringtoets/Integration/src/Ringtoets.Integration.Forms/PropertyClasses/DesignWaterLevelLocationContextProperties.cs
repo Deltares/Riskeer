@@ -29,9 +29,9 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with <see cref="WaveHeight"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with <see cref="DesignWaterLevel"/> for properties panel.
     /// </summary>
-    public class HydraulicBoundaryLocationWaveHeightProperties : HydraulicBoundaryLocationProperties
+    public class DesignWaterLevelLocationContextProperties : HydraulicBoundaryLocationProperties
     {
         [PropertyOrder(1)]
         public override long Id
@@ -62,25 +62,25 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_Description")]
-        public string WaveHeight
+        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description")]
+        public string DesignWaterLevel
         {
             get
             {
-                return double.IsNaN(data.WaveHeight) ? string.Empty : new RoundedDouble(2, data.WaveHeight).ToString();
+                return double.IsNaN(data.DesignWaterLevel) ? string.Empty : new RoundedDouble(2, data.DesignWaterLevel).ToString();
             }
         }
 
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_WaveHeight_Description")]
+        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description")]
         public bool Convergence
         {
             get
             {
-                return data.WaveHeightCalculationConvergence;
+                return data.DesignWaterLevelCalculationConvergence;
             }
         }
     }

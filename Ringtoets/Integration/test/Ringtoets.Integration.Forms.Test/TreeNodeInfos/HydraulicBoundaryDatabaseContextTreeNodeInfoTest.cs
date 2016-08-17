@@ -249,11 +249,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(2, objects.Length);
-                var designWaterLevelContext = (DesignWaterLevelLocationsContext)objects[0];
-                Assert.AreSame(assessmentSection, designWaterLevelContext.WrappedData);
+                var designWaterLevelLocationsContext = (DesignWaterLevelLocationsContext)objects[0];
+                Assert.AreSame(assessmentSection, designWaterLevelLocationsContext.WrappedData);
 
-                var waveHeightContext = (WaveHeightContext)objects[1];
-                Assert.AreSame(assessmentSection, waveHeightContext.WrappedData);
+                var waveHeightLocationsContext = (WaveHeightLocationsContext)objects[1];
+                Assert.AreSame(assessmentSection, waveHeightLocationsContext.WrappedData);
             }
             mocks.VerifyAll();
         }

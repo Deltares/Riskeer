@@ -22,11 +22,13 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="DesignWaterLevelLocationsContext"/>.
+    /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
+    /// with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
     /// </summary>
     public class DesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
