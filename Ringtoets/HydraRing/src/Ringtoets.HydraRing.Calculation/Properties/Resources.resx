@@ -121,7 +121,7 @@
     <value>Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}.</value>
   </data>
   <data name="HydraRingCalculationService_HydraRing_calculation_report_message_text_0" xml:space="preserve">
-    <value>HydraRing berekeningsverslag. Klik op details voor meer informatie.
+    <value>Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.
 {0}</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
