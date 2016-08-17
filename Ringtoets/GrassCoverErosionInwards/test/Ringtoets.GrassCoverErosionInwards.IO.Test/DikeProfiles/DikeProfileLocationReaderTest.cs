@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-
 using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
@@ -39,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                                  Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+                                                              Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
 
             // Call
             using (var reader = new DikeProfileLocationReader(validFilePath))
@@ -148,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                          Path.Combine("DikeProfiles", fileName));
+                                                                Path.Combine("DikeProfiles", fileName));
 
             // Call
             TestDelegate call = () => new DikeProfileLocationReader(invalidFilePath);
@@ -165,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                      Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+                                                              Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
 
             using (var reader = new DikeProfileLocationReader(validFilePath))
             {
@@ -185,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                      Path.Combine("DikeProfiles", fileName));
+                                                              Path.Combine("DikeProfiles", fileName));
             IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(validFilePath))
@@ -207,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
+                                                                Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
 
             using (var reader = new DikeProfileLocationReader(invalidFilePath))
             {
@@ -226,7 +225,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
+                                                                Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
 
             using (var reader = new DikeProfileLocationReader(invalidFilePath))
             {
@@ -247,7 +246,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                          Path.Combine("DikeProfiles", fileName));
+                                                                Path.Combine("DikeProfiles", fileName));
 
             using (var reader = new DikeProfileLocationReader(invalidFilePath))
             {
@@ -266,7 +265,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                          Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyName.shp"));
+                                                                Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyName.shp"));
             IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(invalidFilePath))
@@ -288,7 +287,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                      Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+                                                              Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
             IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(validFilePath))
@@ -326,7 +325,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                      Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+                                                              Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
             IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(validFilePath))
@@ -352,7 +351,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
-                                      Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+                                                              Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
             IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
 
             using (var reader = new DikeProfileLocationReader(validFilePath))

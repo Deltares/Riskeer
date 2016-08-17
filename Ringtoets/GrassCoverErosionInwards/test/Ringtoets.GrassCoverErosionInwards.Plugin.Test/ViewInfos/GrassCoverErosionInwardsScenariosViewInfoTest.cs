@@ -21,14 +21,10 @@
 
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;

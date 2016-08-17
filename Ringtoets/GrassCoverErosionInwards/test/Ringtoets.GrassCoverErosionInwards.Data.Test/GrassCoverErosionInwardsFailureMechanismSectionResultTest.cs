@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using NUnit.Framework;
@@ -47,7 +46,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_WithSection_ResultCreatedForSection()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             // Call
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
@@ -67,7 +69,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Calculation_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
@@ -84,7 +89,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerTwoA_CalculationNull_ReturnNaN()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
@@ -102,7 +110,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -124,7 +135,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             double probability = 0.65;
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);

@@ -68,7 +68,6 @@
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextBreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\DikeProfileForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextDikeGeometryProperties.cs" />
-    <Compile Include="TypeConverters\EnumTypeConverter.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextForeshoreProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextProperties.cs" />

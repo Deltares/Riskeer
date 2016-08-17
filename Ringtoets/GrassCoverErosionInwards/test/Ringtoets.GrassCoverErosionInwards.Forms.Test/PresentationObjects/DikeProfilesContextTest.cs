@@ -20,14 +20,10 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;

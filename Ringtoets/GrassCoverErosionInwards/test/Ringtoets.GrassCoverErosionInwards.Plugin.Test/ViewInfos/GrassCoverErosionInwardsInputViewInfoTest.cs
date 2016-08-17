@@ -30,7 +30,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
@@ -111,8 +110,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
             GrassCoverErosionInwardsCalculationContext calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation,
-                                                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                     assessmentSection);
+                                                                                                                           new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                                           assessmentSection);
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
@@ -139,8 +138,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             GrassCoverErosionInwardsCalculation calculationToRemove = new GrassCoverErosionInwardsCalculation();
 
             GrassCoverErosionInwardsCalculationContext calculationContext = new GrassCoverErosionInwardsCalculationContext(calculationToRemove,
-                                                                                                                     new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                     assessmentSection);
+                                                                                                                           new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                                           assessmentSection);
 
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
@@ -168,8 +167,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(calculation);
 
             GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
-                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                      assessmentSection);
+                                                                                                                                          new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                                                          assessmentSection);
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
@@ -196,8 +195,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(calculation);
 
             GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                      assessmentSection);
+                                                                                                                                          new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                                                          assessmentSection);
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
@@ -226,8 +225,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(nestedGroup);
 
             GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
-                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                      assessmentSection);
+                                                                                                                                          new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                                                          assessmentSection);
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
@@ -256,8 +255,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             calculationGroup.Children.Add(nestedGroup);
 
             GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                                      new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                      assessmentSection);
+                                                                                                                                          new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                                                          assessmentSection);
             using (GrassCoverErosionInwardsInputView view = new GrassCoverErosionInwardsInputView
             {
                 Data = calculation
@@ -385,7 +384,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 mocks.VerifyAll();
             }
         }
-        
+
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {

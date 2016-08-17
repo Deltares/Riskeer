@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {
-                 new GrassCoverErosionInwardsFailureMechanism()
+                new GrassCoverErosionInwardsFailureMechanism()
             });
 
             mocks.ReplayAll();

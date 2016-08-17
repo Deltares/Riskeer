@@ -73,7 +73,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             {
                 Assert.IsNull(calculation.Output);
             }
-            CollectionAssert.AreEqual(new[] { calculation1, calculation2 }, affectedItems);
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
         }
 
         [Test]

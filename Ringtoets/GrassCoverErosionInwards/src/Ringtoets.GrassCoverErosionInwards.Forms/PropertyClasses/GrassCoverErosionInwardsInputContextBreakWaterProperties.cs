@@ -23,12 +23,12 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
-using Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {

@@ -31,6 +31,51 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
     [TestFixture]
     public class GrassCoverErosionInwardsHelperTest
     {
+        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult[] oneSectionResult =
+        {
+            new GrassCoverErosionInwardsFailureMechanismSectionResult(
+                new FailureMechanismSection("testFailureMechanismSection", new List<Point2D>
+                {
+                    new Point2D(0.0, 0.0)
+                }))
+        };
+
+        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult[] twoSectionResults =
+        {
+            new GrassCoverErosionInwardsFailureMechanismSectionResult(
+                new FailureMechanismSection(firstSectionName, new List<Point2D>
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(10.0, 10.0),
+                })),
+            new GrassCoverErosionInwardsFailureMechanismSectionResult(
+                new FailureMechanismSection(secondSectionName, new List<Point2D>
+                {
+                    new Point2D(11.0, 11.0),
+                    new Point2D(100.0, 100.0),
+                }))
+        };
+
+        private readonly GrassCoverErosionInwardsCalculation[] twoCalculations =
+        {
+            new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
+                }
+            },
+            new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = new DikeProfile(new Point2D(3.3, 4.4), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
+                }
+            }
+        };
+
         [Test]
         public void CollectCalculationsPerSegment_SectionResultsNull_ThrowsArgumentNullException()
         {
@@ -63,7 +108,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var emptySectionResults = new GrassCoverErosionInwardsFailureMechanismSectionResult[0];
 
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment = 
+            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(emptySectionResults, twoCalculations);
 
             // Assert
@@ -77,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var calculations = new GrassCoverErosionInwardsCalculation[0];
 
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment = 
+            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSectionResult, calculations);
 
             // Assert
@@ -88,13 +133,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void CollectCalculationsPerSegment_CalculationsWithoutDikeProfiles_EmptyDictionary()
         {
             // Setup
-            GrassCoverErosionInwardsCalculation[] calculations = {
+            GrassCoverErosionInwardsCalculation[] calculations =
+            {
                 new GrassCoverErosionInwardsCalculation(),
                 new GrassCoverErosionInwardsCalculation()
             };
 
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment = 
+            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSectionResult, calculations);
 
             // Assert
@@ -105,7 +151,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void CollectCalculationsPerSegment_MultipleCalculationsInSegment_OneSegmentHasAllCalculations()
         {
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment = 
+            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSectionResults, twoCalculations);
 
             // Assert
@@ -139,7 +185,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             };
 
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment = 
+            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSectionResults, calculations);
 
             // Assert
@@ -192,7 +238,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            FailureMechanismSection failureMechanismSection = 
+            FailureMechanismSection failureMechanismSection =
                 GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSectionResult, calculation);
 
             // Assert
@@ -206,7 +252,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            FailureMechanismSection failureMechanismSection = 
+            FailureMechanismSection failureMechanismSection =
                 GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSectionResult, calculation);
 
             // Assert
@@ -221,7 +267,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
-            FailureMechanismSection failureMechanismSection = 
+            FailureMechanismSection failureMechanismSection =
                 GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(emptySectionResults, calculation);
 
             // Assert
@@ -242,7 +288,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             };
 
             // Call
-            FailureMechanismSection failureMechanismSection = 
+            FailureMechanismSection failureMechanismSection =
                 GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSectionResults, calculation);
 
             // Assert
@@ -263,7 +309,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             };
 
             // Call
-            FailureMechanismSection failureMechanismSection = 
+            FailureMechanismSection failureMechanismSection =
                 GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSectionResults, calculation);
 
             // Assert
@@ -272,48 +318,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
         private const string firstSectionName = "firstSection";
         private const string secondSectionName = "secondSection";
-
-        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult[] oneSectionResult = {
-            new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                new FailureMechanismSection("testFailureMechanismSection", new List<Point2D>
-                {
-                    new Point2D(0.0, 0.0)
-                }))
-        };
-
-        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult[] twoSectionResults = {
-            new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                new FailureMechanismSection(firstSectionName, new List<Point2D>
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(10.0, 10.0),
-                })),
-            new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                new FailureMechanismSection(secondSectionName, new List<Point2D>
-                {
-                    new Point2D(11.0, 11.0),
-                    new Point2D(100.0, 100.0),
-                }))
-        };
-
-        private readonly GrassCoverErosionInwardsCalculation[] twoCalculations =
-        {
-            new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties())
-                }
-            },
-            new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = new DikeProfile(new Point2D(3.3, 4.4), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties())
-                }
-            }
-        };
     }
 }

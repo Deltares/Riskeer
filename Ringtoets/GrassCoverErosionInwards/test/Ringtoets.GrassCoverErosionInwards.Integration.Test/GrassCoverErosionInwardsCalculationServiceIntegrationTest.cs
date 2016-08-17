@@ -22,12 +22,9 @@
 using System;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -211,10 +208,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Call
             GrassCoverErosionInwardsCalculationServiceOutput output = GrassCoverErosionInwardsCalculationService.CalculateProbability(calculation,
-                                                                                                         testDataPath,
-                                                                                                         failureMechanismSection,
-                                                                                                         failureMechanismSection.Name,
-                                                                                                         assessmentSection.GrassCoverErosionInwards.GeneralInput);
+                                                                                                                                      testDataPath,
+                                                                                                                                      failureMechanismSection,
+                                                                                                                                      failureMechanismSection.Name,
+                                                                                                                                      assessmentSection.GrassCoverErosionInwards.GeneralInput);
 
             // Assert
             Assert.IsNotNull(output);

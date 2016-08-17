@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Controls.PresentationObjects;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;

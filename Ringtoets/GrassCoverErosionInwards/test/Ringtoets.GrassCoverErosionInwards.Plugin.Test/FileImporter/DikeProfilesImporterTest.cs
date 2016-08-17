@@ -904,7 +904,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         private ReferenceLine CreateMatchingReferenceLine()
         {
             var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[] {
+            referenceLine.SetGeometry(new[]
+            {
                 new Point2D(131223.2, 548393.4),
                 new Point2D(133854.3, 545323.1),
                 new Point2D(135561.0, 541920.3),

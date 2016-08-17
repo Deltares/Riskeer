@@ -100,7 +100,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
                                               null, new DikeProfile.ConstructionProperties());
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                DikeProfiles = { dikeProfile }
+                DikeProfiles =
+                {
+                    dikeProfile
+                }
             };
             var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput
             {

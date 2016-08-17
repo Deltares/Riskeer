@@ -45,8 +45,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             var foreshoreGeometry = new[]
             {
-                new Point2D(0.0, 1.1), 
-                new Point2D(8.0, 9.1), 
+                new Point2D(0.0, 1.1),
+                new Point2D(8.0, 9.1)
             };
 
             // Call
@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_ConstructionPropertiesIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0,0), new RoughnessPoint[0], new Point2D[0], null, null);
+            TestDelegate call = () => new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0], null, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -174,10 +174,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Call
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                  null, new DikeProfile.ConstructionProperties
-                                  {
-                                      DikeHeight = 1.23456
-                                  });
+                                              null, new DikeProfile.ConstructionProperties
+                                              {
+                                                  DikeHeight = 1.23456
+                                              });
 
             // Assert
             Assert.AreEqual(2, dikeProfile.DikeHeight.NumberOfDecimalPlaces);
@@ -206,7 +206,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Call
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                  null, new DikeProfile.ConstructionProperties());
+                                              null, new DikeProfile.ConstructionProperties());
 
             // Assert
             Assert.IsNull(dikeProfile.BreakWater);

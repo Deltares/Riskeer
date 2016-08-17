@@ -20,14 +20,10 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
@@ -88,8 +84,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreSame(calculation, sectionResult.Calculation);
-
-
         }
 
         [Test]

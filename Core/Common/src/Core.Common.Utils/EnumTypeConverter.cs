@@ -26,7 +26,7 @@ using System.Linq;
 using System.Reflection;
 using Core.Common.Utils.Attributes;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters
+namespace Core.Common.Utils
 {
     /// <summary>
     /// A type converter to convert Enum objects to and from various other representations.
@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters
 
         private static string GetDisplayName(MemberInfo memberInfo)
         {
-            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(memberInfo, typeof(ResourcesDisplayNameAttribute));
+            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute)Attribute.GetCustomAttribute(memberInfo, typeof(ResourcesDisplayNameAttribute));
             return (resourcesDisplayNameAttribute != null) ? resourcesDisplayNameAttribute.DisplayName : null;
         }
     }

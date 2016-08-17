@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Indicatieve golfhoogte", isDominantProperty.Category);
             Assert.AreEqual("Overslag dominant [-]", isDominantProperty.DisplayName);
             Assert.AreEqual("Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.", isDominantProperty.Description);
-            
+
             PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightIndex];
             Assert.IsTrue(dikeHeightProperty.IsReadOnly);
             Assert.AreEqual("Resultaat", dikeHeightProperty.Category);

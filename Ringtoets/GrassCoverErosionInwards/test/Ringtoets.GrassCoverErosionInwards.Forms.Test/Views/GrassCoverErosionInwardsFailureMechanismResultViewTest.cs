@@ -24,13 +24,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
@@ -76,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (ShowFailureMechanismResultsView())
             {
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
                 Assert.IsTrue(dataGridView.Columns[assessmentLayerTwoAIndex].ReadOnly);
@@ -98,7 +95,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 FailureMechanismSection section = CreateSimpleFailureMechanismSection();
                 var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
@@ -128,7 +125,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var testData = new object();
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
                 view.Data = testData;
@@ -146,7 +143,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup & Call
             using (ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Assert
                 var rows = dataGridView.Rows;
@@ -155,14 +152,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.IsFalse((bool)cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.IsFalse((bool)cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
@@ -177,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
                 dataGridView.Rows[0].Cells[assessmentLayerOneIndex].Value = checkBoxSelected;
@@ -191,7 +188,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var cellAssessmentLayerTwoA = cells[assessmentLayerTwoAIndex];
                 var cellAssessmentLayerThree = cells[assessmentLayerThreeIndex];
 
-                Assert.AreEqual(checkBoxSelected, (bool)cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual(checkBoxSelected, (bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerTwoA.FormattedValue);
                 Assert.AreEqual("-", cellAssessmentLayerThree.FormattedValue);
 
@@ -227,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
                 dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
@@ -247,7 +244,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
                 dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
@@ -261,7 +258,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 var propertyValue = row.GetType().GetProperty(propertyName).GetValue(row, null);
 
-                Assert.AreEqual((RoundedDouble)double.Parse(newValue), propertyValue);
+                Assert.AreEqual((RoundedDouble) double.Parse(newValue), propertyValue);
             }
         }
 
@@ -271,11 +268,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = ShowFullyConfiguredFailureMechanismResultsView())
             {
-                var sections = (List<GrassCoverErosionInwardsFailureMechanismSectionResult>)view.Data;
+                var sections = (List<GrassCoverErosionInwardsFailureMechanismSectionResult>) view.Data;
                 sections[0].AssessmentLayerOne = false;
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
                 var dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerOneIndex];
 
                 dataGridView.CurrentCell = dataGridViewCell;
@@ -305,7 +302,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 };
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
@@ -337,7 +334,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 };
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
@@ -373,7 +370,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 };
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
@@ -410,7 +407,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 };
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 
@@ -453,7 +450,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 };
 
                 var gridTester = new ControlTester("dataGridView");
-                var dataGridView = (DataGridView)gridTester.TheObject;
+                var dataGridView = (DataGridView) gridTester.TheObject;
 
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[assessmentLayerTwoAIndex];
 

@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
@@ -234,8 +231,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Call
             input.CriticalFlowRate = new LogNormalDistribution(10)
             {
-                Mean = (RoundedDouble)meanValue,
-                StandardDeviation = (RoundedDouble)standardDeviationValue
+                Mean = (RoundedDouble) meanValue,
+                StandardDeviation = (RoundedDouble) standardDeviationValue
             };
 
             // Assert

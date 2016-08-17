@@ -21,11 +21,8 @@
 
 using System;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
 
@@ -71,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void Orientation_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var newValue = new Random(21).NextDouble() * 360;
+            var newValue = new Random(21).NextDouble()*360;
             var dikeProfileData = new DikeProfileData();
 
             // Call
@@ -129,7 +126,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void SheetPilingType_SetNewValue_GetsNewlySetValue()
         {
             // Setup
-            var index = new Random(21).Next(0,3);
+            var index = new Random(21).Next(0, 3);
             var dikeProfileData = new DikeProfileData();
 
             SheetPileType newValue = Enum.GetValues(typeof(SheetPileType)).OfType<SheetPileType>().ElementAt(index);
@@ -164,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             var newValue = new[]
             {
-                new RoughnessPoint(new Point2D(0, 0), 1.0), 
+                new RoughnessPoint(new Point2D(0, 0), 1.0),
                 new RoughnessPoint(new Point2D(1, 1), 0.9)
             };
 
@@ -183,7 +180,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
 
             var newValue = new[]
             {
-                new RoughnessPoint(new Point2D(1, 1), 1.0), 
+                new RoughnessPoint(new Point2D(1, 1), 1.0),
                 new RoughnessPoint(new Point2D(3, 3), 0.9)
             };
 

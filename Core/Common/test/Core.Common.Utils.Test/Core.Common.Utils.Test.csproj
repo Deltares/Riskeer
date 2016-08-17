@@ -84,6 +84,7 @@
     <Compile Include="Drawing\GraphicsExtensionsTest.cs" />
     <Compile Include="Drawing\ImageExtensionsTest.cs" />
     <Compile Include="EnumDisplayWrapperTest.cs" />
+    <Compile Include="EnumTypeConverterTest.cs" />
     <Compile Include="Events\EventArgsTest.cs" />
     <Compile Include="Exceptions\InvalidTypeParameterExceptionTest.cs" />
     <Compile Include="Extensions\CollectionExtensionsTest.cs" />

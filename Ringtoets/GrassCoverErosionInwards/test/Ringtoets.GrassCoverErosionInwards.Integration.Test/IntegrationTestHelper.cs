@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                                                                    "traject_6-3.shx"))
             {
                 var activity = new FileImportActivity(new ReferenceLineImporter(),
-                                                      new ReferenceLineContext(assessmentSection), 
+                                                      new ReferenceLineContext(assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
 
                 activity.Run();

@@ -68,9 +68,7 @@ namespace Core.Common.Utils
 
         private void SetDisplayName(T value)
         {
-            var enumField = typeof(T).GetField(Enum.GetName(typeof(T), value));
-            var displayName = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(enumField, typeof(ResourcesDisplayNameAttribute));
-            DisplayName = displayName == null ? value.ToString() : displayName.DisplayName;
+            DisplayName = new EnumTypeConverter(typeof(T)).ConvertToString(value) ?? value.ToString();
         }
     }
 }

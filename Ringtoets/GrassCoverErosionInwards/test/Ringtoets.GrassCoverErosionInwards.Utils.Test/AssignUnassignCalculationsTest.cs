@@ -162,7 +162,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             Assert.IsNull(sectionResults[0].Calculation);
             Assert.AreSame(calculation2, sectionResults[1].Calculation);
         }
-        
+
         [Test]
         public void Delete_NullSectionResults_ThrowsArgumentNullException()
         {
@@ -198,7 +198,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => AssignUnassignCalculations.Delete(failureMechanism.SectionResults, new GrassCoverErosionInwardsCalculation(),  null);
+            TestDelegate call = () => AssignUnassignCalculations.Delete(failureMechanism.SectionResults, new GrassCoverErosionInwardsCalculation(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

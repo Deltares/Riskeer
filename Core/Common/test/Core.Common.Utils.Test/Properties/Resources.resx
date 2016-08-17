@@ -163,4 +163,10 @@
   <data name="EnumDisplayWrapperTest_DisplayNameValueDisplayName" xml:space="preserve">
     <value>Display name</value>
   </data>
+  <data name="SimpleEnum_FirstValue_DisplayName" xml:space="preserve">
+    <value>&lt;first&gt;</value>
+  </data>
+  <data name="SimpleEnum_SecondValue_DisplayName" xml:space="preserve">
+    <value>&lt;second&gt;</value>
+  </data>
 </root>

@@ -22,11 +22,10 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Test.Properties;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.Forms.Test.Properties;
-using Ringtoets.GrassCoverErosionInwards.Forms.TypeConverters;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TypeConverters
+namespace Core.Common.Utils.Test
 {
     [TestFixture]
     public class EnumTypeConverterTest

@@ -64,11 +64,6 @@
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialogTest.cs" />
     <Compile Include="PresentationObjects\DikeProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsScenariosContextTest.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DikeGeometryHelperTest.cs" />
     <Compile Include="PropertyClasses\DikeProfilePropertiesTest.cs" />
@@ -96,7 +91,6 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsOutputTreeNodeInfoTest.cs" />
-    <Compile Include="TypeConverters\EnumTypeConverterTest.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsChartDataFactoryTest.cs" />
@@ -183,12 +177,6 @@
       <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Plugin</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />

@@ -22,7 +22,6 @@
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -103,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             GrassCoverErosionInwardsOutput output = new GrassCoverErosionInwardsOutput(double.NaN, false, new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN), 12.8276);
 
             // Assert
-            Assert.AreEqual((RoundedDouble)12.83, output.DikeHeight);
+            Assert.AreEqual((RoundedDouble) 12.83, output.DikeHeight);
         }
     }
 }

@@ -21,13 +21,10 @@
 
 using System;
 using System.IO;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
