@@ -365,7 +365,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void Remove_ActiveDocumentViewInViewHostWithMultipleOtherViews_ActiveDocumentViewSetToPreviousAndActiveDocumentEventsFired()
+        public void Remove_ActiveDocumentViewInViewHostWithMultipleOtherViews_ActiveDocumentViewSetToOtherViewAndActiveDocumentEventsFired()
         {
             // Setup
             var testView1 = new TestView();
@@ -384,7 +384,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddDocumentView(testView4);
                 avalonDockViewHost.AddToolView(testView5, ToolViewLocation.Left);
 
-                avalonDockViewHost.SetFocusToView(testView3);
                 avalonDockViewHost.SetFocusToView(testView1);
 
                 // Precondition
@@ -400,8 +399,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 // Assert
                 Assert.AreEqual(1, activeDocumentViewChangingCounter);
                 Assert.AreEqual(1, activeDocumentViewChangedCounter);
-                Assert.AreSame(testView3, avalonDockViewHost.ActiveDocumentView);
-                Assert.IsTrue(IsFocussedView(avalonDockViewHost, testView3));
+                Assert.IsNotNull(avalonDockViewHost.ActiveDocumentView);
+                Assert.AreNotSame(testView1, avalonDockViewHost.ActiveDocumentView);
+                Assert.IsTrue(IsFocussedView(avalonDockViewHost, avalonDockViewHost.ActiveDocumentView));
             }
         }
 
