@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using MathNet.Numerics.Distributions;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -53,15 +54,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
         private class SimpleTargetProbabilityCalculationInput : TargetProbabilityCalculationInput
         {
             public SimpleTargetProbabilityCalculationInput(int i, double norm)
-                : base(i, norm)
-            {
-            }
+                : base(i, norm) {}
 
             public override HydraRingFailureMechanismType FailureMechanismType
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
 
@@ -69,7 +68,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
 
@@ -77,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
         }

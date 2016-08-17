@@ -78,11 +78,6 @@ namespace Ringtoets.HydraRing.Data
         public double WaveHeight { get; set; }
 
         /// <summary>
-        /// Gets or sets the unique identifier for the storage of the class.
-        /// </summary>
-        public long StorageId { get; set; }
-
-        /// <summary>
         /// Gets or sets the convergence status of the design waterlevel calculation.
         /// </summary>
         public CalculationConvergence DesignWaterLevelCalculationConvergence { get; set; }
@@ -91,6 +86,11 @@ namespace Ringtoets.HydraRing.Data
         /// Gets or sets the convergence status of the waveheight calculation.
         /// </summary>
         public CalculationConvergence WaveHeightCalculationConvergence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the storage of the class.
+        /// </summary>
+        public long StorageId { get; set; }
 
         public override string ToString()
         {

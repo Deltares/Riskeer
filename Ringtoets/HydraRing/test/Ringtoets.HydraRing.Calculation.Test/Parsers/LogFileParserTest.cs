@@ -69,7 +69,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Action call = () => logFileParser.Parse(testDataDirectory, 1234567890);
 
             // Assert
-            var expectedMessage = string.Format("Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}.", new[] { logFileName, testDataDirectory });
+            var expectedMessage = string.Format("Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}.", new[]
+            {
+                logFileName,
+                testDataDirectory
+            });
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
         }
 
@@ -80,7 +84,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var logFileParser = new HydraRingLogFileParser();
 
             // Call
-           logFileParser.Parse(testDataDirectory, 1);
+            logFileParser.Parse(testDataDirectory, 1);
 
             // Assert
             var expectedMessage = "In dit bestand staan veschillende log berichten, welke door Hydra-Ring gegenereerd zijn.";

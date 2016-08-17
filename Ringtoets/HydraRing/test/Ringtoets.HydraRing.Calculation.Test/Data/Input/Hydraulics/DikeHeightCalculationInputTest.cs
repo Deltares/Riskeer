@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         {
             // Setup
             var norm = 10000;
-            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0 / norm);
+            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
             int hydraulicBoundaryLocationId = 1000;
             HydraRingSection expectedHydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
 
@@ -66,12 +66,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
 
             // Call
             DikeHeightCalculationInput dikeHeightCalculationInput = new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, expectedHydraRingSection,
-                                                                                                     modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation, 
-                                                                                                     hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation, hydraRingmodelFactorOvertopping, 
-                                                                                                     criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
-                                                                                                     hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean, 
-                                                                                                     hydraRingExponentModelFactorShallowStandardDeviation, expectedRingProfilePoints, 
-                                                                                                     expectedRingForelandPoints, expectedRingBreakWater);
+                                                                                                   modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation,
+                                                                                                   hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation, hydraRingmodelFactorOvertopping,
+                                                                                                   criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
+                                                                                                   hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean,
+                                                                                                   hydraRingExponentModelFactorShallowStandardDeviation, expectedRingProfilePoints,
+                                                                                                   expectedRingForelandPoints, expectedRingBreakWater);
 
             // Assert
             const int expectedCalculationTypeId = 2;

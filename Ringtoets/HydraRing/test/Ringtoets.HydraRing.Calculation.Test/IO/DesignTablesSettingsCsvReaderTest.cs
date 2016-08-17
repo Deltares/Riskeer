@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
 
                 // Call
                 IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>> settings = reader.ReadSettings();
-                
+
                 // Assert
                 Assert.AreEqual(2, settings.Count);
 
@@ -111,7 +111,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
                 {
                     HydraRingFailureMechanismType.QVariant, new Dictionary<string, DesignTablesSetting>
                     {
-                       {
+                        {
                             "205", new DesignTablesSetting(5, 15)
                         },
                         {

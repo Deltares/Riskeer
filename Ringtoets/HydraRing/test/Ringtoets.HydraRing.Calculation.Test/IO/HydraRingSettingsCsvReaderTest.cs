@@ -55,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
         {
             // Setup
             object settings = new object();
-            
+
             // Call
             TestCsvReader reader = new TestCsvReader("path.csv", settings);
 
@@ -65,13 +65,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
 
         private class TestCsvReader : HydraRingSettingsCsvReader<object>
         {
-            public TestCsvReader(string fileContents, object settings) 
+            public TestCsvReader(string fileContents, object settings)
                 : base(fileContents, settings) {}
-
-            protected override void CreateSetting(IList<string> line)
-            {
-                throw new NotImplementedException();
-            }
 
             public object TestSettings
             {
@@ -79,6 +74,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
                 {
                     return Settings;
                 }
+            }
+
+            protected override void CreateSetting(IList<string> line)
+            {
+                throw new NotImplementedException();
             }
         }
     }

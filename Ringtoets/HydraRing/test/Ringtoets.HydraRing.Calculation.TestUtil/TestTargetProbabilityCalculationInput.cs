@@ -34,7 +34,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="norm">The norm to use in the calculation.</param>
-        public TestTargetProbabilityCalculationInput(int hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId, norm) { }
+        public TestTargetProbabilityCalculationInput(int hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId, norm) {}
 
         /// <summary>
         /// Gets an arbitrary <see cref="HydraRingFailureMechanismType"/>.

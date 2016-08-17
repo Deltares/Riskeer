@@ -33,23 +33,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class OvertoppingCalculationWaveHeightParser : IHydraRingFileParser
     {
-        private class GeneralResult
-        {
-            public int WindDirection { get; set; }
-            public int ClosingSituation { get; set; }
-            public double Beta { get; set; }
-
-            public GeneralResult()
-            {
-                Beta = double.NaN;
-            }
-        }
-
-        private class OvertoppingResult : GeneralResult
-        {
-            public double WaveHeight { get; set; }
-        }
-        
         private const string overtoppingStart = "Submechanism = Overtopping RTO";
         private const string overflowStart = "Submechanism = Overflow";
         private const string combineWindDirectionStart = "Status = Combined over wind directions";
@@ -208,6 +191,23 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 string resultAsString = line.Split(equalsCharacter)[1].Trim();
                 generalResult.Beta = double.Parse(resultAsString, CultureInfo.InvariantCulture);
             }
+        }
+
+        private class GeneralResult
+        {
+            public GeneralResult()
+            {
+                Beta = double.NaN;
+            }
+
+            public int WindDirection { get; set; }
+            public int ClosingSituation { get; set; }
+            public double Beta { get; set; }
+        }
+
+        private class OvertoppingResult : GeneralResult
+        {
+            public double WaveHeight { get; set; }
         }
     }
 }

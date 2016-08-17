@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         }
 
         private static void PerformPostProcessing(HydraRingCalculationInput hydraRingCalculationInput,
-                                                  ICollection<IHydraRingFileParser> parsers, 
+                                                  ICollection<IHydraRingFileParser> parsers,
                                                   HydraRingInitializationService hydraRingInitializationService)
         {
             var logFileParser = new HydraRingLogFileParser();

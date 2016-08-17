@@ -137,19 +137,19 @@ namespace Ringtoets.HydraRing.Calculation.IO
         private NumericsSetting GetNumericsSetting(IList<string> line)
         {
             return new NumericsSetting(GetIntValueFromElement(line[columns[calculationMethodKey]]),
-                                        GetIntValueFromElement(line[columns[formStartMethodKey]]),
-                                        GetIntValueFromElement(line[columns[formIterationsKey]]),
-                                        GetDoubleValueFromElement(line[columns[formRelaxationFactorKey]]),
-                                        GetDoubleValueFromElement(line[columns[formEpsBetaKey]]),
-                                        GetDoubleValueFromElement(line[columns[formEpsHohKey]]),
-                                        GetDoubleValueFromElement(line[columns[formEpsZFuncKey]]),
-                                        GetIntValueFromElement(line[columns[dsStartMethodKey]]),
-                                        GetIntValueFromElement(line[columns[dsMinNumberOfIterationsKey]]),
-                                        GetIntValueFromElement(line[columns[dsMaxNumberOfIterationsKey]]),
-                                        GetDoubleValueFromElement(line[columns[dsVarCoefficientKey]]),
-                                        GetDoubleValueFromElement(line[columns[niUMinKey]]),
-                                        GetDoubleValueFromElement(line[columns[niUMaxKey]]),
-                                        GetIntValueFromElement(line[columns[niNumberStepsKey]]));
+                                       GetIntValueFromElement(line[columns[formStartMethodKey]]),
+                                       GetIntValueFromElement(line[columns[formIterationsKey]]),
+                                       GetDoubleValueFromElement(line[columns[formRelaxationFactorKey]]),
+                                       GetDoubleValueFromElement(line[columns[formEpsBetaKey]]),
+                                       GetDoubleValueFromElement(line[columns[formEpsHohKey]]),
+                                       GetDoubleValueFromElement(line[columns[formEpsZFuncKey]]),
+                                       GetIntValueFromElement(line[columns[dsStartMethodKey]]),
+                                       GetIntValueFromElement(line[columns[dsMinNumberOfIterationsKey]]),
+                                       GetIntValueFromElement(line[columns[dsMaxNumberOfIterationsKey]]),
+                                       GetDoubleValueFromElement(line[columns[dsVarCoefficientKey]]),
+                                       GetDoubleValueFromElement(line[columns[niUMinKey]]),
+                                       GetDoubleValueFromElement(line[columns[niUMaxKey]]),
+                                       GetIntValueFromElement(line[columns[niNumberStepsKey]]));
         }
 
         #region Csv column names

@@ -59,7 +59,7 @@ namespace Ringtoets.HydraRing.IO
 
             var pointShapeFileWriter = new PointShapeFileWriter();
 
-            foreach (MapPointData mapLineData in hydraulicBoundaryLocations.Select(CreateMapPointData)) 
+            foreach (MapPointData mapLineData in hydraulicBoundaryLocations.Select(CreateMapPointData))
             {
                 pointShapeFileWriter.CopyToFeature(mapLineData);
             }

@@ -57,7 +57,10 @@ namespace Ringtoets.HydraRing.IO.Test
             var writer = new HydraulicBoundaryLocationsWriter();
 
             // Call
-            TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(new[] { hydraulicBoundaryLocation }, null);
+            TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -87,7 +90,10 @@ namespace Ringtoets.HydraRing.IO.Test
             try
             {
                 // Call
-                writer.WriteHydraulicBoundaryLocations(new[] { hydraulicBoundaryLocation }, filePath);
+                writer.WriteHydraulicBoundaryLocations(new[]
+                {
+                    hydraulicBoundaryLocation
+                }, filePath);
 
                 // Assert
                 AssertEssentialShapefileExists(directoryPath, baseName, true);

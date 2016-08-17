@@ -38,8 +38,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// <param name="layerId">The layer id used.</param>
         /// <param name="alternativeId">The alternative id used.</param>
         protected ExceedanceProbabilityCalculationOutputBase(int ringCombinMethod, int presentationSectionId,
-                                                          int mainMechanismId, int mainMechanismCombinMethod, int mechanismId,
-                                                          int sectionId, int layerId, int alternativeId)
+                                                             int mainMechanismId, int mainMechanismCombinMethod, int mechanismId,
+                                                             int sectionId, int layerId, int alternativeId)
         {
             RingCombinMethod = ringCombinMethod;
             PresentationSectionId = presentationSectionId;

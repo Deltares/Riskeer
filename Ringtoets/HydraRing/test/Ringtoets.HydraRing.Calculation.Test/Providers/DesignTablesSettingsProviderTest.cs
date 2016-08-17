@@ -29,18 +29,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
     [TestFixture]
     public class DesignTablesSettingsProviderTest
     {
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "4", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, "4", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, "205", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, "205", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, "205", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, "205", double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, "205", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, "205", double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, "205", double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, "205", double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, "205", double.NaN, double.NaN)]
-        public void GetDesignTablesSetting_UnknownFailureMechanismTypeOrRingId_ReturnsDefaultDesignTablesSetting(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
+        [Test]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "11-1", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "11-1", 5.0, 15.0)]
+        public void GetDesignTablesSetting_KnownRingIdAndFailureMechanismType_ReturnsExpectedDesignTablesSetting(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
         {
             // Setup
             DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
@@ -53,12 +47,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             Assert.AreEqual(expectedValueMax, designTablesSetting.ValueMax);
         }
 
-        [Test]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "205", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, "205", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "11-1", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, "11-1", 5.0, 15.0)]
-        public void GetDesignTablesSetting_KnownRingIdAndFailureMechanismType_ReturnsExpectedDesignTablesSetting(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "4", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "4", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, "205", double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesPiping, "205", double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, "205", double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, "205", double.NaN, double.NaN)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, "205", double.NaN, double.NaN)]
+        public void GetDesignTablesSetting_UnknownFailureMechanismTypeOrRingId_ReturnsDefaultDesignTablesSetting(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
         {
             // Setup
             DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();

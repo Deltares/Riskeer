@@ -59,21 +59,6 @@ namespace Ringtoets.HydraRing.IO
         }
 
         /// <summary>
-        /// Returns the version from the database pointed at by the <paramref name="filePath"/>.
-        /// </summary>
-        /// <param name="filePath">The location of the database.</param>
-        /// <returns>The version from the database as a <see cref="string"/>.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic 
-        /// boundary database could be created.</exception>
-        private static string GetVersion(string filePath)
-        {
-            using (var db = new HydraulicBoundarySqLiteDatabaseReader(filePath))
-            {
-                return db.GetVersion();
-            }
-        }
-
-        /// <summary>
         /// Checks whether the version of a <see cref="HydraulicBoundaryDatabase"/> matches the version
         /// of a database at the given <see cref="pathToDatabase"/>.
         /// </summary>
@@ -99,6 +84,21 @@ namespace Ringtoets.HydraRing.IO
                 throw new ArgumentNullException("pathToDatabase");
             }
             return database.Version == GetVersion(pathToDatabase);
+        }
+
+        /// <summary>
+        /// Returns the version from the database pointed at by the <paramref name="filePath"/>.
+        /// </summary>
+        /// <param name="filePath">The location of the database.</param>
+        /// <returns>The version from the database as a <see cref="string"/>.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when no connection with the hydraulic 
+        /// boundary database could be created.</exception>
+        private static string GetVersion(string filePath)
+        {
+            using (var db = new HydraulicBoundarySqLiteDatabaseReader(filePath))
+            {
+                return db.GetVersion();
+            }
         }
     }
 }

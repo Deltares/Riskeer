@@ -74,7 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// </summary>
         /// <param name="fileContents">The file contents to read.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fileContents"/> is not set.</exception>
-        public DesignTablesSettingsCsvReader(string fileContents) 
+        public DesignTablesSettingsCsvReader(string fileContents)
             : base(fileContents, new Dictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>>()) {}
 
         protected override void CreateSetting(IList<string> line)

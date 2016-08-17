@@ -149,17 +149,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
         }
 
         /// <summary>
-        /// Gets the path of the configuration database file.
-        /// </summary>
-        private string ConfigurationDatabaseFilePath
-        {
-            get
-            {
-                return Path.Combine(hydraRingDirectory, HydraRingFileName.ConfigurationDatabaseFileName);
-            }
-        }
-
-        /// <summary>
         /// Gets the directory in which Hydra-Ring will place temporary input and output files created during a
         /// calculation.
         /// </summary>
@@ -172,19 +161,30 @@ namespace Ringtoets.HydraRing.Calculation.Services
         public void WriteInitializationScript()
         {
             var initializationFileContent = string.Join(Environment.NewLine,
-                               "section             = " + sectionId,
-                               "mechanism           = " + mechanismId,
-                               "alternative         = 1", // Fixed: no support for piping
-                               "layer               = 1", // Fixed: no support for revetments
-                               "logfile             = " + sectionId + logFileExtension,
-                               "outputverbosity     = basic",
-                               "outputtofile        = file",
-                               "projectdbfilename   = " + sectionId + databaseFileExtension,
-                               "outputfilename      = " + HydraRingFileName.DesignTablesFileName,
-                               "configdbfilename    = " + ConfigurationDatabaseFilePath,
-                               "hydraulicdbfilename = " + HlcdFilePath);
+                                                        "section             = " + sectionId,
+                                                        "mechanism           = " + mechanismId,
+                                                        "alternative         = 1", // Fixed: no support for piping
+                                                        "layer               = 1", // Fixed: no support for revetments
+                                                        "logfile             = " + sectionId + logFileExtension,
+                                                        "outputverbosity     = basic",
+                                                        "outputtofile        = file",
+                                                        "projectdbfilename   = " + sectionId + databaseFileExtension,
+                                                        "outputfilename      = " + HydraRingFileName.DesignTablesFileName,
+                                                        "configdbfilename    = " + ConfigurationDatabaseFilePath,
+                                                        "hydraulicdbfilename = " + HlcdFilePath);
 
             File.WriteAllText(IniFilePath, initializationFileContent);
+        }
+
+        /// <summary>
+        /// Gets the path of the configuration database file.
+        /// </summary>
+        private string ConfigurationDatabaseFilePath
+        {
+            get
+            {
+                return Path.Combine(hydraRingDirectory, HydraRingFileName.ConfigurationDatabaseFileName);
+            }
         }
     }
 }

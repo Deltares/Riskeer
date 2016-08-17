@@ -32,6 +32,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraRingLogFileParser));
 
+        /// <summary>
+        /// Gets the log file content.
+        /// </summary>
+        public string LogFileContent { get; private set; }
+
         public void Parse(string workingDirectory, int sectionId)
         {
             string logFileName = sectionId + ".log";
@@ -45,10 +50,5 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 log.ErrorFormat(Resources.Parse_Cannot_read_file_0_from_folder_1_, logFileName, workingDirectory);
             }
         }
-
-        /// <summary>
-        /// Gets the log file content.
-        /// </summary>
-        public string LogFileContent { get; private set; }
     }
 }

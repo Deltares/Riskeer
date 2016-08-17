@@ -620,7 +620,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "AlternativeId", defaultAlternativeId // Fixed: no support for piping
                     },
                     {
-                        "FaultTreeModelId",failureMechanismDefaults.FaultTreeModelId
+                        "FaultTreeModelId", failureMechanismDefaults.FaultTreeModelId
                     }
                 });
             }
