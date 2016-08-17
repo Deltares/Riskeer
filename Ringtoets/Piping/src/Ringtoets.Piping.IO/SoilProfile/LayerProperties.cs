@@ -34,6 +34,72 @@ namespace Ringtoets.Piping.IO.SoilProfile
     internal class LayerProperties
     {
         /// <summary>
+        /// Creates a new instance of <see cref="LayerProperties"/>, which contains properties
+        /// that are required to create a complete soil layer.
+        /// </summary>
+        /// <param name="reader">The <see cref="SQLiteDataReader"/> to obtain the required layer property values from.</param>
+        /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database cannot be 
+        /// casted to the expected column types.</exception>
+        internal LayerProperties(IRowBasedDatabaseReader reader, string profileName)
+        {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+            if (profileName == null)
+            {
+                throw new ArgumentNullException("profileName");
+            }
+
+            string readColumn = SoilProfileDatabaseColumns.IsAquifer;
+            try
+            {
+                IsAquifer = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileDatabaseColumns.MaterialName;
+                MaterialName = reader.ReadOrDefault<string>(readColumn);
+
+                readColumn = SoilProfileDatabaseColumns.Color;
+                Color = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution;
+                BelowPhreaticLevelDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelShift;
+                BelowPhreaticLevelShift = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelMean;
+                BelowPhreaticLevelMean = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation;
+                BelowPhreaticLevelDeviation = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileDatabaseColumns.DiameterD70Distribution;
+                DiameterD70Distribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileDatabaseColumns.DiameterD70Shift;
+                DiameterD70Shift = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileDatabaseColumns.DiameterD70Mean;
+                DiameterD70Mean = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileDatabaseColumns.DiameterD70Deviation;
+                DiameterD70Deviation = reader.ReadOrDefault<double?>(readColumn);
+
+                readColumn = SoilProfileDatabaseColumns.PermeabilityDistribution;
+                PermeabilityDistribution = reader.ReadOrDefault<long?>(readColumn);
+                readColumn = SoilProfileDatabaseColumns.PermeabilityShift;
+                PermeabilityShift = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileDatabaseColumns.PermeabilityMean;
+                PermeabilityMean = reader.ReadOrDefault<double?>(readColumn);
+                readColumn = SoilProfileDatabaseColumns.PermeabilityDeviation;
+                PermeabilityDeviation = reader.ReadOrDefault<double?>(readColumn);
+            }
+            catch (InvalidCastException e)
+            {
+                var message = new FileReaderErrorMessageBuilder(reader.Path)
+                    .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
+                throw new PipingSoilProfileReadException(profileName, message, e);
+            }
+        }
+
+        /// <summary>
         /// Gets a <see cref="double"/> value representing  whether the layer is an aquifer.
         /// </summary>
         internal double? IsAquifer { get; private set; }
@@ -126,71 +192,5 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// [m/s]
         /// </summary>
         internal double? PermeabilityDeviation { get; private set; }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="LayerProperties"/>, which contains properties
-        /// that are required to create a complete soil layer.
-        /// </summary>
-        /// <param name="reader">The <see cref="SQLiteDataReader"/> to obtain the required layer property values from.</param>
-        /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database cannot be 
-        /// casted to the expected column types.</exception>
-        internal LayerProperties(IRowBasedDatabaseReader reader, string profileName)
-        {
-            if (reader == null)
-            {
-                throw new ArgumentNullException("reader");
-            }
-            if (profileName == null)
-            {
-                throw new ArgumentNullException("profileName");
-            }
-
-            string readColumn = SoilProfileDatabaseColumns.IsAquifer;
-            try
-            {
-                IsAquifer = reader.ReadOrDefault<double?>(readColumn);
-
-                readColumn = SoilProfileDatabaseColumns.MaterialName;
-                MaterialName = reader.ReadOrDefault<string>(readColumn);
-
-                readColumn = SoilProfileDatabaseColumns.Color;
-                Color = reader.ReadOrDefault<double?>(readColumn);
-
-                readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelDistribution;
-                BelowPhreaticLevelDistribution = reader.ReadOrDefault<long?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelShift;
-                BelowPhreaticLevelShift = reader.ReadOrDefault<double?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelMean;
-                BelowPhreaticLevelMean = reader.ReadOrDefault<double?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.BelowPhreaticLevelDeviation;
-                BelowPhreaticLevelDeviation = reader.ReadOrDefault<double?>(readColumn);
-
-                readColumn = SoilProfileDatabaseColumns.DiameterD70Distribution;
-                DiameterD70Distribution = reader.ReadOrDefault<long?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.DiameterD70Shift;
-                DiameterD70Shift = reader.ReadOrDefault<double?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.DiameterD70Mean;
-                DiameterD70Mean = reader.ReadOrDefault<double?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.DiameterD70Deviation;
-                DiameterD70Deviation = reader.ReadOrDefault<double?>(readColumn);
-
-                readColumn = SoilProfileDatabaseColumns.PermeabilityDistribution;
-                PermeabilityDistribution = reader.ReadOrDefault<long?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.PermeabilityShift;
-                PermeabilityShift = reader.ReadOrDefault<double?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.PermeabilityMean;
-                PermeabilityMean = reader.ReadOrDefault<double?>(readColumn);
-                readColumn = SoilProfileDatabaseColumns.PermeabilityDeviation;
-                PermeabilityDeviation = reader.ReadOrDefault<double?>(readColumn);
-            }
-            catch (InvalidCastException e)
-            {
-                var message = new FileReaderErrorMessageBuilder(reader.Path)
-                    .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
-                    .Build(string.Format(Resources.PipingSoilProfileReader_Profile_has_invalid_value_on_Column_0_, readColumn));
-                throw new PipingSoilProfileReadException(profileName, message, e);
-            }
-        }
     }
 }

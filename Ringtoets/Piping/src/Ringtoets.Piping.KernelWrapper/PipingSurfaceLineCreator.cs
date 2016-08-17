@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.KernelWrapper
             {
                 surfaceLine.Points.AddRange(CreatePoints(line));
             }
-            
+
             return surfaceLine;
         }
 

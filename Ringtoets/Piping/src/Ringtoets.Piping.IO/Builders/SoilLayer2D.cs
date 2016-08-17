@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;

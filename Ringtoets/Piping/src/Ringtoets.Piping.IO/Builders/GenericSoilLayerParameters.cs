@@ -28,12 +28,77 @@ namespace Ringtoets.Piping.IO.Builders
     /// <summary>
     /// Class containing parameters which are defined for both 1D and 2D soil layers.
     /// </summary>
-    internal abstract class GenericSoilLayerParameters {
-
+    internal abstract class GenericSoilLayerParameters
+    {
         /// <summary>
         /// Gets or sets a <see cref="double"/> value representing whether the layer is an aquifer.
         /// </summary>
         public double? IsAquifer { get; set; }
+
+        /// <summary>
+        /// Sets the values of the optional stochastic parameters for the given <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        /// <param name="pipingSoilLayer">The <see cref="PipingSoilLayer"/> to set the property values for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingSoilLayer"/> is <c>null</c>.</exception>
+        /// <remarks>This method does not perform validation. Use <see cref="ValidateStochasticParametersForPiping"/> to 
+        /// verify whether the distributions for the stochastic parameters are correctly defined.</remarks>
+        protected void SetOptionalStochasticParameters(PipingSoilLayer pipingSoilLayer)
+        {
+            if (pipingSoilLayer == null)
+            {
+                throw new ArgumentNullException("pipingSoilLayer");
+            }
+
+            if (BelowPhreaticLevelMean.HasValue)
+            {
+                pipingSoilLayer.BelowPhreaticLevelMean = BelowPhreaticLevelMean.Value;
+            }
+            if (BelowPhreaticLevelDeviation.HasValue)
+            {
+                pipingSoilLayer.BelowPhreaticLevelDeviation = BelowPhreaticLevelDeviation.Value;
+            }
+            if (BelowPhreaticLevelShift.HasValue)
+            {
+                pipingSoilLayer.BelowPhreaticLevelShift = BelowPhreaticLevelShift.Value;
+            }
+            if (DiameterD70Mean.HasValue)
+            {
+                pipingSoilLayer.DiameterD70Mean = DiameterD70Mean.Value;
+            }
+            if (DiameterD70Deviation.HasValue)
+            {
+                pipingSoilLayer.DiameterD70Deviation = DiameterD70Deviation.Value;
+            }
+            if (PermeabilityMean.HasValue)
+            {
+                pipingSoilLayer.PermeabilityMean = PermeabilityMean.Value;
+            }
+            if (PermeabilityDeviation.HasValue)
+            {
+                pipingSoilLayer.PermeabilityDeviation = PermeabilityDeviation.Value;
+            }
+        }
+
+        /// <summary>
+        /// Validates whether the values of the distribution and shift for the stochastic parameters 
+        /// are correct for creating a <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        /// <exception cref="SoilLayerConversionException">Thrown when any of the distributions of the
+        /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
+        protected void ValidateStochasticParametersForPiping()
+        {
+            ValidateIsLogNormal(
+                BelowPhreaticLevelDistribution,
+                Resources.SoilLayer_BelowPhreaticLevelDistribution_Description);
+            ValidateIsNonShiftedLogNormal(
+                DiameterD70Distribution,
+                DiameterD70Shift,
+                Resources.SoilLayer_DiameterD70Distribution_Description);
+            ValidateIsNonShiftedLogNormal(
+                PermeabilityDistribution,
+                PermeabilityShift,
+                Resources.SoilLayer_PermeabilityDistribution_Description);
+        }
 
         /// <summary>
         /// Gets or sets the name of the material that was assigned to the layer.
@@ -123,71 +188,6 @@ namespace Ringtoets.Piping.IO.Builders
         /// [m/s]
         /// </summary>
         internal double? PermeabilityDeviation { get; set; }
-
-        /// <summary>
-        /// Sets the values of the optional stochastic parameters for the given <see cref="PipingSoilLayer"/>.
-        /// </summary>
-        /// <param name="pipingSoilLayer">The <see cref="PipingSoilLayer"/> to set the property values for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingSoilLayer"/> is <c>null</c>.</exception>
-        /// <remarks>This method does not perform validation. Use <see cref="ValidateStochasticParametersForPiping"/> to 
-        /// verify whether the distributions for the stochastic parameters are correctly defined.</remarks>
-        protected void SetOptionalStochasticParameters(PipingSoilLayer pipingSoilLayer)
-        {
-            if (pipingSoilLayer == null)
-            {
-                throw new ArgumentNullException("pipingSoilLayer");
-            }
-
-            if (BelowPhreaticLevelMean.HasValue)
-            {
-                pipingSoilLayer.BelowPhreaticLevelMean = BelowPhreaticLevelMean.Value;
-            }
-            if (BelowPhreaticLevelDeviation.HasValue)
-            {
-                pipingSoilLayer.BelowPhreaticLevelDeviation = BelowPhreaticLevelDeviation.Value;
-            }
-            if (BelowPhreaticLevelShift.HasValue)
-            {
-                pipingSoilLayer.BelowPhreaticLevelShift = BelowPhreaticLevelShift.Value;
-            }
-            if (DiameterD70Mean.HasValue)
-            {
-                pipingSoilLayer.DiameterD70Mean = DiameterD70Mean.Value;
-            }
-            if (DiameterD70Deviation.HasValue)
-            {
-                pipingSoilLayer.DiameterD70Deviation = DiameterD70Deviation.Value;
-            }
-            if (PermeabilityMean.HasValue)
-            {
-                pipingSoilLayer.PermeabilityMean = PermeabilityMean.Value;
-            }
-            if (PermeabilityDeviation.HasValue)
-            {
-                pipingSoilLayer.PermeabilityDeviation = PermeabilityDeviation.Value;
-            }
-        }
-
-        /// <summary>
-        /// Validates whether the values of the distribution and shift for the stochastic parameters 
-        /// are correct for creating a <see cref="PipingSoilLayer"/>.
-        /// </summary>
-        /// <exception cref="SoilLayerConversionException">Thrown when any of the distributions of the
-        /// stochastic parameters is not defined as lognormal or is shifted when it should not be.</exception>
-        protected void ValidateStochasticParametersForPiping()
-        {
-            ValidateIsLogNormal(
-                BelowPhreaticLevelDistribution,
-                Resources.SoilLayer_BelowPhreaticLevelDistribution_Description);
-            ValidateIsNonShiftedLogNormal(
-                DiameterD70Distribution, 
-                DiameterD70Shift,
-                Resources.SoilLayer_DiameterD70Distribution_Description);
-            ValidateIsNonShiftedLogNormal(
-                PermeabilityDistribution, 
-                PermeabilityShift,
-                Resources.SoilLayer_PermeabilityDistribution_Description);
-        }
 
         private static void ValidateIsNonShiftedLogNormal(long? distribution, double? shift, string incorrectDistibutionParameter)
         {

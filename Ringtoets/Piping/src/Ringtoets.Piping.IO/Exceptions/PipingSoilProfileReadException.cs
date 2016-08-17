@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.IO.Exceptions
         {
             get
             {
-                return (string)Data[profileNameKey];
+                return (string) Data[profileNameKey];
             }
             private set
             {

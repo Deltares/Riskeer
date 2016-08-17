@@ -103,17 +103,14 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 IsAquifer = properties.IsAquifer,
                 MaterialName = properties.MaterialName,
                 Color = properties.Color,
-
                 BelowPhreaticLevelDistribution = properties.BelowPhreaticLevelDistribution,
                 BelowPhreaticLevelShift = properties.BelowPhreaticLevelShift,
                 BelowPhreaticLevelMean = properties.BelowPhreaticLevelMean,
                 BelowPhreaticLevelDeviation = properties.BelowPhreaticLevelDeviation,
-
                 DiameterD70Distribution = properties.DiameterD70Distribution,
                 DiameterD70Shift = properties.DiameterD70Shift,
                 DiameterD70Mean = properties.DiameterD70Mean,
                 DiameterD70Deviation = properties.DiameterD70Deviation,
-
                 PermeabilityDistribution = properties.PermeabilityDistribution,
                 PermeabilityShift = properties.PermeabilityShift,
                 PermeabilityMean = properties.PermeabilityMean,
@@ -122,13 +119,24 @@ namespace Ringtoets.Piping.IO.SoilProfile
             return pipingSoilLayer;
         }
 
+        private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, string errorMessage, Exception innerException)
+        {
+            var message = new FileReaderErrorMessageBuilder(filePath)
+                .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                .Build(errorMessage);
+            return new PipingSoilProfileReadException(profileName, message, innerException);
+        }
+
+        private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, Exception innerException)
+        {
+            var message = new FileReaderErrorMessageBuilder(filePath)
+                .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
+                .Build(innerException.Message);
+            return new PipingSoilProfileReadException(profileName, message, innerException);
+        }
+
         private class Layer1DProperties : LayerProperties
         {
-            /// <summary>
-            /// Gets the top level of the 1D soil layer.
-            /// </summary>
-            internal double Top { get; private set;  }
-
             /// <summary>
             /// Creates a new instance of <see cref="Layer1DProperties"/>, which contains properties
             /// that are required to create a complete <see cref="SoilLayer1D"/>. If these properties
@@ -152,22 +160,11 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     throw CreatePipingSoilProfileReadException(reader.Path, profileName, message, e);
                 }
             }
-        }
 
-        private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, string errorMessage, Exception innerException)
-        {
-            var message = new FileReaderErrorMessageBuilder(filePath)
-                .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
-                .Build(errorMessage);
-            return new PipingSoilProfileReadException(profileName, message, innerException);
-        }
-
-        private static PipingSoilProfileReadException CreatePipingSoilProfileReadException(string filePath, string profileName, Exception innerException)
-        {
-            var message = new FileReaderErrorMessageBuilder(filePath)
-                .WithSubject(string.Format(Resources.PipingSoilProfileReader_SoilProfileName_0_, profileName))
-                .Build(innerException.Message);
-            return new PipingSoilProfileReadException(profileName, message, innerException);
+            /// <summary>
+            /// Gets the top level of the 1D soil layer.
+            /// </summary>
+            internal double Top { get; private set; }
         }
 
         private class RequiredProfileProperties

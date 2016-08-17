@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.KernelWrapper
                     TopLevel = layer.Top,
                     IsAquifer = layer.IsAquifer
                 };
-                
+
                 profile.Layers.Add(pipingLayer);
             }
 

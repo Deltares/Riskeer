@@ -22,16 +22,13 @@
 using System;
 using System.Data;
 using System.Data.SQLite;
-
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils.Builders;
-
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.Primitives;
-
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Piping.IO.SoilProfile
@@ -133,7 +130,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 return default(T);
             }
-            return (T)valueObject;
+            return (T) valueObject;
         }
 
         /// <summary>
@@ -145,7 +142,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
         public T Read<T>(string columnName)
         {
-            return (T)dataReader[columnName];
+            return (T) dataReader[columnName];
         }
 
         private void VerifyVersion(string databaseFilePath)
@@ -244,9 +241,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
             string subQueryGetMaterialPropertiesOfLayer =
                 string.Format(
                     "SELECT " +
-	                "mat.MA_ID, " +
+                    "mat.MA_ID, " +
                     "mat.MA_Name as {0}, " +
-		            "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) {1}, " +
+                    "max(case when pn.PN_Name = 'Color' then pv.PV_Value end) {1}, " +
                     "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Dist_Type end) {2}, " +
                     "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Shift end) {3}, " +
                     "max(case when pn.PN_Name = 'BelowPhreaticLevelStochast' then s.ST_Mean end) {4}, " +
@@ -305,9 +302,9 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 "layerCount.{2}, " +
                 "sp1d.BottomLevel AS {3}, " +
                 "sl1d.TopLevel AS {4}, " +
-                "{5}, " + 
-                "{6}, " + 
-                "{7}, " + 
+                "{5}, " +
+                "{6}, " +
+                "{7}, " +
                 "{8}, " +
                 "{9}, " +
                 "{10}, " +
@@ -437,7 +434,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         private void GetCount()
         {
             dataReader.Read();
-            Count = (int)Read<long>(SoilProfileDatabaseColumns.ProfileCount);
+            Count = (int) Read<long>(SoilProfileDatabaseColumns.ProfileCount);
             dataReader.NextResult();
         }
     }

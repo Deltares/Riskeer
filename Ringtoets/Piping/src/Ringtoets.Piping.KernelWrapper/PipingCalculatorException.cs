@@ -32,18 +32,14 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculatorException"/> class.
         /// </summary>
-        public PipingCalculatorException()
-        {
-        }
+        public PipingCalculatorException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculatorException"/> class 
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public PipingCalculatorException(string message) : base (message)
-        {
-        }
+        public PipingCalculatorException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the System.Exception class with a specified error message 

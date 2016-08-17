@@ -33,9 +33,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <summary>
         /// Initializes a new instance of the <see cref="SoilLayerConversionException"/> class.
         /// </summary>
-        public SoilLayerConversionException()
-        {
-        }
+        public SoilLayerConversionException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SoilLayerConversionException"/> class 
@@ -43,9 +41,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
         public SoilLayerConversionException(string message)
-            : base(message)
-        {
-        }
+            : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SoilLayerConversionException"/> class with a specified error message 
@@ -54,6 +50,6 @@ namespace Ringtoets.Piping.IO.Builders
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or a 
         /// null reference if no inner exception is specified.</param>
-        public SoilLayerConversionException(string message, Exception innerException) : base(message, innerException) { }
+        public SoilLayerConversionException(string message, Exception innerException) : base(message, innerException) {}
     }
 }

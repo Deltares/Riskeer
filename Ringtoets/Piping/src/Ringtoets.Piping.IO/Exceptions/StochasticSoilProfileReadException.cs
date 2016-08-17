@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.IO.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="StochasticSoilProfileReadException"/> class.
         /// </summary>
-        public StochasticSoilProfileReadException() { }
+        public StochasticSoilProfileReadException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StochasticSoilProfileReadException"/> class

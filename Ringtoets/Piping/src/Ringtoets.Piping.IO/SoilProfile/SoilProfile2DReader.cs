@@ -128,7 +128,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
                 pipingSoilLayer.PermeabilityShift = properties.PermeabilityShift;
                 pipingSoilLayer.PermeabilityMean = properties.PermeabilityMean;
                 pipingSoilLayer.PermeabilityDeviation = properties.PermeabilityDeviation;
-
             }
             return pipingSoilLayer;
         }

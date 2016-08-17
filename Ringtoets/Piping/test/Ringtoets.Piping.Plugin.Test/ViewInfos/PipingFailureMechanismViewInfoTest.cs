@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;

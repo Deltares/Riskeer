@@ -330,7 +330,7 @@ namespace Ringtoets.Piping.KernelWrapper
         /// <returns>The effective stress.</returns>
         private static double DetermineEffectiveStressForOneLayerProfile(double thicknessOfCoverageLayer, double volumicWeightOfCoverageLayer, double waterVolumetricWeight)
         {
-            return thicknessOfCoverageLayer * (volumicWeightOfCoverageLayer - waterVolumetricWeight);
+            return thicknessOfCoverageLayer*(volumicWeightOfCoverageLayer - waterVolumetricWeight);
         }
     }
 }

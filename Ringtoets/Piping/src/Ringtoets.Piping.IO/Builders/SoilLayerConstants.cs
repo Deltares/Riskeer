@@ -29,6 +29,6 @@ namespace Ringtoets.Piping.IO.Builders
         /// <summary>
         /// The value of the distribution parameter when the the distribution is lognormal.
         /// </summary>
-        public const long LogNormalDistributionValue = 3; 
+        public const long LogNormalDistributionValue = 3;
     }
 }

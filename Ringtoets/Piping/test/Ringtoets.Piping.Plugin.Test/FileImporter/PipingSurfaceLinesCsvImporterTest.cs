@@ -1327,7 +1327,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, surfaceLinesPath);
 
             // Assert
-            string[] expectedLogMessages = 
+            string[] expectedLogMessages =
             {
                 string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
                               surfaceLinesPath),
@@ -1403,7 +1403,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import(context, surfaceLinesPath);
 
             // Assert
-            string[] expectedLogMessages = 
+            string[] expectedLogMessages =
             {
                 string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
                               surfaceLinesPath),
@@ -1487,7 +1487,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var pointFormat = string.Format(PipingDataResources.RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_,
                                             new Point3D(0, 1, 2),
                                             characteristicPointName);
-            string[] expectedLogMessages = 
+            string[] expectedLogMessages =
             {
                 string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_ReadSurfaceLines_Start_reading_surface_lines_from_File_0_,
                               surfaceLinesPath),
