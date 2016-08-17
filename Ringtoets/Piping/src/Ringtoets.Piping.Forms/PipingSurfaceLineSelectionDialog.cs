@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
-
 using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms

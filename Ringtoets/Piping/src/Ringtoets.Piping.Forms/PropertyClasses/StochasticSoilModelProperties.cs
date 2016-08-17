@@ -26,8 +26,8 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.Properties;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
@@ -37,9 +37,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     public class StochasticSoilModelProperties : ObjectProperties<StochasticSoilModel>
     {
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_Id_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilModel_Id_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "StochasticSoilModel_Id_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "StochasticSoilModel_Id_Description")]
         public long Id
         {
             get
@@ -49,9 +49,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilModel_Name_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "StochasticSoilModel_Name_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "StochasticSoilModel_Name_Description")]
         public string Name
         {
             get
@@ -61,9 +61,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_SegmentName_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilModel_SegmentName_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "StochasticSoilModel_SegmentName_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "StochasticSoilModel_SegmentName_Description")]
         public string SegmentName
         {
             get
@@ -74,9 +74,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(4)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_Geometry_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilModel_Geometry_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "StochasticSoilModel_Geometry_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "StochasticSoilModel_Geometry_Description")]
         public Point2D[] Geometry
         {
             get
@@ -87,9 +87,9 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(5)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_StochasticSoilProfiles_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StochasticSoilModel_StochasticSoilProfiles_Description")]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "StochasticSoilModel_StochasticSoilProfiles_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "StochasticSoilModel_StochasticSoilProfiles_Description")]
         public StochasticSoilProfileProperties[] StochasticSoilProfiles
         {
             get

@@ -566,7 +566,7 @@ namespace Ringtoets.Piping.Forms.Views
             }
 
             PipingInputContext selection = CreateSelectedItemFromCurrentRow();
-            if ((ApplicationSelection.Selection == null && selection != null) || 
+            if ((ApplicationSelection.Selection == null && selection != null) ||
                 (ApplicationSelection.Selection != null && !ApplicationSelection.Selection.Equals(selection)))
             {
                 ApplicationSelection.Selection = selection;
@@ -578,7 +578,7 @@ namespace Ringtoets.Piping.Forms.Views
             var currentRow = dataGridViewControl.CurrentRow;
 
             var pipingCalculationRow = currentRow != null
-                                           ? (PipingCalculationRow)currentRow.DataBoundItem
+                                           ? (PipingCalculationRow) currentRow.DataBoundItem
                                            : null;
 
             PipingInputContext selection = null;

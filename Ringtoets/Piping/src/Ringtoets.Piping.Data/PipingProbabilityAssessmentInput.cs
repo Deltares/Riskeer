@@ -31,9 +31,6 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class PipingProbabilityAssessmentInput : IStorable
     {
-        private double a;
-        private RoundedDouble upliftCriticalSafetyFactor;
-
         private readonly NormDependentFactorCollection heaveNormDependentFactorCollection = new NormDependentFactorCollection(
             Tuple.Create(100, 0.16),
             Tuple.Create(300, 0.15),
@@ -51,6 +48,9 @@ namespace Ringtoets.Piping.Data
             Tuple.Create(10000, 0.19),
             Tuple.Create(30000, 0.17),
             Tuple.Create(300000, 0.13));
+
+        private double a;
+        private RoundedDouble upliftCriticalSafetyFactor;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingProbabilityAssessmentInput"/>.
@@ -110,6 +110,19 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Gets 'b' parameter used to factor in the 'length effect' when determining the
+        /// maximum tolerated probability of failure.
+        /// </summary>
+        public double B { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the length of the assessment section.
+        /// </summary>
+        public double SectionLength { get; set; }
+
+        public long StorageId { get; set; }
+
+        /// <summary>
         /// Gets the norm dependent factor which is used in the relation between safety factor and reliability index
         /// for the Sellmeijer failure mechanism.
         /// </summary>
@@ -130,18 +143,5 @@ namespace Ringtoets.Piping.Data
         {
             return new RoundedDouble(2, heaveNormDependentFactorCollection.GetFactorFromNorm(norm));
         }
-
-        /// <summary>
-        /// Gets 'b' parameter used to factor in the 'length effect' when determining the
-        /// maximum tolerated probability of failure.
-        /// </summary>
-        public double B { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the length of the assessment section.
-        /// </summary>
-        public double SectionLength { get; set; }
-
-        public long StorageId { get; set; }
     }
 }

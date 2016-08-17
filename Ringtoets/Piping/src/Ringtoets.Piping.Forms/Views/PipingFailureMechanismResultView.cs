@@ -22,15 +22,12 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
-
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -144,7 +141,7 @@ namespace Ringtoets.Piping.Forms.Views
 
             var currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
 
-            PipingFailureMechanismSectionResultRow resultRow = (PipingFailureMechanismSectionResultRow)GetDataAtRow(e.RowIndex);
+            var resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
 
             if (resultRow != null && e.ColumnIndex == assessmentLayerTwoAIndex)
             {

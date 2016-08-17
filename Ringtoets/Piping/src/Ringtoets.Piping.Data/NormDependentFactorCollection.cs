@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     internal class NormDependentFactorCollection
     {
-        private readonly Tuple<int,double>[] knownFactors;
+        private readonly Tuple<int, double>[] knownFactors;
 
         /// <summary>
         /// Creates a new instance of <see cref="NormDependentFactorCollection"/>. The <paramref name="knownFactors"/> 
@@ -76,12 +76,12 @@ namespace Ringtoets.Piping.Data
             var factorRightOfNormIndex = FactorRightOfNormIndex(norm);
 
             var normLog = Math.Log10(norm);
-            var firstPoint = ToPointInLogXScale(knownFactors[factorRightOfNormIndex-1]);
-            var secondPoint = ToPointInLogXScale(knownFactors[factorRightOfNormIndex]);
+            Point2D firstPoint = ToPointInLogXScale(knownFactors[factorRightOfNormIndex - 1]);
+            Point2D secondPoint = ToPointInLogXScale(knownFactors[factorRightOfNormIndex]);
 
             return Math2D.GetInterpolatedPointAtFraction(
-                new Segment2D(firstPoint,secondPoint),
-                (normLog - firstPoint.X) / (secondPoint.X - firstPoint.X)).Y;
+                new Segment2D(firstPoint, secondPoint),
+                (normLog - firstPoint.X)/(secondPoint.X - firstPoint.X)).Y;
         }
 
         /// <summary>

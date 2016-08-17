@@ -36,6 +36,30 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
             rerouteToActualPropertyOwner = routerFunction;
         }
 
+        public override Type ComponentType
+        {
+            get
+            {
+                return originalPropertyDescriptor.ComponentType;
+            }
+        }
+
+        public override bool IsReadOnly
+        {
+            get
+            {
+                return originalPropertyDescriptor.IsReadOnly;
+            }
+        }
+
+        public override Type PropertyType
+        {
+            get
+            {
+                return originalPropertyDescriptor.PropertyType;
+            }
+        }
+
         public override bool CanResetValue(object component)
         {
             return originalPropertyDescriptor.CanResetValue(rerouteToActualPropertyOwner(component));
@@ -59,30 +83,6 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
         public override bool ShouldSerializeValue(object component)
         {
             return originalPropertyDescriptor.ShouldSerializeValue(rerouteToActualPropertyOwner(component));
-        }
-
-        public override Type ComponentType
-        {
-            get
-            {
-                return originalPropertyDescriptor.ComponentType;
-            }
-        }
-
-        public override bool IsReadOnly
-        {
-            get
-            {
-                return originalPropertyDescriptor.IsReadOnly;
-            }
-        }
-
-        public override Type PropertyType
-        {
-            get
-            {
-                return originalPropertyDescriptor.PropertyType;
-            }
         }
     }
 }

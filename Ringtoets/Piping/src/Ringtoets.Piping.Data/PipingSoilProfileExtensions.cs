@@ -62,7 +62,6 @@ namespace Ringtoets.Piping.Data
             return GetConsecutiveLayers(soilProfile, level, true);
         }
 
-
         /// <summary>
         /// Retrieves the collection of aquitard layers below a certain <paramref name="level"/>.
         /// </summary>

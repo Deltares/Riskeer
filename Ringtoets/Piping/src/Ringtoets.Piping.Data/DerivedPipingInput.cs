@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.Data
             if (stochasticSoilProfile != null && stochasticSoilProfile.SoilProfile != null && surfaceLine != null && !double.IsNaN(exitPointL))
             {
                 var thicknessTopAquiferLayer = new RoundedDouble(thicknessAquiferLayer.Mean.NumberOfDecimalPlaces,
-                    GetThicknessTopAquiferLayer(stochasticSoilProfile.SoilProfile, surfaceLine, exitPointL));
+                                                                 GetThicknessTopAquiferLayer(stochasticSoilProfile.SoilProfile, surfaceLine, exitPointL));
 
                 if (thicknessTopAquiferLayer > 0)
                 {
@@ -218,12 +218,12 @@ namespace Ringtoets.Piping.Data
             if (input.SurfaceLine != null && input.StochasticSoilProfile != null && input.StochasticSoilProfile.SoilProfile != null && !double.IsNaN(input.ExitPointL))
             {
                 var weightedMean = new RoundedDouble(thicknessCoverageLayerDistribution.Mean.NumberOfDecimalPlaces,
-                    InputParameterCalculationService.CalculateThicknessCoverageLayer(
-                        input.WaterVolumetricWeight,
-                        PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
-                        input.ExitPointL,
-                        input.SurfaceLine,
-                        input.StochasticSoilProfile.SoilProfile));
+                                                     InputParameterCalculationService.CalculateThicknessCoverageLayer(
+                                                         input.WaterVolumetricWeight,
+                                                         PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                                                         input.ExitPointL,
+                                                         input.SurfaceLine,
+                                                         input.StochasticSoilProfile.SoilProfile));
 
                 if (weightedMean > 0)
                 {
@@ -277,10 +277,10 @@ namespace Ringtoets.Piping.Data
                 volumicWeightDistribution.StandardDeviation = (RoundedDouble) topMostAquitardLayer.BelowPhreaticLevelDeviation;
 
                 var weightedMean = new RoundedDouble(volumicWeightDistribution.Mean.NumberOfDecimalPlaces,
-                    GetWeightedMeanForVolumicWeightOfCoverageLayer(
-                        coverageLayers,
-                        input.StochasticSoilProfile.SoilProfile,
-                        input.SurfaceLine.GetZAtL(input.ExitPointL)));
+                                                     GetWeightedMeanForVolumicWeightOfCoverageLayer(
+                                                         coverageLayers,
+                                                         input.StochasticSoilProfile.SoilProfile,
+                                                         input.SurfaceLine.GetZAtL(input.ExitPointL)));
 
                 if (weightedMean > 0)
                 {
@@ -314,7 +314,7 @@ namespace Ringtoets.Piping.Data
             }
 
             return distributions.All(currentLayerDistribution => AreShiftAndDeviationEqual(
-                currentLayerDistribution, 
+                currentLayerDistribution,
                 distributions[0]));
         }
 
@@ -344,7 +344,7 @@ namespace Ringtoets.Piping.Data
         private static double GetWeightedMeanForVolumicWeightOfCoverageLayer(PipingSoilLayer[] aquitardLayers, PipingSoilProfile profile, double surfaceLevel)
         {
             double totalThickness = 0.0;
-            double weighedTotal = 0.0; 
+            double weighedTotal = 0.0;
 
             foreach (var layer in aquitardLayers)
             {
@@ -358,7 +358,7 @@ namespace Ringtoets.Piping.Data
 
             return weighedTotal/totalThickness;
         }
-        
+
         private PipingSoilLayer[] GetConsecutiveAquiferLayers()
         {
             RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
@@ -372,7 +372,7 @@ namespace Ringtoets.Piping.Data
 
             return new PipingSoilLayer[0];
         }
-        
+
         private PipingSoilLayer[] GetConsecutiveCoverageLayers()
         {
             RingtoetsPipingSurfaceLine surfaceLine = input.SurfaceLine;
@@ -381,7 +381,6 @@ namespace Ringtoets.Piping.Data
 
             if (surfaceLine != null && soilProfile != null && !double.IsNaN(exitPointL))
             {
-
                 PipingSoilLayer[] consecutiveAquitardLayersBelowLevel = soilProfile
                     .GetConsecutiveCoverageLayersBelowLevel(surfaceLine.GetZAtL(exitPointL))
                     .ToArray();

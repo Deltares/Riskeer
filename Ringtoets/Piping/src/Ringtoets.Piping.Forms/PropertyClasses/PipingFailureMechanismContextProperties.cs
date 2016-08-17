@@ -23,7 +23,6 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 
@@ -34,6 +33,43 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingFailureMechanismContextProperties : ObjectProperties<PipingFailureMechanismContext>
     {
+        #region Heave
+
+        [PropertyOrder(31)]
+        [ResourcesCategory(typeof(Resources), "Categories_Heave")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_CriticalHeaveGradient_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_CriticalHeaveGradient_Description")]
+        public double CriticalHeaveGradient
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.CriticalHeaveGradient;
+            }
+        }
+
+        #endregion
+
+        #region Uplift
+
+        [PropertyOrder(41)]
+        [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
+        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_UpliftCriticalSafetyFactor_Description")]
+        public RoundedDouble UpliftCriticalSafetyFactor
+        {
+            get
+            {
+                return data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor;
+            }
+            set
+            {
+                data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        #endregion
+
         #region General
 
         [PropertyOrder(1)]
@@ -154,43 +190,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.PipingProbabilityAssessmentInput.GetSellmeijerNormDependentFactor(data.Parent.FailureMechanismContribution.Norm);
-            }
-        }
-
-        #endregion
-
-        #region Heave
-
-        [PropertyOrder(31)]
-        [ResourcesCategory(typeof(Resources), "Categories_Heave")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_CriticalHeaveGradient_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_CriticalHeaveGradient_Description")]
-        public double CriticalHeaveGradient
-        {
-            get
-            {
-                return data.WrappedData.GeneralInput.CriticalHeaveGradient;
-            }
-        }
-
-        #endregion
-
-        #region Uplift
-
-        [PropertyOrder(41)]
-        [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_UpliftCriticalSafetyFactor_Description")]
-        public RoundedDouble UpliftCriticalSafetyFactor
-        {
-            get
-            {
-                return data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor;
-            }
-            set
-            {
-                data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = value;
-                data.WrappedData.NotifyObservers();
             }
         }
 

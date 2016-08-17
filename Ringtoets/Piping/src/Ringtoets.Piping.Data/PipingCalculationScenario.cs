@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data

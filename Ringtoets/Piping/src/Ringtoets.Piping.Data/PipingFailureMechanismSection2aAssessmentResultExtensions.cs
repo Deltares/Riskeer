@@ -58,8 +58,8 @@ namespace Ringtoets.Piping.Data
         public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult, IEnumerable<PipingCalculationScenario> calculations)
         {
             return (RoundedDouble) pipingFailureMechanismSectionResult
-                .GetCalculationScenarios(calculations)
-                .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+                                       .GetCalculationScenarios(calculations)
+                                       .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
 
         /// <summary>

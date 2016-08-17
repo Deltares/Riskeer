@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-
 using Core.Common.Base;
 
 namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors

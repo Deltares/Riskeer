@@ -25,7 +25,6 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Piping.Data;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -86,11 +85,11 @@ namespace Ringtoets.Piping.Forms.Views
         {
             get
             {
-                return new RoundedDouble(0, pipingCalculation.Contribution * 100);
+                return new RoundedDouble(0, pipingCalculation.Contribution*100);
             }
             set
             {
-                pipingCalculation.Contribution = (RoundedDouble)(value / 100);
+                pipingCalculation.Contribution = (RoundedDouble) (value/100);
                 pipingCalculation.NotifyObservers();
             }
         }

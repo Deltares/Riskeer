@@ -55,9 +55,9 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                 },
                 new ParameterDefinition<LogNormalDistribution>(d => d.Shift)
                 {
-                    Symbol = Resources.Probabilistics_Shift_Symbol, 
+                    Symbol = Resources.Probabilistics_Shift_Symbol,
                     Description = Resources.Probabilistics_Shift_Description
-                },
+                }
             };
         }
 

@@ -82,6 +82,14 @@ namespace Ringtoets.Piping.Data
 
         public CalculationGroup CalculationsGroup { get; private set; }
 
+        public IEnumerable<PipingFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
+
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
@@ -92,14 +100,6 @@ namespace Ringtoets.Piping.Data
         {
             base.ClearAllSections();
             sectionResults.Clear();
-        }
-
-        public IEnumerable<PipingFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
         }
     }
 }

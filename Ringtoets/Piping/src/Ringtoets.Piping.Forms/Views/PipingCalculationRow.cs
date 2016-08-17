@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Forms.Views
             get
             {
                 return pipingCalculation.InputParameters.StochasticSoilProfile != null
-                           ? new RoundedDouble(3, pipingCalculation.InputParameters.StochasticSoilProfile.Probability * 100).Value.ToString(CultureInfo.CurrentCulture)
+                           ? new RoundedDouble(3, pipingCalculation.InputParameters.StochasticSoilProfile.Probability*100).Value.ToString(CultureInfo.CurrentCulture)
                            : new RoundedDouble(3).Value.ToString(CultureInfo.CurrentCulture);
             }
         }

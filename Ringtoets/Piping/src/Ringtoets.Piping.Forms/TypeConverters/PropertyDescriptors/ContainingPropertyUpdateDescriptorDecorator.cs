@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
         /// <param name="propertyDescription">The original property description.</param>
         /// <param name="source">The source object, which contains the property described by <paramref name="propertyDescription"/>.</param>
         /// <param name="containingProperty">The property which contains the source of the <paramref name="propertyDescription"/>.</param>
-        public ContainingPropertyUpdateDescriptorDecorator(PropertyDescriptor propertyDescription, object source, PropertyDescriptor containingProperty) 
+        public ContainingPropertyUpdateDescriptorDecorator(PropertyDescriptor propertyDescription, object source, PropertyDescriptor containingProperty)
             : base(propertyDescription)
         {
             this.source = source;
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
                 return originalPropertyDescriptor.DisplayName;
             }
         }
-        
+
         public override AttributeCollection Attributes
         {
             get

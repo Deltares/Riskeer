@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Piping.Data;
-
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
@@ -38,8 +37,8 @@ namespace Ringtoets.Piping.Forms.Views
     /// </summary>
     internal class PipingFailureMechanismSectionResultRow
     {
-        private readonly IEnumerable<PipingCalculationScenario> calculations;
         private const double tolerance = 1e-6;
+        private readonly IEnumerable<PipingCalculationScenario> calculations;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
