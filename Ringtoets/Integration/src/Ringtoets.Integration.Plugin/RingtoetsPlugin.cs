@@ -289,18 +289,15 @@ namespace Ringtoets.Integration.Plugin
                 }
             };
 
-            yield return new ViewInfo<DesignWaterLevelLocationsContext, HydraulicBoundaryDatabase, HydraulicBoundaryLocationDesignWaterLevelsView>
+            yield return new ViewInfo<DesignWaterLevelLocationsContext, IAssessmentSection, HydraulicBoundaryLocationDesignWaterLevelsView>
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.DesignWaterLevel_DisplayName,
-                GetViewData = context => context.WrappedData.HydraulicBoundaryDatabase,
-                AdditionalDataCheck = context => context.WrappedData.HydraulicBoundaryDatabase != null,
+                GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseHydraulicBoundaryLocationsViewForData,
                 AfterCreate = (view, context) =>
                 {
                     view.ApplicationSelection = Gui;
                     view.CalculationCommandHandler = new CalculateDesignWaterLevelCommandHandler(Gui.MainWindow, context.WrappedData);
-                    view.AssessmentSection = context.WrappedData;
                 }
             };
 
@@ -1019,12 +1016,6 @@ namespace Ringtoets.Integration.Plugin
         # endregion
 
         #region HydraulicBoundaryDatabase
-
-        private static bool CloseHydraulicBoundaryLocationsViewForData(HydraulicBoundaryLocationDesignWaterLevelsView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection == view.AssessmentSection && assessmentSection.HydraulicBoundaryDatabase == view.Data;
-        }
 
         private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
         {

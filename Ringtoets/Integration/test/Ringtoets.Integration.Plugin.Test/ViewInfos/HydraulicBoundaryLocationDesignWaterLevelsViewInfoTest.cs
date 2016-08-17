@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
@@ -32,7 +33,6 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
-using Ringtoets.Integration.Plugin.Commands;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
@@ -61,14 +61,16 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
             var view = new HydraulicBoundaryLocationDesignWaterLevelsView();
 
             // Call
-            var viewName = info.GetViewName(view, hydraulicBoundaryDatabase);
+            var viewName = info.GetViewName(view, assessmentSection);
 
             // Assert
             Assert.AreEqual("Toetspeilen", viewName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -78,7 +80,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(HydraulicBoundaryDatabase), viewDataType);
+            Assert.AreEqual(typeof(IAssessmentSection), viewDataType);
         }
 
         [Test]
@@ -115,137 +117,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewData = info.GetViewData(designWaterLevelContext);
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryDatabase, viewData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            mocks.ReplayAll();
-
-            using (var view = new HydraulicBoundaryLocationDesignWaterLevelsView
-            {
-                Data = hydraulicBoundaryDatabase,
-                AssessmentSection = assessmentSection
-            })
-            {
-                // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedAssessmentSectionButIncorrectHydraulicBoundaryDatabase_ReturnsFalse()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            mocks.ReplayAll();
-
-            using (var view = new HydraulicBoundaryLocationDesignWaterLevelsView
-            {
-                Data = hydraulicBoundaryDatabase,
-                AssessmentSection = assessmentSection
-            })
-            {
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-                // Call
-                var closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            otherAssessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            mocks.ReplayAll();
-
-            using (var view = new HydraulicBoundaryLocationDesignWaterLevelsView
-            {
-                Data = hydraulicBoundaryDatabase,
-                AssessmentSection = assessmentSection
-            })
-            {
-                // Call
-                var closeForData = info.CloseForData(view, otherAssessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewWithoutData_ReturnsFalse()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            mocks.ReplayAll();
-
-            var view = new HydraulicBoundaryLocationDesignWaterLevelsView();
-
-            // Call
-            var closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AdditionalDataCheck_AssessmentSectionWithHydraulicBoundaryDatabase_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            mocks.ReplayAll();
-            var designWaterLevelContext = new DesignWaterLevelLocationsContext(assessmentSection);
-
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(designWaterLevelContext);
-
-            // Assert
-            Assert.IsTrue(additionalDataCheck);
-            mocks.VerifyAll();
-        }
-        
-        [Test]
-        public void AdditionalDataCheck_AssessmentSectionWithoutHydraulicBoundaryDatabase_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = null;
-            mocks.ReplayAll();
-            var designWaterLevelContext = new DesignWaterLevelLocationsContext(assessmentSection);
-
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(designWaterLevelContext);
-
-            // Assert
-            Assert.IsFalse(additionalDataCheck);
+            Assert.AreSame(assessmentSection, viewData);
             mocks.VerifyAll();
         }
 
@@ -278,7 +150,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 info.AfterCreate(view, context);
 
                 // Assert
-                Assert.AreSame(view.AssessmentSection, assessmentSection);
                 Assert.AreSame(view.ApplicationSelection, guiStub);
             }
             mocks.VerifyAll();

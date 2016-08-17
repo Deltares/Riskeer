@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/>.
+    /// This class represents a row of <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/> with <see cref="DesignWaterLevel"/>.
     /// </summary>
     internal class HydraulicBoundaryLocationDesignWaterLevelRow
     {

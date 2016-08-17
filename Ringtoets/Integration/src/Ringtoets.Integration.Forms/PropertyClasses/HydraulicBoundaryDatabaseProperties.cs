@@ -32,9 +32,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
     {
-        /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryDatabase.FilePath"/> from the <see cref="HydraulicBoundaryDatabaseContext"/>.
-        /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_FilePath_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_FilePath_Description")]

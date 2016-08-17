@@ -68,7 +68,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
-                Assert.IsNull(view.AssessmentSection);
             }
         }
 
@@ -104,23 +103,23 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Data_HydraulicBoundaryDatabase_DataSet()
+        public void Data_IAssessmentSection_DataSet()
         {
             // Setup
             using (var view = new HydraulicBoundaryLocationDesignWaterLevelsView())
             {
-                var hydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase();
+                var assessmentSection = new TestAssessmentSection();
 
                 // Call
-                view.Data = hydraulicBoundaryDatabase;
+                view.Data = assessmentSection;
 
                 // Assert
-                Assert.AreSame(hydraulicBoundaryDatabase, view.Data);
+                Assert.AreSame(assessmentSection, view.Data);
             }
         }
 
         [Test]
-        public void Data_OtherThanHydraulicBoundaryDatabase_DataNull()
+        public void Data_OtherThanIAssessmentSection_DataNull()
         {
             // Setup
             using (var view = new HydraulicBoundaryLocationDesignWaterLevelsView())
@@ -176,6 +175,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             HydraulicBoundaryLocationDesignWaterLevelsView view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
+            IAssessmentSection assessmentSection = (IAssessmentSection) view.Data;
             HydraulicBoundaryDatabase newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             newHydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
@@ -188,7 +188,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(3, rows.Count);
 
             // Call
-            view.Data = newHydraulicBoundaryDatabase;
+            assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
+            assessmentSection.NotifyObservers();
 
             // Assert
             Assert.AreEqual(1, rows.Count);
@@ -206,7 +207,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             HydraulicBoundaryLocationDesignWaterLevelsView view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
-            IAssessmentSection section = view.AssessmentSection;
+            IAssessmentSection assessmentSection = (IAssessmentSection) view.Data;
 
             // Precondition
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -217,8 +218,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("NaN", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
             // Call
-            section.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevel = double.NaN);
-            section.NotifyObservers();
+            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevel = double.NaN);
+            assessmentSection.NotifyObservers();
 
             // Assert
             Assert.AreEqual(3, rows.Count);
@@ -232,7 +233,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
-            var secondHydraulicBoundaryLocation = ((HydraulicBoundaryDatabase) view.Data).Locations.Skip(1).First();
+            IAssessmentSection assessmentSection = (IAssessmentSection)view.Data;
+            var secondHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Skip(1).First();
 
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
@@ -257,7 +259,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
-            var secondHydraulicBoundaryLocation = ((HydraulicBoundaryDatabase) view.Data).Locations.Skip(1).First();
+            IAssessmentSection assessmentSection = (IAssessmentSection)view.Data;
+            var secondHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Skip(1).First();
 
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
@@ -402,7 +405,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             var hydraulicBoundaryLocations = locations.ToArray();
             Assert.AreEqual(1, hydraulicBoundaryLocations.Length);
-            HydraulicBoundaryLocation expectedLocation = view.AssessmentSection.HydraulicBoundaryDatabase.Locations.First();
+            HydraulicBoundaryLocation expectedLocation = ((IAssessmentSection) view.Data).HydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, hydraulicBoundaryLocations.First());
             mockRepository.VerifyAll();
         }
@@ -446,8 +449,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
 
-            view.Data = assessmentSection.HydraulicBoundaryDatabase;
-            view.AssessmentSection = assessmentSection;
+            view.Data = assessmentSection;
             return view;
         }
 

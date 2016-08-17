@@ -60,9 +60,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
-        /// </summary>
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName")]
@@ -75,9 +72,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the convergence status of the waveheight calculation.
-        /// </summary>
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]

@@ -34,9 +34,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
     {
-        /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Id"/>.
-        /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Id_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Id_Description")]
@@ -48,9 +45,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Name"/>.
-        /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Name_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Name_Description")]
@@ -62,9 +56,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Location"/>.
-        /// </summary>
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Coordinates_Description")]

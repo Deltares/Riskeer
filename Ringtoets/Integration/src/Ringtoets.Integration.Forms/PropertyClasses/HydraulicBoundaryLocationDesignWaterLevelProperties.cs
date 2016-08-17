@@ -60,9 +60,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
-        /// </summary>
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]
@@ -75,9 +72,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        /// <summary>
-        /// Gets the convergence status of the designwaterlevel calculation.
-        /// </summary>
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]

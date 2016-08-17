@@ -34,9 +34,6 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class DesignWaterLevelLocationsContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
-        /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocationDesignWaterLevelProperties"/> from the <see cref="HydraulicBoundaryDatabase"/>.
-        /// </summary>
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]

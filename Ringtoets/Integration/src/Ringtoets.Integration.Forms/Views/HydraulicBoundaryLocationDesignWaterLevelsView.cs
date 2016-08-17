@@ -44,7 +44,6 @@ namespace Ringtoets.Integration.Forms.Views
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
         private IAssessmentSection assessmentSection;
-        private HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
         private bool updatingDataSource;
 
         /// <summary>
@@ -57,27 +56,6 @@ namespace Ringtoets.Integration.Forms.Views
 
             assessmentSectionObserver = new Observer(UpdateDataGridViewDataSource);
             hydraulicBoundaryDatabaseObserver = new Observer(RefreshDataGridView);
-        }
-
-        private void RefreshDataGridView()
-        {
-            dataGridViewControl.RefreshDataGridView();
-        }
-
-        /// <summary>
-        /// Gets or sets the assessment section.
-        /// </summary>
-        public IAssessmentSection AssessmentSection
-        {
-            get
-            {
-                return assessmentSection;
-            }
-            set
-            {
-                assessmentSection = value;
-                assessmentSectionObserver.Observable = assessmentSection;
-            }
         }
 
         /// <summary>
@@ -94,15 +72,15 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return hydraulicBoundaryDatabase;
+                return assessmentSection;
             }
             set
             {
-                hydraulicBoundaryDatabase = value as HydraulicBoundaryDatabase;
+                assessmentSection = value as IAssessmentSection;
 
                 UpdateDataGridViewDataSource();
-
-                hydraulicBoundaryDatabaseObserver.Observable = hydraulicBoundaryDatabase;
+                assessmentSectionObserver.Observable = assessmentSection;
+                hydraulicBoundaryDatabaseObserver.Observable = assessmentSection != null ? assessmentSection.HydraulicBoundaryDatabase : null;
             }
         }
 
@@ -119,14 +97,17 @@ namespace Ringtoets.Integration.Forms.Views
             assessmentSectionObserver.Dispose();
             hydraulicBoundaryDatabaseObserver.Dispose();
 
-            dataGridViewControl.RemoveCellClickHandler(DataGridViewOnCellClick);
-
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
 
             base.Dispose(disposing);
+        }
+
+        private void RefreshDataGridView()
+        {
+            dataGridViewControl.RefreshDataGridView();
         }
 
         private void InitializeDataGridView()
@@ -148,8 +129,8 @@ namespace Ringtoets.Integration.Forms.Views
         private void UpdateDataGridViewDataSource()
         {
             updatingDataSource = true;
-            dataGridViewControl.SetDataSource(hydraulicBoundaryDatabase != null
-                                                  ? hydraulicBoundaryDatabase.Locations.Select(hl => new HydraulicBoundaryLocationDesignWaterLevelRow(hl)).ToArray()
+            dataGridViewControl.SetDataSource(assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
+                                                  ? assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hl => new HydraulicBoundaryLocationDesignWaterLevelRow(hl)).ToArray()
                                                   : null);
             RefreshDataGridView();
             updatingDataSource = false;
