@@ -80,8 +80,13 @@ namespace Ringtoets.Integration.Forms.Views
 
                 UpdateDataGridViewDataSource();
                 assessmentSectionObserver.Observable = assessmentSection;
-                hydraulicBoundaryDatabaseObserver.Observable = assessmentSection != null ? assessmentSection.HydraulicBoundaryDatabase : null;
+                SetHydraulicBoundaryDatabaseObserver();
             }
+        }
+
+        private void SetHydraulicBoundaryDatabaseObserver()
+        {
+            hydraulicBoundaryDatabaseObserver.Observable = assessmentSection != null ? assessmentSection.HydraulicBoundaryDatabase : null;
         }
 
         public object Selection
@@ -128,9 +133,13 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
+            SetHydraulicBoundaryDatabaseObserver();
+
             updatingDataSource = true;
             dataGridViewControl.SetDataSource(assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
-                                                  ? assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hl => new HydraulicBoundaryLocationDesignWaterLevelRow(hl)).ToArray()
+                                                  ? assessmentSection.HydraulicBoundaryDatabase.Locations.Select(
+                                                  hl => new HydraulicBoundaryLocationDesignWaterLevelRow(
+                                                      new DesignWaterLevelLocationContext(assessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
                                                   : null);
             RefreshDataGridView();
             updatingDataSource = false;
@@ -141,9 +150,9 @@ namespace Ringtoets.Integration.Forms.Views
             return from DataGridViewRow row in dataGridViewControl.Rows select (HydraulicBoundaryLocationDesignWaterLevelRow) row.DataBoundItem;
         }
 
-        private IEnumerable<HydraulicBoundaryLocation> GetSelectedHydraulicBoundaryLocations()
+        private IEnumerable<HydraulicBoundaryLocation> GetSelectedDesignWaterLevelLocationContext()
         {
-            return GetHydraulicBoundaryLocationDesignWaterLevelRows().Where(r => r.ToCalculate).Select(r => r.HydraulicBoundaryLocation);
+            return GetHydraulicBoundaryLocationDesignWaterLevelRows().Where(r => r.ToCalculate).Select(r => r.DesignWaterLevelLocationContext.HydraulicBoundaryLocation);
         }
 
         #region Event handling
@@ -165,15 +174,15 @@ namespace Ringtoets.Integration.Forms.Views
                 return;
             }
 
-            DesignWaterLevelLocationContext selection = CreateSelectedItemFromCurrentRow();
+            HydraulicBoundaryLocationContext selection = CreateSelectedItemFromCurrentRow();
             if ((ApplicationSelection.Selection == null && selection != null) ||
-                (ApplicationSelection.Selection != null && !ApplicationSelection.Selection.Equals(selection)))
+                (ApplicationSelection.Selection != null && !ReferenceEquals(selection, ApplicationSelection.Selection)))
             {
                 ApplicationSelection.Selection = selection;
             }
         }
 
-        private DesignWaterLevelLocationContext CreateSelectedItemFromCurrentRow()
+        private HydraulicBoundaryLocationContext CreateSelectedItemFromCurrentRow()
         {
             var currentRow = dataGridViewControl.CurrentRow;
 
@@ -182,7 +191,7 @@ namespace Ringtoets.Integration.Forms.Views
                                           : null;
 
             return designWaterLevelRow != null
-                       ? new DesignWaterLevelLocationContext(designWaterLevelRow.HydraulicBoundaryLocation)
+                       ? designWaterLevelRow.DesignWaterLevelLocationContext
                        : null;
         }
 
@@ -204,7 +213,7 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 return;
             }
-            var locations = GetSelectedHydraulicBoundaryLocations();
+            var locations = GetSelectedDesignWaterLevelLocationContext();
             CalculationCommandHandler.CalculateDesignWaterLevels(locations);
         }
 

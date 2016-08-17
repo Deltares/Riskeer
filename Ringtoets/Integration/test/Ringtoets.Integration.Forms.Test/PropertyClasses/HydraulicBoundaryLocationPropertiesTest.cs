@@ -23,8 +23,8 @@ using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -36,26 +36,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void Constructor_DefaultArgumentValues_DoesNotThrowException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            object[] hydraulicBoundaryLocationArguments =
-            {
-                0,
-                "",
-                0.0,
-                0.0
-            };
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(hydraulicBoundaryLocationArguments);
-            mockRepository.ReplayAll();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Call
             TestDelegate test = () => new TestHydraulicBoundaryLocationProperties
             {
-                Data = hydraulicBoundaryLocationMock
+                Data = context
             };
 
             // Assert
             Assert.DoesNotThrow(test);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -68,21 +61,21 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             const string name = "<some name>";
 
-            var mockRepository = new MockRepository();
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(id, name, x, y);
-            mockRepository.ReplayAll();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Call
             HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
             {
-                Data = hydraulicBoundaryLocationMock
+                Data = context
             };
 
             // Assert
             Assert.AreEqual(id, hydraulicBoundaryLocationProperties.Id);
             Assert.AreEqual(name, hydraulicBoundaryLocationProperties.Name);
             Assert.AreEqual(coordinates, hydraulicBoundaryLocationProperties.Location);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -94,23 +87,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const long id = 1234L;
             const double x = 567.0;
             const double y = 890.0;
-            var mockRepository = new MockRepository();
-            object[] hydraulicBoundaryLocationArguments =
-            {
-                id,
-                name,
-                x,
-                y
-            };
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(hydraulicBoundaryLocationArguments);
-            mockRepository.ReplayAll();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             var expectedString = string.Format("{0} {1}", name, new Point2D(x, y));
 
             // Call
             HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
             {
-                Data = hydraulicBoundaryLocationMock
+                Data = context
             };
 
             // Assert
@@ -121,13 +108,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<HydraulicBoundaryLocation>(0, "", 0.0, 0.0);
-            mockRepository.ReplayAll();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
             {
-                Data = hydraulicBoundaryLocationMock
+                Data = context
             };
 
             var dynamicPropertyBag = new DynamicPropertyBag(hydraulicBoundaryLocationProperties);
@@ -170,10 +158,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedCategory, locationProperty.Category);
             Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
             Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
-
-            mockRepository.VerifyAll();
         }
 
         private class TestHydraulicBoundaryLocationProperties : HydraulicBoundaryLocationProperties {}
+
+        private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
+        {
+            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+                : base(wrappedData, hydraulicBoundaryLocation) {}
+        }
     }
 }

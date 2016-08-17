@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("NaN", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(5, cells.Count);
@@ -167,7 +167,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("NaN", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[locationDesignWaterlevelColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -213,9 +213,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var rows = dataGridView.Rows;
             Assert.AreEqual(3, rows.Count);
-            Assert.AreEqual("NaN", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual("NaN", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
             // Call
             assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevel = double.NaN);
@@ -223,9 +223,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(3, rows.Count);
-            Assert.AreEqual("NaN", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual("NaN", rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-            Assert.AreEqual("NaN", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -233,13 +233,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
-            IAssessmentSection assessmentSection = (IAssessmentSection)view.Data;
+            IAssessmentSection assessmentSection = (IAssessmentSection) view.Data;
             var secondHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Skip(1).First();
 
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = new DesignWaterLevelLocationContext(secondHydraulicBoundaryLocation));
+            applicationSelectionMock.Expect(asm => asm.Selection = new DesignWaterLevelLocationContext(
+                                                                       assessmentSection.HydraulicBoundaryDatabase,
+                                                                       secondHydraulicBoundaryLocation));
             mocks.ReplayAll();
 
             view.ApplicationSelection = applicationSelectionMock;
@@ -259,17 +261,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = ShowFullyConfiguredHydraulicBoundaryLocationDesignWaterLevelsView();
-            IAssessmentSection assessmentSection = (IAssessmentSection)view.Data;
-            var secondHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Skip(1).First();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationNameColumnIndex];
 
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            applicationSelectionMock.Stub(asm => asm.Selection).Return(new DesignWaterLevelLocationContext(secondHydraulicBoundaryLocation));
+            applicationSelectionMock.Stub(asm => asm.Selection).Return(view.Selection);
             mocks.ReplayAll();
 
             view.ApplicationSelection = applicationSelectionMock;
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationNameColumnIndex];
@@ -295,9 +296,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelLocationContext>(selection);
-
-            var dataRow = (HydraulicBoundaryLocationDesignWaterLevelRow) dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.HydraulicBoundaryLocation, ((DesignWaterLevelLocationContext) selection).WrappedData);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = ((IAssessmentSection) view.Data).HydraulicBoundaryDatabase;
+            Assert.AreSame(hydraulicBoundaryDatabase, ((DesignWaterLevelLocationContext) selection).WrappedData);
         }
 
         [Test]

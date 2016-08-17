@@ -25,6 +25,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Properties;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -32,7 +33,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// ViewModel of <see cref="HydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public abstract class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
+    public abstract class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocationContext>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Id_DisplayName")]
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Id;
+                return data.HydraulicBoundaryLocation.Id;
             }
         }
 
@@ -52,7 +53,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Name;
+                return data.HydraulicBoundaryLocation.Name;
             }
         }
 
@@ -63,7 +64,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Location;
+                return data.HydraulicBoundaryLocation.Location;
             }
         }
 

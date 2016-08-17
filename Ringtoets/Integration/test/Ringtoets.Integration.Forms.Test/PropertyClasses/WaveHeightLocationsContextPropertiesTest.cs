@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Name, waveHeightLocationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightLocationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, waveHeightLocationProperties.Location);
-            var expectedWaveHeightValue = new RoundedDouble(2, waveHeight).ToString();
+            var expectedWaveHeightValue = new RoundedDouble(2, waveHeight);
             Assert.AreEqual(expectedWaveHeightValue, waveHeightLocationProperties.WaveHeight);
             mockRepository.VerifyAll();
         }

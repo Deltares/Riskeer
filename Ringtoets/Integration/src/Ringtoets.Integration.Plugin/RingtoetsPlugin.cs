@@ -261,10 +261,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
             };
-            yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>
-            {
-                GetObjectPropertiesData = context => context.WrappedData
-            };
+            yield return new PropertyInfo<DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>();
             yield return new PropertyInfo<WaveHeightLocationsContext, WaveHeightLocationsContextProperties>
             {
                 GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
@@ -1177,7 +1174,7 @@ namespace Ringtoets.Integration.Plugin
                 BaseResources.Confirm,
                 MessageBoxButtons.OKCancel);
 
-            return confirmation == DialogResult.OK;
+            return (confirmation == DialogResult.OK);
         }
 
         private static void ClearCalculations(IAssessmentSection nodeData)

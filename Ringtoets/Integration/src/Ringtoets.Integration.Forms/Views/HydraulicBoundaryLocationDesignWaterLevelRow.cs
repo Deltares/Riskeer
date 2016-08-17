@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -31,25 +33,25 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     internal class HydraulicBoundaryLocationDesignWaterLevelRow
     {
-        private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private readonly DesignWaterLevelLocationContext designWaterLevelLocationContext;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationDesignWaterLevelRow"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/> for this row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        internal HydraulicBoundaryLocationDesignWaterLevelRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        /// <param name="designWaterLevelLocationContext">The <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/> for this row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelLocationContext"/> is <c>null</c>.</exception>
+        internal HydraulicBoundaryLocationDesignWaterLevelRow(DesignWaterLevelLocationContext designWaterLevelLocationContext)
         {
-            if (hydraulicBoundaryLocation == null)
+            if (designWaterLevelLocationContext == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocation");
+                throw new ArgumentNullException("designWaterLevelLocationContext");
             }
 
-            this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            this.designWaterLevelLocationContext = designWaterLevelLocationContext;
         }
 
         /// <summary>
-        /// Gets wether the <see cref="HydraulicBoundaryLocationDesignWaterLevelRow"/> is set to be calculated.
+        /// Gets whether the <see cref="HydraulicBoundaryLocationDesignWaterLevelRow"/> is set to be calculated.
         /// </summary>
         public bool ToCalculate { get; set; }
 
@@ -60,7 +62,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return hydraulicBoundaryLocation.Name;
+                return designWaterLevelLocationContext.HydraulicBoundaryLocation.Name;
             }
         }
 
@@ -71,7 +73,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return hydraulicBoundaryLocation.Id;
+                return designWaterLevelLocationContext.HydraulicBoundaryLocation.Id;
             }
         }
 
@@ -82,29 +84,30 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return hydraulicBoundaryLocation.Location;
+                return designWaterLevelLocationContext.HydraulicBoundaryLocation.Location;
             }
         }
 
         /// <summary>
         /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.DesignWaterLevel"/>.
         /// </summary>
+        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
         public RoundedDouble DesignWaterLevel
         {
             get
             {
-                return new RoundedDouble(2, hydraulicBoundaryLocation.DesignWaterLevel);
+                return new RoundedDouble(2, designWaterLevelLocationContext.HydraulicBoundaryLocation.DesignWaterLevel);
             }
         }
 
         /// <summary>
         /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/>.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        public DesignWaterLevelLocationContext DesignWaterLevelLocationContext
         {
             get
             {
-                return hydraulicBoundaryLocation;
+                return designWaterLevelLocationContext;
             }
         }
     }

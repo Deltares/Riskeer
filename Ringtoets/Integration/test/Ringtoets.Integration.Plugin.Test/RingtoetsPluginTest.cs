@@ -249,7 +249,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 var designWaterLevelLocationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(DesignWaterLevelLocationContext));
                 Assert.AreEqual(typeof(DesignWaterLevelLocationContextProperties), designWaterLevelLocationContextProperties.PropertyObjectType);
                 Assert.IsNull(designWaterLevelLocationContextProperties.AdditionalDataCheck);
-                Assert.IsNotNull(designWaterLevelLocationContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(designWaterLevelLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelLocationContextProperties.AfterCreate);
 
                 var waveHeightLocationsContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(WaveHeightLocationsContext));

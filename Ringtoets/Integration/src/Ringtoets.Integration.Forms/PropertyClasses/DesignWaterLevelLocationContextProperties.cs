@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
@@ -65,11 +67,12 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description")]
-        public string DesignWaterLevel
+        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
+        public RoundedDouble DesignWaterLevel
         {
             get
             {
-                return double.IsNaN(data.DesignWaterLevel) ? string.Empty : new RoundedDouble(2, data.DesignWaterLevel).ToString();
+                return new RoundedDouble(2, data.HydraulicBoundaryLocation.DesignWaterLevel);
             }
         }
 
@@ -81,7 +84,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.DesignWaterLevelCalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence).DisplayName;
             }
         }
     }

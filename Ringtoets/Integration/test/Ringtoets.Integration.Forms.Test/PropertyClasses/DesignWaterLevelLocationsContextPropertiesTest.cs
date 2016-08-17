@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelLocationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelLocationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelLocationProperties.Location);
-            var expectedDesignWaterLevelValue = new RoundedDouble(2, designWaterLevel).ToString();
+            var expectedDesignWaterLevelValue = new RoundedDouble(2, designWaterLevel);
             Assert.AreEqual(expectedDesignWaterLevelValue, designWaterLevelLocationProperties.DesignWaterLevel);
         }
 

@@ -27,6 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -44,11 +45,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const string name = "<some name>";
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
             var properties = new WaveHeightLocationContextProperties
             {
-                Data = hydraulicBoundaryLocation
+                Data = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
             };
 
             // Assert
@@ -56,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            Assert.AreEqual(string.Empty, properties.WaveHeight);
+            Assert.IsNaN(properties.WaveHeight);
             Assert.AreEqual("-", properties.Convergence);
         }
 
@@ -75,10 +78,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 WaveHeight = waveHeight
             };
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+
             // Call
             var properties = new WaveHeightLocationContextProperties
             {
-                Data = hydraulicBoundaryLocation
+                Data = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
             };
 
             // Assert
@@ -86,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            string expectedWaveHeight = new RoundedDouble(2, waveHeight).ToString();
+            var expectedWaveHeight = new RoundedDouble(2, waveHeight);
             Assert.AreEqual(expectedWaveHeight, properties.WaveHeight);
             Assert.AreEqual("-", properties.Convergence);
         }
@@ -96,9 +102,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             var properties = new WaveHeightLocationContextProperties
             {
-                Data = hydraulicBoundaryLocation
+                Data = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
             };
 
             // Call

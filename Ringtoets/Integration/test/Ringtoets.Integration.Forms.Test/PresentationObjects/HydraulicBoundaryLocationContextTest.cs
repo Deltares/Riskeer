@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -27,7 +28,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class DesignWaterLevelLocationContextTest
+    public class HydraulicBoundaryLocationContextTest
     {
         [Test]
         public void Constructor_NullHydraulicBoundariesLocation_ThrowsArgumentNullException()
@@ -36,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
             // Call
-            TestDelegate test = () => new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, null);
+            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
 
             // Call
-            TestDelegate test = () => new DesignWaterLevelLocationContext(null, hydraulicBoundaryLocation);
+            TestDelegate test = () => new TestHydraulicBoundaryLocationContext(null, hydraulicBoundaryLocation);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -66,12 +67,18 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
-            var presentationObject = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var presentationObject = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationContext>(presentationObject);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryDatabase>>(presentationObject);
             Assert.AreSame(hydraulicBoundaryDatabase, presentationObject.WrappedData);
             Assert.AreSame(hydraulicBoundaryLocation, presentationObject.HydraulicBoundaryLocation);
+        }
+
+        private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
+        {
+            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+                : base(wrappedData, hydraulicBoundaryLocation) {}
         }
     }
 }

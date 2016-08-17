@@ -27,6 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -43,12 +44,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const double x = 567.0;
             const double y = 890.0;
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
             DesignWaterLevelLocationContextProperties properties =
                 new DesignWaterLevelLocationContextProperties
                 {
-                    Data = hydraulicBoundaryLocation
+                    Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
                 };
 
             // Assert
@@ -56,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            Assert.AreEqual(string.Empty, properties.DesignWaterLevel);
+            Assert.IsNaN(properties.DesignWaterLevel);
             Assert.AreEqual("-", properties.Convergence);
         }
 
@@ -74,12 +77,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             {
                 DesignWaterLevel = designWaterLevel
             };
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
             DesignWaterLevelLocationContextProperties properties =
                 new DesignWaterLevelLocationContextProperties
                 {
-                    Data = hydraulicBoundaryLocation
+                    Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
                 };
 
             // Assert
@@ -87,7 +92,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            string expectedDesignWaterLevel = new RoundedDouble(2, designWaterLevel).ToString();
+            var expectedDesignWaterLevel = new RoundedDouble(2, designWaterLevel);
             Assert.AreEqual(expectedDesignWaterLevel, properties.DesignWaterLevel);
             Assert.AreEqual("-", properties.Convergence);
         }
@@ -97,10 +102,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             DesignWaterLevelLocationContextProperties properties =
                 new DesignWaterLevelLocationContextProperties
                 {
-                    Data = hydraulicBoundaryLocation
+                    Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
                 };
 
             // Call

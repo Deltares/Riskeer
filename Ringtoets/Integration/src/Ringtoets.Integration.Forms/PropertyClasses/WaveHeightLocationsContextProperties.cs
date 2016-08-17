@@ -26,6 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Properties;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -45,7 +46,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             {
                 return data.Locations.Select(loc => new WaveHeightLocationContextProperties
                 {
-                    Data = loc
+                    Data = new WaveHeightLocationContext(data, loc)
                 }).ToArray();
             }
         }
