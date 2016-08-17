@@ -41,8 +41,14 @@ namespace Ringtoets.Integration.Plugin.Test.Commands
     [TestFixture]
     public class CalculateDesignWaterLevelCommandHandlerTest : NUnitFormTest
     {
-        private readonly MockRepository mockRepository = new MockRepository();
+        private MockRepository mockRepository;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+        }
 
         [Test]
         public void Constructor_NullMainWindow_ThrowsArgumentNullException()

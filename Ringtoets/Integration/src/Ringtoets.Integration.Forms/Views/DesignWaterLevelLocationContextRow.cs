@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets whether the <see cref="DesignWaterLevelLocationContextRow"/> is set to be calculated.
+        /// Gets or sets whether the <see cref="DesignWaterLevelLocationContextRow"/> is set to be calculated.
         /// </summary>
         public bool ToCalculate { get; set; }
 

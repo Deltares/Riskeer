@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeDataGridView();
 
             assessmentSectionObserver = new Observer(UpdateDataGridViewDataSource);
-            hydraulicBoundaryDatabaseObserver = new Observer(RefreshDataGridView);
+            hydraulicBoundaryDatabaseObserver = new Observer(() => dataGridViewControl.RefreshDataGridView());
         }
 
         /// <summary>
@@ -84,11 +84,6 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void SetHydraulicBoundaryDatabaseObserver()
-        {
-            hydraulicBoundaryDatabaseObserver.Observable = assessmentSection != null ? assessmentSection.HydraulicBoundaryDatabase : null;
-        }
-
         public object Selection
         {
             get
@@ -110,9 +105,9 @@ namespace Ringtoets.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void RefreshDataGridView()
+        private void SetHydraulicBoundaryDatabaseObserver()
         {
-            dataGridViewControl.RefreshDataGridView();
+            hydraulicBoundaryDatabaseObserver.Observable = assessmentSection != null ? assessmentSection.HydraulicBoundaryDatabase : null;
         }
 
         private void InitializeDataGridView()
@@ -138,10 +133,9 @@ namespace Ringtoets.Integration.Forms.Views
             updatingDataSource = true;
             dataGridViewControl.SetDataSource(assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
                                                   ? assessmentSection.HydraulicBoundaryDatabase.Locations.Select(
-                                                  hl => new DesignWaterLevelLocationContextRow(
-                                                      new DesignWaterLevelLocationContext(assessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
+                                                      hl => new DesignWaterLevelLocationContextRow(
+                                                                new DesignWaterLevelLocationContext(assessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
                                                   : null);
-            RefreshDataGridView();
             updatingDataSource = false;
         }
 
