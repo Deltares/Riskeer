@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Service
             this.pipingProbabilityAssessmentInput = pipingProbabilityAssessmentInput;
             this.norm = norm;
             this.contribution = contribution;
-            
+
             Name = calculation.Name;
         }
 

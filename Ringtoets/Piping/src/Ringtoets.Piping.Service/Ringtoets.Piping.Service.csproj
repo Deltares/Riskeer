@@ -39,10 +39,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MathNet.Numerics, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\MathNet.Numerics.3.8.0\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>
@@ -95,11 +91,6 @@
     <ProjectReference Include="..\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Ringtoets.Piping.Data</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.InputParameterCalculation\Ringtoets.Piping.InputParameterCalculation.csproj">
-      <Project>{97F6406A-6338-4863-92A6-0D5C00A5F7C9}</Project>
-      <Name>Ringtoets.Piping.InputParameterCalculation</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.KernelWrapper\Ringtoets.Piping.KernelWrapper.csproj">

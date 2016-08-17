@@ -27,7 +27,6 @@ using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service.Properties;
-
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
@@ -200,7 +199,6 @@ namespace Ringtoets.Piping.Service
                     }
                 }
             }
-
 
             return validationResult;
         }
