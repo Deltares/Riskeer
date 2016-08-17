@@ -68,7 +68,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Commands\CalculateDesignWaterLevelCommandHandlerTest.cs" />
     <Compile Include="FileExporters\HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
     <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporterTest.cs" />

@@ -34,9 +34,8 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Commands;
-using Ringtoets.Integration.Plugin.Commands;
 
-namespace Ringtoets.Integration.Plugin.Test.Commands
+namespace Ringtoets.Integration.Forms.Test.Commands
 {
     [TestFixture]
     public class CalculateDesignWaterLevelCommandHandlerTest : NUnitFormTest

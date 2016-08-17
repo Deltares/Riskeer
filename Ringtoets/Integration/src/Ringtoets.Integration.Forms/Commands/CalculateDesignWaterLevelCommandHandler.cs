@@ -28,11 +28,10 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Integration.Forms.Commands;
-using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Service;
 
-namespace Ringtoets.Integration.Plugin.Commands
+namespace Ringtoets.Integration.Forms.Commands
 {
     /// <summary>
     /// This class is responsible for calculating the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
@@ -76,7 +75,7 @@ namespace Ringtoets.Integration.Plugin.Commands
             }
             else
             {
-                log.ErrorFormat(Resources.RingtoetsPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_, validationProblem);
+                log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_, validationProblem);
             }
         }
     }

@@ -66,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Gets or sets the <see cref="ICalculateDesignWaterLevelCommandHandler"/>.
         /// </summary>
-        public ICalculateDesignWaterLevelCommandHandler CalculationCommandHandler { private get; set; }
+        public ICalculateDesignWaterLevelCommandHandler CalculationCommandHandler { get; set; }
 
         public object Data
         {
