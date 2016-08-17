@@ -254,7 +254,7 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
-            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = true;
+            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
             hydraulicBoundaryLocation.Attach(observerMock);
 
             var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
@@ -263,14 +263,14 @@ namespace Ringtoets.Integration.Service.Test
 
             // Precondition
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
-            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.WaveHeight));
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
         }
 
@@ -293,7 +293,7 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
-            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = true;
+            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
             hydraulicBoundaryLocation.Attach(observerMock);
 
             var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
@@ -302,14 +302,14 @@ namespace Ringtoets.Integration.Service.Test
 
             // Precondition
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
-            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
-            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
         }
 
@@ -332,7 +332,7 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
-            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = true;
+            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
             hydraulicBoundaryLocation.Attach(observerMock);
 
             var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
@@ -340,7 +340,7 @@ namespace Ringtoets.Integration.Service.Test
             activity.Run();
 
             // Precondition
-            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 
             // Call
             Action call = () => activity.Finish();
@@ -353,7 +353,7 @@ namespace Ringtoets.Integration.Service.Test
                 StringAssert.StartsWith("Golfhoogte berekening voor locatie punt_flw_ 1 is niet geconvergeerd.", msgs[0]);
                 StringAssert.StartsWith("Uitvoeren van 'Golfhoogte berekenen voor locatie 'punt_flw_ 1'' is gelukt.", msgs[1]);
             });
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
         }
 

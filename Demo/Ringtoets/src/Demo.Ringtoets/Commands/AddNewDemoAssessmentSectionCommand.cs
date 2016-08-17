@@ -105,7 +105,9 @@ namespace Demo.Ringtoets.Commands
             }
 
             SetHydraulicBoundaryLocationDesignWaterLevelValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
             SetHydraulicBoundaryLocationWaveHeightValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationWaveHeightCalculationConvergence(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
         }
 
         private void InitializeDemoFailureMechanismSections(AssessmentSection demoAssessmentSection)
@@ -219,6 +221,15 @@ namespace Demo.Ringtoets.Commands
             locations.ElementAt(17).DesignWaterLevel = 6.0;
         }
 
+        private void SetHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(ICollection<HydraulicBoundaryLocation> locations)
+        {
+            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
+            {
+                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged;
+            }
+            locations.ElementAt(15).DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged;
+        }
+
         private void SetHydraulicBoundaryLocationWaveHeightValues(ICollection<HydraulicBoundaryLocation> locations)
         {
             locations.ElementAt(0).WaveHeight = 4.13374;
@@ -239,6 +250,14 @@ namespace Demo.Ringtoets.Commands
             locations.ElementAt(15).WaveHeight = 9.57558;
             locations.ElementAt(16).WaveHeight = 8.01959;
             locations.ElementAt(17).WaveHeight = 4.11447;
+        }
+
+        private void SetHydraulicBoundaryLocationWaveHeightCalculationConvergence(ICollection<HydraulicBoundaryLocation> locations)
+        {
+            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
+            {
+                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
+            }
         }
     }
 }

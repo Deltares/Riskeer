@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Service
                 {
                     log.WarnFormat(Resources.DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);
                 }
-                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = designWaterLevelCalculationConvergence;
+                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = designWaterLevelCalculationConvergence ? CalculationConvergence.CalculatedConverged : CalculationConvergence.CalculatedNotConverged;
             });
         }
     }

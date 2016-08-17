@@ -245,7 +245,7 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
-            hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = true;
+            hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged;
 
             var activity = new DesignWaterLevelCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 
@@ -253,14 +253,14 @@ namespace Ringtoets.Integration.Service.Test
 
             // Precondition
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
 
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel));
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             mockRepository.VerifyAll();
         }
 
@@ -280,7 +280,7 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
-            hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = true;
+            hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged;
 
             var activity = new DesignWaterLevelCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 
@@ -288,14 +288,14 @@ namespace Ringtoets.Integration.Service.Test
 
             // Precondition
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
 
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             mockRepository.VerifyAll();
         }
 
@@ -315,14 +315,14 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
-            hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = true;
+            hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged;
 
             var activity = new DesignWaterLevelCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 
             activity.Run();
 
             // Precondition
-            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
 
             // Call
             Action call = () => activity.Finish();
@@ -335,7 +335,7 @@ namespace Ringtoets.Integration.Service.Test
                 StringAssert.StartsWith("Toetspeil berekening voor locatie punt_flw_ 1 is niet geconvergeerd.", msgs[0]);
                 StringAssert.StartsWith("Uitvoeren van 'Toetspeil berekenen voor locatie 'punt_flw_ 1'' is gelukt.", msgs[1]);
             });
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             mockRepository.VerifyAll();
         }
 

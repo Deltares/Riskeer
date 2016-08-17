@@ -62,8 +62,8 @@ namespace Ringtoets.HydraRing.Data.Test
             Assert.AreEqual(y, location.Y);
             Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
         }
 
         [Test]

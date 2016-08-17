@@ -138,6 +138,8 @@ namespace Ringtoets.Integration.Service
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = double.NaN;
                 hydraulicBoundaryLocation.WaveHeight = double.NaN;
+                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated;
+                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated;
                 locationAffected = true;
             }
 

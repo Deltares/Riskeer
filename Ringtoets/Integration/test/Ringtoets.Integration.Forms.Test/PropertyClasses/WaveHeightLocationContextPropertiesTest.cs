@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.AreEqual(string.Empty, properties.WaveHeight);
-            Assert.IsFalse(properties.Convergence);
+            Assert.AreEqual("-", properties.Convergence);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(coordinates, properties.Location);
             string expectedWaveHeight = new RoundedDouble(2, waveHeight).ToString();
             Assert.AreEqual(expectedWaveHeight, properties.WaveHeight);
-            Assert.IsFalse(properties.Convergence);
+            Assert.AreEqual("-", properties.Convergence);
         }
 
         [Test]

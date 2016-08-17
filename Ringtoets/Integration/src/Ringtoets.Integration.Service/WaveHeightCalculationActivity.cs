@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Service
                 {
                     log.WarnFormat(Resources.WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);
                 }
-                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = waveHeightCalculationConvergence;
+                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = waveHeightCalculationConvergence ? CalculationConvergence.CalculatedConverged : CalculationConvergence.CalculatedNotConverged;
             });
             hydraulicBoundaryLocation.NotifyObservers();
         }

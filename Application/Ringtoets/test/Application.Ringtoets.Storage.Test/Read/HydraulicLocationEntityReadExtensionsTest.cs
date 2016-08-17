@@ -62,8 +62,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = testName,
                 LocationX = x,
                 LocationY = y,
-                DesignWaterLevelCalculationConvergence = Convert.ToByte(true),
-                WaveHeightCalculationConvergence = Convert.ToByte(true)
+                DesignWaterLevelCalculationConvergence = (byte)CalculationConvergence.CalculatedConverged,
+                WaveHeightCalculationConvergence = (byte)CalculationConvergence.CalculatedConverged
             };
 
             var collector = new ReadConversionCollector();
@@ -80,8 +80,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(y, location.Location.Y, 1e-6);
             Assert.IsNaN(location.DesignWaterLevel);
             Assert.IsNaN(location.WaveHeight);
-            Assert.IsTrue(location.DesignWaterLevelCalculationConvergence);
-            Assert.IsTrue(location.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, location.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, location.WaveHeightCalculationConvergence);
         } 
 
         [Test]

@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.AreEqual(string.Empty, properties.DesignWaterLevel);
-            Assert.IsFalse(properties.Convergence);
+            Assert.AreEqual("-", properties.Convergence);
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(coordinates, properties.Location);
             string expectedDesignWaterLevel = new RoundedDouble(2, designWaterLevel).ToString();
             Assert.AreEqual(expectedDesignWaterLevel, properties.DesignWaterLevel);
-            Assert.IsFalse(properties.Convergence);
+            Assert.AreEqual("-", properties.Convergence);
         }
 
         [Test]

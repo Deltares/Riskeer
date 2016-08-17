@@ -22,6 +22,7 @@
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Properties;
 using Ringtoets.HydraRing.Data;
@@ -76,11 +77,11 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description")]
-        public bool Convergence
+        public string Convergence
         {
             get
             {
-                return data.DesignWaterLevelCalculationConvergence;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.DesignWaterLevelCalculationConvergence).DisplayName;
             }
         }
     }

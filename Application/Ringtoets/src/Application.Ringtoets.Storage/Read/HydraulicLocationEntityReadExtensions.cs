@@ -68,10 +68,10 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = 
-                Convert.ToBoolean(entity.DesignWaterLevelCalculationConvergence);
+                (CalculationConvergence)entity.DesignWaterLevelCalculationConvergence;
 
             hydraulicBoundaryLocation.WaveHeightCalculationConvergence = 
-                Convert.ToBoolean(entity.WaveHeightCalculationConvergence);
+                (CalculationConvergence)entity.WaveHeightCalculationConvergence;
 
             collector.Read(entity, hydraulicBoundaryLocation);
 

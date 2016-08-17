@@ -100,8 +100,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 DesignWaterLevel = waterLevel,
                 WaveHeight = waveHeight,
-                DesignWaterLevelCalculationConvergence = true,
-                WaveHeightCalculationConvergence = true
+                DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged,
+                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged
             };
             var registry = new PersistenceRegistry();
 
@@ -112,8 +112,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity);
             Assert.AreEqual(waterLevel, entity.DesignWaterLevel);
             Assert.AreEqual(waveHeight, entity.WaveHeight);
-            Assert.AreEqual(Convert.ToByte(true), entity.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(Convert.ToByte(true), entity.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence)entity.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence)entity.WaveHeightCalculationConvergence);
         }
 
         [Test]

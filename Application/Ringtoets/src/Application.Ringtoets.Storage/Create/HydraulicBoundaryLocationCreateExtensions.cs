@@ -57,8 +57,8 @@ namespace Application.Ringtoets.Storage.Create
                 LocationY = location.Location.Y.ToNaNAsNull(),
                 DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel,
                 WaveHeight = double.IsNaN(location.WaveHeight) ? (double?)null : location.WaveHeight,
-                DesignWaterLevelCalculationConvergence = Convert.ToByte(location.DesignWaterLevelCalculationConvergence),
-                WaveHeightCalculationConvergence = Convert.ToByte(location.WaveHeightCalculationConvergence),
+                DesignWaterLevelCalculationConvergence = (byte)location.DesignWaterLevelCalculationConvergence,
+                WaveHeightCalculationConvergence = (byte)location.WaveHeightCalculationConvergence,
                 Order = order
             };
 
