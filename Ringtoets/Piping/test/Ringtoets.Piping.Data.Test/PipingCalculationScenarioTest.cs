@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -85,7 +84,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Probability_PipingOutputSet_ReturnsPipingOutputProbability()
         {
             // Setup
-            var expectedProbability = 1.0 / 49862180;
+            var expectedProbability = 1.0/49862180;
 
             var scenario = new PipingCalculationScenario(new GeneralPipingInput())
             {

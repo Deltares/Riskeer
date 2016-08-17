@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
 
@@ -613,7 +612,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
-            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new []
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
                 new PipingSoilLayer(1.0)
                 {
@@ -629,13 +628,14 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNaN(result.Shift);
             Assert.IsNaN(result.StandardDeviation);
         }
+
         [Test]
         public void SaturatedVolumicWeightOfCoverageLayer_NoAquiferLayers_ReturnsNaNForParameters()
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
-            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new []
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
                 new PipingSoilLayer(1.0)
                 {
@@ -658,7 +658,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
-            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new []
+            input.StochasticSoilProfile.SoilProfile = new PipingSoilProfile("", -2.0, new[]
             {
                 new PipingSoilLayer(2.0)
                 {
@@ -700,7 +700,7 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(0.5)
                 {
                     IsAquifer = true
-                }, 
+                },
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -740,14 +740,14 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                }, 
+                },
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual((belowPhreaticLevelMeanA*2.5 + belowPhreaticLevelMeanB*1.0)/3.5, result.Mean, result.Mean.GetAccuracy());
             Assert.AreEqual(shift, result.Shift, result.Shift.GetAccuracy());
             Assert.AreEqual(deviation, result.StandardDeviation, result.StandardDeviation.GetAccuracy());
         }
@@ -788,7 +788,7 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                }, 
+                },
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -825,18 +825,18 @@ namespace Ringtoets.Piping.Data.Test
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                }, 
+                },
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
             var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
 
             // Assert
-            Assert.AreEqual((belowPhreaticLevelMeanA * 2.5 + belowPhreaticLevelMeanB * 1.0) / 3.5, result.Mean, result.Mean.GetAccuracy());
+            Assert.AreEqual((belowPhreaticLevelMeanA*2.5 + belowPhreaticLevelMeanB*1.0)/3.5, result.Mean, result.Mean.GetAccuracy());
             Assert.AreEqual((RoundedDouble) 1.01, result.Shift);
-            Assert.AreEqual((RoundedDouble)1.01, result.StandardDeviation);
+            Assert.AreEqual((RoundedDouble) 1.01, result.StandardDeviation);
         }
-        
+
         [Test]
         public void SaturatedVolumicWeightOfCoverageLayer_OneLayerWithIncorrectShiftMeanCombination_ReturnsNaNValues()
         {
@@ -849,12 +849,12 @@ namespace Ringtoets.Piping.Data.Test
                 {
                     BelowPhreaticLevelDeviation = 2.5,
                     BelowPhreaticLevelShift = 1.01,
-                    BelowPhreaticLevelMean =  1.00
+                    BelowPhreaticLevelMean = 1.00
                 },
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                }, 
+                },
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call
@@ -878,18 +878,18 @@ namespace Ringtoets.Piping.Data.Test
                 {
                     BelowPhreaticLevelDeviation = 3.5,
                     BelowPhreaticLevelShift = 0.5,
-                    BelowPhreaticLevelMean =  1.00
+                    BelowPhreaticLevelMean = 1.00
                 },
                 new PipingSoilLayer(-0.5)
                 {
                     BelowPhreaticLevelDeviation = 2.5,
                     BelowPhreaticLevelShift = 1.01,
-                    BelowPhreaticLevelMean =  1.00
+                    BelowPhreaticLevelMean = 1.00
                 },
                 new PipingSoilLayer(-1.5)
                 {
                     IsAquifer = true
-                }, 
+                },
             }, SoilProfileType.SoilProfile1D, 0);
 
             // Call

@@ -32,7 +32,6 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data.Properties;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.SubCalculator;
-using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Ringtoets.Piping.Primitives;
 
@@ -156,7 +155,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            TestDelegate call = () => pipingInput.ExitPointL = (RoundedDouble)value;
+            TestDelegate call = () => pipingInput.ExitPointL = (RoundedDouble) value;
 
             // Assert
             var expectedMessage = Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL;
@@ -208,7 +207,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             input.EntryPointL = (RoundedDouble) double.NaN;
-            
+
             int originalNumberOfDecimalPlaces = input.ExitPointL.NumberOfDecimalPlaces;
 
             // Call
@@ -227,11 +226,11 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingInput pipingInput = new PipingInput(new GeneralPipingInput())
             {
-                ExitPointL = (RoundedDouble)3.5
+                ExitPointL = (RoundedDouble) 3.5
             };
 
             // Call
-            TestDelegate call = () => pipingInput.EntryPointL = (RoundedDouble)value;
+            TestDelegate call = () => pipingInput.EntryPointL = (RoundedDouble) value;
 
             // Assert
             var expectedMessage = Resources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL;
@@ -245,16 +244,16 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(-5.4)]
         public void EntryPointL_EntryPointNotOnSurfaceLine_ThrowsArgumentOutOfRangeException(double value)
         {
-             // Setup
+            // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             input.ExitPointL = (RoundedDouble) double.NaN;
             // Call
-            TestDelegate call = () => input.EntryPointL = (RoundedDouble)value;
+            TestDelegate call = () => input.EntryPointL = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-         }
+        }
 
         [Test]
         [TestCase(double.NaN)]
@@ -266,7 +265,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble)double.NaN;
+            input.ExitPointL = (RoundedDouble) double.NaN;
 
             int originalNumberOfDecimalPlaces = input.EntryPointL.NumberOfDecimalPlaces;
 
@@ -750,7 +749,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0.5, seepageLength.Mean.Value);
             Assert.AreEqual(0.05, seepageLength.StandardDeviation.Value);
         }
-            
+
         [Test]
         public void SeepageLength_EntryPointNaN_SeepageLengthNaN()
         {

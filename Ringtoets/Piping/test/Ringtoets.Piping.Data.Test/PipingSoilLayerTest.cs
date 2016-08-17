@@ -54,7 +54,6 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.IsNaN(layer.PermeabilityMean);
             Assert.IsNaN(layer.PermeabilityDeviation);
-
         }
 
         [Test]

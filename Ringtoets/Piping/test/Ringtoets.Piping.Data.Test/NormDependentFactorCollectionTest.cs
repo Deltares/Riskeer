@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithTooFewPoints_ThrowArgumentException(int pointCount)
         {
             // Setup
-            Tuple<int, double>[] points = Enumerable.Repeat(Tuple.Create(1,0.2), pointCount).ToArray();
+            Tuple<int, double>[] points = Enumerable.Repeat(Tuple.Create(1, 0.2), pointCount).ToArray();
 
             // Call
             TestDelegate test = () => new NormDependentFactorCollection(points);
@@ -61,7 +61,8 @@ namespace Ringtoets.Piping.Data.Test
         public void GetFactorFromNorm_NormOutsideRange_ThrowArgumentOutOfRangeException(int norm)
         {
             // Setup
-            Tuple<int, double>[] points = {
+            Tuple<int, double>[] points =
+            {
                 Tuple.Create(1, 0.2),
                 Tuple.Create(30, 0.5)
             };
@@ -84,9 +85,10 @@ namespace Ringtoets.Piping.Data.Test
         public void GetFactorFromNorm_NormInsideRange_ReturnsInterpolatedValue(int norm, double expectedValue)
         {
             // Setup
-            Tuple<int, double>[] points = {
+            Tuple<int, double>[] points =
+            {
                 Tuple.Create(1, 0.2),
-                Tuple.Create(30, 0.5), 
+                Tuple.Create(30, 0.5),
                 Tuple.Create(50, 0.6)
             };
             var collection = new NormDependentFactorCollection(points);

@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 
@@ -132,9 +130,9 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
-        [TestCase(0.0-1e-6)]
+        [TestCase(0.0 - 1e-6)]
         [TestCase(-346587.456)]
-        [TestCase(1.0+1e-6)]
+        [TestCase(1.0 + 1e-6)]
         [TestCase(346587.456)]
         public void RequiredProbability_SetInvalidValues_ThrowArgumentOutOfRangeException(double requiredProbability)
         {
@@ -155,19 +153,19 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
-                upliftFactorOfSafety,
-                upliftProbability,
-                heaveFactorOfSafety,
-                heaveReliability,
-                heaveProbability,
-                sellmeijerFactorOfSafety,
-                sellmeijerReliability,
-                sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
-                pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                                          upliftFactorOfSafety,
+                                          upliftProbability,
+                                          heaveFactorOfSafety,
+                                          heaveReliability,
+                                          heaveProbability,
+                                          sellmeijerFactorOfSafety,
+                                          sellmeijerReliability,
+                                          sellmeijerProbability,
+                                          requiredProbability,
+                                          requiredReliability,
+                                          pipingProbability,
+                                          pipingReliability,
+                                          pipingFactorOfSafety);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
@@ -242,19 +240,19 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
-                upliftFactorOfSafety,
-                upliftProbability,
-                heaveFactorOfSafety,
-                heaveReliability,
-                heaveProbability,
-                sellmeijerFactorOfSafety,
-                sellmeijerReliability,
-                sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
-                pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                                          upliftFactorOfSafety,
+                                          upliftProbability,
+                                          heaveFactorOfSafety,
+                                          heaveReliability,
+                                          heaveProbability,
+                                          sellmeijerFactorOfSafety,
+                                          sellmeijerReliability,
+                                          sellmeijerProbability,
+                                          requiredProbability,
+                                          requiredReliability,
+                                          pipingProbability,
+                                          pipingReliability,
+                                          pipingFactorOfSafety);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
@@ -329,19 +327,19 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
-                upliftFactorOfSafety,
-                upliftProbability,
-                heaveFactorOfSafety,
-                heaveReliability,
-                heaveProbability,
-                sellmeijerFactorOfSafety,
-                sellmeijerReliability,
-                sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
-                pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                                          upliftFactorOfSafety,
+                                          upliftProbability,
+                                          heaveFactorOfSafety,
+                                          heaveReliability,
+                                          heaveProbability,
+                                          sellmeijerFactorOfSafety,
+                                          sellmeijerReliability,
+                                          sellmeijerProbability,
+                                          requiredProbability,
+                                          requiredReliability,
+                                          pipingProbability,
+                                          pipingReliability,
+                                          pipingFactorOfSafety);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
@@ -416,19 +414,19 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
-                upliftFactorOfSafety,
-                upliftProbability,
-                heaveFactorOfSafety,
-                heaveReliability,
-                heaveProbability,
-                sellmeijerFactorOfSafety,
-                sellmeijerReliability,
-                sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
-                pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                                          upliftFactorOfSafety,
+                                          upliftProbability,
+                                          heaveFactorOfSafety,
+                                          heaveReliability,
+                                          heaveProbability,
+                                          sellmeijerFactorOfSafety,
+                                          sellmeijerReliability,
+                                          sellmeijerProbability,
+                                          requiredProbability,
+                                          requiredReliability,
+                                          pipingProbability,
+                                          pipingReliability,
+                                          pipingFactorOfSafety);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";
@@ -503,19 +501,19 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call
             TestDelegate call = () => new PipingSemiProbabilisticOutput(
-                upliftFactorOfSafety,
-                upliftProbability,
-                heaveFactorOfSafety,
-                heaveReliability,
-                heaveProbability,
-                sellmeijerFactorOfSafety,
-                sellmeijerReliability,
-                sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
-                pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                                          upliftFactorOfSafety,
+                                          upliftProbability,
+                                          heaveFactorOfSafety,
+                                          heaveReliability,
+                                          heaveProbability,
+                                          sellmeijerFactorOfSafety,
+                                          sellmeijerReliability,
+                                          sellmeijerProbability,
+                                          requiredProbability,
+                                          requiredReliability,
+                                          pipingProbability,
+                                          pipingReliability,
+                                          pipingFactorOfSafety);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0, 1] opgegeven worden.";

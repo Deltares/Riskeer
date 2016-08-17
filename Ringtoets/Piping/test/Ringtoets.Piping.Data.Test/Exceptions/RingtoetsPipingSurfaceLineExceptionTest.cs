@@ -88,4 +88,4 @@ namespace Ringtoets.Piping.Data.Test.Exceptions
             Assert.IsNull(exception.TargetSite);
         }
     }
-} 
+}

@@ -29,21 +29,24 @@ namespace Ringtoets.Piping.Data.Test
     [TestFixture]
     public class PipingSoilProfileExtensionsTest
     {
-        private readonly PipingSoilLayer[] testCaseOneAquiferLayer = {
+        private readonly PipingSoilLayer[] testCaseOneAquiferLayer =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
             }
         };
 
-        private readonly PipingSoilLayer[] testCaseOneAquitardLayer = {
+        private readonly PipingSoilLayer[] testCaseOneAquitardLayer =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
             }
         };
 
-        private readonly PipingSoilLayer[] testCaseOneCoverageLayer = {
+        private readonly PipingSoilLayer[] testCaseOneCoverageLayer =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -54,7 +57,8 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private readonly PipingSoilLayer[] testCaseTwoAquitardLayers = {
+        private readonly PipingSoilLayer[] testCaseTwoAquitardLayers =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -65,7 +69,8 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private readonly PipingSoilLayer[] testCaseTwoAquiferLayers = {
+        private readonly PipingSoilLayer[] testCaseTwoAquiferLayers =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
@@ -76,7 +81,8 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private readonly PipingSoilLayer[] testCaseTwoCoverageLayers = {
+        private readonly PipingSoilLayer[] testCaseTwoCoverageLayers =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -91,7 +97,8 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private readonly PipingSoilLayer[] testCaseOneAquiferLayerOneAquitardLayer = {
+        private readonly PipingSoilLayer[] testCaseOneAquiferLayerOneAquitardLayer =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
@@ -102,7 +109,8 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private readonly PipingSoilLayer[] testCaseOneAquitardLayerOneAquiferLayer = {
+        private readonly PipingSoilLayer[] testCaseOneAquitardLayerOneAquiferLayer =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -113,7 +121,8 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private readonly PipingSoilLayer[] testCaseTwoAquiferLayersOneAquitardLayerOneAquiferLayer = {
+        private readonly PipingSoilLayer[] testCaseTwoAquiferLayersOneAquitardLayerOneAquiferLayer =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = true
@@ -132,7 +141,8 @@ namespace Ringtoets.Piping.Data.Test
             }
         };
 
-        private readonly PipingSoilLayer[] testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer = {
+        private readonly PipingSoilLayer[] testCaseTwoCoverageLayersOneAquiferLayerOneAquitardLayer =
+        {
             new PipingSoilLayer(2.1)
             {
                 IsAquifer = false
@@ -150,6 +160,11 @@ namespace Ringtoets.Piping.Data.Test
                 IsAquifer = false
             }
         };
+
+        private PipingSoilProfile CreateTestProfile(PipingSoilLayer[] layers)
+        {
+            return new PipingSoilProfile(string.Empty, 0.0, layers, SoilProfileType.SoilProfile1D, 0);
+        }
 
         #region GetTopmostConsecutiveAquiferLayerThicknessBelowLevel
 
@@ -362,7 +377,10 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(2.2);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(0) }, result);
+            CollectionAssert.AreEqual(new[]
+            {
+                profile.Layers.ElementAt(0)
+            }, result);
         }
 
         [Test]
@@ -375,7 +393,10 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(1.6);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(0) }, result);
+            CollectionAssert.AreEqual(new[]
+            {
+                profile.Layers.ElementAt(0)
+            }, result);
         }
 
         [Test]
@@ -388,7 +409,10 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(2.1);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(0) }, result);
+            CollectionAssert.AreEqual(new[]
+            {
+                profile.Layers.ElementAt(0)
+            }, result);
         }
 
         [Test]
@@ -453,9 +477,12 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(0.5);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(1) }, result);
+            CollectionAssert.AreEqual(new[]
+            {
+                profile.Layers.ElementAt(1)
+            }, result);
         }
-        
+
         [Test]
         public void GetConsecutiveAquiferLayersBelowLevel_BottomAquiferLayerTopEqualToLevel_ReturnCollectionWithBottomAquiferLayer()
         {
@@ -466,7 +493,10 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveAquiferLayersBelowLevel(1.1);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(1) }, result);
+            CollectionAssert.AreEqual(new[]
+            {
+                profile.Layers.ElementAt(1)
+            }, result);
         }
 
         [Test]
@@ -639,7 +669,10 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(0.5);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(1) }, result);
+            CollectionAssert.AreEqual(new[]
+            {
+                profile.Layers.ElementAt(1)
+            }, result);
         }
 
         [Test]
@@ -652,7 +685,10 @@ namespace Ringtoets.Piping.Data.Test
             IEnumerable<PipingSoilLayer> result = profile.GetConsecutiveCoverageLayersBelowLevel(1.1);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { profile.Layers.ElementAt(1) }, result);
+            CollectionAssert.AreEqual(new[]
+            {
+                profile.Layers.ElementAt(1)
+            }, result);
         }
 
         [Test]
@@ -698,10 +734,5 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         #endregion
-
-        private PipingSoilProfile CreateTestProfile(PipingSoilLayer[] layers)
-        {
-            return new PipingSoilProfile(string.Empty, 0.0, layers, SoilProfileType.SoilProfile1D, 0);
-        }
     }
 }
