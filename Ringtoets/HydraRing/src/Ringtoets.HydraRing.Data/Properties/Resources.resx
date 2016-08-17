@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CalculationConvergence_CalculatedConverged" xml:space="preserve">
-    <value>ja</value>
+    <value>Ja</value>
   </data>
   <data name="CalculationConvergence_CalculatedNotConverged" xml:space="preserve">
-    <value>nee</value>
+    <value>Nee</value>
   </data>
   <data name="CalculationConvergence_NotCalculated" xml:space="preserve">
-    <value>-</value>
+    <value />
   </data>
 </root>

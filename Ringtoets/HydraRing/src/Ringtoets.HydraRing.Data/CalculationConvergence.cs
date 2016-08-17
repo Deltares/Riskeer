@@ -24,6 +24,9 @@ using Ringtoets.HydraRing.Data.Properties;
 
 namespace Ringtoets.HydraRing.Data
 {
+    /// <summary>
+    /// Enumeration denoting the convergence status of a calculation.
+    /// </summary>
     public enum CalculationConvergence
     {
         [ResourcesDisplayName(typeof(Resources), "CalculationConvergence_NotCalculated")]

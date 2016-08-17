@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.HydraRing.Data")]
 [assembly: AssemblyProduct("Ringtoets.HydraRing.Data")]
 [assembly: Guid("70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2")]
+[assembly: InternalsVisibleTo("Ringtoets.Integration.Forms.Test")]

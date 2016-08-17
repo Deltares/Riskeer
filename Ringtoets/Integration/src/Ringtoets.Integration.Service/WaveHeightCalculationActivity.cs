@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Service
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             Name = string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_,
-                                     hydraulicBoundaryLocation.Name);
+                                 hydraulicBoundaryLocation.Name);
         }
 
         protected override void OnRun()
@@ -92,7 +92,9 @@ namespace Ringtoets.Integration.Service
                 {
                     log.WarnFormat(Resources.WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);
                 }
-                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = waveHeightCalculationConvergence ? CalculationConvergence.CalculatedConverged : CalculationConvergence.CalculatedNotConverged;
+                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = waveHeightCalculationConvergence
+                                                                                 ? CalculationConvergence.CalculatedConverged
+                                                                                 : CalculationConvergence.CalculatedNotConverged;
             });
             hydraulicBoundaryLocation.NotifyObservers();
         }

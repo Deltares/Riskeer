@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
+using RingtoetsHydraRingDataResources = Ringtoets.HydraRing.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
@@ -60,7 +61,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
             Assert.IsNaN(properties.DesignWaterLevel);
-            Assert.AreEqual("-", properties.Convergence);
+            Assert.AreEqual(RingtoetsHydraRingDataResources.CalculationConvergence_NotCalculated, properties.Convergence);
         }
 
         [Test]
@@ -94,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(coordinates, properties.Location);
             var expectedDesignWaterLevel = new RoundedDouble(2, designWaterLevel);
             Assert.AreEqual(expectedDesignWaterLevel, properties.DesignWaterLevel);
-            Assert.AreEqual("-", properties.Convergence);
+            Assert.AreEqual(RingtoetsHydraRingDataResources.CalculationConvergence_NotCalculated, properties.Convergence);
         }
 
         [Test]

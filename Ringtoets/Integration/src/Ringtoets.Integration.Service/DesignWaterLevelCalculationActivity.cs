@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Service
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             Name = string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_,
-                                     hydraulicBoundaryLocation.Name);
+                                 hydraulicBoundaryLocation.Name);
         }
 
         protected override void OnRun()
@@ -86,13 +86,15 @@ namespace Ringtoets.Integration.Service
             PerformFinish(() =>
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = Output.Result;
-                bool designWaterLevelCalculationConvergence = 
+                bool designWaterLevelCalculationConvergence =
                     Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
                 if (!designWaterLevelCalculationConvergence)
                 {
                     log.WarnFormat(Resources.DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);
                 }
-                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = designWaterLevelCalculationConvergence ? CalculationConvergence.CalculatedConverged : CalculationConvergence.CalculatedNotConverged;
+                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = designWaterLevelCalculationConvergence
+                                                                                       ? CalculationConvergence.CalculatedConverged
+                                                                                       : CalculationConvergence.CalculatedNotConverged;
             });
         }
     }
