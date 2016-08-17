@@ -22,10 +22,10 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Components.OxyPlot.CustomSeries;
+using Core.Components.OxyPlot.Forms.Properties;
 using NUnit.Framework;
 using OxyPlot;
 using OxyPlot.Axes;
-using Core.Components.OxyPlot.Forms.Properties;
 using OxyPlot.WindowsForms;
 using TickStyle = OxyPlot.Axes.TickStyle;
 
@@ -47,13 +47,41 @@ namespace Core.Components.OxyPlot.Forms.Test
             var axes = view.Model.Axes;
             Assert.AreEqual(2, axes.Count);
             CollectionAssert.AllItemsAreInstancesOfType(axes, typeof(LinearAxis));
-            CollectionAssert.AreEqual(new [] {Resources.ChartControl_XAxisTitle, Resources.ChartControl_YAxisTitle} , axes.Select(a => a.Title));
-            CollectionAssert.AreEqual(new [] {AxisPosition.Bottom, AxisPosition.Left} , axes.Select(a => a.Position));
-            CollectionAssert.AreEqual(new [] {TickStyle.None, TickStyle.None} , axes.Select(a => a.TickStyle));
-            CollectionAssert.AreEqual(new [] {AxisLayer.AboveSeries, AxisLayer.AboveSeries} , axes.Select(a => a.Layer));
-            CollectionAssert.AreEqual(new [] {LineStyle.Solid, LineStyle.Solid} , axes.Select(a => a.MajorGridlineStyle));
-            CollectionAssert.AreEqual(new [] {LineStyle.Dot,LineStyle.Dot} , axes.Select(a => a.MinorGridlineStyle));
-            CollectionAssert.AreEqual(new [] {0.1, 0.1} , axes.Select(a => a.MinimumRange));
+            CollectionAssert.AreEqual(new[]
+            {
+                Resources.ChartControl_XAxisTitle,
+                Resources.ChartControl_YAxisTitle
+            }, axes.Select(a => a.Title));
+            CollectionAssert.AreEqual(new[]
+            {
+                AxisPosition.Bottom,
+                AxisPosition.Left
+            }, axes.Select(a => a.Position));
+            CollectionAssert.AreEqual(new[]
+            {
+                TickStyle.None,
+                TickStyle.None
+            }, axes.Select(a => a.TickStyle));
+            CollectionAssert.AreEqual(new[]
+            {
+                AxisLayer.AboveSeries,
+                AxisLayer.AboveSeries
+            }, axes.Select(a => a.Layer));
+            CollectionAssert.AreEqual(new[]
+            {
+                LineStyle.Solid,
+                LineStyle.Solid
+            }, axes.Select(a => a.MajorGridlineStyle));
+            CollectionAssert.AreEqual(new[]
+            {
+                LineStyle.Dot,
+                LineStyle.Dot
+            }, axes.Select(a => a.MinorGridlineStyle));
+            CollectionAssert.AreEqual(new[]
+            {
+                0.1,
+                0.1
+            }, axes.Select(a => a.MinimumRange));
         }
 
         [Test]
@@ -159,15 +187,15 @@ namespace Core.Components.OxyPlot.Forms.Test
             {
                 Areas =
                 {
-                    new []
+                    new[]
                     {
-                        new DataPoint(minX,maxY) 
+                        new DataPoint(minX, maxY)
                     },
-                    new []
+                    new[]
                     {
-                        new DataPoint(maxX,minY)
+                        new DataPoint(maxX, minY)
                     }
-                 }
+                }
             };
 
             view.Model.Series.Add(series);

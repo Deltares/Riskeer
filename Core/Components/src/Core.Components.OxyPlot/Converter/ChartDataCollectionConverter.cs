@@ -35,7 +35,7 @@ namespace Core.Components.OxyPlot.Converter
         {
             var factory = new ChartSeriesFactory();
             var seriesCollection = new List<Series>();
-            foreach(var chartData in data.Collection)
+            foreach (var chartData in data.Collection)
             {
                 seriesCollection.AddRange(factory.Create(chartData));
             }

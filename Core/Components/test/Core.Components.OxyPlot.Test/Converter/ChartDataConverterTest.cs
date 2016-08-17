@@ -106,19 +106,19 @@ namespace Core.Components.OxyPlot.Test.Converter
 
         private class Child : Class
         {
-            public Child(string name) : base(name) { }
+            public Child(string name) : base(name) {}
         }
 
         private class TestChartDataConverter<T> : ChartDataConverter<T> where T : ChartData
         {
-            protected override IList<Series> Convert(T data)
-            {
-                throw new NotImplementedException();
-            }
-
             public DataPoint PublicPoint2DToDataPoint(object obj)
             {
                 return Point2DToDataPoint(obj);
+            }
+
+            protected override IList<Series> Convert(T data)
+            {
+                throw new NotImplementedException();
             }
         }
     }

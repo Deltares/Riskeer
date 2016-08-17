@@ -55,4 +55,4 @@ namespace Core.Components.Charting.Test.Data
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
     }
-} 
+}

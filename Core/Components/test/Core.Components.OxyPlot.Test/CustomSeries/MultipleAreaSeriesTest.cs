@@ -51,7 +51,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
             var series = new MultipleAreaSeries();
 
             // Call
-            TestDelegate test = () =>series.Render(null);
+            TestDelegate test = () => series.Render(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -90,7 +90,7 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                     new DataPoint[0],
                     new DataPoint[0],
                     new DataPoint[0]
-                 }
+                }
             };
 
             // Call
@@ -129,17 +129,17 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
 
             for (var i = 0; i < pointCount; i++)
             {
-                area[i] = new DataPoint(random.Next(-50,50), random.Next(-50,50));
+                area[i] = new DataPoint(random.Next(-50, 50), random.Next(-50, 50));
             }
 
-            ((IPlotModel)model).Update(false);
+            ((IPlotModel) model).Update(false);
 
             // Call
             series.Render(renderContext);
 
             // Assert
             mocks.VerifyAll();
-        } 
+        }
 
         [Test]
         public void Render_MultipleNonEmptyArea_RendersTheAreas()
@@ -165,16 +165,16 @@ namespace Core.Components.OxyPlot.Test.CustomSeries
                 Arg<bool>.Is.Anything)).Repeat.Times(areaCount);
 
             mocks.ReplayAll();
-            
+
             for (var i = 0; i < areaCount; i++)
             {
-                series.Areas.Add(new []
+                series.Areas.Add(new[]
                 {
                     new DataPoint(random.Next(-50, 50), random.Next(-50, 50))
                 });
             }
 
-            ((IPlotModel)model).Update(false);
+            ((IPlotModel) model).Update(false);
 
             // Call
             series.Render(renderContext);

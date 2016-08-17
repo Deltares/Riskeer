@@ -78,7 +78,8 @@ namespace Core.Components.Gis.Test.Data
             Assert.AreEqual(newName, data.Name);
         }
 
-        private class MapDataChild : MapData {
+        private class MapDataChild : MapData
+        {
             public MapDataChild(string name) : base(name) {}
         }
     }

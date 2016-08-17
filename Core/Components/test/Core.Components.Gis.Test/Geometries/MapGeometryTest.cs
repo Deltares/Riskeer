@@ -79,6 +79,6 @@ namespace Core.Components.Gis.Test.Geometries
             // Assert
             const string expectedMessage = "MapGeometry cannot be created without points.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-        }	
+        }
     }
 }

@@ -96,7 +96,10 @@ namespace Core.Components.Gis.Test.Data
             var data = new TestFeatureBasedMapData("test data");
 
             // Call
-            TestDelegate test = () => data.Features = new MapFeature[]{ null };
+            TestDelegate test = () => data.Features = new MapFeature[]
+            {
+                null
+            };
 
             // Assert
             const string expectedMessage = "The array of features cannot be null or contain null.";
@@ -105,7 +108,7 @@ namespace Core.Components.Gis.Test.Data
 
         private class TestFeatureBasedMapData : FeatureBasedMapData
         {
-            public TestFeatureBasedMapData(string name) : base(name) { }
+            public TestFeatureBasedMapData(string name) : base(name) {}
         }
     }
 }

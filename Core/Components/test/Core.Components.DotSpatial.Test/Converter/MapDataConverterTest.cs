@@ -99,11 +99,13 @@ namespace Core.Components.DotSpatial.Test.Converter
             Assert.IsNotNull(result);
         }
 
-        private class Class : MapData {
+        private class Class : MapData
+        {
             public Class(string name) : base(name) {}
         }
 
-        private class Child : Class {
+        private class Child : Class
+        {
             public Child(string name) : base(name) {}
         }
 

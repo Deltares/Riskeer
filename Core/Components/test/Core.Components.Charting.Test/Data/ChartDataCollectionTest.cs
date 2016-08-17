@@ -102,7 +102,7 @@ namespace Core.Components.Charting.Test.Data
             // Precondition
             Assert.AreEqual(1, chartDataCollection.Collection.Count());
             Assert.AreSame(existingItem, chartDataCollection.Collection.ElementAt(0));
-            
+
             // Call
             chartDataCollection.Insert(0, itemToInsert);
 
@@ -124,24 +124,6 @@ namespace Core.Components.Charting.Test.Data
             // Assert
             const string expectedMessage = "An item cannot be null when adding it to the collection.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-        }
-
-        [TestCase(-1)]
-        [TestCase(2)]
-        public void Insert_InvalidIndex_ThrowsArgumentOutOfRangeException(int invalidIndex)
-        {
-            // Setup
-            var itemToInsert = new ChartLineData("test");
-            var existingItem = new TestChartData("test");
-            var chartDataCollection = new ChartDataCollection("test");
-
-            chartDataCollection.Add(existingItem);
-
-            // Call
-            TestDelegate call = () => chartDataCollection.Insert(invalidIndex, itemToInsert);
-
-            // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(call, "index");
         }
 
         [Test]
@@ -226,6 +208,24 @@ namespace Core.Components.Charting.Test.Data
 
             // Assert
             CollectionAssert.IsEmpty(chartDataCollection.Collection);
+        }
+
+        [TestCase(-1)]
+        [TestCase(2)]
+        public void Insert_InvalidIndex_ThrowsArgumentOutOfRangeException(int invalidIndex)
+        {
+            // Setup
+            var itemToInsert = new ChartLineData("test");
+            var existingItem = new TestChartData("test");
+            var chartDataCollection = new ChartDataCollection("test");
+
+            chartDataCollection.Add(existingItem);
+
+            // Call
+            TestDelegate call = () => chartDataCollection.Insert(invalidIndex, itemToInsert);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call, "index");
         }
     }
 }

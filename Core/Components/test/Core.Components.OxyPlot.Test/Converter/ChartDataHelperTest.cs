@@ -32,6 +32,27 @@ namespace Core.Components.OxyPlot.Test.Converter
     [TestFixture]
     public class ChartDataHelperTest
     {
+        #region Convert Color
+
+        [Test]
+        [TestCase(KnownColor.Blue)]
+        [TestCase(KnownColor.Red)]
+        [TestCase(KnownColor.Green)]
+        public void Convert_Color_ReturnsOxyColor(KnownColor knownColor)
+        {
+            // Setup
+            Color color = Color.FromKnownColor(knownColor);
+
+            // Call
+            OxyColor oxyColor = ChartDataHelper.Convert(color);
+
+            // Assert
+            OxyColor originalColor = OxyColor.FromArgb(color.A, color.R, color.G, color.B);
+            Assert.AreEqual(originalColor, oxyColor);
+        }
+
+        #endregion
+
         #region Convert DashStyle
 
         [Test]
@@ -146,27 +167,6 @@ namespace Core.Components.OxyPlot.Test.Converter
 
             // Assert
             Assert.AreEqual(MarkerType.Triangle, markerType);
-        }
-
-        #endregion
-
-        #region Convert Color
-
-        [Test]
-        [TestCase(KnownColor.Blue)]
-        [TestCase(KnownColor.Red)]
-        [TestCase(KnownColor.Green)]
-        public void Convert_Color_ReturnsOxyColor(KnownColor knownColor)
-        {
-            // Setup
-            Color color = Color.FromKnownColor(knownColor);
-
-            // Call
-            OxyColor oxyColor = ChartDataHelper.Convert(color);
-
-            // Assert
-            OxyColor originalColor = OxyColor.FromArgb(color.A, color.R, color.G, color.B);
-            Assert.AreEqual(originalColor, oxyColor);
         }
 
         #endregion

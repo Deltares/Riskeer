@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -62,7 +61,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string nonPointShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 shapeFileName);
+                                                                  shapeFileName);
 
             // Call
             TestDelegate call = () => new PointShapeFileReader(nonPointShapeFile);
@@ -115,7 +114,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Point_with_ID.shp");
+                                                                  "Single_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
@@ -131,7 +130,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithMultiplePoints = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                       "Multiple_Point_with_ID.shp");
+                                                                        "Multiple_Point_with_ID.shp");
 
             using (var reader = new PointShapeFileReader(shapeWithMultiplePoints))
             {
@@ -150,11 +149,11 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Point_with_ID.shp");
+                                                                  "Single_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData)reader.ReadFeature(name);
+                MapPointData pointData = (MapPointData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual(name, pointData.Name);
@@ -169,11 +168,11 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Point_with_ID.shp");
+                                                                  "Single_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData)reader.ReadFeature(name);
+                MapPointData pointData = (MapPointData) reader.ReadFeature(name);
 
                 // Assert
                 Assert.AreEqual("Punten", pointData.Name);
@@ -185,14 +184,14 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Point_with_ID.shp");
+                                                                  "Single_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
                 MapPointData pointData = reader.ReadFeature() as MapPointData;
 
                 // Assert
-                Assert.IsNotNull(pointData);                
+                Assert.IsNotNull(pointData);
                 Assert.AreEqual(1, pointData.Features.Length);
 
                 MapGeometry[] mapGeometries = pointData.Features.First().MapGeometries.ToArray();
@@ -220,17 +219,17 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(6, reader.GetNumberOfFeatures());
 
                 // Call
-                MapPointData points1 = (MapPointData)reader.ReadFeature();
-                MapPointData points2 = (MapPointData)reader.ReadFeature();
-                MapPointData points3 = (MapPointData)reader.ReadFeature();
-                MapPointData points4 = (MapPointData)reader.ReadFeature();
-                MapPointData points5 = (MapPointData)reader.ReadFeature();
-                MapPointData points6 = (MapPointData)reader.ReadFeature();
+                MapPointData points1 = (MapPointData) reader.ReadFeature();
+                MapPointData points2 = (MapPointData) reader.ReadFeature();
+                MapPointData points3 = (MapPointData) reader.ReadFeature();
+                MapPointData points4 = (MapPointData) reader.ReadFeature();
+                MapPointData points5 = (MapPointData) reader.ReadFeature();
+                MapPointData points6 = (MapPointData) reader.ReadFeature();
 
                 // Assert
 
                 #region Assertion for 'point1'
-                
+
                 var features1 = points1.Features.ToArray();
                 Assert.AreEqual(1, features1.Length);
 
@@ -306,6 +305,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 #endregion
 
                 #region Assertion for 'point5'
+
                 MapFeature[] features5 = points5.Features.ToArray();
                 Assert.AreEqual(1, features5.Length);
 
@@ -324,6 +324,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 #endregion
 
                 #region Assertion for 'point6'
+
                 MapFeature[] features6 = points6.Features.ToArray();
                 Assert.AreEqual(1, features6.Length);
 
@@ -350,11 +351,11 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Point_with_ID.shp");
+                                                                  "Single_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData)reader.ReadShapeFile(name);
+                MapPointData pointData = (MapPointData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual(name, pointData.Name);
@@ -369,11 +370,11 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapeWithOnePoint = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Point_with_ID.shp");
+                                                                  "Single_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapeWithOnePoint))
             {
                 // Call
-                MapPointData pointData = (MapPointData)reader.ReadShapeFile(name);
+                MapPointData pointData = (MapPointData) reader.ReadShapeFile(name);
 
                 // Assert
                 Assert.AreEqual("Punten", pointData.Name);
@@ -392,7 +393,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(6, reader.GetNumberOfFeatures());
 
                 // Call
-                MapPointData points = (MapPointData)reader.ReadShapeFile();
+                MapPointData points = (MapPointData) reader.ReadShapeFile();
 
                 // Assert
                 var features = points.Features.ToArray();
@@ -400,7 +401,7 @@ namespace Core.Components.Gis.IO.Test.Readers
 
                 #region Assertion for 'point1'
 
-                MapFeature point1 = features[0];                
+                MapFeature point1 = features[0];
                 MapGeometry[] point1Geometry = point1.MapGeometries.ToArray();
                 Assert.AreEqual(1, point1Geometry.Length);
 
@@ -493,7 +494,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 Assert.AreEqual(0.827, point6FirstPointCollection[0].Y, 1e-1);
 
                 #endregion
-            }            
+            }
         }
 
         [Test]
@@ -504,7 +505,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                       fileName);
+                                                         fileName);
             using (var reader = new PointShapeFileReader(filePath))
             {
                 for (int i = 0; i < reader.GetNumberOfFeatures(); i++)
@@ -525,7 +526,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Point_with_ID.shp");
+                                                                  "Single_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapefileFilePath))
             {
                 // Call
@@ -546,7 +547,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string shapefileFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                 "Single_Point_with_ID.shp");
+                                                                  "Single_Point_with_ID.shp");
             using (var reader = new PointShapeFileReader(shapefileFilePath))
             {
                 // Call

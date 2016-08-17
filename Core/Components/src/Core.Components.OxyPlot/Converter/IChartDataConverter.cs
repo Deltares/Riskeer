@@ -29,8 +29,8 @@ namespace Core.Components.OxyPlot.Converter
     /// <summary>
     /// The interface for a converter which converts <see cref="ChartData"/> into <see cref="Series"/>.
     /// </summary>
-    public interface IChartDataConverter {
-
+    public interface IChartDataConverter
+    {
         /// <summary>
         /// Checks whether the <see cref="IChartDataConverter"/> can convert the <paramref name="data"/>.
         /// </summary>

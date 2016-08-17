@@ -99,6 +99,6 @@ namespace Core.Components.Charting.Test.Data
 
     public class TestChartData : ChartData
     {
-        public TestChartData(string name) : base(name) { }
+        public TestChartData(string name) : base(name) {}
     }
 }

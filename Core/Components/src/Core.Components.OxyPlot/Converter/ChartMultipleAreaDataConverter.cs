@@ -48,7 +48,10 @@ namespace Core.Components.OxyPlot.Converter
 
             CreateStyle(series, data.Style);
 
-            return new List<Series> { series };
+            return new List<Series>
+            {
+                series
+            };
         }
 
         private static void CreateStyle(MultipleAreaSeries series, ChartAreaStyle style)

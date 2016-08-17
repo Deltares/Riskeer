@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
@@ -46,7 +45,7 @@ namespace Core.Components.DotSpatial.Converter
             {
                 var feature = new Feature();
                 var geometryList = new List<IPolygon>();
-                
+
                 foreach (var mapGeometry in mapFeature.MapGeometries)
                 {
                     IEnumerable<Point2D>[] pointCollections = mapGeometry.PointCollections.ToArray();
@@ -58,7 +57,7 @@ namespace Core.Components.DotSpatial.Converter
                     for (int i = 1; i < pointCollections.Length; i++)
                     {
                         IEnumerable<Coordinate> innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]);
-                        innerRings[i-1] = new LinearRing(innerRingCoordinates);
+                        innerRings[i - 1] = new LinearRing(innerRingCoordinates);
                     }
 
                     IPolygon polygon = new Polygon(outerRing, innerRings);
@@ -67,7 +66,7 @@ namespace Core.Components.DotSpatial.Converter
 
                 GeometryFactory factory = new GeometryFactory();
                 feature.BasicGeometry = factory.CreateMultiPolygon(geometryList.ToArray());
-               
+
                 featureSet.Features.Add(feature);
             }
 

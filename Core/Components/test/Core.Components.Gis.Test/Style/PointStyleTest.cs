@@ -43,6 +43,6 @@ namespace Core.Components.Gis.Test.Style
             Assert.AreEqual(color, pointStyle.Color);
             Assert.AreEqual(width, pointStyle.Size);
             Assert.AreEqual(style, pointStyle.Symbol);
-        }  
+        }
     }
 }

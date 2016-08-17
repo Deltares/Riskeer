@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Components.Gis.Data;
 using DotSpatial.Controls;
 

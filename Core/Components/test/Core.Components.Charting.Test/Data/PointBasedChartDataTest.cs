@@ -89,7 +89,7 @@ namespace Core.Components.Charting.Test.Data
 
         private class TestPointBasedChartData : PointBasedChartData
         {
-            public TestPointBasedChartData(string name) : base(name) { }
+            public TestPointBasedChartData(string name) : base(name) {}
         }
     }
 }

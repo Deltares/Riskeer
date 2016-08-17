@@ -109,7 +109,10 @@ namespace Core.Components.Gis.Test.Data
             var data = new MapLineData("test data");
 
             // Call
-            TestDelegate test = () => data.Features = new MapFeature[]{ null };
+            TestDelegate test = () => data.Features = new MapFeature[]
+            {
+                null
+            };
 
             // Assert
             const string expectedMessage = "The array of features cannot be null or contain null.";

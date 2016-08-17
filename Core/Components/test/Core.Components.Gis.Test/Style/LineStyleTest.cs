@@ -44,6 +44,6 @@ namespace Core.Components.Gis.Test.Style
             Assert.AreEqual(color, lineStyle.Color);
             Assert.AreEqual(width, lineStyle.Width);
             Assert.AreEqual(style, lineStyle.Style);
-        } 
+        }
     }
 }

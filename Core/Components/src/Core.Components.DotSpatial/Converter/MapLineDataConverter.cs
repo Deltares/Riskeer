@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Linq;
-
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Controls;

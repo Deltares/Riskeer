@@ -83,7 +83,7 @@ namespace Core.Components.OxyPlot.Test
         private static void AssertMousePanAtCommandBinding(DynamicPlotController controller, int index, OxyMouseButton expectedMouseButton)
         {
             var panAtCommand = controller.InputCommandBindings[index];
-            Assert.AreEqual(expectedMouseButton, ((OxyMouseDownGesture)panAtCommand.Gesture).MouseButton);
+            Assert.AreEqual(expectedMouseButton, ((OxyMouseDownGesture) panAtCommand.Gesture).MouseButton);
             Assert.AreEqual(PlotCommands.PanAt, panAtCommand.Command);
         }
 

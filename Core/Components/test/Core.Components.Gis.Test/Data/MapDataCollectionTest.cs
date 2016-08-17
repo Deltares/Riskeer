@@ -126,24 +126,6 @@ namespace Core.Components.Gis.Test.Data
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
-        [TestCase(-1)]
-        [TestCase(2)]
-        public void Insert_InvalidIndex_ThrowsArgumentOutOfRangeException(int invalidIndex)
-        {
-            // Setup
-            var itemToInsert = new MapLineData("test");
-            var existingItem = new MapPointData("test");
-            var mapDataCollection = new MapDataCollection("test");
-
-            mapDataCollection.Add(existingItem);
-
-            // Call
-            TestDelegate call = () => mapDataCollection.Insert(invalidIndex, itemToInsert);
-
-            // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(call, "index");
-        }
-
         [Test]
         public void Remove_ExistingItem_RemovesItem()
         {
@@ -226,6 +208,24 @@ namespace Core.Components.Gis.Test.Data
 
             // Assert
             CollectionAssert.IsEmpty(mapDataCollection.Collection);
+        }
+
+        [TestCase(-1)]
+        [TestCase(2)]
+        public void Insert_InvalidIndex_ThrowsArgumentOutOfRangeException(int invalidIndex)
+        {
+            // Setup
+            var itemToInsert = new MapLineData("test");
+            var existingItem = new MapPointData("test");
+            var mapDataCollection = new MapDataCollection("test");
+
+            mapDataCollection.Add(existingItem);
+
+            // Call
+            TestDelegate call = () => mapDataCollection.Insert(invalidIndex, itemToInsert);
+
+            // Assert
+            Assert.Throws<ArgumentOutOfRangeException>(call, "index");
         }
     }
 }

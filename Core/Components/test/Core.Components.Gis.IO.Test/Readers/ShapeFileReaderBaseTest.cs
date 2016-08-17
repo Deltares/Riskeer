@@ -119,21 +119,6 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             public TestShapeFileReaderBase(string filePath) : base(filePath) {}
 
-            public override FeatureBasedMapData ReadFeature(string name = null)
-            {
-                return null;
-            }
-
-            public override FeatureBasedMapData ReadShapeFile(string name = null)
-            {
-                return null;
-            }
-
-            public override IFeature GetFeature(int index)
-            {
-                return null;
-            }
-
             public string GetFilePath
             {
                 get
@@ -148,6 +133,21 @@ namespace Core.Components.Gis.IO.Test.Readers
                 {
                     return ShapeFile;
                 }
+            }
+
+            public override FeatureBasedMapData ReadFeature(string name = null)
+            {
+                return null;
+            }
+
+            public override FeatureBasedMapData ReadShapeFile(string name = null)
+            {
+                return null;
+            }
+
+            public override IFeature GetFeature(int index)
+            {
+                return null;
             }
         }
     }

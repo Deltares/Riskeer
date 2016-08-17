@@ -34,8 +34,6 @@ namespace Core.Components.OxyPlot.CustomSeries
     {
         private readonly OxyColor defaultColor = OxyColors.Fuchsia;
 
-        public List<DataPoint[]> Areas { get; private set; }
-
         /// <summary>
         /// Creates a instance of <see cref="MultipleAreaSeries"/>.
         /// </summary>
@@ -45,6 +43,8 @@ namespace Core.Components.OxyPlot.CustomSeries
             Fill = OxyColors.Automatic;
             Color = OxyColors.Automatic;
         }
+
+        public List<DataPoint[]> Areas { get; private set; }
 
         /// <summary>
         /// Gets or sets the color of the curve.

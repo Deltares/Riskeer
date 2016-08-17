@@ -37,7 +37,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreEqual(PointShape.Ellipse, symbol);
-        } 
+        }
 
         [Test]
         public void Convert_Square_ReturnRectangle()
@@ -47,7 +47,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreEqual(PointShape.Rectangle, symbol);
-        } 
+        }
 
         [Test]
         public void Convert_Triangle_ReturnTriangle()
@@ -57,6 +57,6 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreEqual(PointShape.Triangle, symbol);
-        } 
+        }
     }
 }
