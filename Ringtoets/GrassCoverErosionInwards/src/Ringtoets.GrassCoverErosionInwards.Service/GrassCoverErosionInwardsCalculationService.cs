@@ -90,12 +90,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             VerifyOvertoppingCalculationOutput(exceedanceProbabilityCalculationParser.Output, waveHeightParser.Output, calculation.Name);
 
-            return exceedanceProbabilityCalculationParser.Output != null
-                   && waveHeightParser.Output != null ? new GrassCoverErosionInwardsCalculationServiceOutput(
-                                                                       exceedanceProbabilityCalculationParser.Output.Beta,
-                                                                       waveHeightParser.Output.WaveHeight,
-                                                                       waveHeightParser.Output.IsOvertoppingDominant,
-                                                                       null) : null;
+            return exceedanceProbabilityCalculationParser.Output != null && waveHeightParser.Output != null ?
+                       new GrassCoverErosionInwardsCalculationServiceOutput(
+                           exceedanceProbabilityCalculationParser.Output.Beta,
+                           waveHeightParser.Output.WaveHeight,
+                           waveHeightParser.Output.IsOvertoppingDominant,
+                           null) :
+                       null;
         }
 
         /// <summary>
@@ -195,7 +196,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                   generalInput.FshallowModelFactor.StandardDeviation,
                                                   ParseProfilePoints(calculation.InputParameters.DikeGeometry),
                                                   ParseForeshore(calculation.InputParameters),
-                                                  ParseBreakWater(calculation.InputParameters)); 
+                                                  ParseBreakWater(calculation.InputParameters));
         }
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)

@@ -21,16 +21,13 @@
 
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
-
 using CoreCommonResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -41,10 +38,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult>
     {
+        private const int assessmentLayerTwoAIndex = 2;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private const int assessmentLayerTwoAIndex = 2;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
@@ -153,7 +150,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
 
-            var resultRow = (GrassCoverErosionInwardsFailureMechanismSectionResultRow)GetDataAtRow(e.RowIndex);
+            var resultRow = (GrassCoverErosionInwardsFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
             if (resultRow != null)
             {
                 GrassCoverErosionInwardsCalculation normativeCalculation = resultRow.GetSectionResultCalculation();

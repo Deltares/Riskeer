@@ -74,7 +74,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <summary>
         /// Gets the number of dike profile locations present in the shapefile.
         /// </summary>
-        public int GetLocationCount {
+        public int GetLocationCount
+        {
             get
             {
                 return pointsShapeFileReader.GetNumberOfFeatures();

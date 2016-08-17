@@ -30,14 +30,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// Indicates there is not dam at the offshore side.
         /// </summary>
         None = 0,
+
         /// <summary>
         /// Indicates there is a caisson-shaped dam at the offshore side.
         /// </summary>
         Caisson = 1,
+
         /// <summary>
         /// Indicates there is a vertical structure-shaped dam at the offshore side.
         /// </summary>
         Vertical = 2,
+
         /// <summary>
         /// Indicates there is a harbor dam at the offshore side.
         /// </summary>

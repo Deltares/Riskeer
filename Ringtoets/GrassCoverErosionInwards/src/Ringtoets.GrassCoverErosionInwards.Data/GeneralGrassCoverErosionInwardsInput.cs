@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
@@ -45,24 +43,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             CriticalOvertoppingModelFactor = 1.0;
             FbFactor = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble)4.75,
-                StandardDeviation = (RoundedDouble)0.5
+                Mean = (RoundedDouble) 4.75,
+                StandardDeviation = (RoundedDouble) 0.5
             };
             FnFactor = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble)2.6,
-                StandardDeviation = (RoundedDouble)0.35
+                Mean = (RoundedDouble) 2.6,
+                StandardDeviation = (RoundedDouble) 0.35
             };
             OvertoppingModelFactor = 1.0;
             FrunupModelFactor = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble)1,
-                StandardDeviation = (RoundedDouble)0.07
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.07
             };
             FshallowModelFactor = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble)0.92,
-                StandardDeviation = (RoundedDouble)0.24
+                Mean = (RoundedDouble) 0.92,
+                StandardDeviation = (RoundedDouble) 0.24
             };
         }
 

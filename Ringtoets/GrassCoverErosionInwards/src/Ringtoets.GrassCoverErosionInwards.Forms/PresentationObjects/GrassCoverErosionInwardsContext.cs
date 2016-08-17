@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
             get
             {
                 return FailureMechanism.DikeProfiles;
-            } 
+            }
         }
 
         /// <summary>

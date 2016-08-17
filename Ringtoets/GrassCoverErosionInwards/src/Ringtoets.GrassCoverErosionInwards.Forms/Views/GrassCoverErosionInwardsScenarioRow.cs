@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 

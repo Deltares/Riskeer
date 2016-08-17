@@ -68,8 +68,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <param name="calculations">All the remaining calculations after deletion of the <paramref name="calculation"/>.</param>
         /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
         public static void Delete(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, 
-            GrassCoverErosionInwardsCalculation calculation, 
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+            GrassCoverErosionInwardsCalculation calculation,
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             if (sectionResults == null)
@@ -94,9 +94,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         }
 
         private static void UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, 
-            GrassCoverErosionInwardsCalculation calculation, Dictionary<string, 
-            IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName)
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+            GrassCoverErosionInwardsCalculation calculation, Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName)
         {
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultsUsingCalculation =
                 sectionResults.Where(sr => sr.Calculation != null && sr.Calculation.Equals(calculation));

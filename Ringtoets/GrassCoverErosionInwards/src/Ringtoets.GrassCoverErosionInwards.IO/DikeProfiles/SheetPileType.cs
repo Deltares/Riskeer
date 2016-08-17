@@ -30,10 +30,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// Indicates that the dike profile is characterized using coordinates.
         /// </summary>
         Coordinates = 0,
+
         /// <summary>
         /// Indicates that the dike profile is characterized by a sheet pile.
         /// </summary>
         SheetPile = 1,
+
         /// <summary>
         /// Indicates that the dike profile is characterized by a sheet pile with a nose construction.
         /// </summary>

@@ -24,15 +24,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
-
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -429,7 +426,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                                                damTypeValue);
                 throw CreateCriticalFileReadException(lineNumber, message);
             }
-            return (DamType)damTypeValue;
+            return (DamType) damTypeValue;
         }
 
         /// <summary>
@@ -494,7 +491,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                                                sheetPileTypeValue);
                 throw CreateCriticalFileReadException(lineNumber, message);
             }
-            return (SheetPileType)sheetPileTypeValue;
+            return (SheetPileType) sheetPileTypeValue;
         }
 
         /// <summary>
@@ -643,7 +640,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                     readKeywords |= Keywords.DIJK;
                     return true;
                 }
-                
+
                 data.DikeGeometry = new RoughnessPoint[numberOfPoints];
                 for (int i = 0; i < numberOfPoints; i++)
                 {
@@ -741,19 +738,19 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             }
 
             string readLocalXText = roughnessSectionDataMatch.Groups["localx"].Value;
-            double localX = ParseRoughnessPointParameter(readLocalXText, 
-                Resources.DikeProfileDataReader_ReadRoughnessPoint_X_DisplayName, 
-                lineNumber);
+            double localX = ParseRoughnessPointParameter(readLocalXText,
+                                                         Resources.DikeProfileDataReader_ReadRoughnessPoint_X_DisplayName,
+                                                         lineNumber);
 
             string readLocalZText = roughnessSectionDataMatch.Groups["localz"].Value;
-            double localZ = ParseRoughnessPointParameter(readLocalZText, 
-                Resources.DikeProfileDataReader_ReadRoughnessPoint_Z_DisplayName, 
-                lineNumber);
+            double localZ = ParseRoughnessPointParameter(readLocalZText,
+                                                         Resources.DikeProfileDataReader_ReadRoughnessPoint_Z_DisplayName,
+                                                         lineNumber);
 
             string readRoughnessText = roughnessSectionDataMatch.Groups["roughness"].Value;
-            double roughness = ParseRoughnessPointParameter(readRoughnessText, 
-                Resources.DikeProfileDataReader_ReadRoughnessPoint_Roughness_DisplayName, 
-                lineNumber);
+            double roughness = ParseRoughnessPointParameter(readRoughnessText,
+                                                            Resources.DikeProfileDataReader_ReadRoughnessPoint_Roughness_DisplayName,
+                                                            lineNumber);
 
             ValidateRoughness(roughness, lineNumber);
 
@@ -1063,8 +1060,8 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                 Keywords.MEMO
             };
             return requiredKeywords.Where(z => !readKeywords.HasFlag(z))
-                                     .Select(z => z.ToString())
-                                     .ToArray();
+                                   .Select(z => z.ToString())
+                                   .ToArray();
         }
     }
 }

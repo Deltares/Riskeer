@@ -22,11 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
-
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data

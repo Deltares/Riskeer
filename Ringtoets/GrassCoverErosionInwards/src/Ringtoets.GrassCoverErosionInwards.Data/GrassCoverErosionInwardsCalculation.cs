@@ -21,7 +21,6 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Storage;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data.Properties;

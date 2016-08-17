@@ -22,7 +22,6 @@
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 
