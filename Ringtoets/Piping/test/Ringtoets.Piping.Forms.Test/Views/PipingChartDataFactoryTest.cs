@@ -168,27 +168,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("soilProfile", paramName);
         }
 
-        [TestCase(-1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        public void CreateSoilLayerChartData_InvalidSoilLayerIndex_ThrowsArgumentOutOfRangeException(int soilLayerIndex)
-        {
-            // Setup
-            var layers = new[]
-            {
-                new PipingSoilLayer(0),
-                new PipingSoilLayer(1)
-            };
-            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
-
-            // Call
-            TestDelegate test = () => PipingChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentOutOfRangeException>(test).ParamName;
-            Assert.AreEqual("soilLayerIndex", paramName);
-        }
-
         [Test]
         [TestCase("A", 0)]
         [TestCase("B", 3)]
@@ -299,6 +278,27 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("soil profile name", chartData.Name);
+        }
+
+        [TestCase(-1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void CreateSoilLayerChartData_InvalidSoilLayerIndex_ThrowsArgumentOutOfRangeException(int soilLayerIndex)
+        {
+            // Setup
+            var layers = new[]
+            {
+                new PipingSoilLayer(0),
+                new PipingSoilLayer(1)
+            };
+            var profile = new PipingSoilProfile("name", -1.0, layers, SoilProfileType.SoilProfile1D, 0);
+
+            // Call
+            TestDelegate test = () => PipingChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentOutOfRangeException>(test).ParamName;
+            Assert.AreEqual("soilLayerIndex", paramName);
         }
 
         private static void AssertEqualStyle(ChartLineStyle lineStyle, Color color, int width, DashStyle style)

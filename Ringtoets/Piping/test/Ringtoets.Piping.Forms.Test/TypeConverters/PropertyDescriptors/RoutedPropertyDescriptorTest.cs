@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors;
 
 namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
@@ -38,7 +36,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
             var propertyDescription = TypeDescriptor.GetProperties(a.Child)[0];
 
             // Call
-            var routedPropertyDescriptor = new RoutedPropertyDescriptor(propertyDescription, o => ((TestA)o).Child);
+            var routedPropertyDescriptor = new RoutedPropertyDescriptor(propertyDescription, o => ((TestA) o).Child);
 
             // Assert
             Assert.AreEqual(propertyDescription.ComponentType, routedPropertyDescriptor.ComponentType);
@@ -65,7 +63,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
             var a = new TestA();
             var propertyDescription = TypeDescriptor.GetProperties(a.Child)[0];
 
-            var routedPropertyDescriptor = new RoutedPropertyDescriptor(propertyDescription, o => ((TestA)o).Child);
+            var routedPropertyDescriptor = new RoutedPropertyDescriptor(propertyDescription, o => ((TestA) o).Child);
 
             // Call
             var result = routedPropertyDescriptor.CanResetValue(a);
@@ -81,7 +79,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
             var a = new TestA();
             var propertyDescription = TypeDescriptor.GetProperties(a.Child)[0];
 
-            var routedPropertyDescriptor = new RoutedPropertyDescriptor(propertyDescription, o => ((TestA)o).Child);
+            var routedPropertyDescriptor = new RoutedPropertyDescriptor(propertyDescription, o => ((TestA) o).Child);
 
             // Call
             var result = routedPropertyDescriptor.GetValue(a);
@@ -108,7 +106,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
             getSetProperty.ResetValue(a.Child);
             var expectedPropertyValueAfterReset = a.Child.Value;
 
-            var routedPropertyDescriptor = new RoutedPropertyDescriptor(getSetProperty, o => ((TestA)o).Child);
+            var routedPropertyDescriptor = new RoutedPropertyDescriptor(getSetProperty, o => ((TestA) o).Child);
             a.Child.Value = originalPropertyValue;
 
             // Call
@@ -137,7 +135,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
             getSetProperty.SetValue(a.Child, newValue);
             var expectedPropertyValueAfterReset = a.Child.Value;
 
-            var routedPropertyDescriptor = new RoutedPropertyDescriptor(getSetProperty, o => ((TestA)o).Child);
+            var routedPropertyDescriptor = new RoutedPropertyDescriptor(getSetProperty, o => ((TestA) o).Child);
             a.Child.Value = originalPropertyValue;
 
             // Call
@@ -154,7 +152,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
             var a = new TestA();
             var propertyDescription = TypeDescriptor.GetProperties(a.Child)[0];
 
-            var routedPropertyDescriptor = new RoutedPropertyDescriptor(propertyDescription, o => ((TestA)o).Child);
+            var routedPropertyDescriptor = new RoutedPropertyDescriptor(propertyDescription, o => ((TestA) o).Child);
 
             // Call
             var result = routedPropertyDescriptor.ShouldSerializeValue(a);

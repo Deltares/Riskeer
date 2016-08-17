@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.StrictMultiMock<IGui>();

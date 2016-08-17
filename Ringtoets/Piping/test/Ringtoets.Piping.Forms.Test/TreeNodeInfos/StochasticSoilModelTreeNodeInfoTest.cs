@@ -21,20 +21,15 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.Piping.Primitives;
-
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos

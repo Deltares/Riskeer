@@ -26,14 +26,11 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
-
 using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -186,7 +183,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             })
             {
                 // Call
-                row.DampingFactorExitMean = (RoundedDouble)newValue;
+                row.DampingFactorExitMean = (RoundedDouble) newValue;
 
                 // Assert
                 Assert.AreEqual(1, counter);
@@ -210,7 +207,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             })
             {
                 // Call
-                row.PhreaticLevelExitMean = (RoundedDouble)newValue;
+                row.PhreaticLevelExitMean = (RoundedDouble) newValue;
 
                 // Assert
                 Assert.AreEqual(1, counter);
@@ -235,7 +232,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             calculation.InputParameters.Attach(observer);
 
             // Call
-            row.EntryPointL = (RoundedDouble)newValue;
+            row.EntryPointL = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.EntryPointL);
@@ -273,17 +270,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
-  
+
             var calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             var row = new PipingCalculationRow(calculation);
-  
+
             calculation.InputParameters.Attach(observer);
-  
+
             var newValue = -3.0;
-  
+
             // Call
             TestDelegate call = () => row.EntryPointL = (RoundedDouble) newValue;
-  
+
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
@@ -307,7 +304,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             calculation.InputParameters.Attach(observer);
 
             // Call
-            row.ExitPointL = (RoundedDouble)newValue;
+            row.ExitPointL = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(new RoundedDouble(2, newValue), calculation.InputParameters.ExitPointL);
@@ -330,7 +327,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             calculation.InputParameters.Attach(observer);
 
             // Call
-            TestDelegate call = () => row.ExitPointL = (RoundedDouble)newValue;
+            TestDelegate call = () => row.ExitPointL = (RoundedDouble) newValue;
 
             // Assert
             var expectedMessage = RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL;
@@ -354,7 +351,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var newValue = 3.0;
 
             // Call
-            TestDelegate call = () => row.ExitPointL = (RoundedDouble)newValue;
+            TestDelegate call = () => row.ExitPointL = (RoundedDouble) newValue;
 
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 1]).";

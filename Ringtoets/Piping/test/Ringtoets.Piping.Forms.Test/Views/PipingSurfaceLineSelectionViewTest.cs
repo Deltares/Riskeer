@@ -34,8 +34,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
     public class PipingSurfaceLineSelectionViewTest
     {
         private Form testForm;
-        private const int surfaceLineNameColumnIndex = 1;
-        private const int selectedColumnIndex = 0;
 
         [SetUp]
         public void Setup()
@@ -69,7 +67,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             ShowPipingCalculationsView(view);
 
-            var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
+            var surfaceLineDataGrid = (DataGridView) new ControlTester("SurfaceLineDataGrid").TheObject;
 
             Assert.AreEqual(2, surfaceLineDataGrid.ColumnCount);
             Assert.IsFalse(surfaceLineDataGrid.RowHeadersVisible);
@@ -97,20 +95,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var testname = "testName";
             var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
             ringtoetsPipingSurfaceLine.Name = testname;
-            
+
             // Call
-            var view = new PipingSurfaceLineSelectionView(new []
+            var view = new PipingSurfaceLineSelectionView(new[]
             {
                 ringtoetsPipingSurfaceLine
             });
 
             // Assert
             ShowPipingCalculationsView(view);
-            var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
+            var surfaceLineDataGrid = (DataGridView) new ControlTester("SurfaceLineDataGrid").TheObject;
 
             Assert.AreEqual(1, surfaceLineDataGrid.RowCount);
-            Assert.IsFalse((bool)surfaceLineDataGrid.Rows[0].Cells[selectedColumnIndex].Value);
-            Assert.AreEqual(testname, (string)surfaceLineDataGrid.Rows[0].Cells[surfaceLineNameColumnIndex].Value);
+            Assert.IsFalse((bool) surfaceLineDataGrid.Rows[0].Cells[selectedColumnIndex].Value);
+            Assert.AreEqual(testname, (string) surfaceLineDataGrid.Rows[0].Cells[surfaceLineNameColumnIndex].Value);
         }
 
         [Test]
@@ -133,7 +131,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             selectAllButtonTester.Click();
 
             // Assert
-            var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
+            var surfaceLineDataGrid = (DataGridView) new ControlTester("SurfaceLineDataGrid").TheObject;
             for (int i = 0; i < surfaceLineDataGrid.RowCount; i++)
             {
                 var row = surfaceLineDataGrid.Rows[i];
@@ -157,7 +155,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             ShowPipingCalculationsView(view);
             var selectNoneButtonTester = new ButtonTester("SelectNoneButton");
 
-            var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
+            var surfaceLineDataGrid = (DataGridView) new ControlTester("SurfaceLineDataGrid").TheObject;
             for (int i = 0; i < surfaceLineDataGrid.RowCount; i++)
             {
                 var row = surfaceLineDataGrid.Rows[i];
@@ -194,7 +192,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(view);
 
-            var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
+            var surfaceLineDataGrid = (DataGridView) new ControlTester("SurfaceLineDataGrid").TheObject;
             surfaceLineDataGrid.Rows[1].Cells[selectedColumnIndex].Value = true;
             surfaceLineDataGrid.Rows[3].Cells[selectedColumnIndex].Value = true;
 
@@ -202,7 +200,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines = view.GetSelectedSurfaceLines();
 
             // Assert
-            CollectionAssert.AreEqual(new[] { ringtoetsPipingSurfaceLine2, ringtoetsPipingSurfaceLine4 }, surfaceLines);
+            CollectionAssert.AreEqual(new[]
+            {
+                ringtoetsPipingSurfaceLine2,
+                ringtoetsPipingSurfaceLine4
+            }, surfaceLines);
         }
 
         [Test]
@@ -251,7 +253,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(view);
 
-            var surfaceLineDataGrid = (DataGridView)new ControlTester("SurfaceLineDataGrid").TheObject;
+            var surfaceLineDataGrid = (DataGridView) new ControlTester("SurfaceLineDataGrid").TheObject;
             surfaceLineDataGrid.Rows[0].Cells[selectedColumnIndex].Value = true;
             surfaceLineDataGrid.Rows[1].Cells[selectedColumnIndex].Value = true;
             surfaceLineDataGrid.Rows[2].Cells[selectedColumnIndex].Value = true;
@@ -278,6 +280,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.IsEmpty(surfaceLines);
         }
+
+        private const int surfaceLineNameColumnIndex = 1;
+        private const int selectedColumnIndex = 0;
 
         private void ShowPipingCalculationsView(PipingSurfaceLineSelectionView pipingCalculationsView)
         {

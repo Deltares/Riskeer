@@ -40,7 +40,6 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
-
 using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -537,7 +536,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingScenarioView = ShowPipingCalculationsView();
             pipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
 
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
             // Precondition
             Assert.AreEqual(0, listBox.Items.Count);
@@ -581,8 +580,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             DataGridView grid = null;
             DialogBoxHandler = (name, wnd) =>
             {
-                selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                grid = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+                selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
                 new ButtonTester("CustomCancelButton", selectionDialog).Click();
             };
@@ -659,7 +658,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
 
                 // When
                 new ButtonTester(buttonName, selectionDialog).Click();
@@ -687,7 +686,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
 
                 var selectionView = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
@@ -728,7 +727,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
 
                 var selectionView = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
@@ -841,6 +840,90 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.IsFalse(button.Enabled);
         }
 
+        [Test]
+        [TestCase(entryPointLColumnIndex, 6.6)]
+        [TestCase(entryPointLColumnIndex, 4.44)]
+        [TestCase(exitPointLColumnIndex, 2.22)]
+        [TestCase(exitPointLColumnIndex, 1.1)]
+        public void PipingCalculationsView_InvalidEntryOrExitPoint_ShowsErrorTooltip(int cellIndex, double newValue)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
+            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+
+            var data = (CalculationGroup) pipingCalculationView.Data;
+            var pipingCalculation = (PipingCalculationScenario) data.Children.First();
+
+            pipingCalculation.Attach(pipingCalculationObserver);
+            pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL, dataGridView.Rows[0].ErrorText);
+            mocks.VerifyAll(); // No observer notified
+        }
+
+        [Test]
+        [TestCase(entryPointLColumnIndex, -0.1)]
+        [TestCase(entryPointLColumnIndex, -1.0)]
+        [TestCase(exitPointLColumnIndex, 10.1)]
+        [TestCase(exitPointLColumnIndex, 11.0)]
+        public void PipingCalculationsView_EntryOrExitPointNotOnSurfaceLine_ShowsErrorToolTip(int cellIndex, double newValue)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
+            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+
+            var data = (CalculationGroup) pipingCalculationView.Data;
+            var pipingCalculation = (PipingCalculationScenario) data.Children.First();
+
+            pipingCalculation.Attach(pipingCalculationObserver);
+            pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
+
+            // Assert
+            var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 10]).";
+            Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
+            mocks.VerifyAll(); // No observer notified
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
+        {
+            // Setup
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
+
+            // Call
+            var selection = pipingCalculationView.Selection;
+
+            // Assert
+            Assert.IsInstanceOf<PipingInputContext>(selection);
+            var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
+            Assert.AreSame(dataRow.PipingCalculation, ((PipingInputContext) selection).PipingCalculation);
+        }
+
         [TestCase(nameColumnIndex, "New name", true, false)]
         [TestCase(stochasticSoilProfilesColumnIndex, null, false, true)]
         [TestCase(hydraulicBoundaryLocationsColumnIndex, null, false, true)]
@@ -882,90 +965,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(entryPointLColumnIndex, 6.6)]
-        [TestCase(entryPointLColumnIndex, 4.44)]
-        [TestCase(exitPointLColumnIndex, 2.22)]
-        [TestCase(exitPointLColumnIndex, 1.1)]
-        public void PipingCalculationsView_InvalidEntryOrExitPoint_ShowsErrorTooltip(int cellIndex, double newValue)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
-            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
-
-            var data = (CalculationGroup)pipingCalculationView.Data;
-            var pipingCalculation = (PipingCalculationScenario)data.Children.First();
-
-            pipingCalculation.Attach(pipingCalculationObserver);
-            pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
-
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-
-            // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(RingtoetsPipingDataResources.PipingInput_EntryPointL_greater_or_equal_to_ExitPointL, dataGridView.Rows[0].ErrorText);
-            mocks.VerifyAll(); // No observer notified
-        }
-
-        [Test]
-        [TestCase(entryPointLColumnIndex, -0.1)]
-        [TestCase(entryPointLColumnIndex, -1.0)]
-        [TestCase(exitPointLColumnIndex, 10.1)]
-        [TestCase(exitPointLColumnIndex, 11.0)]
-        public void PipingCalculationsView_EntryOrExitPointNotOnSurfaceLine_ShowsErrorToolTip(int cellIndex, double newValue)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
-            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
-
-            var data = (CalculationGroup)pipingCalculationView.Data;
-            var pipingCalculation = (PipingCalculationScenario)data.Children.First();
-
-            pipingCalculation.Attach(pipingCalculationObserver);
-            pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
-
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-
-            // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble)newValue;
-
-            // Assert
-            var expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0, 10]).";
-            Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
-            mocks.VerifyAll(); // No observer notified
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
-        {
-            // Setup
-            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
-
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-
-            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
-
-            // Call
-            var selection = pipingCalculationView.Selection;
-
-            // Assert
-            Assert.IsInstanceOf<PipingInputContext>(selection);
-            var dataRow = (PipingCalculationRow)dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.PipingCalculation, ((PipingInputContext)selection).PipingCalculation);
         }
 
         private const int nameColumnIndex = 0;

@@ -21,13 +21,10 @@
 
 using System.ComponentModel;
 using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Probabilistics;
@@ -71,8 +68,8 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             // Setup
             var distribution = new LogNormalDistribution(1)
             {
-                Mean = (RoundedDouble)1.1,
-                StandardDeviation = (RoundedDouble)2.2
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 2.2
             };
             var designVariable = new LogNormalDistributionDesignVariable(distribution);
 
@@ -250,8 +247,8 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             // Event
             const double newDoubleValue = 2.3;
-            properties[propertyIndexToChange].SetValue(dampingFactorExit, (RoundedDouble)newDoubleValue);
-            
+            properties[propertyIndexToChange].SetValue(dampingFactorExit, (RoundedDouble) newDoubleValue);
+
             // Result
             switch (propertyIndexToChange)
             {

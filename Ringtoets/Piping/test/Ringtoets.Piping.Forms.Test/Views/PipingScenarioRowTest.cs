@@ -28,7 +28,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
-
 using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -75,7 +74,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreSame(calculation, row.PipingCalculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
-            Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
+            Assert.AreEqual(calculation.Contribution*100, row.Contribution);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.PipingProbability), row.FailureProbabilityPiping);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.UpliftProbability), row.FailureProbabilityUplift);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(calculation.SemiProbabilisticOutput.HeaveProbability), row.FailureProbabilityHeave);
@@ -95,7 +94,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreSame(calculation, row.PipingCalculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreEqual(calculation.IsRelevant, row.IsRelevant);
-            Assert.AreEqual(calculation.Contribution * 100, row.Contribution);
+            Assert.AreEqual(calculation.Contribution*100, row.Contribution);
             Assert.AreEqual("-", row.FailureProbabilityPiping);
             Assert.AreEqual("-", row.FailureProbabilityUplift);
             Assert.AreEqual("-", row.FailureProbabilityHeave);
@@ -147,7 +146,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(1, counter);
-                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution * 100);
+                Assert.AreEqual(new RoundedDouble(2, newValue), calculation.Contribution*100);
             }
         }
     }

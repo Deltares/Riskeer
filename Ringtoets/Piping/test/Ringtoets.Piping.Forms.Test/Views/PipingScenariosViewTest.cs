@@ -36,7 +36,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
-
 using RingtoetsPipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -182,7 +181,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingScenarioView = ShowPipingScenarioView();
             pipingScenarioView.PipingFailureMechanism = pipingFailureMechanismWithSections;
 
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
             // Precondition
             Assert.AreEqual(0, listBox.Items.Count);
@@ -263,7 +262,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Call
             dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newValue;
-            
+
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
         }
@@ -296,6 +295,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             mocks.VerifyAll();
         }
+
         private const int isRelevantColumnIndex = 0;
         private const int contributionColumnIndex = 1;
         private const int nameColumnIndex = 2;

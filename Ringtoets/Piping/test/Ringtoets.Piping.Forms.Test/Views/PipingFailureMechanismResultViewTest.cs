@@ -303,9 +303,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 var calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
                     1.0/1000.0,
-                    pipingFailureMechanism.Sections.First()
-                );
-                calculationScenario.Contribution = (RoundedDouble)0.3;
+                    pipingFailureMechanism.Sections.First());
+                calculationScenario.Contribution = (RoundedDouble) 0.3;
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
                 view.Data = pipingFailureMechanism.SectionResults;
 
@@ -334,8 +333,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 var calculationScenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(
                     (RoundedDouble) 1e-3,
-                    pipingFailureMechanism.Sections.First()
-                );
+                    pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
                 view.Data = pipingFailureMechanism.SectionResults;
 
@@ -363,8 +361,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (ShowFullyConfiguredFailureMechanismResultsView(pipingFailureMechanism))
             {
                 var calculationScenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(
-                    pipingFailureMechanism.Sections.First()
-                );
+                    pipingFailureMechanism.Sections.First());
                 pipingFailureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
                 var gridTester = new ControlTester("dataGridView");

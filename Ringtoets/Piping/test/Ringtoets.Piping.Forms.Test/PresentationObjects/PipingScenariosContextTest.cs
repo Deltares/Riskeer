@@ -44,6 +44,6 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<WrappedObjectContextBase<CalculationGroup>>(context);
             Assert.AreSame(calculationGroup, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
-        } 
+        }
     }
 }

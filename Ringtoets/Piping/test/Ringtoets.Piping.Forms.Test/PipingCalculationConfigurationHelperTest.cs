@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilProfile1,
                 soilProfile2
             });
-            var availableSoilModels = new[]
+            StochasticSoilModel[] availableSoilModels = 
             {
                 soilModel
             };
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.Forms.Test
                     SoilProfile = soilProfile2
                 }
             });
-            var availableSoilModels = new[]
+            StochasticSoilModel[] availableSoilModels = 
             {
                 soilModel
             };
@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.Forms.Test
                     SoilProfile = soilProfile2
                 }
             });
-            var availableSoilModels = new[]
+            StochasticSoilModel[] availableSoilModels = 
             {
                 soilModel
             };
@@ -355,7 +355,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new GeneralPipingInput());
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("surfaceLines", parameter);
         }
 
@@ -369,7 +369,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new GeneralPipingInput());
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("soilModels", parameter);
         }
 
@@ -383,7 +383,7 @@ namespace Ringtoets.Piping.Forms.Test
                 null);
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("generalInput", parameter);
         }
 
@@ -428,7 +428,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Assert
             var format = "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.";
-            var expectedMessages = new[]
+            Tuple<string, LogLevelConstant>[] expectedMessages = 
             {
                 Tuple.Create(string.Format(format, testName1), LogLevelConstant.Warn),
                 Tuple.Create(string.Format(format, testName2), LogLevelConstant.Warn),
@@ -486,7 +486,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            var surfaceLines = new[]
+            RingtoetsPipingSurfaceLine[] surfaceLines = 
             {
                 surfaceLine
             };
@@ -548,7 +548,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            var surfaceLines = new[]
+            RingtoetsPipingSurfaceLine[] surfaceLines = 
             {
                 surfaceLine
             };
@@ -564,10 +564,9 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Assert
-            var expectedMessage = Tuple.Create(
-                string.Format(
-                    "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.",
-                    testName),
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                string.Format("Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.",
+                              testName),
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
             Assert.IsEmpty(result);
@@ -607,7 +606,7 @@ namespace Ringtoets.Piping.Forms.Test
                     SoilProfile = soilProfile2
                 }
             });
-            var availableSoilModels = new[]
+            StochasticSoilModel[] availableSoilModels = 
             {
                 soilModel
             };
@@ -624,7 +623,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(5.0, 1.0, 0.0)
             });
 
-            var surfaceLines = new[]
+            RingtoetsPipingSurfaceLine[] surfaceLines = 
             {
                 surfaceLine
             };
@@ -641,10 +640,9 @@ namespace Ringtoets.Piping.Forms.Test
             };
 
             // Assert
-            var expectedMessage = Tuple.Create(
-                string.Format(
-                    "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.",
-                    testName),
+            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create(
+                string.Format("Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.",
+                              testName),
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage);
             Assert.IsEmpty(result);

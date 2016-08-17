@@ -39,9 +39,9 @@ namespace Ringtoets.Piping.Forms.Test
             TestDelegate test = () => new PipingSurfaceLineSelectionDialog(null, Enumerable.Empty<RingtoetsPipingSurfaceLine>());
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("dialogParent", parameter);
-        } 
+        }
 
         [Test]
         public void Constructor_WithoutSurfaceLines_ThrowsArgumentNullException()
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Forms.Test
             TestDelegate test = () => new PipingSurfaceLineSelectionDialog(new Form(), null);
 
             // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("surfaceLines", parameter);
         }
 
@@ -60,7 +60,6 @@ namespace Ringtoets.Piping.Forms.Test
             // Call
             using (var dialog = new PipingSurfaceLineSelectionDialog(new Form(), Enumerable.Empty<RingtoetsPipingSurfaceLine>()))
             {
-
                 // Assert
                 Assert.IsEmpty(dialog.SelectedSurfaceLines);
                 Assert.IsInstanceOf<PipingSurfaceLineSelectionView>(new ControlTester("PipingSurfaceLineSelectionView", dialog).TheObject);

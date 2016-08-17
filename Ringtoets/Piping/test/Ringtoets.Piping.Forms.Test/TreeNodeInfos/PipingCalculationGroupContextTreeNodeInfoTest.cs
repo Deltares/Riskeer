@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -33,12 +32,9 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
@@ -49,7 +45,6 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.Piping.Primitives;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -147,10 +142,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
             Assert.AreSame(calculationItem, children[0]);
-            var returnedCalculationContext = (PipingCalculationScenarioContext)children[1];
+            var returnedCalculationContext = (PipingCalculationScenarioContext) children[1];
             Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationContext.FailureMechanism);
-            var returnedCalculationGroupContext = (PipingCalculationGroupContext)children[2];
+            var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[2];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, returnedCalculationGroupContext.AssessmentSection);
@@ -195,11 +190,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
 
             var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                importHandlerMock,
-                exportHandlerMock,
-                viewCommandsHandler,
-                nodeData,
-                treeViewControl);
+                                                     importHandlerMock,
+                                                     exportHandlerMock,
+                                                     viewCommandsHandler,
+                                                     nodeData,
+                                                     treeViewControl);
             gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
             treeViewControl.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(true);
@@ -304,11 +299,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-                    importHandlerMock,
-                    exportHandlerMock,
-                    viewCommandsHandler,
-                    nodeData,
-                    treeViewControl);
+                                                         importHandlerMock,
+                                                         exportHandlerMock,
+                                                         viewCommandsHandler,
+                                                         nodeData,
+                                                         treeViewControl);
                 gui.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 viewCommandsHandler.Expect(vc => vc.CanOpenViewFor(nodeData)).Return(true);
 
@@ -1005,8 +1000,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 int rowCount = 0;
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                    grid = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+                    selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                    grid = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
                     rowCount = grid.RowCount;
                     new ButtonTester("CustomCancelButton", selectionDialog).Click();
                 };
@@ -1150,8 +1145,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 
@@ -1267,8 +1262,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridView)new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 

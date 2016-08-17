@@ -21,7 +21,6 @@
 
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
-
 using NUnit.Framework;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Primitives;

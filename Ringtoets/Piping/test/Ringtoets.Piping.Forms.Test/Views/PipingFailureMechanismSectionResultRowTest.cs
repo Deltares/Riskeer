@@ -25,7 +25,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
@@ -35,7 +34,6 @@ using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
-
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -99,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerOne);
-            
+
             mocks.VerifyAll();
         }
 
@@ -118,11 +116,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(0.2,0.8-1e5)]
-        [TestCase(0.0,0.5)]
-        [TestCase(0.3,0.7+1e-5)]
-        [TestCase(-5,-8)]
-        [TestCase(13,2)]
+        [TestCase(0.2, 0.8 - 1e5)]
+        [TestCase(0.0, 0.5)]
+        [TestCase(0.3, 0.7 + 1e-5)]
+        [TestCase(-5, -8)]
+        [TestCase(13, 2)]
         public void AssessmentLayerTwoA_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
@@ -130,11 +128,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             var scenarioA = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
             var scenarioB = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
-            scenarioA.Contribution = (RoundedDouble)contributionA;
-            scenarioB.Contribution = (RoundedDouble)contributionB;
+            scenarioA.Contribution = (RoundedDouble) contributionA;
+            scenarioB.Contribution = (RoundedDouble) contributionB;
 
             var result = new PipingFailureMechanismSectionResult(section);
-            var row = new PipingFailureMechanismSectionResultRow(result, new[] { scenarioA , scenarioB });
+            var row = new PipingFailureMechanismSectionResultRow(result, new[]
+            {
+                scenarioA,
+                scenarioB
+            });
 
             // Call
             var assessmentLayerTwoA = row.AssessmentLayerTwoA;
@@ -156,7 +158,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                : PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
 
             var result = new PipingFailureMechanismSectionResult(section);
-            var row = new PipingFailureMechanismSectionResultRow(result, new [] { scenario });
+            var row = new PipingFailureMechanismSectionResultRow(result, new[]
+            {
+                scenario
+            });
 
             // Call
             var assessmentLayerTwoA = row.AssessmentLayerTwoA;
@@ -171,16 +176,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup            
             var section = CreateSection();
             var scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(0.2, section);
-            scenario.Contribution = (RoundedDouble)1.0;
+            scenario.Contribution = (RoundedDouble) 1.0;
 
             var result = new PipingFailureMechanismSectionResult(section);
-            var row = new PipingFailureMechanismSectionResultRow(result, new[] { scenario });
-            
+            var row = new PipingFailureMechanismSectionResultRow(result, new[]
+            {
+                scenario
+            });
+
             // Call
             var assessmentLayerTwoA = row.AssessmentLayerTwoA;
 
             // Assert
-            var expected = result.GetAssessmentLayerTwoA(new[] { scenario });
+            var expected = result.GetAssessmentLayerTwoA(new[]
+            {
+                scenario
+            });
             Assert.AreEqual(expected, assessmentLayerTwoA, 1e-6);
         }
 

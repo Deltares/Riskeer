@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -31,12 +30,9 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -49,7 +45,6 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.Piping.Primitives;
-
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -142,7 +137,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(commentContext);
             Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.WrappedData);
 
-            var pipingInputContext = (PipingInputContext)children[1];
+            var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
@@ -175,7 +170,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(commentContext);
             Assert.AreSame(pipingCalculationContext.WrappedData, commentContext.WrappedData);
 
-            var pipingInputContext = (PipingInputContext)children[1];
+            var pipingInputContext = (PipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
@@ -502,7 +497,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Action action = () => contextMenuAdapter.Items[validateContextMenuItemIndex].PerformClick();
 
                 // Then
-                var expectedValidationMessageCount = 5; 
+                var expectedValidationMessageCount = 5;
                 var expectedStatusMessageCount = 2;
                 var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
                 TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
