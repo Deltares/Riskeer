@@ -1022,8 +1022,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, failureMechanism);
 
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(
-                calculationGroupContext, 
-                context => counter++, 
+                calculationGroupContext,
+                context => counter++,
                 context => null);
 
             // Call
@@ -1185,8 +1185,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
-                failureMechanismContext, 
-                null, 
+                failureMechanismContext,
+                null,
                 fm => null);
 
             // Assert
@@ -1237,8 +1237,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
-                failureMechanismContext, 
-                null, 
+                failureMechanismContext,
+                null,
                 fm => errorMessage);
 
             // Assert
@@ -1264,7 +1264,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             // Call
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
                 failureMechanismContext,
-                null, 
+                null,
                 fm => errorMessage);
 
             // Assert
@@ -1291,7 +1291,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             var toolStripItem = RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
-                failureMechanismContext, 
+                failureMechanismContext,
                 fm => counter++,
                 fm => null);
 
@@ -1372,7 +1372,10 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             toolStripItem.PerformClick();
 
             // Assert
-            CollectionAssert.AreEqual(new[] { calculation }, calculationGroup.Children);
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation
+            }, calculationGroup.Children);
         }
 
         [Test]

@@ -1581,10 +1581,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
-            var calculationGroup = new CalculationGroup {
+            var calculationGroup = new CalculationGroup
+            {
                 Children =
                 {
-                    new TestCalculation()  
+                    new TestCalculation()
                 }
             };
 

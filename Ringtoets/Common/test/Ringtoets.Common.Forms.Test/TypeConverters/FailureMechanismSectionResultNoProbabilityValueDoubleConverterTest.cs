@@ -22,9 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -94,7 +92,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            var result = (double)converter.ConvertFrom(text);
+            var result = (double) converter.ConvertFrom(text);
 
             // Assert
             Assert.IsNaN(result);
@@ -196,7 +194,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            var text = (string)converter.ConvertTo(double.NaN, typeof(string));
+            var text = (string) converter.ConvertTo(double.NaN, typeof(string));
 
             // Assert
             Assert.AreEqual("-", text);
@@ -209,7 +207,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            var text = (string)converter.ConvertTo(double.PositiveInfinity, typeof(string));
+            var text = (string) converter.ConvertTo(double.PositiveInfinity, typeof(string));
 
             // Assert
             Assert.AreEqual("Oneindig", text);
@@ -222,7 +220,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            var text = (string)converter.ConvertTo(double.NegativeInfinity, typeof(string));
+            var text = (string) converter.ConvertTo(double.NegativeInfinity, typeof(string));
 
             // Assert
             Assert.AreEqual("-Oneindig", text);
@@ -239,7 +237,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            var text = (string)converter.ConvertTo(value, typeof(string));
+            var text = (string) converter.ConvertTo(value, typeof(string));
 
             // Assert
             string expectedText = ProbabilityFormattingHelper.Format(value);
@@ -257,7 +255,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            var text = (string)converter.ConvertTo(value, typeof(string));
+            var text = (string) converter.ConvertTo(value, typeof(string));
 
             // Assert
             string expectedText = ProbabilityFormattingHelper.Format(value);
@@ -272,7 +270,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            double conversionResult = (double)converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
+            double conversionResult = (double) converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
 
             // Assert
             Assert.AreEqual(input, conversionResult);

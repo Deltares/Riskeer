@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -146,7 +145,7 @@ namespace Ringtoets.Common.Data.Test.Probability
         [TestCase(double.NegativeInfinity)]
         [TestCase(-1e-6)]
         [TestCase(-346587.456)]
-        [TestCase(1.0+1e-6)]
+        [TestCase(1.0 + 1e-6)]
         [TestCase(346587.456)]
         public void Probability_SetToInvalidValue_ThrowArgumentOutOfRangeException(double probability)
         {

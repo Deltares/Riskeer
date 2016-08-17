@@ -148,7 +148,7 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             var expectedExceptionMessage = string.Format("Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: {1} niet gevonden.",
-                Path.Combine(pathToInvalid, "InvalidShapeFile.shp"), "'TRAJECT_ID', 'NORM_SW', 'NORM_OG'");
+                                                         Path.Combine(pathToInvalid, "InvalidShapeFile.shp"), "'TRAJECT_ID', 'NORM_SW', 'NORM_OG'");
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
             Assert.AreEqual(expectedExceptionMessage, exception.Message);
         }
@@ -165,8 +165,8 @@ namespace Ringtoets.Common.IO.Test
 
             // Assert
             var shapeFile = Path.Combine(pathToFolder, "NonUniqueTrajectIds.shp");
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Meerdere trajecten met dezelfde identificatiecode (attribuut 'TRAJECT_ID') gevonden.", 
-                shapeFile);
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Meerdere trajecten met dezelfde identificatiecode (attribuut 'TRAJECT_ID') gevonden.",
+                                                shapeFile);
             CriticalFileValidationException exception = Assert.Throws<CriticalFileValidationException>(call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

@@ -21,12 +21,9 @@
 
 using System;
 using System.Globalization;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.TypeConverters;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Test.TypeConverters
@@ -55,7 +52,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
 
             // Call
-            var result = (RoundedDouble)converter.ConvertFrom(text);
+            var result = (RoundedDouble) converter.ConvertFrom(text);
 
             // Assert
             Assert.IsNaN(result.Value);
@@ -132,7 +129,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
 
             // Call
-            var text = (string)converter.ConvertTo((RoundedDouble)double.NaN, typeof(string));
+            var text = (string) converter.ConvertTo((RoundedDouble) double.NaN, typeof(string));
 
             // Assert
             Assert.AreEqual("-", text);
@@ -149,7 +146,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
 
             // Call
-            var text = (string)converter.ConvertTo(roundedDouble, typeof(string));
+            var text = (string) converter.ConvertTo(roundedDouble, typeof(string));
 
             // Assert
             Assert.AreEqual(roundedDouble.ToString(), text);
@@ -166,7 +163,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
 
             // Call
-            var text = (string)converter.ConvertTo(roundedDouble, typeof(string));
+            var text = (string) converter.ConvertTo(roundedDouble, typeof(string));
 
             // Assert
             Assert.AreEqual(roundedDouble.ToString(), text);
@@ -180,7 +177,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
 
             // Call
-            RoundedDouble conversionResult = (RoundedDouble)converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
+            RoundedDouble conversionResult = (RoundedDouble) converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
 
             // Assert
             Assert.IsNotNull(conversionResult);

@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Common.Forms.Test.Helpers
@@ -51,7 +49,10 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             // Setup
             const string nameBase = "The basic name";
 
-            var existingObjects = new[] { new ObjectWithName(nameBase) };
+            var existingObjects = new[]
+            {
+                new ObjectWithName(nameBase)
+            };
 
             // Call
             var name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);
@@ -87,7 +88,10 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             // Setup
             const string nameBase = "The basic name";
 
-            var existingObjects = new[] { new ObjectWithName("Something original!") };
+            var existingObjects = new[]
+            {
+                new ObjectWithName("Something original!")
+            };
 
             // Call
             var name = NamingHelper.GetUniqueName(existingObjects, nameBase, namedObject => namedObject.Name);

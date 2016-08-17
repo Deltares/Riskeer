@@ -68,8 +68,8 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             const int numberOfDecimalPlaces = 4;
             var logNormalDistribution = new LogNormalDistribution(numberOfDecimalPlaces)
             {
-                Mean = (RoundedDouble)expectedValue,
-                StandardDeviation = (RoundedDouble)Math.Sqrt(variance)
+                Mean = (RoundedDouble) expectedValue,
+                StandardDeviation = (RoundedDouble) Math.Sqrt(variance)
             };
 
             var designVariable = new LogNormalDistributionDesignVariable(logNormalDistribution)
@@ -111,9 +111,9 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             const int numberOfDecimalPlaces = 4;
             var logNormalDistribution = new LogNormalDistribution(numberOfDecimalPlaces)
             {
-                Mean = (RoundedDouble)expectedValue,
-                StandardDeviation = (RoundedDouble)Math.Sqrt(variance),
-                Shift = (RoundedDouble)shift
+                Mean = (RoundedDouble) expectedValue,
+                StandardDeviation = (RoundedDouble) Math.Sqrt(variance),
+                Shift = (RoundedDouble) shift
             };
 
             var designVariable = new LogNormalDistributionDesignVariable(logNormalDistribution)
@@ -144,9 +144,9 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             const int numberOfDecimalPlaces = 6;
             var logNormalDistribution = new LogNormalDistribution(numberOfDecimalPlaces)
             {
-                Mean = (RoundedDouble)expectedValue,
-                StandardDeviation = (RoundedDouble)Math.Sqrt(variance),
-                Shift = (RoundedDouble)0.0
+                Mean = (RoundedDouble) expectedValue,
+                StandardDeviation = (RoundedDouble) Math.Sqrt(variance),
+                Shift = (RoundedDouble) 0.0
             };
 
             var designVariable = new LogNormalDistributionDesignVariable(logNormalDistribution)

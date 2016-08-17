@@ -126,8 +126,8 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
     }
 
-    public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult> {
-
+    public class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult>
+    {
         protected override object CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
         {
             return new TestRow(sectionResult);

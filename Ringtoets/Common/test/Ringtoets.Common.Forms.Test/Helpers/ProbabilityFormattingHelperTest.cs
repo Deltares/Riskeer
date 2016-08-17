@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-
 using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Common.Forms.Test.Helpers

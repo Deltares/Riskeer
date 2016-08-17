@@ -21,7 +21,6 @@
 
 using System.Collections;
 using NUnit.Framework;
-
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
@@ -35,7 +34,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             // Setup
             var contents = new[]
             {
-                new object(), new object()
+                new object(),
+                new object()
             };
             var category = TreeFolderCategory.Output;
 
@@ -55,9 +55,10 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             // Setup
             var contents = new[]
             {
-                new object(), new object()
+                new object(),
+                new object()
             };
-            
+
             // Call
             var treeFolder = new CategoryTreeFolder("<name>", contents);
 
@@ -115,8 +116,12 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Equals_ObjectToEqualToIsCategoryTreeFolderWithDifferentAmountOfContents_ResultShouldNotBeEqual()
         {
             // Setup
-            var treeFolder1 = new CategoryTreeFolder("<name>", new object[] { });
-            var treeFolder2 = new CategoryTreeFolder("<name>", new[] { new object() });
+            var treeFolder1 = new CategoryTreeFolder("<name>", new object[]
+            {});
+            var treeFolder2 = new CategoryTreeFolder("<name>", new[]
+            {
+                new object()
+            });
 
             // Call & Assert
             Assert.AreNotEqual(treeFolder1, treeFolder2);
@@ -126,8 +131,16 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Equals_ObjectToEqualToIsCategoryTreeFolderWithDifferentContents_ResultShouldNotBeEqual()
         {
             // Setup
-            var treeFolder1 = new CategoryTreeFolder("<name>", new[] { 1, 2 });
-            var treeFolder2 = new CategoryTreeFolder("<name>", new[] { 1, 3 });
+            var treeFolder1 = new CategoryTreeFolder("<name>", new[]
+            {
+                1,
+                2
+            });
+            var treeFolder2 = new CategoryTreeFolder("<name>", new[]
+            {
+                1,
+                3
+            });
 
             // Call & Assert
             Assert.AreNotEqual(treeFolder1, treeFolder2);
@@ -149,7 +162,12 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void GetHashCode_EqualCategoryTreeFolders_AreEqual()
         {
             // Setup
-            var enumerable = new[] { 1, 2, new object() };
+            var enumerable = new[]
+            {
+                1,
+                2,
+                new object()
+            };
             var treeFolder1 = new CategoryTreeFolder("<name>", enumerable);
             var treeFolder2 = new CategoryTreeFolder("<name>", enumerable);
 
@@ -164,10 +182,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
         private class TestCategoryTreeFolder : CategoryTreeFolder
         {
-            public TestCategoryTreeFolder(string name, IList contents, TreeFolderCategory category = TreeFolderCategory.General) : base(name, contents, category)
-            {
-
-            }
+            public TestCategoryTreeFolder(string name, IList contents, TreeFolderCategory category = TreeFolderCategory.General) : base(name, contents, category) {}
         }
     }
 }

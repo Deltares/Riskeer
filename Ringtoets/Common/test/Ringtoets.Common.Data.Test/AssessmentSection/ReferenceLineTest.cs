@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () =>referenceLine.SetGeometry(null);
+            TestDelegate call = () => referenceLine.SetGeometry(null);
 
             // Assert
             const string expectedMessage = "De geometrie die opgegeven werd voor de referentielijn heeft geen waarde.";

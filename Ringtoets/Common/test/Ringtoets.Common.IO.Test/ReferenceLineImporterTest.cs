@@ -550,7 +550,7 @@ namespace Ringtoets.Common.IO.Test
                 failureMechanism2
             });
             assessmentSection.Expect(section => section.Attach(contextObserver));
-            assessmentSection.Expect(section => section.NotifyObservers()).Do((Action)(() => contextObserver.UpdateObserver()));
+            assessmentSection.Expect(section => section.NotifyObservers()).Do((Action) (() => contextObserver.UpdateObserver()));
 
             mocks.ReplayAll();
 
@@ -718,7 +718,7 @@ namespace Ringtoets.Common.IO.Test
                 failureMechanism2
             });
             assessmentSection.Expect(section => section.Attach(contextObserver));
-            assessmentSection.Expect(section => section.NotifyObservers()).Do((Action)(() => contextObserver.UpdateObserver()));
+            assessmentSection.Expect(section => section.NotifyObservers()).Do((Action) (() => contextObserver.UpdateObserver()));
 
             mocks.ReplayAll();
 

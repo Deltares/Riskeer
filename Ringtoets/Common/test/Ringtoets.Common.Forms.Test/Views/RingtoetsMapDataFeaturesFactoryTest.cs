@@ -95,6 +95,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
         {
             CollectionAssert.AreEqual(points, geometry.PointCollections.First());
-        } 
+        }
     }
 }

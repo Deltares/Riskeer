@@ -27,10 +27,19 @@ namespace Ringtoets.Common.Data.TestUtil
 {
     public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResult>
     {
+        private static readonly string defaultName = "Test failure mechanism";
+        private static readonly string defaultCode = "TFM";
         private readonly IList<FailureMechanismSectionResult> sectionResults;
         private readonly IEnumerable<ICalculation> calculations;
-        private static string defaultName = "Test failure mechanism";
-        private static string defaultCode = "TFM";
+
+        public TestFailureMechanism()
+            : this(defaultName, defaultCode) {}
+
+        public TestFailureMechanism(string name, string code)
+            : this(name, code, new List<ICalculation>()) {}
+
+        public TestFailureMechanism(IEnumerable<ICalculation> calculations)
+            : this(defaultName, defaultCode, calculations) {}
 
         private TestFailureMechanism(string name, string code, IEnumerable<ICalculation> calculations)
             : base(name, code)
@@ -38,18 +47,6 @@ namespace Ringtoets.Common.Data.TestUtil
             sectionResults = new List<FailureMechanismSectionResult>();
             this.calculations = calculations;
         }
-
-        public TestFailureMechanism()
-            : this(defaultName, defaultCode)
-        { }
-
-        public TestFailureMechanism(string name, string code)
-            : this(name, code, new List<ICalculation>())
-        { }
-
-        public TestFailureMechanism(IEnumerable<ICalculation> calculations)
-            : this(defaultName, defaultCode, calculations)
-        { }
 
         public override IEnumerable<ICalculation> Calculations
         {
@@ -59,18 +56,18 @@ namespace Ringtoets.Common.Data.TestUtil
             }
         }
 
-        public override void AddSection(FailureMechanismSection section)
-        {
-            base.AddSection(section);
-            sectionResults.Add(new TestFailureMechanismSectionResult(section));
-        }
-
         public IEnumerable<FailureMechanismSectionResult> SectionResults
         {
             get
             {
                 return sectionResults;
             }
+        }
+
+        public override void AddSection(FailureMechanismSection section)
+        {
+            base.AddSection(section);
+            sectionResults.Add(new TestFailureMechanismSectionResult(section));
         }
     }
 }

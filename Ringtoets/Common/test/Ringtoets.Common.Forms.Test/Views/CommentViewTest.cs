@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var expectedText = "<Some_text>";
                 var validRtfString = GetValidRtfString(expectedText);
 
-                var richTextBoxControl = (RichTextBoxControl)new ControlTester("richTextBoxControl").TheObject;
+                var richTextBoxControl = (RichTextBoxControl) new ControlTester("richTextBoxControl").TheObject;
 
                 // Call
                 richTextBoxControl.Rtf = validRtfString;
@@ -160,7 +160,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var expectedText = "<Some_text>";
                 var validRtfString = GetValidRtfString(expectedText);
 
-                var richTextBoxControl = (RichTextBoxControl)new ControlTester("richTextBoxControl").TheObject;
+                var richTextBoxControl = (RichTextBoxControl) new ControlTester("richTextBoxControl").TheObject;
 
                 // Call
                 TestDelegate test = () => richTextBoxControl.Rtf = validRtfString;
@@ -169,7 +169,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.DoesNotThrow(test);
             }
         }
-
 
         private static string GetValidRtfString(string value)
         {

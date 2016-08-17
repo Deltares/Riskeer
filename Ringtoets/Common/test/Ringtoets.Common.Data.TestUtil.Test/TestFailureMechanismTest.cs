@@ -97,8 +97,11 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-            var section = new FailureMechanismSection("name", new [] { new Point2D(0,0) });
-            
+            var section = new FailureMechanismSection("name", new[]
+            {
+                new Point2D(0, 0)
+            });
+
             // Call
             failureMechanism.AddSection(section);
 

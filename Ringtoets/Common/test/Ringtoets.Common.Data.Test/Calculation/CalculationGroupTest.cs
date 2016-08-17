@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Storage;
-
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;

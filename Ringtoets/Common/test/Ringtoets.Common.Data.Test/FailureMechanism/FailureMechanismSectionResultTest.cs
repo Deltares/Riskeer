@@ -44,7 +44,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         public void Constructor_WithSection_ResultCreatedForSection()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             // Call
             var result = new SimpleFailureMechanismSectionResult(section);
@@ -54,9 +57,9 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             Assert.AreSame(section, result.Section);
         }
 
-        class SimpleFailureMechanismSectionResult : FailureMechanismSectionResult
+        private class SimpleFailureMechanismSectionResult : FailureMechanismSectionResult
         {
             public SimpleFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
         }
-     }
+    }
 }

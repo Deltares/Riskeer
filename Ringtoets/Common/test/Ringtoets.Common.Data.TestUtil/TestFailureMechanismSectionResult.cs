@@ -32,6 +32,6 @@ namespace Ringtoets.Common.Data.TestUtil
         /// Creates a new instance of <see cref="TestFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the result was made.</param>
-        public TestFailureMechanismSectionResult(FailureMechanismSection section) : base(section) { }
+        public TestFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
     }
 }
