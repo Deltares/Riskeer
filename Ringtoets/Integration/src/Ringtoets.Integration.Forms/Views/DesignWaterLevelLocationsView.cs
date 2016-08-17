@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private IEnumerable<DesignWaterLevelLocationContextRow> GetDesignWaterLevelLocationContextRows()
         {
-            return from DataGridViewRow row in dataGridViewControl.Rows select (DesignWaterLevelLocationContextRow) row.DataBoundItem;
+            return dataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => (DesignWaterLevelLocationContextRow) row.DataBoundItem);
         }
 
         private IEnumerable<HydraulicBoundaryLocation> GetSelectedDesignWaterLevelLocationContext()
