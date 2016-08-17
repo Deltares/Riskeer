@@ -22,13 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-
 [assembly: AssemblyTitle("Ringtoets.HydraRing.IO.Test")]
 [assembly: AssemblyProduct("Ringtoets.HydraRing.IO.Test")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-
 [assembly: Guid("CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221")]

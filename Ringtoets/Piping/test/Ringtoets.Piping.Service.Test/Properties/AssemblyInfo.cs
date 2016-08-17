@@ -24,6 +24,4 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.Piping.Service.Test")]
 [assembly: AssemblyProduct("Ringtoets.Piping.Service.Test")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("2533df4d-d679-4225-90b8-ce6e8bc73ea8")]

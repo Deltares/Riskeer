@@ -22,13 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-
 [assembly: AssemblyTitle("Ringtoets.HeightStructures.Plugin.Test")]
 [assembly: AssemblyProduct("Ringtoets.HeightStructures.Plugin.Test")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-
 [assembly: Guid("c235ffc3-35b0-4b55-b66f-46f23e8548ca")]

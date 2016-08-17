@@ -22,11 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
 [assembly: AssemblyTitle("Core.Components.Gis.IO.Test")]
 [assembly: AssemblyProduct("Core.Components.Gis.IO.Test")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("ff511bf2-0dd9-4a4c-bc00-10cd2333dc69")]

@@ -24,6 +24,4 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.GrassCoverErosionInwards.IO.Test")]
 [assembly: AssemblyProduct("Ringtoets.GrassCoverErosionInwards.IO.Test")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("200ceb90-dd70-46f1-9a72-0d6036def006")]

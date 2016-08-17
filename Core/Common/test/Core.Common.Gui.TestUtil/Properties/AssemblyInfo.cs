@@ -24,6 +24,4 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Common.Gui.TestUtil")]
 [assembly: AssemblyProduct("Core.Common.Gui.TestUtil")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("d749c2bb-9e8a-4211-b24b-d3b179e73042")]

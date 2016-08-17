@@ -22,11 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
 [assembly: AssemblyTitle("Core.Components.DotSpatial.Forms.Test")]
 [assembly: AssemblyProduct("Core.Components.DotSpatial.Forms.Test")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("525c25e0-dcef-4b09-8234-c9d001b47bfa")]

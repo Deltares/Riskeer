@@ -24,6 +24,4 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Core.Components.Charting.TestUtil")]
 [assembly: AssemblyProduct("Core.Components.Charting.TestUtil")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("509c07ec-1f58-411d-a3c1-f6d7bdd0e8b6")]

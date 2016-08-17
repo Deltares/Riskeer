@@ -22,6 +22,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
 [assembly: AssemblyTitle("Ringtoets.GrassCoverErosionInwards.Service")]
 [assembly: AssemblyProduct("Ringtoets.GrassCoverErosionInwards.Service")]
 [assembly: Guid("fab17b31-71c4-4f69-a197-702ed145ff34")]
