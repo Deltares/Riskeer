@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Name, waveHeightLocationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightLocationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, waveHeightLocationProperties.Location);
-            var expectedWaveHeightValue = waveHeight.ToString("F2", CultureInfo.InvariantCulture);
+            var expectedWaveHeightValue = new RoundedDouble(2, waveHeight).ToString();
             Assert.AreEqual(expectedWaveHeightValue, waveHeightLocationProperties.WaveHeight);
             mockRepository.VerifyAll();
         }

@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            string expectedWaveHeight = waveHeight.ToString("F2", CultureInfo.InvariantCulture);
+            string expectedWaveHeight = new RoundedDouble(2, waveHeight).ToString();
             Assert.AreEqual(expectedWaveHeight, properties.WaveHeight);
             Assert.IsFalse(properties.Convergence);
         }
