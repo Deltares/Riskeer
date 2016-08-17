@@ -109,7 +109,7 @@ namespace Ringtoets.Common.Service
         public static void LogValidationBeginTime(string name)
         {
             log.Info(string.Format(Resources.Validation_Subject_0_started_Time_1_,
-                                                              name, DateTimeService.CurrentTimeAsString));
+                                   name, DateTimeService.CurrentTimeAsString));
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Service
         public static void LogValidationEndTime(string name)
         {
             log.Info(string.Format(Resources.Validation_Subject_0_ended_Time_1_,
-                                                              name, DateTimeService.CurrentTimeAsString));
+                                   name, DateTimeService.CurrentTimeAsString));
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Service
         public static void LogCalculationBeginTime(string name)
         {
             log.Info(string.Format(Resources.Calculation_Subject_0_started_Time_1_,
-                                                                 name, DateTimeService.CurrentTimeAsString));
+                                   name, DateTimeService.CurrentTimeAsString));
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace Ringtoets.Common.Service
         public static void LogCalculationEndTime(string name)
         {
             log.Info(string.Format(Resources.Calculation_Subject_0_ended_Time_1_,
-                                                              name, DateTimeService.CurrentTimeAsString));
+                                   name, DateTimeService.CurrentTimeAsString));
         }
     }
 }

@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-
 using Ringtoets.Common.Data.FailureMechanism;
-
 using CommonResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Common.Data.Contribution
@@ -102,7 +100,7 @@ namespace Ringtoets.Common.Data.Contribution
         {
             get
             {
-                return (Norm / Contribution) * 100;
+                return (Norm/Contribution)*100;
             }
         }
 
@@ -130,7 +128,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// relevant. When <c>true</c>, then <see cref="IsRelevant"/> cannot be set to <c>false</c>.
         /// </summary>
         public bool IsAlwaysRelevant { get; private set; }
-        
+
         /// <summary>
         /// Notifies the observers for the wrapped <see cref="IFailureMechanism"/>.
         /// </summary>

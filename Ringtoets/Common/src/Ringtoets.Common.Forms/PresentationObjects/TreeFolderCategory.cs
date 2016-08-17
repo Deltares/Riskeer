@@ -30,10 +30,12 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// Folder contents to not have a particular meaning.
         /// </summary>
         General,
+
         /// <summary>
         /// Marks the folder contents as inputs.
         /// </summary>
         Input,
+
         /// <summary>
         /// Marks the folder contents as outputs.
         /// </summary>

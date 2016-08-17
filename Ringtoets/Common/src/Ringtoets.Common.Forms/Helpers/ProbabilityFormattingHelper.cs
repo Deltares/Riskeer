@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Ringtoets.Common.Forms.Properties;
-
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Helpers
@@ -43,7 +42,7 @@ namespace Ringtoets.Common.Forms.Helpers
                                      CommonBaseResources.RoundedDouble_ToString_PositiveInfinity);
             }
             return string.Format(Resources.ProbabilityPerYearFormat,
-                                 1.0 / probability);
+                                 1.0/probability);
         }
     }
 }

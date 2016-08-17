@@ -32,7 +32,6 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.IO.Properties;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -91,7 +90,7 @@ namespace Ringtoets.Common.IO
 
             bool clearReferenceLineDependentData = false;
 
-            var importTarget = (ReferenceLineContext)targetItem;
+            var importTarget = (ReferenceLineContext) targetItem;
             if (importTarget.WrappedData.ReferenceLine != null)
             {
                 clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData(importTarget.WrappedData);
@@ -103,7 +102,7 @@ namespace Ringtoets.Common.IO
                 return false;
             }
 
-            NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Reading_referenceline,
+            NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Reading_referenceline,
                            1, clearReferenceLineDependentData ? 4 : 2);
             ReadResult<ReferenceLine> readResult = ReadReferenceLine(filePath);
             if (readResult.CriticalErrorOccurred)
@@ -133,7 +132,7 @@ namespace Ringtoets.Common.IO
         {
             var clearReferenceLineDependentData = false;
 
-            DialogResult result = MessageBox.Show(Resources.ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed,
+            DialogResult result = MessageBox.Show(RingtoetsCommonIOResources.ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
             if (result == DialogResult.Cancel)
@@ -153,7 +152,7 @@ namespace Ringtoets.Common.IO
 
         private static void HandleUserCancellingImport()
         {
-            log.Info(Resources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read);
+            log.Info(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read);
         }
 
         private ReadResult<ReferenceLine> ReadReferenceLine(string filePath)
@@ -180,7 +179,7 @@ namespace Ringtoets.Common.IO
 
         private static ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
         {
-            var errorMessage = string.Format(Resources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
+            var errorMessage = string.Format(RingtoetsCommonIOResources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
                                              e.Message);
             log.Error(errorMessage);
             return new ReadResult<ReferenceLine>(true);
@@ -188,7 +187,7 @@ namespace Ringtoets.Common.IO
 
         private void AddReferenceLineToDataModel(IAssessmentSection assessmentSection, ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
         {
-            NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection,
+            NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection,
                            2, clearReferenceLineDependentData ? 4 : 2);
             assessmentSection.ReferenceLine = importedReferenceLine;
 
@@ -200,14 +199,14 @@ namespace Ringtoets.Common.IO
 
         private void ClearReferenceLineDependentData(IAssessmentSection assessmentSection)
         {
-            NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
+            NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
                            3, 4);
             foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 ClearCalculationOutput(failureMechanism);
                 ClearFailureMechanismSections(failureMechanism);
             }
-            NotifyProgress(Resources.ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output,
+            NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Removing_hydraulic_boundary_output,
                            4, 4);
             ClearHydraulicBoundaryOutput();
         }

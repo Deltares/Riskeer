@@ -45,15 +45,6 @@ namespace Ringtoets.Common.Forms.Views
         private IFailureMechanism failureMechanism;
 
         /// <summary>
-        /// Creates a display object for <paramref name="sectionResult"/> which is added to the
-        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{T}"/>.
-        /// </summary>
-        /// <param name="sectionResult">The <typeparamref name="T"/> for which to create a
-        /// display object.</param>
-        /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
-        protected abstract object CreateFailureMechanismSectionResultRow(T sectionResult);
-
-        /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{T}"/>.
         /// </summary>
         protected FailureMechanismResultView()
@@ -107,6 +98,15 @@ namespace Ringtoets.Common.Forms.Views
 
         protected DataGridViewControl DataGridViewControl { get; private set; }
 
+        /// <summary>
+        /// Creates a display object for <paramref name="sectionResult"/> which is added to the
+        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{T}"/>.
+        /// </summary>
+        /// <param name="sectionResult">The <typeparamref name="T"/> for which to create a
+        /// display object.</param>
+        /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
+        protected abstract object CreateFailureMechanismSectionResultRow(T sectionResult);
+
         protected override void Dispose(bool disposing)
         {
             FailureMechanism = null;
@@ -146,7 +146,7 @@ namespace Ringtoets.Common.Forms.Views
                     .Select(CreateFailureMechanismSectionResultRow)
                     .Where(sr => sr != null)
                     .ToList()
-            );
+                );
         }
 
         /// <summary>

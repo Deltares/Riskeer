@@ -22,10 +22,8 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.TypeConverters;
-
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.TypeConverters
@@ -44,7 +42,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
             {
                 if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.FailureMechanismSectionResult_No_result_dash)
                 {
-                    return (RoundedDouble)double.NaN;
+                    return (RoundedDouble) double.NaN;
                 }
             }
             return base.ConvertFrom(context, culture, value);
@@ -52,7 +50,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            var roundedDoubleValue = (RoundedDouble)value;
+            var roundedDoubleValue = (RoundedDouble) value;
             if (destinationType == typeof(string))
             {
                 if (double.IsNaN(roundedDoubleValue))

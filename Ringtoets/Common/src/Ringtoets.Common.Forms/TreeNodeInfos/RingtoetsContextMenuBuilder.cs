@@ -115,8 +115,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// If the item should be enabled then the function should return a <c>null</c> or empty string.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
         public RingtoetsContextMenuBuilder AddValidateAllCalculationsInGroupItem<TCalculationContext>(TCalculationContext calculationGroupContext,
-            Action<TCalculationContext> validateAllAction,
-            Func<TCalculationContext, string> enableMenuItemFunction = null)
+                                                                                                      Action<TCalculationContext> validateAllAction,
+                                                                                                      Func<TCalculationContext, string> enableMenuItemFunction = null)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, validateAllAction, enableMenuItemFunction));

@@ -29,6 +29,6 @@ namespace Ringtoets.Common.Data
         /// <summary>
         /// Gets or sets the comments associated with the data object.
         /// </summary>
-        string Comments { get; set; } 
+        string Comments { get; set; }
     }
 }

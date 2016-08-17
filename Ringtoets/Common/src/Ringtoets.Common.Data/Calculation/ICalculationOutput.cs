@@ -26,5 +26,5 @@ namespace Ringtoets.Common.Data.Calculation
     /// <summary>
     /// Interface describing an object that is the output to a <see cref="ICalculation"/>.
     /// </summary>
-    public interface ICalculationOutput : IObservable { }
+    public interface ICalculationOutput : IObservable {}
 }

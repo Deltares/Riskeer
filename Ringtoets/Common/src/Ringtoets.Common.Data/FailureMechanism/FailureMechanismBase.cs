@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 InsertSectionWhileMaintainingConnectivityOrder(section);
             }
         }
-        
+
         public virtual void ClearAllSections()
         {
             sections.Clear();

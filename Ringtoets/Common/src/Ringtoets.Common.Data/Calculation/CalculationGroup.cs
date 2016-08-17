@@ -21,10 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-
 using Core.Common.Base;
 using Core.Common.Base.Storage;
-
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Calculation

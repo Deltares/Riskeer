@@ -22,12 +22,9 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
 using Core.Common.Base.Data;
-
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
-
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.TypeConverters
@@ -41,7 +38,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            var doubleValue = (double)value;
+            var doubleValue = (double) value;
             if (destinationType == typeof(string))
             {
                 if (double.IsNaN(doubleValue))

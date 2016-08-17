@@ -382,7 +382,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 (sender, args) => RemoveAllChildrenFromGroup(calculationGroup));
 
             var errorMessage = calculationGroup.Children.Any() ? null : Resources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove;
-            
+
             if (errorMessage != null)
             {
                 menuItem.Enabled = false;

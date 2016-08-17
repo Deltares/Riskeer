@@ -24,16 +24,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
-
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using Core.Common.Utils.Properties;
-
 using log4net;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Exceptions;
-
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
