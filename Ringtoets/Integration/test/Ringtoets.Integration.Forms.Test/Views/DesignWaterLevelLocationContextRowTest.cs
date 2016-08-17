@@ -30,13 +30,13 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationDesignWaterLevelRowTest
+    public class DesignWaterLevelLocationContextRowTest
     {
         [Test]
         public void Constructor_WithoutHydraulicBoundaryLocation_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HydraulicBoundaryLocationDesignWaterLevelRow(null);
+            TestDelegate test = () => new DesignWaterLevelLocationContextRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var context = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Call
-            var row = new HydraulicBoundaryLocationDesignWaterLevelRow(context);
+            var row = new DesignWaterLevelLocationContextRow(context);
 
             // Assert
             Assert.AreEqual(id, row.Id);
@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var context = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
-            var row = new HydraulicBoundaryLocationDesignWaterLevelRow(context);
+            var row = new DesignWaterLevelLocationContextRow(context);
 
             // Call
             row.ToCalculate = true;

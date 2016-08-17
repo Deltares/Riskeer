@@ -286,6 +286,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekenen.
+        /// </summary>
+        public static string DesignWaterLevelLocationContextRow_Calculate {
+            get {
+                return ResourceManager.GetString("DesignWaterLevelLocationContextRow_Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetspeilen.
         /// </summary>
         public static string DesignWaterLevelLocationsContext_DisplayName {
@@ -530,15 +539,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekenen.
-        /// </summary>
-        public static string HydraulicBoundaryLocationDesignWaterLevelRow_Calculate {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationDesignWaterLevelRow_Calculate", resourceCulture);
             }
         }
         

@@ -21,7 +21,7 @@
 
 namespace Ringtoets.Integration.Forms.Views
 {
-    partial class HydraulicBoundaryLocationDesignWaterLevelsView
+    partial class DesignWaterLevelLocationsView
     {
         /// <summary> 
         /// Required designer variable.
@@ -117,12 +117,12 @@ namespace Ringtoets.Integration.Forms.Views
             this.SelectAllButton.UseVisualStyleBackColor = true;
             this.SelectAllButton.Click += new System.EventHandler(this.SelectAllButton_Click);
             // 
-            // HydraulicBoundaryLocationDesignWaterLevelsView
+            // DesignWaterLevelLocationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
-            this.Name = "HydraulicBoundaryLocationDesignWaterLevelsView";
+            this.Name = "DesignWaterLevelLocationsView";
             this.Size = new System.Drawing.Size(535, 329);
             this.tableLayoutPanel.ResumeLayout(false);
             this.ButtonGroupBox.ResumeLayout(false);

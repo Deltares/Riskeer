@@ -286,7 +286,7 @@ namespace Ringtoets.Integration.Plugin
                 }
             };
 
-            yield return new ViewInfo<DesignWaterLevelLocationsContext, IAssessmentSection, HydraulicBoundaryLocationDesignWaterLevelsView>
+            yield return new ViewInfo<DesignWaterLevelLocationsContext, IAssessmentSection, DesignWaterLevelLocationsView>
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
                 GetViewData = context => context.WrappedData,

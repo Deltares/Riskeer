@@ -96,12 +96,12 @@
     <Compile Include="Views\FailureMechanismContributionView.Designer.cs">
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\HydraulicBoundaryLocationDesignWaterLevelRow.cs" />
-    <Compile Include="Views\HydraulicBoundaryLocationDesignWaterLevelsView.cs">
+    <Compile Include="Views\DesignWaterLevelLocationContextRow.cs" />
+    <Compile Include="Views\DesignWaterLevelLocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\HydraulicBoundaryLocationDesignWaterLevelsView.Designer.cs">
-      <DependentUpon>HydraulicBoundaryLocationDesignWaterLevelsView.cs</DependentUpon>
+    <Compile Include="Views\DesignWaterLevelLocationsView.Designer.cs">
+      <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\ClosingStructureSectionResultRow.cs" />
@@ -261,8 +261,8 @@
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\HydraulicBoundaryLocationDesignWaterLevelsView.resx">
-      <DependentUpon>HydraulicBoundaryLocationDesignWaterLevelsView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\DesignWaterLevelLocationsView.resx">
+      <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

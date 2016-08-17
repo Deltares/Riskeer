@@ -299,7 +299,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismContributionIcon, contributionViewInfo.Image);
 
                 var designWaterLevelLocationsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(DesignWaterLevelLocationsContext));
-                Assert.AreEqual(typeof(HydraulicBoundaryLocationDesignWaterLevelsView), designWaterLevelLocationsViewInfo.ViewType);
+                Assert.AreEqual(typeof(DesignWaterLevelLocationsView), designWaterLevelLocationsViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, designWaterLevelLocationsViewInfo.Image);
 
                 var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(IAssessmentSection));

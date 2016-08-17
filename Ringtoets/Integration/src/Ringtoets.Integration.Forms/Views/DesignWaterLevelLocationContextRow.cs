@@ -29,18 +29,18 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/> with <see cref="DesignWaterLevel"/>.
+    /// This class represents a row of <see cref="DesignWaterLevelLocationContext"/>.
     /// </summary>
-    internal class HydraulicBoundaryLocationDesignWaterLevelRow
+    internal class DesignWaterLevelLocationContextRow
     {
         private readonly DesignWaterLevelLocationContext designWaterLevelLocationContext;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationDesignWaterLevelRow"/>.
+        /// Creates a new instance of <see cref="DesignWaterLevelLocationContextRow"/>.
         /// </summary>
-        /// <param name="designWaterLevelLocationContext">The <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/> for this row.</param>
+        /// <param name="designWaterLevelLocationContext">The <see cref="DesignWaterLevelLocationContext"/> for this row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelLocationContext"/> is <c>null</c>.</exception>
-        internal HydraulicBoundaryLocationDesignWaterLevelRow(DesignWaterLevelLocationContext designWaterLevelLocationContext)
+        internal DesignWaterLevelLocationContextRow(DesignWaterLevelLocationContext designWaterLevelLocationContext)
         {
             if (designWaterLevelLocationContext == null)
             {
@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets whether the <see cref="HydraulicBoundaryLocationDesignWaterLevelRow"/> is set to be calculated.
+        /// Gets whether the <see cref="DesignWaterLevelLocationContextRow"/> is set to be calculated.
         /// </summary>
         public bool ToCalculate { get; set; }
 
