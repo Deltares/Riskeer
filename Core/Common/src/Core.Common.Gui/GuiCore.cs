@@ -167,7 +167,7 @@ namespace Core.Common.Gui
             MessageWindowLogAppender.Instance.Enabled = true;
         }
 
-        public void Exit()
+        public void ExitApplication()
         {
             if (isExiting)
             {
@@ -220,6 +220,8 @@ namespace Core.Common.Gui
         {
             if (disposing)
             {
+                projectObserver.Dispose();
+
                 if (Plugins != null)
                 {
                     foreach (var plugin in Plugins.ToArray())
@@ -244,12 +246,6 @@ namespace Core.Common.Gui
                     ViewHost.ViewClosed -= OnActiveDocumentViewChanged;
                     ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
                     ViewHost.ActiveViewChanged -= OnActiveViewChanged;
-                }
-
-                if (storageCommandHandler != null)
-                {
-                    storageCommandHandler.Dispose();
-                    storageCommandHandler = null;
                 }
 
                 // Dispose managed resources. TODO: double check if we need to dispose managed resources?
@@ -380,7 +376,7 @@ namespace Core.Common.Gui
             }
         }
 
-        private void ConfigureLogging()
+        private static void ConfigureLogging()
         {
             // configure logging
             var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
@@ -392,7 +388,7 @@ namespace Core.Common.Gui
             }
         }
 
-        private void RemoveLogging()
+        private static void RemoveLogging()
         {
             var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
             var messageWindowLogAppender = rootLogger.Appenders.Cast<IAppender>().OfType<MessageWindowLogAppender>().FirstOrDefault();
@@ -469,7 +465,7 @@ namespace Core.Common.Gui
                 }
 
                 e.Cancel = true; //cancel closing: let Exit handle it
-                Exit();
+                ExitApplication();
             };
         }
 

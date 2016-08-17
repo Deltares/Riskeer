@@ -50,7 +50,7 @@ namespace Core.Components.OxyPlot.Converter
             return new List<Series> { series };
         }
 
-        private void CreateStyle(LineSeries series, ChartPointStyle style)
+        private static void CreateStyle(LineSeries series, ChartPointStyle style)
         {
             if (style != null)
             {

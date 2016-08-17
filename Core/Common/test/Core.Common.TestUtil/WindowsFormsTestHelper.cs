@@ -133,9 +133,7 @@ namespace Core.Common.TestUtil
             {
                 CloseAll();
 
-                Close();
                 Dispose();
-
                 control.Dispose();
             }
         }

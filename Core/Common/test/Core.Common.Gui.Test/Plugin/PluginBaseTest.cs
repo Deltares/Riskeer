@@ -243,17 +243,16 @@ namespace Core.Common.Gui.Test.Plugin
             var gui = mocks.Stub<IGui>();
             mocks.ReplayAll();
 
-            using (var plugin = new SimplePlugin
+            var plugin = new SimplePlugin
             {
                 Gui = gui
-            })
-            {
-                // Call
-                plugin.Dispose();
+            };
+            
+            // Call
+            plugin.Dispose();
 
-                // Assert
-                Assert.IsNull(plugin.Gui);
-            }
+            // Assert
+            Assert.IsNull(plugin.Gui);
             mocks.VerifyAll();
         }
 

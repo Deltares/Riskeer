@@ -45,6 +45,6 @@ namespace Core.Common.Gui
         /// <summary>
         /// Terminates the application.
         /// </summary>
-        void Exit();
+        void ExitApplication();
     }
 }

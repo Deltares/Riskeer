@@ -235,7 +235,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             return data.Equals(view.Data) || (IsDataForView(data, viewInfo) && Equals(viewInfo.GetViewData(data), view.Data));
         }
 
-        private bool IsDataForView(object data, ViewInfo info)
+        private static bool IsDataForView(object data, ViewInfo info)
         {
             return info != null && data.GetType().Implements(info.DataType) && info.AdditionalDataCheck(data);
         }

@@ -419,7 +419,7 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileExitClicked(object sender, RoutedEventArgs e)
         {
-            gui.Exit();
+            gui.ExitApplication();
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
@@ -499,9 +499,10 @@ namespace Core.Common.Gui.Forms.MainWindow
                             {
                                 // HACK: remember and restore button size (looks like a bug in Fluent)
                                 var iconSize = RibbonControlSize.Small;
-                                if (item is Button)
+                                var buttonItem = item as Button;
+                                if (buttonItem != null)
                                 {
-                                    var button = (Button) item;
+                                    var button = buttonItem;
                                     iconSize = button.Size;
                                 }
 

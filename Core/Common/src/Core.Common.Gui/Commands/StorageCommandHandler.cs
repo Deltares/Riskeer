@@ -88,8 +88,6 @@ namespace Core.Common.Gui.Commands
             return openSaveOrDiscardProjectDialog;
         }
 
-        public void Dispose() {}
-
         public void CreateNewProject()
         {
             if (!ContinueIfHasChanges())

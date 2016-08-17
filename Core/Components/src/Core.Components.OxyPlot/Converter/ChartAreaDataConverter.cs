@@ -52,7 +52,7 @@ namespace Core.Components.OxyPlot.Converter
             return new List<Series> { series };
         }
 
-        private void CreateStyle(AreaSeries series, ChartAreaStyle style)
+        private static void CreateStyle(AreaSeries series, ChartAreaStyle style)
         {
             if (style != null)
             {

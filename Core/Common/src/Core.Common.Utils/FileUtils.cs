@@ -64,7 +64,7 @@ namespace Core.Common.Utils
                                          string.Join(", ", Path.GetInvalidFileNameChars())));
                 throw new ArgumentException(message, e);
             }
-            if (string.Empty == name)
+            if (string.IsNullOrEmpty(name))
             {
                 var message = new FileReaderErrorMessageBuilder(path).Build(Resources.Error_Path_must_not_point_to_empty_file_name);
                 throw new ArgumentException(message);

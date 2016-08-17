@@ -131,10 +131,10 @@ namespace Core.Common.Gui.PropertyBag
             return GetProperties(new Attribute[0]);
         }
 
-        public PropertyDescriptorCollection GetProperties(Attribute[] attributesFilter)
+        public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
             var propertyDescriptorsToReturn = Properties.Select(p => new PropertySpecDescriptor(p, WrappedObject))
-                                                        .Where(t => ShouldDescriptorBeReturned(t, attributesFilter));
+                                                        .Where(t => ShouldDescriptorBeReturned(t, attributes));
 
             var propertySpecDescriptors = OrderPropertyDescriptors(propertyDescriptorsToReturn);
             return new PropertyDescriptorCollection(propertySpecDescriptors);

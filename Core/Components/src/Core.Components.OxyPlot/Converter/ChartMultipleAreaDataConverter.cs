@@ -51,7 +51,7 @@ namespace Core.Components.OxyPlot.Converter
             return new List<Series> { series };
         }
 
-        private void CreateStyle(MultipleAreaSeries series, ChartAreaStyle style)
+        private static void CreateStyle(MultipleAreaSeries series, ChartAreaStyle style)
         {
             if (style != null)
             {

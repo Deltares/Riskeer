@@ -40,7 +40,7 @@ namespace Core.Common.Utils.Reflection
         {
             AssemblyInfo info = new AssemblyInfo();
 
-            if (assembly.Location == "")
+            if (string.IsNullOrEmpty(assembly.Location))
             {
                 return info;
             }
@@ -163,29 +163,34 @@ namespace Core.Common.Utils.Reflection
         public struct AssemblyInfo
         {
             /// <summary>
-            /// The company specified in the assembly.
+            /// Gets or sets the company specified in the assembly.
             /// </summary>
-            public string Company;
+            public string Company { get; set; }
+
             /// <summary>
-            /// The copyright text specified in the assembly.
+            /// Gets or sets the copyright text specified in the assembly.
             /// </summary>
-            public string Copyright;
+            public string Copyright { get; set; }
+
             /// <summary>
-            /// The description text specified in the assembly.
+            /// Gets or sets the description text specified in the assembly.
             /// </summary>
-            public string Description;
+            public string Description { get; set; }
+
             /// <summary>
-            /// The product text specified in the assembly.
+            /// Gets or sets the product text specified in the assembly.
             /// </summary>
-            public string Product;
+            public string Product { get; set; }
+
             /// <summary>
-            /// The title text specified in the assembly.
+            /// Gets or sets the title text specified in the assembly.
             /// </summary>
-            public string Title;
+            public string Title { get; set; }
+
             /// <summary>
-            /// The version specified in the assembly.
+            /// Gets or sets the version specified in the assembly.
             /// </summary>
-            public string Version;
+            public string Version { get; set; }
         }
 
         #endregion

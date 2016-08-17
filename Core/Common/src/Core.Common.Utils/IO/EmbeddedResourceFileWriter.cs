@@ -77,7 +77,7 @@ namespace Core.Common.Utils.IO
             }
         }
 
-        private void WriteEmbeddedResourceToTemporaryFile(Assembly assembly, string embeddedResourceFileName, string filePath)
+        private static void WriteEmbeddedResourceToTemporaryFile(Assembly assembly, string embeddedResourceFileName, string filePath)
         {
             var stream = GetStreamToFileInResource(assembly, embeddedResourceFileName);
             var bytes = GetBinaryDataOfStream(stream);
@@ -85,7 +85,7 @@ namespace Core.Common.Utils.IO
             File.WriteAllBytes(filePath, bytes);
         }
 
-        private Stream GetStreamToFileInResource(Assembly assembly, string embeddedResourceFileName)
+        private static Stream GetStreamToFileInResource(Assembly assembly, string embeddedResourceFileName)
         {
             return AssemblyUtils.GetAssemblyResourceStream(assembly, embeddedResourceFileName);
         }

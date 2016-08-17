@@ -97,15 +97,15 @@ namespace Core.Common.Gui.Converters
                 index = elementIndex;
             }
 
-            public override object GetValue(object instance)
+            public override object GetValue(object component)
             {
-                var array = (Array) instance;
+                var array = (Array) component;
                 return array.GetValue(index);
             }
 
-            public override void SetValue(object instance, object value)
+            public override void SetValue(object component, object value)
             {
-                var array = (Array) instance;
+                var array = (Array) component;
                 array.SetValue(value, index);
                 // This class is based on the System.ComponentModel.ArrayConverter.ArrayPropertyDescriptor,
                 // and there the SetValue also called OnValueChanged. Copying that behavior here as well.
