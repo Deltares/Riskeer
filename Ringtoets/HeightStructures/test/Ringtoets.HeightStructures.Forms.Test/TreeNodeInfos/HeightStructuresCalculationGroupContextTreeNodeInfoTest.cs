@@ -68,14 +68,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCalculationGroupContext));
         }
 
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -208,7 +200,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                                            failureMechanism,
                                                                            assessmentSectionMock);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            
+
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
@@ -364,8 +356,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             };
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -410,8 +402,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(null);
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -456,8 +448,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -511,8 +503,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -549,8 +541,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             };
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -595,8 +587,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(null);
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -641,8 +633,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -696,8 +688,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                               failureMechanism,
-                                                                               assessmentSectionMock);
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1024,6 +1016,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         private const int contextMenuAddCalculationGroupIndexRootGroup = 0;

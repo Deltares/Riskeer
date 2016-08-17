@@ -49,25 +49,20 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource, 
+                UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(
                     cg.Children
-                        .OfType<ICalculation>()
-                        .Select(c => c.GetObservableInput())
-                )
-            );
+                      .OfType<ICalculation>()
+                      .Select(c => c.GetObservableInput())));
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
-                UpdateDataGridViewDataSource, 
+                UpdateDataGridViewDataSource,
                 cg => cg.Children.Concat<object>(
                     cg.Children
-                        .OfType<ICalculation>()
-                        .Select(c => c.GetObservableOutput())
-                )
-            );
+                      .OfType<ICalculation>()
+                      .Select(c => c.GetObservableOutput())));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
-                UpdateDataGridViewDataSource, 
-                c => c.Children
-            );
+                UpdateDataGridViewDataSource,
+                c => c.Children);
 
             AddDataGridColumns();
         }
@@ -98,31 +93,27 @@ namespace Ringtoets.HeightStructures.Forms.Views
             base.Dispose(disposing);
         }
 
+        protected override object CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
+        {
+            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+        }
+
         private void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<HeightStructuresFailureMechanismSectionResultRow>(sr => sr.Name),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true
-                );
+                true);
             DataGridViewControl.AddCheckBoxColumn(
                 TypeUtils.GetMemberName<HeightStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
-                );
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<HeightStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, 
-                true
-                );
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                true);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<HeightStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
-                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-                );
-        }
-
-        protected override object CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
-        {
-            return new HeightStructuresFailureMechanismSectionResultRow(sectionResult);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

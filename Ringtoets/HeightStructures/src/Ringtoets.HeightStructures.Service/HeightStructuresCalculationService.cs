@@ -75,14 +75,15 @@ namespace Ringtoets.HeightStructures.Service
 
             CalculationServiceHelper.PerformCalculation(
                 calculation.Name,
-                () => {
+                () =>
+                {
                     HydraRingCalculationService.PerformCalculation(
-                        hlcdDirectory, 
-                        ringId, 
-                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta, 
-                        HydraRingUncertaintiesType.All, 
+                        hlcdDirectory,
+                        ringId,
+                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
+                        HydraRingUncertaintiesType.All,
                         input,
-                        new []
+                        new[]
                         {
                             exceedanceProbabilityCalculationParser
                         });

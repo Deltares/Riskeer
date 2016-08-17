@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             assessmentLayerTwoA = double.NaN;
-            AssessmentLayerThree = (RoundedDouble)double.NaN;
+            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
 
         /// <summary>

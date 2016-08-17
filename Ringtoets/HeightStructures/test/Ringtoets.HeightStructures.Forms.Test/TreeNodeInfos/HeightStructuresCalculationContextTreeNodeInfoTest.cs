@@ -589,7 +589,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 Version = "random"
             };
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            
+
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
@@ -668,7 +668,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 Version = "random"
             };
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            
+
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
@@ -742,7 +742,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-
         }
 
         private const int contextMenuValidateIndex = 0;

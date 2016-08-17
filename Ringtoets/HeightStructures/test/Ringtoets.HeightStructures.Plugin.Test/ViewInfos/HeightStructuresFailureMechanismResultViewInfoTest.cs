@@ -32,7 +32,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Views;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
@@ -256,7 +255,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             {
                 Data = failureMechanism.SectionResults
             };
-            
+
             var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSectionMock);
 
             // Call

@@ -278,7 +278,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
 
             // Call
-            TestDelegate call = () => input.FailureProbabilityOfStructureGivenErosion = (RoundedDouble)failureProbabilityOfStructureGivenErosion;
+            TestDelegate call = () => input.FailureProbabilityOfStructureGivenErosion = (RoundedDouble) failureProbabilityOfStructureGivenErosion;
 
             // Assert
             var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Value_needs_to_be_between_0_and_1;

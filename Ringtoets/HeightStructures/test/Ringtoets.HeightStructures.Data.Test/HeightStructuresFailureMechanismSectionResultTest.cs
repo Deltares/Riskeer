@@ -86,7 +86,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             FailureMechanismSection section = CreateSection();
             var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
-            RoundedDouble assessmentLayerThree = (RoundedDouble)newValue;
+            RoundedDouble assessmentLayerThree = (RoundedDouble) newValue;
 
             // Call
             failureMechanismSectionResult.AssessmentLayerThree = assessmentLayerThree;
@@ -94,7 +94,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             Assert.AreEqual(assessmentLayerThree, failureMechanismSectionResult.AssessmentLayerThree);
         }
-        
+
         private static FailureMechanismSection CreateSection()
         {
             return new FailureMechanismSection("test", new[]
