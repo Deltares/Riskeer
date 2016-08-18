@@ -46,7 +46,7 @@ namespace Core.Components.OxyPlot.Forms
         public ChartControl()
         {
             InitializePlotView();
-            MinimumSize = new Size(50, 75);
+            MinimumSize = new Size(100, 100);
 
             Data = new ChartDataCollection("Root");
             Data.Attach(this);

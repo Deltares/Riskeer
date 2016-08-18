@@ -31,6 +31,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -65,6 +66,7 @@ namespace Ringtoets.Piping.Forms.Views
         public PipingInputView()
         {
             InitializeComponent();
+            InitializeChartControl();
 
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateChartData);
@@ -94,6 +96,12 @@ namespace Ringtoets.Piping.Forms.Views
             chartControl.Data.Name = Resources.PipingInputContext_NodeDisplayName;
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>(); // Use lookup because the ordering in the chart data collection might change
+        }
+
+        private void InitializeChartControl()
+        {
+            chartControl.LeftAxisTitle = RingtoetsCommonFormsResources.InputView_Height_DisplayName;
+            chartControl.BottomAxisTitle = RingtoetsCommonFormsResources.InputView_Distance_DisplayName;
         }
 
         public object Data

@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-
 namespace Ringtoets.Piping.Forms.Views
 {
     partial class PipingInputView
@@ -43,15 +41,15 @@ namespace Ringtoets.Piping.Forms.Views
             // 
             // chartControl
             // 
+            this.chartControl.BottomAxisTitle = "";
+            this.chartControl.ChartTitle = null;
             this.chartControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartControl.LeftAxisTitle = "";
             this.chartControl.Location = new System.Drawing.Point(0, 0);
-            this.chartControl.MinimumSize = new System.Drawing.Size(50, 75);
             this.chartControl.Name = "chartControl";
             this.chartControl.Size = new System.Drawing.Size(150, 150);
             this.chartControl.TabIndex = 0;
             this.chartControl.Text = "chartControl";
-            this.chartControl.BottomAxisTitle = RingtoetsCommonFormsResources.InputView_Distance_DisplayName;
-            this.chartControl.LeftAxisTitle = RingtoetsCommonFormsResources.InputView_Height_DisplayName;
             // 
             // PipingInputView
             // 

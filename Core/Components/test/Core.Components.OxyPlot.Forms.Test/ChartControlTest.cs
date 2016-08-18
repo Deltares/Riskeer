@@ -40,8 +40,8 @@ namespace Core.Components.OxyPlot.Forms.Test
             {
                 // Assert
                 Assert.IsInstanceOf<Control>(chart);
-                Assert.AreEqual(75, chart.MinimumSize.Height);
-                Assert.AreEqual(50, chart.MinimumSize.Width);
+                Assert.AreEqual(100, chart.MinimumSize.Height);
+                Assert.AreEqual(100, chart.MinimumSize.Width);
                 Assert.IsNotNull(chart.Data);
                 CollectionAssert.IsEmpty(chart.Data.Collection);
                 Assert.IsTrue(chart.IsPanningEnabled);
