@@ -475,6 +475,18 @@
   <data name="PipingSemiProbabilisticOutput_HeaveProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
   </data>
+  <data name="PipingSemiProbabilisticOutput_Categories_Heave" xml:space="preserve">
+    <value>Heave</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_Categories_Piping" xml:space="preserve">
+    <value>Piping</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_Categories_Sellmeijer" xml:space="preserve">
+    <value>Terugschrijdende erosie (Sellmeijer)</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_Categories_Uplift" xml:space="preserve">
+    <value>Opbarsten</value>
+  </data>
   <data name="PipingSemiProbabilisticOutput_HeaveReliability_Description" xml:space="preserve">
     <value>De betrouwbaarheidsindex voor het submechanisme Heave voor deze berekening.</value>
   </data>
