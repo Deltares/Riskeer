@@ -334,23 +334,19 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeGridColumns()
         {
             probabilityDistributionGrid.AddCheckBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.IsRelevant),
-                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_RelevancyFilter,
-                                                          DataGridViewAutoSizeColumnMode.ColumnHeader);
+                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_RelevancyFilter);
 
             probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Assessment),
                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
-                                                         true,
-                                                         DataGridViewAutoSizeColumnMode.AllCellsExceptHeader);
+                                                         true);
 
             probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Code),
                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_AssessmentCode,
-                                                         true,
-                                                         DataGridViewAutoSizeColumnMode.AllCellsExceptHeader);
+                                                         true);
 
             probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Contribution),
                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_Contribution,
-                                                         true,
-                                                         DataGridViewAutoSizeColumnMode.ColumnHeader);
+                                                         true);
 
             probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.ProbabilitySpace),
                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
