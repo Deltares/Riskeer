@@ -77,13 +77,13 @@ namespace Ringtoets.Integration.Service
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to base the input for the calculation upon.</param>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        internal static TargetProbabilityCalculationOutput Calculate(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+        /// <returns>A <see cref="ReliabilityIndexCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
+        internal static ReliabilityIndexCalculationOutput Calculate(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation, string ringId)
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath);
             var input = CreateInput(assessmentSection, hydraulicBoundaryLocation);
-            var targetProbabilityCalculationParser = new TargetProbabilityCalculationParser();
+            var targetProbabilityCalculationParser = new ReliabilityIndexCalculationParser();
             var calculationName = string.Format(Resources.WaveHeightCalculationService_Name_Wave_height_for_location_0_, hydraulicBoundaryLocation.Name);
 
             CalculationServiceHelper.PerformCalculation(
@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Service
             return targetProbabilityCalculationParser.Output;
         }
 
-        private static void VerifyOutput(TargetProbabilityCalculationOutput output, string name)
+        private static void VerifyOutput(ReliabilityIndexCalculationOutput output, string name)
         {
             if (output == null)
             {

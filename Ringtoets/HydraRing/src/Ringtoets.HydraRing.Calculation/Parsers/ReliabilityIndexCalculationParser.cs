@@ -30,16 +30,16 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
     /// Parser for the output of a Hydra-Ring type II calculation:
-    /// Iterate towards a target probability, provided as reliability index.
+    /// Iterate towards a reliability index.
     /// </summary>
-    public class TargetProbabilityCalculationParser : IHydraRingFileParser
+    public class ReliabilityIndexCalculationParser : IHydraRingFileParser
     {
         /// <summary>
         /// Gets the output of a successful parse of the output file.
         /// </summary>
-        /// <returns>A <see cref="TargetProbabilityCalculationOutput"/> corresponding to the section id if <see cref="Parse"/> executed
+        /// <returns>A <see cref="ReliabilityIndexCalculationOutput"/> corresponding to the section id if <see cref="Parse"/> executed
         /// successfully; or <c>null</c> otherwise.</returns>
-        public TargetProbabilityCalculationOutput Output { get; private set; }
+        public ReliabilityIndexCalculationOutput Output { get; private set; }
 
         public void Parse(string workingDirectory, int sectionId)
         {
@@ -56,7 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
                         if (results.Any() && results.ElementAt(0) == sectionId.ToString())
                         {
-                            Output = new TargetProbabilityCalculationOutput(GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
+                            Output = new ReliabilityIndexCalculationOutput(GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
                         }
                     }
                 }

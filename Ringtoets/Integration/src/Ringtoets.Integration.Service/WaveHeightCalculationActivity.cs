@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Service
     /// <summary>
     /// <see cref="Activity"/> for running a water height calculation.
     /// </summary>
-    public class WaveHeightCalculationActivity : HydraRingActivity<TargetProbabilityCalculationOutput>
+    public class WaveHeightCalculationActivity : HydraRingActivity<ReliabilityIndexCalculationOutput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveHeightCalculationActivity));
 
@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Service
             {
                 hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) Output.Result;
                 bool waveHeightCalculationConvergence =
-                    Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
+                    Math.Abs(Output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-3;
                 if (!waveHeightCalculationConvergence)
                 {
                     log.WarnFormat(Resources.WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);
