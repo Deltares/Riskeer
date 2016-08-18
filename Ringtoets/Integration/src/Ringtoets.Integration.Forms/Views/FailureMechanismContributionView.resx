@@ -277,10 +277,10 @@
     <value>3, 29</value>
   </data>
   <data name="probabilityDistributionGrid.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>750, 350</value>
+    <value>775, 350</value>
   </data>
   <data name="probabilityDistributionGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>750, 350</value>
+    <value>775, 350</value>
   </data>
   <data name="probabilityDistributionGrid.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
