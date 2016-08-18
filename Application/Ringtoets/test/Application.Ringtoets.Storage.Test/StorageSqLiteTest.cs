@@ -237,8 +237,8 @@ namespace Application.Ringtoets.Storage.Test
         public void LoadProject_DatabaseFromFutureVersion_ThrowStorageValidationException(int versionCode)
         {
             // Setup
-            string subMessage = string.Format("Database versie '{0}' is hoger dan de huidig ondersteunde versie ('1'). Update Ringtoets naar een nieuwere versie.",
-                                              versionCode);
+            string subMessage = string.Format("Database versie '{0}' is hoger dan de huidig ondersteunde versie ('{1}'). Update Ringtoets naar een nieuwere versie.",
+                                              versionCode, currentDatabaseVersion);
             string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}",
                                                    tempRingtoetsFile,
                                                    subMessage);
@@ -659,7 +659,7 @@ namespace Application.Ringtoets.Storage.Test
             mockRepository.VerifyAll();
         }
 
-        private const int currentDatabaseVersion = 1;
+        private const int currentDatabaseVersion = 2;
 
         private static void CallGarbageCollector()
         {
