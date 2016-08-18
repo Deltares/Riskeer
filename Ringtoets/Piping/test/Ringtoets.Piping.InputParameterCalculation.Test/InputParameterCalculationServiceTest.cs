@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
 
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(5)
                     {
@@ -135,7 +135,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
                 PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(input).GetDesignValue());
 
             // Assert
-            Assert.IsFalse(Double.IsNaN(result));
+            Assert.IsFalse(double.IsNaN(result));
         }
 
         [Test]

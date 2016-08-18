@@ -329,7 +329,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             string line;
             while ((line = ReadLineAndHandleIOExceptions(reader, lineNumberForMessage)) != null)
             {
-                if (!String.IsNullOrWhiteSpace(line))
+                if (!string.IsNullOrWhiteSpace(line))
                 {
                     count++;
                 }

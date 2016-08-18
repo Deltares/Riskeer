@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateFromString_OnePoint_ReturnsExpectedPoints()
         {
             // Call
-            var result = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var result = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                     "3",
                                                                                     "..1..",
                                                                                     ".....",
@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateFromString_TwoPoint_ReturnsExpectedPoints()
         {
             // Call
-            var result = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var result = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                     "3",
                                                                                     "..1..",
                                                                                     ".....",
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateFromString_TwoPointReversed_ReturnsExpectedPoints()
         {
             // Call
-            var result = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var result = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                     "3",
                                                                                     "..2..",
                                                                                     ".....",

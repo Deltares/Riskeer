@@ -232,8 +232,8 @@ namespace Core.Components.DotSpatial.Forms.Test
         [TestCase(5.0, 5.0)]
         [TestCase(5.0, 1.0)]
         [TestCase(1.0, 5.0)]
-        [TestCase(Double.MaxValue*0.96, Double.MaxValue*0.96)]
-        [TestCase(Double.MaxValue, Double.MaxValue)]
+        [TestCase(double.MaxValue*0.96, double.MaxValue*0.96)]
+        [TestCase(double.MaxValue, double.MaxValue)]
         public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
         {
             // Setup
@@ -270,7 +270,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             map.ZoomToAllVisibleLayers();
 
             // Assert
-            if (Double.IsInfinity(expectedExtent.Height) || Double.IsInfinity(expectedExtent.Width))
+            if (double.IsInfinity(expectedExtent.Height) || double.IsInfinity(expectedExtent.Width))
             {
                 Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
                 Assert.AreNotEqual(expectedExtent, mapView.ViewExtents);

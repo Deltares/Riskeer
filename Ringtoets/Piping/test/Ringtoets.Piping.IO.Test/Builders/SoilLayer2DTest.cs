@@ -423,7 +423,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopComplex_ReturnsTwoLayers()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -455,7 +455,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopSimple_ReturnsTwoLayers()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -464,7 +464,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    "........",
                                                                                                    "..4..3.."));
 
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "........",
                                                                                                    "...12...",
@@ -497,7 +497,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopComplex_ReturnsThreeLayers()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -506,7 +506,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    "........",
                                                                                                    "..4..3.."));
 
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "........",
                                                                                                    "...1.2..",
@@ -540,7 +540,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopMultipleInnerLoops_ReturnsThreeLayers()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -549,7 +549,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    "........",
                                                                                                    "..4..3.."));
 
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "........",
                                                                                                    "...12...",
@@ -558,7 +558,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    "........",
                                                                                                    "........"));
 
-            List<Segment2D> innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                     "6",
                                                                                                     "........",
                                                                                                     "........",
@@ -593,7 +593,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopOverlappingInnerLoop_ReturnsOneLayer()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -602,7 +602,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    ".4....3.",
                                                                                                    "........"));
 
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "........",
                                                                                                    "........",
@@ -634,7 +634,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopOverlappingInnerLoopsFirstInnerLoopNotOverBottom_ReturnsOneLayer()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -643,7 +643,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    ".4....3.",
                                                                                                    "........"));
 
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "........",
                                                                                                    "...12...",
@@ -652,7 +652,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    "........",
                                                                                                    "........"));
 
-            List<Segment2D> innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                     "6",
                                                                                                     "........",
                                                                                                     "........",
@@ -685,7 +685,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopOnBorderBottom_ReturnsTwoLayers()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -694,7 +694,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    ".4....3.",
                                                                                                    "........"));
 
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "........",
                                                                                                    "........",
@@ -727,7 +727,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopOverlapTop_ReturnsOneLayer()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "........",
                                                                                                    "..1..2..",
@@ -736,7 +736,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    ".4....3.",
                                                                                                    "........"));
 
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "...43...",
                                                                                                    "........",
@@ -768,7 +768,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopOnBorderTop_ReturnsOneLayer()
         {
             // Setup
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -777,7 +777,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    ".4....3.",
                                                                                                    "........"));
 
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "...43...",
                                                                                                    "........",
@@ -810,7 +810,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var atX = 2.0;
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -830,7 +830,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
+            Assert.AreEqual(string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
 
         [Test]
@@ -838,7 +838,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var atX = 3.0;
-            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> outerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "..1..2..",
                                                                                                    "........",
@@ -847,7 +847,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                    "........",
                                                                                                    "..4..3.."));
 
-            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> innerLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                    "6",
                                                                                                    "........",
                                                                                                    "...1.2..",
@@ -868,7 +868,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             SoilLayerConversionException exception = Assert.Throws<SoilLayerConversionException>(test);
-            Assert.AreEqual(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
+            Assert.AreEqual(string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, atX), exception.Message);
         }
 
         [Test]

@@ -183,7 +183,7 @@ namespace Core.Common.Base.Test.Service
             mocks.VerifyAll();
         }
 
-        private class SimpleFileImporter : FileImporterBase<Object>
+        private class SimpleFileImporter : FileImporterBase<object>
         {
             public override string Name
             {

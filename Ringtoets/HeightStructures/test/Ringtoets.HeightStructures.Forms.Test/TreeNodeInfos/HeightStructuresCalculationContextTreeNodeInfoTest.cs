@@ -359,7 +359,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
 
                 Assert.AreEqual(RingtoetsCommonFormsResources.Calculate, contextMenuItem.Text);
-                StringAssert.Contains(String.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                StringAssert.Contains(string.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
@@ -511,7 +511,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateIndex];
 
                 Assert.AreEqual(RingtoetsCommonFormsResources.Validate, contextMenuItem.Text);
-                StringAssert.Contains(String.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                StringAssert.Contains(string.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
@@ -630,13 +630,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
                     StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
-                    StringAssert.StartsWith(String.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[4]);
-                    StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
-                    StringAssert.StartsWith(String.Format("Uitvoeren van '{0}' is mislukt.", calculation.Name), msgs[6]);
+                    StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                    StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is mislukt.", calculation.Name), msgs[6]);
                 });
 
                 Assert.IsNull(calculation.Output);
@@ -702,8 +702,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(2, msgs.Length);
-                    StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                 });
             }
         }

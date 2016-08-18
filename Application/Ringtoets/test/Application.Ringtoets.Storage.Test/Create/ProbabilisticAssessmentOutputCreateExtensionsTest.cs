@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_NaNValues_ReturnProbabilisticOutputEntityWithNullValues()
         {
             // Setup
-            var output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, Double.NaN,
+            var output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN,
                                                          double.NaN, double.NaN);
 
             var registry = new PersistenceRegistry();

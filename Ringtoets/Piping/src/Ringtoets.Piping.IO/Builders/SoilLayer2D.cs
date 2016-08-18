@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.IO.Builders
         {
             ValidateStochasticParametersForPiping();
 
-            bottom = Double.MaxValue;
+            bottom = double.MaxValue;
             var result = new Collection<PipingSoilLayer>();
             if (OuterLoop != null)
             {

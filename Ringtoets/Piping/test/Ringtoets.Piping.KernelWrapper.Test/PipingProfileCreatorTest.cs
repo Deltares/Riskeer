@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                     IsAquifer = true
                 }
             };
-            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, SoilProfileType.SoilProfile1D, pipingSoilProfileId);
+            var soilProfile = new PipingSoilProfile(string.Empty, expectedBottom, layers, SoilProfileType.SoilProfile1D, pipingSoilProfileId);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
                 new PipingSoilLayer(expectedTopC)
             };
 
-            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers, SoilProfileType.SoilProfile1D, pipingSoilProfileId);
+            var soilProfile = new PipingSoilProfile(string.Empty, expectedBottom, layers, SoilProfileType.SoilProfile1D, pipingSoilProfileId);
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);

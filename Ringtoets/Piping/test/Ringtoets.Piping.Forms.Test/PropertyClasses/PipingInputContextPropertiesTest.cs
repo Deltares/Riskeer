@@ -225,7 +225,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
             StochasticSoilProfile stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new[]
                 {
                     new PipingSoilLayer(random.NextDouble())
                     {

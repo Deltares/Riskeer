@@ -153,7 +153,7 @@ namespace Core.Common.Gui.Commands
             }
 
             var filePath = OpenProjectSaveFileDialog(project.Name);
-            if (String.IsNullOrWhiteSpace(filePath))
+            if (string.IsNullOrWhiteSpace(filePath))
             {
                 return false;
             }
@@ -167,7 +167,7 @@ namespace Core.Common.Gui.Commands
             projectOwner.ProjectFilePath = filePath;
             project.Name = Path.GetFileNameWithoutExtension(filePath);
             project.NotifyObservers();
-            log.Info(String.Format(Resources.StorageCommandHandler_SaveProject_Succesfully_saved_project_0_, project.Name));
+            log.Info(string.Format(Resources.StorageCommandHandler_SaveProject_Succesfully_saved_project_0_, project.Name));
             return true;
         }
 
@@ -191,7 +191,7 @@ namespace Core.Common.Gui.Commands
                 return false;
             }
 
-            log.Info(String.Format(Resources.StorageCommandHandler_SaveProject_Succesfully_saved_project_0_, project.Name));
+            log.Info(string.Format(Resources.StorageCommandHandler_SaveProject_Succesfully_saved_project_0_, project.Name));
             return true;
         }
 

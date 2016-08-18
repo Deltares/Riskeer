@@ -571,12 +571,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(9, msgs.Length);
-                    StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
-                    StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
 
-                    StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", invalidCalculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", invalidCalculation.Name), msgs[2]);
                     // Some validation error from validation service
-                    StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
                 });
             }
         }

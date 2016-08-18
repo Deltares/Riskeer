@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 if (!dataReader.HasRows)
                 {
-                    throw new CriticalFileReadException(String.Format(
+                    throw new CriticalFileReadException(string.Format(
                         Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_,
                         databaseRequiredVersion));
                 }

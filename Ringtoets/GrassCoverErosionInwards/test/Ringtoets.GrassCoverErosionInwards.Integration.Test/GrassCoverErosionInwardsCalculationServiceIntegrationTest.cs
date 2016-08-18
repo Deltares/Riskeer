@@ -68,9 +68,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
             });
             Assert.IsFalse(isValid);
         }
@@ -250,7 +250,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
                 StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[0]);
-                StringAssert.StartsWith(String.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
+                StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
             });
             Assert.IsNull(output);
         }
@@ -335,7 +335,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
                 StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[0]);
-                StringAssert.StartsWith(String.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
+                StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
             });
             Assert.IsNaN(output);
         }

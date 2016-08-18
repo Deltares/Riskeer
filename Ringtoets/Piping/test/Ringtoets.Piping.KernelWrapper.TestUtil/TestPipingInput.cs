@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.KernelWrapper.TestUtil
 
         private PipingSoilProfile CreateValidSoilProfile()
         {
-            return new PipingSoilProfile(String.Empty, -2, new[]
+            return new PipingSoilProfile(string.Empty, -2, new[]
             {
                 new PipingSoilLayer(9),
                 new PipingSoilLayer(4)

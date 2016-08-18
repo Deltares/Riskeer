@@ -58,7 +58,7 @@ namespace Core.Common.Gui.Test.Commands
             var importHandler = new GuiImportHandler(mainWindow, new List<IFileImporter>());
 
             // Call
-            importHandler.ImportOn(typeof(Int64));
+            importHandler.ImportOn(typeof(long));
 
             // Assert
             Assert.AreEqual("Fout", messageBoxTitle);
@@ -92,7 +92,7 @@ namespace Core.Common.Gui.Test.Commands
             var importHandler = new GuiImportHandler(mainWindow, fileImporters);
 
             // Call
-            importHandler.ImportOn(typeof(Int64));
+            importHandler.ImportOn(typeof(long));
 
             // Assert
             Assert.AreEqual("Fout", messageBoxTitle);
