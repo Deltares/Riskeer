@@ -255,7 +255,7 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
-            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
+            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedNotConverged;
             hydraulicBoundaryLocation.Attach(observerMock);
 
             var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
@@ -264,14 +264,14 @@ namespace Ringtoets.Integration.Service.Test
 
             // Precondition
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.WaveHeight));
-            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
         }
 
@@ -339,6 +339,8 @@ namespace Ringtoets.Integration.Service.Test
             var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
 
             activity.Run();
+
+            failureMechanismContribution.Norm = 29;
 
             // Precondition
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);

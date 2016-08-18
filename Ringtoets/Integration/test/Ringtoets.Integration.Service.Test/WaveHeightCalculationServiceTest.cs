@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Service.Test
 
             var hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
-            TargetProbabilityCalculationOutput output = null;
+            ReliabilityIndexCalculationOutput output = null;
 
             // Call
             Action call = () => output = WaveHeightCalculationService.Calculate(assessmentSection,
@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
 
-            TargetProbabilityCalculationOutput output = null;
+            ReliabilityIndexCalculationOutput output = null;
 
             // Call
             Action call = () => output = WaveHeightCalculationService.Calculate(assessmentSection,

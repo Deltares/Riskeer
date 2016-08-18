@@ -25,17 +25,17 @@ using Ringtoets.HydraRing.Calculation.Data.Output;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
 {
     [TestFixture]
-    public class TargetProbabilityCalculationOutputTest
+    public class ReliabilityIndexCalculationOutputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var targetProbabilityCalculationOutput = new TargetProbabilityCalculationOutput(1.1, 2.2);
+            var targetProbabilityCalculationOutput = new ReliabilityIndexCalculationOutput(1.1, 2.2);
 
             // Assert
             Assert.AreEqual(1.1, targetProbabilityCalculationOutput.Result);
-            Assert.AreEqual(2.2, targetProbabilityCalculationOutput.ActualTargetProbability);
+            Assert.AreEqual(2.2, targetProbabilityCalculationOutput.CalculatedReliabilityIndex);
         }
     }
 }

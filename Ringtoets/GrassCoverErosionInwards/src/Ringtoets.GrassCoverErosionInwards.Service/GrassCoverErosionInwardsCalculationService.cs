@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                    string hlcdDirectory, FailureMechanismSection failureMechanismSection,
                                                    string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
         {
-            var targetProbabiltyCalculationParser = new TargetProbabilityCalculationParser();
+            var targetProbabiltyCalculationParser = new ReliabilityIndexCalculationParser();
 
             DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
 
@@ -144,7 +144,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private static void VerifyDikeHeightCalculationOutput(TargetProbabilityCalculationOutput output, string name)
+        private static void VerifyDikeHeightCalculationOutput(ReliabilityIndexCalculationOutput output, string name)
         {
             if (output == null)
             {
