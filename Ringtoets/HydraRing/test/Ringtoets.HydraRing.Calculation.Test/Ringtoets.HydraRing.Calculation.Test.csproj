@@ -73,12 +73,12 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationAlphaOutputTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBaseTest.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputTest.cs" />
-    <Compile Include="Data\Output\TargetProbabilityCalculationOutputTest.cs" />
+    <Compile Include="Data\Output\ReliabilityIndexCalculationOutputTest.cs" />
     <Compile Include="IO\DesignTablesSettingsCsvReaderTest.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\HydraRingOutputFileParserTest.cs" />
-    <Compile Include="Parsers\TargetProbabilityCalculationParserTest.cs" />
+    <Compile Include="Parsers\ReliabilityIndexCalculationParserTest.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />
     <Compile Include="Data\HydraRingSectionTest.cs" />

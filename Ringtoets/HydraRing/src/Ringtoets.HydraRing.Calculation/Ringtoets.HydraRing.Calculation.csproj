@@ -65,7 +65,7 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationAlphaOutput.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutput.cs" />
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputBase.cs" />
-    <Compile Include="Data\Output\TargetProbabilityCalculationOutput.cs" />
+    <Compile Include="Data\Output\ReliabilityIndexCalculationOutput.cs" />
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutput.cs" />
     <Compile Include="IO\DesignTablesSettingsCsvReader.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReader.cs" />
@@ -99,7 +99,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\HydraRingTimeIntegrationSchemeType.cs" />
     <Compile Include="Data\HydraRingUncertaintiesType.cs" />
-    <Compile Include="Parsers\TargetProbabilityCalculationParser.cs" />
+    <Compile Include="Parsers\ReliabilityIndexCalculationParser.cs" />
     <Compile Include="Services\HydraRingFileName.cs" />
     <Compile Include="Services\HydraRingInitializationService.cs" />
     <Compile Include="Services\HydraRingProcessFactory.cs" />

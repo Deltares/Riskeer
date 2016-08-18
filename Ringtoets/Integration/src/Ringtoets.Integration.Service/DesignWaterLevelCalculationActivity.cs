@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Service
     /// <summary>
     /// <see cref="Activity"/> for running a design water level calculation.
     /// </summary>
-    public class DesignWaterLevelCalculationActivity : HydraRingActivity<TargetProbabilityCalculationOutput>
+    public class DesignWaterLevelCalculationActivity : HydraRingActivity<ReliabilityIndexCalculationOutput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationActivity));
 
@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Service
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) Output.Result;
                 bool designWaterLevelCalculationConvergence =
-                    Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
+                    Math.Abs(Output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-3;
                 if (!designWaterLevelCalculationConvergence)
                 {
                     log.WarnFormat(Resources.DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);
