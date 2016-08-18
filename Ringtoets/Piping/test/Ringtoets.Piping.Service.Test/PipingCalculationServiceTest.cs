@@ -53,8 +53,8 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
         }
 
@@ -94,13 +94,13 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(7, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[3]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het intredepunt opgegeven.", msgs[4]);
                 StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het uittredepunt opgegeven.", msgs[5]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -124,9 +124,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -150,10 +150,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: Kan de stijghoogte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -177,9 +177,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het intredepunt opgegeven.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -203,9 +203,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Er is geen waarde voor het uittredepunt opgegeven.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -231,9 +231,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Er is geen profielschematisatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -258,9 +258,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Er is geen ondergrondschematisatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -295,12 +295,12 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(6, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[2]);
                 StringAssert.StartsWith("Validatie mislukt: Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[3]);
                 StringAssert.StartsWith("Validatie mislukt: Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[4]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -340,10 +340,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[2]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -387,10 +387,10 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Kan de totale deklaagdikte bij het uittredepunt niet afleiden op basis van de invoer.", msgs[1]);
                 StringAssert.StartsWith("Validatie mislukt: Geen deklaag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.", msgs[2]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -448,9 +448,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Kan de definitie voor het 70%-fraktiel van de korreldiameter van de watervoerende laag niet (volledig) afleiden.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -508,9 +508,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Kan de definitie voor de doorlatendheid van de watervoerende laag niet (volledig) afleiden.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -572,9 +572,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Validatie mislukt: Kan de definitie voor het verzadigd gewicht van de deklaag niet (volledig) afleiden.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsFalse(isValid);
         }
@@ -630,9 +630,9 @@ namespace Ringtoets.Piping.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
                 StringAssert.StartsWith("Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaard deviaties en verschuivingen voor alle lagen gelijk zijn.", msgs[1]);
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
             });
             Assert.IsTrue(isValid);
         }
@@ -659,11 +659,11 @@ namespace Ringtoets.Piping.Service.Test
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
-                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
 
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", name), msgs[2]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", name), msgs.Last());
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", name), msgs[2]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", name), msgs.Last());
             });
         }
 

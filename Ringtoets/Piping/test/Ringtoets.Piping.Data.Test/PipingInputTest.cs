@@ -574,7 +574,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
@@ -597,7 +597,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
@@ -662,7 +662,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
@@ -689,7 +689,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.0)
                     {
@@ -716,7 +716,7 @@ namespace Ringtoets.Piping.Data.Test
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             input.StochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(2.5)
                     {

@@ -81,7 +81,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Setup
             string dbFile = Path.Combine(testDataPath, dbName);
             string expectedMessage = new FileReaderErrorMessageBuilder(dbFile)
-                .Build(String.Format(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column, dbName));
+                .Build(string.Format(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column, dbName));
 
             // Precondition
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version), exception.Message);
+            Assert.AreEqual(string.Format(Resources.PipingSoilProfileReader_Database_incorrect_version_requires_Version_0_, version), exception.Message);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -262,7 +262,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 PipingSoilProfileReadException exception = Assert.Throws<PipingSoilProfileReadException>(profile);
                 string message = new FileReaderErrorMessageBuilder(databaseFilePath)
                     .WithSubject("ondergrondschematisatie 'Profile'")
-                    .Build(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, 85.2));
+                    .Build(string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_X_0_, 85.2));
                 Assert.AreEqual(message, exception.Message);
 
                 // Call
