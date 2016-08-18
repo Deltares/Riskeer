@@ -444,16 +444,17 @@ namespace Ringtoets.Integration.Plugin.Test
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var plugin = new RingtoetsPlugin();
-
-            // Call
-            var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(assessmentSectionMock);
-
-            // Assert
-            CollectionAssert.AreEqual(new object[]
+            using (var plugin = new RingtoetsPlugin())
             {
-                assessmentSectionMock.FailureMechanismContribution
-            }, childrenWithViewDefinitions);
+                // Call
+                var childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(assessmentSectionMock);
+
+                // Assert
+                CollectionAssert.AreEqual(new object[]
+                {
+                    assessmentSectionMock.FailureMechanismContribution
+                }, childrenWithViewDefinitions);
+            }
             mocks.VerifyAll();
         }
 
