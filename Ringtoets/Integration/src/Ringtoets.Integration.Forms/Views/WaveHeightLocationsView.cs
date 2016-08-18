@@ -37,9 +37,9 @@ using Ringtoets.Integration.Forms.Properties;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
+    /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
     /// </summary>
-    public partial class DesignWaterLevelLocationsView : UserControl, ISelectionProvider
+    public partial class WaveHeightLocationsView : UserControl, ISelectionProvider
     {
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
@@ -47,9 +47,9 @@ namespace Ringtoets.Integration.Forms.Views
         private bool updatingDataSource;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelLocationsView"/>.
+        /// Creates a new instance of <see cref="WaveHeightLocationsView"/>.
         /// </summary>
-        public DesignWaterLevelLocationsView()
+        public WaveHeightLocationsView()
         {
             InitializeComponent();
             InitializeDataGridView();
@@ -113,16 +113,16 @@ namespace Ringtoets.Integration.Forms.Views
         {
             dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
 
-            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.ToCalculate),
+            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.ToCalculate),
                                                   Resources.HydraulicBoundaryLocationsView_Calculate);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.Name),
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.Name),
                                                  Resources.HydraulicBoundaryDatabase_Locations_Name_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.Id),
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.Id),
                                                  Resources.HydraulicBoundaryDatabase_Locations_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.Location),
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.Location),
                                                  Resources.HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.DesignWaterLevel),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.WaveHeight),
+                                                 Resources.HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName);
         }
 
         private void UpdateDataGridViewDataSource()
@@ -132,20 +132,20 @@ namespace Ringtoets.Integration.Forms.Views
             updatingDataSource = true;
             dataGridViewControl.SetDataSource(assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
                                                   ? assessmentSection.HydraulicBoundaryDatabase.Locations.Select(
-                                                      hl => new DesignWaterLevelLocationContextRow(
-                                                                new DesignWaterLevelLocationContext(assessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
+                                                      hl => new WaveHeightLocationContextRow(
+                                                                new WaveHeightLocationContext(assessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
                                                   : null);
             updatingDataSource = false;
         }
 
-        private IEnumerable<DesignWaterLevelLocationContextRow> GetDesignWaterLevelLocationContextRows()
+        private IEnumerable<WaveHeightLocationContextRow> GetWaveHeightLocationContextRows()
         {
-            return dataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => (DesignWaterLevelLocationContextRow) row.DataBoundItem);
+            return dataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => (WaveHeightLocationContextRow) row.DataBoundItem);
         }
 
         private IEnumerable<HydraulicBoundaryLocation> GetSelectedHydraulicBoundaryLocationContext()
         {
-            return GetDesignWaterLevelLocationContextRows().Where(r => r.ToCalculate).Select(r => r.HydraulicBoundaryLocationContext.HydraulicBoundaryLocation);
+            return GetWaveHeightLocationContextRows().Where(r => r.ToCalculate).Select(r => r.HydraulicBoundaryLocationContext.HydraulicBoundaryLocation);
         }
 
         #region Event handling
@@ -179,24 +179,24 @@ namespace Ringtoets.Integration.Forms.Views
         {
             var currentRow = dataGridViewControl.CurrentRow;
 
-            var designWaterLevelRow = currentRow != null
-                                          ? (DesignWaterLevelLocationContextRow) currentRow.DataBoundItem
-                                          : null;
+            var waterLevelRow = currentRow != null
+                                    ? (WaveHeightLocationContextRow) currentRow.DataBoundItem
+                                    : null;
 
-            return designWaterLevelRow != null
-                       ? designWaterLevelRow.HydraulicBoundaryLocationContext
+            return waterLevelRow != null
+                       ? waterLevelRow.HydraulicBoundaryLocationContext
                        : null;
         }
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {
-            GetDesignWaterLevelLocationContextRows().ForEachElementDo(row => row.ToCalculate = true);
+            GetWaveHeightLocationContextRows().ForEachElementDo(row => row.ToCalculate = true);
             dataGridViewControl.RefreshDataGridView();
         }
 
         private void DeselectAllButton_Click(object sender, EventArgs e)
         {
-            GetDesignWaterLevelLocationContextRows().ForEachElementDo(row => row.ToCalculate = false);
+            GetWaveHeightLocationContextRows().ForEachElementDo(row => row.ToCalculate = false);
             dataGridViewControl.RefreshDataGridView();
         }
 
@@ -207,7 +207,7 @@ namespace Ringtoets.Integration.Forms.Views
                 return;
             }
             var locations = GetSelectedHydraulicBoundaryLocationContext();
-            CalculationCommandHandler.CalculateDesignWaterLevels(locations);
+            CalculationCommandHandler.CalculateWaveHeights(locations);
         }
 
         #endregion

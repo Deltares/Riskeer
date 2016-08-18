@@ -48,9 +48,9 @@
     </Compile>
     <Compile Include="Commands\AddAssessmentSectionCommand.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandler.cs" />
-    <Compile Include="Commands\CalculateDesignWaterLevelCommandHandler.cs" />
+    <Compile Include="Commands\HydraulicBoundaryLocationCalculationCommandHandler.cs" />
     <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
-    <Compile Include="Commands\ICalculateDesignWaterLevelCommandHandler.cs" />
+    <Compile Include="Commands\IHydraulicBoundaryLocationCalculationCommandHandler.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContext.cs" />
@@ -101,6 +101,7 @@
     <Compile Include="Views\DesignWaterLevelLocationsView.Designer.cs">
       <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\HydraulicBoundaryLocationContextRow.cs" />
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\ClosingStructureSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\DuneErosionSectionResultRow.cs" />
@@ -161,6 +162,13 @@
     </Compile>
     <Compile Include="Views\SectionResultViews\WaveImpactAsphaltCoverResultView.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WaveHeightLocationContextRow.cs" />
+    <Compile Include="Views\WaveHeightLocationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WaveHeightLocationsView.Designer.cs">
+      <DependentUpon>WaveHeightLocationsView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +280,9 @@
     <EmbeddedResource Include="Views\DesignWaterLevelLocationsView.resx">
       <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WaveHeightLocationsView.resx">
+      <DependentUpon>WaveHeightLocationsView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

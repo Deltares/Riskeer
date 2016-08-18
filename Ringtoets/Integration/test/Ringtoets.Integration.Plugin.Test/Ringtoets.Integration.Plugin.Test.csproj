@@ -86,6 +86,7 @@
     <Compile Include="ViewInfos\GrassCoverSlipOffInwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaterPressureAsphaltCoverResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\WaveHeightLocationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaveImpactAsphaltCoverResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacrostabilityInwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacrostabilityOutwardsResultViewInfoTest.cs" />

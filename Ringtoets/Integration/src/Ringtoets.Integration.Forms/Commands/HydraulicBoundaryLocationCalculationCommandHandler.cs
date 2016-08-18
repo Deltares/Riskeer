@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -34,20 +35,21 @@ using Ringtoets.Integration.Service;
 namespace Ringtoets.Integration.Forms.Commands
 {
     /// <summary>
-    /// This class is responsible for calculating the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
+    /// This class is responsible for calculating the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>
+    /// and <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
     /// </summary>
-    public class CalculateDesignWaterLevelCommandHandler : ICalculateDesignWaterLevelCommandHandler
+    public class HydraulicBoundaryLocationCalculationCommandHandler : IHydraulicBoundaryLocationCalculationCommandHandler
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(CalculateDesignWaterLevelCommandHandler));
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationCommandHandler));
         private readonly IWin32Window viewParent;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CalculateDesignWaterLevelCommandHandler"/> class.
+        /// Initializes a new instance of the <see cref="HydraulicBoundaryLocationCalculationCommandHandler"/> class.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
         /// <param name="assessmentSection">The assessment section.</param>
-        public CalculateDesignWaterLevelCommandHandler(IWin32Window viewParent, IAssessmentSection assessmentSection)
+        public HydraulicBoundaryLocationCalculationCommandHandler(IWin32Window viewParent, IAssessmentSection assessmentSection)
         {
             if (viewParent == null)
             {
@@ -63,12 +65,22 @@ namespace Ringtoets.Integration.Forms.Commands
 
         public void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocation> locations)
         {
+            var activities = locations.Select(hbl => new DesignWaterLevelCalculationActivity(assessmentSection, hbl)).ToArray();
+            RunActivities(activities);
+        }
+
+        public void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocation> locations)
+        {
+            var activities = locations.Select(hbl => new WaveHeightCalculationActivity(assessmentSection, hbl)).ToArray();
+            RunActivities(activities);
+        }
+
+        private void RunActivities<TActivity>(IList<TActivity> activities) where TActivity : Activity
+        {
             var hrdFile = assessmentSection.HydraulicBoundaryDatabase.FilePath;
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
             if (string.IsNullOrEmpty(validationProblem))
             {
-                var activities = locations.Select(hbl => new DesignWaterLevelCalculationActivity(assessmentSection, hbl)).ToArray();
-
                 ActivityProgressDialogRunner.Run(viewParent, activities);
 
                 assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();

@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -279,11 +280,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var contextMenuRunWaveHeightCalculationsIndex = 0;
 
-            RoundedDouble designWaterLevel = (RoundedDouble) 4.2;
+            RoundedDouble waveHeight = (RoundedDouble) 4.2;
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
             {
-                WaveHeight = designWaterLevel
+                WaveHeight = waveHeight
             };
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -305,7 +306,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
 
                 mockRepository.ReplayAll();
 
@@ -327,7 +329,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     Assert.IsNaN(hydraulicBoundaryLocation1.WaveHeight); // No result set
 
                     // Previous result not cleared
-                    Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation2.WaveHeight, hydraulicBoundaryLocation2.WaveHeight.GetAccuracy());
+                    Assert.AreEqual(waveHeight, hydraulicBoundaryLocation2.WaveHeight, hydraulicBoundaryLocation2.WaveHeight.GetAccuracy());
                 }
             }
             mockRepository.VerifyAll();

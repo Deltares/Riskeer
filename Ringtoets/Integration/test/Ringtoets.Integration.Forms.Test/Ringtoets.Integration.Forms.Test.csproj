@@ -67,7 +67,7 @@
     </Compile>
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
-    <Compile Include="Commands\CalculateDesignWaterLevelCommandHandlerTest.cs" />
+    <Compile Include="Commands\HydraulicBoundaryLocationCommandHandlerTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\ReferenceLineContextExportInfoTest.cs" />
     <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
@@ -123,6 +123,7 @@
     <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationContextRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsViewTest.cs" />
+    <Compile Include="Views\HydraulicBoundaryLocationContextRowTest.cs" />
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultViews\ClosingStructureResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\DuneErosionResultViewTest.cs" />
@@ -156,6 +157,8 @@
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\DuneErosionSectionResultRowTest.cs" />
+    <Compile Include="Views\WaveHeightLocationContextRowTest.cs" />
+    <Compile Include="Views\WaveHeightLocationsViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

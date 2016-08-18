@@ -318,7 +318,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_Convergence_WaveHeight_Description" xml:space="preserve">
     <value>Convergentie status van de golfhoogte berekening.</value>
   </data>
-  <data name="DesignWaterLevelLocationContextRow_Calculate" xml:space="preserve">
+  <data name="HydraulicBoundaryLocationsView_Calculate" xml:space="preserve">
     <value>Berekenen</value>
   </data>
   <data name="CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_" xml:space="preserve">

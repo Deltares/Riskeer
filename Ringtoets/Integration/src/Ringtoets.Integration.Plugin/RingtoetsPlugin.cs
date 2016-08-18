@@ -32,7 +32,6 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Extensions;
@@ -265,6 +264,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
             };
+            yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
         }
 
         /// <summary>
@@ -293,7 +293,19 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.ApplicationSelection = Gui;
-                    view.CalculationCommandHandler = new CalculateDesignWaterLevelCommandHandler(Gui.MainWindow, context.WrappedData);
+                    view.CalculationCommandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, context.WrappedData);
+                }
+            };
+
+            yield return new ViewInfo<WaveHeightLocationsContext, IAssessmentSection, WaveHeightLocationsView>
+            {
+                GetViewName = (v, o) => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
+                GetViewData = context => context.WrappedData,
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                AfterCreate = (view, context) =>
+                {
+                    view.ApplicationSelection = Gui;
+                    view.CalculationCommandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, context.WrappedData);
                 }
             };
 
@@ -1034,7 +1046,7 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.FailureMechanismIcon,
                 (sender, args) =>
                 {
-                    var command = new CalculateDesignWaterLevelCommandHandler(Gui.MainWindow, nodeData.WrappedData);
+                    var command = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, nodeData.WrappedData);
                     command.CalculateDesignWaterLevels(nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
                 });
 
@@ -1060,20 +1072,8 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.FailureMechanismIcon,
                 (sender, args) =>
                 {
-                    var hrdFile = nodeData.WrappedData.HydraulicBoundaryDatabase.FilePath;
-                    var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
-                    if (validationProblem == null)
-                    {
-                        var activities = nodeData.WrappedData.HydraulicBoundaryDatabase.Locations.Select(hbl => new WaveHeightCalculationActivity(nodeData.WrappedData, hbl)).ToArray();
-
-                        ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
-
-                        nodeData.WrappedData.HydraulicBoundaryDatabase.NotifyObservers();
-                    }
-                    else
-                    {
-                        log.ErrorFormat(Resources.RingtoetsPlugin_HydraulicBoundaryDatabaseContextMenuStrip_Start_calculation_failed_0_, validationProblem);
-                    }
+                    var command = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, nodeData.WrappedData);
+                    command.CalculateWaveHeights(nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
