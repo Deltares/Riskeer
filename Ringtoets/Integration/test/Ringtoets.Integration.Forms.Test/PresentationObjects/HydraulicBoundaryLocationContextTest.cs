@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
     public class HydraulicBoundaryLocationContextTest
     {
         [Test]
-        public void Constructor_NullHydraulicBoundariesLocation_ThrowsArgumentNullException()
+        public void Constructor_NullHydraulicBoundaryLocation_ThrowsArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
@@ -146,7 +145,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelLocationsView));
                 ringtoetsPlugin.Gui = guiStub;
-                
 
                 // Call
                 info.AfterCreate(view, context);

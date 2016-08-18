@@ -26,7 +26,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocation"/> 
-    /// with <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.DesignWaterLevel"/>.
+    /// with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
     /// </summary>
     public class DesignWaterLevelLocationContext : HydraulicBoundaryLocationContext
     {
@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// Creates a new instance of <see cref="DesignWaterLevelLocationContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="HydraulicBoundaryDatabase"/> which the <see cref="DesignWaterLevelLocationContext"/> belongs to.</param>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraRing.Data.HydraulicBoundaryLocation"/> which the <see cref="DesignWaterLevelLocationContext"/> belongs to.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> which the <see cref="DesignWaterLevelLocationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public DesignWaterLevelLocationContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
             : base(wrappedData, hydraulicBoundaryLocation) {}

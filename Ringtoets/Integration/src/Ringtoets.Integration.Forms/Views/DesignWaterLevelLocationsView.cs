@@ -80,7 +80,6 @@ namespace Ringtoets.Integration.Forms.Views
 
                 UpdateDataGridViewDataSource();
                 assessmentSectionObserver.Observable = assessmentSection;
-                SetHydraulicBoundaryDatabaseObserver();
             }
         }
 

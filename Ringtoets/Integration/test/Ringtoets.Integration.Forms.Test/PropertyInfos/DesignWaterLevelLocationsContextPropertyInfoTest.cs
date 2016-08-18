@@ -38,6 +38,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
+            // Setup
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
