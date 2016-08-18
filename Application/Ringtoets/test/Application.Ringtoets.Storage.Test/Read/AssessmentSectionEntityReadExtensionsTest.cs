@@ -114,6 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             CollectionAssert.AreEqual(points, section.ReferenceLine.Points);
+            Assert.AreEqual(Math2D.Length(points), section.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
         }
 
         [Test]

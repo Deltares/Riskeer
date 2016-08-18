@@ -93,8 +93,10 @@ namespace Application.Ringtoets.Storage.Read
             {
                 Point2D[] points = new Point2DXmlSerializer().FromXml(entity.ReferenceLinePointXml);
 
-                assessmentSection.ReferenceLine = new ReferenceLine();
-                assessmentSection.ReferenceLine.SetGeometry(points);
+                var referenceLine = new ReferenceLine();
+                referenceLine.SetGeometry(points);
+
+                assessmentSection.ReferenceLine = referenceLine;
             }
         }
 

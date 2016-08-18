@@ -1001,7 +1001,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Call
-                contextMenu.Items[contextMenuAddGenerateCalculationsIndexNestedGroup].PerformClick();
+                contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                 // Assert
                 Assert.NotNull(selectionDialog);
@@ -1148,7 +1148,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // When
-                contextMenu.Items[contextMenuAddGenerateCalculationsIndexNestedGroup].PerformClick();
+                contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                 // Then
                 var failureMechanismSectionResult1 = pipingFailureMechanism.SectionResults.First();
@@ -1265,7 +1265,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // When
-                contextMenu.Items[contextMenuAddGenerateCalculationsIndexNestedGroup].PerformClick();
+                contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                 // Then
                 foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
@@ -1380,13 +1380,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private const int contextMenuCollapseAllIndexRootGorup = 14;
         private const int contextMenuPropertiesIndexRootGorup = 16;
 
-        private const int contextMenuAddGenerateCalculationsIndexNestedGroup = 1;
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;
         private const int contextMenuValidateAllIndexNestedGroup = 3;
         private const int contextMenuCalculateAllIndexNestedGroup = 4;
         private const int contextMenuClearOutputNestedGroupIndex = 5;
 
+        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 1;
         private const int customOnlyContextMenuRemoveAllChildrenIndex = 6;
 
         /// <summary>
