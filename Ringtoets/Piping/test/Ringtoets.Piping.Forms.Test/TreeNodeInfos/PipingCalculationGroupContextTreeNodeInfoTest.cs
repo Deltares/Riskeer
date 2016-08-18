@@ -330,23 +330,23 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                               RingtoetsCommonFormsResources.Calculate_all,
                                                               "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                               RingtoetsCommonFormsResources.CalculateAllIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGorup,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.ClearIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGorup,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                               CoreCommonGuiResources.Expand_all,
                                                               CoreCommonGuiResources.Expand_all_ToolTip,
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGorup,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
                                                               CoreCommonGuiResources.Collapse_all,
                                                               CoreCommonGuiResources.Collapse_all_ToolTip,
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGorup,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                               CoreCommonGuiResources.Properties,
                                                               CoreCommonGuiResources.Properties_ToolTip,
                                                               CoreCommonGuiResources.PropertiesHS,
@@ -1375,10 +1375,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private const int contextMenuRemoveAllChildrenIndexRootGroup = 7;
         private const int contextMenuValidateAllIndexRootGroup = 9;
         private const int contextMenuCalculateAllIndexRootGroup = 10;
-        private const int contextMenuClearOutputIndexRootGorup = 11;
-        private const int contextMenuExpandAllIndexRootGorup = 13;
-        private const int contextMenuCollapseAllIndexRootGorup = 14;
-        private const int contextMenuPropertiesIndexRootGorup = 16;
+        private const int contextMenuClearOutputIndexRootGroup = 11;
+        private const int contextMenuExpandAllIndexRootGroup = 13;
+        private const int contextMenuCollapseAllIndexRootGroup = 14;
+        private const int contextMenuPropertiesIndexRootGroup = 16;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;
