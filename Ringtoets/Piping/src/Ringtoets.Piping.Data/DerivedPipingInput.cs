@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Data
         {
             if (input == null)
             {
-                throw new ArgumentNullException("input", "Cannot create DerivedPipingInput without PipingInput.");
+                throw new ArgumentNullException("input", @"Cannot create DerivedPipingInput without PipingInput.");
             }
             this.input = input;
         }
@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Data
             {
                 return input.HydraulicBoundaryLocation == null ?
                            new RoundedDouble(2, double.NaN) :
-                           new RoundedDouble(2, input.HydraulicBoundaryLocation.DesignWaterLevel);
+                           input.HydraulicBoundaryLocation.DesignWaterLevel;
             }
         }
 

@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Data
         public Point2D Location { get; private set; }
 
         /// <summary>
-        /// Gets the design water level of <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets or sets the design water level of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         public RoundedDouble DesignWaterLevel
         {
@@ -87,7 +87,7 @@ namespace Ringtoets.HydraRing.Data
         }
 
         /// <summary>
-        /// Gets the wave height of <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets or sets the wave height of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         public RoundedDouble WaveHeight
         {
