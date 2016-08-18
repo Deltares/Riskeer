@@ -60,19 +60,16 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true
-            );
+                true);
             DataGridViewControl.AddComboBoxColumn(
                 TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 twoAResultDataSource,
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>> (edw => edw.Value),
-                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>> (edw => edw.DisplayName)
-            );
+                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
+                TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerThree),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-            );
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }
 }

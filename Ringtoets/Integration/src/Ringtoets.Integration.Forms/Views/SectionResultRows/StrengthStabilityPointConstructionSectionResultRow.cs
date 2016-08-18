@@ -21,9 +21,7 @@
 
 using System;
 using System.ComponentModel;
-
 using Core.Common.Base.Data;
-
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -40,7 +38,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <param name="sectionResult">The <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StrengthStabilityPointConstructionSectionResultRow(StrengthStabilityPointConstructionFailureMechanismSectionResult sectionResult) : base(sectionResult) { }
+        public StrengthStabilityPointConstructionSectionResultRow(StrengthStabilityPointConstructionFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult.AssessmentLayerTwoA"/>.

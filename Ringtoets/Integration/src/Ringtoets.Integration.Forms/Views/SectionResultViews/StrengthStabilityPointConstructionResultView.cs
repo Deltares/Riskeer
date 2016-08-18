@@ -50,16 +50,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true
-            );
+                true);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a
-            );
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.AssessmentLayerThree),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-            );
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }
 }

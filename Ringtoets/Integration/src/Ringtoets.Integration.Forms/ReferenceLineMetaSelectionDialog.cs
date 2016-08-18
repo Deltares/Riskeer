@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Forms
                 return null;
             }
 
-            return SignallingValueRadioButton.Checked ? selectedRow.SignalingValue :  selectedRow.LowerLimitValue;
+            return SignallingValueRadioButton.Checked ? selectedRow.SignalingValue : selectedRow.LowerLimitValue;
         }
 
         private void InitializeReferenceLineMetaDataGridViewControl(IEnumerable<ReferenceLineMeta> referenceLineMetas)
@@ -115,22 +115,6 @@ namespace Ringtoets.Integration.Forms
         private void CancelButtonOnClick(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private class ReferenceLineMetaSelectionRow
-        {
-            public ReferenceLineMetaSelectionRow(ReferenceLineMeta referenceLineMeta)
-            {
-                AssessmentSectionId = referenceLineMeta.AssessmentSectionId;
-                SignalingValue = referenceLineMeta.SignalingValue;
-                LowerLimitValue = referenceLineMeta.LowerLimitValue;
-                ReferenceLineMeta = referenceLineMeta;
-            }
-
-            public string AssessmentSectionId { get; private set; }
-            public int? SignalingValue { get; private set; }
-            public int? LowerLimitValue { get; private set; }
-            public ReferenceLineMeta ReferenceLineMeta { get; private set; }
         }
 
         private class AssessmentSectionIdComparer : IComparer<string>
@@ -185,7 +169,7 @@ namespace Ringtoets.Integration.Forms
                     int.TryParse(parts[0], out id);
                     suffix = string.Empty;
                 }
-                
+
                 if (parts.Length == 2)
                 {
                     int.TryParse(parts[1], out sub);
@@ -195,6 +179,22 @@ namespace Ringtoets.Integration.Forms
                     sub = 0;
                 }
             }
+        }
+
+        private class ReferenceLineMetaSelectionRow
+        {
+            public ReferenceLineMetaSelectionRow(ReferenceLineMeta referenceLineMeta)
+            {
+                AssessmentSectionId = referenceLineMeta.AssessmentSectionId;
+                SignalingValue = referenceLineMeta.SignalingValue;
+                LowerLimitValue = referenceLineMeta.LowerLimitValue;
+                ReferenceLineMeta = referenceLineMeta;
+            }
+
+            public string AssessmentSectionId { get; private set; }
+            public int? SignalingValue { get; private set; }
+            public int? LowerLimitValue { get; private set; }
+            public ReferenceLineMeta ReferenceLineMeta { get; private set; }
         }
     }
 }

@@ -32,8 +32,8 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Integration.Data;
-using IntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 using Ringtoets.Integration.Forms.Properties;
+using IntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Commands
@@ -121,8 +121,8 @@ namespace Ringtoets.Integration.Forms.Commands
 
         private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
         {
-                assessmentSection.GrassCoverErosionInwards.GeneralInput.N = n;
-                assessmentSection.HeightStructures.GeneralInput.N = n;
+            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = n;
+            assessmentSection.HeightStructures.GeneralInput.N = n;
         }
 
         private void SetAssessmentSectionToProject(RingtoetsProject ringtoetsProject, AssessmentSection assessmentSection)

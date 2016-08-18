@@ -77,16 +77,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true
-            );
+                true);
             DataGridViewControl.AddCheckBoxColumn(
                 TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerOne),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
-            );
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerThree),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-            );
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }
 }

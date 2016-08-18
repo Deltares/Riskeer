@@ -23,20 +23,16 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
-
 using log4net;
-
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Plugin.Properties;
-
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -102,7 +98,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         public override bool Import(object targetItem, string filePath)
         {
-            var context = (FailureMechanismSectionsContext)targetItem;
+            var context = (FailureMechanismSectionsContext) targetItem;
             if (!IsReferenceLineAvailable(targetItem))
             {
                 LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Required_referenceline_missing);
@@ -150,7 +146,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private static bool IsReferenceLineAvailable(object targetItem)
         {
-            return ((FailureMechanismSectionsContext)targetItem).ParentAssessmentSection.ReferenceLine != null;
+            return ((FailureMechanismSectionsContext) targetItem).ParentAssessmentSection.ReferenceLine != null;
         }
 
         private void HandleUserCancellingImport()

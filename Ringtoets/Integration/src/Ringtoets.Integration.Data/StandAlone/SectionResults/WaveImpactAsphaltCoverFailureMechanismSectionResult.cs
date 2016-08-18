@@ -40,8 +40,8 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            AssessmentLayerTwoA = (RoundedDouble)double.NaN;
-            AssessmentLayerThree = (RoundedDouble)double.NaN;
+            AssessmentLayerTwoA = (RoundedDouble) double.NaN;
+            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
 
         /// <summary>

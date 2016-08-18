@@ -45,7 +45,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
             : base(section)
         {
             AssessmentLayerTwoA = double.NaN;
-            AssessmentLayerThree = (RoundedDouble)double.NaN;
+            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
 
         /// <summary>

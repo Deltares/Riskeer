@@ -62,20 +62,16 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<MacrostabilityInwardsSectionResultRow>(sr => sr.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
-                true
-            );
+                true);
             DataGridViewControl.AddCheckBoxColumn(
                 TypeUtils.GetMemberName<MacrostabilityInwardsSectionResultRow>(sr => sr.AssessmentLayerOne),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one
-            );
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<MacrostabilityInwardsSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a
-            );
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<MacrostabilityInwardsSectionResultRow>(sr => sr.AssessmentLayerThree),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three
-            );
+                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            AssessmentLayerThree = (RoundedDouble)double.NaN;
+            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
 
         /// <summary>

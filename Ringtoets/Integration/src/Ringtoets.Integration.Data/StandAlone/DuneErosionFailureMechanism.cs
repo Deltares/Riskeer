@@ -52,7 +52,15 @@ namespace Ringtoets.Integration.Data.StandAlone
                 yield break;
             }
         }
-        
+
+        public IEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
+
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
@@ -64,14 +72,6 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.ClearAllSections();
             sectionResults.Clear();
-        }
-
-        public IEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
         }
     }
 }

@@ -47,6 +47,8 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class FailureMechanismContributionView : UserControl, IView, IObserver
     {
+        private const int isRelevantColumnIndex = 0;
+        private const int probabilityPerYearColumnIndex = 4;
         private static readonly ILog log = LogManager.GetLogger(typeof(FailureMechanismContributionView));
 
         private readonly Observer isFailureMechanismRelevantObserver;
@@ -54,9 +56,6 @@ namespace Ringtoets.Integration.Forms.Views
         private FailureMechanismContribution data;
 
         private IAssessmentSection assessmentSection;
-
-        private const int isRelevantColumnIndex = 0;
-        private const int probabilityPerYearColumnIndex = 4;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContributionView"/>.
@@ -117,7 +116,8 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (disposing)
             {
-                if (components != null) {
+                if (components != null)
+                {
                     components.Dispose();
                 }
                 UnsubscribeEvents();
@@ -333,15 +333,15 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeGridColumns()
         {
-            probabilityDistributionGrid.AddCheckBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.IsRelevant), 
-                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_RelevancyFilter, 
+            probabilityDistributionGrid.AddCheckBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.IsRelevant),
+                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_RelevancyFilter,
                                                           DataGridViewAutoSizeColumnMode.ColumnHeader);
 
             probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Assessment),
                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
                                                          true,
                                                          DataGridViewAutoSizeColumnMode.AllCellsExceptHeader);
-            
+
             probabilityDistributionGrid.AddTextBoxColumn(TypeUtils.GetMemberName<FailureMechanismContributionItemRow>(fmci => fmci.Code),
                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_AssessmentCode,
                                                          true,
@@ -379,6 +379,7 @@ namespace Ringtoets.Integration.Forms.Views
                 }
             }
         }
+
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
             if (data == null)

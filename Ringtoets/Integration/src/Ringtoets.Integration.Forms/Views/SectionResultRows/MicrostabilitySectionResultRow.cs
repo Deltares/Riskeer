@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -41,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <param name="sectionResult">The <see cref="MicrostabilityFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public MicrostabilitySectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult) : base(sectionResult) { }
+        public MicrostabilitySectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="MicrostabilityFailureMechanismSectionResult.AssessmentLayerOne"/>.

@@ -21,9 +21,7 @@
 
 using System;
 using System.ComponentModel;
-
 using Core.Common.Base.Data;
-
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 

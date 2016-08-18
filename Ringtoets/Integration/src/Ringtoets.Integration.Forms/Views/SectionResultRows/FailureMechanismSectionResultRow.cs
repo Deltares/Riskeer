@@ -47,11 +47,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets the <see cref="FailureMechanismSectionResult"/> that is the source of this row.
-        /// </summary>
-        protected T SectionResult { get; private set; }
-
-        /// <summary>
         /// Gets the name of the failure mechanism section.
         /// </summary>
         public string Name
@@ -61,5 +56,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
                 return SectionResult.Section.Name;
             }
         }
+
+        /// <summary>
+        /// Gets the <see cref="FailureMechanismSectionResult"/> that is the source of this row.
+        /// </summary>
+        protected T SectionResult { get; private set; }
     }
 }

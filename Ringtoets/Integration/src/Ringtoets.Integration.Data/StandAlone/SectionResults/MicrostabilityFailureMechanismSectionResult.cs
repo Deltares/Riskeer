@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -41,7 +40,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public MicrostabilityFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            AssessmentLayerThree = (RoundedDouble)double.NaN;
+            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
 
         /// <summary>
