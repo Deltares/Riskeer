@@ -38,7 +38,7 @@ using Ringtoets.Integration.Forms.Commands;
 namespace Ringtoets.Integration.Forms.Test.Commands
 {
     [TestFixture]
-    public class CalculateDesignWaterLevelCommandHandlerTest : NUnitFormTest
+    public class HydraulicBoundaryLocationCommandHandlerTest : NUnitFormTest
     {
         private MockRepository mockRepository;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new CalculateDesignWaterLevelCommandHandler(null, assessmentSectionMock);
+            TestDelegate test = () => new HydraulicBoundaryLocationCalculationCommandHandler(null, assessmentSectionMock);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         public void Constructor_NullIAssessmentSection_ThrowsArgumentNullException()
         {
             // Setup & Call
-            TestDelegate test = () => new CalculateDesignWaterLevelCommandHandler(new Form(), null);
+            TestDelegate test = () => new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -86,10 +86,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             mockRepository.ReplayAll();
 
             // Call
-            var commandHandler = new CalculateDesignWaterLevelCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<ICalculateDesignWaterLevelCommandHandler>(commandHandler);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationCommandHandler>(commandHandler);
             mockRepository.VerifyAll();
         }
 
@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var observerMock = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
-            var commandHandler = new CalculateDesignWaterLevelCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             hydraulicBoundaryDatabase.Attach(observerMock);
@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var commandHandler = new CalculateDesignWaterLevelCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             hydraulicBoundaryDatabase.Attach(observerMock);
@@ -193,7 +193,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 // Expect an activity dialog which is automatically closed
             };
 
-            var commandHandler = new CalculateDesignWaterLevelCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
 
             // Call
             Action call = () => commandHandler.CalculateDesignWaterLevels(locations);
@@ -204,6 +204,126 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 var msgs = messages.ToArray();
                 Assert.AreEqual(6, msgs.Length);
                 string expectedName = string.Format("Toetspeil voor locatie {0}", hydraulicLocationName);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", expectedName), msgs.First());
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", expectedName), msgs.Skip(1).First());
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", expectedName), msgs.Skip(2).First());
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", expectedName), msgs.Skip(3).First());
+                StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", expectedName), msgs.Last());
+            });
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateWaveHeight_HydraulicDatabaseDoesNotExist_LogsErrorAndDoesNotNotifyObservers()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = "Does not exist"
+            };
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Any();
+
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            mockRepository.ReplayAll();
+
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
+
+            hydraulicBoundaryDatabase.Attach(observerMock);
+
+            // Call
+            Action call = () => commandHandler.CalculateWaveHeights(locations);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(1, msgs.Length);
+                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
+            });
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateWaveHeights_ValidPathEmptyList_NotifyObserversButNoLog()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Any();
+
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
+
+            hydraulicBoundaryDatabase.Attach(observerMock);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            // Call
+            Action call = () => commandHandler.CalculateWaveHeights(locations);
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateWaveHeights_ValidPathOneLocationInTheList_NotifyObserversAndLogsMessages()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
+
+            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1.0, 1);
+
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSectionMock.Expect(asm => asm.Id).Return(null);
+            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.AtLeastOnce();
+            assessmentSectionMock.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution);
+
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            const string hydraulicLocationName = "name";
+            var locations = new List<HydraulicBoundaryLocation>
+            {
+                new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
+            };
+
+            hydraulicBoundaryDatabase.Attach(observerMock);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+
+            // Call
+            Action call = () => commandHandler.CalculateWaveHeights(locations);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(6, msgs.Length);
+                string expectedName = string.Format("Golfhoogte voor locatie {0}", hydraulicLocationName);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", expectedName), msgs.First());
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", expectedName), msgs.Skip(1).First());
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", expectedName), msgs.Skip(2).First());

@@ -33,13 +33,13 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class DesignWaterLevelLocationContextRowTest
+    public class WaveHeightLocationContextRowTest
     {
         [Test]
-        public void Constructor_WithoutDesignWaterLevelLocationContext_ThrowsArgumentNullException()
+        public void Constructor_WithoutWaveHeightLocationContext_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DesignWaterLevelLocationContextRow(null);
+            TestDelegate test = () => new WaveHeightLocationContextRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -47,37 +47,37 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithDesignWaterLevelLocationContext_PropertiesFromHydraulicBoundaryLocation()
+        public void Constructor_WithWaveHeightLocationContext_PropertiesFromHydraulicBoundaryLocation()
         {
             // Setup
             const int id = 1;
             const string locationname = "LocationName";
             const double coordinateX = 1.0;
             const double coordinateY = 2.0;
-            RoundedDouble designWaterLevel = (RoundedDouble) 3.0;
+            RoundedDouble waveHeight = (RoundedDouble)3.0;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationname, coordinateX, coordinateY)
             {
-                DesignWaterLevel = designWaterLevel
+                WaveHeight = waveHeight
             };
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            var context = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var context = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Call
-            var row = new DesignWaterLevelLocationContextRow(context);
+            var row = new WaveHeightLocationContextRow(context);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationContextRow>(row);
             Assert.AreEqual(id, row.Id);
             Assert.AreEqual(locationname, row.Name);
-            Assert.AreEqual(designWaterLevel, row.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, row.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
             Assert.AreSame(context, row.HydraulicBoundaryLocationContext);
             Assert.IsFalse(row.ToCalculate);
-            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextRow,
-                              NoValueRoundedDoubleConverter>(r => r.DesignWaterLevel));
+            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveHeightLocationContextRow,
+                              NoValueRoundedDoubleConverter>(r => r.WaveHeight));
         }
 
         [Test]
@@ -88,14 +88,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            var context = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
-            var row = new DesignWaterLevelLocationContextRow(context);
+            var context = new WaveHeightLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            var row = new WaveHeightLocationContextRow(context);
 
             // Call
             row.ToCalculate = true;
 
             // Assert
             Assert.IsTrue(row.ToCalculate);
-        }
+        } 
     }
 }

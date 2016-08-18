@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(10, propertyInfos.Length);
+                Assert.AreEqual(11, propertyInfos.Length);
 
                 var ringtoetsProjectProperties = propertyInfos.Single(pi => pi.DataType == typeof(IProject));
                 Assert.AreEqual(typeof(RingtoetsProjectProperties), ringtoetsProjectProperties.PropertyObjectType);
@@ -257,6 +257,12 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(waveHeightLocationsContextProperties.AdditionalDataCheck);
                 Assert.IsNotNull(waveHeightLocationsContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationsContextProperties.AfterCreate);
+
+                var waveHeightLocationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(WaveHeightLocationContext));
+                Assert.AreEqual(typeof(WaveHeightLocationContextProperties), waveHeightLocationContextProperties.PropertyObjectType);
+                Assert.IsNull(waveHeightLocationContextProperties.AdditionalDataCheck);
+                Assert.IsNull(waveHeightLocationContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(waveHeightLocationContextProperties.AfterCreate);
             }
         }
 
@@ -292,7 +298,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(19, viewInfos.Length);
+                Assert.AreEqual(20, viewInfos.Length);
 
                 var contributionViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismContributionContext));
                 Assert.AreEqual(typeof(FailureMechanismContributionView), contributionViewInfo.ViewType);
@@ -301,6 +307,10 @@ namespace Ringtoets.Integration.Plugin.Test
                 var designWaterLevelLocationsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(DesignWaterLevelLocationsContext));
                 Assert.AreEqual(typeof(DesignWaterLevelLocationsView), designWaterLevelLocationsViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, designWaterLevelLocationsViewInfo.Image);
+
+                var waveHeightLocationsViewInfo = viewInfos.Single(vi => vi.DataType == typeof(WaveHeightLocationsContext));
+                Assert.AreEqual(typeof(WaveHeightLocationsView), waveHeightLocationsViewInfo.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, waveHeightLocationsViewInfo.Image);
 
                 var mapViewInfo = viewInfos.Single(vi => vi.DataType == typeof(IAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionView), mapViewInfo.ViewType);

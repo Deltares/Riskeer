@@ -37,7 +37,7 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class DesignWaterLevelLocationsViewInfoTest
+    public class WaveHeightLocationsViewInfoTest
     {
         private MockRepository mocks;
         private RingtoetsPlugin plugin;
@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelLocationsView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
         }
 
         [TearDown]
@@ -63,13 +63,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            var view = new DesignWaterLevelLocationsView();
+            var view = new WaveHeightLocationsView();
 
             // Call
             var viewName = info.GetViewName(view, assessmentSection);
 
             // Assert
-            Assert.AreEqual("Toetspeilen", viewName);
+            Assert.AreEqual("Golfhoogtes", viewName);
             mocks.VerifyAll();
         }
 
@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(DesignWaterLevelLocationsContext), dataType);
+            Assert.AreEqual(typeof(WaveHeightLocationsContext), dataType);
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+            var context = new WaveHeightLocationsContext(assessmentSection);
 
             // Call
             var viewData = info.GetViewData(context);
@@ -137,13 +137,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            var context = new DesignWaterLevelLocationsContext(assessmentSection);
+            var context = new WaveHeightLocationsContext(assessmentSection);
 
-            var view = new DesignWaterLevelLocationsView();
+            var view = new WaveHeightLocationsView();
 
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
-                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelLocationsView));
+                info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
                 ringtoetsPlugin.Gui = guiStub;
 
                 // Call
