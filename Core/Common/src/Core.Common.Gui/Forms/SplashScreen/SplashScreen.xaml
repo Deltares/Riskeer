@@ -42,7 +42,7 @@ All rights reserved.
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -51,12 +51,12 @@ All rights reserved.
             <Label x:Name="LabelVersionTitle"  Content="{x:Static properties:Resources.SplashScreen_Version}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="0"/>
             <Label x:Name="LabelVersion" Content="16.1.1.1" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="0"/>
 
-            <Label x:Name="LabelSupportTitle" Content="{x:Static properties:Resources.SplashScreen_SupportTitle}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" />
-            <Label x:Name="LabelSupportEmailAddressTitle" Content="{x:Static properties:Resources.SplashScreen_SupportEmail}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="1"/>
-            <Label x:Name="LabelSupportEmailAddress" Content="" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="1"/>
+            <Label x:Name="LabelSupportTitle" Content="{x:Static properties:Resources.SplashScreen_SupportTitle}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" />
+            <Label x:Name="LabelSupportEmailAddressTitle" Content="{x:Static properties:Resources.SplashScreen_SupportEmail}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="2"/>
+            <Label x:Name="LabelSupportEmailAddress" Content="" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="2"/>
             
-            <Label x:Name="LabelSupportPhoneNumberTitle" Content="{x:Static properties:Resources.SplashScreen_SupportPhoneNumber}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="2"/>
-            <Label x:Name="LabelSupportPhoneNumber" Content="" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="2"/>
+            <Label x:Name="LabelSupportPhoneNumberTitle" Content="{x:Static properties:Resources.SplashScreen_SupportPhoneNumber}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="3"/>
+            <Label x:Name="LabelSupportPhoneNumber" Content="" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="3"/>
         </Grid>
     </Grid>
 </Window>
