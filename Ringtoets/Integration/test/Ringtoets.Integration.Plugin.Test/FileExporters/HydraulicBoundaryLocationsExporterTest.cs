@@ -45,7 +45,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
 
             // Call
-            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
+            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(new[]
+            {
+                hydraulicBoundaryLocation
+            }, filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(hydraulicBoundaryLocationsExporter);
@@ -76,7 +79,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             };
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, null);
+            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
+            {
+                hydraulicBoundaryLocation
+            }, null);
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -97,7 +103,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 
-            var exporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
+            var exporter = new HydraulicBoundaryLocationsExporter(new[]
+            {
+                hydraulicBoundaryLocation
+            }, filePath);
 
             bool isExported;
             try
@@ -129,7 +138,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
 
-            var exporter = new HydraulicBoundaryLocationsExporter(new[] { hydraulicBoundaryLocation }, filePath);
+            var exporter = new HydraulicBoundaryLocationsExporter(new[]
+            {
+                hydraulicBoundaryLocation
+            }, filePath);
 
             try
             {
@@ -146,7 +158,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             {
                 Directory.Delete(directoryPath, true);
             }
-
         }
     }
 }

@@ -42,10 +42,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
-                
+
                 // Call
                 Type propertyObjectType = info.PropertyObjectType;
-                
+
                 // Assert
                 Assert.AreEqual(typeof(WaveHeightLocationsContextProperties), propertyObjectType);
             }

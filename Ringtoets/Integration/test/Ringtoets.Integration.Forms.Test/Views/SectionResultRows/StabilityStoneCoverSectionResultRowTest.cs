@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
-
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -63,8 +62,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityStoneCoverSectionResultRow,
-                  FailureMechanismSectionResultNoValueRoundedDoubleConverter>(
-                      r => r.AssessmentLayerThree));
+                              FailureMechanismSectionResultNoValueRoundedDoubleConverter>(
+                                  r => r.AssessmentLayerThree));
         }
 
         [Test]
@@ -94,7 +93,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var row = new StabilityStoneCoverSectionResultRow(result);
 
             // Call
-            row.AssessmentLayerThree = (RoundedDouble)newValue;
+            row.AssessmentLayerThree = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
@@ -106,6 +105,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             {
                 new Point2D(0, 0)
             });
-        }  
+        }
     }
 }

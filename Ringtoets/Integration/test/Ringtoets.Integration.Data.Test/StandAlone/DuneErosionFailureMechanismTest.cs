@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            
+
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
             {

@@ -46,7 +46,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
         {
             // Setup
-            var section = new FailureMechanismSection("testName", new []{new Point2D(0,0)});
+            var section = new FailureMechanismSection("testName", new[]
+            {
+                new Point2D(0, 0)
+            });
             var result = new TestFailureMechanismSectionResult(section);
 
             // Call
@@ -59,6 +62,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 
     public class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResult>
     {
-        public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) { }
+        public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
     }
 }

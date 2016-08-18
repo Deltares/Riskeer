@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     };
 
                     // Then
-                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                     var rows = dataGridView.Rows;
                     Assert.AreEqual(2, rows.Count);
 
@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
-                AssessmentLayerThree = (RoundedDouble)random.NextDouble()
+                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             using (var form = new Form())
             {
@@ -158,7 +158,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     result.NotifyObservers();
 
                     // Then
-                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                     var rows = dataGridView.Rows;
                     Assert.AreEqual(1, rows.Count);
 
@@ -200,7 +200,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     };
 
                     // Then
-                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                     var rows = dataGridView.Rows;
                     Assert.AreEqual(0, rows.Count);
                 }

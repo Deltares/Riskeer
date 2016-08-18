@@ -648,7 +648,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
         private class Simple : FailureMechanismBase
         {
-            public Simple() : base("Stubbed name","Stubbed code") {}
+            public Simple() : base("Stubbed name", "Stubbed code") {}
 
             public override IEnumerable<ICalculation> Calculations
             {

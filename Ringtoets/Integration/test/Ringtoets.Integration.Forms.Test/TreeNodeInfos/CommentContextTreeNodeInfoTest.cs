@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -149,7 +150,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private TreeNodeInfo GetInfo(Core.Common.Gui.Plugin.PluginBase gui)
+        private TreeNodeInfo GetInfo(PluginBase gui)
         {
             return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CommentContext<ICommentable>));
         }

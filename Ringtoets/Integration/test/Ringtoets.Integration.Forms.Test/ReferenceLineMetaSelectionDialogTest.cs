@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Forms.Test
             // Setup
             var referenceLineMetas = new[]
             {
-                new ReferenceLineMeta(), 
+                new ReferenceLineMeta(),
                 new ReferenceLineMeta
                 {
                     AssessmentSectionId = "101-10"

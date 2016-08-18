@@ -73,8 +73,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(expectedPoint2D, row.Location);
             Assert.AreSame(context, row.DesignWaterLevelLocationContext);
             Assert.IsFalse(row.ToCalculate);
-        } 
-        
+        }
+
         [Test]
         public void Constructor_Property_SetPropertyAsExpected()
         {

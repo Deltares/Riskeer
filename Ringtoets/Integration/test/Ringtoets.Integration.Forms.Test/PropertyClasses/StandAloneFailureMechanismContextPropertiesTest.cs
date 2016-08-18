@@ -63,6 +63,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             mockRepository.VerifyAll();
-        } 
+        }
     }
 }

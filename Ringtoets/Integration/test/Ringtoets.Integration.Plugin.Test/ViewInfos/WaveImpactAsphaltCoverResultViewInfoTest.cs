@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            using(var view = new WaveImpactAsphaltCoverResultView())
+            using (var view = new WaveImpactAsphaltCoverResultView())
             {
                 // Call
                 var viewName = info.GetViewName(view, failureMechanism.SectionResults);
@@ -164,9 +164,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var failureMechanismMock = mocks.Stub<FailureMechanismBase>("N", "C");
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
-                {
-                    failureMechanismMock
-                });
+            {
+                failureMechanismMock
+            });
 
             mocks.ReplayAll();
 
@@ -191,10 +191,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
-                {
-                    new PipingFailureMechanism(),
-                    failureMechanism
-                });
+            {
+                new PipingFailureMechanism(),
+                failureMechanism
+            });
 
             mocks.ReplayAll();
 
@@ -236,7 +236,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 view.Data = failureMechanism.SectionResults;
-                
+
                 // Call
                 var closeForData = info.CloseForData(view, new WaveImpactAsphaltCoverFailureMechanism());
 

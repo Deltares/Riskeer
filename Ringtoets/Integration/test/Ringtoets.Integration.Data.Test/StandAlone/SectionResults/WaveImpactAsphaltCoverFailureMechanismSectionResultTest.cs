@@ -46,7 +46,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         public void Constructor_WithSection_ResultCreatedForSection()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             // Call
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);

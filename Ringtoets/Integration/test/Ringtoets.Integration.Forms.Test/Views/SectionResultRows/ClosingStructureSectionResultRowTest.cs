@@ -24,11 +24,8 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -154,7 +151,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var row = new ClosingStructureSectionResultRow(result);
 
             // Call
-            row.AssessmentLayerThree = (RoundedDouble)newValue;
+            row.AssessmentLayerThree = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
@@ -166,6 +163,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             {
                 new Point2D(0, 0)
             });
-        } 
+        }
     }
 }

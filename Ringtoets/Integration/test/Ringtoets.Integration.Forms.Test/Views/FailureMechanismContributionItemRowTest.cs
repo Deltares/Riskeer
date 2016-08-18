@@ -22,9 +22,7 @@
 using System;
 using Core.Common.Base;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Piping.Data;

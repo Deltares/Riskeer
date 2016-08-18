@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                var calculationName = string.Format("Golfhoogte voor locatie {0}",hydraulicBoundaryLocation.Name);
+                var calculationName = string.Format("Golfhoogte voor locatie {0}", hydraulicBoundaryLocation.Name);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
             });
@@ -103,9 +103,9 @@ namespace Ringtoets.Integration.Service.Test
 
             // Call
             Action call = () => output = WaveHeightCalculationService.Calculate(assessmentSection,
-                                                                                      assessmentSection.HydraulicBoundaryDatabase,
-                                                                                      hydraulicBoundaryLocation,
-                                                                                      assessmentSection.Name);
+                                                                                assessmentSection.HydraulicBoundaryDatabase,
+                                                                                hydraulicBoundaryLocation,
+                                                                                assessmentSection.Name);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -133,9 +133,9 @@ namespace Ringtoets.Integration.Service.Test
 
             // Call
             Action call = () => output = WaveHeightCalculationService.Calculate(assessmentSection,
-                                                                                      assessmentSection.HydraulicBoundaryDatabase,
-                                                                                      hydraulicBoundaryLocation,
-                                                                                      assessmentSection.Name);
+                                                                                assessmentSection.HydraulicBoundaryDatabase,
+                                                                                hydraulicBoundaryLocation,
+                                                                                assessmentSection.Name);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -159,6 +159,6 @@ namespace Ringtoets.Integration.Service.Test
             {
                 importer.Import(assessmentSection, validFilePath);
             }
-        } 
+        }
     }
 }

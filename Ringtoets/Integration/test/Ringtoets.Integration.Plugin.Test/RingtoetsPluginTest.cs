@@ -520,7 +520,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.Throws<InvalidOperationException>(test);
             }
         }
-        
+
         [Test]
         [STAThread] // Due to creating fluent Ribbon
         public void Activate_WithGui_DoesNotThrowException()

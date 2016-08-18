@@ -220,7 +220,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
-                
+
                 // Call
                 var objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
 
@@ -229,7 +229,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             }
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void ChildNodeObjects_HydraulicBoundaryDatabaseSet_ReturnsChildrenOfData()
         {
@@ -243,16 +243,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
-                
+
                 // Call
                 var objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
 
                 // Assert
                 Assert.AreEqual(2, objects.Length);
-                var designWaterLevelLocationsContext = (DesignWaterLevelLocationsContext)objects[0];
+                var designWaterLevelLocationsContext = (DesignWaterLevelLocationsContext) objects[0];
                 Assert.AreSame(assessmentSection, designWaterLevelLocationsContext.WrappedData);
 
-                var waveHeightLocationsContext = (WaveHeightLocationsContext)objects[1];
+                var waveHeightLocationsContext = (WaveHeightLocationsContext) objects[1];
                 Assert.AreSame(assessmentSection, waveHeightLocationsContext.WrappedData);
             }
             mocks.VerifyAll();

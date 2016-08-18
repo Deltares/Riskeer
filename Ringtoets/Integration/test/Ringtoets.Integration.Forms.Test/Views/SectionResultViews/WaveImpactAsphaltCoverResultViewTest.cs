@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     };
 
                     // Then
-                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                     var rows = dataGridView.Rows;
                     Assert.AreEqual(2, rows.Count);
 
@@ -147,8 +147,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
-                AssessmentLayerTwoA = (RoundedDouble)random.NextDouble(),
-                AssessmentLayerThree = (RoundedDouble)random.NextDouble()
+                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
+                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             using (var form = new Form())
             {
@@ -167,7 +167,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     result.NotifyObservers();
 
                     // Then
-                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                     var rows = dataGridView.Rows;
                     Assert.AreEqual(1, rows.Count);
 
@@ -210,7 +210,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                     };
 
                     // Then
-                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                     var rows = dataGridView.Rows;
                     Assert.AreEqual(0, rows.Count);
                 }

@@ -45,6 +45,6 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
             Assert.AreSame(assessmentSectionMock, presentationObject.WrappedData);
             mockRepository.VerifyAll();
-        } 
+        }
     }
 }

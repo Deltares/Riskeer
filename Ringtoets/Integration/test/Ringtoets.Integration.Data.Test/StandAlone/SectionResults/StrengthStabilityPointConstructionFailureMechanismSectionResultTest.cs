@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Properties;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
@@ -46,7 +47,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         public void Constructor_WithSection_ResultCreatedForSection()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             // Call
             var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
@@ -63,12 +67,15 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         [Test]
         [TestCase(-20)]
         [TestCase(-1e-6)]
-        [TestCase(1+1e-6)]
+        [TestCase(1 + 1e-6)]
         [TestCase(12)]
         public void AssessmentLayerTwoA_ForInvalidValues_ThrowsException(double a)
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
             var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
 
             // Call
@@ -77,21 +84,23 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
             Assert.AreEqual(
-                Common.Data.Properties.Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1, 
-                message
-            );
+                Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
+                message);
         }
 
         [Test]
         [TestCase(0)]
         [TestCase(1e-6)]
         [TestCase(0.5)]
-        [TestCase(1-1e-6)]
+        [TestCase(1 - 1e-6)]
         [TestCase(1)]
         public void AssessmentLayerTwoA_ForValidValues_NewValueSet(double a)
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[] { new Point2D(0, 0) });
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
             var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
 
             // Call

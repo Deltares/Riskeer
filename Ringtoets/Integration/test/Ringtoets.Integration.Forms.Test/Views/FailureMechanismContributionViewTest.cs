@@ -43,15 +43,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
     {
         private Form testForm;
 
-        private const string normInputTextBoxName = "normInput";
-        private const string dataGridViewControlName = "dataGridView";
-        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
-        private const int isRelevantColumnIndex = 0;
-        private const int nameColumnIndex = 1;
-        private const int codeColumnIndex = 2;
-        private const int contributionColumnIndex = 3;
-        private const int probabilitySpaceColumnIndex = 4;
-
         [SetUp]
         public override void Setup()
         {
@@ -75,7 +66,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ShowFormWithView(contributionView);
 
-                var dataGridView = (DataGridViewControl)new ControlTester("probabilityDistributionGrid").TheObject;
+                var dataGridView = (DataGridViewControl) new ControlTester("probabilityDistributionGrid").TheObject;
                 var tableLayout = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
 
                 // Assert
@@ -165,7 +156,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 ShowFormWithView(distributionView);
 
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 string isRelevantColumnHeaderText = dataGridView.Columns[isRelevantColumnIndex].HeaderText;
                 Assert.AreEqual("Algemeen filter", isRelevantColumnHeaderText);
@@ -219,16 +210,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 distributionView.Data = initialContribution;
 
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
 
                 DataGridViewRow row = dataGridView.Rows[0];
-                var nameCell = (DataGridViewTextBoxCell)row.Cells[nameColumnIndex];
+                var nameCell = (DataGridViewTextBoxCell) row.Cells[nameColumnIndex];
                 Assert.AreEqual(testName, nameCell.Value);
 
-                var codeCell = (DataGridViewTextBoxCell)row.Cells[codeColumnIndex];
+                var codeCell = (DataGridViewTextBoxCell) row.Cells[codeColumnIndex];
                 Assert.AreEqual(testCode, codeCell.Value);
 
-                var contributionCell = (DataGridViewTextBoxCell)row.Cells[contributionColumnIndex];
+                var contributionCell = (DataGridViewTextBoxCell) row.Cells[contributionColumnIndex];
                 Assert.AreEqual(testContribution, contributionCell.Value);
             }
 
@@ -289,9 +280,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const int initialValue = 100;
             const int expectedValue = 200;
             var random = new Random(21);
-            
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            
+
             var mockRepository = new MockRepository();
             var someMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
@@ -566,7 +557,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 view.Data = contribution;
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 DataGridViewRow row = dataGridView.Rows[0];
 
                 for (int i = 0; i < row.Cells.Count; i++)
@@ -607,7 +598,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 view.Data = contribution;
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 DataGridViewRow row = dataGridView.Rows[0];
 
                 for (int i = 0; i < row.Cells.Count; i++)
@@ -638,26 +629,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
             failureMechanism.IsRelevant = initialIsRelevant;
             failureMechanism.Stub(fm => fm.Attach(null))
                             .IgnoreArguments()
-                            .WhenCalled(invocation =>
-                            {
-                                failureMechanismObservers.Add((IObserver)invocation.Arguments[0]);
-                            });
+                            .WhenCalled(invocation => { failureMechanismObservers.Add((IObserver) invocation.Arguments[0]); });
             failureMechanism.Stub(fm => fm.NotifyObservers())
-                            .WhenCalled(invocation =>
-                            {
-                                failureMechanismObservers[0].UpdateObserver();
-                            });
+                            .WhenCalled(invocation => { failureMechanismObservers[0].UpdateObserver(); });
             failureMechanism.Stub(fm => fm.Detach(null))
                             .IgnoreArguments()
-                            .WhenCalled(invocation =>
-                            {
-                                failureMechanismObservers.Remove((IObserver)invocation.Arguments[0]);
-                            });
+                            .WhenCalled(invocation => { failureMechanismObservers.Remove((IObserver) invocation.Arguments[0]); });
 
             var failureMechanisms = new[]
-                {
-                    failureMechanism
-                };
+            {
+                failureMechanism
+            };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
@@ -673,7 +655,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 view.Data = contribution;
                 view.AssessmentSection = assessmentSection;
 
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 DataGridViewRow row = dataGridView.Rows[0];
 
                 for (int i = 0; i < row.Cells.Count; i++)
@@ -730,46 +712,37 @@ namespace Ringtoets.Integration.Forms.Test.Views
             failureMechanism.IsRelevant = initialIsRelevant;
             failureMechanism.Stub(fm => fm.Attach(null))
                             .IgnoreArguments()
-                            .WhenCalled(invocation =>
-                            {
-                                failureMechanismObservers.Add((IObserver) invocation.Arguments[0]);
-                            });
+                            .WhenCalled(invocation => { failureMechanismObservers.Add((IObserver) invocation.Arguments[0]); });
             failureMechanism.Stub(fm => fm.NotifyObservers())
-                            .WhenCalled(invocation =>
-                            {
-                                failureMechanismObservers[1].UpdateObserver();
-                            });
+                            .WhenCalled(invocation => { failureMechanismObservers[1].UpdateObserver(); });
             failureMechanism.Stub(fm => fm.Detach(null))
                             .IgnoreArguments()
-                            .WhenCalled(invocation =>
-                            {
-                                failureMechanismObservers.Remove((IObserver)invocation.Arguments[0]);
-                            });
+                            .WhenCalled(invocation => { failureMechanismObservers.Remove((IObserver) invocation.Arguments[0]); });
 
             var relevantFailureMechanism = mocks.Stub<IFailureMechanism>();
             relevantFailureMechanism.Stub(fm => fm.Name).Return("B");
             relevantFailureMechanism.Stub(fm => fm.Code).Return("C");
             relevantFailureMechanism.IsRelevant = true;
             relevantFailureMechanism.Stub(fm => fm.Attach(null))
-                            .IgnoreArguments();
+                                    .IgnoreArguments();
             relevantFailureMechanism.Stub(fm => fm.Detach(null))
-                            .IgnoreArguments();
+                                    .IgnoreArguments();
 
             var irrelevantFailureMechanism = mocks.Stub<IFailureMechanism>();
             irrelevantFailureMechanism.Stub(fm => fm.Name).Return("C");
             irrelevantFailureMechanism.Stub(fm => fm.Code).Return("C");
             irrelevantFailureMechanism.IsRelevant = false;
             irrelevantFailureMechanism.Stub(fm => fm.Attach(null))
-                            .IgnoreArguments();
+                                      .IgnoreArguments();
             irrelevantFailureMechanism.Stub(fm => fm.Detach(null))
-                            .IgnoreArguments();
+                                      .IgnoreArguments();
 
             var failureMechanisms = new[]
-                {
-                    failureMechanism,
-                    relevantFailureMechanism,
-                    irrelevantFailureMechanism
-                };
+            {
+                failureMechanism,
+                relevantFailureMechanism,
+                irrelevantFailureMechanism
+            };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(failureMechanisms);
@@ -825,13 +798,22 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 view.Data = contribution;
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester(dataGridViewControlName).TheObject;
+                var dataGridView = (DataGridView) new ControlTester(dataGridViewControlName).TheObject;
                 DataGridViewRow row = dataGridView.Rows[0];
                 DataGridViewCell isRelevantCell = row.Cells[isRelevantColumnIndex];
-                Assert.IsTrue((bool)isRelevantCell.Value);
+                Assert.IsTrue((bool) isRelevantCell.Value);
                 Assert.IsTrue(isRelevantCell.ReadOnly);
             }
         }
+
+        private const string normInputTextBoxName = "normInput";
+        private const string dataGridViewControlName = "dataGridView";
+        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
+        private const int isRelevantColumnIndex = 0;
+        private const int nameColumnIndex = 1;
+        private const int codeColumnIndex = 2;
+        private const int contributionColumnIndex = 3;
+        private const int probabilitySpaceColumnIndex = 4;
 
         private void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
         {

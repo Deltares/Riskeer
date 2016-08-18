@@ -41,28 +41,26 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Given
             using (var form = new Form())
+            using (var view = new DuneErosionResultView())
             {
-                using (var view = new DuneErosionResultView())
-                {
-                    form.Controls.Add(view);
+                form.Controls.Add(view);
 
-                    // When
-                    form.Show();
+                // When
+                form.Show();
 
-                    // Then
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                // Then
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                    Assert.AreEqual(3, dataGridView.ColumnCount);
+                Assert.AreEqual(3, dataGridView.ColumnCount);
 
-                    Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
-                    Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
-                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
-                    Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three, dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
+                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
+                Assert.AreEqual(Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three, dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
-                    Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
-                    Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
-                }
+                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
             }
         }
 
@@ -91,37 +89,35 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
+            using (var view = new DuneErosionResultView())
             {
-                using (var view = new DuneErosionResultView())
+                form.Controls.Add(view);
+                form.Show();
+
+                // When
+                view.Data = new[]
                 {
-                    form.Controls.Add(view);
-                    form.Show();
+                    result1,
+                    result2
+                };
 
-                    // When
-                    view.Data = new[]
-                    {
-                        result1,
-                        result2
-                    };
+                // Then
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                    // Then
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var rows = dataGridView.Rows;
+                Assert.AreEqual(2, rows.Count);
 
-                    var rows = dataGridView.Rows;
-                    Assert.AreEqual(2, rows.Count);
+                var cells = rows[0].Cells;
+                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                    var cells = rows[0].Cells;
-                    Assert.AreEqual(3, cells.Count);
-                    Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                    Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-
-                    cells = rows[1].Cells;
-                    Assert.AreEqual(3, cells.Count);
-                    Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                    Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
-                    Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
-                }
+                cells = rows[1].Cells;
+                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
+                Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
             }
         }
 
@@ -141,24 +137,22 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result2 = new TestFailureMechanismSectionResult(section2);
 
             using (var form = new Form())
+            using (var view = new DuneErosionResultView())
             {
-                using (var view = new DuneErosionResultView())
+                form.Controls.Add(view);
+                form.Show();
+
+                // When
+                view.Data = new[]
                 {
-                    form.Controls.Add(view);
-                    form.Show();
+                    result1,
+                    result2
+                };
 
-                    // When
-                    view.Data = new[]
-                    {
-                        result1,
-                        result2
-                    };
-
-                    // Then
-                    var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-                    var rows = dataGridView.Rows;
-                    Assert.AreEqual(0, rows.Count);
-                }
+                // Then
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var rows = dataGridView.Rows;
+                Assert.AreEqual(0, rows.Count);
             }
         }
 

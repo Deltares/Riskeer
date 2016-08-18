@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             failureMechanismContribution.Attach(observerMock);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
-            
+
             emptyPipingCalculation.Attach(calculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
@@ -149,7 +149,7 @@ namespace Ringtoets.Integration.Forms.Test
             }
             mockRepository.VerifyAll();
         }
-        
+
         [Test]
         public void NormTextBox_HydraulicBoundarySetAndCalculationsNoOutput_HydraulicBoundaryDatabaseObserversNotifiedAndMessagesLogged()
         {
@@ -188,7 +188,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             failureMechanismContribution.Attach(observerMock);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserver);
-            
+
             emptyPipingCalculation.Attach(calculationObserver);
             emptyGrassCoverErosionInwardsCalculation.Attach(calculationObserver);
             emptyHeightStructuresCalculation.Attach(calculationObserver);
@@ -294,7 +294,7 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Show();
 
                 ControlTester normTester = new ControlTester("normInput");
-                
+
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
                 Assert.IsNotNull(pipingCalculation.Output);
@@ -308,7 +308,7 @@ namespace Ringtoets.Integration.Forms.Test
                 string expectedMessage = string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared,
                                                        numberOfCalculations);
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-                
+
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNull(pipingCalculation.Output);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
@@ -379,7 +379,7 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Show();
 
                 ControlTester normTester = new ControlTester("normInput");
-                
+
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
                 Assert.IsNotNull(pipingCalculation.Output);
@@ -401,7 +401,7 @@ namespace Ringtoets.Integration.Forms.Test
             }
             mockRepository.VerifyAll();
         }
-        
+
         [Test]
         public void NormTextBox_HydraulicBoundaryLocationNoOutputAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {
@@ -463,7 +463,7 @@ namespace Ringtoets.Integration.Forms.Test
             }
             mockRepository.VerifyAll(); // No update observer expected.
         }
-        
+
         [Test]
         public void NormTextBox_NoHydraulicBoundaryDatabaseAndNoCalculationsWithOutputAndValueChanged_NoObserversNotifiedAndMessagesLogged()
         {

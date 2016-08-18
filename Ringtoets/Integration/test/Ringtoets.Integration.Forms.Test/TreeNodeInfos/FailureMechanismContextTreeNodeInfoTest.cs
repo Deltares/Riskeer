@@ -482,7 +482,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        /* Used in ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type) */
+        /// <summary>
+        /// Used in ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type)
+        /// </summary>
         private void ChildNodeObjects_FailureMechanismIsRelevantWithSectionResults_OutputNodeAdded<T>() where T : FailureMechanismSectionResult
         {
             // Setup
