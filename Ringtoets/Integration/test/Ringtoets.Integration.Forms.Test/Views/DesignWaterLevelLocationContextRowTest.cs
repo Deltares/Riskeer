@@ -22,8 +22,10 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
@@ -73,6 +75,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(expectedPoint2D, row.Location);
             Assert.AreSame(context, row.DesignWaterLevelLocationContext);
             Assert.IsFalse(row.ToCalculate);
+            Assert.IsTrue(TypeUtils.HasTypeConverter<DesignWaterLevelLocationContextRow,
+                              NoValueRoundedDoubleConverter>(r => r.DesignWaterLevel));
         }
 
         [Test]

@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (pipingCalculation.SemiProbabilisticOutput == null)
                 {
-                    return RingtoetsCommonFormsResources.FailureMechanismSectionResult_No_result_dash;
+                    return RingtoetsCommonFormsResources.RoundedRouble_No_result_dash;
                 }
                 return ProbabilityFormattingHelper.Format(pipingCalculation.SemiProbabilisticOutput.PipingProbability);
             }
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (pipingCalculation.SemiProbabilisticOutput == null)
                 {
-                    return RingtoetsCommonFormsResources.FailureMechanismSectionResult_No_result_dash;
+                    return RingtoetsCommonFormsResources.RoundedRouble_No_result_dash;
                 }
                 return ProbabilityFormattingHelper.Format(pipingCalculation.SemiProbabilisticOutput.UpliftProbability);
             }
@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (pipingCalculation.SemiProbabilisticOutput == null)
                 {
-                    return RingtoetsCommonFormsResources.FailureMechanismSectionResult_No_result_dash;
+                    return RingtoetsCommonFormsResources.RoundedRouble_No_result_dash;
                 }
                 return ProbabilityFormattingHelper.Format(pipingCalculation.SemiProbabilisticOutput.HeaveProbability);
             }
@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.Forms.Views
             {
                 if (pipingCalculation.SemiProbabilisticOutput == null)
                 {
-                    return RingtoetsCommonFormsResources.FailureMechanismSectionResult_No_result_dash;
+                    return RingtoetsCommonFormsResources.RoundedRouble_No_result_dash;
                 }
                 return ProbabilityFormattingHelper.Format(pipingCalculation.SemiProbabilisticOutput.SellmeijerProbability);
             }

@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <summary>
         /// Gets or sets the assessment layer three of the <see cref="sectionResult"/>.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree
         {
             get

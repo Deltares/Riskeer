@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<DuneErosionSectionResultRow,
-                              FailureMechanismSectionResultNoValueRoundedDoubleConverter>(
+                              NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
         }
 

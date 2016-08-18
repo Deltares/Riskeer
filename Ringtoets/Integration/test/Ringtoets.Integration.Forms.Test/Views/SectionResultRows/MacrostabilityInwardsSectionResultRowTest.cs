@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
             Assert.IsTrue(TypeUtils.HasTypeConverter<MacrostabilityInwardsSectionResultRow,
-                              FailureMechanismSectionResultNoValueRoundedDoubleConverter>(
+                              NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
         }
 

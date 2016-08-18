@@ -29,13 +29,13 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.Test.TypeConverters
 {
     [TestFixture]
-    public class FailureMechanismSectionResultNoValueRoundedDoubleConverterTest
+    public class NoValueRoundedDoubleConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
+            var converter = new NoValueRoundedDoubleConverter();
 
             // Assert
             Assert.IsInstanceOf<RoundedDoubleConverter>(converter);
@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertFrom_NoValueText_ReturnNaN(string text)
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
+            var converter = new NoValueRoundedDoubleConverter();
 
             // Call
             var result = (RoundedDouble) converter.ConvertFrom(text);
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             // Setup
             string text = "I'm not a number!";
 
-            var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
+            var converter = new NoValueRoundedDoubleConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             // Setup
             string text = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
 
-            var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
+            var converter = new NoValueRoundedDoubleConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
@@ -113,7 +113,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void CanConvertTo_ToString_ReturnTrue()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
+            var converter = new NoValueRoundedDoubleConverter();
 
             // Call
             bool canConvertToString = converter.CanConvertTo(typeof(string));
@@ -126,7 +126,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertTo_NaNToString_ReturnHyphen()
         {
             // Setup
-            var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
+            var converter = new NoValueRoundedDoubleConverter();
 
             // Call
             var text = (string) converter.ConvertTo((RoundedDouble) double.NaN, typeof(string));
@@ -143,7 +143,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         {
             // Setup
             var roundedDouble = new RoundedDouble(2, value);
-            var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
+            var converter = new NoValueRoundedDoubleConverter();
 
             // Call
             var text = (string) converter.ConvertTo(roundedDouble, typeof(string));
@@ -160,7 +160,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         {
             // Setup
             var roundedDouble = new RoundedDouble(2, value);
-            var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
+            var converter = new NoValueRoundedDoubleConverter();
 
             // Call
             var text = (string) converter.ConvertTo(roundedDouble, typeof(string));
@@ -174,7 +174,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             // Setup
             string text = input.ToString(CultureInfo.CurrentCulture);
 
-            var converter = new FailureMechanismSectionResultNoValueRoundedDoubleConverter();
+            var converter = new NoValueRoundedDoubleConverter();
 
             // Call
             RoundedDouble conversionResult = (RoundedDouble) converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);

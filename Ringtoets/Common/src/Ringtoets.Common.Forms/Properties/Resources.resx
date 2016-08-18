@@ -250,7 +250,7 @@
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output" xml:space="preserve">
     <value>Niet alle berekeningen voor dit vak hebben een geldige uitkomst.</value>
   </data>
-  <data name="FailureMechanismSectionResult_No_result_dash" xml:space="preserve">
+  <data name="RoundedRouble_No_result_dash" xml:space="preserve">
     <value>-</value>
   </data>
   <data name="FailureMechanismIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">

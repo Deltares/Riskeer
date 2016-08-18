@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerTwoA
         {
             get
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult.AssessmentLayerThree"/>.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree
         {
             get

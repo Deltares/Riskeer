@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <summary>
         /// Gets or sets the value representing the result of the layer 3 assessment.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree
         {
             get

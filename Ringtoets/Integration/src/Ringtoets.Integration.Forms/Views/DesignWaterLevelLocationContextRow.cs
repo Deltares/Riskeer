@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.DesignWaterLevel"/>.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble DesignWaterLevel
         {
             get

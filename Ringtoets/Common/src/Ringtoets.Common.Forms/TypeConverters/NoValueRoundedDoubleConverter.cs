@@ -33,14 +33,14 @@ namespace Ringtoets.Common.Forms.TypeConverters
     /// that is capable of converting <see cref="string.Empty"/> or the <c>-</c> character
     /// into <see cref="double.NaN"/>.
     /// </summary>
-    public class FailureMechanismSectionResultNoValueRoundedDoubleConverter : RoundedDoubleConverter
+    public class NoValueRoundedDoubleConverter : RoundedDoubleConverter
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var text = value as string;
             if (text != null)
             {
-                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.FailureMechanismSectionResult_No_result_dash)
+                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.RoundedRouble_No_result_dash)
                 {
                     return (RoundedDouble) double.NaN;
                 }
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
             {
                 if (double.IsNaN(roundedDoubleValue))
                 {
-                    return Resources.FailureMechanismSectionResult_No_result_dash;
+                    return Resources.RoundedRouble_No_result_dash;
                 }
             }
             return base.ConvertTo(context, culture, value, destinationType);

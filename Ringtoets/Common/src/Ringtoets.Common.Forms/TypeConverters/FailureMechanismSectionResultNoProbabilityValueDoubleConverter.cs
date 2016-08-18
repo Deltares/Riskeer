@@ -30,7 +30,7 @@ using CommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Common.Forms.TypeConverters
 {
     /// <summary>
-    /// This class is a variant of <see cref="FailureMechanismSectionResultNoValueRoundedDoubleConverter"/>,
+    /// This class is a variant of <see cref="NoValueRoundedDoubleConverter"/>,
     /// intended to display probabilities with <see cref="double"/> values instead of general 
     /// <see cref="RoundedDouble"/> variables.
     /// </summary>
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
             {
                 if (double.IsNaN(doubleValue))
                 {
-                    return Resources.FailureMechanismSectionResult_No_result_dash;
+                    return Resources.RoundedRouble_No_result_dash;
                 }
                 if (double.IsNegativeInfinity(doubleValue))
                 {
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
             var text = value as string;
             if (text != null)
             {
-                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.FailureMechanismSectionResult_No_result_dash)
+                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.RoundedRouble_No_result_dash)
                 {
                     return double.NaN;
                 }

@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult.AssessmentLayerThree"/>.
         /// </summary>
-        [TypeConverter(typeof(FailureMechanismSectionResultNoValueRoundedDoubleConverter))]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree
         {
             get
