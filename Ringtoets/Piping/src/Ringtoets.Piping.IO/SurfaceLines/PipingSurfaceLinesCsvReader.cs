@@ -260,7 +260,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
                                                                          separator));
             }
             return readText.Split(separator)
-                           .TakeWhile(text => !String.IsNullOrEmpty(text))
+                           .TakeWhile(text => !string.IsNullOrEmpty(text))
                            .ToArray();
         }
 
@@ -332,7 +332,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             try
             {
                 return tokenizedString.Skip(startGeometryColumnIndex)
-                                      .Select(ts => Double.Parse(ts, CultureInfo.InvariantCulture))
+                                      .Select(ts => double.Parse(ts, CultureInfo.InvariantCulture))
                                       .ToArray();
             }
             catch (FormatException e)
@@ -427,7 +427,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
             string line;
             while ((line = ReadLineAndHandleIOExceptions(reader, lineNumberForMessage)) != null)
             {
-                if (!String.IsNullOrWhiteSpace(line))
+                if (!string.IsNullOrWhiteSpace(line))
                 {
                     count++;
                 }

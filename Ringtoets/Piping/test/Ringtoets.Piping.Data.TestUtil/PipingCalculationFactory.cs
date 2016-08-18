@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             var top = 10.56;
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, 0.0, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, 0.0, new[]
                 {
                     new PipingSoilLayer(top)
                     {
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             });
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, -thicknessAquiferLayer, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, -thicknessAquiferLayer, new[]
                 {
                     new PipingSoilLayer(thicknessCoverageLayer)
                     {
@@ -158,7 +158,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             });
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(surfaceLineTopLevel + deltaAboveSurfaceLine + 2)
                     {
@@ -193,7 +193,7 @@ namespace Ringtoets.Piping.Data.TestUtil
             });
             var stochasticSoilProfile = new StochasticSoilProfile(0.0, SoilProfileType.SoilProfile1D, 0)
             {
-                SoilProfile = new PipingSoilProfile(String.Empty, 0, new[]
+                SoilProfile = new PipingSoilProfile(string.Empty, 0, new[]
                 {
                     new PipingSoilLayer(4.3)
                     {

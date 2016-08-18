@@ -63,7 +63,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithNameBottomLayersEmpty_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, new Collection<PipingSoilLayer>(), SoilProfileType.SoilProfile1D, 0);
+            TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, new Collection<PipingSoilLayer>(), SoilProfileType.SoilProfile1D, 0);
 
             // Assert
             var expectedMessage = PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers;
@@ -74,7 +74,7 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_WithNameBottomLayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, null, SoilProfileType.SoilProfile1D, 0);
+            TestDelegate test = () => new PipingSoilProfile(string.Empty, double.NaN, null, SoilProfileType.SoilProfile1D, 0);
 
             // Assert
             var expectedMessage = PrimitivesResources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers;
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            TestDelegate test = () => new PipingSoilProfile(String.Empty, bottom, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
+            TestDelegate test = () => new PipingSoilProfile(string.Empty, bottom, pipingSoilLayers, SoilProfileType.SoilProfile1D, 0);
 
             // Assert
             const string expectedMessage = "Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";

@@ -33,7 +33,7 @@ namespace Core.Common.Base.Data
     /// number of places.
     /// </summary>
     [TypeConverter(typeof(RoundedDoubleConverter))]
-    public struct RoundedDouble : IEquatable<RoundedDouble>, IEquatable<Double>, IFormattable
+    public struct RoundedDouble : IEquatable<RoundedDouble>, IEquatable<double>, IFormattable
     {
         /// <summary>
         /// The maximum number of decimal places supported by this class.
@@ -127,7 +127,7 @@ namespace Core.Common.Base.Data
             return d.value;
         }
 
-        public static explicit operator RoundedDouble(Double d)
+        public static explicit operator RoundedDouble(double d)
         {
             return new RoundedDouble(MaximumNumberOfDecimalPlaces, d);
         }

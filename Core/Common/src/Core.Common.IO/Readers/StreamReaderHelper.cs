@@ -57,7 +57,7 @@ namespace Core.Common.IO.Readers
             }
             catch (IOException e)
             {
-                var message = new FileReaderErrorMessageBuilder(path).Build(String.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message));
+                var message = new FileReaderErrorMessageBuilder(path).Build(string.Format(Resources.Error_General_IO_ErrorMessage_0_, e.Message));
                 throw new CriticalFileReadException(message, e);
             }
         }

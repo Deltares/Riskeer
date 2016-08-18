@@ -200,7 +200,7 @@ namespace Application.Ringtoets.Storage
 
                 if (databaseVersion > currentDatabaseVersion)
                 {
-                    string m = String.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_,
+                    string m = string.Format(Resources.StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_,
                                              databaseVersion, currentDatabaseVersion);
                     var message = new FileReaderErrorMessageBuilder(databaseFilePath).Build(m);
                     throw new StorageValidationException(message);

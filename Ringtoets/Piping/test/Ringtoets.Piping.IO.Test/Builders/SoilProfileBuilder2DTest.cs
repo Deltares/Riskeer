@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var builder = new SoilProfileBuilder2D(profileName, 1.0, pipingSoilProfileId);
             builder.Add(new SoilLayer2D
             {
-                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                        "10",
                                                                                        "...",
                                                                                        "...",
@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                        "..."))
             }).Add(new SoilLayer2D
             {
-                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                        "10",
                                                                                        "...",
                                                                                        "...",
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                        "..."))
             }).Add(new SoilLayer2D
             {
-                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                        "10",
                                                                                        "...",
                                                                                        "1.2",
@@ -215,7 +215,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var profileName = "SomeProfile";
             const long pipingSoilProfileId = 1234L;
             var builder = new SoilProfileBuilder2D(profileName, 2.0, pipingSoilProfileId);
-            List<Segment2D> loopHole = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            List<Segment2D> loopHole = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                                   "5",
                                                                                                   ".....",
                                                                                                   ".4.1.",
@@ -224,7 +224,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                                   "....."));
             var soilLayer2D = new SoilLayer2D
             {
-                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(string.Join(Environment.NewLine,
                                                                                        "5",
                                                                                        "2...3",
                                                                                        ".....",

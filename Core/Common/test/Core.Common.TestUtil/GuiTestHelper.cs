@@ -79,7 +79,7 @@ namespace Core.Common.TestUtil
                 return File.Exists("C:\\build.server")
                        || File.Exists("D:\\build.server")
                        || File.Exists("/tmp/build-server")
-                       || !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILD_NUMBER"));
+                       || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILD_NUMBER"));
             }
         }
 

@@ -194,7 +194,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
                 if (callCount <= expectedNumberOfSurfaceLines)
                 {
-                    Assert.AreEqual(String.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_, twovalidsurfacelinesCsv), currentStepName);
+                    Assert.AreEqual(string.Format(PipingPluginResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_, twovalidsurfacelinesCsv), currentStepName);
                 }
                 else if (callCount <= expectedNumberOfSurfaceLines + 1 + expectedNumberOfSurfaceLines)
                 {

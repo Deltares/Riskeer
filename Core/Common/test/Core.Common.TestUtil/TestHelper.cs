@@ -385,9 +385,9 @@ namespace Core.Common.TestUtil
         private static float GetMachineHddPerformanceRank()
         {
             string rank = Environment.GetEnvironmentVariable("MACHINE_HDD_PERFORMANCE_RANK");
-            if (!String.IsNullOrEmpty(rank))
+            if (!string.IsNullOrEmpty(rank))
             {
-                return Single.Parse(rank);
+                return float.Parse(rank);
             }
 
             return 1.0f;
