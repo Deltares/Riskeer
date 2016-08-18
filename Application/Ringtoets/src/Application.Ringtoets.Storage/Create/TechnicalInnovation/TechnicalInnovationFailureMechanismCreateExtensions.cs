@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.TechnicalInnovation
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<TechnicalInnovationFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<TechnicalInnovationFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

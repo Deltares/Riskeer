@@ -115,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             ProjectEntity entityAfterSave = fullProject.Create(new PersistenceRegistry());
             byte[] hash2 = FingerprintHelper.Get(entityAfterSave);
 
-            var openedProject = (RingtoetsProject)storage.LoadProject(tempRingtoetsFile);
+            var openedProject = (RingtoetsProject) storage.LoadProject(tempRingtoetsFile);
             ProjectEntity entityAfterOpening = openedProject.Create(new PersistenceRegistry());
 
             byte[] hash3 = FingerprintHelper.Get(entityAfterOpening);

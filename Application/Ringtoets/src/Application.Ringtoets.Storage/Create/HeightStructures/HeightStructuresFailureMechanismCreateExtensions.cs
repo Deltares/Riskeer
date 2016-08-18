@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

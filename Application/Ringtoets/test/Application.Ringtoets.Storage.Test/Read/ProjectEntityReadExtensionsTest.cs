@@ -97,7 +97,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(2, project.AssessmentSections.Count);
             CollectionAssert.AreEqual(new[]
             {
-                "B", "A"
+                "B",
+                "A"
             }, project.AssessmentSections.Select(a => a.Name));
         }
     }

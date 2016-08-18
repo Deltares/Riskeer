@@ -20,15 +20,11 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 
@@ -42,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var output = new PipingSemiProbabilisticOutput(1.1, 0.3, 4.4, 5.5, 0.6, 7.7,
-                                                           8.8, 0.9, 0.10, 11.11, 0.12, 
+                                                           8.8, 0.9, 0.10, 11.11, 0.12,
                                                            13.13, 14.14);
 
             // Call
@@ -84,24 +80,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             CollectionAssert.IsEmpty(entity.PipingCalculationEntities);
         }
 
-        private static void AssertAreEqual(double expectedValue, double? actualValue)
-        {
-            if (double.IsNaN(expectedValue))
-            {
-                Assert.IsNull(actualValue);
-            }
-            Assert.AreEqual(expectedValue, Convert.ToDouble(actualValue));
-        }
-
-        private static void AssertAreEqual(RoundedDouble expectedValue, double? actualValue)
-        {
-            if (double.IsNaN(expectedValue))
-            {
-                Assert.IsNull(actualValue);
-            }
-            Assert.AreEqual(expectedValue, Convert.ToDouble(actualValue), expectedValue.GetAccuracy());
-        }
-
         [Test]
         public void Create_WithNaNValues_ReturnEntityWithNullPropertyValues()
         {
@@ -133,6 +111,24 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             Assert.AreEqual(0, entity.PipingSemiProbabilisticOutputEntityId);
             CollectionAssert.IsEmpty(entity.PipingCalculationEntities);
+        }
+
+        private static void AssertAreEqual(double expectedValue, double? actualValue)
+        {
+            if (double.IsNaN(expectedValue))
+            {
+                Assert.IsNull(actualValue);
+            }
+            Assert.AreEqual(expectedValue, Convert.ToDouble(actualValue));
+        }
+
+        private static void AssertAreEqual(RoundedDouble expectedValue, double? actualValue)
+        {
+            if (double.IsNaN(expectedValue))
+            {
+                Assert.IsNull(actualValue);
+            }
+            Assert.AreEqual(expectedValue, Convert.ToDouble(actualValue), expectedValue.GetAccuracy());
         }
     }
 }

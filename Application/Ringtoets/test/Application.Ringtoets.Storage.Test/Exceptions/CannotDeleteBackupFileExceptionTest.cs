@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Exceptions;
-
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Storage.Test.Exceptions
@@ -74,6 +72,6 @@ namespace Application.Ringtoets.Storage.Test.Exceptions
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreSame(expectedInnerException, exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
-        } 
+        }
     }
 }

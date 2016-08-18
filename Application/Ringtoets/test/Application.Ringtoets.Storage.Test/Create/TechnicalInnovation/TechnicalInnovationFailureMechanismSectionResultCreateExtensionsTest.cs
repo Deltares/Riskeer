@@ -20,15 +20,11 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.TechnicalInnovation;
 using Application.Ringtoets.Storage.TestUtil;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
-
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Create.TechnicalInnovation
@@ -52,8 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.TechnicalInnovation
         [Test]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
             [Values(true, false)] bool assessmentLayerOneResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult    
-        )
+            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
             var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(new TestFailureMechanismSection())

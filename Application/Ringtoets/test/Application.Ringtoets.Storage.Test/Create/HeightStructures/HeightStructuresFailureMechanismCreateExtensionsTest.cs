@@ -21,14 +21,11 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.HeightStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-
 using NUnit.Framework;
-
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
@@ -68,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short)FailureMechanismType.StructureHeight, entity.FailureMechanismType);
+            Assert.AreEqual((short) FailureMechanismType.StructureHeight, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
         }
@@ -89,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
 
             // Assert
             Assert.AreNotSame(originalComments, entity.Comments,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(originalComments, entity.Comments);
         }
 

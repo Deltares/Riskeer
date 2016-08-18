@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

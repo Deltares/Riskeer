@@ -96,7 +96,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var soilLayer = new PipingSoilLayer(0)
             {
                 MaterialName = materialName
-
             };
             var registry = new PersistenceRegistry();
 
@@ -105,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.AreNotSame(materialName, entity.MaterialName,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(materialName, entity.MaterialName);
         }
     }

@@ -24,7 +24,11 @@ using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.TestUtil
 {
-    public class TestFailureMechanismSection : FailureMechanismSection {
-        public TestFailureMechanismSection() : base(string.Empty, new [] { new Point2D(0,0) }) {}
+    public class TestFailureMechanismSection : FailureMechanismSection
+    {
+        public TestFailureMechanismSection() : base(string.Empty, new[]
+        {
+            new Point2D(0, 0)
+        }) {}
     }
 }

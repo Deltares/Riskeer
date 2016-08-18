@@ -2033,7 +2033,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
-        
+
         [Test]
         public void Register_WithNullCharacteristicPointEntity_ThrowsArgumentNullException()
         {
@@ -2894,7 +2894,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             Assert.AreEqual(storageId, model.StorageId);
         }
-        
+
         [Test]
         public void TransferIds_WithPipingFailureMechanismMetaEntityAdded_EqualFailureMechanismMetaEntityIdAndPipingProbabilityAssessmentInputStorageId()
         {
@@ -4248,7 +4248,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             CollectionAssert.Contains(dbContext.SurfaceLineEntities, persistentEntity);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void RemoveUntouched_CharacteristicPointEntity_OrphanedEntityIsRemovedFromRingtoetsEntities()
         {

@@ -64,38 +64,38 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 IsRelevant = isRelevant,
-                Contribution = (RoundedDouble)contribution,
+                Contribution = (RoundedDouble) contribution,
                 Name = name,
                 Comments = comments,
                 InputParameters =
                 {
-                    ExitPointL = (RoundedDouble)exitPoint,
-                    EntryPointL = (RoundedDouble)entryPoint,
+                    ExitPointL = (RoundedDouble) exitPoint,
+                    EntryPointL = (RoundedDouble) entryPoint,
                     PhreaticLevelExit =
                     {
-                        Mean = (RoundedDouble)GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
-                        StandardDeviation = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
+                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     DampingFactorExit =
                     {
-                        Mean = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     SaturatedVolumicWeightOfCoverageLayer =
                     {
-                        Mean = (RoundedDouble)GetRandomDoubleFromRange(random, 10.0, 9999.9999),
-                        StandardDeviation = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        Shift = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 10.0)
+                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 10.0, 9999.9999),
+                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        Shift = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 10.0)
                     },
                     Diameter70 =
                     {
-                        Mean = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     DarcyPermeability =
                     {
-                        Mean = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble)GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     }
                 }
             };
@@ -119,7 +119,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(input.PhreaticLevelExit.StandardDeviation.Value, entity.PhreaticLevelExitStandardDeviation);
             Assert.AreEqual(input.DampingFactorExit.Mean.Value, entity.DampingFactorExitMean);
             Assert.AreEqual(input.DampingFactorExit.StandardDeviation.Value, entity.DampingFactorExitStandardDeviation);
-            
+
             Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(0, entity.PipingCalculationEntityId);
             Assert.IsNull(entity.CalculationGroupEntity);
@@ -148,11 +148,11 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.AreNotSame(name, entity.Name,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(name, entity.Name);
 
             Assert.AreNotSame(comments, entity.Comments,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(comments, entity.Comments);
         }
 
@@ -166,8 +166,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             };
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(0.0, 0.0, 1.0), 
-                new Point3D(3.3, 6.6, 1.0) 
+                new Point3D(0.0, 0.0, 1.0),
+                new Point3D(3.3, 6.6, 1.0)
             });
 
             var registry = new PersistenceRegistry();
@@ -252,7 +252,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var registry = new PersistenceRegistry();
 
-            var newOutput = new PipingOutput(1,2,3,4,5,6);
+            var newOutput = new PipingOutput(1, 2, 3, 4, 5, 6);
             var calculation = new PipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = newOutput
@@ -291,7 +291,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         private double GetRandomDoubleFromRange(Random random, double lowerLimit, double upperLimit)
         {
             double difference = upperLimit - lowerLimit;
-            return lowerLimit + random.NextDouble() * difference;
+            return lowerLimit + random.NextDouble()*difference;
         }
     }
 }

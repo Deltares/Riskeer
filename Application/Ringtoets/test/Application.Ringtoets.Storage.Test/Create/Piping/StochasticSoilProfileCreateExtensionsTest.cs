@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
-
 using NUnit.Framework;
-
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
@@ -70,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual(probability, entity.Probability);
             Assert.AreEqual(order, entity.Order);
-        }   
+        }
 
         [Test]
         public void Create_DifferentStochasticSoilProfilesWithSamePipingSoilProfile_ReturnsStochasticSoilProfileEntityWithSameSoilProfileEntitySet()

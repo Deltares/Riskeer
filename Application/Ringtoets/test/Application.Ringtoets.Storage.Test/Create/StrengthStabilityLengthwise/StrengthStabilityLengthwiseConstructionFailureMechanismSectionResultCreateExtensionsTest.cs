@@ -48,8 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityLengthwise
         [Test]
         public void Create_VariousResults_ReturnsEntity(
             [Values(true, false)] bool assessmentLayerOneResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult    
-        )
+            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
             var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())

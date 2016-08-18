@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.PipingStructure
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

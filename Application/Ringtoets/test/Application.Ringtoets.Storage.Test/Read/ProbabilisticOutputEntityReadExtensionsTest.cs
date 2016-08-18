@@ -21,9 +21,7 @@
 
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.Probability;
 
 namespace Application.Ringtoets.Storage.Test.Read

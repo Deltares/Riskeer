@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.Microstability
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<MicrostabilityFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<MicrostabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

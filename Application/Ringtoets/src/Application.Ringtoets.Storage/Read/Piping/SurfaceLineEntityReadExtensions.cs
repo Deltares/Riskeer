@@ -77,9 +77,9 @@ namespace Application.Ringtoets.Storage.Read.Piping
             var characteristicPoints = new Dictionary<CharacteristicPointType, Point3D>();
             foreach (CharacteristicPointEntity pointEntity in entity.CharacteristicPointEntities)
             {
-                characteristicPoints[(CharacteristicPointType)pointEntity.Type] = new Point3D(pointEntity.X.ToNullAsNaN(),
-                                                                                              pointEntity.Y.ToNullAsNaN(),
-                                                                                              pointEntity.Z.ToNullAsNaN());
+                characteristicPoints[(CharacteristicPointType) pointEntity.Type] = new Point3D(pointEntity.X.ToNullAsNaN(),
+                                                                                               pointEntity.Y.ToNullAsNaN(),
+                                                                                               pointEntity.Z.ToNullAsNaN());
             }
             foreach (KeyValuePair<CharacteristicPointType, Point3D> keyValuePair in characteristicPoints)
             {

@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Test
         public void ToNullAsNaN_NullValue_ReturnNaN()
         {
             // Call
-            double value = ((double?)null).ToNullAsNaN();
+            double value = ((double?) null).ToNullAsNaN();
 
             // Assert
             Assert.IsNaN(value);

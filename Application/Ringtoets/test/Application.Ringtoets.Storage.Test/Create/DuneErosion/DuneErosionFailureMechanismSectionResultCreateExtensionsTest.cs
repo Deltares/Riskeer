@@ -20,15 +20,11 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.DuneErosion;
 using Application.Ringtoets.Storage.TestUtil;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -53,8 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         [Test]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
             [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult    
-        )
+            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
             var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection())

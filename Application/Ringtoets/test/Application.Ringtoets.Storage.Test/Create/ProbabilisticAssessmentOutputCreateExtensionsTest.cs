@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.Probability;
 
 namespace Application.Ringtoets.Storage.Test.Create
@@ -93,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Create_ValidValues_RegistersEntity()
         {
             // Setup
-            var output = new ProbabilityAssessmentOutput(1,1,1,1,1);
+            var output = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
 
             var registry = new PersistenceRegistry();
 

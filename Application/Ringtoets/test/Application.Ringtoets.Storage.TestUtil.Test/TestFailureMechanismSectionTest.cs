@@ -34,8 +34,11 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             var section = new TestFailureMechanismSection();
 
             // Assert
-            CollectionAssert.AreEqual(new [] { new Point2D(0,0) }, section.Points );
-            Assert.AreEqual(string.Empty, section.Name );
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(0, 0)
+            }, section.Points);
+            Assert.AreEqual(string.Empty, section.Name);
         }
     }
 }

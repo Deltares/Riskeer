@@ -21,12 +21,9 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
@@ -149,23 +146,23 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsFalse(rootGroup.IsNameEditable);
 
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            var rootChildGroup1 = (CalculationGroup)rootChildren[0];
+            var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             Assert.AreEqual(2, rootChildGroup1.StorageId);
             Assert.IsTrue(rootChildGroup1.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
-            var rootChildGroup2 = (CalculationGroup)rootChildren[1];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
             Assert.AreEqual(3, rootChildGroup2.StorageId);
             Assert.IsFalse(rootChildGroup2.IsNameEditable);
 
             ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
-            var rootChildGroup1Child1 = (CalculationGroup)rootChildGroup2Children[0];
+            var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             Assert.AreEqual(4, rootChildGroup1Child1.StorageId);
             Assert.IsFalse(rootChildGroup1Child1.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
-            var rootChildGroup1Child2 = (CalculationGroup)rootChildGroup2Children[1];
+            var rootChildGroup1Child2 = (CalculationGroup) rootChildGroup2Children[1];
             Assert.AreEqual("ABB", rootChildGroup1Child2.Name);
             Assert.AreEqual(5, rootChildGroup1Child2.StorageId);
             Assert.IsTrue(rootChildGroup1Child2.IsNameEditable);
@@ -209,11 +206,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
             Assert.AreEqual(2, rootChildren.Length);
 
-            var rootChildCalculation1 = (PipingCalculationScenario)rootChildren[0];
+            var rootChildCalculation1 = (PipingCalculationScenario) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
             Assert.AreEqual(3, rootChildCalculation1.StorageId);
 
-            var rootChildCalculation2 = (PipingCalculationScenario)rootChildren[1];
+            var rootChildCalculation2 = (PipingCalculationScenario) rootChildren[1];
             Assert.AreEqual("2", rootChildCalculation2.Name);
             Assert.AreEqual(6, rootChildCalculation2.StorageId);
         }
@@ -270,19 +267,19 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
             Assert.AreEqual(4, rootChildren.Length);
 
-            var rootChildCalculation1 = (PipingCalculationScenario)rootChildren[0];
+            var rootChildCalculation1 = (PipingCalculationScenario) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
             Assert.AreEqual(3, rootChildCalculation1.StorageId);
 
-            var rootChildGroup1 = (CalculationGroup)rootChildren[1];
+            var rootChildGroup1 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("group1", rootChildGroup1.Name);
             Assert.AreEqual(2, rootChildGroup1.StorageId);
 
-            var rootChildCalculation2 = (PipingCalculationScenario)rootChildren[2];
+            var rootChildCalculation2 = (PipingCalculationScenario) rootChildren[2];
             Assert.AreEqual("calculation2", rootChildCalculation2.Name);
             Assert.AreEqual(6, rootChildCalculation2.StorageId);
 
-            var rootChildGroup2 = (CalculationGroup)rootChildren[3];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[3];
             Assert.AreEqual("group2", rootChildGroup2.Name);
             Assert.AreEqual(4, rootChildGroup2.StorageId);
         }
@@ -382,23 +379,23 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsFalse(rootGroup.IsNameEditable);
 
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            var rootChildGroup1 = (CalculationGroup)rootChildren[0];
+            var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             Assert.AreEqual(2, rootChildGroup1.StorageId);
             Assert.IsTrue(rootChildGroup1.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
-            var rootChildGroup2 = (CalculationGroup)rootChildren[1];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
             Assert.AreEqual(3, rootChildGroup2.StorageId);
             Assert.IsFalse(rootChildGroup2.IsNameEditable);
 
             ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
-            var rootChildGroup1Child1 = (CalculationGroup)rootChildGroup2Children[0];
+            var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             Assert.AreEqual(4, rootChildGroup1Child1.StorageId);
             Assert.IsFalse(rootChildGroup1Child1.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
-            var rootChildGroup1Child2 = (CalculationGroup)rootChildGroup2Children[1];
+            var rootChildGroup1Child2 = (CalculationGroup) rootChildGroup2Children[1];
             Assert.AreEqual("ABB", rootChildGroup1Child2.Name);
             Assert.AreEqual(5, rootChildGroup1Child2.StorageId);
             Assert.IsTrue(rootChildGroup1Child2.IsNameEditable);
@@ -413,7 +410,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 CalculationGroupEntityId = 1,
                 Name = "A",
-                GrassCoverErosionInwardsCalculationEntities = 
+                GrassCoverErosionInwardsCalculationEntities =
                 {
                     new GrassCoverErosionInwardsCalculationEntity
                     {
@@ -439,11 +436,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
             Assert.AreEqual(2, rootChildren.Length);
 
-            var rootChildCalculation1 = (GrassCoverErosionInwardsCalculation)rootChildren[0];
+            var rootChildCalculation1 = (GrassCoverErosionInwardsCalculation) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
             Assert.AreEqual(3, rootChildCalculation1.StorageId);
 
-            var rootChildCalculation2 = (GrassCoverErosionInwardsCalculation)rootChildren[1];
+            var rootChildCalculation2 = (GrassCoverErosionInwardsCalculation) rootChildren[1];
             Assert.AreEqual("2", rootChildCalculation2.Name);
             Assert.AreEqual(6, rootChildCalculation2.StorageId);
         }
@@ -456,7 +453,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 CalculationGroupEntityId = 1,
                 Name = "A",
-                GrassCoverErosionInwardsCalculationEntities = 
+                GrassCoverErosionInwardsCalculationEntities =
                 {
                     new GrassCoverErosionInwardsCalculationEntity
                     {
@@ -497,19 +494,19 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
             Assert.AreEqual(4, rootChildren.Length);
 
-            var rootChildCalculation1 = (GrassCoverErosionInwardsCalculation)rootChildren[0];
+            var rootChildCalculation1 = (GrassCoverErosionInwardsCalculation) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
             Assert.AreEqual(3, rootChildCalculation1.StorageId);
 
-            var rootChildGroup1 = (CalculationGroup)rootChildren[1];
+            var rootChildGroup1 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("group1", rootChildGroup1.Name);
             Assert.AreEqual(2, rootChildGroup1.StorageId);
 
-            var rootChildCalculation2 = (GrassCoverErosionInwardsCalculation)rootChildren[2];
+            var rootChildCalculation2 = (GrassCoverErosionInwardsCalculation) rootChildren[2];
             Assert.AreEqual("calculation2", rootChildCalculation2.Name);
             Assert.AreEqual(6, rootChildCalculation2.StorageId);
 
-            var rootChildGroup2 = (CalculationGroup)rootChildren[3];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[3];
             Assert.AreEqual("group2", rootChildGroup2.Name);
             Assert.AreEqual(4, rootChildGroup2.StorageId);
         }

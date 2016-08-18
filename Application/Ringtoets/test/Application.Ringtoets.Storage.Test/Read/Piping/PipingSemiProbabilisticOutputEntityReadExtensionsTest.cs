@@ -21,11 +21,8 @@
 
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.Piping;
-
 using Core.Common.Base.Data;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 

@@ -187,8 +187,8 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                             CalculationGroup targetRootCalculationGroup, 
-            ReadConversionCollector collector)
+                                                     CalculationGroup targetRootCalculationGroup,
+                                                     ReadConversionCollector collector)
         {
             CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
             targetRootCalculationGroup.StorageId = rootCalculationGroup.StorageId;

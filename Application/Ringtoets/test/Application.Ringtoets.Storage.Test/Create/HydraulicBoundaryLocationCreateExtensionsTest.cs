@@ -112,8 +112,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNotNull(entity);
             Assert.AreEqual(waterLevel, entity.DesignWaterLevel);
             Assert.AreEqual(waveHeight, entity.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence)entity.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence)entity.WaveHeightCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.WaveHeightCalculationConvergence);
         }
 
         [Test]

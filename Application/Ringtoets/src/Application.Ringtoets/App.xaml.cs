@@ -83,6 +83,15 @@ namespace Application.Ringtoets
             log.Info(string.Format(Core.Common.Gui.Properties.Resources.App_Starting_Ringtoets_version_0, SettingsHelper.ApplicationVersion));
         }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            if (singleInstanceMutex != null)
+            {
+                singleInstanceMutex.ReleaseMutex();
+            }
+            base.OnExit(e);
+        }
+
         /// <summary>
         /// Runs the main Ringtoets application.
         /// </summary>
@@ -107,15 +116,6 @@ namespace Application.Ringtoets
             // Ringtoets started, clean-up all possible memory
             GC.Collect();
             GC.WaitForPendingFinalizers();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            if (singleInstanceMutex != null)
-            {
-                singleInstanceMutex.ReleaseMutex();
-            }
-            base.OnExit(e);
         }
 
         private void App_Startup(object sender, StartupEventArgs e)

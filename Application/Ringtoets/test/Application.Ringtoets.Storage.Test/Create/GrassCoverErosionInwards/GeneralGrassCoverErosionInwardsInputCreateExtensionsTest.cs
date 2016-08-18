@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
-
 using NUnit.Framework;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
@@ -52,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_ValidGeneralInput_ReturnEntity()
         {
             // Setup
-            var n = new Random(21).Next(0,20);
+            var n = new Random(21).Next(0, 20);
             var input = new GeneralGrassCoverErosionInwardsInput
             {
                 N = n

@@ -20,16 +20,12 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
@@ -67,18 +63,18 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 {
                     DikeProfile = null,
                     HydraulicBoundaryLocation = null,
-                    DikeHeight = (RoundedDouble)1.1,
-                    Orientation = (RoundedDouble)2.2,
+                    DikeHeight = (RoundedDouble) 1.1,
+                    Orientation = (RoundedDouble) 2.2,
                     BreakWater =
                     {
-                        Height = (RoundedDouble)3.3,
+                        Height = (RoundedDouble) 3.3,
                         Type = BreakWaterType.Dam
                     },
                     CalculateDikeHeight = true,
                     CriticalFlowRate =
                     {
-                        Mean = (RoundedDouble)4.4,
-                        StandardDeviation = (RoundedDouble)5.5
+                        Mean = (RoundedDouble) 4.4,
+                        StandardDeviation = (RoundedDouble) 5.5
                     },
                     UseBreakWater = true,
                     UseForeshore = false
@@ -101,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
             Assert.AreEqual(input.BreakWater.Height.Value, entity.BreakWaterHeight);
-            Assert.AreEqual((short)input.BreakWater.Type, entity.BreakWaterType);
+            Assert.AreEqual((short) input.BreakWater.Type, entity.BreakWaterType);
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(input.CriticalFlowRate.Mean.Value, entity.CriticalFlowRateMean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation.Value, entity.CriticalFlowRateStandardDeviation);
@@ -132,11 +128,11 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.AreNotSame(name, entity.Name,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(name, entity.Name);
 
             Assert.AreNotSame(comment, entity.Comments,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(comment, entity.Comments);
         }
 
@@ -148,16 +144,16 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             {
                 InputParameters =
                 {
-                    Orientation = (RoundedDouble)double.NaN,
+                    Orientation = (RoundedDouble) double.NaN,
                     CriticalFlowRate =
                     {
-                        Mean = (RoundedDouble)double.NaN,
-                        StandardDeviation = (RoundedDouble)double.NaN
+                        Mean = (RoundedDouble) double.NaN,
+                        StandardDeviation = (RoundedDouble) double.NaN
                     },
-                    DikeHeight = (RoundedDouble)double.NaN,
+                    DikeHeight = (RoundedDouble) double.NaN,
                     BreakWater =
                     {
-                        Height = (RoundedDouble)double.NaN
+                        Height = (RoundedDouble) double.NaN
                     }
                 }
             };

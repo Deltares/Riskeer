@@ -99,6 +99,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
-        } 
+        }
     }
 }

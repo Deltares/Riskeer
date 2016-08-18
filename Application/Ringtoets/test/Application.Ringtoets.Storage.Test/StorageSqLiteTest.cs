@@ -38,7 +38,6 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class StorageSqLiteTest
     {
-        private const int currentDatabaseVersion = 1;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
         private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
 
@@ -178,10 +177,7 @@ namespace Application.Ringtoets.Storage.Test
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
             {
-                TestDelegate precondition = () =>
-                {
-                    SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
-                };
+                TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempRingtoetsFile);
                 Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
 
                 // Call
@@ -662,6 +658,8 @@ namespace Application.Ringtoets.Storage.Test
             }
             mockRepository.VerifyAll();
         }
+
+        private const int currentDatabaseVersion = 1;
 
         private static void CallGarbageCollector()
         {

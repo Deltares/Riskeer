@@ -95,13 +95,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection()); 
+            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
-        } 
+        }
     }
 }

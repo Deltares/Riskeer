@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.AreNotSame(originalName, entity.Name,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(originalName, entity.Name);
         }
 
@@ -185,32 +185,32 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             {
                 switch (characteristicPointEntity.Type)
                 {
-                    case (short)CharacteristicPointType.BottomDitchDikeSide:
+                    case (short) CharacteristicPointType.BottomDitchDikeSide:
                         Assert.AreEqual(geometry[bottomDitchDikeIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[bottomDitchDikeIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[bottomDitchDikeIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (short)CharacteristicPointType.BottomDitchPolderSide:
+                    case (short) CharacteristicPointType.BottomDitchPolderSide:
                         Assert.AreEqual(geometry[bottomDitchPolderIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[bottomDitchPolderIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[bottomDitchPolderIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (short)CharacteristicPointType.DikeToeAtPolder:
+                    case (short) CharacteristicPointType.DikeToeAtPolder:
                         Assert.AreEqual(geometry[toePolderIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[toePolderIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[toePolderIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (short)CharacteristicPointType.DikeToeAtRiver:
+                    case (short) CharacteristicPointType.DikeToeAtRiver:
                         Assert.AreEqual(geometry[toeDikeIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[toeDikeIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[toeDikeIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (short)CharacteristicPointType.DitchDikeSide:
+                    case (short) CharacteristicPointType.DitchDikeSide:
                         Assert.AreEqual(geometry[ditchDikeIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[ditchDikeIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[ditchDikeIndex].Z, characteristicPointEntity.Z);
                         break;
-                    case (short)CharacteristicPointType.DitchPolderSide:
+                    case (short) CharacteristicPointType.DitchPolderSide:
                         Assert.AreEqual(geometry[ditchPolderIndex].X, characteristicPointEntity.X);
                         Assert.AreEqual(geometry[ditchPolderIndex].Y, characteristicPointEntity.Y);
                         Assert.AreEqual(geometry[ditchPolderIndex].Z, characteristicPointEntity.Z);
@@ -263,12 +263,12 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             short[] characteristicPointTypeValues = entity.CharacteristicPointEntities
                                                           .Select(cpe => cpe.Type)
                                                           .ToArray();
-            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DikeToeAtRiver);
-            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DikeToeAtPolder);
-            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DitchDikeSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.BottomDitchDikeSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.BottomDitchPolderSide);
-            CollectionAssert.Contains(characteristicPointTypeValues, (short)CharacteristicPointType.DitchPolderSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short) CharacteristicPointType.DikeToeAtRiver);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short) CharacteristicPointType.DikeToeAtPolder);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short) CharacteristicPointType.DitchDikeSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short) CharacteristicPointType.BottomDitchDikeSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short) CharacteristicPointType.BottomDitchPolderSide);
+            CollectionAssert.Contains(characteristicPointTypeValues, (short) CharacteristicPointType.DitchPolderSide);
 
             Assert.AreEqual(0, entity.SurfaceLineEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);

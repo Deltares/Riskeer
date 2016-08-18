@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Storage.Test
     public class BackedUpFileWriterTest
     {
         private readonly string testWorkDir = Path.Combine(".", "SafeOverwriteFileHelperTest");
-        
+
         [TestFixtureSetUp]
         public void SetUpFixture()
         {
@@ -188,8 +188,8 @@ namespace Application.Ringtoets.Storage.Test
                 using (new DirectoryPermissionsRevoker(notWritableDirectory, FileSystemRights.Write))
                 {
                     // Assert
-                    var expectedMessage = string.Format(
-                        "Kan geen tijdelijk bestand maken van het originele bestand ({0}).",filePath);
+                    var expectedMessage = string.Format("Kan geen tijdelijk bestand maken van het originele bestand ({0}).",
+                                                        filePath);
                     var message = Assert.Throws<IOException>(test).Message;
                     Assert.AreEqual(expectedMessage, message);
                 }

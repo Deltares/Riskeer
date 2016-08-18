@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

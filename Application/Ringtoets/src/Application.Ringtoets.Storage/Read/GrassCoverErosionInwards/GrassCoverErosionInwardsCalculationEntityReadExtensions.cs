@@ -61,19 +61,19 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                 {
                     DikeProfile = GetDikeProfileValue(entity.DikeProfileEntity, collector),
                     HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector),
-                    Orientation = (RoundedDouble)entity.Orientation.ToNullAsNaN(),
+                    Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN(),
                     CriticalFlowRate =
                     {
-                        Mean = (RoundedDouble)entity.CriticalFlowRateMean.ToNullAsNaN(),
-                        StandardDeviation = (RoundedDouble)entity.CriticalFlowRateStandardDeviation.ToNullAsNaN()
+                        Mean = (RoundedDouble) entity.CriticalFlowRateMean.ToNullAsNaN(),
+                        StandardDeviation = (RoundedDouble) entity.CriticalFlowRateStandardDeviation.ToNullAsNaN()
                     },
                     UseForeshore = Convert.ToBoolean(entity.UseForeshore),
-                    DikeHeight = (RoundedDouble)entity.DikeHeight.ToNullAsNaN(),
+                    DikeHeight = (RoundedDouble) entity.DikeHeight.ToNullAsNaN(),
                     UseBreakWater = Convert.ToBoolean(entity.UseBreakWater),
                     BreakWater =
                     {
-                        Height = (RoundedDouble)entity.BreakWaterHeight.ToNullAsNaN(),
-                        Type = (BreakWaterType)entity.BreakWaterType
+                        Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN(),
+                        Type = (BreakWaterType) entity.BreakWaterType
                     },
                     CalculateDikeHeight = Convert.ToBoolean(entity.CalculateDikeHeight)
                 }

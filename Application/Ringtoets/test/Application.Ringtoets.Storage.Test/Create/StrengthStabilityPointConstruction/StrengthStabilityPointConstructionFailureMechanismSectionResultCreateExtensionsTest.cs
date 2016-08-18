@@ -49,8 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
         public void Create_VariousResults_ReturnsEntity(
             [Values(true, false)] bool assessmentLayerOneResult,
             [Values(0.2, 0.523)] double assessmentLayerTwoAResult,
-            [Values(3.2, 4.5)] double assessmentLayerThreeResult    
-        )
+            [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
             var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())

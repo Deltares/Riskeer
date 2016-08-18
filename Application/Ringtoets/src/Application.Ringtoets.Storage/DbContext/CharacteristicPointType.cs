@@ -34,22 +34,27 @@ namespace Application.Ringtoets.Storage.DbContext
         /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.DikeToeAtRiver"/>.
         /// </summary>
         DikeToeAtRiver = 1,
+
         /// <summary>
         /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.DikeToeAtPolder"/>.
         /// </summary>
         DikeToeAtPolder = 2,
+
         /// <summary>
         /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.DitchDikeSide"/>.
         /// </summary>
         DitchDikeSide = 3,
+
         /// <summary>
         /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.BottomDitchDikeSide"/>.
         /// </summary>
         BottomDitchDikeSide = 4,
+
         /// <summary>
         /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.BottomDitchPolderSide"/>.
         /// </summary>
         BottomDitchPolderSide = 5,
+
         /// <summary>
         /// Corresponds <see cref="Point3D"/> to <see cref="RingtoetsPipingSurfaceLine.DitchPolderSide"/>.
         /// </summary>

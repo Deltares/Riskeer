@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.StrengthStabilityPointConstructio
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

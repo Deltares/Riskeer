@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

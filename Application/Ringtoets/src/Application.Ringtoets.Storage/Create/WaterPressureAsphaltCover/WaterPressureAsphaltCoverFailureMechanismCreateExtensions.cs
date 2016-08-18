@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

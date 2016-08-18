@@ -20,16 +20,12 @@
 // All rights reserved.
 
 using System;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
@@ -129,7 +125,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.AreNotSame(originalName, entity.Name,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(originalName, entity.Name);
         }
 
@@ -178,7 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(dikeProfile.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(dikeProfile.Name, entity.Name);
 
-            Assert.AreEqual((byte)type, entity.BreakWaterType);
+            Assert.AreEqual((byte) type, entity.BreakWaterType);
             Assert.AreEqual(height, entity.BreakWaterHeight);
         }
 

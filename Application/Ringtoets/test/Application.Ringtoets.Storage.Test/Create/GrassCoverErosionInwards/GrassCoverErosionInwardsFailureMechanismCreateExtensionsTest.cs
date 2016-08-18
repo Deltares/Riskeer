@@ -21,16 +21,12 @@
 
 using System;
 using System.Linq;
-
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
-
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -75,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short)FailureMechanismType.GrassRevetmentTopErosionAndInwards, entity.FailureMechanismType);
+            Assert.AreEqual((short) FailureMechanismType.GrassRevetmentTopErosionAndInwards, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
 
@@ -100,7 +96,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
 
             // Assert
             Assert.AreNotSame(originalComments, entity.Comments,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(originalComments, entity.Comments);
         }
 
@@ -170,7 +166,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                                                   new RoughnessPoint(new Point2D(7, 7), 1),
                                                               },
                                                               new Point2D[0],
-                                                              new BreakWater(BreakWaterType.Caisson, 8), 
+                                                              new BreakWater(BreakWaterType.Caisson, 8),
                                                               new DikeProfile.ConstructionProperties
                                                               {
                                                                   Name = "A",

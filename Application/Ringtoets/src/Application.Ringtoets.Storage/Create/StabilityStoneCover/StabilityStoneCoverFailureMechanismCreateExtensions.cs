@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults, 
+            IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)

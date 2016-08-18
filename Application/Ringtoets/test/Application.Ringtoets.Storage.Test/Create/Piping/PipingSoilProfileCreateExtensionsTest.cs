@@ -52,10 +52,10 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             string testName = "testName";
             double bottom = new Random(21).NextDouble();
-            var layers = new []
+            var layers = new[]
             {
-                new PipingSoilLayer(bottom + 1), 
-                new PipingSoilLayer(bottom + 2) 
+                new PipingSoilLayer(bottom + 1),
+                new PipingSoilLayer(bottom + 2)
             };
             var soilProfile = new PipingSoilProfile(testName, bottom, layers, SoilProfileType.SoilProfile1D, -1);
             var registry = new PersistenceRegistry();
@@ -77,8 +77,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             string testName = "testName";
             var layers = new[]
             {
-                new PipingSoilLayer(1), 
-                new PipingSoilLayer(2) 
+                new PipingSoilLayer(1),
+                new PipingSoilLayer(2)
             };
             var soilProfile = new PipingSoilProfile(testName, 0, layers, SoilProfileType.SoilProfile1D, -1);
             var registry = new PersistenceRegistry();
@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.AreNotSame(testName, entity.Name,
-                "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(testName, entity.Name);
         }
 
@@ -106,6 +106,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.AreSame(firstEntity, secondEntity);
-        }  
+        }
     }
 }

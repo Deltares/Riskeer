@@ -21,7 +21,6 @@
 
 using System.Collections.ObjectModel;
 using System.Data.Entity;
-
 using Application.Ringtoets.Storage.DbContext;
 using Rhino.Mocks;
 

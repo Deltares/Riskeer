@@ -23,7 +23,6 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
-
 using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -62,8 +61,8 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = testName,
                 LocationX = x,
                 LocationY = y,
-                DesignWaterLevelCalculationConvergence = (byte)CalculationConvergence.CalculatedConverged,
-                WaveHeightCalculationConvergence = (byte)CalculationConvergence.CalculatedConverged
+                DesignWaterLevelCalculationConvergence = (byte) CalculationConvergence.CalculatedConverged,
+                WaveHeightCalculationConvergence = (byte) CalculationConvergence.CalculatedConverged
             };
 
             var collector = new ReadConversionCollector();
@@ -82,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNaN(location.WaveHeight);
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, location.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, location.WaveHeightCalculationConvergence);
-        } 
+        }
 
         [Test]
         [TestCase(null, double.NaN)]

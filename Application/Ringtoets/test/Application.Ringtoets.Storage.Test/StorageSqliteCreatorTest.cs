@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Test
 
             // Precondition
             Assert.IsFalse(File.Exists(fullPath));
-            
+
             try
             {
                 // Call
