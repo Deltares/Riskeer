@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DikeProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points" xml:space="preserve">
+    <value>Het bestand mag uitsluitend punten bevatten.</value>
+  </data>
+  <data name="DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0" xml:space="preserve">
+    <value>Het dijkprofiel heeft geen geldige waarde voor attribuut 'X0'.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range" xml:space="preserve">
+    <value>Het ingelezen damtype ('{0}') moet 0, 1, 2 of 3 zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative" xml:space="preserve">
+    <value>Het ingelezen aantal geometriepunten dijk ('{0}') mag niet negatief zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative" xml:space="preserve">
+    <value>Het ingelezen aantal geometriepunten voorland ('{0}') mag niet negatief zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateNoMissingKeywords_List_mising_keywords_0_" xml:space="preserve">
+    <value>De volgende parameters zijn niet aanwezig in het bestand: {0}</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported" xml:space="preserve">
+    <value>Enkel bestanden van versie '4.0' worden ondersteund.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range" xml:space="preserve">
+    <value>De ingelezen oriëntatie waarde ('{0}') moet binnen het bereik [0, 360] vallen.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range" xml:space="preserve">
+    <value>Het ingelezen damwandtype ('{0}') moet 0, 1 of 2 zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_1_" xml:space="preserve">
+    <value>De ingelezen ruwheid ('{0}') moet binnen het bereik [{1}, 1] vallen.</value>
+  </data>
+  <data name="DikeProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_" xml:space="preserve">
+    <value>Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_not_double" xml:space="preserve">
+    <value>De ingelezen oriëntatie ('{0}') is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_overflows" xml:space="preserve">
+    <value>De ingelezen oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamHeight_DamHeight_0_not_number" xml:space="preserve">
+    <value>De ingelezen damhoogte ('{0}') is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDamHeight_DamHeight_0_overflows" xml:space="preserve">
+    <value>De ingelezen damhoogte ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_not_number" xml:space="preserve">
+    <value>De ingelezen dijkhoogte ('{0}') is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows" xml:space="preserve">
+    <value>De ingelezen dijkhoogte ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileLocation_DikeProfileLocation_Id_is_null" xml:space="preserve">
+    <value>De locatie parameter 'ID' heeft geen waarde.</value>
+  </data>
+  <data name="DikeProfileLocation_DikeProfileLocation_Id_is_invalid" xml:space="preserve">
+    <value>De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.</value>
+  </data>
+  <data name="DikeProfileLocation_DikeProfileLocation_Point_is_null" xml:space="preserve">
+    <value>De locatie heeft geen coördinaten.</value>
+  </data>
+  <data name="DikeProfileLocation_DikeProfileLocation_X0_is_invalid" xml:space="preserve">
+    <value>De locatie parameter 'X0' bevat een ongeldig getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateId_Id_0_not_valid" xml:space="preserve">
+    <value>De ingelezen ID ('{0}') is ongeldig.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space" xml:space="preserve">
+    <value>De ingelezen ID ('{0}') bevat spaties. Spaties zijn niet toegestaan.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer" xml:space="preserve">
+    <value>Het ingelezen aantal geometriepunten dijk ('{0}') is geen geheel getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows" xml:space="preserve">
+    <value>Het ingelezen aantal geometriepunten dijk ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_number" xml:space="preserve">
+    <value>De ingelezen {0} ('{1}') is geen getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_overflows" xml:space="preserve">
+    <value>De ingelezen {0} ('{1}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer" xml:space="preserve">
+    <value>Het ingelezen aantal geometriepunten voorland ('{0}') is geen geheel getal.</value>
+  </data>
+  <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows" xml:space="preserve">
+    <value>Het ingelezen aantal geometriepunten voorland ('{0}') is te groot of te klein om ingelezen te worden.</value>
+  </data>
+  <data name="DikeProfileDataReader_TryReadForeshoreRoughnessPoints_ForeshoreCount_0_does_not_correspond_ExpectedCount_1_" xml:space="preserve">
+    <value>Het aantal voorlandpunten gevonden in het bestand ('{0}') komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_X_DisplayName" xml:space="preserve">
+    <value>X-coördinaat</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Z_DisplayName" xml:space="preserve">
+    <value>Z-coördinaat</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Roughness_DisplayName" xml:space="preserve">
+    <value>ruwheid</value>
+  </data>
+  <data name="DikeProfileDataReader_TryReadDikeRoughnessPoints_DikeCount_0_does_not_correspond_ExpectedCount_1_" xml:space="preserve">
+    <value>Het aantal dijkpunten gevonden in het bestand ('{0}') komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defined" xml:space="preserve">
+    <value>De parameter {0} is al eerder in het bestand gedefinieerd.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
+    <value>De X-coördinaten van de dijkgeometrie punten moeten strikt toenemend zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
+    <value>De X-coördinaten van de voorlandgeometrie punten moeten strikt toenemend zijn.</value>
+  </data>
+  <data name="DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition" xml:space="preserve">
+    <value>De ingelezen regel ('{0}') is geen 'X Y ruwheid' definitie.</value>
+  </data>
+  <data name="DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid" xml:space="preserve">
+    <value>De regel ('{0}') bevat ongeldige tekst.</value>
+  </data>
+</root>

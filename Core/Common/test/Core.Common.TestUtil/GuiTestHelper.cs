@@ -1,0 +1,178 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Drawing;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
+using System.Windows.Threading;
+
+namespace Core.Common.TestUtil
+{
+    /// <summary>
+    /// Used by WindowsFormsTestHelper and WpfTestHelper
+    /// 
+    /// TODO: invert it - use GuiTestHelper as entry point in tests.
+    /// </summary>
+    public class GuiTestHelper
+    {
+        private static GuiTestHelper instance;
+
+        private static Form synchronizationForm;
+
+        private static Exception exception;
+
+        private static bool unhandledThreadExceptionOccured;
+
+        private static bool appDomainExceptionOccured;
+
+        static GuiTestHelper()
+        {
+            Control.CheckForIllegalCrossThreadCalls = true;
+            Application.EnableVisualStyles();
+
+            InitializeSynchronizatonObject();
+            Dispatcher.CurrentDispatcher.UnhandledException += CurrentDispatcher_UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
+            Application.ThreadException += Application_ThreadException;
+        }
+
+        public static GuiTestHelper Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GuiTestHelper();
+                }
+
+                return instance;
+            }
+        }
+
+        /// <summary>
+        /// Checks build_number environment variable to determine whether we run on the build server.
+        /// </summary>
+        public static bool IsBuildServer
+        {
+            get
+            {
+                return File.Exists("C:\\build.server")
+                       || File.Exists("D:\\build.server")
+                       || File.Exists("/tmp/build-server")
+                       || !String.IsNullOrEmpty(Environment.GetEnvironmentVariable("BUILD_NUMBER"));
+            }
+        }
+
+        public static Exception Exception
+        {
+            get
+            {
+                return exception;
+            }
+        }
+
+        public static void RethrowUnhandledException()
+        {
+            if (exception == null)
+            {
+                return;
+            }
+
+            if (unhandledThreadExceptionOccured)
+            {
+                throw new UnhandledException("Unhandled thread exception: " + exception.Message, exception, exception.StackTrace);
+            }
+
+            if (appDomainExceptionOccured)
+            {
+                throw new UnhandledException("Unhandled app domain exception: " + exception.Message, exception, exception.StackTrace);
+            }
+        }
+
+        public static void Initialize()
+        {
+            exception = null;
+            unhandledThreadExceptionOccured = false;
+            appDomainExceptionOccured = false;
+        }
+
+        private static void CurrentDispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            unhandledThreadExceptionOccured = true;
+            exception = e.Exception;
+            RethrowUnhandledException();
+        }
+
+        private static void InitializeSynchronizatonObject()
+        {
+            if (synchronizationForm == null)
+            {
+                synchronizationForm = new Form
+                {
+                    ShowInTaskbar = false, WindowState = FormWindowState.Minimized, FormBorderStyle = FormBorderStyle.None
+                };
+                synchronizationForm.Load += (sender, args) => synchronizationForm.Size = new Size(0, 0);
+                var handle = synchronizationForm.Handle; //force get handle
+                synchronizationForm.Show();
+            }
+        }
+
+        private static void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            appDomainExceptionOccured = true;
+            exception = e.ExceptionObject as Exception;
+
+            RethrowUnhandledException();
+        }
+
+        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            unhandledThreadExceptionOccured = true;
+            exception = e.Exception;
+            RethrowUnhandledException();
+        }
+
+        /// <summary>
+        /// Defines unhandled exception which provides stack trace of inner exception as its stack trace.
+        /// </summary>
+        [Serializable]
+        public class UnhandledException : Exception
+        {
+            private readonly string stackTrace;
+
+            public UnhandledException(string message, Exception innerException, string stackTrace)
+                : base(message, innerException)
+            {
+                this.stackTrace = stackTrace;
+            }
+
+            public override string StackTrace
+            {
+                get
+                {
+                    return stackTrace;
+                }
+            }
+        }
+    }
+}

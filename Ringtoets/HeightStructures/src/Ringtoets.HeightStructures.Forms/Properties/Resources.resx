@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null" xml:space="preserve">
+    <value>{0} mag niet 'null' zijn.</value>
+  </data>
+  <data name="HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism" xml:space="preserve">
+    <value>Het hoogte kunstwerk toetsspoor</value>
+  </data>
+  <data name="HeightStructuresContext_DataDescription_AssessmentSection" xml:space="preserve">
+    <value>Het traject</value>
+  </data>
+  <data name="HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem" xml:space="preserve">
+    <value>De berekening</value>
+  </data>
+  <data name="HeightStructuresInputContext_NodeDisplayName" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\control_equalizer_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Categories_LengthEffect" xml:space="preserve">
+    <value>Lengte-effect parameters</value>
+  </data>
+  <data name="Categories_ModelSettings" xml:space="preserve">
+    <value>Modelfactoren</value>
+  </data>
+  <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description" xml:space="preserve">
+    <value>De valversnelling van de zwaartekracht.</value>
+  </data>
+  <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName" xml:space="preserve">
+    <value>Valversnelling [m/s²]</value>
+  </data>
+  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description" xml:space="preserve">
+    <value>Het modelfactor kombergingsvolume.</value>
+  </data>
+  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName" xml:space="preserve">
+    <value>Modelfactor kombergingsvolume [-]</value>
+  </data>
+  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description" xml:space="preserve">
+    <value>Het modelfactor overslagdebiet.</value>
+  </data>
+  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
+    <value>Modelfactor overslagdebiet [-]</value>
+  </data>
+  <data name="HeightStructuresInputFailureMechanismContext_N_Description" xml:space="preserve">
+    <value>De parameter 'N'.</value>
+  </data>
+  <data name="HeightStructuresInputFailureMechanismContext_N_DisplayName" xml:space="preserve">
+    <value>N [-]</value>
+  </data>
+  <data name="Categories_Schematisation" xml:space="preserve">
+    <value>Schematisatie</value>
+  </data>
+  <data name="AllowableIncreaseOfLevelForStorage_Description" xml:space="preserve">
+    <value>De toegestane peilverhoging op het kombergend oppervlak.</value>
+  </data>
+  <data name="AllowableIncreaseOfLevelForStorage_DisplayName" xml:space="preserve">
+    <value>Toegestane peilverhoging komberging [m]</value>
+  </data>
+  <data name="Categories_HydraulicData" xml:space="preserve">
+    <value>Hydraulische gegevens</value>
+  </data>
+  <data name="CriticalOvertoppingDischarge_Description" xml:space="preserve">
+    <value>Het kritieke overslagdebiet per strekkende meter.</value>
+  </data>
+  <data name="CriticalOvertoppingDischarge_DisplayName" xml:space="preserve">
+    <value>Kritiek overslagdebiet [m³/s/m]</value>
+  </data>
+  <data name="FailureProbabilityOfStructureGivenErosion_Description" xml:space="preserve">
+    <value>De faalkans van het kunstwerk gegeven de erosie in de bodem.</value>
+  </data>
+  <data name="FailureProbabilityOfStructureGivenErosion_DisplayName" xml:space="preserve">
+    <value>Faalkans kunstwerk gegeven erosie bodem [-]</value>
+  </data>
+  <data name="FlowWidthAtBottomProtection_Description" xml:space="preserve">
+    <value>De stroomvoerende breedte bij bodembescherming.</value>
+  </data>
+  <data name="FlowWidthAtBottomProtection_DisplayName" xml:space="preserve">
+    <value>Stroomvoerende breedte bij bodembescherming [m]</value>
+  </data>
+  <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
+    <value>De locatie met hydraulische randvoorwaarden.</value>
+  </data>
+  <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
+    <value>Locatie met hydraulische randvoorwaarden</value>
+  </data>
+  <data name="LevelOfCrestOfStructure_Description" xml:space="preserve">
+    <value>De kerende hoogte van het kunstwerk.</value>
+  </data>
+  <data name="LevelOfCrestOfStructure_DisplayName" xml:space="preserve">
+    <value>Kerende hoogte [m]</value>
+  </data>
+  <data name="ModelFactorOvertoppingSuperCriticalFlow_Description" xml:space="preserve">
+    <value>Het modelfactor van overloopdebiet bij superkritische stroming.</value>
+  </data>
+  <data name="ModelFactorOvertoppingSuperCriticalFlow_DisplayName" xml:space="preserve">
+    <value>Modelfactor van overloopdebiet bij superkritische stroming [-]</value>
+  </data>
+  <data name="OrientationOfTheNormalOfTheStructure_Description" xml:space="preserve">
+    <value>Oriëntatie van het kunstwerk.</value>
+  </data>
+  <data name="OrientationOfTheNormalOfTheStructure_DisplayName" xml:space="preserve">
+    <value>Oriëntatie [°]</value>
+  </data>
+  <data name="StorageStructureArea_Description" xml:space="preserve">
+    <value>Het kombergend oppervlak.</value>
+  </data>
+  <data name="StorageStructureArea_DisplayName" xml:space="preserve">
+    <value>Kombergend oppervlak [m²]</value>
+  </data>
+  <data name="StormDuration_Description" xml:space="preserve">
+    <value>De duur van de storm.</value>
+  </data>
+  <data name="StormDuration_DisplayName" xml:space="preserve">
+    <value>Stormduur [uur]</value>
+  </data>
+  <data name="WidthOfFlowApertures_Description" xml:space="preserve">
+    <value>De breedte van de kruin van het kunstwerk.</value>
+  </data>
+  <data name="WidthOfFlowApertures_DisplayName" xml:space="preserve">
+    <value>Breedte van de kruin van het kunstwerk [m]</value>
+  </data>
+  <data name="FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value" xml:space="preserve">
+    <value>De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.</value>
+  </data>
+  <data name="FailureProbabilityOfStructureGivenErosion_Value_too_large" xml:space="preserve">
+    <value>De waarde voor de faalkans is te groot of te klein.</value>
+  </data>
+  <data name="FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null" xml:space="preserve">
+    <value>De waarde voor de faalkans moet ingevuld zijn.</value>
+  </data>
+</root>

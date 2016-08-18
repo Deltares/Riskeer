@@ -1,0 +1,3 @@
+TrajectID;MechanismID;SubMechanismID;Rekenmethode;FORM_StartMethod;FORM_NrIterations;FORM_RelaxationFactor;FORM_EpsBeta;FORM_EpsHOH;FORM_EpsZFunc;Ds_StartMethod;Ds_Min;Ds_Max;Ds_VarCoefficient;NI_UMin;NI_Umax;NI_NumberSteps
+205;1;1;1;4;50;0.15;0.01;0.01;0.01;2;20000;100000;0.1;-6;6;25
+205;11;11;2;6;30;0.50;0.06;0.08;0.02;3;1000;2000;0.4;-10;10;14

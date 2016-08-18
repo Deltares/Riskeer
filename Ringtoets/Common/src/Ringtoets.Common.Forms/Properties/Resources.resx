@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Ringtoets_Category" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GeneralFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InputFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_input.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OutputFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_output.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FailureMechanism_Inputs_DisplayName" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
+  <data name="FailureMechanism_Outputs_DisplayName" xml:space="preserve">
+    <value>Oordeel</value>
+  </data>
+  <data name="Calculate_all" xml:space="preserve">
+    <value>Alles be&amp;rekenen</value>
+  </data>
+  <data name="CalculationGroup_CalculateAll_ToolTip" xml:space="preserve">
+    <value>Voer alle berekeningen binnen deze berekeningsmap uit.</value>
+  </data>
+  <data name="CalculationGroup_CalculateAll_No_calculations_to_run" xml:space="preserve">
+    <value>Er zijn geen berekeningen om uit te voeren.</value>
+  </data>
+  <data name="Clear_all_output" xml:space="preserve">
+    <value>&amp;Wis alle uitvoer...</value>
+  </data>
+  <data name="CalculationGroup_ClearOutput_ToolTip" xml:space="preserve">
+    <value>Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.</value>
+  </data>
+  <data name="CalculationGroup_ClearOutput_Are_you_sure_clear_all_output" xml:space="preserve">
+    <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
+  </data>
+  <data name="CalculationGroup_ClearOutput_No_calculation_with_output_to_clear" xml:space="preserve">
+    <value>Er zijn geen berekeningen met uitvoer om te wissen.</value>
+  </data>
+  <data name="CalculateAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\playall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Calculate_all_ToolTip" xml:space="preserve">
+    <value>Voer alle berekeningen binnen dit toetsspoor uit.</value>
+  </data>
+  <data name="Clear_all_output_ToolTip" xml:space="preserve">
+    <value>Wis de uitvoer van alle berekeningen binnen dit toetsspoor.</value>
+  </data>
+  <data name="ClearIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\table_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Calculate" xml:space="preserve">
+    <value>Be&amp;rekenen</value>
+  </data>
+  <data name="CalculateIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\playhs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Calculate_ToolTip" xml:space="preserve">
+    <value>Voer deze berekening uit.</value>
+  </data>
+  <data name="Validate" xml:space="preserve">
+    <value>&amp;Valideren</value>
+  </data>
+  <data name="ValidateAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\tickall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ValidateIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tick.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Validate_all" xml:space="preserve">
+    <value>Alles &amp;valideren</value>
+  </data>
+  <data name="FailureMechanism_Validate_all_ToolTip" xml:space="preserve">
+    <value>Valideer alle berekeningen binnen dit toetsspoor.</value>
+  </data>
+  <data name="Validate_ToolTip" xml:space="preserve">
+    <value>Valideer de invoer voor deze berekening.</value>
+  </data>
+  <data name="DatabaseIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\database.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sections" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sections.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FailureMechanismSections_StartPoints_DisplayName" xml:space="preserve">
+    <value>startpunten</value>
+  </data>
+  <data name="FailureMechanismSections_EndPoints_DisplayName" xml:space="preserve">
+    <value>eindpunten</value>
+  </data>
+  <data name="FailureMechanism_Sections_DisplayName" xml:space="preserve">
+    <value>Vakindeling</value>
+  </data>
+  <data name="ReferenceLineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart_single_line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GenericInputOutputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue-document-list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one" xml:space="preserve">
+    <value>Toetslaag 1</value>
+  </data>
+  <data name="FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three" xml:space="preserve">
+    <value>Toetslaag 3</value>
+  </data>
+  <data name="FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a" xml:space="preserve">
+    <value>Toetslaag 2a</value>
+  </data>
+  <data name="FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_b" xml:space="preserve">
+    <value>Toetslaag 2b</value>
+  </data>
+  <data name="FailureMechanismResultView_InitializeDataGridView_Section_name" xml:space="preserve">
+    <value>Vak</value>
+  </data>
+  <data name="EditDocumentIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue-document--pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FailureMechanismContributionIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart-pie-separate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FailureMechanismSectionResultIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\document-task.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100" xml:space="preserve">
+    <value>Bijdrage van de geselecteerde scenario's voor dit vak is opgeteld niet gelijk aan 100%.</value>
+  </data>
+  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_are_executed" xml:space="preserve">
+    <value>Niet alle berekeningen voor dit vak zijn uitgevoerd.</value>
+  </data>
+  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_valid_output" xml:space="preserve">
+    <value>Niet alle berekeningen voor dit vak hebben een geldige uitkomst.</value>
+  </data>
+  <data name="RoundedRouble_No_result_dash" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="FailureMechanismIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\control_equalizer_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CalculationGroup_Add_CalculationGroup" xml:space="preserve">
+    <value>&amp;Map toevoegen</value>
+  </data>
+  <data name="CalculationGroup_Add_Calculation" xml:space="preserve">
+    <value>&amp;Berekening toevoegen</value>
+  </data>
+  <data name="Checkbox_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Checkbox_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checkbox_ticked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Checkbox_ticked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FailureMechanismContextMenuStrip_Is_relevant" xml:space="preserve">
+    <value>I&amp;s relevant</value>
+  </data>
+  <data name="FailureMechanismContextMenuStrip_Is_relevant_Tooltip" xml:space="preserve">
+    <value>Geeft aan of dit toetsspoor relevant is of niet.</value>
+  </data>
+  <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
+    <value>Voeg een nieuwe berekening toe aan deze berekeningsmap.</value>
+  </data>
+  <data name="CalculationGroup_Add_CalculationGroup_Tooltip" xml:space="preserve">
+    <value>Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.</value>
+  </data>
+  <data name="CalculationOutput_DisplayName" xml:space="preserve">
+    <value>Resultaat</value>
+  </data>
+  <data name="ClearOutput_No_output_to_clear" xml:space="preserve">
+    <value>Deze berekening heeft geen uitvoer om te wissen.</value>
+  </data>
+  <data name="Clear_output" xml:space="preserve">
+    <value>&amp;Wis uitvoer...</value>
+  </data>
+  <data name="Clear_output_ToolTip" xml:space="preserve">
+    <value>Wis de uitvoer van deze berekening.</value>
+  </data>
+  <data name="Calculation_ContextMenuStrip_Are_you_sure_clear_output" xml:space="preserve">
+    <value>Weet u zeker dat u de uitvoer van deze berekening wilt wissen?</value>
+  </data>
+  <data name="FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output" xml:space="preserve">
+    <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
+  </data>
+  <data name="FailureMechanism_CreateCalculateAllItem_No_calculations_to_run" xml:space="preserve">
+    <value>Er zijn geen berekeningen om uit te voeren.</value>
+  </data>
+  <data name="FailureMechanism_CreateValidateAllItem_No_calculations_to_validate" xml:space="preserve">
+    <value>Er zijn geen berekeningen om te valideren.</value>
+  </data>
+  <data name="Hydraulic_boundary_database_connection_failed_0_" xml:space="preserve">
+    <value>Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}</value>
+  </data>
+  <data name="GeneralOutputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LogNormalDistribution_Mean_Description" xml:space="preserve">
+    <value>De gemiddelde waarde van de lognormale verdeling.</value>
+  </data>
+  <data name="LogNormalDistribution_StandardDeviation_Description" xml:space="preserve">
+    <value>De standaardafwijking van de lognormale verdeling.</value>
+  </data>
+  <data name="Distribution_DestributionType_Description" xml:space="preserve">
+    <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
+  </data>
+  <data name="Distribution_DestributionType_DisplayName" xml:space="preserve">
+    <value>Type verdeling</value>
+  </data>
+  <data name="NormalDistribution_Mean_Description" xml:space="preserve">
+    <value>De gemiddelde waarde van de normale verdeling.</value>
+  </data>
+  <data name="NormalDistribution_Mean_DisplayName" xml:space="preserve">
+    <value>Verwachtingswaarde</value>
+  </data>
+  <data name="NormalDistribution_StandardDeviation_Description" xml:space="preserve">
+    <value>De standaardafwijking van de normale verdeling.</value>
+  </data>
+  <data name="NormalDistribution_StandardDeviation_DisplayName" xml:space="preserve">
+    <value>Standaardafwijking</value>
+  </data>
+  <data name="Categories_Result" xml:space="preserve">
+    <value>Resultaat</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_FactorOfSafety_Description" xml:space="preserve">
+    <value>De veiligheidsfactor voor deze berekening.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_FactorOfSafety_Displayname" xml:space="preserve">
+    <value>Veiligheidsfactor [-]</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_Probability_Description" xml:space="preserve">
+    <value>De kans dat het toetsspoor optreedt voor deze berekening.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_Probability_Displayname" xml:space="preserve">
+    <value>Faalkans [1/jaar]</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_Reliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex van de faalkans voor deze berekening.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_Reliability_Displayname" xml:space="preserve">
+    <value>Betrouwbaarheidsindex faalkans [-]</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_RequiredProbability_Description" xml:space="preserve">
+    <value>De maximaal toegestane faalkanseis voor het toetsspoor.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_RequiredProbability_Displayname" xml:space="preserve">
+    <value>Faalkanseis [1/jaar]</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_RequiredReliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.</value>
+  </data>
+  <data name="ProbabilityAssessmentOutput_RequiredReliability_Displayname" xml:space="preserve">
+    <value>Betrouwbaarheidsindex faalkanseis [-]</value>
+  </data>
+  <data name="DistributionType_LogNormal" xml:space="preserve">
+    <value>Lognormaal</value>
+  </data>
+  <data name="DistributionType_Normal" xml:space="preserve">
+    <value>Normaal</value>
+  </data>
+  <data name="LogNormalDistribution_VariationCoefficient_Description" xml:space="preserve">
+    <value>De variatiecoëfficiënt van de lognormale verdeling.</value>
+  </data>
+  <data name="Distribution_VariationCoefficient_DisplayName" xml:space="preserve">
+    <value>Variatiecoëfficiënt</value>
+  </data>
+  <data name="NormalDistribution_VariationCoefficient_Description" xml:space="preserve">
+    <value>De variatiecoëfficiënt van de normale verdeling.</value>
+  </data>
+  <data name="Plugin_AllDataAvailable_No_failure_mechanism_sections_imported" xml:space="preserve">
+    <value>Er is geen vakindeling geïmporteerd.</value>
+  </data>
+  <data name="Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported" xml:space="preserve">
+    <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
+  </data>
+  <data name="CalculationGroup_Generate_Scenarios" xml:space="preserve">
+    <value>Genereer &amp;scenario's...</value>
+  </data>
+  <data name="GenerateScenariosIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\wand-hat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ValidateAll_No_calculations_to_validate" xml:space="preserve">
+    <value>Er zijn geen berekeningen om te valideren.</value>
+  </data>
+  <data name="CalculationGroup_Validate_all_ToolTip" xml:space="preserve">
+    <value>Valideer alle berekeningen binnen deze berekeningsmap.</value>
+  </data>
+  <data name="InputView_Distance_DisplayName" xml:space="preserve">
+    <value>Afstand [m]</value>
+  </data>
+  <data name="InputView_Height_DisplayName" xml:space="preserve">
+    <value>Hoogte [m+NAP]</value>
+  </data>
+  <data name="ProbabilityPerYearFormat" xml:space="preserve">
+    <value>1/{0:n0}</value>
+  </data>
+  <data name="ScenariosIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\cards.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Scenarios_DisplayName" xml:space="preserve">
+    <value>Scenario's</value>
+  </data>
+  <data name="SelectionDialogIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_form.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RingtoetsProject_ToolTip" xml:space="preserve">
+    <value>Voeg een nieuw traject toe aan het project.</value>
+  </data>
+  <data name="RemoveAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\broom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CalculationGroup_RemoveAllChildrenFromGroup_Remove_all" xml:space="preserve">
+    <value>Berekeningen map &amp;leegmaken...</value>
+  </data>
+  <data name="CalculationGroup_RemoveAllChildrenFromGroup_Are_you_sure_you_want_to_remove_everything_from_this_group" xml:space="preserve">
+    <value>Weet u zeker dat u alles binnen deze Berekeningen map wilt verwijderen?</value>
+  </data>
+  <data name="CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove" xml:space="preserve">
+    <value>Er zijn geen berekeningen of mappen om te verwijderen.</value>
+  </data>
+  <data name="CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip" xml:space="preserve">
+    <value>Verwijder alle berekeningen en mappen binnen deze Berekeningen map.</value>
+  </data>
+</root>

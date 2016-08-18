@@ -1,0 +1,200 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
+using Core.Common.Controls.Dialogs;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Integration.Forms.Properties;
+using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
+namespace Ringtoets.Integration.Forms
+{
+    /// <summary>
+    /// A dialog which allows the user to make a selection form a given set of <see cref="ReferenceLineMeta"/>. Upon
+    /// closing of the dialog, the selected <see cref="ReferenceLineMeta"/> can be obtained.
+    /// </summary>
+    public partial class ReferenceLineMetaSelectionDialog : DialogBase
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="ReferenceLineMetaSelectionDialog"/>.
+        /// </summary>
+        /// <param name="dialogParent">The parent of the dialog.</param>
+        /// <param name="referenceLineMetas">A list of <see cref="ReferenceLineMeta"/> the user can select.</param>
+        public ReferenceLineMetaSelectionDialog(IWin32Window dialogParent, IEnumerable<ReferenceLineMeta> referenceLineMetas)
+            : base(dialogParent, CommonFormsResources.SelectionDialogIcon, 372, 350)
+        {
+            if (referenceLineMetas == null)
+            {
+                throw new ArgumentNullException("referenceLineMetas");
+            }
+            InitializeComponent();
+            InitializeReferenceLineMetaDataGridViewControl(referenceLineMetas);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="ReferenceLineMeta"/> from the selected row in the <see cref="DataGridViewControl"/>.
+        /// </summary>
+        public ReferenceLineMeta SelectedReferenceLineMeta { get; private set; }
+
+        /// <summary>
+        /// Gets the norm value from the selected row in the <see cref="DataGridViewControl"/> and selected item in the <see cref="ComboBox"/>.
+        /// </summary>
+        public int? SelectedNorm { get; private set; }
+
+        protected override Button GetCancelButton()
+        {
+            return Cancel;
+        }
+
+        private int? GetSelectedLimitValue()
+        {
+            var selectedRow = GetSelectedReferenceLineMetaSelectionRow();
+            if (selectedRow == null)
+            {
+                return null;
+            }
+
+            return SignallingValueRadioButton.Checked ? selectedRow.SignalingValue : selectedRow.LowerLimitValue;
+        }
+
+        private void InitializeReferenceLineMetaDataGridViewControl(IEnumerable<ReferenceLineMeta> referenceLineMetas)
+        {
+            ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("AssessmentSectionId", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId);
+            ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("SignalingValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue);
+            ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("LowerLimitValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue);
+
+            var dataSource = referenceLineMetas.Select(rlm => new ReferenceLineMetaSelectionRow(rlm)).OrderBy(row => row.AssessmentSectionId, new AssessmentSectionIdComparer());
+            ReferenceLineMetaDataGridViewControl.SetDataSource(dataSource.ToArray());
+        }
+
+        private void OkButtonOnClick(object sender, EventArgs e)
+        {
+            SetSelectionProperties();
+            Close();
+        }
+
+        private void SetSelectionProperties()
+        {
+            ReferenceLineMetaSelectionRow referenceLineMetaSelectionRow = GetSelectedReferenceLineMetaSelectionRow();
+            if (referenceLineMetaSelectionRow != null)
+            {
+                SelectedReferenceLineMeta = referenceLineMetaSelectionRow.ReferenceLineMeta;
+                SelectedNorm = GetSelectedLimitValue();
+            }
+        }
+
+        private ReferenceLineMetaSelectionRow GetSelectedReferenceLineMetaSelectionRow()
+        {
+            var selectedRow = ReferenceLineMetaDataGridViewControl.CurrentRow;
+            return selectedRow == null ? null : (ReferenceLineMetaSelectionRow) selectedRow.DataBoundItem;
+        }
+
+        private void CancelButtonOnClick(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private class AssessmentSectionIdComparer : IComparer<string>
+        {
+            public int Compare(string x, string y)
+            {
+                int idX;
+                string suffixX;
+                int subX;
+
+                int idY;
+                string suffixY;
+                int subY;
+
+                SplitAssessmentSectionId(x, out idX, out suffixX, out subX);
+                SplitAssessmentSectionId(y, out idY, out suffixY, out subY);
+
+                if (idX != idY)
+                {
+                    return idX - idY;
+                }
+
+                if (string.IsNullOrEmpty(suffixX) != string.IsNullOrEmpty(suffixY))
+                {
+                    return string.IsNullOrEmpty(suffixX) ? -1 : 1;
+                }
+                if (!string.IsNullOrEmpty(suffixX) && suffixX != suffixY)
+                {
+                    return string.Compare(suffixX, suffixY, StringComparison.Ordinal);
+                }
+                return subX - subY;
+            }
+
+            private static void SplitAssessmentSectionId(string str, out int id, out string suffix, out int sub)
+            {
+                if (string.IsNullOrEmpty(str))
+                {
+                    id = 0;
+                    sub = 0;
+                    suffix = string.Empty;
+                    return;
+                }
+                var parts = str.Split('-');
+                var firstPart = Regex.Split(parts.First(), "([A-Za-z])");
+                if (firstPart.Length > 1)
+                {
+                    int.TryParse(firstPart[0], out id);
+                    suffix = firstPart[1];
+                }
+                else
+                {
+                    int.TryParse(parts[0], out id);
+                    suffix = string.Empty;
+                }
+
+                if (parts.Length == 2)
+                {
+                    int.TryParse(parts[1], out sub);
+                }
+                else
+                {
+                    sub = 0;
+                }
+            }
+        }
+
+        private class ReferenceLineMetaSelectionRow
+        {
+            public ReferenceLineMetaSelectionRow(ReferenceLineMeta referenceLineMeta)
+            {
+                AssessmentSectionId = referenceLineMeta.AssessmentSectionId;
+                SignalingValue = referenceLineMeta.SignalingValue;
+                LowerLimitValue = referenceLineMeta.LowerLimitValue;
+                ReferenceLineMeta = referenceLineMeta;
+            }
+
+            public string AssessmentSectionId { get; private set; }
+            public int? SignalingValue { get; private set; }
+            public int? LowerLimitValue { get; private set; }
+            public ReferenceLineMeta ReferenceLineMeta { get; private set; }
+        }
+    }
+}

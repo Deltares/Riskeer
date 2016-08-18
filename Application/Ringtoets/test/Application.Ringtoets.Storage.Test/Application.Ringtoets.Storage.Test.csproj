@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{594C5C6D-5833-4E1C-9F30-13A202628EEF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Application.Ringtoets.Storage.Test</RootNamespace>
+    <AssemblyName>Application.Ringtoets.Storage.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x86</PlatformTarget>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
+    <OutputPath>bin\ReleaseForCodeCoverage\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.EF6.1.0.99.0\lib\net40\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
+    <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
+    <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />
+    <Compile Include="Serializers\RoughnessPointXmlSerializerTest.cs" />
+    <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
+    <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\DikeProfileCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GeneralGrassCoverErosionInwardsInputCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityInwards\MacrostabilityInwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityInwards\MacrostabilityInwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\Microstability\MicrostabilityFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\PipingCalculationScenarioCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\PipingFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\PipingFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\PipingOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\PipingProbabilityAssessmentInputCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\PipingSemiProbabilisticOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\PipingSoilLayerCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\PipingSoilProfileCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\RingtoetsPipingSurfaceLineCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\StochasticSoilModelCreateExtensionsTest.cs" />
+    <Compile Include="Create\Piping\StochasticSoilProfileCreateExtensionsTest.cs" />
+    <Compile Include="Create\ProbabilisticAssessmentOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\StrengthStabilityPointConstruction\StrengthStabilityPointConstructionFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\StrengthStabilityPointConstruction\StrengthStabilityPointConstructionFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\TechnicalInnovation\TechnicalInnovationFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\TechnicalInnovation\TechnicalInnovationFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\PersistenceRegistryTest.cs" />
+    <Compile Include="Create\IFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\AssessmentSectionCreateExtensionsTest.cs" />
+    <Compile Include="Create\FailureMechanismSectionCreateExtensionsTest.cs" />
+    <Compile Include="Create\HydraulicBoundaryLocationCreateExtensionsTest.cs" />
+    <Compile Include="Create\RingtoetsProjectCreateExtensionsTest.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="DoubleConversionExtensionsTest.cs" />
+    <Compile Include="Exceptions\CannotDeleteBackupFileExceptionTest.cs" />
+    <Compile Include="FingerprintHelperTest.cs" />
+    <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
+    <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\PipingCalculationEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\PipingCalculationOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\PipingFailureMechanismMetaEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\PipingSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\PipingSemiProbabilisticOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\PipingStructureSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\SoilLayerEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\SoilProfileEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\Piping\SurfaceLineEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\ProbabilisticOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\DuneErosionSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\HeightStructuresSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\FailureMechanismEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\FailureMechanismSectionEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\HydraulicLocationEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\ProjectEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\ReadConversionCollectorTest.cs" />
+    <Compile Include="RingtoetsDatabaseCreatorTest.cs" />
+    <Compile Include="Exceptions\EntityNotFoundExceptionTest.cs" />
+    <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BackedUpFileWriterTest.cs" />
+    <Compile Include="SqLiteConnectionStringBuilderTest.cs" />
+    <Compile Include="StorageSqliteCreatorTest.cs" />
+    <Compile Include="StorageSqLiteTest.cs" />
+    <Compile Include="StringExtensionsTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
+      <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+      <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
+      <Name>Ringtoets.Integration.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+      <Project>{14C6F716-64E2-4BC4-A1EF-05865FCEFA4C}</Project>
+      <Name>Ringtoets.Piping.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\test\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
+      <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
+      <Name>Ringtoets.Piping.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
+      <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
+      <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
+      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
+      <Name>Application.Ringtoets.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj">
+      <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
+      <Name>Application.Ringtoets.Storage.TestUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

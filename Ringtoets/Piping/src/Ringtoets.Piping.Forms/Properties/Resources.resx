@@ -1,0 +1,637 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PipingInput_AssessmentLevel_Description" xml:space="preserve">
+    <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>
+  </data>
+  <data name="PipingInput_AssessmentLevel_DisplayName" xml:space="preserve">
+    <value>Toetspeil [m+NAP]</value>
+  </data>
+  <data name="GeneralPipingInput_BeddingAngle_Description" xml:space="preserve">
+    <value>Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd.</value>
+  </data>
+  <data name="GeneralPipingInput_BeddingAngle_DisplayName" xml:space="preserve">
+    <value>Rolweerstandshoek [°]</value>
+  </data>
+  <data name="GeneralPipingInput_CriticalHeaveGradient_Description" xml:space="preserve">
+    <value>Kritiek verhang met betrekking tot heave.</value>
+  </data>
+  <data name="GeneralPipingInput_CriticalHeaveGradient_DisplayName" xml:space="preserve">
+    <value>Kritiek verhang m.b.t. heave [-]</value>
+  </data>
+  <data name="PipingInput_DampingFactorExit_Description" xml:space="preserve">
+    <value>Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand.</value>
+  </data>
+  <data name="PipingInput_DampingFactorExit_DisplayName" xml:space="preserve">
+    <value>Dempingsfactor bij uittredepunt [-]</value>
+  </data>
+  <data name="PipingInput_DarcyPermeability_Description" xml:space="preserve">
+    <value>Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt.</value>
+  </data>
+  <data name="PipingInput_DarcyPermeability_DisplayName" xml:space="preserve">
+    <value>Doorlatendheid aquifer [m/s]</value>
+  </data>
+  <data name="PipingInput_Diameter70_Description" xml:space="preserve">
+    <value>Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de voor doorlatendheid te onderscheiden zandlaag, bepaald zonder fijne fractie (&lt; 63µm).</value>
+  </data>
+  <data name="PipingInput_Diameter70_DisplayName" xml:space="preserve">
+    <value>70%-fraktiel van de korreldiameter in de bovenste zandlaag [m]</value>
+  </data>
+  <data name="GeneralPipingInput_Gravity_Description" xml:space="preserve">
+    <value>Valversnelling</value>
+  </data>
+  <data name="GeneralPipingInput_Gravity_DisplayName" xml:space="preserve">
+    <value>Valversnelling [m/s²]</value>
+  </data>
+  <data name="GeneralPipingInput_MeanDiameter70_Description" xml:space="preserve">
+    <value>Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit.</value>
+  </data>
+  <data name="GeneralPipingInput_MeanDiameter70_DisplayName" xml:space="preserve">
+    <value>Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m]</value>
+  </data>
+  <data name="PipingInput_PhreaticLevelExit_Description" xml:space="preserve">
+    <value>Polderpeil.</value>
+  </data>
+  <data name="PipingInput_PhreaticLevelExit_DisplayName" xml:space="preserve">
+    <value>Polderpeil [m+NAP]</value>
+  </data>
+  <data name="PipingInput_PiezometricHeadExit_Description" xml:space="preserve">
+    <value>Stijghoogte bij uittredepunt.</value>
+  </data>
+  <data name="PipingInput_PiezometricHeadExit_DisplayName" xml:space="preserve">
+    <value>Stijghoogte bij uittredepunt [m+NAP]</value>
+  </data>
+  <data name="GeneralPipingInput_SandParticlesVolumicWeight_Description" xml:space="preserve">
+    <value>Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag.</value>
+  </data>
+  <data name="GeneralPipingInput_SandParticlesVolumicWeight_DisplayName" xml:space="preserve">
+    <value>Volumiek gewicht van de zandkorrels onder water [kN/m³]</value>
+  </data>
+  <data name="PipingInput_SeepageLength_Description" xml:space="preserve">
+    <value>De horizontale afstand tussen intrede- en uittredepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.</value>
+  </data>
+  <data name="PipingInput_SeepageLength_DisplayName" xml:space="preserve">
+    <value>Kwelweglengte [m]</value>
+  </data>
+  <data name="GeneralPipingInput_SellmeijerModelFactor_Description" xml:space="preserve">
+    <value>Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen.</value>
+  </data>
+  <data name="GeneralPipingInput_SellmeijerModelFactor_DisplayName" xml:space="preserve">
+    <value>Modelfactor piping toegepast op Sellmeijermodel [-]</value>
+  </data>
+  <data name="GeneralPipingInput_SellmeijerReductionFactor_Description" xml:space="preserve">
+    <value>Reductiefactor Sellmeijer.</value>
+  </data>
+  <data name="GeneralPipingInput_SellmeijerReductionFactor_DisplayName" xml:space="preserve">
+    <value>Reductiefactor Sellmeijer [-]</value>
+  </data>
+  <data name="PipingInput_ThicknessAquiferLayer_Description" xml:space="preserve">
+    <value>De dikte van de bovenste voor doorlatendheid te onderscheiden zandlaag of combinatie van zandlagen.</value>
+  </data>
+  <data name="PipingInput_ThicknessAquiferLayer_DisplayName" xml:space="preserve">
+    <value>Dikte watervoerend pakket [m]</value>
+  </data>
+  <data name="PipingInput_ThicknessCoverageLayer_Description" xml:space="preserve">
+    <value>Totale deklaagdikte bij uittredepunt.</value>
+  </data>
+  <data name="PipingInput_ThicknessCoverageLayer_DisplayName" xml:space="preserve">
+    <value>Totale deklaagdikte bij uittredepunt [m]</value>
+  </data>
+  <data name="GeneralPipingInput_UpliftModelFactor_Description" xml:space="preserve">
+    <value>Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen.</value>
+  </data>
+  <data name="GeneralPipingInput_UpliftModelFactor_DisplayName" xml:space="preserve">
+    <value>Modelfactor opbarsten [-]</value>
+  </data>
+  <data name="GeneralPipingInput_WaterKinematicViscosity_Description" xml:space="preserve">
+    <value>Kinematische viscositeit van water bij 10° C.</value>
+  </data>
+  <data name="GeneralPipingInput_WaterKinematicViscosity_DisplayName" xml:space="preserve">
+    <value>Kinematische viscositeit van water bij 10° C [m²/s]</value>
+  </data>
+  <data name="GeneralPipingInput_WaterVolumetricWeight_Description" xml:space="preserve">
+    <value>Volumiek gewicht van water.</value>
+  </data>
+  <data name="GeneralPipingInput_WaterVolumetricWeight_DisplayName" xml:space="preserve">
+    <value>Volumiek gewicht van water [kN/m³]</value>
+  </data>
+  <data name="GeneralPipingInput_WhitesDragCoefficient_Description" xml:space="preserve">
+    <value>Sleepkrachtfactor volgens White.</value>
+  </data>
+  <data name="GeneralPipingInput_WhitesDragCoefficient_DisplayName" xml:space="preserve">
+    <value>Coëfficiënt van White [-]</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="PipingIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\control_equalizer_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_HeaveFactorOfSafety_Description" xml:space="preserve">
+    <value>De veiligheidsfactor voor het submechanisme Heave voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_HeaveFactorOfSafety_DisplayName" xml:space="preserve">
+    <value>Veiligheidsfactor [-]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_SellmeijerFactorOfSafety_Description" xml:space="preserve">
+    <value>De veiligheidsfactor voor het submechanisme Sellmeijer voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_SellmeijerFactorOfSafety_DisplayName" xml:space="preserve">
+    <value>Veiligheidsfactor [-]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_UpliftFactorOfSafety_Description" xml:space="preserve">
+    <value>De veiligheidsfactor voor het submechanisme Opbarsten voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_UpliftFactorOfSafety_DisplayName" xml:space="preserve">
+    <value>Veiligheidsfactor [-]</value>
+  </data>
+  <data name="PipingSurfaceLinesCollection_DisplayName" xml:space="preserve">
+    <value>Profielschematisaties</value>
+  </data>
+  <data name="PipingSurfaceLineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\u48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\table-import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StochasticSoilProfileCollection_DisplayName" xml:space="preserve">
+    <value>Ondergrondschematisaties</value>
+  </data>
+  <data name="PipingSoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_Name_Description" xml:space="preserve">
+    <value>Naam van de profielschematisatie.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_Points_Description" xml:space="preserve">
+    <value>De punten die de geometrie van de profielschematisatie definiëren.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_Points_DisplayName" xml:space="preserve">
+    <value>Geometriepunten</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_DisplayName" xml:space="preserve">
+    <value>Profielschematisatie</value>
+  </data>
+  <data name="PipingInput_SurfaceLine_Description" xml:space="preserve">
+    <value>De schematisatie van de hoogte van het dwarsprofiel.</value>
+  </data>
+  <data name="PipingInput_SurfaceLine_DisplayName" xml:space="preserve">
+    <value>Profielschematisatie</value>
+  </data>
+  <data name="PipingCalculation_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="StochasticSoilProfile_Bottom_Description" xml:space="preserve">
+    <value>Het niveau van de onderkant van de ondergrondschematisatie.</value>
+  </data>
+  <data name="StochasticSoilProfile_Bottom_DisplayName" xml:space="preserve">
+    <value>Bodemniveau</value>
+  </data>
+  <data name="StochasticSoilProfile_Name_Description" xml:space="preserve">
+    <value>De naam van de ondergrondschematisatie.</value>
+  </data>
+  <data name="StochasticSoilProfile_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="StochasticSoilProfileProperties_DisplayName" xml:space="preserve">
+    <value>Ondergrondschematisatie</value>
+  </data>
+  <data name="StochasticSoilProfile_Tops_Description" xml:space="preserve">
+    <value>De niveaus van de bovenkant van de lagen binnen de ondergrondschematisatie.</value>
+  </data>
+  <data name="StochasticSoilProfile_Tops_DisplayName" xml:space="preserve">
+    <value>Topniveaus</value>
+  </data>
+  <data name="PipingInput_StochasticSoilProfile_Description" xml:space="preserve">
+    <value>De opbouw van de ondergrond.</value>
+  </data>
+  <data name="PipingInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
+    <value>Ondergrondschematisatie</value>
+  </data>
+  <data name="LogNormalDistribution_DisplayName" xml:space="preserve">
+    <value>Lognormale verdeling</value>
+  </data>
+  <data name="Probabilistics_Mean_Symbol" xml:space="preserve">
+    <value>Verwachtingswaarde</value>
+  </data>
+  <data name="Probabilistics_StandardDeviation_Symbol" xml:space="preserve">
+    <value>Standaardafwijking</value>
+  </data>
+  <data name="Probabilistics_Mean_description_for_Distribution_0_" xml:space="preserve">
+    <value>De gemiddelde waarde van de {0}.</value>
+  </data>
+  <data name="Probabilistics_StandardDeviation_description_for_Distribution_0_" xml:space="preserve">
+    <value>De standaardafwijking van de {0}.</value>
+  </data>
+  <data name="NormalDistribution_DisplayName" xml:space="preserve">
+    <value>Normale verdeling</value>
+  </data>
+  <data name="Probabilistics_Shift_Symbol" xml:space="preserve">
+    <value>Verschuiving</value>
+  </data>
+  <data name="Probabilistics_Shift_Description" xml:space="preserve">
+    <value>De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is.</value>
+  </data>
+  <data name="LogNormalDistribution_ShortName" xml:space="preserve">
+    <value>Lognormaal</value>
+  </data>
+  <data name="NormalDistribution_ShortName" xml:space="preserve">
+    <value>Normaal</value>
+  </data>
+  <data name="PipingInputIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue-document-list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Categories_Heave" xml:space="preserve">
+    <value>Heave</value>
+  </data>
+  <data name="Categories_ModelFactors" xml:space="preserve">
+    <value>Modelfactoren</value>
+  </data>
+  <data name="Categories_Sellmeijer" xml:space="preserve">
+    <value>Terugschrijdende erosie (Sellmeijer)</value>
+  </data>
+  <data name="Categories_Uplift" xml:space="preserve">
+    <value>Opbarsten</value>
+  </data>
+  <data name="PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null" xml:space="preserve">
+    <value>{0} mag niet 'null' zijn.</value>
+  </data>
+  <data name="PipingContext_DataDescription_Surfacelines" xml:space="preserve">
+    <value>De verzameling van profielschematisaties</value>
+  </data>
+  <data name="PipingContext_DataDescription_Soilprofiles" xml:space="preserve">
+    <value>De verzameling van ondergrondschematisaties</value>
+  </data>
+  <data name="PipingContext_DataDescription_PipingFailureMechanism" xml:space="preserve">
+    <value>Het piping toetsspoor</value>
+  </data>
+  <data name="PipingInputContext_NodeDisplayName" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DesignValue_Description" xml:space="preserve">
+    <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DesignValue_DisplayName" xml:space="preserve">
+    <value>Rekenwaarde</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DestributionType_DisplayName" xml:space="preserve">
+    <value>Type verdeling</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DistributionType_Description" xml:space="preserve">
+    <value>Het soort kansverdeling waarin deze parameter gedefinieerd wordt.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_BottomDitchDikeSide_Description" xml:space="preserve">
+    <value>De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_BottomDitchPolderSide_Description" xml:space="preserve">
+    <value>De locatie van het begin van de slootbodem wanneer deze van binnen de polder wordt benaderd.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_DitchDikeSide_Description" xml:space="preserve">
+    <value>De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_DitchPolderSide_Description" xml:space="preserve">
+    <value>De locatie van het begin van de sloot wanneer deze van binnen de polder wordt benaderd.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_DikeToeAtRiver_Description" xml:space="preserve">
+    <value>De locatie van de teen van de dijk wanneer de dijk van buiten de polder wordt benaderd.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_DikeToeAtPolder_Description" xml:space="preserve">
+    <value>De locatie van de teen van de dijk wanneer de dijk van binnen de polder wordt benaderd.</value>
+  </data>
+  <data name="Categories_Characteristic_points" xml:space="preserve">
+    <value>Karakteristieke punten</value>
+  </data>
+  <data name="PipingInput_EntryPointL_Description" xml:space="preserve">
+    <value>De positie in het dwarsprofiel van het intredepunt.</value>
+  </data>
+  <data name="PipingInput_EntryPointL_DisplayName" xml:space="preserve">
+    <value>Intredepunt</value>
+  </data>
+  <data name="PipingInput_ExitPointL_Description" xml:space="preserve">
+    <value>De positie in het dwarsprofiel van het uittredepunt.</value>
+  </data>
+  <data name="PipingInput_ExitPointL_DisplayName" xml:space="preserve">
+    <value>Uittredepunt</value>
+  </data>
+  <data name="PipingContext_DataDescription_AssessmentSection" xml:space="preserve">
+    <value>Het traject</value>
+  </data>
+  <data name="PipingInput_HydraulicBoundaryLocation_Description" xml:space="preserve">
+    <value>De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt.</value>
+  </data>
+  <data name="PipingInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
+    <value>Locatie met hydraulische randvoorwaarden</value>
+  </data>
+  <data name="Categories_SemiProbabilisticParameters" xml:space="preserve">
+    <value>Semi-probabilistische parameters</value>
+  </data>
+  <data name="GeneralPipingInput_A_Description" xml:space="preserve">
+    <value>De parameter 'a' die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans.</value>
+  </data>
+  <data name="GeneralPipingInput_A_DisplayName" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="GeneralPipingInput_B_Description" xml:space="preserve">
+    <value>De parameter 'b' die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans.</value>
+  </data>
+  <data name="GeneralPipingInput_B_DisplayName" xml:space="preserve">
+    <value>b</value>
+  </data>
+  <data name="Categories_HydraulicData" xml:space="preserve">
+    <value>Hydraulische gegevens</value>
+  </data>
+  <data name="Categories_ModelSettings" xml:space="preserve">
+    <value>Modelinstellingen</value>
+  </data>
+  <data name="Categories_Schematization" xml:space="preserve">
+    <value>Schematisatie</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_PipingFactorOfSafety_Description" xml:space="preserve">
+    <value>De veiligheidsfactor voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_PipingFactorOfSafety_DisplayName" xml:space="preserve">
+    <value>Veiligheidsfactor [-]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_HeaveProbability_Description" xml:space="preserve">
+    <value>De kans dat het submechanisme Heave optreedt voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_HeaveProbability_DisplayName" xml:space="preserve">
+    <value>Kans van voorkomen [1/jaar]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_HeaveReliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex voor het submechanisme Heave voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_HeaveReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex [-]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_PipingProbability_Description" xml:space="preserve">
+    <value>De benaderde kans dat het toetsspoor piping optreedt voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_PipingProbability_DisplayName" xml:space="preserve">
+    <value>Benaderde faalkans [1/jaar]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_PipingReliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex van de faalkans voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_PipingReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex faalkans [-]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_RequiredProbability_Description" xml:space="preserve">
+    <value>De maximaal toegestane kans dat het toetsspoor piping optreedt.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_RequiredProbability_DisplayName" xml:space="preserve">
+    <value>Faalkanseis [1/jaar]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_RequiredReliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_RequiredReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex faalkanseis [-]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_SellmeijerProbability_Description" xml:space="preserve">
+    <value>De kans dat het submechanisme Sellmeijer optreedt voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_SellmeijerProbability_DisplayName" xml:space="preserve">
+    <value>Kans van voorkomen [1/jaar]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_SellmeijerReliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex voor het submechanisme Sellmeijer voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_SellmeijerReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex [-]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_UpliftProbability_Description" xml:space="preserve">
+    <value>De kans dat het submechanisme Opbarsten optreedt voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_UpliftProbability_DisplayName" xml:space="preserve">
+    <value>Kans van voorkomen [1/jaar]</value>
+  </data>
+  <data name="PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description" xml:space="preserve">
+    <value>Verzadigd gewicht deklaag.</value>
+  </data>
+  <data name="PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName" xml:space="preserve">
+    <value>Verzadigd gewicht deklaag [kN/m³]</value>
+  </data>
+  <data name="StochasticSoilModelIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shovel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StochasticSoilProfile_Probability_Description" xml:space="preserve">
+    <value>Het aandeel in het scenario.</value>
+  </data>
+  <data name="StochasticSoilProfile_Probability_DisplayName" xml:space="preserve">
+    <value>Aandeel in scenario [%]</value>
+  </data>
+  <data name="StochasticSoilProfile_Type_Description" xml:space="preserve">
+    <value>Het type van de ondergrondschematisatie.</value>
+  </data>
+  <data name="StochasticSoilProfile_Type_DisplayName" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="StochasticSoilModel_Geometry_Description" xml:space="preserve">
+    <value>Geometrie uit de database.</value>
+  </data>
+  <data name="StochasticSoilModel_Geometry_DisplayName" xml:space="preserve">
+    <value>Geometrie</value>
+  </data>
+  <data name="StochasticSoilModel_Id_Description" xml:space="preserve">
+    <value>Id van het stochastische ondergrondmodel in de database.</value>
+  </data>
+  <data name="StochasticSoilModel_Id_DisplayName" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="StochasticSoilModel_Name_Description" xml:space="preserve">
+    <value>Naam van het stochastische ondergrondmodel.</value>
+  </data>
+  <data name="StochasticSoilModel_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="StochasticSoilModel_SegmentName_Description" xml:space="preserve">
+    <value>Naam van het stochastische ondergrondmodel segment.</value>
+  </data>
+  <data name="StochasticSoilModel_SegmentName_DisplayName" xml:space="preserve">
+    <value>Segment naam</value>
+  </data>
+  <data name="StochasticSoilModel_StochasticSoilProfiles_Description" xml:space="preserve">
+    <value>Ondergrondschematisaties uit de database.</value>
+  </data>
+  <data name="StochasticSoilModel_StochasticSoilProfiles_DisplayName" xml:space="preserve">
+    <value>Ondergrondschematisaties</value>
+  </data>
+  <data name="PipingCalculationGroup_Generate_PipingCalculations_ToolTip" xml:space="preserve">
+    <value>Genereer scenario's op basis van geselecteerde profielschematisaties.</value>
+  </data>
+  <data name="PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip" xml:space="preserve">
+    <value>Er zijn geen profielschematisaties of stochastische ondergrondmodellen beschikbaar om berekeningen voor te genereren.</value>
+  </data>
+  <data name="PipingInput_StochasticSoilModel_DisplayName" xml:space="preserve">
+    <value>Stochastisch ondergrondmodel</value>
+  </data>
+  <data name="PipingInput_StochasticSoilModel_Description" xml:space="preserve">
+    <value>De verschillende opbouwen van de ondergrond en hun respectieve kansen van voorkomen.</value>
+  </data>
+  <data name="PipingCalculationConfigurationHelper_GenerateCalculationsStructure_No_PipingSoilProfile_found_for_RingtoetsPipingSurfaceLine_0_skipped" xml:space="preserve">
+    <value>Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.</value>
+  </data>
+  <data name="PipingCalculationsView_InitializeDataGridView_In_final_rating" xml:space="preserve">
+    <value>In oordeel</value>
+  </data>
+  <data name="PipingCalculationsView_InitializeDataGridView_Contribution" xml:space="preserve">
+    <value>Bijdrage [%]</value>
+  </data>
+  <data name="PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
+    <value>Bijdrage ondergrondschematisatie [%]</value>
+  </data>
+  <data name="StochasticSoilModelCollection_DisplayName" xml:space="preserve">
+    <value>Stochastische ondergrondmodellen</value>
+  </data>
+  <data name="PipingContext_DataDescription_PipingCalculationItem" xml:space="preserve">
+    <value>De berekening</value>
+  </data>
+  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltyHeave" xml:space="preserve">
+    <value>Kans op Heave [1/jaar]</value>
+  </data>
+  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltyPiping" xml:space="preserve">
+    <value>Faalkans [1/jaar]</value>
+  </data>
+  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltySellmeijer" xml:space="preserve">
+    <value>Kans op terugschrijdende erosie [1/jaar]</value>
+  </data>
+  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltyUplift" xml:space="preserve">
+    <value>Kans op opbarsten [1/jaar]</value>
+  </data>
+  <data name="GeneralPipingInput_UpliftCriticalSafetyFactor_Description" xml:space="preserve">
+    <value>De veiligheidsfactor die wordt vergeleken met de berekende stabiliteitsfactor van het submechanisme opbarsten.</value>
+  </data>
+  <data name="GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName" xml:space="preserve">
+    <value>Kritische veiligheidsfactor voor opbarsten [-]</value>
+  </data>
+  <data name="GeneralPipingInput_HeaveNormDependentFactor_Description" xml:space="preserve">
+    <value>Normafhankelijke factor die gebruikt wordt bij het omzetten van de veiligheidsfactor voor heave naar een betrouwbaarheidsindex.</value>
+  </data>
+  <data name="GeneralPipingInput_HeaveNormDependentFactor_DisplayName" xml:space="preserve">
+    <value>Normafhankelijke factor voor heave</value>
+  </data>
+  <data name="GeneralPipingInput_SellmeijerNormDependentFactor_Description" xml:space="preserve">
+    <value>Normafhankelijke factor die gebruikt wordt bij het omzetten van de veiligheidsfactor voor terugschrijdende erosie (Sellmeijer) naar een betrouwbaarheidsindex.</value>
+  </data>
+  <data name="GeneralPipingInput_SellmeijerNormDependentFactor_DisplayName" xml:space="preserve">
+    <value>Normafhankelijke factor voor terugschrijdende erosie</value>
+  </data>
+</root>

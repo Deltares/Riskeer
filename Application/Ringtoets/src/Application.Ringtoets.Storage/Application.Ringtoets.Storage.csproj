@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
+  <PropertyGroup>
+    <ProjectGuid>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Application.Ringtoets.Storage</RootNamespace>
+    <AssemblyName>Application.Ringtoets.Storage</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
+    <DefineConstants>TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\System.Data.SQLite.EF6.1.0.99.0\lib\net40\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
+    <Compile Include="DbContext\AssessmentSectionEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\CalculationGroupEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\CharacteristicPointEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\ClosingStructureSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\DikeProfileEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\DuneErosionSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\FailureMechanismEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\FailureMechanismSectionEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GrassCoverErosionInwardsCalculationEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GrassCoverErosionInwardsFailureMechanismMetaEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GrassCoverErosionInwardsOutputEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GrassCoverErosionInwardsSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GrassCoverErosionOutwardsSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GrassCoverSlipOffInwardsSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\GrassCoverSlipOffOutwardsSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\HeightStructuresSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\HydraulicLocationEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\MacrostabilityInwardsSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\MacrostabilityOutwardsSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\MicrostabilitySectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\PipingCalculationEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\PipingCalculationOutputEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\PipingFailureMechanismMetaEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\PipingSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\PipingSemiProbabilisticOutputEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\PipingStructureSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\ProbabilisticOutputEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\ProjectEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\SoilLayerEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\SoilProfileEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\StabilityStoneCoverSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\StochasticSoilModelEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\StochasticSoilProfileEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\StrengthStabilityLengthwiseConstructionSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\StrengthStabilityPointConstructionSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\SurfaceLineEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\TechnicalInnovationSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\VersionEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\WaterPressureAsphaltCoverSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\WaveImpactAsphaltCoverSectionResultEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Serializers\Point2DXmlSerializer.cs" />
+    <Compile Include="Serializers\Point3DXmlSerializer.cs" />
+    <Compile Include="Serializers\RoughnessPointXmlSerializer.cs" />
+    <Compile Include="Serializers\DataCollectionSerializer.cs" />
+    <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
+    <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
+    <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\DikeProfileCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GeneralGrassCoverErosionInwardsInputCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverSlipOffOutwards\GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\HeightStructures\HeightStructuresFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityInwards\MacrostabilityInwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityInwards\MacrostabilityInwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\MacrostabilityOutwards\MacrostabilityOutwardsFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\Microstability\MicrostabilityFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\Microstability\MicrostabilityFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\PipingStructure\PipingStructureFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\Piping\PipingCalculationScenarioCreateExtensions.cs" />
+    <Compile Include="Create\Piping\PipingFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\Piping\PipingFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\Piping\PipingOutputCreateExtensions.cs" />
+    <Compile Include="Create\Piping\PipingProbabilityAssessmentInputCreateExtensions.cs" />
+    <Compile Include="Create\Piping\PipingSemiProbabilisticOutputCreateExtensions.cs" />
+    <Compile Include="Create\Piping\PipingSoilLayerCreateExtensions.cs" />
+    <Compile Include="Create\Piping\PipingSoilProfileCreateExtensions.cs" />
+    <Compile Include="Create\Piping\RingtoetsPipingSurfaceLineCreateExtensions.cs" />
+    <Compile Include="Create\Piping\StochasticSoilModelCreateExtensions.cs" />
+    <Compile Include="Create\Piping\StochasticSoilProfileCreateExtensions.cs" />
+    <Compile Include="Create\ProbabilityAssessmentOutputCreateExtensions.cs" />
+    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\StrengthStabilityPointConstruction\StrengthStabilityPointConstructionFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\StrengthStabilityPointConstruction\StrengthStabilityPointConstructionFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\TechnicalInnovation\TechnicalInnovationFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\TechnicalInnovation\TechnicalInnovationFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\WaterPressureAsphaltCover\WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\IFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\FailureMechanismSectionCreateExtensions.cs" />
+    <Compile Include="Create\HydraulicBoundaryLocationCreateExtensions.cs" />
+    <Compile Include="Create\PersistenceRegistry.cs" />
+    <Compile Include="Create\RingtoetsProjectCreateExtensions.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="DbContext\CharacteristicPointType.cs" />
+    <Compile Include="DoubleConversionExtensions.cs" />
+    <Compile Include="Exceptions\CannotDeleteBackupFileException.cs" />
+    <Compile Include="FingerprintHelper.cs" />
+    <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
+    <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\PipingCalculationEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\PipingCalculationOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\PipingFailureMechanismMetaEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\PipingSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\PipingSemiProbabilisticOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\PipingStructureSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\SoilLayerEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\SoilProfileEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensions.cs" />
+    <Compile Include="Read\Piping\SurfaceLineEntityReadExtensions.cs" />
+    <Compile Include="Read\ProbabilisticOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\DuneErosionSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\HeightStructuresSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\FailureMechanismEntityReadExtensions.cs" />
+    <Compile Include="Read\FailureMechanismSectionEntityReadExtensions.cs" />
+    <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />
+    <Compile Include="Read\ReadConversionCollector.cs" />
+    <Compile Include="DbContext\FailureMechanismType.cs" />
+    <Compile Include="Read\AssessmentSectionEntityReadExtensions.cs" />
+    <Compile Include="Read\ProjectEntityReadExtensions.cs" />
+    <Compile Include="StorageSqliteCreator.cs" />
+    <Compile Include="DbContext\PartialRingtoetsEntities.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="DbContext\IRingtoetsEntities.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DbContext\RingtoetsEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RingtoetsEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\RingtoetsEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\RingtoetsEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SqLiteConnectionStringBuilder.cs" />
+    <Compile Include="StorageSqLite.cs" />
+    <Compile Include="BackedUpFileWriter.cs" />
+    <Compile Include="StringExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
+      <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
+      <Name>Ringtoets.HeightStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
+      <Name>Ringtoets.Integration.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
+      <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
+      <Name>Ringtoets.Piping.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <EntityDeploy Include="DbContext\RingtoetsEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RingtoetsEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DbContext\RingtoetsEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
+      <LastGenOutput>RingtoetsEntities.Context.cs</LastGenOutput>
+    </None>
+    <None Include="DbContext\RingtoetsEntities.edmx.diagram">
+      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
+    </None>
+    <None Include="DbContext\RingtoetsEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RingtoetsEntities.edmx</DependentUpon>
+      <LastGenOutput>RingtoetsEntities.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DbContext\DatabaseStructure.sql">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

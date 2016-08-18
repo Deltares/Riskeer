@@ -1,0 +1,313 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.Controls.Commands;
+using Core.Common.Gui;
+using Demo.Ringtoets.Commands;
+using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
+using Ringtoets.Piping.Service;
+
+namespace Demo.Ringtoets.Test.Commands
+{
+    [TestFixture]
+    public class AddNewDemoAssessmentSectionCommandTest
+    {
+        [Test]
+        public void DefaultConstructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            mocks.ReplayAll();
+
+            // Call
+            var command = new AddNewDemoAssessmentSectionCommand(projectOwner);
+
+            // Assert
+            Assert.IsInstanceOf<ICommand>(command);
+            Assert.IsFalse(command.Checked);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Execute_GuiIsProperlyInitialized_AddNewAssessmentSectionWithDemoDataToRootProject()
+        {
+            // Setup
+            var project = new RingtoetsProject();
+
+            var mocks = new MockRepository();
+            var projectOwnerStub = mocks.Stub<IProjectOwner>();
+            projectOwnerStub.Project = project;
+
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            var command = new AddNewDemoAssessmentSectionCommand(projectOwnerStub);
+
+            project.Attach(observerMock);
+
+            // Call
+            command.Execute();
+
+            // Assert
+            Assert.AreEqual(1, project.AssessmentSections.Count);
+            var demoAssessmentSection = project.AssessmentSections[0];
+            Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
+            Assert.AreEqual("6-3", demoAssessmentSection.Id);
+
+            Assert.IsNotEmpty(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath);
+            Assert.IsTrue(File.Exists(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath));
+            Assert.IsTrue(File.Exists(Path.Combine(Path.GetDirectoryName(demoAssessmentSection.HydraulicBoundaryDatabase.FilePath), "HLCD.sqlite")));
+            var hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+            Assert.AreEqual(18, hydraulicBoundaryLocations.Length);
+            AssertDesignWaterLevelValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
+            AssertWaveHeightValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
+
+            Assert.AreEqual(2380, demoAssessmentSection.ReferenceLine.Points.Count());
+
+            var soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();
+            Assert.AreEqual(4, soilModels.Length);
+            var surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
+            Assert.AreEqual(4, surfaceLines.Length);
+            AssertCharacteristicPointsOnSurfaceLines(surfaceLines);
+
+            Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Count);
+            PipingCalculationScenario pipingCalculationScenario = demoAssessmentSection.PipingFailureMechanism
+                                                                                       .CalculationsGroup.GetCalculations()
+                                                                                       .OfType<PipingCalculationScenario>()
+                                                                                       .First();
+            AssertCalculationAbleToCalculate(pipingCalculationScenario);
+            AssertCalculationInFailureMechanismSectionResult(
+                pipingCalculationScenario,
+                demoAssessmentSection.PipingFailureMechanism.SectionResults.ToArray(),
+                demoAssessmentSection.PipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>());
+
+            Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
+            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = demoAssessmentSection.GrassCoverErosionInwards
+                                                                                                           .CalculationsGroup.GetCalculations()
+                                                                                                           .OfType<GrassCoverErosionInwardsCalculation>()
+                                                                                                           .First();
+            AssertExpectedGrassCoverErosionInwardsInput(grassCoverErosionInwardsCalculation.InputParameters);
+
+            Assert.AreEqual(1, demoAssessmentSection.HeightStructures.CalculationsGroup.Children.Count);
+            HeightStructuresCalculation heightStructuresCalculation = demoAssessmentSection.HeightStructures
+                                                                                           .CalculationsGroup.GetCalculations()
+                                                                                           .OfType<HeightStructuresCalculation>()
+                                                                                           .First();
+            AssertExpectedHeightStructuresInput(heightStructuresCalculation.InputParameters);
+
+            foreach (var failureMechanism in demoAssessmentSection.GetFailureMechanisms())
+            {
+                Assert.AreEqual(283, failureMechanism.Sections.Count());
+            }
+            mocks.VerifyAll();
+        }
+
+        private void AssertCalculationInFailureMechanismSectionResult(PipingCalculationScenario calculation, PipingFailureMechanismSectionResult[] sectionResults, IEnumerable<PipingCalculationScenario> calculations)
+        {
+            Assert.AreEqual(283, sectionResults.Length);
+            var sectionResultWithCalculation = sectionResults[22];
+
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation
+            }, sectionResultWithCalculation.GetCalculationScenarios(calculations));
+        }
+
+        private void AssertDesignWaterLevelValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        {
+            Assert.AreEqual((RoundedDouble) 5.78, hydraulicBoundaryLocations[0].DesignWaterLevel, hydraulicBoundaryLocations[0].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.77, hydraulicBoundaryLocations[1].DesignWaterLevel, hydraulicBoundaryLocations[1].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.77, hydraulicBoundaryLocations[2].DesignWaterLevel, hydraulicBoundaryLocations[2].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.77, hydraulicBoundaryLocations[3].DesignWaterLevel, hydraulicBoundaryLocations[3].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.77, hydraulicBoundaryLocations[4].DesignWaterLevel, hydraulicBoundaryLocations[4].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[5].DesignWaterLevel, hydraulicBoundaryLocations[5].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[6].DesignWaterLevel, hydraulicBoundaryLocations[6].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[7].DesignWaterLevel, hydraulicBoundaryLocations[7].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[8].DesignWaterLevel, hydraulicBoundaryLocations[8].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[9].DesignWaterLevel, hydraulicBoundaryLocations[9].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[10].DesignWaterLevel, hydraulicBoundaryLocations[10].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[11].DesignWaterLevel, hydraulicBoundaryLocations[11].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[12].DesignWaterLevel, hydraulicBoundaryLocations[12].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[13].DesignWaterLevel, hydraulicBoundaryLocations[13].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[14].DesignWaterLevel, hydraulicBoundaryLocations[14].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.54, hydraulicBoundaryLocations[15].DesignWaterLevel, hydraulicBoundaryLocations[15].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.86, hydraulicBoundaryLocations[16].DesignWaterLevel, hydraulicBoundaryLocations[16].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 6.0, hydraulicBoundaryLocations[17].DesignWaterLevel, hydraulicBoundaryLocations[17].DesignWaterLevel.GetAccuracy());
+        }
+
+        private void AssertWaveHeightValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
+        {
+            Assert.AreEqual((RoundedDouble) 4.13374, hydraulicBoundaryLocations[0].WaveHeight, hydraulicBoundaryLocations[0].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.19044, hydraulicBoundaryLocations[1].WaveHeight, hydraulicBoundaryLocations[1].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.01717, hydraulicBoundaryLocations[2].WaveHeight, hydraulicBoundaryLocations[2].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.87408, hydraulicBoundaryLocations[3].WaveHeight, hydraulicBoundaryLocations[3].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.73281, hydraulicBoundaryLocations[4].WaveHeight, hydraulicBoundaryLocations[4].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 2.65268, hydraulicBoundaryLocations[5].WaveHeight, hydraulicBoundaryLocations[5].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.04333, hydraulicBoundaryLocations[6].WaveHeight, hydraulicBoundaryLocations[6].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.19952, hydraulicBoundaryLocations[7].WaveHeight, hydraulicBoundaryLocations[7].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.3554, hydraulicBoundaryLocations[8].WaveHeight, hydraulicBoundaryLocations[8].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.52929, hydraulicBoundaryLocations[9].WaveHeight, hydraulicBoundaryLocations[9].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.62194, hydraulicBoundaryLocations[10].WaveHeight, hydraulicBoundaryLocations[10].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.6851, hydraulicBoundaryLocations[11].WaveHeight, hydraulicBoundaryLocations[11].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.72909, hydraulicBoundaryLocations[12].WaveHeight, hydraulicBoundaryLocations[12].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.74794, hydraulicBoundaryLocations[13].WaveHeight, hydraulicBoundaryLocations[13].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.29686, hydraulicBoundaryLocations[14].WaveHeight, hydraulicBoundaryLocations[14].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 9.57558, hydraulicBoundaryLocations[15].WaveHeight, hydraulicBoundaryLocations[15].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 8.01959, hydraulicBoundaryLocations[16].WaveHeight, hydraulicBoundaryLocations[16].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.11447, hydraulicBoundaryLocations[17].WaveHeight, hydraulicBoundaryLocations[17].WaveHeight.GetAccuracy());
+        }
+
+        private void AssertCharacteristicPointsOnSurfaceLines(RingtoetsPipingSurfaceLine[] surfaceLines)
+        {
+            var surfaceLine1 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0001");
+            var surfaceLine2 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0002");
+            var surfaceLine3 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0003");
+            var surfaceLine4 = surfaceLines.FirstOrDefault(s => s.Name == "PK001_0004");
+
+            Assert.IsNotNull(surfaceLine1);
+            Assert.IsNotNull(surfaceLine2);
+            Assert.IsNotNull(surfaceLine3);
+            Assert.IsNotNull(surfaceLine4);
+
+            Assert.AreEqual(new Point3D(155883.762, 569864.416, 0.53), surfaceLine1.DitchPolderSide);
+            Assert.AreEqual(new Point3D(155882.067, 569866.157, -1.9), surfaceLine1.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D(155874.184, 569874.252, -1.9), surfaceLine1.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D(155872.224, 569876.265, 0.91), surfaceLine1.DitchDikeSide);
+            Assert.AreEqual(new Point3D(155864.173, 569884.532, 0.95), surfaceLine1.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(155797.109, 569953.4, -4), surfaceLine1.DikeToeAtRiver);
+
+            Assert.IsNull(surfaceLine2.DitchPolderSide);
+            Assert.IsNull(surfaceLine2.BottomDitchPolderSide);
+            Assert.IsNull(surfaceLine2.BottomDitchDikeSide);
+            Assert.IsNull(surfaceLine2.DitchDikeSide);
+            Assert.AreEqual(new Point3D(155558.754, 569618.729, 1.45), surfaceLine2.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(155505.259, 569701.229, -4), surfaceLine2.DikeToeAtRiver);
+
+            Assert.AreEqual(new Point3D(155063.763, 569276.113, -0.5), surfaceLine3.DitchPolderSide);
+            Assert.AreEqual(new Point3D(155063.272, 569276.926, -1.45), surfaceLine3.BottomDitchPolderSide);
+            Assert.AreEqual(new Point3D(155056.855, 569287.56, -1.45), surfaceLine3.BottomDitchDikeSide);
+            Assert.AreEqual(new Point3D(155056.297, 569288.485, -0.37), surfaceLine3.DitchDikeSide);
+            Assert.AreEqual(new Point3D(155047.587, 569302.917, 1.42), surfaceLine3.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(154999.006, 569383.419, -4), surfaceLine3.DikeToeAtRiver);
+
+            Assert.IsNull(surfaceLine4.DitchPolderSide);
+            Assert.IsNull(surfaceLine4.BottomDitchPolderSide);
+            Assert.IsNull(surfaceLine4.BottomDitchDikeSide);
+            Assert.IsNull(surfaceLine4.DitchDikeSide);
+            Assert.AreEqual(new Point3D(154682.383, 568112.623, 1.55), surfaceLine4.DikeToeAtPolder);
+            Assert.AreEqual(new Point3D(154586.088, 568119.17, -4), surfaceLine4.DikeToeAtRiver);
+        }
+
+        private void AssertCalculationAbleToCalculate(PipingCalculationScenario calculation)
+        {
+            PipingInput inputParameters = calculation.InputParameters;
+            AssertExpectedPipingInput(inputParameters);
+
+            Assert.IsTrue(PipingCalculationService.Validate(calculation));
+
+            PipingCalculationService.Calculate(calculation);
+            Assert.IsTrue(calculation.HasOutput);
+            Assert.AreEqual(0.568, calculation.Output.HeaveFactorOfSafety, 1e-3);
+            Assert.AreEqual(-0.228, calculation.Output.HeaveZValue, 1e-3);
+            Assert.AreEqual(1.484, calculation.Output.UpliftFactorOfSafety, 1e-3);
+            Assert.AreEqual(1.499, calculation.Output.UpliftZValue, 1e-3);
+            Assert.AreEqual(0.432, calculation.Output.SellmeijerFactorOfSafety, 1e-3);
+            Assert.AreEqual(-1.514, calculation.Output.SellmeijerZValue, 1e-3);
+        }
+
+        private static void AssertExpectedPipingInput(PipingInput inputParameters)
+        {
+            Console.WriteLine("{0} en {1}", Math.Exp(-0.5), Math.Sqrt((Math.Exp(1) - 1)*Math.Exp(1)));
+            Assert.AreEqual(1.0, inputParameters.UpliftModelFactor, 1e-3);
+            Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor, 1e-3);
+
+            Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight, 1e-3);
+            Assert.AreEqual(0.3, inputParameters.SellmeijerReductionFactor, 1e-3);
+            Assert.AreEqual(16.5, inputParameters.SandParticlesVolumicWeight, 1e-3);
+            Assert.AreEqual(0.25, inputParameters.WhitesDragCoefficient, 1e-3);
+            Assert.AreEqual(1.33e-6, inputParameters.WaterKinematicViscosity, 1e-3);
+            Assert.AreEqual(9.81, inputParameters.Gravity, 1e-3);
+            Assert.AreEqual(0.000, inputParameters.MeanDiameter70, 1e-3);
+            Assert.AreEqual(37, inputParameters.BeddingAngle, 1e-3);
+
+            Assert.AreEqual("PK001_0001", inputParameters.SurfaceLine.Name);
+            Assert.AreEqual("PK001_0001_Piping", inputParameters.StochasticSoilModel.Name);
+            Assert.AreEqual("W1-6_0_1D1", inputParameters.StochasticSoilProfile.SoilProfile.Name);
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+            Assert.AreEqual(5.78, inputParameters.HydraulicBoundaryLocation.DesignWaterLevel, 1e-3);
+
+            Assert.AreEqual(0.7, PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.DampingFactorExit));
+            Assert.AreEqual(1.355, PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.PhreaticLevelExit));
+            Assert.AreEqual(0.011453, PipingSemiProbabilisticDesignValueFactory.GetDiameter70(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.Diameter70));
+            Assert.AreEqual(2.345281, PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.DarcyPermeability));
+            Assert.AreEqual(17.5, PipingSemiProbabilisticDesignValueFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.SaturatedVolumicWeightOfCoverageLayer));
+
+            Assert.AreEqual(4.45, inputParameters.PiezometricHeadExit, 1e-2);
+            Assert.AreEqual(106.13, inputParameters.ExitPointL, 1e-2);
+            Assert.AreEqual(81.18, PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.DampingFactorExit));
+            Assert.AreEqual(5.86, PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.DampingFactorExit));
+            Assert.AreEqual(20.13, PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
+                            GetAccuracy(inputParameters.DampingFactorExit));
+        }
+
+        private static void AssertExpectedGrassCoverErosionInwardsInput(GrassCoverErosionInwardsInput inputParameters)
+        {
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+        }
+
+        private static void AssertExpectedHeightStructuresInput(HeightStructuresInput inputParameters)
+        {
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+        }
+
+        private static double GetAccuracy(IDistribution distribution)
+        {
+            return Math.Pow(10.0, -distribution.Mean.NumberOfDecimalPlaces);
+        }
+    }
+}
