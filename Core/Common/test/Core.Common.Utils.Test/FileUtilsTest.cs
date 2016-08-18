@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -193,7 +194,7 @@ namespace Core.Common.Utils.Test
             Assert.AreEqual(message, exception.Message);
             Assert.IsInstanceOf<IOException>(exception.InnerException);
         }
-        
+
         [Test]
         public void DeleteOldFiles_ValidPathWithFile_DeletesFile()
         {
@@ -203,10 +204,13 @@ namespace Core.Common.Utils.Test
 
             using (new FileDisposeHelper(filePath))
             {
+                Thread.Sleep(1); // Sleep 1 ms to make sure File.Create has had enough time to create the file.
+
                 // Call
                 FileUtils.DeleteOldFiles(path, "*.log", 0);
 
                 // Assert
+                Thread.Sleep(1); // Sleep 1 ms to make sure File.Delete has had enough time to remove the file.
                 Assert.IsFalse(File.Exists(filePath));
             }
         }
