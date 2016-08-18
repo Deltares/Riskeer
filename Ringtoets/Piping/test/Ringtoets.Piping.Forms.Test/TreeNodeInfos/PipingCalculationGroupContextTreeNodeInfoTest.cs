@@ -66,14 +66,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingCalculationGroupContext));
         }
 
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -210,24 +202,24 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(14, menu.Items.Count);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex,
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                           RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                                                           "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                           RingtoetsCommonFormsResources.AddFolderIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex,
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                           RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                           "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                           PipingFormsResources.PipingIcon);
 
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                           RingtoetsCommonFormsResources.Validate_all,
                                                           "Valideer alle berekeningen binnen deze berekeningsmap.",
                                                           RingtoetsCommonFormsResources.ValidateAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
                                                           RingtoetsCommonFormsResources.Calculate_all,
                                                           "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                           RingtoetsCommonFormsResources.CalculateAllIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex,
+            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputNestedGroupIndex,
                                                           "&Wis alle uitvoer...",
                                                           "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
                                                           RingtoetsCommonFormsResources.ClearIcon);
@@ -316,45 +308,45 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(17, menu.Items.Count);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndex + 4,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                               RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                                                               "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.AddFolderIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndex + 4,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                               RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               PipingFormsResources.PipingIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 7,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                               RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
                                                               RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip,
                                                               RingtoetsCommonFormsResources.RemoveAllIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex + 6,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               RingtoetsCommonFormsResources.Validate_all,
                                                               "Valideer alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.ValidateAllIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex + 6,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
                                                               RingtoetsCommonFormsResources.Calculate_all,
                                                               "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                               RingtoetsCommonFormsResources.CalculateAllIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndex + 6,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGorup,
                                                               "&Wis alle uitvoer...",
                                                               "Wis de uitvoer van alle berekeningen binnen deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.ClearIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGorup,
                                                               CoreCommonGuiResources.Expand_all,
                                                               CoreCommonGuiResources.Expand_all_ToolTip,
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 14,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGorup,
                                                               CoreCommonGuiResources.Collapse_all,
                                                               CoreCommonGuiResources.Collapse_all_ToolTip,
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 16,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGorup,
                                                               CoreCommonGuiResources.Properties,
                                                               CoreCommonGuiResources.Properties_ToolTip,
                                                               CoreCommonGuiResources.PropertiesHS,
@@ -531,8 +523,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
                 // Assert
-                ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndex];
-                ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
+                ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
                 Assert.IsFalse(validateItem.Enabled);
                 Assert.IsFalse(calculateItem.Enabled);
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
@@ -569,7 +561,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                ToolStripItem removeAllItemDisabled = contextMenu.Items[contextMenuRemoveAllInGroupIndex];
+                ToolStripItem removeAllItemDisabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
                 Assert.IsFalse(removeAllItemDisabled.Enabled);
                 Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove, removeAllItemDisabled.ToolTipText);
             }
@@ -610,7 +602,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                ToolStripItem removeAllItemEnabled = contextMenu.Items[contextMenuRemoveAllInGroupIndex];
+                ToolStripItem removeAllItemEnabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
                 Assert.IsTrue(removeAllItemEnabled.Enabled);
                 Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip, removeAllItemEnabled.ToolTipText);
             }
@@ -662,7 +654,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, group.Children.Count);
 
                 // Call
-                contextMenu.Items[contextMenuAddCalculationGroupIndex].PerformClick();
+                contextMenu.Items[contextMenuAddCalculationGroupIndexNestedGroup].PerformClick();
 
                 // Assert
                 Assert.AreEqual(2, group.Children.Count);
@@ -719,7 +711,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, group.Children.Count);
 
                 // Call
-                contextMenu.Items[contextMenuAddCalculationIndex].PerformClick();
+                contextMenu.Items[contextMenuAddCalculationIndexNestedGroup].PerformClick();
 
                 // Assert
                 Assert.AreEqual(2, group.Children.Count);
@@ -778,7 +770,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
                 // Call
-                Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+                Action call = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -859,7 +851,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 };
 
                 // Call
-                contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+                contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
             }
             // Assert
         }
@@ -943,7 +935,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
 
                 // Call
-                contextMenu.Items[contextMenuClearOutputIndex].PerformClick();
+                contextMenu.Items[contextMenuClearOutputNestedGroupIndex].PerformClick();
 
                 // Assert
                 Assert.AreNotEqual(confirm, calculation1.HasOutput);
@@ -1009,7 +1001,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Call
-                contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+                contextMenu.Items[contextMenuAddGenerateCalculationsIndexNestedGroup].PerformClick();
 
                 // Assert
                 Assert.NotNull(selectionDialog);
@@ -1019,7 +1011,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_ClickOnRemoveAllInGroup_ShowSurfaceLineSelectionView()
+        public void ContextMenuStrip_ClickOnRemoveAllInGroup_RemovesAllChildren()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -1058,7 +1050,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Call
-                contextMenu.Items[contextMenuRemoveAllInGroupIndex].PerformClick();
+                contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex].PerformClick();
 
                 // Assert
                 Assert.IsEmpty(group.Children);
@@ -1156,7 +1148,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // When
-                contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+                contextMenu.Items[contextMenuAddGenerateCalculationsIndexNestedGroup].PerformClick();
 
                 // Then
                 var failureMechanismSectionResult1 = pipingFailureMechanism.SectionResults.First();
@@ -1273,7 +1265,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // When
-                contextMenu.Items[contextMenuAddGenerateCalculationsIndex].PerformClick();
+                contextMenu.Items[contextMenuAddGenerateCalculationsIndexNestedGroup].PerformClick();
 
                 // Then
                 foreach (var failureMechanismSectionResult in pipingFailureMechanism.SectionResults)
@@ -1370,13 +1362,32 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), calculation);
         }
 
-        private const int contextMenuAddGenerateCalculationsIndex = 1;
-        private const int contextMenuRemoveAllInGroupIndex = 6;
-        private const int contextMenuAddCalculationGroupIndex = 0;
-        private const int contextMenuAddCalculationIndex = 1;
-        private const int contextMenuValidateAllIndex = 3;
-        private const int contextMenuCalculateAllIndex = 4;
-        private const int contextMenuClearOutputIndex = 5;
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
+        }
+
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
+        private const int contextMenuAddCalculationIndexRootGroup = 5;
+        private const int contextMenuRemoveAllChildrenIndexRootGroup = 7;
+        private const int contextMenuValidateAllIndexRootGroup = 9;
+        private const int contextMenuCalculateAllIndexRootGroup = 10;
+        private const int contextMenuClearOutputIndexRootGorup = 11;
+        private const int contextMenuExpandAllIndexRootGorup = 13;
+        private const int contextMenuCollapseAllIndexRootGorup = 14;
+        private const int contextMenuPropertiesIndexRootGorup = 16;
+
+        private const int contextMenuAddGenerateCalculationsIndexNestedGroup = 1;
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
+        private const int contextMenuAddCalculationIndexNestedGroup = 1;
+        private const int contextMenuValidateAllIndexNestedGroup = 3;
+        private const int contextMenuCalculateAllIndexNestedGroup = 4;
+        private const int contextMenuClearOutputNestedGroupIndex = 5;
+
+        private const int customOnlyContextMenuRemoveAllChildrenIndex = 6;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanism"/> with sections and a surface line.

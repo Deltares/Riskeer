@@ -174,6 +174,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -218,7 +220,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(10, menu.Items.Count);
+                Assert.AreEqual(12, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup,
                                                               RingtoetsFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
@@ -227,6 +229,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                                               RingtoetsFormsResources.CalculationGroup_Add_Calculation,
                                                               RingtoetsFormsResources.CalculationGroup_Add_Calculation_Tooltip,
                                                               RingtoetsFormsResources.FailureMechanismIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenRootGroupIndex,
+                                                              RingtoetsFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
+                                                              RingtoetsFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove,
+                                                              RingtoetsFormsResources.RemoveAllIcon,
+                                                              false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               RingtoetsFormsResources.Validate_all,
                                                               RingtoetsFormsResources.ValidateAll_No_calculations_to_validate,
@@ -858,6 +865,51 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
         }
+        
+        [Test]
+        public void ContextMenuStrip_ClickOnRemoveAllInGroup_RemovesAllChildren()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var group = new CalculationGroup
+                {
+                    Children =
+                    {
+                        mocks.Stub<ICalculation>()
+                    }
+                };
+
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                 failureMechanism,
+                                                                 assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialog = new MessageBoxTester(wnd);
+                    dialog.ClickOk();
+                };
+
+                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+
+                // Call
+                contextMenu.Items[contextMenuRemoveAllChildrenRootGroupIndex].PerformClick();
+
+                // Assert
+                Assert.IsEmpty(group.Children);
+            }
+        }
 
         [Test]
         public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDikeProfileSelectedAndDialogClosed_ThenCalculationsAddedWithProfileAssigned()
@@ -1126,9 +1178,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         private const int contextMenuGenerateCalculationsIndexRootGroup = 0;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
         private const int contextMenuAddCalculationIndexRootGroup = 3;
-        private const int contextMenuValidateAllIndexRootGroup = 5;
-        private const int contextMenuCalculateAllIndexRootGroup = 6;
-        private const int contextMenuClearAllIndexRootGroup = 7;
+        private const int contextMenuRemoveAllChildrenRootGroupIndex = 5;
+        private const int contextMenuValidateAllIndexRootGroup = 7;
+        private const int contextMenuCalculateAllIndexRootGroup = 8;
+        private const int contextMenuClearAllIndexRootGroup = 9;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;

@@ -473,8 +473,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, AddCalculation)
-                   .AddSeparator()
+                   .AddCreateCalculationItem(context, AddCalculation);
+
+            if (!isNestedGroup)
+            {
+                builder.AddSeparator()
+                       .AddRemoveAllChildrenItem(group);
+            }
+
+            builder.AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
                        c => ValidateAll(c.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), c.AssessmentSection),
