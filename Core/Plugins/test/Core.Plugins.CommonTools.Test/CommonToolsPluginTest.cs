@@ -34,35 +34,37 @@ namespace Core.Plugins.CommonTools.Test
         public void GetCommonToolsPluginProperties_Always_ReturnViews()
         {
             // Setup
-            var plugin = new CommonToolsPlugin();
+            using (var plugin = new CommonToolsPlugin())
+            {
+                // Call
+                var viewInfos = plugin.GetViewInfos().ToArray();
 
-            // Call
-            var viewInfos = plugin.GetViewInfos().ToArray();
+                // Assert
+                Assert.NotNull(viewInfos);
+                Assert.AreEqual(1, viewInfos.Length);
 
-            // Assert
-            Assert.NotNull(viewInfos);
-            Assert.AreEqual(1, viewInfos.Length);
+                var richTextFileInfo = viewInfos.First(vi => vi.DataType == typeof(RichTextFile));
 
-            var richTextFileInfo = viewInfos.First(vi => vi.DataType == typeof(RichTextFile));
-
-            Assert.AreEqual(richTextFileInfo.ViewType, typeof(RichTextView));
-            Assert.IsNull(richTextFileInfo.Description);
-            TestHelper.AssertImagesAreEqual(Resources.key, richTextFileInfo.Image);
+                Assert.AreEqual(richTextFileInfo.ViewType, typeof(RichTextView));
+                Assert.IsNull(richTextFileInfo.Description);
+                TestHelper.AssertImagesAreEqual(Resources.key, richTextFileInfo.Image);
+            }
         }
 
         [Test]
         public void RichTextFileViewInfoName_WithoutData_EmptyString()
         {
             // Setup
-            var plugin = new CommonToolsPlugin();
+            using (var plugin = new CommonToolsPlugin())
+            {
+                var info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
 
-            var info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
+                // Call
+                var name = info.GetViewName(null, null);
 
-            // Call
-            var name = info.GetViewName(null, null);
-
-            // Assert
-            Assert.IsEmpty(name);
+                // Assert
+                Assert.IsEmpty(name);
+            }
         }
 
         [Test]
@@ -70,19 +72,20 @@ namespace Core.Plugins.CommonTools.Test
         {
             // Setup
             var expected = "SomeName";
-            var plugin = new CommonToolsPlugin();
-
-            var info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
-            var richTextFile = new RichTextFile
+            using (var plugin = new CommonToolsPlugin())
             {
-                Name = expected
-            };
+                var info = plugin.GetViewInfos().First(vi => vi.DataType == typeof(RichTextFile));
+                var richTextFile = new RichTextFile
+                {
+                    Name = expected
+                };
 
-            // Call
-            var name = info.GetViewName(null, richTextFile);
+                // Call
+                var name = info.GetViewName(null, richTextFile);
 
-            // Assert
-            Assert.AreEqual(expected, name);
+                // Assert
+                Assert.AreEqual(expected, name);
+            }
         }
     }
 }
