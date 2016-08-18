@@ -59,12 +59,6 @@ namespace Ringtoets.Integration.Forms.Views
             resources.ApplyResources(this.normLabel, "normLabel");
             this.normLabel.Name = "normLabel";
             // 
-            // probabilityDistributionGrid
-            // 
-            this.tableLayoutPanel.SetColumnSpan(this.probabilityDistributionGrid, 5);
-            resources.ApplyResources(this.probabilityDistributionGrid, "probabilityDistributionGrid");
-            this.probabilityDistributionGrid.Name = "probabilityDistributionGrid";
-            // 
             // normInput
             // 
             resources.ApplyResources(this.normInput, "normInput");
@@ -80,7 +74,7 @@ namespace Ringtoets.Integration.Forms.Views
             0});
             this.normInput.Name = "normInput";
             this.normInput.Value = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
             0});
@@ -112,6 +106,14 @@ namespace Ringtoets.Integration.Forms.Views
             this.tableLayoutPanel.Controls.Add(this.perYearLabel, 4, 0);
             this.tableLayoutPanel.Controls.Add(this.probabilityDistributionGrid, 0, 1);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
+            // 
+            // probabilityDistributionGrid
+            // 
+            this.tableLayoutPanel.SetColumnSpan(this.probabilityDistributionGrid, 5);
+            resources.ApplyResources(this.probabilityDistributionGrid, "probabilityDistributionGrid");
+            this.probabilityDistributionGrid.MultiSelect = true;
+            this.probabilityDistributionGrid.Name = "probabilityDistributionGrid";
+            this.probabilityDistributionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
             // FailureMechanismContributionView
             // 

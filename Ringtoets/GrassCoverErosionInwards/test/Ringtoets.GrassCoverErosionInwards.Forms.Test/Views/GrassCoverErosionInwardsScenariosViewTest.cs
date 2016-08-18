@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -57,11 +58,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = ShowScenariosView())
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
 
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
-                Assert.AreEqual(new Size(0, 0), dataGridView.MinimumSize);
+
+                Assert.AreEqual(new Size(0, 0), dataGridViewControl.MinimumSize);
                 Assert.IsTrue(view.AutoScroll);
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.FailureMechanism);

@@ -264,6 +264,9 @@
   <data name="&gt;&gt;assessmentSectionCompositionComboBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="tableLayoutPanel.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="tableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
@@ -273,8 +276,11 @@
   <data name="probabilityDistributionGrid.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 29</value>
   </data>
+  <data name="probabilityDistributionGrid.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>750, 350</value>
+  </data>
   <data name="probabilityDistributionGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>525, 158</value>
+    <value>750, 350</value>
   </data>
   <data name="probabilityDistributionGrid.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -283,7 +289,7 @@
     <value>probabilityDistributionGrid</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=0.5.0.3501, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.1.1.4774, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;probabilityDistributionGrid.Parent" xml:space="preserve">
     <value>tableLayoutPanel</value>
@@ -301,7 +307,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>531, 190</value>
+    <value>573, 347</value>
   </data>
   <data name="tableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -325,7 +331,7 @@
     <value>True</value>
   </metadata>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>531, 190</value>
+    <value>573, 347</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FailureMechanismContributionView</value>

@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -65,6 +66,29 @@ namespace Ringtoets.Integration.Forms.Test.Views
             testForm.Dispose();
 
             base.TearDown();
+        }
+
+        [Test]
+        public void DefaultConstructor_SetsDefaults()
+        {
+            using (var contributionView = new FailureMechanismContributionView())
+            {
+                ShowFormWithView(contributionView);
+
+                var dataGridView = (DataGridViewControl)new ControlTester("probabilityDistributionGrid").TheObject;
+                var tableLayout = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
+
+                // Assert
+                Assert.AreEqual(new Size(750, 350), dataGridView.MinimumSize);
+                Assert.AreEqual(DockStyle.Fill, dataGridView.Dock);
+                Assert.IsFalse(dataGridView.AutoScroll);
+
+                Assert.AreEqual(new Size(0, 0), tableLayout.MinimumSize);
+                Assert.AreEqual(DockStyle.Fill, tableLayout.Dock);
+                Assert.IsTrue(tableLayout.AutoScroll);
+
+                Assert.IsFalse(contributionView.AutoScroll);
+            }
         }
 
         [Test]
