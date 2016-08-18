@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -30,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
@@ -51,11 +53,14 @@ namespace Ringtoets.Integration.Forms.Test
             const int normValue = 200;
             const int numberOfCalculations = 3;
 
+            var waveHeight = (RoundedDouble) 3.0;
+            var designWaterLevel = (RoundedDouble) 4.2;
+
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
             {
-                WaveHeight = 3.0,
-                DesignWaterLevel = 4.2
+                WaveHeight = waveHeight,
+                DesignWaterLevel = designWaterLevel
             });
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -124,8 +129,8 @@ namespace Ringtoets.Integration.Forms.Test
 
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
-                Assert.AreEqual(3.0, hydraulicBoundaryLocation.WaveHeight);
-                Assert.AreEqual(4.2, hydraulicBoundaryLocation.DesignWaterLevel);
+                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
+                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
                 Assert.IsNotNull(pipingCalculation.Output);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNotNull(heightStructuresCalculation.Output);
@@ -156,11 +161,13 @@ namespace Ringtoets.Integration.Forms.Test
             // Setup
             const int normValue = 200;
 
+            var waveHeight = (RoundedDouble) 3.0;
+            var designWaterLevel = (RoundedDouble) 4.2;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
             {
-                WaveHeight = 3.0,
-                DesignWaterLevel = 4.2
+                WaveHeight = waveHeight,
+                DesignWaterLevel = designWaterLevel
             });
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -209,8 +216,8 @@ namespace Ringtoets.Integration.Forms.Test
 
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
-                Assert.AreEqual(3.0, hydraulicBoundaryLocation.WaveHeight);
-                Assert.AreEqual(4.2, hydraulicBoundaryLocation.DesignWaterLevel);
+                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
+                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
                 // Call
                 Action call = () => normTester.Properties.Text = normValue.ToString();
 
@@ -225,7 +232,7 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void NormTextBox_HydraulicBoundaryLocationNoOutputAndCalcultionWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        public void NormTextBox_HydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
         {
             // Setup
             const int normValue = 200;

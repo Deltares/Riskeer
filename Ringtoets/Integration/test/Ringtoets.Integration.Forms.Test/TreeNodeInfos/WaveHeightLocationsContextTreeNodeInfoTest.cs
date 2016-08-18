@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -32,6 +33,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -277,10 +279,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var contextMenuRunWaveHeightCalculationsIndex = 0;
 
+            RoundedDouble designWaterLevel = (RoundedDouble) 4.2;
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
             {
-                WaveHeight = 4.2
+                WaveHeight = designWaterLevel
             };
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -322,7 +325,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
 
                     Assert.IsNaN(hydraulicBoundaryLocation1.WaveHeight); // No result set
-                    Assert.AreEqual(4.2, hydraulicBoundaryLocation2.WaveHeight); // Previous result not cleared
+
+                    // Previous result not cleared
+                    Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation2.WaveHeight, hydraulicBoundaryLocation2.WaveHeight.GetAccuracy());
                 }
             }
             mockRepository.VerifyAll();

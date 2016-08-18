@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -50,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
-            const double designWaterLevel = 12.34;
+            RoundedDouble designWaterLevel = (RoundedDouble) 12.34;
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0)
             {
                 DesignWaterLevel = designWaterLevel
@@ -71,8 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Name, designWaterLevelLocationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelLocationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, designWaterLevelLocationProperties.Location);
-            var expectedDesignWaterLevelValue = new RoundedDouble(2, designWaterLevel);
-            Assert.AreEqual(expectedDesignWaterLevelValue, designWaterLevelLocationProperties.DesignWaterLevel);
+            Assert.AreEqual(designWaterLevel, designWaterLevelLocationProperties.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
         }
 
         [Test]

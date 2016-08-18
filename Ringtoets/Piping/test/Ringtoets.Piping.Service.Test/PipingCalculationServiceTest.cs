@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Service.Test
             const string name = "<very nice name>";
 
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = double.NaN;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) double.NaN;
             calculation.Name = name;
 
             // Call

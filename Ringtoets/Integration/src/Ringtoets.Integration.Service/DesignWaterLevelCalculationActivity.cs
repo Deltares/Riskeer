@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.Utils;
 using log4net;
@@ -74,7 +75,7 @@ namespace Ringtoets.Integration.Service
             }
 
             PerformRun(() => DesignWaterLevelCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
-                       () => hydraulicBoundaryLocation.DesignWaterLevel = double.NaN,
+                       () => hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) double.NaN,
                        () => DesignWaterLevelCalculationService.Calculate(assessmentSection,
                                                                           assessmentSection.HydraulicBoundaryDatabase,
                                                                           hydraulicBoundaryLocation,
@@ -85,7 +86,7 @@ namespace Ringtoets.Integration.Service
         {
             PerformFinish(() =>
             {
-                hydraulicBoundaryLocation.DesignWaterLevel = Output.Result;
+                hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) Output.Result;
                 bool designWaterLevelCalculationConvergence =
                     Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
                 if (!designWaterLevelCalculationConvergence)

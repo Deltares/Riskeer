@@ -236,7 +236,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(0, "StochasticSoilModelName", "StochasticSoilModelSegmentName");
             stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
 
-            HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(0.0);
+            HydraulicBoundaryLocation testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation((RoundedDouble) 0.0);
 
             PipingInput inputParameters = new PipingInput(new GeneralPipingInput())
             {
@@ -357,7 +357,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             Random random = new Random(22);
 
-            double assessmentLevel = random.NextDouble();
+            RoundedDouble assessmentLevel = (RoundedDouble) random.NextDouble();
 
             LogNormalDistribution dampingFactorExit = new LogNormalDistribution(3);
             NormalDistribution phreaticLevelExit = new NormalDistribution(2);
@@ -671,7 +671,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            double assessmentLevel = new Random(21).NextDouble();
+            RoundedDouble assessmentLevel = (RoundedDouble) new Random(21).NextDouble();
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
 
@@ -697,7 +697,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             string testName = "TestName";
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0)
             {
-                DesignWaterLevel = double.NaN
+                DesignWaterLevel = (RoundedDouble) double.NaN
             };
 
             // Call
@@ -735,7 +735,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                               assessmentSectionMock)
             };
 
-            double testLevel = new Random(21).NextDouble();
+            RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
             {
                 DesignWaterLevel = testLevel
@@ -745,7 +745,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
-            Assert.AreEqual(testLevel, properties.AssessmentLevel, 1e-2);
+            Assert.AreEqual(testLevel, properties.AssessmentLevel, properties.AssessmentLevel.GetAccuracy());
 
             mocks.VerifyAll();
         }
@@ -958,7 +958,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
             inputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
             {
-                DesignWaterLevel = 1.0
+                DesignWaterLevel = (RoundedDouble) 1.0
             };
 
             DesignVariable<NormalDistribution> phreaticLevelExitProperty = contextProperties.PhreaticLevelExit;
@@ -1003,7 +1003,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
         private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
         {
-            public TestHydraulicBoundaryLocation(double designWaterLevel) : base(0, string.Empty, 0, 0)
+            public TestHydraulicBoundaryLocation(RoundedDouble designWaterLevel) : base(0, string.Empty, 0, 0)
             {
                 DesignWaterLevel = designWaterLevel;
             }

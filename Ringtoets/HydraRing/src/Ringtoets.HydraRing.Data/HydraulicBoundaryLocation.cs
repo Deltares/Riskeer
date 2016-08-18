@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 
@@ -31,6 +32,9 @@ namespace Ringtoets.HydraRing.Data
     /// </summary>
     public class HydraulicBoundaryLocation : Observable, IStorable
     {
+        private RoundedDouble designWaterLevel;
+        private RoundedDouble waveHeight;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
@@ -48,8 +52,8 @@ namespace Ringtoets.HydraRing.Data
             Id = id;
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
-            DesignWaterLevel = double.NaN;
-            WaveHeight = double.NaN;
+            designWaterLevel = new RoundedDouble(2, double.NaN);
+            waveHeight = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
@@ -70,12 +74,32 @@ namespace Ringtoets.HydraRing.Data
         /// <summary>
         /// Gets the design water level of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public double DesignWaterLevel { get; set; }
+        public RoundedDouble DesignWaterLevel
+        {
+            get
+            {
+                return designWaterLevel;
+            }
+            set
+            {
+                designWaterLevel = value.ToPrecision(designWaterLevel.NumberOfDecimalPlaces);
+            }
+        }
 
         /// <summary>
         /// Gets the wave height of <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public double WaveHeight { get; set; }
+        public RoundedDouble WaveHeight
+        {
+            get
+            {
+                return waveHeight;
+            }
+            set
+            {
+                waveHeight = value.ToPrecision(waveHeight.NumberOfDecimalPlaces);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the convergence status of the design waterlevel calculation.

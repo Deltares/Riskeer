@@ -22,7 +22,9 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
@@ -94,8 +96,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var waterLevel = random.NextDouble();
-            var waveHeight = random.NextDouble();
+            var waterLevel = (RoundedDouble) random.NextDouble();
+            var waveHeight = (RoundedDouble) random.NextDouble();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
             {
                 DesignWaterLevel = waterLevel,
@@ -110,8 +112,8 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(waterLevel, entity.DesignWaterLevel);
-            Assert.AreEqual(waveHeight, entity.WaveHeight);
+            Assert.AreEqual(waterLevel, entity.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, entity.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.WaveHeightCalculationConvergence);
         }

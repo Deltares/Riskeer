@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
@@ -32,6 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
@@ -151,46 +153,46 @@ namespace Demo.Ringtoets.Test.Commands
 
         private void AssertDesignWaterLevelValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
         {
-            Assert.AreEqual(5.78, hydraulicBoundaryLocations[0].DesignWaterLevel);
-            Assert.AreEqual(5.77, hydraulicBoundaryLocations[1].DesignWaterLevel);
-            Assert.AreEqual(5.77, hydraulicBoundaryLocations[2].DesignWaterLevel);
-            Assert.AreEqual(5.77, hydraulicBoundaryLocations[3].DesignWaterLevel);
-            Assert.AreEqual(5.77, hydraulicBoundaryLocations[4].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[5].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[6].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[7].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[8].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[9].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[10].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[11].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[12].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[13].DesignWaterLevel);
-            Assert.AreEqual(5.93, hydraulicBoundaryLocations[14].DesignWaterLevel);
-            Assert.AreEqual(5.54, hydraulicBoundaryLocations[15].DesignWaterLevel);
-            Assert.AreEqual(5.86, hydraulicBoundaryLocations[16].DesignWaterLevel);
-            Assert.AreEqual(6.0, hydraulicBoundaryLocations[17].DesignWaterLevel);
+            Assert.AreEqual((RoundedDouble) 5.78, hydraulicBoundaryLocations[0].DesignWaterLevel, hydraulicBoundaryLocations[0].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.77, hydraulicBoundaryLocations[1].DesignWaterLevel, hydraulicBoundaryLocations[1].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.77, hydraulicBoundaryLocations[2].DesignWaterLevel, hydraulicBoundaryLocations[2].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.77, hydraulicBoundaryLocations[3].DesignWaterLevel, hydraulicBoundaryLocations[3].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.77, hydraulicBoundaryLocations[4].DesignWaterLevel, hydraulicBoundaryLocations[4].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[5].DesignWaterLevel, hydraulicBoundaryLocations[5].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[6].DesignWaterLevel, hydraulicBoundaryLocations[6].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[7].DesignWaterLevel, hydraulicBoundaryLocations[7].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[8].DesignWaterLevel, hydraulicBoundaryLocations[8].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[9].DesignWaterLevel, hydraulicBoundaryLocations[9].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[10].DesignWaterLevel, hydraulicBoundaryLocations[10].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[11].DesignWaterLevel, hydraulicBoundaryLocations[11].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[12].DesignWaterLevel, hydraulicBoundaryLocations[12].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[13].DesignWaterLevel, hydraulicBoundaryLocations[13].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.93, hydraulicBoundaryLocations[14].DesignWaterLevel, hydraulicBoundaryLocations[14].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.54, hydraulicBoundaryLocations[15].DesignWaterLevel, hydraulicBoundaryLocations[15].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 5.86, hydraulicBoundaryLocations[16].DesignWaterLevel, hydraulicBoundaryLocations[16].DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 6.0, hydraulicBoundaryLocations[17].DesignWaterLevel, hydraulicBoundaryLocations[17].DesignWaterLevel.GetAccuracy());
         }
 
         private void AssertWaveHeightValuesOnHydraulicBoundaryLocations(HydraulicBoundaryLocation[] hydraulicBoundaryLocations)
         {
-            Assert.AreEqual(4.13374, hydraulicBoundaryLocations[0].WaveHeight);
-            Assert.AreEqual(4.19044, hydraulicBoundaryLocations[1].WaveHeight);
-            Assert.AreEqual(4.01717, hydraulicBoundaryLocations[2].WaveHeight);
-            Assert.AreEqual(3.87408, hydraulicBoundaryLocations[3].WaveHeight);
-            Assert.AreEqual(3.73281, hydraulicBoundaryLocations[4].WaveHeight);
-            Assert.AreEqual(2.65268, hydraulicBoundaryLocations[5].WaveHeight);
-            Assert.AreEqual(3.04333, hydraulicBoundaryLocations[6].WaveHeight);
-            Assert.AreEqual(3.19952, hydraulicBoundaryLocations[7].WaveHeight);
-            Assert.AreEqual(3.3554, hydraulicBoundaryLocations[8].WaveHeight);
-            Assert.AreEqual(3.52929, hydraulicBoundaryLocations[9].WaveHeight);
-            Assert.AreEqual(3.62194, hydraulicBoundaryLocations[10].WaveHeight);
-            Assert.AreEqual(3.6851, hydraulicBoundaryLocations[11].WaveHeight);
-            Assert.AreEqual(3.72909, hydraulicBoundaryLocations[12].WaveHeight);
-            Assert.AreEqual(3.74794, hydraulicBoundaryLocations[13].WaveHeight);
-            Assert.AreEqual(3.29686, hydraulicBoundaryLocations[14].WaveHeight);
-            Assert.AreEqual(9.57558, hydraulicBoundaryLocations[15].WaveHeight);
-            Assert.AreEqual(8.01959, hydraulicBoundaryLocations[16].WaveHeight);
-            Assert.AreEqual(4.11447, hydraulicBoundaryLocations[17].WaveHeight);
+            Assert.AreEqual((RoundedDouble) 4.13374, hydraulicBoundaryLocations[0].WaveHeight, hydraulicBoundaryLocations[0].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.19044, hydraulicBoundaryLocations[1].WaveHeight, hydraulicBoundaryLocations[1].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.01717, hydraulicBoundaryLocations[2].WaveHeight, hydraulicBoundaryLocations[2].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.87408, hydraulicBoundaryLocations[3].WaveHeight, hydraulicBoundaryLocations[3].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.73281, hydraulicBoundaryLocations[4].WaveHeight, hydraulicBoundaryLocations[4].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 2.65268, hydraulicBoundaryLocations[5].WaveHeight, hydraulicBoundaryLocations[5].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.04333, hydraulicBoundaryLocations[6].WaveHeight, hydraulicBoundaryLocations[6].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.19952, hydraulicBoundaryLocations[7].WaveHeight, hydraulicBoundaryLocations[7].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.3554, hydraulicBoundaryLocations[8].WaveHeight, hydraulicBoundaryLocations[8].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.52929, hydraulicBoundaryLocations[9].WaveHeight, hydraulicBoundaryLocations[9].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.62194, hydraulicBoundaryLocations[10].WaveHeight, hydraulicBoundaryLocations[10].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.6851, hydraulicBoundaryLocations[11].WaveHeight, hydraulicBoundaryLocations[11].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.72909, hydraulicBoundaryLocations[12].WaveHeight, hydraulicBoundaryLocations[12].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.74794, hydraulicBoundaryLocations[13].WaveHeight, hydraulicBoundaryLocations[13].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 3.29686, hydraulicBoundaryLocations[14].WaveHeight, hydraulicBoundaryLocations[14].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 9.57558, hydraulicBoundaryLocations[15].WaveHeight, hydraulicBoundaryLocations[15].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 8.01959, hydraulicBoundaryLocations[16].WaveHeight, hydraulicBoundaryLocations[16].WaveHeight.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) 4.11447, hydraulicBoundaryLocations[17].WaveHeight, hydraulicBoundaryLocations[17].WaveHeight.GetAccuracy());
         }
 
         private void AssertCharacteristicPointsOnSurfaceLines(RingtoetsPipingSurfaceLine[] surfaceLines)

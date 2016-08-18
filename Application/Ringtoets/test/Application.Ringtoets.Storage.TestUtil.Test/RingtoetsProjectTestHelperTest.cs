@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
@@ -47,7 +49,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             string locationName = "test";
             double locationX = 152.3;
             double locationY = 2938.5;
-            double designWaterLevel = 12.4;
+            RoundedDouble designWaterLevel = (RoundedDouble) 12.4;
+            RoundedDouble waveHeight = (RoundedDouble) 2.4;
 
             // Call
             RingtoetsProject project = RingtoetsProjectTestHelper.GetFullTestProject();
@@ -70,7 +73,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(locationName, hydraulicBoundaryLocation.Name);
             Assert.AreEqual(locationX, hydraulicBoundaryLocation.Location.X);
             Assert.AreEqual(locationY, hydraulicBoundaryLocation.Location.Y);
-            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
 

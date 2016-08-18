@@ -90,8 +90,8 @@ namespace Ringtoets.HydraRing.IO
 
             mapFeature.MetaData.Add("Naam", hydraulicBoundaryLocation.Name);
             mapFeature.MetaData.Add("Id", hydraulicBoundaryLocation.Id);
-            mapFeature.MetaData.Add("Toetspeil", hydraulicBoundaryLocation.DesignWaterLevel);
-            mapFeature.MetaData.Add("Hs", hydraulicBoundaryLocation.WaveHeight);
+            mapFeature.MetaData.Add("Toetspeil", hydraulicBoundaryLocation.DesignWaterLevel.Value);
+            mapFeature.MetaData.Add("Hs", hydraulicBoundaryLocation.WaveHeight.Value);
 
             return new MapPointData(hydraulicBoundaryLocation.Name)
             {

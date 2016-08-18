@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -29,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -208,10 +210,9 @@ namespace Ringtoets.Integration.Service.Test
 
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
-            var designWaterLevel = 3.0;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
             {
-                DesignWaterLevel = designWaterLevel
+                DesignWaterLevel = (RoundedDouble) 3.0
             };
 
             var activity = new DesignWaterLevelCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
@@ -350,7 +351,7 @@ namespace Ringtoets.Integration.Service.Test
 
             ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
-            const double designWaterLevel = 3.0;
+            RoundedDouble designWaterLevel = (RoundedDouble) 3.0;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
             {
                 DesignWaterLevel = designWaterLevel
@@ -364,7 +365,7 @@ namespace Ringtoets.Integration.Service.Test
             activity.Finish();
 
             // Assert
-            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
             mockRepository.VerifyAll();
         }
 

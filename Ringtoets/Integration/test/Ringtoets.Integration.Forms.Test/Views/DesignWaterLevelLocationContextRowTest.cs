@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
@@ -51,7 +52,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const string locationname = "LocationName";
             const double coordinateX = 1.0;
             const double coordinateY = 2.0;
-            const double designWaterLevel = 3.0;
+            RoundedDouble designWaterLevel = (RoundedDouble) 3.0;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationname, coordinateX, coordinateY)
             {
                 DesignWaterLevel = designWaterLevel
@@ -67,8 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.AreEqual(id, row.Id);
             Assert.AreEqual(locationname, row.Name);
-            var expectedDesignWaterLevel = new RoundedDouble(2, designWaterLevel);
-            Assert.AreEqual(expectedDesignWaterLevel, row.DesignWaterLevel);
+            Assert.AreEqual(designWaterLevel, row.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
             Assert.AreSame(context, row.DesignWaterLevelLocationContext);

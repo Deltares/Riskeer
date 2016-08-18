@@ -25,6 +25,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
@@ -177,10 +178,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
             IAssessmentSection assessmentSection = (IAssessmentSection) view.Data;
             HydraulicBoundaryDatabase newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            newHydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
             {
-                DesignWaterLevel = 10.23
-            });
+                DesignWaterLevel = (RoundedDouble) 10.23
+            };
+            newHydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Precondition
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -199,7 +201,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(10.23.ToString(CultureInfo.CurrentCulture), cells[locationDesignWaterlevelColumnIndex].FormattedValue);
+            Assert.AreEqual(hydraulicBoundaryLocation.DesignWaterLevel, cells[locationDesignWaterlevelColumnIndex].Value);
         }
 
         [Test]
@@ -218,7 +220,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
             // Call
-            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevel = double.NaN);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.DesignWaterLevel = (RoundedDouble) double.NaN);
             assessmentSection.NotifyObservers();
 
             // Assert
@@ -460,11 +462,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
                 Locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
                 {
-                    DesignWaterLevel = 1.23
+                    DesignWaterLevel = (RoundedDouble) 1.23
                 });
                 Locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
                 {
-                    WaveHeight = 2.45
+                    WaveHeight = (RoundedDouble) 2.45
                 });
             }
         }

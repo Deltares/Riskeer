@@ -27,6 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -64,7 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 }
             };
 
-            const double waveHeight = 12.34;
+            RoundedDouble waveHeight = (RoundedDouble) 12.34;
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0)
             {
                 WaveHeight = waveHeight
@@ -85,8 +86,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicBoundaryLocation.Name, waveHeightLocationProperties.Name);
             Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightLocationProperties.Id);
             Assert.AreEqual(hydraulicBoundaryLocation.Location, waveHeightLocationProperties.Location);
-            var expectedWaveHeightValue = new RoundedDouble(2, waveHeight);
-            Assert.AreEqual(expectedWaveHeightValue, waveHeightLocationProperties.WaveHeight);
+            Assert.AreEqual(waveHeight, waveHeightLocationProperties.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
             mockRepository.VerifyAll();
         }
 

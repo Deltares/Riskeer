@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.Utils;
 using log4net;
@@ -74,7 +75,7 @@ namespace Ringtoets.Integration.Service
             }
 
             PerformRun(() => WaveHeightCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation),
-                       () => hydraulicBoundaryLocation.WaveHeight = double.NaN,
+                       () => hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) double.NaN,
                        () => WaveHeightCalculationService.Calculate(assessmentSection,
                                                                     assessmentSection.HydraulicBoundaryDatabase,
                                                                     hydraulicBoundaryLocation,
@@ -85,7 +86,7 @@ namespace Ringtoets.Integration.Service
         {
             PerformFinish(() =>
             {
-                hydraulicBoundaryLocation.WaveHeight = Output.Result;
+                hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) Output.Result;
                 bool waveHeightCalculationConvergence =
                     Math.Abs(Output.ActualTargetProbability - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-5;
                 if (!waveHeightCalculationConvergence)

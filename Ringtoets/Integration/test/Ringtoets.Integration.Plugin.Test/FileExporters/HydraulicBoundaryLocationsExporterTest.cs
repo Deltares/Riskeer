@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Security.AccessControl;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -38,8 +39,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevel = 111.111,
-                WaveHeight = 222.222
+                DesignWaterLevel = (RoundedDouble) 111.111,
+                WaveHeight = (RoundedDouble) 222.222
             };
 
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
@@ -74,8 +75,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevel = 111.111,
-                WaveHeight = 222.222
+                DesignWaterLevel = (RoundedDouble) 111.111,
+                WaveHeight = (RoundedDouble) 222.222
             };
 
             // Call
@@ -94,8 +95,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevel = 111.111,
-                WaveHeight = 222.222
+                DesignWaterLevel = (RoundedDouble) 111.111,
+                WaveHeight = (RoundedDouble) 222.222
             };
 
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
@@ -129,8 +130,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevel = 111.111,
-                WaveHeight = 222.222
+                DesignWaterLevel = (RoundedDouble) 111.111,
+                WaveHeight = (RoundedDouble) 222.222
             };
 
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,

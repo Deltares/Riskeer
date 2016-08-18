@@ -22,7 +22,9 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -105,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual(expectedWaterLevel, location.DesignWaterLevel);
+            Assert.AreEqual((RoundedDouble) expectedWaterLevel, location.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
         }
 
         [Test]
@@ -130,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual(expectedWaveHeight, location.WaveHeight);
+            Assert.AreEqual((RoundedDouble) expectedWaveHeight, location.WaveHeight, location.WaveHeight.GetAccuracy());
         }
 
         [Test]

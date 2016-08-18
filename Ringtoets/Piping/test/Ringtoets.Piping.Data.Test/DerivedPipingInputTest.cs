@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Data.Test
             var input = new PipingInput(new GeneralPipingInput());
             var derivedInput = new DerivedPipingInput(input);
 
-            double testLevel = new Random(21).NextDouble();
+            RoundedDouble testLevel = (RoundedDouble) new Random(21).NextDouble();
 
             input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
             {
@@ -75,10 +75,10 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            var calculatedAssesmentLevel = derivedInput.AssessmentLevel;
+            var calculatedAssessmentLevel = derivedInput.AssessmentLevel;
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, testLevel), calculatedAssesmentLevel);
+            Assert.AreEqual(testLevel, calculatedAssessmentLevel, derivedInput.AssessmentLevel.GetAccuracy());
         }
 
         [Test]
@@ -91,10 +91,10 @@ namespace Ringtoets.Piping.Data.Test
             input.HydraulicBoundaryLocation = null;
 
             // Call
-            var calculatedAssesmentLevel = derivedInput.AssessmentLevel;
+            var calculatedAssessmentLevel = derivedInput.AssessmentLevel;
 
             // Assert
-            Assert.IsNaN(calculatedAssesmentLevel);
+            Assert.IsNaN(calculatedAssessmentLevel);
         }
 
         [Test]
@@ -107,10 +107,10 @@ namespace Ringtoets.Piping.Data.Test
             input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0);
 
             // Call
-            var calculatedAssesmentLevel = derivedInput.AssessmentLevel;
+            var calculatedAssessmentLevel = derivedInput.AssessmentLevel;
 
             // Assert
-            Assert.IsNaN(calculatedAssesmentLevel);
+            Assert.IsNaN(calculatedAssessmentLevel);
         }
 
         [Test]

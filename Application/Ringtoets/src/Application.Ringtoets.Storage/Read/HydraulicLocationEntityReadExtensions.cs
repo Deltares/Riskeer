@@ -21,6 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
 using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Read
@@ -57,15 +58,8 @@ namespace Application.Ringtoets.Storage.Read
                 StorageId = entity.HydraulicLocationEntityId
             };
 
-            if (entity.DesignWaterLevel.HasValue)
-            {
-                hydraulicBoundaryLocation.DesignWaterLevel = entity.DesignWaterLevel.Value;
-            }
-
-            if (entity.WaveHeight.HasValue)
-            {
-                hydraulicBoundaryLocation.WaveHeight = entity.WaveHeight.Value;
-            }
+            hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) entity.DesignWaterLevel.ToNullAsNaN();
+            hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) entity.WaveHeight.ToNullAsNaN();
 
             hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence =
                 (CalculationConvergence) entity.DesignWaterLevelCalculationConvergence;

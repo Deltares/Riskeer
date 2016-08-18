@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, data.HydraulicBoundaryLocation.DesignWaterLevel);
+                return data.HydraulicBoundaryLocation.DesignWaterLevel;
             }
         }
 

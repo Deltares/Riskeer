@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -407,8 +408,8 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
             {
-                WaveHeight = 1.0,
-                DesignWaterLevel = 3.0
+                WaveHeight = (RoundedDouble) 1.0,
+                DesignWaterLevel = (RoundedDouble) 3.0
             };
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
@@ -428,7 +429,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
             {
-                DesignWaterLevel = 3.0
+                DesignWaterLevel = (RoundedDouble) 3.0
             };
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
@@ -447,7 +448,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
             {
-                WaveHeight = 1.0,
+                WaveHeight = (RoundedDouble) 1.0,
             };
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);

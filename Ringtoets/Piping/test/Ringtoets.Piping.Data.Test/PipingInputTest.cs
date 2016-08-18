@@ -371,7 +371,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             PipingInput input = new PipingInput(new GeneralPipingInput());
 
-            double testLevel = new Random(21).NextDouble();
+            RoundedDouble testLevel = (RoundedDouble)new Random(21).NextDouble();
 
             input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0.0, 0.0)
             {
@@ -379,10 +379,10 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            RoundedDouble calculatedAssesmentLevel = input.AssessmentLevel;
+            RoundedDouble calculatedAssessmentLevel = input.AssessmentLevel;
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(2, testLevel), calculatedAssesmentLevel);
+            Assert.AreEqual(testLevel, calculatedAssessmentLevel, input.AssessmentLevel.GetAccuracy());
         }
 
         [Test]

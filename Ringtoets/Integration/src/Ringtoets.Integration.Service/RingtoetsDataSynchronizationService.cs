@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -136,8 +137,8 @@ namespace Ringtoets.Integration.Service
                                                                                       !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel) ||
                                                                                       !double.IsNaN(hydraulicBoundaryLocation.WaveHeight)))
             {
-                hydraulicBoundaryLocation.DesignWaterLevel = double.NaN;
-                hydraulicBoundaryLocation.WaveHeight = double.NaN;
+                hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) double.NaN;
+                hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) double.NaN;
                 hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated;
                 hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated;
                 locationAffected = true;
