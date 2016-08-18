@@ -28,67 +28,69 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
-    public class LogFileParserTest
+    public class HydraRingOutputFileParserTest
     {
-        private readonly string testDataDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "LogFileParser");
+        private readonly string testDataDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation,
+                                                                               Path.Combine("Parsers", "OutputFileParser"));
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()
         {
             // Call
-            var parser = new HydraRingLogFileParser();
+            var outputFileParser = new HydraRingOutputFileParser();
 
             // Assert
-            Assert.IsInstanceOf<IHydraRingFileParser>(parser);
+            Assert.IsInstanceOf<IHydraRingFileParser>(outputFileParser);
         }
 
         [Test]
         public void Parse_NotExistingWorkingDirectory_LogError()
         {
             // Setup
-            var logFileParser = new HydraRingLogFileParser();
-            var logFileName = "1.log";
+            var outputFileParser = new HydraRingOutputFileParser();
+            var outputFileNameOnError = "1.log";
             var nonExistentDirectory = "c:/niet_bestaande_map";
 
             // Call
-            Action call = () => logFileParser.Parse(nonExistentDirectory, 1);
+            Action call = () => outputFileParser.Parse(nonExistentDirectory, 1);
 
             // Assert
-            var expectedMessage = string.Format("Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}.", logFileName, nonExistentDirectory);
+            var expectedMessage = string.Format("Kan het Hydra-Ring uitvoerbestand {0} niet lezen uit de map {1}.", outputFileNameOnError, nonExistentDirectory);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
         }
 
         [Test]
-        public void Parse_NotExistingLogFile_LogError()
+        public void Parse_NotExistingOutputFile_LogError()
         {
             // Setup
-            var logFileParser = new HydraRingLogFileParser();
-            var logFileName = "1234567890.log";
+            var outputFileParser = new HydraRingOutputFileParser();
+            var outputFileName = "1234567890-output.txt";
 
             // Call
-            Action call = () => logFileParser.Parse(testDataDirectory, 1234567890);
+            Action call = () => outputFileParser.Parse(testDataDirectory, 1234567890);
 
             // Assert
-            var expectedMessage = string.Format("Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}.", new[]
+            var outputFileNameOnError = "1234567890.log";
+            var expectedMessage = string.Format("Kan het Hydra-Ring uitvoerbestand {0} niet lezen uit de map {1}.", new[]
             {
-                logFileName,
+                outputFileNameOnError,
                 testDataDirectory
             });
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
         }
 
         [Test]
-        public void Parse_ValidLogFile_LogInfo()
+        public void Parse_ValidOutputFile_LogInfo()
         {
             // Setup
-            var logFileParser = new HydraRingLogFileParser();
+            var outputFileParser = new HydraRingOutputFileParser();
 
             // Call
-            logFileParser.Parse(testDataDirectory, 1);
+            outputFileParser.Parse(testDataDirectory, 1);
 
             // Assert
-            var expectedMessage = "In dit bestand staan veschillende log berichten, welke door Hydra-Ring gegenereerd zijn.";
-            Assert.AreEqual(expectedMessage, logFileParser.LogFileContent);
+            var expectedMessage = "In dit bestand staan veschillende berichten, welke door Hydra-Ring gegenereerd zijn.";
+            Assert.AreEqual(expectedMessage, outputFileParser.OutputFileContent);
         }
     }
 }

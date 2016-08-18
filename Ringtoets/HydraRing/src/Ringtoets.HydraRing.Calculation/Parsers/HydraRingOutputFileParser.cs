@@ -28,26 +28,33 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// <summary>
     /// Parser for a Hydra-Ring log file.
     /// </summary>
-    public class HydraRingLogFileParser : IHydraRingFileParser
+    public class HydraRingOutputFileParser : IHydraRingFileParser
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraRingLogFileParser));
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraRingOutputFileParser));
 
         /// <summary>
-        /// Gets the log file content.
+        /// Gets the output file content from a Hydra-Ring calculation, or the log file content in case of an error.
         /// </summary>
-        public string LogFileContent { get; private set; }
+        public string OutputFileContent { get; private set; }
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            string logFileName = sectionId + ".log";
+            string outputFileName = sectionId + "-output.txt";
+            string outputFilePath = Path.Combine(workingDirectory, outputFileName);
+
+            if (!File.Exists(outputFilePath))
+            {
+                outputFileName = sectionId + ".log";
+                outputFilePath = Path.Combine(workingDirectory, outputFileName);
+            }
 
             try
             {
-                LogFileContent = File.ReadAllText(Path.Combine(workingDirectory, sectionId + ".log"));
+                OutputFileContent = File.ReadAllText(outputFilePath);
             }
             catch
             {
-                log.ErrorFormat(Resources.Parse_Cannot_read_file_0_from_folder_1_, logFileName, workingDirectory);
+                log.ErrorFormat(Resources.Parse_Cannot_read_file_0_from_folder_1_, outputFileName, workingDirectory);
             }
         }
     }

@@ -88,15 +88,15 @@ namespace Ringtoets.HydraRing.Calculation.Services
                                                   ICollection<IHydraRingFileParser> parsers,
                                                   HydraRingInitializationService hydraRingInitializationService)
         {
-            var logFileParser = new HydraRingLogFileParser();
-            parsers.Add(logFileParser);
+            var outputFileParser = new HydraRingOutputFileParser();
+            parsers.Add(outputFileParser);
 
             ExecuteParsers(parsers, hydraRingInitializationService.TemporaryWorkingDirectory, hydraRingCalculationInput.Section.SectionId);
 
-            string logFileContent = logFileParser.LogFileContent;
-            if (!string.IsNullOrEmpty(logFileContent))
+            string outputFileContent = outputFileParser.OutputFileContent;
+            if (!string.IsNullOrEmpty(outputFileContent))
             {
-                log.InfoFormat(Resources.HydraRingCalculationService_HydraRing_calculation_report_message_text_0, logFileContent);
+                log.InfoFormat(Resources.HydraRingCalculationService_HydraRing_calculation_report_message_text_0, outputFileContent);
             }
         }
 

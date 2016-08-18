@@ -71,7 +71,7 @@
     <Compile Include="IO\HydraRingSettingsCsvReader.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
     <Compile Include="Parsers\IHydraRingFileParser.cs" />
-    <Compile Include="Parsers\HydraRingLogFileParser.cs" />
+    <Compile Include="Parsers\HydraRingOutputFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
     <Compile Include="Services\HydraRingCalculationService.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />

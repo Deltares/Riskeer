@@ -138,7 +138,7 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan het Hydra-Ring logbestand {0} niet lezen uit de map {1}..
+        ///   Looks up a localized string similar to Kan het Hydra-Ring uitvoerbestand {0} niet lezen uit de map {1}..
         /// </summary>
         internal static string Parse_Cannot_read_file_0_from_folder_1_ {
             get {

@@ -77,7 +77,7 @@
     <Compile Include="IO\DesignTablesSettingsCsvReaderTest.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
-    <Compile Include="Parsers\LogFileParserTest.cs" />
+    <Compile Include="Parsers\HydraRingOutputFileParserTest.cs" />
     <Compile Include="Parsers\TargetProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />
