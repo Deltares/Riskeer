@@ -151,6 +151,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 // Locations directory of HLCD location ids and HRD location ids
                 var locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByTrackId(trackId);
 
+                var filter = new HydraulicBoundaryLocationFilter();
+
                 // Prepare query to fetch hrd locations
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();
                 while (hydraulicBoundaryDatabaseReader.HasNext)
@@ -160,12 +162,15 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                     long locationId;
                     locationidsDictionary.TryGetValue(hrdLocation.HrdLocationId, out locationId);
 
-                    var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(
-                        locationId,
-                        hrdLocation.Name,
-                        hrdLocation.LocationX,
-                        hrdLocation.LocationY);
-                    hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+                    if (filter.ShouldInclude(locationId))
+                    {
+                        var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(
+                            locationId,
+                            hrdLocation.Name,
+                            hrdLocation.LocationX,
+                            hrdLocation.LocationY);
+                        hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+                    }
                 }
                 return hydraulicBoundaryDatabase;
             }
