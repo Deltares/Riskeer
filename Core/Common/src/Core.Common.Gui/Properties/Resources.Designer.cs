@@ -1279,7 +1279,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor vragen, Helpdesk Water:.
+        ///   Looks up a localized string similar to Voor vragen: Helpdesk Water..
         /// </summary>
         public static string SplashScreen_SupportTitle {
             get {

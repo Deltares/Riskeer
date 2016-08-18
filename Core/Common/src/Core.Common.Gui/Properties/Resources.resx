@@ -512,7 +512,7 @@
     <value>Telefoon</value>
   </data>
   <data name="SplashScreen_SupportTitle" xml:space="preserve">
-    <value>Voor vragen, Helpdesk Water:</value>
+    <value>Voor vragen: Helpdesk Water.</value>
   </data>
   <data name="GuiCore_UpdateTitle_Unknown" xml:space="preserve">
     <value>Onbekend</value>
