@@ -187,7 +187,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             assessmentSection.Expect(section => section.NotifyObservers());
             mocks.ReplayAll();
 
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                              "completeWithLocationsToBeFilteredOut.sqlite");
 
             // Precondition
             Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
@@ -204,7 +205,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             });
             Assert.IsTrue(importResult);
             ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(18, importedLocations.Count);
+            Assert.AreEqual(9, importedLocations.Count);
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
             mocks.VerifyAll();

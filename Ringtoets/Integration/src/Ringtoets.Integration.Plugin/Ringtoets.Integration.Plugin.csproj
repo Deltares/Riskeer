@@ -57,6 +57,7 @@
     <Compile Include="FileExporters\HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
     <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporter.cs" />
+    <Compile Include="FileImporters\HydraulicBoundaryLocationFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -186,6 +187,7 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="Resources\Exceptions_DoNotCalculate.csv" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
