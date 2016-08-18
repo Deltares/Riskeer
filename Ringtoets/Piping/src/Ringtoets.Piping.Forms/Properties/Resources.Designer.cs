@@ -1006,6 +1006,42 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Heave.
+        /// </summary>
+        public static string PipingSemiProbabilisticOutput_Categories_Heave {
+            get {
+                return ResourceManager.GetString("PipingSemiProbabilisticOutput_Categories_Heave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Piping.
+        /// </summary>
+        public static string PipingSemiProbabilisticOutput_Categories_Piping {
+            get {
+                return ResourceManager.GetString("PipingSemiProbabilisticOutput_Categories_Piping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terugschrijdende erosie (Sellmeijer).
+        /// </summary>
+        public static string PipingSemiProbabilisticOutput_Categories_Sellmeijer {
+            get {
+                return ResourceManager.GetString("PipingSemiProbabilisticOutput_Categories_Sellmeijer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opbarsten.
+        /// </summary>
+        public static string PipingSemiProbabilisticOutput_Categories_Uplift {
+            get {
+                return ResourceManager.GetString("PipingSemiProbabilisticOutput_Categories_Uplift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme Heave voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_HeaveFactorOfSafety_Description {
