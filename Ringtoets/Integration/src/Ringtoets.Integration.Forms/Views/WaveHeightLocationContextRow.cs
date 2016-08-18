@@ -29,27 +29,27 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="DesignWaterLevelLocationContext"/>.
+    /// This class represents a row of <see cref="HydraulicBoundaryLocationContext"/>.
     /// </summary>
-    internal class DesignWaterLevelLocationContextRow : HydraulicBoundaryLocationContextRow
+    internal class WaveHeightLocationContextRow : HydraulicBoundaryLocationContextRow
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelLocationContextRow"/>.
+        /// Creates a new instance of <see cref="WaveHeightLocationContextRow"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationContext">The <see cref="DesignWaterLevelLocationContext"/> for this row.</param>
+        /// <param name="hydraulicBoundaryLocationContext">The <see cref="WaveHeightLocationContext"/> for this row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationContext"/> is <c>null</c>.</exception>
-        internal DesignWaterLevelLocationContextRow(DesignWaterLevelLocationContext hydraulicBoundaryLocationContext)
+        internal WaveHeightLocationContextRow(WaveHeightLocationContext hydraulicBoundaryLocationContext)
             : base(hydraulicBoundaryLocationContext) {}
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
+        /// Gets the <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble DesignWaterLevel
+        public RoundedDouble WaveHeight
         {
             get
             {
-                return HydraulicBoundaryLocationContext.HydraulicBoundaryLocation.DesignWaterLevel;
+                return HydraulicBoundaryLocationContext.HydraulicBoundaryLocation.WaveHeight;
             }
         }
     }

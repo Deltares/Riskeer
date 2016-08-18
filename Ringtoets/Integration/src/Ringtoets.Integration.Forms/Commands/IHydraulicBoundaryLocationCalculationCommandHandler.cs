@@ -25,9 +25,10 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Integration.Forms.Commands
 {
     /// <summary>
-    /// Interface for <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> calculations.
+    /// Interface for <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> and 
+    /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> calculations.
     /// </summary>
-    public interface ICalculateDesignWaterLevelCommandHandler
+    public interface IHydraulicBoundaryLocationCalculationCommandHandler
     {
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> calculation for all <paramref name="locations"/>.
@@ -35,5 +36,12 @@ namespace Ringtoets.Integration.Forms.Commands
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocation> locations);
+
+        /// <summary>
+        /// Performs the <see cref="HydraulicBoundaryLocation.WaveHeight"/> calculation for all <paramref name="locations"/>.
+        /// </summary>
+        /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
+        /// the <see cref="HydraulicBoundaryLocation.WaveHeight"/> for.</param>
+        void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocation> locations);
     }
 }
