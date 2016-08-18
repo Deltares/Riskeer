@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var tableLayout = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
 
                 // Assert
-                Assert.AreEqual(new Size(750, 350), dataGridView.MinimumSize);
+                Assert.AreEqual(new Size(775, 350), dataGridView.MinimumSize);
                 Assert.AreEqual(DockStyle.Fill, dataGridView.Dock);
                 Assert.IsFalse(dataGridView.AutoScroll);
 
