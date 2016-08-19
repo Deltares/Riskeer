@@ -128,7 +128,7 @@
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Plugins.Map\Core.Plugins.Map.csproj">
       <Project>{610e0a9c-1997-4c43-a10e-39d4c66ada93}</Project>
-      <Name>Core.Plugins.DotSpatial</Name>
+      <Name>Core.Plugins.Map</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
