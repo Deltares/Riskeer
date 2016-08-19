@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
             const string expectedDesignWaterLevelDescription = "Berekend toetspeil.";
-            const string expectedConvergenceDisplayDescription = "Convergentie status van de toetspeil berekening.";
+            const string expectedConvergenceDisplayDescription = "Is convergentie bereikt in de toetspeil berekening?";
 
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);

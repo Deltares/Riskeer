@@ -381,7 +381,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convergentie status van de toetspeil berekening..
+        ///   Looks up a localized string similar to Is convergentie bereikt in de toetspeil berekening?.
         /// </summary>
         public static string HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description {
             get {
@@ -399,7 +399,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convergentie status van de golfhoogte berekening..
+        ///   Looks up a localized string similar to Is convergentie bereikt in de golfhoogte berekening?.
         /// </summary>
         public static string HydraulicBoundaryDatabase_Convergence_WaveHeight_Description {
             get {

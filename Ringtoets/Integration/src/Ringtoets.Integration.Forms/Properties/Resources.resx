@@ -310,13 +310,13 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>De berekende toetspeilen en golfhoogtes van alle hydraulische randvoorwaarden locaties zijn verwijderd.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description" xml:space="preserve">
-    <value>Convergentie status van de toetspeil berekening.</value>
+    <value>Is convergentie bereikt in de toetspeil berekening?</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Convergence_DisplayName" xml:space="preserve">
     <value>Convergentie</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Convergence_WaveHeight_Description" xml:space="preserve">
-    <value>Convergentie status van de golfhoogte berekening.</value>
+    <value>Is convergentie bereikt in de golfhoogte berekening?</value>
   </data>
   <data name="HydraulicBoundaryLocationsView_Calculate" xml:space="preserve">
     <value>Berekenen</value>
