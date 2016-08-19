@@ -181,7 +181,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     const string expectedItemText = "Alles be&rekenen";
                     const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.";
 
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunAssessmentLevelCalculationsIndex,
+                                                                  expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
                 }
             }
 
@@ -218,7 +219,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     const string expectedItemText = @"Alles be&rekenen";
                     const string expectedItemTooltip = @"Alle toetspeilen berekenen.";
 
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunAssessmentLevelCalculationsIndex,
+                                                                  expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon);
                 }
             }
 
@@ -230,7 +232,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
-            var contextMenuRunAssessmentLevelCalculationsIndex = 1;
             RoundedDouble designWaterLevel = (RoundedDouble) 4.2;
 
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
@@ -331,6 +332,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             }
             mockRepository.VerifyAll();
         }
+
+        private const int contextMenuRunAssessmentLevelCalculationsIndex = 1;
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {

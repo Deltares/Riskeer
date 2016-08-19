@@ -41,9 +41,9 @@ using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
+    [TestFixture]
     public class HydraulicBoundaryLocationsViewTest
     {
-        private const int locationCalculateColumnIndex = 0;
         private Form testForm;
 
         [SetUp]
@@ -261,7 +261,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels()
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedLocations()
         {
             // Setup
             TestHydraulicBoundaryLocationsView view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
@@ -305,6 +305,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.DoesNotThrow(test);
         }
+
+        private const int locationCalculateColumnIndex = 0;
 
         private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView()
         {
@@ -373,20 +375,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 : base(wrappedData, hydraulicBoundaryLocation) {}
         }
 
-        private class TestHydraulicBoundaryLocationContextRow : HydraulicBoundaryLocationContextRow {
-            public TestHydraulicBoundaryLocationContextRow(HydraulicBoundaryLocationContext hydraulicBoundaryLocationContext) 
+        private class TestHydraulicBoundaryLocationContextRow : HydraulicBoundaryLocationContextRow
+        {
+            public TestHydraulicBoundaryLocationContextRow(HydraulicBoundaryLocationContext hydraulicBoundaryLocationContext)
                 : base(hydraulicBoundaryLocationContext) {}
         }
 
         private class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
         {
-
-
             public TestHydraulicBoundaryLocationsView()
             {
                 dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.ToCalculate), "");
                 LocationsToCalculate = new List<HydraulicBoundaryLocation>();
             }
+
+            public IEnumerable<HydraulicBoundaryLocation> LocationsToCalculate { get; private set; }
 
             protected override void SetDataSource()
             {
@@ -401,8 +404,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 LocationsToCalculate = locations;
             }
-
-            public IEnumerable<HydraulicBoundaryLocation> LocationsToCalculate { get; private set; }
         }
     }
 }

@@ -43,6 +43,7 @@ using Ringtoets.Integration.Plugin;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
+    [TestFixture]
     public class WaveHeightLocationsContextTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mockRepository;
@@ -180,7 +181,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     // Assert
                     const string expectedItemText = "Alles be&rekenen";
                     const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes te berekenen.";
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, expectedItemText, expectedItemTooltip, Resources.CalculateAllIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunWaveHeightCalculationsIndex,
+                                                                  expectedItemText, expectedItemTooltip, Resources.CalculateAllIcon, false);
                 }
             }
 
@@ -222,7 +224,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     const string expectedItemText = "Alles be&rekenen";
                     const string expectedItemTooltip = "Alle golfhoogtes berekenen.";
 
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, expectedItemText, expectedItemTooltip, Resources.CalculateAllIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunWaveHeightCalculationsIndex,
+                                                                  expectedItemText, expectedItemTooltip, Resources.CalculateAllIcon);
                 }
             }
 
@@ -280,8 +283,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
 
-            var contextMenuRunWaveHeightCalculationsIndex = 1;
-
             RoundedDouble waveHeight = (RoundedDouble) 4.2;
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4)
@@ -336,6 +337,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             }
             mockRepository.VerifyAll();
         }
+
+        private const int contextMenuRunWaveHeightCalculationsIndex = 1;
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
