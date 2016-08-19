@@ -1041,8 +1041,8 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip DesignWaterLevelLocationsContextMenuStrip(DesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.DesignWaterLevel_Calculate,
-                RingtoetsFormsResources.DesignWaterLevel_Calculate_ToolTip,
+                RingtoetsFormsResources.DesignWaterLevel_Calculate_All,
+                RingtoetsFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.FailureMechanismIcon,
                 (sender, args) =>
                 {

@@ -144,11 +144,11 @@
     
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="DesignWaterLevel_Calculate" xml:space="preserve">
-    <value>&amp;Berekenen</value>
+  <data name="DesignWaterLevel_Calculate_All" xml:space="preserve">
+    <value>Alles &amp;berekenen</value>
   </data>
-  <data name="DesignWaterLevel_Calculate_ToolTip" xml:space="preserve">
-    <value>Bereken de toetspeilen.</value>
+  <data name="DesignWaterLevel_Calculate_All_ToolTip" xml:space="preserve">
+    <value>Alle toetspeilen berekenen.</value>
   </data>
   <data name="DesignWaterLevel_No_HRD_To_Calculate" xml:space="preserve">
     <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.</value>

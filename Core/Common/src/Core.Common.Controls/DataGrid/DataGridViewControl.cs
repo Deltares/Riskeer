@@ -371,6 +371,24 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Add a handler for the <see cref="DataGridView.CellValueChanged"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to add.</param>
+        public void AddCellValueChangedHandler(DataGridViewCellEventHandler handler)
+        {
+            dataGridView.CellValueChanged += handler;
+        }
+
+        /// <summary>
+        /// Remove a handler from the <see cref="DataGridView.CellValueChanged"/> event.
+        /// </summary>
+        /// <param name="handler">The handler to remove.</param>
+        public void RemoveCellValueChangedHandler(DataGridViewCellEventHandler handler)
+        {
+            dataGridView.CellValueChanged -= handler;
+        }
+
+        /// <summary>
         /// Clears the current cell.
         /// </summary>
         public void ClearCurrentCell()

@@ -177,7 +177,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                     // Assert
-                    const string expectedItemText = "&Berekenen";
+                    const string expectedItemText = "Alles &berekenen";
                     const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.";
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon, false);
@@ -214,8 +214,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                     // Assert
-                    const string expectedItemText = "&Berekenen";
-                    const string expectedItemTooltip = "Bereken de toetspeilen.";
+                    const string expectedItemText = @"Alles &berekenen";
+                    const string expectedItemTooltip = @"Alle toetspeilen berekenen.";
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.FailureMechanismIcon);
                 }
