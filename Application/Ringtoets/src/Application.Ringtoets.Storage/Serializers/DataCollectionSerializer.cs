@@ -88,10 +88,10 @@ namespace Application.Ringtoets.Storage.Serializers
                 streamWriter.Flush();
 
                 stream.Seek(0, SeekOrigin.Begin);
-                using (var writer = XmlDictionaryReader.CreateTextReader(stream, XmlDictionaryReaderQuotas.Max))
+                using (var reader = XmlDictionaryReader.CreateTextReader(stream, XmlDictionaryReaderQuotas.Max))
                 {
                     var serializer = new DataContractSerializer(serializationRootType);
-                    return FromSerializableData((TSerializedData[]) serializer.ReadObject(writer));
+                    return FromSerializableData((TSerializedData[]) serializer.ReadObject(reader));
                 }
             }
         }

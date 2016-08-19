@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Forms.Views
         public IApplicationSelection ApplicationSelection { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationCommandHandler"/>.
+        /// Sets the <see cref="IHydraulicBoundaryLocationCalculationCommandHandler"/>.
         /// </summary>
         public IHydraulicBoundaryLocationCalculationCommandHandler CalculationCommandHandler { get; set; }
 
