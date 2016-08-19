@@ -1292,6 +1292,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Call
                 control.RemoveCellClickHandler(dataGridViewCellEventHandler);
+                gridTester.FireEvent("CellClick", new DataGridViewCellEventArgs(0, 0));
 
                 // Assert
                 Assert.AreEqual(1, counter);
@@ -1360,7 +1361,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 int counter = 0;
 
                 DataGridViewCellEventHandler dataGridViewCellEventHandler = (sender, args) => counter++;
-
                 control.AddCellValueChangedHandler(dataGridViewCellEventHandler);
 
                 // Precondition
@@ -1369,7 +1369,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(1, counter);
 
                 // Call
-                control.RemoveCellClickHandler(dataGridViewCellEventHandler);
+                control.RemoveCellValueChangedHandler(dataGridViewCellEventHandler);
+                gridTester.FireEvent("CellValueChanged", new DataGridViewCellEventArgs(0, 0));
 
                 // Assert
                 Assert.AreEqual(1, counter);
