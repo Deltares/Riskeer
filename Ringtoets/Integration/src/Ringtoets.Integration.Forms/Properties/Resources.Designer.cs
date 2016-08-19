@@ -289,20 +289,20 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Berekenen.
+        ///   Looks up a localized string similar to Alles &amp;berekenen.
         /// </summary>
-        public static string DesignWaterLevel_Calculate {
+        public static string DesignWaterLevel_Calculate_All {
             get {
-                return ResourceManager.GetString("DesignWaterLevel_Calculate", resourceCulture);
+                return ResourceManager.GetString("DesignWaterLevel_Calculate_All", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bereken de toetspeilen..
+        ///   Looks up a localized string similar to Alle toetspeilen berekenen..
         /// </summary>
-        public static string DesignWaterLevel_Calculate_ToolTip {
+        public static string DesignWaterLevel_Calculate_All_ToolTip {
             get {
-                return ResourceManager.GetString("DesignWaterLevel_Calculate_ToolTip", resourceCulture);
+                return ResourceManager.GetString("DesignWaterLevel_Calculate_All_ToolTip", resourceCulture);
             }
         }
         

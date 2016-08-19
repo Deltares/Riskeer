@@ -41,6 +41,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class DesignWaterLevelLocationsView : UserControl, ISelectionProvider
     {
+        private const int locationCalculateColumnIndex = 0;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer hydraulicBoundaryDatabaseObserver;
         private IAssessmentSection assessmentSection;
@@ -112,6 +113,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
+            dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
 
             dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.ToCalculate),
                                                   Resources.HydraulicBoundaryLocationsView_Calculate);
@@ -136,6 +138,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                                 new DesignWaterLevelLocationContext(assessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
                                                   : null);
             updatingDataSource = false;
+            UpdateCalculateForSelectedButton();
         }
 
         private IEnumerable<DesignWaterLevelLocationContextRow> GetDesignWaterLevelLocationContextRows()
@@ -148,7 +151,21 @@ namespace Ringtoets.Integration.Forms.Views
             return GetDesignWaterLevelLocationContextRows().Where(r => r.ToCalculate).Select(r => r.HydraulicBoundaryLocationContext.HydraulicBoundaryLocation);
         }
 
+        private void UpdateCalculateForSelectedButton()
+        {
+            CalculateForSelectedButton.Enabled = GetDesignWaterLevelLocationContextRows().Any(r => r.ToCalculate);
+        }
+
         #region Event handling
+
+        private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (updatingDataSource || e.ColumnIndex != locationCalculateColumnIndex)
+            {
+                return;
+            }
+            UpdateCalculateForSelectedButton();
+        }
 
         private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -192,12 +209,14 @@ namespace Ringtoets.Integration.Forms.Views
         {
             GetDesignWaterLevelLocationContextRows().ForEachElementDo(row => row.ToCalculate = true);
             dataGridViewControl.RefreshDataGridView();
+            UpdateCalculateForSelectedButton();
         }
 
         private void DeselectAllButton_Click(object sender, EventArgs e)
         {
             GetDesignWaterLevelLocationContextRows().ForEachElementDo(row => row.ToCalculate = false);
             dataGridViewControl.RefreshDataGridView();
+            UpdateCalculateForSelectedButton();
         }
 
         private void CalculateForSelectedButton_Click(object sender, EventArgs e)
