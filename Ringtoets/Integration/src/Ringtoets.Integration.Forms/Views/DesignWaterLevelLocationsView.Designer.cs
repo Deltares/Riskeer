@@ -36,90 +36,28 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.SelectAllButton = new System.Windows.Forms.Button();
-            this.DeselectAllButton = new System.Windows.Forms.Button();
-            this.CalculateForSelectedButton = new System.Windows.Forms.Button();
-            this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
-            this.ButtonGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewControl
             // 
-            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewControl.MultiSelect = true;
-            this.dataGridViewControl.Name = "dataGridViewControl";
-            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(523, 346);
-            this.dataGridViewControl.TabIndex = 0;
-            // 
-            // SelectAllButton
-            // 
-            this.SelectAllButton.Location = new System.Drawing.Point(6, 22);
-            this.SelectAllButton.Name = "SelectAllButton";
-            this.SelectAllButton.Size = new System.Drawing.Size(98, 23);
-            this.SelectAllButton.TabIndex = 0;
-            this.SelectAllButton.Text = "Selecteer alles";
-            this.SelectAllButton.UseVisualStyleBackColor = true;
-            this.SelectAllButton.Click += new System.EventHandler(this.SelectAllButton_Click);
-            // 
-            // DeselectAllButton
-            // 
-            this.DeselectAllButton.Location = new System.Drawing.Point(110, 22);
-            this.DeselectAllButton.Name = "DeselectAllButton";
-            this.DeselectAllButton.Size = new System.Drawing.Size(111, 23);
-            this.DeselectAllButton.TabIndex = 1;
-            this.DeselectAllButton.Text = "Deselecteer alles";
-            this.DeselectAllButton.UseVisualStyleBackColor = true;
-            this.DeselectAllButton.Click += new System.EventHandler(this.DeselectAllButton_Click);
-            // 
-            // CalculateForSelectedButton
-            // 
-            this.CalculateForSelectedButton.Enabled = false;
-            this.CalculateForSelectedButton.Location = new System.Drawing.Point(227, 22);
-            this.CalculateForSelectedButton.Name = "CalculateForSelectedButton";
-            this.CalculateForSelectedButton.Size = new System.Drawing.Size(207, 23);
-            this.CalculateForSelectedButton.TabIndex = 2;
-            this.CalculateForSelectedButton.Text = "Bereken voor geselecteerde locaties";
-            this.CalculateForSelectedButton.UseVisualStyleBackColor = true;
-            this.CalculateForSelectedButton.Click += new System.EventHandler(this.CalculateForSelectedButton_Click);
+            this.dataGridViewControl.Size = new System.Drawing.Size(523, 344);
             // 
             // ButtonGroupBox
             // 
-            this.ButtonGroupBox.Controls.Add(this.CalculateForSelectedButton);
-            this.ButtonGroupBox.Controls.Add(this.DeselectAllButton);
-            this.ButtonGroupBox.Controls.Add(this.SelectAllButton);
-            this.ButtonGroupBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 346);
-            this.ButtonGroupBox.MinimumSize = new System.Drawing.Size(438, 59);
-            this.ButtonGroupBox.Name = "ButtonGroupBox";
-            this.ButtonGroupBox.Size = new System.Drawing.Size(523, 59);
-            this.ButtonGroupBox.TabIndex = 1;
-            this.ButtonGroupBox.TabStop = false;
+            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 344);
+            this.ButtonGroupBox.Size = new System.Drawing.Size(523, 61);
             this.ButtonGroupBox.Text = "Toetspeilen berekenen";
             // 
             // DesignWaterLevelLocationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.AutoScrollMinSize = new System.Drawing.Size(520, 342);
-            this.Controls.Add(this.dataGridViewControl);
-            this.Controls.Add(this.ButtonGroupBox);
             this.Name = "DesignWaterLevelLocationsView";
             this.Size = new System.Drawing.Size(523, 405);
-            this.ButtonGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
-        private System.Windows.Forms.Button SelectAllButton;
-        private System.Windows.Forms.Button DeselectAllButton;
-        private System.Windows.Forms.Button CalculateForSelectedButton;
-        private System.Windows.Forms.GroupBox ButtonGroupBox;
     }
 }

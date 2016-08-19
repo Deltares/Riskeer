@@ -19,18 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using Core.Common.Base;
-using Core.Common.Controls.Views;
-using Core.Common.Gui.Selection;
-using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
 
@@ -39,14 +31,8 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
     /// </summary>
-    public partial class DesignWaterLevelLocationsView : UserControl, ISelectionProvider
+    public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
     {
-        private const int locationCalculateColumnIndex = 0;
-        private readonly Observer assessmentSectionObserver;
-        private readonly Observer hydraulicBoundaryDatabaseObserver;
-        private IAssessmentSection assessmentSection;
-        private bool updatingDataSource;
-
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationsView"/>.
         /// </summary>
@@ -54,67 +40,24 @@ namespace Ringtoets.Integration.Forms.Views
         {
             InitializeComponent();
             InitializeDataGridView();
-
-            assessmentSectionObserver = new Observer(UpdateDataGridViewDataSource);
-            hydraulicBoundaryDatabaseObserver = new Observer(() => dataGridViewControl.RefreshDataGridView());
         }
 
-        /// <summary>
-        /// Gets or sets the <see cref="IApplicationSelection"/>.
-        /// </summary>
-        public IApplicationSelection ApplicationSelection { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationCommandHandler"/>.
-        /// </summary>
-        public IHydraulicBoundaryLocationCalculationCommandHandler CalculationCommandHandler { get; set; }
-
-        public object Data
+        protected override void SetDataSource()
         {
-            get
-            {
-                return assessmentSection;
-            }
-            set
-            {
-                assessmentSection = value as IAssessmentSection;
-
-                UpdateDataGridViewDataSource();
-                assessmentSectionObserver.Observable = assessmentSection;
-            }
+            dataGridViewControl.SetDataSource(AssessmentSection != null && AssessmentSection.HydraulicBoundaryDatabase != null
+                                                  ? AssessmentSection.HydraulicBoundaryDatabase.Locations.Select(
+                                                      hl => new DesignWaterLevelLocationContextRow(
+                                                                new DesignWaterLevelLocationContext(AssessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
+                                                  : null);
         }
 
-        public object Selection
+        protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
         {
-            get
-            {
-                return CreateSelectedItemFromCurrentRow();
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            assessmentSectionObserver.Dispose();
-            hydraulicBoundaryDatabaseObserver.Dispose();
-
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
-        private void SetHydraulicBoundaryDatabaseObserver()
-        {
-            hydraulicBoundaryDatabaseObserver.Observable = assessmentSection != null ? assessmentSection.HydraulicBoundaryDatabase : null;
+            CalculationCommandHandler.CalculateDesignWaterLevels(locations);
         }
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddCellClickHandler(DataGridViewOnCellClick);
-            dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
-
             dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.ToCalculate),
                                                   Resources.HydraulicBoundaryLocationsView_Calculate);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.Name),
@@ -126,109 +69,5 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.DesignWaterLevel),
                                                  Resources.HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName);
         }
-
-        private void UpdateDataGridViewDataSource()
-        {
-            SetHydraulicBoundaryDatabaseObserver();
-
-            updatingDataSource = true;
-            dataGridViewControl.SetDataSource(assessmentSection != null && assessmentSection.HydraulicBoundaryDatabase != null
-                                                  ? assessmentSection.HydraulicBoundaryDatabase.Locations.Select(
-                                                      hl => new DesignWaterLevelLocationContextRow(
-                                                                new DesignWaterLevelLocationContext(assessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
-                                                  : null);
-            updatingDataSource = false;
-            UpdateCalculateForSelectedButton();
-        }
-
-        private IEnumerable<DesignWaterLevelLocationContextRow> GetDesignWaterLevelLocationContextRows()
-        {
-            return dataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => (DesignWaterLevelLocationContextRow) row.DataBoundItem);
-        }
-
-        private IEnumerable<HydraulicBoundaryLocation> GetSelectedHydraulicBoundaryLocationContext()
-        {
-            return GetDesignWaterLevelLocationContextRows().Where(r => r.ToCalculate).Select(r => r.HydraulicBoundaryLocationContext.HydraulicBoundaryLocation);
-        }
-
-        private void UpdateCalculateForSelectedButton()
-        {
-            CalculateForSelectedButton.Enabled = GetDesignWaterLevelLocationContextRows().Any(r => r.ToCalculate);
-        }
-
-        #region Event handling
-
-        private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (updatingDataSource || e.ColumnIndex != locationCalculateColumnIndex)
-            {
-                return;
-            }
-            UpdateCalculateForSelectedButton();
-        }
-
-        private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (updatingDataSource)
-            {
-                return;
-            }
-
-            UpdateApplicationSelection();
-        }
-
-        private void UpdateApplicationSelection()
-        {
-            if (ApplicationSelection == null)
-            {
-                return;
-            }
-
-            HydraulicBoundaryLocationContext selection = CreateSelectedItemFromCurrentRow();
-            if ((ApplicationSelection.Selection == null && selection != null) ||
-                (ApplicationSelection.Selection != null && !ReferenceEquals(selection, ApplicationSelection.Selection)))
-            {
-                ApplicationSelection.Selection = selection;
-            }
-        }
-
-        private HydraulicBoundaryLocationContext CreateSelectedItemFromCurrentRow()
-        {
-            var currentRow = dataGridViewControl.CurrentRow;
-
-            var designWaterLevelRow = currentRow != null
-                                          ? (DesignWaterLevelLocationContextRow) currentRow.DataBoundItem
-                                          : null;
-
-            return designWaterLevelRow != null
-                       ? designWaterLevelRow.HydraulicBoundaryLocationContext
-                       : null;
-        }
-
-        private void SelectAllButton_Click(object sender, EventArgs e)
-        {
-            GetDesignWaterLevelLocationContextRows().ForEachElementDo(row => row.ToCalculate = true);
-            dataGridViewControl.RefreshDataGridView();
-            UpdateCalculateForSelectedButton();
-        }
-
-        private void DeselectAllButton_Click(object sender, EventArgs e)
-        {
-            GetDesignWaterLevelLocationContextRows().ForEachElementDo(row => row.ToCalculate = false);
-            dataGridViewControl.RefreshDataGridView();
-            UpdateCalculateForSelectedButton();
-        }
-
-        private void CalculateForSelectedButton_Click(object sender, EventArgs e)
-        {
-            if (CalculationCommandHandler == null)
-            {
-                return;
-            }
-            var locations = GetSelectedHydraulicBoundaryLocationContext();
-            CalculationCommandHandler.CalculateDesignWaterLevels(locations);
-        }
-
-        #endregion
     }
 }
