@@ -22,6 +22,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 namespace Application.Ringtoets.Integration.Test
@@ -30,6 +31,17 @@ namespace Application.Ringtoets.Integration.Test
     [Explicit]
     public class ResourcesTest
     {
+        private string outputFilePath;
+
+        [TearDown]
+        public void TearDown()
+        {
+            if (File.Exists(outputFilePath))
+            {
+                File.Delete(outputFilePath);
+            }
+        }
+
         [Test]
         public void UnusedResourceSearcher_Always_WritesFileWithEmbeddedResources()
         {
@@ -37,9 +49,9 @@ namespace Application.Ringtoets.Integration.Test
             string solution = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.Parent.FullName;
             string outputPath = Directory.GetCurrentDirectory();
             string resource = "Resources.resx";
-            string sourceCode = "*.cs,*.xaml";
-            string filters = "Resources.designer.cs,test";
-            string searchPatterns = "\"-f-\")],\"-f-\"),Resources.-f-,Resources\\-f-";
+            string sourceCode = "*.cs;*.xaml";
+            string filters = "Resources.designer.cs;test";
+            string searchPatterns = Regex.Replace("\\[.*\\(typeof\\(.*Resources\\).*\"-f-\".*\\)\\];\"-f-\"\\);Resources.-f-;Resources\\\\-f-", @"(\\*)" + "\"", @"$1$1\" + "\"");
             
             
             string directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "UnusedResourceSearcher");
@@ -49,7 +61,7 @@ namespace Application.Ringtoets.Integration.Test
             {
                 StartInfo = new ProcessStartInfo(executable)
                 {
-                    UseShellExecute = true,
+                    UseShellExecute = false,
                     CreateNoWindow = true,
                     Arguments = string.Format("{0} {1} {2} {3} {4} {5}", solution, outputPath, resource, sourceCode, filters, searchPatterns)
                 }
@@ -61,7 +73,7 @@ namespace Application.Ringtoets.Integration.Test
 
             // Assert
             int counter = 0;
-            string outputFilePath = Path.Combine(outputPath, "UnusedResources.txt");
+            outputFilePath = Path.Combine(outputPath, "UnusedResources.txt");
             using (StreamReader reader = new StreamReader(outputFilePath))
             {
                 while (reader.ReadLine() != null)
@@ -70,9 +82,8 @@ namespace Application.Ringtoets.Integration.Test
                 }
             }
 
-            Assert.AreEqual(0, counter);
-
-            File.Delete(outputFilePath);
+            // There are 30 entries because we can't filter them with our search patterns.
+            Assert.AreEqual(30, counter);
         }
     }
 }
