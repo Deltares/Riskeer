@@ -1043,7 +1043,7 @@ namespace Ringtoets.Integration.Plugin
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.DesignWaterLevel_Calculate_All,
                 RingtoetsFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.FailureMechanismIcon,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     var command = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, nodeData.WrappedData);
@@ -1058,6 +1058,7 @@ namespace Ringtoets.Integration.Plugin
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
+                      .AddSeparator()
                       .AddCustomItem(designWaterLevelItem)
                       .AddSeparator()
                       .AddPropertiesItem()
@@ -1067,9 +1068,9 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip WaveHeightLocationsContextMenuStrip(WaveHeightLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var waveHeightItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.WaveHeight_Calculate,
-                RingtoetsFormsResources.WaveHeight_Calculate_ToolTip,
-                RingtoetsCommonFormsResources.FailureMechanismIcon,
+                RingtoetsFormsResources.WaveHeight_Calculate_All,
+                RingtoetsFormsResources.WaveHeight_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
                     var command = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, nodeData.WrappedData);
@@ -1083,6 +1084,8 @@ namespace Ringtoets.Integration.Plugin
             }
 
             return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
                       .AddCustomItem(waveHeightItem)
                       .AddSeparator()
                       .AddPropertiesItem()

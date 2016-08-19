@@ -122,6 +122,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var nodeData = new WaveHeightLocationsContext(assessmentSectionMock);
 
+            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
@@ -176,9 +178,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                     // Assert
-                    const string expectedItemText = "&Berekenen";
+                    const string expectedItemText = "Alles be&rekenen";
                     const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes te berekenen.";
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.FailureMechanismIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, expectedItemText, expectedItemTooltip, Resources.CalculateAllIcon, false);
                 }
             }
 
@@ -217,10 +219,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                     // Assert
-                    const string expectedItemText = "&Berekenen";
-                    const string expectedItemTooltip = "Bereken de golfhoogtes.";
+                    const string expectedItemText = "Alles be&rekenen";
+                    const string expectedItemTooltip = "Alle golfhoogtes berekenen.";
 
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.FailureMechanismIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, expectedItemText, expectedItemTooltip, Resources.CalculateAllIcon);
                 }
             }
 
@@ -278,7 +280,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
 
-            var contextMenuRunWaveHeightCalculationsIndex = 0;
+            var contextMenuRunWaveHeightCalculationsIndex = 1;
 
             RoundedDouble waveHeight = (RoundedDouble) 4.2;
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(100001, "", 1.1, 2.2);

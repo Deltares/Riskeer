@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -66,8 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (var view = new DesignWaterLevelLocationsView())
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<HydraulicBoundaryLocationsView>(view);
                 Assert.IsNull(view.Data);
             }
         }
@@ -369,12 +367,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
             view.CalculationCommandHandler = commandHandlerMock;
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-
-            // Call
-            var button = (Button) buttonTester.TheObject;
 
             // Assert
+            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+            var button = (Button) buttonTester.TheObject;
             Assert.IsFalse(button.Enabled);
             mockRepository.VerifyAll();
         }

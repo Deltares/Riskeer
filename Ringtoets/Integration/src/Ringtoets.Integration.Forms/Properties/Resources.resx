@@ -145,7 +145,7 @@
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="DesignWaterLevel_Calculate_All" xml:space="preserve">
-    <value>Alles &amp;berekenen</value>
+    <value>Alles be&amp;rekenen</value>
   </data>
   <data name="DesignWaterLevel_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle toetspeilen berekenen.</value>
@@ -291,11 +291,11 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="WaveHeight_No_HRD_To_Calculate" xml:space="preserve">
     <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes te berekenen.</value>
   </data>
-  <data name="WaveHeight_Calculate" xml:space="preserve">
-    <value>&amp;Berekenen</value>
+  <data name="WaveHeight_Calculate_All" xml:space="preserve">
+    <value>Alles be&amp;rekenen</value>
   </data>
-  <data name="WaveHeight_Calculate_ToolTip" xml:space="preserve">
-    <value>Bereken de golfhoogtes.</value>
+  <data name="WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
+    <value>Alle golfhoogtes berekenen.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_WaveHeight_Description" xml:space="preserve">
     <value>Berekende golfhoogte.</value>

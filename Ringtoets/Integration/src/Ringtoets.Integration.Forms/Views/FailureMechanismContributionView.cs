@@ -271,7 +271,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void NormInputLeave(object sender, EventArgs e)
         {
-            ResetTextIfEmtpy();
+            ResetTextIfEmpty();
         }
 
         private void NormValueChanged(object sender, EventArgs eventArgs)
@@ -307,7 +307,7 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void ResetTextIfEmtpy()
+        private void ResetTextIfEmpty()
         {
             if (string.IsNullOrEmpty(normInput.Text))
             {
