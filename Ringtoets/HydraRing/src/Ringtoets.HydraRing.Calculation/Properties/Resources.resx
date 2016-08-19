@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Parse_Cannot_read_file_0_nor_file_1_from_folder_2_" xml:space="preserve">
+  <data name="Parse_Cannot_read_FileName_0_nor_FileName_1_from_FolderPath_2_" xml:space="preserve">
     <value>Kan het Hydra-Ring uitvoerbestand {0} noch het logbestand {1} lezen uit de map {2}.</value>
   </data>
   <data name="HydraRingCalculationService_HydraRing_calculation_report_message_text_0" xml:space="preserve">
