@@ -1015,6 +1015,38 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
 
+        [Test]
+        public void ClearCurrentCell_Always_SetsCurrentCellToNull()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header"); // Set read-only state of the column to the opposite
+
+                dataGridView.DataSource = new[]
+                {
+                    ""
+                };
+
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                // Precondition
+                Assert.IsNotNull(dataGridView.CurrentCell);
+
+                // Call
+                control.ClearCurrentCell();
+
+                // Assert
+                Assert.IsNull(dataGridView.CurrentCell);
+            }
+        }
+
         [TestCase(true)]
         [TestCase(false)]
         public void RestoreCell_WithoutSpecificReadOnlyState_SetsCellStyleToEnabledWithColumnReadOnlyState(bool columnReadOnlyState)
@@ -1088,38 +1120,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(specificReadOnlyState, dataGridViewCell.ReadOnly);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
-            }
-        }
-
-        [Test]
-        public void ClearCurrentCell_Always_SetsCurrentCellToNull()
-        {
-            // Setup
-            using (var form = new Form())
-            using (var control = new DataGridViewControl())
-            {
-                form.Controls.Add(control);
-                form.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                control.AddTextBoxColumn("Test property", "Test header"); // Set read-only state of the column to the opposite
-
-                dataGridView.DataSource = new[]
-                {
-                    ""
-                };
-
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
-
-                // Precondition
-                Assert.IsNotNull(dataGridView.CurrentCell);
-
-                // Call
-                control.ClearCurrentCell();
-
-                // Assert
-                Assert.IsNull(dataGridView.CurrentCell);
             }
         }
 
@@ -1299,6 +1299,84 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void AddCellValueChangedHandler_Always_AddsEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[]
+                {
+                    ""
+                };
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                int counter = 0;
+
+                control.AddCellValueChangedHandler((sender, args) => counter++);
+
+                // Precondition
+                Assert.AreEqual(0, counter);
+
+                // Call
+                gridTester.FireEvent("CellValueChanged", new DataGridViewCellEventArgs(0, 0));
+
+                // Assert
+                Assert.AreEqual(1, counter);
+            }
+        }
+
+        [Test]
+        public void RemoveCellValueChangedHandler_Always_RemovesEventHandler()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+
+                dataGridView.DataSource = new[]
+                {
+                    ""
+                };
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                int counter = 0;
+
+                DataGridViewCellEventHandler dataGridViewCellEventHandler = (sender, args) => counter++;
+
+                control.AddCellValueChangedHandler(dataGridViewCellEventHandler);
+
+                // Precondition
+                Assert.AreEqual(0, counter);
+                gridTester.FireEvent("CellValueChanged", new DataGridViewCellEventArgs(0, 0));
+                Assert.AreEqual(1, counter);
+
+                // Call
+                control.RemoveCellClickHandler(dataGridViewCellEventHandler);
+
+                // Assert
+                Assert.AreEqual(1, counter);
+            }
+        }
+
+        [Test]
         public void DataGridViewControlCheckBoxColumn_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
         {
             // Setup
@@ -1441,7 +1519,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void DataGridView_ErrorWhenCommitingValue_DoesShowErrorToolTip()
+        public void DataGridView_ErrorWhenCommittingValue_DoesShowErrorToolTip()
         {
             // Setup
             using (var form = new Form())

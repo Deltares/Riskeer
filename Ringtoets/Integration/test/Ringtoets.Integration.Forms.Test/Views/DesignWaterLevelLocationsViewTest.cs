@@ -101,6 +101,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var locationDesignWaterlevelColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationDesignWaterlevelColumnIndex];
             const string expectedLocationDesignWaterHeaderText = "Toetspeil [m+NAP]";
             Assert.AreEqual(expectedLocationDesignWaterHeaderText, locationDesignWaterlevelColumn.HeaderText);
+
+            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+            var button = (Button) buttonTester.TheObject;
+            Assert.IsFalse(button.Enabled);
         }
 
         [Test]
@@ -356,27 +360,22 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_NoneSelected_CallsCalculateDesignWaterLevels()
+        public void CalculateForSelectedButton_NoneSelected_CalculateForSelectedButtonDisabled()
         {
             // Setup
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-
             var mockRepository = new MockRepository();
             var commandHandlerMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationCommandHandler>();
-
-            IEnumerable<HydraulicBoundaryLocation> locations = null;
-            commandHandlerMock.Expect(ch => ch.CalculateDesignWaterLevels(null)).IgnoreArguments().WhenCalled(
-                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]; });
             mockRepository.ReplayAll();
 
+            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
             view.CalculationCommandHandler = commandHandlerMock;
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
-            button.Click();
+            var button = (Button) buttonTester.TheObject;
 
             // Assert
-            Assert.AreEqual(0, locations.Count());
+            Assert.IsFalse(button.Enabled);
             mockRepository.VerifyAll();
         }
 
@@ -399,10 +398,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mockRepository.ReplayAll();
 
             view.CalculationCommandHandler = commandHandlerMock;
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
-            button.Click();
+            buttonTester.Click();
 
             // Assert
             var hydraulicBoundaryLocations = locations.ToArray();
@@ -413,10 +412,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_CalculationCommandHandlerNotSet_DoesNotThrowException()
+        public void CalculateForSelectedButton_OneSelectedButCalculationCommandHandlerNotSet_DoesNotThrowException()
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
