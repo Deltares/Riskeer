@@ -75,9 +75,11 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.levelColumn = new System.Data.DataColumn();
             this.timeColumn = new System.Data.DataColumn();
             this.messageColumn = new System.Data.DataColumn();
+            this.fullMessageColumn = new System.Data.DataColumn();
             this.levelColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.timeColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fullMessageColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu.SuspendLayout();
             this.messagesToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
@@ -190,7 +192,8 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.messagesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.levelColumnDataGridViewTextBoxColumn,
             this.timeColumnDataGridViewTextBoxColumn,
-            this.messageColumnDataGridViewTextBoxColumn});
+            this.messageColumnDataGridViewTextBoxColumn,
+            this.fullMessageColumnDataGridViewTextBoxColumn});
             this.messagesDataGridView.ContextMenuStrip = this.contextMenu;
             this.messagesDataGridView.DataSource = this.messagesBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -225,7 +228,8 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.Messages.Columns.AddRange(new System.Data.DataColumn[] {
             this.levelColumn,
             this.timeColumn,
-            this.messageColumn});
+            this.messageColumn,
+            this.fullMessageColumn});
             this.Messages.TableName = "MessageTable";
             // 
             // levelColumn
@@ -243,6 +247,10 @@ namespace Core.Common.Gui.Forms.MessageWindow
             // messageColumn
             // 
             this.messageColumn.ColumnName = "messageColumn";
+            // 
+            // fullMessageColumn
+            // 
+            this.fullMessageColumn.ColumnName = "fullMessageColumn";
             // 
             // levelColumnDataGridViewTextBoxColumn
             // 
@@ -274,6 +282,13 @@ namespace Core.Common.Gui.Forms.MessageWindow
             this.messageColumnDataGridViewTextBoxColumn.Name = "messageColumnDataGridViewTextBoxColumn";
             this.messageColumnDataGridViewTextBoxColumn.ReadOnly = true;
             this.messageColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // fullMessageColumnDataGridViewTextBoxColumn
+            // 
+            this.fullMessageColumnDataGridViewTextBoxColumn.DataPropertyName = "fullMessageColumn";
+            resources.ApplyResources(this.fullMessageColumnDataGridViewTextBoxColumn, "fullMessageColumnDataGridViewTextBoxColumn");
+            this.fullMessageColumnDataGridViewTextBoxColumn.Name = "fullMessageColumnDataGridViewTextBoxColumn";
+            this.fullMessageColumnDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // MessageWindow
             // 
@@ -316,8 +331,10 @@ namespace Core.Common.Gui.Forms.MessageWindow
         private System.Data.DataColumn levelColumn;
         private System.Data.DataColumn timeColumn;
         private System.Data.DataColumn messageColumn;
+        private System.Data.DataColumn fullMessageColumn;
         private DataGridViewImageColumn levelColumnDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn timeColumnDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn messageColumnDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn fullMessageColumnDataGridViewTextBoxColumn;
     }
 }
