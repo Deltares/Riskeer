@@ -57,9 +57,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 // call
-                var mocks = new MockRepository();
-                mocks.ReplayAll();
-
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // assert
@@ -88,8 +85,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsNull(outputProperties.AdditionalDataCheck);
                 Assert.IsNull(outputProperties.GetObjectPropertiesData);
                 Assert.IsNull(outputProperties.AfterCreate);
-
-                mocks.VerifyAll();
             }
         }
 
@@ -152,6 +147,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsInputView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsScenariosView)));
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -175,6 +171,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.AreEqual(1, importers.Length);
                 Assert.IsInstanceOf<DikeProfilesImporter>(importers[0]);
             }
+            mocks.VerifyAll();
         }
     }
 }

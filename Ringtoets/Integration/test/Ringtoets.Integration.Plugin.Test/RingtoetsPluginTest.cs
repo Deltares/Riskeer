@@ -100,6 +100,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 }
             }
 
+            mocks.VerifyAll();
             Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
@@ -140,6 +141,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 }
             }
 
+            mocks.VerifyAll();
             Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
@@ -183,6 +185,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 }
             }
 
+            mocks.VerifyAll();
             Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 

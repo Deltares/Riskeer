@@ -140,9 +140,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var pipingCalculationsView = ShowPipingCalculationsView();
-
             mocks.ReplayAll();
+
+            var pipingCalculationsView = ShowPipingCalculationsView();
 
             // Call
             pipingCalculationsView.AssessmentSection = assessmentSection;
@@ -153,6 +153,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
             Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
             Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -182,6 +183,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("<geen>", hydraulicBoundaryLocationComboboxItems[0].ToString());
             Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
             Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -226,7 +228,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingCalculationsView_CalculationsWithCorrespondingStochasticSoilModel_StochasticSoilModelsComboboxCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredPipingCalculationsView();
+            MockRepository mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -240,15 +247,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual("<geen>", stochasticSoilModelsComboboxItems[0].ToString());
             Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
             Assert.AreEqual("Model E", stochasticSoilModelsComboboxItems[2].ToString());
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PipingCalculationsView_CalculationsWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredPipingCalculationsView();
+            MockRepository mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            mocks.ReplayAll();
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
             // Assert
             var soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
@@ -260,13 +274,20 @@ namespace Ringtoets.Piping.Forms.Test.Views
             soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex]).Items;
             Assert.AreEqual(1, soilProfilesComboboxItems.Count);
             Assert.AreEqual("Profile 5", soilProfilesComboboxItems[0].ToString());
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PipingCalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            ShowFullyConfiguredPipingCalculationsView();
+            MockRepository mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -297,17 +318,22 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(6.667.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
             Assert.AreEqual(7.78.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
             Assert.AreEqual(8.89.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void PipingCalculationsView_SelectingCellInRow_ApplicationSelectionCorrectlySynced()
         {
             // Setup
-            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+            MockRepository mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+
+            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
             var secondPipingCalculationItem = ((PipingCalculationScenario) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
-            var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
             applicationSelectionMock.Expect(asm => asm.Selection = new PipingInputContext(secondPipingInputItem,
@@ -336,7 +362,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+
+            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
             var secondPipingCalculationItem = ((PipingCalculationScenario) ((CalculationGroup) pipingCalculationsView.Data).Children[1]);
             var secondPipingInputItem = secondPipingCalculationItem.InputParameters;
 
@@ -367,7 +396,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+
+            var pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             applicationSelectionMock.Expect(asm => asm.Selection).Return(null);
 
@@ -405,7 +437,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void PipingCalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
-            ShowFullyConfiguredPipingCalculationsView();
+            MockRepository mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -414,6 +451,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -434,7 +472,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
         {
             // Setup
-            ShowFullyConfiguredPipingCalculationsView();
+            MockRepository mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -443,6 +486,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -851,9 +895,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var pipingCalculationObserver = mocks.StrictMock<IObserver>();
             var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
 
-            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+            mocks.ReplayAll();
 
             var data = (CalculationGroup) pipingCalculationView.Data;
             var pipingCalculation = (PipingCalculationScenario) data.Children.First();
@@ -882,9 +928,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var pipingCalculationObserver = mocks.StrictMock<IObserver>();
             var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
 
-            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+            mocks.ReplayAll();
 
             var data = (CalculationGroup) pipingCalculationView.Data;
             var pipingCalculation = (PipingCalculationScenario) data.Children.First();
@@ -909,7 +957,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
         {
             // Setup
-            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
+
+            mocks.ReplayAll();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -921,7 +974,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<PipingInputContext>(selection);
             var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.PipingCalculation, ((PipingInputContext) selection).PipingCalculation);
+            Assert.AreSame(dataRow.PipingCalculation, ((PipingInputContext)selection).PipingCalculation);
+            mocks.VerifyAll();
         }
 
         [TestCase(nameColumnIndex, "New name", true, false)]
@@ -947,10 +1001,12 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 pipingCalculationInputObserver.Expect(o => o.UpdateObserver());
             }
+            
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
+            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
 
             mocks.ReplayAll();
-
-            var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView();
 
             var data = (CalculationGroup) pipingCalculationView.Data;
             var pipingCalculation = (PipingCalculationScenario) data.Children.First();
@@ -977,15 +1033,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private const int entryPointLColumnIndex = 7;
         private const int exitPointLColumnIndex = 8;
 
-        private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView()
+        private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
             var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
-
-            mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);

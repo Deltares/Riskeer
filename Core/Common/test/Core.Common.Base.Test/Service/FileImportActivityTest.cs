@@ -60,6 +60,7 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             StringAssert.EndsWith("target", message);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -78,6 +79,7 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             StringAssert.EndsWith("filePath", message);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -96,6 +98,7 @@ namespace Core.Common.Base.Test.Service
 
             // Assert
             Assert.AreEqual(fileImporter.Name, fileImportActivity.Name);
+            mocks.VerifyAll();
         }
 
         [Test]

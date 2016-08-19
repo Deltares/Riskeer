@@ -172,6 +172,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Modelfactoren", modelFactorForStorageVolumeProperty.Category);
             Assert.AreEqual("Modelfactor kombergingsvolume [-]", modelFactorForStorageVolumeProperty.DisplayName);
             Assert.AreEqual("Het modelfactor kombergingsvolume.", modelFactorForStorageVolumeProperty.Description);
+
+            mockRepository.VerifyAll();
         }
 
         private const int namePropertyIndex = 0;

@@ -139,6 +139,8 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.IsFalse(dialog.MinimizeBox);
                 Assert.IsNull(dialog.CancelButton); // Set during load
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -147,12 +149,9 @@ namespace Core.Common.Controls.Test.Dialogs
             // Setup
             var mocks = new MockRepository();
             var window = mocks.Stub<IWin32Window>();
-            var icon = mocks.Stub<Icon>();
-
-            icon.Stub(i => i.Handle).Return(new IntPtr());
-            icon.Stub(i => i.Size).Return(new Size(16, 16));
-
             mocks.ReplayAll();
+
+            Icon icon = IconStub();
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -170,6 +169,8 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.AreEqual(1, dialog.MinimumSize.Width);
                 Assert.AreEqual(2, dialog.MinimumSize.Height);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -178,12 +179,9 @@ namespace Core.Common.Controls.Test.Dialogs
             // Setup
             var mocks = new MockRepository();
             var window = mocks.Stub<IWin32Window>();
-            var icon = mocks.Stub<Icon>();
-
-            icon.Stub(i => i.Handle).Return(new IntPtr());
-            icon.Stub(i => i.Size).Return(new Size(16, 16));
-
             mocks.ReplayAll();
+
+            Icon icon = IconStub();
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -201,6 +199,14 @@ namespace Core.Common.Controls.Test.Dialogs
                 Assert.IsNotNull(dialog.CancelButton);
                 Assert.AreSame("Test button", ((Button) dialog.CancelButton).Name);
             }
+
+            mocks.VerifyAll();
+        }
+
+        private static Icon IconStub()
+        {
+            var canvas = new Bitmap(16, 16);
+            return Icon.FromHandle(canvas.GetHicon());
         }
 
         private class TestDialog : DialogBase

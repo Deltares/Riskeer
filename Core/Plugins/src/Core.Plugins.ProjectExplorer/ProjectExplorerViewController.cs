@@ -132,6 +132,10 @@ namespace Core.Plugins.ProjectExplorer
         {
             if (projectExplorer != null)
             {
+                if (IsProjectExplorerOpen)
+                {
+                    CloseProjectExplorer();
+                }
                 projectExplorer.Dispose();
             }
         }

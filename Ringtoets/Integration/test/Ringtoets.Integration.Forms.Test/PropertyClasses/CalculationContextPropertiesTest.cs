@@ -65,6 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.AreEqual(name, properties.Name);
+            mocks.VerifyAll();
         }
 
         [Test]

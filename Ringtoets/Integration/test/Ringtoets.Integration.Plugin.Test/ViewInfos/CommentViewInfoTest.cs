@@ -76,6 +76,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Opmerkingen", viewName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -91,6 +92,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(commentMock, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -289,9 +291,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -325,9 +326,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -356,9 +356,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -389,9 +388,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -418,9 +416,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -449,9 +446,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -535,9 +531,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -569,9 +564,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
     }
 }

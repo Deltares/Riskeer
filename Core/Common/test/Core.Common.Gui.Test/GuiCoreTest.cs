@@ -871,6 +871,8 @@ namespace Core.Common.Gui.Test
                 // Assert
                 CollectionAssert.IsEmpty(result);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]

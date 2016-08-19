@@ -769,11 +769,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var nodeMock = new TestCalculationContext(new TestCalculation(), failureMechanismMock);
+            var calculationContext = new TestCalculationContext(new TestCalculation(), failureMechanismMock);
             var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, null);
 
             // Call
-            bool removalAllowed = treeNodeInfo.CanRemove(nodeMock, dataMock);
+            bool removalAllowed = treeNodeInfo.CanRemove(calculationContext, dataMock);
 
             // Assert
             Assert.IsFalse(removalAllowed);

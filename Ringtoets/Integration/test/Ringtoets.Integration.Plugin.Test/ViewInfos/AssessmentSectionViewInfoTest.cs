@@ -72,6 +72,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Trajectkaart", viewName);
+
+            mocks.VerifyAll();
         }
 
         [Test]

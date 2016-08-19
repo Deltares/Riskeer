@@ -1194,6 +1194,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(RingtoetsFormsResources.FailureMechanism_Validate_all_ToolTip, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -1215,6 +1216,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(RingtoetsFormsResources.ValidateAll_No_calculations_to_validate, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -1246,6 +1248,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(errorMessage, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -1272,6 +1275,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(RingtoetsFormsResources.ValidateAll_No_calculations_to_validate, toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
+            mocks.VerifyAll();
         }
 
         [Test]

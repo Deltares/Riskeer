@@ -385,16 +385,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.soil");
 
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
-            context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
             {
@@ -416,6 +412,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.IsTrue(importResult);
             Assert.AreEqual(36, progress);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -717,16 +714,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             string validFilePath = Path.Combine(testDataPath, "SingleSoilProfile2D_noLayerProperties.soil");
 
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
-            context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
             {
@@ -775,6 +768,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                       profile.Layers.Select(l => l.BelowPhreaticLevelMean));
 
             Assert.AreEqual(6, progress);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -783,16 +777,12 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Setup
             string validFilePath = Path.Combine(testDataPath, "SingleSoilProfile2D_withLayerProperties.soil");
 
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = new ReferenceLine();
             var failureMechanism = new PipingFailureMechanism();
             mockRepository.ReplayAll();
 
             var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
-            context.Attach(observer);
 
             var importer = new PipingSoilProfilesImporter
             {
@@ -865,6 +855,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
                                       profile.Layers.Select(l => l.BelowPhreaticLevelMean));
 
             Assert.AreEqual(6, progress);
+            mockRepository.VerifyAll();
         }
 
         private void IncrementProgress(string a, int b, int c)

@@ -23,7 +23,6 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Common.Controls.TreeView.Test
 {
@@ -248,10 +247,6 @@ namespace Core.Common.Controls.TreeView.Test
         public void ImplicitOperator_WithAllMethodsSet_InfoFullyConverted()
         {
             // Setup
-            var mocks = new MockRepository();
-
-            mocks.ReplayAll();
-
             var onDropCounter = 0;
             var onNodeRenamedCounter = 0;
             var onNodeRemovedCounter = 0;
