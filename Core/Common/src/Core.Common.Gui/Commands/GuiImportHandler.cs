@@ -114,7 +114,8 @@ namespace Core.Common.Gui.Commands
             {
                 Multiselect = true,
                 Filter = importer.FileFilter,
-                Title = Resources.OpenFileDialog_Title
+                Title = Resources.OpenFileDialog_Title,
+                RestoreDirectory = true
             })
             {
                 if (dialog.ShowDialog(dialogParent) == DialogResult.OK)

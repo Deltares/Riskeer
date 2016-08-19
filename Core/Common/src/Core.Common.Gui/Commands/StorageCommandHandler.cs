@@ -108,7 +108,8 @@ namespace Core.Common.Gui.Commands
             using (var openFileDialog = new OpenFileDialog
             {
                 Filter = projectPersistor.FileFilter,
-                Title = Resources.OpenFileDialog_Title
+                Title = Resources.OpenFileDialog_Title,
+                RestoreDirectory = true
             })
             {
                 if (openFileDialog.ShowDialog(dialogParent) != DialogResult.Cancel && ContinueIfHasChanges())
@@ -259,7 +260,8 @@ namespace Core.Common.Gui.Commands
             {
                 Title = Resources.SaveFileDialog_Title,
                 Filter = projectPersistor.FileFilter,
-                FileName = projectName
+                FileName = projectName,
+                RestoreDirectory = true
             })
             {
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
