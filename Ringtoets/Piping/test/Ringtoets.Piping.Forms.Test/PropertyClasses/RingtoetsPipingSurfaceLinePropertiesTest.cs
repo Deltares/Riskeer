@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -79,6 +81,78 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(point1, properties.BottomDitchDikeSide);
             Assert.AreEqual(point2, properties.BottomDitchPolderSide);
             Assert.AreEqual(point2, properties.DitchPolderSide);
+        }
+
+        [Test]
+        public void PropertyAttributes_ReturnExpectedValues()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            var properties = new RingtoetsPipingSurfaceLineProperties
+            {
+                Data = surfaceLine
+            };
+
+            // Assert
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+            Assert.AreEqual(8, dynamicProperties.Count);
+
+            var generalCategory = "Algemeen";
+            var charactersticPointsCategory = "Karakteristieke punten";
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            Assert.IsTrue(nameProperty.IsReadOnly);
+            Assert.AreEqual(generalCategory, nameProperty.Category);
+            Assert.AreEqual("Naam", nameProperty.DisplayName);
+            Assert.AreEqual("Naam van de profielschematisatie.", nameProperty.Description);
+
+            PropertyDescriptor dikeToeAtRiverProperty = dynamicProperties[1];
+            Assert.IsTrue(dikeToeAtRiverProperty.IsReadOnly);
+            Assert.AreEqual(charactersticPointsCategory, dikeToeAtRiverProperty.Category);
+            Assert.AreEqual("Teen dijk buitenwaarts", dikeToeAtRiverProperty.DisplayName);
+            Assert.AreEqual("De locatie van de teen van de dijk wanneer de dijk van buiten de polder wordt benaderd.", dikeToeAtRiverProperty.Description);
+
+            PropertyDescriptor dikeToeAtPolderProperty = dynamicProperties[2];
+            Assert.IsTrue(dikeToeAtPolderProperty.IsReadOnly);
+            Assert.AreEqual(charactersticPointsCategory, dikeToeAtPolderProperty.Category);
+            Assert.AreEqual("Teen dijk binnenwaarts", dikeToeAtPolderProperty.DisplayName);
+            Assert.AreEqual("De locatie van de teen van de dijk wanneer de dijk van binnen de polder wordt benaderd.", dikeToeAtPolderProperty.Description);
+
+            PropertyDescriptor ditchDikeSideProperty = dynamicProperties[3];
+            Assert.IsTrue(ditchDikeSideProperty.IsReadOnly);
+            Assert.AreEqual(charactersticPointsCategory, ditchDikeSideProperty.Category);
+            Assert.AreEqual("Insteek sloot dijkzijde", ditchDikeSideProperty.DisplayName);
+            Assert.AreEqual("De locatie van het begin van de sloot wanneer deze van de kant van de dijk wordt benaderd.", ditchDikeSideProperty.Description);
+
+            PropertyDescriptor bottomDitchDikeSideProperty = dynamicProperties[4];
+            Assert.IsTrue(bottomDitchDikeSideProperty.IsReadOnly);
+            Assert.AreEqual(charactersticPointsCategory, bottomDitchDikeSideProperty.Category);
+            Assert.AreEqual("Slootbodem dijkzijde", bottomDitchDikeSideProperty.DisplayName);
+            Assert.AreEqual("De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd.", bottomDitchDikeSideProperty.Description);
+
+            PropertyDescriptor bottomDitchPolderSideProperty = dynamicProperties[5];
+            Assert.IsTrue(bottomDitchPolderSideProperty.IsReadOnly);
+            Assert.AreEqual(charactersticPointsCategory, bottomDitchPolderSideProperty.Category);
+            Assert.AreEqual("Slootbodem polderzijde", bottomDitchPolderSideProperty.DisplayName);
+            Assert.AreEqual("De locatie van het begin van de slootbodem wanneer deze van binnen de polder wordt benaderd.", bottomDitchPolderSideProperty.Description);
+
+            PropertyDescriptor ditchPolderSideProperty = dynamicProperties[6];
+            Assert.IsTrue(ditchPolderSideProperty.IsReadOnly);
+            Assert.AreEqual(charactersticPointsCategory, ditchPolderSideProperty.Category);
+            Assert.AreEqual("Insteek sloot polderzijde", ditchPolderSideProperty.DisplayName);
+            Assert.AreEqual("De locatie van het begin van de sloot wanneer deze van binnen de polder wordt benaderd.", ditchPolderSideProperty.Description);
+
+            PropertyDescriptor pointsProperty = dynamicProperties[7];
+            Assert.IsTrue(pointsProperty.IsReadOnly);
+            Assert.AreEqual(generalCategory, pointsProperty.Category);
+            Assert.AreEqual("Geometriepunten", pointsProperty.DisplayName);
+            Assert.AreEqual("De punten die de geometrie van de profielschematisatie definiëren.", pointsProperty.Description);
         }
     }
 }
