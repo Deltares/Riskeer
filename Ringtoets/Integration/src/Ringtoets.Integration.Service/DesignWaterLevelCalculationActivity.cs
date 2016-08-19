@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Service
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) Output.Result;
                 bool designWaterLevelCalculationConvergence =
-                    Math.Abs(Output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-3;
+                    Math.Abs(Output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 1.0e-3;
                 if (!designWaterLevelCalculationConvergence)
                 {
                     log.WarnFormat(Resources.DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);

@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Service
             {
                 hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) Output.Result;
                 bool waveHeightCalculationConvergence =
-                    Math.Abs(Output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 10e-3;
+                    Math.Abs(Output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(assessmentSection.FailureMechanismContribution.Norm)) <= 1.0e-3;
                 if (!waveHeightCalculationConvergence)
                 {
                     log.WarnFormat(Resources.WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);
