@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using Core.Common.Gui.Properties;
 using log4net.Core;
@@ -128,7 +129,8 @@ namespace Core.Common.Gui.Forms.MessageWindow
 
                     row[0] = msg.ImageName;
                     row[1] = msg.Time;
-                    row[2] = msg.Message;
+                    row[2] = msg.ShortMessage;
+                    row[3] = msg.FullMessage;
 
                     Messages.Rows.InsertAt(row, 0);
                 }
@@ -267,7 +269,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return;
             }
 
-            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[messageColumnDataGridViewTextBoxColumn.Index].Value);
+            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string)messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
 
             messageWindowDialog.ShowDialog();
         }
@@ -276,16 +278,22 @@ namespace Core.Common.Gui.Forms.MessageWindow
         {
             public string ImageName { get; set; }
             public DateTime Time { get; set; }
-            public string Message { get; set; }
+            public string ShortMessage { get; set; }
+            public string FullMessage { get; set; }
         }
 
         #region IMessageWindow Members
 
         public void AddMessage(Level level, DateTime time, string message)
         {
+            string shortMessage;
+            using (var reader = new StringReader(message))
+            {
+                shortMessage = reader.ReadLine();
+            }
             newMessages.Enqueue(new MessageData
             {
-                ImageName = level.ToString(), Time = time, Message = message
+                ImageName = level.ToString(), Time = time, ShortMessage = shortMessage, FullMessage = message
             });
             Invalidate();
         }
