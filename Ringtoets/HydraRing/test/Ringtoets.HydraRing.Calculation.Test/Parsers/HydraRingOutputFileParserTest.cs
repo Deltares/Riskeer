@@ -55,28 +55,38 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Action call = () => outputFileParser.Parse(nonExistentDirectory, 1);
 
             // Assert
-            var expectedMessage = string.Format("Kan het Hydra-Ring uitvoerbestand {0} niet lezen uit de map {1}.", outputFileNameOnError, nonExistentDirectory);
+            var expectedMessage = string.Format("Kan het Hydra-Ring uitvoerbestand {0} noch het logbestand {1} lezen uit de map {2}.",
+                                                "1-output.txt", outputFileNameOnError, nonExistentDirectory);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
         }
 
         [Test]
-        public void Parse_NotExistingOutputFile_LogError()
+        public void Parse_NotExistingOutputFiles_LogError()
         {
             // Setup
             var outputFileParser = new HydraRingOutputFileParser();
-            var outputFileName = "1234567890-output.txt";
 
             // Call
             Action call = () => outputFileParser.Parse(testDataDirectory, 1234567890);
 
             // Assert
             var outputFileNameOnError = "1234567890.log";
-            var expectedMessage = string.Format("Kan het Hydra-Ring uitvoerbestand {0} niet lezen uit de map {1}.", new[]
-            {
-                outputFileNameOnError,
-                testDataDirectory
-            });
+            var expectedMessage = string.Format("Kan het Hydra-Ring uitvoerbestand {0} noch het logbestand {1} lezen uit de map {2}.",
+                                                "1234567890-output.txt", outputFileNameOnError, testDataDirectory);
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+        }
+
+        [Test]
+        public void Parse_NotExistingOutputFile_ReadLogFile()
+        {
+            // Setup
+            var outputFileParser = new HydraRingOutputFileParser();
+
+            // Call
+            outputFileParser.Parse(testDataDirectory, 123);
+
+            // Assert
+            Assert.AreEqual("Dit is het log bestand, niet het output bestand.", outputFileParser.OutputFileContent);
         }
 
         [Test]

@@ -138,11 +138,11 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan het Hydra-Ring uitvoerbestand {0} niet lezen uit de map {1}..
+        ///   Looks up a localized string similar to Kan het Hydra-Ring uitvoerbestand {0} noch het logbestand {1} lezen uit de map {2}..
         /// </summary>
-        internal static string Parse_Cannot_read_file_0_from_folder_1_ {
+        internal static string Parse_Cannot_read_file_0_nor_file_1_from_folder_2_ {
             get {
-                return ResourceManager.GetString("Parse_Cannot_read_file_0_from_folder_1_", resourceCulture);
+                return ResourceManager.GetString("Parse_Cannot_read_file_0_nor_file_1_from_folder_2_", resourceCulture);
             }
         }
     }
