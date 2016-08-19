@@ -200,6 +200,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Value_too_large;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -227,6 +229,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -252,6 +256,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]

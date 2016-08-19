@@ -249,11 +249,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Version = "random"
             };
 
-            var assessmentSectionMock = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
-            var context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
+            var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

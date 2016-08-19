@@ -56,9 +56,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test
             using (var plugin = new HeightStructuresPlugin())
             {
                 // call
-                var mocks = new MockRepository();
-                mocks.ReplayAll();
-
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // assert
@@ -74,8 +71,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 Assert.IsNull(heightStructuresInputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(heightStructuresInputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(heightStructuresInputContextProperties.AfterCreate);
-
-                mocks.VerifyAll();
             }
         }
 
@@ -132,6 +127,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
 
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(HeightStructuresFailureMechanismResultView)));
             }
+            mocks.VerifyAll();
         }
     }
 }

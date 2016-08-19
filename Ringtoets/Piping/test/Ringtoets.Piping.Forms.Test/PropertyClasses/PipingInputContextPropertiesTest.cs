@@ -210,6 +210,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, saturatedVolumicWeightOfCoverageLayerProperty.Category);
             Assert.AreEqual("Verzadigd gewicht deklaag [kN/m³]", saturatedVolumicWeightOfCoverageLayerProperty.DisplayName);
             Assert.AreEqual("Verzadigd gewicht deklaag.", saturatedVolumicWeightOfCoverageLayerProperty.Description);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -293,7 +295,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreSame(stochasticSoilModel, properties.StochasticSoilModel);
             Assert.AreSame(testHydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
 
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -788,6 +790,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.IsNull(inputParameters.StochasticSoilModel);
             Assert.IsNull(inputParameters.StochasticSoilProfile);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -834,6 +837,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.AreSame(stochasticSoilModel, inputParameters.StochasticSoilModel);
             Assert.AreSame(stochasticSoilProfile, inputParameters.StochasticSoilProfile);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -882,6 +886,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.IsNull(inputParameters.StochasticSoilModel);
             Assert.IsNull(inputParameters.StochasticSoilProfile);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -931,6 +936,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsNull(inputParameters.StochasticSoilProfile);
+            mocks.VerifyAll();
         }
 
         [Test]

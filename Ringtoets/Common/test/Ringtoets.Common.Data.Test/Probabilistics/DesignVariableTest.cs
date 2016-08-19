@@ -130,6 +130,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
             Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
+            mocks.VerifyAll(); // Expect no calls on mocks
         }
 
         private class SimpleDesignVariable : DesignVariable<IDistribution>

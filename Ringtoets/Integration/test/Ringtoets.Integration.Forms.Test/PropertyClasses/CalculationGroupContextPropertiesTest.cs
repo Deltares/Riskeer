@@ -65,6 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.AreEqual(calculationGroup.Name, properties.Name);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -120,6 +121,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(1, namePropertyAttributes.OfType<DynamicReadOnlyAttribute>().Count());
             Assert.AreEqual(!nameIsEditable, DynamicReadOnlyAttribute.IsReadOnly(properties, propertyName));
+            mocks.VerifyAll();
         }
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>

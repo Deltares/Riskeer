@@ -98,6 +98,7 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
                                                      Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
                         .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
                 viewHost.Expect(tvc => tvc.SetImage(null, null)).IgnoreArguments();
+                viewHost.Expect(vm => vm.Remove(Arg<ProjectExplorer>.Is.TypeOf));
             }
 
             var viewController = mocks.StrictMock<IViewController>();
@@ -142,10 +143,8 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
                     .WhenCalled(invocation => { toolViewList.Add(invocation.Arguments[0] as ProjectExplorer); });
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
-            if (isViewOpen)
-            {
-                viewHost.Expect(tvc => tvc.Remove(Arg<ProjectExplorer>.Is.TypeOf));
-            }
+
+            viewHost.Expect(tvc => tvc.Remove(Arg<ProjectExplorer>.Is.TypeOf));
 
             var viewController = mocks.StrictMock<IViewController>();
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);

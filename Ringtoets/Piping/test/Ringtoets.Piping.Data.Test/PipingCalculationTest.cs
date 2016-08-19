@@ -86,6 +86,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call & Assert
             calculation.NotifyObservers();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -103,6 +104,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call & Assert
             calculation.NotifyObservers();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -124,6 +126,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call & Assert
             calculation.NotifyObservers();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -146,6 +149,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call & Assert
             calculation.NotifyObservers();
+            mockRepository.VerifyAll();
         }
 
         [Test]
