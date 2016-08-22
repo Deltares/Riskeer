@@ -380,7 +380,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-
+            IAssessmentSection assessmentSection = (IAssessmentSection) view.Data;
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -389,8 +389,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var commandHandlerMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationCommandHandler>();
 
             IEnumerable<HydraulicBoundaryLocation> locations = null;
-            commandHandlerMock.Expect(ch => ch.CalculateDesignWaterLevels(null)).IgnoreArguments().WhenCalled(
-                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[0]; });
+            commandHandlerMock.Expect(ch => ch.CalculateDesignWaterLevels(assessmentSection, null)).IgnoreArguments().WhenCalled(
+                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1]; });
             mockRepository.ReplayAll();
 
             view.CalculationCommandHandler = commandHandlerMock;
@@ -402,7 +402,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             var hydraulicBoundaryLocations = locations.ToArray();
             Assert.AreEqual(1, hydraulicBoundaryLocations.Length);
-            HydraulicBoundaryLocation expectedLocation = ((IAssessmentSection) view.Data).HydraulicBoundaryDatabase.Locations.First();
+            HydraulicBoundaryLocation expectedLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, hydraulicBoundaryLocations.First());
             mockRepository.VerifyAll();
         }

@@ -204,6 +204,7 @@ namespace Ringtoets.Integration.Plugin
         private RingtoetsRibbon ribbonCommandHandler;
 
         private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
+        private IHydraulicBoundaryLocationCalculationCommandHandler hydraulicBoundaryLocationCalculationCommandHandler;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -236,6 +237,7 @@ namespace Ringtoets.Integration.Plugin
                 throw new InvalidOperationException("Gui cannot be null");
             }
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
+            hydraulicBoundaryLocationCalculationCommandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow);
 
             ribbonCommandHandler = new RingtoetsRibbon
             {
@@ -293,7 +295,7 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.ApplicationSelection = Gui;
-                    view.CalculationCommandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, context.WrappedData);
+                    view.CalculationCommandHandler = hydraulicBoundaryLocationCalculationCommandHandler;
                 }
             };
 
@@ -305,7 +307,7 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.ApplicationSelection = Gui;
-                    view.CalculationCommandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, context.WrappedData);
+                    view.CalculationCommandHandler = hydraulicBoundaryLocationCalculationCommandHandler;
                 }
             };
 
@@ -1046,8 +1048,13 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    var command = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, nodeData.WrappedData);
-                    command.CalculateDesignWaterLevels(nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
+                    if (hydraulicBoundaryLocationCalculationCommandHandler == null || nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+                    {
+                        return;
+                    }
+                    hydraulicBoundaryLocationCalculationCommandHandler.CalculateDesignWaterLevels(
+                        nodeData.WrappedData,
+                        nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
@@ -1073,8 +1080,13 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    var command = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow, nodeData.WrappedData);
-                    command.CalculateWaveHeights(nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
+                    if (hydraulicBoundaryLocationCalculationCommandHandler == null || nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+                    {
+                        return;
+                    }
+                    hydraulicBoundaryLocationCalculationCommandHandler.CalculateWaveHeights(
+                        nodeData.WrappedData,
+                        nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)

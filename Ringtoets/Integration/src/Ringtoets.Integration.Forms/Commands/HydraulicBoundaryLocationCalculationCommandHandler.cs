@@ -42,40 +42,52 @@ namespace Ringtoets.Integration.Forms.Commands
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationCommandHandler));
         private readonly IWin32Window viewParent;
-        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HydraulicBoundaryLocationCalculationCommandHandler"/> class.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
-        /// <param name="assessmentSection">The assessment section.</param>
-        public HydraulicBoundaryLocationCalculationCommandHandler(IWin32Window viewParent, IAssessmentSection assessmentSection)
+        public HydraulicBoundaryLocationCalculationCommandHandler(IWin32Window viewParent)
         {
             if (viewParent == null)
             {
                 throw new ArgumentNullException("viewParent");
             }
+            this.viewParent = viewParent;
+        }
+
+        public void CalculateDesignWaterLevels(IAssessmentSection assessmentSection,
+                                               IEnumerable<HydraulicBoundaryLocation> locations)
+        {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
-            this.viewParent = viewParent;
-            this.assessmentSection = assessmentSection;
-        }
-
-        public void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocation> locations)
-        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException("locations");
+            }
             var activities = locations.Select(hbl => new DesignWaterLevelCalculationActivity(assessmentSection, hbl)).ToArray();
-            RunActivities(activities);
+            RunActivities(assessmentSection, activities);
         }
 
-        public void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocation> locations)
+        public void CalculateWaveHeights(IAssessmentSection assessmentSection,
+                                         IEnumerable<HydraulicBoundaryLocation> locations)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+            if (locations == null)
+            {
+                throw new ArgumentNullException("locations");
+            }
             var activities = locations.Select(hbl => new WaveHeightCalculationActivity(assessmentSection, hbl)).ToArray();
-            RunActivities(activities);
+            RunActivities(assessmentSection, activities);
         }
 
-        private void RunActivities<TActivity>(IList<TActivity> activities) where TActivity : Activity
+        private void RunActivities<TActivity>(IAssessmentSection assessmentSection,
+                                              IList<TActivity> activities) where TActivity : Activity
         {
             var hrdFile = assessmentSection.HydraulicBoundaryDatabase.FilePath;
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
@@ -87,7 +99,8 @@ namespace Ringtoets.Integration.Forms.Commands
             }
             else
             {
-                log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_, validationProblem);
+                log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_,
+                                validationProblem);
             }
         }
     }

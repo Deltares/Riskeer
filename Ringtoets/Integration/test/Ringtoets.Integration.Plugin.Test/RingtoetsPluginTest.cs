@@ -544,7 +544,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var mainWindowMock = mockRepository.StrictMock<IMainWindow>();
             var documentViewControllerMock = mockRepository.StrictMock<IDocumentViewController>();
             var guiMock = mockRepository.StrictMock<IGui>();
-            guiMock.Expect(g => g.MainWindow).Return(mainWindowMock);
+            guiMock.Expect(g => g.MainWindow).Return(mainWindowMock).Repeat.AtLeastOnce();
             guiMock.Expect(g => g.DocumentViewController).Return(documentViewControllerMock);
             guiMock.Expect(g => g.ProjectOpened += null).IgnoreArguments();
             guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
