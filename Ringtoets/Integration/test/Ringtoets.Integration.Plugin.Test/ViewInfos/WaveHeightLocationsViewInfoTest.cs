@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -122,6 +123,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
+        [RequiresSTA]
         public void AfterCreate_WithGuiSet_SetsSpecificPropertiesToView()
         {
             // Setup
@@ -134,6 +136,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             guiStub.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+            guiStub.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
 
             mocks.ReplayAll();
 
@@ -145,6 +148,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
                 ringtoetsPlugin.Gui = guiStub;
+                ringtoetsPlugin.Activate();
 
                 // Call
                 info.AfterCreate(view, context);

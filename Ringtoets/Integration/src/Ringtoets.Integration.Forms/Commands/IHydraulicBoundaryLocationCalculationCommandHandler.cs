@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Forms.Commands
@@ -33,15 +35,19 @@ namespace Ringtoets.Integration.Forms.Commands
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> calculation for all <paramref name="locations"/>.
         /// </summary>
+        /// <param name="assessmentSection">The assessment section.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
-        void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocation> locations);
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        void CalculateDesignWaterLevels(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocation> locations);
 
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.WaveHeight"/> calculation for all <paramref name="locations"/>.
         /// </summary>
+        /// <param name="assessmentSection">The assessment section.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         /// the <see cref="HydraulicBoundaryLocation.WaveHeight"/> for.</param>
-        void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocation> locations);
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        void CalculateWaveHeights(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocation> locations);
     }
 }

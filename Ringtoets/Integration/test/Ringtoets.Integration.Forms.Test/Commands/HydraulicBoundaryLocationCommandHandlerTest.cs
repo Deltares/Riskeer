@@ -52,25 +52,33 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         [Test]
         public void Constructor_NullMainWindow_ThrowsArgumentNullException()
         {
-            // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new HydraulicBoundaryLocationCalculationCommandHandler(null, assessmentSectionMock);
+            // Setup & Call
+            TestDelegate test = () => new HydraulicBoundaryLocationCalculationCommandHandler(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             const string expectedParamName = "viewParent";
             Assert.AreEqual(expectedParamName, paramName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Constructor_NullIAssessmentSection_ThrowsArgumentNullException()
+        public void DefaultConstructor_DefaultValues()
         {
             // Setup & Call
-            TestDelegate test = () => new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), null);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
+
+            // Assert
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationCommandHandler>(commandHandler);
+        }
+
+        [Test]
+        public void CalculateDesignWaterLevels_NullIAssessmentSection_ThrowsArgumentNullException()
+        {
+            // Setup
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
+            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
+
+            TestDelegate test = () => commandHandler.CalculateDesignWaterLevels(null, locations);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -79,17 +87,20 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void CalculateDesignWaterLevels_NullLocations_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            // Call
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
+
+            TestDelegate test = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, null);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationCommandHandler>(commandHandler);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            const string expectedParamName = "locations";
+            Assert.AreEqual(expectedParamName, paramName);
             mockRepository.VerifyAll();
         }
 
@@ -107,13 +118,13 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var observerMock = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             hydraulicBoundaryDatabase.Attach(observerMock);
 
             // Call
-            Action call = () => commandHandler.CalculateDesignWaterLevels(locations);
+            Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -141,7 +152,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             hydraulicBoundaryDatabase.Attach(observerMock);
@@ -152,7 +163,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             };
 
             // Call
-            Action call = () => commandHandler.CalculateDesignWaterLevels(locations);
+            Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
@@ -193,10 +204,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 // Expect an activity dialog which is automatically closed
             };
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
 
             // Call
-            Action call = () => commandHandler.CalculateDesignWaterLevels(locations);
+            Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -214,7 +225,40 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         }
 
         [Test]
-        public void CalculateWaveHeight_HydraulicDatabaseDoesNotExist_LogsErrorAndDoesNotNotifyObservers()
+        public void CalculateWaveHeights_NullIAssessmentSection_ThrowsArgumentNullException()
+        {
+            // Setup
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
+            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
+
+            TestDelegate test = () => commandHandler.CalculateWaveHeights(null, locations);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            const string expectedParamName = "assessmentSection";
+            Assert.AreEqual(expectedParamName, paramName);
+        }
+
+        [Test]
+        public void CalculateWaveHeights_NullLocations_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
+
+            TestDelegate test = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            const string expectedParamName = "locations";
+            Assert.AreEqual(expectedParamName, paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateWaveHeights_HydraulicDatabaseDoesNotExist_LogsErrorAndDoesNotNotifyObservers()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -227,13 +271,13 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var observerMock = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             hydraulicBoundaryDatabase.Attach(observerMock);
 
             // Call
-            Action call = () => commandHandler.CalculateWaveHeights(locations);
+            Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -261,7 +305,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             hydraulicBoundaryDatabase.Attach(observerMock);
@@ -272,7 +316,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             };
 
             // Call
-            Action call = () => commandHandler.CalculateWaveHeights(locations);
+            Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
@@ -313,10 +357,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 // Expect an activity dialog which is automatically closed
             };
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form(), assessmentSectionMock);
+            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
 
             // Call
-            Action call = () => commandHandler.CalculateWaveHeights(locations);
+            Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
