@@ -377,6 +377,10 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreateRemoveAllChildrenFromGroupItem(CalculationGroup calculationGroup, IViewCommands viewCommands)
         {
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException("viewCommands");
+            }
             var menuItem = new StrictContextMenuItem(
                 Resources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
                 Resources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip,
