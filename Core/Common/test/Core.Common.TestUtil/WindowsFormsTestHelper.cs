@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using Core.Common.TestUtil.Properties;
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil
