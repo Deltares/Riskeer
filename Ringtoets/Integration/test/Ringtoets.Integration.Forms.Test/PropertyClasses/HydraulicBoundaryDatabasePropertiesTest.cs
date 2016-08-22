@@ -72,6 +72,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(filePath, properties.FilePath);
+            mocks.VerifyAll();
         }
 
         [Test]

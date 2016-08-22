@@ -36,13 +36,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     public class GrassCoverErosionInwardsScenariosViewTest
     {
         private Form testForm;
-        private MockRepository mocks;
 
         [SetUp]
         public void Setup()
         {
             testForm = new Form();
-            mocks = new MockRepository();
         }
 
         [TearDown]
@@ -95,15 +93,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = ShowScenariosView())
             {
-                var calculationsGroupMock = new CalculationGroup();
+                var calculationGroup = new CalculationGroup();
 
                 // Call
-                view.Data = calculationsGroupMock;
-
-                mocks.ReplayAll();
+                view.Data = calculationGroup;
 
                 // Assert
-                Assert.AreSame(calculationsGroupMock, view.Data);
+                Assert.AreSame(calculationGroup, view.Data);
             }
         }
 
@@ -113,15 +109,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = ShowScenariosView())
             {
-                var calculationsGroupMock = mocks.StrictMock<CalculationGroup>();
+                var calculationGroup = new CalculationGroup();
 
                 // Call
-                view.Data = calculationsGroupMock;
-
-                mocks.ReplayAll();
+                view.Data = calculationGroup;
 
                 // Assert
-                Assert.AreSame(calculationsGroupMock, view.Data);
+                Assert.AreSame(calculationGroup, view.Data);
             }
         }
 
@@ -131,15 +125,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = ShowScenariosView())
             {
-                var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
                 // Call
-                view.FailureMechanism = failureMechanismMock;
-
-                mocks.ReplayAll();
+                view.FailureMechanism = failureMechanism;
 
                 // Assert
-                Assert.AreSame(failureMechanismMock, view.FailureMechanism);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 
@@ -149,15 +141,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = ShowScenariosView())
             {
-                var failureMechanismMock = mocks.StrictMock<GrassCoverErosionInwardsFailureMechanism>();
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
                 // Call
-                view.FailureMechanism = failureMechanismMock;
-
-                mocks.ReplayAll();
+                view.FailureMechanism = failureMechanism;
 
                 // Assert
-                Assert.AreSame(failureMechanismMock, view.FailureMechanism);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 

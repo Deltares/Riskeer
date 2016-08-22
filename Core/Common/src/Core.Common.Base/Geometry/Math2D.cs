@@ -159,6 +159,8 @@ namespace Core.Common.Base.Geometry
         /// <param name="point1">The first <see cref="Point2D"/> point.</param>
         /// <param name="point2">The second <see cref="Point2D"/> point.</param>
         /// <returns><c>True</c> when the points are equal. <c>False</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point1"/> or 
+        /// <paramref name="point2"/> is <c>null</c>.</exception>
         public static bool AreEqualPoints(Point2D point1, Point2D point2)
         {
             if (point1 == null)
@@ -181,6 +183,7 @@ namespace Core.Common.Base.Geometry
         /// <param name="verticalLineX">The X-coordinate of the vertical line.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> with all intersection points of the 
         /// <paramref name="segments"/> with the vertical line at x=<paramref name="verticalLineX"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="segments"/> is <c>null</c>.</exception>
         /// <remark>Segments which have length=0 or which are vertical, will not return an intersection point.</remark>
         public static IEnumerable<Point2D> SegmentsIntersectionWithVerticalLine(IEnumerable<Segment2D> segments, double verticalLineX)
         {
@@ -209,6 +212,7 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="points">The points that make up a 2D line.</param>
         /// <returns>The sum of the distances between consecutive points.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="points"/> is <c>null</c>.</exception>
         public static double Length(IEnumerable<Point2D> points)
         {
             if (points == null)
@@ -237,6 +241,8 @@ namespace Core.Common.Base.Geometry
         /// <param name="segment1">The first 2D segment.</param>
         /// <param name="segment2">The second 2D segment.</param>
         /// <returns>The intersection calculation result.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="segment1"/> or 
+        /// <paramref name="segment2"/> is <c>null</c>.</exception>
         /// <remarks>Implementation from http://geomalgorithms.com/a05-_intersect-1.html
         /// based on method <c>intersect2D_2Segments</c>.</remarks>
         public static Segment2DIntersectSegment2DResult GetIntersectionBetweenSegments(Segment2D segment1, Segment2D segment2)
@@ -301,6 +307,7 @@ namespace Core.Common.Base.Geometry
         /// <param name="lineSegment">The segment to interpolate over.</param>
         /// <param name="fraction">The fraction of the length of the segment where to obtain a new point.</param>
         /// <returns>A new <see cref="Point2D"/> at the interpolated point.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="lineSegment"/> is <c>null</c>.</exception>
         public static Point2D GetInterpolatedPointAtFraction(Segment2D lineSegment, double fraction)
         {
             if (lineSegment == null)

@@ -172,6 +172,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingInputView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(PipingScenariosView)));
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -196,6 +197,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsInstanceOf<PipingSurfaceLinesCsvImporter>(importers[0]);
                 Assert.IsInstanceOf<PipingSoilProfilesImporter>(importers[1]);
             }
+            mocks.VerifyAll();
         }
     }
 }

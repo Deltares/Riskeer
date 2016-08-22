@@ -96,6 +96,7 @@ namespace Ringtoets.Common.Data.Test.Calculation
                 calculation4
             };
             CollectionAssert.AreEquivalent(itemsThatShouldBeFound, result);
+            mocks.VerifyAll();
         }
 
         [Test]

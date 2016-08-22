@@ -71,7 +71,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
             var context = new FailureMechanismSectionResultContext<StrengthStabilityPointConstructionFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-            mocks.ReplayAll();
 
             // Call
             var viewData = info.GetViewData(context);
@@ -85,12 +84,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
-            var viewMock = mocks.StrictMock<StrengthStabilityPointConstructionResultView>();
-
-            mocks.ReplayAll();
+            var constructionResultView = new StrengthStabilityPointConstructionResultView();
 
             // Call
-            var viewName = info.GetViewName(viewMock, failureMechanism.SectionResults);
+            var viewName = info.GetViewName(constructionResultView, failureMechanism.SectionResults);
 
             // Assert
             Assert.AreEqual("Resultaat", viewName);
@@ -154,8 +151,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -183,6 +180,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -209,8 +207,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -266,8 +264,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -289,8 +287,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -299,11 +297,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
             var view = mocks.StrictMock<StrengthStabilityPointConstructionResultView>();
-            var context = new FailureMechanismSectionResultContext<StrengthStabilityPointConstructionFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-
             view.Expect(v => v.FailureMechanism = failureMechanism);
 
             mocks.ReplayAll();
+
+            var context = new FailureMechanismSectionResultContext<StrengthStabilityPointConstructionFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
 
             // Call
             info.AfterCreate(view, context);

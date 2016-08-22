@@ -274,6 +274,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Assert
                 Assert.AreSame(newProjectMock, toolViews[0].Data);
             }
+            mocks.VerifyAll();
         }
     }
 }

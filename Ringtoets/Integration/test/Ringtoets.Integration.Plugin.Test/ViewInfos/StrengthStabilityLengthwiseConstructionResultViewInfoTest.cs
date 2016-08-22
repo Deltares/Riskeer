@@ -71,7 +71,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             var context = new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism);
-            mocks.ReplayAll();
 
             // Call
             var viewData = info.GetViewData(context);
@@ -155,6 +154,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -181,6 +181,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -207,8 +208,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -264,8 +265,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -287,8 +288,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+            mocks.VerifyAll();
         }
 
         [Test]

@@ -75,7 +75,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                mocks.ReplayAll();
 
                 // Call
                 TestDelegate test = () => new TreeViewContextMenuItemFactory(new object(), treeViewControl);
@@ -83,7 +82,6 @@ namespace Core.Common.Gui.Test.ContextMenu
                 // Assert
                 Assert.DoesNotThrow(test);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -210,8 +208,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Expand_all_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.ExpandAllIcon, item.Image);
             Assert.AreEqual(hasChildren, item.Enabled);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -248,8 +244,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             Assert.AreEqual(Resources.Collapse_all_ToolTip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.CollapseAllIcon, item.Image);
             Assert.AreEqual(hasChildren, item.Enabled);
-
-            mocks.VerifyAll();
         }
     }
 }

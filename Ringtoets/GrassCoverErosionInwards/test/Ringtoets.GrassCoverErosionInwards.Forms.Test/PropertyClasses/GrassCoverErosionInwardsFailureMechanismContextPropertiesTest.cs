@@ -185,6 +185,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Modelfactoren", fshallowProperty.Category);
             Assert.AreEqual("Modelfactor Fondiep [-]", fshallowProperty.DisplayName);
             Assert.AreEqual("De parameter 'Fondiep' die gebruikt wordt in de berekening.", fshallowProperty.Description);
+
+            mockRepository.VerifyAll();
         }
 
         private const int namePropertyIndex = 0;

@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             // Assert
             const string expectedText = "Dijkprofielen";
             Assert.AreEqual(expectedText, text);
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -195,7 +195,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual(2, children.Length);
             Assert.AreSame(dikeProfile1, children.ElementAt(0));
             Assert.AreSame(dikeProfile2, children.ElementAt(1));
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]

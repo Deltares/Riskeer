@@ -76,6 +76,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             // Assert
             Assert.IsFalse(result);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -137,6 +138,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.AreEqual(viewData, view.Data);
             Assert.AreEqual(viewName, view.Text);
             Assert.IsTrue(afterCreateCalled);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -159,6 +161,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             // Assert
             Assert.IsFalse(result);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -214,6 +217,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.AreEqual(data, view.Data);
             Assert.AreEqual(viewName, view.Text);
             Assert.IsTrue(afterCreateCalled);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -251,6 +255,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
             Assert.AreEqual(string.Empty, view.Text);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -287,6 +292,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
             Assert.AreEqual(string.Empty, view.Text);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -330,6 +336,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
             Assert.AreEqual(string.Empty, view.Text);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -553,6 +560,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             Assert.IsTrue(result);
             Assert.AreEqual(data, view.Data);
             Assert.AreEqual(string.Empty, view.Text);
+            mocks.VerifyAll();
         }
 
         [Test]

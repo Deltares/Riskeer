@@ -57,6 +57,8 @@ namespace Core.Common.Gui.Test.Forms
                 Assert.IsNull(dialog.SelectedItem);
                 Assert.IsNull(dialog.Items);
             }
+
+            mocks.VerifyAll();
         }
     }
 }

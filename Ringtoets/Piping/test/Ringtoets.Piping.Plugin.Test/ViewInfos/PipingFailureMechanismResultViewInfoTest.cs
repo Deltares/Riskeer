@@ -157,6 +157,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -186,6 +187,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -214,6 +216,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -273,6 +276,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -298,6 +302,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+            mocks.VerifyAll();
         }
 
         [Test]

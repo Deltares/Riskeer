@@ -179,6 +179,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             // Assert
             Assert.IsTrue(contributionItem.IsRelevant);
+            mockRepository.VerifyAll();
         }
 
         [Test]

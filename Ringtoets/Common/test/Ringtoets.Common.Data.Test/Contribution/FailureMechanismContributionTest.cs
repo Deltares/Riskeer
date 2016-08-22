@@ -319,6 +319,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
 
             // Assert
             Assert.AreEqual(Enumerable.Repeat(newNorm, 2), failureMechanismContribution.Distribution.Select(d => d.Norm));
+            mockRepository.VerifyAll();
         }
 
         private void AssertFailureProbabilitySpace(double newOtherContribution, int norm, double probabilitySpace)
