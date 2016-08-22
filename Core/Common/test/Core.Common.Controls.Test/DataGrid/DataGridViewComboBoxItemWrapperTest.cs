@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Controls.DataGrid;
+using Core.Common.Controls.Properties;
 using NUnit.Framework;
 
 namespace Core.Common.Controls.Test.DataGrid
@@ -49,7 +50,7 @@ namespace Core.Common.Controls.Test.DataGrid
             var dataGridViewComboBoxItemWrapper = new DataGridViewComboBoxItemWrapper<TestClass>(null);
 
             // Assert
-            Assert.AreEqual(Properties.Resources.DataGridViewComboBoxItemWrapper_DisplayName_None, dataGridViewComboBoxItemWrapper.DisplayName);
+            Assert.AreEqual(Resources.DataGridViewComboBoxItemWrapper_DisplayName_None, dataGridViewComboBoxItemWrapper.DisplayName);
             Assert.IsNull(dataGridViewComboBoxItemWrapper.WrappedObject);
             Assert.AreEqual(dataGridViewComboBoxItemWrapper, dataGridViewComboBoxItemWrapper.This);
         }

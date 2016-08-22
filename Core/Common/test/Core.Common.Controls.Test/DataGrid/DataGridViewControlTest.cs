@@ -27,6 +27,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Controls.Test.Properties;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
