@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{36EADA20-B58D-4AF6-9B66-B567C81B7AD0}</ProjectGuid>
+    <ProjectGuid>{BDF21BAD-0879-4B94-9C6C-1D55A5966495}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.BlockRevetments.Data.Test</RootNamespace>
-    <AssemblyName>Ringtoets.BlockRevetments.Data.Test</AssemblyName>
+    <RootNamespace>Ringtoets.BlockRevetments.IO.Test</RootNamespace>
+    <AssemblyName>Ringtoets.BlockRevetments.IO.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -52,9 +52,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ringtoets.BlockRevetments.Data\Ringtoets.BlockRevetments.Data.csproj">
-      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Ringtoets.BlockRevetments.Data</Name>
+    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.IO\Ringtoets.StabilityStoneCover.IO.csproj">
+      <Project>{cf6b8598-2993-4a8e-801d-121cc0ef358e}</Project>
+      <Name>Ringtoets.StabilityStoneCover.IO</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

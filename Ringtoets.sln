@@ -745,58 +745,58 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Integ
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlockRevetments", "BlockRevetments", "{12202A15-9AF3-493D-B802-D78F6E718937}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StabilityStoneCover", "StabilityStoneCover", "{12202A15-9AF3-493D-B802-D78F6E718937}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A24FAA09-EF27-48C8-A535-E6D80F49DC5E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{41023317-95BB-4147-8154-87B45837E752}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.Data", "Ringtoets\BlockRevetments\src\Ringtoets.BlockRevetments.Data\Ringtoets.BlockRevetments.Data.csproj", "{B479E3AF-7C34-488C-BB73-D324100D36C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.Data", "Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj", "{B479E3AF-7C34-488C-BB73-D324100D36C9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.IO", "Ringtoets\BlockRevetments\src\Ringtoets.BlockRevetments.IO\Ringtoets.BlockRevetments.IO.csproj", "{CF6B8598-2993-4A8E-801D-121CC0EF358E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.IO", "Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.IO\Ringtoets.StabilityStoneCover.IO.csproj", "{CF6B8598-2993-4A8E-801D-121CC0EF358E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.Forms", "Ringtoets\BlockRevetments\src\Ringtoets.BlockRevetments.Forms\Ringtoets.BlockRevetments.Forms.csproj", "{8E4E1877-697A-45D3-81CF-169EFDF65AA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.Forms", "Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Forms\Ringtoets.StabilityStoneCover.Forms.csproj", "{8E4E1877-697A-45D3-81CF-169EFDF65AA0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.Plugin", "Ringtoets\BlockRevetments\src\Ringtoets.BlockRevetments.Plugin\Ringtoets.BlockRevetments.Plugin.csproj", "{9DDC42CC-A2CC-4900-A711-AA1DD6D3A94A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.Plugin", "Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj", "{9DDC42CC-A2CC-4900-A711-AA1DD6D3A94A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.Service", "Ringtoets\BlockRevetments\src\Ringtoets.BlockRevetments.Service\Ringtoets.BlockRevetments.Service.csproj", "{66DD5FFB-EE06-40F2-9260-01F26D6FD1B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.Service", "Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Service\Ringtoets.StabilityStoneCover.Service.csproj", "{66DD5FFB-EE06-40F2-9260-01F26D6FD1B4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.Data.Test", "Ringtoets\BlockRevetments\test\Ringtoets.BlockRevetments.Data.Test\Ringtoets.BlockRevetments.Data.Test.csproj", "{36EADA20-B58D-4AF6-9B66-B567C81B7AD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.Data.Test", "Ringtoets\StabilityStoneCover\test\Ringtoets.StabilityStoneCover.Data.Test\Ringtoets.StabilityStoneCover.Data.Test.csproj", "{36EADA20-B58D-4AF6-9B66-B567C81B7AD0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.Forms.Test", "Ringtoets\BlockRevetments\test\Ringtoets.BlockRevetments.Forms.Test\Ringtoets.BlockRevetments.Forms.Test.csproj", "{04EEF93B-DEC5-4D8B-B50F-5D99B7D7B467}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.Forms.Test", "Ringtoets\StabilityStoneCover\test\Ringtoets.StabilityStoneCover.Forms.Test\Ringtoets.StabilityStoneCover.Forms.Test.csproj", "{04EEF93B-DEC5-4D8B-B50F-5D99B7D7B467}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.IO.Test", "Ringtoets\BlockRevetments\test\Ringtoets.BlockRevetments.IO.Test\Ringtoets.BlockRevetments.IO.Test.csproj", "{BDF21BAD-0879-4B94-9C6C-1D55A5966495}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.IO.Test", "Ringtoets\StabilityStoneCover\test\Ringtoets.StabilityStoneCover.IO.Test\Ringtoets.StabilityStoneCover.IO.Test.csproj", "{BDF21BAD-0879-4B94-9C6C-1D55A5966495}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.Plugin.Test", "Ringtoets\BlockRevetments\test\Ringtoets.BlockRevetments.Plugin.Test\Ringtoets.BlockRevetments.Plugin.Test.csproj", "{455A95F7-9D9E-4C6D-B49A-D7DC6891FB24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.Plugin.Test", "Ringtoets\StabilityStoneCover\test\Ringtoets.StabilityStoneCover.Plugin.Test\Ringtoets.StabilityStoneCover.Plugin.Test.csproj", "{455A95F7-9D9E-4C6D-B49A-D7DC6891FB24}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.BlockRevetments.Service.Test", "Ringtoets\BlockRevetments\test\Ringtoets.BlockRevetments.Service.Test\Ringtoets.BlockRevetments.Service.Test.csproj", "{55B8542A-1E52-4AE8-9F31-E3404D761716}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.StabilityStoneCover.Service.Test", "Ringtoets\StabilityStoneCover\test\Ringtoets.StabilityStoneCover.Service.Test\Ringtoets.StabilityStoneCover.Service.Test.csproj", "{55B8542A-1E52-4AE8-9F31-E3404D761716}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

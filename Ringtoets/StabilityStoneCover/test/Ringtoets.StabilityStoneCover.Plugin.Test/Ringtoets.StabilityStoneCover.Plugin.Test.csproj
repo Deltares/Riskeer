@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{04EEF93B-DEC5-4D8B-B50F-5D99B7D7B467}</ProjectGuid>
+    <ProjectGuid>{455A95F7-9D9E-4C6D-B49A-D7DC6891FB24}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.BlockRevetments.Forms.Test</RootNamespace>
-    <AssemblyName>Ringtoets.BlockRevetments.Forms.Test</AssemblyName>
+    <RootNamespace>Ringtoets.BlockRevetments.Plugin.Test</RootNamespace>
+    <AssemblyName>Ringtoets.BlockRevetments.Plugin.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -52,13 +52,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ringtoets.BlockRevetments.Data\Ringtoets.BlockRevetments.Data.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
-      <Name>Ringtoets.BlockRevetments.Data</Name>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.BlockRevetments.Forms\Ringtoets.BlockRevetments.Forms.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.Forms\Ringtoets.StabilityStoneCover.Forms.csproj">
       <Project>{8e4e1877-697a-45d3-81cf-169efdf65aa0}</Project>
-      <Name>Ringtoets.BlockRevetments.Forms</Name>
+      <Name>Ringtoets.StabilityStoneCover.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.IO\Ringtoets.StabilityStoneCover.IO.csproj">
+      <Project>{cf6b8598-2993-4a8e-801d-121cc0ef358e}</Project>
+      <Name>Ringtoets.StabilityStoneCover.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
+      <Project>{9ddc42cc-a2cc-4900-a711-aa1dd6d3a94a}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.Service\Ringtoets.StabilityStoneCover.Service.csproj">
+      <Project>{66dd5ffb-ee06-40f2-9260-01f26d6fd1b4}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
