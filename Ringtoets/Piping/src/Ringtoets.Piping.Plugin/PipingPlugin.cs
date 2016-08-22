@@ -653,7 +653,7 @@ namespace Ringtoets.Piping.Plugin
             if (!isNestedGroup)
             {
                 builder.AddSeparator()
-                       .AddRemoveAllChildrenItem(group);
+                       .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
             }
 
             builder.AddSeparator()
