@@ -206,7 +206,7 @@ namespace Core.Common.Gui.Test.Commands
             ModalFormHandler = (name, wnd, form) =>
             {
                 var messageBox = new SaveFileDialogTester(wnd);
-                messageBox.SaveFile("exportFile.txt");
+                messageBox.SaveFile(Path.GetFullPath("exportFile.txt"));
             };
 
             var exportHandler = new GuiExportHandler(mainWindow, new List<ExportInfo>
