@@ -1597,7 +1597,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 var ringtoetsContextMenuBuilder = new RingtoetsContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddRemoveAllChildrenItem(calculationGroup).Build();
+                ContextMenuStrip result = ringtoetsContextMenuBuilder.AddRemoveAllChildrenItem(calculationGroup, viewCommandsMock).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);

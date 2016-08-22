@@ -21,6 +21,7 @@
 
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -1315,22 +1316,32 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         public void CreateRemoveAllChildrenFromGroupItem_NoChildren_CreatesDisabledItemWithTooltipSet()
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup();
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup, viewCommandsMock);
 
             // Assert
             Assert.AreEqual("Berekeningen map &leegmaken...", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen of mappen om te verwijderen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.RemoveAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateRemoveAllChildrenFromGroupItem_WithChildren_CreatesEnabledItem()
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
             var calculation = new TestCalculation();
             var calculationGroup = new CalculationGroup
             {
@@ -1341,19 +1352,25 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             };
 
             // Call
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup, viewCommandsMock);
 
             // Assert
             Assert.AreEqual("Berekeningen map &leegmaken...", toolStripItem.Text);
             Assert.AreEqual("Verwijder alle berekeningen en mappen binnen deze Berekeningen map.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.RemoveAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateRemoveAllChildrenFromGroupItem_WithChildrenPerformClickOnCreatedItemAndCancelChange_GroupUnchanged()
         {
             // Setup
+            var mocks = new MockRepository();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
             var calculation = new TestCalculation();
             var calculationGroup = new CalculationGroup
             {
@@ -1363,7 +1380,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup, viewCommandsMock);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -1380,22 +1397,36 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             }, calculationGroup.Children);
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateRemoveAllChildrenFromGroupItem_WithChildrenPerformClickOnCreatedItemAndConfirmChange_ClearsGroup()
+        public void CreateRemoveAllChildrenFromGroupItem_WithNestedChildrenPerformClickOnCreatedItemAndConfirmChange_ClearsGroup()
         {
             // Setup
             var calculation = new TestCalculation();
+
+            var mocks = new MockRepository();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            viewCommandsMock.Expect(vc => vc.RemoveAllViewsForItem(calculation));
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup
             {
                 Children =
                 {
-                    calculation
+                    new CalculationGroup
+                    {
+                        Children =
+                        {
+                            calculation
+                        }
+                    }
                 }
             };
 
-            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup);
+            StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup, viewCommandsMock);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -1409,6 +1440,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.IsEmpty(calculationGroup.Children);
+
+            mocks.VerifyAll();
         }
 
         #endregion
