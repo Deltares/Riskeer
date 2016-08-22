@@ -22,6 +22,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Ringtoets.BlockRevetments.Service")]
-[assembly: AssemblyProduct("Ringtoets.BlockRevetments.Service")]
+[assembly: AssemblyTitle("Ringtoets.StabilityStoneCover.Service")]
+[assembly: AssemblyProduct("Ringtoets.StabilityStoneCover.Service")]
 [assembly: Guid("501a5ee0-bb2b-415f-af4e-4a2f602a3003")]

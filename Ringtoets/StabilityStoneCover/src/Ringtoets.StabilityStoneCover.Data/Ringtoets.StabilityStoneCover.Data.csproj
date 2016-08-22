@@ -5,8 +5,8 @@
     <ProjectGuid>{B479E3AF-7C34-488C-BB73-D324100D36C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.BlockRevetments.Data</RootNamespace>
-    <AssemblyName>Ringtoets.BlockRevetments.Data</AssemblyName>
+    <RootNamespace>Ringtoets.StabilityStoneCover.Data</RootNamespace>
+    <AssemblyName>Ringtoets.StabilityStoneCover.Data</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

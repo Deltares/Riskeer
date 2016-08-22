@@ -5,8 +5,8 @@
     <ProjectGuid>{CF6B8598-2993-4A8E-801D-121CC0EF358E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.BlockRevetments.IO</RootNamespace>
-    <AssemblyName>Ringtoets.BlockRevetments.IO</AssemblyName>
+    <RootNamespace>Ringtoets.StabilityStoneCover.IO</RootNamespace>
+    <AssemblyName>Ringtoets.StabilityStoneCover.IO</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

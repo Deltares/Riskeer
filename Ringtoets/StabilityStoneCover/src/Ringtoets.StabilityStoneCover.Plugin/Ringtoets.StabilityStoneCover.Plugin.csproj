@@ -5,8 +5,8 @@
     <ProjectGuid>{9DDC42CC-A2CC-4900-A711-AA1DD6D3A94A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.BlockRevetments.Plugin</RootNamespace>
-    <AssemblyName>Ringtoets.BlockRevetments.Plugin</AssemblyName>
+    <RootNamespace>Ringtoets.StabilityStoneCover.Plugin</RootNamespace>
+    <AssemblyName>Ringtoets.StabilityStoneCover.Plugin</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -6,8 +6,8 @@
     <ProjectGuid>{455A95F7-9D9E-4C6D-B49A-D7DC6891FB24}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.BlockRevetments.Plugin.Test</RootNamespace>
-    <AssemblyName>Ringtoets.BlockRevetments.Plugin.Test</AssemblyName>
+    <RootNamespace>Ringtoets.StabilityStoneCover.Plugin.Test</RootNamespace>
+    <AssemblyName>Ringtoets.StabilityStoneCover.Plugin.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
