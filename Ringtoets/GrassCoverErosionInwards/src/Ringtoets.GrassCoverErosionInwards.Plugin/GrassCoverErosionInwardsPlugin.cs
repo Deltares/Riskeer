@@ -478,7 +478,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             if (!isNestedGroup)
             {
                 builder.AddSeparator()
-                       .AddRemoveAllChildrenItem(group);
+                       .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
             }
 
             builder.AddSeparator()

@@ -21,6 +21,7 @@
 
 using System;
 using System.Windows.Forms;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -252,10 +253,11 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// <paramref name="calculationGroup"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group from which all the children will be removed.</param>
+        /// <param name="viewCommands">The object implementing a method for closing views for the removed children.</param>
         /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddRemoveAllChildrenItem(CalculationGroup calculationGroup)
+        public RingtoetsContextMenuBuilder AddRemoveAllChildrenItem(CalculationGroup calculationGroup, IViewCommands viewCommands)
         {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup));
+            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup, viewCommands));
             return this;
         }
 
