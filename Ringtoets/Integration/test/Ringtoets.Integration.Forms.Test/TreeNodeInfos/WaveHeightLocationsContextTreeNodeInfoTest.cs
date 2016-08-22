@@ -28,6 +28,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -278,6 +279,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        [RequiresSTA]
         public void GivenHydraulicBoundaryDatabaseWithNonExistingFilePath_WhenCalculatingWaveHeightFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
         {
             // Given
@@ -311,6 +313,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             {
                 guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                guiMock.Expect(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
                 mockRepository.ReplayAll();
 
@@ -318,6 +321,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     plugin.Gui = guiMock;
+                    plugin.Activate();
 
                     ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl);
 
