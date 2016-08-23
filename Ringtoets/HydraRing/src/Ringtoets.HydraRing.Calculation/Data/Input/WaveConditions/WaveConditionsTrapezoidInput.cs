@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
 {
@@ -28,6 +29,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     /// </summary>
     public class WaveConditionsTrapezoidInput : WaveConditionsInput
     {
+        private readonly double beta1;
+        private readonly double beta2;
+
         /// <summary>
         /// Creates a new instance of the <see cref="WaveConditionsTrapezoidInput"/> class.
         /// </summary>
@@ -39,12 +43,16 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="waterLevel">The water level to calculate the wave conditions for.</param>
         /// <param name="a">The a-value to use during the calculation.</param>
         /// <param name="b">The b-value to use during the calculation.</param>
+        /// <param name="beta1">The beta1-value to use during the calculation.</param>
+        /// <param name="beta2">The beta2-value to use during the calculation.</param>
         public WaveConditionsTrapezoidInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
                                             IEnumerable<HydraRingForelandPoint> forelandPoints,
                                             HydraRingBreakWater breakWater,
                                             double waterLevel,
                                             double a,
-                                            double b)
+                                            double b,
+                                            double beta1,
+                                            double beta2)
             : base(sectionId,
                    hydraulicBoundaryLocationId,
                    norm,
@@ -52,7 +60,26 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
                    breakWater,
                    waterLevel,
                    a,
-                   b) {}
+                   b)
+        {
+            this.beta1 = beta1;
+            this.beta2 = beta2;
+        }
+
+        public override IEnumerable<HydraRingVariable> Variables
+        {
+            get
+            {
+                var variables = base.Variables.ToList();
+
+                variables.Add(new HydraRingVariable(117, HydraRingDistributionType.Deterministic, beta1,
+                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
+                variables.Add(new HydraRingVariable(118, HydraRingDistributionType.Deterministic, beta2,
+                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
+
+                return variables;
+            }
+        }
 
         public override int? GetSubMechanismModelId(int subMechanismId)
         {

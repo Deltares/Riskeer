@@ -48,7 +48,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                           breakWater,
                                                                           5.5,
                                                                           6.6,
-                                                                          7.7);
+                                                                          7.7,
+                                                                          8.8);
 
             // Assert
             const int expectedCalculationTypeId = 6;
@@ -81,7 +82,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                           new HydraRingBreakWater(1, 4.4),
                                                                           5.5,
                                                                           6.6,
-                                                                          7.7);
+                                                                          7.7,
+                                                                          8.8);
 
             // Assert
             Assert.AreEqual(expectedSubMechanismModelId, waveConditionsCosineInput.GetSubMechanismModelId(subMechanismModelId));

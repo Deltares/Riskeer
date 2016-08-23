@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
 {
@@ -28,6 +29,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     /// </summary>
     public class WaveConditionsCosineInput : WaveConditionsInput
     {
+        private readonly double c;
+
         /// <summary>
         /// Creates a new instance of the <see cref="WaveConditionsCosineInput"/> class.
         /// </summary>
@@ -39,12 +42,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="waterLevel">The water level to calculate the wave conditions for.</param>
         /// <param name="a">The a-value to use during the calculation.</param>
         /// <param name="b">The b-value to use during the calculation.</param>
+        /// <param name="c">The c-value to use during the calculation.</param>
         public WaveConditionsCosineInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
                                          IEnumerable<HydraRingForelandPoint> forelandPoints,
                                          HydraRingBreakWater breakWater,
                                          double waterLevel,
                                          double a,
-                                         double b)
+                                         double b,
+                                         double c)
             : base(sectionId,
                    hydraulicBoundaryLocationId,
                    norm,
@@ -52,7 +57,23 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
                    breakWater,
                    waterLevel,
                    a,
-                   b) {}
+                   b)
+        {
+            this.c = c;
+        }
+
+        public override IEnumerable<HydraRingVariable> Variables
+        {
+            get
+            {
+                var variables = base.Variables.ToList();
+
+                variables.Add(new HydraRingVariable(119, HydraRingDistributionType.Deterministic, c,
+                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
+
+                return variables;
+            }
+        }
 
         public override int? GetSubMechanismModelId(int subMechanismId)
         {
