@@ -41,6 +41,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {

@@ -184,6 +184,10 @@
       <Name>Ringtoets.Piping.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
+      <Project>{9ddc42cc-a2cc-4900-a711-aa1dd6d3a94a}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
       <Name>Application.Ringtoets.Storage</Name>

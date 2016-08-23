@@ -31,6 +31,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {

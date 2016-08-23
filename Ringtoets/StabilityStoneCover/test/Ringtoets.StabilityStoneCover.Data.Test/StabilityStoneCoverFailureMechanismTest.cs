@@ -23,10 +23,8 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone
+namespace Ringtoets.StabilityStoneCover.Data.Test
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismTest
@@ -42,6 +40,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             Assert.AreEqual("Dijken en dammen - Stabiliteit steenzetting", failureMechanism.Name);
             Assert.AreEqual("ZST", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
         }
 
         [Test]
@@ -59,6 +58,24 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+        }
+
+        [Test]
+        public void CleanAllSections_WithSection_RemoveSectionResults()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+
+            // Call
+            failureMechanism.ClearAllSections();
+
+            // Assert
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
     }
 }

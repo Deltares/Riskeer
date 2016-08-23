@@ -67,6 +67,8 @@ using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -145,8 +147,8 @@ namespace Ringtoets.Integration.Plugin
                 ),
             new FailureMechanismContextAssociation(
                 typeof(StabilityStoneCoverFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
+                (mechanism, assessmentSection) => new StabilityStoneCoverFailureMechanismContext(
+                                                      (StabilityStoneCoverFailureMechanism) mechanism,
                                                       assessmentSection)
                 ),
             new FailureMechanismContextAssociation(
@@ -333,9 +335,6 @@ namespace Ringtoets.Integration.Plugin
                 MicrostabilityFailureMechanismSectionResult,
                 MicrostabilityResultView>();
             yield return CreateFailureMechanismResultViewInfo<
-                StabilityStoneCoverFailureMechanismSectionResult,
-                StabilityStoneCoverResultView>();
-            yield return CreateFailureMechanismResultViewInfo<
                 PipingStructureFailureMechanismSectionResult,
                 PipingStructureResultView>();
             yield return CreateFailureMechanismResultViewInfo<
@@ -520,7 +519,6 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<StabilityStoneCoverFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();

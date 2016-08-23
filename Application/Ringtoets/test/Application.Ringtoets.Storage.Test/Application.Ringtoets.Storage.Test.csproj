@@ -245,6 +245,10 @@
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
       <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
       <Name>Application.Ringtoets.Storage</Name>

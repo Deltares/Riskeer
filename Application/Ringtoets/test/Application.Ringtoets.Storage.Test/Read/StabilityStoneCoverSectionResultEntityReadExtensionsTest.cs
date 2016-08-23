@@ -25,7 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {

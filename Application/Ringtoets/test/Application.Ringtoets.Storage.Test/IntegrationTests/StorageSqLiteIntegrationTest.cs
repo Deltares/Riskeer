@@ -45,6 +45,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.IntegrationTests
 {

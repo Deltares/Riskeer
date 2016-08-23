@@ -28,26 +28,25 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using Ringtoets.Piping.Data;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ViewInfos
+namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class StabilityStoneCoverResultViewInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private StabilityStoneCoverPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
+            plugin = new StabilityStoneCoverPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityStoneCoverResultView));
         }
 
@@ -197,7 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new PipingFailureMechanism(),
+                new StabilityStoneCoverFailureMechanism(),
                 failureMechanism
             });
 
@@ -256,9 +255,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
+            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
+                                                                                         assessmentSection);
 
             mocks.ReplayAll();
 
@@ -279,9 +279,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new StabilityStoneCoverFailureMechanism());
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(),
+                                                                                         assessmentSection);
             mocks.ReplayAll();
 
             using (var view = new StabilityStoneCoverResultView())

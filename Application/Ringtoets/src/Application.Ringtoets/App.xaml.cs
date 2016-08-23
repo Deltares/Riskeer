@@ -49,6 +49,7 @@ using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
+using Ringtoets.StabilityStoneCover.Plugin;
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
 using Demo.Ringtoets.GUIs;
@@ -150,6 +151,7 @@ namespace Application.Ringtoets
                     new GrassCoverErosionInwardsPlugin(),
                     new PipingPlugin(),
                     new HeightStructuresPlugin(),
+                    new StabilityStoneCoverPlugin(),
                     new ChartPlugin(),
                     new MapPlugin()
 #if INCLUDE_DEMOPROJECT

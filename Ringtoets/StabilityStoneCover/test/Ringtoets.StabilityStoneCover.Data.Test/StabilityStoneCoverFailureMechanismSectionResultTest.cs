@@ -24,9 +24,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
+namespace Ringtoets.StabilityStoneCover.Data.Test
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismSectionResultTest

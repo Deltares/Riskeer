@@ -27,10 +27,10 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
+namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
 {
     [TestFixture]
     public class StabilityStoneCoverSectionResultRowTest

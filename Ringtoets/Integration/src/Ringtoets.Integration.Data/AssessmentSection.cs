@@ -32,6 +32,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.Integration.Data
 {

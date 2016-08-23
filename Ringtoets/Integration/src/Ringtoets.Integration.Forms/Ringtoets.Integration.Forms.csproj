@@ -117,7 +117,6 @@
     <Compile Include="Views\SectionResultRows\MacrostabilityOutwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\MicrostabilitySectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\PipingStructureSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultRows\StabilityStoneCoverSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityPointConstructionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\TechnicalInnovationSectionResultRow.cs" />
@@ -160,9 +159,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SectionResultViews\StabilityStoneCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\SectionResultViews\WaveImpactAsphaltCoverResultView.cs">

@@ -24,12 +24,11 @@ using System.Linq;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
+using Ringtoets.StabilityStoneCover.Data;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views.SectionResultViews
+namespace Ringtoets.StabilityStoneCover.Forms.Views
 {
     /// <summary>
     /// The view for a collection of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
@@ -59,17 +58,17 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.Name),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddComboBoxColumn(
                 TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 twoAResultDataSource,
                 TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
                 TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.AssessmentLayerThree),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }
 }

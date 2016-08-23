@@ -42,6 +42,8 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
@@ -229,13 +231,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var pipingStructureFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[12];
                 Assert.AreSame(failureMechanisms[8], pipingStructureFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingStructureFailureMechanismContext.Parent);
-                var stabilityStoneCoverFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[13];
+
+                var stabilityStoneCoverFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext) objects[13];
                 Assert.AreSame(failureMechanisms[9], stabilityStoneCoverFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, stabilityStoneCoverFailureMechanismContext.Parent);
+
                 var technicalInnovationFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[14];
                 Assert.AreSame(failureMechanisms[10], technicalInnovationFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, technicalInnovationFailureMechanismContext.Parent);
-
                 var strengthStabilityLengthwiseConstructionFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[15];
                 Assert.AreSame(failureMechanisms[11], strengthStabilityLengthwiseConstructionFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, strengthStabilityLengthwiseConstructionFailureMechanismContext.Parent);
@@ -245,7 +248,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var waveImpactAsphaltCoverFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[17];
                 Assert.AreSame(failureMechanisms[13], waveImpactAsphaltCoverFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, waveImpactAsphaltCoverFailureMechanismContext.Parent);
-
                 var closingStructureFailureMechnaismContext = (FailureMechanismContext<IFailureMechanism>) objects[18];
                 Assert.AreSame(failureMechanisms[14], closingStructureFailureMechnaismContext.WrappedData);
                 Assert.AreSame(assessmentSection, closingStructureFailureMechnaismContext.Parent);

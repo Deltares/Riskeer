@@ -61,7 +61,6 @@
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\SectionResults\ClosingStructureFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\TechnicalInnovationFailureMechanismSectionResultTest.cs" />
-    <Compile Include="StandAlone\SectionResults\StabilityStoneCoverFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\PipingStructureFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\MicrostabilityFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\GrassCoverSlipOffInwardsFailureMechanismSectionResultTest.cs" />
@@ -83,7 +82,6 @@
     <Compile Include="StandAlone\GrassCoverSlipOffOutwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\MacrostabilityInwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\PipingStructureFailureMechanismTest.cs" />
-    <Compile Include="StandAlone\StabilityStoneCoverFailureMechanismTest.cs" />
     <Compile Include="StandAlone\StrengthStabilityPointConstructionFailureMechanismTest.cs" />
     <Compile Include="StandAlone\WaveImpactAsphaltCoverFailureMechanismTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,6 +110,10 @@
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
       <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>

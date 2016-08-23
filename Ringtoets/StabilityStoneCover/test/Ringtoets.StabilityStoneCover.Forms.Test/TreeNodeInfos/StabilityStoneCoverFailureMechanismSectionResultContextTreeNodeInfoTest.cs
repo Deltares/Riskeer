@@ -20,32 +20,33 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Plugin;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
+namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
+            plugin = new StabilityStoneCoverPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>));
         }
 
@@ -114,23 +115,33 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var section = new FailureMechanismSection("A",
+                                                      new[]
+                                                      {
+                                                          new Point2D(0, 0)
+                                                      });
+            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var sectionResultContext = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(new[]
+            {
+                sectionResult
+            }, failureMechanism);
+
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.StrictMultiMock<IGui>();
-                gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
-                gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(sectionResultContext, treeViewControl)).Return(menuBuilderMock);
 
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(null, null, treeViewControl);
+                info.ContextMenuStrip(sectionResultContext, null, treeViewControl);
             }
             // Assert
             // Assert expectancies are called in TearDown()
