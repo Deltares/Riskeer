@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const int hydraulicBoundaryLocationId = 3000;
 
             // Call
-            var waveConditionsInput = new WaveConditionsInput(sectionId, hydraulicBoundaryLocationId, norm);
+            var waveConditionsInput = new WaveConditionsInputImplementation(sectionId, hydraulicBoundaryLocationId, norm);
 
             // Assert
             const int expectedCalculationTypeId = 6;
@@ -53,6 +53,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.IsNotNull(waveConditionsInput.Section);
             Assert.AreEqual(sectionId, waveConditionsInput.Section.SectionId);
             Assert.AreEqual(expectedBeta, waveConditionsInput.Beta);
+        }
+
+        private class WaveConditionsInputImplementation : WaveConditionsInput
+        {
+            public WaveConditionsInputImplementation(int sectionId, long hydraulicBoundaryLocationId, double norm) : base(sectionId, hydraulicBoundaryLocationId, norm) {}
         }
     }
 }

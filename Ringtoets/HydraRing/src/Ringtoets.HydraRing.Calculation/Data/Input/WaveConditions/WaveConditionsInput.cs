@@ -26,7 +26,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     /// <summary>
     /// Container of all data necessary for performing a wave conditions calculation (Q-variant) via Hydra-Ring.
     /// </summary>
-    public class WaveConditionsInput : HydraRingCalculationInput
+    public abstract class WaveConditionsInput : HydraRingCalculationInput
     {
         private readonly double beta;
         private readonly HydraRingSection section;
@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
-        public WaveConditionsInput(int sectionId, long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
+        protected WaveConditionsInput(int sectionId, long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
         {
             beta = StatisticsConverter.NormToBeta(norm);
             section = new HydraRingSection(sectionId, double.NaN, double.NaN);
