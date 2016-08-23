@@ -36,15 +36,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            const int norm = 111;
-            const int sectionId = 2;
-            const int hydraulicBoundaryLocationId = 3000;
+            const int sectionId = 111;
+            const int hydraulicBoundaryLocationId = 222;
+            const int norm = 333;
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
-            var breakWater = new HydraRingBreakWater(1, 2.2);
+            var breakWater = new HydraRingBreakWater(1, 4.4);
 
             // Call
-            var waveConditionsInput = new WaveConditionsInputImplementation(sectionId, hydraulicBoundaryLocationId, norm,
-                                                                            forelandPoints, breakWater);
+            var waveConditionsInput = new WaveConditionsInputImplementation(sectionId,
+                                                                            hydraulicBoundaryLocationId,
+                                                                            norm,
+                                                                            forelandPoints,
+                                                                            breakWater,
+                                                                            5.5,
+                                                                            6.6,
+                                                                            7.7);
 
             // Assert
             const int expectedCalculationTypeId = 6;
@@ -64,10 +70,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
 
         private class WaveConditionsInputImplementation : WaveConditionsInput
         {
-            public WaveConditionsInputImplementation(int sectionId, long hydraulicBoundaryLocationId, double norm,
+            public WaveConditionsInputImplementation(int sectionId,
+                                                     long hydraulicBoundaryLocationId,
+                                                     double norm,
                                                      IEnumerable<HydraRingForelandPoint> forelandPoints,
-                                                     HydraRingBreakWater breakWater)
-                : base(sectionId, hydraulicBoundaryLocationId, norm, forelandPoints, breakWater) {}
+                                                     HydraRingBreakWater breakWater,
+                                                     double waterLevel,
+                                                     double a,
+                                                     double b)
+                : base(sectionId,
+                       hydraulicBoundaryLocationId,
+                       norm,
+                       forelandPoints,
+                       breakWater,
+                       waterLevel,
+                       a,
+                       b) {}
         }
     }
 }

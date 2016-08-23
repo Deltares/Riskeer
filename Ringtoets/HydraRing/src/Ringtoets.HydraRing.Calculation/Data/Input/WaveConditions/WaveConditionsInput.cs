@@ -32,6 +32,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         private readonly double beta;
         private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
         private readonly HydraRingBreakWater breakWater;
+        private readonly double waterLevel;
+        private readonly double a;
+        private readonly double b;
         private readonly HydraRingSection section;
 
         /// <summary>
@@ -40,17 +43,28 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="hydraRingForelandPoints">The foreland points to use during the calculation.</param>
-        /// <param name="hydraRingBreakWater">The break water to use during the calculation.</param>
+        /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
+        /// <param name="breakWater">The break water to use during the calculation.</param>
+        /// <param name="waterLevel">The water level to calculate the wave conditions for.</param>
+        /// <param name="a">The a-value to use during the calculation.</param>
+        /// <param name="b">The b-value to use during the calculation.</param>
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
-        protected WaveConditionsInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
-                                      IEnumerable<HydraRingForelandPoint> hydraRingForelandPoints,
-                                      HydraRingBreakWater hydraRingBreakWater)
+        protected WaveConditionsInput(int sectionId,
+                                      long hydraulicBoundaryLocationId,
+                                      double norm,
+                                      IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                      HydraRingBreakWater breakWater,
+                                      double waterLevel,
+                                      double a,
+                                      double b)
             : base(hydraulicBoundaryLocationId)
         {
             beta = StatisticsConverter.NormToBeta(norm);
-            forelandPoints = hydraRingForelandPoints;
-            breakWater = hydraRingBreakWater;
+            this.forelandPoints = forelandPoints;
+            this.breakWater = breakWater;
+            this.waterLevel = waterLevel;
+            this.a = a;
+            this.b = b;
             section = new HydraRingSection(sectionId, double.NaN, double.NaN);
         }
 
@@ -108,6 +122,25 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             {
                 return beta;
             }
+        }
+
+        private IEnumerable<HydraRingVariable> GetHydraRingVariables()
+        {
+            // Water level
+            yield return new HydraRingVariable(113, HydraRingDistributionType.Deterministic, waterLevel,
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+
+            // Resistance Q-variant
+            yield return new HydraRingVariable(114, HydraRingDistributionType.Deterministic, 1.0,
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+
+            // a-value
+            yield return new HydraRingVariable(115, HydraRingDistributionType.Deterministic, a,
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+
+            // b-value
+            yield return new HydraRingVariable(116, HydraRingDistributionType.Deterministic, b,
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
         }
     }
 }

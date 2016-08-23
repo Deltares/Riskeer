@@ -34,12 +34,25 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="hydraRingForelandPoints">The foreland points to use during the calculation.</param>
-        /// <param name="hydraRingBreakWater">The break water to use during the calculation.</param>
+        /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
+        /// <param name="breakWater">The break water to use during the calculation.</param>
+        /// <param name="waterLevel">The water level to calculate the wave conditions for.</param>
+        /// <param name="a">The a-value to use during the calculation.</param>
+        /// <param name="b">The b-value to use during the calculation.</param>
         public WaveConditionsTrapezoidInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
-                                            IEnumerable<HydraRingForelandPoint> hydraRingForelandPoints,
-                                            HydraRingBreakWater hydraRingBreakWater)
-            : base(sectionId, hydraulicBoundaryLocationId, norm, hydraRingForelandPoints, hydraRingBreakWater) {}
+                                            IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                            HydraRingBreakWater breakWater,
+                                            double waterLevel,
+                                            double a,
+                                            double b)
+            : base(sectionId,
+                   hydraulicBoundaryLocationId,
+                   norm,
+                   forelandPoints,
+                   breakWater,
+                   waterLevel,
+                   a,
+                   b) {}
 
         public override int? GetSubMechanismModelId(int subMechanismId)
         {
