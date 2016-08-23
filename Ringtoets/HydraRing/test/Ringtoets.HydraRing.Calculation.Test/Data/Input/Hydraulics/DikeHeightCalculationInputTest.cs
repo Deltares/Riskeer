@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using MathNet.Numerics.Distributions;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -38,9 +38,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         {
             // Setup
             var norm = 10000;
-            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
             int hydraulicBoundaryLocationId = 1000;
-            HydraRingSection expectedHydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
+            HydraRingSection hydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
 
             const double modelFactorCriticalOvertopping = 1;
             const double factorFnMean = 4.75;
@@ -65,7 +64,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
-            DikeHeightCalculationInput dikeHeightCalculationInput = new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, expectedHydraRingSection,
+            DikeHeightCalculationInput dikeHeightCalculationInput = new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, hydraRingSection,
                                                                                                    modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation,
                                                                                                    hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation, hydraRingmodelFactorOvertopping,
                                                                                                    criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
@@ -76,6 +75,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             // Assert
             const int expectedCalculationTypeId = 2;
             const int expectedVariableId = 1;
+            double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.IsInstanceOf<TargetProbabilityCalculationInput>(dikeHeightCalculationInput);
             Assert.AreEqual(expectedCalculationTypeId, dikeHeightCalculationInput.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, dikeHeightCalculationInput.HydraulicBoundaryLocationId);
@@ -87,9 +87,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             CollectionAssert.AreEqual(expectedRingForelandPoints, dikeHeightCalculationInput.ForelandsPoints);
             Assert.AreEqual(expectedRingBreakWater, dikeHeightCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, dikeHeightCalculationInput.Beta);
-
-            var hydraRingSection = dikeHeightCalculationInput.Section;
-            Assert.AreEqual(expectedHydraRingSection, hydraRingSection);
+            Assert.AreSame(hydraRingSection, dikeHeightCalculationInput.Section);
         }
 
         [Test]

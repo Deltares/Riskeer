@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Utils;
-using MathNet.Numerics.Distributions;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;

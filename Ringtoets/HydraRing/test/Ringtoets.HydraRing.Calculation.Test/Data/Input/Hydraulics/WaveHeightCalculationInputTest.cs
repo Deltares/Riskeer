@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
-using MathNet.Numerics.Distributions;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -37,12 +37,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             const int norm = 10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
-            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
 
             // Call
             var waveHeightCalculationInput = new WaveHeightCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
 
             // Assert
+            double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.AreEqual(HydraRingFailureMechanismType.WaveHeight, waveHeightCalculationInput.FailureMechanismType);
             Assert.AreEqual(2, waveHeightCalculationInput.CalculationTypeId);
             Assert.AreEqual(28, waveHeightCalculationInput.VariableId);
