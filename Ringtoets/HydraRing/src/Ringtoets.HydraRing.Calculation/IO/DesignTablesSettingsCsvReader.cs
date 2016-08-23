@@ -66,6 +66,18 @@ namespace Ringtoets.HydraRing.Calculation.IO
             },
             {
                 dikeHeightKey, HydraRingFailureMechanismType.DikesHeight
+            },
+            {
+                grassKey, HydraRingFailureMechanismType.DikesOvertopping
+            },
+            {
+                heightStructuresKey, HydraRingFailureMechanismType.StructuresOvertopping
+            },
+            {
+                closingStructuresKey, HydraRingFailureMechanismType.StructuresClosure
+            },
+            {
+                structuresStructuralFailureKey, HydraRingFailureMechanismType.StructuresStructuralFailure
             }
         };
 
@@ -128,6 +140,10 @@ namespace Ringtoets.HydraRing.Calculation.IO
         private const string waveSpectralPeriodKey = "Tm-1,0";
         private const string qVariantKey = "Q";
         private const string dikeHeightKey = "HBN";
+        private const string grassKey = "Gras";
+        private const string heightStructuresKey = "KwHoogte";
+        private const string closingStructuresKey = "KwSluiten";
+        private const string structuresStructuralFailureKey = "KwPuntconstructies";
 
         #endregion
     }
