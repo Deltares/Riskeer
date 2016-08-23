@@ -83,7 +83,6 @@
     <Compile Include="ViewInfos\PipingStructureResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverSlipOffOutwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverSlipOffInwardsResultViewInfoTest.cs" />
-    <Compile Include="ViewInfos\GrassCoverErosionOutwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaterPressureAsphaltCoverResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaveHeightLocationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\WaveImpactAsphaltCoverResultViewInfoTest.cs" />
@@ -138,6 +137,14 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+      <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Forms\Ringtoets.GrassCoverErosionOutwards.Forms.csproj">
+      <Project>{41B829C1-630F-40B0-8BEE-B1C4C94EC8C4}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>

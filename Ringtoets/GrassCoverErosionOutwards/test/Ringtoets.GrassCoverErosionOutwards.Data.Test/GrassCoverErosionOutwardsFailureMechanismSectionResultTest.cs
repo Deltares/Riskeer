@@ -19,46 +19,48 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
+using System;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone
+namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismTest
+    public class GrassCoverErosionOutwardsFailureMechanismSectionResultTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismSectionResult(null);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie buitentalud", failureMechanism.Name);
-            Assert.AreEqual("GEBU", failureMechanism.Code);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("section", paramName);
         }
 
         [Test]
-        public void AddSection_WithSection_AddedGrassCoverErosionOutwardsFailureMechanismSectionResult()
+        public void Constructor_WithSection_ResultCreatedForSection()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var section = new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             // Call
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(2, 1)
-            }));
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.IsInstanceOf<IStorable>(result);
+            Assert.AreSame(section, result.Section);
+            Assert.IsFalse(result.AssessmentLayerOne);
+            Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
+            Assert.IsNaN(result.AssessmentLayerThree);
+            Assert.AreEqual(0, result.StorageId);
         }
     }
 }

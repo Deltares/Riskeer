@@ -26,15 +26,15 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using Ringtoets.Piping.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
+using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ViewInfos
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsResultViewInfoTest
@@ -197,7 +197,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new PipingFailureMechanism(),
+                new OtherFailureMechanism(),
                 failureMechanism
             });
 
@@ -315,6 +315,19 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        private class OtherFailureMechanism : FailureMechanismBase {
+            public OtherFailureMechanism()
+                : base(@"OtherFailureMechanism", @"failureMechanismCode") { }
+
+            public override IEnumerable<ICalculation> Calculations
+            {
+                get
+                {
+                    throw new System.NotImplementedException();
+                }
+            }
         }
     }
 }

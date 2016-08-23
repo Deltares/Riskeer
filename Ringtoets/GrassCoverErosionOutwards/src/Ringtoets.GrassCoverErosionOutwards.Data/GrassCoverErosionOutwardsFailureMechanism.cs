@@ -22,11 +22,10 @@
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Data.StandAlone
+namespace Ringtoets.GrassCoverErosionOutwards.Data
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the

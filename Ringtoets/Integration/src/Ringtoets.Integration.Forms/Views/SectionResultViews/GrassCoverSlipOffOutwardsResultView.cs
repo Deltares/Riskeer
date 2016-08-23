@@ -85,20 +85,20 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                     .ToArray();
 
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsSectionResultRow>(sr => sr.Name),
+                TypeUtils.GetMemberName<GrassCoverSlipOffOutwardsSectionResultRow>(sr => sr.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsSectionResultRow>(sr => sr.AssessmentLayerOne),
+                TypeUtils.GetMemberName<GrassCoverSlipOffOutwardsSectionResultRow>(sr => sr.AssessmentLayerOne),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                TypeUtils.GetMemberName<GrassCoverSlipOffOutwardsSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 twoAResultDataSource,
                 TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
                 TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsSectionResultRow>(sr => sr.AssessmentLayerThree),
+                TypeUtils.GetMemberName<GrassCoverSlipOffOutwardsSectionResultRow>(sr => sr.AssessmentLayerThree),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }

@@ -194,8 +194,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(typeof(DuneErosionFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(DuneErosionFailureMechanismSectionResult)")]
-        [TestCase(typeof(GrassCoverErosionOutwardsFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverErosionOutwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(GrassCoverSlipOffInwardsFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverSlipOffInwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionResult),

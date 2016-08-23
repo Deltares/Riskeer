@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         /// <param name="sectionResult">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
-        /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {

@@ -145,24 +145,6 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GEBU.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding erosie buitentalud.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to GABI.
         /// </summary>
         public static string GrassCoverSlipOffInwardsFailureMechanism_Code {
