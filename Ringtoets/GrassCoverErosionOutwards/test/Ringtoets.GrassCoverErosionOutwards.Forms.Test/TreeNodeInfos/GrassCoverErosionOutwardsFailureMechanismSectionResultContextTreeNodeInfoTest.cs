@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Integration.Plugin;
+using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
@@ -36,15 +36,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
+            plugin = new GrassCoverErosionOutwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>));
         }
 
@@ -52,15 +50,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.AreEqual(typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>), info.TagType);
 
@@ -84,8 +78,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            mocks.ReplayAll();
-
             var mechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
@@ -97,11 +89,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             var image = info.Image(null);
 
@@ -113,27 +102,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var gui = mocks.StrictMultiMock<IGui>();
+            var mocks = new MockRepository();
+            var guiMock = mocks.StrictMultiMock<IGui>();
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
-                gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
+                guiMock.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
 
                 menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
+                plugin.Gui = guiMock;
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }

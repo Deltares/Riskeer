@@ -58,5 +58,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<GrassCoverErosionOutwardsFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
+
+        [Test]
+        public void CleanAllSections_WithSection_RemoveSectionResults()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+
+            // Call
+            failureMechanism.ClearAllSections();
+
+            // Assert
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+        }
     }
 }

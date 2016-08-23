@@ -45,6 +45,7 @@ using Core.Plugins.ProjectExplorer;
 using log4net;
 using log4net.Appender;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
+using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin;
@@ -149,6 +150,7 @@ namespace Application.Ringtoets
                     new CommonToolsPlugin(),
                     new RingtoetsPlugin(),
                     new GrassCoverErosionInwardsPlugin(),
+                    new GrassCoverErosionOutwardsPlugin(),
                     new PipingPlugin(),
                     new HeightStructuresPlugin(),
                     new StabilityStoneCoverPlugin(),

@@ -50,7 +50,7 @@ using Ringtoets.Common.IO;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
@@ -119,8 +119,8 @@ namespace Ringtoets.Integration.Plugin
                 ),
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverErosionOutwardsFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
+                (mechanism, assessmentSection) => new GrassCoverErosionOutwardsFailureMechanismContext(
+                                                      (GrassCoverErosionOutwardsFailureMechanism) mechanism,
                                                       assessmentSection)
                 ),
             new FailureMechanismContextAssociation(
@@ -325,9 +325,6 @@ namespace Ringtoets.Integration.Plugin
                 DuneErosionFailureMechanismSectionResult,
                 DuneErosionResultView>();
             yield return CreateFailureMechanismResultViewInfo<
-                GrassCoverErosionOutwardsFailureMechanismSectionResult,
-                GrassCoverErosionOutwardsResultView>();
-            yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult,
                 GrassCoverSlipOffInwardsResultView>();
             yield return CreateFailureMechanismResultViewInfo<
@@ -516,7 +513,6 @@ namespace Ringtoets.Integration.Plugin
             };
 
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResult>();
@@ -873,7 +869,6 @@ namespace Ringtoets.Integration.Plugin
         private IList GetOutputs(IFailureMechanism nodeData)
         {
             var duneErosion = nodeData as IHasSectionResults<DuneErosionFailureMechanismSectionResult>;
-            var grassCoverErosionOutwards = nodeData as IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>;
             var grassCoverSlipOffInwards = nodeData as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;
             var grassCoverSlipOffOutwards = nodeData as IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>;
             var microstability = nodeData as IHasSectionResults<MicrostabilityFailureMechanismSectionResult>;
@@ -893,11 +888,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(duneErosion.SectionResults, nodeData);
-            }
-            if (grassCoverErosionOutwards != null)
-            {
-                failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(grassCoverErosionOutwards.SectionResults, nodeData);
             }
             if (grassCoverSlipOffInwards != null)
             {

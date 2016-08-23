@@ -35,13 +35,13 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsSectionResultRowTest
+    public class GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsSectionResultRow(null);
+            TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            var row = new GrassCoverErosionOutwardsSectionResultRow(result);
+            var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
@@ -64,9 +64,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsSectionResultRow,
-                              NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerThree));
+            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsFailureMechanismSectionResultRow,
+                              NoValueRoundedDoubleConverter>(r => r.AssessmentLayerThree));
         }
 
         [Test]
@@ -84,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new GrassCoverErosionOutwardsSectionResultRow(result);
+            var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerOne = newValue;
@@ -102,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = AssessmentLayerTwoAResult.Successful;
             var section = CreateSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
-            var row = new GrassCoverErosionOutwardsSectionResultRow(result);
+            var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = newValue;
@@ -119,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = random.NextDouble();
             var section = CreateSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
-            var row = new GrassCoverErosionOutwardsSectionResultRow(result);
+            var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble) newValue;

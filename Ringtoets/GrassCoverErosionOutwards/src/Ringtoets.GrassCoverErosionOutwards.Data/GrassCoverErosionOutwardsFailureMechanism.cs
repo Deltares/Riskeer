@@ -31,7 +31,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Erosion Outwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase, 
+        IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
         private readonly IList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
 

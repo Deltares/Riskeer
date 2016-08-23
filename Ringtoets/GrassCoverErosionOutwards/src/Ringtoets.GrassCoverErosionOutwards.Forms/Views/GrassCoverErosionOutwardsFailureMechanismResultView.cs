@@ -34,14 +34,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsResultView : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionOutwardsFailureMechanismResultView : FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
         private const int assessmentLayerOneColumnIndex = 1;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsResultView"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismResultView"/>.
         /// </summary>
-        public GrassCoverErosionOutwardsResultView()
+        public GrassCoverErosionOutwardsFailureMechanismResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
 
@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override object CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
         {
-            return new GrassCoverErosionOutwardsSectionResultRow(sectionResult);
+            return new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(sectionResult);
         }
 
         protected override void Dispose(bool disposing)
@@ -84,20 +84,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                     .ToArray();
 
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsSectionResultRow>(sr => sr.Name),
+                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsSectionResultRow>(sr => sr.AssessmentLayerOne),
+                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddComboBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                 twoAResultDataSource,
                 TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.Value),
                 TypeUtils.GetMemberName<EnumDisplayWrapper<AssessmentLayerTwoAResult>>(edw => edw.DisplayName));
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<GrassCoverErosionOutwardsSectionResultRow>(sr => sr.AssessmentLayerThree),
+                TypeUtils.GetMemberName<GrassCoverErosionOutwardsFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }

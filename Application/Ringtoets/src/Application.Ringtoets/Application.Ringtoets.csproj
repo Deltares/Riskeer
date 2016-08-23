@@ -164,6 +164,11 @@
       <Name>Ringtoets.GrassCoverErosionInwards.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Plugin\Ringtoets.GrassCoverErosionOutwards.Plugin.csproj">
+      <Project>{9B3ED064-E29F-4D38-85E0-3A82B77BA702}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Plugin</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Plugin\Ringtoets.HeightStructures.Plugin.csproj">
       <Project>{9AF85B2B-8D78-43C5-9542-FBB3A14EAB36}</Project>
       <Name>Ringtoets.HeightStructures.Plugin</Name>

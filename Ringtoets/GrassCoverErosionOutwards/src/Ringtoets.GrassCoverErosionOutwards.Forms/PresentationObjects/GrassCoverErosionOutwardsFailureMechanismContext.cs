@@ -22,22 +22,25 @@
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
+namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+    /// This class is a presentation object for an instance of <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanismContext : FailureMechanismContext<GrassCoverErosionInwardsFailureMechanism>
+    public class GrassCoverErosionOutwardsFailureMechanismContext
+        : FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanismContext"/> class.
+        /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanismContext"/> class.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> instance wrapped by this context object.</param>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> 
+        /// instance wrapped by this context object.</param>
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismContext(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection) :
-            base(failureMechanism, assessmentSection) {}
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsFailureMechanismContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
     }
 }

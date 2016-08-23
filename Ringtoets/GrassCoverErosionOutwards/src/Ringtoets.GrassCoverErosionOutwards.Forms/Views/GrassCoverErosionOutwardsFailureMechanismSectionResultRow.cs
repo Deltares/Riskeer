@@ -31,17 +31,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// <summary>
     /// Class for displaying <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> as a row in a grid view.
     /// </summary>
-    internal class GrassCoverErosionOutwardsSectionResultRow
+    internal class GrassCoverErosionOutwardsFailureMechanismSectionResultRow
     {
         private readonly GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsSectionResultRow"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
+        public GrassCoverErosionOutwardsFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {
