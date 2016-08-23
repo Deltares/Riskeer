@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(breakWaterHeightProperty.IsBrowsable);
             Assert.IsTrue(breakWaterHeightProperty.IsReadOnly);
             Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dam [m+NAP].", breakWaterHeightProperty.Description);
+            Assert.AreEqual("De hoogte van de dam.", breakWaterHeightProperty.Description);
         }
 
         [Test]
