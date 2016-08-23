@@ -254,7 +254,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(!withDikeProfile, dikeHeightProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
             Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);
+            Assert.AreEqual("De hoogte van de dijk.", dikeHeightProperty.Description);
 
             PropertyDescriptor criticalFlowRateProperty = dynamicProperties[criticalFlowRatePropertyIndex];
             Assert.IsNotNull(criticalFlowRateProperty);

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -74,5 +75,74 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<StochasticSoilProfileProperties[]>(properties.StochasticSoilProfiles);
             Assert.AreEqual(1, properties.StochasticSoilProfiles.Length);
         }
+
+        [Test]
+        public void PropertyAttributes_ReturnExpectedValues()
+        {
+            // Setup
+            StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(1324, "Name", "SegmentName");
+            stochasticSoilModel.Geometry.Add(new Point2D(1.0, 2.0));
+            var pipingSoilProfile = new PipingSoilProfile("PipingSoilProfile", 0, new List<PipingSoilLayer>
+            {
+                new PipingSoilLayer(10)
+            }, SoilProfileType.SoilProfile1D, 0);
+            var stochasticSoilProfile = new StochasticSoilProfile(1.0, SoilProfileType.SoilProfile1D, 1)
+            {
+                SoilProfile = pipingSoilProfile
+            };
+            stochasticSoilModel.StochasticSoilProfiles.Add(stochasticSoilProfile);
+
+            // Call
+            var properties = new StochasticSoilModelProperties
+            {
+                Data = stochasticSoilModel
+            };
+
+            // Assert
+            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            PropertyDescriptor stochasticSoilModelIdProperty = dynamicProperties[stochasticSoilModelIdPropertyIndex];
+            Assert.IsNotNull(stochasticSoilModelIdProperty);
+            Assert.IsTrue(stochasticSoilModelIdProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", stochasticSoilModelIdProperty.Category);
+            Assert.AreEqual("ID", stochasticSoilModelIdProperty.DisplayName);
+            Assert.AreEqual("ID van het stochastische ondergrondmodel in de database.", stochasticSoilModelIdProperty.Description);
+
+            PropertyDescriptor stochasticSoilModelNameProperty = dynamicProperties[stochasticSoilModelNamePropertyIndex];
+            Assert.IsNotNull(stochasticSoilModelNameProperty);
+            Assert.IsTrue(stochasticSoilModelNameProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", stochasticSoilModelNameProperty.Category);
+            Assert.AreEqual("Naam", stochasticSoilModelNameProperty.DisplayName);
+            Assert.AreEqual("Naam van het stochastische ondergrondmodel.", stochasticSoilModelNameProperty.Description);
+
+            PropertyDescriptor stochasticSoilModelSegmentNameProperty = dynamicProperties[stochasticSoilModelSegmentNamePropertyIndex];
+            Assert.IsNotNull(stochasticSoilModelSegmentNameProperty);
+            Assert.IsTrue(stochasticSoilModelSegmentNameProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", stochasticSoilModelSegmentNameProperty.Category);
+            Assert.AreEqual("Segment naam", stochasticSoilModelSegmentNameProperty.DisplayName);
+            Assert.AreEqual("Naam van het stochastische ondergrondmodel segment.", stochasticSoilModelSegmentNameProperty.Description);
+
+            PropertyDescriptor stochasticSoilModelGeometryProperty = dynamicProperties[stochasticSoilModelGeometryPropertyIndex];
+            Assert.IsNotNull(stochasticSoilModelGeometryProperty);
+            Assert.IsTrue(stochasticSoilModelGeometryProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", stochasticSoilModelGeometryProperty.Category);
+            Assert.AreEqual("Geometrie", stochasticSoilModelGeometryProperty.DisplayName);
+            Assert.AreEqual("Geometrie uit de database.", stochasticSoilModelGeometryProperty.Description);
+
+            PropertyDescriptor stochasticSoilModelStochasticSoilProfilesProperty = dynamicProperties[stochasticSoilModelStochasticSoilProfilesPropertyIndex];
+            Assert.IsNotNull(stochasticSoilModelStochasticSoilProfilesProperty);
+            Assert.IsTrue(stochasticSoilModelStochasticSoilProfilesProperty.IsReadOnly);
+            Assert.AreEqual("Algemeen", stochasticSoilModelStochasticSoilProfilesProperty.Category);
+            Assert.AreEqual("Ondergrondschematisaties", stochasticSoilModelStochasticSoilProfilesProperty.DisplayName);
+            Assert.AreEqual("Ondergrondschematisaties uit de database.", stochasticSoilModelStochasticSoilProfilesProperty.Description);
+        }
+
+        private const int stochasticSoilModelIdPropertyIndex = 0;
+        private const int stochasticSoilModelNamePropertyIndex = 1;
+        private const int stochasticSoilModelSegmentNamePropertyIndex = 2;
+        private const int stochasticSoilModelGeometryPropertyIndex = 3;
+        private const int stochasticSoilModelStochasticSoilProfilesPropertyIndex = 4;
     }
 }

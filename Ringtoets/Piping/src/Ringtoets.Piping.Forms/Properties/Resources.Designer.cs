@@ -1476,7 +1476,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Id van het stochastische ondergrondmodel in de database..
+        ///   Looks up a localized string similar to ID van het stochastische ondergrondmodel in de database..
         /// </summary>
         public static string StochasticSoilModel_Id_Description {
             get {

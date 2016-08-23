@@ -232,7 +232,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Dijk / Duin</value>
   </data>
   <data name="AssessmentSection_Id_Description" xml:space="preserve">
-    <value>Id van het traject.</value>
+    <value>ID van het traject.</value>
   </data>
   <data name="AssessmentSection_Id_DisplayName" xml:space="preserve">
     <value>ID</value>
