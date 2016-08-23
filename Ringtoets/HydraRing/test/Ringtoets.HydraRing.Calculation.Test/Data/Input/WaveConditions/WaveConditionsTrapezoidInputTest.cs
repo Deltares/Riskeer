@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -36,9 +37,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const int norm = 111;
             const int sectionId = 2;
             const int hydraulicBoundaryLocationId = 3000;
+            var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
+            var breakWater = new HydraRingBreakWater(1, 2.2);
 
             // Call
-            var waveConditionsTrapezoidInput = new WaveConditionsTrapezoidInput(sectionId, hydraulicBoundaryLocationId, norm);
+            var waveConditionsTrapezoidInput = new WaveConditionsTrapezoidInput(sectionId, hydraulicBoundaryLocationId, norm,
+                forelandPoints, breakWater);
 
             // Assert
             const int expectedCalculationTypeId = 6;
@@ -51,6 +55,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsTrapezoidInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(waveConditionsTrapezoidInput.Section);
             Assert.AreEqual(sectionId, waveConditionsTrapezoidInput.Section.SectionId);
+            Assert.AreSame(forelandPoints, waveConditionsTrapezoidInput.ForelandsPoints);
+            Assert.AreSame(breakWater, waveConditionsTrapezoidInput.BreakWater);
             Assert.AreEqual(expectedBeta, waveConditionsTrapezoidInput.Beta);
         }
 
@@ -62,7 +68,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Call
-            var waveConditionsTrapezoidInput = new WaveConditionsTrapezoidInput(1, 1000, 111);
+            var waveConditionsTrapezoidInput = new WaveConditionsTrapezoidInput(1, 1000, 111,
+                Enumerable.Empty<HydraRingForelandPoint>(),
+                new HydraRingBreakWater(1, 2.2));
 
             // Assert
             Assert.AreEqual(expectedSubMechanismModelId, waveConditionsTrapezoidInput.GetSubMechanismModelId(subMechanismModelId));

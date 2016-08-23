@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Utils;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
@@ -29,6 +30,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     public abstract class WaveConditionsInput : HydraRingCalculationInput
     {
         private readonly double beta;
+        private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
+        private readonly HydraRingBreakWater breakWater;
         private readonly HydraRingSection section;
 
         /// <summary>
@@ -37,10 +40,17 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="hydraRingForelandPoints">The foreland points to use during the calculation.</param>
+        /// <param name="hydraRingBreakWater">The break water to use during the calculation.</param>
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
-        protected WaveConditionsInput(int sectionId, long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
+        protected WaveConditionsInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
+                                      IEnumerable<HydraRingForelandPoint> hydraRingForelandPoints,
+                                      HydraRingBreakWater hydraRingBreakWater)
+            : base(hydraulicBoundaryLocationId)
         {
             beta = StatisticsConverter.NormToBeta(norm);
+            forelandPoints = hydraRingForelandPoints;
+            breakWater = hydraRingBreakWater;
             section = new HydraRingSection(sectionId, double.NaN, double.NaN);
         }
 
@@ -73,6 +83,22 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             get
             {
                 return section;
+            }
+        }
+
+        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
+        {
+            get
+            {
+                return forelandPoints;
+            }
+        }
+
+        public override HydraRingBreakWater BreakWater
+        {
+            get
+            {
+                return breakWater;
             }
         }
 

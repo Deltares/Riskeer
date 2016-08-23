@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+
 namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
 {
     /// <summary>
@@ -32,7 +34,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        public WaveConditionsCosineInput(int sectionId, long hydraulicBoundaryLocationId, double norm) : base(sectionId, hydraulicBoundaryLocationId, norm) {}
+        /// <param name="hydraRingForelandPoints">The foreland points to use during the calculation.</param>
+        /// <param name="hydraRingBreakWater">The break water to use during the calculation.</param>
+        public WaveConditionsCosineInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
+                                         IEnumerable<HydraRingForelandPoint> hydraRingForelandPoints,
+                                         HydraRingBreakWater hydraRingBreakWater)
+            : base(sectionId, hydraulicBoundaryLocationId, norm, hydraRingForelandPoints, hydraRingBreakWater) {}
 
         public override int? GetSubMechanismModelId(int subMechanismId)
         {
