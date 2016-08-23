@@ -53,7 +53,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
         public static void PerformCalculation(
             string hlcdDirectory,
             string ringId,
-            HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType,
             HydraRingUncertaintiesType uncertaintiesType,
             HydraRingCalculationInput hydraRingCalculationInput,
             IEnumerable<IHydraRingFileParser> parsers)
@@ -61,7 +60,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             var sectionId = hydraRingCalculationInput.Section.SectionId;
             var workingDirectory = CreateWorkingDirectory();
 
-            var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, timeIntegrationSchemeType, uncertaintiesType);
+            var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, uncertaintiesType);
             hydraRingConfigurationService.AddHydraRingCalculationInput(hydraRingCalculationInput);
 
             var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);

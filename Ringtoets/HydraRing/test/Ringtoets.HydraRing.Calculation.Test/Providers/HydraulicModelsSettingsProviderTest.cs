@@ -50,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             HydraulicModelsSetting hydraulicModelsSetting = hydraulicModelsSettingsProvider.GetHydraulicModelsSetting(failureMechanismType, ringId);
 
             // Assert
-            Assert.AreEqual(expectedTimeIntegrationSchemeId, hydraulicModelsSetting.TimeIntergrationSchemeId);
+            Assert.AreEqual(expectedTimeIntegrationSchemeId, hydraulicModelsSetting.TimeIntegrationSchemeId);
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             HydraulicModelsSetting hydraulicModelsSetting = hydraulicModelsSettingsProvider.GetHydraulicModelsSetting(failureMechanismType, ringId);
 
             // Assert
-            Assert.AreEqual(expectedTimeIntegrationSchemeId, hydraulicModelsSetting.TimeIntergrationSchemeId);
+            Assert.AreEqual(expectedTimeIntegrationSchemeId, hydraulicModelsSetting.TimeIntegrationSchemeId);
         }
     }
 }
