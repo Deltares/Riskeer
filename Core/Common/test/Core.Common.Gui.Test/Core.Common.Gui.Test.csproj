@@ -112,6 +112,7 @@
     <Compile Include="Forms\ViewHost\DocumentViewControllerTest.cs" />
     <Compile Include="Plugin\ExportInfoTest.cs" />
     <Compile Include="Forms\ViewHost\ViewChangeEventArgsTest.cs" />
+    <Compile Include="Plugin\ImportInfoTest.cs" />
     <Compile Include="Plugin\PluginBaseTest.cs" />
     <Compile Include="Plugin\PropertyInfoExtensionsTest.cs" />
     <Compile Include="Plugin\PropertyInfoTest.cs" />

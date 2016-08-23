@@ -1,0 +1,163 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Drawing;
+using Core.Common.Base.IO;
+
+namespace Core.Common.Gui.Plugin
+{
+    /// <summary>
+    /// Information for creating an importer for a particular data object.
+    /// </summary>
+    public class ImportInfo
+    {
+        /// <summary>
+        /// Gets or sets the data type associated with this import info.
+        /// </summary>
+        public Type DataType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method used to create a <see cref="IFileImporter"/>. Function arguments:
+        /// <list type="number">
+        ///     <item>The data to import.</item>
+        ///     <item>The input file path.</item>
+        ///     <item>out - The created importer.</item>
+        /// </list>
+        /// </summary>
+        public Func<object, string, IFileImporter> CreateFileImporter { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method used to determine whether or not the import routine should be enabled. Function arguments:
+        /// <list type="number">
+        ///     <item>The data to import.</item>
+        ///     <item>out - <c>true</c> if the import should be enabled, <c>false</c> otherwise.</item>
+        /// </list>
+        /// </summary>
+        public Func<object, bool> IsEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the import information.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category of the import information.
+        /// </summary>
+        public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image of the import information.
+        /// </summary>
+        public Image Image { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file filter of the import information.
+        /// </summary>
+        /// <example>
+        /// An example string would be:
+        /// <code>"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</code>
+        /// </example>
+        public string FileFilter { get; set; }
+    }
+
+    /// <summary>
+    /// Information for creating an importer for a particular data object.
+    /// </summary>
+    /// <typeparam name="TData">The data type associated with this import info.</typeparam>
+    public class ImportInfo<TData>
+    {
+        /// <summary>
+        /// Gets the data type associated with this import info.
+        /// </summary>
+        public Type DataType
+        {
+            get
+            {
+                return typeof(TData);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the method used to create a <see cref="IFileImporter"/>. Function arguments:
+        /// <list type="number">
+        ///     <item>The data to import.</item>
+        ///     <item>The input file path.</item>
+        ///     <item>out - The created importer.</item>
+        /// </list>
+        /// </summary>
+        public Func<TData, string, IFileImporter> CreateFileImporter { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method used to determine whether or not the import routine should be enabled. Function arguments:
+        /// <list type="number">
+        ///     <item>The data to import.</item>
+        ///     <item>out - <c>true</c> if the import should be enabled, <c>false</c> otherwise.</item>
+        /// </list>
+        /// </summary>
+        public Func<TData, bool> IsEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the import information.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category of the import information.
+        /// </summary>
+        public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image of the import information.
+        /// </summary>
+        public Image Image { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file filter of the import information.
+        /// </summary>
+        /// <example>
+        /// An example string would be:
+        /// <code>"My file format1 (*.ext1)|*.ext1|My file format2 (*.ext2)|*.ext2"</code>
+        /// </example>
+        public string FileFilter { get; set; }
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="ImportInfo{TData}"/> to <see cref="ImportInfo"/>.
+        /// </summary>
+        /// <param name="importInfo">The import information to convert.</param>
+        /// <returns>The result of the conversion.</returns>
+        public static implicit operator ImportInfo(ImportInfo<TData> importInfo)
+        {
+            return new ImportInfo
+            {
+                DataType = importInfo.DataType,
+                CreateFileImporter = (data, filePath) => importInfo.CreateFileImporter != null ?
+                                                             importInfo.CreateFileImporter((TData)data, filePath) :
+                                                             null,
+                IsEnabled = data => importInfo.IsEnabled == null || importInfo.IsEnabled((TData)data),
+                Name = importInfo.Name,
+                Category = importInfo.Category,
+                Image = importInfo.Image,
+                FileFilter = importInfo.FileFilter
+            };
+        }
+    }
+}
