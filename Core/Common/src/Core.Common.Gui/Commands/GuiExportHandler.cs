@@ -121,8 +121,7 @@ namespace Core.Common.Gui.Commands
             using (var saveFileDialog = new SaveFileDialog
             {
                 Filter = exportInfo.FileFilter,
-                Title = Resources.SaveFileDialog_Title,
-                RestoreDirectory = true
+                Title = Resources.SaveFileDialog_Title
             })
             {
                 if (saveFileDialog.ShowDialog(dialogParent) == DialogResult.OK)

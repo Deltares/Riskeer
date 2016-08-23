@@ -190,8 +190,7 @@ namespace Core.Plugins.Map.Legend
             using (var dialog = new OpenFileDialog
             {
                 Filter = string.Format("{0} (*.shp)|*.shp", MapResources.MapLegendView_ShowSelectShapeFileDialog_Shape_file),
-                Title = GuiResources.OpenFileDialog_Title,
-                RestoreDirectory = true
+                Title = GuiResources.OpenFileDialog_Title
             })
             {
                 if (dialog.ShowDialog(parentWindow) == DialogResult.OK)
