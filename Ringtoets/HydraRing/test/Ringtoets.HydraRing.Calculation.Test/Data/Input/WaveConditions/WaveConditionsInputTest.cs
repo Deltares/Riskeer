@@ -23,9 +23,9 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
 {
     [TestFixture]
     public class WaveConditionsInputTest

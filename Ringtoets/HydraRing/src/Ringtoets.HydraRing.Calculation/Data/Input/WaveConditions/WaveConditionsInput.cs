@@ -21,7 +21,7 @@
 
 using Core.Common.Utils;
 
-namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
+namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
 {
     /// <summary>
     /// Container of all data necessary for performing a wave conditions calculation (Q-variant) via Hydra-Ring.
