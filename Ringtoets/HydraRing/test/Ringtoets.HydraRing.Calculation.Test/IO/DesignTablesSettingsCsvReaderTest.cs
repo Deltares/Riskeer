@@ -182,7 +182,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
                             "205", new DesignTablesSetting(5, 15)
                         }
                     }
-                },
+                }
             };
         }
     }
