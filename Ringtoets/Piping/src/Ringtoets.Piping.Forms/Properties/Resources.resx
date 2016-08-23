@@ -563,7 +563,7 @@
     <value>Geometrie</value>
   </data>
   <data name="StochasticSoilModel_Id_Description" xml:space="preserve">
-    <value>Id van het stochastische ondergrondmodel in de database.</value>
+    <value>ID van het stochastische ondergrondmodel in de database.</value>
   </data>
   <data name="StochasticSoilModel_Id_DisplayName" xml:space="preserve">
     <value>ID</value>

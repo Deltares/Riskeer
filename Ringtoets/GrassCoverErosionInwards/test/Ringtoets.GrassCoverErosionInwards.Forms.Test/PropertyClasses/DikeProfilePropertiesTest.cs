@@ -139,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(dikeHeightProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
             Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dijk [m+NAP].", dikeHeightProperty.Description);
+            Assert.AreEqual("De hoogte van de dijk.", dikeHeightProperty.Description);
         }
 
         private const int namePropertyIndex = 0;

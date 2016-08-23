@@ -155,7 +155,7 @@
     <value>Schematisatie</value>
   </data>
   <data name="BreakWaterHeight_Description" xml:space="preserve">
-    <value>De hoogte van de dam [m+NAP].</value>
+    <value>De hoogte van de dam.</value>
   </data>
   <data name="BreakWaterHeight_DisplayName" xml:space="preserve">
     <value>Hoogte [m+NAP]</value>
@@ -203,7 +203,7 @@
     <value>Ruwheden [-]</value>
   </data>
   <data name="DikeHeight_Description" xml:space="preserve">
-    <value>De hoogte van de dijk [m+NAP].</value>
+    <value>De hoogte van de dijk.</value>
   </data>
   <data name="DikeHeight_DisplayName" xml:space="preserve">
     <value>Dijkhoogte [m+NAP]</value>
