@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Utils;
 using MathNet.Numerics.Distributions;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -38,10 +39,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
         public void Constructed_UsingDifferentNormAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double norm)
         {
             // Call
-            var expectedBeta = -Normal.InvCDF(0.0, 1.0, 1.0/norm);
             var targetProbabilityCalculationInputImplementation = new SimpleTargetProbabilityCalculationInput(locationId, norm);
 
             // Assert
+            double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.AreEqual(locationId, targetProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
             Assert.AreEqual(2, targetProbabilityCalculationInputImplementation.CalculationTypeId);
             CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.Variables);

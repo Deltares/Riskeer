@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -33,15 +34,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
+            const int norm = 111;
             const int sectionId = 2;
-            const int hydraulicBoundaryLocationId = 1000;
+            const int hydraulicBoundaryLocationId = 3000;
 
             // Call
-            var waveConditionsInput = new WaveConditionsInput(sectionId, hydraulicBoundaryLocationId);
+            var waveConditionsInput = new WaveConditionsInput(sectionId, hydraulicBoundaryLocationId, norm);
 
             // Assert
             const int expectedCalculationTypeId = 6;
             const int expectedVariableId = 114;
+            double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.IsInstanceOf<HydraRingCalculationInput>(waveConditionsInput);
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsInput.FailureMechanismType);
             Assert.AreEqual(expectedCalculationTypeId, waveConditionsInput.CalculationTypeId);
@@ -49,6 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(waveConditionsInput.Section);
             Assert.AreEqual(sectionId, waveConditionsInput.Section.SectionId);
+            Assert.AreEqual(expectedBeta, waveConditionsInput.Beta);
         }
     }
 }

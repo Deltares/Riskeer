@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils;
+
 namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
 {
     /// <summary>
@@ -26,6 +28,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// </summary>
     public class WaveConditionsInput : HydraRingCalculationInput
     {
+        private readonly double beta;
         private readonly HydraRingSection section;
 
         /// <summary>
@@ -33,8 +36,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// </summary>
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        public WaveConditionsInput(int sectionId, long hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId)
+        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
+        public WaveConditionsInput(int sectionId, long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
         {
+            beta = StatisticsConverter.NormToBeta(norm);
             section = new HydraRingSection(sectionId, double.NaN, double.NaN);
         }
 
@@ -67,6 +73,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             get
             {
                 return section;
+            }
+        }
+
+        public override double Beta
+        {
+            get
+            {
+                return beta;
             }
         }
     }
