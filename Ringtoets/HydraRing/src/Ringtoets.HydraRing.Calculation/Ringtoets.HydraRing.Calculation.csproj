@@ -76,6 +76,7 @@
     <Compile Include="Parsers\IHydraRingFileParser.cs" />
     <Compile Include="Parsers\HydraRingOutputFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
+    <Compile Include="Providers\HydraulicModelsSettingsProvider.cs" />
     <Compile Include="Services\HydraRingCalculationService.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInput.cs" />
@@ -128,6 +129,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Resources\DesignTables.csv" />
+    <None Include="Resources\HydraulicModelsSettingsTest.csv" />
     <None Include="Resources\Numerics.csv" />
   </ItemGroup>
   <ItemGroup>
