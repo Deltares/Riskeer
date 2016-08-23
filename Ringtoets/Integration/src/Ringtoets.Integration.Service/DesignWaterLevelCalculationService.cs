@@ -93,7 +93,6 @@ namespace Ringtoets.Integration.Service
                     HydraRingCalculationService.PerformCalculation(
                         hlcdDirectory,
                         ringId,
-                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
                         HydraRingUncertaintiesType.All,
                         input,
                         new[]

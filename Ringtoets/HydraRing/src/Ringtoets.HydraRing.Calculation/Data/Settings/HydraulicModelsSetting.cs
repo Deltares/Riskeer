@@ -26,25 +26,25 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// </summary>
     internal class HydraulicModelsSetting
     {
-        private readonly int timeIntergrationSchemeId;
+        private readonly int timeIntegrationSchemeId;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicModelsSetting"/>.
         /// </summary>
-        /// <param name="timeIntergrationSchemeId">The time integration scheme id to use in a calculation.</param>
-        public HydraulicModelsSetting(int timeIntergrationSchemeId)
+        /// <param name="timeIntegrationSchemeId">The time integration scheme id to use in a calculation.</param>
+        public HydraulicModelsSetting(int timeIntegrationSchemeId)
         {
-            this.timeIntergrationSchemeId = timeIntergrationSchemeId;
+            this.timeIntegrationSchemeId = timeIntegrationSchemeId;
         }
 
         /// <summary>
         /// Gets the time integration scheme id to use in a calculation.
         /// </summary>
-        public int TimeIntergrationSchemeId
+        public int TimeIntegrationSchemeId
         {
             get
             {
-                return timeIntergrationSchemeId;
+                return timeIntegrationSchemeId;
             }
         }
     }

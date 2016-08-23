@@ -80,7 +80,6 @@ namespace Ringtoets.HeightStructures.Service
                     HydraRingCalculationService.PerformCalculation(
                         hlcdDirectory,
                         ringId,
-                        HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
                         HydraRingUncertaintiesType.All,
                         input,
                         new[]

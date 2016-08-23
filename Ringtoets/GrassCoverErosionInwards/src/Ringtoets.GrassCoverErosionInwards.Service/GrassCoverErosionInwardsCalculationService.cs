@@ -79,7 +79,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             HydraRingCalculationService.PerformCalculation(
                 hlcdDirectory,
                 ringId,
-                HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
                 HydraRingUncertaintiesType.All,
                 overtoppingCalculationInput,
                 new IHydraRingFileParser[]
@@ -123,7 +122,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             HydraRingCalculationService.PerformCalculation(
                 hlcdDirectory,
                 ringId,
-                HydraRingTimeIntegrationSchemeType.FerryBorgesCastanheta,
                 HydraRingUncertaintiesType.All,
                 dikeHeightCalculationInput,
                 new IHydraRingFileParser[]

@@ -65,23 +65,21 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private readonly IList<HydraRingCalculationInput> hydraRingCalculationInputs;
         private readonly NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
         private readonly DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
+        private readonly HydraulicModelsSettingsProvider hydraulicModelsSettingsProvider = new HydraulicModelsSettingsProvider();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
-        private readonly HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType;
         private readonly HydraRingUncertaintiesType uncertaintiesType;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfigurationService"/> class.
         /// </summary>
         /// <param name="ringId">The id of the ring to perform Hydra-Ring calculations for.</param>
-        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while performing Hydra-Ring calculations.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while performing Hydra-Ring calculations.</param>
-        public HydraRingConfigurationService(string ringId, HydraRingTimeIntegrationSchemeType timeIntegrationSchemeType, HydraRingUncertaintiesType uncertaintiesType)
+        public HydraRingConfigurationService(string ringId, HydraRingUncertaintiesType uncertaintiesType)
         {
             hydraRingCalculationInputs = new List<HydraRingCalculationInput>();
 
             this.ringId = ringId;
-            this.timeIntegrationSchemeType = timeIntegrationSchemeType;
             this.uncertaintiesType = uncertaintiesType;
         }
 
@@ -93,17 +91,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
             get
             {
                 return ringId;
-            }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="HydraRingTimeIntegrationSchemeType"/> to use while performing Hydra-Ring calculations.
-        /// </summary>
-        public HydraRingTimeIntegrationSchemeType? TimeIntegrationSchemeType
-        {
-            get
-            {
-                return timeIntegrationSchemeType;
             }
         }
 
@@ -129,6 +116,11 @@ namespace Ringtoets.HydraRing.Calculation.Services
             if (hydraRingCalculationInputs.Any(h => h.Section.SectionId == hydraRingCalculationInput.Section.SectionId))
             {
                 throw new ArgumentException(@"Section id is not unique", "hydraRingCalculationInput");
+            }
+
+            if (hydraRingCalculationInputs.Any(h => h.FailureMechanismType != hydraRingCalculationInput.FailureMechanismType))
+            {
+                throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");
             }
 
             hydraRingCalculationInputs.Add(hydraRingCalculationInput);
@@ -170,12 +162,20 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
         private IList<OrderedDictionary> GetHydraulicModelsConfiguration()
         {
+            var timeIntegrationSchemeId = 1;
+            var input = hydraRingCalculationInputs.FirstOrDefault();
+
+            if (input != null)
+            {
+                timeIntegrationSchemeId = hydraulicModelsSettingsProvider.GetHydraulicModelsSetting(input.FailureMechanismType, ringId).TimeIntegrationSchemeId;
+            }
+
             return new List<OrderedDictionary>
             {
                 new OrderedDictionary
                 {
                     {
-                        "TimeIntegrationSchemeID", (int?) TimeIntegrationSchemeType
+                        "TimeIntegrationSchemeID", (int?) timeIntegrationSchemeId
                     },
                     {
                         "UncertaintiesID", (int?) UncertaintiesType
