@@ -68,6 +68,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             {
                 var variables = base.Variables.ToList();
 
+                // c-value
                 variables.Add(new HydraRingVariable(119, HydraRingDistributionType.Deterministic, c,
                                                     HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
 

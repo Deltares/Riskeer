@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils;
 using NUnit.Framework;
@@ -39,6 +40,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const int norm = 333;
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 4.4);
+            const double waterLevel = 5.5;
+            const double a = 6.6;
+            const double b = 7.7;
+            const double beta1 = 8.8;
+            const double beta2 = 9.9;
 
             // Call
             var waveConditionsTrapezoidInput = new WaveConditionsTrapezoidInput(sectionId,
@@ -46,11 +52,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                                 norm,
                                                                                 forelandPoints,
                                                                                 breakWater,
-                                                                                5.5,
-                                                                                6.6,
-                                                                                7.7,
-                                                                                8.8,
-                                                                                9.9);
+                                                                                waterLevel,
+                                                                                a,
+                                                                                b,
+                                                                                beta1,
+                                                                                beta2);
 
             // Assert
             const int expectedCalculationTypeId = 6;
@@ -63,6 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsTrapezoidInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(waveConditionsTrapezoidInput.Section);
             Assert.AreEqual(sectionId, waveConditionsTrapezoidInput.Section.SectionId);
+            CheckVariables(GetExpectedVariables(waterLevel, a, b, beta1, beta2).ToArray(), waveConditionsTrapezoidInput.Variables.ToArray());
             Assert.AreSame(forelandPoints, waveConditionsTrapezoidInput.ForelandsPoints);
             Assert.AreSame(breakWater, waveConditionsTrapezoidInput.BreakWater);
             Assert.AreEqual(expectedBeta, waveConditionsTrapezoidInput.Beta);
@@ -89,6 +96,32 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
 
             // Assert
             Assert.AreEqual(expectedSubMechanismModelId, waveConditionsTrapezoidInput.GetSubMechanismModelId(subMechanismModelId));
+        }
+
+        private static void CheckVariables(HydraRingVariable[] expected, HydraRingVariable[] actual)
+        {
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (var i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i].Value, actual[i].Value, 1e-6);
+                Assert.AreEqual(expected[i].DeviationType, actual[i].DeviationType);
+                Assert.AreEqual(expected[i].DistributionType, actual[i].DistributionType);
+                Assert.AreEqual(expected[i].Mean, actual[i].Mean, 1e-6);
+                Assert.AreEqual(expected[i].Shift, actual[i].Shift, 1e-6);
+                Assert.AreEqual(expected[i].Variability, actual[i].Variability, 1e-6);
+                Assert.AreEqual(expected[i].VariableId, actual[i].VariableId, 1e-6);
+            }
+        }
+
+        private static IEnumerable<HydraRingVariable> GetExpectedVariables(double waterLevel, double a, double b, double beta1, double beta2)
+        {
+            yield return new HydraRingVariable(113, HydraRingDistributionType.Deterministic, waterLevel, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(114, HydraRingDistributionType.Deterministic, 1.0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(115, HydraRingDistributionType.Deterministic, a, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(116, HydraRingDistributionType.Deterministic, b, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(117, HydraRingDistributionType.Deterministic, beta1, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(118, HydraRingDistributionType.Deterministic, beta2, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
         }
     }
 }

@@ -100,6 +100,28 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             }
         }
 
+        public override IEnumerable<HydraRingVariable> Variables
+        {
+            get
+            {
+                // Water level
+                yield return new HydraRingVariable(113, HydraRingDistributionType.Deterministic, waterLevel,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+
+                // Resistance Q-variant
+                yield return new HydraRingVariable(114, HydraRingDistributionType.Deterministic, 1.0,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+
+                // a-value
+                yield return new HydraRingVariable(115, HydraRingDistributionType.Deterministic, a,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+
+                // b-value
+                yield return new HydraRingVariable(116, HydraRingDistributionType.Deterministic, b,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            }
+        }
+
         public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
         {
             get
@@ -122,25 +144,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             {
                 return beta;
             }
-        }
-
-        private IEnumerable<HydraRingVariable> GetHydraRingVariables()
-        {
-            // Water level
-            yield return new HydraRingVariable(113, HydraRingDistributionType.Deterministic, waterLevel,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-
-            // Resistance Q-variant
-            yield return new HydraRingVariable(114, HydraRingDistributionType.Deterministic, 1.0,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-
-            // a-value
-            yield return new HydraRingVariable(115, HydraRingDistributionType.Deterministic, a,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-
-            // b-value
-            yield return new HydraRingVariable(116, HydraRingDistributionType.Deterministic, b,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
         }
     }
 }

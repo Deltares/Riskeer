@@ -72,8 +72,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             {
                 var variables = base.Variables.ToList();
 
+                // beta1-value
                 variables.Add(new HydraRingVariable(117, HydraRingDistributionType.Deterministic, beta1,
                                                     HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
+
+                // beta2-value
                 variables.Add(new HydraRingVariable(118, HydraRingDistributionType.Deterministic, beta2,
                                                     HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
 
