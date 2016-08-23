@@ -29,7 +29,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
     /// <summary>
     /// The reader for <see cref="DesignTablesSetting"/> in csv format.
     /// </summary>
-    internal class DesignTablesSettingsCsvReader : HydraRingSettingsCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>>>
+    internal class DesignTablesSettingsCsvReader : HydraRingSettingsVariableCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>>>
     {
         private readonly Dictionary<string, int> columns = new Dictionary<string, int>
         {
@@ -47,40 +47,6 @@ namespace Ringtoets.HydraRing.Calculation.IO
             }
         };
 
-        private readonly Dictionary<string, HydraRingFailureMechanismType> failureMechanismTypes = new Dictionary<string, HydraRingFailureMechanismType>
-        {
-            {
-                assessmentLevelKey, HydraRingFailureMechanismType.AssessmentLevel
-            },
-            {
-                waveHeightKey, HydraRingFailureMechanismType.WaveHeight
-            },
-            {
-                wavePeakPeriodKey, HydraRingFailureMechanismType.WavePeakPeriod
-            },
-            {
-                waveSpectralPeriodKey, HydraRingFailureMechanismType.WaveSpectralPeriod
-            },
-            {
-                qVariantKey, HydraRingFailureMechanismType.QVariant
-            },
-            {
-                dikeHeightKey, HydraRingFailureMechanismType.DikesHeight
-            },
-            {
-                grassKey, HydraRingFailureMechanismType.DikesOvertopping
-            },
-            {
-                heightStructuresKey, HydraRingFailureMechanismType.StructuresOvertopping
-            },
-            {
-                closingStructuresKey, HydraRingFailureMechanismType.StructuresClosure
-            },
-            {
-                structuresStructuralFailureKey, HydraRingFailureMechanismType.StructuresStructuralFailure
-            }
-        };
-
         /// <summary>
         /// Creates a new instance of <see cref="DesignTablesSettingsCsvReader"/>.
         /// </summary>
@@ -92,7 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         protected override void CreateSetting(IList<string> line)
         {
             // Get failure mechanism
-            var failureMechanismType = GetFailureMechanismType(line);
+            var failureMechanismType = GetFailureMechanismType(GetStringValueFromElement(line[columns[variableKey]]));
 
             if (!Settings.ContainsKey(failureMechanismType))
             {
@@ -105,11 +71,6 @@ namespace Ringtoets.HydraRing.Calculation.IO
             {
                 Settings[failureMechanismType].Add(ringId, GetDesignTablesSetting(line));
             }
-        }
-
-        private HydraRingFailureMechanismType GetFailureMechanismType(IList<string> line)
-        {
-            return failureMechanismTypes[GetStringValueFromElement(line[columns[variableKey]])];
         }
 
         private string GetRingId(IList<string> line)
@@ -129,21 +90,6 @@ namespace Ringtoets.HydraRing.Calculation.IO
         private const string variableKey = "Variable";
         private const string minKey = "Min";
         private const string maxKey = "Max";
-
-        #endregion
-
-        #region Variable names
-
-        private const string assessmentLevelKey = "Toetspeil";
-        private const string waveHeightKey = "Hs";
-        private const string wavePeakPeriodKey = "Tp";
-        private const string waveSpectralPeriodKey = "Tm-1,0";
-        private const string qVariantKey = "Q";
-        private const string dikeHeightKey = "HBN";
-        private const string grassKey = "Gras";
-        private const string heightStructuresKey = "KwHoogte";
-        private const string closingStructuresKey = "KwSluiten";
-        private const string structuresStructuralFailureKey = "KwPuntconstructies";
 
         #endregion
     }
