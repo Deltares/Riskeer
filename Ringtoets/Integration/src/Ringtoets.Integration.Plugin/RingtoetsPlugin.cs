@@ -1127,8 +1127,7 @@ namespace Ringtoets.Integration.Plugin
             using (var dialog = new OpenFileDialog
             {
                 Filter = string.Format("{0} (*.sqlite)|*.sqlite", RingtoetsFormsResources.SelectHydraulicBoundaryDatabaseFile_FilterName),
-                Title = GuiResources.OpenFileDialog_Title,
-                RestoreDirectory = true
+                Title = GuiResources.OpenFileDialog_Title
             })
             {
                 if (dialog.ShowDialog(Gui.MainWindow) == DialogResult.OK)
