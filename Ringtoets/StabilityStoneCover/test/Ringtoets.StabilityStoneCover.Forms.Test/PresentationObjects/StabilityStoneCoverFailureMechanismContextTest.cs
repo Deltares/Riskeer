@@ -80,6 +80,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<FailureMechanismContext<StabilityStoneCoverFailureMechanism>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
             Assert.AreSame(assessmentSection, context.Parent);
+            mocks.VerifyAll();
         }
     }
 }

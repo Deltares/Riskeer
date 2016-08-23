@@ -37,8 +37,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var properties = new StabilityStoneCoverFailureMechanismContextProperties();
 
@@ -101,6 +99,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual("Algemeen", codeProperty.Category);
             Assert.AreEqual("Label", codeProperty.DisplayName);
             Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
+            mockRepository.VerifyAll();
         }
     }
 }
