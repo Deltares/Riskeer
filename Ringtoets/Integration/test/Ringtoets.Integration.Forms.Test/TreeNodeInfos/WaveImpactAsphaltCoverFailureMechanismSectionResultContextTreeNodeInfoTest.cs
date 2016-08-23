@@ -26,10 +26,9 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Asphalt.Data;
+using Ringtoets.Asphalt.Plugin;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
@@ -38,14 +37,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private WaveImpactAsphaltCoverPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
+            plugin = new WaveImpactAsphaltCoverPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>));
         }
 

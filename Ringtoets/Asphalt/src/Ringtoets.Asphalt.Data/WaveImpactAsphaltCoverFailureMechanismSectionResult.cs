@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Ringtoets.Integration.Data.StandAlone.SectionResults
+namespace Ringtoets.Asphalt.Data
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the

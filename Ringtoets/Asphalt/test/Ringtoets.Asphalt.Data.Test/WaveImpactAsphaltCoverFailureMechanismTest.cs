@@ -19,49 +19,44 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
+namespace Ringtoets.Asphalt.Data.Test
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverFailureMechanismSectionResultTest
+    public class WaveImpactAsphaltCoverFailureMechanismTest
     {
         [Test]
-        public void Constructor_WithoutSection_ThrowsArgumentNullException()
+        public void DefaultConstructor_Always_PropertiesSet()
         {
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverFailureMechanismSectionResult(null);
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.AreEqual("Dijken en dammen - Golfklappen op asfaltbekleding", failureMechanism.Name);
+            Assert.AreEqual("AGK", failureMechanism.Code);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
         [Test]
-        public void Constructor_WithSection_ResultCreatedForSection()
+        public void AddSection_WithSection_AddedWaveImpactAsphaltCoverFailureMechanismSectionResult()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
-            Assert.IsInstanceOf<IStorable>(result);
-            Assert.AreSame(section, result.Section);
-            Assert.IsFalse(result.AssessmentLayerOne);
-            Assert.IsNaN(result.AssessmentLayerTwoA);
-            Assert.IsNaN(result.AssessmentLayerThree);
-            Assert.AreEqual(0, result.StorageId);
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
     }
 }

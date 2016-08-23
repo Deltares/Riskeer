@@ -22,23 +22,43 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.Asphalt.Data;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Forms.Views.SectionResultRows
+namespace Ringtoets.Asphalt.Forms.Views
 {
     /// <summary>
     /// Class for displaying <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>  as a row in a grid view.
     /// </summary>
-    public class WaveImpactAsphaltCoverSectionResultRow : FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResult>
+    internal class WaveImpactAsphaltCoverFailureMechanismSectionResultRow
     {
+        private readonly WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult;
+
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverSectionResultRow"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        public WaveImpactAsphaltCoverFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
+        {
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException("sectionResult");
+            }
+            this.sectionResult = sectionResult;
+        }
+
+        /// <summary>
+        /// Gets the name of the failure mechanism section.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return sectionResult.Section.Name;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the value representing the result of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult.AssessmentLayerOne"/>.
@@ -47,12 +67,12 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             get
             {
-                return SectionResult.AssessmentLayerOne;
+                return sectionResult.AssessmentLayerOne;
             }
             set
             {
-                SectionResult.AssessmentLayerOne = value;
-                SectionResult.NotifyObservers();
+                sectionResult.AssessmentLayerOne = value;
+                sectionResult.NotifyObservers();
             }
         }
 
@@ -64,11 +84,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             get
             {
-                return SectionResult.AssessmentLayerTwoA;
+                return sectionResult.AssessmentLayerTwoA;
             }
             set
             {
-                SectionResult.AssessmentLayerTwoA = value;
+                sectionResult.AssessmentLayerTwoA = value;
             }
         }
 
@@ -80,11 +100,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             get
             {
-                return SectionResult.AssessmentLayerThree;
+                return sectionResult.AssessmentLayerThree;
             }
             set
             {
-                SectionResult.AssessmentLayerThree = value;
+                sectionResult.AssessmentLayerThree = value;
             }
         }
     }

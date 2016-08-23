@@ -25,22 +25,22 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
+using Ringtoets.Asphalt.Data;
+using Ringtoets.Asphalt.Forms.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
+namespace Ringtoets.Asphalt.Forms.Test.Views
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverSectionResultRowTest
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverSectionResultRow(null);
+            TestDelegate test = () => new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
 
             // Call
-            var row = new WaveImpactAsphaltCoverSectionResultRow(result);
+            var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
@@ -63,10 +63,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveImpactAsphaltCoverSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
                               NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveImpactAsphaltCoverSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
                               NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
         }
@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Setup
             var section = CreateSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
-            var row = new WaveImpactAsphaltCoverSectionResultRow(result);
+            var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result);
 
             int counter = 0;
             using (new Observer(() => counter++)
@@ -104,7 +104,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextDouble();
             var section = CreateSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
-            var row = new WaveImpactAsphaltCoverSectionResultRow(result);
+            var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = (RoundedDouble) newValue;
@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextDouble();
             var section = CreateSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResult(section);
-            var row = new WaveImpactAsphaltCoverSectionResultRow(result);
+            var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble) newValue;

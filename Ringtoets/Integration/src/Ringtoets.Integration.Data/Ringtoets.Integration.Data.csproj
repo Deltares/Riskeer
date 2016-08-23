@@ -56,12 +56,10 @@
     <Compile Include="StandAlone\SectionResults\StrengthStabilityPointConstructionFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResults\TechnicalInnovationFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResults\WaterPressureAsphaltCoverFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResults\WaveImpactAsphaltCoverFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\WaterPressureAsphaltCoverFailureMechanism.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanism.cs" />
     <Compile Include="StandAlone\TechnicalInnovationFailureMechanism.cs" />
-    <Compile Include="StandAlone\WaveImpactAsphaltCoverFailureMechanism.cs" />
     <Compile Include="StandAlone\DuneErosionFailureMechanism.cs" />
     <Compile Include="StandAlone\PipingStructureFailureMechanism.cs" />
     <Compile Include="StandAlone\StrengthStabilityPointConstructionFailureMechanism.cs" />
@@ -80,6 +78,10 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Asphalt\src\Ringtoets.Asphalt.Data\Ringtoets.Asphalt.Data.csproj">
+      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
+      <Name>Ringtoets.Asphalt.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

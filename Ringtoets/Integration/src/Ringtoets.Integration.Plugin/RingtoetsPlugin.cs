@@ -36,6 +36,9 @@ using Core.Common.Gui.Plugin;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Extensions;
 using log4net;
+using Ringtoets.Asphalt.Data;
+using Ringtoets.Asphalt.Forms.PresentationObjects;
+using Ringtoets.Asphalt.Forms.Views;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -166,13 +169,13 @@ namespace Ringtoets.Integration.Plugin
                                                       assessmentSection)
                 ),
             new FailureMechanismContextAssociation(
-                typeof(WaterPressureAsphaltCoverFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
+                typeof(WaveImpactAsphaltCoverFailureMechanism),
+                (mechanism, assessmentSection) => new WaveImpactAsphaltCoverFailureMechanismContext(
+                                                      (WaveImpactAsphaltCoverFailureMechanism) mechanism,
                                                       assessmentSection)
                 ),
             new FailureMechanismContextAssociation(
-                typeof(WaveImpactAsphaltCoverFailureMechanism),
+                typeof(WaterPressureAsphaltCoverFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
                                                       mechanism,
                                                       assessmentSection)
@@ -346,9 +349,6 @@ namespace Ringtoets.Integration.Plugin
                 WaterPressureAsphaltCoverFailureMechanismSectionResult,
                 WaterPressureAsphaltCoverResultView>();
             yield return CreateFailureMechanismResultViewInfo<
-                WaveImpactAsphaltCoverFailureMechanismSectionResult,
-                WaveImpactAsphaltCoverResultView>();
-            yield return CreateFailureMechanismResultViewInfo<
                 MacrostabilityInwardsFailureMechanismSectionResult,
                 MacrostabilityInwardsResultView>();
             yield return CreateFailureMechanismResultViewInfo<
@@ -520,7 +520,6 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<ClosingStructureFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();

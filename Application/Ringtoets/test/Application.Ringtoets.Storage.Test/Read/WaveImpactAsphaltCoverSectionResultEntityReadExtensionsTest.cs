@@ -24,7 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Asphalt.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {

@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.Asphalt.Forms")]
 [assembly: AssemblyProduct("Ringtoets.Asphalt.Forms")]
 [assembly: Guid("6dc6d875-73f7-4851-b853-f6337fb7adb8")]
+[assembly: InternalsVisibleTo("Ringtoets.Asphalt.Forms.Test")]

@@ -26,16 +26,16 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.Asphalt.Data;
+using Ringtoets.Asphalt.Forms.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultViews;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
+namespace Ringtoets.Asphalt.Forms.Test.Views
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverResultViewTest
+    public class WaveImpactAsphaltCoverFailureMechanismResultViewTest
     {
         [Test]
         public void GivenFormWithWaveImpactAsphaltCoverFailureMechanismResultView_ThenExpectedColumnsAreVisible()
@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             // Given
             using (var form = new Form())
             {
-                using (var view = new WaveImpactAsphaltCoverResultView())
+                using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             using (var form = new Form())
             {
-                using (var view = new WaveImpactAsphaltCoverResultView())
+                using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
             using (var form = new Form())
             {
-                using (var view = new WaveImpactAsphaltCoverResultView())
+                using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();
@@ -197,7 +197,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 
             using (var form = new Form())
             {
-                using (var view = new WaveImpactAsphaltCoverResultView())
+                using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())
                 {
                     form.Controls.Add(view);
                     form.Show();

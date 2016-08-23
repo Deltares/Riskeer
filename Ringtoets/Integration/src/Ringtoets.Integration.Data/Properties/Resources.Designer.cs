@@ -332,23 +332,5 @@ namespace Ringtoets.Integration.Data.Properties {
                 return ResourceManager.GetString("WaterPressureAsphaltCoverFailureMechanism_DisplayName", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AGK.
-        /// </summary>
-        public static string WaveImpactAsphaltCoverFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Golfklappen op asfaltbekleding.
-        /// </summary>
-        public static string WaveImpactAsphaltCoverFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
     }
 }

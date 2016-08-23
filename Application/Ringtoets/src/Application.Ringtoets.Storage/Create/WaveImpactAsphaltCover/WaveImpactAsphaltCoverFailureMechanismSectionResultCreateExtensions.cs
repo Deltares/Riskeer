@@ -21,7 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Asphalt.Data;
 
 namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
 {

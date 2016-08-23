@@ -120,7 +120,6 @@
     <Compile Include="Views\SectionResultRows\StrengthStabilityPointConstructionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\TechnicalInnovationSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\WaterPressureAsphaltCoverSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultRows\WaveImpactAsphaltCoverSectionResultRow.cs" />
     <Compile Include="Views\SectionResultViews\ClosingStructureResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -155,9 +154,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SectionResultViews\WaveImpactAsphaltCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\WaveHeightLocationContextRow.cs" />

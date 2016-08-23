@@ -21,24 +21,23 @@
 
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Asphalt.Data;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
-namespace Ringtoets.Integration.Forms.Views.SectionResultViews
+namespace Ringtoets.Asphalt.Forms.Views
 {
     /// <summary>
     /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverResultView : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanismResultView : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
         private const int assessmentLayerOneColumnIndex = 1;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverResultView"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismResultView"/>.
         /// </summary>
-        public WaveImpactAsphaltCoverResultView()
+        public WaveImpactAsphaltCoverFailureMechanismResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
 
@@ -47,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
         protected override object CreateFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
-            return new WaveImpactAsphaltCoverSectionResultRow(sectionResult);
+            return new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(sectionResult);
         }
 
         protected override void Dispose(bool disposing)
@@ -60,17 +59,17 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         private void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<WaveImpactAsphaltCoverSectionResultRow>(sr => sr.Name),
+                TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.Name),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<WaveImpactAsphaltCoverSectionResultRow>(sr => sr.AssessmentLayerOne),
+                TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<WaveImpactAsphaltCoverSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<WaveImpactAsphaltCoverSectionResultRow>(sr => sr.AssessmentLayerThree),
+                TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
                 Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
