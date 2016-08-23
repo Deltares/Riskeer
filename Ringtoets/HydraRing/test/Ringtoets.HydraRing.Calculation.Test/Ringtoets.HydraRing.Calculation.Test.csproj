@@ -76,6 +76,7 @@
     <Compile Include="Data\Settings\HydraulicModelsSettingTest.cs" />
     <Compile Include="IO\DesignTablesSettingsCsvReaderTest.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
+    <Compile Include="IO\HydraRingSettingsVariableCsvReaderTest.cs" />
     <Compile Include="IO\HydraulicModelsSettingsCsvReaderTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\HydraRingOutputFileParserTest.cs" />
