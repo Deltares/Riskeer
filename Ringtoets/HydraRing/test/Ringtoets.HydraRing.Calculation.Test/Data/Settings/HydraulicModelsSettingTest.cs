@@ -31,13 +31,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Settings
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const int timeIntergrationSchemeId = 1;
+            const int timeIntegrationSchemeId = 1;
 
             // Call
-            var hydraulicModelsSetting = new HydraulicModelsSetting(timeIntergrationSchemeId);
+            var hydraulicModelsSetting = new HydraulicModelsSetting(timeIntegrationSchemeId);
 
             // Assert
-            Assert.AreEqual(timeIntergrationSchemeId, hydraulicModelsSetting.TimeIntergrationSchemeId);
+            Assert.AreEqual(timeIntegrationSchemeId, hydraulicModelsSetting.TimeIntegrationSchemeId);
         }
     }
 }

@@ -86,7 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
 
                         HydraulicModelsSetting setting = settings[expectedMechanism.Key][expectedDesignTablesSetting.Key];
 
-                        Assert.AreEqual(expectedDesignTablesSetting.Value.TimeIntergrationSchemeId, setting.TimeIntergrationSchemeId);
+                        Assert.AreEqual(expectedDesignTablesSetting.Value.TimeIntegrationSchemeId, setting.TimeIntegrationSchemeId);
                     }
                 }
             }

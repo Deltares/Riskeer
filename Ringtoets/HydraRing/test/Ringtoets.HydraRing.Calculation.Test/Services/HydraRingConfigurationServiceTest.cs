@@ -40,11 +40,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void Constructor_ExpectedValues()
         {
             // Call
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
 
             // Assert
             Assert.AreEqual("34-1", hydraRingConfigurationService.RingId);
-            Assert.AreEqual(HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, hydraRingConfigurationService.TimeIntegrationSchemeType);
             Assert.AreEqual(HydraRingUncertaintiesType.Model, hydraRingConfigurationService.UncertaintiesType);
         }
 
@@ -52,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void AddHydraRingCalculationInput_DuplicateSectionId_ThrowsArgumentException()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
             var calculationInput1 = new HydraRingCalculationInputImplementation(1, 2);
             var calculationInput2 = new HydraRingCalculationInputImplementation(1, 3);
 
@@ -67,15 +66,34 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         }
 
         [Test]
+        public void AddHydraRingCalculationInput_MultipleFailureMechanismTypes_ThrowsNotSupportedException()
+        {
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
+            var calculationInput1 = new HydraRingCalculationInputImplementation(1, 2);
+            var calculationInput2 = new HydraRingCalculationInputImplementation(2, 3);
+            calculationInput2.SetFailureMechanismType(HydraRingFailureMechanismType.DikesHeight);
+
+            hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput1);
+
+            // Call
+            TestDelegate test = () => hydraRingConfigurationService.AddHydraRingCalculationInput(calculationInput2);
+
+            // Assert
+            const string expectedMessage = "Running calculations for multiple failure mechanism types is not supported.";
+            var exception = Assert.Throws<NotSupportedException>(test);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
         public void GenerateDataBaseCreationScript_SingleHydraRingCalculationInputAddedToConfiguration_ReturnsExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
-                                         "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
+                                         "INSERT INTO [HydraulicModels] VALUES (1, 2, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
                                          "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
@@ -156,14 +174,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         public void GenerateDataBaseCreationScript_MultipleHydraRingCalculationInputsAddedToConfiguration_ReturnsExpectedCreationScript()
         {
             // Setup
-            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingTimeIntegrationSchemeType.NumericalTimeIntegration, HydraRingUncertaintiesType.Model);
+            var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.Model);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004));
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(2, 700005));
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(3, 700006));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
-                                         "INSERT INTO [HydraulicModels] VALUES (3, 2, 'WTI 2017');" + Environment.NewLine +
+                                         "INSERT INTO [HydraulicModels] VALUES (1, 2, 'WTI 2017');" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Sections];" + Environment.NewLine +
                                          "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
@@ -281,17 +299,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
         private class HydraRingCalculationInputImplementation : HydraRingCalculationInput
         {
             private readonly int sectionId;
+            private HydraRingFailureMechanismType failureMechanismType;
 
             public HydraRingCalculationInputImplementation(int sectionId, int hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId)
             {
                 this.sectionId = sectionId;
+
+                failureMechanismType = HydraRingFailureMechanismType.AssessmentLevel;
             }
 
             public override HydraRingFailureMechanismType FailureMechanismType
             {
                 get
                 {
-                    return HydraRingFailureMechanismType.AssessmentLevel;
+                    return failureMechanismType;
                 }
             }
 
@@ -364,6 +385,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                 {
                     return 1.1;
                 }
+            }
+
+            public void SetFailureMechanismType(HydraRingFailureMechanismType type)
+            {
+                failureMechanismType = type;
             }
 
             public override int? GetSubMechanismModelId(int subMechanismId)
