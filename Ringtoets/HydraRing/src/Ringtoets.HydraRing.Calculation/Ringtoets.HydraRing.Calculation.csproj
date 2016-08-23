@@ -70,6 +70,7 @@
     <Compile Include="Data\Settings\HydraulicModelsSetting.cs" />
     <Compile Include="IO\DesignTablesSettingsCsvReader.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReader.cs" />
+    <Compile Include="IO\HydraulicModelsSettingsCsvReader.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
     <Compile Include="Parsers\IHydraRingFileParser.cs" />
     <Compile Include="Parsers\HydraRingOutputFileParser.cs" />

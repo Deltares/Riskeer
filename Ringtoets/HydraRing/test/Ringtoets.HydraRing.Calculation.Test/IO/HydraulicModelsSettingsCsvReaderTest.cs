@@ -31,7 +31,7 @@ using Ringtoets.HydraRing.Calculation.IO;
 namespace Ringtoets.HydraRing.Calculation.Test.IO
 {
     [TestFixture]
-    public class DesignTablesSettingsCsvReaderTest
+    public class HydraulicModelsSettingsCsvReaderTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Settings");
 
@@ -39,17 +39,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
         public void Constructor_ExpectedValues()
         {
             // Call
-            DesignTablesSettingsCsvReader reader = new DesignTablesSettingsCsvReader("path.csv");
+            HydraulicModelsSettingsCsvReader reader = new HydraulicModelsSettingsCsvReader("path.csv");
 
             // Assert
-            Assert.IsInstanceOf<HydraRingSettingsCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>>>>(reader);
+            Assert.IsInstanceOf<HydraRingSettingsCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>>>>(reader);
         }
 
         [Test]
         public void Constructor_PathNotSet_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DesignTablesSettingsCsvReader(null);
+            TestDelegate call = () => new HydraulicModelsSettingsCsvReader(null);
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, "File contents must be set.");
@@ -59,130 +59,123 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
         public void ReadSettings_ValidFile_ReturnsSettings()
         {
             // Setup
-            string testFile = Path.Combine(testDataPath, "DesignTablesSettingsTest.csv");
+            string testFile = Path.Combine(testDataPath, "HydraulicModelsSettingsTest.csv");
 
             using (StreamReader streamReader = new StreamReader(testFile))
             {
                 string fileContents = streamReader.ReadToEnd();
 
-                var reader = new DesignTablesSettingsCsvReader(fileContents);
-                IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>> expectedDictionary = GetDictionary();
+                var reader = new HydraulicModelsSettingsCsvReader(fileContents);
+                IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>> expectedDictionary = GetDictionary();
 
                 // Call
-                IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>> settings = reader.ReadSettings();
+                IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>> settings = reader.ReadSettings();
 
                 // Assert
                 Assert.AreEqual(10, settings.Count);
 
-                foreach (KeyValuePair<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>> expectedMechanism in expectedDictionary)
+                foreach (KeyValuePair<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>> expectedMechanism in expectedDictionary)
                 {
                     Assert.IsTrue(settings.ContainsKey(expectedMechanism.Key));
-                    Assert.IsInstanceOf<IDictionary<string, DesignTablesSetting>>(settings[expectedMechanism.Key]);
+                    Assert.IsInstanceOf<IDictionary<string, HydraulicModelsSetting>>(settings[expectedMechanism.Key]);
 
-                    foreach (KeyValuePair<string, DesignTablesSetting> expectedDesignTablesSetting in expectedMechanism.Value)
+                    foreach (KeyValuePair<string, HydraulicModelsSetting> expectedDesignTablesSetting in expectedMechanism.Value)
                     {
                         Assert.IsTrue(settings[expectedMechanism.Key].ContainsKey(expectedDesignTablesSetting.Key));
-                        Assert.IsInstanceOf<DesignTablesSetting>(settings[expectedMechanism.Key][expectedDesignTablesSetting.Key]);
+                        Assert.IsInstanceOf<HydraulicModelsSetting>(settings[expectedMechanism.Key][expectedDesignTablesSetting.Key]);
 
-                        DesignTablesSetting setting = settings[expectedMechanism.Key][expectedDesignTablesSetting.Key];
+                        HydraulicModelsSetting setting = settings[expectedMechanism.Key][expectedDesignTablesSetting.Key];
 
-                        Assert.AreEqual(expectedDesignTablesSetting.Value.ValueMin, setting.ValueMin);
-                        Assert.AreEqual(expectedDesignTablesSetting.Value.ValueMax, setting.ValueMax);
+                        Assert.AreEqual(expectedDesignTablesSetting.Value.TimeIntergrationSchemeId, setting.TimeIntergrationSchemeId);
                     }
                 }
             }
         }
 
-        private static IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>> GetDictionary()
+        private static IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>> GetDictionary()
         {
-            return new Dictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>>
+            return new Dictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>>
             {
                 {
-                    HydraRingFailureMechanismType.AssessmentLevel, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.AssessmentLevel, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
-                        },
-                        {
-                            "11-1", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.QVariant, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.QVariant, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
-                        },
-                        {
-                            "11-1", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.WaveHeight, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.WaveHeight, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(2)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(3)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresClosure, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.StructuresClosure, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(2)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<string, DesignTablesSetting>
+                    HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<string, HydraulicModelsSetting>
                     {
                         {
-                            "205", new DesignTablesSetting(5, 15)
+                            "205", new HydraulicModelsSetting(2)
                         }
                     }
-                },
+                }
             };
         }
     }
