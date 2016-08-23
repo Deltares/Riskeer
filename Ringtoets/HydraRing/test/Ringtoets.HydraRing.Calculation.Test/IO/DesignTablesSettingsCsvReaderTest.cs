@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
                 IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>> settings = reader.ReadSettings();
 
                 // Assert
-                Assert.AreEqual(2, settings.Count);
+                Assert.AreEqual(10, settings.Count);
 
                 foreach (KeyValuePair<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>> expectedMechanism in expectedDictionary)
                 {
@@ -118,7 +118,71 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
                             "11-1", new DesignTablesSetting(5, 15)
                         }
                     }
-                }
+                },
+                {
+                    HydraRingFailureMechanismType.WaveHeight, new Dictionary<string, DesignTablesSetting>
+                    {
+                        {
+                            "205", new DesignTablesSetting(5, 15)
+                        }
+                    }
+                },
+                {
+                    HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<string, DesignTablesSetting>
+                    {
+                        {
+                            "205", new DesignTablesSetting(5, 15)
+                        }
+                    }
+                },
+                {
+                    HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<string, DesignTablesSetting>
+                    {
+                        {
+                            "205", new DesignTablesSetting(5, 15)
+                        }
+                    }
+                },
+                {
+                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<string, DesignTablesSetting>
+                    {
+                        {
+                            "205", new DesignTablesSetting(5, 15)
+                        }
+                    }
+                },
+                {
+                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<string, DesignTablesSetting>
+                    {
+                        {
+                            "205", new DesignTablesSetting(5, 15)
+                        }
+                    }
+                },
+                {
+                    HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<string, DesignTablesSetting>
+                    {
+                        {
+                            "205", new DesignTablesSetting(5, 15)
+                        }
+                    }
+                },
+                {
+                    HydraRingFailureMechanismType.StructuresClosure, new Dictionary<string, DesignTablesSetting>
+                    {
+                        {
+                            "205", new DesignTablesSetting(5, 15)
+                        }
+                    }
+                },
+                {
+                    HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<string, DesignTablesSetting>
+                    {
+                        {
+                            "205", new DesignTablesSetting(5, 15)
+                        }
+                    }
+                },
             };
         }
     }
