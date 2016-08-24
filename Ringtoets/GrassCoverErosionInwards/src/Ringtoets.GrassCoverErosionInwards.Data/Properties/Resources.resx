@@ -135,9 +135,6 @@
   <data name="BreakWaterType_Dam_DisplayName" xml:space="preserve">
     <value>Havendam</value>
   </data>
-  <data name="N_Value_0_should_be_in_interval" xml:space="preserve">
-    <value>De 'N' waarde {0} moet in het interval [1, 20] liggen.</value>
-  </data>
   <data name="DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null" xml:space="preserve">
     <value>De geometrie die opgegeven werd voor het dijkprofiel heeft geen waarde.</value>
   </data>

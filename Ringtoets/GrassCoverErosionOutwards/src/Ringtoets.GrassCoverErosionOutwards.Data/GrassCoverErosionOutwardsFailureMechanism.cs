@@ -43,7 +43,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             : base(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionOutwardsFailureMechanism_Code)
         {
             sectionResults = new List<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
+            GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
         }
+
+        /// <summary>
+        /// Gets the general grass cover erosion outwards calculation input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralGrassCoverErosionOutwardsInput GeneralInput { get; private set; }
 
         public override IEnumerable<ICalculation> Calculations
         {

@@ -31,6 +31,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -42,6 +43,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
     /// </summary>
     public class GrassCoverErosionOutwardsPlugin : PluginBase
     {
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismContextProperties>();
+        }
+
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<

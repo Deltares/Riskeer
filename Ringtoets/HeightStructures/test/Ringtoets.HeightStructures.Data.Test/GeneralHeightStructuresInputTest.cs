@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.HeightStructures.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {

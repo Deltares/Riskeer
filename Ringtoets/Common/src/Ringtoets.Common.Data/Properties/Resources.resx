@@ -216,4 +216,16 @@
   <data name="FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden</value>
   </data>
+  <data name="Categories_LengthEffect" xml:space="preserve">
+    <value>Lengte-effect parameters</value>
+  </data>
+  <data name="FailureMechanism_N_Description" xml:space="preserve">
+    <value>De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.</value>
+  </data>
+  <data name="FailureMechanism_N_DisplayName" xml:space="preserve">
+    <value>N [-]</value>
+  </data>
+  <data name="N_Value_should_be_in_interval_1_20" xml:space="preserve">
+    <value>De waarde voor 'N' moet in interval [1, 20] liggen.</value>
+  </data>
 </root>

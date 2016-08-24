@@ -46,9 +46,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         #region Length effect parameters
 
         [PropertyOrder(lengthEffectPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_N_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HeightStructuresInputFailureMechanismContext_N_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_LengthEffect")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "FailureMechanism_N_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonDataResources), "FailureMechanism_N_Description")]
         public int LengthEffect
         {
             get

@@ -25,7 +25,7 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             TestDelegate test = () => generalGrassCoverErosionInwardsInput.N = value;
 
             // Assert
-            var expectedMessage = string.Format(Resources.N_Value_0_should_be_in_interval, value);
+            var expectedMessage = string.Format(Resources.N_Value_should_be_in_interval_1_20, value);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }

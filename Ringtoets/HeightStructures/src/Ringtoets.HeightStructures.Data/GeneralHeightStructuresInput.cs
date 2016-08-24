@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.HeightStructures.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.HeightStructures.Data
 {

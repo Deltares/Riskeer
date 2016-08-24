@@ -119,15 +119,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte-effect parameters.
-        /// </summary>
-        public static string Categories_LengthEffect {
-            get {
-                return ResourceManager.GetString("Categories_LengthEffect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Modelfactoren.
         /// </summary>
         public static string Categories_ModelSettings {
@@ -329,24 +320,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
             get {
                 return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayNa" +
                         "me", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos;..
-        /// </summary>
-        public static string HeightStructuresInputFailureMechanismContext_N_Description {
-            get {
-                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_N_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to N [-].
-        /// </summary>
-        public static string HeightStructuresInputFailureMechanismContext_N_DisplayName {
-            get {
-                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_N_DisplayName", resourceCulture);
             }
         }
         

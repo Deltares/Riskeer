@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -80,6 +81,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));
             }
+        }
+
+        [Test]
+        public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                // Call
+                PropertyInfo[] treeNodeInfos = plugin.GetPropertyInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, treeNodeInfos.Length);
+                Assert.IsTrue(PropertyInfoExists<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismContextProperties>(treeNodeInfos));
+            }
+        }
+
+        private static bool PropertyInfoExists<TDataObject, TPropertyObject> (PropertyInfo[] treeNodeInfos)
+        {
+            return treeNodeInfos.Any(tni => tni.DataType == typeof(TDataObject) && tni.PropertyObjectType == typeof(TPropertyObject));
         }
     }
 }

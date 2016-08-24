@@ -45,9 +45,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         #region Length effect parameters
 
         [PropertyOrder(lengthEffectPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_N_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_N_Description")]
+        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_LengthEffect")]
+        [ResourcesDisplayName(typeof(Common.Data.Properties.Resources), "FailureMechanism_N_DisplayName")]
+        [ResourcesDescription(typeof(Common.Data.Properties.Resources), "FailureMechanism_N_Description")]
         public int LengthEffect
         {
             get

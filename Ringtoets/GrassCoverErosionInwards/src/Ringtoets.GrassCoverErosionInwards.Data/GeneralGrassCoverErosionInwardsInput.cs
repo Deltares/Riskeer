@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 if (value < 1 || value > 20)
                 {
-                    throw new ArgumentOutOfRangeException("value", string.Format(Resources.N_Value_0_should_be_in_interval, value));
+                    throw new ArgumentOutOfRangeException("value", string.Format(Resources.N_Value_should_be_in_interval_1_20, value));
                 }
                 n = value;
             }
