@@ -151,8 +151,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.StrictMultiMock<IGui>();
-                gui.Expect(g => g.Get(model, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(model, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

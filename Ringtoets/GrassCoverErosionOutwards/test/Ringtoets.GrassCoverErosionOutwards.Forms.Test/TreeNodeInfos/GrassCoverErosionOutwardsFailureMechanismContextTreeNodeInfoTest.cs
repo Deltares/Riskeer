@@ -272,12 +272,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControl = new TreeViewControl();
             {
-                var pipingFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
                 {
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);

@@ -114,17 +114,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var gui = mocks.StrictMultiMock<IGui>();
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
-                gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
-                gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
-
                 menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
                 mocks.ReplayAll();
 

@@ -76,6 +76,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #region ViewInfos
+
         #region GrassCoverErosionOutwardsFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object o)
@@ -98,9 +99,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
+
         #endregion
 
         #region TreeNodeInfos
+
         #region GrassCoverErosionOutwardsFailureMechanismContext TreeNodeInfo
 
         private object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
@@ -168,6 +171,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
+
         #endregion
     }
 }

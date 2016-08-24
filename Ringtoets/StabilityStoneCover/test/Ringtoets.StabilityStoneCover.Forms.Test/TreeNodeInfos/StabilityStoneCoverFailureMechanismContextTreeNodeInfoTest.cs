@@ -271,12 +271,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             var treeViewControl = new TreeViewControl();
             {
-                var pipingFailureMechanism = new StabilityStoneCoverFailureMechanism
+                var failureMechanism = new StabilityStoneCoverFailureMechanism
                 {
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
