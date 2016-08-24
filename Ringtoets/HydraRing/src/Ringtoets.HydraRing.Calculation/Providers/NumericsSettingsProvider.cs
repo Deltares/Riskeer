@@ -107,12 +107,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.QVariant, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            3, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
-                        },
-                        {
-                            4, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
-                        },
-                        {
                             5, new NumericsSetting(4, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         }
                     }

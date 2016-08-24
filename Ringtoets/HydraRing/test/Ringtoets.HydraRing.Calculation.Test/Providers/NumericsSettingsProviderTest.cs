@@ -58,8 +58,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
 
         [Test]
         [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 1, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 3, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 4, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.QVariant, 5, 4, 4)]
         [TestCase(HydraRingFailureMechanismType.WaveHeight, 11, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 14, 1, 4)]

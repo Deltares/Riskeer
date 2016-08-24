@@ -75,21 +75,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.QVariant, new Dictionary<int, VariableDefaults>
                     {
                         {
-                            20, new VariableDefaults(300)
-                        },
-                        {
-                            21, new VariableDefaults(300)
-                        },
-                        {
-                            22, new VariableDefaults(300)
-                        },
-                        {
-                            23, new VariableDefaults(300)
-                        },
-                        {
-                            24, new VariableDefaults(300)
-                        },
-                        {
                             113, new VariableDefaults(300)
                         },
                         {
