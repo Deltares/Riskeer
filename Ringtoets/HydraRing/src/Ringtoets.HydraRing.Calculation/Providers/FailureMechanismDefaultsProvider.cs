@@ -71,8 +71,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                 {
                     HydraRingFailureMechanismType.QVariant, new FailureMechanismDefaults(3, new[]
                     {
-                        3,
-                        4,
                         5
                     }, 7)
                 },

@@ -35,8 +35,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         })]
         [TestCase(HydraRingFailureMechanismType.QVariant, 3, new[]
         {
-            3,
-            4,
             5
         })]
         [TestCase(HydraRingFailureMechanismType.WaveHeight, 11, new[]
