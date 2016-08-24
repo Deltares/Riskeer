@@ -691,6 +691,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Geometry.Test",
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Calculation.TestUtil", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj", "{74CBA865-9338-447F-BAD9-28312446AE84}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HydraRing.Calculation.TestUtil.Test", "Ringtoets\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil.Test\Ringtoets.HydraRing.Calculation.TestUtil.Test.csproj", "{89A94832-5337-4177-97D0-92CD77A375D7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosionInwards.Utils", "Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Utils\Ringtoets.GrassCoverErosionInwards.Utils.csproj", "{99573570-EE00-4264-8147-26A1B25DB23F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
@@ -1888,6 +1898,22 @@ Global
 		{E23513DE-B7D0-4415-BCDF-5A33CD084388}.Release|x86.Build.0 = Release|x86
 		{E23513DE-B7D0-4415-BCDF-5A33CD084388}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{E23513DE-B7D0-4415-BCDF-5A33CD084388}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{74CBA865-9338-447F-BAD9-28312446AE84}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{74CBA865-9338-447F-BAD9-28312446AE84}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{74CBA865-9338-447F-BAD9-28312446AE84}.Debug|x86.ActiveCfg = Debug|x86
+		{74CBA865-9338-447F-BAD9-28312446AE84}.Debug|x86.Build.0 = Debug|x86
+		{74CBA865-9338-447F-BAD9-28312446AE84}.Release|x86.ActiveCfg = Release|x86
+		{74CBA865-9338-447F-BAD9-28312446AE84}.Release|x86.Build.0 = Release|x86
+		{74CBA865-9338-447F-BAD9-28312446AE84}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{74CBA865-9338-447F-BAD9-28312446AE84}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{89A94832-5337-4177-97D0-92CD77A375D7}.CreateInstaller|x86.ActiveCfg = Release|x86
+		{89A94832-5337-4177-97D0-92CD77A375D7}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
+		{89A94832-5337-4177-97D0-92CD77A375D7}.Debug|x86.ActiveCfg = Debug|x86
+		{89A94832-5337-4177-97D0-92CD77A375D7}.Debug|x86.Build.0 = Debug|x86
+		{89A94832-5337-4177-97D0-92CD77A375D7}.Release|x86.ActiveCfg = Release|x86
+		{89A94832-5337-4177-97D0-92CD77A375D7}.Release|x86.Build.0 = Release|x86
+		{89A94832-5337-4177-97D0-92CD77A375D7}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{89A94832-5337-4177-97D0-92CD77A375D7}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{99573570-EE00-4264-8147-26A1B25DB23F}.CreateInstaller|x86.ActiveCfg = Release|x86
 		{99573570-EE00-4264-8147-26A1B25DB23F}.CreateInstaller|x86.Build.0 = Release|x86
 		{99573570-EE00-4264-8147-26A1B25DB23F}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
@@ -2311,6 +2337,8 @@ Global
 		{175406DB-C0DA-42A7-968C-0C17CF2257B1} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
 		{BFD6A78A-237A-413F-8DC3-8EC6E8C5809C} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
 		{CA7B5888-2BC9-4FE2-9F58-FBC6D7ED8221} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
+		{74CBA865-9338-447F-BAD9-28312446AE84} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
+		{89A94832-5337-4177-97D0-92CD77A375D7} = {435F0AB1-1180-47D3-9BCB-3B5FF365236C}
 		{79419C3E-046C-4DC1-8C69-F14911F22C75} = {A5D1FA5A-7168-46DE-B3F0-D3FE6AC26601}
 		{1C1E8754-CF61-4858-9CEE-3E5DE344474F} = {A5D1FA5A-7168-46DE-B3F0-D3FE6AC26601}
 		{90DE728E-48EF-4665-AB38-3D88E41D9F4D} = {79419C3E-046C-4DC1-8C69-F14911F22C75}
