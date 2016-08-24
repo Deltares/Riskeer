@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
@@ -100,8 +101,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(6, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                BrowsableAttribute.Yes
+            });
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             PropertyDescriptor stochasticSoilModelIdProperty = dynamicProperties[stochasticSoilModelIdPropertyIndex];
             Assert.IsNotNull(stochasticSoilModelIdProperty);
