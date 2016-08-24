@@ -51,6 +51,11 @@ namespace Ringtoets.Integration.Forms.Views
                                                   : null);
         }
 
+        protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
+        {
+            CalculationCommandHandler.CalculateDesignWaterLevels(AssessmentSection, locations);
+        }
+
         private void InitializeDataGridView()
         {
             dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.ToCalculate),
@@ -63,11 +68,6 @@ namespace Ringtoets.Integration.Forms.Views
                                                  Resources.HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.DesignWaterLevel),
                                                  Resources.HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName);
-        }
-
-        protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
-        {
-            CalculationCommandHandler.CalculateDesignWaterLevels(AssessmentSection, locations);
         }
     }
 }

@@ -64,6 +64,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(locationname, row.Name);
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
+            Assert.AreSame(context, row.HydraulicBoundaryLocationContext);
             Assert.IsFalse(row.ToCalculate);
         }
 

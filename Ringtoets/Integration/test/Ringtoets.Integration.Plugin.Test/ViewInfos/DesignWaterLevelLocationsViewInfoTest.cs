@@ -64,13 +64,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            var view = new DesignWaterLevelLocationsView();
 
-            // Call
-            var viewName = info.GetViewName(view, assessmentSection);
+            using (var view = new DesignWaterLevelLocationsView())
+            {
+                // Call
+                var viewName = info.GetViewName(view, assessmentSection);
 
-            // Assert
-            Assert.AreEqual("Toetspeilen", viewName);
+                // Assert
+                Assert.AreEqual("Toetspeilen", viewName);
+            }
             mocks.VerifyAll();
         }
 
@@ -137,13 +139,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             guiStub.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             guiStub.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
             guiStub.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
-
             mocks.ReplayAll();
 
             var context = new DesignWaterLevelLocationsContext(assessmentSection);
 
-            var view = new DesignWaterLevelLocationsView();
-
+            using (var view = new DesignWaterLevelLocationsView())
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(DesignWaterLevelLocationsView));
@@ -157,6 +157,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationCommandHandler>(view.CalculationCommandHandler);
                 Assert.AreSame(view.ApplicationSelection, guiStub);
             }
+
             mocks.VerifyAll();
         }
     }

@@ -1048,7 +1048,7 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationCommandHandler == null || nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+                    if (hydraulicBoundaryLocationCalculationCommandHandler == null)
                     {
                         return;
                     }
@@ -1080,7 +1080,7 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationCommandHandler == null || nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+                    if (hydraulicBoundaryLocationCalculationCommandHandler == null)
                     {
                         return;
                     }
