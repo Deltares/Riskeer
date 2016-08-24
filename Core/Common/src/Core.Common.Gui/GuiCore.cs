@@ -118,7 +118,7 @@ namespace Core.Common.Gui
 
             viewCommandHandler = new ViewCommandHandler(this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, MainWindow);
-            importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetFileImporters()));
+            importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetFileImporters()), Plugins.SelectMany(p => p.GetImportInfos()));
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
 
             WindowsApplication.EnableVisualStyles();

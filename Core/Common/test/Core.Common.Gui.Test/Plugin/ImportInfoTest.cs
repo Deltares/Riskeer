@@ -77,7 +77,7 @@ namespace Core.Common.Gui.Test.Plugin
 
             var info = new ImportInfo<int>
             {
-                CreateFileImporter = (data, filePath) => fileImporter,
+                CreateFileImporter = data => fileImporter,
                 IsEnabled = data => false,
                 Name = name,
                 Category = category,
@@ -95,7 +95,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsInstanceOf<ImportInfo>(convertedInfo);
             Assert.AreEqual(typeof(int), convertedInfo.DataType);
             Assert.IsNotNull(convertedInfo.CreateFileImporter);
-            Assert.AreSame(fileImporter, convertedInfo.CreateFileImporter(12, string.Empty));
+            Assert.AreSame(fileImporter, convertedInfo.CreateFileImporter(12));
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsFalse(convertedInfo.IsEnabled(12));
             Assert.AreEqual(name, info.Name);
@@ -122,7 +122,7 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsInstanceOf<ImportInfo>(convertedInfo);
             Assert.AreEqual(typeof(int), convertedInfo.DataType);
             Assert.IsNotNull(convertedInfo.CreateFileImporter);
-            Assert.IsNull(convertedInfo.CreateFileImporter(new object(), string.Empty));
+            Assert.IsNull(convertedInfo.CreateFileImporter(new object()));
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsTrue(convertedInfo.IsEnabled(new object()));
             Assert.IsNullOrEmpty(info.Name);

@@ -69,6 +69,15 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
+        /// This method returns an enumeration of <see cref="ImportInfo"/>.
+        /// </summary>
+        /// <returns>The enumeration of <see cref="ImportInfo"/> provided by the <see cref="PluginBase"/>.</returns>
+        public virtual IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield break;
+        }
+
+        /// <summary>
         /// This method returns an enumeration of <see cref="ExportInfo"/>.
         /// </summary>
         /// <returns>The enumeration of <see cref="ExportInfo"/> provided by the <see cref="PluginBase"/>.</returns>
