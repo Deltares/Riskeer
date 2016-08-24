@@ -98,6 +98,9 @@ namespace Ringtoets.Integration.Forms.Views
             InitializeDataGridView();
         }
 
+        /// <summary>
+        /// Initializes the <see cref="DataGridView"/>.
+        /// </summary>
         protected virtual void InitializeDataGridView()
         {
             dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.ToCalculate),

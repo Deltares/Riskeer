@@ -66,7 +66,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
             }
