@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
         {
-            CalculationCommandHandler.CalculateWaveHeights(AssessmentSection, locations);
+            CalculationGuiService.CalculateWaveHeights(AssessmentSection, locations);
         }
 
         protected override void InitializeDataGridView()

@@ -35,7 +35,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.Commands;
+using Ringtoets.Integration.Forms.GuiServices;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 
@@ -341,11 +341,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var mockRepository = new MockRepository();
-            var commandHandlerMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationCommandHandler>();
+            var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
             mockRepository.ReplayAll();
 
             TestHydraulicBoundaryLocationsView view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-            view.CalculationCommandHandler = commandHandlerMock;
+            view.CalculationGuiService = guiServiceMock;
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
@@ -368,10 +368,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var mockRepository = new MockRepository();
-            var commandHandlerMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationCommandHandler>();
+            var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
             mockRepository.ReplayAll();
 
-            view.CalculationCommandHandler = commandHandlerMock;
+            view.CalculationGuiService = guiServiceMock;
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
@@ -385,7 +385,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneSelectedButCalculationCommandHandlerNotSet_DoesNotThrowException()
+        public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
             ShowFullyConfiguredTestHydraulicBoundaryLocationsView();

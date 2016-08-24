@@ -62,6 +62,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Commands;
+using Ringtoets.Integration.Forms.GuiServices;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -211,7 +212,7 @@ namespace Ringtoets.Integration.Plugin
         private RingtoetsRibbon ribbonCommandHandler;
 
         private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
-        private IHydraulicBoundaryLocationCalculationCommandHandler hydraulicBoundaryLocationCalculationCommandHandler;
+        private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -244,7 +245,7 @@ namespace Ringtoets.Integration.Plugin
                 throw new InvalidOperationException("Gui cannot be null");
             }
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
-            hydraulicBoundaryLocationCalculationCommandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(Gui.MainWindow);
+            hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
 
             ribbonCommandHandler = new RingtoetsRibbon
             {
@@ -302,7 +303,7 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.ApplicationSelection = Gui;
-                    view.CalculationCommandHandler = hydraulicBoundaryLocationCalculationCommandHandler;
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
             };
 
@@ -314,7 +315,7 @@ namespace Ringtoets.Integration.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.ApplicationSelection = Gui;
-                    view.CalculationCommandHandler = hydraulicBoundaryLocationCalculationCommandHandler;
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
             };
 
@@ -1037,11 +1038,11 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationCommandHandler == null)
+                    if (hydraulicBoundaryLocationCalculationGuiService == null)
                     {
                         return;
                     }
-                    hydraulicBoundaryLocationCalculationCommandHandler.CalculateDesignWaterLevels(
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         nodeData.WrappedData,
                         nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
                 });
@@ -1069,11 +1070,11 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationCommandHandler == null)
+                    if (hydraulicBoundaryLocationCalculationGuiService == null)
                     {
                         return;
                     }
-                    hydraulicBoundaryLocationCalculationCommandHandler.CalculateWaveHeights(
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         nodeData.WrappedData,
                         nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
                 });
