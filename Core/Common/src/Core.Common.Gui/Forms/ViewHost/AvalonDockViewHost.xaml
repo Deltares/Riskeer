@@ -60,7 +60,7 @@ All rights reserved.
                         </xcad:LayoutDocumentPaneGroup>
                         <xcad:LayoutAnchorablePaneGroup>
                         <xcad:LayoutAnchorablePane>
-                            <xcad:LayoutAnchorable x:Name="dummyPanelA"></xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable x:Name="dummyPanelA"/> <!-- Don't remove: dummy panel in order to prevent garbage collection by AvalonDock -->
                         </xcad:LayoutAnchorablePane>
                         </xcad:LayoutAnchorablePaneGroup>
                         <xcad:LayoutAnchorablePaneGroup x:Name="bottomLayoutAnchorablePaneGroup" DockHeight="200">
@@ -69,7 +69,7 @@ All rights reserved.
                     </xcad:LayoutPanel>
                     <xcad:LayoutAnchorablePaneGroup>
                         <xcad:LayoutAnchorablePane>
-                            <xcad:LayoutAnchorable x:Name="dummyPanelB"></xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable x:Name="dummyPanelB"/> <!-- Don't remove: dummy panel in order to prevent garbage collection by AvalonDock -->
                         </xcad:LayoutAnchorablePane>
                     </xcad:LayoutAnchorablePaneGroup>
                     <xcad:LayoutAnchorablePaneGroup x:Name="rightLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="220">
