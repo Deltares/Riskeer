@@ -33,12 +33,12 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.Commands;
+using Ringtoets.Integration.Forms.GuiServices;
 
-namespace Ringtoets.Integration.Forms.Test.Commands
+namespace Ringtoets.Integration.Forms.Test.GuiServices
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationCommandHandlerTest : NUnitFormTest
+    public class HydraulicBoundaryLocationGuiServiceTest : NUnitFormTest
     {
         private MockRepository mockRepository;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         public void Constructor_NullMainWindow_ThrowsArgumentNullException()
         {
             // Setup & Call
-            TestDelegate test = () => new HydraulicBoundaryLocationCalculationCommandHandler(null);
+            TestDelegate test = () => new HydraulicBoundaryLocationCalculationGuiService(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -68,10 +68,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             using (var viewParent = new Form())
             {
                 // Call
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Assert
-                Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationCommandHandler>(commandHandler);
+                Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationGuiService>(guiService);
             }
         }
 
@@ -82,10 +82,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => commandHandler.CalculateDesignWaterLevels(null, locations);
+                TestDelegate test = () => guiService.CalculateDesignWaterLevels(null, locations);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -103,10 +103,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, null);
+                TestDelegate test = () => guiService.CalculateDesignWaterLevels(assessmentSectionMock, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -136,10 +136,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
+                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSectionMock, locations);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -179,10 +179,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
+                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSectionMock, locations);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
@@ -226,10 +226,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
+                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSectionMock, locations);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -255,10 +255,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => commandHandler.CalculateWaveHeights(null, locations);
+                TestDelegate test = () => guiService.CalculateWaveHeights(null, locations);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -276,10 +276,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, null);
+                TestDelegate test = () => guiService.CalculateWaveHeights(assessmentSectionMock, null);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -309,10 +309,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
+                Action call = () => guiService.CalculateWaveHeights(assessmentSectionMock, locations);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -352,10 +352,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
+                Action call = () => guiService.CalculateWaveHeights(assessmentSectionMock, locations);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
@@ -399,10 +399,10 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             };
             using (var viewParent = new Form())
             {
-                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
+                Action call = () => guiService.CalculateWaveHeights(assessmentSectionMock, locations);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>

@@ -32,22 +32,22 @@ using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Service;
 
-namespace Ringtoets.Integration.Forms.Commands
+namespace Ringtoets.Integration.Forms.GuiServices
 {
     /// <summary>
     /// This class is responsible for calculating the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>
     /// and <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
     /// </summary>
-    public class HydraulicBoundaryLocationCalculationCommandHandler : IHydraulicBoundaryLocationCalculationCommandHandler
+    public class HydraulicBoundaryLocationCalculationGuiService : IHydraulicBoundaryLocationCalculationGuiService
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationCommandHandler));
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationGuiService));
         private readonly IWin32Window viewParent;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HydraulicBoundaryLocationCalculationCommandHandler"/> class.
+        /// Initializes a new instance of the <see cref="HydraulicBoundaryLocationCalculationGuiService"/> class.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
-        public HydraulicBoundaryLocationCalculationCommandHandler(IWin32Window viewParent)
+        public HydraulicBoundaryLocationCalculationGuiService(IWin32Window viewParent)
         {
             if (viewParent == null)
             {

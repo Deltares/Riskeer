@@ -66,7 +66,7 @@
     </Compile>
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
-    <Compile Include="Commands\HydraulicBoundaryLocationCommandHandlerTest.cs" />
+    <Compile Include="GuiServices\HydraulicBoundaryLocationGuiServiceTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\ReferenceLineContextExportInfoTest.cs" />
     <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />

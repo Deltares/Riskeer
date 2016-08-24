@@ -30,7 +30,7 @@ using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.Commands;
+using Ringtoets.Integration.Forms.GuiServices;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
 
@@ -59,33 +59,15 @@ namespace Ringtoets.Integration.Forms.Views
             hydraulicBoundaryDatabaseObserver = new Observer(() => dataGridViewControl.RefreshDataGridView());
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            InitializeDataGridView();
-        }
-
-        protected virtual void InitializeDataGridView()
-        {
-            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.ToCalculate),
-                                                  Resources.HydraulicBoundaryLocationsView_Calculate);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Name),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Name_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Id),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Location),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName);
-        }
-
         /// <summary>
         /// Gets or sets the <see cref="IApplicationSelection"/>.
         /// </summary>
         public IApplicationSelection ApplicationSelection { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationCommandHandler"/>.
+        /// Gets or sets the <see cref="IHydraulicBoundaryLocationCalculationGuiService"/>.
         /// </summary>
-        public IHydraulicBoundaryLocationCalculationCommandHandler CalculationCommandHandler { get; set; }
+        public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
 
         public object Data
         {
@@ -108,6 +90,24 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 return CreateSelectedItemFromCurrentRow();
             }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            InitializeDataGridView();
+        }
+
+        protected virtual void InitializeDataGridView()
+        {
+            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.ToCalculate),
+                                                  Resources.HydraulicBoundaryLocationsView_Calculate);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Name),
+                                                 Resources.HydraulicBoundaryDatabase_Locations_Name_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Id),
+                                                 Resources.HydraulicBoundaryDatabase_Locations_Id_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Location),
+                                                 Resources.HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName);
         }
 
         protected override void Dispose(bool disposing)
@@ -229,7 +229,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void CalculateForSelectedButton_Click(object sender, EventArgs e)
         {
-            if (CalculationCommandHandler == null)
+            if (CalculationGuiService == null)
             {
                 return;
             }
