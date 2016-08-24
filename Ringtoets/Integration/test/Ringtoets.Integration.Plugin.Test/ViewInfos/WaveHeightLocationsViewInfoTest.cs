@@ -64,13 +64,15 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            var view = new WaveHeightLocationsView();
 
-            // Call
-            var viewName = info.GetViewName(view, assessmentSection);
+            using (var view = new WaveHeightLocationsView())
+            {
+                // Call
+                var viewName = info.GetViewName(view, assessmentSection);
 
-            // Assert
-            Assert.AreEqual("Golfhoogtes", viewName);
+                // Assert
+                Assert.AreEqual("Golfhoogtes", viewName);
+            }
             mocks.VerifyAll();
         }
 
@@ -142,8 +144,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var context = new WaveHeightLocationsContext(assessmentSection);
 
-            var view = new WaveHeightLocationsView();
-
+            using (var view = new WaveHeightLocationsView())
             using (var ringtoetsPlugin = new RingtoetsPlugin())
             {
                 info = ringtoetsPlugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));

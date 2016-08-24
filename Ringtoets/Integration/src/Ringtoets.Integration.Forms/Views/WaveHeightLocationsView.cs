@@ -51,6 +51,11 @@ namespace Ringtoets.Integration.Forms.Views
                                                   : null);
         }
 
+        protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
+        {
+            CalculationCommandHandler.CalculateWaveHeights(AssessmentSection, locations);
+        }
+
         private void InitializeDataGridView()
         {
             dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.ToCalculate),
@@ -63,11 +68,6 @@ namespace Ringtoets.Integration.Forms.Views
                                                  Resources.HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.WaveHeight),
                                                  Resources.HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName);
-        }
-
-        protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
-        {
-            CalculationCommandHandler.CalculateWaveHeights(AssessmentSection, locations);
         }
     }
 }

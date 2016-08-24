@@ -67,6 +67,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
             }
         }
@@ -115,7 +116,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void TestHydraulicBoundaryLocationsView_SelectingCellInRow_ApplicationSelectionCorrectlySynced()
+        public void HydraulicBoundaryLocationsView_SelectingCellInRow_ApplicationSelectionCorrectlySynced()
         {
             // Setup
             var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
@@ -143,7 +144,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void TestHydraulicBoundaryLocationsView_SelectingCellInAlreadySelectedRow_ApplicationSelectionNotSyncedRedundantly()
+        public void HydraulicBoundaryLocationsView_SelectingCellInAlreadySelectedRow_ApplicationSelectionNotSyncedRedundantly()
         {
             // Setup
             var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();

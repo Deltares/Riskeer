@@ -88,19 +88,21 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void ZoomToAll_ViewInForm_InvalidatesView()
         {
             // Setup
-            var form = new Form();
-            var view = new LinearPlotView();
-            form.Controls.Add(view);
-            var invalidated = 0;
-            view.Invalidated += (sender, args) => invalidated++;
+            using (var form = new Form())
+            using (var view = new LinearPlotView())
+            {
+                form.Controls.Add(view);
+                var invalidated = 0;
+                view.Invalidated += (sender, args) => invalidated++;
 
-            form.Show();
+                form.Show();
 
-            // Call
-            view.ZoomToAll();
+                // Call
+                view.ZoomToAll();
 
-            // Assert
-            Assert.AreEqual(1, invalidated);
+                // Assert
+                Assert.AreEqual(1, invalidated);
+            }
         }
 
         [Test]
@@ -110,20 +112,22 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void ModelTitle_Always_SetsNewTitleToModelAndInvalidatesView(string newTitle)
         {
             // Setup
-            var form = new Form();
-            var view = new LinearPlotView();
-            form.Controls.Add(view);
-            var invalidated = 0;
-            view.Invalidated += (sender, args) => invalidated++;
+            using (var form = new Form())
+            using (var view = new LinearPlotView())
+            {
+                form.Controls.Add(view);
+                var invalidated = 0;
+                view.Invalidated += (sender, args) => invalidated++;
 
-            form.Show();
+                form.Show();
 
-            // Call
-            view.ModelTitle = newTitle;
+                // Call
+                view.ModelTitle = newTitle;
 
-            // Assert
-            Assert.AreEqual(view.ModelTitle, newTitle);
-            Assert.AreEqual(1, invalidated);
+                // Assert
+                Assert.AreEqual(view.ModelTitle, newTitle);
+                Assert.AreEqual(1, invalidated);
+            }
         }
 
         [Test]
@@ -133,20 +137,22 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void BottomAxisTitle_Always_SetsNewTitleToBottomAxisAndInvalidatesView(string newTitle)
         {
             // Setup
-            var form = new Form();
-            var view = new LinearPlotView();
-            form.Controls.Add(view);
-            var invalidated = 0;
-            view.Invalidated += (sender, args) => invalidated++;
+            using (var form = new Form())
+            using (var view = new LinearPlotView())
+            {
+                form.Controls.Add(view);
+                var invalidated = 0;
+                view.Invalidated += (sender, args) => invalidated++;
 
-            form.Show();
+                form.Show();
 
-            // Call
-            view.BottomAxisTitle = newTitle;
+                // Call
+                view.BottomAxisTitle = newTitle;
 
-            // Assert
-            Assert.AreEqual(view.BottomAxisTitle, newTitle);
-            Assert.AreEqual(1, invalidated);
+                // Assert
+                Assert.AreEqual(view.BottomAxisTitle, newTitle);
+                Assert.AreEqual(1, invalidated);
+            }
         }
 
         [Test]
@@ -156,29 +162,28 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void SetLeftAxisTitle_Always_SetsNewTitleToLeftAxisAndInvalidatesView(string newTitle)
         {
             // Setup
-            var form = new Form();
-            var view = new LinearPlotView();
-            form.Controls.Add(view);
-            var invalidated = 0;
-            view.Invalidated += (sender, args) => invalidated++;
+            using (var form = new Form())
+            using (var view = new LinearPlotView())
+            {
+                form.Controls.Add(view);
+                var invalidated = 0;
+                view.Invalidated += (sender, args) => invalidated++;
 
-            form.Show();
+                form.Show();
 
-            // Call
-            view.LeftAxisTitle = newTitle;
+                // Call
+                view.LeftAxisTitle = newTitle;
 
-            // Assert
-            Assert.AreEqual(view.LeftAxisTitle, newTitle);
-            Assert.AreEqual(1, invalidated);
+                // Assert
+                Assert.AreEqual(view.LeftAxisTitle, newTitle);
+                Assert.AreEqual(1, invalidated);
+            }
         }
 
         [Test]
         public void GivenMultipleAreaSeriesAddedToView_WhenViewOpenedAndUpdated_ThenXYAxisIncludesSeriesValues()
         {
             // Given
-            var form = new Form();
-            var view = new LinearPlotView();
-            form.Controls.Add(view);
             var maxY = 100;
             var minY = -25;
             var maxX = 50;
@@ -198,11 +203,17 @@ namespace Core.Components.OxyPlot.Forms.Test
                 }
             };
 
-            view.Model.Series.Add(series);
+            using (var form = new Form())
+            using (var view = new LinearPlotView())
+            {
+                form.Controls.Add(view);
 
-            // When
-            form.Show();
-            view.Update();
+                view.Model.Series.Add(series);
+
+                // When
+                form.Show();
+                view.Update();
+            }
 
             // Then
             Assert.AreEqual(maxX, series.XAxis.DataMaximum);
@@ -215,16 +226,18 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void GivenEmptyMultipleAreaSeriesAddedToView_WhenViewOpenedAndUpdated_ThenXYAxisNotChanged()
         {
             // Given
-            var form = new Form();
-            var view = new LinearPlotView();
-            form.Controls.Add(view);
+
             var series = new MultipleAreaSeries();
+            using (var form = new Form())
+            using (var view = new LinearPlotView())
+            {
+                form.Controls.Add(view);
+                view.Model.Series.Add(series);
 
-            view.Model.Series.Add(series);
-
-            // When
-            form.Show();
-            view.Update();
+                // When
+                form.Show();
+                view.Update();
+            }
 
             // Then
             Assert.AreEqual(double.NaN, series.XAxis.DataMaximum);

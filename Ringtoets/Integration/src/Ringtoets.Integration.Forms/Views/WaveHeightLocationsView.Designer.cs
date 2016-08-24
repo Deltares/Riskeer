@@ -23,11 +23,6 @@ namespace Ringtoets.Integration.Forms.Views
 {
     partial class WaveHeightLocationsView
     {
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
         #region Component Designer generated code
 
         /// <summary> 
@@ -36,24 +31,22 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WaveHeightLocationsView));
             this.SuspendLayout();
             // 
             // dataGridViewControl
             // 
-            this.dataGridViewControl.Size = new System.Drawing.Size(523, 344);
+            resources.ApplyResources(this.dataGridViewControl, "dataGridViewControl");
             // 
             // ButtonGroupBox
             // 
-            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 344);
-            this.ButtonGroupBox.Size = new System.Drawing.Size(523, 61);
-            this.ButtonGroupBox.Text = "Golfhoogtes berekenen";
+            resources.ApplyResources(this.ButtonGroupBox, "ButtonGroupBox");
             // 
             // WaveHeightLocationsView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "WaveHeightLocationsView";
-            this.Size = new System.Drawing.Size(523, 405);
             this.ResumeLayout(false);
 
         }

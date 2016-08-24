@@ -62,28 +62,36 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_DefaultValues()
         {
-            // Setup & Call
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
+            // Setup
+            using (var viewParent = new Form())
+            {
+                // Call
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
 
-            // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationCommandHandler>(commandHandler);
+                // Assert
+                Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationCommandHandler>(commandHandler);
+            }
         }
 
         [Test]
         public void CalculateDesignWaterLevels_NullIAssessmentSection_ThrowsArgumentNullException()
         {
             // Setup
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
+            using (var viewParent = new Form())
+            {
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
 
-            TestDelegate test = () => commandHandler.CalculateDesignWaterLevels(null, locations);
+                // Call
+                TestDelegate test = () => commandHandler.CalculateDesignWaterLevels(null, locations);
 
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            const string expectedParamName = "assessmentSection";
-            Assert.AreEqual(expectedParamName, paramName);
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                const string expectedParamName = "assessmentSection";
+                Assert.AreEqual(expectedParamName, paramName);
+            }
         }
 
         [Test]
@@ -93,14 +101,18 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
+            using (var viewParent = new Form())
+            {
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
 
-            TestDelegate test = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, null);
+                // Call
+                TestDelegate test = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, null);
 
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            const string expectedParamName = "locations";
-            Assert.AreEqual(expectedParamName, paramName);
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                const string expectedParamName = "locations";
+                Assert.AreEqual(expectedParamName, paramName);
+            }
             mockRepository.VerifyAll();
         }
 
@@ -118,21 +130,25 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var observerMock = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
-            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
-
             hydraulicBoundaryDatabase.Attach(observerMock);
 
-            // Call
-            Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
+            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            using (var viewParent = new Form())
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-            });
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+
+                // Call
+                Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(1, msgs.Length);
+                    StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
+                });
+            }
             mockRepository.VerifyAll();
         }
 
@@ -152,7 +168,6 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             hydraulicBoundaryDatabase.Attach(observerMock);
@@ -162,11 +177,16 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 // Expect an activity dialog which is automatically closed
             };
 
-            // Call
-            Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
+            using (var viewParent = new Form())
+            {
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
 
-            // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+                // Call
+                Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
+
+                // Assert
+                TestHelper.AssertLogMessagesCount(call, 0);
+            }
             mockRepository.VerifyAll();
         }
 
@@ -204,23 +224,26 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 // Expect an activity dialog which is automatically closed
             };
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
-
-            // Call
-            Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            using (var viewParent = new Form())
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(6, msgs.Length);
-                string expectedName = string.Format("Toetspeil voor locatie {0}", hydraulicLocationName);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", expectedName), msgs.First());
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", expectedName), msgs.Skip(1).First());
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", expectedName), msgs.Skip(2).First());
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", expectedName), msgs.Skip(3).First());
-                StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", expectedName), msgs.Last());
-            });
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+
+                // Call
+                Action call = () => commandHandler.CalculateDesignWaterLevels(assessmentSectionMock, locations);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    string expectedName = string.Format("Toetspeil voor locatie {0}", hydraulicLocationName);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", expectedName), msgs.First());
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", expectedName), msgs.Skip(1).First());
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", expectedName), msgs.Skip(2).First());
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", expectedName), msgs.Skip(3).First());
+                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", expectedName), msgs.Last());
+                });
+            }
             mockRepository.VerifyAll();
         }
 
@@ -228,15 +251,20 @@ namespace Ringtoets.Integration.Forms.Test.Commands
         public void CalculateWaveHeights_NullIAssessmentSection_ThrowsArgumentNullException()
         {
             // Setup
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
-            TestDelegate test = () => commandHandler.CalculateWaveHeights(null, locations);
+            using (var viewParent = new Form())
+            {
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
 
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            const string expectedParamName = "assessmentSection";
-            Assert.AreEqual(expectedParamName, paramName);
+                // Call
+                TestDelegate test = () => commandHandler.CalculateWaveHeights(null, locations);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                const string expectedParamName = "assessmentSection";
+                Assert.AreEqual(expectedParamName, paramName);
+            }
         }
 
         [Test]
@@ -246,14 +274,18 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
+            using (var viewParent = new Form())
+            {
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
 
-            TestDelegate test = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, null);
+                // Call
+                TestDelegate test = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, null);
 
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            const string expectedParamName = "locations";
-            Assert.AreEqual(expectedParamName, paramName);
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                const string expectedParamName = "locations";
+                Assert.AreEqual(expectedParamName, paramName);
+            }
             mockRepository.VerifyAll();
         }
 
@@ -271,21 +303,25 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             var observerMock = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             hydraulicBoundaryDatabase.Attach(observerMock);
 
-            // Call
-            Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            using (var viewParent = new Form())
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(1, msgs.Length);
-                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-            });
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+
+                // Call
+                Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(1, msgs.Length);
+                    StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
+                });
+            }
             mockRepository.VerifyAll();
         }
 
@@ -305,9 +341,6 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
-            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
-
             hydraulicBoundaryDatabase.Attach(observerMock);
 
             DialogBoxHandler = (name, wnd) =>
@@ -315,11 +348,18 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 // Expect an activity dialog which is automatically closed
             };
 
-            // Call
-            Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
+            var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
-            // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            using (var viewParent = new Form())
+            {
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+
+                // Call
+                Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
+
+                // Assert
+                TestHelper.AssertLogMessagesCount(call, 0);
+            }
             mockRepository.VerifyAll();
         }
 
@@ -345,10 +385,6 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             mockRepository.ReplayAll();
 
             const string hydraulicLocationName = "name";
-            var locations = new List<HydraulicBoundaryLocation>
-            {
-                new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
-            };
 
             hydraulicBoundaryDatabase.Attach(observerMock);
 
@@ -357,23 +393,30 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 // Expect an activity dialog which is automatically closed
             };
 
-            var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(new Form());
-
-            // Call
-            Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            var locations = new List<HydraulicBoundaryLocation>
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(6, msgs.Length);
-                string expectedName = string.Format("Golfhoogte voor locatie {0}", hydraulicLocationName);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", expectedName), msgs.First());
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", expectedName), msgs.Skip(1).First());
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", expectedName), msgs.Skip(2).First());
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", expectedName), msgs.Skip(3).First());
-                StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", expectedName), msgs.Last());
-            });
+                new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
+            };
+            using (var viewParent = new Form())
+            {
+                var commandHandler = new HydraulicBoundaryLocationCalculationCommandHandler(viewParent);
+
+                // Call
+                Action call = () => commandHandler.CalculateWaveHeights(assessmentSectionMock, locations);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    string expectedName = string.Format("Golfhoogte voor locatie {0}", hydraulicLocationName);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", expectedName), msgs.First());
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", expectedName), msgs.Skip(1).First());
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", expectedName), msgs.Skip(2).First());
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", expectedName), msgs.Skip(3).First());
+                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", expectedName), msgs.Last());
+                });
+            }
             mockRepository.VerifyAll();
         }
     }
