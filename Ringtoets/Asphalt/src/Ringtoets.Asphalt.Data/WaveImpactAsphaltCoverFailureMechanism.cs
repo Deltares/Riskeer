@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Asphalt.Data.Properties;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Asphalt.Data
@@ -41,6 +43,7 @@ namespace Ringtoets.Asphalt.Data
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
         {
             sectionResults = new List<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
+            ForeShores = new ObservableList<ForeShore>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -58,6 +61,8 @@ namespace Ringtoets.Asphalt.Data
                 return sectionResults;
             }
         }
+
+        public ObservableList<ForeShore> ForeShores { get; private set; }
 
         public override void AddSection(FailureMechanismSection section)
         {

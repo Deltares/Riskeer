@@ -59,6 +59,7 @@
     <Compile Include="DikeProfiles\BreakWaterTest.cs" />
     <Compile Include="Calculation\CalculationGroupTest.cs" />
     <Compile Include="DikeProfiles\DikeProfileTest.cs" />
+    <Compile Include="DikeProfiles\ForeShoreTest.cs" />
     <Compile Include="Probability\ProbabilityAssessmentOutputTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionItemTest.cs" />
     <Compile Include="Contribution\FailureMechanismContributionTest.cs" />

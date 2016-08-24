@@ -21,6 +21,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -69,6 +70,24 @@ namespace Ringtoets.Asphalt.Plugin
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
+
+            yield return new TreeNodeInfo<ForeShoresContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Plugin_GetTreeNodeInfos_ForeShores,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ForeColor = context => context.WrappedData.Any() ?
+                                           Color.FromKnownColor(KnownColor.ControlText) :
+                                           Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = context => context.WrappedData
+                                                     .Cast<object>()
+                                                     .ToArray(),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
+                                                                                 .Build()
+            };
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>>
             {
@@ -136,6 +155,7 @@ namespace Ringtoets.Asphalt.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new ForeShoresContext(failureMechanism.ForeShores),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }

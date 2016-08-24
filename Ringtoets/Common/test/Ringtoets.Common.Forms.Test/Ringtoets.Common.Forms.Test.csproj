@@ -67,6 +67,7 @@
     <Compile Include="PresentationObjects\FailureMechanismContributionContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionResultContextTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismSectionsContextTest.cs" />
+    <Compile Include="PresentationObjects\ForeShoresContextTest.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DistributionPropertiesTest.cs" />
