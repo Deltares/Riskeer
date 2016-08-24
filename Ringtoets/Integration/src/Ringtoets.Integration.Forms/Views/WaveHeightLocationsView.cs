@@ -39,7 +39,6 @@ namespace Ringtoets.Integration.Forms.Views
         public WaveHeightLocationsView()
         {
             InitializeComponent();
-            InitializeDataGridView();
         }
 
         protected override void SetDataSource()
@@ -56,16 +55,9 @@ namespace Ringtoets.Integration.Forms.Views
             CalculationCommandHandler.CalculateWaveHeights(AssessmentSection, locations);
         }
 
-        private void InitializeDataGridView()
+        protected override void InitializeDataGridView()
         {
-            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.ToCalculate),
-                                                  Resources.HydraulicBoundaryLocationsView_Calculate);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.Name),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Name_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.Id),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.Location),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName);
+            base.InitializeDataGridView();
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.WaveHeight),
                                                  Resources.HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName);
         }

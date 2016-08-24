@@ -27,10 +27,12 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Selection;
 using Core.Common.Utils.Extensions;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -55,6 +57,24 @@ namespace Ringtoets.Integration.Forms.Views
 
             assessmentSectionObserver = new Observer(UpdateDataGridViewDataSource);
             hydraulicBoundaryDatabaseObserver = new Observer(() => dataGridViewControl.RefreshDataGridView());
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            InitializeDataGridView();
+        }
+
+        protected virtual void InitializeDataGridView()
+        {
+            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.ToCalculate),
+                                                  Resources.HydraulicBoundaryLocationsView_Calculate);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Name),
+                                                 Resources.HydraulicBoundaryDatabase_Locations_Name_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Id),
+                                                 Resources.HydraulicBoundaryDatabase_Locations_Id_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Location),
+                                                 Resources.HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName);
         }
 
         /// <summary>
