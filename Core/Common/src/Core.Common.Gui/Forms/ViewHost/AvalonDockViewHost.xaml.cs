@@ -56,6 +56,8 @@ namespace Core.Common.Gui.Forms.ViewHost
         public AvalonDockViewHost()
         {
             InitializeComponent();
+            dummyPanelA.Hide();
+            dummyPanelB.Hide();
 
             toolViews = new List<IView>();
             documentViews = new List<IView>();
@@ -169,6 +171,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             SetFocusToView(view);
 
             layoutAnchorable.Hiding += OnLayoutAnchorableHiding;
+            layoutAnchorable.Closing += OnLayoutAnchorableClosing;
         }
 
         public void Remove(IView view)
@@ -185,12 +188,14 @@ namespace Core.Common.Gui.Forms.ViewHost
                     SetFocusToView(view);
                 }
 
-                GetLayoutContent<LayoutDocument>(view).Close();
+                var layoutDocument = GetLayoutContent<LayoutDocument>(view);
+                layoutDocument.Close();
                 UpdateDockingManager();
             }
             else if (toolViews.Contains(view))
             {
-                GetLayoutContent<LayoutAnchorable>(view).Hide();
+                var layoutAnchorable = GetLayoutContent<LayoutAnchorable>(view);
+                layoutAnchorable.Hide();
                 UpdateDockingManager();
             }
 
@@ -303,7 +308,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void OnLayoutDocumentClosing(object sender, CancelEventArgs e)
         {
-            var layoutDocument = (LayoutDocument) sender;
+            var layoutDocument = (LayoutDocument)sender;
             var view = GetView(layoutDocument.Content);
 
             if (ActiveDocumentView == view)
@@ -315,9 +320,22 @@ namespace Core.Common.Gui.Forms.ViewHost
             }
         }
 
+        private void OnLayoutAnchorableHiding(object sender, CancelEventArgs eventArgs)
+        {
+            var layoutAnchorable = (LayoutAnchorable)sender;
+
+            layoutAnchorable.Hiding -= OnLayoutAnchorableHiding;
+            layoutAnchorable.Closing -= OnLayoutAnchorableClosing;
+
+            layoutAnchorable.Close();
+            OnViewClosed(GetView(layoutAnchorable.Content));
+
+            eventArgs.Cancel = true;
+        }
+
         private void OnLayoutDocumentClosed(object sender, EventArgs e)
         {
-            var layoutDocument = (LayoutDocument) sender;
+            var layoutDocument = (LayoutDocument)sender;
 
             layoutDocument.Closing -= OnLayoutDocumentClosing;
             layoutDocument.Closed -= OnLayoutDocumentClosed;
@@ -325,13 +343,11 @@ namespace Core.Common.Gui.Forms.ViewHost
             OnViewClosed(GetView(layoutDocument.Content));
         }
 
-        private void OnLayoutAnchorableHiding(object sender, CancelEventArgs e)
+        private void OnLayoutAnchorableClosing(object sender, CancelEventArgs e)
         {
-            var layoutAnchorable = (LayoutAnchorable) sender;
-
-            layoutAnchorable.Hiding -= OnLayoutAnchorableHiding;
-
-            OnViewClosed(GetView(layoutAnchorable.Content));
+            var layoutAnchorable = (LayoutAnchorable)sender;
+            layoutAnchorable.Hide();
+            e.Cancel = true;
         }
 
         private void OnViewClosed(IView view)
@@ -388,19 +404,35 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void AddLayoutAnchorable(LayoutAnchorable layoutAnchorable, ToolViewLocation toolViewLocation)
         {
-            var layoutAnchorablePaneGroup = new LayoutAnchorablePaneGroup();
-
+            LayoutAnchorablePaneGroup layoutAnchorablePaneGroup = null;
             switch (toolViewLocation)
             {
                 case ToolViewLocation.Left:
+                    if (leftLayoutAnchorablePaneGroup.Parent == null)
+                    {
+                        leftLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
+                        leftRightLayoutTarget.Children.Insert(0, leftLayoutAnchorablePaneGroup);
+                    }
                     layoutAnchorablePaneGroup = leftLayoutAnchorablePaneGroup;
                     break;
                 case ToolViewLocation.Bottom:
+                    if (bottomLayoutAnchorablePaneGroup.Parent == null)
+                    {
+                        bottomLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
+                        bottomLayoutTarget.Children.Add(bottomLayoutAnchorablePaneGroup);
+                    }
                     layoutAnchorablePaneGroup = bottomLayoutAnchorablePaneGroup;
                     break;
                 case ToolViewLocation.Right:
+                    if (rightLayoutAnchorablePaneGroup.Parent == null)
+                    {
+                        rightLayoutAnchorablePaneGroup.Children.Add(new LayoutAnchorablePane());
+                        leftRightLayoutTarget.Children.Add(rightLayoutAnchorablePaneGroup);
+                    }
                     layoutAnchorablePaneGroup = rightLayoutAnchorablePaneGroup;
                     break;
+                default:
+                    throw new InvalidEnumArgumentException("toolViewLocation", (int)toolViewLocation, typeof(ToolViewLocation));
             }
 
             layoutAnchorablePaneGroup.Descendents()
