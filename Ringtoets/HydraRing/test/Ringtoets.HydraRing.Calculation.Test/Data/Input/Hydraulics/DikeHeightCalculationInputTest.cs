@@ -27,6 +27,7 @@ using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
 {
@@ -82,7 +83,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(HydraRingFailureMechanismType.DikesHeight, dikeHeightCalculationInput.FailureMechanismType);
             Assert.AreEqual(expectedVariableId, dikeHeightCalculationInput.VariableId);
             Assert.IsNotNull(dikeHeightCalculationInput.Section);
-            CheckDikeHeightVariables(GetDefaultDikeHeightVariables().ToArray(), dikeHeightCalculationInput.Variables.ToArray());
+            HydraRingVariableAssert.AreEqual(GetDefaultDikeHeightVariables().ToArray(), dikeHeightCalculationInput.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, dikeHeightCalculationInput.ProfilePoints);
             CollectionAssert.AreEqual(expectedRingForelandPoints, dikeHeightCalculationInput.ForelandsPoints);
             Assert.AreEqual(expectedRingBreakWater, dikeHeightCalculationInput.BreakWater);
@@ -110,22 +111,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(expectedSubMechanismModelId, dikeHeightCalculationInput.GetSubMechanismModelId(subMechanismModelId));
         }
 
-        private void CheckDikeHeightVariables(HydraRingVariable[] expected, HydraRingVariable[] actual)
-        {
-            Assert.AreEqual(expected.Length, actual.Length);
-            for (int i = 0; i < expected.Length; i++)
-            {
-                Assert.AreEqual(expected[i].Value, actual[i].Value, 1e-6);
-                Assert.AreEqual(expected[i].DeviationType, actual[i].DeviationType);
-                Assert.AreEqual(expected[i].DistributionType, actual[i].DistributionType);
-                Assert.AreEqual(expected[i].Mean, actual[i].Mean, 1e-6);
-                Assert.AreEqual(expected[i].Shift, actual[i].Shift, 1e-6);
-                Assert.AreEqual(expected[i].Variability, actual[i].Variability, 1e-6);
-                Assert.AreEqual(expected[i].VariableId, actual[i].VariableId, 1e-6);
-            }
-        }
-
-        private IEnumerable<HydraRingVariable> GetDefaultDikeHeightVariables()
+        private static IEnumerable<HydraRingVariable> GetDefaultDikeHeightVariables()
         {
             yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, 0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, 1.0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);

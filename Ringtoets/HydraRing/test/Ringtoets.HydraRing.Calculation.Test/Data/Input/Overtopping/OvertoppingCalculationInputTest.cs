@@ -24,6 +24,7 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
 {
@@ -76,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(HydraRingFailureMechanismType.DikesOvertopping, overtoppingCalculationInput.FailureMechanismType);
             Assert.AreEqual(expectedVariableId, overtoppingCalculationInput.VariableId);
             Assert.IsNotNull(overtoppingCalculationInput.Section);
-            CheckOvertoppingVariables(GetDefaultOvertoppingVariables().ToArray(), overtoppingCalculationInput.Variables.ToArray());
+            HydraRingVariableAssert.AreEqual(GetDefaultOvertoppingVariables().ToArray(), overtoppingCalculationInput.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, overtoppingCalculationInput.ProfilePoints);
             CollectionAssert.AreEqual(expectedRingForelandPoints, overtoppingCalculationInput.ForelandsPoints);
             Assert.AreEqual(expectedRingBreakWater, overtoppingCalculationInput.BreakWater);
@@ -106,22 +107,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(expectedSubMechanismModelId, overtoppingCalculationInput.GetSubMechanismModelId(subMechanismModelId));
         }
 
-        private void CheckOvertoppingVariables(HydraRingVariable[] expected, HydraRingVariable[] actual)
-        {
-            Assert.AreEqual(expected.Length, actual.Length);
-            for (int i = 0; i < expected.Length; i++)
-            {
-                Assert.AreEqual(expected[i].Value, actual[i].Value, 1e-6);
-                Assert.AreEqual(expected[i].DeviationType, actual[i].DeviationType);
-                Assert.AreEqual(expected[i].DistributionType, actual[i].DistributionType);
-                Assert.AreEqual(expected[i].Mean, actual[i].Mean, 1e-6);
-                Assert.AreEqual(expected[i].Shift, actual[i].Shift, 1e-6);
-                Assert.AreEqual(expected[i].Variability, actual[i].Variability, 1e-6);
-                Assert.AreEqual(expected[i].VariableId, actual[i].VariableId, 1e-6);
-            }
-        }
-
-        private IEnumerable<HydraRingVariable> GetDefaultOvertoppingVariables()
+        private static IEnumerable<HydraRingVariable> GetDefaultOvertoppingVariables()
         {
             yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, 11.11, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, 1.0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);

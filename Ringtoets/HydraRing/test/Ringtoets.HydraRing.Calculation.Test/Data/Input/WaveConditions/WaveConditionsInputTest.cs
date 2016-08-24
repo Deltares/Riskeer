@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
 {
@@ -66,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(waveConditionsInput.Section);
             Assert.AreEqual(sectionId, waveConditionsInput.Section.SectionId);
-            CheckVariables(GetExpectedVariables(waterLevel, a, b).ToArray(), waveConditionsInput.Variables.ToArray());
+            HydraRingVariableAssert.AreEqual(GetExpectedVariables(waterLevel, a, b).ToArray(), waveConditionsInput.Variables.ToArray());
             Assert.AreSame(forelandPoints, waveConditionsInput.ForelandsPoints);
             Assert.AreSame(breakWater, waveConditionsInput.BreakWater);
             Assert.AreEqual(expectedBeta, waveConditionsInput.Beta);
@@ -90,22 +91,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                        waterLevel,
                        a,
                        b) {}
-        }
-
-        private static void CheckVariables(HydraRingVariable[] expected, HydraRingVariable[] actual)
-        {
-            Assert.AreEqual(expected.Length, actual.Length);
-
-            for (var i = 0; i < expected.Length; i++)
-            {
-                Assert.AreEqual(expected[i].Value, actual[i].Value, 1e-6);
-                Assert.AreEqual(expected[i].DeviationType, actual[i].DeviationType);
-                Assert.AreEqual(expected[i].DistributionType, actual[i].DistributionType);
-                Assert.AreEqual(expected[i].Mean, actual[i].Mean, 1e-6);
-                Assert.AreEqual(expected[i].Shift, actual[i].Shift, 1e-6);
-                Assert.AreEqual(expected[i].Variability, actual[i].Variability, 1e-6);
-                Assert.AreEqual(expected[i].VariableId, actual[i].VariableId, 1e-6);
-            }
         }
 
         private static IEnumerable<HydraRingVariable> GetExpectedVariables(double waterLevel, double a, double b)
