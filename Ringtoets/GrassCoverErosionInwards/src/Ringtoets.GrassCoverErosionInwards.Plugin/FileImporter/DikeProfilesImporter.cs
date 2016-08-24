@@ -25,6 +25,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
@@ -47,7 +48,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
     /// </summary>
     public class DikeProfilesImporter : FileImporterBase<DikeProfilesContext>
     {
+        private readonly ObservableList<DikeProfile> importTarget;
+        private readonly ReferenceLine referenceLine;
         private readonly ILog log = LogManager.GetLogger(typeof(DikeProfilesImporter));
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DikeProfilesImporter"/>.
+        /// </summary>
+        /// <param name="importTarget">The dike profiles to import on.</param>
+        /// <param name="referenceLine">The reference line used to check if the <see cref="DikeProfile"/>
+        /// objects found in the file are intersecting it.</param>
+        public DikeProfilesImporter(ObservableList<DikeProfile> importTarget, ReferenceLine referenceLine)
+        {
+            if (importTarget == null)
+            {
+                throw new ArgumentNullException("importTarget");
+            }
+            if (referenceLine == null)
+            {
+                throw new ArgumentNullException("referenceLine");
+            }
+
+            this.importTarget = importTarget;
+            this.referenceLine = referenceLine;
+        }
 
         public override string Name
         {
@@ -90,16 +114,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         public override bool Import(object targetItem, string filePath)
         {
-            var dikeProfilesContext = (DikeProfilesContext) targetItem;
-            if (!IsReferenceLineAvailable(dikeProfilesContext))
-            {
-                log.Error(Resources.DikeProfilesImporter_Import_no_referenceline_import_aborted);
-                return false;
-            }
-
-            ReferenceLine referenceLine = dikeProfilesContext.ParentAssessmentSection.ReferenceLine;
-
-            ReadResult<DikeProfileLocation> importDikeProfilesResult = ReadDikeProfileLocations(filePath, referenceLine);
+            ReadResult<DikeProfileLocation> importDikeProfilesResult = ReadDikeProfileLocations(filePath);
             if (importDikeProfilesResult.CriticalErrorOccurred)
             {
                 return false;
@@ -124,24 +139,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 return false;
             }
 
-            IEnumerable<DikeProfile> dikeProfiles = CreateDikeProfiles(importDikeProfilesResult.ImportedItems, importDikeProfileDataResult.ImportedItems);
+            IEnumerable<DikeProfile> importedDikeProfiles = CreateDikeProfiles(importDikeProfilesResult.ImportedItems,
+                                                                               importDikeProfileDataResult.ImportedItems);
 
-            foreach (DikeProfile dikeProfile in dikeProfiles)
+            foreach (DikeProfile dikeProfile in importedDikeProfiles)
             {
-                dikeProfilesContext.WrappedData.Add(dikeProfile);
+                importTarget.Add(dikeProfile);
             }
 
             return true;
         }
 
-        private ReadResult<DikeProfileLocation> ReadDikeProfileLocations(string filePath, ReferenceLine referenceLine)
+        private ReadResult<DikeProfileLocation> ReadDikeProfileLocations(string filePath)
         {
             NotifyProgress(Resources.DikeProfilesImporter_ReadDikeProfileLocations_reading_dikeprofilelocations, 1, 1);
             try
             {
                 using (var dikeProfileLocationReader = new DikeProfileLocationReader(filePath))
                 {
-                    return GetDikeProfileLocationReadResult(dikeProfileLocationReader, referenceLine);
+                    return GetDikeProfileLocationReadResult(dikeProfileLocationReader);
                 }
             }
             catch (CriticalFileReadException exception)
@@ -155,7 +171,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             return new ReadResult<DikeProfileLocation>(true);
         }
 
-        private ReadResult<DikeProfileLocation> GetDikeProfileLocationReadResult(DikeProfileLocationReader dikeProfileLocationReader, ReferenceLine referenceLine)
+        private ReadResult<DikeProfileLocation> GetDikeProfileLocationReadResult(DikeProfileLocationReader dikeProfileLocationReader)
         {
             var dikeProfileLocations = new Collection<DikeProfileLocation>();
 
@@ -170,7 +186,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 try
                 {
                     NotifyProgress(Resources.DikeProfilesImporter_GetDikeProfileLocationReadResult_reading_dikeprofilelocation, i + 1, totalNumberOfSteps);
-                    AddNextDikeProfileLocation(dikeProfileLocationReader, referenceLine, dikeProfileLocations);
+                    AddNextDikeProfileLocation(dikeProfileLocationReader, dikeProfileLocations);
                 }
                 catch (LineParseException exception)
                 {
@@ -193,19 +209,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         }
 
         /// <summary>
-        /// Get the next DikeProfileLocation from <paramref name="dikeProfileLocationReader"/> and add to <paramref name="dikeProfileLocations"/> in case it is close enough to <paramref name="referenceLine"/>.
+        /// Get the next <see cref="DikeProfileLocation"/> from <paramref name="dikeProfileLocationReader"/>
+        /// and add to <paramref name="dikeProfileLocations"/> in case it is close enough
+        /// to the <see cref="ReferenceLine"/>.
         /// </summary>
-        /// <param name="dikeProfileLocationReader">Reader reading <see cref="DikeProfileLocation"/>s for a shapefile.</param>
-        /// <param name="referenceLine">The reference line.</param>
-        /// <param name="dikeProfileLocations">Collection of <see cref="DikeProfileLocation"/>s to which a new <see cref="DikeProfileLocation"/> is to be added.</param>
+        /// <param name="dikeProfileLocationReader">Reader reading <see cref="DikeProfileLocation"/>s
+        /// from a shapefile.</param>
+        /// <param name="dikeProfileLocations">Collection of <see cref="DikeProfileLocation"/>s
+        /// to which the new <see cref="DikeProfileLocation"/> is to be added.</param>
         /// <exception cref="LineParseException"><list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
-        private void AddNextDikeProfileLocation(DikeProfileLocationReader dikeProfileLocationReader, ReferenceLine referenceLine, Collection<DikeProfileLocation> dikeProfileLocations)
+        private void AddNextDikeProfileLocation(DikeProfileLocationReader dikeProfileLocationReader, ICollection<DikeProfileLocation> dikeProfileLocations)
         {
             DikeProfileLocation dikeProfileLocation = dikeProfileLocationReader.GetNextDikeProfileLocation();
-            double distanceToReferenceLine = GetDistanceToReferenceLine(dikeProfileLocation.Point, referenceLine);
+            double distanceToReferenceLine = GetDistanceToReferenceLine(dikeProfileLocation.Point);
             if (distanceToReferenceLine > 1.0)
             {
                 log.ErrorFormat(Resources.DikeProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline, dikeProfileLocation.Id);
@@ -348,12 +367,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             return ((DikeProfilesContext) targetItem).ParentAssessmentSection.ReferenceLine != null;
         }
 
-        private double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)
+        private double GetDistanceToReferenceLine(Point2D point)
         {
             return GetLineSegments(referenceLine.Points).Min(segment => segment.GetEuclideanDistanceToPoint(point));
         }
 
-        private IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
+        private static IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
         {
             return Math2D.ConvertLinePointsToLineSegments(linePoints);
         }

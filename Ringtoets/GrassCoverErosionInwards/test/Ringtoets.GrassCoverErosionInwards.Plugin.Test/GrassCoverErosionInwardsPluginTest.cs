@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -33,7 +35,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
 {
@@ -166,11 +167,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
             })
             {
                 // Call
-                var importers = plugin.GetFileImporters().ToArray();
+                IEnumerable<IFileImporter> importers = plugin.GetFileImporters();
 
                 // Assert
-                Assert.AreEqual(1, importers.Length);
-                Assert.IsInstanceOf<DikeProfilesImporter>(importers[0]);
+                CollectionAssert.IsEmpty(importers);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetImportInfos_Always_ReturnsExpectedImportInfos()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var guiStub = mocks.Stub<IGui>();
+            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+            mocks.ReplayAll();
+
+            using (var plugin = new GrassCoverErosionInwardsPlugin
+            {
+                Gui = guiStub
+            })
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.AreEqual(typeof(DikeProfilesContext), importInfos[0].DataType);
             }
             mocks.VerifyAll();
         }

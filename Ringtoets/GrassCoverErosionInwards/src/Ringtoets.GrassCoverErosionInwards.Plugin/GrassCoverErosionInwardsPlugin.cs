@@ -25,7 +25,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -52,6 +51,7 @@ using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInward
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
@@ -104,9 +104,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        public override IEnumerable<IFileImporter> GetFileImporters()
+        public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return new DikeProfilesImporter();
+            yield return new ImportInfo<DikeProfilesContext>
+            {
+                CreateFileImporter = context => new DikeProfilesImporter(context.WrappedData,
+                                                                         context.ParentAssessmentSection.ReferenceLine),
+                Name = GrassCoverErosionInwardsPluginResources.DikeProfilesImporter_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = GrassCoverErosionInwardsPluginResources.DikeProfile,
+                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

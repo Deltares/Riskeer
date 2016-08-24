@@ -98,9 +98,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                var targetContext = new DikeProfilesContext(assessmentSection.GrassCoverErosionInwards.DikeProfiles, assessmentSection);
-                var dikeProfilesImporter = new DikeProfilesImporter();
-                dikeProfilesImporter.Import(targetContext, filePath);
+                var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
+                                                                    assessmentSection.ReferenceLine);
+                dikeProfilesImporter.Import(null, filePath);
 
                 // Call
                 foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
@@ -145,9 +145,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                var targetContext = new DikeProfilesContext(assessmentSection.GrassCoverErosionInwards.DikeProfiles, assessmentSection);
-                var dikeProfilesImporter = new DikeProfilesImporter();
-                dikeProfilesImporter.Import(targetContext, filePath);
+                var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
+                                                                    assessmentSection.ReferenceLine);
+                dikeProfilesImporter.Import(null, filePath);
 
                 foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
@@ -197,9 +197,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                var targetContext = new DikeProfilesContext(assessmentSection.GrassCoverErosionInwards.DikeProfiles, assessmentSection);
-                var dikeProfilesImporter = new DikeProfilesImporter();
-                dikeProfilesImporter.Import(targetContext, filePath);
+                var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
+                                                                    assessmentSection.ReferenceLine);
+                dikeProfilesImporter.Import(null, filePath);
 
                 foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
