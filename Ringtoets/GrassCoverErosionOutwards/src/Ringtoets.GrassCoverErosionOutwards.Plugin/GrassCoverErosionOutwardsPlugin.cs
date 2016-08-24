@@ -79,6 +79,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext>
+            {
+                Text = context => context.WrappedData.Name,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddExportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddExpandAllItem()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .Build()
+            };
         }
 
         #region ViewInfos
@@ -118,6 +130,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
+                new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(wrappedData.HydraulicBoundariesCalculationGroup),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }

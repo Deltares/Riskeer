@@ -44,6 +44,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         {
             sectionResults = new List<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
+            HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName, false);
         }
 
         /// <summary>
@@ -58,6 +59,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 yield break;
             }
         }
+
+        /// <summary>
+        /// Gets the container of all hydraulic boundary calculations.
+        /// </summary>
+        public CalculationGroup HydraulicBoundariesCalculationGroup { get; private set; }
 
         public IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults
         {

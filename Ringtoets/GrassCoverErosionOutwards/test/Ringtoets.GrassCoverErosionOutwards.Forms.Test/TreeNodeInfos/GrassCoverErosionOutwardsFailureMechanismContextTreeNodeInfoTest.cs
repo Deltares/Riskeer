@@ -181,7 +181,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
             // Assert
-            Assert.AreEqual(2, children.Length);
+            Assert.AreEqual(3, children.Length);
             var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
@@ -194,7 +194,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
-            var outputsFolder = (CategoryTreeFolder) children[1];
+            var hydraulicBoundariesCalculationGroup = (GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext) children[1];
+            Assert.AreSame(failureMechanism.HydraulicBoundariesCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
+
+            var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
             Assert.AreEqual(1, outputsFolder.Contents.Count);
