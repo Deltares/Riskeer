@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Commands;
+using Ringtoets.Integration.Forms.GuiServices;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 
@@ -155,7 +156,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 info.AfterCreate(view, context);
 
                 // Assert
-                Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationCommandHandler>(view.CalculationCommandHandler);
+                Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
                 Assert.AreSame(view.ApplicationSelection, guiStub);
             }
             mocks.VerifyAll();

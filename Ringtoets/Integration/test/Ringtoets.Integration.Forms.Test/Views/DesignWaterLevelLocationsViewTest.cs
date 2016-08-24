@@ -34,7 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.Commands;
+using Ringtoets.Integration.Forms.GuiServices;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -209,14 +209,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
             var mockRepository = new MockRepository();
-            var commandHandlerMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationCommandHandler>();
+            var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             IEnumerable<HydraulicBoundaryLocation> locations = null;
-            commandHandlerMock.Expect(ch => ch.CalculateDesignWaterLevels(assessmentSection, null)).IgnoreArguments().WhenCalled(
+            guiServiceMock.Expect(ch => ch.CalculateDesignWaterLevels(assessmentSection, null)).IgnoreArguments().WhenCalled(
                 invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1]; });
             mockRepository.ReplayAll();
 
-            view.CalculationCommandHandler = commandHandlerMock;
+            view.CalculationGuiService = guiServiceMock;
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
@@ -231,7 +231,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneSelectedButCalculationCommandHandlerNotSet_DoesNotThrowException()
+        public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
             ShowFullyConfiguredDesignWaterLevelLocationsView();

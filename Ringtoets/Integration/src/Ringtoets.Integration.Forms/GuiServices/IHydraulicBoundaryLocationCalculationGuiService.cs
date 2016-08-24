@@ -24,13 +24,13 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Integration.Forms.Commands
+namespace Ringtoets.Integration.Forms.GuiServices
 {
     /// <summary>
     /// Interface for <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> and 
     /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> calculations.
     /// </summary>
-    public interface IHydraulicBoundaryLocationCalculationCommandHandler
+    public interface IHydraulicBoundaryLocationCalculationGuiService
     {
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> calculation for all <paramref name="locations"/>.
