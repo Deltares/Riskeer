@@ -27,7 +27,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -81,8 +80,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
-            var calculationGroup = new CalculationGroup();
-            var context = new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(calculationGroup);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(failureMechanism.HydraulicBoundariesCalculationGroup);
 
             // Call
             string nodeText = info.Text(context);
@@ -95,8 +94,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnFailureMechanismIcon()
         {
             // Setup
-            var calculationGroup = new CalculationGroup();
-            var context = new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(calculationGroup);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(failureMechanism.HydraulicBoundariesCalculationGroup);
 
             // Call
             Image icon = info.Image(context);
@@ -111,8 +110,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculationGroup = new CalculationGroup();
-                var context = new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(calculationGroup);
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var context = new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(failureMechanism.HydraulicBoundariesCalculationGroup);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
