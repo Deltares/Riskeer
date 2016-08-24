@@ -439,4 +439,7 @@
   <data name="CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip" xml:space="preserve">
     <value>Verwijder alle berekeningen en mappen binnen deze Berekeningen map.</value>
   </data>
+  <data name="CalculationsGroup_Generate_calculations" xml:space="preserve">
+    <value>Genereer &amp;berekeningen...</value>
+  </data>
 </root>

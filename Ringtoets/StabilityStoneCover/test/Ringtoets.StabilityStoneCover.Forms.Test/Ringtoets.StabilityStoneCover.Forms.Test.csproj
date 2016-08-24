@@ -66,10 +66,12 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="PresentationObjects\StabilityStoneCoverFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\StabilityStoneCoverHydraulicBoundariesCalculationGroupContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StabilityStoneCoverHydraulicBoundariesCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\StabilityStoneCoverResultViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverSectionResultRowTest.cs" />
   </ItemGroup>

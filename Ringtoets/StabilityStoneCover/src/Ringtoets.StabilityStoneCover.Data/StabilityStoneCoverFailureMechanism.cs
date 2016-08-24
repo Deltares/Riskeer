@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.StabilityStoneCover.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Data
 {
@@ -41,6 +42,7 @@ namespace Ringtoets.StabilityStoneCover.Data
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
         {
             sectionResults = new List<StabilityStoneCoverFailureMechanismSectionResult>();
+            HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName, false);
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -50,6 +52,11 @@ namespace Ringtoets.StabilityStoneCover.Data
                 yield break;
             }
         }
+
+        /// <summary>
+        /// Gets the container of all hydraulic boundary calculations.
+        /// </summary>
+        public CalculationGroup HydraulicBoundariesCalculationGroup { get; private set; }
 
         public IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
         {
