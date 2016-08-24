@@ -47,24 +47,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
         [Test]
         public void Constructor_WithoutDikeProfiles_ThrowsArgumentNullException()
         {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsDikeProfileSelectionDialog(new Form(), null);
+            // Setup
+            using (var viewParent = new Form())
+            {
+                // Call
+                TestDelegate test = () => new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, null);
 
-            // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("dikeProfiles", parameter);
+                // Assert
+                var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("dikeProfiles", parameter);
+            }
         }
 
         [Test]
         public void Constructor_WithParentAndDikeProfiles_DefaultProperties()
         {
-            // Call
-            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(new Form(), Enumerable.Empty<DikeProfile>()))
+            // Setup
+            using (var viewParent = new Form())
             {
-                // Assert
-                Assert.IsEmpty(dialog.SelectedDikeProfiles);
-                Assert.IsInstanceOf<GrassCoverErosionInwardsDikeProfileSelectionView>(new ControlTester("GrassCoverErosionInwardsDikeProfileSelectionView", dialog).TheObject);
-                Assert.AreEqual("Selecteer dijkprofielen", dialog.Text);
+                // Call
+                using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, Enumerable.Empty<DikeProfile>()))
+                {
+                    // Assert
+                    Assert.IsEmpty(dialog.SelectedDikeProfiles);
+                    Assert.IsInstanceOf<GrassCoverErosionInwardsDikeProfileSelectionView>(new ControlTester("GrassCoverErosionInwardsDikeProfileSelectionView", dialog).TheObject);
+                    Assert.AreEqual("Selecteer dijkprofielen", dialog.Text);
+                }
             }
         }
 
@@ -72,7 +80,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
         public void OnLoad_Always_SetMinimumSize()
         {
             // Setup
-            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(new Form(), Enumerable.Empty<DikeProfile>()))
+            using (var viewParent = new Form())
+            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, Enumerable.Empty<DikeProfile>()))
             {
                 // Call
                 dialog.Show();
@@ -93,17 +102,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
                 CreateDikeProfile()
             };
 
-            var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(new Form(), dikeProfiles);
-            var selectionView = (DataGridView) new ControlTester("DikeProfileDataGrid", dialog).TheObject;
+            using (var viewParent = new Form())
+            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, dikeProfiles))
+            {
+                var selectionView = (DataGridView) new ControlTester("DikeProfileDataGrid", dialog).TheObject;
 
-            dialog.Show();
-            selectionView.Rows[0].Cells[0].Value = true;
+                dialog.Show();
+                selectionView.Rows[0].Cells[0].Value = true;
 
-            // When
-            dialog.Close();
+                // When
+                dialog.Close();
 
-            // Then
-            Assert.IsEmpty(dialog.SelectedDikeProfiles);
+                // Then
+                Assert.IsEmpty(dialog.SelectedDikeProfiles);
+            }
         }
 
         [Test]
@@ -117,18 +129,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
                 CreateDikeProfile()
             };
 
-            var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(new Form(), dikeProfiles);
-            var selectionView = (DataGridView) new ControlTester("DikeProfileDataGrid", dialog).TheObject;
+            using (var viewParent = new Form())
+            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, dikeProfiles))
+            {
+                var selectionView = (DataGridView) new ControlTester("DikeProfileDataGrid", dialog).TheObject;
 
-            dialog.Show();
-            selectionView.Rows[0].Cells[0].Value = true;
+                dialog.Show();
+                selectionView.Rows[0].Cells[0].Value = true;
 
-            // When
-            var cancelButton = new ButtonTester("CustomCancelButton", dialog);
-            cancelButton.Click();
+                // When
+                var cancelButton = new ButtonTester("CustomCancelButton", dialog);
+                cancelButton.Click();
 
-            // Then
-            Assert.IsEmpty(dialog.SelectedDikeProfiles);
+                // Then
+                Assert.IsEmpty(dialog.SelectedDikeProfiles);
+            }
         }
 
         [Test]
@@ -142,22 +157,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
                 CreateDikeProfile()
             };
 
-            var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(new Form(), dikeProfiles);
-            var selectionView = (DataGridView) new ControlTester("DikeProfileDataGrid", dialog).TheObject;
-
-            dialog.Show();
-            selectionView.Rows[0].Cells[0].Value = true;
-
-            // When
-            var okButton = new ButtonTester("OkButton", dialog);
-            okButton.Click();
-
-            // Then
-            var result = dialog.SelectedDikeProfiles;
-            CollectionAssert.AreEqual(new[]
+            using (var viewParent = new Form())
+            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, dikeProfiles))
             {
-                selectedDikeProfile
-            }, result);
+                var selectionView = (DataGridView) new ControlTester("DikeProfileDataGrid", dialog).TheObject;
+
+                dialog.Show();
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                var okButton = new ButtonTester("OkButton", dialog);
+                okButton.Click();
+
+                // Then
+                var result = dialog.SelectedDikeProfiles;
+                CollectionAssert.AreEqual(new[]
+                {
+                    selectedDikeProfile
+                }, result);
+            }
         }
 
         private DikeProfile CreateDikeProfile()

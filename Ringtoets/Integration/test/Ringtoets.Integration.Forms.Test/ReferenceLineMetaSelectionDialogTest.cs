@@ -48,26 +48,34 @@ namespace Ringtoets.Integration.Forms.Test
         [Test]
         public void Constructor_WithoutReferenceLineMetas_ThrowsArgumentNullException()
         {
-            // Call
-            TestDelegate test = () => new ReferenceLineMetaSelectionDialog(new Form(), null);
+            // Setup
+            using (var viewParent = new Form())
+            {
+                // Call
+                TestDelegate test = () => new ReferenceLineMetaSelectionDialog(viewParent, null);
 
-            // Assert
-            var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("referenceLineMetas", parameter);
+                // Assert
+                var parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("referenceLineMetas", parameter);
+            }
         }
 
         [Test]
         public void Constructor_WithParentAndReferenceLineMeta_DefaultProperties()
         {
-            // Call
-            using (var dialog = new ReferenceLineMetaSelectionDialog(new Form(), Enumerable.Empty<ReferenceLineMeta>()))
+            // Setup
+            using (var viewParent = new Form())
             {
-                // Assert
-                Assert.IsInstanceOf<DialogBase>(dialog);
-                Assert.IsNull(dialog.SelectedReferenceLineMeta);
-                Assert.AreEqual(@"Stel een traject samen", dialog.Text);
+                // Call
+                using (var dialog = new ReferenceLineMetaSelectionDialog(viewParent, Enumerable.Empty<ReferenceLineMeta>()))
+                {
+                    // Assert
+                    Assert.IsInstanceOf<DialogBase>(dialog);
+                    Assert.IsNull(dialog.SelectedReferenceLineMeta);
+                    Assert.AreEqual(@"Stel een traject samen", dialog.Text);
 
-                AssertReferenceLineMetaDataGridViewControl(dialog);
+                    AssertReferenceLineMetaDataGridViewControl(dialog);
+                }
             }
         }
 
@@ -108,34 +116,37 @@ namespace Ringtoets.Integration.Forms.Test
                 }
             };
 
-            // Call
-            using (var dialog = new ReferenceLineMetaSelectionDialog(new Form(), referenceLineMetas))
+            using (var viewParent = new Form())
             {
-                // Assert
-                DataGridViewControl grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
-                DataGridView dataGridView = grid.Controls.OfType<DataGridView>().First();
-
-                var assessmentIdValuesInGrid = new List<string>();
-                for (var i = 0; i < dataGridView.Rows.Count; i++)
+                // Call
+                using (var dialog = new ReferenceLineMetaSelectionDialog(viewParent, referenceLineMetas))
                 {
-                    object currentIdValue = dataGridView[0, i].FormattedValue;
-                    if (currentIdValue != null)
+                    // Assert
+                    DataGridViewControl grid = (DataGridViewControl) new ControlTester("ReferenceLineMetaDataGridViewControl", dialog).TheObject;
+                    DataGridView dataGridView = grid.Controls.OfType<DataGridView>().First();
+
+                    var assessmentIdValuesInGrid = new List<string>();
+                    for (var i = 0; i < dataGridView.Rows.Count; i++)
                     {
-                        assessmentIdValuesInGrid.Add(currentIdValue.ToString());
+                        object currentIdValue = dataGridView[0, i].FormattedValue;
+                        if (currentIdValue != null)
+                        {
+                            assessmentIdValuesInGrid.Add(currentIdValue.ToString());
+                        }
                     }
-                }
 
-                CollectionAssert.AreEqual(new[]
-                {
-                    "",
-                    "10",
-                    "101-1",
-                    "101-2",
-                    "101-10",
-                    "101a-1",
-                    "101b-1",
-                    "102-1"
-                }, assessmentIdValuesInGrid);
+                    CollectionAssert.AreEqual(new[]
+                    {
+                        "",
+                        "10",
+                        "101-1",
+                        "101-2",
+                        "101-10",
+                        "101a-1",
+                        "101b-1",
+                        "102-1"
+                    }, assessmentIdValuesInGrid);
+                }
             }
         }
 
@@ -143,7 +154,8 @@ namespace Ringtoets.Integration.Forms.Test
         public void OnLoad_Always_SetMinimumSize()
         {
             // Setup
-            using (var dialog = new ReferenceLineMetaSelectionDialog(new Form(), Enumerable.Empty<ReferenceLineMeta>()))
+            using (var viewParent = new Form())
+            using (var dialog = new ReferenceLineMetaSelectionDialog(viewParent, Enumerable.Empty<ReferenceLineMeta>()))
             {
                 // Call
                 dialog.Show();

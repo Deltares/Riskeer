@@ -49,19 +49,29 @@ All rights reserved.
                     </StackPanel>
                 </DataTemplate>
             </xcad:DockingManager.AnchorableHeaderTemplate>
-        <xcad:LayoutRoot>
-                <xcad:LayoutPanel Orientation="Horizontal">
+            <xcad:LayoutRoot>
+                <xcad:LayoutPanel Orientation="Horizontal" x:Name="leftRightLayoutTarget">
                     <xcad:LayoutAnchorablePaneGroup x:Name="leftLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="260">
                         <xcad:LayoutAnchorablePane />
                     </xcad:LayoutAnchorablePaneGroup>
-                    <xcad:LayoutPanel Orientation="Vertical">
+                    <xcad:LayoutPanel Orientation="Vertical" x:Name="bottomLayoutTarget">
                         <xcad:LayoutDocumentPaneGroup x:Name="layoutDocumentPaneGroup">
-                            <xcad:LayoutDocumentPane />
+                        <xcad:LayoutDocumentPane />
                         </xcad:LayoutDocumentPaneGroup>
+                        <xcad:LayoutAnchorablePaneGroup>
+                        <xcad:LayoutAnchorablePane>
+                            <xcad:LayoutAnchorable x:Name="dummyPanelA"></xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorablePane>
+                        </xcad:LayoutAnchorablePaneGroup>
                         <xcad:LayoutAnchorablePaneGroup x:Name="bottomLayoutAnchorablePaneGroup" DockHeight="200">
                             <xcad:LayoutAnchorablePane />
                         </xcad:LayoutAnchorablePaneGroup>
                     </xcad:LayoutPanel>
+                    <xcad:LayoutAnchorablePaneGroup>
+                        <xcad:LayoutAnchorablePane>
+                            <xcad:LayoutAnchorable x:Name="dummyPanelB"></xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutAnchorablePaneGroup>
                     <xcad:LayoutAnchorablePaneGroup x:Name="rightLayoutAnchorablePaneGroup" Orientation="Vertical" DockWidth="220">
                         <xcad:LayoutAnchorablePane />
                     </xcad:LayoutAnchorablePaneGroup>

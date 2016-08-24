@@ -117,4 +117,160 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="dataGridViewControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="dataGridViewControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="dataGridViewControl.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 5</value>
+  </data>
+  <data name="dataGridViewControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>533, 85</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="dataGridViewControl.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewControl.Name" xml:space="preserve">
+    <value>dataGridViewControl</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewControl.Type" xml:space="preserve">
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.1.1.4918, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="CalculateForSelectedButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="CalculateForSelectedButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>227, 29</value>
+  </data>
+  <data name="CalculateForSelectedButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 23</value>
+  </data>
+  <data name="CalculateForSelectedButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="CalculateForSelectedButton.Text" xml:space="preserve">
+    <value>Bereken voor geselecteerde locaties</value>
+  </data>
+  <data name="&gt;&gt;CalculateForSelectedButton.Name" xml:space="preserve">
+    <value>CalculateForSelectedButton</value>
+  </data>
+  <data name="&gt;&gt;CalculateForSelectedButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CalculateForSelectedButton.Parent" xml:space="preserve">
+    <value>ButtonGroupBox</value>
+  </data>
+  <data name="&gt;&gt;CalculateForSelectedButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DeselectAllButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 29</value>
+  </data>
+  <data name="DeselectAllButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 23</value>
+  </data>
+  <data name="DeselectAllButton.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="DeselectAllButton.Text" xml:space="preserve">
+    <value>Deselecteer alles</value>
+  </data>
+  <data name="&gt;&gt;DeselectAllButton.Name" xml:space="preserve">
+    <value>DeselectAllButton</value>
+  </data>
+  <data name="&gt;&gt;DeselectAllButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeselectAllButton.Parent" xml:space="preserve">
+    <value>ButtonGroupBox</value>
+  </data>
+  <data name="&gt;&gt;DeselectAllButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="SelectAllButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 29</value>
+  </data>
+  <data name="SelectAllButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 23</value>
+  </data>
+  <data name="SelectAllButton.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="SelectAllButton.Text" xml:space="preserve">
+    <value>Selecteer alles</value>
+  </data>
+  <data name="&gt;&gt;SelectAllButton.Name" xml:space="preserve">
+    <value>SelectAllButton</value>
+  </data>
+  <data name="&gt;&gt;SelectAllButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SelectAllButton.Parent" xml:space="preserve">
+    <value>ButtonGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SelectAllButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ButtonGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="ButtonGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 85</value>
+  </data>
+  <data name="ButtonGroupBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>445, 61</value>
+  </data>
+  <data name="ButtonGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>533, 61</value>
+  </data>
+  <data name="ButtonGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="ButtonGroupBox.Text" xml:space="preserve">
+    <value>Berekenen</value>
+  </data>
+  <data name="&gt;&gt;ButtonGroupBox.Name" xml:space="preserve">
+    <value>ButtonGroupBox</value>
+  </data>
+  <data name="&gt;&gt;ButtonGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ButtonGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ButtonGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
+    <value>516, 85</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>533, 146</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>HydraulicBoundaryLocationsView</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
