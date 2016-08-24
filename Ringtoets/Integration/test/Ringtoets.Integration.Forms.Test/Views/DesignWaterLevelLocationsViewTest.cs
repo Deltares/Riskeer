@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.Selection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -36,7 +35,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Commands;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -103,38 +101,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
             var button = (Button) buttonTester.TheObject;
             Assert.IsFalse(button.Enabled);
-        }
-
-        [Test]
-        public void Data_IAssessmentSection_DataSet()
-        {
-            // Setup
-            using (var view = new DesignWaterLevelLocationsView())
-            {
-                var assessmentSection = new TestAssessmentSection();
-
-                // Call
-                view.Data = assessmentSection;
-
-                // Assert
-                Assert.AreSame(assessmentSection, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanIAssessmentSection_DataNull()
-        {
-            // Setup
-            using (var view = new DesignWaterLevelLocationsView())
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
         }
 
         [Test]
@@ -230,149 +196,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("-", rows[0].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
-        }
-
-        [Test]
-        public void DesignWaterLevelLocationsView_SelectingCellInRow_ApplicationSelectionCorrectlySynced()
-        {
-            // Setup
-            var view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-            IAssessmentSection assessmentSection = (IAssessmentSection) view.Data;
-            var secondHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Skip(1).First();
-
-            var mocks = new MockRepository();
-            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = new DesignWaterLevelLocationContext(
-                                                                       assessmentSection.HydraulicBoundaryDatabase,
-                                                                       secondHydraulicBoundaryLocation));
-            mocks.ReplayAll();
-
-            view.ApplicationSelection = applicationSelectionMock;
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Call
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationNameColumnIndex];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void DesignWaterLevelLocationsView_SelectingCellInAlreadySelectedRow_ApplicationSelectionNotSyncedRedundantly()
-        {
-            // Setup
-            var view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationNameColumnIndex];
-
-            var mocks = new MockRepository();
-            var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
-            applicationSelectionMock.Stub(asm => asm.Selection).Return(view.Selection);
-            mocks.ReplayAll();
-
-            view.ApplicationSelection = applicationSelectionMock;
-
-            // Call
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationNameColumnIndex];
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(locationNameColumnIndex, 0));
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
-        {
-            // Setup
-            var view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[locationNameColumnIndex];
-
-            // Call
-            var selection = view.Selection;
-
-            // Assert
-            Assert.IsInstanceOf<DesignWaterLevelLocationContext>(selection);
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = ((IAssessmentSection) view.Data).HydraulicBoundaryDatabase;
-            Assert.AreSame(hydraulicBoundaryDatabase, ((DesignWaterLevelLocationContext) selection).WrappedData);
-        }
-
-        [Test]
-        public void SelectAllButton_SelectAllButtonClicked_AllLocationsSelected()
-        {
-            // Setup
-            ShowFullyConfiguredDesignWaterLevelLocationsView();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
-            var button = new ButtonTester("SelectAllButton", testForm);
-
-            // Precondition
-            Assert.IsFalse((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
-
-            // Call
-            button.Click();
-
-            // Assert
-            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsTrue((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsTrue((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
-        }
-
-        [Test]
-        public void DeselectAllButton_AllLocationsSelectedDeselectAllButtonClicked_AllLocationsNotSelected()
-        {
-            // Setup
-            ShowFullyConfiguredDesignWaterLevelLocationsView();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
-            var button = new ButtonTester("DeselectAllButton", testForm);
-
-            foreach (DataGridViewRow row in rows)
-            {
-                row.Cells[locationCalculateColumnIndex].Value = true;
-            }
-
-            // Precondition
-            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsTrue((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsTrue((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
-
-            // Call
-            button.Click();
-
-            // Assert
-            Assert.IsFalse((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
-        }
-
-        [Test]
-        public void CalculateForSelectedButton_NoneSelected_CalculateForSelectedButtonDisabled()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var commandHandlerMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationCommandHandler>();
-            mockRepository.ReplayAll();
-
-            DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
-            view.CalculationCommandHandler = commandHandlerMock;
-
-            // Assert
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-            var button = (Button) buttonTester.TheObject;
-            Assert.IsFalse(button.Enabled);
-            mockRepository.VerifyAll();
         }
 
         [Test]

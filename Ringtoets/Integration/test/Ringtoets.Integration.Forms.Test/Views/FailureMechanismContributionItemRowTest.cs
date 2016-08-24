@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithFailureMechanismContributionItem_PropertiesFromFailureMechanismContributionItemn()
+        public void Constructor_WithFailureMechanismContributionItem_PropertiesFromFailureMechanismContributionItem()
         {
             // Setup
             var pipingFailureMechanism = new PipingFailureMechanism();
