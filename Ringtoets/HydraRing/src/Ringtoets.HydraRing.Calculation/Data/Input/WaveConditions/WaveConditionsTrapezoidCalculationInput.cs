@@ -45,7 +45,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="b">The b-value to use during the calculation.</param>
         /// <param name="beta1">The beta1-value to use during the calculation.</param>
         /// <param name="beta2">The beta2-value to use during the calculation.</param>
-        public WaveConditionsTrapezoidCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
+        public WaveConditionsTrapezoidCalculationInput(int sectionId,
+                                                       long hydraulicBoundaryLocationId,
+                                                       double norm,
                                                        IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                        HydraRingBreakWater breakWater,
                                                        double waterLevel,

@@ -43,7 +43,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="a">The a-value to use during the calculation.</param>
         /// <param name="b">The b-value to use during the calculation.</param>
         /// <param name="c">The c-value to use during the calculation.</param>
-        public WaveConditionsCosineCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
+        public WaveConditionsCosineCalculationInput(int sectionId,
+                                                    long hydraulicBoundaryLocationId,
+                                                    double norm,
                                                     IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                     HydraRingBreakWater breakWater,
                                                     double waterLevel,
