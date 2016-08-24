@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 

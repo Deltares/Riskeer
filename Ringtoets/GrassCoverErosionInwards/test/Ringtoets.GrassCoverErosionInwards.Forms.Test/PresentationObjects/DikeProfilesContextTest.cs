@@ -25,7 +25,7 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects

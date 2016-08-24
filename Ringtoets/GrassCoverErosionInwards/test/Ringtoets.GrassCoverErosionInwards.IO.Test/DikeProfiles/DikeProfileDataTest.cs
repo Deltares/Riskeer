@@ -23,7 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
 
 namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles

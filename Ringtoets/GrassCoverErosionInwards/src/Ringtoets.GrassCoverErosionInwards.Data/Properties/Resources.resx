@@ -126,25 +126,4 @@
   <data name="GrassCoverErosionInwardsFailureMechanism_DisplayCode" xml:space="preserve">
     <value>GEKB</value>
   </data>
-  <data name="BreakWaterType_Wall_DisplayName" xml:space="preserve">
-    <value>Muur</value>
-  </data>
-  <data name="BreakWaterType_Caisson_DisplayName" xml:space="preserve">
-    <value>Caisson</value>
-  </data>
-  <data name="BreakWaterType_Dam_DisplayName" xml:space="preserve">
-    <value>Havendam</value>
-  </data>
-  <data name="DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null" xml:space="preserve">
-    <value>De geometrie die opgegeven werd voor het dijkprofiel heeft geen waarde.</value>
-  </data>
-  <data name="DikeProfile_SetGeometry_A_point_in_the_collection_is_null" xml:space="preserve">
-    <value>Een punt in de geometrie voor het dijkprofiel heeft geen waarde.</value>
-  </data>
-  <data name="DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null" xml:space="preserve">
-    <value>De geometrie die werd opgegeven voor het voorland heeft geen waarde.</value>
-  </data>
-  <data name="DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null" xml:space="preserve">
-    <value>Een punt in de geometrie voor het voorland heeft geen waarde.</value>
-  </data>
 </root>

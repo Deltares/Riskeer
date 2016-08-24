@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Utils.Attributes;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Ringtoets.Common.Data.DikeProfiles
 {
     /// <summary>
     /// Defines the various types of <see cref="BreakWater"/>.

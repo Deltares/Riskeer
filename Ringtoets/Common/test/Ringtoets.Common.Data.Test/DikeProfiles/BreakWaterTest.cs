@@ -21,8 +21,9 @@
 
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.Test
+namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
     [TestFixture]
     public class BreakWaterTest

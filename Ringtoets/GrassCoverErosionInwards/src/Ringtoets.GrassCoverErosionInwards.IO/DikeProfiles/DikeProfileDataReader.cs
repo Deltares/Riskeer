@@ -28,7 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;

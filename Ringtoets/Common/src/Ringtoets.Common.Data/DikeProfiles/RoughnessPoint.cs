@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Ringtoets.Common.Data.DikeProfiles
 {
     /// <summary>
     /// This class represents a geometry point with a roughness.

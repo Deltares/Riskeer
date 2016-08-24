@@ -21,7 +21,7 @@
 
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Common.Data.DikeProfiles;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {

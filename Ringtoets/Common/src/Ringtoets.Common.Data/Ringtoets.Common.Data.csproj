@@ -28,7 +28,7 @@
   <ItemGroup>
     <Reference Include="MathNet.Numerics, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\MathNet.Numerics.3.8.0\lib\net40\MathNet.Numerics.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,7 +41,10 @@
     <Compile Include="AssessmentSection\IAssessmentSection.cs" />
     <Compile Include="AssessmentSection\ReferenceLine.cs" />
     <Compile Include="AssessmentSection\ReferenceLineMeta.cs" />
+    <Compile Include="DikeProfiles\BreakWater.cs" />
+    <Compile Include="DikeProfiles\BreakWaterType.cs" />
     <Compile Include="Calculation\CalculationScenarioStatus.cs" />
+    <Compile Include="DikeProfiles\DikeProfile.cs" />
     <Compile Include="Probabilistics\IDistributionExtensions.cs" />
     <Compile Include="Probabilistics\IDistributionVariationCoefficient.cs" />
     <Compile Include="Probability\EmptyProbabilityAssessmentOutput.cs" />
@@ -76,6 +79,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="DikeProfiles\RoughnessPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

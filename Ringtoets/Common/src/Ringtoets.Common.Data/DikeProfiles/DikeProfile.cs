@@ -25,12 +25,12 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Ringtoets.Common.Data.DikeProfiles
 {
     /// <summary>
-    /// Definition for a dike profile for the Grass Cover Erosion Inwards failure mechanism.
+    /// Definition for a dike profile for a failure mechanism.
     /// </summary>
     public class DikeProfile : IStorable
     {

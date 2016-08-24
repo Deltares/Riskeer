@@ -25,9 +25,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.Test
+namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
     [TestFixture]
     public class DikeProfileTest
@@ -50,8 +51,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             };
 
             // Call
-            var dikeProfile = new DikeProfile(worldCoordinate, dikeGeometry, foreshoreGeometry,
-                                              null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = new Data.DikeProfiles.DikeProfile(worldCoordinate, dikeGeometry, foreshoreGeometry,
+                                              null, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<IStorable>(dikeProfile);
@@ -77,8 +78,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_WorldReferencePointIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(null, new RoughnessPoint[0], new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties());
+            TestDelegate call = () => new Data.DikeProfiles.DikeProfile(null, new RoughnessPoint[0], new Point2D[0],
+                                                      null, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -89,8 +90,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_DikeGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0, 0), null, new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties());
+            TestDelegate call = () => new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), null, new Point2D[0],
+                                                      null, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Assert
             var expectedMessage = Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null;
@@ -102,13 +103,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_DikeGeometryContainsNullPoint_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0.0, 0.0),
+            TestDelegate call = () => new Data.DikeProfiles.DikeProfile(new Point2D(0.0, 0.0),
                                                       new RoughnessPoint[]
                                                       {
                                                           null
                                                       },
                                                       new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties());
+                                                      null, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Assert
             var expectedMessage = Resources.DikeProfile_SetGeometry_A_point_in_the_collection_is_null;
@@ -119,8 +120,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_ForeshoreGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], null,
-                                                      null, new DikeProfile.ConstructionProperties());
+            TestDelegate call = () => new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], null,
+                                                      null, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Assert
             var expectedMessage = Resources.DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null;
@@ -132,11 +133,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_ForeshoreGeometryContainsNullPoint_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0],
+            TestDelegate call = () => new Data.DikeProfiles.DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0],
                                                       new Point2D[]
                                                       {
                                                           null
-                                                      }, null, new DikeProfile.ConstructionProperties());
+                                                      }, null, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Assert
             var expectedMessage = Resources.DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null;
@@ -147,7 +148,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Constructor_ConstructionPropertiesIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0], null, null);
+            TestDelegate call = () => new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0], null, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -158,8 +159,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Orientation_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
         {
             // Call
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties
+            var dikeProfile = new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new Data.DikeProfiles.DikeProfile.ConstructionProperties
                                               {
                                                   Orientation = 1.23456
                                               });
@@ -173,8 +174,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void DikeHeight_SetToValueWithTooManyDecimalPlaces_ValueIsRounded()
         {
             // Call
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties
+            var dikeProfile = new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new Data.DikeProfiles.DikeProfile.ConstructionProperties
                                               {
                                                   DikeHeight = 1.23456
                                               });
@@ -191,8 +192,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void Name_SetNewValue_GetsNewValue(string name)
         {
             // Call
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties
+            var dikeProfile = new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new Data.DikeProfiles.DikeProfile.ConstructionProperties
                                               {
                                                   Name = name
                                               });
@@ -205,8 +206,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void BreakWater_SetToNull_GetsNewlySetNull()
         {
             // Call
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Assert
             Assert.IsNull(dikeProfile.BreakWater);
@@ -219,8 +220,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var newBreakWater = new BreakWater(BreakWaterType.Caisson, 1.1);
 
             // Call
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              newBreakWater, new DikeProfile.ConstructionProperties());
+            var dikeProfile = new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              newBreakWater, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Assert
             Assert.AreSame(newBreakWater, dikeProfile.BreakWater);
@@ -230,8 +231,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void HasBreakWater_BreakWaterSetToNull_ReturnFalse()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Call
             bool hasBreakWater = dikeProfile.HasBreakWater;
@@ -245,8 +246,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var breakWater = new BreakWater(BreakWaterType.Dam, 12.34);
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              breakWater, new DikeProfile.ConstructionProperties());
+            var dikeProfile = new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              breakWater, new Data.DikeProfiles.DikeProfile.ConstructionProperties());
 
             // Call
             bool hasBreakWater = dikeProfile.HasBreakWater;
@@ -260,8 +261,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var testName = "testName";
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties
+            var dikeProfile = new Data.DikeProfiles.DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new Data.DikeProfiles.DikeProfile.ConstructionProperties
                                               {
                                                   Name = testName
                                               });

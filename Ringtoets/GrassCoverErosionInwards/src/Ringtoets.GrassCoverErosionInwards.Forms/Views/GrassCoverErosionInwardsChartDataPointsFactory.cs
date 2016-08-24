@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views

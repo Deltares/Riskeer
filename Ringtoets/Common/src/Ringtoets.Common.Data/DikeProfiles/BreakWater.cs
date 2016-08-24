@@ -21,7 +21,7 @@
 
 using Core.Common.Base.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data
+namespace Ringtoets.Common.Data.DikeProfiles
 {
     /// <summary>
     /// Container for break water related data.

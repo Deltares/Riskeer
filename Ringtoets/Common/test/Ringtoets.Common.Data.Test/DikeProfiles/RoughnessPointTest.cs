@@ -23,8 +23,9 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Ringtoets.GrassCoverErosionInwards.Data.Test
+namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
     [TestFixture]
     public class RoughnessPointTest
