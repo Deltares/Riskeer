@@ -171,7 +171,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             SetFocusToView(view);
 
             layoutAnchorable.Hiding += OnLayoutAnchorableHiding;
-            layoutAnchorable.Closing += OnLayoutAnchorableClosing;
+            layoutAnchorable.Closed += OnLayoutAnchorableClosed;
         }
 
         public void Remove(IView view)
@@ -195,7 +195,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             else if (toolViews.Contains(view))
             {
                 var layoutAnchorable = GetLayoutContent<LayoutAnchorable>(view);
-                layoutAnchorable.Hide();
+                layoutAnchorable.Close();
                 UpdateDockingManager();
             }
 
@@ -308,7 +308,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void OnLayoutDocumentClosing(object sender, CancelEventArgs e)
         {
-            var layoutDocument = (LayoutDocument)sender;
+            var layoutDocument = (LayoutDocument) sender;
             var view = GetView(layoutDocument.Content);
 
             if (ActiveDocumentView == view)
@@ -320,22 +320,9 @@ namespace Core.Common.Gui.Forms.ViewHost
             }
         }
 
-        private void OnLayoutAnchorableHiding(object sender, CancelEventArgs eventArgs)
-        {
-            var layoutAnchorable = (LayoutAnchorable)sender;
-
-            layoutAnchorable.Hiding -= OnLayoutAnchorableHiding;
-            layoutAnchorable.Closing -= OnLayoutAnchorableClosing;
-
-            layoutAnchorable.Close();
-            OnViewClosed(GetView(layoutAnchorable.Content));
-
-            eventArgs.Cancel = true;
-        }
-
         private void OnLayoutDocumentClosed(object sender, EventArgs e)
         {
-            var layoutDocument = (LayoutDocument)sender;
+            var layoutDocument = (LayoutDocument) sender;
 
             layoutDocument.Closing -= OnLayoutDocumentClosing;
             layoutDocument.Closed -= OnLayoutDocumentClosed;
@@ -343,11 +330,23 @@ namespace Core.Common.Gui.Forms.ViewHost
             OnViewClosed(GetView(layoutDocument.Content));
         }
 
-        private void OnLayoutAnchorableClosing(object sender, CancelEventArgs e)
+        private static void OnLayoutAnchorableHiding(object sender, CancelEventArgs eventArgs)
         {
-            var layoutAnchorable = (LayoutAnchorable)sender;
-            layoutAnchorable.Hide();
-            e.Cancel = true;
+            var layoutAnchorable = (LayoutAnchorable) sender;
+
+            layoutAnchorable.Close();
+
+            eventArgs.Cancel = true;
+        }
+
+        private void OnLayoutAnchorableClosed(object sender, EventArgs e)
+        {
+            var layoutAnchorable = (LayoutAnchorable) sender;
+
+            layoutAnchorable.Hiding -= OnLayoutAnchorableHiding;
+            layoutAnchorable.Closed -= OnLayoutAnchorableClosed;
+
+            OnViewClosed(GetView(layoutAnchorable.Content));
         }
 
         private void OnViewClosed(IView view)
@@ -404,7 +403,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void AddLayoutAnchorable(LayoutAnchorable layoutAnchorable, ToolViewLocation toolViewLocation)
         {
-            LayoutAnchorablePaneGroup layoutAnchorablePaneGroup = null;
+            LayoutAnchorablePaneGroup layoutAnchorablePaneGroup;
             switch (toolViewLocation)
             {
                 case ToolViewLocation.Left:
@@ -432,7 +431,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                     layoutAnchorablePaneGroup = rightLayoutAnchorablePaneGroup;
                     break;
                 default:
-                    throw new InvalidEnumArgumentException("toolViewLocation", (int)toolViewLocation, typeof(ToolViewLocation));
+                    throw new InvalidEnumArgumentException("toolViewLocation", (int) toolViewLocation, typeof(ToolViewLocation));
             }
 
             layoutAnchorablePaneGroup.Descendents()
