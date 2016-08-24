@@ -163,10 +163,10 @@ namespace Core.Common.Gui.Forms.ViewHost
                 Title = view.Text
             };
 
+            AddLayoutAnchorable(layoutAnchorable, toolViewLocation);
+
             toolViews.Add(view);
             hostControls.Add(hostControl);
-
-            AddLayoutAnchorable(layoutAnchorable, toolViewLocation);
 
             SetFocusToView(view);
 

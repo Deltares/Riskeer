@@ -21,11 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms.Integration;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms.ViewHost;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -582,6 +584,27 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                     avalonDockViewHost.ToolViews);
                 Assert.IsTrue(IsToolViewPresent(avalonDockViewHost, testView, toolViewLocation));
                 Assert.IsFalse(otherToolViewLocations.Any(tvl => IsToolViewPresent(avalonDockViewHost, testView, tvl)));
+            }
+        }
+
+        [Test]
+        public void AddToolView_InvalidPosition_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var invalidLocation = 4;
+
+            using(var avalonDockViewHost = new AvalonDockViewHost())
+            using(var testView = new TestView())
+            {
+                // Call
+                TestDelegate test = () => avalonDockViewHost.AddToolView(testView, (ToolViewLocation)invalidLocation);
+
+                // Assert
+                string expectedMessage = string.Format("The value of argument 'toolViewLocation' ({0}) is invalid for Enum type 'ToolViewLocation'.", invalidLocation);
+                string parameter = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(
+                    test, 
+                    expectedMessage).ParamName;
+                Assert.AreEqual("toolViewLocation", parameter);
             }
         }
 
