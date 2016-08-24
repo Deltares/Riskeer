@@ -551,7 +551,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void GenerateDataBaseCreationScript_HydraRingConfigurationWithWaveConditionsCosineInput_ReturnsExpectedCreationScript()
+        public void GenerateDataBaseCreationScript_HydraRingConfigurationWithWaveConditionsCosineCalculationInput_ReturnsExpectedCreationScript()
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
@@ -564,15 +564,15 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var breakWater = new HydraRingBreakWater(1, 2.2);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new WaveConditionsCosineInput(1,
-                                              hydraulicBoundaryLocationId,
-                                              10000,
-                                              forelandPoints,
-                                              breakWater,
-                                              3.3,
-                                              4.4,
-                                              5.5,
-                                              6.6));
+                new WaveConditionsCosineCalculationInput(1,
+                                                         hydraulicBoundaryLocationId,
+                                                         10000,
+                                                         forelandPoints,
+                                                         breakWater,
+                                                         3.3,
+                                                         4.4,
+                                                         5.5,
+                                                         6.6));
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -647,7 +647,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
         }
 
         [Test]
-        public void GenerateDataBaseCreationScript_HydraRingConfigurationWithWaveConditionsTrapezoidInput_ReturnsExpectedCreationScript()
+        public void GenerateDataBaseCreationScript_HydraRingConfigurationWithWaveConditionsTrapezoidCalculationInput_ReturnsExpectedCreationScript()
         {
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
@@ -660,16 +660,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var breakWater = new HydraRingBreakWater(1, 2.2);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new WaveConditionsTrapezoidInput(1,
-                                                 hydraulicBoundaryLocationId,
-                                                 10000,
-                                                 forelandPoints,
-                                                 breakWater,
-                                                 3.3,
-                                                 4.4,
-                                                 5.5,
-                                                 6.6,
-                                                 7.7));
+                new WaveConditionsTrapezoidCalculationInput(1,
+                                                            hydraulicBoundaryLocationId,
+                                                            10000,
+                                                            forelandPoints,
+                                                            breakWater,
+                                                            3.3,
+                                                            4.4,
+                                                            5.5,
+                                                            6.6,
+                                                            7.7));
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +

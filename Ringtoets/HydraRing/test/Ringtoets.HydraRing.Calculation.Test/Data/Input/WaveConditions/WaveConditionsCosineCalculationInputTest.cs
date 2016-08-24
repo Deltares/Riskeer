@@ -30,7 +30,7 @@ using Ringtoets.HydraRing.Calculation.TestUtil;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
 {
     [TestFixture]
-    public class WaveConditionsCosineInputTest
+    public class WaveConditionsCosineCalculationInputTest
     {
         [Test]
         public void Constructor_Always_ExpectedValues()
@@ -48,31 +48,31 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const double b = 7.7;
             const double c = 8.8;
 
-            var waveConditionsCosineInput = new WaveConditionsCosineInput(sectionId,
-                                                                          hydraulicBoundaryLocationId,
-                                                                          norm,
-                                                                          forelandPoints,
-                                                                          breakWater,
-                                                                          waterLevel,
-                                                                          a,
-                                                                          b,
-                                                                          c);
+            var waveConditionsCosineCalculationInput = new WaveConditionsCosineCalculationInput(sectionId,
+                                                                                                hydraulicBoundaryLocationId,
+                                                                                                norm,
+                                                                                                forelandPoints,
+                                                                                                breakWater,
+                                                                                                waterLevel,
+                                                                                                a,
+                                                                                                b,
+                                                                                                c);
 
             // Assert
             const int expectedCalculationTypeId = 6;
             const int expectedVariableId = 114;
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
-            Assert.IsInstanceOf<WaveConditionsCalculationInput>(waveConditionsCosineInput);
-            Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsCosineInput.FailureMechanismType);
-            Assert.AreEqual(expectedCalculationTypeId, waveConditionsCosineInput.CalculationTypeId);
-            Assert.AreEqual(expectedVariableId, waveConditionsCosineInput.VariableId);
-            Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsCosineInput.HydraulicBoundaryLocationId);
-            Assert.IsNotNull(waveConditionsCosineInput.Section);
-            Assert.AreEqual(sectionId, waveConditionsCosineInput.Section.SectionId);
-            HydraRingVariableAssert.AreEqual(GetExpectedVariables(waterLevel, a, b, c).ToArray(), waveConditionsCosineInput.Variables.ToArray());
-            Assert.AreSame(forelandPoints, waveConditionsCosineInput.ForelandsPoints);
-            Assert.AreSame(breakWater, waveConditionsCosineInput.BreakWater);
-            Assert.AreEqual(expectedBeta, waveConditionsCosineInput.Beta);
+            Assert.IsInstanceOf<WaveConditionsCalculationInput>(waveConditionsCosineCalculationInput);
+            Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsCosineCalculationInput.FailureMechanismType);
+            Assert.AreEqual(expectedCalculationTypeId, waveConditionsCosineCalculationInput.CalculationTypeId);
+            Assert.AreEqual(expectedVariableId, waveConditionsCosineCalculationInput.VariableId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsCosineCalculationInput.HydraulicBoundaryLocationId);
+            Assert.IsNotNull(waveConditionsCosineCalculationInput.Section);
+            Assert.AreEqual(sectionId, waveConditionsCosineCalculationInput.Section.SectionId);
+            HydraRingVariableAssert.AreEqual(GetExpectedVariables(waterLevel, a, b, c).ToArray(), waveConditionsCosineCalculationInput.Variables.ToArray());
+            Assert.AreSame(forelandPoints, waveConditionsCosineCalculationInput.ForelandsPoints);
+            Assert.AreSame(breakWater, waveConditionsCosineCalculationInput.BreakWater);
+            Assert.AreEqual(expectedBeta, waveConditionsCosineCalculationInput.Beta);
         }
 
         [Test]
@@ -83,18 +83,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Call
-            var waveConditionsCosineInput = new WaveConditionsCosineInput(111,
-                                                                          222,
-                                                                          333,
-                                                                          Enumerable.Empty<HydraRingForelandPoint>(),
-                                                                          new HydraRingBreakWater(1, 4.4),
-                                                                          5.5,
-                                                                          6.6,
-                                                                          7.7,
-                                                                          8.8);
+            var waveConditionsCosineCalculationInput = new WaveConditionsCosineCalculationInput(111,
+                                                                                                222,
+                                                                                                333,
+                                                                                                Enumerable.Empty<HydraRingForelandPoint>(),
+                                                                                                new HydraRingBreakWater(1, 4.4),
+                                                                                                5.5,
+                                                                                                6.6,
+                                                                                                7.7,
+                                                                                                8.8);
 
             // Assert
-            Assert.AreEqual(expectedSubMechanismModelId, waveConditionsCosineInput.GetSubMechanismModelId(subMechanismModelId));
+            Assert.AreEqual(expectedSubMechanismModelId, waveConditionsCosineCalculationInput.GetSubMechanismModelId(subMechanismModelId));
         }
 
         private static IEnumerable<HydraRingVariable> GetExpectedVariables(double waterLevel, double a, double b, double c)

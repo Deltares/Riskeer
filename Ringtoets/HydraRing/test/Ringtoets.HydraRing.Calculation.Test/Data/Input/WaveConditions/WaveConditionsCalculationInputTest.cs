@@ -47,30 +47,30 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const double b = 7.7;
 
             // Call
-            var waveConditionsInput = new WaveConditionsCalculationInputImplementation(sectionId,
-                                                                                       hydraulicBoundaryLocationId,
-                                                                                       norm,
-                                                                                       forelandPoints,
-                                                                                       breakWater,
-                                                                                       waterLevel,
-                                                                                       a,
-                                                                                       b);
+            var waveConditionsCalculationInput = new WaveConditionsCalculationInputImplementation(sectionId,
+                                                                                                  hydraulicBoundaryLocationId,
+                                                                                                  norm,
+                                                                                                  forelandPoints,
+                                                                                                  breakWater,
+                                                                                                  waterLevel,
+                                                                                                  a,
+                                                                                                  b);
 
             // Assert
             const int expectedCalculationTypeId = 6;
             const int expectedVariableId = 114;
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
-            Assert.IsInstanceOf<HydraRingCalculationInput>(waveConditionsInput);
-            Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsInput.FailureMechanismType);
-            Assert.AreEqual(expectedCalculationTypeId, waveConditionsInput.CalculationTypeId);
-            Assert.AreEqual(expectedVariableId, waveConditionsInput.VariableId);
-            Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsInput.HydraulicBoundaryLocationId);
-            Assert.IsNotNull(waveConditionsInput.Section);
-            Assert.AreEqual(sectionId, waveConditionsInput.Section.SectionId);
-            HydraRingVariableAssert.AreEqual(GetExpectedVariables(waterLevel, a, b).ToArray(), waveConditionsInput.Variables.ToArray());
-            Assert.AreSame(forelandPoints, waveConditionsInput.ForelandsPoints);
-            Assert.AreSame(breakWater, waveConditionsInput.BreakWater);
-            Assert.AreEqual(expectedBeta, waveConditionsInput.Beta);
+            Assert.IsInstanceOf<HydraRingCalculationInput>(waveConditionsCalculationInput);
+            Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsCalculationInput.FailureMechanismType);
+            Assert.AreEqual(expectedCalculationTypeId, waveConditionsCalculationInput.CalculationTypeId);
+            Assert.AreEqual(expectedVariableId, waveConditionsCalculationInput.VariableId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsCalculationInput.HydraulicBoundaryLocationId);
+            Assert.IsNotNull(waveConditionsCalculationInput.Section);
+            Assert.AreEqual(sectionId, waveConditionsCalculationInput.Section.SectionId);
+            HydraRingVariableAssert.AreEqual(GetExpectedVariables(waterLevel, a, b).ToArray(), waveConditionsCalculationInput.Variables.ToArray());
+            Assert.AreSame(forelandPoints, waveConditionsCalculationInput.ForelandsPoints);
+            Assert.AreSame(breakWater, waveConditionsCalculationInput.BreakWater);
+            Assert.AreEqual(expectedBeta, waveConditionsCalculationInput.Beta);
         }
 
         private class WaveConditionsCalculationInputImplementation : WaveConditionsCalculationInput

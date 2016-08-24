@@ -27,12 +27,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     /// <summary>
     /// Container of all data necessary for performing a cosine based wave conditions calculation (Q-variant) via Hydra-Ring.
     /// </summary>
-    public class WaveConditionsCosineInput : WaveConditionsCalculationInput
+    public class WaveConditionsCosineCalculationInput : WaveConditionsCalculationInput
     {
         private readonly double c;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="WaveConditionsCosineInput"/> class.
+        /// Creates a new instance of the <see cref="WaveConditionsCosineCalculationInput"/> class.
         /// </summary>
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
@@ -43,13 +43,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="a">The a-value to use during the calculation.</param>
         /// <param name="b">The b-value to use during the calculation.</param>
         /// <param name="c">The c-value to use during the calculation.</param>
-        public WaveConditionsCosineInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
-                                         IEnumerable<HydraRingForelandPoint> forelandPoints,
-                                         HydraRingBreakWater breakWater,
-                                         double waterLevel,
-                                         double a,
-                                         double b,
-                                         double c)
+        public WaveConditionsCosineCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
+                                                    IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                    HydraRingBreakWater breakWater,
+                                                    double waterLevel,
+                                                    double a,
+                                                    double b,
+                                                    double c)
             : base(sectionId,
                    hydraulicBoundaryLocationId,
                    norm,

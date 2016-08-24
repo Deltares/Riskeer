@@ -27,13 +27,13 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     /// <summary>
     /// Container of all data necessary for performing a trapezoid based wave conditions calculation (Q-variant) via Hydra-Ring.
     /// </summary>
-    public class WaveConditionsTrapezoidInput : WaveConditionsCalculationInput
+    public class WaveConditionsTrapezoidCalculationInput : WaveConditionsCalculationInput
     {
         private readonly double beta1;
         private readonly double beta2;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="WaveConditionsTrapezoidInput"/> class.
+        /// Creates a new instance of the <see cref="WaveConditionsTrapezoidCalculationInput"/> class.
         /// </summary>
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
@@ -45,14 +45,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="b">The b-value to use during the calculation.</param>
         /// <param name="beta1">The beta1-value to use during the calculation.</param>
         /// <param name="beta2">The beta2-value to use during the calculation.</param>
-        public WaveConditionsTrapezoidInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
-                                            IEnumerable<HydraRingForelandPoint> forelandPoints,
-                                            HydraRingBreakWater breakWater,
-                                            double waterLevel,
-                                            double a,
-                                            double b,
-                                            double beta1,
-                                            double beta2)
+        public WaveConditionsTrapezoidCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm,
+                                                       IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                       HydraRingBreakWater breakWater,
+                                                       double waterLevel,
+                                                       double a,
+                                                       double b,
+                                                       double beta1,
+                                                       double beta2)
             : base(sectionId,
                    hydraulicBoundaryLocationId,
                    norm,
