@@ -27,7 +27,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     /// <summary>
     /// Container of all data necessary for performing a wave conditions calculation (Q-variant) via Hydra-Ring.
     /// </summary>
-    public abstract class WaveConditionsInput : HydraRingCalculationInput
+    public abstract class WaveConditionsCalculationInput : HydraRingCalculationInput
     {
         private readonly double beta;
         private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         private readonly HydraRingSection section;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="WaveConditionsInput"/> class.
+        /// Creates a new instance of the <see cref="WaveConditionsCalculationInput"/> class.
         /// </summary>
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
@@ -49,14 +49,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="a">The a-value to use during the calculation.</param>
         /// <param name="b">The b-value to use during the calculation.</param>
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
-        protected WaveConditionsInput(int sectionId,
-                                      long hydraulicBoundaryLocationId,
-                                      double norm,
-                                      IEnumerable<HydraRingForelandPoint> forelandPoints,
-                                      HydraRingBreakWater breakWater,
-                                      double waterLevel,
-                                      double a,
-                                      double b)
+        protected WaveConditionsCalculationInput(int sectionId,
+                                                 long hydraulicBoundaryLocationId,
+                                                 double norm,
+                                                 IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                 HydraRingBreakWater breakWater,
+                                                 double waterLevel,
+                                                 double a,
+                                                 double b)
             : base(hydraulicBoundaryLocationId)
         {
             beta = StatisticsConverter.NormToBeta(norm);

@@ -27,7 +27,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     /// <summary>
     /// Container of all data necessary for performing a trapezoid based wave conditions calculation (Q-variant) via Hydra-Ring.
     /// </summary>
-    public class WaveConditionsTrapezoidInput : WaveConditionsInput
+    public class WaveConditionsTrapezoidInput : WaveConditionsCalculationInput
     {
         private readonly double beta1;
         private readonly double beta2;

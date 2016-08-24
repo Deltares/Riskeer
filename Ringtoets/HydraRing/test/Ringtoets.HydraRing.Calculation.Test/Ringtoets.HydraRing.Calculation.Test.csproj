@@ -59,7 +59,7 @@
     <Compile Include="Data\HydraRingForelandPointTest.cs" />
     <Compile Include="Data\Input\Hydraulics\DikeHeightCalculationInputTest.cs" />
     <Compile Include="Data\Input\WaveConditions\WaveConditionsCosineInputTest.cs" />
-    <Compile Include="Data\Input\WaveConditions\WaveConditionsInputTest.cs" />
+    <Compile Include="Data\Input\WaveConditions\WaveConditionsCalculationInputTest.cs" />
     <Compile Include="Data\Input\Hydraulics\WaveHeightCalculationInputTest.cs" />
     <Compile Include="Data\Input\Overtopping\HydraRingRoughnessProfilePointTest.cs" />
     <Compile Include="Data\Input\ExceedanceProbabilityCalculationInputTest.cs" />

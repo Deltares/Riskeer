@@ -31,7 +31,7 @@ using Ringtoets.HydraRing.Calculation.TestUtil;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
 {
     [TestFixture]
-    public class WaveConditionsInputTest
+    public class WaveConditionsCalculationInputTest
     {
         [Test]
         public void Constructor_Always_ExpectedValues()
@@ -47,14 +47,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const double b = 7.7;
 
             // Call
-            var waveConditionsInput = new WaveConditionsInputImplementation(sectionId,
-                                                                            hydraulicBoundaryLocationId,
-                                                                            norm,
-                                                                            forelandPoints,
-                                                                            breakWater,
-                                                                            waterLevel,
-                                                                            a,
-                                                                            b);
+            var waveConditionsInput = new WaveConditionsCalculationInputImplementation(sectionId,
+                                                                                       hydraulicBoundaryLocationId,
+                                                                                       norm,
+                                                                                       forelandPoints,
+                                                                                       breakWater,
+                                                                                       waterLevel,
+                                                                                       a,
+                                                                                       b);
 
             // Assert
             const int expectedCalculationTypeId = 6;
@@ -73,16 +73,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.AreEqual(expectedBeta, waveConditionsInput.Beta);
         }
 
-        private class WaveConditionsInputImplementation : WaveConditionsInput
+        private class WaveConditionsCalculationInputImplementation : WaveConditionsCalculationInput
         {
-            public WaveConditionsInputImplementation(int sectionId,
-                                                     long hydraulicBoundaryLocationId,
-                                                     double norm,
-                                                     IEnumerable<HydraRingForelandPoint> forelandPoints,
-                                                     HydraRingBreakWater breakWater,
-                                                     double waterLevel,
-                                                     double a,
-                                                     double b)
+            public WaveConditionsCalculationInputImplementation(int sectionId,
+                                                                long hydraulicBoundaryLocationId,
+                                                                double norm,
+                                                                IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                                HydraRingBreakWater breakWater,
+                                                                double waterLevel,
+                                                                double a,
+                                                                double b)
                 : base(sectionId,
                        hydraulicBoundaryLocationId,
                        norm,

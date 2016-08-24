@@ -27,7 +27,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
     /// <summary>
     /// Container of all data necessary for performing a cosine based wave conditions calculation (Q-variant) via Hydra-Ring.
     /// </summary>
-    public class WaveConditionsCosineInput : WaveConditionsInput
+    public class WaveConditionsCosineInput : WaveConditionsCalculationInput
     {
         private readonly double c;
 

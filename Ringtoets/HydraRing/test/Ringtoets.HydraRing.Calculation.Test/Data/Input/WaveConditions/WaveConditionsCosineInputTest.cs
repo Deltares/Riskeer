@@ -62,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const int expectedCalculationTypeId = 6;
             const int expectedVariableId = 114;
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
-            Assert.IsInstanceOf<WaveConditionsInput>(waveConditionsCosineInput);
+            Assert.IsInstanceOf<WaveConditionsCalculationInput>(waveConditionsCosineInput);
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsCosineInput.FailureMechanismType);
             Assert.AreEqual(expectedCalculationTypeId, waveConditionsCosineInput.CalculationTypeId);
             Assert.AreEqual(expectedVariableId, waveConditionsCosineInput.VariableId);
