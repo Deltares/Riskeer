@@ -80,7 +80,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         {
             get
             {
-                return 6;
+                return 7;
             }
         }
 

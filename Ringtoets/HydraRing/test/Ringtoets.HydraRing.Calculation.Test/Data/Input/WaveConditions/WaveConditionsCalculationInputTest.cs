@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                                                   b);
 
             // Assert
-            const int expectedCalculationTypeId = 6;
+            const int expectedCalculationTypeId = 7;
             const int expectedVariableId = 114;
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.IsInstanceOf<HydraRingCalculationInput>(waveConditionsCalculationInput);

@@ -59,7 +59,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                                                 c);
 
             // Assert
-            const int expectedCalculationTypeId = 6;
+            const int expectedCalculationTypeId = 7;
             const int expectedVariableId = 114;
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.IsInstanceOf<WaveConditionsCalculationInput>(waveConditionsCosineCalculationInput);
@@ -77,9 +77,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
 
         [Test]
         [TestCase(3, null)]
-        [TestCase(4, 71)]
+        [TestCase(4, null)]
         [TestCase(5, 71)]
-        [TestCase(6, null)]
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Call

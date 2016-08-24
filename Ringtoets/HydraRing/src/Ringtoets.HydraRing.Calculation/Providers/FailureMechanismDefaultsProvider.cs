@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.QVariant, new FailureMechanismDefaults(3, new[]
                     {
                         5
-                    }, 7)
+                    }, 6)
                 },
                 {
                     HydraRingFailureMechanismType.DikesOvertopping, new FailureMechanismDefaults(101, new[]

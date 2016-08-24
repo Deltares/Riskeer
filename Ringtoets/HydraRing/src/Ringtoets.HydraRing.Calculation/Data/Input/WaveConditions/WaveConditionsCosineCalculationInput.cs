@@ -80,8 +80,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         {
             switch (subMechanismId)
             {
-                case 4:
-                    return 71;
                 case 5:
                     return 71;
                 default:
