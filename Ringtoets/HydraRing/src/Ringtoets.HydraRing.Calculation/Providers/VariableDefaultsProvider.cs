@@ -221,15 +221,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, VariableDefaults>
                     {
                         {
-                            20, new VariableDefaults(900)
-                        },
-                        {
-                            21, new VariableDefaults(900)
-                        },
-                        {
-                            23, new VariableDefaults(6000)
-                        },
-                        {
                             58, new VariableDefaults(99000)
                         },
                         {
