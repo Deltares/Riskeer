@@ -33,12 +33,19 @@ namespace Ringtoets.Revetment.Data
     public class WaveConditionsInput
     {
         private DikeProfile dikeProfile;
+        private RoundedDouble upperLevel;
+        private RoundedDouble lowerLevel;
+        private RoundedDouble stepSize;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
         /// </summary>
         public WaveConditionsInput()
         {
+            upperLevel = new RoundedDouble(2);
+            lowerLevel = new RoundedDouble(2);
+            stepSize = new RoundedDouble(1);
+
             UpdateProfileParameters();
         }
 
@@ -88,6 +95,42 @@ namespace Ringtoets.Revetment.Data
                 return dikeProfile != null
                            ? dikeProfile.ForeshoreGeometry
                            : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
+            }
+        }
+
+        public RoundedDouble UpperLevel
+        {
+            get
+            {
+                return upperLevel;
+            }
+            set
+            {
+                upperLevel = value.ToPrecision(upperLevel.NumberOfDecimalPlaces);
+            }
+        }
+
+        public RoundedDouble LowerLevel
+        {
+            get
+            {
+                return lowerLevel;
+            }
+            set
+            {
+                lowerLevel = value.ToPrecision(lowerLevel.NumberOfDecimalPlaces);
+            }
+        }
+
+        public RoundedDouble StepSize
+        {
+            get
+            {
+                return stepSize;
+            }
+            set
+            {
+                stepSize = value.ToPrecision(stepSize.NumberOfDecimalPlaces);
             }
         }
 

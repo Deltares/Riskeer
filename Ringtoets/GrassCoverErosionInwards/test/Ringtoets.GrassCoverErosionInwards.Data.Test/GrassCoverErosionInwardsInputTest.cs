@@ -129,7 +129,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        [Combinatorial]
         public void DikeProfile_SetNullValue_InputSyncedToDefaults()
         {
             // Setup

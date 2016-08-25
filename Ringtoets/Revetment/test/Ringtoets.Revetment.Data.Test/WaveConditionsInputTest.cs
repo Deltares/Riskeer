@@ -45,6 +45,9 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
+            Assert.AreEqual(new RoundedDouble(2), input.UpperLevel);
+            Assert.AreEqual(new RoundedDouble(2), input.LowerLevel);
+            Assert.AreEqual(new RoundedDouble(1), input.StepSize);
 		}
 
         [Test]
@@ -107,7 +110,6 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [Combinatorial]
         public void DikeProfile_SetNullValue_InputSyncedToDefaults()
         {
             // Setup
@@ -153,6 +155,54 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void UpperLevel_SetNewValue_ValueIsRounded()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            int originalNumberOfDecimalPlaces = input.UpperLevel.NumberOfDecimalPlaces;
+
+            // Call
+            input.UpperLevel = new RoundedDouble(5, 1.23456);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.UpperLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, input.UpperLevel.Value);
+        }
+
+        [Test]
+        public void LowerLevel_SetNewValue_ValueIsRounded()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            int originalNumberOfDecimalPlaces = input.LowerLevel.NumberOfDecimalPlaces;
+
+            // Call
+            input.LowerLevel = new RoundedDouble(5, 1.23456);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.LowerLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, input.LowerLevel.Value);
+        }
+
+        [Test]
+        public void StepSize_SetNewValue_ValueIsRounded()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            int originalNumberOfDecimalPlaces = input.StepSize.NumberOfDecimalPlaces;
+
+            // Call
+            input.StepSize = new RoundedDouble(5, 1.23456);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.StepSize.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.2, input.StepSize.Value);
         }
     }
 }
