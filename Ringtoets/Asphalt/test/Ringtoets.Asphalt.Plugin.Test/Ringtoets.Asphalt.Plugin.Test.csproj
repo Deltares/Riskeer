@@ -49,7 +49,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="ViewInfos\WaveImpactAsphaltCoverResultViewInfoTest.cs" />
     <Compile Include="WaveImpactAsphaltCoverPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -100,6 +99,9 @@
       <Project>{83A782F1-BA78-4D5C-B213-39066605AFD8}</Project>
       <Name>Ringtoets.Asphalt.Plugin</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewInfos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

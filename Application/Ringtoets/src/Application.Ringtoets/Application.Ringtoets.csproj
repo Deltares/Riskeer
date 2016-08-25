@@ -162,6 +162,7 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\Asphalt\src\Ringtoets.Asphalt.Plugin\Ringtoets.Asphalt.Plugin.csproj">
       <Project>{83A782F1-BA78-4D5C-B213-39066605AFD8}</Project>
       <Name>Ringtoets.Asphalt.Plugin</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Plugin\Ringtoets.GrassCoverErosionInwards.Plugin.csproj">
       <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>

@@ -37,8 +37,6 @@ namespace Ringtoets.Asphalt.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var properties = new WaveImpactAsphaltCoverFailureMechanismContextProperties();
 

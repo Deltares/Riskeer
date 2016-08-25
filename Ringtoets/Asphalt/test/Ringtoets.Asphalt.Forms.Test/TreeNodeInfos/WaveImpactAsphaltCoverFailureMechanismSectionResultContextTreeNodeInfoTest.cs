@@ -31,7 +31,7 @@ using Ringtoets.Asphalt.Plugin;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Asphalt.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest
@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.StrictMock<IGui>();
-                gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                gui.Expect<IGui, IContextMenuBuilder>(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 

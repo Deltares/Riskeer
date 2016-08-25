@@ -116,7 +116,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationContextRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsViewTest.cs" />
