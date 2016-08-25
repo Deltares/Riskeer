@@ -171,7 +171,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             SetFocusToView(view);
 
             layoutAnchorable.Hiding += OnLayoutAnchorableHiding;
-            layoutAnchorable.Closed += OnLayoutAnchorableClosed;
+            layoutAnchorable.Closing += OnLayoutAnchorableClosing;
         }
 
         public void Remove(IView view)
@@ -195,7 +195,7 @@ namespace Core.Common.Gui.Forms.ViewHost
             else if (toolViews.Contains(view))
             {
                 var layoutAnchorable = GetLayoutContent<LayoutAnchorable>(view);
-                layoutAnchorable.Close();
+                layoutAnchorable.Hide();
                 UpdateDockingManager();
             }
 
@@ -330,21 +330,21 @@ namespace Core.Common.Gui.Forms.ViewHost
             OnViewClosed(GetView(layoutDocument.Content));
         }
 
-        private static void OnLayoutAnchorableHiding(object sender, CancelEventArgs eventArgs)
+        private static void OnLayoutAnchorableClosing(object sender, CancelEventArgs eventArgs)
         {
             var layoutAnchorable = (LayoutAnchorable) sender;
 
-            layoutAnchorable.Close();
+            layoutAnchorable.Hide();
 
             eventArgs.Cancel = true;
         }
 
-        private void OnLayoutAnchorableClosed(object sender, EventArgs e)
+        private void OnLayoutAnchorableHiding(object sender, EventArgs e)
         {
             var layoutAnchorable = (LayoutAnchorable) sender;
 
             layoutAnchorable.Hiding -= OnLayoutAnchorableHiding;
-            layoutAnchorable.Closed -= OnLayoutAnchorableClosed;
+            layoutAnchorable.Closing -= OnLayoutAnchorableClosing;
 
             OnViewClosed(GetView(layoutAnchorable.Content));
         }

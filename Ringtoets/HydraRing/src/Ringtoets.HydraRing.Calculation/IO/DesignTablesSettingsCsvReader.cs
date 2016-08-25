@@ -31,22 +31,6 @@ namespace Ringtoets.HydraRing.Calculation.IO
     /// </summary>
     internal class DesignTablesSettingsCsvReader : HydraRingSettingsVariableCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, DesignTablesSetting>>>
     {
-        private readonly Dictionary<string, int> columns = new Dictionary<string, int>
-        {
-            {
-                ringIdKey, 0
-            },
-            {
-                variableKey, 1
-            },
-            {
-                minKey, 2
-            },
-            {
-                maxKey, 3
-            }
-        };
-
         /// <summary>
         /// Creates a new instance of <see cref="DesignTablesSettingsCsvReader"/>.
         /// </summary>
@@ -57,16 +41,14 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         protected override void CreateSetting(IList<string> line)
         {
-            // Get failure mechanism
-            var failureMechanismType = GetFailureMechanismType(GetStringValueFromElement(line[columns[variableKey]]));
+            HydraRingFailureMechanismType failureMechanismType = GetFailureMechanismType(GetStringValueFromElement(line[(int) DesignTablesSettingsColumns.Variable]));
 
             if (!Settings.ContainsKey(failureMechanismType))
             {
                 Settings.Add(failureMechanismType, new Dictionary<string, DesignTablesSetting>());
             }
 
-            // Get TrajectId
-            var ringId = GetRingId(line);
+            string ringId = GetRingId(line);
             if (!Settings[failureMechanismType].ContainsKey(ringId))
             {
                 Settings[failureMechanismType].Add(ringId, GetDesignTablesSetting(line));
@@ -75,22 +57,13 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         private string GetRingId(IList<string> line)
         {
-            return GetStringValueFromElement(line[columns[ringIdKey]]);
+            return GetStringValueFromElement(line[(int) DesignTablesSettingsColumns.RingId]);
         }
 
         private DesignTablesSetting GetDesignTablesSetting(IList<string> line)
         {
-            return new DesignTablesSetting(GetDoubleValueFromElement(line[columns[minKey]]),
-                                           GetDoubleValueFromElement(line[columns[maxKey]]));
+            return new DesignTablesSetting(GetDoubleValueFromElement(line[(int) DesignTablesSettingsColumns.Min]),
+                                           GetDoubleValueFromElement(line[(int) DesignTablesSettingsColumns.Max]));
         }
-
-        #region Csv column names
-
-        private const string ringIdKey = "TrajectID";
-        private const string variableKey = "Variable";
-        private const string minKey = "Min";
-        private const string maxKey = "Max";
-
-        #endregion
     }
 }

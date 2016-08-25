@@ -33,15 +33,12 @@ namespace Ringtoets.HydraRing.Calculation.Providers
     internal class HydraulicModelsSettingsProvider
     {
         private readonly IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>> fileHydraulicModelsSettings;
-        private IDictionary<HydraRingFailureMechanismType, HydraulicModelsSetting> defaultHydraulicModelsSettings;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicModelsSettingsProvider"/>.
         /// </summary>
         public HydraulicModelsSettingsProvider()
         {
-            InitializeDefaultHydraulicModelsSettings();
-
             fileHydraulicModelsSettings = new HydraulicModelsSettingsCsvReader(Resources.HydraulicModelsSettings).ReadSettings();
         }
 
@@ -60,58 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                 return fileHydraulicModelsSettings[failureMechanismType][ringId];
             }
 
-            return defaultHydraulicModelsSettings[failureMechanismType];
-        }
-
-        private void InitializeDefaultHydraulicModelsSettings()
-        {
-            defaultHydraulicModelsSettings = new Dictionary<HydraRingFailureMechanismType, HydraulicModelsSetting>
-            {
-                {
-                    HydraRingFailureMechanismType.AssessmentLevel,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.WaveHeight,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.WavePeakPeriod,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.WaveSpectralPeriod,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.QVariant,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.DikesOvertopping,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.DikesHeight,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.DikesPiping,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.StructuresOvertopping,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.StructuresClosure,
-                    new HydraulicModelsSetting(1)
-                },
-                {
-                    HydraRingFailureMechanismType.StructuresStructuralFailure,
-                    new HydraulicModelsSetting(1)
-                }
-            };
+            return new HydraulicModelsSetting(1);
         }
     }
 }
