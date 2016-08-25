@@ -38,8 +38,6 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Asphalt.Data;
-using Ringtoets.Asphalt.Forms.Views;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -48,7 +46,6 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.IO;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -499,9 +496,23 @@ namespace Ringtoets.Integration.Plugin.Test
                 IFileImporter[] importers = plugin.GetFileImporters().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, importers.Length);
-                Assert.AreEqual(1, importers.Count(i => i is ReferenceLineImporter));
+                Assert.AreEqual(1, importers.Length);
                 Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
+            }
+        }
+
+        [Test]
+        public void GetImportInfos_ReturnsExpectedImportInfos()
+        {
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.IsTrue(importInfos.Any(i=>i.DataType == typeof(ReferenceLineContext)));
             }
         }
 

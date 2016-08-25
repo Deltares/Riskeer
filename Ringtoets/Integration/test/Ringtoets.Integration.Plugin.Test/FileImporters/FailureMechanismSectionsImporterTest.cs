@@ -113,10 +113,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -148,10 +146,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -184,10 +180,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -219,10 +213,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var progressChangeNotifications = new List<ProgressNotification>();
 
@@ -269,10 +261,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -304,10 +294,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -369,10 +357,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -408,10 +394,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -447,10 +431,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -483,10 +465,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -519,10 +499,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 
@@ -555,10 +533,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
-            var referenceLineImporter = new ReferenceLineImporter();
-            referenceLineImporter.Import(referenceLineContext, referenceLineFilePath);
+            var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
+            referenceLineImporter.Import(null, referenceLineFilePath);
 
             var importer = new FailureMechanismSectionsImporter();
 

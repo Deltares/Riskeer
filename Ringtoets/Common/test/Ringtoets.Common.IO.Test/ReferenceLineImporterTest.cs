@@ -42,10 +42,26 @@ namespace Ringtoets.Common.IO.Test
     public class ReferenceLineImporterTest : NUnitFormsAssertTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Call
-            var importer = new ReferenceLineImporter();
+            TestDelegate call = () => new ReferenceLineImporter(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("importTarget", paramName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<ReferenceLineContext>>(importer);
@@ -53,6 +69,8 @@ namespace Ringtoets.Common.IO.Test
             Assert.AreEqual("Algemeen", importer.Category);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ReferenceLineIcon, importer.Image);
             Assert.AreEqual(RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter, importer.FileFilter);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -68,7 +86,7 @@ namespace Ringtoets.Common.IO.Test
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             // Call
             bool importSuccesful = importer.Import(referenceLineContext, path);
@@ -108,7 +126,7 @@ namespace Ringtoets.Common.IO.Test
                 }
             };
             var progressChangedCallCount = 0;
-            var importer = new ReferenceLineImporter
+            var importer = new ReferenceLineImporter(assessmentSection)
             {
                 ProgressChanged = (description, step, steps) =>
                 {
@@ -139,7 +157,7 @@ namespace Ringtoets.Common.IO.Test
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             // Call
             bool importSuccesful = true;
@@ -166,7 +184,7 @@ namespace Ringtoets.Common.IO.Test
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             // Call
             bool importSuccesful = true;
@@ -216,7 +234,7 @@ namespace Ringtoets.Common.IO.Test
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
             string messageBoxTitle = null, messageBoxText = null;
             DialogBoxHandler = (name, wnd) =>
             {
@@ -289,7 +307,7 @@ namespace Ringtoets.Common.IO.Test
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             string messageBoxTitle = null, messageBoxText = null;
             DialogBoxHandler = (name, wnd) =>
@@ -373,13 +391,15 @@ namespace Ringtoets.Common.IO.Test
                 }
             };
             var progressChangedCallCount = 0;
-            var importer = new ReferenceLineImporter();
-            importer.ProgressChanged = (description, step, steps) =>
+            var importer = new ReferenceLineImporter(assessmentSection)
             {
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
-                Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
-                progressChangedCallCount++;
+                ProgressChanged = (description, step, steps) =>
+                {
+                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].Text, description);
+                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].CurrentStep, step);
+                    Assert.AreEqual(expectedProgressMessages[progressChangedCallCount].MaxNrOfSteps, steps);
+                    progressChangedCallCount++;
+                }
             };
 
             DialogBoxHandler = (name, wnd) =>
@@ -411,7 +431,7 @@ namespace Ringtoets.Common.IO.Test
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -447,7 +467,7 @@ namespace Ringtoets.Common.IO.Test
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -485,7 +505,7 @@ namespace Ringtoets.Common.IO.Test
 
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
             importer.Cancel();
 
             // Call
@@ -560,7 +580,7 @@ namespace Ringtoets.Common.IO.Test
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -600,7 +620,7 @@ namespace Ringtoets.Common.IO.Test
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.WrappedData.Attach(observer);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -649,7 +669,7 @@ namespace Ringtoets.Common.IO.Test
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -728,7 +748,7 @@ namespace Ringtoets.Common.IO.Test
             var referenceLineContext = new ReferenceLineContext(assessmentSection);
             referenceLineContext.Attach(contextObserver);
 
-            var importer = new ReferenceLineImporter();
+            var importer = new ReferenceLineImporter(assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
             {

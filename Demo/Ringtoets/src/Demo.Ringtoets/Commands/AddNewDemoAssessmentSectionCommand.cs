@@ -90,8 +90,8 @@ namespace Demo.Ringtoets.Commands
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3.shp", "traject_6-3.dbf", "traject_6-3.prj", "traject_6-3.shx"))
             {
-                var importer = new ReferenceLineImporter();
-                importer.Import(new ReferenceLineContext(demoAssessmentSection), Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
+                var importer = new ReferenceLineImporter(demoAssessmentSection);
+                importer.Import(null, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
             }
         }
 

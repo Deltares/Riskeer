@@ -38,7 +38,6 @@ using Core.Common.Utils.Extensions;
 using log4net;
 using Ringtoets.Asphalt.Data;
 using Ringtoets.Asphalt.Forms.PresentationObjects;
-using Ringtoets.Asphalt.Forms.Views;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -371,9 +370,20 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<ReferenceLineContext>
+            {
+                Name = RingtoetsCommonDataResources.ReferenceLine_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.ReferenceLineIcon,
+                FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter,
+                CreateFileImporter = context => new ReferenceLineImporter(context.WrappedData)
+            };
+        }
+
         public override IEnumerable<IFileImporter> GetFileImporters()
         {
-            yield return new ReferenceLineImporter();
             yield return new FailureMechanismSectionsImporter();
         }
 

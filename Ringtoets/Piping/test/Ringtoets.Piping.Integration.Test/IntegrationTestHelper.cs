@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Integration.Test
                                                                                    "traject_6-3.prj",
                                                                                    "traject_6-3.shx"))
             {
-                var activity = new FileImportActivity(new ReferenceLineImporter(),
+                var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection),
                                                       new ReferenceLineContext(assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
                 activity.Run();

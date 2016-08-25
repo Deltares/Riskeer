@@ -46,8 +46,23 @@ namespace Ringtoets.Common.IO
     public class ReferenceLineImporter : FileImporterBase<ReferenceLineContext>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ReferenceLineImporter));
+        private readonly IAssessmentSection importTarget;
 
         private readonly IList<IObservable> changedObservables = new List<IObservable>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReferenceLineImporter"/> class.
+        /// </summary>
+        /// <param name="importTarget">The assessment section to update.</param>
+        /// <exception cref="System.ArgumentNullException">When <paramref name="importTarget"/> is <c>null</c>.</exception>
+        public ReferenceLineImporter(IAssessmentSection importTarget)
+        {
+            if (importTarget == null)
+            {
+                throw new ArgumentNullException("importTarget");
+            }
+            this.importTarget = importTarget;
+        }
 
         public override string Name
         {
@@ -90,10 +105,9 @@ namespace Ringtoets.Common.IO
 
             bool clearReferenceLineDependentData = false;
 
-            var importTarget = (ReferenceLineContext) targetItem;
-            if (importTarget.WrappedData.ReferenceLine != null)
+            if (importTarget.ReferenceLine != null)
             {
-                clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData(importTarget.WrappedData);
+                clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData(importTarget);
             }
 
             if (Canceled)
@@ -116,7 +130,7 @@ namespace Ringtoets.Common.IO
                 return false;
             }
 
-            AddReferenceLineToDataModel(importTarget.WrappedData, readResult.ImportedItems.First(), clearReferenceLineDependentData);
+            AddReferenceLineToDataModel(importTarget, readResult.ImportedItems.First(), clearReferenceLineDependentData);
             return true;
         }
 

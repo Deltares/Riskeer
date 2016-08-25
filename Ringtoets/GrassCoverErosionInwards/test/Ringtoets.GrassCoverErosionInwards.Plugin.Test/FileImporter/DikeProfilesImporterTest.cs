@@ -46,13 +46,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
     public class DikeProfilesImporterTest
     {
         private MockRepository mockRepository;
-        private int progress;
 
         [SetUp]
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            progress = 0;
         }
 
         [Test]
