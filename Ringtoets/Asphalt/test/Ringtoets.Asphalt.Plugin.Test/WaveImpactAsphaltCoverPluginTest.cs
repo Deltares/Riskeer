@@ -38,6 +38,17 @@ namespace Ringtoets.Asphalt.Plugin.Test
     public class WaveImpactAsphaltCoverPluginTest
     {
         [Test]
+        public void DefaultConstructor_ExpectedValues()
+        {
+            // call
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            {
+                // assert
+                Assert.IsInstanceOf<PluginBase>(plugin);
+            }
+        }
+
+        [Test]
         public void GetPropertiesInfos_ReturnSupportedPropertyInfos()
         {
             // Setup

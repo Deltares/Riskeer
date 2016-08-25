@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="ForeShoresContext"/> class.
         /// </summary>
-        /// <param name="wrappedData">The observable list of foreshores.</param>
-        public ForeShoresContext(ObservableList<ForeShore> wrappedData) : base(wrappedData) {}
+        /// <param name="foreshores">The observable list of <see cref="ForeShore"/> objects.</param>
+        public ForeShoresContext(ObservableList<ForeShore> foreshores) : base(foreshores) { }
     }
 }

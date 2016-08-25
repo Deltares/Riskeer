@@ -62,6 +62,9 @@ namespace Ringtoets.Asphalt.Data
             }
         }
 
+        /// <summary>
+        /// Gets the available foreshores for this instance.
+        /// </summary>
         public ObservableList<ForeShore> ForeShores { get; private set; }
 
         public override void AddSection(FailureMechanismSection section)

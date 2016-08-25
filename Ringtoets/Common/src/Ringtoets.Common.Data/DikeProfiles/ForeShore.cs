@@ -24,5 +24,14 @@ namespace Ringtoets.Common.Data.DikeProfiles
     /// <summary>
     /// Definition for a foreshore for a failure mechanism.
     /// </summary>
-    public class ForeShore {}
+    public class ForeShore
+    {
+        // TODO
+        // Should this be stored?
+        // If Yes, add IStorable and update Excel sheet
+        //
+        // Please note that there are property classes defined for ForeShores
+        //    GrassCoverErosionInwardsInputContextForeshoreProperties
+        //    DikeProfileForeshoreProperties
+    }
 }

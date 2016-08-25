@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the assessment section to which <see cref="ObservableWrappedObjectContextBase{T}.WrappedData"/> belongs to.
+        /// Gets the assessment section to which <see cref="WrappedObjectContextBase{T}.WrappedData"/> belongs to.
         /// </summary>
         public IAssessmentSection Parent { get; private set; }
 

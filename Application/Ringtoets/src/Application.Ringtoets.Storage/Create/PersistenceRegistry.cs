@@ -26,7 +26,6 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils;
 using Ringtoets.Asphalt.Data;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
