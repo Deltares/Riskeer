@@ -59,10 +59,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         [TearDown]
         public override void TearDown()
         {
-            base.TearDown();
-
             plugin.Dispose();
             mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         [Test]
