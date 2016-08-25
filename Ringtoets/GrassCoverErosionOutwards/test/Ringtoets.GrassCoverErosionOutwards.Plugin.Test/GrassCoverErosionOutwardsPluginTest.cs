@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.AreEqual(3, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundariesGroupContext)));
             }
         }
 
@@ -99,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
             }
         }
 
-        private static bool PropertyInfoExists<TDataObject, TPropertyObject> (PropertyInfo[] treeNodeInfos)
+        private static bool PropertyInfoExists<TDataObject, TPropertyObject>(PropertyInfo[] treeNodeInfos)
         {
             return treeNodeInfos.Any(tni => tni.DataType == typeof(TDataObject) && tni.PropertyObjectType == typeof(TPropertyObject));
         }

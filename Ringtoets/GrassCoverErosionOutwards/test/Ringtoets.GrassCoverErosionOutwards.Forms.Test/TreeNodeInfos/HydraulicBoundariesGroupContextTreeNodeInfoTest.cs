@@ -27,6 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -35,7 +36,7 @@ using Ringtoets.GrassCoverErosionOutwards.Plugin;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContextTreeNodeInfoTest
+    public class HydraulicBoundariesGroupContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
@@ -46,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new GrassCoverErosionOutwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundariesGroupContext));
         }
 
         [TearDown]
@@ -60,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext), info.TagType);
+            Assert.AreEqual(typeof(HydraulicBoundariesGroupContext), info.TagType);
 
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
@@ -80,8 +81,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(failureMechanism.HydraulicBoundariesCalculationGroup);
+            var context = new HydraulicBoundariesGroupContext(assessmentSectionMock, failureMechanism.HydraulicBoundariesCalculationGroup);
 
             // Call
             string nodeText = info.Text(context);
@@ -94,8 +97,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnFailureMechanismIcon()
         {
             // Setup
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(failureMechanism.HydraulicBoundariesCalculationGroup);
+            var context = new HydraulicBoundariesGroupContext(assessmentSectionMock, failureMechanism.HydraulicBoundariesCalculationGroup);
 
             // Call
             Image icon = info.Image(context);
@@ -110,8 +115,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                mocks.ReplayAll();
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var context = new GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(failureMechanism.HydraulicBoundariesCalculationGroup);
+                var context = new HydraulicBoundariesGroupContext(assessmentSectionMock, failureMechanism.HydraulicBoundariesCalculationGroup);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);

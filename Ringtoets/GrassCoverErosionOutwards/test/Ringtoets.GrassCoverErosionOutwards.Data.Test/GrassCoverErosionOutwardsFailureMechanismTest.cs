@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual("GEBU", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
-            Assert.AreEqual("Hydraulische randvoorwaarden", failureMechanism.HydraulicBoundariesCalculationGroup.Name);
+            Assert.AreEqual("Berekeningen", failureMechanism.HydraulicBoundariesCalculationGroup.Name);
             Assert.IsFalse(failureMechanism.HydraulicBoundariesCalculationGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundariesCalculationGroup.Children);
         }

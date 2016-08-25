@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         {
             sectionResults = new List<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
-            HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName, false);
+            HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
         }
 
         /// <summary>
