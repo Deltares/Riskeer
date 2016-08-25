@@ -176,6 +176,30 @@ namespace Ringtoets.Piping.Plugin.Test
         }
 
         [Test]
+        public void GetFileInfos_Always_ReturnsExpectedFileInfos()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var guiStub = mocks.Stub<IGui>();
+            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+            mocks.ReplayAll();
+
+            using (var plugin = new PipingPlugin
+            {
+                Gui = guiStub
+            })
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GetFileImporters_Always_ReturnsExpectedFileImporters()
         {
             // Setup
@@ -193,9 +217,8 @@ namespace Ringtoets.Piping.Plugin.Test
                 var importers = plugin.GetFileImporters().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, importers.Length);
-                Assert.IsInstanceOf<PipingSurfaceLinesCsvImporter>(importers[0]);
-                Assert.IsInstanceOf<PipingSoilProfilesImporter>(importers[1]);
+                Assert.AreEqual(1, importers.Length);
+                Assert.IsInstanceOf<PipingSoilProfilesImporter>(importers[0]);
             }
             mocks.VerifyAll();
         }

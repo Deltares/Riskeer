@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Integration.Test
                                                                                    "DR6_surfacelines.csv",
                                                                                    "DR6_surfacelines.krp.csv"))
             {
-                var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(),
+                var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(assessmentSection.PipingFailureMechanism.SurfaceLines, assessmentSection.ReferenceLine),
                                                       new RingtoetsPipingSurfaceLinesContext(assessmentSection.PipingFailureMechanism, assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
                 activity.Run();

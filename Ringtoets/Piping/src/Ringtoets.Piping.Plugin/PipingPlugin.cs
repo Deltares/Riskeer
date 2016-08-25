@@ -48,6 +48,7 @@ using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using PipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin
@@ -75,9 +76,24 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<StochasticSoilProfile, StochasticSoilProfileProperties>();
         }
 
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<RingtoetsPipingSurfaceLinesContext>
+            {
+                Name = PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = PipingFormsResources.PipingSurfaceLineIcon,
+                FileFilter = string.Format("{0} {1} (*.csv)|*.csv",
+                                           PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
+                                           PipingPluginResources.Csv_file_name),
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                CreateFileImporter = context => new PipingSurfaceLinesCsvImporter(context.WrappedData.SurfaceLines,
+                                                                                  context.AssessmentSection.ReferenceLine)
+            };
+        }
+
         public override IEnumerable<IFileImporter> GetFileImporters()
         {
-            yield return new PipingSurfaceLinesCsvImporter();
             yield return new PipingSoilProfilesImporter();
         }
 

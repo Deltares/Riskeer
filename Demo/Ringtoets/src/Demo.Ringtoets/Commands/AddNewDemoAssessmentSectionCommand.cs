@@ -146,9 +146,8 @@ namespace Demo.Ringtoets.Commands
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
             {
-                var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter();
-                var context = new RingtoetsPipingSurfaceLinesContext(pipingFailureMechanism, demoAssessmentSection);
-                surfaceLinesImporter.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
+                var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter(pipingFailureMechanism.SurfaceLines, demoAssessmentSection.ReferenceLine);
+                surfaceLinesImporter.Import(null, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
             }
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
