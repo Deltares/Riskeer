@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 
@@ -30,11 +32,16 @@ namespace Ringtoets.Revetment.Data
     /// <summary>
     /// Class that holds all wave conditions calculation specific input paramaters.
     /// </summary>
-    public class WaveConditionsInput
+    public class WaveConditionsInput : Observable, ICalculationInput
     {
+        private readonly RoundedDouble designWaterLevelSubstraction;
+
         private DikeProfile dikeProfile;
-        private RoundedDouble upperLevel;
-        private RoundedDouble lowerLevel;
+        private HydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private RoundedDouble upperRevetmentLevel;
+        private RoundedDouble lowerRevetmentLevel;
+        private RoundedDouble lowerWaterLevel;
+        private RoundedDouble upperWaterLevel;
         private RoundedDouble stepSize;
 
         /// <summary>
@@ -42,11 +49,15 @@ namespace Ringtoets.Revetment.Data
         /// </summary>
         public WaveConditionsInput()
         {
-            upperLevel = new RoundedDouble(2);
-            lowerLevel = new RoundedDouble(2);
+            upperRevetmentLevel = new RoundedDouble(2);
+            lowerRevetmentLevel = new RoundedDouble(2);
+            lowerWaterLevel = new RoundedDouble(2);
+            upperWaterLevel = new RoundedDouble(2);
             stepSize = new RoundedDouble(1);
 
-            UpdateProfileParameters();
+            designWaterLevelSubstraction = new RoundedDouble(2, 0.01);
+
+            UpdateDikeProfileParameters();
         }
 
         /// <summary>
@@ -61,14 +72,25 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 dikeProfile = value;
-                UpdateProfileParameters();
+                UpdateDikeProfileParameters();
             }
         }
 
         /// <summary>
         /// Gets or set the hydraulic boundary location from which to use the assessment level.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get
+            {
+                return hydraulicBoundaryLocation;
+            }
+            set
+            {
+                hydraulicBoundaryLocation = value;
+                UpdateUpperWaterLevel();
+            }
+        }
 
         /// <summary>
         /// Gets or sets if <see cref="BreakWater"/> needs to be taken into account.
@@ -98,30 +120,54 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
-        public RoundedDouble UpperLevel
+        /// <summary>
+        /// Gets or sets the upper level of the revetment.
+        /// </summary>
+        public RoundedDouble UpperRevetmentLevel
         {
             get
             {
-                return upperLevel;
+                return upperRevetmentLevel;
             }
             set
             {
-                upperLevel = value.ToPrecision(upperLevel.NumberOfDecimalPlaces);
+                upperRevetmentLevel = value.ToPrecision(upperRevetmentLevel.NumberOfDecimalPlaces);
             }
         }
 
-        public RoundedDouble LowerLevel
+        /// <summary>
+        /// Gets or sets the lower level of the revetment.
+        /// </summary>
+        public RoundedDouble LowerRevetmentLevel
         {
             get
             {
-                return lowerLevel;
+                return lowerRevetmentLevel;
             }
             set
             {
-                lowerLevel = value.ToPrecision(lowerLevel.NumberOfDecimalPlaces);
+                lowerRevetmentLevel = value.ToPrecision(lowerRevetmentLevel.NumberOfDecimalPlaces);
             }
         }
 
+        /// <summary>
+        /// Gets or sets the lower water level.
+        /// </summary>
+        public RoundedDouble LowerWaterLevel
+        {
+            get
+            {
+                return lowerWaterLevel;
+            }
+            set
+            {
+                lowerWaterLevel = value.ToPrecision(lowerWaterLevel.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the step size for wave conditions calculations.
+        /// </summary>
         public RoundedDouble StepSize
         {
             get
@@ -134,7 +180,34 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
-        private void UpdateProfileParameters()
+        /// <summary>
+        /// Gets the upper water level.
+        /// </summary>
+        public RoundedDouble UpperWaterLevel
+        {
+            get
+            {
+                return upperWaterLevel;
+            }
+            private set
+            {
+                upperWaterLevel = value.ToPrecision(upperWaterLevel.NumberOfDecimalPlaces);
+            }
+        }
+
+        private void UpdateUpperWaterLevel()
+        {
+            if (hydraulicBoundaryLocation != null && !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
+            {
+                UpperWaterLevel = hydraulicBoundaryLocation.DesignWaterLevel - designWaterLevelSubstraction;
+            }
+            else
+            {
+                UpperWaterLevel = (RoundedDouble) 0;
+            }
+        }
+
+        private void UpdateDikeProfileParameters()
         {
             if (dikeProfile == null)
             {
