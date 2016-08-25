@@ -43,32 +43,73 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
     public class FailureMechanismSectionsImporterTest
     {
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismSectionsImporter(null, referenceLine);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("importTarget", paramName);
+        }
+
+        [Test]
+        public void Constructor_ReferenceLineNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new FailureMechanismSectionsImporter(failureMechanism, null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("referenceLine", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var referenceLine = new ReferenceLine();
+
             // Call
-            var importer = new FailureMechanismSectionsImporter();
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, referenceLine);
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<FailureMechanismSectionsContext>>(importer);
             Assert.AreEqual("Vakindeling", importer.Name);
             Assert.AreEqual("Algemeen", importer.Category);
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.Sections, importer.Image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.SectionsIcon, importer.Image);
             Assert.AreEqual(RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter, importer.FileFilter);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CanImportOn_ValidContextWithReferenceLine_ReturnTrue()
         {
             // Setup
+            var referenceLine = new ReferenceLine();
+
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
+            assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
             var targetContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            var importer = new FailureMechanismSectionsImporter();
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, referenceLine);
 
             // Call
             var canImport = importer.CanImportOn(targetContext);
@@ -90,7 +131,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var targetContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
-            var importer = new FailureMechanismSectionsImporter();
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, new ReferenceLine());
 
             // Call
             var canImport = importer.CanImportOn(targetContext);
@@ -116,13 +157,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
-            var importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            var importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             Assert.IsTrue(importSuccessful);
@@ -149,14 +189,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
             failureMechanism.AddSection(new FailureMechanismSection("A", assessmentSection.ReferenceLine.Points));
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
-            var importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            var importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             Assert.IsTrue(importSuccessful);
@@ -183,13 +222,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
-            var importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            var importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             Assert.IsTrue(importSuccessful);
@@ -218,16 +256,15 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var progressChangeNotifications = new List<ProgressNotification>();
 
-            var importer = new FailureMechanismSectionsImporter
+            var failureMechanism = new Simple();
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine)
             {
                 ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
             };
 
-            var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
-
             // Call
-            var importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            var importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             Assert.IsTrue(importSuccessful);
@@ -264,14 +301,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
             bool importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            Action call = () => importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam. ", sectionsFilePath) + Environment.NewLine +
@@ -297,46 +333,16 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
             bool importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            Action call = () => importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet. ", sectionsFilePath) + Environment.NewLine +
-                                  "Er is geen vakindeling geïmporteerd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
-            Assert.IsFalse(importSuccessful);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Import_NoReferenceLine_CancelImportWithErrorMessage()
-        {
-            // Setup
-            var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_1-1_vakken.shp");
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = null;
-            mocks.ReplayAll();
-
-            var importer = new FailureMechanismSectionsImporter();
-
-            var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
-
-            // Call
-            bool importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
-
-            // Assert
-            var expectedMessage = "Er is geen referentielijn beschikbaar om een vakindeling voor te definiëren. " + Environment.NewLine +
                                   "Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
@@ -360,14 +366,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
             bool importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            Action call = () => importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             var expectedMessage = "Het bestand heeft geen vakindeling. " + Environment.NewLine +
@@ -397,14 +402,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
             bool importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            Action call = () => importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn. " + Environment.NewLine +
@@ -434,14 +438,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
             bool importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            Action call = () => importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn. " + Environment.NewLine +
@@ -468,14 +471,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
             bool importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            Action call = () => importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn. " + Environment.NewLine +
@@ -502,14 +504,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             // Call
             bool importSuccessful = true;
-            Action call = () => importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            Action call = () => importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             var expectedMessage = "Vakindeling komt niet overeen met de huidige referentielijn. " + Environment.NewLine +
@@ -536,16 +537,15 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
             referenceLineImporter.Import(null, referenceLineFilePath);
 
-            var importer = new FailureMechanismSectionsImporter();
-
             var failureMechanism = new Simple();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine);
 
             importer.Cancel();
-            Assert.IsFalse(importer.Import(failureMechanismSectionsContext, sectionsFilePath));
+            Assert.IsFalse(importer.Import(null, sectionsFilePath));
 
             // Call
-            var importSuccessful = importer.Import(failureMechanismSectionsContext, sectionsFilePath);
+            var importSuccessful = importer.Import(null, sectionsFilePath);
 
             // Assert
             Assert.IsTrue(importSuccessful);

@@ -380,11 +380,16 @@ namespace Ringtoets.Integration.Plugin
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter,
                 CreateFileImporter = context => new ReferenceLineImporter(context.WrappedData)
             };
-        }
 
-        public override IEnumerable<IFileImporter> GetFileImporters()
-        {
-            yield return new FailureMechanismSectionsImporter();
+            yield return new ImportInfo<FailureMechanismSectionsContext>
+            {
+                Name = RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.SectionsIcon,
+                FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter,
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
+                CreateFileImporter = context => new FailureMechanismSectionsImporter(context.WrappedData, context.ParentAssessmentSection.ReferenceLine)
+            };
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -468,7 +473,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.Sections,
+                Image = context => RingtoetsCommonFormsResources.SectionsIcon,
                 ForeColor = context => context.WrappedData.Sections.Any() ?
                                            Color.FromKnownColor(KnownColor.ControlText) :
                                            Color.FromKnownColor(KnownColor.GrayText),

@@ -57,6 +57,31 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private static readonly ILog log = LogManager.GetLogger(typeof(FailureMechanismSectionsImporter));
 
+        private readonly IFailureMechanism failureMechanism;
+        private readonly ReferenceLine referenceLine;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FailureMechanismSectionsImporter"/> class.
+        /// </summary>
+        /// <param name="importTarget">The failure mechanism to update.</param>
+        /// <param name="referenceLine">The reference line used to check correspondence with.</param>
+        /// <exception cref="System.ArgumentNullException">When any input argument is <c>null</c>.
+        /// </exception>
+        public FailureMechanismSectionsImporter(IFailureMechanism importTarget, ReferenceLine referenceLine)
+        {
+            if (importTarget == null)
+            {
+                throw new ArgumentNullException("importTarget");
+            }
+            if (referenceLine == null)
+            {
+                throw new ArgumentNullException("referenceLine");
+            }
+
+            failureMechanism = importTarget;
+            this.referenceLine = referenceLine;
+        }
+
         public override string Name
         {
             get
@@ -77,7 +102,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         {
             get
             {
-                return RingtoetsCommonFormsResources.Sections;
+                return RingtoetsCommonFormsResources.SectionsIcon;
             }
         }
 
@@ -98,19 +123,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         public override bool Import(object targetItem, string filePath)
         {
-            var context = (FailureMechanismSectionsContext) targetItem;
-            if (!IsReferenceLineAvailable(targetItem))
-            {
-                LogCriticalFileReadError(Resources.FailureMechanismSectionsImporter_Import_Required_referenceline_missing);
-                return false;
-            }
-
-            if (Canceled)
-            {
-                HandleUserCancellingImport();
-                return false;
-            }
-
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Reading_file, 1, 3);
             ReadResult<FailureMechanismSection> readResults = ReadFailureMechanismSections(filePath);
             if (readResults.CriticalErrorOccurred)
@@ -125,7 +137,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
 
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections, 2, 3);
-            ReferenceLine referenceLine = context.ParentAssessmentSection.ReferenceLine;
             ICollection<FailureMechanismSection> readFailureMechanismSections = readResults.ImportedItems;
             if (!SectionsCorrespondToReferenceLine(referenceLine, readFailureMechanismSections))
             {
@@ -140,7 +151,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
 
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism, 3, 3);
-            AddImportedDataToModel(readFailureMechanismSections, context.WrappedData, referenceLine);
+            AddImportedDataToModel(readFailureMechanismSections, failureMechanism, referenceLine);
             return true;
         }
 
@@ -226,7 +237,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             log.Error(errorMessage);
         }
 
-        private bool SectionsCorrespondToReferenceLine(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
+        private static bool SectionsCorrespondToReferenceLine(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
         {
             if (HasStartOrEndPointsTooFarFromReferenceLine(referenceLine, mechanismSections))
             {
@@ -241,7 +252,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return true;
         }
 
-        private bool HasStartOrEndPointsTooFarFromReferenceLine(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
+        private static bool HasStartOrEndPointsTooFarFromReferenceLine(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
         {
             foreach (var failureMechanismSection in mechanismSections)
             {
@@ -257,20 +268,20 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return false;
         }
 
-        private double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)
+        private static double GetDistanceToReferenceLine(Point2D point, ReferenceLine referenceLine)
         {
             return GetLineSegments(referenceLine.Points)
                 .Min(segment => segment.GetEuclideanDistanceToPoint(point));
         }
 
-        private bool IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
+        private static bool IsTotalLengthOfSectionsTooDifferentFromReferenceLineLength(ReferenceLine referenceLine, ICollection<FailureMechanismSection> mechanismSections)
         {
             var totalSectionsLength = mechanismSections.Sum(s => GetSectionLength(s));
             var referenceLineLength = GetLengthOfLine(referenceLine.Points);
             return Math.Abs(totalSectionsLength - referenceLineLength) > lengthDifferenceTolerance;
         }
 
-        private void AddImportedDataToModel(IEnumerable<FailureMechanismSection> failureMechanismSections, IFailureMechanism failureMechanism, ReferenceLine referenceLine)
+        private static void AddImportedDataToModel(IEnumerable<FailureMechanismSection> failureMechanismSections, IFailureMechanism failureMechanism, ReferenceLine referenceLine)
         {
             IEnumerable<FailureMechanismSection> snappedSections = SnapReadSectionsToReferenceLine(failureMechanismSections, referenceLine);
 
@@ -281,7 +292,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        private IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> readSections, ReferenceLine referenceLine)
+        private static IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> readSections, ReferenceLine referenceLine)
         {
             IList<FailureMechanismSection> orderedReadSections = OrderSections(readSections);
 
@@ -292,7 +303,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return CreateFailureMechanismSectionsSnappedOnReferenceLine(orderedReadSections, splitResults);
         }
 
-        private IList<FailureMechanismSection> OrderSections(IEnumerable<FailureMechanismSection> unorderedSections)
+        private static IList<FailureMechanismSection> OrderSections(IEnumerable<FailureMechanismSection> unorderedSections)
         {
             List<FailureMechanismSection> sourceList = unorderedSections.ToList();
 
@@ -307,7 +318,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return resultList;
         }
 
-        private void GrowTowardsEnd(List<FailureMechanismSection> resultList, List<FailureMechanismSection> sourceList)
+        private static void GrowTowardsEnd(List<FailureMechanismSection> resultList, List<FailureMechanismSection> sourceList)
         {
             bool doneGrowingToEnd = false;
             while (!doneGrowingToEnd)
@@ -338,7 +349,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        private void GrowTowardsStart(List<FailureMechanismSection> resultList, List<FailureMechanismSection> sourceList)
+        private static void GrowTowardsStart(List<FailureMechanismSection> resultList, List<FailureMechanismSection> sourceList)
         {
             bool doneGrowingToStart = false;
             while (!doneGrowingToStart)
@@ -369,7 +380,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        private double[] GetReferenceLineCutoffLengths(ReferenceLine referenceLine, IList<FailureMechanismSection> orderedReadSections)
+        private static double[] GetReferenceLineCutoffLengths(ReferenceLine referenceLine, IList<FailureMechanismSection> orderedReadSections)
         {
             double[] orderedSectionLengths = orderedReadSections.Select(GetSectionLength).ToArray();
 
@@ -380,17 +391,17 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return orderedSectionLengths;
         }
 
-        private double GetSectionLength(FailureMechanismSection section)
+        private static double GetSectionLength(FailureMechanismSection section)
         {
             return GetLengthOfLine(section.Points);
         }
 
-        private double GetLengthOfLine(IEnumerable<Point2D> linePoints)
+        private static double GetLengthOfLine(IEnumerable<Point2D> linePoints)
         {
             return GetLineSegments(linePoints).Sum(segment => segment.Length);
         }
 
-        private IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
+        private static IEnumerable<Segment2D> GetLineSegments(IEnumerable<Point2D> linePoints)
         {
             return Math2D.ConvertLinePointsToLineSegments(linePoints);
         }

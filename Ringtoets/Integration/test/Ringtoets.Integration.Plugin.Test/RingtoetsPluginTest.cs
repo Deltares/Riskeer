@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
-using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -53,7 +52,6 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using Ringtoets.Integration.Plugin.FileImporters;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -487,21 +485,6 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void GetFileImporters_ReturnsExpectedFileImporters()
-        {
-            // Setup
-            using (var plugin = new RingtoetsPlugin())
-            {
-                // Call
-                IFileImporter[] importers = plugin.GetFileImporters().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, importers.Length);
-                Assert.AreEqual(1, importers.Count(i => i is FailureMechanismSectionsImporter));
-            }
-        }
-
-        [Test]
         public void GetImportInfos_ReturnsExpectedImportInfos()
         {
             // Setup
@@ -511,8 +494,9 @@ namespace Ringtoets.Integration.Plugin.Test
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, importInfos.Length);
-                Assert.IsTrue(importInfos.Any(i=>i.DataType == typeof(ReferenceLineContext)));
+                Assert.AreEqual(2, importInfos.Length);
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ReferenceLineContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(FailureMechanismSectionsContext)));
             }
         }
 

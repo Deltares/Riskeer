@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Integration.Test
                                                                                    "traject_6-3_vakken.prj",
                                                                                    "traject_6-3_vakken.shx"))
             {
-                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(),
+                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine),
                                                       new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                                                       Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
                 activity.Run();

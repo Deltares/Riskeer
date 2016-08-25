@@ -30,7 +30,6 @@ using Core.Common.Utils.IO;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -114,15 +113,13 @@ namespace Demo.Ringtoets.Commands
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3_vakken.shp", "traject_6-3_vakken.dbf", "traject_6-3_vakken.prj", "traject_6-3_vakken.shx"))
             {
-                var importer = new FailureMechanismSectionsImporter();
-
                 IFailureMechanism[] failureMechanisms = demoAssessmentSection.GetFailureMechanisms().ToArray();
                 for (int i = 0; i < failureMechanisms.Length; i++)
                 {
                     if (i == 0)
                     {
-                        var context = new FailureMechanismSectionsContext(failureMechanisms[i], demoAssessmentSection);
-                        importer.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
+                        var importer = new FailureMechanismSectionsImporter(failureMechanisms[i], demoAssessmentSection.ReferenceLine);
+                        importer.Import(null, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
                     }
                     else
                     {
