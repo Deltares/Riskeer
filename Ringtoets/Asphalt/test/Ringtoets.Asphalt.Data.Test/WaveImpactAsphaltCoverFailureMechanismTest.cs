@@ -40,7 +40,7 @@ namespace Ringtoets.Asphalt.Data.Test
             Assert.AreEqual("Dijken en dammen - Golfklappen op asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AGK", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            CollectionAssert.IsEmpty(failureMechanism.ForeShores);
+            CollectionAssert.IsEmpty(failureMechanism.Foreshores);
         }
 
         [Test]

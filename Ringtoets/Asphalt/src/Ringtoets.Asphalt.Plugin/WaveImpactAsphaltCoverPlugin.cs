@@ -155,7 +155,7 @@ namespace Ringtoets.Asphalt.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new ForeShoresContext(failureMechanism.ForeShores),
+                new ForeShoresContext(failureMechanism.Foreshores),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
