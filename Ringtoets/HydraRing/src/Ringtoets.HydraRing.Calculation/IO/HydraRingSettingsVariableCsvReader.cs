@@ -66,7 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         };
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraRingSettingsVariableCsvReaderSettingsVariableCsvReader{TOutput}"/>.
+        /// Creates a new instance of <see cref="HydraRingSettingsVariableCsvReader{TOutput}"/>.
         /// </summary>
         /// <param name="fileContents">The file contents to read.</param>
         /// <param name="settings">The provided settings object to add the read settings to.</param>

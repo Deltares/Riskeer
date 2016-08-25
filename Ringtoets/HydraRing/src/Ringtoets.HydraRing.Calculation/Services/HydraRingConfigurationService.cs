@@ -97,7 +97,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <summary>
         /// Gets the <see cref="HydraRingUncertaintiesType"/> to use while performing Hydra-Ring calculations.
         /// </summary>
-        public HydraRingUncertaintiesType? UncertaintiesType
+        public HydraRingUncertaintiesType UncertaintiesType
         {
             get
             {
@@ -118,11 +118,11 @@ namespace Ringtoets.HydraRing.Calculation.Services
                 throw new ArgumentException(@"Section id is not unique", "hydraRingCalculationInput");
             }
 
-            if (hydraRingCalculationInputs.Any(h => h.FailureMechanismType != hydraRingCalculationInput.FailureMechanismType))
+            if (hydraRingCalculationInputs.Count > 0 && hydraRingCalculationInputs.First().FailureMechanismType != hydraRingCalculationInput.FailureMechanismType)
             {
-                throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");
+                throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");                
             }
-
+            
             hydraRingCalculationInputs.Add(hydraRingCalculationInput);
         }
 
@@ -175,10 +175,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
                 new OrderedDictionary
                 {
                     {
-                        "TimeIntegrationSchemeID", (int?) timeIntegrationSchemeId
+                        "TimeIntegrationSchemeID", timeIntegrationSchemeId
                     },
                     {
-                        "UncertaintiesID", (int?) UncertaintiesType
+                        "UncertaintiesID", (int) UncertaintiesType
                     },
                     {
                         "DataSetName", "WTI 2017" // Fixed: use the WTI 2017 set of station locations

@@ -87,7 +87,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         }
 
         /// <summary>
-        // Creates a setting object from the provided line and adds it to <see cref="Settings"/>.
+        /// Creates a setting object from the provided line and adds it to <see cref="Settings"/>.
         /// </summary>
         /// <param name="line">The line to create the setting for.</param>
         protected abstract void CreateSetting(IList<string> line);
