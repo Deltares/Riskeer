@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var context = new HydraulicBoundariesGroupContext(assessmentSectionMock,failureMechanism.HydraulicBoundariesCalculationGroup);
+            var context = new HydraulicBoundariesGroupContext(assessmentSectionMock, failureMechanism.HydraulicBoundariesCalculationGroup);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(context);
