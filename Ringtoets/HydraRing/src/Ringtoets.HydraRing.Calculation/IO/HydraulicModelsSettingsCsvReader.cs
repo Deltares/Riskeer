@@ -31,19 +31,6 @@ namespace Ringtoets.HydraRing.Calculation.IO
     /// </summary>
     internal class HydraulicModelsSettingsCsvReader : HydraRingSettingsVariableCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>>>
     {
-        private readonly Dictionary<string, int> columns = new Dictionary<string, int>
-        {
-            {
-                ringIdKey, 0
-            },
-            {
-                variableKey, 1
-            },
-            {
-                timeIntegrationSchemeIdKey, 2
-            }
-        };
-
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicModelsSettingsCsvReader"/>.
         /// </summary>
@@ -54,16 +41,14 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         protected override void CreateSetting(IList<string> line)
         {
-            // Get failure mechanism
-            var failureMechanismType = GetFailureMechanismType(GetStringValueFromElement(line[columns[variableKey]]));
+            HydraRingFailureMechanismType failureMechanismType = GetFailureMechanismType(GetStringValueFromElement(line[(int) HydraulicModelsSettingsColumns.Variable]));
 
             if (!Settings.ContainsKey(failureMechanismType))
             {
                 Settings.Add(failureMechanismType, new Dictionary<string, HydraulicModelsSetting>());
             }
 
-            // Get TrajectId
-            var ringId = GetRingId(line);
+            string ringId = GetRingId(line);
             if (!Settings[failureMechanismType].ContainsKey(ringId))
             {
                 Settings[failureMechanismType].Add(ringId, GetHydraulicModelsSetting(line));
@@ -72,20 +57,12 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
         private string GetRingId(IList<string> line)
         {
-            return GetStringValueFromElement(line[columns[ringIdKey]]);
+            return GetStringValueFromElement(line[(int) HydraulicModelsSettingsColumns.RingId]);
         }
 
         private HydraulicModelsSetting GetHydraulicModelsSetting(IList<string> line)
         {
-            return new HydraulicModelsSetting(GetIntValueFromElement(line[columns[timeIntegrationSchemeIdKey]]));
+            return new HydraulicModelsSetting(GetIntValueFromElement(line[(int) HydraulicModelsSettingsColumns.TimeIntegrationSchemeId]));
         }
-
-        #region Csv column names
-
-        private const string ringIdKey = "TrajectID";
-        private const string variableKey = "Variable";
-        private const string timeIntegrationSchemeIdKey = "TimeIntegrationSchemeIdKey";
-
-        #endregion
     }
 }
