@@ -76,16 +76,16 @@
     <Compile Include="Parsers\IHydraRingFileParser.cs" />
     <Compile Include="Parsers\HydraRingOutputFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
-    <Compile Include="Providers\HydraulicModelsSettingsProvider.cs" />
-    <Compile Include="Services\HydraRingCalculationService.cs" />
-    <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
-    <Compile Include="Data\Input\HydraRingCalculationInput.cs" />
-    <Compile Include="IO\NumericsSettingsCsvReader.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Providers\HydraulicModelsSettingsProvider.cs" />
+    <Compile Include="Services\HydraRingCalculationService.cs" />
+    <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
+    <Compile Include="Data\Input\HydraRingCalculationInput.cs" />
+    <Compile Include="IO\NumericsSettingsCsvReader.cs" />
     <Compile Include="Data\Defaults\VariableDefaults.cs" />
     <Compile Include="Providers\VariableDefaultsProvider.cs" />
     <Compile Include="Data\HydraRingDistributionType.cs" />
@@ -128,15 +128,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="Resources\Defaults_HydraulicModels.csv" />
+    <None Include="Resources\Defaults_Numerics.csv" />
     <None Include="Resources\DesignTables.csv" />
-    <None Include="Resources\HydraulicModelsSettingsTest.csv" />
-    <None Include="Resources\Numerics.csv" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

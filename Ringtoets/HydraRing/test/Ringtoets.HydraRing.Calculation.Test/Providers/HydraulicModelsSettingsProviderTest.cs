@@ -30,17 +30,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
     public class HydraulicModelsSettingsProviderTest
     {
         [Test]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "205", 1)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, "205", 1)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, "205", 2)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, "205", 3)]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, "205", 1)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, "205", 1)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, "205", 1)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, "205", 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, "205", 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, "205", 2)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, "205", 2)]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "16-4", 3)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "16-4", 3)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, "16-4", 3)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, "16-4", 3)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, "16-4", 3)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, "53-1", 1)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, "53-1", 1)]
+        [TestCase(HydraRingFailureMechanismType.DikesPiping, "53-1", 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, "53-1", 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, "53-1", 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, "53-1", 1)]
         public void GetHydraulicModelsSetting_KnownRingIdAndFailureMechanismType_ReturnsExpectedHydraulicModelsSetting(HydraRingFailureMechanismType failureMechanismType, string ringId, int expectedTimeIntegrationSchemeId)
         {
             // Setup

@@ -99,10 +99,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 5, 15, 1.1);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 2.18, 4.18, 1.1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 20000, 100000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -189,14 +189,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [Sections] VALUES (3, 1, 1, 3, 3, 0, 0, 0, 0, 700006, 700006, 100, 3.3, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 5, 15, 1.1);" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (2, 1, 1, 1, 4, 5, 0, 0, 0, 0, 5, 15, 1.1);" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (3, 1, 1, 1, 4, 5, 0, 0, 0, 0, 5, 15, 1.1);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 2.18, 4.18, 1.1);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (2, 1, 1, 1, 4, 5, 0, 0, 0, 0, 2.18, 4.18, 1.1);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (3, 1, 1, 1, 4, 5, 0, 0, 0, 0, 2.18, 4.18, 1.1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 20000, 100000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (2, 1, 1, 1, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 20000, 100000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (3, 1, 1, 1, 1, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 20000, 100000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (2, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (3, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
