@@ -48,7 +48,7 @@ namespace Ringtoets.Revetment.Data.Test
                     new RoundedDouble(2, 5.87)
                 });
 
-                yield return new TestCaseData(6.10, -1.20, -1.30, 6.05, 1, new[]
+                yield return new TestCaseData(6.10, -1.20, -1.30, 6.01, 1, new[]
                 {
                     new RoundedDouble(2, -1.20),
                     new RoundedDouble(2, -1),
@@ -59,7 +59,7 @@ namespace Ringtoets.Revetment.Data.Test
                     new RoundedDouble(2, 4),
                     new RoundedDouble(2, 5),
                     new RoundedDouble(2, 6),
-                    new RoundedDouble(2, 6.05)
+                    new RoundedDouble(2, 6.01)
                 });
             }
         }
@@ -486,6 +486,216 @@ namespace Ringtoets.Revetment.Data.Test
 
             // Assert
             CollectionAssert.AreEqual(expectedWaterLevels, input.WaterLevels);
+        }
+
+        [Test]
+        public void UpperRevetmentLevel_SetNewValue_WaterLevelCalculationsSyncedAccordingly()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                LowerRevetmentLevel = new RoundedDouble(2, -4.29),
+                LowerWaterLevel = new RoundedDouble(2, -5),
+                StepSize = (RoundedDouble) 0.5,
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 4
+                }
+            };
+
+            // Call
+            input.UpperRevetmentLevel = (RoundedDouble) 2.20;
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new RoundedDouble(2, -4.29), 
+                new RoundedDouble(2, -4), 
+                new RoundedDouble(2, -3.5), 
+                new RoundedDouble(2, -3), 
+                new RoundedDouble(2, -2.5), 
+                new RoundedDouble(2, -2), 
+                new RoundedDouble(2, -1.5), 
+                new RoundedDouble(2, -1),
+                new RoundedDouble(2, -0.5),
+                new RoundedDouble(2),
+                new RoundedDouble(2, 0.5),
+                new RoundedDouble(2, 1),
+                new RoundedDouble(2, 1.5),
+                new RoundedDouble(2, 2),
+                new RoundedDouble(2, 2.20)
+            }, input.WaterLevels);
+        }
+
+        [Test]
+        public void UpperRevetmentLevel_SetNewValueNoStepSize_NoWaterLevelCalculations()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                LowerRevetmentLevel = new RoundedDouble(2, -4.29),
+                LowerWaterLevel = new RoundedDouble(2, -5),
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble)4
+                }
+            };
+
+            // Call
+            input.UpperRevetmentLevel = (RoundedDouble)2.20;
+
+            // Assert
+            CollectionAssert.IsEmpty(input.WaterLevels);
+        }
+
+        [Test]
+        public void LowerRevetmentLevel_SetNewValue_WaterLevelCalculationsSyncedAccordingly()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperRevetmentLevel = (RoundedDouble)5,
+                LowerWaterLevel = new RoundedDouble(2, -5),
+                StepSize = (RoundedDouble) 0.5,
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 4
+                }
+            };
+
+            // Call
+            input.LowerRevetmentLevel = (RoundedDouble) 2.20;
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new RoundedDouble(2, 2.2),
+                new RoundedDouble(2, 2.5),
+                new RoundedDouble(2, 3),
+                new RoundedDouble(2, 3.5),
+                new RoundedDouble(2, 3.99)
+            }, input.WaterLevels);
+        }
+
+        [Test]
+        public void LowerRevetmentLevel_SetNewValueNoStepSize_NoWaterLevelCalculations()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperRevetmentLevel = (RoundedDouble)5,
+                LowerWaterLevel = new RoundedDouble(2, -5),
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble)4
+                }
+            };
+
+            // Call
+            input.LowerRevetmentLevel = (RoundedDouble) 1;
+
+            // Assert
+            CollectionAssert.IsEmpty(input.WaterLevels);
+        }
+
+        [Test]
+        public void LowerWaterLevel_SetNewValue_WaterLevelCalculationsSyncedAccordingly()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperRevetmentLevel = (RoundedDouble) 5,
+                LowerRevetmentLevel = new RoundedDouble(2, -5),
+                StepSize = (RoundedDouble) 0.5,
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 4
+                }
+            };
+
+            // Call
+            input.LowerWaterLevel = (RoundedDouble) 2.20;
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new RoundedDouble(2, 2.2),
+                new RoundedDouble(2, 2.5),
+                new RoundedDouble(2, 3),
+                new RoundedDouble(2, 3.5),
+                new RoundedDouble(2, 3.99)
+            }, input.WaterLevels);
+        }
+
+        [Test]
+        public void LowerWaterLevel_SetNewValueNoStepSize_NoWaterLevelCalculations()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperRevetmentLevel = (RoundedDouble)5,
+                LowerRevetmentLevel = new RoundedDouble(2, -5),
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble)4
+                }
+            };
+
+            // Call
+            input.LowerWaterLevel = (RoundedDouble) 1;
+
+            // Assert
+            CollectionAssert.IsEmpty(input.WaterLevels);
+        }
+
+        [Test]
+        public void HydraulicBoundaryLocation_SetNewValue_WaterLevelCalculationsSyncedAccordingly()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperRevetmentLevel = (RoundedDouble) 5,
+                LowerRevetmentLevel = new RoundedDouble(2, -5),
+                LowerWaterLevel = (RoundedDouble) 2.20,
+                StepSize = (RoundedDouble) 0.5
+            };
+
+            // Call
+            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+            {
+                DesignWaterLevel = (RoundedDouble) 4
+            };
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                new RoundedDouble(2, 2.2),
+                new RoundedDouble(2, 2.5),
+                new RoundedDouble(2, 3),
+                new RoundedDouble(2, 3.5),
+                new RoundedDouble(2, 3.99)
+            }, input.WaterLevels);
+        }
+
+        [Test]
+        public void HydraulicBoundaryLocation_SetNewValueNoStepSize_NoWaterLevelCalculations()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperRevetmentLevel = (RoundedDouble)5,
+                LowerRevetmentLevel = new RoundedDouble(2, -5),
+                LowerWaterLevel = (RoundedDouble)2.20
+            };
+
+            // Call
+            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+            {
+                DesignWaterLevel = (RoundedDouble)4
+            };
+
+            // Assert
+            CollectionAssert.IsEmpty(input.WaterLevels);
         }
     }
 }

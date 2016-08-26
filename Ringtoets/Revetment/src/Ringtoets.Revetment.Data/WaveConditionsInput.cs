@@ -268,13 +268,18 @@ namespace Ringtoets.Revetment.Data
         {
             UpperBoundary = UpperWaterLevel < UpperRevetmentLevel ? UpperWaterLevel : UpperRevetmentLevel;
             LowerBoundary = LowerWaterLevel > LowerRevetmentLevel ? LowerWaterLevel : LowerRevetmentLevel;
+
+            DetermineWaterLevels();
         }
 
         private void DetermineWaterLevels()
         {
             waterLevels.Clear();
             
-            if (double.IsNaN(UpperBoundary) || double.IsNaN(LowerBoundary) || Math.Abs(LowerBoundary - UpperBoundary) < 1e-6)
+            if (double.IsNaN(UpperBoundary) || 
+                double.IsNaN(LowerBoundary) || 
+                Math.Abs(LowerBoundary - UpperBoundary) < 1e-6 ||
+                Math.Abs(StepSize) < 1e-6)
             {
                 return;
             }
