@@ -38,6 +38,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
     [TestFixture]
     public class HeightStructuresFailureMechanismResultViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
+        private const int assessmentLayerThreeIndex = 3;
         private Form testForm;
 
         [SetUp]
@@ -290,11 +294,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Assert.IsTrue(sections[0].AssessmentLayerOne);
             }
         }
-
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerThreeIndex = 3;
 
         private HeightStructuresFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {

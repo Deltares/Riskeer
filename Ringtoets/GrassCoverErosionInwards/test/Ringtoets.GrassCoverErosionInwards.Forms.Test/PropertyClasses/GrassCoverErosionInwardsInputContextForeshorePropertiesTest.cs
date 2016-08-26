@@ -35,6 +35,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextForeshorePropertiesTest
     {
+        private const int useForeshorePropertyIndex = 0;
+        private const int coordinatesPropertyIndex = 1;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -319,8 +321,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             mockRepository.VerifyAll();
         }
-
-        private const int useForeshorePropertyIndex = 0;
-        private const int coordinatesPropertyIndex = 1;
     }
 }

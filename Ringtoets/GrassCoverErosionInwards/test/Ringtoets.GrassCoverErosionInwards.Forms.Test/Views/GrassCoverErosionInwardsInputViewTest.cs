@@ -36,6 +36,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     [TestFixture]
     public class GrassCoverErosionInwardsInputViewTest
     {
+        private const int foreshoreIndex = 0;
+        private const int dikeProfileIndex = 1;
+        private const int dikeHeightIndex = 2;
+
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -440,10 +444,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
             }
         }
-
-        private const int foreshoreIndex = 0;
-        private const int dikeProfileIndex = 1;
-        private const int dikeHeightIndex = 2;
 
         private static DikeProfile GetDikeProfileWithGeometry()
         {

@@ -52,6 +52,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuValidateIndex = 0;
+        private const int contextMenuCalculateIndex = 1;
+        private const int contextMenuClearIndex = 2;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
         private MockRepository mocks;
@@ -802,9 +805,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             base.TearDown();
         }
-
-        private const int contextMenuValidateIndex = 0;
-        private const int contextMenuCalculateIndex = 1;
-        private const int contextMenuClearIndex = 2;
     }
 }

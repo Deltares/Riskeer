@@ -32,6 +32,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class DikeProfileDikeGeometryPropertiesTest
     {
+        private const int coordinatesPropertyIndex = 0;
+        private const int roughnessesPropertyIndex = 1;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -121,8 +124,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Ruwheden [-]", roughnessesProperty.DisplayName);
             Assert.AreEqual("Lijst met de ruwheid van elk onderdeel.", roughnessesProperty.Description);
         }
-
-        private const int coordinatesPropertyIndex = 0;
-        private const int roughnessesPropertyIndex = 1;
     }
 }

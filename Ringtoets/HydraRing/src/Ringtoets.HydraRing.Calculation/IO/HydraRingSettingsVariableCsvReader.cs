@@ -71,7 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// <param name="fileContents">The file contents to read.</param>
         /// <param name="settings">The provided settings object to add the read settings to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fileContents"/> or <paramref name="settings"/> is <c>null</c>.</exception>
-        protected HydraRingSettingsVariableCsvReader(string fileContents, TOutput settings) 
+        protected HydraRingSettingsVariableCsvReader(string fileContents, TOutput settings)
             : base(fileContents, settings) {}
 
         protected abstract override void CreateSetting(IList<string> line);

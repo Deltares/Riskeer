@@ -31,6 +31,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
     [TestFixture]
     public class GrassCoverErosionInwardsHelperTest
     {
+        private const string firstSectionName = "firstSection";
+        private const string secondSectionName = "secondSection";
+
         private readonly GrassCoverErosionInwardsFailureMechanismSectionResult[] oneSectionResult =
         {
             new GrassCoverErosionInwardsFailureMechanismSectionResult(
@@ -315,8 +318,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             // Assert
             Assert.AreSame(twoSectionResults[1].Section, failureMechanismSection);
         }
-
-        private const string firstSectionName = "firstSection";
-        private const string secondSectionName = "secondSection";
     }
 }
