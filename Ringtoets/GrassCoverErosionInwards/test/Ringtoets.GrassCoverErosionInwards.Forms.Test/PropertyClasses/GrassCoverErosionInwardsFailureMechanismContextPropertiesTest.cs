@@ -35,6 +35,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismContextPropertiesTest
     {
+        private const int namePropertyIndex = 0;
+        private const int codePropertyIndex = 1;
+        private const int lengthEffectPropertyIndex = 2;
+        private const int frunupModelFactorPropertyIndex = 3;
+        private const int fbFactorPropertyIndex = 4;
+        private const int fnFactorPropertyIndex = 5;
+        private const int fshallowModelFactorPropertyIndex = 6;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -188,13 +195,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             mockRepository.VerifyAll();
         }
-
-        private const int namePropertyIndex = 0;
-        private const int codePropertyIndex = 1;
-        private const int lengthEffectPropertyIndex = 2;
-        private const int frunupModelFactorPropertyIndex = 3;
-        private const int fbFactorPropertyIndex = 4;
-        private const int fnFactorPropertyIndex = 5;
-        private const int fshallowModelFactorPropertyIndex = 6;
     }
 }

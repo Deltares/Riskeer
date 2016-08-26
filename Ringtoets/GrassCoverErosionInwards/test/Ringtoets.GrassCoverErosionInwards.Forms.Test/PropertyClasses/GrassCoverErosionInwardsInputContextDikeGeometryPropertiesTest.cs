@@ -35,6 +35,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextDikeGeometryPropertiesTest
     {
+        private const int coordinatesPropertyIndex = 0;
+        private const int roughnessesPropertyIndex = 1;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -156,8 +158,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             mockRepository.VerifyAll();
         }
-
-        private const int coordinatesPropertyIndex = 0;
-        private const int roughnessesPropertyIndex = 1;
     }
 }

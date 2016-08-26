@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
@@ -35,6 +34,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionInwardsOutputPropertiesTest
     {
+        private const int requiredProbabilityPropertyIndex = 0;
+        private const int requiredReliabilityPropertyIndex = 1;
+        private const int probabilityPropertyIndex = 2;
+        private const int reliabilityPropertyIndex = 3;
+        private const int factorOfSafetyPropertyIndex = 4;
+        private const int waveHeightIndex = 5;
+        private const int isDominantIndex = 6;
+        private const int dikeHeightIndex = 7;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -221,14 +229,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Overslag dominant [-]", isDominantProperty.DisplayName);
             Assert.AreEqual("Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.", isDominantProperty.Description);
         }
-
-        private const int requiredProbabilityPropertyIndex = 0;
-        private const int requiredReliabilityPropertyIndex = 1;
-        private const int probabilityPropertyIndex = 2;
-        private const int reliabilityPropertyIndex = 3;
-        private const int factorOfSafetyPropertyIndex = 4;
-        private const int waveHeightIndex = 5;
-        private const int isDominantIndex = 6;
-        private const int dikeHeightIndex = 7;
     }
 }

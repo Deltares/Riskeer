@@ -32,6 +32,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class ProbabilityAssessmentOutputPropertiesTest
     {
+        private const int requiredProbabilityPropertyIndex = 0;
+        private const int requiredReliabilityPropertyIndex = 1;
+        private const int probabilityPropertyIndex = 2;
+        private const int reliabilityPropertyIndex = 3;
+        private const int factorOfSafetyPropertyIndex = 4;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -120,11 +126,5 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual("Veiligheidsfactor [-]", factorOfSafetyProperty.DisplayName);
             Assert.AreEqual("De veiligheidsfactor voor deze berekening.", factorOfSafetyProperty.Description);
         }
-
-        private const int requiredProbabilityPropertyIndex = 0;
-        private const int requiredReliabilityPropertyIndex = 1;
-        private const int probabilityPropertyIndex = 2;
-        private const int reliabilityPropertyIndex = 3;
-        private const int factorOfSafetyPropertyIndex = 4;
     }
 }

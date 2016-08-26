@@ -49,6 +49,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class HeightStructuresCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 0;
+        private const int contextMenuAddCalculationIndexRootGroup = 1;
+        private const int contextMenuRemoveAllChildrenRootGroupIndex = 3;
+        private const int contextMenuValidateAllIndexRootGroup = 5;
+        private const int contextMenuCalculateAllIndexRootGroup = 6;
+        private const int contextMenuClearAllIndexRootGroup = 7;
+
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
+        private const int contextMenuAddCalculationIndexNestedGroup = 1;
+        private const int contextMenuValidateAllIndexNestedGroup = 3;
+        private const int contextMenuCalculateAllIndexNestedGroup = 4;
+        private const int contextMenuClearAllIndexNestedGroup = 5;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
         private IGui guiMock;
@@ -1096,18 +1108,5 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             base.TearDown();
         }
-
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 0;
-        private const int contextMenuAddCalculationIndexRootGroup = 1;
-        private const int contextMenuRemoveAllChildrenRootGroupIndex = 3;
-        private const int contextMenuValidateAllIndexRootGroup = 5;
-        private const int contextMenuCalculateAllIndexRootGroup = 6;
-        private const int contextMenuClearAllIndexRootGroup = 7;
-
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
-        private const int contextMenuAddCalculationIndexNestedGroup = 1;
-        private const int contextMenuValidateAllIndexNestedGroup = 3;
-        private const int contextMenuCalculateAllIndexNestedGroup = 4;
-        private const int contextMenuClearAllIndexNestedGroup = 5;
     }
 }

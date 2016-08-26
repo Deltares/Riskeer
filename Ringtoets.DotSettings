@@ -56,6 +56,11 @@
         &lt;HasAttribute Name="NUnit.Framework.TestFixtureAttribute" Inherited="True" /&gt;&#xD;
       &lt;/And&gt;&#xD;
     &lt;/TypePattern.Match&gt;&#xD;
+    &lt;Entry DisplayName="Constants"&gt;&#xD;
+      &lt;Entry.Match&gt;&#xD;
+        &lt;Kind Is="Constant" /&gt;&#xD;
+      &lt;/Entry.Match&gt;&#xD;
+    &lt;/Entry&gt;&#xD;
     &lt;Entry DisplayName="Fields"&gt;&#xD;
       &lt;Entry.Match&gt;&#xD;
         &lt;Kind Is="Field" /&gt;&#xD;
@@ -63,11 +68,6 @@
       &lt;Entry.SortBy&gt;&#xD;
         &lt;Access /&gt;&#xD;
       &lt;/Entry.SortBy&gt;&#xD;
-    &lt;/Entry&gt;&#xD;
-    &lt;Entry DisplayName="Constants"&gt;&#xD;
-      &lt;Entry.Match&gt;&#xD;
-        &lt;Kind Is="Constant" /&gt;&#xD;
-      &lt;/Entry.Match&gt;&#xD;
     &lt;/Entry&gt;&#xD;
     &lt;Entry DisplayName="Properties"&gt;&#xD;
       &lt;Entry.Match&gt;&#xD;

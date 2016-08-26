@@ -35,6 +35,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class HeightStructuresFailureMechanismContextPropertiesTest
     {
+        private const int namePropertyIndex = 0;
+        private const int codePropertyIndex = 1;
+        private const int gravitationalAccelerationPropertyIndex = 2;
+        private const int lengthEffectPropertyIndex = 3;
+        private const int modelfactorOvertoppingFlowPropertyIndex = 4;
+        private const int modelFactorForStorageVolumePropertyIndex = 5;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -175,12 +181,5 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             mockRepository.VerifyAll();
         }
-
-        private const int namePropertyIndex = 0;
-        private const int codePropertyIndex = 1;
-        private const int gravitationalAccelerationPropertyIndex = 2;
-        private const int lengthEffectPropertyIndex = 3;
-        private const int modelfactorOvertoppingFlowPropertyIndex = 4;
-        private const int modelFactorForStorageVolumePropertyIndex = 5;
     }
 }

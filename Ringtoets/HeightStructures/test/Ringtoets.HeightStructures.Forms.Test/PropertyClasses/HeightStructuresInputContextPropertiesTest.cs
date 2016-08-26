@@ -43,6 +43,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class HeightStructuresInputContextPropertiesTest
     {
+        private const int orientationOfTheNormalOfTheStructurePropertyIndex = 0;
+        private const int levelOfCrestOfStructurePropertyIndex = 1;
+        private const int allowableIncreaseOfLevelForStoragePropertyIndex = 2;
+        private const int storageStructureAreaPropertyIndex = 3;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 4;
+        private const int widthOfFlowAperturesPropertyIndex = 5;
+        private const int criticalOvertoppingDischargePropertyIndex = 6;
+        private const int failureProbabilityOfStructureGivenErosionPropertyIndex = 7;
+        private const int modelFactorOvertoppingSuperCriticalFlowPropertyIndex = 8;
+        private const int hydraulicBoundaryLocationPropertyIndex = 9;
+        private const int stormDurationPropertyIndex = 10;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -363,17 +374,5 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             Assert.AreEqual(expected.Data, actual.Data);
         }
-
-        private const int orientationOfTheNormalOfTheStructurePropertyIndex = 0;
-        private const int levelOfCrestOfStructurePropertyIndex = 1;
-        private const int allowableIncreaseOfLevelForStoragePropertyIndex = 2;
-        private const int storageStructureAreaPropertyIndex = 3;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 4;
-        private const int widthOfFlowAperturesPropertyIndex = 5;
-        private const int criticalOvertoppingDischargePropertyIndex = 6;
-        private const int failureProbabilityOfStructureGivenErosionPropertyIndex = 7;
-        private const int modelFactorOvertoppingSuperCriticalFlowPropertyIndex = 8;
-        private const int hydraulicBoundaryLocationPropertyIndex = 9;
-        private const int stormDurationPropertyIndex = 10;
     }
 }
