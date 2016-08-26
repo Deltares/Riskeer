@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -31,11 +32,12 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HydraulicBoundariesGroupContextTreeNodeInfoTest
+    public class SectionSpecificWaterLevelLocationsContextTreeNodeInfoTest
     {
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
@@ -44,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new GrassCoverErosionOutwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundariesGroupContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SectionSpecificWaterLevelLocationsContext));
         }
 
         [TearDown]
@@ -57,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HydraulicBoundariesGroupContext), info.TagType);
+            Assert.AreEqual(typeof(SectionSpecificWaterLevelLocationsContext), info.TagType);
 
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
@@ -77,51 +79,47 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(failureMechanism);
+            var context = new SectionSpecificWaterLevelLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
 
             // Call
             string nodeText = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Hydraulische randvoorwaarden", nodeText);
+            Assert.AreEqual("Waterstand bij doorsnede-eis", nodeText);
         }
 
         [Test]
-        public void Image_Always_ReturnFailureMechanismIcon()
+        public void Image_Always_ReturnGenericInputOutputIcon()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(failureMechanism);
+            var context = new SectionSpecificWaterLevelLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
 
             // Call
             Image icon = info.Image(context);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, icon);
+            TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, icon);
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var mocks = new MockRepository();
+            var mockingRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var context = new HydraulicBoundariesGroupContext(failureMechanism);
+                var context = new SectionSpecificWaterLevelLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
 
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                var menuBuilder = mockingRepository.StrictMock<IContextMenuBuilder>();
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
 
-                var gui = mocks.StrictMock<IGui>();
+                var gui = mockingRepository.StrictMock<IGui>();
                 gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
 
-                mocks.ReplayAll();
+                mockingRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
@@ -130,23 +128,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            mockingRepository.VerifyAll();
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnChildDataNodes()
+        public void ForeColor_ContextHasLocationsData_ReturnControlText()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(failureMechanism);
+            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            {
+                new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "", 0, 0))
+            };
+            var context = new SectionSpecificWaterLevelLocationsContext(locations);
 
             // Call
-            object[] children = info.ChildNodeObjects(context).ToArray();
+            Color color = info.ForeColor(context);
 
             // Assert
-            Assert.AreEqual(1, children.Length);
-           var sectionSpecificWaterLevelLocationsContextContext = (SectionSpecificWaterLevelLocationsContext)children[0];
-            Assert.AreSame(failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations, sectionSpecificWaterLevelLocationsContextContext.WrappedData);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+        }
+
+        [Test]
+        public void ForeColor_ContextHasNoLocationsData_ReturnGrayText()
+        {
+            // Setup
+            var context = new SectionSpecificWaterLevelLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
+
+            // Call
+            Color color = info.ForeColor(context);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
         }
     }
 }
