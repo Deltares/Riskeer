@@ -26,18 +26,18 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Data
 {
     /// <summary>
-    /// Section specific hydraulic boundary location.
+    /// Hydraulic boundary location for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class SectionSpecificHydraulicBoundaryLocation
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocation
     {
         private RoundedDouble sectionSpecificWaterLevel;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SectionSpecificHydraulicBoundaryLocation"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/> 
         /// this specific water level applies to.</param>
-        public SectionSpecificHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public GrassCoverErosionOutwardsHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryLocation == null)
             {

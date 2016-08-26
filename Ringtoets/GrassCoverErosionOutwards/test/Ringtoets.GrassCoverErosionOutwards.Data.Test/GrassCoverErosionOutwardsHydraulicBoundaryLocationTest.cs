@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
-    public class SectionSpecificHydraulicBoundaryLocationTest
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationTest
     {
         [Test]
         public void Constructor_NullHydraulicBoundaryLocation_ThrowsArgumentNullException()
@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Setup
 
             // Call
-            TestDelegate test = () => new SectionSpecificHydraulicBoundaryLocation(null);
+            TestDelegate test = () => new GrassCoverErosionOutwardsHydraulicBoundaryLocation(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,12 +50,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 0.0, 0.0);
 
             // Call
-            var specificHydraulicBoundaryLocation = new SectionSpecificHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation, specificHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.IsNaN(specificHydraulicBoundaryLocation.SectionSpecificWaterLevel);
-            Assert.AreEqual(2, specificHydraulicBoundaryLocation.SectionSpecificWaterLevel.NumberOfDecimalPlaces);
+            Assert.AreSame(hydraulicBoundaryLocation, grassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel);
+            Assert.AreEqual(2, grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -63,15 +63,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 0.0, 0.0);
-            var specificHydraulicBoundaryLocation = new SectionSpecificHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
 
             // Call
             var sectionSpecificWaterLevel = (RoundedDouble) 1.23456;
-            specificHydraulicBoundaryLocation.SectionSpecificWaterLevel = sectionSpecificWaterLevel;
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel = sectionSpecificWaterLevel;
 
             // Assert
-            Assert.AreEqual(sectionSpecificWaterLevel, specificHydraulicBoundaryLocation.SectionSpecificWaterLevel, 
-                specificHydraulicBoundaryLocation.SectionSpecificWaterLevel.GetAccuracy());
+            Assert.AreEqual(sectionSpecificWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel, 
+                grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel.GetAccuracy());
         }
     }
 }
