@@ -42,26 +42,33 @@ namespace Core.Common.Gui.Commands
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiImportHandler));
 
         private readonly IWin32Window dialogParent;
-        private readonly IEnumerable<IFileImporter> fileImporters;
         private readonly IEnumerable<ImportInfo> importInfos;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiImportHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent window to show dialogs on top.</param>
-        /// <param name="fileImporters">An enumeration of <see cref="IFileImporter"/>.</param>
         /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/>.</param>
-        public GuiImportHandler(IWin32Window dialogParent, IEnumerable<IFileImporter> fileImporters, IEnumerable<ImportInfo> importInfos)
+        public GuiImportHandler(IWin32Window dialogParent, IEnumerable<ImportInfo> importInfos)
         {
             this.dialogParent = dialogParent;
-            this.fileImporters = fileImporters;
             this.importInfos = importInfos;
         }
 
         public bool CanImportOn(object target)
         {
-            return fileImporters.Any(fileImporter => fileImporter.CanImportOn(target)) ||
-                   GetSupportedImportInfos(target).Any();
+            return GetSupportedImportInfos(target).Any();
+        }
+
+        public void ImportOn(object target)
+        {
+            IFileImporter importer = GetSupportedImporterUsingDialog(target);
+            if (importer == null)
+            {
+                return;
+            }
+
+            ImportItemsUsingDialog(importer, target);
         }
 
         private IEnumerable<ImportInfo> GetSupportedImportInfos(object target)
@@ -76,21 +83,9 @@ namespace Core.Common.Gui.Commands
             return importInfos.Where(info => (info.DataType == targetType || targetType.Implements(info.DataType)) && info.IsEnabled(target));
         }
 
-        public void ImportOn(object target)
-        {
-            IFileImporter importer = GetSupportedImporterUsingDialog(target);
-            if (importer == null)
-            {
-                return;
-            }
-
-            ImportItemsUsingDialog(importer, target);
-        }
-
         private IFileImporter GetSupportedImporterUsingDialog(object target)
         {
-            IFileImporter[] importers = fileImporters.Where(fileImporter => fileImporter.CanImportOn(target)).
-                                                      Concat(GetSupportedImportInfos(target).Select(i => i.CreateFileImporter(target))).ToArray();
+            IFileImporter[] importers = GetSupportedImportInfos(target).Select(i => i.CreateFileImporter(target)).ToArray();
             if (importers.Length == 0)
             {
                 MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item,

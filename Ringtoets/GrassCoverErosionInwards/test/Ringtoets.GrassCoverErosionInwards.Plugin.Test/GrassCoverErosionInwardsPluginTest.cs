@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -149,29 +147,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsInputView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsScenariosView)));
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetFileImporters_Always_ReturnsExpectedFileImporter()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new GrassCoverErosionInwardsPlugin
-            {
-                Gui = guiStub
-            })
-            {
-                // Call
-                IEnumerable<IFileImporter> importers = plugin.GetFileImporters();
-
-                // Assert
-                CollectionAssert.IsEmpty(importers);
             }
             mocks.VerifyAll();
         }

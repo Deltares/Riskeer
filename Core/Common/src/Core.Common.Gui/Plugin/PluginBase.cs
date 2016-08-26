@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Forms;
 
@@ -58,15 +57,6 @@ namespace Core.Common.Gui.Plugin
         /// Deactivates the plugin.
         /// </summary>
         public virtual void Deactivate() {}
-
-        /// <summary>
-        /// This method returns an enumeration of <see cref="IFileImporter"/>.
-        /// </summary>
-        /// <returns>The enumeration of <see cref="IFileImporter"/> provided by the <see cref="PluginBase"/>.</returns>
-        public virtual IEnumerable<IFileImporter> GetFileImporters()
-        {
-            yield break;
-        }
 
         /// <summary>
         /// This method returns an enumeration of <see cref="ImportInfo"/>.

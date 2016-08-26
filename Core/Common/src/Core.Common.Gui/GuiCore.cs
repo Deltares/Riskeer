@@ -118,7 +118,7 @@ namespace Core.Common.Gui
 
             viewCommandHandler = new ViewCommandHandler(this, this, this);
             storageCommandHandler = new StorageCommandHandler(projectStore, this, MainWindow);
-            importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetFileImporters()), Plugins.SelectMany(p => p.GetImportInfos()));
+            importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()));
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
 
             WindowsApplication.EnableVisualStyles();
@@ -135,11 +135,6 @@ namespace Core.Common.Gui
         public GuiCoreSettings FixedSettings { get; private set; }
 
         #endregion
-
-        public void Dispose()
-        {
-            Dispose(true);
-        }
 
         /// <summary>
         /// Runs the user interface, causing all user interface components to initialize, 
@@ -165,6 +160,11 @@ namespace Core.Common.Gui
             HideSplashScreen();
 
             MessageWindowLogAppender.Instance.Enabled = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
         }
 
         public void ExitApplication()
@@ -643,7 +643,7 @@ namespace Core.Common.Gui
         private readonly ViewCommandHandler viewCommandHandler;
         private readonly GuiImportHandler importCommandHandler;
         private readonly GuiExportHandler exportCommandHandler;
-        private StorageCommandHandler storageCommandHandler;
+        private readonly StorageCommandHandler storageCommandHandler;
 
         public IApplicationFeatureCommands ApplicationCommands
         {

@@ -192,28 +192,6 @@ namespace Core.Common.Gui.Test.Plugin
         }
 
         [Test]
-        public void GetFileImporters_ReturnsEmpty()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var gui = mocks.StrictMock<IGui>();
-            mocks.ReplayAll();
-
-            using (var plugin = new SimplePlugin
-            {
-                Gui = gui
-            })
-            {
-                // Call
-                var infos = plugin.GetFileImporters();
-
-                // Assert
-                CollectionAssert.IsEmpty(infos);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GetExportInfos_ReturnsEmptyEnumerable()
         {
             // Setup
@@ -247,7 +225,7 @@ namespace Core.Common.Gui.Test.Plugin
             {
                 Gui = gui
             };
-            
+
             // Call
             plugin.Dispose();
 
