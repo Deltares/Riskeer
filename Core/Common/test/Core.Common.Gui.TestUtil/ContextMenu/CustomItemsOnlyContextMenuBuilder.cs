@@ -135,10 +135,5 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         {
             return contextMenu;
         }
-
-        public void Dispose()
-        {
-            contextMenu.Dispose();
-        }
     }
 }
