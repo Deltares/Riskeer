@@ -162,10 +162,10 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             var importTarget = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
 
             // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget);
+            IFileImporter importer = importInfo.CreateFileImporter(importTarget, filePath);
 
             // Assert
-            Assert.IsTrue(importer.Import(filePath));
+            Assert.IsTrue(importer.Import());
             mocks.VerifyAll();
         }
     }

@@ -63,9 +63,10 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// </summary>
         /// <param name="importTarget">The failure mechanism to update.</param>
         /// <param name="referenceLine">The reference line used to check correspondence with.</param>
+        /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="System.ArgumentNullException">When any input argument is <c>null</c>.
         /// </exception>
-        public FailureMechanismSectionsImporter(IFailureMechanism importTarget, ReferenceLine referenceLine)
+        public FailureMechanismSectionsImporter(IFailureMechanism importTarget, ReferenceLine referenceLine, string filePath) : base(filePath)
         {
             if (importTarget == null)
             {
@@ -82,10 +83,10 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override bool Import(string filePath)
+        public override bool Import()
         {
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Reading_file, 1, 3);
-            ReadResult<FailureMechanismSection> readResults = ReadFailureMechanismSections(filePath);
+            ReadResult<FailureMechanismSection> readResults = ReadFailureMechanismSections();
             if (readResults.CriticalErrorOccurred)
             {
                 return false;
@@ -122,9 +123,9 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             Canceled = false;
         }
 
-        private ReadResult<FailureMechanismSection> ReadFailureMechanismSections(string filePath)
+        private ReadResult<FailureMechanismSection> ReadFailureMechanismSections()
         {
-            using (FailureMechanismSectionReader reader = CreateFileReader(filePath))
+            using (FailureMechanismSectionReader reader = CreateFileReader())
             {
                 if (reader == null)
                 {
@@ -135,11 +136,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        private FailureMechanismSectionReader CreateFileReader(string filePath)
+        private FailureMechanismSectionReader CreateFileReader()
         {
             try
             {
-                return new FailureMechanismSectionReader(filePath);
+                return new FailureMechanismSectionReader(FilePath);
             }
             catch (ArgumentException e)
             {

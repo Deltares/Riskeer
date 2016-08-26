@@ -39,10 +39,11 @@ namespace Core.Common.Gui.Plugin
         /// Gets or sets the method used to create a <see cref="IFileImporter"/>. Function arguments:
         /// <list type="number">
         ///     <item>The data to import.</item>
+        ///     <item>The file to import data from.</item>
         ///     <item>out - The created importer.</item>
         /// </list>
         /// </summary>
-        public Func<object, IFileImporter> CreateFileImporter { get; set; }
+        public Func<object, string, IFileImporter> CreateFileImporter { get; set; }
 
         /// <summary>
         /// Gets or sets the method used to determine whether or not the import routine should be enabled. Function arguments:
@@ -99,10 +100,11 @@ namespace Core.Common.Gui.Plugin
         /// Gets or sets the method used to create a <see cref="IFileImporter"/>. Function arguments:
         /// <list type="number">
         ///     <item>The data to import.</item>
+        ///     <item>The path to the file to import from.</item>
         ///     <item>out - The created importer.</item>
         /// </list>
         /// </summary>
-        public Func<TData, IFileImporter> CreateFileImporter { get; set; }
+        public Func<TData, string, IFileImporter> CreateFileImporter { get; set; }
 
         /// <summary>
         /// Gets or sets the method used to determine whether or not the import routine should be enabled. Function arguments:
@@ -147,9 +149,9 @@ namespace Core.Common.Gui.Plugin
             return new ImportInfo
             {
                 DataType = importInfo.DataType,
-                CreateFileImporter = data => importInfo.CreateFileImporter != null ?
-                                                 importInfo.CreateFileImporter((TData) data) :
-                                                 null,
+                CreateFileImporter = (data, path) => importInfo.CreateFileImporter != null ?
+                                                         importInfo.CreateFileImporter((TData) data, path) :
+                                                         null,
                 IsEnabled = data => importInfo.IsEnabled == null || importInfo.IsEnabled((TData) data),
                 Name = importInfo.Name,
                 Category = importInfo.Category,

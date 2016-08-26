@@ -57,7 +57,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         /// <param name="importTarget">The dike profiles to import on.</param>
         /// <param name="referenceLine">The reference line used to check if the <see cref="DikeProfile"/>
         /// objects found in the file are intersecting it.</param>
-        public DikeProfilesImporter(ObservableList<DikeProfile> importTarget, ReferenceLine referenceLine)
+        /// <param name="filePath">The path to the file to import from.</param>
+        public DikeProfilesImporter(ObservableList<DikeProfile> importTarget, ReferenceLine referenceLine, string filePath) : base(filePath)
         {
             if (importTarget == null)
             {
@@ -74,9 +75,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override bool Import(string filePath)
+        public override bool Import()
         {
-            ReadResult<DikeProfileLocation> importDikeProfilesResult = ReadDikeProfileLocations(filePath);
+            ReadResult<DikeProfileLocation> importDikeProfilesResult = ReadDikeProfileLocations();
             if (importDikeProfilesResult.CriticalErrorOccurred)
             {
                 return false;
@@ -88,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
                 return false;
             }
 
-            string folderPath = Path.GetDirectoryName(filePath);
+            string folderPath = Path.GetDirectoryName(FilePath);
             ReadResult<DikeProfileData> importDikeProfileDataResult = ReadDikeProfileData(folderPath);
             if (importDikeProfileDataResult.CriticalErrorOccurred)
             {
@@ -112,12 +113,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             return true;
         }
 
-        private ReadResult<DikeProfileLocation> ReadDikeProfileLocations(string filePath)
+        private ReadResult<DikeProfileLocation> ReadDikeProfileLocations()
         {
             NotifyProgress(Resources.DikeProfilesImporter_ReadDikeProfileLocations_reading_dikeprofilelocations, 1, 1);
             try
             {
-                using (var dikeProfileLocationReader = new DikeProfileLocationReader(filePath))
+                using (var dikeProfileLocationReader = new DikeProfileLocationReader(FilePath))
                 {
                     return GetDikeProfileLocationReadResult(dikeProfileLocationReader);
                 }

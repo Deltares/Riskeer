@@ -34,10 +34,9 @@ namespace Core.Common.Base.IO
         /// <summary>
         /// This method imports the data to an item from a file at the given location.
         /// </summary>
-        /// <param name="filePath">The path of the file to import the data from.</param>
         /// <returns><c>true</c> if the import was successful. <c>false</c> otherwise.</returns>
         /// <remarks>Implementations of this import method are allowed to throw exceptions of any kind.</remarks>
-        bool Import(string filePath);
+        bool Import();
 
         /// <summary>
         /// This method cancels an import.

@@ -153,6 +153,8 @@ namespace Core.Common.Base.Test.IO
 
         private class SimpleFileImporter : FileImporterBase
         {
+            public SimpleFileImporter() : base("") {}
+
             public override ProgressChangedDelegate ProgressChanged { protected get; set; }
             public IObservable[] AffectedNonTargetObservableInstancesOverride { private get; set; }
 
@@ -161,7 +163,7 @@ namespace Core.Common.Base.Test.IO
                 NotifyProgress(currentStepName, currentStep, totalNumberOfSteps);
             }
 
-            public override bool Import(string filePath)
+            public override bool Import()
             {
                 throw new NotImplementedException();
             }

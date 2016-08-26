@@ -88,8 +88,9 @@ namespace Demo.Ringtoets.Commands
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3.shp", "traject_6-3.dbf", "traject_6-3.prj", "traject_6-3.shx"))
             {
-                var importer = new ReferenceLineImporter(demoAssessmentSection);
-                importer.Import(Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
+                var importer = new ReferenceLineImporter(demoAssessmentSection,
+                                                         Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"));
+                importer.Import();
             }
         }
 
@@ -117,8 +118,9 @@ namespace Demo.Ringtoets.Commands
                 {
                     if (i == 0)
                     {
-                        var importer = new FailureMechanismSectionsImporter(failureMechanisms[i], demoAssessmentSection.ReferenceLine);
-                        importer.Import(Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
+                        var importer = new FailureMechanismSectionsImporter(failureMechanisms[i], demoAssessmentSection.ReferenceLine,
+                                                                            Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"));
+                        importer.Import();
                     }
                     else
                     {
@@ -145,14 +147,16 @@ namespace Demo.Ringtoets.Commands
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
             {
-                var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter(pipingFailureMechanism.SurfaceLines, demoAssessmentSection.ReferenceLine);
-                surfaceLinesImporter.Import(Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
+                var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter(pipingFailureMechanism.SurfaceLines, demoAssessmentSection.ReferenceLine,
+                                                                             Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
+                surfaceLinesImporter.Import();
             }
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
             {
-                var soilProfilesImporter = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels);
-                soilProfilesImporter.Import(Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
+                var soilProfilesImporter = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels,
+                                                                          Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
+                soilProfilesImporter.Import();
             }
 
             var calculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput);

@@ -108,8 +108,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             yield return new ImportInfo<DikeProfilesContext>
             {
-                CreateFileImporter = context => new DikeProfilesImporter(context.WrappedData,
-                                                                         context.ParentAssessmentSection.ReferenceLine),
+                CreateFileImporter = (context, filePath) => new DikeProfilesImporter(context.WrappedData,
+                                                                                     context.ParentAssessmentSection.ReferenceLine,
+                                                                                     filePath),
                 Name = GrassCoverErosionInwardsPluginResources.DikeProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = GrassCoverErosionInwardsPluginResources.DikeProfile,

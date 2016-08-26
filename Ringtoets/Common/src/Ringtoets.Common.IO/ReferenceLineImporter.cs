@@ -52,8 +52,9 @@ namespace Ringtoets.Common.IO
         /// Initializes a new instance of the <see cref="ReferenceLineImporter"/> class.
         /// </summary>
         /// <param name="importTarget">The assessment section to update.</param>
+        /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="System.ArgumentNullException">When <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public ReferenceLineImporter(IAssessmentSection importTarget)
+        public ReferenceLineImporter(IAssessmentSection importTarget, string filePath) : base(filePath)
         {
             if (importTarget == null)
             {
@@ -64,7 +65,7 @@ namespace Ringtoets.Common.IO
 
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override bool Import(string filePath)
+        public override bool Import()
         {
             Canceled = false;
             changedObservables.Clear();
@@ -84,7 +85,7 @@ namespace Ringtoets.Common.IO
 
             NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Reading_referenceline,
                            1, clearReferenceLineDependentData ? 4 : 2);
-            ReadResult<ReferenceLine> readResult = ReadReferenceLine(filePath);
+            ReadResult<ReferenceLine> readResult = ReadReferenceLine();
             if (readResult.CriticalErrorOccurred)
             {
                 return false;
@@ -135,7 +136,7 @@ namespace Ringtoets.Common.IO
             log.Info(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read);
         }
 
-        private ReadResult<ReferenceLine> ReadReferenceLine(string filePath)
+        private ReadResult<ReferenceLine> ReadReferenceLine()
         {
             try
             {
@@ -143,7 +144,7 @@ namespace Ringtoets.Common.IO
                 {
                     ImportedItems = new[]
                     {
-                        new ReferenceLineReader().ReadReferenceLine(filePath)
+                        new ReferenceLineReader().ReadReferenceLine(FilePath)
                     }
                 };
             }

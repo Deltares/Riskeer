@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
@@ -87,8 +86,9 @@ namespace Ringtoets.Piping.Plugin
                                            PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
                                            PipingPluginResources.Csv_file_name),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = context => new PipingSurfaceLinesCsvImporter(context.WrappedData.SurfaceLines,
-                                                                                  context.AssessmentSection.ReferenceLine)
+                CreateFileImporter = (context, filePath) => new PipingSurfaceLinesCsvImporter(context.WrappedData.SurfaceLines,
+                                                                                              context.AssessmentSection.ReferenceLine,
+                                                                                              filePath)
             };
 
             yield return new ImportInfo<StochasticSoilModelContext>
@@ -100,7 +100,8 @@ namespace Ringtoets.Piping.Plugin
                                            PipingFormsResources.StochasticSoilProfileCollection_DisplayName,
                                            PipingPluginResources.Soil_file_name),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = context => new PipingSoilProfilesImporter(context.WrappedData)
+                CreateFileImporter = (context, filePath) => new PipingSoilProfilesImporter(context.WrappedData,
+                                                                                           filePath)
             };
         }
 

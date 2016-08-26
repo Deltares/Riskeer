@@ -116,10 +116,10 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var importTarget = new ReferenceLineContext(assessmentSection);
 
             // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget);
+            IFileImporter importer = importInfo.CreateFileImporter(importTarget, path);
 
             // Assert
-            Assert.IsTrue(importer.Import(path));
+            Assert.IsTrue(importer.Import());
             mocks.VerifyAll();
         }
     }

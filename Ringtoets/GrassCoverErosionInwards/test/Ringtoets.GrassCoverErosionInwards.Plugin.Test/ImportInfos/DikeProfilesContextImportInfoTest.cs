@@ -134,10 +134,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
             var importTarget = new DikeProfilesContext(list, assessmentSection);
 
             // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget);
+            IFileImporter importer = importInfo.CreateFileImporter(importTarget, path);
 
             // Assert
-            Assert.IsTrue(importer.Import(path));
+            Assert.IsTrue(importer.Import());
 
             mocks.VerifyAll();
         }

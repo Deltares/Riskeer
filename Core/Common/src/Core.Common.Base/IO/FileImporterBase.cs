@@ -32,9 +32,18 @@ namespace Core.Common.Base.IO
     /// <seealso cref="IFileImporter" />
     public abstract class FileImporterBase : IFileImporter
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileImporterBase"/> class.
+        /// </summary>
+        /// <param name="filePath">The path to the file to import from.</param>
+        protected FileImporterBase(string filePath)
+        {
+            FilePath = filePath;
+        }
+
         public abstract ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public abstract bool Import(string filePath);
+        public abstract bool Import();
 
         public void Cancel()
         {
@@ -59,6 +68,11 @@ namespace Core.Common.Base.IO
                 changedObservableObject.NotifyObservers();
             }
         }
+
+        /// <summary>
+        /// Gets the path to the file to import from.
+        /// </summary>
+        protected string FilePath { get; private set; }
 
         /// <summary>
         /// Gets or sets value indicating if a cancel request has been made. When true, no 

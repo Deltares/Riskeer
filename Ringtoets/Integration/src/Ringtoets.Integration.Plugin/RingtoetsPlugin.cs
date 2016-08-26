@@ -377,7 +377,7 @@ namespace Ringtoets.Integration.Plugin
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsCommonFormsResources.ReferenceLineIcon,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter,
-                CreateFileImporter = context => new ReferenceLineImporter(context.WrappedData)
+                CreateFileImporter = (context, filePath) => new ReferenceLineImporter(context.WrappedData, filePath)
             };
 
             yield return new ImportInfo<FailureMechanismSectionsContext>
@@ -387,7 +387,9 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter,
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
-                CreateFileImporter = context => new FailureMechanismSectionsImporter(context.WrappedData, context.ParentAssessmentSection.ReferenceLine)
+                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
+                                                                                                 context.ParentAssessmentSection.ReferenceLine,
+                                                                                                 filePath)
             };
         }
 

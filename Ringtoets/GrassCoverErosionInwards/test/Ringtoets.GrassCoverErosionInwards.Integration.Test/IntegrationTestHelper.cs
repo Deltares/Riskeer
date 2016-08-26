@@ -48,9 +48,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                                                                    "traject_6-3.prj",
                                                                                    "traject_6-3.shx"))
             {
-                var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection),
+                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp");
+                var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection, filePath),
                                                       new ReferenceLineContext(assessmentSection),
-                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp"),
                                                       "ReferenceLineImporter");
 
                 activity.Run();
@@ -73,9 +73,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                                                                    "traject_6-3_vakken.prj",
                                                                                    "traject_6-3_vakken.shx"))
             {
-                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine),
+                string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp");
+                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine, filePath),
                                                       new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                                                      Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp"),
                                                       "FailureMechanismSectionsImporter");
 
                 activity.Run();

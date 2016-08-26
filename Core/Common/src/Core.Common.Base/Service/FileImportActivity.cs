@@ -31,7 +31,6 @@ namespace Core.Common.Base.Service
     public class FileImportActivity : Activity
     {
         private readonly object target;
-        private readonly string filePath;
         private readonly IFileImporter fileImporter;
 
         /// <summary>
@@ -39,10 +38,9 @@ namespace Core.Common.Base.Service
         /// </summary>
         /// <param name="fileImporter">The <see cref="IFileImporter"/> to use for importing the data.</param>
         /// <param name="target">The target object to import the data to.</param>
-        /// <param name="filePath">The path of the file to import the data from.</param>
         /// <param name="name">The name of the importer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public FileImportActivity(IFileImporter fileImporter, object target, string filePath, string name)
+        public FileImportActivity(IFileImporter fileImporter, object target, string name)
         {
             if (fileImporter == null)
             {
@@ -52,10 +50,6 @@ namespace Core.Common.Base.Service
             {
                 throw new ArgumentNullException("target");
             }
-            if (filePath == null)
-            {
-                throw new ArgumentNullException("filePath");
-            }
             if (name == null)
             {
                 throw new ArgumentNullException("name");
@@ -63,7 +57,6 @@ namespace Core.Common.Base.Service
 
             this.fileImporter = fileImporter;
             this.target = target;
-            this.filePath = filePath;
             Name = name;
         }
 
@@ -79,7 +72,7 @@ namespace Core.Common.Base.Service
                                              currentStep, totalSteps, currentStepName);
             };
 
-            fileImporter.Import(filePath);
+            fileImporter.Import();
         }
 
         protected override void OnCancel()

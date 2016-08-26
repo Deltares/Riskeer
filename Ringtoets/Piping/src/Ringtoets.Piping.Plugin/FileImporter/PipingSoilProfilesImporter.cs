@@ -50,8 +50,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// Initializes a new instance of the <see cref="PipingSoilProfilesImporter"/> class.
         /// </summary>
         /// <param name="importTarget">The collection to update.</param>
+        /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public PipingSoilProfilesImporter(ObservableList<StochasticSoilModel> importTarget)
+        public PipingSoilProfilesImporter(ObservableList<StochasticSoilModel> importTarget, string filePath) : base(filePath)
         {
             if (importTarget == null)
             {
@@ -62,9 +63,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override bool Import(string filePath)
+        public override bool Import()
         {
-            var importSoilProfileResult = ReadSoilProfiles(filePath);
+            var importSoilProfileResult = ReadSoilProfiles();
             if (importSoilProfileResult.CriticalErrorOccurred)
             {
                 return false;
@@ -76,7 +77,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            var importStochasticSoilModelResult = ReadStochasticSoilModels(filePath);
+            var importStochasticSoilModelResult = ReadStochasticSoilModels();
             if (importStochasticSoilModelResult.CriticalErrorOccurred)
             {
                 return false;
@@ -197,12 +198,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #region read stochastic soil models
 
-        private ReadResult<StochasticSoilModel> ReadStochasticSoilModels(string path)
+        private ReadResult<StochasticSoilModel> ReadStochasticSoilModels()
         {
             NotifyProgress(RingtoetsPluginResources.PipingSoilProfilesImporter_Reading_database, 1, 1);
             try
             {
-                using (var stochasticSoilModelReader = new StochasticSoilModelReader(path))
+                using (var stochasticSoilModelReader = new StochasticSoilModelReader(FilePath))
                 {
                     return GetStochasticSoilModelReadResult(stochasticSoilModelReader);
                 }
@@ -247,14 +248,14 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         #region read soil profiles
 
-        private ReadResult<PipingSoilProfile> ReadSoilProfiles(string path)
+        private ReadResult<PipingSoilProfile> ReadSoilProfiles()
         {
             NotifyProgress(RingtoetsPluginResources.PipingSoilProfilesImporter_Reading_database, 1, 1);
             try
             {
-                using (var soilProfileReader = new PipingSoilProfileReader(path))
+                using (var soilProfileReader = new PipingSoilProfileReader(FilePath))
                 {
-                    return GetProfileReadResult(path, soilProfileReader);
+                    return GetProfileReadResult(soilProfileReader);
                 }
             }
             catch (CriticalFileReadException e)
@@ -264,7 +265,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return new ReadResult<PipingSoilProfile>(true);
         }
 
-        private ReadResult<PipingSoilProfile> GetProfileReadResult(string path, PipingSoilProfileReader soilProfileReader)
+        private ReadResult<PipingSoilProfile> GetProfileReadResult(PipingSoilProfileReader soilProfileReader)
         {
             var totalNumberOfSteps = soilProfileReader.Count;
             var currentStep = 1;
@@ -290,7 +291,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 catch (CriticalFileReadException e)
                 {
                     var message = string.Format(RingtoetsPluginResources.PipingSoilProfilesImporter_CriticalErrorMessage_0_File_Skipped,
-                                                path, e.Message);
+                                                FilePath, e.Message);
                     log.Error(message);
                     return new ReadResult<PipingSoilProfile>(true);
                 }

@@ -133,7 +133,7 @@ namespace Core.Common.Gui.Commands
                 {
                     log.Info(Resources.GuiImportHandler_ImportItemsUsingDialog_Start_importing_data);
 
-                    FileImportActivity[] importActivitiesToRun = dialog.FileNames.Select(f => new FileImportActivity(importInfo.CreateFileImporter(target), target, f, importInfo.Name)).ToArray();
+                    FileImportActivity[] importActivitiesToRun = dialog.FileNames.Select(f => new FileImportActivity(importInfo.CreateFileImporter(target, f), target, importInfo.Name)).ToArray();
                     ActivityProgressDialogRunner.Run(dialogParent, importActivitiesToRun);
                 }
             }
