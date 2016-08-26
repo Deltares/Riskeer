@@ -23,11 +23,9 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.TypeConverters;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Data
@@ -226,7 +224,7 @@ namespace Core.Common.Base.Test.Data
         [TestCase("F7", double.NegativeInfinity, 2, "-Oneindig")]
         [TestCase("G3", double.PositiveInfinity, 2, "Oneindig")]
         public void ToString_WithFormatAndCurrentCultureVariousScenarios_ExpectedText(string format,
-            double value, int numberOfDecimals, string expectedText)
+                                                                                      double value, int numberOfDecimals, string expectedText)
         {
             // Setup
             var roundedValue = new RoundedDouble(numberOfDecimals, value);
@@ -262,7 +260,7 @@ namespace Core.Common.Base.Test.Data
         [TestCase("F7", double.NegativeInfinity, 2, "-Oneindig")]
         [TestCase("G3", double.PositiveInfinity, 2, "Oneindig")]
         public void ToString_WithFormatAndDifferentCultureVariousScenarios_ExpectedText(string format,
-            double value, int numberOfDecimals, string expectedText)
+                                                                                        double value, int numberOfDecimals, string expectedText)
         {
             // Setup
             var roundedValue = new RoundedDouble(numberOfDecimals, value);
@@ -307,7 +305,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble = new RoundedDouble(5);
 
             // Call
-            bool isEqual = roundedDouble.Equals((object)roundedDouble);
+            bool isEqual = roundedDouble.Equals((object) roundedDouble);
 
             // Assert
             Assert.IsTrue(isEqual);
@@ -499,7 +497,7 @@ namespace Core.Common.Base.Test.Data
 
             // Precondition:
             Assert.IsTrue(otherValue.Equals(roundedDouble));
-            
+
             // Call
             var hash1 = roundedDouble.GetHashCode();
             var hash2 = otherValue.GetHashCode();
@@ -589,7 +587,7 @@ namespace Core.Common.Base.Test.Data
         {
             // Setup
             var roundedDouble = new RoundedDouble(4, 3.2154);
-            
+
             // Call
             double convertedValue = roundedDouble;
 
@@ -604,7 +602,7 @@ namespace Core.Common.Base.Test.Data
             double doubleValue = 1.23456789;
 
             // Call
-            RoundedDouble roundedDoubleValue = (RoundedDouble)doubleValue;
+            RoundedDouble roundedDoubleValue = (RoundedDouble) doubleValue;
 
             // Assert
             Assert.AreEqual(doubleValue, roundedDoubleValue.Value);
@@ -705,8 +703,8 @@ namespace Core.Common.Base.Test.Data
             double doubleValue = 5.67891234;
 
             // Call
-            RoundedDouble result1 = roundedDouble * doubleValue;
-            RoundedDouble result2 = doubleValue * roundedDouble;
+            RoundedDouble result1 = roundedDouble*doubleValue;
+            RoundedDouble result2 = doubleValue*roundedDouble;
 
             // Assert
             Assert.AreEqual(roundedDouble.NumberOfDecimalPlaces, result1.NumberOfDecimalPlaces);
@@ -724,7 +722,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(5, -3.45678);
 
             // Call
-            RoundedDouble result = roundedDouble1 * roundedDouble2;
+            RoundedDouble result = roundedDouble1*roundedDouble2;
 
             // Assert
             Assert.AreEqual(2, result.NumberOfDecimalPlaces);
@@ -739,7 +737,7 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(3, -9.123);
 
             // Call
-            RoundedDouble result = roundedDouble1 * roundedDouble2;
+            RoundedDouble result = roundedDouble1*roundedDouble2;
 
             // Assert
             Assert.AreEqual(3, result.NumberOfDecimalPlaces);
@@ -754,8 +752,8 @@ namespace Core.Common.Base.Test.Data
             var roundedDouble2 = new RoundedDouble(2, 2.22);
 
             // Call
-            RoundedDouble result1 = roundedDouble1 * roundedDouble2;
-            RoundedDouble result2 = roundedDouble2 * roundedDouble1;
+            RoundedDouble result1 = roundedDouble1*roundedDouble2;
+            RoundedDouble result2 = roundedDouble2*roundedDouble1;
 
             // Assert
             Assert.AreEqual(result1.NumberOfDecimalPlaces, result2.NumberOfDecimalPlaces);

@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
-
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 
@@ -459,17 +458,17 @@ namespace Core.Common.Utils.Test.Reflection
             [TypeConverter(typeof(DoubleConverter))]
             public double PropertyWithTypeConverter { get; private set; }
 
+            public object PublicMethod()
+            {
+                return this;
+            }
+
             /// <summary>
             /// Method used in reflection for tests above
             /// </summary>
             private int PrivateMethod(int i)
             {
-                return i * 2;
-            }
-
-            public object PublicMethod()
-            {
-                return this;
+                return i*2;
             }
         }
 

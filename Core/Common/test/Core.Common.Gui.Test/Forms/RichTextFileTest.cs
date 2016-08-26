@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Gui.Forms;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Forms

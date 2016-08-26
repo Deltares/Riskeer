@@ -152,7 +152,7 @@ namespace Core.Common.Utils.Test
         public void DeleteOldFiles_InvalidEmptyPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => FileUtils.DeleteOldFiles(invalidPath,"",0);
+            TestDelegate call = () => FileUtils.DeleteOldFiles(invalidPath, "", 0);
 
             // Assert
             string invalidParameterName = Assert.Throws<ArgumentException>(call).ParamName;
@@ -175,7 +175,7 @@ namespace Core.Common.Utils.Test
             string invalidParameterName = Assert.Throws<ArgumentException>(call).ParamName;
             Assert.AreEqual("searchPattern", invalidParameterName);
         }
-        
+
         [Test]
         public void DeleteOldFiles_PathDoesNotExist_ThrowsIOException()
         {

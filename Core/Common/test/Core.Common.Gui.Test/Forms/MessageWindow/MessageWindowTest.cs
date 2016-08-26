@@ -22,12 +22,10 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
-
 using Core.Common.Gui.Forms.MessageWindow;
 using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Forms.MessageWindow
@@ -129,7 +127,7 @@ namespace Core.Common.Gui.Test.Forms.MessageWindow
                 DialogBoxHandler = (name, wnd) =>
                 {
                     var dialogTester = new FormTester(name);
-                    dialogTitle = ((Form)dialogTester.TheObject).Text;
+                    dialogTitle = ((Form) dialogTester.TheObject).Text;
                     var testBoxTester = new TextBoxTester("textBox");
                     dialogText = testBoxTester.Text;
 

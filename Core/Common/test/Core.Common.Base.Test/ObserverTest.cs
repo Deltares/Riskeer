@@ -102,9 +102,6 @@ namespace Core.Common.Base.Test
             Assert.AreEqual(0, counter);
         }
 
-        private class TestObservable : Observable
-        {
-
-        }
+        private class TestObservable : Observable {}
     }
 }

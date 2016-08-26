@@ -198,7 +198,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
 
         private class AnotherSimpleWrappedObjectContext<T> : WrappedObjectContextBase<T>
         {
-            public AnotherSimpleWrappedObjectContext(T wrappedData) : base(wrappedData) { }
+            public AnotherSimpleWrappedObjectContext(T wrappedData) : base(wrappedData) {}
         }
 
         private class SimpleEquatable : IEquatable<SimpleEquatable>

@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Plugin
@@ -194,9 +192,6 @@ namespace Core.Common.Gui.Test.Plugin
             Assert.IsNull(convertedInfo.AfterCreate);
         }
 
-        private class TestObjectProperties : ObjectProperties<object>
-        {
-            
-        }
+        private class TestObjectProperties : ObjectProperties<object> {}
     }
 }

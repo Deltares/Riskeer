@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Utils.Events;
-
 using NUnit.Framework;
 
 namespace Core.Common.Utils.Test.Events

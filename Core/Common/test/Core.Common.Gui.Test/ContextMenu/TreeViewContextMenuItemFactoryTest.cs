@@ -75,7 +75,6 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-
                 // Call
                 TestDelegate test = () => new TreeViewContextMenuItemFactory(new object(), treeViewControl);
 

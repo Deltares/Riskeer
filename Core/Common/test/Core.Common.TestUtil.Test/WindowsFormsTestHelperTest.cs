@@ -68,11 +68,11 @@ namespace Core.Common.TestUtil.Test
             WindowsFormsTestHelper.CloseAll();
         }
 
-        [Test]        
+        [Test]
         public void Action_ThrowsException_StackTraceCorrectly()
         {
             TestDelegate testDelegate = () => WindowsFormsTestHelper.Show(new Label(), MethodWithException);
-            
+
             var exception = Assert.Throws<InvalidOperationException>(testDelegate);
             Assert.AreEqual("my message", exception.Message);
             Assert.IsTrue(exception.StackTrace.Contains("MethodWithException"));
@@ -91,7 +91,7 @@ namespace Core.Common.TestUtil.Test
                                                                               thread.Start();
                                                                               thread.Join();
                                                                           });
-            
+
             var exception = Assert.Throws<GuiTestHelper.UnhandledException>(testDelegate);
 
             Assert.IsTrue(exception.Message.Contains("Throwing this exception is intended and part of a test."));

@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Test.Properties;
-
 using NUnit.Framework;
 
 namespace Core.Common.Utils.Test.Attributes

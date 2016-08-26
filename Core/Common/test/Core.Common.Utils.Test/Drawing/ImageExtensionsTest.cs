@@ -26,7 +26,6 @@ using System.Windows.Media.Imaging;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Drawing;
 using Core.Common.Utils.Test.Properties;
-
 using NUnit.Framework;
 
 namespace Core.Common.Utils.Test.Drawing

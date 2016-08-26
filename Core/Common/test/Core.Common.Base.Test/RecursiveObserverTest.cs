@@ -298,7 +298,7 @@ namespace Core.Common.Base.Test
             }
         }
 
-        private class TestObservable : Observable { }
+        private class TestObservable : Observable {}
 
         private IEnumerable<object> GetChildren(TestContainer container)
         {
