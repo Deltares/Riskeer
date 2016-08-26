@@ -38,8 +38,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Description")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Description")]
         public DesignWaterLevelLocationContextProperties[] Locations
         {
             get

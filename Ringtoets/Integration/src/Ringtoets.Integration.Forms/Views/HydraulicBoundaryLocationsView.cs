@@ -33,6 +33,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.GuiServices;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -106,11 +107,11 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.ToCalculate),
                                                   Resources.HydraulicBoundaryLocationsView_Calculate);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Name),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Name_DisplayName);
+                                                 RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Id),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Id_DisplayName);
+                                                 RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Location),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName);
+                                                 RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName);
         }
 
         protected override void Dispose(bool disposing)

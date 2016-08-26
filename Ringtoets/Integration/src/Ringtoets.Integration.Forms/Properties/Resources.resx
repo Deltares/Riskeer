@@ -168,35 +168,11 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaardendatabase</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Coordinates_Description" xml:space="preserve">
-    <value>Coördinaten van de hydraulische randvoorwaardenlocatie.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName" xml:space="preserve">
-    <value>Coördinaten [m]</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Description" xml:space="preserve">
-    <value>Locaties uit de hydraulische randvoorwaardendatabase.</value>
-  </data>
   <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description" xml:space="preserve">
     <value>Berekend toetspeil.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName" xml:space="preserve">
     <value>Toetspeil [m+NAP]</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_Locations_DisplayName" xml:space="preserve">
-    <value>Locaties</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Id_Description" xml:space="preserve">
-    <value>ID van de hydraulische randvoorwaardenlocatie in de database.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Id_DisplayName" xml:space="preserve">
-    <value>ID</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Name_Description" xml:space="preserve">
-    <value>Naam van de hydraulische randvoorwaardenlocatie.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabase_Locations_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
   </data>
   <data name="RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked" xml:space="preserve">
     <value>Database op pad '{0}' gekoppeld.</value>
