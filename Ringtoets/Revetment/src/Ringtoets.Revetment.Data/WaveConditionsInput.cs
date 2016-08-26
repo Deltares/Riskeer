@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -35,6 +37,7 @@ namespace Ringtoets.Revetment.Data
     public class WaveConditionsInput : Observable, ICalculationInput
     {
         private readonly RoundedDouble designWaterLevelSubstraction;
+        private readonly List<RoundedDouble> waterLevels;
 
         private DikeProfile dikeProfile;
         private HydraulicBoundaryLocation hydraulicBoundaryLocation;
@@ -62,6 +65,8 @@ namespace Ringtoets.Revetment.Data
             lowerBoundary = new RoundedDouble(2);
 
             designWaterLevelSubstraction = new RoundedDouble(2, 0.01);
+
+            waterLevels = new List<RoundedDouble>();
 
             UpdateDikeProfileParameters();
         }
@@ -186,6 +191,7 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 stepSize = value.ToPrecision(stepSize.NumberOfDecimalPlaces);
+                DetermineWaterLevels();
             }
         }
 
@@ -235,6 +241,17 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
+        /// <summary>
+        /// Gets the water levels to calculate for.
+        /// </summary>
+        public IEnumerable<RoundedDouble> WaterLevels
+        {
+            get
+            {
+                return waterLevels;
+            }
+        }
+
         private void UpdateUpperWaterLevel()
         {
             if (hydraulicBoundaryLocation != null && !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
@@ -251,6 +268,28 @@ namespace Ringtoets.Revetment.Data
         {
             UpperBoundary = UpperWaterLevel < UpperRevetmentLevel ? UpperWaterLevel : UpperRevetmentLevel;
             LowerBoundary = LowerWaterLevel > LowerRevetmentLevel ? LowerWaterLevel : LowerRevetmentLevel;
+        }
+
+        private void DetermineWaterLevels()
+        {
+            waterLevels.Clear();
+            
+            if (double.IsNaN(UpperBoundary) || double.IsNaN(LowerBoundary) || Math.Abs(LowerBoundary - UpperBoundary) < 1e-6)
+            {
+                return;
+            }
+
+            waterLevels.Add(LowerBoundary);
+
+            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary / stepSize) * stepSize + stepSize);
+
+            while (currentWaterLevel < UpperBoundary)
+            {
+                waterLevels.Add(currentWaterLevel);
+                currentWaterLevel = (currentWaterLevel + stepSize).ToPrecision(currentWaterLevel.NumberOfDecimalPlaces);
+            }
+
+            waterLevels.Add(upperBoundary);
         }
 
         private void UpdateDikeProfileParameters()
