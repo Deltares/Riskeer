@@ -36,7 +36,6 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Selection;
 using Core.Common.Gui.Settings;
 using Fluent;
-using Button = Fluent.Button;
 using WindowsFormApplication = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui.Forms.MainWindow
@@ -229,6 +228,26 @@ namespace Core.Common.Gui.Forms.MainWindow
             InitPropertiesWindowAndActivate();
         }
 
+        public void ValidateItems()
+        {
+            if (gui == null)
+            {
+                return;
+            }
+
+            UpdateToolWindowButtonState();
+
+            if (ribbonCommandHandlers == null)
+            {
+                return;
+            }
+
+            foreach (var ribbonCommandHandler in ribbonCommandHandlers)
+            {
+                ribbonCommandHandler.ValidateItems();
+            }
+        }
+
         public void Dispose()
         {
             if (IsWindowDisposed)
@@ -282,26 +301,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right);
             viewController.ViewHost.SetImage(propertyGrid, Properties.Resources.PropertiesHS);
-        }
-
-        public void ValidateItems()
-        {
-            if (gui == null)
-            {
-                return;
-            }
-
-            UpdateToolWindowButtonState();
-
-            if (ribbonCommandHandlers == null)
-            {
-                return;
-            }
-
-            foreach (var ribbonCommandHandler in ribbonCommandHandlers)
-            {
-                ribbonCommandHandler.ValidateItems();
-            }
         }
 
         private void OnActiveDocumentViewChanging(object sender, EventArgs e)
@@ -441,7 +440,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             // get all ribbon controls
             ribbonCommandHandlers = pluginsHost.Plugins.Where(p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
 
-            foreach (var ribbonControl in ribbonCommandHandlers.Select(rch => rch.GetRibbonControl())) 
+            foreach (var ribbonControl in ribbonCommandHandlers.Select(rch => rch.GetRibbonControl()))
             {
                 // fill contextual groups from plugins
                 foreach (var group in ribbonControl.ContextualGroups.Where(group => Ribbon.ContextualGroups.All(g => g.Name != group.Name)))

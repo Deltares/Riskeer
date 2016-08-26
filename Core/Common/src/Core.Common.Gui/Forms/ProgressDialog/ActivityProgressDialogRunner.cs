@@ -37,7 +37,10 @@ namespace Core.Common.Gui.Forms.ProgressDialog
         /// <param name="activity">The activity to be executed.</param>
         public static void Run(IWin32Window dialogParent, Activity activity)
         {
-            Run(dialogParent, new[] { activity });
+            Run(dialogParent, new[]
+            {
+                activity
+            });
         }
 
         /// <summary>

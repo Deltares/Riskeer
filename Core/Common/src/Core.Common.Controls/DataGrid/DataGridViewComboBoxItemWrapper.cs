@@ -75,11 +75,6 @@ namespace Core.Common.Controls.DataGrid
             }
         }
 
-        private bool Equals(DataGridViewComboBoxItemWrapper<T> other)
-        {
-            return EqualityComparer<T>.Default.Equals(wrappedObject, other.wrappedObject);
-        }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -94,7 +89,7 @@ namespace Core.Common.Controls.DataGrid
             {
                 return false;
             }
-            return Equals((DataGridViewComboBoxItemWrapper<T>)obj);
+            return Equals((DataGridViewComboBoxItemWrapper<T>) obj);
         }
 
         public override int GetHashCode()
@@ -105,6 +100,11 @@ namespace Core.Common.Controls.DataGrid
         public override string ToString()
         {
             return DisplayName;
+        }
+
+        private bool Equals(DataGridViewComboBoxItemWrapper<T> other)
+        {
+            return EqualityComparer<T>.Default.Equals(wrappedObject, other.wrappedObject);
         }
     }
 }

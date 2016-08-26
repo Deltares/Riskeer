@@ -22,14 +22,13 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.Properties;
 
 namespace Core.Common.Base.TypeConverters
 {
     /// <summary>
-    /// Class that converts <see cref="String"/> representations of a number to a corresponding
+    /// Class that converts <see cref="string"/> representations of a number to a corresponding
     /// instance of <see cref="RoundedDouble"/>.
     /// </summary>
     public class RoundedDoubleConverter : TypeConverter
@@ -50,16 +49,16 @@ namespace Core.Common.Base.TypeConverters
             {
                 try
                 {
-                    return (RoundedDouble)Convert.ToDouble(text);
+                    return (RoundedDouble) Convert.ToDouble(text);
                 }
                 catch (FormatException exception)
                 {
                     if (string.IsNullOrWhiteSpace(text))
                     {
                         throw new NotSupportedException(Resources.RoundedDoubleConverter_ConvertFrom_String_cannot_be_empty,
-                                                       exception);
+                                                        exception);
                     }
-                    
+
                     throw new NotSupportedException(Resources.RoundedDoubleConverter_ConvertFrom_String_must_represent_number,
                                                     exception);
                 }

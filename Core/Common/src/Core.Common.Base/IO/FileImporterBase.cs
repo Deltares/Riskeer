@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-
 using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Base.IO
@@ -36,13 +35,6 @@ namespace Core.Common.Base.IO
     /// <seealso cref="IFileImporter" />
     public abstract class FileImporterBase<T> : IFileImporter
     {
-        /// <summary>
-        /// Gets or sets value indicating if a cancel request has been made. When true, no 
-        /// changes should be made to the data model unless the importer is already in progress 
-        /// of changing the data model.
-        /// </summary>
-        protected bool Canceled { get; set; }
-
         public abstract string Name { get; }
         public abstract string Category { get; }
         public abstract Bitmap Image { get; }
@@ -79,6 +71,13 @@ namespace Core.Common.Base.IO
                 changedObservableObject.NotifyObservers();
             }
         }
+
+        /// <summary>
+        /// Gets or sets value indicating if a cancel request has been made. When true, no 
+        /// changes should be made to the data model unless the importer is already in progress 
+        /// of changing the data model.
+        /// </summary>
+        protected bool Canceled { get; set; }
 
         /// <summary>
         /// Gets all objects that have been affected during the <see cref="Import"/> call

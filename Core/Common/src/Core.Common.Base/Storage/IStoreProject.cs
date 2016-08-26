@@ -35,6 +35,12 @@ namespace Core.Common.Base.Storage
         string FileFilter { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this instance has staged project.
+        /// </summary>
+        /// <seealso cref="StageProject"/>
+        bool HasStagedProject { get; }
+
+        /// <summary>
         /// Converts the staged project to a new storage entry.
         /// </summary>
         /// <param name="connectionArguments">Arguments required to connect to the storage.</param>
@@ -73,12 +79,6 @@ namespace Core.Common.Base.Storage
         /// Removes the connection to a database that has been made previously.
         /// </summary>
         void CloseProject();
-
-        /// <summary>
-        /// Gets a value indicating whether this instance has staged project.
-        /// </summary>
-        /// <seealso cref="StageProject"/>
-        bool HasStagedProject { get; }
 
         /// <summary>
         /// Stages the project (does some prep-work and validity checking) to be saved.

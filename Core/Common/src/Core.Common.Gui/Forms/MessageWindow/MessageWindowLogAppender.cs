@@ -22,10 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
-
 using log4net.Appender;
 using log4net.Core;
 using log4net.Util;

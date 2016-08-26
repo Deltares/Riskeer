@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
-
 using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Attributes

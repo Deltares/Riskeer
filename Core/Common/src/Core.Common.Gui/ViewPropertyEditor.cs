@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing.Design;
-
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.PropertyBag;
 

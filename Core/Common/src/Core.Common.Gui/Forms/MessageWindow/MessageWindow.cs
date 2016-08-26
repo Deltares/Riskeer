@@ -35,15 +35,6 @@ namespace Core.Common.Gui.Forms.MessageWindow
     /// </summary>
     public partial class MessageWindow : UserControl, IMessageWindow
     {
-        #region Constants referring to the item-names of the ImageList
-
-        private const string errorLevelImageName = "exclamation.png";
-        private const string warningLevelImageName = "error.png";
-        private const string informationLevelImageName = "information.png";
-        private const string debugLevelImageName = "debug.png";
-
-        #endregion
-
         private readonly IWin32Window dialogParent;
         private readonly Dictionary<string, string> levelImageName;
         private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
@@ -101,6 +92,24 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return Messages;
             }
             set {}
+        }
+
+        #endregion
+
+        #region IMessageWindow Members
+
+        public void AddMessage(Level level, DateTime time, string message)
+        {
+            string shortMessage;
+            using (var reader = new StringReader(message))
+            {
+                shortMessage = reader.ReadLine();
+            }
+            newMessages.Enqueue(new MessageData
+            {
+                ImageName = level.ToString(), Time = time, ShortMessage = shortMessage, FullMessage = message
+            });
+            Invalidate();
         }
 
         #endregion
@@ -269,7 +278,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
                 return;
             }
 
-            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string)messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
+            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
 
             messageWindowDialog.ShowDialog();
         }
@@ -282,21 +291,12 @@ namespace Core.Common.Gui.Forms.MessageWindow
             public string FullMessage { get; set; }
         }
 
-        #region IMessageWindow Members
+        #region Constants referring to the item-names of the ImageList
 
-        public void AddMessage(Level level, DateTime time, string message)
-        {
-            string shortMessage;
-            using (var reader = new StringReader(message))
-            {
-                shortMessage = reader.ReadLine();
-            }
-            newMessages.Enqueue(new MessageData
-            {
-                ImageName = level.ToString(), Time = time, ShortMessage = shortMessage, FullMessage = message
-            });
-            Invalidate();
-        }
+        private const string errorLevelImageName = "exclamation.png";
+        private const string warningLevelImageName = "error.png";
+        private const string informationLevelImageName = "information.png";
+        private const string debugLevelImageName = "debug.png";
 
         #endregion
     }

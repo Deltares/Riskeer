@@ -62,7 +62,7 @@ namespace Core.Common.Utils.Drawing
 
         private static ColorMatrix CreateColorMatrixForOpacityChange(float opacity)
         {
-            var clippedOpacity = (float)Math.Min(1.0, Math.Max(0.0, opacity));
+            var clippedOpacity = (float) Math.Min(1.0, Math.Max(0.0, opacity));
 
             // Define the color matrix to change the alpha value of the image, where 'x' is the opacity-factor.
             // 1 0 0 0 0

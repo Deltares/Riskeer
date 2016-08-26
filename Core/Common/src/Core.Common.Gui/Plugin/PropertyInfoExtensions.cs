@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Gui.PropertyBag;
 
 namespace Core.Common.Gui.Plugin
