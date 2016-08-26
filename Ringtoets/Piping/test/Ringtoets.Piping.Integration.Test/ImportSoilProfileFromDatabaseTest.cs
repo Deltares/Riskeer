@@ -21,14 +21,10 @@
 
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using Deltares.WTIPiping;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.KernelWrapper;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
@@ -47,18 +43,9 @@ namespace Ringtoets.Piping.Integration.Test
             string databasePath = Path.Combine(testDataPath, "1dprofile.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
-            mocks.ReplayAll();
-
-            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
-            context.Attach(observer);
-
             // When
-            var importer = new PipingSoilProfilesImporter();
-            importer.Import(context, databasePath);
+            var importer = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels);
+            importer.Import(null, databasePath);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
@@ -80,8 +67,6 @@ namespace Ringtoets.Piping.Integration.Test
                 2.2,
                 1.1
             }, pipingProfile.Layers.Select(l => l.TopLevel));
-
-            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         /// <summary>
@@ -95,18 +80,9 @@ namespace Ringtoets.Piping.Integration.Test
             string databasePath = Path.Combine(testDataPath, "invalid2dGeometry.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
-            mocks.ReplayAll();
-
-            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
-            context.Attach(observer);
-
             // When
-            var importer = new PipingSoilProfilesImporter();
-            importer.Import(context, databasePath);
+            var importer = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels);
+            importer.Import(null, databasePath);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
@@ -128,8 +104,6 @@ namespace Ringtoets.Piping.Integration.Test
                 3.75,
                 2.75
             }, pipingProfile.Layers.Select(l => l.TopLevel));
-
-            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
 
         [Test]
@@ -139,18 +113,9 @@ namespace Ringtoets.Piping.Integration.Test
             var databasePath = Path.Combine(testDataPath, "1dprofileNoValues.soil");
             var pipingFailureMechanism = new PipingFailureMechanism();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
-            mocks.ReplayAll();
-
-            var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, assessmentSection);
-            context.Attach(observer);
-
             // When
-            var importer = new PipingSoilProfilesImporter();
-            importer.Import(context, databasePath);
+            var importer = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels);
+            importer.Import(null, databasePath);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
@@ -167,7 +132,6 @@ namespace Ringtoets.Piping.Integration.Test
                 2.2,
                 1.1
             }, pipingProfile.Layers.Select(l => l.TopLevel));
-            mocks.VerifyAll(); // Ensure there are no calls to UpdateObserver
         }
     }
 }

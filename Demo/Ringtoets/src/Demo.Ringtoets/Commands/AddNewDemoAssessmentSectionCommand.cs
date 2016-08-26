@@ -37,7 +37,6 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Demo.Ringtoets.Commands
@@ -152,9 +151,8 @@ namespace Demo.Ringtoets.Commands
 
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
             {
-                var soilProfilesImporter = new PipingSoilProfilesImporter();
-                var context = new StochasticSoilModelContext(pipingFailureMechanism.StochasticSoilModels, pipingFailureMechanism, demoAssessmentSection);
-                soilProfilesImporter.Import(context, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
+                var soilProfilesImporter = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels);
+                soilProfilesImporter.Import(null, Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
             }
 
             var calculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput);

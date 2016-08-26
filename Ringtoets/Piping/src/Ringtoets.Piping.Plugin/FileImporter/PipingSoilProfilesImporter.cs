@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -45,6 +46,21 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     public class PipingSoilProfilesImporter : FileImporterBase<StochasticSoilModelContext>
     {
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSoilProfilesImporter));
+        private readonly ObservableList<StochasticSoilModel> importTarget;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PipingSoilProfilesImporter"/> class.
+        /// </summary>
+        /// <param name="importTarget">The collection to update.</param>
+        /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="importTarget"/> is <c>null</c>.</exception>
+        public PipingSoilProfilesImporter(ObservableList<StochasticSoilModel> importTarget)
+        {
+            if (importTarget == null)
+            {
+                throw new ArgumentNullException("importTarget");
+            }
+            this.importTarget = importTarget;
+        }
 
         public override string Name
         {
@@ -88,13 +104,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public override bool Import(object targetItem, string filePath)
         {
-            var stochasticSoilModelContext = (StochasticSoilModelContext) targetItem;
-            if (!IsReferenceLineAvailable(stochasticSoilModelContext))
-            {
-                log.Error(RingtoetsPluginResources.PipingSoilProfilesImporter_Import_Required_referenceline_missing);
-                return false;
-            }
-
             var importSoilProfileResult = ReadSoilProfiles(filePath);
             if (importSoilProfileResult.CriticalErrorOccurred)
             {
@@ -129,7 +138,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return false;
             }
 
-            AddImportedDataToModel(stochasticSoilModelContext, importStochasticSoilModelResult.ImportedItems);
+            AddImportedDataToModel(importStochasticSoilModelResult.ImportedItems);
             return true;
         }
 
@@ -162,9 +171,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return stochasticSoilModels.Any(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any(stochasticSoilProfile => stochasticSoilProfile.SoilProfile == soilProfile));
         }
 
-        private void AddImportedDataToModel(StochasticSoilModelContext target, ICollection<StochasticSoilModel> readStochasticSoilModels)
+        private void AddImportedDataToModel(ICollection<StochasticSoilModel> readStochasticSoilModels)
         {
-            var targetCollection = target.WrappedData;
             var stochasticSoilModelCount = readStochasticSoilModels.Count;
             var currentIndex = 1;
             foreach (var readStochasticSoilModel in readStochasticSoilModels)
@@ -174,12 +182,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 {
                     continue;
                 }
-                var stochasticSoilModel = targetCollection.FirstOrDefault(ssm => ssm.Id == readStochasticSoilModel.Id);
+                var stochasticSoilModel = importTarget.FirstOrDefault(ssm => ssm.Id == readStochasticSoilModel.Id);
                 if (stochasticSoilModel != null)
                 {
                     log.WarnFormat(RingtoetsPluginResources.PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists, stochasticSoilModel.Name);
                 }
-                targetCollection.Add(readStochasticSoilModel);
+                importTarget.Add(readStochasticSoilModel);
             }
         }
 

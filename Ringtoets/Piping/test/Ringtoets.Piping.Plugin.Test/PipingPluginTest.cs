@@ -33,7 +33,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.Views;
-using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.Piping.Primitives;
 using PipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -194,32 +193,9 @@ namespace Ringtoets.Piping.Plugin.Test
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, importInfos.Length);
+                Assert.AreEqual(2, importInfos.Length);
                 Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(RingtoetsPipingSurfaceLinesContext)));
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetFileImporters_Always_ReturnsExpectedFileImporters()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new PipingPlugin
-            {
-                Gui = guiStub
-            })
-            {
-                // Call
-                var importers = plugin.GetFileImporters().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, importers.Length);
-                Assert.IsInstanceOf<PipingSoilProfilesImporter>(importers[0]);
+                Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(StochasticSoilModelContext)));
             }
             mocks.VerifyAll();
         }

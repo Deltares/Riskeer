@@ -90,11 +90,18 @@ namespace Ringtoets.Piping.Plugin
                 CreateFileImporter = context => new PipingSurfaceLinesCsvImporter(context.WrappedData.SurfaceLines,
                                                                                   context.AssessmentSection.ReferenceLine)
             };
-        }
 
-        public override IEnumerable<IFileImporter> GetFileImporters()
-        {
-            yield return new PipingSoilProfilesImporter();
+            yield return new ImportInfo<StochasticSoilModelContext>
+            {
+                Name = PipingFormsResources.StochasticSoilProfileCollection_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = PipingFormsResources.PipingSoilProfileIcon,
+                FileFilter = string.Format("{0} {1} (*.soil)|*.soil",
+                                           PipingFormsResources.StochasticSoilProfileCollection_DisplayName,
+                                           PipingPluginResources.Soil_file_name),
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
+                CreateFileImporter = context => new PipingSoilProfilesImporter(context.WrappedData)
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
