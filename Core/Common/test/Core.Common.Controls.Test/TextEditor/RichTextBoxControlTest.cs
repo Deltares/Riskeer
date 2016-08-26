@@ -31,8 +31,8 @@ namespace Core.Common.Controls.Test.TextEditor
     [TestFixture]
     public class RichTextBoxControlTest
     {
-        private static RichTextBox tempRichTextBox;
         private const string text = "Test DEZE regel";
+        private static RichTextBox tempRichTextBox;
 
         [SetUp]
         public void SetUp()
