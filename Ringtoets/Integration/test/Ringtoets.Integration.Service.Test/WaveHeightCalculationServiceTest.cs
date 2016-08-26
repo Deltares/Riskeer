@@ -24,10 +24,10 @@ using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.Integration.Service.Test
@@ -41,14 +41,12 @@ namespace Ringtoets.Integration.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabase_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-
+            string validFilePath = Path.Combine(testDataPath, validFile);
             bool valid = false;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            Action call = () => valid = WaveHeightCalculationService.Validate(hydraulicBoundaryLocation, validFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -66,16 +64,12 @@ namespace Ringtoets.Integration.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
-            };
-
+            string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             bool valid = false;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
+            Action call = () => valid = WaveHeightCalculationService.Validate(hydraulicBoundaryLocation, notValidFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -94,18 +88,21 @@ namespace Ringtoets.Integration.Service.Test
         public void CalculateWaveHeight_ValidHydraulicBoundaryDatabaseAndLocation_LogStartAndEndAndReturnOutput()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
+            var mockRepository = new MockRepository();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            ImportHydraulicBoundaryDatabase(assessmentSectionMock);
+            mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+            var hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
 
             ReliabilityIndexCalculationOutput output = null;
 
             // Call
-            Action call = () => output = WaveHeightCalculationService.Calculate(assessmentSection,
-                                                                                assessmentSection.HydraulicBoundaryDatabase,
-                                                                                hydraulicBoundaryLocation,
-                                                                                assessmentSection.Name);
+            Action call = () => output = WaveHeightCalculationService.Calculate(
+                hydraulicBoundaryLocation,
+                assessmentSectionMock.HydraulicBoundaryDatabase.FilePath,
+                assessmentSectionMock.Id,
+                300000);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -118,24 +115,28 @@ namespace Ringtoets.Integration.Service.Test
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[2]);
             });
             Assert.IsNotNull(output);
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CalculateWaveHeight_ValidHydraulicBoundaryDatabaseInvalidHydraulicBoundaryLocation_LogStartAndEndAndErrorMessageAndReturnNull()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
+            var mockRepository = new MockRepository();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            ImportHydraulicBoundaryDatabase(assessmentSectionMock);
+            mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
 
             ReliabilityIndexCalculationOutput output = null;
 
             // Call
-            Action call = () => output = WaveHeightCalculationService.Calculate(assessmentSection,
-                                                                                assessmentSection.HydraulicBoundaryDatabase,
-                                                                                hydraulicBoundaryLocation,
-                                                                                assessmentSection.Name);
+            Action call = () => output = WaveHeightCalculationService.Calculate(
+                hydraulicBoundaryLocation,
+                assessmentSectionMock.HydraulicBoundaryDatabase.FilePath,
+                assessmentSectionMock.Id,
+                300000);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -149,11 +150,14 @@ namespace Ringtoets.Integration.Service.Test
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[3]);
             });
             Assert.IsNull(output);
+            mockRepository.VerifyAll();
         }
 
-        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
+        private const string validFile = "HRD dutch coast south.sqlite";
+
+        private void ImportHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string validFilePath = Path.Combine(testDataPath, validFile);
 
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -212,7 +211,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             IEnumerable<HydraulicBoundaryLocation> locations = null;
-            guiServiceMock.Expect(ch => ch.CalculateDesignWaterLevels(assessmentSection, null)).IgnoreArguments().WhenCalled(
+            guiServiceMock.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1)).IgnoreArguments().WhenCalled(
                 invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1]; });
             mockRepository.ReplayAll();
 
@@ -296,6 +295,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private class TestAssessmentSection : Observable, IAssessmentSection
         {
+            public TestAssessmentSection()
+            {
+                FailureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 0, 300000);
+            }
+
             public string Comments { get; set; }
             public long StorageId { get; set; }
             public string Id { get; set; }
@@ -307,13 +311,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             public IEnumerable<IFailureMechanism> GetFailureMechanisms()
             {
-                throw new NotImplementedException();
+                yield break;
             }
 
-            public void ChangeComposition(AssessmentSectionComposition newComposition)
-            {
-                throw new NotImplementedException();
-            }
+            public void ChangeComposition(AssessmentSectionComposition newComposition) {}
         }
     }
 }

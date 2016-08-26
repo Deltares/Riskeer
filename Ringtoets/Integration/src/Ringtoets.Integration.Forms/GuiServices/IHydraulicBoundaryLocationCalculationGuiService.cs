@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Integration.Forms.GuiServices
@@ -35,19 +34,27 @@ namespace Ringtoets.Integration.Forms.GuiServices
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> calculation for all <paramref name="locations"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section.</param>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundaries database.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
         /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        void CalculateDesignWaterLevels(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocation> locations);
+        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
+        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> 
+        /// or <paramref name="locations"/> is <c>null</c>.</exception>
+        void CalculateDesignWaterLevels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                        IEnumerable<HydraulicBoundaryLocation> locations, string ringId, int norm);
 
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.WaveHeight"/> calculation for all <paramref name="locations"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section.</param>
+        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundaries database.</param>
         /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
-        /// the <see cref="HydraulicBoundaryLocation.WaveHeight"/> for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        void CalculateWaveHeights(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocation> locations);
+        /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
+        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
+        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> 
+        /// or <paramref name="locations"/> is <c>null</c>.</exception>
+        void CalculateWaveHeights(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                  IEnumerable<HydraulicBoundaryLocation> locations, string ringId, int norm);
     }
 }

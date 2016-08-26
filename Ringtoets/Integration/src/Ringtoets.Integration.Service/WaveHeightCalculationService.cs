@@ -21,7 +21,6 @@
 
 using System.IO;
 using log4net;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -44,18 +43,18 @@ namespace Ringtoets.Integration.Service
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveHeightCalculationService));
 
         /// <summary>
-        /// Performs validation of the values in the given <paramref name="hydraulicBoundaryDatabase"/>. Error information is logged during
+        /// Performs validation of the values in the given <paramref name="hydraulicBoundaryDatabaseFilePath"/>. Error information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> for which to validate the values.</param>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for which to validate the values.</param>
-        /// <returns><c>False</c> if <paramref name="hydraulicBoundaryDatabase"/> contains validation errors; <c>True</c> otherwise.</returns>
-        internal static bool Validate(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
+        /// <returns><c>False</c> if the connection to <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains validation errors; <c>True</c> otherwise.</returns>
+        internal static bool Validate(HydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath)
         {
             var calculationName = string.Format(Resources.WaveHeightCalculationService_Name_Wave_height_for_location_0_, hydraulicBoundaryLocation.Name);
             CalculationServiceHelper.LogValidationBeginTime(calculationName);
 
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabase.FilePath);
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
             var isValid = string.IsNullOrEmpty(validationProblem);
 
             if (!isValid)
@@ -73,16 +72,16 @@ namespace Ringtoets.Integration.Service
         /// Performs a wave height calculation based on the supplied <see cref="HydraulicBoundaryLocation"/> and returns the result
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to base the input for the calculation upon.</param>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to base the input for the calculation upon.</param>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
+        /// <param name="norm">The norm to use during the calculation.</param>
         /// <returns>A <see cref="ReliabilityIndexCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        internal static ReliabilityIndexCalculationOutput Calculate(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                     HydraulicBoundaryLocation hydraulicBoundaryLocation, string ringId)
+        internal static ReliabilityIndexCalculationOutput Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath,
+                                                                    string ringId, int norm)
         {
-            var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath);
-            var input = CreateInput(assessmentSection, hydraulicBoundaryLocation);
+            var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+            var input = CreateInput(hydraulicBoundaryLocation, norm);
             var targetProbabilityCalculationParser = new ReliabilityIndexCalculationParser();
             var calculationName = string.Format(Resources.WaveHeightCalculationService_Name_Wave_height_for_location_0_, hydraulicBoundaryLocation.Name);
 
@@ -114,9 +113,9 @@ namespace Ringtoets.Integration.Service
             }
         }
 
-        private static WaveHeightCalculationInput CreateInput(IAssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, int norm)
         {
-            return new WaveHeightCalculationInput(1, hydraulicBoundaryLocation.Id, assessmentSection.FailureMechanismContribution.Norm);
+            return new WaveHeightCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
         }
     }
 }

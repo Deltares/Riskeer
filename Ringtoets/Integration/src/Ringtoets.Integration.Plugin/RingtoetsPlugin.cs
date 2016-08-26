@@ -26,7 +26,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
-using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Gui;
@@ -1057,9 +1056,13 @@ namespace Ringtoets.Integration.Plugin
                     {
                         return;
                     }
+
+                    IAssessmentSection assessmentSection = nodeData.WrappedData;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
-                        nodeData.WrappedData,
-                        nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
+                        assessmentSection.HydraulicBoundaryDatabase,
+                        assessmentSection.HydraulicBoundaryDatabase.Locations,
+                        assessmentSection.Id,
+                        assessmentSection.FailureMechanismContribution.Norm);
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
@@ -1089,9 +1092,12 @@ namespace Ringtoets.Integration.Plugin
                     {
                         return;
                     }
+                    IAssessmentSection assessmentSection = nodeData.WrappedData;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
-                        nodeData.WrappedData,
-                        nodeData.WrappedData.HydraulicBoundaryDatabase.Locations);
+                        assessmentSection.HydraulicBoundaryDatabase,
+                        assessmentSection.HydraulicBoundaryDatabase.Locations,
+                        assessmentSection.Id,
+                        assessmentSection.FailureMechanismContribution.Norm);
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)

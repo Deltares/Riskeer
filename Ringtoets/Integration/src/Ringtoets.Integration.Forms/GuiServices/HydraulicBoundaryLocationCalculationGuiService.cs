@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Integration.Forms.Properties;
@@ -56,46 +55,52 @@ namespace Ringtoets.Integration.Forms.GuiServices
             this.viewParent = viewParent;
         }
 
-        public void CalculateDesignWaterLevels(IAssessmentSection assessmentSection,
-                                               IEnumerable<HydraulicBoundaryLocation> locations)
+        public void CalculateDesignWaterLevels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                               IEnumerable<HydraulicBoundaryLocation> locations, string ringId, int norm)
         {
-            if (assessmentSection == null)
+            if (hydraulicBoundaryDatabase == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException("hydraulicBoundaryDatabase");
             }
             if (locations == null)
             {
                 throw new ArgumentNullException("locations");
             }
-            var activities = locations.Select(hbl => new DesignWaterLevelCalculationActivity(assessmentSection, hbl)).ToArray();
-            RunActivities(assessmentSection, activities);
+            var activities = locations.Select(hbl => new DesignWaterLevelCalculationActivity(hbl,
+                                                                                             hydraulicBoundaryDatabase.FilePath,
+                                                                                             ringId,
+                                                                                             norm)).ToArray();
+            RunActivities(hydraulicBoundaryDatabase, activities);
         }
 
-        public void CalculateWaveHeights(IAssessmentSection assessmentSection,
-                                         IEnumerable<HydraulicBoundaryLocation> locations)
+        public void CalculateWaveHeights(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                         IEnumerable<HydraulicBoundaryLocation> locations, string ringId, int norm)
         {
-            if (assessmentSection == null)
+            if (hydraulicBoundaryDatabase == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException("hydraulicBoundaryDatabase");
             }
             if (locations == null)
             {
                 throw new ArgumentNullException("locations");
             }
-            var activities = locations.Select(hbl => new WaveHeightCalculationActivity(assessmentSection, hbl)).ToArray();
-            RunActivities(assessmentSection, activities);
+            var activities = locations.Select(hbl => new WaveHeightCalculationActivity(hbl,
+                                                                                       hydraulicBoundaryDatabase.FilePath,
+                                                                                       ringId,
+                                                                                       norm)).ToArray();
+            RunActivities(hydraulicBoundaryDatabase, activities);
         }
 
-        private void RunActivities<TActivity>(IAssessmentSection assessmentSection,
+        private void RunActivities<TActivity>(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                               IList<TActivity> activities) where TActivity : Activity
         {
-            var hrdFile = assessmentSection.HydraulicBoundaryDatabase.FilePath;
+            var hrdFile = hydraulicBoundaryDatabase.FilePath;
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
             if (string.IsNullOrEmpty(validationProblem))
             {
                 ActivityProgressDialogRunner.Run(viewParent, activities);
 
-                assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+                hydraulicBoundaryDatabase.NotifyObservers();
             }
             else
             {

@@ -22,15 +22,12 @@
 using System;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -46,14 +43,12 @@ namespace Ringtoets.Integration.Service.Test
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            string validFilePath = Path.Combine(testDataPath, validFile);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
 
             // Call
-            var activity = new WaveHeightCalculationActivity(assessmentSectionMock, hydraulicBoundaryLocation);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, validFilePath, "", 1);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -62,55 +57,29 @@ namespace Ringtoets.Integration.Service.Test
             Assert.AreEqual(expectedName, activity.Name);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_IAssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
-
-            // Call
-            TestDelegate call = () => new WaveHeightCalculationActivity(null, hydraulicBoundaryLocation);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void ParameteredConstructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            string validFilePath = Path.Combine(testDataPath, validFile);
 
             // Call
-            TestDelegate call = () => new WaveHeightCalculationActivity(assessmentSectionMock, null);
+            TestDelegate call = () => new WaveHeightCalculationActivity(null, validFilePath, "", 1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
-            };
-            mockRepository.ReplayAll();
-
+            string inValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
-            var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, inValidFilePath, "", 1);
 
             // Call
             Action call = () => activity.Run();
@@ -126,7 +95,6 @@ namespace Ringtoets.Integration.Service.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -134,18 +102,12 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Expect(o => o.Id).Return(null);
-            assessmentSectionStub.Expect(o => o.NotifyObservers());
-
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
-            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution);
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            ImportHydraulicBoundaryDatabase(assessmentSectionMock, validFile);
             mockRepository.ReplayAll();
 
-            ImportHydraulicBoundaryDatabase(assessmentSectionStub);
-
-            var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
-            var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
+            var hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, assessmentSectionMock.HydraulicBoundaryDatabase.FilePath, "", 30);
 
             // Call
             Action call = () => activity.Run();
@@ -171,18 +133,12 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Expect(o => o.Id).Return(null);
-            assessmentSectionStub.Expect(o => o.NotifyObservers());
-
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
-            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution);
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            ImportHydraulicBoundaryDatabase(assessmentSectionMock, validFile);
             mockRepository.ReplayAll();
 
-            ImportHydraulicBoundaryDatabase(assessmentSectionStub);
-
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
-            var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, assessmentSectionMock.HydraulicBoundaryDatabase.FilePath, "", 30);
 
             // Call
             Action call = () => activity.Run();
@@ -210,18 +166,16 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Expect(o => o.NotifyObservers());
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            ImportHydraulicBoundaryDatabase(assessmentSectionMock, validFile);
             mockRepository.ReplayAll();
-
-            ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
             {
                 WaveHeight = (RoundedDouble) 3.0
             };
 
-            var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, assessmentSectionMock.HydraulicBoundaryDatabase.FilePath, "", 30);
 
             // Call
             Action call = () => activity.Run();
@@ -237,28 +191,18 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void Finish_ValidCalculationAndRun_SetsPropertiesAndNotifyObservers()
+        public void Finish_ValidCalculationAndRun_SetsProperties()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Expect(o => o.Id).Return(null);
-            assessmentSectionStub.Expect(o => o.NotifyObservers());
-
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
-            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution).Repeat.Twice();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            ImportHydraulicBoundaryDatabase(assessmentSectionMock, validFile);
             mockRepository.ReplayAll();
 
-            ImportHydraulicBoundaryDatabase(assessmentSectionStub);
-
-            var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
+            var hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
             hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedNotConverged;
-            hydraulicBoundaryLocation.Attach(observerMock);
 
-            var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, assessmentSectionMock.HydraulicBoundaryDatabase.FilePath, "", 30);
 
             activity.Run();
 
@@ -276,28 +220,20 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void Finish_InvalidCalculationAndRun_DoesNotSetPropertiesAndUpdateObserver()
+        public void Finish_InvalidCalculationAndRun_DoesNotSetProperties()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Expect(o => o.Id).Return(null);
-            assessmentSectionStub.Expect(o => o.NotifyObservers());
-
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
-            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution);
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            ImportHydraulicBoundaryDatabase(assessmentSectionMock, validFile);
             mockRepository.ReplayAll();
 
-            ImportHydraulicBoundaryDatabase(assessmentSectionStub);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
+            {
+                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged
+            };
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
-            hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
-            hydraulicBoundaryLocation.Attach(observerMock);
-
-            var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, assessmentSectionMock.HydraulicBoundaryDatabase.FilePath, "", 30);
 
             activity.Run();
 
@@ -319,28 +255,18 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Expect(o => o.Id).Return(null);
-            assessmentSectionStub.Expect(o => o.NotifyObservers());
-
-            var failureMechanismContribution = new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 30000);
-            assessmentSectionStub.Expect(asm => asm.FailureMechanismContribution).Return(failureMechanismContribution).Repeat.Twice();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            ImportHydraulicBoundaryDatabase(assessmentSectionMock, "HRD ijsselmeer.sqlite");
             mockRepository.ReplayAll();
 
-            ImportHydraulicBoundaryDatabase(assessmentSectionStub);
-
-            var hydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
+            const string locationName = "HRbasis_ijsslm_1000";
+            var hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(loc => loc.Name == locationName);
             hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
-            hydraulicBoundaryLocation.Attach(observerMock);
 
-            var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
+            int norm = 300;
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, assessmentSectionMock.HydraulicBoundaryDatabase.FilePath, "", norm);
 
             activity.Run();
-
-            failureMechanismContribution.Norm = 29;
 
             // Precondition
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
@@ -353,8 +279,8 @@ namespace Ringtoets.Integration.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith("Golfhoogte berekening voor locatie punt_flw_ 1 is niet geconvergeerd.", msgs[0]);
-                StringAssert.StartsWith("Uitvoeren van 'Golfhoogte berekenen voor locatie 'punt_flw_ 1'' is gelukt.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Golfhoogte berekening voor locatie {0} is niet geconvergeerd.", locationName), msgs[0]);
+                StringAssert.StartsWith(string.Format("Uitvoeren van 'Golfhoogte berekenen voor locatie '{0}'' is gelukt.", locationName), msgs[1]);
             });
             Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
@@ -365,11 +291,9 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Expect(o => o.NotifyObservers());
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            ImportHydraulicBoundaryDatabase(assessmentSectionMock, validFile);
             mockRepository.ReplayAll();
-
-            ImportHydraulicBoundaryDatabase(assessmentSectionStub);
 
             RoundedDouble waveHeight = (RoundedDouble) 3.0;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
@@ -377,7 +301,7 @@ namespace Ringtoets.Integration.Service.Test
                 WaveHeight = waveHeight
             };
 
-            var activity = new WaveHeightCalculationActivity(assessmentSectionStub, hydraulicBoundaryLocation);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, assessmentSectionMock.HydraulicBoundaryDatabase.FilePath, "", 30);
 
             activity.Run();
 
@@ -389,9 +313,11 @@ namespace Ringtoets.Integration.Service.Test
             mockRepository.VerifyAll();
         }
 
-        private void ImportHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
+        private const string validFile = "HRD dutch coast south.sqlite";
+
+        private void ImportHydraulicBoundaryDatabase(IAssessmentSection assessmentSection, string fileName)
         {
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string validFilePath = Path.Combine(testDataPath, fileName);
 
             using (var importer = new HydraulicBoundaryDatabaseImporter())
                 importer.Import(assessmentSection, validFilePath);
