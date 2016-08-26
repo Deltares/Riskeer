@@ -32,7 +32,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [Test]
         [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "205", 5.0, 15.0)]
         [TestCase(HydraRingFailureMechanismType.QVariant, "205", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "11-1", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "11-1", 3.28, 5.28)]
         [TestCase(HydraRingFailureMechanismType.QVariant, "11-1", 5.0, 15.0)]
         public void GetDesignTablesSetting_KnownRingIdAndFailureMechanismType_ReturnsExpectedDesignTablesSetting(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
         {

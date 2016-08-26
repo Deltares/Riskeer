@@ -31,9 +31,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         [TestCase(-1)]
         [TestCase(long.MinValue)]
         [TestCase(303192)]
-        [TestCase(303194)]
-        [TestCase(603074)]
-        [TestCase(603076)]
+        [TestCase(303196)]
+        [TestCase(602961)]
+        [TestCase(603017)]
         [TestCase(long.MaxValue)]
         public void ShouldInclude_NameNotInFilterSet_ReturnsTrue(long id)
         {
