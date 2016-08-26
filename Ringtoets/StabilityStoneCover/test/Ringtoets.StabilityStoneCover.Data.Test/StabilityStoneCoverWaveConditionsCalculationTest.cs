@@ -19,11 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using Core.Common.Base;
+using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.StabilityStoneCover.Data.Properties;
 
-[assembly: AssemblyTitle("Ringtoets.StabilityStoneCover.Data")]
-[assembly: AssemblyProduct("Ringtoets.StabilityStoneCover.Data")]
-[assembly: InternalsVisibleTo("Ringtoets.StabilityStoneCover.Data.Test")]
-[assembly: Guid("3da73ace-be5f-4a2a-b788-dd8c04618897")]
+namespace Ringtoets.StabilityStoneCover.Data.Test
+{
+    [TestFixture]
+    public class StabilityStoneCoverWaveConditionsCalculationTest
+    {
+        [Test]
+        public void Constructor_DefaultValues()
+        {
+            // Call
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+
+            // Assert
+            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<Observable>(calculation);
+
+            Assert.AreEqual(Resources.StabilityStoneCoverWaveConditionsCalculation_DefaultName, calculation.Name);
+        }
+    }
+}
