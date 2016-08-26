@@ -48,6 +48,14 @@ namespace Ringtoets.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingFailureMechanismViewTest
     {
+        private const int referenceLineIndex = 0;
+        private const int sectionsIndex = 1;
+        private const int stochasticSoilModelsIndex = 2;
+        private const int surfaceLinesIndex = 3;
+        private const int sectionsStartPointIndex = 4;
+        private const int sectionsEndPointIndex = 5;
+        private const int hydraulicBoundaryDatabaseIndex = 6;
+
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -533,14 +541,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(dataBeforeUpdate, map.Data);
             }
         }
-
-        private const int referenceLineIndex = 0;
-        private const int sectionsIndex = 1;
-        private const int stochasticSoilModelsIndex = 2;
-        private const int surfaceLinesIndex = 3;
-        private const int sectionsStartPointIndex = 4;
-        private const int sectionsEndPointIndex = 5;
-        private const int hydraulicBoundaryDatabaseIndex = 6;
 
         private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData mapData)
         {

@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             // Assert
             var length = Math.Sqrt(2*2 + 3*3);
             const double secondCoordinateFactor = (2.0*1.0 + 3.0*2.0)/(2.0*2.0 + 3.0*3.0);
-            double[] expectedCoordinatesX = 
+            double[] expectedCoordinatesX =
             {
                 0.0,
                 secondCoordinateFactor*length,
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.KernelWrapper.Test
             PipingSurfaceLine actual = PipingSurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            double[] expectedCoordinatesX = 
+            double[] expectedCoordinatesX =
             {
                 0.0
             };

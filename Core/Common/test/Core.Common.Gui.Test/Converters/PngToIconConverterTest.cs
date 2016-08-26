@@ -24,10 +24,8 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.Test.Properties;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Converters
@@ -56,7 +54,7 @@ namespace Core.Common.Gui.Test.Converters
 
             // Assert
             Assert.IsInstanceOf<BitmapImage>(bitmap);
-            var bitmapInstance = (BitmapImage)bitmap;
+            var bitmapInstance = (BitmapImage) bitmap;
             Assert.AreEqual(16, bitmapInstance.Height);
             Assert.AreEqual(16, bitmapInstance.Width);
         }

@@ -240,10 +240,17 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        [TestCase(2.5, new [] {3.3})]
+        [TestCase(2.5, new[]
+        {
+            3.3
+        })]
         [TestCase(1.1, new double[0])]
         [TestCase(5.5, new double[0])]
-        [TestCase(-1.5, new []{1.5, 3.75})]
+        [TestCase(-1.5, new[]
+        {
+            1.5,
+            3.75
+        })]
         public void SegmentsIntersectionWithVerticalLine_SegmentsCollectionNotIntersecting_ReturnsEmptyCollection(double x, double[] intersectionHeights)
         {
             // Setup
@@ -444,7 +451,6 @@ namespace Core.Common.Base.Test.Geometry
             }, lineSplits[3], doubleToleranceComparer);
         }
 
-
         [Test]
         [TestCase(0, "segment1")]
         [TestCase(1, "segment2")]
@@ -453,8 +459,8 @@ namespace Core.Common.Base.Test.Geometry
             // Setup
             var segments = new[]
             {
-                new Segment2D(new Point2D(0,0), new Point2D(0,1)), 
-                new Segment2D(new Point2D(0,0), new Point2D(0,1))
+                new Segment2D(new Point2D(0, 0), new Point2D(0, 1)),
+                new Segment2D(new Point2D(0, 0), new Point2D(0, 1))
             };
 
             segments[nullIndex] = null;
@@ -477,7 +483,7 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             const double y1 = 2.2;
-            double y2 = y1+dy;
+            double y2 = y1 + dy;
 
             const double x1 = 1.1;
             const double x2 = 3.3;
@@ -589,7 +595,7 @@ namespace Core.Common.Base.Test.Geometry
             double dx)
         {
             // Setup
-            Func<double, double> getY = x => 1.1 * x + 2.2;
+            Func<double, double> getY = x => 1.1*x + 2.2;
             const double x1 = 1.1;
             const double x2 = 3.3;
             var segment1 = new Segment2D(new Point2D(x1, getY(x1)), new Point2D(x2, getY(x2)));
@@ -644,7 +650,10 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
-            CollectionAssert.AreEqual(new[] { segmentCommonPoint }, result.IntersectionPoints);
+            CollectionAssert.AreEqual(new[]
+            {
+                segmentCommonPoint
+            }, result.IntersectionPoints);
         }
 
         [Test]
@@ -685,8 +694,11 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
-            CollectionAssert.AreEqual(new[] { segmentCommonPoint }, result.IntersectionPoints,
-                new Point2DComparerWithTolerance(1e-6));
+            CollectionAssert.AreEqual(new[]
+            {
+                segmentCommonPoint
+            }, result.IntersectionPoints,
+                                      new Point2DComparerWithTolerance(1e-6));
         }
 
         [Test]
@@ -698,7 +710,7 @@ namespace Core.Common.Base.Test.Geometry
             int configurationNumber)
         {
             // Setup
-            Func<double, double> getY = x => 3.3 * x + 4.4;
+            Func<double, double> getY = x => 3.3*x + 4.4;
 
             const double x1 = 5.5;
             const double x2 = 6.6;
@@ -725,13 +737,16 @@ namespace Core.Common.Base.Test.Geometry
             {
                 segment2 = new Segment2D(segmentCommonPoint, segment2UniquePoint);
             }
-            
+
             // Call
             Segment2DIntersectSegment2DResult result = Math2D.GetIntersectionBetweenSegments(segment1, segment2);
 
             // Assert
             Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
-            CollectionAssert.AreEqual(new[]{segmentCommonPoint}, result.IntersectionPoints);
+            CollectionAssert.AreEqual(new[]
+            {
+                segmentCommonPoint
+            }, result.IntersectionPoints);
         }
 
         [Test]
@@ -774,8 +789,10 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
-            CollectionAssert.AreEqual(new[] { pointOnSegment }, result.IntersectionPoints,
-                new Point2DComparerWithTolerance(1e-6));
+            CollectionAssert.AreEqual(new[]
+            {
+                pointOnSegment
+            }, result.IntersectionPoints, new Point2DComparerWithTolerance(1e-6));
         }
 
         [Test]
@@ -802,9 +819,17 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            var expectedOverlappingPoints = dy >= 0 ? 
-                new[] { verticalSegment1.FirstPoint, verticalSegment2.SecondPoint }:
-                new[] { verticalSegment1.SecondPoint, verticalSegment2.FirstPoint };
+            var expectedOverlappingPoints = dy >= 0 ?
+                                                new[]
+                                                {
+                                                    verticalSegment1.FirstPoint,
+                                                    verticalSegment2.SecondPoint
+                                                } :
+                                                new[]
+                                                {
+                                                    verticalSegment1.SecondPoint,
+                                                    verticalSegment2.FirstPoint
+                                                };
             CollectionAssertAreEquivalent(expectedOverlappingPoints, result.IntersectionPoints);
         }
 
@@ -833,8 +858,16 @@ namespace Core.Common.Base.Test.Geometry
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
             var expectedOverlappingPoints = dx >= 0 ?
-                new[] { horizontalSegment1.FirstPoint, horizontalSegment2.SecondPoint } :
-                new[] { horizontalSegment1.SecondPoint, horizontalSegment2.FirstPoint };
+                                                new[]
+                                                {
+                                                    horizontalSegment1.FirstPoint,
+                                                    horizontalSegment2.SecondPoint
+                                                } :
+                                                new[]
+                                                {
+                                                    horizontalSegment1.SecondPoint,
+                                                    horizontalSegment2.FirstPoint
+                                                };
             CollectionAssertAreEquivalent(expectedOverlappingPoints, result.IntersectionPoints);
         }
 
@@ -851,7 +884,11 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            var expectedOverlappingPoints = new[] { firstPoint, secondPoint };
+            var expectedOverlappingPoints = new[]
+            {
+                firstPoint,
+                secondPoint
+            };
             CollectionAssertAreEquivalent(expectedOverlappingPoints, result.IntersectionPoints);
         }
 
@@ -859,7 +896,7 @@ namespace Core.Common.Base.Test.Geometry
         public void GetIntersectionBetweenSegments_CollinearSegmentsWithFullOverlap_ReturnOverlap()
         {
             // Setup
-            Func<double, double> getY = x => -12.34 * x + 45.67;
+            Func<double, double> getY = x => -12.34*x + 45.67;
             const double x1 = 1.1;
             const double x2 = 2.2;
             const double x3 = -3.3;
@@ -872,7 +909,11 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            var expectedOverlappingPoints = new[] { segment1.FirstPoint, segment1.SecondPoint };
+            var expectedOverlappingPoints = new[]
+            {
+                segment1.FirstPoint,
+                segment1.SecondPoint
+            };
             CollectionAssertAreEquivalent(expectedOverlappingPoints, result.IntersectionPoints);
         }
 
@@ -901,11 +942,11 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        [TestCase(0,0)]
-        [TestCase(-6541.2354,5.25)]
-        [TestCase(-3.25,-12.55)]
-        [TestCase(6.154,-9684.514)]
-        [TestCase(6840.251,15.3251)]
+        [TestCase(0, 0)]
+        [TestCase(-6541.2354, 5.25)]
+        [TestCase(-3.25, -12.55)]
+        [TestCase(6.154, -9684.514)]
+        [TestCase(6840.251, 15.3251)]
         public void GetIntersectionBetweenSegments_SegmentsArePointsOnTopOfEachOther_ReturnIntersection(double x, double y)
         {
             // Setup
@@ -917,7 +958,10 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
-            CollectionAssert.AreEqual(new[]{ new Point2D(x, y) }, result.IntersectionPoints);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(x, y)
+            }, result.IntersectionPoints);
         }
 
         [Test]
@@ -946,7 +990,7 @@ namespace Core.Common.Base.Test.Geometry
             bool firstSegmentIsPointDegenerate)
         {
             // Setup
-            Func<double, double> getY = x => 1.2 * x + 3.4;
+            Func<double, double> getY = x => 1.2*x + 3.4;
 
             const double x1 = 1.1;
             const double x2 = 5.5;
@@ -972,7 +1016,10 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
-            CollectionAssert.AreEqual(new[]{ point }, result.IntersectionPoints);
+            CollectionAssert.AreEqual(new[]
+            {
+                point
+            }, result.IntersectionPoints);
         }
 
         [Test]
@@ -1004,7 +1051,10 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
-            CollectionAssert.AreEqual(new[] { point }, result.IntersectionPoints);
+            CollectionAssert.AreEqual(new[]
+            {
+                point
+            }, result.IntersectionPoints);
         }
 
         [Test]
@@ -1014,7 +1064,7 @@ namespace Core.Common.Base.Test.Geometry
             bool firstSegmentIsPointDegenerate)
         {
             // Setup
-            Func<double, double> getY = x => -5.6 * x + 7.8;
+            Func<double, double> getY = x => -5.6*x + 7.8;
 
             const double x1 = 1.1;
             const double x2 = 5.5;
@@ -1113,9 +1163,9 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var random = new Random(21);
-            var points = new []
+            var points = new[]
             {
-                new Point2D(random.NextDouble(), random.NextDouble()), 
+                new Point2D(random.NextDouble(), random.NextDouble()),
             };
 
             // Call
@@ -1201,7 +1251,7 @@ namespace Core.Common.Base.Test.Geometry
             Point2D result = Math2D.GetInterpolatedPointAtFraction(segment, fraction);
 
             // Assert
-            Assert.AreEqual(new Point2D(2.8, (5.02 - 2.2) * fraction), result);
+            Assert.AreEqual(new Point2D(2.8, (5.02 - 2.2)*fraction), result);
         }
 
         [Test]
@@ -1239,7 +1289,7 @@ namespace Core.Common.Base.Test.Geometry
         [Test]
         [TestCase(double.NaN)]
         [TestCase(-1e-9)]
-        [TestCase(1+1e-9)]
+        [TestCase(1 + 1e-9)]
         [TestCase(3)]
         [TestCase(-2)]
         public void GetInterpolatedPoint_WithInvalidFraction_ThrowsArgumentOutOfRangeException(double fraction)
@@ -1254,7 +1304,7 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(
-                test, 
+                test,
                 "Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");
         }
 
@@ -1270,7 +1320,7 @@ namespace Core.Common.Base.Test.Geometry
         private double[] GetLengthsBasedOnReletative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
         {
             var lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
-            return relativeLengths.Select(l => lineLength * l).ToArray();
+            return relativeLengths.Select(l => lineLength*l).ToArray();
         }
     }
 }

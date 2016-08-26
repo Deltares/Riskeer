@@ -47,8 +47,8 @@ namespace Core.Common.Utils.Builders
         public string Build(string errorMessage)
         {
             return string.Format("Fout bij het lezen van bestand '{0}'{1}{2}: {3}",
-                                 filePath, 
-                                 location ?? string.Empty, 
+                                 filePath,
+                                 location ?? string.Empty,
                                  subject ?? string.Empty,
                                  errorMessage);
         }

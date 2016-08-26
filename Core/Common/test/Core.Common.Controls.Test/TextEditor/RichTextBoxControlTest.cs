@@ -31,8 +31,8 @@ namespace Core.Common.Controls.Test.TextEditor
     [TestFixture]
     public class RichTextBoxControlTest
     {
-        private static RichTextBox tempRichTextBox;
         private const string text = "Test DEZE regel";
+        private static RichTextBox tempRichTextBox;
 
         [SetUp]
         public void SetUp()
@@ -92,12 +92,12 @@ namespace Core.Common.Controls.Test.TextEditor
             {
                 // Show the view
                 var control = new RichTextBoxControl();
-                
+
                 var data = "<Some data>";
 
                 control.Rtf = GetValidRtfString(data);
                 form.Controls.Add(control);
-                
+
                 // Call
                 form.Show();
 
@@ -182,7 +182,7 @@ namespace Core.Common.Controls.Test.TextEditor
         }
 
         [Test]
-        [TestCase(Keys.B, true, false ,false)]
+        [TestCase(Keys.B, true, false, false)]
         [TestCase(Keys.I, false, true, false)]
         [TestCase(Keys.U, false, false, true)]
         public void RichTextBoxControl_TextDoesNotHaveStyleOnStyleKeyDown_SelectionFontStyleApplied(Keys key, bool bold, bool italic, bool underline)
@@ -194,7 +194,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Controls.Add(control);
                 form.Show();
 
-                var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
+                var richTextBox = (RichTextBox) new ControlTester("richTextBox").TheObject;
                 richTextBox.AppendText(text);
 
                 richTextBox.SelectionStart = 5;
@@ -230,7 +230,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Controls.Add(control);
                 form.Show();
 
-                var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
+                var richTextBox = (RichTextBox) new ControlTester("richTextBox").TheObject;
                 richTextBox.AppendText(text);
 
                 richTextBox.SelectionStart = 5;
@@ -256,10 +256,27 @@ namespace Core.Common.Controls.Test.TextEditor
         }
 
         [Test]
-        [TestCase(new[] { Keys.U, Keys.B }, true, true, false)]
-        [TestCase(new[] { Keys.U, Keys.I }, true, false, true)]
-        [TestCase(new[] { Keys.B, Keys.I }, false, true, true)]
-        [TestCase(new[] { Keys.B, Keys.I, Keys.U }, true, true, true)]
+        [TestCase(new[]
+        {
+            Keys.U,
+            Keys.B
+        }, true, true, false)]
+        [TestCase(new[]
+        {
+            Keys.U,
+            Keys.I
+        }, true, false, true)]
+        [TestCase(new[]
+        {
+            Keys.B,
+            Keys.I
+        }, false, true, true)]
+        [TestCase(new[]
+        {
+            Keys.B,
+            Keys.I,
+            Keys.U
+        }, true, true, true)]
         public void RichTextBoxControl_SetDifferentStyles_SelectedTextHasDifferentStyles(IEnumerable<Keys> keys, bool underline, bool bold, bool italic)
         {
             // Setup
@@ -269,7 +286,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Controls.Add(control);
                 form.Show();
 
-                var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
+                var richTextBox = (RichTextBox) new ControlTester("richTextBox").TheObject;
                 richTextBox.AppendText(text);
 
                 richTextBox.SelectionStart = 5;
@@ -281,7 +298,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 // Call
                 foreach (var key in keys)
                 {
-                    EventHelper.RaiseEvent(richTextBox, "KeyDown", new KeyEventArgs(key| Keys.Control));
+                    EventHelper.RaiseEvent(richTextBox, "KeyDown", new KeyEventArgs(key | Keys.Control));
                 }
 
                 // Assert
@@ -305,7 +322,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Controls.Add(control);
                 form.Show();
 
-                var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
+                var richTextBox = (RichTextBox) new ControlTester("richTextBox").TheObject;
 
                 EventHelper.RaiseEvent(richTextBox, "KeyDown", new KeyEventArgs(key | Keys.Control));
 
@@ -373,7 +390,7 @@ namespace Core.Common.Controls.Test.TextEditor
                 form.Controls.Add(control);
                 form.Show();
 
-                var richTextBox = (RichTextBox)new ControlTester("richTextBox").TheObject;
+                var richTextBox = (RichTextBox) new ControlTester("richTextBox").TheObject;
 
                 richTextBox.AppendText("A");
 

@@ -36,6 +36,8 @@ namespace Ringtoets.Piping.Integration.Test
     [TestFixture]
     public class PipingFailureMechanismResultViewIntegrationTest
     {
+        private const int assessmentLayerTwoAIndex = 2;
+
         [Test]
         public void FailureMechanismResultView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
         {
@@ -155,7 +157,5 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual("Niet alle berekeningen voor dit vak zijn uitgevoerd.", dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);
             }
         }
-
-        private const int assessmentLayerTwoAIndex = 2;
     }
 }

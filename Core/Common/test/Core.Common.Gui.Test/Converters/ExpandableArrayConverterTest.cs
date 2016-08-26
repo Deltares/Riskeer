@@ -22,9 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-
 using Core.Common.Gui.Converters;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Converters
@@ -93,7 +91,7 @@ namespace Core.Common.Gui.Test.Converters
             var converter = new ExpandableArrayConverter();
 
             // Call
-            TestDelegate call =() => converter.ConvertTo(sourceArray, null);
+            TestDelegate call = () => converter.ConvertTo(sourceArray, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -128,7 +126,6 @@ namespace Core.Common.Gui.Test.Converters
             }
         }
 
-
         [Test]
         public void GetProperties_FromArray_SettingValuesShouldUpdateArray()
         {
@@ -147,7 +144,6 @@ namespace Core.Common.Gui.Test.Converters
 
             // Assert
             CollectionAssert.AreEqual(Enumerable.Range(0, elementCount), array);
-
         }
     }
 }

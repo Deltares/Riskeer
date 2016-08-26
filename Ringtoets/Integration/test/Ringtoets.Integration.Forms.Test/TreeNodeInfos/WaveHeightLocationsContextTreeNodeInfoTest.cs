@@ -47,6 +47,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class WaveHeightLocationsContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuRunWaveHeightCalculationsIndex = 1;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -341,8 +342,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             }
             mockRepository.VerifyAll();
         }
-
-        private const int contextMenuRunWaveHeightCalculationsIndex = 1;
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {

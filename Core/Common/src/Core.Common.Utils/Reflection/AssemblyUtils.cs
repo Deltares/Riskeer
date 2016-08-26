@@ -136,7 +136,7 @@ namespace Core.Common.Utils.Reflection
             catch (InvalidOperationException e)
             {
                 var message = string.Format("Cannot find embedded resource file '{0}' in '{1}.",
-                    fileName, assembly.FullName);
+                                            fileName, assembly.FullName);
                 throw new ArgumentException(message, "fileName", e);
             }
         }

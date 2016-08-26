@@ -30,13 +30,13 @@ namespace Core.Common.Controls.TextEditor
     /// </summary>
     public partial class RichTextBoxControl : UserControl
     {
-        private bool loaded;
-        private string rtfToSetAfterLoad;
-
         /// <summary>
         /// The event which is send when the text changes.
         /// </summary>
         public event EventHandler TextBoxValueChanged;
+
+        private bool loaded;
+        private string rtfToSetAfterLoad;
 
         /// <summary>
         /// Creates a new instance of <see cref="RichTextBoxControl"/>.
@@ -49,19 +49,6 @@ namespace Core.Common.Controls.TextEditor
             richTextBox.KeyDown += OnKeyDown;
 
             Load += OnLoad;
-        }
-
-        /// <summary>
-        /// This is needed for the RichTextBox to apply styling.
-        /// </summary>
-        private void OnLoad(object sender, EventArgs eventArgs)
-        {
-            loaded = true;
-
-            if (!string.IsNullOrEmpty(rtfToSetAfterLoad))
-            {
-                richTextBox.Rtf = rtfToSetAfterLoad;
-            }
         }
 
         /// <summary>
@@ -86,6 +73,19 @@ namespace Core.Common.Controls.TextEditor
             }
         }
 
+        /// <summary>
+        /// This is needed for the RichTextBox to apply styling.
+        /// </summary>
+        private void OnLoad(object sender, EventArgs eventArgs)
+        {
+            loaded = true;
+
+            if (!string.IsNullOrEmpty(rtfToSetAfterLoad))
+            {
+                richTextBox.Rtf = rtfToSetAfterLoad;
+            }
+        }
+
         #region Event handling
 
         private void OnTextChanged(object sender, EventArgs e)
@@ -105,7 +105,8 @@ namespace Core.Common.Controls.TextEditor
         {
             if (e.Modifiers == Keys.Control)
             {
-                switch (e.KeyCode) {
+                switch (e.KeyCode)
+                {
                     case Keys.B:
                         e.Handled = true;
                         SetStyle(FontStyle.Bold);

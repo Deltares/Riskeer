@@ -54,21 +54,6 @@ namespace Core.Common.Controls.Forms
             }
         }
 
-        private void UpdateExtendedStyles()
-        {
-            var style = 0;
-
-            if (DoubleBuffered)
-            {
-                style |= tvsExDoublebuffer;
-            }
-
-            if (style != 0)
-            {
-                NativeInterop.SendMessage(Handle, tvmSetextendedstyle, (IntPtr) tvsExDoublebuffer, (IntPtr) style);
-            }
-        }
-
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -99,6 +84,21 @@ namespace Core.Common.Controls.Forms
             }
 
             base.OnPaint(e);
+        }
+
+        private void UpdateExtendedStyles()
+        {
+            var style = 0;
+
+            if (DoubleBuffered)
+            {
+                style |= tvsExDoublebuffer;
+            }
+
+            if (style != 0)
+            {
+                NativeInterop.SendMessage(Handle, tvmSetextendedstyle, (IntPtr) tvsExDoublebuffer, (IntPtr) style);
+            }
         }
 
         private static class NativeInterop

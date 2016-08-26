@@ -49,6 +49,6 @@ namespace Core.Common.Base.Storage
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public StorageValidationException(string message, Exception inner) : base(message, inner) { }
+        public StorageValidationException(string message, Exception inner) : base(message, inner) {}
     }
 }

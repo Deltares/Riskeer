@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Common.Gui.Attributes
@@ -59,7 +58,7 @@ namespace Core.Common.Gui.Attributes
 
         private static IsPropertyVisible CreateIsPropertyVisibleDelegate(object target, MethodInfo methodInfo)
         {
-            return (IsPropertyVisible)Delegate.CreateDelegate(typeof(IsPropertyVisible), target, methodInfo);
+            return (IsPropertyVisible) Delegate.CreateDelegate(typeof(IsPropertyVisible), target, methodInfo);
         }
 
         private static void ValidateMethodInfo(MethodInfo methodInfo)

@@ -33,8 +33,6 @@ namespace Core.Common.Base.Test.IO
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var simpleImporter = new SimpleFileImporter();
 

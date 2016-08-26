@@ -51,6 +51,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class HeightStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuRelevancyIndexWhenRelevant = 0;
+        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
+        private const int contextMenuValidateAllIndex = 2;
+        private const int contextMenuCalculateAllIndex = 3;
+        private const int contextMenuClearAllIndex = 4;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
         private MockRepository mocksRepository;
@@ -63,14 +68,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             mocksRepository = new MockRepository();
             plugin = new HeightStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocksRepository.VerifyAll();
-
-            base.TearDown();
         }
 
         [Test]
@@ -836,10 +833,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             }
         }
 
-        private const int contextMenuRelevancyIndexWhenRelevant = 0;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-        private const int contextMenuValidateAllIndex = 2;
-        private const int contextMenuCalculateAllIndex = 3;
-        private const int contextMenuClearAllIndex = 4;
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocksRepository.VerifyAll();
+
+            base.TearDown();
+        }
     }
 }

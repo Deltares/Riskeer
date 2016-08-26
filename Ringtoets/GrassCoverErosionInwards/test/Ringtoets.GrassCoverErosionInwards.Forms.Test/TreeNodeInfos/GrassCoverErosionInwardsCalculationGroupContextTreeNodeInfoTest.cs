@@ -53,6 +53,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuGenerateCalculationsIndexRootGroup = 0;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
+        private const int contextMenuAddCalculationIndexRootGroup = 3;
+        private const int contextMenuRemoveAllChildrenRootGroupIndex = 5;
+        private const int contextMenuValidateAllIndexRootGroup = 7;
+        private const int contextMenuCalculateAllIndexRootGroup = 8;
+        private const int contextMenuClearAllIndexRootGroup = 9;
+
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
+        private const int contextMenuAddCalculationIndexNestedGroup = 1;
+        private const int contextMenuValidateAllIndexNestedGroup = 3;
+        private const int contextMenuCalculateAllIndexNestedGroup = 4;
+        private const int contextMenuClearAllIndexNestedGroup = 5;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
         private IGui guiMock;
@@ -878,7 +891,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                 "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
         }
-        
+
         [Test]
         public void ContextMenuStrip_ClickOnRemoveAllInGroup_RemovesAllChildren()
         {
@@ -897,8 +910,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
                 var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
                 var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                 failureMechanism,
-                                                                 assessmentSectionMock);
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionMock);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var viewCommandsMock = mocks.StrictMock<IViewCommands>();
@@ -1190,19 +1203,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                                        Name = name
                                    });
         }
-
-        private const int contextMenuGenerateCalculationsIndexRootGroup = 0;
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
-        private const int contextMenuAddCalculationIndexRootGroup = 3;
-        private const int contextMenuRemoveAllChildrenRootGroupIndex = 5;
-        private const int contextMenuValidateAllIndexRootGroup = 7;
-        private const int contextMenuCalculateAllIndexRootGroup = 8;
-        private const int contextMenuClearAllIndexRootGroup = 9;
-
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
-        private const int contextMenuAddCalculationIndexNestedGroup = 1;
-        private const int contextMenuValidateAllIndexNestedGroup = 3;
-        private const int contextMenuCalculateAllIndexNestedGroup = 4;
-        private const int contextMenuClearAllIndexNestedGroup = 5;
     }
 }

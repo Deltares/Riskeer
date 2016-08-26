@@ -22,7 +22,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil.Test
@@ -97,16 +96,16 @@ namespace Core.Common.TestUtil.Test
         [Test]
         [Combinatorial]
         public void Compare_FirstLessThanSecond_ReturnLessThanZero(
-            [Values(1.1)]double first, 
-            [Values(2.2 + 1e-6, 6.8)]double second,
-            [Values(true, false)]bool castToObject)
+            [Values(1.1)] double first,
+            [Values(2.2 + 1e-6, 6.8)] double second,
+            [Values(true, false)] bool castToObject)
         {
             // Setup
             var comparer = new DoubleWithToleranceComparer(1.1);
 
             // Call
             var result = castToObject ?
-                             comparer.Compare((object)first, second) :
+                             comparer.Compare((object) first, second) :
                              comparer.Compare(first, second);
 
             // Assert
@@ -116,16 +115,16 @@ namespace Core.Common.TestUtil.Test
         [Test]
         [Combinatorial]
         public void Compare_FirstGreaterThanSecond_ReturnGreaterThanZero(
-            [Values(1.1)]double first, 
-            [Values(0.6 - 1e-6, -9.65)]double second, 
-            [Values(true, false)]bool castToObject)
+            [Values(1.1)] double first,
+            [Values(0.6 - 1e-6, -9.65)] double second,
+            [Values(true, false)] bool castToObject)
         {
             // Setup
             var comparer = new DoubleWithToleranceComparer(0.5);
 
             // Call
             var result = castToObject ?
-                             comparer.Compare((object)first, second) :
+                             comparer.Compare((object) first, second) :
                              comparer.Compare(first, second);
 
             // Assert

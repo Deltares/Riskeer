@@ -76,17 +76,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
 
         private class TestVariableCsvReader : HydraRingSettingsVariableCsvReader<object>
         {
-            public TestVariableCsvReader(string fileContents, object settings) 
+            public TestVariableCsvReader(string fileContents, object settings)
                 : base(fileContents, settings) {}
-            
-            protected override void CreateSetting(IList<string> line)
-            {
-                throw new NotImplementedException();
-            }
 
             public HydraRingFailureMechanismType TestGetFailureMechanismType(string variable)
             {
                 return GetFailureMechanismType(variable);
+            }
+
+            protected override void CreateSetting(IList<string> line)
+            {
+                throw new NotImplementedException();
             }
         }
     }

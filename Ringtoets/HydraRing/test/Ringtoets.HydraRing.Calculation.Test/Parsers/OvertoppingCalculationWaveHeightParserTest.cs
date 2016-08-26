@@ -29,6 +29,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     [TestFixture]
     public class OvertoppingCalculationWaveHeightParserTest
     {
+        private const int sectionId = 1;
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "OvertoppingCalculationWaveHeightParser");
         private readonly string outputFileName = sectionId + "-output.txt";
 
@@ -116,7 +117,5 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Assert.IsNull(parser.Output);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
         }
-
-        private const int sectionId = 1;
     }
 }

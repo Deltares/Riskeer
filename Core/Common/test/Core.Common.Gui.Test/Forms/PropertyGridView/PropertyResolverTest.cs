@@ -21,12 +21,10 @@
 
 using System;
 using System.Linq;
-
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Forms.PropertyGridView
@@ -59,7 +57,10 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         public void GetObjectProperties_DataIsNull_ReturnNull()
         {
             // Setup
-            var propertyInfos = new PropertyInfo[] { new PropertyInfo<A, PropertiesForA>() };
+            var propertyInfos = new PropertyInfo[]
+            {
+                new PropertyInfo<A, PropertiesForA>()
+            };
 
             var resolver = new PropertyResolver(propertyInfos);
 
@@ -74,7 +75,10 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         public void GetObjectProperties_DataMatchesSinglePropertyInfoDataTypeDirectly_ReturnNewInstanceOfCorrespondingObjectProperties()
         {
             // Setup
-            var propertyInfos = new PropertyInfo[] { new PropertyInfo<A, PropertiesForA>() };
+            var propertyInfos = new PropertyInfo[]
+            {
+                new PropertyInfo<A, PropertiesForA>()
+            };
 
             var resolver = new PropertyResolver(propertyInfos);
 
@@ -85,8 +89,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
-            Assert.IsInstanceOf<PropertiesForA>(((DynamicPropertyBag)result).WrappedObject);
-            Assert.AreSame(source, ((IObjectProperties)((DynamicPropertyBag)result).WrappedObject).Data);
+            Assert.IsInstanceOf<PropertiesForA>(((DynamicPropertyBag) result).WrappedObject);
+            Assert.AreSame(source, ((IObjectProperties) ((DynamicPropertyBag) result).WrappedObject).Data);
         }
 
         [Test]
@@ -113,8 +117,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var result = resolver.GetObjectProperties(source);
 
             // Assert
-            var bag = (DynamicPropertyBag)result;
-            var properties = (PropertiesForA)bag.WrappedObject;
+            var bag = (DynamicPropertyBag) result;
+            var properties = (PropertiesForA) bag.WrappedObject;
             Assert.AreSame(otherObject, properties.Data);
         }
 
@@ -135,7 +139,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
                     AfterCreate = p =>
                     {
                         Assert.AreSame(source, p.Data,
-                            "properties object should have been initialized with 'source'.");
+                                       "properties object should have been initialized with 'source'.");
                         p.Data = otherObject;
                     }
                 }
@@ -147,8 +151,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
             var result = resolver.GetObjectProperties(source);
 
             // Assert
-            var bag = (DynamicPropertyBag)result;
-            var properties = (PropertiesForA)bag.WrappedObject;
+            var bag = (DynamicPropertyBag) result;
+            var properties = (PropertiesForA) bag.WrappedObject;
             Assert.AreSame(otherObject, properties.Data);
         }
 
@@ -177,8 +181,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
-            Assert.IsInstanceOf<AlternativePropertiesForA>(((DynamicPropertyBag)result).WrappedObject);
-            Assert.AreSame(source, ((IObjectProperties)((DynamicPropertyBag)result).WrappedObject).Data);
+            Assert.IsInstanceOf<AlternativePropertiesForA>(((DynamicPropertyBag) result).WrappedObject);
+            Assert.AreSame(source, ((IObjectProperties) ((DynamicPropertyBag) result).WrappedObject).Data);
         }
 
         [Test]
@@ -203,8 +207,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
-            Assert.IsInstanceOf<AlternativePropertiesForA>(((DynamicPropertyBag)result).WrappedObject);
-            Assert.AreSame(source, ((IObjectProperties)((DynamicPropertyBag)result).WrappedObject).Data);
+            Assert.IsInstanceOf<AlternativePropertiesForA>(((DynamicPropertyBag) result).WrappedObject);
+            Assert.AreSame(source, ((IObjectProperties) ((DynamicPropertyBag) result).WrappedObject).Data);
         }
 
         [Test]
@@ -250,8 +254,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
-            Assert.IsInstanceOf<AlternativePropertiesForA>(((DynamicPropertyBag)result).WrappedObject);
-            Assert.AreSame(source, ((IObjectProperties)((DynamicPropertyBag)result).WrappedObject).Data);
+            Assert.IsInstanceOf<AlternativePropertiesForA>(((DynamicPropertyBag) result).WrappedObject);
+            Assert.AreSame(source, ((IObjectProperties) ((DynamicPropertyBag) result).WrappedObject).Data);
         }
 
         [Test]
@@ -273,8 +277,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
-            Assert.IsInstanceOf<InheritsFromPropertiesForA>(((DynamicPropertyBag)result).WrappedObject);
-            Assert.AreSame(source, ((IObjectProperties)((DynamicPropertyBag)result).WrappedObject).Data);
+            Assert.IsInstanceOf<InheritsFromPropertiesForA>(((DynamicPropertyBag) result).WrappedObject);
+            Assert.AreSame(source, ((IObjectProperties) ((DynamicPropertyBag) result).WrappedObject).Data);
         }
 
         [Test]
@@ -298,8 +302,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
-            Assert.IsInstanceOf<InheritsFromPropertiesForA>(((DynamicPropertyBag)result).WrappedObject);
-            Assert.AreSame(source, ((IObjectProperties)((DynamicPropertyBag)result).WrappedObject).Data);
+            Assert.IsInstanceOf<InheritsFromPropertiesForA>(((DynamicPropertyBag) result).WrappedObject);
+            Assert.AreSame(source, ((IObjectProperties) ((DynamicPropertyBag) result).WrappedObject).Data);
         }
 
         [Test]
@@ -320,8 +324,8 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
             // Assert
             Assert.IsInstanceOf<DynamicPropertyBag>(result);
-            Assert.IsInstanceOf<PropertiesForA>(((DynamicPropertyBag)result).WrappedObject);
-            Assert.AreSame(source, ((IObjectProperties)((DynamicPropertyBag)result).WrappedObject).Data);
+            Assert.IsInstanceOf<PropertiesForA>(((DynamicPropertyBag) result).WrappedObject);
+            Assert.AreSame(source, ((IObjectProperties) ((DynamicPropertyBag) result).WrappedObject).Data);
         }
 
         [Test]
@@ -347,10 +351,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
 
         #region Nested Types: various test-case classes
 
-        private class A
-        {
-            
-        }
+        private class A {}
 
         private class PropertiesForA : IObjectProperties
         {

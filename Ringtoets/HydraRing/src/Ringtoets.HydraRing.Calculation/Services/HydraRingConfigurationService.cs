@@ -120,9 +120,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
             if (hydraRingCalculationInputs.Count > 0 && hydraRingCalculationInputs.First().FailureMechanismType != hydraRingCalculationInput.FailureMechanismType)
             {
-                throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");                
+                throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");
             }
-            
+
             hydraRingCalculationInputs.Add(hydraRingCalculationInput);
         }
 

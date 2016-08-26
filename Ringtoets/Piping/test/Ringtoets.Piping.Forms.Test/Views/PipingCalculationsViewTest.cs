@@ -47,6 +47,15 @@ namespace Ringtoets.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingCalculationsViewTest : NUnitFormTest
     {
+        private const int nameColumnIndex = 0;
+        private const int stochasticSoilModelsColumnIndex = 1;
+        private const int stochasticSoilProfilesColumnIndex = 2;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 3;
+        private const int hydraulicBoundaryLocationsColumnIndex = 4;
+        private const int dampingFactorExitMeanColumnIndex = 5;
+        private const int phreaticLevelExitMeanColumnIndex = 6;
+        private const int entryPointLColumnIndex = 7;
+        private const int exitPointLColumnIndex = 8;
         private Form testForm;
 
         [SetUp]
@@ -262,7 +271,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
             var soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
@@ -974,7 +983,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<PipingInputContext>(selection);
             var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.PipingCalculation, ((PipingInputContext)selection).PipingCalculation);
+            Assert.AreSame(dataRow.PipingCalculation, ((PipingInputContext) selection).PipingCalculation);
             mocks.VerifyAll();
         }
 
@@ -1001,7 +1010,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             {
                 pipingCalculationInputObserver.Expect(o => o.UpdateObserver());
             }
-            
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = mocks.StrictMock<HydraulicBoundaryDatabase>();
             var pipingCalculationView = ShowFullyConfiguredPipingCalculationsView(assessmentSection, hydraulicBoundaryDatabase);
@@ -1022,16 +1031,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             mocks.VerifyAll();
         }
-
-        private const int nameColumnIndex = 0;
-        private const int stochasticSoilModelsColumnIndex = 1;
-        private const int stochasticSoilProfilesColumnIndex = 2;
-        private const int stochasticSoilProfilesProbabilityColumnIndex = 3;
-        private const int hydraulicBoundaryLocationsColumnIndex = 4;
-        private const int dampingFactorExitMeanColumnIndex = 5;
-        private const int phreaticLevelExitMeanColumnIndex = 6;
-        private const int entryPointLColumnIndex = 7;
-        private const int exitPointLColumnIndex = 8;
 
         private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {

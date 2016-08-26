@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
             {
-                BrowsableAttribute.Yes 
+                BrowsableAttribute.Yes
             });
             Assert.AreEqual(13, dynamicProperties.Count);
 
@@ -273,7 +273,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(pipingCategory, requiredReliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex faalkanseis [-]", requiredReliabilityProperty.DisplayName);
             Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping.", requiredReliabilityProperty.Description);
-            
+
             PropertyDescriptor pipingProbabilityProperty = dynamicProperties[10];
             Assert.IsNotNull(pipingProbabilityProperty);
             Assert.IsTrue(pipingProbabilityProperty.IsReadOnly);

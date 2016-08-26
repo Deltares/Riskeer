@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const string locationname = "LocationName";
             const double coordinateX = 1.0;
             const double coordinateY = 2.0;
-            RoundedDouble waveHeight = (RoundedDouble)3.0;
+            RoundedDouble waveHeight = (RoundedDouble) 3.0;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationname, coordinateX, coordinateY)
             {
                 WaveHeight = waveHeight
@@ -96,6 +96,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(row.ToCalculate);
-        } 
+        }
     }
 }

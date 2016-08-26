@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Test.Attributes.TestCaseClasses;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Attributes

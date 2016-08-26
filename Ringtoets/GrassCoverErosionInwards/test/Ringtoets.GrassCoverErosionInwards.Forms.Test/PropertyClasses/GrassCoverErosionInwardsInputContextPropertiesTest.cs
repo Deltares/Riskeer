@@ -38,6 +38,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextPropertiesTest
     {
+        private const int dikeProfilePropertyIndex = 0;
+        private const int worldReferencePointPropertyIndex = 1;
+        private const int orientationPropertyIndex = 2;
+        private const int breakWaterPropertyIndex = 3;
+        private const int foreshorePropertyIndex = 4;
+        private const int dikeGeometryPropertyIndex = 5;
+        private const int dikeHeightPropertyIndex = 6;
+        private const int criticalFlowRatePropertyIndex = 7;
+        private const int hydraulicBoundaryLocationPropertyIndex = 8;
+        private const int calculateDikeHeightPropertyIndex = 9;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -279,16 +289,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             mockRepository.VerifyAll();
         }
-
-        private const int dikeProfilePropertyIndex = 0;
-        private const int worldReferencePointPropertyIndex = 1;
-        private const int orientationPropertyIndex = 2;
-        private const int breakWaterPropertyIndex = 3;
-        private const int foreshorePropertyIndex = 4;
-        private const int dikeGeometryPropertyIndex = 5;
-        private const int dikeHeightPropertyIndex = 6;
-        private const int criticalFlowRatePropertyIndex = 7;
-        private const int hydraulicBoundaryLocationPropertyIndex = 8;
-        private const int calculateDikeHeightPropertyIndex = 9;
     }
 }

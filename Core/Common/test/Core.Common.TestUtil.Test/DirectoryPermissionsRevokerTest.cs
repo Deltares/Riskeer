@@ -230,7 +230,7 @@ namespace Core.Common.TestUtil.Test
                                                                                    fs.AccessControlType == AccessControlType.Deny);
             return fileSystemAccessRule;
         }
-        
+
         #endregion
 
         #region Apply access rules

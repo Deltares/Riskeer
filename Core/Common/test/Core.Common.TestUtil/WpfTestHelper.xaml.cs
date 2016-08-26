@@ -21,9 +21,9 @@
 
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using log4net;
 using Application = System.Windows.Forms.Application;
-using Control = System.Windows.Controls.Control;
 
 namespace Core.Common.TestUtil
 {
@@ -36,9 +36,9 @@ namespace Core.Common.TestUtil
 
         private static Window window;
 
-        private Action shownAction;
-
         private readonly GuiTestHelper guiTestHelper;
+
+        private Action shownAction;
 
         private bool wasShown;
 

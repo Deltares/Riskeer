@@ -52,8 +52,7 @@ namespace Application.Ringtoets.Integration.Test
             string sourceCode = "*.cs;*.xaml";
             string filters = "Resources.designer.cs;test";
             string searchPatterns = Regex.Replace("\\[.*\\(typeof\\(.*Resources\\).*\"-f-\".*\\)\\];\"-f-\"\\);Resources.-f-;Resources\\\\-f-", @"(\\*)" + "\"", @"$1$1\" + "\"");
-            
-            
+
             string directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "UnusedResourceSearcher");
             string executable = Path.Combine(directory, "UnusedResourceSearcher.exe");
 

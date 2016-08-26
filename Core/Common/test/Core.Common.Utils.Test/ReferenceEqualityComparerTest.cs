@@ -70,7 +70,8 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void Equals_SameInstance_ReturnTrue() {
+        public void Equals_SameInstance_ReturnTrue()
+        {
             // Setup
             var comparer = new ReferenceEqualityComparer<object>();
             var obj = new object();
@@ -90,15 +91,20 @@ namespace Core.Common.Utils.Test
 
             // Call 
             var equals = comparer.Equals(objectFirst, objectSecond);
-            
+
             // Assert
             Assert.IsFalse(equals);
             Assert.IsTrue(objectFirst.Equals(objectSecond));
             Assert.AreNotEqual(comparer.GetHashCode(objectFirst), comparer.GetHashCode(objectSecond));
         }
 
-        class TestObject
+        private class TestObject
         {
+            public int GetBaseHashCode()
+            {
+                return base.GetHashCode();
+            }
+
             public override bool Equals(object obj)
             {
                 return true;
@@ -107,11 +113,6 @@ namespace Core.Common.Utils.Test
             public override int GetHashCode()
             {
                 return 1;
-            }
-
-            public int GetBaseHashCode()
-            {
-                return base.GetHashCode();
             }
         }
     }

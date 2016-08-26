@@ -44,6 +44,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class HydraulicBoundaryLocationsViewTest
     {
+        private const int locationCalculateColumnIndex = 0;
+        private const int locationNameColumnIndex = 1;
+        private const int locationIdColumnIndex = 2;
+        private const int locationColumnIndex = 3;
         private Form testForm;
 
         [SetUp]
@@ -401,11 +405,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Assert
             Assert.DoesNotThrow(test);
         }
-
-        private const int locationCalculateColumnIndex = 0;
-        private const int locationNameColumnIndex = 1;
-        private const int locationIdColumnIndex = 2;
-        private const int locationColumnIndex = 3;
 
         private TestHydraulicBoundaryLocationsView ShowTestHydraulicBoundaryLocationsView()
         {

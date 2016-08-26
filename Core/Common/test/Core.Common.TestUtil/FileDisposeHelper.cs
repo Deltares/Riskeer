@@ -59,9 +59,10 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <param name="filePath">Path of the file that will be created, if valid.</param>
         /// <exception cref="ArgumentException">Thrown when the file could not be created by the system.</exception>
-        public FileDisposeHelper(string filePath) : this(new [] { filePath })
+        public FileDisposeHelper(string filePath) : this(new[]
         {
-        }
+            filePath
+        }) {}
 
         public void Dispose()
         {
@@ -109,7 +110,7 @@ namespace Core.Common.TestUtil
         {
             if (FileUtils.IsValidFilePath(filePath))
             {
-                try 
+                try
                 {
                     using (File.Create(filePath)) {}
                 }

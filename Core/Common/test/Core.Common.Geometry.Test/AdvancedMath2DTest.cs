@@ -60,7 +60,7 @@ namespace Core.Common.Geometry.Test
             {
                 new Point2D(4, 0),
                 new Point2D(4, 4),
-                new Point2D(6, 0), 
+                new Point2D(6, 0),
                 new Point2D(8, 4),
                 new Point2D(8, 0)
             };
@@ -134,7 +134,7 @@ namespace Core.Common.Geometry.Test
             IEnumerable<IEnumerable<Point2D>> intersections = AdvancedMath2D.PolygonIntersectionWithPolygon(polyA, polyB).ToArray();
 
             // Assert
-            Assert.AreEqual(new []
+            Assert.AreEqual(new[]
             {
                 new[]
                 {
@@ -195,19 +195,19 @@ namespace Core.Common.Geometry.Test
 
             // Assert
             Assert.AreEqual(2, intersections.Count());
-            CollectionAssert.AreEqual(new []
+            CollectionAssert.AreEqual(new[]
             {
-                new Point2D(2,4),
-                new Point2D(4,4),
-                new Point2D(4,3),
-                new Point2D(2,3)
+                new Point2D(2, 4),
+                new Point2D(4, 4),
+                new Point2D(4, 3),
+                new Point2D(2, 3)
             }, intersections.ElementAt(0));
-            CollectionAssert.AreEqual(new []
+            CollectionAssert.AreEqual(new[]
             {
-                new Point2D(4,1),
-                new Point2D(4,0),
-                new Point2D(2,0),
-                new Point2D(2,1)
+                new Point2D(4, 1),
+                new Point2D(4, 0),
+                new Point2D(2, 0),
+                new Point2D(2, 1)
             }, intersections.ElementAt(1));
         }
 
@@ -237,14 +237,14 @@ namespace Core.Common.Geometry.Test
             Assert.AreEqual(3, intersections.Count());
             CollectionAssert.AreEqual(new[]
             {
-                new Point2D(3.0,0.0)
+                new Point2D(3.0, 0.0)
             }, intersections.ElementAt(0));
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(1.5, 0.0),
                 new Point2D(1.0, 0.0)
             }, intersections.ElementAt(1));
-            CollectionAssert.AreEqual(new []
+            CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(0.0, 4.0),

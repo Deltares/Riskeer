@@ -23,12 +23,11 @@ using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
-
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Reflection;
-
 using NUnit.Framework;
+using CategoryAttribute = System.ComponentModel.CategoryAttribute;
 
 namespace Core.Common.Gui.Test.PropertyBag
 {
@@ -46,7 +45,7 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             // Assert
             CollectionAssert.IsEmpty(dynamicPropertyBag.Properties,
-                "Object has no properties, therefore bag should have none too.");
+                                     "Object has no properties, therefore bag should have none too.");
             Assert.AreSame(propertyObject, dynamicPropertyBag.WrappedObject);
         }
 
@@ -74,12 +73,12 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             // Assert
             var namePropertySpec = dynamicPropertyBag.Properties.First(ps => ps.Name == "Name");
-            CollectionAssert.Contains(namePropertySpec.Attributes, new System.ComponentModel.CategoryAttribute("General"),
-                "Should have initialized Attributes of the property spec with declared Category(\"General\").");
+            CollectionAssert.Contains(namePropertySpec.Attributes, new CategoryAttribute("General"),
+                                      "Should have initialized Attributes of the property spec with declared Category(\"General\").");
 
             var descriptionPropertySpec = dynamicPropertyBag.Properties.First(ps => ps.Name == "Description");
-            CollectionAssert.Contains(descriptionPropertySpec.Attributes, ReadOnlyAttribute.Yes, 
-                "Should have initialized Attributes of the property spec with declared ReadOnlyAttribute.");
+            CollectionAssert.Contains(descriptionPropertySpec.Attributes, ReadOnlyAttribute.Yes,
+                                      "Should have initialized Attributes of the property spec with declared ReadOnlyAttribute.");
         }
 
         [Test]
@@ -269,7 +268,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             };
             var dynamicPropertyBag = new DynamicPropertyBag(propertyObject);
 
-            var propertyDescriptorCollection = ((ICustomTypeDescriptor)dynamicPropertyBag).GetProperties(new Attribute[]
+            var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties(new Attribute[]
             {
                 new BrowsableAttribute(true)
             });
@@ -301,10 +300,10 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             var propThreeDescriptor = propertyDescriptorCollection.Find("PropThree", false);
             Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propThreeDescriptor), index,
-                "PropThree is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
+                                  "PropThree is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
             var propFourDescriptor = propertyDescriptorCollection.Find("PropFour", false);
             Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propFourDescriptor), index,
-                "PropFour is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
+                                  "PropFour is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
         }
 
         [Test]
@@ -323,10 +322,10 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             // Call
             var propertiesCollection = dynamicPropertyBag.GetProperties();
-            
+
             // Assert
             var wrappedValue = propertiesCollection[0].GetValue(dynamicPropertyBag.WrappedObject);
-            var bag = (DynamicPropertyBag)wrappedValue;
+            var bag = (DynamicPropertyBag) wrappedValue;
             Assert.AreSame(subProperties, bag.WrappedObject);
         }
 
@@ -420,11 +419,11 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Assert
             Assert.Less(properties.Count, dynamicPropertyBag.Properties.Count);
             Assert.IsNull(properties.Find("Name", false),
-                "Name is dynamically not browsable, therefore should not be returned.");
+                          "Name is dynamically not browsable, therefore should not be returned.");
             Assert.IsNotNull(properties.Find("Description", false));
             Assert.IsNotNull(properties.Find("IsNameReadOnly", false));
             Assert.IsNull(properties.Find("Visible", false),
-                "Visible is statically not browsable, therefore should not be returned.");
+                          "Visible is statically not browsable, therefore should not be returned.");
         }
 
         [Test]
@@ -446,11 +445,11 @@ namespace Core.Common.Gui.Test.PropertyBag
             // Assert
             Assert.Less(properties.Count, dynamicPropertyBag.Properties.Count);
             Assert.IsNotNull(properties.Find("Name", false),
-                "Name is dynamically not browsable, therefore should be returned.");
+                             "Name is dynamically not browsable, therefore should be returned.");
             Assert.IsNull(properties.Find("Description", false));
             Assert.IsNull(properties.Find("IsNameReadOnly", false));
             Assert.IsNotNull(properties.Find("Visible", false),
-                "Visible is statically not browsable, therefore should be returned.");
+                             "Visible is statically not browsable, therefore should be returned.");
         }
 
         [Test]
@@ -509,7 +508,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             /// </summary>
             [DynamicReadOnly]
             [DynamicVisible]
-            [System.ComponentModel.Category("General")]
+            [Category("General")]
             public string Name { get; set; }
 
             [Browsable(true)]

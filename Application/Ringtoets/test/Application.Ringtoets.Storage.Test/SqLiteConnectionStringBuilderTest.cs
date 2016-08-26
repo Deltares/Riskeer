@@ -27,6 +27,8 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class SqLiteConnectionStringBuilderTest
     {
+        private const string pathToSqLiteFile = @"C:\SqLiteFile.sqlite";
+
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -131,7 +133,5 @@ namespace Application.Ringtoets.Storage.Test
             StringAssert.Contains("version=3", connectionString);
             StringAssert.Contains("pooling=False", connectionString);
         }
-
-        private const string pathToSqLiteFile = @"C:\SqLiteFile.sqlite";
     }
 }

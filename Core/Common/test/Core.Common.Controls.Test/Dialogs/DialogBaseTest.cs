@@ -81,6 +81,7 @@ namespace Core.Common.Controls.Test.Dialogs
             StringAssert.EndsWith("icon", message);
         }
 
+        [Test]
         [TestCase(-1)]
         [TestCase(0)]
         public void Constructor_IncorrectMinWidth_ArgumentExceptionIsThrown(int minWidth)
@@ -97,6 +98,7 @@ namespace Core.Common.Controls.Test.Dialogs
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 
+        [Test]
         [TestCase(-1)]
         [TestCase(0)]
         public void Constructor_IncorrectMinHeight_ArgumentExceptionIsThrown(int minHeight)
@@ -212,7 +214,7 @@ namespace Core.Common.Controls.Test.Dialogs
         private class TestDialog : DialogBase
         {
             public TestDialog(IWin32Window dialogParent, Bitmap icon, int minWidth, int minHeight)
-                : base(dialogParent, icon, minWidth, minHeight) { }
+                : base(dialogParent, icon, minWidth, minHeight) {}
 
             public TestDialog(IWin32Window dialogParent, Icon icon, int minWidth, int minHeight)
                 : base(dialogParent, icon, minWidth, minHeight) {}

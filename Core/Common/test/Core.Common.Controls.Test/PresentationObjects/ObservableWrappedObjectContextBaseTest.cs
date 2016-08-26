@@ -138,7 +138,7 @@ namespace Core.Common.Controls.Test.PresentationObjects
 
         private class SimpleObservableWrappedObjectContext : ObservableWrappedObjectContextBase<IObservable>
         {
-            public SimpleObservableWrappedObjectContext(IObservable wrappedData) : base(wrappedData) { }
+            public SimpleObservableWrappedObjectContext(IObservable wrappedData) : base(wrappedData) {}
         }
 
         private class SimpleObservable : Observable, IEquatable<SimpleObservable>

@@ -40,6 +40,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismResultViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
+        private const int assessmentLayerThreeIndex = 3;
         private Form testForm;
 
         [SetUp]
@@ -479,11 +483,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                                                       });
             return section;
         }
-
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerThreeIndex = 3;
 
         private GrassCoverErosionInwardsFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
         {

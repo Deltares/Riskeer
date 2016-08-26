@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Geometry
@@ -51,7 +49,7 @@ namespace Core.Common.Base.Test.Geometry
         public void Equals_ToNull_ReturnsFalse()
         {
             // Setup
-            var point = new Point3D(0,0,0);
+            var point = new Point3D(0, 0, 0);
 
             // Call
             var result = point.Equals(null);
@@ -64,7 +62,7 @@ namespace Core.Common.Base.Test.Geometry
         public void Equals_ToOtherType_ReturnsFalse()
         {
             // Setup
-            var point = new Point3D(0,0,0);
+            var point = new Point3D(0, 0, 0);
 
             // Call
             var result = point.Equals(new Point2D(0, 0));
@@ -77,7 +75,7 @@ namespace Core.Common.Base.Test.Geometry
         public void Equals_ToItself_ReturnsTrue()
         {
             // Setup
-            var point = new Point3D(0,0,0);
+            var point = new Point3D(0, 0, 0);
 
             // Call
             var result = point.Equals(point);
@@ -87,9 +85,9 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        [TestCase(0,0,0)]
-        [TestCase(1,2,3)]
-        [TestCase(3.5,3.6,3.7)]
+        [TestCase(0, 0, 0)]
+        [TestCase(1, 2, 3)]
+        [TestCase(3.5, 3.6, 3.7)]
         public void Equals_OtherWithSameCoordinates_ReturnsTrue(double x, double y, double z)
         {
             // Setup
@@ -120,7 +118,7 @@ namespace Core.Common.Base.Test.Geometry
                 x + deltaX,
                 y + deltaY,
                 z + deltaZ
-            );
+                );
 
             // Call
             var result = point.Equals(otherPoint);

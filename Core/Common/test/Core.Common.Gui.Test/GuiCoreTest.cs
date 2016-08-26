@@ -169,9 +169,10 @@ namespace Core.Common.Gui.Test
 
             using (var mainWindow = new MainWindow())
             using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
-
-            // Call
-            using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings))
+            {
+                // Call
+                using (new GuiCore(mainWindow, projectStore, projectFactory, guiCoreSettings)) {}
+            }
 
             // Assert
             mocks.VerifyAll();

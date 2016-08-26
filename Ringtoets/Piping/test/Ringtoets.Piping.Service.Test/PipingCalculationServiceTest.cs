@@ -272,14 +272,14 @@ namespace Ringtoets.Piping.Service.Test
             const string name = "<very nice name>";
 
             var profile = new PipingSoilProfile(string.Empty, 0.0,
-                                    new[]
+                                                new[]
                                                 {
                                                     new PipingSoilLayer(2.0)
                                                     {
                                                         IsAquifer = false
                                                     }
                                                 },
-                                    SoilProfileType.SoilProfile1D, -1);
+                                                SoilProfileType.SoilProfile1D, -1);
 
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
@@ -557,7 +557,7 @@ namespace Ringtoets.Piping.Service.Test
                                                     }
                                                 },
                                                 SoilProfileType.SoilProfile1D, -1);
-            
+
             PipingCalculation calculation = PipingCalculationFactory.CreateCalculationWithValidInput();
             calculation.InputParameters.StochasticSoilProfile.SoilProfile = profile;
             calculation.Name = name;

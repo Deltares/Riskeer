@@ -37,7 +37,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             // Assert
             Assert.IsNull(args.View);
-        } 
+        }
 
         [Test]
         public void Constructor_WithView_ViewSet()
@@ -50,6 +50,6 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             // Assert
             Assert.AreSame(view, args.View);
-        } 
+        }
     }
 }

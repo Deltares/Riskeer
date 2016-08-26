@@ -315,7 +315,7 @@ namespace Core.Common.Base.Geometry
                 throw new ArgumentNullException("lineSegment");
             }
 
-            if (double.IsNaN(fraction)|| fraction < 0.0 || fraction > 1.0)
+            if (double.IsNaN(fraction) || fraction < 0.0 || fraction > 1.0)
             {
                 throw new ArgumentOutOfRangeException("fraction", "Fraction needs to be defined in range [0.0, 1.0] in order to reliably interpolate.");
             }

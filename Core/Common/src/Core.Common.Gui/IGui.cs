@@ -41,7 +41,7 @@ namespace Core.Common.Gui
         /// instance for a given data object for the application to use.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
-        
+
         /// <summary>
         /// Terminates the application.
         /// </summary>

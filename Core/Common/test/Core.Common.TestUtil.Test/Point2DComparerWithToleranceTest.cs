@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil.Test
@@ -81,7 +80,7 @@ namespace Core.Common.TestUtil.Test
             var point2 = new Point2D(1.1, 3.3);
 
             // Call
-            int result = new Point2DComparerWithTolerance(1.1-1e-6).Compare(point1, point2);
+            int result = new Point2DComparerWithTolerance(1.1 - 1e-6).Compare(point1, point2);
 
             // Assert
             Assert.AreEqual(1, result);

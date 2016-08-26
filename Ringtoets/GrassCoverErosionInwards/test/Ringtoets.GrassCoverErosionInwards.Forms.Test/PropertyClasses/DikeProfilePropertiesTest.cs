@@ -31,6 +31,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class DikeProfilePropertiesTest
     {
+        private const int namePropertyIndex = 0;
+        private const int worldReferencePointPropertyIndex = 1;
+        private const int orientationPropertyIndex = 2;
+        private const int breakWaterPropertyIndex = 3;
+        private const int foreshorePropertyIndex = 4;
+        private const int dikeGeometryPropertyIndex = 5;
+        private const int dikeHeightPropertyIndex = 6;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -141,13 +149,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de dijk.", dikeHeightProperty.Description);
         }
-
-        private const int namePropertyIndex = 0;
-        private const int worldReferencePointPropertyIndex = 1;
-        private const int orientationPropertyIndex = 2;
-        private const int breakWaterPropertyIndex = 3;
-        private const int foreshorePropertyIndex = 4;
-        private const int dikeGeometryPropertyIndex = 5;
-        private const int dikeHeightPropertyIndex = 6;
     }
 }

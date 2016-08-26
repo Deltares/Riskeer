@@ -65,7 +65,7 @@ namespace Core.Common.Utils
 
         private static string GetDisplayName(MemberInfo memberInfo)
         {
-            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute)Attribute.GetCustomAttribute(memberInfo, typeof(ResourcesDisplayNameAttribute));
+            var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(memberInfo, typeof(ResourcesDisplayNameAttribute));
             return (resourcesDisplayNameAttribute != null) ? resourcesDisplayNameAttribute.DisplayName : null;
         }
     }

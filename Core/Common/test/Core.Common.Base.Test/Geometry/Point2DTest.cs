@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
-
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Geometry
@@ -184,7 +181,11 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var originalPoint = new Point2D(x, y);
-            var zeroVector = new DenseVector(new []{ 0.0, 0.0 });
+            var zeroVector = new DenseVector(new[]
+            {
+                0.0,
+                0.0
+            });
 
             // Call
             Point2D resultPoint = originalPoint + zeroVector;
@@ -207,14 +208,18 @@ namespace Core.Common.Base.Test.Geometry
             var originalPoint = new Point2D(x, y);
             const double dx = 1.1;
             const double dy = -2.2;
-            var vector = new DenseVector(new[] { dx, dy });
+            var vector = new DenseVector(new[]
+            {
+                dx,
+                dy
+            });
 
             // Call
             Point2D resultPoint = originalPoint + vector;
 
             // Assert
-            Assert.AreEqual(x+dx, resultPoint.X);
-            Assert.AreEqual(y+dy, resultPoint.Y);
+            Assert.AreEqual(x + dx, resultPoint.X);
+            Assert.AreEqual(y + dy, resultPoint.Y);
         }
 
         [Test]
@@ -222,13 +227,15 @@ namespace Core.Common.Base.Test.Geometry
         {
             // Setup
             var originalPoint = new Point2D(0.0, 0.0);
-            var vector3D = new DenseVector(new []{1.1, 2.2, 3.3});
+            var vector3D = new DenseVector(new[]
+            {
+                1.1,
+                2.2,
+                3.3
+            });
 
             // Call
-            TestDelegate call = () =>
-            {
-                Point2D result = originalPoint + vector3D;
-            };
+            TestDelegate call = () => { Point2D result = originalPoint + vector3D; };
 
             // Assert
             const string expectedMessage = "Vector moet 2 dimensies hebben, maar heeft er 3.";

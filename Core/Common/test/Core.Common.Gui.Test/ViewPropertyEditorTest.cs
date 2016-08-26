@@ -20,11 +20,8 @@
 // All rights reserved.
 
 using System.Drawing.Design;
-
 using Core.Common.Gui.Commands;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test

@@ -29,6 +29,6 @@ namespace Core.Common.Controls.Views
         /// <summary>
         /// Gets the selected <see cref="object"/>; or <c>null</c> if nothing is selected.
         /// </summary>
-        object Selection { get; } 
+        object Selection { get; }
     }
 }

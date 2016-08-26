@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Geometry
@@ -50,7 +49,10 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Intersects, result.IntersectionType);
-            CollectionAssert.AreEqual(new[]{point}, result.IntersectionPoints);
+            CollectionAssert.AreEqual(new[]
+            {
+                point
+            }, result.IntersectionPoints);
         }
 
         [Test]
@@ -65,7 +67,11 @@ namespace Core.Common.Base.Test.Geometry
 
             // Assert
             Assert.AreEqual(Intersection2DType.Overlaps, result.IntersectionType);
-            CollectionAssert.AreEqual(new[] { point1, point2 }, result.IntersectionPoints);
+            CollectionAssert.AreEqual(new[]
+            {
+                point1,
+                point2
+            }, result.IntersectionPoints);
         }
     }
 }

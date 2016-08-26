@@ -21,10 +21,8 @@
 
 using System;
 using System.ComponentModel;
-
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.PropertyBag
@@ -56,7 +54,10 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void IsReadOnly_PropertyHasDynamicReadOnlyProperty_ReturnExpectedValue(bool isPropertyReadOnly)
         {
             // Setup
-            var instance = new ClassWithProperties{ IsPropertyReadOnly = isPropertyReadOnly };
+            var instance = new ClassWithProperties
+            {
+                IsPropertyReadOnly = isPropertyReadOnly
+            };
             var propertySpec = new PropertySpec(instance.GetType().GetProperty("IntegerPropertyWithDynamicReadOnly"));
             var descriptor = new PropertySpecDescriptor(propertySpec, instance);
 
@@ -118,7 +119,10 @@ namespace Core.Common.Gui.Test.PropertyBag
         public void IsBrowsable_PropertyHasDynamicBrowsableProperty_ReturnExpectedValue(bool isPropertyVisible)
         {
             // Setup
-            var instance = new ClassWithProperties { IsPropertyBrowsable = isPropertyVisible };
+            var instance = new ClassWithProperties
+            {
+                IsPropertyBrowsable = isPropertyVisible
+            };
             var propertySpec = new PropertySpec(instance.GetType().GetProperty("IntegerPropertyWithDynamicVisibility"));
             var descriptor = new PropertySpecDescriptor(propertySpec, instance);
 
@@ -249,7 +253,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             var value = propertyDescriptor.GetValue(instance);
 
             // Assert
-            var dynamicPropertyBag = (DynamicPropertyBag)value;
+            var dynamicPropertyBag = (DynamicPropertyBag) value;
             Assert.IsNotNull(dynamicPropertyBag);
             Assert.AreSame(instance.ComplexSubPropertyWithExandableObjectConverter, dynamicPropertyBag.WrappedObject);
         }
@@ -269,6 +273,11 @@ namespace Core.Common.Gui.Test.PropertyBag
                     Comment = "Don't want your type converter!"
                 };
             }
+
+            [TypeConverter(typeof(ExpandableObjectConverter))]
+            public AnotherClassWithProperties ComplexSubPropertyWithExandableObjectConverter { get; set; }
+
+            public AnotherClassWithProperties ComplexSubProperty { get; set; }
 
             #region IsReadOnly state influencing testing members
 
@@ -327,11 +336,6 @@ namespace Core.Common.Gui.Test.PropertyBag
             }
 
             #endregion
-
-            [TypeConverter(typeof(ExpandableObjectConverter))]
-            public AnotherClassWithProperties ComplexSubPropertyWithExandableObjectConverter { get; set; }
-
-            public AnotherClassWithProperties ComplexSubProperty { get; set; }
         }
 
         private class AnotherClassWithProperties

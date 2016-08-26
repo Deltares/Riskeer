@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Base.Geometry;
-
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.Geometry
@@ -207,7 +205,7 @@ namespace Core.Common.Base.Test.Geometry
             var segment = new Segment2D(new Point2D(random.NextDouble(), random.NextDouble()), new Point2D(random.NextDouble(), random.NextDouble()));
 
             // Call
-            var isEqual = segment.Equals(new Point2D(0.0,0.0));
+            var isEqual = segment.Equals(new Point2D(0.0, 0.0));
 
             // Assert
             Assert.IsFalse(isEqual);
@@ -421,7 +419,7 @@ namespace Core.Common.Base.Test.Geometry
         [TestCase(3.2, -1.2)]
         public void GetEuclideanDistanceToPoint_FirstPointIsClosest_ReturnExpectedDistance(
             double x, double y)
-        {       
+        {
             // Setup
             var point = new Point2D(x, y);
             var segment = new Segment2D(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
@@ -462,7 +460,7 @@ namespace Core.Common.Base.Test.Geometry
         [TestCase(2.7, 12.6)]
         public void GetEuclideanDistanceToPoint_SecondPointIsClosest_ReturnExpectedDistance(
             double x, double y)
-        {       
+        {
             // Setup
             var point = new Point2D(x, y);
             var segment = new Segment2D(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));

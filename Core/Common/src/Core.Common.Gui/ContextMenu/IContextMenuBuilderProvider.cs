@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-
 using Core.Common.Controls.TreeView;
 
 namespace Core.Common.Gui.ContextMenu

@@ -68,7 +68,7 @@ namespace Core.Common.Base.Geometry
             {
                 return false;
             }
-            return Equals((Point3D)obj);
+            return Equals((Point3D) obj);
         }
 
         public override int GetHashCode()
@@ -76,8 +76,8 @@ namespace Core.Common.Base.Geometry
             unchecked
             {
                 var hashCode = X.GetHashCode();
-                hashCode = (hashCode * 397) ^ Y.GetHashCode();
-                hashCode = (hashCode * 397) ^ Z.GetHashCode();
+                hashCode = (hashCode*397) ^ Y.GetHashCode();
+                hashCode = (hashCode*397) ^ Z.GetHashCode();
                 return hashCode;
             }
         }

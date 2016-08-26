@@ -38,11 +38,11 @@ namespace Core.Common.Gui.Forms.ProgressDialog
     /// </summary>
     public partial class ActivityProgressDialog : DialogBase
     {
-        private Task task;
-        private Activity runningActivity;
         private readonly IEnumerable<Activity> activities;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private readonly ProgressReporter progressReporter = new ProgressReporter();
+        private Task task;
+        private Activity runningActivity;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ActivityProgressDialog"/> class.
@@ -114,7 +114,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     progressReporter.ReportProgress(() =>
                     {
                         // Update the progress bar
-                        progressBar.Value = (int) Math.Round(100.0 / activityCount * (i + 1));
+                        progressBar.Value = (int) Math.Round(100.0/activityCount*(i + 1));
                     });
                 }
             }, cancellationToken);

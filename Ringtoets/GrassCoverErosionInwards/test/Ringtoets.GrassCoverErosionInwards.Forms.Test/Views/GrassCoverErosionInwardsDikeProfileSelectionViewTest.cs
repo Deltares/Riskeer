@@ -34,6 +34,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
     [TestFixture]
     public class GrassCoverErosionInwardsDikeProfileSelectionViewTest
     {
+        private const int dikeProfileNameColumnIndex = 1;
+        private const int selectedColumnIndex = 0;
         private Form testForm;
 
         [SetUp]
@@ -280,9 +282,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.IsEmpty(dikeProfiles);
         }
-
-        private const int dikeProfileNameColumnIndex = 1;
-        private const int selectedColumnIndex = 0;
 
         private DikeProfile CreateTestDikeProfile(string name = null)
         {

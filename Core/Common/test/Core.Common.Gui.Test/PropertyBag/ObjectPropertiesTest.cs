@@ -21,10 +21,8 @@
 
 using System.ComponentModel;
 using System.Reflection;
-
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Reflection;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.PropertyBag
