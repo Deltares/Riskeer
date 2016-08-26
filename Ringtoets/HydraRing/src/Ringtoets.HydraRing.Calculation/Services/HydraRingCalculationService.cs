@@ -46,7 +46,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// </summary>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="timeIntegrationSchemeType">The <see cref="HydraRingTimeIntegrationSchemeType"/> to use while executing the calculation.</param>
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="hydraRingCalculationInput">The input of the calculation to perform.</param>
         /// <param name="parsers">Parsers that will be invoked after the Hydra-Ring calculation has ran.</param>
