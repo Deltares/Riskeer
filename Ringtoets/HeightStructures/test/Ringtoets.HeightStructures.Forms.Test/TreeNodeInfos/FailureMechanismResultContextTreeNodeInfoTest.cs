@@ -93,7 +93,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName, text);
+            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName, text);
         }
 
         [Test]

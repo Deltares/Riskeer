@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.HydraRing.Data;
 

@@ -30,6 +30,7 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.Views;
+using GuiTestHelper = Core.Common.Gui.TestUtil.GuiTestHelper;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Plugin.Test
@@ -49,8 +50,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 // Assert
                 Assert.AreEqual(1, propertyInfos.Length);
 
-                var stabilityStoneCoverResultViewInfo = propertyInfos.Single(vi => vi.DataType == typeof(StabilityStoneCoverFailureMechanismContext));
-                Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContextProperties), stabilityStoneCoverResultViewInfo.PropertyObjectType);
+                GuiTestHelper.AssertPropertyInfoDefined<
+                    StabilityStoneCoverFailureMechanismContext,
+                    StabilityStoneCoverFailureMechanismContextProperties>(propertyInfos);
             }
         }
 

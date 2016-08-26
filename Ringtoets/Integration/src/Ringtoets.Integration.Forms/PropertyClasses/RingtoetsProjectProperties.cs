@@ -23,7 +23,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public class RingtoetsProjectProperties : ObjectProperties<IProject>
     {
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Name_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Name_Description")]
         public string Name
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Description_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "RingtoetsProjectProperties_Description_Description")]
         public string Description

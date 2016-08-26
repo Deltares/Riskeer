@@ -22,41 +22,42 @@
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="GrassCoverErosionOutwardsFailureMechanismContext"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanismContextProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanismContext>
+    public class GrassCoverErosionOutwardsFailureMechanismProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>
     {
 
         #region General
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "FailureMechanism_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonDataResources), "FailureMechanism_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
         public string Name
         {
             get
             {
-                return data.WrappedData.Name;
+                return data.Name;
             }
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "FailureMechanism_Code_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonDataResources), "FailureMechanism_Code_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
         public string Code
         {
             get
             {
-                return data.WrappedData.Code;
+                return data.Code;
             }
         }
 
@@ -65,19 +66,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         #region Length effect parameters
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "FailureMechanism_N_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonDataResources), "FailureMechanism_N_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
         public int LengthEffect
         {
             get
             {
-                return data.WrappedData.GeneralInput.N;
+                return data.GeneralInput.N;
             }
             set
             {
-                data.WrappedData.GeneralInput.N = value;
-                data.WrappedData.NotifyObservers();
+                data.GeneralInput.N = value;
+                data.NotifyObservers();
             }
         }
 

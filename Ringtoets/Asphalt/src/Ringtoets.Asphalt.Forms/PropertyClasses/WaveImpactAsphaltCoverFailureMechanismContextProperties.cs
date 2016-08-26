@@ -23,7 +23,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Asphalt.Forms.PresentationObjects;
-using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Asphalt.Forms.PropertyClasses
 {

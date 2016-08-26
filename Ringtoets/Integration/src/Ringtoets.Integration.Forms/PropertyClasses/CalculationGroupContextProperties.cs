@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -36,7 +37,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public class CalculationGroupContextProperties : ObjectProperties<ICalculationContext<CalculationGroup, IFailureMechanism>>
     {
         [DynamicReadOnly]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "CalculationGroup_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "CalculationGroup_Name_Description")]
         public string Name

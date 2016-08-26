@@ -173,24 +173,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        public static string Categories_General {
-            get {
-                return ResourceManager.GetString("Categories_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lengte-effect parameters.
-        /// </summary>
-        public static string Categories_LengthEffect {
-            get {
-                return ResourceManager.GetString("Categories_LengthEffect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan de faalkans moet in interval [0, 100] liggen..
         /// </summary>
         public static string Contribution_Value_should_be_in_interval_0_100 {
@@ -255,15 +237,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resultaat.
-        /// </summary>
-        public static string FailureMechanism_AssessmentResult_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_AssessmentResult_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekeningen.
         /// </summary>
         public static string FailureMechanism_Calculations_DisplayName {
@@ -273,65 +246,11 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het label van het toetsspoor..
-        /// </summary>
-        public static string FailureMechanism_Code_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Code_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Label.
-        /// </summary>
-        public static string FailureMechanism_Code_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Code_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
         /// </summary>
         public static string FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt voor het lengte effect in de berekening..
-        /// </summary>
-        public static string FailureMechanism_N_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to N [-].
-        /// </summary>
-        public static string FailureMechanism_N_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_N_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De naam van het toetsspoor..
-        /// </summary>
-        public static string FailureMechanism_Name_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string FailureMechanism_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_Name_DisplayName", resourceCulture);
             }
         }
         
@@ -370,15 +289,6 @@ namespace Ringtoets.Common.Data.Properties {
         public static string FailureMechanismSection_Section_must_have_at_least_1_geometry_point {
             get {
                 return ResourceManager.GetString("FailureMechanismSection_Section_must_have_at_least_1_geometry_point", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
-        /// </summary>
-        public static string HydraulicBoundaryConditions_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryConditions_DisplayName", resourceCulture);
             }
         }
         

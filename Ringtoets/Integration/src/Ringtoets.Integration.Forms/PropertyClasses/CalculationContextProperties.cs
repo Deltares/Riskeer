@@ -25,13 +25,14 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     [ResourcesDisplayName(typeof(Resources), "CalculationContextProperties_DisplayName")]
     public class CalculationContextProperties : ObjectProperties<ICalculationContext<ICalculation, IFailureMechanism>>
     {
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "Calculation_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Calculation_Name_Description")]
         public string Name

@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.Plugin
                 IEnumerable<PipingFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>
             {
-                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (v, o) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -174,7 +174,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

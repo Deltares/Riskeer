@@ -25,6 +25,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -70,38 +71,38 @@ namespace Ringtoets.Piping.Plugin.Test
                 // assert
                 Assert.AreEqual(6, propertyInfos.Length);
 
-                var pipingFailureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingFailureMechanismContext));
-                Assert.AreEqual(typeof(PipingFailureMechanismContextProperties), pipingFailureMechanismContextProperties.PropertyObjectType);
+                var pipingFailureMechanismContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <PipingFailureMechanismContext, PipingFailureMechanismContextProperties>(propertyInfos);
                 Assert.IsNull(pipingFailureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingFailureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingFailureMechanismContextProperties.AfterCreate);
 
-                var pipingInputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingInputContext));
-                Assert.AreEqual(typeof(PipingInputContextProperties), pipingInputContextProperties.PropertyObjectType);
+                var pipingInputContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <PipingInputContext, PipingInputContextProperties>(propertyInfos);
                 Assert.IsNull(pipingInputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingInputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingInputContextProperties.AfterCreate);
 
-                var pipingOutputProperties = propertyInfos.Single(pi => pi.DataType == typeof(PipingSemiProbabilisticOutput));
-                Assert.AreEqual(typeof(PipingSemiProbabilisticOutputProperties), pipingOutputProperties.PropertyObjectType);
+                var pipingOutputProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <PipingSemiProbabilisticOutput, PipingSemiProbabilisticOutputProperties>(propertyInfos);
                 Assert.IsNull(pipingOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingOutputProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingOutputProperties.AfterCreate);
 
-                var pipingSurfaceLineProperties = propertyInfos.Single(pi => pi.DataType == typeof(RingtoetsPipingSurfaceLine));
-                Assert.AreEqual(typeof(RingtoetsPipingSurfaceLineProperties), pipingSurfaceLineProperties.PropertyObjectType);
+                var pipingSurfaceLineProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>(propertyInfos);
                 Assert.IsNull(pipingSurfaceLineProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingSurfaceLineProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingSurfaceLineProperties.AfterCreate);
 
-                var stochasticSoilModelProperties = propertyInfos.Single(pi => pi.DataType == typeof(StochasticSoilModel));
-                Assert.AreEqual(typeof(StochasticSoilModelProperties), stochasticSoilModelProperties.PropertyObjectType);
+                var stochasticSoilModelProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <StochasticSoilModel, StochasticSoilModelProperties>(propertyInfos);
                 Assert.IsNull(stochasticSoilModelProperties.AdditionalDataCheck);
                 Assert.IsNull(stochasticSoilModelProperties.GetObjectPropertiesData);
                 Assert.IsNull(stochasticSoilModelProperties.AfterCreate);
 
-                var stochasticSoilProfileProperties = propertyInfos.Single(pi => pi.DataType == typeof(StochasticSoilProfile));
-                Assert.AreEqual(typeof(StochasticSoilProfileProperties), stochasticSoilProfileProperties.PropertyObjectType);
+                var stochasticSoilProfileProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <StochasticSoilProfile, StochasticSoilProfileProperties>(propertyInfos);
                 Assert.IsNull(stochasticSoilProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(stochasticSoilProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(stochasticSoilProfileProperties.AfterCreate);

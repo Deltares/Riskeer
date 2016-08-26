@@ -52,6 +52,7 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using GuiTestHelper = Core.Common.Gui.TestUtil.GuiTestHelper;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -198,68 +199,68 @@ namespace Ringtoets.Integration.Plugin.Test
                 // Assert
                 Assert.AreEqual(11, propertyInfos.Length);
 
-                var ringtoetsProjectProperties = propertyInfos.Single(pi => pi.DataType == typeof(IProject));
-                Assert.AreEqual(typeof(RingtoetsProjectProperties), ringtoetsProjectProperties.PropertyObjectType);
+                var ringtoetsProjectProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <IProject, RingtoetsProjectProperties>(propertyInfos);
                 Assert.IsNull(ringtoetsProjectProperties.AdditionalDataCheck);
                 Assert.IsNull(ringtoetsProjectProperties.GetObjectPropertiesData);
                 Assert.IsNull(ringtoetsProjectProperties.AfterCreate);
 
-                var assessmentSectionProperties = propertyInfos.Single(pi => pi.DataType == typeof(IAssessmentSection));
-                Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyObjectType);
+                var assessmentSectionProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <IAssessmentSection, AssessmentSectionProperties>(propertyInfos);
                 Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
                 Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
                 Assert.IsNull(assessmentSectionProperties.AfterCreate);
 
-                var hydraulicBoundaryDatabaseProperties = propertyInfos.Single(pi => pi.DataType == typeof(HydraulicBoundaryDatabaseContext));
-                Assert.AreEqual(typeof(HydraulicBoundaryDatabaseProperties), hydraulicBoundaryDatabaseProperties.PropertyObjectType);
+                var hydraulicBoundaryDatabaseProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>(propertyInfos);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AdditionalDataCheck);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.GetObjectPropertiesData);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AfterCreate);
 
-                var standAloneFailureMechanismProperties = propertyInfos.Single(pi => pi.DataType == typeof(FailureMechanismContext<IFailureMechanism>));
-                Assert.AreEqual(typeof(StandAloneFailureMechanismContextProperties), standAloneFailureMechanismProperties.PropertyObjectType);
+                var standAloneFailureMechanismProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>(propertyInfos);
                 Assert.IsNull(standAloneFailureMechanismProperties.AdditionalDataCheck);
                 Assert.IsNull(standAloneFailureMechanismProperties.GetObjectPropertiesData);
                 Assert.IsNull(standAloneFailureMechanismProperties.AfterCreate);
 
-                var calculationGroupProperties = propertyInfos.Single(pi => pi.DataType == typeof(ICalculationContext<CalculationGroup, IFailureMechanism>));
-                Assert.AreEqual(typeof(CalculationGroupContextProperties), calculationGroupProperties.PropertyObjectType);
+                var calculationGroupProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>(propertyInfos);
                 Assert.IsNull(calculationGroupProperties.AdditionalDataCheck);
                 Assert.IsNull(calculationGroupProperties.GetObjectPropertiesData);
                 Assert.IsNull(calculationGroupProperties.AfterCreate);
 
-                var calculationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(ICalculationContext<ICalculation, IFailureMechanism>));
-                Assert.AreEqual(typeof(CalculationContextProperties), calculationContextProperties.PropertyObjectType);
+                var calculationContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>(propertyInfos);
                 Assert.IsNull(calculationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(calculationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(calculationContextProperties.AfterCreate);
 
-                var outputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(ProbabilityAssessmentOutput));
-                Assert.AreEqual(typeof(ProbabilityAssessmentOutputProperties), outputContextProperties.PropertyObjectType);
+                var outputContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>(propertyInfos);
                 Assert.IsNull(outputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(outputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(outputContextProperties.AfterCreate);
 
-                var designWaterLevelLocationsContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(DesignWaterLevelLocationsContext));
-                Assert.AreEqual(typeof(DesignWaterLevelLocationsContextProperties), designWaterLevelLocationsContextProperties.PropertyObjectType);
+                var designWaterLevelLocationsContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>(propertyInfos);
                 Assert.IsNull(designWaterLevelLocationsContextProperties.AdditionalDataCheck);
                 Assert.IsNotNull(designWaterLevelLocationsContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelLocationsContextProperties.AfterCreate);
 
-                var designWaterLevelLocationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(DesignWaterLevelLocationContext));
-                Assert.AreEqual(typeof(DesignWaterLevelLocationContextProperties), designWaterLevelLocationContextProperties.PropertyObjectType);
+                var designWaterLevelLocationContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>(propertyInfos);
                 Assert.IsNull(designWaterLevelLocationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(designWaterLevelLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelLocationContextProperties.AfterCreate);
 
-                var waveHeightLocationsContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(WaveHeightLocationsContext));
-                Assert.AreEqual(typeof(WaveHeightLocationsContextProperties), waveHeightLocationsContextProperties.PropertyObjectType);
+                var waveHeightLocationsContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <WaveHeightLocationsContext, WaveHeightLocationsContextProperties>(propertyInfos);
                 Assert.IsNull(waveHeightLocationsContextProperties.AdditionalDataCheck);
                 Assert.IsNotNull(waveHeightLocationsContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationsContextProperties.AfterCreate);
 
-                var waveHeightLocationContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(WaveHeightLocationContext));
-                Assert.AreEqual(typeof(WaveHeightLocationContextProperties), waveHeightLocationContextProperties.PropertyObjectType);
+                var waveHeightLocationContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <WaveHeightLocationContext, WaveHeightLocationContextProperties>(propertyInfos);
                 Assert.IsNull(waveHeightLocationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(waveHeightLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationContextProperties.AfterCreate);

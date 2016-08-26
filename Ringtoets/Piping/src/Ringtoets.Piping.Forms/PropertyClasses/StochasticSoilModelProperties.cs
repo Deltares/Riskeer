@@ -29,6 +29,7 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
@@ -38,7 +39,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     public class StochasticSoilModelProperties : ObjectProperties<StochasticSoilModel>
     {
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_Id_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StochasticSoilModel_Id_Description")]
         public long Id
@@ -50,7 +51,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StochasticSoilModel_Name_Description")]
         public string Name
@@ -62,7 +63,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_SegmentName_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StochasticSoilModel_SegmentName_Description")]
         public string SegmentName
@@ -75,7 +76,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(4)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_Geometry_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StochasticSoilModel_Geometry_Description")]
         public Point2D[] Geometry
@@ -88,7 +89,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(5)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "StochasticSoilModel_StochasticSoilProfiles_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StochasticSoilModel_StochasticSoilProfiles_Description")]
         public StochasticSoilProfileProperties[] StochasticSoilProfiles

@@ -24,6 +24,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probability;
@@ -60,14 +61,14 @@ namespace Ringtoets.HeightStructures.Plugin.Test
 
                 // assert
                 Assert.AreEqual(2, propertyInfos.Length);
-                var failureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(HeightStructuresFailureMechanismContext));
-                Assert.AreEqual(typeof(HeightStructuresFailureMechanismContextProperties), failureMechanismContextProperties.PropertyObjectType);
+                var failureMechanismContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismContextProperties>(propertyInfos);
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
-                var heightStructuresInputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(HeightStructuresInputContext));
-                Assert.AreEqual(typeof(HeightStructuresInputContextProperties), heightStructuresInputContextProperties.PropertyObjectType);
+                var heightStructuresInputContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <HeightStructuresInputContext, HeightStructuresInputContextProperties>(propertyInfos);
                 Assert.IsNull(heightStructuresInputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(heightStructuresInputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(heightStructuresInputContextProperties.AfterCreate);

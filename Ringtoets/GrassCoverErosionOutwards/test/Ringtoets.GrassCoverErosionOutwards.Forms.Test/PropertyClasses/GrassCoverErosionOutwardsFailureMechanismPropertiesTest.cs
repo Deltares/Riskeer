@@ -25,33 +25,23 @@ using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismContextPropertiesTest
+    public class GrassCoverErosionOutwardsFailureMechanismPropertiesTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new GrassCoverErosionOutwardsFailureMechanismContextProperties();
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanismContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -59,38 +49,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var properties = new GrassCoverErosionOutwardsFailureMechanismContextProperties();
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties();
 
             // Call
-            properties.Data = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            properties.Data = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Assert
             Assert.AreEqual(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, properties.Name);
             Assert.AreEqual(Resources.GrassCoverErosionOutwardsFailureMechanism_Code, properties.Code);
             Assert.AreEqual(2, properties.LengthEffect);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
+            var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
             int numberProperties = 1;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.Attach(observerMock);
-            var properties = new GrassCoverErosionOutwardsFailureMechanismContextProperties
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties
             {
-                Data = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSectionMock)
+                Data = failureMechanism
             };
             const int newLengthEffect = 10;
 
@@ -105,16 +89,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [Test]
         public void PropertyAttributes_ReturnExpectedValues()
         {
-            // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
             // Call
-            var properties = new GrassCoverErosionOutwardsFailureMechanismContextProperties
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties
             {
-                Data = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSectionMock)
+                Data = new GrassCoverErosionOutwardsFailureMechanism()
             };
 
             // Assert
@@ -145,8 +123,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
             Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
             Assert.AreEqual("De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.", lengthEffectProperty.Description);
-
-            mockRepository.VerifyAll();
         }
 
         private const int namePropertyIndex = 0;

@@ -28,6 +28,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 {
@@ -46,9 +47,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         #region Length effect parameters
 
         [PropertyOrder(lengthEffectPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "FailureMechanism_N_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonDataResources), "FailureMechanism_N_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
         public int LengthEffect
         {
             get
@@ -67,9 +68,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         #region General
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "FailureMechanism_Name_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonDataResources), "FailureMechanism_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
         public string Name
         {
             get
@@ -79,9 +80,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(codePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "FailureMechanism_Code_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonDataResources), "FailureMechanism_Code_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
         public string Code
         {
             get
@@ -91,7 +92,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description")]
         public RoundedDouble GravitationalAcceleration

@@ -21,9 +21,9 @@
 
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class HydraulicBoundaryDatabaseProperties : ObjectProperties<HydraulicBoundaryDatabaseContext>
     {
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_FilePath_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_FilePath_Description")]
         public string FilePath

@@ -30,6 +30,7 @@ using Ringtoets.Asphalt.Forms.PresentationObjects;
 using Ringtoets.Asphalt.Forms.PropertyClasses;
 using Ringtoets.Asphalt.Forms.Views;
 using Ringtoets.Common.Forms.PresentationObjects;
+using GuiTestHelper = Core.Common.Gui.TestUtil.GuiTestHelper;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Asphalt.Plugin.Test
@@ -60,8 +61,9 @@ namespace Ringtoets.Asphalt.Plugin.Test
                 // Assert
                 Assert.AreEqual(1, propertyInfos.Length);
 
-                var waveImpactAsphaltCoverResultViewInfo = propertyInfos.Single(vi => vi.DataType == typeof(WaveImpactAsphaltCoverFailureMechanismContext));
-                Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContextProperties), waveImpactAsphaltCoverResultViewInfo.PropertyObjectType);
+                GuiTestHelper.AssertPropertyInfoDefined<
+                    WaveImpactAsphaltCoverFailureMechanismContext,
+                    WaveImpactAsphaltCoverFailureMechanismContextProperties>(propertyInfos);
             }
         }
 

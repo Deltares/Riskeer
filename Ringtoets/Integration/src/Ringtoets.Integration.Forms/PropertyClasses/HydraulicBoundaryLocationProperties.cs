@@ -23,10 +23,9 @@ using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
-
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
@@ -35,7 +34,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocationContext>
     {
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Id_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Id_Description")]
         public virtual long Id
@@ -46,7 +45,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Name_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Name_Description")]
         public virtual string Name
@@ -57,7 +56,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Coordinates_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_Coordinates_Description")]
         public virtual Point2D Location

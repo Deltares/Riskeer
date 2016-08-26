@@ -22,7 +22,7 @@
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses

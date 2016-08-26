@@ -30,6 +30,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
+using GuiTestHelper = Core.Common.Gui.TestUtil.GuiTestHelper;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
@@ -91,17 +92,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 // Call
-                PropertyInfo[] treeNodeInfos = plugin.GetPropertyInfos().ToArray();
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, treeNodeInfos.Length);
-                Assert.IsTrue(PropertyInfoExists<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismContextProperties>(treeNodeInfos));
-            }
-        }
+                Assert.AreEqual(1, propertyInfos.Length);
 
-        private static bool PropertyInfoExists<TDataObject, TPropertyObject>(PropertyInfo[] treeNodeInfos)
-        {
-            return treeNodeInfos.Any(tni => tni.DataType == typeof(TDataObject) && tni.PropertyObjectType == typeof(TPropertyObject));
+                var grassCoverErosionOutwardsFailureMechanismProperties = GuiTestHelper.AssertPropertyInfoDefined<
+                    GrassCoverErosionOutwardsFailureMechanismContext,
+                    GrassCoverErosionOutwardsFailureMechanismProperties>(propertyInfos);
+                Assert.IsNull(grassCoverErosionOutwardsFailureMechanismProperties.AdditionalDataCheck);
+                Assert.IsNull(grassCoverErosionOutwardsFailureMechanismProperties.AfterCreate);
+            }
         }
     }
 }

@@ -24,6 +24,7 @@ using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -52,7 +53,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <returns>The created <see cref="MapPointData"/>.</returns>
         public static MapPointData CreateHydraulicBoundaryDatabaseMapData()
         {
-            return new MapPointData(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName)
+            return new MapPointData(Resources.HydraulicBoundaryConditions_DisplayName)
             {
                 Style = new PointStyle(Color.DarkBlue, 6, PointSymbol.Circle)
             };

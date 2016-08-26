@@ -26,6 +26,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -64,26 +65,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 // assert
                 Assert.AreEqual(4, propertyInfos.Length);
 
-                var failureMechanismContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsFailureMechanismContext));
-                Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContextProperties), failureMechanismContextProperties.PropertyObjectType);
+                var failureMechanismContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>(propertyInfos);
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
-                var dikeProfileProperties = propertyInfos.Single(pi => pi.DataType == typeof(DikeProfile));
-                Assert.AreEqual(typeof(DikeProfileProperties), dikeProfileProperties.PropertyObjectType);
+                var dikeProfileProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <DikeProfile, DikeProfileProperties>(propertyInfos);
                 Assert.IsNull(dikeProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(dikeProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(dikeProfileProperties.AfterCreate);
 
-                var inputContextProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsInputContext));
-                Assert.AreEqual(typeof(GrassCoverErosionInwardsInputContextProperties), inputContextProperties.PropertyObjectType);
+                var inputContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>(propertyInfos);
                 Assert.IsNull(inputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(inputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(inputContextProperties.AfterCreate);
 
-                var outputProperties = propertyInfos.Single(pi => pi.DataType == typeof(GrassCoverErosionInwardsOutput));
-                Assert.AreEqual(typeof(GrassCoverErosionInwardsOutputProperties), outputProperties.PropertyObjectType);
+                var outputProperties = GuiTestHelper.AssertPropertyInfoDefined
+                    <GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>(propertyInfos);
                 Assert.IsNull(outputProperties.AdditionalDataCheck);
                 Assert.IsNull(outputProperties.GetObjectPropertiesData);
                 Assert.IsNull(outputProperties.AfterCreate);

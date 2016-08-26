@@ -28,6 +28,7 @@ using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
@@ -37,7 +38,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DisplayName")]
     public class RingtoetsPipingSurfaceLineProperties : ObjectProperties<RingtoetsPipingSurfaceLine>
     {
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_Name_Description")]
         public string Name
@@ -115,7 +116,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(Common.Data.Properties.Resources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_Points_DisplayName")]
         [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_Points_Description")]
         public Point3D[] Points

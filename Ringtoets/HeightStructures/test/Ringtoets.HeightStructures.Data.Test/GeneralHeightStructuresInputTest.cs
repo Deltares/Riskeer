@@ -78,8 +78,10 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
+        [TestCase(-10)]
         [TestCase(0)]
         [TestCase(21)]
+        [TestCase(50)]
         public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
         {
             // Setup

@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 

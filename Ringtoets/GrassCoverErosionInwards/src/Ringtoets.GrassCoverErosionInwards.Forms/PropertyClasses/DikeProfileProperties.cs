@@ -27,6 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
@@ -45,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int dikeHeightPropertyIndex = 7;
 
         [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonDataResources), "Categories_General")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(GrassCoverErosionInwardsFormsResources), "DikeProfile_Name_DisplayName")]
         [ResourcesDescription(typeof(GrassCoverErosionInwardsFormsResources), "DikeProfile_Name_Description")]
         public string Name

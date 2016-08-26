@@ -55,7 +55,7 @@ namespace Ringtoets.Asphalt.Plugin
                 IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
                 WaveImpactAsphaltCoverFailureMechanismResultView>
             {
-                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (v, o) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -91,7 +91,7 @@ namespace Ringtoets.Asphalt.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

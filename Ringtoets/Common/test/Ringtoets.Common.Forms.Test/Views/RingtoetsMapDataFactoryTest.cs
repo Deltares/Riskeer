@@ -26,6 +26,7 @@ using Core.Components.Gis.Style;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Properties;
 using Ringtoets.Common.Forms.Views;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
@@ -52,7 +53,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(Resources.HydraulicBoundaryConditions_DisplayName, data.Name);
+            Assert.AreEqual(RingtoetsCommonFormsResources.HydraulicBoundaryConditions_DisplayName, data.Name);
             AssertEqualStyle(data.Style, Color.DarkBlue, 6, PointSymbol.Circle);
         }
 

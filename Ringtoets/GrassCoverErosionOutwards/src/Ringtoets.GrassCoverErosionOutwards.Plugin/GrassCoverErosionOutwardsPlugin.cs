@@ -45,7 +45,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismContextProperties>();
+            yield return new PropertyInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismProperties>
+            {
+                GetObjectPropertiesData = context => context.WrappedData
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -55,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
                 GrassCoverErosionOutwardsFailureMechanismResultView>
             {
-                GetViewName = (v, o) => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (v, o) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -73,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>>
             {
-                Text = context => RingtoetsCommonDataResources.FailureMechanism_AssessmentResult_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

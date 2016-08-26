@@ -57,8 +57,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
+        [TestCase(-10)]
         [TestCase(0)]
         [TestCase(21)]
+        [TestCase(50)]
         public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
         {
             // Setup
@@ -68,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             TestDelegate test = () => generalGrassCoverErosionInwardsInput.N = value;
 
             // Assert
-            var expectedMessage = string.Format(Resources.N_Value_should_be_in_interval_1_20, value);
+            var expectedMessage = Resources.N_Value_should_be_in_interval_1_20;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         } 
     }

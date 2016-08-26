@@ -25,9 +25,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Data.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.HydraRing.Data;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -64,9 +65,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(4)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description")]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble DesignWaterLevel
         {
@@ -77,9 +78,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description")]
         public string Convergence
         {
             get
