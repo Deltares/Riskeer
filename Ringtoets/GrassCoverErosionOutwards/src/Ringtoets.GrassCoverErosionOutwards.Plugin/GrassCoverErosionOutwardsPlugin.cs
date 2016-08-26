@@ -21,9 +21,11 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -31,6 +33,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -87,12 +90,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = (nodeData) => GetHydraulicBoundariesGroupContextChildNodeObjects(nodeData),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
                                                                                  .Build()
+            };
+
+            yield return new TreeNodeInfo<SectionSpecificWaterLevelLocationsContext>
+            {
+                Text = context => Resources.SectionSpecificWaterLevelLocationsContext_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ForeColor = context => !context.WrappedData.Any() ?
+                                           Color.FromKnownColor(KnownColor.GrayText) :
+                                           Color.FromKnownColor(KnownColor.ControlText),
+                ContextMenuStrip = SectionSpecificWaterLevelLocationsContextMenuStrip
             };
         }
 
@@ -129,12 +143,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
         {
-            GrassCoverErosionOutwardsFailureMechanism wrappedData = failureMechanismContext.WrappedData;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = failureMechanismContext.WrappedData;
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new HydraulicBoundariesGroupContext(failureMechanismContext.Parent, wrappedData.HydraulicBoundariesCalculationGroup),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, failureMechanismContext.Parent), TreeFolderCategory.Input),
+                new HydraulicBoundariesGroupContext(failureMechanism),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output)
             };
         }
 
@@ -190,6 +204,36 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
+        }
+
+        private object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext hydraulicBoundariesGroupContext)
+        {
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = hydraulicBoundariesGroupContext.WrappedData;
+            return new object[]
+            {
+                new SectionSpecificWaterLevelLocationsContext(grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations)
+            };
+        }
+
+        private ContextMenuStrip SectionSpecificWaterLevelLocationsContextMenuStrip(SectionSpecificWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var designWaterLevelItem = new StrictContextMenuItem(
+                Resources.SectionSpecificWaterLevel_Calculate_All,
+                Resources.SectionSpecificWaterLevel_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                null);
+
+            designWaterLevelItem.Enabled = false;
+            if (!nodeData.WrappedData.Any())
+            {
+                designWaterLevelItem.ToolTipText = Resources.SectionSpecificWaterLevel_No_HRD_To_Calculate;
+            }
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCustomItem(designWaterLevelItem)
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
         }
 
         #endregion

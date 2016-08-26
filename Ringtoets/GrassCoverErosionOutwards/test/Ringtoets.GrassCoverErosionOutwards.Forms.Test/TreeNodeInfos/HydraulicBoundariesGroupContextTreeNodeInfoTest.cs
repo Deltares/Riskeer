@@ -27,7 +27,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -38,14 +37,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class HydraulicBoundariesGroupContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new GrassCoverErosionOutwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicBoundariesGroupContext));
         }
@@ -54,7 +51,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -81,10 +77,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(assessmentSectionMock, failureMechanism.HydraulicBoundariesCalculationGroup);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism);
 
             // Call
             string nodeText = info.Text(context);
@@ -97,10 +91,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnFailureMechanismIcon()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new HydraulicBoundariesGroupContext(assessmentSectionMock, failureMechanism.HydraulicBoundariesCalculationGroup);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism);
 
             // Call
             Image icon = info.Image(context);
@@ -113,12 +105,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var mocks = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                mocks.ReplayAll();
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var context = new HydraulicBoundariesGroupContext(assessmentSectionMock, failureMechanism.HydraulicBoundariesCalculationGroup);
+                var context = new HydraulicBoundariesGroupContext(failureMechanism);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
@@ -139,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }

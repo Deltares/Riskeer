@@ -20,22 +20,26 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
+using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for Hydraulic boundary locations and calculations.
+    /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
+    /// for water level at intersection probability calculations.
     /// </summary>
-    public class HydraulicBoundariesGroupContext : ObservableWrappedObjectContextBase<GrassCoverErosionOutwardsFailureMechanism>
+    public class SectionSpecificWaterLevelLocationsContext : ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HydraulicBoundariesGroupContext"/> class.
+        /// Creates a new instance of <see cref="SectionSpecificWaterLevelLocationsContext"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HydraulicBoundariesGroupContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-            : base(failureMechanism) {}
+        /// <param name="wrappedLocations">The <see cref="IEnumerable"/> of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> the context belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedLocations"/> is <c>null</c>.</exception>
+        public SectionSpecificWaterLevelLocationsContext(ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> wrappedLocations)
+            : base(wrappedLocations) {}
     }
 }

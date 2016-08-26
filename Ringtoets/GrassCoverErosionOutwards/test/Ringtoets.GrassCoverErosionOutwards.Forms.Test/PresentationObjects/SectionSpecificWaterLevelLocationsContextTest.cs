@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -27,20 +28,20 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HydraulicBoundariesGroupContextTest
+    public class SectionSpecificWaterLevelLocationsContextTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void DefaultConstructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
 
             // Call
-            var context = new HydraulicBoundariesGroupContext(failureMechanism);
+            var presentationObject = new SectionSpecificWaterLevelLocationsContext(locations);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<GrassCoverErosionOutwardsFailureMechanism>>(context);
-            Assert.AreSame(failureMechanism, context.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>>(presentationObject);
+            Assert.AreSame(locations, presentationObject.WrappedData);
         }
     }
 }

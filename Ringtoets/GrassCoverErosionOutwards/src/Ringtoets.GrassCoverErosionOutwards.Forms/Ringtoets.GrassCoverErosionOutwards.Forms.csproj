@@ -43,6 +43,12 @@
     <Compile Include="PresentationObjects\HydraulicBoundariesGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismContext.cs" />
+    <Compile Include="PresentationObjects\SectionSpecificWaterLevelLocationsContext.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsFailureMechanismProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultView.cs">
@@ -86,11 +92,22 @@
       <Name>Ringtoets.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

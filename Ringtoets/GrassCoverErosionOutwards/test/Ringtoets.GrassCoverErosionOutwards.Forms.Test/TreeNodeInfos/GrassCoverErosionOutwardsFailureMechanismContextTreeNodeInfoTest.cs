@@ -195,7 +195,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
             var hydraulicBoundariesGroupContext = (HydraulicBoundariesGroupContext) children[1];
-            Assert.AreSame(failureMechanism.HydraulicBoundariesCalculationGroup, hydraulicBoundariesGroupContext.HydraulicBoundariesCalculationGroup);
+            Assert.AreSame(failureMechanism, hydraulicBoundariesGroupContext.WrappedData);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
