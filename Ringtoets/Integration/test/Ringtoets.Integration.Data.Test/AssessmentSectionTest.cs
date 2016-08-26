@@ -28,6 +28,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.HydraRing.Data;
 using RingtoetsIntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.Test
@@ -322,6 +323,96 @@ namespace Ringtoets.Integration.Data.Test
 
             // Assert
             Assert.AreEqual(double.NaN, assessmentSection.PipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
+        }
+
+        [Test]
+        public void HydraulicBoundaryDatabase_SetNewValue_GetNewValue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            // Assert
+            Assert.AreSame(hydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase);
+        }
+
+        [Test]
+        public void HydraulicBoundaryDatabase_HydraulicBoundaryDatabaseWithLocations_GrassCoverErosionOutwardsHydraulicBoundaryLocationsSet()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+
+            // Call
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            // Assert
+            Assert.AreEqual(1, assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count);
+
+            var grassCoverErosionOutwardsLocation = assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.First();
+            Assert.AreSame(hydraulicBoundaryLocation, grassCoverErosionOutwardsLocation.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void HydraulicBoundaryDatabase_HydraulicBoundaryDatabaseWithoutLocations_GrassCoverErosionOutwardsHydraulicBoundaryLocationsEmpty()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "", 0, 0)
+                }
+            };
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            // Precondition
+            Assert.AreEqual(1, assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count);
+
+            var emptyHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            // Call
+            assessmentSection.HydraulicBoundaryDatabase = emptyHydraulicBoundaryDatabase;
+
+            // Assert
+            Assert.AreSame(emptyHydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase);
+            CollectionAssert.IsEmpty(assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
+        }
+
+        [Test]
+        public void HydraulicBoundaryDatabase_HydraulicBoundaryDatabaseNull_GrassCoverErosionOutwardsHydraulicBoundaryLocationsEmpty()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "", 0, 0)
+                }
+            };
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            // Precondition
+            Assert.AreEqual(1, assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count);
+
+            // Call
+            assessmentSection.HydraulicBoundaryDatabase = null;
+
+            // Assert
+            CollectionAssert.IsEmpty(assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
         }
 
         private IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)

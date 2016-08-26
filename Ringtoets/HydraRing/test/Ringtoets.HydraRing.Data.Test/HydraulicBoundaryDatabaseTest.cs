@@ -41,23 +41,5 @@ namespace Ringtoets.HydraRing.Data.Test
             Assert.IsInstanceOf<Observable>(hydraulicBoundaryDatabase);
             CollectionAssert.IsEmpty(hydraulicBoundaryDatabase.Locations);
         }
-
-        [Test]
-        public void ClearLocations_Always_EmtpyLocationCollection()
-        {
-            // Setup
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var location = hydraulicBoundaryDatabase.Locations;
-            location.Add(new HydraulicBoundaryLocation(1, "test", 1.0, 2.0));
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(location);
-
-            // Call
-            hydraulicBoundaryDatabase.ClearLocations();
-
-            // Assert
-            CollectionAssert.IsEmpty(location);
-        }
     }
 }
