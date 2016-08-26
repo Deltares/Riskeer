@@ -41,6 +41,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class AssessmentSectionViewTest
     {
+        private const int referenceLineIndex = 0;
+        private const int hydraulicBoundaryDatabaseIndex = 1;
+
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -325,9 +328,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("Hydraulische randvoorwaarden", actualHrLocationsMapData.Name);
             }
         }
-
-        private const int referenceLineIndex = 0;
-        private const int hydraulicBoundaryDatabaseIndex = 1;
 
         private static void AssertHydraulicBoundaryDatabaseData(MapDataCollection mapData, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {

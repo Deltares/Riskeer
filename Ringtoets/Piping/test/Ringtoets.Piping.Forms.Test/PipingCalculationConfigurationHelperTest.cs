@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Forms.Test
                 soilProfile1,
                 soilProfile2
             });
-            StochasticSoilModel[] availableSoilModels = 
+            StochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.Forms.Test
                     SoilProfile = soilProfile2
                 }
             });
-            StochasticSoilModel[] availableSoilModels = 
+            StochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -248,7 +248,7 @@ namespace Ringtoets.Piping.Forms.Test
                     SoilProfile = soilProfile2
                 }
             });
-            StochasticSoilModel[] availableSoilModels = 
+            StochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -428,7 +428,7 @@ namespace Ringtoets.Piping.Forms.Test
 
             // Assert
             var format = "Geen ondergrondschematisaties gevonden voor profielschematisatie '{0}'. De profielschematisatie is overgeslagen.";
-            Tuple<string, LogLevelConstant>[] expectedMessages = 
+            Tuple<string, LogLevelConstant>[] expectedMessages =
             {
                 Tuple.Create(string.Format(format, testName1), LogLevelConstant.Warn),
                 Tuple.Create(string.Format(format, testName2), LogLevelConstant.Warn),
@@ -486,7 +486,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            RingtoetsPipingSurfaceLine[] surfaceLines = 
+            RingtoetsPipingSurfaceLine[] surfaceLines =
             {
                 surfaceLine
             };
@@ -548,7 +548,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(3.0, -5.0, 0.0)
             });
 
-            RingtoetsPipingSurfaceLine[] surfaceLines = 
+            RingtoetsPipingSurfaceLine[] surfaceLines =
             {
                 surfaceLine
             };
@@ -606,7 +606,7 @@ namespace Ringtoets.Piping.Forms.Test
                     SoilProfile = soilProfile2
                 }
             });
-            StochasticSoilModel[] availableSoilModels = 
+            StochasticSoilModel[] availableSoilModels =
             {
                 soilModel
             };
@@ -623,7 +623,7 @@ namespace Ringtoets.Piping.Forms.Test
                 new Point3D(5.0, 1.0, 0.0)
             });
 
-            RingtoetsPipingSurfaceLine[] surfaceLines = 
+            RingtoetsPipingSurfaceLine[] surfaceLines =
             {
                 surfaceLine
             };

@@ -43,6 +43,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingScenariosViewTest : NUnitFormTest
     {
+        private const int isRelevantColumnIndex = 0;
+        private const int contributionColumnIndex = 1;
+        private const int nameColumnIndex = 2;
+        private const int failureProbabilityPipingColumnIndex = 3;
+        private const int failureProbabilityUpliftColumnIndex = 4;
+        private const int failureProbabilityHeaveColumnIndex = 5;
+        private const int failureProbabilitySellmeijerColumnIndex = 6;
         private Form testForm;
 
         [SetUp]
@@ -295,14 +302,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             mocks.VerifyAll();
         }
-
-        private const int isRelevantColumnIndex = 0;
-        private const int contributionColumnIndex = 1;
-        private const int nameColumnIndex = 2;
-        private const int failureProbabilityPipingColumnIndex = 3;
-        private const int failureProbabilityUpliftColumnIndex = 4;
-        private const int failureProbabilityHeaveColumnIndex = 5;
-        private const int failureProbabilitySellmeijerColumnIndex = 6;
 
         private PipingScenariosView ShowFullyConfiguredPipingScenarioView()
         {

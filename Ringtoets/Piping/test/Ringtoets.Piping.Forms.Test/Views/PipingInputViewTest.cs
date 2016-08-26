@@ -38,6 +38,17 @@ namespace Ringtoets.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingInputViewTest
     {
+        private const int soilProfileIndex = 0;
+        private const int surfaceLineIndex = 1;
+        private const int ditchPolderSideIndex = 2;
+        private const int bottomDitchPolderSideIndex = 3;
+        private const int bottomDitchDikeSideIndex = 4;
+        private const int ditchDikeSideIndex = 5;
+        private const int dikeToeAtPolderIndex = 6;
+        private const int dikeToeAtRiverIndex = 7;
+        private const int exitPointIndex = 8;
+        private const int entryPointIndex = 9;
+
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -534,17 +545,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual(dataBeforeUpdate, view.Chart.Data);
             }
         }
-
-        private const int soilProfileIndex = 0;
-        private const int surfaceLineIndex = 1;
-        private const int ditchPolderSideIndex = 2;
-        private const int bottomDitchPolderSideIndex = 3;
-        private const int bottomDitchDikeSideIndex = 4;
-        private const int ditchDikeSideIndex = 5;
-        private const int dikeToeAtPolderIndex = 6;
-        private const int dikeToeAtRiverIndex = 7;
-        private const int exitPointIndex = 8;
-        private const int entryPointIndex = 9;
 
         private static StochasticSoilProfile GetStochasticSoilProfile()
         {

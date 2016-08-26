@@ -37,6 +37,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     [TestFixture]
     public class WaveImpactAsphaltCoverResultViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
+        private const int assessmentLayerThreeIndex = 3;
+
         [Test]
         public void GivenFormWithWaveImpactAsphaltCoverFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
@@ -216,11 +221,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 }
             }
         }
-
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerThreeIndex = 3;
 
         private void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)
         {

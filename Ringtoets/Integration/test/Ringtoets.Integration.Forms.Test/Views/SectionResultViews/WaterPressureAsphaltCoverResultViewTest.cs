@@ -37,6 +37,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     [TestFixture]
     public class WaterPressureAsphaltCoverResultViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerThreeIndex = 2;
+
         [Test]
         public void GivenFormWithWaterPressureAsphaltCoverFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
@@ -206,10 +210,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 }
             }
         }
-
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
-        private const int assessmentLayerThreeIndex = 2;
 
         private void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)
         {

@@ -41,6 +41,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismContributionViewTest : NUnitFormTest
     {
+        private const string normInputTextBoxName = "normInput";
+        private const string dataGridViewControlName = "dataGridView";
+        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
+        private const int isRelevantColumnIndex = 0;
+        private const int nameColumnIndex = 1;
+        private const int codeColumnIndex = 2;
+        private const int contributionColumnIndex = 3;
+        private const int probabilitySpaceColumnIndex = 4;
         private Form testForm;
 
         [SetUp]
@@ -805,15 +813,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsTrue(isRelevantCell.ReadOnly);
             }
         }
-
-        private const string normInputTextBoxName = "normInput";
-        private const string dataGridViewControlName = "dataGridView";
-        private const string assessmentSectionCompositionComboBoxName = "assessmentSectionCompositionComboBox";
-        private const int isRelevantColumnIndex = 0;
-        private const int nameColumnIndex = 1;
-        private const int codeColumnIndex = 2;
-        private const int contributionColumnIndex = 3;
-        private const int probabilitySpaceColumnIndex = 4;
 
         private void AssertDataGridViewDataSource(IEnumerable<FailureMechanismContributionItem> expectedDistributionElements, DataGridView dataGridView)
         {
