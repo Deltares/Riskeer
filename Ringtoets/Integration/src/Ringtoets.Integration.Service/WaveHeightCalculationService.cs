@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Service
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <returns>A <see cref="ReliabilityIndexCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
         internal static ReliabilityIndexCalculationOutput Calculate(IAssessmentSection assessmentSection, HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                     HydraulicBoundaryLocation hydraulicBoundaryLocation, string ringId)
+                                                                    HydraulicBoundaryLocation hydraulicBoundaryLocation, string ringId)
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabase.FilePath);
             var input = CreateInput(assessmentSection, hydraulicBoundaryLocation);

@@ -34,6 +34,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
     [TestFixture]
     public class StochasticSoilModelPropertiesTest
     {
+        private const int stochasticSoilModelIdPropertyIndex = 0;
+        private const int stochasticSoilModelNamePropertyIndex = 1;
+        private const int stochasticSoilModelSegmentNamePropertyIndex = 2;
+        private const int stochasticSoilModelGeometryPropertyIndex = 3;
+        private const int stochasticSoilModelStochasticSoilProfilesPropertyIndex = 4;
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -142,11 +148,5 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Ondergrondschematisaties", stochasticSoilModelStochasticSoilProfilesProperty.DisplayName);
             Assert.AreEqual("Ondergrondschematisaties uit de database.", stochasticSoilModelStochasticSoilProfilesProperty.Description);
         }
-
-        private const int stochasticSoilModelIdPropertyIndex = 0;
-        private const int stochasticSoilModelNamePropertyIndex = 1;
-        private const int stochasticSoilModelSegmentNamePropertyIndex = 2;
-        private const int stochasticSoilModelGeometryPropertyIndex = 3;
-        private const int stochasticSoilModelStochasticSoilProfilesPropertyIndex = 4;
     }
 }

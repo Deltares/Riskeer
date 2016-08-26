@@ -36,6 +36,12 @@ namespace Ringtoets.Piping.Integration.Test
     [TestFixture]
     public class PipingCalculationsViewIntegrationTest
     {
+        private const int nameColumnIndex = 0;
+        private const int stochasticSoilModelsColumnIndex = 1;
+        private const int stochasticSoilProfilesColumnIndex = 2;
+        private const int hydraulicBoundaryLocationsColumnIndex = 4;
+        private const int exitPointLColumnIndex = 8;
+
         [Test]
         public void PipingCalculationsView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
         {
@@ -129,11 +135,5 @@ namespace Ringtoets.Piping.Integration.Test
                 Assert.AreEqual(111.11.ToString(CultureInfo.CurrentCulture), dataGridView.Rows[1].Cells[exitPointLColumnIndex].FormattedValue);
             }
         }
-
-        private const int nameColumnIndex = 0;
-        private const int stochasticSoilModelsColumnIndex = 1;
-        private const int stochasticSoilProfilesColumnIndex = 2;
-        private const int hydraulicBoundaryLocationsColumnIndex = 4;
-        private const int exitPointLColumnIndex = 8;
     }
 }

@@ -33,6 +33,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingSurfaceLineSelectionViewTest
     {
+        private const int surfaceLineNameColumnIndex = 1;
+        private const int selectedColumnIndex = 0;
         private Form testForm;
 
         [SetUp]
@@ -280,9 +282,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             // Assert
             Assert.IsEmpty(surfaceLines);
         }
-
-        private const int surfaceLineNameColumnIndex = 1;
-        private const int selectedColumnIndex = 0;
 
         private void ShowPipingCalculationsView(PipingSurfaceLineSelectionView pipingCalculationsView)
         {

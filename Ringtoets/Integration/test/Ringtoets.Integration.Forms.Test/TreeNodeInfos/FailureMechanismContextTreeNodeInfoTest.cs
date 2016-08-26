@@ -50,6 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class FailureMechanismContextTreeNodeInfoTest
     {
+        private const int contextMenuRelevancyIndex = 0;
         private MockRepository mocks;
 
         [SetUp]
@@ -513,8 +514,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             }
             mocks.VerifyAll();
         }
-
-        private const int contextMenuRelevancyIndex = 0;
 
         private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {

@@ -39,6 +39,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingFailureMechanismResultViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
+        private const int assessmentLayerThreeIndex = 3;
         private Form testForm;
 
         [SetUp]
@@ -479,11 +483,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 Assert.AreEqual("-", formattedValue);
             }
         }
-
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerThreeIndex = 3;
 
         private PipingFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
         {

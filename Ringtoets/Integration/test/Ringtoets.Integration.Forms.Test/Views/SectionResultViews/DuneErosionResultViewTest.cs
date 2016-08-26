@@ -36,6 +36,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
     [TestFixture]
     public class DuneErosionResultViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerTwoAIndex = 1;
+        private const int assessmentLayerThreeIndex = 2;
+
         [Test]
         public void GivenFormWithDuneErosionFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
@@ -155,9 +159,5 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(0, rows.Count);
             }
         }
-
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerTwoAIndex = 1;
-        private const int assessmentLayerThreeIndex = 2;
     }
 }

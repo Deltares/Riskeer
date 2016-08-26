@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
@@ -213,7 +212,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             // Assert
             Assert.NotNull(result);
             Segment2D expectedSegment = new Segment2D(new Point2D(parsedX1, parsedY1), new Point2D(parsedX2, parsedY2));
-            var expectedCollection = new []
+            var expectedCollection = new[]
             {
                 new List<Segment2D>
                 {

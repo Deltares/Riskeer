@@ -98,12 +98,6 @@ namespace Ringtoets.Piping.Forms.Views
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>(); // Use lookup because the ordering in the chart data collection might change
         }
 
-        private void InitializeChartControl()
-        {
-            chartControl.LeftAxisTitle = RingtoetsCommonFormsResources.InputView_Height_DisplayName;
-            chartControl.BottomAxisTitle = RingtoetsCommonFormsResources.InputView_Distance_DisplayName;
-        }
-
         public object Data
         {
             get
@@ -146,6 +140,12 @@ namespace Ringtoets.Piping.Forms.Views
                 components.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private void InitializeChartControl()
+        {
+            chartControl.LeftAxisTitle = RingtoetsCommonFormsResources.InputView_Height_DisplayName;
+            chartControl.BottomAxisTitle = RingtoetsCommonFormsResources.InputView_Distance_DisplayName;
         }
 
         private void UpdateChartTitle()

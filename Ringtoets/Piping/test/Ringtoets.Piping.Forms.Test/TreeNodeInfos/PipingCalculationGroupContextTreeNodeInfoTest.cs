@@ -54,6 +54,24 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class PipingCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
+        private const int contextMenuAddCalculationIndexRootGroup = 5;
+        private const int contextMenuRemoveAllChildrenIndexRootGroup = 7;
+        private const int contextMenuValidateAllIndexRootGroup = 9;
+        private const int contextMenuCalculateAllIndexRootGroup = 10;
+        private const int contextMenuClearOutputIndexRootGroup = 11;
+        private const int contextMenuExpandAllIndexRootGroup = 13;
+        private const int contextMenuCollapseAllIndexRootGroup = 14;
+        private const int contextMenuPropertiesIndexRootGroup = 16;
+
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
+        private const int contextMenuAddCalculationIndexNestedGroup = 1;
+        private const int contextMenuValidateAllIndexNestedGroup = 3;
+        private const int contextMenuCalculateAllIndexNestedGroup = 4;
+        private const int contextMenuClearOutputNestedGroupIndex = 5;
+
+        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 1;
+        private const int customOnlyContextMenuRemoveAllChildrenIndex = 6;
         private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
@@ -1382,25 +1400,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
             base.TearDown();
         }
-
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
-        private const int contextMenuAddCalculationIndexRootGroup = 5;
-        private const int contextMenuRemoveAllChildrenIndexRootGroup = 7;
-        private const int contextMenuValidateAllIndexRootGroup = 9;
-        private const int contextMenuCalculateAllIndexRootGroup = 10;
-        private const int contextMenuClearOutputIndexRootGroup = 11;
-        private const int contextMenuExpandAllIndexRootGroup = 13;
-        private const int contextMenuCollapseAllIndexRootGroup = 14;
-        private const int contextMenuPropertiesIndexRootGroup = 16;
-
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
-        private const int contextMenuAddCalculationIndexNestedGroup = 1;
-        private const int contextMenuValidateAllIndexNestedGroup = 3;
-        private const int contextMenuCalculateAllIndexNestedGroup = 4;
-        private const int contextMenuClearOutputNestedGroupIndex = 5;
-
-        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 1;
-        private const int customOnlyContextMenuRemoveAllChildrenIndex = 6;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanism"/> with sections and a surface line.
