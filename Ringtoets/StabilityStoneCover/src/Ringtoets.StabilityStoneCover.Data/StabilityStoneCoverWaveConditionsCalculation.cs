@@ -21,6 +21,7 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data.Properties;
 
 namespace Ringtoets.StabilityStoneCover.Data
@@ -36,24 +37,45 @@ namespace Ringtoets.StabilityStoneCover.Data
         public StabilityStoneCoverWaveConditionsCalculation()
         {
             Name = Resources.StabilityStoneCoverWaveConditionsCalculation_DefaultName;
+            InputParameters = new WaveConditionsInput();
         }
 
+        /// <summary>
+        /// Gets the input paramaters to perform a wave conditions calculation with.
+        /// </summary>
+        public WaveConditionsInput InputParameters { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the output which contains the results of a wave conditions calculation.
+        /// </summary>
+        public ObservableList<WaveConditionsOutput> Output { get; set; }
+
         public string Name { get; set; }
+
         public string Comments { get; set; }
-        public bool HasOutput { get; private set; }
+
+        public bool HasOutput
+        {
+            get
+            {
+                return Output != null;
+            }
+        }
+
         public void ClearOutput()
         {
-            throw new System.NotImplementedException();
+            Output = null;
         }
 
         public ICalculationInput GetObservableInput()
         {
-            throw new System.NotImplementedException();
+            return InputParameters;
         }
 
         public ICalculationOutput GetObservableOutput()
         {
-            throw new System.NotImplementedException();
+            return null;
+//            return Output;
         }
     }
 }

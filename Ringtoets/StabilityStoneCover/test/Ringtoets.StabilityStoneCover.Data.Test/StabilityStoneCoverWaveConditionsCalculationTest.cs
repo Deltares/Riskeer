@@ -22,6 +22,7 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data.Properties;
 
 namespace Ringtoets.StabilityStoneCover.Data.Test
@@ -40,6 +41,67 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.IsInstanceOf<Observable>(calculation);
 
             Assert.AreEqual(Resources.StabilityStoneCoverWaveConditionsCalculation_DefaultName, calculation.Name);
+            Assert.IsNotNull(calculation.InputParameters);
+            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.Comments);
+            Assert.IsNull(calculation.Output);
+            Assert.IsNull(calculation.InputParameters.DikeProfile);
+        }
+
+        [Test]
+        public void ClearOutput_Always_SetsOutputToNull()
+        {
+            // Setup
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new ObservableList<WaveConditionsOutput>()
+            };
+
+            // Call
+            calculation.ClearOutput();
+
+            // Assert
+            Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        public void HasOutput_OutputNull_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = null
+            };
+
+            // Call & Assert
+            Assert.IsFalse(calculation.HasOutput);
+        }
+
+        [Test]
+        public void HasOutput_OutputSet_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new ObservableList<WaveConditionsOutput>()
+            };
+
+            // Call & Assert
+            Assert.IsTrue(calculation.HasOutput);
+        }
+
+        [Test]
+        public void GetObservableInput_Always_ReturnsInputParameters()
+        {
+            // Setup
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var inputParameters = calculation.InputParameters;
+
+            // Call
+            ICalculationInput input = calculation.GetObservableInput();
+
+            // Assert
+            Assert.AreSame(inputParameters, input);
         }
     }
 }
