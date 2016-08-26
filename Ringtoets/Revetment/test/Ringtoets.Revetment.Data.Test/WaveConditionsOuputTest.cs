@@ -35,10 +35,10 @@ namespace Ringtoets.Revetment.Data.Test
             double waterLevel = 3.0;
             double waveHeight = 4.0;
             double wavePeriod = 0.4;
-            double waveAngle = 180;
+            double waveOrientation = 180;
 
             // Call
-            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeriod, waveAngle);
+            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeriod, waveOrientation);
 
             // Assert
             Assert.IsInstanceOf<Observable>(output);
@@ -46,7 +46,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(waterLevel, output.WaterLevel);
             Assert.AreEqual(waveHeight, output.WaveHeight);
             Assert.AreEqual(wavePeriod, output.WavePeriod);
-            Assert.AreEqual(waveAngle, output.WaveAngle);
+            Assert.AreEqual(waveOrientation, output.WaveOrientation);
         }
     }
 }
