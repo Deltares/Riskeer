@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {
@@ -44,6 +45,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual("Berekeningen", failureMechanism.HydraulicBoundariesCalculationGroup.Name);
             Assert.IsFalse(failureMechanism.HydraulicBoundariesCalculationGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundariesCalculationGroup.Children);
+            CollectionAssert.IsEmpty(failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
         }
 
         [Test]
@@ -79,6 +81,42 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+        }
+        
+        [Test]
+        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations_ValidHydraulicBoundaryLocations_SetsGrassCoverErosionOutwardsHydraulicBoundaryLocations()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1,"",2,3);
+
+            // Call
+            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(new[] { hydraulicBoundaryLocation });
+
+           // Assert
+            Assert.AreEqual(1, failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count);
+            var firstGrassCoverErosionOutwardsHydraulicBoundaryLocation = failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.First();
+            Assert.AreSame(hydraulicBoundaryLocation, firstGrassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ClearsGrassCoverErosionOutwardsHydraulicBoundaryLocations()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1,"",2,3);
+            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(new[] { hydraulicBoundaryLocation });
+
+            // Precondition
+            Assert.AreEqual(1, failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count);
+            var firstGrassCoverErosionOutwardsHydraulicBoundaryLocation = failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.First();
+            Assert.AreSame(hydraulicBoundaryLocation, firstGrassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+
+            // Call
+            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(null);
+
+            // Assert
+            CollectionAssert.IsEmpty(failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
         }
     }
 }

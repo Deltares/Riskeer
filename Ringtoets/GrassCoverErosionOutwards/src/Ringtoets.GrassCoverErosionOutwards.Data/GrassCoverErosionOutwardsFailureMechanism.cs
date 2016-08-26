@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
+using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
@@ -31,8 +32,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Erosion Outwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase, 
-        IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase,
+                                                             IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
         private readonly IList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
 
@@ -45,12 +46,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             sectionResults = new List<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
             HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
+            GrassCoverErosionOutwardsHydraulicBoundaryLocations = new List<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
         }
-
-        /// <summary>
-        /// Gets the general grass cover erosion outwards calculation input parameters that apply to each calculation.
-        /// </summary>
-        public GeneralGrassCoverErosionOutwardsInput GeneralInput { get; private set; }
 
         public override IEnumerable<ICalculation> Calculations
         {
@@ -59,6 +56,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 yield break;
             }
         }
+
+        /// <summary>
+        /// Gets the general grass cover erosion outwards calculation input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralGrassCoverErosionOutwardsInput GeneralInput { get; private set; }
+
+        /// <summary>
+        /// Sets <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocations"/> based upon the <paramref name="hydraulicBoundaryLocations"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocations">An <see cref="IEnumerable{T}"/> of <see cref="HydraulicBoundaryLocation"/>.</param>
+        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            GrassCoverErosionOutwardsHydraulicBoundaryLocations.Clear();
+            if (hydraulicBoundaryLocations == null)
+            {
+                return;
+            }
+
+            foreach (var hydraulicBoundaryLocation in hydraulicBoundaryLocations)
+            {
+                GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation));
+            }
+        }
+
+        /// <summary>
+        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
+        /// </summary>
+        public IList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> GrassCoverErosionOutwardsHydraulicBoundaryLocations { get; private set; }
 
         /// <summary>
         /// Gets the container of all hydraulic boundary calculations.
@@ -76,7 +101,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
-
             sectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
         }
 
