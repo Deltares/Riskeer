@@ -44,6 +44,9 @@ namespace Ringtoets.Revetment.Data
         private RoundedDouble upperWaterLevel;
         private RoundedDouble stepSize;
 
+        private RoundedDouble upperBoundary;
+        private RoundedDouble lowerBoundary;
+
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
         /// </summary>
@@ -54,6 +57,9 @@ namespace Ringtoets.Revetment.Data
             lowerWaterLevel = new RoundedDouble(2);
             upperWaterLevel = new RoundedDouble(2);
             stepSize = new RoundedDouble(1);
+
+            upperBoundary = new RoundedDouble(2);
+            lowerBoundary = new RoundedDouble(2);
 
             designWaterLevelSubstraction = new RoundedDouble(2, 0.01);
 
@@ -132,6 +138,7 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 upperRevetmentLevel = value.ToPrecision(upperRevetmentLevel.NumberOfDecimalPlaces);
+                DetermineBoundaries();
             }
         }
 
@@ -147,6 +154,7 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 lowerRevetmentLevel = value.ToPrecision(lowerRevetmentLevel.NumberOfDecimalPlaces);
+                DetermineBoundaries();
             }
         }
 
@@ -162,6 +170,7 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 lowerWaterLevel = value.ToPrecision(lowerWaterLevel.NumberOfDecimalPlaces);
+                DetermineBoundaries();
             }
         }
 
@@ -192,6 +201,37 @@ namespace Ringtoets.Revetment.Data
             private set
             {
                 upperWaterLevel = value.ToPrecision(upperWaterLevel.NumberOfDecimalPlaces);
+                DetermineBoundaries();
+            }
+        }
+
+        /// <summary>
+        /// Gets the upper boundary of the waterlevels that should be calculated..
+        /// </summary>
+        public RoundedDouble UpperBoundary
+        {
+            get
+            {
+                return upperBoundary;
+            }
+            private set
+            {
+                upperBoundary = value.ToPrecision(upperBoundary.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets the lower boundary of the waterlevels that should be calculated..
+        /// </summary>
+        public RoundedDouble LowerBoundary
+        {
+            get
+            {
+                return lowerBoundary;
+            }
+            private set
+            {
+                lowerBoundary = value.ToPrecision(lowerBoundary.NumberOfDecimalPlaces);
             }
         }
 
@@ -205,6 +245,12 @@ namespace Ringtoets.Revetment.Data
             {
                 UpperWaterLevel = (RoundedDouble) 0;
             }
+        }
+
+        private void DetermineBoundaries()
+        {
+            UpperBoundary = UpperWaterLevel < UpperRevetmentLevel ? UpperWaterLevel : UpperRevetmentLevel;
+            LowerBoundary = LowerWaterLevel > LowerRevetmentLevel ? LowerWaterLevel : LowerRevetmentLevel;
         }
 
         private void UpdateDikeProfileParameters()

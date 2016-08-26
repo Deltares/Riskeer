@@ -55,6 +55,8 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2), input.LowerWaterLevel);
             Assert.AreEqual(new RoundedDouble(2), input.UpperWaterLevel);
             Assert.AreEqual(new RoundedDouble(1), input.StepSize);
+            Assert.AreEqual(new RoundedDouble(2), input.LowerBoundary);
+            Assert.AreEqual(new RoundedDouble(2), input.UpperBoundary);
 		}
 
         [Test]
@@ -229,20 +231,34 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        public void HydraulicBoundaryLocation_SetNewValue_UpperWaterLevelUpdated()
+        [TestCase(true, 6.34, 8.19, 8.18, 6.34)]
+        [TestCase(true, 8.63, 6.77, 6.76, 6.76)]
+        [TestCase(false, double.NaN, 7.32, 7.31, 0)]
+        public void HydraulicBoundaryLocation_SetNewValue_UpperWaterLevelUpdatedAndBoundariesSyncedAccordingly(bool upperRevetmentLevelSet,
+                                                                                                               double upperRevetmentLevel,
+                                                                                                               double designWaterLevel,
+                                                                                                               double expectedUpperWaterLevel,
+                                                                                                               double expectedUpperBoundary)
         {
             // Setup
             var input = new WaveConditionsInput();
+
+            if (upperRevetmentLevelSet)
+            {
+                input.UpperRevetmentLevel = (RoundedDouble) upperRevetmentLevel;
+            }
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
-                DesignWaterLevel = new RoundedDouble(2, 6.34)
+                DesignWaterLevel = (RoundedDouble) designWaterLevel
             };
 
             // Call
             input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
-            Assert.AreEqual(6.33, input.UpperWaterLevel, input.UpperWaterLevel.GetAccuracy());
+            Assert.AreEqual(expectedUpperWaterLevel, input.UpperWaterLevel, input.UpperWaterLevel.GetAccuracy());
+            Assert.AreEqual(expectedUpperBoundary, input.UpperBoundary, input.UpperBoundary.GetAccuracy());
         }
 
         [Test]
@@ -302,6 +318,81 @@ namespace Ringtoets.Revetment.Data.Test
 
             // Assert
             Assert.AreEqual(new RoundedDouble(2), input.UpperWaterLevel);
+        }
+
+        [Test]
+        [TestCase(true, 7.65, 5.39, 5.39)]
+        [TestCase(true, 7.65, 8.34, 7.64)]
+        [TestCase(false, double.NaN, 5.39, 0)]
+        public void UpperRevetmentLevel_SetNewValue_BoundariesSyncedAccordingly(bool hydraulicBoundaryLocationSet,
+                                                                                double designWaterLevel,
+                                                                                double upperRevetmentLevel,
+                                                                                double expectedUpperBoundary)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            if (hydraulicBoundaryLocationSet)
+            {
+                input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) designWaterLevel
+                };
+            }
+
+            // Call
+            input.UpperRevetmentLevel = (RoundedDouble) upperRevetmentLevel;
+
+            // Assert
+            Assert.AreEqual(expectedUpperBoundary, input.UpperBoundary, input.UpperBoundary.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(true, -2.31, -1.53, -1.53)]
+        [TestCase(true, -1.56, -3.29, -1.56)]
+        [TestCase(false, double.NaN, -1.29, 0)]
+        public void LowerRevetmentLevel_SetNewValue_BoundariesSyncedAccordingly(bool lowerWaterLevelSet,
+                                                                                double lowerWaterLevel,
+                                                                                double lowerRevetmentLevel,
+                                                                                double expectedLowerBoundary)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            if (lowerWaterLevelSet)
+            {
+                input.LowerWaterLevel = (RoundedDouble) lowerWaterLevel;
+            }
+
+            // Call
+            input.LowerRevetmentLevel = (RoundedDouble) lowerRevetmentLevel;
+
+            // Assert
+            Assert.AreEqual(expectedLowerBoundary, input.LowerBoundary, input.LowerBoundary.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(true, -2.31, -1.53, -1.53)]
+        [TestCase(true, -1.56, -3.29, -1.56)]
+        [TestCase(false, double.NaN, -1.29, 0)]
+        public void LowerWaterLevel_SetNewValue_BoundariesSyncedAccordingly(bool lowerRevetmentLevelSet,
+                                                                            double lowerRevetmentLevel,
+                                                                            double lowerWaterLevel,
+                                                                            double expectedLowerBoundary)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            if (lowerRevetmentLevelSet)
+            {
+                input.LowerRevetmentLevel = (RoundedDouble) lowerRevetmentLevel;
+            }
+
+            // Call
+            input.LowerWaterLevel = (RoundedDouble) lowerWaterLevel;
+
+            // Assert
+            Assert.AreEqual(expectedLowerBoundary, input.LowerBoundary, input.LowerBoundary.GetAccuracy());
         }
     }
 }
