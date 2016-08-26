@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
@@ -38,6 +37,8 @@ namespace Core.Components.DotSpatial.Forms.Test
     [TestFixture]
     public class MapControlTest
     {
+        private const double padding = 0.05;
+
         [Test]
         public void DefaultConstructor_DefaultValues()
         {
@@ -705,8 +706,6 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsNull(map.Data);
             }
         }
-
-        private const double padding = 0.05;
 
         private static MapDataCollection GetTestData()
         {
