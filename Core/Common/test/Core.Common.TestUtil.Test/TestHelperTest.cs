@@ -23,11 +23,8 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-
 using Core.Common.TestUtil.Test.Properties;
-
 using log4net;
-
 using NUnit.Framework;
 
 namespace Core.Common.TestUtil.Test
@@ -59,7 +56,7 @@ namespace Core.Common.TestUtil.Test
         {
             // Call
             TestDelegate call = () => TestHelper.CanOpenFileForWrite(invalidPath);
-         
+
             // Assert
             Assert.Catch(call);
         }
@@ -87,7 +84,7 @@ namespace Core.Common.TestUtil.Test
         {
             string path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage);
             Assert.IsTrue(Directory.Exists(path));
-            
+
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Gui);
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Utils);
@@ -159,7 +156,8 @@ namespace Core.Common.TestUtil.Test
                 log.Error("test 1");
                 log.Warn("test 2");
                 log.Info("test 3");
-            }, new [] {
+            }, new[]
+            {
                 Tuple.Create("test 1", LogLevelConstant.Error),
                 Tuple.Create("test 2", LogLevelConstant.Warn),
                 Tuple.Create("test 3", LogLevelConstant.Info)
@@ -464,10 +462,7 @@ namespace Core.Common.TestUtil.Test
             const string someMessage = "Exception";
             var argumentException = new ArgumentException(someMessage);
 
-            TestDelegate t = () =>
-            {
-                throw argumentException;
-            };
+            TestDelegate t = () => { throw argumentException; };
 
             // Call
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, someMessage);
@@ -487,6 +482,6 @@ namespace Core.Common.TestUtil.Test
             };
         }
 
-        private class TestToolStripDropDownItem : ToolStripDropDownItem { }
+        private class TestToolStripDropDownItem : ToolStripDropDownItem {}
     }
 }

@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Gui.Attributes;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Attributes

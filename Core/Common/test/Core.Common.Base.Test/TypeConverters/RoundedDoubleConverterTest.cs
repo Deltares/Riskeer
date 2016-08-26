@@ -22,10 +22,8 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
 using Core.Common.Base.Data;
 using Core.Common.Base.TypeConverters;
-
 using NUnit.Framework;
 
 namespace Core.Common.Base.Test.TypeConverters
@@ -143,7 +141,7 @@ namespace Core.Common.Base.Test.TypeConverters
             var converter = new RoundedDoubleConverter();
 
             // Call
-            RoundedDouble conversionResult = (RoundedDouble)converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
+            RoundedDouble conversionResult = (RoundedDouble) converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
 
             // Assert
             Assert.IsNotNull(conversionResult);

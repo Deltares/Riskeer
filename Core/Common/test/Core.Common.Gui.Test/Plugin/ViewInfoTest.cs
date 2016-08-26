@@ -21,11 +21,9 @@
 
 using System;
 using System.Drawing;
-
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Test.Properties;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Plugin
@@ -256,18 +254,17 @@ namespace Core.Common.Gui.Test.Plugin
 
             viewInfo.AfterCreate(stringView, dataObject);
             Assert.IsTrue(afterCreateDelegateCalled);
-
         }
 
         private class StringView : IView
         {
+            public object Data { get; set; }
+            public string Text { get; set; }
+
             public void Dispose()
             {
                 throw new NotImplementedException();
             }
-
-            public object Data { get; set; }
-            public string Text { get; set; }
         }
     }
 }

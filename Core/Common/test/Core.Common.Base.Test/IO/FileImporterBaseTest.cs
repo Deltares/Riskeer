@@ -22,11 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-
 using Core.Common.Base.IO;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Base.Test.IO
@@ -250,12 +247,9 @@ namespace Core.Common.Base.Test.IO
             public override ProgressChangedDelegate ProgressChanged { protected get; set; }
             public IObservable[] AffectedNonTargetObservableInstancesOverride { private get; set; }
 
-            protected override IEnumerable<IObservable> AffectedNonTargetObservableInstances
+            public void TestNotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
             {
-                get
-                {
-                    return AffectedNonTargetObservableInstancesOverride ?? base.AffectedNonTargetObservableInstances;
-                }
+                NotifyProgress(currentStepName, currentStep, totalNumberOfSteps);
             }
 
             public override bool Import(object targetItem, string filePath)
@@ -263,20 +257,17 @@ namespace Core.Common.Base.Test.IO
                 throw new NotImplementedException();
             }
 
-            public void TestNotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
+            protected override IEnumerable<IObservable> AffectedNonTargetObservableInstances
             {
-                NotifyProgress(currentStepName, currentStep, totalNumberOfSteps);
+                get
+                {
+                    return AffectedNonTargetObservableInstancesOverride ?? base.AffectedNonTargetObservableInstances;
+                }
             }
         }
 
-        private class SimpleFileImporterTargetType
-        {
-            
-        }
+        private class SimpleFileImporterTargetType {}
 
-        private class InheritorOfImporterTargetType : SimpleFileImporterTargetType
-        {
-            
-        }
+        private class InheritorOfImporterTargetType : SimpleFileImporterTargetType {}
     }
 }

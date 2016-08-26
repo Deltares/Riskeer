@@ -81,14 +81,14 @@ namespace Core.Common.TestUtil.Test
         {
             // Setup
             string filePath = "willExist.tmp";
-            
+
             try
             {
                 // Precondition
                 Assert.IsFalse(File.Exists(filePath));
 
                 // Call
-                using (new FileDisposeHelper(filePath)) 
+                using (new FileDisposeHelper(filePath))
                 {
                     // Assert
                     Assert.IsTrue(File.Exists(filePath));
@@ -128,7 +128,7 @@ namespace Core.Common.TestUtil.Test
             try
             {
                 // Call
-                using (new FileDisposeHelper(filePaths)) 
+                using (new FileDisposeHelper(filePaths))
                 {
                     // Assert
                     foreach (var filePath in filePaths)

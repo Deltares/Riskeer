@@ -47,7 +47,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             EventHandler handler = (s, e) => counter++;
 
             // Call
-            var result = new StrictContextMenuItem(text,toolTip,image,handler);
+            var result = new StrictContextMenuItem(text, toolTip, image, handler);
             result.PerformClick();
 
             // Assert

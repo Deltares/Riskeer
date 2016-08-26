@@ -593,16 +593,16 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Setup
             var invalidLocation = 4;
 
-            using(var avalonDockViewHost = new AvalonDockViewHost())
-            using(var testView = new TestView())
+            using (var avalonDockViewHost = new AvalonDockViewHost())
+            using (var testView = new TestView())
             {
                 // Call
-                TestDelegate test = () => avalonDockViewHost.AddToolView(testView, (ToolViewLocation)invalidLocation);
+                TestDelegate test = () => avalonDockViewHost.AddToolView(testView, (ToolViewLocation) invalidLocation);
 
                 // Assert
                 string expectedMessage = string.Format("The value of argument 'toolViewLocation' ({0}) is invalid for Enum type 'ToolViewLocation'.", invalidLocation);
                 string parameter = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(
-                    test, 
+                    test,
                     expectedMessage).ParamName;
                 Assert.AreEqual("toolViewLocation", parameter);
             }

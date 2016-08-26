@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-
 using Core.Common.Utils.Extensions;
-
 using NUnit.Framework;
 
 namespace Core.Common.Utils.Test.Extensions
@@ -93,7 +91,10 @@ namespace Core.Common.Utils.Test.Extensions
             });
 
             // Assert
-            CollectionAssert.AreEqual(new[] { expectedElementToKeep }, collection);
+            CollectionAssert.AreEqual(new[]
+            {
+                expectedElementToKeep
+            }, collection);
         }
     }
 }

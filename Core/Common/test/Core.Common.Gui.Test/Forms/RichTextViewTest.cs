@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Forms;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Forms

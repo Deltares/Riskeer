@@ -22,6 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.TreeView.Properties;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -102,7 +103,7 @@ namespace Core.Common.Controls.TreeView.Test
                 Assert.DoesNotThrow(test);
             }
         }
-        
+
         [Test]
         public void RegisterTreeNodeInfo_NodeInfoForTagTypeAlreadySet_OverridesNodeInfo()
         {
@@ -282,7 +283,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.TryRenameNodeForData(dataObject);
 
                 // Assert
-                Assert.AreEqual(Properties.Resources.TreeViewControl_The_selected_item_cannot_be_renamed, messageBoxText);
+                Assert.AreEqual(Resources.TreeViewControl_The_selected_item_cannot_be_renamed, messageBoxText);
             }
         }
 
@@ -431,7 +432,7 @@ namespace Core.Common.Controls.TreeView.Test
                 Assert.AreEqual(0, onNodeRemovedHit);
                 Assert.AreEqual(0, onDataDeletedHit);
 
-                Assert.AreEqual(Properties.Resources.TreeViewControl_The_selected_item_cannot_be_removed, messageBoxText);
+                Assert.AreEqual(Resources.TreeViewControl_The_selected_item_cannot_be_removed, messageBoxText);
             }
         }
 
@@ -476,7 +477,7 @@ namespace Core.Common.Controls.TreeView.Test
                     Assert.AreEqual(1, onNodeRemovedHit);
                     Assert.AreEqual(1, onDataDeletedHit);
 
-                    Assert.AreEqual(Properties.Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, messageBoxText);
+                    Assert.AreEqual(Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, messageBoxText);
                 }
                 finally
                 {
@@ -523,7 +524,7 @@ namespace Core.Common.Controls.TreeView.Test
                     // Assert
                     Assert.AreEqual(0, hit);
 
-                    Assert.AreEqual(Properties.Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, messageBoxText);
+                    Assert.AreEqual(Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, messageBoxText);
                 }
                 finally
                 {
@@ -1295,10 +1296,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    OnNodeChecked = (o, p) =>
-                    {
-                        hit++;
-                    }
+                    OnNodeChecked = (o, p) => { hit++; }
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 treeViewControl.Data = new object();
@@ -1392,7 +1390,7 @@ namespace Core.Common.Controls.TreeView.Test
                 Assert.AreSame(data, treeViewControl.SelectedData);
 
                 var identifier = "identifier";
-                var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+                var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
                 treeView.Name = identifier;
 
                 try
@@ -1414,7 +1412,6 @@ namespace Core.Common.Controls.TreeView.Test
             }
         }
 
-
         [Test]
         [RequiresSTA]
         [TestCase(true)]
@@ -1433,7 +1430,7 @@ namespace Core.Common.Controls.TreeView.Test
                     {
                         selectionTarget
                     },
-                    CanRename = (d,p) => canRenameNode
+                    CanRename = (d, p) => canRenameNode
                 };
                 var childTreeNodeInfo = new TreeNodeInfo
                 {
@@ -1450,7 +1447,7 @@ namespace Core.Common.Controls.TreeView.Test
                 Assert.AreSame(data, treeViewControl.SelectedData);
 
                 var identifier = "identifier";
-                var treeView = (System.Windows.Forms.TreeView)treeViewControl.Controls[0];
+                var treeView = (System.Windows.Forms.TreeView) treeViewControl.Controls[0];
                 treeView.Name = identifier;
                 var childNode = treeView.Nodes[0].Nodes[0];
 

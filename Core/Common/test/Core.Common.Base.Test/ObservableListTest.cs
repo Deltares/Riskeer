@@ -99,9 +99,9 @@ namespace Core.Common.Base.Test
             observableList.Attach(observer6);
 
             observer1.Expect(o => o.UpdateObserver());
-            observer2.Expect(o => o.UpdateObserver()).Do((Action)(() => observableList.Detach(observer3)));
+            observer2.Expect(o => o.UpdateObserver()).Do((Action) (() => observableList.Detach(observer3)));
             observer3.Expect(o => o.UpdateObserver()).Repeat.Never(); // A detached observer should no longer be updated
-            observer4.Expect(o => o.UpdateObserver()).Do((Action)(() => observableList.Attach(observer5)));
+            observer4.Expect(o => o.UpdateObserver()).Do((Action) (() => observableList.Attach(observer5)));
             observer5.Expect(o => o.UpdateObserver()).Repeat.Never(); // An attached observer should not be updated too
             observer6.Expect(o => o.UpdateObserver());
 

@@ -238,6 +238,11 @@ namespace Core.Common.Base.Test.Service
                 this.skipped = skipped;
             }
 
+            public void SetProgressText(string progressText)
+            {
+                ProgressText = progressText;
+            }
+
             protected override void OnRun()
             {
                 if (skipped)
@@ -266,11 +271,6 @@ namespace Core.Common.Base.Test.Service
                 {
                     throw new Exception("Error during finish");
                 }
-            }
-
-            public void SetProgressText(string progressText)
-            {
-                ProgressText = progressText;
             }
         }
     }

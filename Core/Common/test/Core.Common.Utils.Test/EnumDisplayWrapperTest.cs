@@ -35,11 +35,11 @@ namespace Core.Common.Utils.Test
         {
             // Call
             TestDelegate test = () => new EnumDisplayWrapper<object>(null);
-            
+
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("value", paramName);
-        }    
+        }
 
         [Test]
         public void Constructor_WithTypeParameterNotOfEnumType_ThrowsArgumentException()
@@ -79,7 +79,7 @@ namespace Core.Common.Utils.Test
             Assert.AreEqual(Resources.EnumDisplayWrapperTest_DisplayNameValueDisplayName, displayName);
         }
 
-        enum TestEnum
+        private enum TestEnum
         {
             NoDisplayName,
 

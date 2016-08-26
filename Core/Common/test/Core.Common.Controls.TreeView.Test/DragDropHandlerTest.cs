@@ -118,7 +118,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             // Call
             ddh.HandleDragOver(treeView, dragEvent, action);
-            
+
             // Assert
             Assert.AreEqual(dragEvent.Effect, dropEffect);
             mocks.VerifyAll();
@@ -156,7 +156,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             // Call
             ddh.HandleDragOver(treeView, dragEvent, action);
-            
+
             // Assert
             Assert.AreEqual(dragEvent.Effect, DragDropEffects.None);
             mocks.VerifyAll();
@@ -193,7 +193,7 @@ namespace Core.Common.Controls.TreeView.Test
 
             // Call
             ddh.HandleDragOver(treeView, dragEvent, action);
-            
+
             // Assert
             Assert.AreEqual(dragEvent.Effect, DragDropEffects.None);
             mocks.VerifyAll();

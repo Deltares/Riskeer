@@ -91,7 +91,7 @@ namespace Core.Common.Base.Test.Data
             RoundedPoint2DCollection collection = new RoundedPoint2DCollection(numberOfDecimals, points);
 
             // Assert
-            Point2D[] expectedPoints = 
+            Point2D[] expectedPoints =
             {
                 new Point2D(2.35, 3.85),
                 new Point2D(4.63, 2.10),

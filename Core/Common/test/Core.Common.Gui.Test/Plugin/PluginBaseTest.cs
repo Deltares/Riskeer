@@ -247,7 +247,7 @@ namespace Core.Common.Gui.Test.Plugin
             {
                 Gui = gui
             };
-            
+
             // Call
             plugin.Dispose();
 

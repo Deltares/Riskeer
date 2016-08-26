@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-
 using Core.Common.Gui.Appenders;
-
 using log4net.Appender;
 using log4net.Core;
 using log4net.Util;
-
 using NUnit.Framework;
 
 namespace Core.Common.Gui.Test.Appenders
@@ -62,7 +59,7 @@ namespace Core.Common.Gui.Test.Appenders
             Assert.IsInstanceOf<AppenderSkeleton>(appender);
             Assert.IsNull(appender.AppendMessageLineAction);
             Assert.IsInstanceOf<OnlyOnceErrorHandler>(appender.ErrorHandler,
-                "Appender has default Log4Net error handler.");
+                                                      "Appender has default Log4Net error handler.");
             Assert.IsNull(appender.FilterHead);
             Assert.IsNull(appender.Layout);
             Assert.IsNull(appender.Name);
