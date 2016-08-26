@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -30,7 +29,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.SurfaceLines;
 using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -45,7 +43,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <para><c>Id;X1;Y1;Z1;...(Xn;Yn;Zn)</c></para>
     /// <para>Where Xn;Yn;Zn form the n-th 3D point describing the geometry of the surface line.</para>
     /// </summary>
-    public class PipingSurfaceLinesCsvImporter : FileImporterBase<RingtoetsPipingSurfaceLinesContext>
+    public class PipingSurfaceLinesCsvImporter : FileImporterBase
     {
         private enum ReferenceLineIntersectionsResult
         {
@@ -76,47 +74,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             this.referenceLine = referenceLine;
         }
 
-        public override string Name
-        {
-            get
-            {
-                return PipingFormsResources.PipingSurfaceLinesCollection_DisplayName;
-            }
-        }
-
-        public override string Category
-        {
-            get
-            {
-                return RingtoetsFormsResources.Ringtoets_Category;
-            }
-        }
-
-        public override Bitmap Image
-        {
-            get
-            {
-                return PipingFormsResources.PipingSurfaceLineIcon;
-            }
-        }
-
-        public override string FileFilter
-        {
-            get
-            {
-                return string.Format("{0} {1} (*.csv)|*.csv",
-                                     PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, RingtoetsPluginResources.Csv_file_name);
-            }
-        }
-
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override bool CanImportOn(object targetItem)
-        {
-            return base.CanImportOn(targetItem) && IsReferenceLineAvailable(targetItem);
-        }
-
-        public override bool Import(object targetItem, string filePath)
+        public override bool Import(string filePath)
         {
             var importSurfaceLinesResult = ReadPipingSurfaceLines(filePath);
             if (importSurfaceLinesResult.CriticalErrorOccurred)
@@ -145,11 +105,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             AddImportedDataToModel(importSurfaceLinesResult.ImportedItems, importCharacteristicPointsResult.ImportedItems);
 
             return true;
-        }
-
-        private static bool IsReferenceLineAvailable(object targetItem)
-        {
-            return ((RingtoetsPipingSurfaceLinesContext) targetItem).AssessmentSection.ReferenceLine != null;
         }
 
         private ReadResult<T> HandleCriticalReadError<T>(Exception e)

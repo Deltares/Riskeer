@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using Core.Common.Base.IO;
 using Core.Common.Base.Service;
 using NUnit.Framework;
@@ -35,7 +34,7 @@ namespace Core.Common.Base.Test.Service
         public void Constructor_ImporterEqualsNull_ArgumentExceptionIsThrown()
         {
             // Setup
-            TestDelegate test = () => new FileImportActivity(null, new object(), "");
+            TestDelegate test = () => new FileImportActivity(null, new object(), "", "");
 
             // Call
             var message = Assert.Throws<ArgumentNullException>(test).Message;
@@ -53,7 +52,7 @@ namespace Core.Common.Base.Test.Service
 
             mocks.ReplayAll();
 
-            TestDelegate test = () => new FileImportActivity(fileImporter, null, "");
+            TestDelegate test = () => new FileImportActivity(fileImporter, null, "", "");
 
             // Call
             var message = Assert.Throws<ArgumentNullException>(test).Message;
@@ -72,7 +71,7 @@ namespace Core.Common.Base.Test.Service
 
             mocks.ReplayAll();
 
-            TestDelegate test = () => new FileImportActivity(fileImporter, new object(), null);
+            TestDelegate test = () => new FileImportActivity(fileImporter, new object(), null, "");
 
             // Call
             var message = Assert.Throws<ArgumentNullException>(test).Message;
@@ -88,16 +87,15 @@ namespace Core.Common.Base.Test.Service
             // Setup
             var mocks = new MockRepository();
             var fileImporter = mocks.Stub<IFileImporter>();
-
-            fileImporter.Stub(i => i.Name).Return("Importer name");
-
             mocks.ReplayAll();
 
+            const string name = "Importer name";
+
             // Call
-            var fileImportActivity = new FileImportActivity(fileImporter, new object(), "");
+            var fileImportActivity = new FileImportActivity(fileImporter, new object(), "", name);
 
             // Assert
-            Assert.AreEqual(fileImporter.Name, fileImportActivity.Name);
+            Assert.AreEqual(name, fileImportActivity.Name);
             mocks.VerifyAll();
         }
 
@@ -105,17 +103,15 @@ namespace Core.Common.Base.Test.Service
         public void Run_FileImportActivityWithFileImporter_ProvidedFileShouldBeImported()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
             var target = new object();
 
+            var mocks = new MockRepository();
+            var fileImporter = mocks.Stub<IFileImporter>();
             fileImporter.Stub(x => x.ProgressChanged = null).IgnoreArguments();
-            fileImporter.Expect(x => x.Name).Return(string.Empty);
-            fileImporter.Expect(i => i.Import(target, "file")).Return(true);
-
+            fileImporter.Expect(i => i.Import("file")).Return(true);
             mocks.ReplayAll();
 
-            var fileImportActivity = new FileImportActivity(fileImporter, target, "file");
+            var fileImportActivity = new FileImportActivity(fileImporter, target, "file", "");
 
             // Call
             fileImportActivity.Run();
@@ -128,17 +124,15 @@ namespace Core.Common.Base.Test.Service
         public void Cancel_FileImportActivityWithFileImporter_CancelsImporter()
         {
             // Setup
-            var mocks = new MockRepository();
-            var fileImporter = mocks.Stub<IFileImporter>();
             var target = new object();
 
+            var mocks = new MockRepository();
+            var fileImporter = mocks.Stub<IFileImporter>();
             fileImporter.Stub(x => x.ProgressChanged = null).IgnoreArguments();
-            fileImporter.Expect(x => x.Name).Return(string.Empty);
             fileImporter.Expect(x => x.Cancel());
-
             mocks.ReplayAll();
 
-            var fileImportActivity = new FileImportActivity(fileImporter, target, "");
+            var fileImportActivity = new FileImportActivity(fileImporter, target, "", "");
 
             // Call
             fileImportActivity.Cancel();
@@ -154,7 +148,7 @@ namespace Core.Common.Base.Test.Service
             var target = new object();
             var fileImporter = new SimpleFileImporter();
 
-            var fileImportActivity = new FileImportActivity(fileImporter, target, "file");
+            var fileImportActivity = new FileImportActivity(fileImporter, target, "file", "");
 
             // Call
             fileImportActivity.Run(); // Reuse the activity
@@ -169,15 +163,13 @@ namespace Core.Common.Base.Test.Service
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-
             observer.Expect(o => o.UpdateObserver());
-
             mocks.ReplayAll();
 
             var target = new ObservableList<object>();
             target.Attach(observer);
             var fileImporter = new SimpleFileImporter();
-            var fileImportActivity = new FileImportActivity(fileImporter, target, "");
+            var fileImportActivity = new FileImportActivity(fileImporter, target, "", "");
 
             // Call
             fileImportActivity.Finish();
@@ -186,43 +178,11 @@ namespace Core.Common.Base.Test.Service
             mocks.VerifyAll();
         }
 
-        private class SimpleFileImporter : FileImporterBase<object>
+        private class SimpleFileImporter : FileImporterBase
         {
-            public override string Name
-            {
-                get
-                {
-                    return "";
-                }
-            }
-
-            public override string Category
-            {
-                get
-                {
-                    return "";
-                }
-            }
-
-            public override Bitmap Image
-            {
-                get
-                {
-                    return null;
-                }
-            }
-
-            public override string FileFilter
-            {
-                get
-                {
-                    return "";
-                }
-            }
-
             public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-            public override bool Import(object targetItem, string filePath)
+            public override bool Import(string filePath)
             {
                 NotifyProgress("Step description", 1, 10);
 

@@ -20,10 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-
-using Core.Common.Utils.Reflection;
 
 namespace Core.Common.Base.IO
 {
@@ -32,29 +29,12 @@ namespace Core.Common.Base.IO
     /// change notifications for <see cref="IObservable"/> objects that have been affected
     /// during the import.
     /// </summary>
-    /// <typeparam name="T">The type of the item supported by the importer.</typeparam>
     /// <seealso cref="IFileImporter" />
-    public abstract class FileImporterBase<T> : IFileImporter
+    public abstract class FileImporterBase : IFileImporter
     {
-        /// <summary>
-        /// Gets or sets value indicating if a cancel request has been made. When true, no 
-        /// changes should be made to the data model unless the importer is already in progress 
-        /// of changing the data model.
-        /// </summary>
-        protected bool Canceled { get; set; }
-
-        public abstract string Name { get; }
-        public abstract string Category { get; }
-        public abstract Bitmap Image { get; }
-        public abstract string FileFilter { get; }
         public abstract ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public virtual bool CanImportOn(object targetItem)
-        {
-            return targetItem != null && targetItem.GetType().Implements<T>();
-        }
-
-        public abstract bool Import(object targetItem, string filePath);
+        public abstract bool Import(string filePath);
 
         public void Cancel()
         {
@@ -79,6 +59,13 @@ namespace Core.Common.Base.IO
                 changedObservableObject.NotifyObservers();
             }
         }
+
+        /// <summary>
+        /// Gets or sets value indicating if a cancel request has been made. When true, no 
+        /// changes should be made to the data model unless the importer is already in progress 
+        /// of changing the data model.
+        /// </summary>
+        protected bool Canceled { get; set; }
 
         /// <summary>
         /// Gets all objects that have been affected during the <see cref="Import"/> call

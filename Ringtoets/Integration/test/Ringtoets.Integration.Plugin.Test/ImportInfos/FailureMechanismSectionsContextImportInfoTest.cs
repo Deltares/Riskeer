@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             var failureMechanism = new Simple();
 
             var referenceLineImporter = new ReferenceLineImporter(assessmentSection);
-            referenceLineImporter.Import(null, referenceLineFilePath);
+            referenceLineImporter.Import(referenceLineFilePath);
 
             var importTarget = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -161,7 +161,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(importTarget);
 
             // Assert
-            Assert.IsTrue(importer.Import(null, sectionsFilePath));
+            Assert.IsTrue(importer.Import(sectionsFilePath));
             mocks.VerifyAll();
         }
 

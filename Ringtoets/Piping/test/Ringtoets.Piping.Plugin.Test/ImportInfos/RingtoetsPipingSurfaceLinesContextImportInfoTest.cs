@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(importTarget);
 
             // Assert
-            Assert.IsTrue(importer.Import(null, filePath));
+            Assert.IsTrue(importer.Import(filePath));
             mocks.VerifyAll();
         }
     }

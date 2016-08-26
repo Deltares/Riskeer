@@ -21,12 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-
 using Core.Common.Base.IO;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Core.Common.Base.Test.IO
@@ -44,64 +40,6 @@ namespace Core.Common.Base.Test.IO
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(simpleImporter);
-        }
-
-        [Test]
-        public void CanImportOn_ObjectIsNull_ReturnFalse()
-        {
-            // Setup
-            var importer = new SimpleFileImporter();
-
-            // Call
-            var canImportOn = importer.CanImportOn(null);
-
-            // Assert
-            Assert.IsFalse(canImportOn);
-        }
-
-        [Test]
-        public void CanImportOn_ObjectIsOfCorrectType_ReturnTrue()
-        {
-            // Setup
-            var importer = new SimpleFileImporter();
-
-            var targetItem = new SimpleFileImporterTargetType();
-
-            // Call
-            var canImportOn = importer.CanImportOn(targetItem);
-
-            // Assert
-            Assert.IsTrue(canImportOn);
-        }
-
-        [Test]
-        public void CanImportOn_ObjectInheritsOfCorrectType_ReturnTrue()
-        {
-            // Setup
-            var importer = new SimpleFileImporter();
-
-            var targetItem = new InheritorOfImporterTargetType();
-
-            // Call
-            var canImportOn = importer.CanImportOn(targetItem);
-
-            // Assert
-            Assert.IsTrue(canImportOn);
-        }
-
-        [Test]
-        public void CanImportOn_ObjectTypeDoesNotMatch_ReturnFalse()
-        {
-            // Setup
-            var importer = new SimpleFileImporter();
-
-            var targetItem = new object();
-
-            // Call
-            var canImportOn = importer.CanImportOn(targetItem);
-
-            // Assert
-            Assert.IsFalse(canImportOn);
         }
 
         [Test]
@@ -213,42 +151,20 @@ namespace Core.Common.Base.Test.IO
             Assert.AreEqual(1, progressChangedCallCount);
         }
 
-        private class SimpleFileImporter : FileImporterBase<SimpleFileImporterTargetType>
+        private class SimpleFileImporter : FileImporterBase
         {
-            public override string Name
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            public override string Category
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            public override Bitmap Image
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
-            public override string FileFilter
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
-
             public override ProgressChangedDelegate ProgressChanged { protected get; set; }
             public IObservable[] AffectedNonTargetObservableInstancesOverride { private get; set; }
+
+            public void TestNotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
+            {
+                NotifyProgress(currentStepName, currentStep, totalNumberOfSteps);
+            }
+
+            public override bool Import(string filePath)
+            {
+                throw new NotImplementedException();
+            }
 
             protected override IEnumerable<IObservable> AffectedNonTargetObservableInstances
             {
@@ -257,26 +173,6 @@ namespace Core.Common.Base.Test.IO
                     return AffectedNonTargetObservableInstancesOverride ?? base.AffectedNonTargetObservableInstances;
                 }
             }
-
-            public override bool Import(object targetItem, string filePath)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void TestNotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
-            {
-                NotifyProgress(currentStepName, currentStep, totalNumberOfSteps);
-            }
-        }
-
-        private class SimpleFileImporterTargetType
-        {
-            
-        }
-
-        private class InheritorOfImporterTargetType : SimpleFileImporterTargetType
-        {
-            
         }
     }
 }

@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.IO;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -62,13 +61,13 @@ namespace Core.Common.Gui.Commands
 
         public void ImportOn(object target)
         {
-            IFileImporter importer = GetSupportedImporterUsingDialog(target);
-            if (importer == null)
+            ImportInfo importInfo = GetSupportedImporterUsingDialog(target);
+            if (importInfo == null)
             {
                 return;
             }
 
-            ImportItemsUsingDialog(importer, target);
+            ImportItemsUsingDialog(importInfo, target);
         }
 
         private IEnumerable<ImportInfo> GetSupportedImportInfos(object target)
@@ -83,10 +82,10 @@ namespace Core.Common.Gui.Commands
             return importInfos.Where(info => (info.DataType == targetType || targetType.Implements(info.DataType)) && info.IsEnabled(target));
         }
 
-        private IFileImporter GetSupportedImporterUsingDialog(object target)
+        private ImportInfo GetSupportedImporterUsingDialog(object target)
         {
-            IFileImporter[] importers = GetSupportedImportInfos(target).Select(i => i.CreateFileImporter(target)).ToArray();
-            if (importers.Length == 0)
+            ImportInfo[] supportedImportInfos = GetSupportedImportInfos(target).ToArray();
+            if (supportedImportInfos.Length == 0)
             {
                 MessageBox.Show(Resources.GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item,
                                 Resources.GuiImportHandler_GetSupportedImporterForTargetType_Error);
@@ -95,38 +94,38 @@ namespace Core.Common.Gui.Commands
                 return null;
             }
 
-            if (importers.Length == 1)
+            if (supportedImportInfos.Length == 1)
             {
-                return importers[0];
+                return supportedImportInfos[0];
             }
 
             using (var selectImporterDialog = new SelectItemDialog(dialogParent, Resources.GuiImportHandler_GetSupportedImporterUsingDialog_Select_importer))
             {
-                foreach (IFileImporter importer in importers)
+                foreach (ImportInfo importInfo in supportedImportInfos)
                 {
-                    string category = string.IsNullOrEmpty(importer.Category) ?
+                    string category = string.IsNullOrEmpty(importInfo.Category) ?
                                           Resources.GuiImportHandler_GetSupportedImporterForTargetType_Data_Import :
-                                          importer.Category;
-                    Bitmap itemImage = importer.Image ?? Resources.brick;
+                                          importInfo.Category;
+                    Image itemImage = importInfo.Image ?? Resources.brick;
 
-                    selectImporterDialog.AddItemType(importer.Name, category, itemImage, null);
+                    selectImporterDialog.AddItemType(importInfo.Name, category, itemImage, null);
                 }
 
                 if (selectImporterDialog.ShowDialog() == DialogResult.OK)
                 {
-                    return importers.First(i => i.Name == selectImporterDialog.SelectedItemTypeName);
+                    return supportedImportInfos.First(i => i.Name == selectImporterDialog.SelectedItemTypeName);
                 }
             }
 
             return null;
         }
 
-        private void ImportItemsUsingDialog(IFileImporter importer, object target)
+        private void ImportItemsUsingDialog(ImportInfo importInfo, object target)
         {
             using (var dialog = new OpenFileDialog
             {
                 Multiselect = true,
-                Filter = importer.FileFilter,
+                Filter = importInfo.FileFilter,
                 Title = Resources.OpenFileDialog_Title
             })
             {
@@ -134,7 +133,7 @@ namespace Core.Common.Gui.Commands
                 {
                     log.Info(Resources.GuiImportHandler_ImportItemsUsingDialog_Start_importing_data);
 
-                    FileImportActivity[] importActivitiesToRun = dialog.FileNames.Select(f => new FileImportActivity(importer, target, f)).ToArray();
+                    FileImportActivity[] importActivitiesToRun = dialog.FileNames.Select(f => new FileImportActivity(importInfo.CreateFileImporter(target), target, f, importInfo.Name)).ToArray();
                     ActivityProgressDialogRunner.Run(dialogParent, importActivitiesToRun);
                 }
             }

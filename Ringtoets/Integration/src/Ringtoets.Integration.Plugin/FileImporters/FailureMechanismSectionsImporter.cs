@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
@@ -30,7 +29,6 @@ using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Plugin.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -43,7 +41,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// Imports <see cref="FailureMechanismSection"/> instances from a shapefile that contains
     /// one or more polylines and stores them in a <see cref="IFailureMechanism"/>.
     /// </summary>
-    public class FailureMechanismSectionsImporter : FileImporterBase<FailureMechanismSectionsContext>
+    public class FailureMechanismSectionsImporter : FileImporterBase
     {
         /// <summary>
         /// The snapping tolerance in meters.
@@ -82,46 +80,9 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             this.referenceLine = referenceLine;
         }
 
-        public override string Name
-        {
-            get
-            {
-                return RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName;
-            }
-        }
-
-        public override string Category
-        {
-            get
-            {
-                return RingtoetsCommonFormsResources.Ringtoets_Category;
-            }
-        }
-
-        public override Bitmap Image
-        {
-            get
-            {
-                return RingtoetsCommonFormsResources.SectionsIcon;
-            }
-        }
-
-        public override string FileFilter
-        {
-            get
-            {
-                return RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter;
-            }
-        }
-
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override bool CanImportOn(object targetItem)
-        {
-            return base.CanImportOn(targetItem) && IsReferenceLineAvailable(targetItem);
-        }
-
-        public override bool Import(object targetItem, string filePath)
+        public override bool Import(string filePath)
         {
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Reading_file, 1, 3);
             ReadResult<FailureMechanismSection> readResults = ReadFailureMechanismSections(filePath);
@@ -153,11 +114,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism, 3, 3);
             AddImportedDataToModel(readFailureMechanismSections, failureMechanism, referenceLine);
             return true;
-        }
-
-        private static bool IsReferenceLineAvailable(object targetItem)
-        {
-            return ((FailureMechanismSectionsContext) targetItem).ParentAssessmentSection.ReferenceLine != null;
         }
 
         private void HandleUserCancellingImport()

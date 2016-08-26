@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -46,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
     /// <summary>
     /// Imports point shapefiles containing dike profile locations and text file containing the foreland/dike schematizations.
     /// </summary>
-    public class DikeProfilesImporter : FileImporterBase<DikeProfilesContext>
+    public class DikeProfilesImporter : FileImporterBase
     {
         private readonly ObservableList<DikeProfile> importTarget;
         private readonly ReferenceLine referenceLine;
@@ -73,46 +72,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
             this.referenceLine = referenceLine;
         }
 
-        public override string Name
-        {
-            get
-            {
-                return Resources.DikeProfilesImporter_DisplayName;
-            }
-        }
-
-        public override string Category
-        {
-            get
-            {
-                return RingtoetsFormsResources.Ringtoets_Category;
-            }
-        }
-
-        public override Bitmap Image
-        {
-            get
-            {
-                return Resources.DikeProfile;
-            }
-        }
-
-        public override string FileFilter
-        {
-            get
-            {
-                return RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter;
-            }
-        }
-
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override bool CanImportOn(object targetItem)
-        {
-            return base.CanImportOn(targetItem) && IsReferenceLineAvailable(targetItem);
-        }
-
-        public override bool Import(object targetItem, string filePath)
+        public override bool Import(string filePath)
         {
             ReadResult<DikeProfileLocation> importDikeProfilesResult = ReadDikeProfileLocations(filePath);
             if (importDikeProfilesResult.CriticalErrorOccurred)

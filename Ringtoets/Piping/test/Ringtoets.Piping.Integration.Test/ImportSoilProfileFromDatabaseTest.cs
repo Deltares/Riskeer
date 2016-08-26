@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Integration.Test
 
             // When
             var importer = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels);
-            importer.Import(null, databasePath);
+            importer.Import(databasePath);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Integration.Test
 
             // When
             var importer = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels);
-            importer.Import(null, databasePath);
+            importer.Import(databasePath);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);
@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Integration.Test
 
             // When
             var importer = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels);
-            importer.Import(null, databasePath);
+            importer.Import(databasePath);
 
             // Then
             Assert.AreEqual(1, pipingFailureMechanism.StochasticSoilModels.Count);

@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(importTarget);
 
             // Assert
-            Assert.IsTrue(importer.Import(null, path));
+            Assert.IsTrue(importer.Import(path));
             mocks.VerifyAll();
         }
     }

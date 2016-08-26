@@ -40,29 +40,31 @@ namespace Core.Common.Base.Service
         /// <param name="fileImporter">The <see cref="IFileImporter"/> to use for importing the data.</param>
         /// <param name="target">The target object to import the data to.</param>
         /// <param name="filePath">The path of the file to import the data from.</param>
+        /// <param name="name">The name of the importer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public FileImportActivity(IFileImporter fileImporter, object target, string filePath)
+        public FileImportActivity(IFileImporter fileImporter, object target, string filePath, string name)
         {
             if (fileImporter == null)
             {
                 throw new ArgumentNullException("fileImporter");
             }
-
             if (target == null)
             {
                 throw new ArgumentNullException("target");
             }
-
             if (filePath == null)
             {
                 throw new ArgumentNullException("filePath");
+            }
+            if (name == null)
+            {
+                throw new ArgumentNullException("name");
             }
 
             this.fileImporter = fileImporter;
             this.target = target;
             this.filePath = filePath;
-
-            Name = fileImporter.Name;
+            Name = name;
         }
 
         /// <summary>
@@ -71,9 +73,13 @@ namespace Core.Common.Base.Service
         /// <remarks>This method can throw exceptions of any kind.</remarks>
         protected override void OnRun()
         {
-            fileImporter.ProgressChanged = (currentStepName, currentStep, totalSteps) => { ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2, currentStep, totalSteps, currentStepName); };
+            fileImporter.ProgressChanged = (currentStepName, currentStep, totalSteps) =>
+            {
+                ProgressText = string.Format(Resources.FileImportActivity_ImportFromFile_Step_CurrentProgress_0_of_TotalProgress_1_ProgressText_2,
+                                             currentStep, totalSteps, currentStepName);
+            };
 
-            fileImporter.Import(target, filePath);
+            fileImporter.Import(filePath);
         }
 
         protected override void OnCancel()

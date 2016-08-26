@@ -64,12 +64,7 @@ namespace Ringtoets.Common.IO.Test
             var importer = new ReferenceLineImporter(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<ReferenceLineContext>>(importer);
-            Assert.AreEqual("Referentielijn", importer.Name);
-            Assert.AreEqual("Algemeen", importer.Category);
-            TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ReferenceLineIcon, importer.Image);
-            Assert.AreEqual(RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter, importer.FileFilter);
-
+            Assert.IsInstanceOf<FileImporterBase>(importer);
             mocks.VerifyAll();
         }
 
@@ -84,12 +79,10 @@ namespace Ringtoets.Common.IO.Test
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                   Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
             var importer = new ReferenceLineImporter(assessmentSection);
 
             // Call
-            bool importSuccesful = importer.Import(referenceLineContext, path);
+            bool importSuccesful = importer.Import(path);
 
             // Assert
             Assert.IsTrue(importSuccesful);
@@ -111,8 +104,6 @@ namespace Ringtoets.Common.IO.Test
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                   Path.Combine("ReferenceLine", "traject_10-2.shp"));
-
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
 
             var expectedProgressMessages = new[]
             {
@@ -138,7 +129,7 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Call
-            importer.Import(referenceLineContext, path);
+            importer.Import(path);
 
             // Assert
             Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
@@ -155,13 +146,11 @@ namespace Ringtoets.Common.IO.Test
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, Path.DirectorySeparatorChar.ToString());
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
             var importer = new ReferenceLineImporter(assessmentSection);
 
             // Call
             bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import(referenceLineContext, path);
+            Action call = () => importSuccesful = importer.Import(path);
 
             // Assert
             var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam. ", path) + Environment.NewLine +
@@ -182,13 +171,11 @@ namespace Ringtoets.Common.IO.Test
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_dont_exist");
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
             var importer = new ReferenceLineImporter(assessmentSection);
 
             // Call
             bool importSuccesful = true;
-            Action call = () => importSuccesful = importer.Import(referenceLineContext, path);
+            Action call = () => importSuccesful = importer.Import(path);
 
             // Assert
             var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': Het bestand bestaat niet. ", path) + Environment.NewLine +
@@ -232,8 +219,6 @@ namespace Ringtoets.Common.IO.Test
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
             var importer = new ReferenceLineImporter(assessmentSection);
             string messageBoxTitle = null, messageBoxText = null;
             DialogBoxHandler = (name, wnd) =>
@@ -247,7 +232,7 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Call
-            bool importSuccesful = importer.Import(referenceLineContext, path);
+            bool importSuccesful = importer.Import(path);
 
             // Assert
             Assert.IsFalse(importSuccesful);
@@ -305,8 +290,6 @@ namespace Ringtoets.Common.IO.Test
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                   Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
             var importer = new ReferenceLineImporter(assessmentSection);
 
             string messageBoxTitle = null, messageBoxText = null;
@@ -321,7 +304,7 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Call
-            bool importSuccesful = importer.Import(referenceLineContext, path);
+            bool importSuccesful = importer.Import(path);
 
             // Assert
             Assert.IsTrue(importSuccesful);
@@ -369,8 +352,6 @@ namespace Ringtoets.Common.IO.Test
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                   Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
             var expectedProgressMessages = new[]
             {
                 new ExpectedProgressNotification
@@ -409,7 +390,7 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Call
-            importer.Import(referenceLineContext, path);
+            importer.Import(path);
 
             // Assert
             Assert.AreEqual(expectedProgressMessages.Length, progressChangedCallCount);
@@ -429,8 +410,6 @@ namespace Ringtoets.Common.IO.Test
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
             var importer = new ReferenceLineImporter(assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
@@ -442,7 +421,7 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Call
-            bool importSuccesful = importer.Import(referenceLineContext, path);
+            bool importSuccesful = importer.Import(path);
 
             // Assert
             Assert.IsFalse(importSuccesful);
@@ -465,8 +444,6 @@ namespace Ringtoets.Common.IO.Test
 
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "traject_10-2.shp");
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
             var importer = new ReferenceLineImporter(assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
@@ -485,7 +462,7 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Call
-            Action call = () => importer.Import(referenceLineContext, path);
+            Action call = () => importer.Import(path);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Referentielijn importeren afgebroken. Geen data ingelezen.", 1);
@@ -503,13 +480,11 @@ namespace Ringtoets.Common.IO.Test
             var path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                   Path.Combine("ReferenceLine", "traject_10-2.shp"));
 
-            var referenceLineContext = new ReferenceLineContext(assessmentSection);
-
             var importer = new ReferenceLineImporter(assessmentSection);
             importer.Cancel();
 
             // Call
-            bool importSuccesful = importer.Import(referenceLineContext, path);
+            bool importSuccesful = importer.Import(path);
 
             // Assert
             Assert.IsTrue(importSuccesful);
@@ -589,7 +564,7 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Precondition
-            Assert.IsTrue(importer.Import(referenceLineContext, path));
+            Assert.IsTrue(importer.Import(path));
 
             // Call
             importer.DoPostImportUpdates(referenceLineContext);
@@ -629,7 +604,7 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Precondition
-            Assert.IsTrue(importer.Import(referenceLineContext, path));
+            Assert.IsTrue(importer.Import(path));
 
             // Call
             importer.DoPostImportUpdates(referenceLineContext);
@@ -680,7 +655,7 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Precondition
-            Assert.IsFalse(importer.Import(referenceLineContext, path));
+            Assert.IsFalse(importer.Import(path));
 
             // Call
             importer.DoPostImportUpdates(referenceLineContext);
@@ -757,14 +732,14 @@ namespace Ringtoets.Common.IO.Test
             };
 
             // Precondition
-            Assert.IsTrue(importer.Import(referenceLineContext, path));
+            Assert.IsTrue(importer.Import(path));
             importer.Cancel();
             DialogBoxHandler = (name, wnd) =>
             {
                 var messageBoxTester = new MessageBoxTester(wnd);
                 messageBoxTester.ClickOk();
             };
-            Assert.IsTrue(importer.Import(referenceLineContext, path));
+            Assert.IsTrue(importer.Import(path));
 
             // Call
             importer.DoPostImportUpdates(referenceLineContext);

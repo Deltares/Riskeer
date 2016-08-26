@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -31,7 +30,6 @@ using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -43,7 +41,7 @@ namespace Ringtoets.Common.IO
     /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="IAssessmentSection"/>,
     /// taking data from a shapefile containing a single polyline.
     /// </summary>
-    public class ReferenceLineImporter : FileImporterBase<ReferenceLineContext>
+    public class ReferenceLineImporter : FileImporterBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ReferenceLineImporter));
         private readonly IAssessmentSection importTarget;
@@ -64,41 +62,9 @@ namespace Ringtoets.Common.IO
             this.importTarget = importTarget;
         }
 
-        public override string Name
-        {
-            get
-            {
-                return RingtoetsDataResources.ReferenceLine_DisplayName;
-            }
-        }
-
-        public override string Category
-        {
-            get
-            {
-                return RingtoetsFormsResources.Ringtoets_Category;
-            }
-        }
-
-        public override Bitmap Image
-        {
-            get
-            {
-                return RingtoetsFormsResources.ReferenceLineIcon;
-            }
-        }
-
-        public override string FileFilter
-        {
-            get
-            {
-                return RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter;
-            }
-        }
-
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override bool Import(object targetItem, string filePath)
+        public override bool Import(string filePath)
         {
             Canceled = false;
             changedObservables.Clear();

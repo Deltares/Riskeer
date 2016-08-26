@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
@@ -30,7 +29,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
@@ -43,7 +41,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the DSoilModel application.
     /// </summary>
-    public class PipingSoilProfilesImporter : FileImporterBase<StochasticSoilModelContext>
+    public class PipingSoilProfilesImporter : FileImporterBase
     {
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSoilProfilesImporter));
         private readonly ObservableList<StochasticSoilModel> importTarget;
@@ -62,47 +60,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             this.importTarget = importTarget;
         }
 
-        public override string Name
-        {
-            get
-            {
-                return PipingFormsResources.StochasticSoilProfileCollection_DisplayName;
-            }
-        }
-
-        public override string Category
-        {
-            get
-            {
-                return RingtoetsFormsResources.Ringtoets_Category;
-            }
-        }
-
-        public override Bitmap Image
-        {
-            get
-            {
-                return PipingFormsResources.PipingSoilProfileIcon;
-            }
-        }
-
-        public override string FileFilter
-        {
-            get
-            {
-                return string.Format("{0} {1} (*.soil)|*.soil",
-                                     PipingFormsResources.StochasticSoilProfileCollection_DisplayName, RingtoetsPluginResources.Soil_file_name);
-            }
-        }
-
         public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
-        public override bool CanImportOn(object targetItem)
-        {
-            return base.CanImportOn(targetItem) && IsReferenceLineAvailable(targetItem);
-        }
-
-        public override bool Import(object targetItem, string filePath)
+        public override bool Import(string filePath)
         {
             var importSoilProfileResult = ReadSoilProfiles(filePath);
             if (importSoilProfileResult.CriticalErrorOccurred)
@@ -219,11 +179,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                                                       .Where(s => s.SoilProfile != null)
                                                                       .Sum(s => s.Probability);
             return Math.Abs(sumOfAllScenarioProbabilities - 1.0) < 1e-6;
-        }
-
-        private static bool IsReferenceLineAvailable(object targetItem)
-        {
-            return ((StochasticSoilModelContext) targetItem).AssessmentSection.ReferenceLine != null;
         }
 
         private void HandleException(Exception e)

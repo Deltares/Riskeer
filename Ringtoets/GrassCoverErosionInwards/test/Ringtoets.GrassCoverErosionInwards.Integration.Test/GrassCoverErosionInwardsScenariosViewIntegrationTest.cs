@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 using Ringtoets.Integration.Data;
@@ -100,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine);
-                dikeProfilesImporter.Import(null, filePath);
+                dikeProfilesImporter.Import(filePath);
 
                 // Call
                 foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
@@ -147,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine);
-                dikeProfilesImporter.Import(null, filePath);
+                dikeProfilesImporter.Import(filePath);
 
                 foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
@@ -199,7 +198,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine);
-                dikeProfilesImporter.Import(null, filePath);
+                dikeProfilesImporter.Import(filePath);
 
                 foreach (var profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {

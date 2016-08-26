@@ -64,67 +64,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var importer = new DikeProfilesImporter(importTarget, referenceLine);
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<DikeProfilesContext>>(importer);
-            Assert.AreEqual("Dijkprofiel locaties", importer.Name);
-            Assert.AreEqual("Algemeen", importer.Category);
-            TestHelper.AssertImagesAreEqual(GrassCoverErosionInwardsPluginResources.DikeProfile, importer.Image);
-            Assert.AreEqual(RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter, importer.FileFilter);
+            Assert.IsInstanceOf<FileImporterBase>(importer);
         }
-
-        [Test]
-        public void CanImportOn_ValidContext_ReturnTrue()
-        {
-            // Setup
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(131223.2, 548393.4),
-                new Point2D(133854.3, 545323.1),
-                new Point2D(135561.0, 541920.3),
-                new Point2D(136432.1, 538235.2),
-                new Point2D(136039.4, 533920.2)
-            };
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
-            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
-
-            // Call
-            var canImport = dikeProfilesImporter.CanImportOn(targetContext);
-
-            // Assert
-            Assert.IsTrue(canImport);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CanImportOn_ContextWithoutReferenceLine_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-            mocks.ReplayAll();
-
-            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, new ReferenceLine());
-
-            // Call
-            var canImport = dikeProfilesImporter.CanImportOn(targetContext);
-
-            // Assert
-            Assert.IsFalse(canImport);
-            mocks.VerifyAll();
-        }
-
+        
         [Test]
         [TestCase("")]
         [TestCase("      ")]
@@ -133,20 +75,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
         {
             // Setup
             var referenceLine = new ReferenceLine();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
-
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -157,7 +92,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
                 StringAssert.StartsWith(messageArray[0], message);
             });
             Assert.IsFalse(importResult);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -166,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
-            
+
             var invalidFileNameChars = Path.GetInvalidFileNameChars();
             var invalidPath = filePath.Replace('d', invalidFileNameChars[0]);
 
@@ -179,13 +113,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             //Precondition
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, invalidPath);
+            Action call = () => importResult = dikeProfilesImporter.Import(invalidPath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -212,15 +144,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             //Precondition
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, folderPath);
+            Action call = () => importResult = dikeProfilesImporter.Import(folderPath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -254,15 +184,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             //Precondition
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -295,15 +223,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             //Precondition
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -333,15 +259,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             //Precondition
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -368,15 +292,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             //Precondition
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -403,11 +325,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
-
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
@@ -415,7 +332,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -425,7 +342,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
                 Assert.AreEqual(message, messageArray[0]);
             });
             Assert.IsTrue(importResult);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -442,15 +358,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             //Precondition
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -496,7 +410,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             var expectedMessages = Enumerable.Repeat("Een dijkprofiel locatie met ID 'profiel001' ligt niet op de referentielijn. Locatie wordt overgeslagen.", 5).ToArray();
@@ -538,7 +452,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             string expectedMessage = "Een dijkprofiel locatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
@@ -572,7 +486,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             targetContext.Attach(observer);
 
             // Call
-            bool importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            bool importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             Assert.IsTrue(importResult);
@@ -616,7 +530,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             targetContext.Attach(observer);
 
             // Call
-            dikeProfilesImporter.Import(targetContext, filePath);
+            dikeProfilesImporter.Import(filePath);
             DikeProfile dikeProfile = targetContext.WrappedData[4];
 
             // Assert
@@ -653,7 +567,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             targetContext.Attach(observer);
 
             // Call
-            bool importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            bool importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             Assert.IsTrue(importResult);
@@ -700,7 +614,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             bool importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
@@ -728,14 +642,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             // Precondition
             dikeProfilesImporter.Cancel();
             bool importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Dijkprofielen importeren is afgebroken. Geen data ingelezen.", 1);
@@ -761,11 +673,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             dikeProfilesImporter.Cancel();
-            bool importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            bool importResult = dikeProfilesImporter.Import(filePath);
             Assert.IsFalse(importResult);
 
             // Call
-            importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             Assert.IsTrue(importResult);
@@ -793,15 +705,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             // Precondition
             bool importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
@@ -829,15 +739,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             //Precondition
             var importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -864,15 +772,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             // Precondition
             bool importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
@@ -905,15 +811,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine);
 
             // Precondition
             bool importResult = true;
 
             // Call
-            Action call = () => importResult = dikeProfilesImporter.Import(targetContext, filePath);
+            Action call = () => importResult = dikeProfilesImporter.Import(filePath);
 
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
