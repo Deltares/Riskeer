@@ -24,7 +24,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-
 using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Reflection
@@ -105,7 +104,7 @@ namespace Core.Common.Utils.Reflection
                 throw new ArgumentOutOfRangeException("fieldName");
             }
 
-            return (T)fieldInfo.GetValue(instance);
+            return (T) fieldInfo.GetValue(instance);
         }
 
         /// <summary>
@@ -157,7 +156,7 @@ namespace Core.Common.Utils.Reflection
                 throw new ArgumentOutOfRangeException("methodName");
             }
 
-            return (T)methodInfo.Invoke(instance, arguments);
+            return (T) methodInfo.Invoke(instance, arguments);
         }
 
         /// <summary>

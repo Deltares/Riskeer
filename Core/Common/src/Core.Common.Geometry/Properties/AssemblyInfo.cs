@@ -25,4 +25,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Core.Common.Geometry")]
 [assembly: AssemblyProduct("Core.Common.Geometry")]
 [assembly: Guid("208eed07-0937-4dec-8df4-62c24a0a6285")]
-

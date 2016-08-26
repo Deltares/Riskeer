@@ -68,14 +68,14 @@ namespace Core.Common.Base
             }
         }
 
-        public void UpdateObserver()
-        {
-            updateObserverAction();
-        }
-
         public void Dispose()
         {
             Observable = null;
+        }
+
+        public void UpdateObserver()
+        {
+            updateObserverAction();
         }
     }
 }

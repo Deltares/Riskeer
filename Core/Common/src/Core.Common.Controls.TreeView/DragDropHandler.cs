@@ -109,7 +109,7 @@ namespace Core.Common.Controls.TreeView
             TreeNode nodeOver = treeView.GetNodeAt(point);
             TreeNode draggedNode = GetDraggedNodeData(e);
 
-            if (draggedNode == null || nodeOver == null  || nodeOver == draggedNode || IsDropTargetChildOfDraggedNode(nodeOver, draggedNode))
+            if (draggedNode == null || nodeOver == null || nodeOver == draggedNode || IsDropTargetChildOfDraggedNode(nodeOver, draggedNode))
             {
                 RemovePlaceHolder(treeView);
                 e.Effect = DragDropEffects.None;
@@ -150,18 +150,6 @@ namespace Core.Common.Controls.TreeView
             }
         }
 
-        private static TreeNode GetDraggedNodeData(DragEventArgs e)
-        {
-            try
-            {
-                return (TreeNode) e.Data.GetData(typeof(TreeNode));
-            }
-            catch (InvalidCastException)
-            {
-                return null;
-            }
-        }
-
         /// <summary>
         /// This method handles the <see cref="TreeView.ItemDrag"/> event for a <see cref="TreeViewControl"/>.
         /// </summary>
@@ -194,6 +182,18 @@ namespace Core.Common.Controls.TreeView
         public void HandleDragLeave(FormsTreeView treeView)
         {
             RemovePlaceHolder(treeView);
+        }
+
+        private static TreeNode GetDraggedNodeData(DragEventArgs e)
+        {
+            try
+            {
+                return (TreeNode) e.Data.GetData(typeof(TreeNode));
+            }
+            catch (InvalidCastException)
+            {
+                return null;
+            }
         }
 
         private void SetDropAtLocation(DragEventArgs e, TreeNode draggedNode, TreeNode nodeOver)

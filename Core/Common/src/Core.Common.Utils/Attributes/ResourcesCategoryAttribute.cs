@@ -42,7 +42,7 @@ namespace Core.Common.Utils.Attributes
         /// <exception cref="InvalidOperationException">Resource cannot be found or does 
         /// not have the given resource name.</exception>
         /// <remarks>Implemented as proposed at http://stackoverflow.com/a/21441892/. </remarks>
-        public ResourcesCategoryAttribute(Type resourceType, string resourceName, ushort position = 0, ushort totalCategories = 0) : 
+        public ResourcesCategoryAttribute(Type resourceType, string resourceName, ushort position = 0, ushort totalCategories = 0) :
             base(ResourceHelper.GetResourceLookup(resourceType, resourceName)
                                .PadLeft(ResourceHelper.GetResourceLookup(resourceType, resourceName).Length + (totalCategories - position),
                                         nonPrintableChar)) {}

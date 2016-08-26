@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Common.Gui.Attributes

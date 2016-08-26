@@ -29,13 +29,13 @@ namespace Core.Common.Gui.Selection
     public interface IApplicationSelection
     {
         /// <summary>
+        /// Fired when the application's selection has been changed.
+        /// </summary>
+        event EventHandler<SelectedItemChangedEventArgs> SelectionChanged;
+
+        /// <summary>
         /// Gets or sets current selected object(s) within the application.
         /// </summary>
         object Selection { get; set; }
-
-        /// <summary>
-        /// Fired when the application's selection has been changed.
-        /// </summary>
-        event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; 
     }
 }

@@ -33,14 +33,14 @@ namespace Core.Common.IO.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalFileReadException"/> class.
         /// </summary>
-        public CriticalFileReadException(){}
+        public CriticalFileReadException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalFileReadException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public CriticalFileReadException(string message) : base(message){}
+        public CriticalFileReadException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalFileReadException"/> class
@@ -50,6 +50,6 @@ namespace Core.Common.IO.Exceptions
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public CriticalFileReadException(string message, Exception inner) : base(message, inner) { }
+        public CriticalFileReadException(string message, Exception inner) : base(message, inner) {}
     }
 }

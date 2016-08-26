@@ -33,14 +33,14 @@ namespace Core.Common.IO.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalFileWriteException"/> class.
         /// </summary>
-        public CriticalFileWriteException() { }
+        public CriticalFileWriteException() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalFileWriteException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public CriticalFileWriteException(string message) : base(message) { }
+        public CriticalFileWriteException(string message) : base(message) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CriticalFileWriteException"/> class
@@ -50,6 +50,6 @@ namespace Core.Common.IO.Exceptions
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public CriticalFileWriteException(string message, Exception inner) : base(message, inner) { }
+        public CriticalFileWriteException(string message, Exception inner) : base(message, inner) {}
     }
 }

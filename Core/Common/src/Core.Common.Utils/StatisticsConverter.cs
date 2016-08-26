@@ -35,7 +35,7 @@ namespace Core.Common.Utils
         /// <returns>The probability.</returns>
         public static double NormToBeta(double norm)
         {
-            return -Normal.InvCDF(0.0, 1.0, 1.0 / norm);
+            return -Normal.InvCDF(0.0, 1.0, 1.0/norm);
         }
     }
 }

@@ -92,6 +92,29 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
+        /// Gets a <see cref="DataGridViewRowCollection"/> with all the rows of the <see cref="DataGridView"/>.
+        /// </summary>
+        public DataGridViewRowCollection Rows
+        {
+            get
+            {
+                return dataGridView.Rows;
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="DataGridViewRow"/> that represents the row containing the current cell, 
+        /// or <c>null</c> if there is no current cell.
+        /// </summary>
+        public DataGridViewRow CurrentRow
+        {
+            get
+            {
+                return dataGridView.CurrentRow;
+            }
+        }
+
+        /// <summary>
         /// Adds a new <see cref="DataGridViewTextBoxColumn"/> to the <see cref="DataGridView"/> with the given data.
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
@@ -229,17 +252,6 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// Gets a <see cref="DataGridViewRowCollection"/> with all the rows of the <see cref="DataGridView"/>.
-        /// </summary>
-        public DataGridViewRowCollection Rows
-        {
-            get
-            {
-                return dataGridView.Rows;
-            }
-        }
-
-        /// <summary>
         /// Gets the <see cref="DataGridViewRow"/> on the given index.
         /// </summary>
         /// <param name="rowIndex">The index of the row.</param>
@@ -248,18 +260,6 @@ namespace Core.Common.Controls.DataGrid
         public DataGridViewRow GetRowFromIndex(int rowIndex)
         {
             return dataGridView.Rows[rowIndex];
-        }
-
-        /// <summary>
-        /// Gets the <see cref="DataGridViewRow"/> that represents the row containing the current cell, 
-        /// or <c>null</c> if there is no current cell.
-        /// </summary>
-        public DataGridViewRow CurrentRow
-        {
-            get
-            {
-                return dataGridView.CurrentRow;
-            }
         }
 
         /// <summary>

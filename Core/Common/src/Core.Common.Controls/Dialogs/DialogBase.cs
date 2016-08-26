@@ -72,9 +72,7 @@ namespace Core.Common.Controls.Dialogs
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> or <paramref name="icon"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="minWidth"/> or <paramref name="minHeight"/> is not greater than <c>0</c>.</exception>
         protected DialogBase(IWin32Window dialogParent, Bitmap icon, int minWidth, int minHeight) :
-            this(dialogParent, BitmapToIcon(icon), minWidth, minHeight)
-        {
-        }
+            this(dialogParent, BitmapToIcon(icon), minWidth, minHeight) {}
 
         /// <summary>
         /// Constructs a new <see cref="DialogBase"/>.
@@ -116,11 +114,6 @@ namespace Core.Common.Controls.Dialogs
             Icon = icon;
         }
 
-        private static Icon BitmapToIcon(Bitmap icon)
-        {
-            return (icon == null) ? null : Icon.FromHandle(icon.GetHicon());
-        }
-
         /// <summary>
         /// This method provides a new implementation of <see cref="Form.ShowDialog()"/>.
         /// In this new implementation the dialog is shown by passing the owner provided during creation time (see <see cref="DialogBase(IWin32Window, Icon,int,int)"/>).
@@ -148,5 +141,10 @@ namespace Core.Common.Controls.Dialogs
         /// <returns>The cancel button.</returns>
         /// <remarks>By forcing derivatives to provide a cancel button, dialogs can be closed by hitting the <c>ESC</c> key on the keyboard.</remarks>
         protected abstract Button GetCancelButton();
+
+        private static Icon BitmapToIcon(Bitmap icon)
+        {
+            return (icon == null) ? null : Icon.FromHandle(icon.GetHicon());
+        }
     }
 }
