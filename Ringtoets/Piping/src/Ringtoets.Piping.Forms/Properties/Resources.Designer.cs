@@ -208,7 +208,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to a.
+        ///   Looks up a localized string similar to a [-].
         /// </summary>
         public static string GeneralPipingInput_A_DisplayName {
             get {
@@ -226,7 +226,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to b.
+        ///   Looks up a localized string similar to b [m].
         /// </summary>
         public static string GeneralPipingInput_B_DisplayName {
             get {
