@@ -154,7 +154,7 @@ Er is geen referentielijn geïmporteerd.</value>
     <value>Verwijderen uitvoer van hydraulische randvoorwaarden.</value>
   </data>
   <data name="DataTypeDisplayName_shape_file_filter" xml:space="preserve">
-    <value>ESRI Shapefile (*.shp)|*.shp</value>
+    <value>Shapebestand (*.shp)|*.shp</value>
   </data>
   <data name="ReferenceLinesMetaReader_File_0_lacks_required_Attribute_1_" xml:space="preserve">
     <value>Het shapebestand '{0}' om trajecten te specificeren moet de attributen 'TRAJECT_ID', 'NORM_SW', en 'NORM_OG' bevatten: '{1}' niet gevonden.</value>

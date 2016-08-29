@@ -59,8 +59,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void DefaultConstructor_ExpectedValues()
         {
             // Prepare
-            var expectedFileFilter = string.Format("{0} {1} (*.soil)|*.soil",
-                                                   PipingFormsResources.StochasticSoilProfileCollection_DisplayName, ApplicationResources.Soil_file_name);
+            var expectedFileFilter = string.Format("{0} (*.soil)|*.soil", ApplicationResources.Soil_file_name);
 
             // Call
             var importer = new PipingSoilProfilesImporter();
