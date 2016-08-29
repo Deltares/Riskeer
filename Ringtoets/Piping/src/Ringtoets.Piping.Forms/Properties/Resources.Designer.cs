@@ -271,7 +271,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valversnelling.
+        ///   Looks up a localized string similar to Valversnelling..
         /// </summary>
         public static string GeneralPipingInput_Gravity_Description {
             get {
@@ -307,7 +307,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit..
+        ///   Looks up a localized string similar to Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop de formule van Sellmeijer is gefit..
         /// </summary>
         public static string GeneralPipingInput_MeanDiameter70_Description {
             get {
@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen..
+        ///   Looks up a localized string similar to Rekenwaarde om de onzekerheid in het model van Sellmeijer in rekening te brengen..
         /// </summary>
         public static string GeneralPipingInput_SellmeijerModelFactor_Description {
             get {
@@ -352,7 +352,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactor piping toegepast op Sellmeijermodel [-].
+        ///   Looks up a localized string similar to Modelfactor piping toegepast op het model van Sellmeijer [-].
         /// </summary>
         public static string GeneralPipingInput_SellmeijerModelFactor_DisplayName {
             get {
@@ -415,7 +415,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen..
+        ///   Looks up a localized string similar to Rekenwaarde om de onzekerheid in het model van opbarsten in rekening te brengen..
         /// </summary>
         public static string GeneralPipingInput_UpliftModelFactor_Description {
             get {
@@ -1186,7 +1186,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme Sellmeijer voor deze berekening..
+        ///   Looks up a localized string similar to De veiligheidsfactor voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_SellmeijerFactorOfSafety_Description {
             get {
@@ -1204,7 +1204,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans dat het submechanisme Sellmeijer optreedt voor deze berekening..
+        ///   Looks up a localized string similar to De kans dat het submechanisme terugschrijdende erosie (Sellmeijer) optreedt voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_SellmeijerProbability_Description {
             get {
@@ -1222,7 +1222,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme Sellmeijer voor deze berekening..
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening..
         /// </summary>
         public static string PipingSemiProbabilisticOutput_SellmeijerReliability_Description {
             get {
