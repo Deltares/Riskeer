@@ -467,7 +467,7 @@
     <value>Naam</value>
   </data>
   <data name="FailureMechanism_N_Description" xml:space="preserve">
-    <value>De parameter 'N' die gebruikt wordt om het lengte effect te bepalen in een semi-probabilisitische beoordeling.</value>
+    <value>De parameter 'N' die gebruikt wordt om het lengte effect te bepalen in een semi-probabilistische beoordeling.</value>
   </data>
   <data name="FailureMechanism_N_DisplayName" xml:space="preserve">
     <value>N [-]</value>

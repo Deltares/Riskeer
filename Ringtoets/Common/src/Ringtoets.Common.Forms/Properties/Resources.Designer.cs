@@ -551,7 +551,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte effect te bepalen in een semi-probabilisitische beoordeling..
+        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte effect te bepalen in een semi-probabilistische beoordeling..
         /// </summary>
         public static string FailureMechanism_N_Description {
             get {
