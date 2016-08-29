@@ -52,6 +52,7 @@
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationTest.cs" />
     <Compile Include="StabilityStoneCoverFailureMechanismSectionResultTest.cs" />
     <Compile Include="StabilityStoneCoverFailureMechanismTest.cs" />
+    <Compile Include="StabilityStoneCoverWaveConditionsOutputTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

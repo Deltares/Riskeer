@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -54,8 +55,11 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             // Setup
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new ObservableList<WaveConditionsOutput>()
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
             };
+
+            // Precondition
+            Assert.IsNotNull(calculation.Output);
 
             // Call
             calculation.ClearOutput();
@@ -73,8 +77,11 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                 Output = null
             };
 
-            // Call & Assert
-            Assert.IsFalse(calculation.HasOutput);
+            // Call
+            bool hasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsFalse(hasOutput);
         }
 
         [Test]
@@ -83,11 +90,14 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             // Setup
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Output = new ObservableList<WaveConditionsOutput>()
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
             };
 
-            // Call & Assert
-            Assert.IsTrue(calculation.HasOutput);
+            // Call
+            bool hasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsTrue(hasOutput);
         }
 
         [Test]

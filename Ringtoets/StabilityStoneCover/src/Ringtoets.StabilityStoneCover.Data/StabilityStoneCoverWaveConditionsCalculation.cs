@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// <summary>
         /// Gets or sets the output which contains the results of a wave conditions calculation.
         /// </summary>
-        public ObservableList<WaveConditionsOutput> Output { get; set; }
+        public StabilityStoneCoverWaveConditionsOutput Output { get; set; }
 
         public string Name { get; set; }
 
@@ -74,8 +74,7 @@ namespace Ringtoets.StabilityStoneCover.Data
 
         public ICalculationOutput GetObservableOutput()
         {
-            return null;
-//            return Output;
+            return Output;
         }
     }
 }

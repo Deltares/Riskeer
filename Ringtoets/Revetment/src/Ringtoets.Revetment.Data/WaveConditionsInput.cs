@@ -36,8 +36,7 @@ namespace Ringtoets.Revetment.Data
     /// </summary>
     public class WaveConditionsInput : Observable, ICalculationInput
     {
-        private readonly RoundedDouble designWaterLevelSubstraction;
-        private readonly List<RoundedDouble> waterLevels;
+        private const double designWaterLevelSubstraction = 0.01;
 
         private DikeProfile dikeProfile;
         private HydraulicBoundaryLocation hydraulicBoundaryLocation;
@@ -46,9 +45,6 @@ namespace Ringtoets.Revetment.Data
         private RoundedDouble lowerWaterLevel;
         private RoundedDouble upperWaterLevel;
         private RoundedDouble stepSize;
-
-        private RoundedDouble upperBoundary;
-        private RoundedDouble lowerBoundary;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
@@ -60,13 +56,6 @@ namespace Ringtoets.Revetment.Data
             lowerWaterLevel = new RoundedDouble(2);
             upperWaterLevel = new RoundedDouble(2);
             stepSize = new RoundedDouble(1);
-
-            upperBoundary = new RoundedDouble(2);
-            lowerBoundary = new RoundedDouble(2);
-
-            designWaterLevelSubstraction = new RoundedDouble(2, 0.01);
-
-            waterLevels = new List<RoundedDouble>();
 
             UpdateDikeProfileParameters();
         }
@@ -143,7 +132,6 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 upperRevetmentLevel = value.ToPrecision(upperRevetmentLevel.NumberOfDecimalPlaces);
-                DetermineBoundaries();
             }
         }
 
@@ -159,7 +147,6 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 lowerRevetmentLevel = value.ToPrecision(lowerRevetmentLevel.NumberOfDecimalPlaces);
-                DetermineBoundaries();
             }
         }
 
@@ -175,7 +162,6 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 lowerWaterLevel = value.ToPrecision(lowerWaterLevel.NumberOfDecimalPlaces);
-                DetermineBoundaries();
             }
         }
 
@@ -191,7 +177,6 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 stepSize = value.ToPrecision(stepSize.NumberOfDecimalPlaces);
-                DetermineWaterLevels();
             }
         }
 
@@ -207,37 +192,6 @@ namespace Ringtoets.Revetment.Data
             private set
             {
                 upperWaterLevel = value.ToPrecision(upperWaterLevel.NumberOfDecimalPlaces);
-                DetermineBoundaries();
-            }
-        }
-
-        /// <summary>
-        /// Gets the upper boundary of the waterlevels that should be calculated..
-        /// </summary>
-        public RoundedDouble UpperBoundary
-        {
-            get
-            {
-                return upperBoundary;
-            }
-            private set
-            {
-                upperBoundary = value.ToPrecision(upperBoundary.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets the lower boundary of the waterlevels that should be calculated..
-        /// </summary>
-        public RoundedDouble LowerBoundary
-        {
-            get
-            {
-                return lowerBoundary;
-            }
-            private set
-            {
-                lowerBoundary = value.ToPrecision(lowerBoundary.NumberOfDecimalPlaces);
             }
         }
 
@@ -248,7 +202,7 @@ namespace Ringtoets.Revetment.Data
         {
             get
             {
-                return waterLevels;
+                return DetermineWaterLevels();
             }
         }
 
@@ -256,7 +210,7 @@ namespace Ringtoets.Revetment.Data
         {
             if (hydraulicBoundaryLocation != null && !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
             {
-                UpperWaterLevel = hydraulicBoundaryLocation.DesignWaterLevel - designWaterLevelSubstraction;
+                UpperWaterLevel = (RoundedDouble) (hydraulicBoundaryLocation.DesignWaterLevel - designWaterLevelSubstraction);
             }
             else
             {
@@ -264,37 +218,34 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
-        private void DetermineBoundaries()
+        private IEnumerable<RoundedDouble> DetermineWaterLevels()
         {
-            UpperBoundary = UpperWaterLevel < UpperRevetmentLevel ? UpperWaterLevel : UpperRevetmentLevel;
-            LowerBoundary = LowerWaterLevel > LowerRevetmentLevel ? LowerWaterLevel : LowerRevetmentLevel;
+            var upperBoundary = UpperWaterLevel < UpperRevetmentLevel ? UpperWaterLevel : UpperRevetmentLevel;
+            var lowerBoundary = LowerWaterLevel > LowerRevetmentLevel ? LowerWaterLevel : LowerRevetmentLevel;
 
-            DetermineWaterLevels();
-        }
+            var waterLevels = new List<RoundedDouble>();
 
-        private void DetermineWaterLevels()
-        {
-            waterLevels.Clear();
-            
-            if (double.IsNaN(UpperBoundary) || 
-                double.IsNaN(LowerBoundary) || 
-                Math.Abs(LowerBoundary - UpperBoundary) < 1e-6 ||
+            if (double.IsNaN(upperBoundary) ||
+                double.IsNaN(lowerBoundary) ||
+                Math.Abs(lowerBoundary - upperBoundary) < 1e-6 ||
                 Math.Abs(StepSize) < 1e-6)
             {
-                return;
+                return waterLevels;
             }
 
-            waterLevels.Add(LowerBoundary);
+            waterLevels.Add(lowerBoundary);
 
-            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary / stepSize) * stepSize + stepSize);
+            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary/stepSize)*stepSize + stepSize);
 
-            while (currentWaterLevel < UpperBoundary)
+            while (currentWaterLevel < upperBoundary)
             {
                 waterLevels.Add(currentWaterLevel);
                 currentWaterLevel = (currentWaterLevel + stepSize).ToPrecision(currentWaterLevel.NumberOfDecimalPlaces);
             }
 
             waterLevels.Add(upperBoundary);
+
+            return waterLevels;
         }
 
         private void UpdateDikeProfileParameters()

@@ -60,7 +60,7 @@ namespace Ringtoets.Revetment.Data
         public double WavePeriod { get; private set; }
 
         /// <summary>
-        /// Gets the calculated wave angle.
+        /// Gets the calculated wave orientation.
         /// </summary>
         public double WaveOrientation { get; private set; }
     }
