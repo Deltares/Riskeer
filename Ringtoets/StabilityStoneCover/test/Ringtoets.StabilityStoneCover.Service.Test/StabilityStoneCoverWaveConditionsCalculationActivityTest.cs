@@ -24,49 +24,50 @@ using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Calculation.Activities;
+using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Service.Test
+namespace Ringtoets.StabilityStoneCover.Service.Test
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationActivityTest
+    public class StabilityStoneCoverWaveConditionsCalculationActivityTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivity<GrassCoverErosionInwardsCalculationServiceOutput>>(activity);
-            Assert.AreEqual(calculation.Name, activity.Name);
+            Assert.IsInstanceOf<HydraRingActivity<StabilityStoneCoverWaveConditionsCalculationServiceOutput>>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
+            Assert.AreEqual(calculation.Name, activity.Name);
 
             mocks.VerifyAll();
         }
 
+
         [Test]
-        public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(null, "", failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(null, "", failureMechanism, assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -75,18 +76,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_HlcdDirectoryNull_ThrowsArgumentNullException()
+        public void Constructor_HlcdDirectoryNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -95,17 +96,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, "", null, assessmentSectionMock);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, "", null, assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -114,14 +115,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, null);
+            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, "", failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
