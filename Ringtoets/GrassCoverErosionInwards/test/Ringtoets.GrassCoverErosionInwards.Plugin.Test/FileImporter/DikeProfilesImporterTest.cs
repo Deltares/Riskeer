@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporter
             var importer = new DikeProfilesImporter(importTarget, referenceLine, "");
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ObservableList<DikeProfile>>>(importer);
         }
 
         [Test]

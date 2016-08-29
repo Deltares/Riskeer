@@ -64,7 +64,7 @@ namespace Ringtoets.Common.IO.Test
             var importer = new ReferenceLineImporter(assessmentSection, "");
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase>(importer);
+            Assert.IsInstanceOf<FileImporterBase<IAssessmentSection>>(importer);
             mocks.VerifyAll();
         }
 
@@ -567,7 +567,7 @@ namespace Ringtoets.Common.IO.Test
             Assert.IsTrue(importer.Import());
 
             // Call
-            importer.DoPostImportUpdates(referenceLineContext);
+            importer.DoPostImportUpdates();
 
             // Assert
             mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations and context
@@ -607,7 +607,7 @@ namespace Ringtoets.Common.IO.Test
             Assert.IsTrue(importer.Import());
 
             // Call
-            importer.DoPostImportUpdates(referenceLineContext);
+            importer.DoPostImportUpdates();
 
             // Assert
             mocks.VerifyAll(); // Expect NotifyObservers on context parent
@@ -658,7 +658,7 @@ namespace Ringtoets.Common.IO.Test
             Assert.IsFalse(importer.Import());
 
             // Call
-            importer.DoPostImportUpdates(referenceLineContext);
+            importer.DoPostImportUpdates();
 
             // Assert
             mocks.VerifyAll(); // Expect no NotifyObserver calls
@@ -742,7 +742,7 @@ namespace Ringtoets.Common.IO.Test
             Assert.IsTrue(importer.Import());
 
             // Call
-            importer.DoPostImportUpdates(referenceLineContext);
+            importer.DoPostImportUpdates();
 
             // Assert
             mocks.VerifyAll(); // Expect NotifyObservers on cleared calculations and context

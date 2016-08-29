@@ -32,7 +32,6 @@ using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
@@ -45,9 +44,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
     /// <summary>
     /// Imports point shapefiles containing dike profile locations and text file containing the foreland/dike schematizations.
     /// </summary>
-    public class DikeProfilesImporter : FileImporterBase
+    public class DikeProfilesImporter : FileImporterBase<ObservableList<DikeProfile>>
     {
-        private readonly ObservableList<DikeProfile> importTarget;
         private readonly ReferenceLine referenceLine;
         private readonly ILog log = LogManager.GetLogger(typeof(DikeProfilesImporter));
 
@@ -58,22 +56,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         /// <param name="referenceLine">The reference line used to check if the <see cref="DikeProfile"/>
         /// objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        public DikeProfilesImporter(ObservableList<DikeProfile> importTarget, ReferenceLine referenceLine, string filePath) : base(filePath)
+        public DikeProfilesImporter(ObservableList<DikeProfile> importTarget, ReferenceLine referenceLine, string filePath)
+            : base(filePath, importTarget)
         {
-            if (importTarget == null)
-            {
-                throw new ArgumentNullException("importTarget");
-            }
             if (referenceLine == null)
             {
                 throw new ArgumentNullException("referenceLine");
             }
 
-            this.importTarget = importTarget;
             this.referenceLine = referenceLine;
         }
-
-        public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
         public override bool Import()
         {
@@ -107,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
 
             foreach (DikeProfile dikeProfile in importedDikeProfiles)
             {
-                importTarget.Add(dikeProfile);
+                ImportTarget.Add(dikeProfile);
             }
 
             return true;
@@ -323,11 +315,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter
         {
             log.Info(Resources.DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted);
             Canceled = false;
-        }
-
-        private static bool IsReferenceLineAvailable(object targetItem)
-        {
-            return ((DikeProfilesContext) targetItem).ParentAssessmentSection.ReferenceLine != null;
         }
 
         private double GetDistanceToReferenceLine(Point2D point)

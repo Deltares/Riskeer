@@ -23,7 +23,6 @@ using System.IO;
 using Core.Common.Base.Service;
 using Core.Common.Utils.IO;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -50,7 +49,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp");
                 var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection, filePath),
-                                                      new ReferenceLineContext(assessmentSection),
                                                       "ReferenceLineImporter");
 
                 activity.Run();
@@ -75,7 +73,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp");
                 var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine, filePath),
-                                                      new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                                                       "FailureMechanismSectionsImporter");
 
                 activity.Run();

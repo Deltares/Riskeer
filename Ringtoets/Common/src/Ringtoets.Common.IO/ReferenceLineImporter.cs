@@ -41,10 +41,9 @@ namespace Ringtoets.Common.IO
     /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="IAssessmentSection"/>,
     /// taking data from a shapefile containing a single polyline.
     /// </summary>
-    public class ReferenceLineImporter : FileImporterBase
+    public class ReferenceLineImporter : FileImporterBase<IAssessmentSection>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ReferenceLineImporter));
-        private readonly IAssessmentSection importTarget;
 
         private readonly IList<IObservable> changedObservables = new List<IObservable>();
 
@@ -53,17 +52,8 @@ namespace Ringtoets.Common.IO
         /// </summary>
         /// <param name="importTarget">The assessment section to update.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="System.ArgumentNullException">When <paramref name="importTarget"/> is <c>null</c>.</exception>
-        public ReferenceLineImporter(IAssessmentSection importTarget, string filePath) : base(filePath)
-        {
-            if (importTarget == null)
-            {
-                throw new ArgumentNullException("importTarget");
-            }
-            this.importTarget = importTarget;
-        }
-
-        public override ProgressChangedDelegate ProgressChanged { protected get; set; }
+        /// <exception cref="ArgumentNullException">When <paramref name="importTarget"/> is <c>null</c>.</exception>
+        public ReferenceLineImporter(IAssessmentSection importTarget, string filePath) : base(filePath, importTarget) {}
 
         public override bool Import()
         {
@@ -72,9 +62,9 @@ namespace Ringtoets.Common.IO
 
             bool clearReferenceLineDependentData = false;
 
-            if (importTarget.ReferenceLine != null)
+            if (ImportTarget.ReferenceLine != null)
             {
-                clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData(importTarget);
+                clearReferenceLineDependentData = ConfirmImportOfReferenceLineToClearReferenceLineDependentData();
             }
 
             if (Canceled)
@@ -97,7 +87,7 @@ namespace Ringtoets.Common.IO
                 return false;
             }
 
-            AddReferenceLineToDataModel(importTarget, readResult.ImportedItems.First(), clearReferenceLineDependentData);
+            AddReferenceLineToDataModel(readResult.ImportedItems.First(), clearReferenceLineDependentData);
             return true;
         }
 
@@ -109,7 +99,7 @@ namespace Ringtoets.Common.IO
             }
         }
 
-        private bool ConfirmImportOfReferenceLineToClearReferenceLineDependentData(IAssessmentSection assessmentSection)
+        private bool ConfirmImportOfReferenceLineToClearReferenceLineDependentData()
         {
             var clearReferenceLineDependentData = false;
 
@@ -122,7 +112,7 @@ namespace Ringtoets.Common.IO
             }
             else
             {
-                if (assessmentSection.GetFailureMechanisms() != null)
+                if (ImportTarget.GetFailureMechanisms() != null)
                 {
                     clearReferenceLineDependentData = true;
                 }
@@ -166,23 +156,23 @@ namespace Ringtoets.Common.IO
             return new ReadResult<ReferenceLine>(true);
         }
 
-        private void AddReferenceLineToDataModel(IAssessmentSection assessmentSection, ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
+        private void AddReferenceLineToDataModel(ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
         {
             NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection,
                            2, clearReferenceLineDependentData ? 4 : 2);
-            assessmentSection.ReferenceLine = importedReferenceLine;
+            ImportTarget.ReferenceLine = importedReferenceLine;
 
-            if (clearReferenceLineDependentData && assessmentSection.GetFailureMechanisms() != null)
+            if (clearReferenceLineDependentData && ImportTarget.GetFailureMechanisms() != null)
             {
-                ClearReferenceLineDependentData(assessmentSection);
+                ClearReferenceLineDependentData();
             }
         }
 
-        private void ClearReferenceLineDependentData(IAssessmentSection assessmentSection)
+        private void ClearReferenceLineDependentData()
         {
             NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections,
                            3, 4);
-            foreach (var failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (var failureMechanism in ImportTarget.GetFailureMechanisms())
             {
                 ClearCalculationOutput(failureMechanism);
                 ClearFailureMechanismSections(failureMechanism);

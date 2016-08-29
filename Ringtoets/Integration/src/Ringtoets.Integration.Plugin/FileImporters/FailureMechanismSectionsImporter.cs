@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
     /// Imports <see cref="FailureMechanismSection"/> instances from a shapefile that contains
     /// one or more polylines and stores them in a <see cref="IFailureMechanism"/>.
     /// </summary>
-    public class FailureMechanismSectionsImporter : FileImporterBase
+    public class FailureMechanismSectionsImporter : FileImporterBase<IFailureMechanism>
     {
         /// <summary>
         /// The snapping tolerance in meters.
@@ -55,7 +55,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private static readonly ILog log = LogManager.GetLogger(typeof(FailureMechanismSectionsImporter));
 
-        private readonly IFailureMechanism failureMechanism;
         private readonly ReferenceLine referenceLine;
 
         /// <summary>
@@ -66,22 +65,15 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="System.ArgumentNullException">When any input argument is <c>null</c>.
         /// </exception>
-        public FailureMechanismSectionsImporter(IFailureMechanism importTarget, ReferenceLine referenceLine, string filePath) : base(filePath)
+        public FailureMechanismSectionsImporter(IFailureMechanism importTarget, ReferenceLine referenceLine, string filePath) : base(filePath, importTarget)
         {
-            if (importTarget == null)
-            {
-                throw new ArgumentNullException("importTarget");
-            }
             if (referenceLine == null)
             {
                 throw new ArgumentNullException("referenceLine");
             }
 
-            failureMechanism = importTarget;
             this.referenceLine = referenceLine;
         }
-
-        public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
         public override bool Import()
         {
@@ -113,7 +105,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
 
             NotifyProgress(Resources.FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism, 3, 3);
-            AddImportedDataToModel(readFailureMechanismSections, failureMechanism, referenceLine);
+            AddImportedDataToModel(readFailureMechanismSections);
             return true;
         }
 
@@ -238,14 +230,14 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return Math.Abs(totalSectionsLength - referenceLineLength) > lengthDifferenceTolerance;
         }
 
-        private static void AddImportedDataToModel(IEnumerable<FailureMechanismSection> failureMechanismSections, IFailureMechanism failureMechanism, ReferenceLine referenceLine)
+        private void AddImportedDataToModel(IEnumerable<FailureMechanismSection> failureMechanismSections)
         {
             IEnumerable<FailureMechanismSection> snappedSections = SnapReadSectionsToReferenceLine(failureMechanismSections, referenceLine);
 
-            failureMechanism.ClearAllSections();
+            ImportTarget.ClearAllSections();
             foreach (FailureMechanismSection section in snappedSections)
             {
-                failureMechanism.AddSection(section);
+                ImportTarget.AddSection(section);
             }
         }
 

@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSurfaceLinesCsvImporter(list, referenceLine, "");
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ICollection<RingtoetsPipingSurfaceLine>>>(importer);
         }
 
         [Test]

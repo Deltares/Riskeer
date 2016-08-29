@@ -31,10 +31,24 @@ namespace Core.Common.Base.Test.IO
     public class FileImporterBaseTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Call
-            var simpleImporter = new SimpleFileImporter();
+            TestDelegate call = () => new SimpleFileImporter<object>(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("importTarget", paramName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var importTarget = new object();
+
+            // Call
+            var simpleImporter = new SimpleFileImporter<object>(importTarget);
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(simpleImporter);
@@ -49,10 +63,10 @@ namespace Core.Common.Base.Test.IO
             observableInstance.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var simpleImporter = new SimpleFileImporter();
+            var simpleImporter = new SimpleFileImporter<IObservable>(observableInstance);
 
             // Call
-            simpleImporter.DoPostImportUpdates(observableInstance);
+            simpleImporter.DoPostImportUpdates();
 
             // Assert
             mocks.VerifyAll(); // Assert NotifyObservers is called
@@ -67,7 +81,9 @@ namespace Core.Common.Base.Test.IO
             observableInstance.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var simpleImporter = new SimpleFileImporter
+            var importTarget = new object();
+
+            var simpleImporter = new SimpleFileImporter<object>(importTarget)
             {
                 AffectedNonTargetObservableInstancesOverride = new[]
                 {
@@ -76,7 +92,7 @@ namespace Core.Common.Base.Test.IO
             };
 
             // Call
-            simpleImporter.DoPostImportUpdates(new object());
+            simpleImporter.DoPostImportUpdates();
 
             // Assert
             mocks.VerifyAll(); // Assert NotifyObservers is called
@@ -88,11 +104,10 @@ namespace Core.Common.Base.Test.IO
             // Setup
             var mocks = new MockRepository();
             var observableInstance = mocks.StrictMock<IObservable>();
-
             var observableTarget = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
-            var simpleImporter = new SimpleFileImporter
+            var simpleImporter = new SimpleFileImporter<IObservable>(observableTarget)
             {
                 AffectedNonTargetObservableInstancesOverride = new[]
                 {
@@ -102,7 +117,7 @@ namespace Core.Common.Base.Test.IO
             simpleImporter.Cancel();
 
             // Call
-            simpleImporter.DoPostImportUpdates(observableTarget);
+            simpleImporter.DoPostImportUpdates();
 
             // Assert
             mocks.VerifyAll(); // Assert no NotifyObservers were called
@@ -112,7 +127,8 @@ namespace Core.Common.Base.Test.IO
         public void NotifyProgress_NoDelegateSet_DoNothing()
         {
             // Setup
-            var simpleImporter = new SimpleFileImporter
+            var importTarget = new object();
+            var simpleImporter = new SimpleFileImporter<object>(importTarget)
             {
                 ProgressChanged = null
             };
@@ -132,7 +148,8 @@ namespace Core.Common.Base.Test.IO
             var expectedStep = 1;
             var expectedNumberOfSteps = 3;
 
-            var simpleImporter = new SimpleFileImporter();
+            var importTarget = new object();
+            var simpleImporter = new SimpleFileImporter<object>(importTarget);
             int progressChangedCallCount = 0;
             simpleImporter.ProgressChanged = (description, step, steps) =>
             {
@@ -149,11 +166,10 @@ namespace Core.Common.Base.Test.IO
             Assert.AreEqual(1, progressChangedCallCount);
         }
 
-        private class SimpleFileImporter : FileImporterBase
+        private class SimpleFileImporter<T> : FileImporterBase<T>
         {
-            public SimpleFileImporter() : base("") {}
+            public SimpleFileImporter(T importTarget) : base("", importTarget) {}
 
-            public override ProgressChangedDelegate ProgressChanged { protected get; set; }
             public IObservable[] AffectedNonTargetObservableInstancesOverride { private get; set; }
 
             public void TestNotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)

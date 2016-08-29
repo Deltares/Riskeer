@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <para><c>Id;X1;Y1;Z1;...(Xn;Yn;Zn)</c></para>
     /// <para>Where Xn;Yn;Zn form the n-th 3D point describing the geometry of the surface line.</para>
     /// </summary>
-    public class PipingSurfaceLinesCsvImporter : FileImporterBase
+    public class PipingSurfaceLinesCsvImporter : FileImporterBase<ICollection<RingtoetsPipingSurfaceLine>>
     {
         private enum ReferenceLineIntersectionsResult
         {
@@ -56,7 +56,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private const string csvFileExtension = ".csv";
         private readonly ILog log = LogManager.GetLogger(typeof(PipingSurfaceLinesCsvImporter));
 
-        private readonly ICollection<RingtoetsPipingSurfaceLine> importTarget;
         private readonly ReferenceLine referenceLine;
 
         /// <summary>
@@ -67,22 +66,15 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="importTarget"/>
         /// or <paramref name="referenceLine"/> is <c>null</c>.</exception>
-        public PipingSurfaceLinesCsvImporter(ICollection<RingtoetsPipingSurfaceLine> importTarget, ReferenceLine referenceLine, string filePath) : base(filePath)
+        public PipingSurfaceLinesCsvImporter(ICollection<RingtoetsPipingSurfaceLine> importTarget, ReferenceLine referenceLine, string filePath) : base(filePath, importTarget)
         {
-            if (importTarget == null)
-            {
-                throw new ArgumentNullException("importTarget");
-            }
             if (referenceLine == null)
             {
                 throw new ArgumentNullException("referenceLine");
             }
 
-            this.importTarget = importTarget;
             this.referenceLine = referenceLine;
         }
-
-        public override ProgressChangedDelegate ProgressChanged { protected get; set; }
 
         public override bool Import()
         {
@@ -157,7 +149,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                     log.WarnFormat(RingtoetsPluginResources.PipingSurfaceLinesCsvImporter_AddImportedDataToModel_No_characteristic_points_for_SurfaceLine_0_,
                                    readSurfaceLine.Name);
                 }
-                importTarget.Add(readSurfaceLine);
+                ImportTarget.Add(readSurfaceLine);
             }
             foreach (string name in readCharacteristicPointsLocationNames)
             {

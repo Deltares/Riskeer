@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace Core.Common.Base.IO
@@ -28,19 +29,27 @@ namespace Core.Common.Base.IO
     /// change notifications for <see cref="IObservable"/> objects that have been affected
     /// during the import.
     /// </summary>
-    /// <seealso cref="IFileImporter" />
-    public abstract class FileImporterBase : IFileImporter
+    /// <typeparam name="T">Object type that is the target for this importer.</typeparam>
+    public abstract class FileImporterBase<T> : IFileImporter
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileImporterBase"/> class.
+        /// Initializes a new instance of the <see cref="FileImporterBase{T}"/> class.
         /// </summary>
         /// <param name="filePath">The path to the file to import from.</param>
-        protected FileImporterBase(string filePath)
+        /// <param name="importTarget">The import target.</param>
+        /// <exception cref="ArgumentNullException">When <paramref name="importTarget"/> is <c>null</c>.</exception>
+        protected FileImporterBase(string filePath, T importTarget)
         {
+            if (importTarget == null)
+            {
+                throw new ArgumentNullException("importTarget");
+            }
+
             FilePath = filePath;
+            ImportTarget = importTarget;
         }
 
-        public abstract ProgressChangedDelegate ProgressChanged { protected get; set; }
+        public ProgressChangedDelegate ProgressChanged { private get; set; }
 
         public abstract bool Import();
 
@@ -49,14 +58,14 @@ namespace Core.Common.Base.IO
             Canceled = true;
         }
 
-        public void DoPostImportUpdates(object targetItem)
+        public virtual void DoPostImportUpdates()
         {
             if (Canceled)
             {
                 return;
             }
 
-            var observableTarget = targetItem as IObservable;
+            var observableTarget = ImportTarget as IObservable;
             if (observableTarget != null)
             {
                 observableTarget.NotifyObservers();
@@ -67,6 +76,11 @@ namespace Core.Common.Base.IO
                 changedObservableObject.NotifyObservers();
             }
         }
+
+        /// <summary>
+        /// Gets the import target.
+        /// </summary>
+        protected T ImportTarget { get; private set; }
 
         /// <summary>
         /// Gets the path to the file to import from.

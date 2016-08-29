@@ -30,25 +30,19 @@ namespace Core.Common.Base.Service
     /// </summary>
     public class FileImportActivity : Activity
     {
-        private readonly object target;
         private readonly IFileImporter fileImporter;
 
         /// <summary>
         /// Constructs a new <see cref="FileImportActivity"/>.
         /// </summary>
         /// <param name="fileImporter">The <see cref="IFileImporter"/> to use for importing the data.</param>
-        /// <param name="target">The target object to import the data to.</param>
         /// <param name="name">The name of the importer.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public FileImportActivity(IFileImporter fileImporter, object target, string name)
+        public FileImportActivity(IFileImporter fileImporter, string name)
         {
             if (fileImporter == null)
             {
                 throw new ArgumentNullException("fileImporter");
-            }
-            if (target == null)
-            {
-                throw new ArgumentNullException("target");
             }
             if (name == null)
             {
@@ -56,7 +50,6 @@ namespace Core.Common.Base.Service
             }
 
             this.fileImporter = fileImporter;
-            this.target = target;
             Name = name;
         }
 
@@ -82,7 +75,7 @@ namespace Core.Common.Base.Service
 
         protected override void OnFinish()
         {
-            fileImporter.DoPostImportUpdates(target);
+            fileImporter.DoPostImportUpdates();
         }
     }
 }

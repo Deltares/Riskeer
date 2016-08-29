@@ -23,11 +23,9 @@ using System.IO;
 using Core.Common.Base.Service;
 using Core.Common.Utils.IO;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
-using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Piping.Integration.Test
@@ -52,7 +50,6 @@ namespace Ringtoets.Piping.Integration.Test
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3.shp");
                 var activity = new FileImportActivity(new ReferenceLineImporter(assessmentSection, filePath),
-                                                      new ReferenceLineContext(assessmentSection),
                                                       "ReferenceLineImporter");
                 activity.Run();
                 activity.Finish();
@@ -76,7 +73,6 @@ namespace Ringtoets.Piping.Integration.Test
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp");
                 var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism, assessmentSection.ReferenceLine, filePath),
-                                                      new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                                                       "FailureMechanismSectionsImporter");
                 activity.Run();
                 activity.Finish();
@@ -115,7 +111,6 @@ namespace Ringtoets.Piping.Integration.Test
             {
                 var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv");
                 var activity = new FileImportActivity(new PipingSurfaceLinesCsvImporter(assessmentSection.PipingFailureMechanism.SurfaceLines, assessmentSection.ReferenceLine, filePath),
-                                                      new RingtoetsPipingSurfaceLinesContext(assessmentSection.PipingFailureMechanism, assessmentSection),
                                                       "PipingSurfaceLinesCsvImporter");
                 activity.Run();
                 activity.Finish();
@@ -135,7 +130,6 @@ namespace Ringtoets.Piping.Integration.Test
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil");
                 var activity = new FileImportActivity(new PipingSoilProfilesImporter(assessmentSection.PipingFailureMechanism.StochasticSoilModels, filePath),
-                                                      new StochasticSoilModelContext(assessmentSection.PipingFailureMechanism.StochasticSoilModels, assessmentSection.PipingFailureMechanism, assessmentSection),
                                                       "PipingSoilProfilesImporter");
                 activity.Run();
                 activity.Finish();

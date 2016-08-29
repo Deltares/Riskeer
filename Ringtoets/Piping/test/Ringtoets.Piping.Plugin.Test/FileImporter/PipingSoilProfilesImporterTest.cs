@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var importer = new PipingSoilProfilesImporter(list, "");
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ObservableList<StochasticSoilModel>>>(importer);
         }
 
         [Test]

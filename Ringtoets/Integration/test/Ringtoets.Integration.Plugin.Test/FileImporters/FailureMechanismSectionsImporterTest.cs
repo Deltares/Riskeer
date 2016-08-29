@@ -86,7 +86,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failureMechanism, referenceLine, "");
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase>(importer);
+            Assert.IsInstanceOf<FileImporterBase<IFailureMechanism>>(importer);
             mocks.VerifyAll();
         }
 
