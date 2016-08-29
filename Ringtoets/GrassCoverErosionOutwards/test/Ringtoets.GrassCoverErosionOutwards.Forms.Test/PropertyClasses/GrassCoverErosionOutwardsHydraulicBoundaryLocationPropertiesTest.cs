@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_DefaultArgumentValues_DoesNotThrowException()
+        public void Data_ValidArguments_DoesNotThrowException()
         {
             // Setup
             var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
