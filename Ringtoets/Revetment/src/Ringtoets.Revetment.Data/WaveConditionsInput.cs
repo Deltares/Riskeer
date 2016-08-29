@@ -42,9 +42,10 @@ namespace Ringtoets.Revetment.Data
         private HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private RoundedDouble upperRevetmentLevel;
         private RoundedDouble lowerRevetmentLevel;
-        private RoundedDouble lowerWaterLevel;
         private RoundedDouble upperWaterLevel;
         private RoundedDouble stepSize;
+        private RoundedDouble upperBoundaryCalculatorSeries;
+        private RoundedDouble lowerBoundaryCalculatorSeries;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
@@ -53,9 +54,11 @@ namespace Ringtoets.Revetment.Data
         {
             upperRevetmentLevel = new RoundedDouble(2);
             lowerRevetmentLevel = new RoundedDouble(2);
-            lowerWaterLevel = new RoundedDouble(2);
             upperWaterLevel = new RoundedDouble(2);
             stepSize = new RoundedDouble(1);
+
+            upperBoundaryCalculatorSeries = new RoundedDouble(2);
+            lowerBoundaryCalculatorSeries = new RoundedDouble(2);
 
             UpdateDikeProfileParameters();
         }
@@ -151,21 +154,6 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the lower water level.
-        /// </summary>
-        public RoundedDouble LowerWaterLevel
-        {
-            get
-            {
-                return lowerWaterLevel;
-            }
-            set
-            {
-                lowerWaterLevel = value.ToPrecision(lowerWaterLevel.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the step size for wave conditions calculations.
         /// </summary>
         public RoundedDouble StepSize
@@ -206,6 +194,36 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the upper boundary for the calculator series.
+        /// </summary>
+        public RoundedDouble UpperBoundaryCalculatorSeries
+        {
+            get
+            {
+                return upperBoundaryCalculatorSeries;
+            }
+            set
+            {
+                upperBoundaryCalculatorSeries = value.ToPrecision(upperBoundaryCalculatorSeries.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the lower boundary for the calculator series.
+        /// </summary>
+        public RoundedDouble LowerBoundaryCalculatorSeries
+        {
+            get
+            {
+                return lowerBoundaryCalculatorSeries;
+            }
+            set
+            {
+                lowerBoundaryCalculatorSeries = value.ToPrecision(lowerBoundaryCalculatorSeries.NumberOfDecimalPlaces);
+            }
+        }
+
         private void UpdateUpperWaterLevel()
         {
             if (hydraulicBoundaryLocation != null && !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
@@ -220,8 +238,18 @@ namespace Ringtoets.Revetment.Data
 
         private IEnumerable<RoundedDouble> DetermineWaterLevels()
         {
-            var upperBoundary = UpperWaterLevel < UpperRevetmentLevel ? UpperWaterLevel : UpperRevetmentLevel;
-            var lowerBoundary = LowerWaterLevel > LowerRevetmentLevel ? LowerWaterLevel : LowerRevetmentLevel;
+            RoundedDouble upperBoundary;
+
+            if (UpperWaterLevel < UpperRevetmentLevel)
+            {
+                upperBoundary = UpperWaterLevel < UpperBoundaryCalculatorSeries ? UpperWaterLevel : upperBoundaryCalculatorSeries;
+            }
+            else
+            {
+                upperBoundary = UpperRevetmentLevel < UpperBoundaryCalculatorSeries ? upperRevetmentLevel : upperBoundaryCalculatorSeries;
+            }
+
+            var lowerBoundary = LowerBoundaryCalculatorSeries > LowerRevetmentLevel ? LowerBoundaryCalculatorSeries : LowerRevetmentLevel;
 
             var waterLevels = new List<RoundedDouble>();
 
@@ -233,8 +261,6 @@ namespace Ringtoets.Revetment.Data
                 return waterLevels;
             }
 
-            waterLevels.Add(lowerBoundary);
-
             RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary/stepSize)*stepSize + stepSize);
 
             while (currentWaterLevel < upperBoundary)
@@ -243,6 +269,12 @@ namespace Ringtoets.Revetment.Data
                 currentWaterLevel = (currentWaterLevel + stepSize).ToPrecision(currentWaterLevel.NumberOfDecimalPlaces);
             }
 
+            if(!waterLevels.Any())
+            {
+                return waterLevels;
+            }
+
+            waterLevels.Insert(0, lowerBoundary);
             waterLevels.Add(upperBoundary);
 
             return waterLevels;
