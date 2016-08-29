@@ -135,4 +135,7 @@
   <data name="GrassCoverErosionOutwardsLocation_SectionSpecificWaterLevel_DisplayName" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis [m+NAP]</value>
   </data>
+  <data name="HydraulicBoundaryDatabase_Convergence_SectionSpecificWaterLevel_Description" xml:space="preserve">
+    <value>Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?</value>
+  </data>
 </root>

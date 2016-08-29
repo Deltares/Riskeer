@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
@@ -28,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// <summary>
     /// Hydraulic boundary location for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsHydraulicBoundaryLocation
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocation : IStorable
     {
         private RoundedDouble sectionSpecificWaterLevel;
 
@@ -66,5 +67,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 sectionSpecificWaterLevel = value.ToPrecision(sectionSpecificWaterLevel.NumberOfDecimalPlaces);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the convergence status of the section specific water level calculation.
+        /// </summary>
+        public CalculationConvergence SectionSpecificWaterLevelCalculationConvergence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier for the storage of the class.
+        /// </summary>
+        public long StorageId { get; set; }
     }
 }

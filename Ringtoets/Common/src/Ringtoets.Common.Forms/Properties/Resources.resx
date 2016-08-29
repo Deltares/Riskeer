@@ -499,4 +499,7 @@
   <data name="HydraulicBoundaryDatabase_Location_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
+  <data name="HydraulicBoundaryDatabase_Convergence_DisplayName" xml:space="preserve">
+    <value>Convergentie</value>
+  </data>
 </root>

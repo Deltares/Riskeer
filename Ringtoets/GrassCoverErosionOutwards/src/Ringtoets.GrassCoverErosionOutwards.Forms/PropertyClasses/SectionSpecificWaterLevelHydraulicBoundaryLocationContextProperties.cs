@@ -77,5 +77,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
                 return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel;
             }
         }
+
+        [PropertyOrder(5)]
+        public override string Convergence
+        {
+            get
+            {
+                return base.Convergence;
+            }
+        }
     }
 }

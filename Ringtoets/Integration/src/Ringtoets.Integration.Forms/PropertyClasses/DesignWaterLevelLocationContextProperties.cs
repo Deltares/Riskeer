@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsIntegrationFormsResources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsIntegrationFormsResources), "HydraulicBoundaryDatabase_Convergence_DesignWaterLevel_Description")]
         public string Convergence
         {

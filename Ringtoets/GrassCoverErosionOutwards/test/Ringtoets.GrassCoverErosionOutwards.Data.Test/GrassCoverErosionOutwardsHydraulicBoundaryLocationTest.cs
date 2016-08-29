@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
@@ -53,9 +54,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
 
             // Assert
+            Assert.IsInstanceOf<IStorable>(grassCoverErosionOutwardsHydraulicBoundaryLocation);
             Assert.AreSame(hydraulicBoundaryLocation, grassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel);
             Assert.AreEqual(2, grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevelCalculationConvergence);
         }
 
         [Test]

@@ -100,6 +100,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Convergence_SectionSpecificWaterLevel_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Convergence_SectionSpecificWaterLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alles be&amp;rekenen.
         /// </summary>
         public static string SectionSpecificWaterLevel_Calculate_All {

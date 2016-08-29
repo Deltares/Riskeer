@@ -803,6 +803,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Convergentie.
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Convergence_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Convergence_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coördinaten van de hydraulische randvoorwaardenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Coordinates_Description {

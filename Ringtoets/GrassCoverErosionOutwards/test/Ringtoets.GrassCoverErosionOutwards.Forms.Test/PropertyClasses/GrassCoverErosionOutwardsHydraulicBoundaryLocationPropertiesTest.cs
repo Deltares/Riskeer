@@ -85,16 +85,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var context = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Call
-            TestGrassCoverErosionOutwardsLocationProperties hydraulicBoundaryLocationProperties = new TestGrassCoverErosionOutwardsLocationProperties
+            TestGrassCoverErosionOutwardsLocationProperties locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
             {
                 Data = context
             };
 
             // Assert
-            Assert.AreEqual(id, hydraulicBoundaryLocationProperties.Id);
-            Assert.AreEqual(name, hydraulicBoundaryLocationProperties.Name);
+            Assert.AreEqual(id, locationProperties.Id);
+            Assert.AreEqual(name, locationProperties.Name);
             Point2D coordinates = new Point2D(x, y);
-            Assert.AreEqual(coordinates, hydraulicBoundaryLocationProperties.Location);
+            Assert.AreEqual(coordinates, locationProperties.Location);
+            Assert.AreEqual("Nee", locationProperties.Convergence);
         }
 
         [Test]
@@ -114,14 +115,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var context = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Call
-            TestGrassCoverErosionOutwardsLocationProperties hydraulicBoundaryLocationProperties = new TestGrassCoverErosionOutwardsLocationProperties
+            TestGrassCoverErosionOutwardsLocationProperties locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
             {
                 Data = context
             };
 
             // Assert
             var expectedString = string.Format("{0} {1}", name, new Point2D(x, y));
-            Assert.AreEqual(expectedString, hydraulicBoundaryLocationProperties.ToString());
+            Assert.AreEqual(expectedString, locationProperties.ToString());
         }
 
         [Test]
@@ -140,30 +141,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             };
             var context = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
-            var properties = new TestGrassCoverErosionOutwardsLocationProperties
+            var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
             {
                 Data = context
             };
 
             // Call
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(locationProperties, true);
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
+            var dynamicPropertyBag = new DynamicPropertyBag(locationProperties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
             PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);
             PropertyDescriptor locationProperty = dynamicProperties.Find("Location", false);
+            PropertyDescriptor convergenceProperty = dynamicProperties.Find("Convergence", false);
 
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             const string expectedCategory = "Algemeen";
+
             const string expectedIdDisplayName = "ID";
-            const string expectedNameDisplayName = "Naam";
-            const string expectedLocationDisplayName = "Coördinaten [m]";
             const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
+            const string expectedNameDisplayName = "Naam";
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
+            const string expectedLocationDisplayName = "Coördinaten [m]";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
+            const string expectedConvergenceDisplayName = "Convergentie";
+            const string expectedConvergenceDescription = "Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?";
 
             Assert.IsNotNull(idProperty);
             Assert.IsTrue(idProperty.IsReadOnly);
@@ -185,6 +190,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedCategory, locationProperty.Category);
             Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
             Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
+
+            Assert.IsNotNull(convergenceProperty);
+            Assert.IsTrue(convergenceProperty.IsReadOnly);
+            Assert.IsTrue(convergenceProperty.IsBrowsable);
+            Assert.AreEqual(expectedCategory, convergenceProperty.Category);
+            Assert.AreEqual(expectedConvergenceDisplayName, convergenceProperty.DisplayName);
+            Assert.AreEqual(expectedConvergenceDescription, convergenceProperty.Description);
         }
 
         private class TestGrassCoverErosionOutwardsLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties {}
