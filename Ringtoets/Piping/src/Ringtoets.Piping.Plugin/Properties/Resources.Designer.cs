@@ -510,7 +510,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DSoilModel bestand.
+        ///   Looks up a localized string similar to D-Soil Model bestand.
         /// </summary>
         public static string Soil_file_name {
             get {

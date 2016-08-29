@@ -121,7 +121,7 @@
     <value>Kommagescheiden bestand</value>
   </data>
   <data name="Soil_file_name" xml:space="preserve">
-    <value>DSoilModel bestand</value>
+    <value>D-Soil Model bestand</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan toetsspoor.</value>
