@@ -52,6 +52,10 @@ namespace Ringtoets.Common.Data.DikeProfiles
             {
                 throw new ArgumentNullException("worldCoordinate");
             }
+            if (foreshoreGeometry == null)
+            {
+                throw new ArgumentNullException("foreshoreGeometry");
+            }
             if (properties == null)
             {
                 throw new ArgumentNullException("properties");
@@ -118,15 +122,10 @@ namespace Ringtoets.Common.Data.DikeProfiles
 
         private void SetForeshoreGeometry(IEnumerable<Point2D> points)
         {
-            if (points == null)
-            {
-                throw new ArgumentNullException("points", Resources.DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null);
-            }
-
             var foreshorePoints = points.ToArray();
             if (foreshorePoints.Any(p => p == null))
             {
-                throw new ArgumentException(Resources.DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null);
+                throw new ArgumentException(Resources.ForeshoreProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null);
             }
 
             ForeshoreGeometry = new RoundedPoint2DCollection(2, foreshorePoints);

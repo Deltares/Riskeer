@@ -50,47 +50,71 @@ namespace Ringtoets.Common.Data.DikeProfiles
         public DikeProfile(Point2D worldCoordinate, RoughnessPoint[] dikeGeometry, Point2D[] foreshoreGeometry,
                            BreakWater breakWater, ConstructionProperties properties)
         {
-            if (worldCoordinate == null)
-            {
-                throw new ArgumentNullException("worldCoordinate");
-            }
             if (properties == null)
             {
                 throw new ArgumentNullException("properties");
             }
 
+            ForeshoreProfile = new ForeshoreProfile(worldCoordinate, foreshoreGeometry, breakWater, 
+                                                    new ForeshoreProfile.ConstructionProperties
+                                                    {
+                                                        Name = properties.Name,
+                                                        Orientation = properties.Orientation,
+                                                        X0 = properties.X0
+                                                    });
+
             SetGeometry(dikeGeometry);
-            SetForeshoreGeometry(foreshoreGeometry);
-
-            Orientation = new RoundedDouble(2, properties.Orientation);
             DikeHeight = new RoundedDouble(2, properties.DikeHeight);
-
-            BreakWater = breakWater;
-            Name = properties.Name;
-            WorldReferencePoint = worldCoordinate;
-            X0 = properties.X0;
         }
 
         /// <summary>
-        /// Gets or sets the name of the dike profile.
+        /// Gets the foreshore profile.
         /// </summary>
-        public string Name { get; private set; }
+        public ForeshoreProfile ForeshoreProfile { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the dike profile.
+        /// </summary>
+        public string Name {
+            get
+            {
+                return ForeshoreProfile.Name;
+            }
+        }
 
         /// <summary>
         /// Gets the reference point in world coordinates corresponding to the local coordinate <see cref="X0"/>.
         /// </summary>
-        public Point2D WorldReferencePoint { get; private set; }
+        public Point2D WorldReferencePoint
+        {
+            get
+            {
+                return ForeshoreProfile.WorldReferencePoint;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
+        /// Gets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
         /// </summary>
-        public double X0 { get; private set; }
+        public double X0
+        {
+            get
+            {
+                return ForeshoreProfile.X0;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the orientation of the dike profile geometry with respect to North
+        /// Gets or the orientation of the dike profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
-        public RoundedDouble Orientation { get; private set; }
+        public RoundedDouble Orientation
+        {
+            get
+            {
+                return ForeshoreProfile.Orientation;
+            }
+        }
 
         /// <summary>
         /// Indicates if there is a break water object available for this instance or not.
@@ -104,14 +128,26 @@ namespace Ringtoets.Common.Data.DikeProfiles
         }
 
         /// <summary>
-        /// Gets or sets the break water object of the dike profile, if any.
+        /// Gets the break water object of the dike profile, if any.
         /// </summary>
-        public BreakWater BreakWater { get; private set; }
+        public BreakWater BreakWater
+        {
+            get
+            {
+                return ForeshoreProfile.BreakWater;
+            }
+        }
 
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>
-        public RoundedPoint2DCollection ForeshoreGeometry { get; private set; }
+        public RoundedPoint2DCollection ForeshoreGeometry
+        {
+            get
+            {
+                return ForeshoreProfile.ForeshoreGeometry;
+            }
+        }
 
         /// <summary>
         /// Gets the geometry of the dike with roughness data.
@@ -150,22 +186,6 @@ namespace Ringtoets.Common.Data.DikeProfiles
             }
 
             DikeGeometry = roughnessPoints;
-        }
-
-        private void SetForeshoreGeometry(IEnumerable<Point2D> points)
-        {
-            if (points == null)
-            {
-                throw new ArgumentNullException("points", Resources.DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null);
-            }
-
-            var foreshorePoints = points.ToArray();
-            if (foreshorePoints.Any(p => p == null))
-            {
-                throw new ArgumentException(Resources.DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null);
-            }
-
-            ForeshoreGeometry = new RoundedPoint2DCollection(2, foreshorePoints);
         }
 
         /// <summary>

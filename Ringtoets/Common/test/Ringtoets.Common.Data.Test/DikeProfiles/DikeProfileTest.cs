@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                       null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            var expectedMessage = Resources.DikeProfile_SetGeometry_Collection_of_points_for_geometry_is_null;
+            var expectedMessage = "De geometrie die opgegeven werd voor het dijkprofiel heeft geen waarde.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             Assert.AreEqual("points", exception.ParamName);
         }
@@ -112,7 +112,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                       null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            var expectedMessage = Resources.DikeProfile_SetGeometry_A_point_in_the_collection_is_null;
+            var expectedMessage = "Een punt in de geometrie voor het dijkprofiel heeft geen waarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
@@ -124,9 +124,8 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                       null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            var expectedMessage = Resources.DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null;
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-            Assert.AreEqual("points", exception.ParamName);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("foreshoreGeometry", paramName);
         }
 
         [Test]
@@ -140,7 +139,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                       }, null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            var expectedMessage = Resources.DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null;
+            var expectedMessage = "Een punt in de geometrie voor het voorland heeft geen waarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

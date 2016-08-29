@@ -192,11 +192,8 @@
   <data name="LogNormalDistribution_Shift_may_not_exceed_Mean" xml:space="preserve">
     <value>De verschuiving mag niet groter zijn dan de verwachtingswaarde.</value>
   </data>
-  <data name="DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null" xml:space="preserve">
+  <data name="ForeshoreProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null" xml:space="preserve">
     <value>Een punt in de geometrie voor het voorland heeft geen waarde.</value>
-  </data>
-  <data name="DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null" xml:space="preserve">
-    <value>De geometrie die werd opgegeven voor het voorland heeft geen waarde.</value>
   </data>
   <data name="DikeProfile_SetGeometry_A_point_in_the_collection_is_null" xml:space="preserve">
     <value>Een punt in de geometrie voor het dijkprofiel heeft geen waarde.</value>

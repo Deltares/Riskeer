@@ -179,25 +179,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een punt in de geometrie voor het voorland heeft geen waarde..
-        /// </summary>
-        public static string DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null {
-            get {
-                return ResourceManager.GetString("DikeProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De geometrie die werd opgegeven voor het voorland heeft geen waarde..
-        /// </summary>
-        public static string DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_null {
-            get {
-                return ResourceManager.GetString("DikeProfile_SetForeshoreGeometry_Collection_of_points_for_foreshore_geometry_is_n" +
-                        "ull", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Een punt in de geometrie voor het dijkprofiel heeft geen waarde..
         /// </summary>
         public static string DikeProfile_SetGeometry_A_point_in_the_collection_is_null {
@@ -259,6 +240,15 @@ namespace Ringtoets.Common.Data.Properties {
         public static string FailureMechanismSection_Section_must_have_at_least_1_geometry_point {
             get {
                 return ResourceManager.GetString("FailureMechanismSection_Section_must_have_at_least_1_geometry_point", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een punt in de geometrie voor het voorland heeft geen waarde..
+        /// </summary>
+        public static string ForeshoreProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null {
+            get {
+                return ResourceManager.GetString("ForeshoreProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null", resourceCulture);
             }
         }
         
