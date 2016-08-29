@@ -242,7 +242,7 @@
     <value>..\Resources\control_equalizer_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_HeaveFactorOfSafety_Description" xml:space="preserve">
-    <value>De veiligheidsfactor voor het submechanisme Heave voor deze berekening.</value>
+    <value>De veiligheidsfactor voor het submechanisme heave voor deze berekening.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_HeaveFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor [-]</value>
@@ -254,7 +254,7 @@
     <value>Veiligheidsfactor [-]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_UpliftFactorOfSafety_Description" xml:space="preserve">
-    <value>De veiligheidsfactor voor het submechanisme Opbarsten voor deze berekening.</value>
+    <value>De veiligheidsfactor voor het submechanisme opbarsten voor deze berekening.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_UpliftFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor [-]</value>
@@ -470,7 +470,7 @@
     <value>Veiligheidsfactor [-]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_HeaveProbability_Description" xml:space="preserve">
-    <value>De kans dat het submechanisme Heave optreedt voor deze berekening.</value>
+    <value>De kans dat het submechanisme heave optreedt voor deze berekening.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_HeaveProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
@@ -488,7 +488,7 @@
     <value>Opbarsten</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_HeaveReliability_Description" xml:space="preserve">
-    <value>De betrouwbaarheidsindex voor het submechanisme Heave voor deze berekening.</value>
+    <value>De betrouwbaarheidsindex voor het submechanisme heave voor deze berekening.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_HeaveReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex [-]</value>
@@ -530,7 +530,7 @@
     <value>Betrouwbaarheidsindex [-]</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_UpliftProbability_Description" xml:space="preserve">
-    <value>De kans dat het submechanisme Opbarsten optreedt voor deze berekening.</value>
+    <value>De kans dat het submechanisme opbarsten optreedt voor deze berekening.</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_UpliftProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
@@ -545,10 +545,10 @@
     <value>..\Resources\shovel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StochasticSoilProfile_Probability_Description" xml:space="preserve">
-    <value>Het aandeel in het scenario.</value>
+    <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel.</value>
   </data>
   <data name="StochasticSoilProfile_Probability_DisplayName" xml:space="preserve">
-    <value>Aandeel in scenario [%]</value>
+    <value>Aandeel in het stochastische ondergrondmodel [%]</value>
   </data>
   <data name="StochasticSoilProfile_Type_Description" xml:space="preserve">
     <value>Het type van de ondergrondschematisatie.</value>
@@ -605,10 +605,10 @@
     <value>In oordeel</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Contribution" xml:space="preserve">
-    <value>Bijdrage [%]</value>
+    <value>Bijdrage aan scenario [%]</value>
   </data>
   <data name="PipingCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability" xml:space="preserve">
-    <value>Bijdrage ondergrondschematisatie [%]</value>
+    <value>Aandeel van schematisatie in het stochastische ondergrondmodel [%]</value>
   </data>
   <data name="StochasticSoilModelCollection_DisplayName" xml:space="preserve">
     <value>Stochastische ondergrondmodellen</value>
@@ -617,7 +617,7 @@
     <value>De berekening</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltyHeave" xml:space="preserve">
-    <value>Kans op Heave [1/jaar]</value>
+    <value>Kans op heave [1/jaar]</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltyPiping" xml:space="preserve">
     <value>Faalkans [1/jaar]</value>
