@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
 
         /// <summary>
-        /// Gets or sets the section specific water level of <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/>.
+        /// Gets or sets the section specific water level of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
         /// </summary>
         public RoundedDouble SectionSpecificWaterLevel
         {

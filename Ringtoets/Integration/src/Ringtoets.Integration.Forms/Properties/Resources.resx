@@ -168,10 +168,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaardendatabase</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description" xml:space="preserve">
     <value>Berekend toetspeil.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName" xml:space="preserve">
     <value>Toetspeil [m+NAP]</value>
   </data>
   <data name="RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked" xml:space="preserve">
@@ -273,10 +273,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle golfhoogtes berekenen.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Locations_WaveHeight_Description" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_Location_WaveHeight_Description" xml:space="preserve">
     <value>Berekende golfhoogte.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName" xml:space="preserve">
     <value>Hs [m]</value>
   </data>
   <data name="FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared" xml:space="preserve">

@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             base.InitializeDataGridView();
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.WaveHeight),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName);
+                                                 Resources.HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName);
         }
     }
 }

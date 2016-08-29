@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             base.InitializeDataGridView();
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.DesignWaterLevel),
-                                                 Resources.HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName);
+                                                 Resources.HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName);
         }
     }
 }

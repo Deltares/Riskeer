@@ -65,8 +65,8 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Locations_WaveHeight_Description")]
+        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName")]
+        [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Location_WaveHeight_Description")]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaveHeight
         {

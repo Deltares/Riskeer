@@ -20,27 +20,32 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class SectionSpecificWaterLevelLocationsContextTest
+    public class SectionSpecificWaterLevelHydraulicBoundaryLocationContextTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Setup
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
+                new HydraulicBoundaryLocation(1, "name", 2.0, 3.0));
+            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            {
+                grassCoverErosionOutwardsHydraulicBoundaryLocation
+            };
 
             // Call
-            var presentationObject = new SectionSpecificWaterLevelLocationsContext(locations);
+            var presentationObject = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>>(presentationObject);
+            Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>(presentationObject);
             Assert.AreSame(locations, presentationObject.WrappedData);
         }
     }

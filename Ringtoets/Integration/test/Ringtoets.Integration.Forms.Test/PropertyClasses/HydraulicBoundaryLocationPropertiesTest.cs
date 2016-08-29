@@ -58,7 +58,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const long id = 1234L;
             const double x = 567.0;
             const double y = 890.0;
-            Point2D coordinates = new Point2D(x, y);
             const string name = "<some name>";
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
@@ -75,6 +74,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(id, hydraulicBoundaryLocationProperties.Id);
             Assert.AreEqual(name, hydraulicBoundaryLocationProperties.Name);
+            Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, hydraulicBoundaryLocationProperties.Location);
         }
 
@@ -92,8 +92,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
-            var expectedString = string.Format("{0} {1}", name, new Point2D(x, y));
-
             // Call
             HydraulicBoundaryLocationProperties hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
             {
@@ -101,6 +99,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             };
 
             // Assert
+            var expectedString = string.Format("{0} {1}", name, new Point2D(x, y));
             Assert.AreEqual(expectedString, hydraulicBoundaryLocationProperties.ToString());
         }
 

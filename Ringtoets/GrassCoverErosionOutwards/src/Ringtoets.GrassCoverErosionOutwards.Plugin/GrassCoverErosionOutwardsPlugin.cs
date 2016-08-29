@@ -52,6 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 GetObjectPropertiesData = context => context.WrappedData
             };
+            yield return new PropertyInfo<SectionSpecificWaterLevelHydraulicBoundaryLocationsContext, SectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -99,14 +100,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<SectionSpecificWaterLevelLocationsContext>
+            yield return new TreeNodeInfo<SectionSpecificWaterLevelHydraulicBoundaryLocationsContext>
             {
-                Text = context => Resources.SectionSpecificWaterLevelLocationsContext_DisplayName,
+                Text = context => Resources.SectionSpecificWaterLevelHydraulicBoundaryLocationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ForeColor = context => !context.WrappedData.Any() ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
-                ContextMenuStrip = SectionSpecificWaterLevelLocationsContextMenuStrip
+                ContextMenuStrip = SectionSpecificWaterLevelHydraulicBoundaryLocationsContextMenuStrip
             };
         }
 
@@ -211,11 +212,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = hydraulicBoundariesGroupContext.WrappedData;
             return new object[]
             {
-                new SectionSpecificWaterLevelLocationsContext(grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations)
+                new SectionSpecificWaterLevelHydraulicBoundaryLocationsContext(grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations)
             };
         }
 
-        private ContextMenuStrip SectionSpecificWaterLevelLocationsContextMenuStrip(SectionSpecificWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        #endregion
+
+        #region SectionSpecificWaterLevelHydraulicBoundaryLocationsContext TreeNodeInfo
+
+        private ContextMenuStrip SectionSpecificWaterLevelHydraulicBoundaryLocationsContextMenuStrip(SectionSpecificWaterLevelHydraulicBoundaryLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 Resources.SectionSpecificWaterLevel_Calculate_All,

@@ -458,36 +458,36 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekend toetspeil..
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description {
+        public static string HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_DesignWaterLevel_Description", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Location_DesignWaterLevel_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Toetspeil [m+NAP].
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName {
+        public static string HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_DesignWaterLevel_DisplayName", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekende golfhoogte..
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Locations_WaveHeight_Description {
+        public static string HydraulicBoundaryDatabase_Location_WaveHeight_Description {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_WaveHeight_Description", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Location_WaveHeight_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hs [m].
         /// </summary>
-        public static string HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName {
+        public static string HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_WaveHeight_DisplayName", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName", resourceCulture);
             }
         }
         
