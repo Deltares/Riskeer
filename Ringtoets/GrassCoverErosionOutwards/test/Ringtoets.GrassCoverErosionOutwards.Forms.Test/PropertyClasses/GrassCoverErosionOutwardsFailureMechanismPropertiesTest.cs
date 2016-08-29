@@ -122,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsFalse(lengthEffectProperty.IsReadOnly);
             Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
             Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
-            Assert.AreEqual("De parameter 'N' die gebruikt wordt voor het lengte effect in de berekening.", lengthEffectProperty.Description);
+            Assert.AreEqual("De parameter 'N' die gebruikt wordt om het lengte effect te bepalen in een semi-probabilisitische beoordeling.", lengthEffectProperty.Description);
         }
 
         private const int namePropertyIndex = 0;
