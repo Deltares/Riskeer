@@ -23,8 +23,8 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.PresentationObjects;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -36,9 +36,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         #region General
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "FailureMechanism_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureMechanism_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Name_Description")]
         public string Name
         {
             get
@@ -48,9 +48,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "FailureMechanism_Code_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureMechanism_Code_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_Code_Description")]
         public string Code
         {
             get

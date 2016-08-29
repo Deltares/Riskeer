@@ -29,11 +29,11 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.GuiServices;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var image = info.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
         }
 
         [Test]

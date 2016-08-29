@@ -29,9 +29,9 @@ using Core.Common.Controls.Views;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Utils;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
@@ -123,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private void AddDataGridColumns()
         {
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<GrassCoverErosionInwardsScenarioRow>(sr => sr.Name),
-                                                 Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                                                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                                                  true);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>(

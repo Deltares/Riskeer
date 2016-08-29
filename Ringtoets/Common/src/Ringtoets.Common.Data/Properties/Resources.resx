@@ -213,7 +213,7 @@
   <data name="BreakWaterType_Wall_DisplayName" xml:space="preserve">
     <value>Muur</value>
   </data>
-  <data name="FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName" xml:space="preserve">
+  <data name="HydraulicBoundaryConditions_DisplayName" xml:space="preserve">
     <value>Hydraulische randvoorwaarden</value>
   </data>
   <data name="N_Value_should_be_in_interval_1_20" xml:space="preserve">

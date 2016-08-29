@@ -21,10 +21,10 @@
 
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 {
@@ -76,14 +76,14 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         {
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.Name),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddCheckBoxColumn(
                 TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerOne),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<TechnicalInnovationSectionResultRow>(sr => sr.AssessmentLayerThree),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }
 }

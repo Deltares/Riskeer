@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using Core.Common.Utils.Reflection;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 {
@@ -49,14 +49,14 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         {
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.Name),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.AssessmentLayerThree),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }
 }

@@ -28,10 +28,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Image image = info.Image(context);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.ScenariosIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ScenariosIcon, image);
         }
 
         [Test]

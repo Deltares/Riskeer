@@ -42,10 +42,9 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.HydraRing.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
@@ -414,9 +413,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                              RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                              RingtoetsFormsResources.CalculateAllIcon,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
                                                               false);
             }
         }
@@ -451,9 +450,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                                              RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
-                                                              RingtoetsFormsResources.CalculateAllIcon,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
                                                               false);
             }
         }
@@ -490,9 +489,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
-                Assert.AreEqual(RingtoetsFormsResources.Calculate_all, contextMenuItem.Text);
-                StringAssert.Contains(string.Format(RingtoetsFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
-                TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                Assert.AreEqual(RingtoetsCommonFormsResources.Calculate_all, contextMenuItem.Text);
+                StringAssert.Contains(string.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
         }
@@ -536,9 +535,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                              RingtoetsFormsResources.Calculate_all,
-                                                              RingtoetsFormsResources.Calculate_all_ToolTip,
-                                                              RingtoetsFormsResources.CalculateAllIcon);
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon);
             }
         }
 
@@ -567,9 +566,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                              RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                              RingtoetsFormsResources.ValidateAllIcon,
+                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.ValidateAllIcon,
                                                               false);
             }
         }
@@ -604,9 +603,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                                              RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
-                                                              RingtoetsFormsResources.ValidateAllIcon,
+                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsCommonFormsResources.ValidateAllIcon,
                                                               false);
             }
         }
@@ -643,9 +642,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Assert
                 ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateAllIndex];
 
-                Assert.AreEqual(RingtoetsFormsResources.Validate_all, contextMenuItem.Text);
-                StringAssert.Contains(string.Format(RingtoetsFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
-                TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.ValidateAllIcon, contextMenuItem.Image);
+                Assert.AreEqual(RingtoetsCommonFormsResources.Validate_all, contextMenuItem.Text);
+                StringAssert.Contains(string.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateAllIcon, contextMenuItem.Image);
                 Assert.IsFalse(contextMenuItem.Enabled);
             }
         }
@@ -689,9 +688,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                              RingtoetsFormsResources.Validate_all,
-                                                              RingtoetsFormsResources.FailureMechanism_Validate_all_ToolTip,
-                                                              RingtoetsFormsResources.ValidateAllIcon);
+                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              RingtoetsCommonFormsResources.FailureMechanism_Validate_all_ToolTip,
+                                                              RingtoetsCommonFormsResources.ValidateAllIcon);
             }
         }
 

@@ -36,7 +36,6 @@ using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using PipingIOResources = Ringtoets.Piping.IO.Properties.Resources;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using PipingPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 

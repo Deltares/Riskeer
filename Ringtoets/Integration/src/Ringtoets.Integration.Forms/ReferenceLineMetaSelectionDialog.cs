@@ -28,7 +28,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Forms.Properties;
-using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms
 {
@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Forms
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="referenceLineMetas">A list of <see cref="ReferenceLineMeta"/> the user can select.</param>
         public ReferenceLineMetaSelectionDialog(IWin32Window dialogParent, IEnumerable<ReferenceLineMeta> referenceLineMetas)
-            : base(dialogParent, CommonFormsResources.SelectionDialogIcon, 372, 350)
+            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 372, 350)
         {
             if (referenceLineMetas == null)
             {

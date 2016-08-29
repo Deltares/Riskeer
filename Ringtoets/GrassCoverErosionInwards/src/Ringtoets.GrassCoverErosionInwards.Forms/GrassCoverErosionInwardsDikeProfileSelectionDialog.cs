@@ -25,7 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms
 {
@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="dikeProfiles">The collection of <see cref="DikeProfile"/> to show in the dialog.</param>
         public GrassCoverErosionInwardsDikeProfileSelectionDialog(IWin32Window dialogParent, IEnumerable<DikeProfile> dikeProfiles)
-            : base(dialogParent, CommonFormsResources.GenerateScenariosIcon, 300, 400)
+            : base(dialogParent, RingtoetsCommonFormsResources.GenerateScenariosIcon, 300, 400)
         {
             InitializeComponent();
 

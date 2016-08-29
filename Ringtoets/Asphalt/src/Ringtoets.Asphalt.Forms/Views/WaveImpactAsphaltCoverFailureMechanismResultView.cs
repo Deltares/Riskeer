@@ -22,8 +22,8 @@
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Asphalt.Data;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Asphalt.Forms.Views
 {
@@ -60,17 +60,17 @@ namespace Ringtoets.Asphalt.Forms.Views
         {
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.Name),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Section_name,
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddCheckBoxColumn(
                 TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<WaveImpactAsphaltCoverFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
-                Resources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

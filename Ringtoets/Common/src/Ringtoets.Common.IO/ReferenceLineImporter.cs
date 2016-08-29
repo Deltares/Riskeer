@@ -31,7 +31,6 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 

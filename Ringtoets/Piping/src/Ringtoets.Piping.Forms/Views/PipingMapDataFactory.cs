@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
-using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views
 {
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Forms.Views
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateFailureMechanismSectionsMapData()
         {
-            return new MapLineData(CommonFormsResources.FailureMechanism_Sections_DisplayName)
+            return new MapLineData(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName)
             {
                 Style = new LineStyle(Color.Khaki, 3, DashStyle.Dot)
             };
@@ -79,8 +79,8 @@ namespace Ringtoets.Piping.Forms.Views
         public static MapPointData CreateFailureMechanismSectionsStartPointMapData()
         {
             var mapDataName = string.Format("{0} ({1})",
-                                            CommonFormsResources.FailureMechanism_Sections_DisplayName,
-                                            CommonFormsResources.FailureMechanismSections_StartPoints_DisplayName);
+                                            RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
+                                            RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName);
 
             return new MapPointData(mapDataName)
             {
@@ -95,8 +95,8 @@ namespace Ringtoets.Piping.Forms.Views
         public static MapPointData CreateFailureMechanismSectionsEndPointMapData()
         {
             var mapDataName = string.Format("{0} ({1})",
-                                            CommonFormsResources.FailureMechanism_Sections_DisplayName,
-                                            CommonFormsResources.FailureMechanismSections_EndPoints_DisplayName);
+                                            RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
+                                            RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName);
 
             return new MapPointData(mapDataName)
             {

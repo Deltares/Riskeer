@@ -36,11 +36,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
@@ -111,7 +111,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Image image = info.Image(null);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, image);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
             }
         }
 
@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     const string expectedItemText = "Alles be&rekenen";
                     const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes te berekenen.";
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunWaveHeightCalculationsIndex,
-                                                                  expectedItemText, expectedItemTooltip, Resources.CalculateAllIcon, false);
+                                                                  expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
                 }
             }
 
@@ -227,7 +227,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     const string expectedItemTooltip = "Alle golfhoogtes berekenen.";
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunWaveHeightCalculationsIndex,
-                                                                  expectedItemText, expectedItemTooltip, Resources.CalculateAllIcon);
+                                                                  expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon);
                 }
             }
 

@@ -63,25 +63,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 // assert
                 Assert.AreEqual(4, propertyInfos.Length);
 
-                var failureMechanismContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <GrassCoverErosionInwardsFailureMechanismContext, GrassCoverErosionInwardsFailureMechanismContextProperties>(propertyInfos);
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
-                var dikeProfileProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo dikeProfileProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <DikeProfile, DikeProfileProperties>(propertyInfos);
                 Assert.IsNull(dikeProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(dikeProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(dikeProfileProperties.AfterCreate);
 
-                var inputContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo inputContextProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>(propertyInfos);
                 Assert.IsNull(inputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(inputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(inputContextProperties.AfterCreate);
 
-                var outputProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo outputProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <GrassCoverErosionInwardsOutput, GrassCoverErosionInwardsOutputProperties>(propertyInfos);
                 Assert.IsNull(outputProperties.AdditionalDataCheck);
                 Assert.IsNull(outputProperties.GetObjectPropertiesData);

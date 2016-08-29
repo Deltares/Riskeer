@@ -38,7 +38,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Service;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views

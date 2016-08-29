@@ -26,7 +26,7 @@ using Core.Components.Gis.Style;
 using NUnit.Framework;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.Views;
-using CommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.Views
 {
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(CommonFormsResources.FailureMechanism_Sections_DisplayName, data.Name);
+            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName, data.Name);
             AssertEqualStyle(data.Style, Color.Khaki, 3, DashStyle.Dot);
         }
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(GetSectionPointDisplayName(CommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), data.Name);
+            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), data.Name);
             AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(GetSectionPointDisplayName(CommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), data.Name);
+            Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), data.Name);
             AssertEqualStyle(data.Style, Color.DarkKhaki, 15, PointSymbol.Triangle);
         }
 
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         private static string GetSectionPointDisplayName(string name)
         {
             return string.Format("{0} ({1})",
-                                 CommonFormsResources.FailureMechanism_Sections_DisplayName,
+                                 RingtoetsCommonFormsResources.FailureMechanism_Sections_DisplayName,
                                  name);
         }
     }

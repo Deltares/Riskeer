@@ -33,7 +33,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO;
 using Ringtoets.Integration.Plugin.FileImporters;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters

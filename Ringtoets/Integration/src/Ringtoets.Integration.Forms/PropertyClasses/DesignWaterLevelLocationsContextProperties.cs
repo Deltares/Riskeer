@@ -24,9 +24,9 @@ using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -37,9 +37,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     public class DesignWaterLevelLocationsContextProperties : ObjectProperties<HydraulicBoundaryDatabase>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Locations_Description")]
         public DesignWaterLevelLocationContextProperties[] Locations
         {
             get

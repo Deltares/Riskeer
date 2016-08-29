@@ -33,7 +33,6 @@ using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter

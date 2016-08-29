@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<HydraulicBoundariesGroupContext>
             {
-                Text = context => RingtoetsCommonDataResources.FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName,
+                Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = nodeData => GetHydraulicBoundariesGroupContextChildNodeObjects(nodeData),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)

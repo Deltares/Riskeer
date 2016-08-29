@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -30,7 +31,6 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
-using GuiTestHelper = Core.Common.Gui.TestUtil.GuiTestHelper;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
@@ -98,13 +98,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 // Assert
                 Assert.AreEqual(2, propertyInfos.Length);
 
-                var grassCoverErosionOutwardsFailureMechanismProperties = GuiTestHelper.AssertPropertyInfoDefined<
+                PropertyInfo grassCoverErosionOutwardsFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined<
                     GrassCoverErosionOutwardsFailureMechanismContext,
                     GrassCoverErosionOutwardsFailureMechanismProperties>(propertyInfos);
                 Assert.IsNull(grassCoverErosionOutwardsFailureMechanismProperties.AdditionalDataCheck);
                 Assert.IsNull(grassCoverErosionOutwardsFailureMechanismProperties.AfterCreate);
 
-                var sectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties = GuiTestHelper.AssertPropertyInfoDefined<
+                var sectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined<
                     SectionSpecificWaterLevelHydraulicBoundaryLocationsContext,
                     SectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties>(propertyInfos);
                 Assert.IsNull(sectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties.AdditionalDataCheck);

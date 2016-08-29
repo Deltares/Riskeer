@@ -70,37 +70,37 @@ namespace Ringtoets.Piping.Plugin.Test
                 // assert
                 Assert.AreEqual(6, propertyInfos.Length);
 
-                var pipingFailureMechanismContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo pipingFailureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <PipingFailureMechanismContext, PipingFailureMechanismContextProperties>(propertyInfos);
                 Assert.IsNull(pipingFailureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingFailureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingFailureMechanismContextProperties.AfterCreate);
 
-                var pipingInputContextProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo pipingInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <PipingInputContext, PipingInputContextProperties>(propertyInfos);
                 Assert.IsNull(pipingInputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingInputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingInputContextProperties.AfterCreate);
 
-                var pipingOutputProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo pipingOutputProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <PipingSemiProbabilisticOutput, PipingSemiProbabilisticOutputProperties>(propertyInfos);
                 Assert.IsNull(pipingOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingOutputProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingOutputProperties.AfterCreate);
 
-                var pipingSurfaceLineProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo pipingSurfaceLineProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>(propertyInfos);
                 Assert.IsNull(pipingSurfaceLineProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingSurfaceLineProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingSurfaceLineProperties.AfterCreate);
 
-                var stochasticSoilModelProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo stochasticSoilModelProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <StochasticSoilModel, StochasticSoilModelProperties>(propertyInfos);
                 Assert.IsNull(stochasticSoilModelProperties.AdditionalDataCheck);
                 Assert.IsNull(stochasticSoilModelProperties.GetObjectPropertiesData);
                 Assert.IsNull(stochasticSoilModelProperties.AfterCreate);
 
-                var stochasticSoilProfileProperties = GuiTestHelper.AssertPropertyInfoDefined
+                PropertyInfo stochasticSoilProfileProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <StochasticSoilProfile, StochasticSoilProfileProperties>(propertyInfos);
                 Assert.IsNull(stochasticSoilProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(stochasticSoilProfileProperties.GetObjectPropertiesData);

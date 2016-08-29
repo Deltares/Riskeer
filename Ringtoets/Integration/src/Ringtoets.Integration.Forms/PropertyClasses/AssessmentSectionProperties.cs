@@ -22,8 +22,9 @@
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -32,9 +33,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// </summary>
     public class AssessmentSectionProperties : ObjectProperties<IAssessmentSection>
     {
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "AssessmentSection_Id_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "AssessmentSection_Id_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "AssessmentSection_Id_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "AssessmentSection_Id_Description")]
         public string Id
         {
             get
@@ -43,9 +44,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "AssessmentSection_Name_DisplayName")]
-        [ResourcesDescription(typeof(Properties.Resources), "AssessmentSection_Name_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "AssessmentSection_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "AssessmentSection_Name_Description")]
         public string Name
         {
             get

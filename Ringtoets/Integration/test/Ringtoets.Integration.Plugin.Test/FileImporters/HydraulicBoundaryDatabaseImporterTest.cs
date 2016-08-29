@@ -31,8 +31,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters

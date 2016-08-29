@@ -32,7 +32,7 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertPropertyInfoDefined_NullInfos_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => GuiTestHelper.AssertPropertyInfoDefined<object, object>(null);
+            TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined<object, object>(null);
             
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -42,7 +42,7 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertPropertyInfoDefined_NoInfos_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => GuiTestHelper.AssertPropertyInfoDefined<object, object>(new PropertyInfo[0]);
+            TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined<object, object>(new PropertyInfo[0]);
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -52,7 +52,7 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertPropertyInfoDefined_NoMatchingInfos_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => GuiTestHelper.AssertPropertyInfoDefined<object, object>(new PropertyInfo[]
+            TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined<object, object>(new PropertyInfo[]
             {
                 new PropertyInfo<int,IObjectProperties>()
             });
@@ -62,23 +62,10 @@ namespace Core.Common.Gui.TestUtil.Test
         }
 
         [Test]
-        public void AssertPropertyInfoDefined_SingleMatchingInfo_DoesNotThrow()
+        public void AssertPropertyInfoDefined_MultipleInfosSingleMatching_ReturnsMatchingInfoFromList()
         {
             // Call
-            TestDelegate test = () => GuiTestHelper.AssertPropertyInfoDefined<int, IObjectProperties>(new PropertyInfo[]
-            {
-                new PropertyInfo<int,IObjectProperties>()
-            });
-
-            // Assert
-            Assert.DoesNotThrow(test);
-        }
-
-        [Test]
-        public void AssertPropertyInfoDefined_MultipleInfosSingleMatching_DoesNotThrow()
-        {
-            // Call
-            var foundInfo = GuiTestHelper.AssertPropertyInfoDefined<int, IObjectProperties>(new []
+            var foundInfo = PluginTestHelper.AssertPropertyInfoDefined<int, IObjectProperties>(new []
                                           {
                                               new PropertyInfo(), 
                                               new PropertyInfo<int, IObjectProperties>()

@@ -31,6 +31,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>

@@ -675,7 +675,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             Assert.AreEqual(PipingFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesMapData.Name);
             Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_StartPoints_DisplayName), sectionsStartPointMapData.Name);
             Assert.AreEqual(GetSectionPointDisplayName(RingtoetsCommonFormsResources.FailureMechanismSections_EndPoints_DisplayName), sectionsEndPointMapData.Name);
-            Assert.AreEqual(RingtoetsCommonFormsResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryDatabaseMapData.Name);
+            Assert.AreEqual(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, hydraulicBoundaryDatabaseMapData.Name);
         }
 
         private static string GetSectionPointDisplayName(string name)

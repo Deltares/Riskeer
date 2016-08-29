@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Views

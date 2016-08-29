@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -30,7 +31,6 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.Views;
-using GuiTestHelper = Core.Common.Gui.TestUtil.GuiTestHelper;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Plugin.Test
@@ -50,7 +50,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 // Assert
                 Assert.AreEqual(1, propertyInfos.Length);
 
-                GuiTestHelper.AssertPropertyInfoDefined<
+                PluginTestHelper.AssertPropertyInfoDefined<
                     StabilityStoneCoverFailureMechanismContext,
                     StabilityStoneCoverFailureMechanismContextProperties>(propertyInfos);
             }

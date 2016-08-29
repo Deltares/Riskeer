@@ -27,10 +27,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Plugin;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
@@ -107,7 +107,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.FailureMechanismSectionResultIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, image);
         }
 
         [Test]

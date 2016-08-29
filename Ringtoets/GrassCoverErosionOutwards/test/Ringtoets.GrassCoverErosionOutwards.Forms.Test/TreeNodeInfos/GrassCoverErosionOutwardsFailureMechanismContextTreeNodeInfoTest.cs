@@ -33,10 +33,10 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 {
@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             Image icon = info.Image(failureMechanismContext);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.FailureMechanismIcon, icon);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismIcon, icon);
         }
 
         [Test]

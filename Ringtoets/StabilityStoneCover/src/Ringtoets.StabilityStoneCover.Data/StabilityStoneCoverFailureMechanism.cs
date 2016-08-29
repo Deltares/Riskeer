@@ -42,7 +42,7 @@ namespace Ringtoets.StabilityStoneCover.Data
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
         {
             sectionResults = new List<StabilityStoneCoverFailureMechanismSectionResult>();
-            HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_HydraulicBoundariesCalculationGroup_DisplayName, false);
+            HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, false);
         }
 
         public override IEnumerable<ICalculation> Calculations

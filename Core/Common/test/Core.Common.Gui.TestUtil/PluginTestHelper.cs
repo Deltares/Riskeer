@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
@@ -28,7 +29,7 @@ namespace Core.Common.Gui.TestUtil
     /// <summary>
     /// Contains routines for testing classes which are related to GUI.
     /// </summary>
-    public static class GuiTestHelper
+    public static class PluginTestHelper
     {
         /// <summary>
         /// Asserts that the given <paramref name="propertyInfos"/> contains a definition for the combination of
@@ -41,14 +42,13 @@ namespace Core.Common.Gui.TestUtil
         /// <exception cref="AssertionException">Thrown when the <paramref name="propertyInfos"/> is <c>null</c>
         /// or does not contain a defintion for the combination of <typeparamref name="TDataObject"/> and 
         /// <typeparamref name="TPropertyObject"/>.</exception>
-        public static PropertyInfo AssertPropertyInfoDefined<TDataObject, TPropertyObject>(PropertyInfo[] propertyInfos)
+        public static PropertyInfo AssertPropertyInfoDefined<TDataObject, TPropertyObject>(IEnumerable<PropertyInfo> propertyInfos)
         {
             Assert.NotNull(propertyInfos);
             var propertyInfo = propertyInfos.FirstOrDefault(
                 tni => 
                 tni.DataType == typeof(TDataObject) && 
-                tni.PropertyObjectType == typeof(TPropertyObject)
-                );
+                tni.PropertyObjectType == typeof(TPropertyObject));
             Assert.NotNull(propertyInfo);
             return propertyInfo;
         }
