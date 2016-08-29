@@ -113,5 +113,19 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             // Assert
             Assert.AreSame(inputParameters, input);
         }
+
+        [Test]
+        public void GetObservableOutput_Always_ReturnsOutput()
+        {
+            // Setup
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var output = calculation.Output;
+
+            // Call
+            ICalculationOutput observableOutput = calculation.GetObservableOutput();
+
+            // Assert
+            Assert.AreSame(output, observableOutput);
+        }
     }
 }
