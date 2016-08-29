@@ -22,7 +22,7 @@
 namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
-    /// Class defining constants that hold certain meaning in the DSoilModel database.
+    /// Class defining constants that hold certain meaning in the D-Soil Model database.
     /// </summary>
     internal static class SoilLayerConstants
     {
