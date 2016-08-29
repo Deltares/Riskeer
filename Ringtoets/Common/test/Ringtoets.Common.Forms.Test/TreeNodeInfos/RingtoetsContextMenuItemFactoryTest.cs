@@ -1326,7 +1326,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup, viewCommandsMock);
 
             // Assert
-            Assert.AreEqual("Berekeningen map &leegmaken...", toolStripItem.Text);
+            Assert.AreEqual("Map &leegmaken...", toolStripItem.Text);
             Assert.AreEqual("Er zijn geen berekeningen of mappen om te verwijderen.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.RemoveAllIcon, toolStripItem.Image);
             Assert.IsFalse(toolStripItem.Enabled);
@@ -1355,8 +1355,8 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             StrictContextMenuItem toolStripItem = RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup, viewCommandsMock);
 
             // Assert
-            Assert.AreEqual("Berekeningen map &leegmaken...", toolStripItem.Text);
-            Assert.AreEqual("Verwijder alle berekeningen en mappen binnen deze Berekeningen map.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Map &leegmaken...", toolStripItem.Text);
+            Assert.AreEqual("Verwijder alle berekeningen en mappen binnen deze map.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RingtoetsFormsResources.RemoveAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
