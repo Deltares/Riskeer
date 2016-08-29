@@ -1636,15 +1636,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrondschematisaties.
-        /// </summary>
-        public static string StochasticSoilProfileCollection_DisplayName {
-            get {
-                return ResourceManager.GetString("StochasticSoilProfileCollection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ondergrondschematisatie.
         /// </summary>
         public static string StochasticSoilProfileProperties_DisplayName {

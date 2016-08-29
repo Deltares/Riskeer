@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             // Assert
             Assert.IsInstanceOf<FileImporterBase<StochasticSoilModelContext>>(importer);
-            Assert.AreEqual(PipingFormsResources.StochasticSoilProfileCollection_DisplayName, importer.Name);
+            Assert.AreEqual(PipingFormsResources.StochasticSoilModelCollection_DisplayName, importer.Name);
             Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
