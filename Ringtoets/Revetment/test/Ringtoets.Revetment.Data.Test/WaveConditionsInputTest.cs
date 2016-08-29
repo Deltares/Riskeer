@@ -19,15 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Data.Properties;
 
 namespace Ringtoets.Revetment.Data.Test
 {
@@ -225,10 +228,27 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        public void LowerRevetmentLevel_SetNewValue_ValueIsRounded()
+        public void UpperRevetmentLevel_BelowLowerRevetmentLevel_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var input = new WaveConditionsInput();
+
+            // Call
+            TestDelegate test = () => input.UpperRevetmentLevel = new RoundedDouble(2, -3);
+
+            // Assert
+            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentLevels_Upper_revetment_level_must_be_above_lower_revetment_level;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void LowerRevetmentLevel_SetNewValue_ValueIsRounded()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperRevetmentLevel = (RoundedDouble) 4
+            };
 
             int originalNumberOfDecimalPlaces = input.LowerRevetmentLevel.NumberOfDecimalPlaces;
 
@@ -238,6 +258,20 @@ namespace Ringtoets.Revetment.Data.Test
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.LowerRevetmentLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(1.23, input.LowerRevetmentLevel.Value);
+        }
+
+        [Test]
+        public void LowerRevetmentLevel_AboveUpperRevetmentLevel_ThrowsArgumentOutOfRangeException()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            TestDelegate test = () => input.LowerRevetmentLevel = new RoundedDouble(2, 3);
+
+            // Assert
+            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentLevels_Upper_revetment_level_must_be_above_lower_revetment_level;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
@@ -260,7 +294,10 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryCalculatorSeries_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new WaveConditionsInput
+            {
+                UpperBoundaryCalculatorSeries = (RoundedDouble) 3
+            };
 
             int originalNumberOfDecimalPlaces = input.LowerBoundaryCalculatorSeries.NumberOfDecimalPlaces;
 
@@ -270,6 +307,47 @@ namespace Ringtoets.Revetment.Data.Test
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.LowerBoundaryCalculatorSeries.NumberOfDecimalPlaces);
             Assert.AreEqual(1.23, input.LowerBoundaryCalculatorSeries.Value);
+        }
+
+        [Test]
+        [TestCase(5)]
+        [TestCase(3.004)]
+        [TestCase(3.009)]
+        public void LowerBoundaryCalculatorSeries_BoundaryAboveUpperBoundary_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperBoundaryCalculatorSeries = (RoundedDouble) 3.0
+            };
+
+            // Call
+            TestDelegate test = () => input.LowerBoundaryCalculatorSeries = (RoundedDouble) newValue;
+
+            // Assert
+            string expectedMessage = Resources.WaveConditionsInput_ValidateCalculatorSeriesBoundaries_Calculator_series_upperboundary_must_be_above_lowerboundary;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(3.004)]
+        [TestCase(2.999)]
+        public void UpperBoundaryCalculatorSeries_BoundaryBelowLowerBoundary_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperBoundaryCalculatorSeries = (RoundedDouble) 4,
+                LowerBoundaryCalculatorSeries = (RoundedDouble) 3
+            };
+
+            // Call
+            TestDelegate test = () => input.UpperBoundaryCalculatorSeries = (RoundedDouble)newValue;
+
+            // Assert
+            string expectedMessage = Resources.WaveConditionsInput_ValidateCalculatorSeriesBoundaries_Calculator_series_upperboundary_must_be_above_lowerboundary;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
@@ -368,10 +446,10 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(0, 0, 0)]
+        [TestCase(0, 0.02, 0)]
         [TestCase(double.NaN, double.NaN, double.NaN)]
-        [TestCase(1, 8, 7.99)]
-        [TestCase(2, 3, 3.5)]
+        [TestCase(1, 8.01, 7.99)]
+        [TestCase(2, 3.52, 3.5)]
         public void WaterLevels_InvalidData_NoWaterLevels(double stepSize, double upperBoundaryLevel, double lowerBoundaryLevel)
         {
             // Setup
