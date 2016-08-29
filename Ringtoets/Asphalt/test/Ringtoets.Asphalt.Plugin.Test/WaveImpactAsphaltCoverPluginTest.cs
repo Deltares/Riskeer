@@ -98,7 +98,7 @@ namespace Ringtoets.Asphalt.Plugin.Test
                 // Assert
                 Assert.AreEqual(3, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ForeShoresContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ForeshoreProfilesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>)));
             }
         }

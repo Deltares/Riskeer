@@ -297,4 +297,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_" xml:space="preserve">
     <value>Berekeningen konden niet worden gestart. {0}</value>
   </data>
+  <data name="HydraulicBoundaryDatabase_Convergence_DisplayName" xml:space="preserve">
+    <value>Convergentie</value>
+  </data>
 </root>

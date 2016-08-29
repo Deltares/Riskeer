@@ -1,0 +1,361 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.Integration.Plugin.FileImporters;
+using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
+namespace Ringtoets.Integration.Plugin.Test.FileImporters
+{
+    [TestFixture]
+    public class DikeProfilesImporterTest
+    {
+        private MockRepository mockRepository;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+        }
+
+        [Test]
+        public void ParameterdConstructor_ExpectedValues()
+        {
+            // Setup
+            var importTarget = new ObservableList<DikeProfile>();
+            var referenceLine = new ReferenceLine();
+
+            // Call
+            var importer = new DikeProfilesImporter(importTarget, referenceLine, "");
+
+            // Assert
+            Assert.IsInstanceOf<ProfilesImporter<ObservableList<DikeProfile>>>(importer);
+        }
+
+        [Test]
+        public void Import_FromFileWithUnmatchableId_TrueAndLogError()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mockRepository.ReplayAll();
+
+            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+
+            //Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = dikeProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string expectedMessage = "Kan geen geldige voorland- en dijkprofieldata vinden voor dijkprofiel locatie met ID: unmatchable";
+                Assert.AreEqual(expectedMessage, messageArray[0]);
+            });
+            Assert.IsTrue(importResult);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourDikeProfiles()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(146039.4, 533920.2)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mockRepository.ReplayAll();
+
+            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+
+            //Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = dikeProfilesImporter.Import();
+
+            // Assert
+            string expectedMessage = "Een profiel locatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_AllOkTestData_TrueAndLogMessagesAndFiveDikeProfiles()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mockRepository.ReplayAll();
+
+            var progressChangeNotifications = new List<ProgressNotification>();
+            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath)
+            {
+                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
+            };
+
+            // Call
+            bool importResult = dikeProfilesImporter.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
+            List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
+            {
+                new ProgressNotification("Inlezen van profiel locaties uit een shapebestand.", 1, 1),
+                new ProgressNotification("Inlezen van profiel locatie.", 1, 5),
+                new ProgressNotification("Inlezen van profiel locatie.", 2, 5),
+                new ProgressNotification("Inlezen van profiel locatie.", 3, 5),
+                new ProgressNotification("Inlezen van profiel locatie.", 4, 5),
+                new ProgressNotification("Inlezen van profiel locatie.", 5, 5),
+                new ProgressNotification("Inlezen van profieldata uit een prfl bestand.", 1, 1),
+                new ProgressNotification("Inlezen van profieldata.", 1, 5),
+                new ProgressNotification("Inlezen van profieldata.", 2, 5),
+                new ProgressNotification("Inlezen van profieldata.", 3, 5),
+                new ProgressNotification("Inlezen van profieldata.", 4, 5),
+                new ProgressNotification("Inlezen van profieldata.", 5, 5)
+            };
+            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
+            mockRepository.VerifyAll(); // 'observer' should not be notified
+        }
+
+        [Test]
+        public void Import_AllOkTestData_CorrectDikeProfileProperties()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mockRepository.ReplayAll();
+
+            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+
+            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
+            targetContext.Attach(observer);
+
+            // Call
+            dikeProfilesImporter.Import();
+            DikeProfile dikeProfile = targetContext.WrappedData[4];
+
+            // Assert
+            Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), dikeProfile.WorldReferencePoint);
+            Assert.AreEqual("profiel005", dikeProfile.Name);
+            Assert.AreEqual(15.56165507, dikeProfile.X0);
+            Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile.Orientation);
+            Assert.IsTrue(dikeProfile.HasBreakWater);
+            Assert.AreEqual(new RoundedDouble(2, 6.0), dikeProfile.DikeHeight);
+            mockRepository.VerifyAll(); // 'observer' should not be notified
+        }
+
+        [Test]
+        public void Import_AllDamTypes_TrueAndLogMessagesAndFiveDikeProfiles()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mockRepository.ReplayAll();
+
+            var progressChangeNotifications = new List<ProgressNotification>();
+            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath)
+            {
+                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
+            };
+
+            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
+            targetContext.Attach(observer);
+
+            // Call
+            bool importResult = dikeProfilesImporter.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
+            List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
+            {
+                new ProgressNotification("Inlezen van profiel locaties uit een shapebestand.", 1, 1),
+                new ProgressNotification("Inlezen van profiel locatie.", 1, 5),
+                new ProgressNotification("Inlezen van profiel locatie.", 2, 5),
+                new ProgressNotification("Inlezen van profiel locatie.", 3, 5),
+                new ProgressNotification("Inlezen van profiel locatie.", 4, 5),
+                new ProgressNotification("Inlezen van profiel locatie.", 5, 5),
+                new ProgressNotification("Inlezen van profieldata uit een prfl bestand.", 1, 1),
+                new ProgressNotification("Inlezen van profieldata.", 1, 5),
+                new ProgressNotification("Inlezen van profieldata.", 2, 5),
+                new ProgressNotification("Inlezen van profieldata.", 3, 5),
+                new ProgressNotification("Inlezen van profieldata.", 4, 5),
+                new ProgressNotification("Inlezen van profieldata.", 5, 5)
+            };
+            ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
+            Assert.AreEqual(5, targetContext.WrappedData.Count);
+            mockRepository.VerifyAll(); // 'observer' should not be notified
+        }
+
+        [Test]
+        public void Import_CancelOfImportToValidTargetWithValidFile_CancelImportAndLog()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mockRepository.ReplayAll();
+
+            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+
+            // Precondition
+            dikeProfilesImporter.Cancel();
+            bool importResult = true;
+
+            // Call
+            Action call = () => importResult = dikeProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Dijkprofielen importeren is afgebroken. Geen data ingelezen.", 1);
+            Assert.IsFalse(importResult);
+            mockRepository.VerifyAll(); // 'observer' should not be notified
+        }
+
+        [Test]
+        public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_TrueAndLogMessagesAndFiveDikeProfiles()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mockRepository.ReplayAll();
+
+            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
+
+            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+
+            dikeProfilesImporter.Cancel();
+            bool importResult = dikeProfilesImporter.Import();
+            Assert.IsFalse(importResult);
+
+            // Call
+            importResult = dikeProfilesImporter.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(5, targetContext.WrappedData.Count);
+            mockRepository.VerifyAll(); // 'observer' should not be notified
+        }
+
+        private ReferenceLine CreateMatchingReferenceLine()
+        {
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
+            });
+            return referenceLine;
+        }
+
+        private static void ValidateProgressMessages(List<ProgressNotification> expectedProgressMessages, List<ProgressNotification> progressChangeNotifications)
+        {
+            Assert.AreEqual(expectedProgressMessages.Count, progressChangeNotifications.Count);
+            for (var i = 0; i < expectedProgressMessages.Count; i++)
+            {
+                var notification = expectedProgressMessages[i];
+                var actualNotification = progressChangeNotifications[i];
+                Assert.AreEqual(notification.Text, actualNotification.Text);
+                Assert.AreEqual(notification.CurrentStep, actualNotification.CurrentStep);
+                Assert.AreEqual(notification.TotalSteps, actualNotification.TotalSteps);
+            }
+        }
+
+        private class ProgressNotification
+        {
+            public ProgressNotification(string description, int currentStep, int totalSteps)
+            {
+                Text = description;
+                CurrentStep = currentStep;
+                TotalSteps = totalSteps;
+            }
+
+            public string Text { get; private set; }
+            public int CurrentStep { get; private set; }
+            public int TotalSteps { get; private set; }
+        }
+    }
+}

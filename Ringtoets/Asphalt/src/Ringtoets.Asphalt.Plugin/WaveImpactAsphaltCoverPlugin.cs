@@ -71,7 +71,7 @@ namespace Ringtoets.Asphalt.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<ForeShoresContext>
+            yield return new TreeNodeInfo<ForeshoreProfilesContext>
             {
                 Text = context => RingtoetsCommonFormsResources.Plugin_GetTreeNodeInfos_ForeShores,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
@@ -155,7 +155,7 @@ namespace Ringtoets.Asphalt.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new ForeShoresContext(failureMechanism.Foreshores),
+                new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }

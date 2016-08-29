@@ -1,0 +1,524 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Geometry;
+using Core.Common.Base.IO;
+using Core.Common.IO.Readers;
+using Core.Common.TestUtil;
+using Core.Common.Utils.Builders;
+using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
+using Ringtoets.Integration.Plugin.FileImporters;
+using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
+using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
+
+namespace Ringtoets.Integration.Plugin.Test.FileImporters
+{
+    [TestFixture]
+    public class ProfilesImporterTest
+    {
+        [Test]
+        public void ParameterdConstructor_ExpectedValues()
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+
+            // Call
+            var importer = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, "");
+
+            // Assert
+            Assert.IsInstanceOf<IFileImporter>(importer);
+        }
+
+        [Test]
+        public void ParameterdConstructor_ImportTargetNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestProfilesImporter(null, new ReferenceLine(), "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("importTarget", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameterdConstructor_ReferenceLineNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestProfilesImporter(new ObservableList<TestProfile>(), null, "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("referenceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameterdConstructor_FilePathNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new TestProfilesImporter(new ObservableList<TestProfile>(), new ReferenceLine(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("      ")]
+        public void Import_FromInvalidEmptyPath_FalseAndLogError(string filePath)
+        {
+            // Setup
+            var referenceLine = new ReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string expectedMessage = new FileReaderErrorMessageBuilder(filePath)
+                    .Build(CoreCommonUtilsResources.Error_Path_must_be_specified);
+                StringAssert.StartsWith(expectedMessage, messageArray[0]);
+            });
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
+        public void Import_FromPathContainingInvalidFileCharacters_FalseAndLogError()
+        {
+            // Setup
+            string filePath = "c:\\Invalid_Characters.shp";
+
+            var invalidFileNameChars = Path.GetInvalidFileNameChars();
+            var invalidPath = filePath.Replace('_', invalidFileNameChars[0]);
+
+            var referenceLine = new ReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, invalidPath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string message = messages.First();
+                string expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
+                    .Build(string.Format(CoreCommonUtilsResources.Error_Path_cannot_contain_Characters_0_, string.Join(", ", Path.GetInvalidFileNameChars())));
+                StringAssert.StartsWith(expectedMessage, message);
+            });
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
+        public void Import_FromDirectoryPath_FalseAndLogError()
+        {
+            // Setup
+            string folderPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin) + Path.DirectorySeparatorChar;
+
+            var referenceLine = new ReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, folderPath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string expectedMessage = new FileReaderErrorMessageBuilder(folderPath)
+                    .Build(CoreCommonUtilsResources.Error_Path_must_not_point_to_empty_file_name);
+                StringAssert.StartsWith(expectedMessage, messageArray[0]);
+            });
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
+        [TestCase("Multiple_Polygon_with_ID.shp")]
+        [TestCase("Multiple_PolyLine_with_ID.shp")]
+        [TestCase("Single_Multi-Polygon_with_ID.shp")]
+        [TestCase("Single_Multi-PolyLine_with_ID.shp")]
+        [TestCase("Single_Polygon_with_ID.shp")]
+        [TestCase("Single_PolyLine_with_ID.shp")]
+        public void Import_FromFileWithNonPointFeatures_FalseAndLogError(string shapeFileName)
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                         shapeFileName);
+
+            var referenceLine = new ReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string expectedMessage =
+                    string.Format("Fout bij het lezen van bestand '{0}': Het bestand mag uitsluitend punten bevatten.", filePath);
+                StringAssert.EndsWith(expectedMessage, messageArray[0]);
+            });
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
+        [TestCase("Voorlanden_12-2_WithoutId.shp", "ID")]
+        [TestCase("Voorlanden_12-2_WithoutName.shp", "Naam")]
+        [TestCase("Voorlanden_12-2_WithoutX0.shp", "X0")]
+        public void Import_FromFileMissingAttributeColumn_FalseAndLogError(
+            string shapeFileName, string missingColumnName)
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", shapeFileName));
+
+            var referenceLine = new ReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
+                                                       missingColumnName);
+                Assert.AreEqual(expectedMessage, messageArray[0]);
+            });
+            Assert.IsFalse(importResult);
+        }
+
+        [Test]
+        [TestCase("Voorlanden_12-2_IdWithSymbol.shp")]
+        [TestCase("Voorlanden_12-2_IdWithWhitespace.shp")]
+        public void Import_FromFileWithIllegalCharactersInId_TrueAndLogError(string fileName)
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", fileName));
+
+            var referenceLine = CreateMatchingReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string expectedMessage = "Fout bij het lezen van profiel op regel 1. De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan. Dit profiel wordt overgeslagen.";
+                Assert.AreEqual(expectedMessage, messageArray[0]);
+            });
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_FromFileWithEmptyEntryForId_TrueAndLogError()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
+
+            var referenceLine = CreateMatchingReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string message1 = "Fout bij het lezen van profiel op regel 1. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                string message2 = "Fout bij het lezen van profiel op regel 2. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                string message3 = "Fout bij het lezen van profiel op regel 4. De locatie parameter 'ID' heeft geen waarde. Dit profiel wordt overgeslagen.";
+                Assert.AreEqual(message1, messageArray[0]);
+                Assert.AreEqual(message2, messageArray[1]);
+                Assert.AreEqual(message3, messageArray[2]);
+            });
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_FromFileWithEmptyEntryForX0_TrueAndLogError()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
+
+            var referenceLine = CreateMatchingReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string expectedMessage = "Fout bij het lezen van profiel op regel 1. Het profiel heeft geen geldige waarde voor attribuut 'X0'. Dit profiel wordt overgeslagen.";
+                Assert.AreEqual(expectedMessage, messageArray[0]);
+            });
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_DikeProfileLocationsNotCloseEnoughToReferenceLine_TrueAndLogError()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(141223.2, 548393.4),
+                new Point2D(143854.3, 545323.1),
+                new Point2D(145561.0, 541920.3),
+                new Point2D(146432.1, 538235.2),
+                new Point2D(146039.4, 533920.2)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            var expectedMessages = Enumerable.Repeat("Een profiel locatie met ID 'profiel001' ligt niet op de referentielijn. Locatie wordt overgeslagen.", 5).ToArray();
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, expectedMessages.Length);
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_InvalidDamType_TrueAndLogMessage()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "InvalidDamType", "Voorlanden 12-2.shp"));
+
+            var referenceLine = CreateMatchingReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            Action<IEnumerable<string>> asserts = messages =>
+            {
+                bool found = messages.Any(message => message.EndsWith(": Het ingelezen damtype ('4') moet 0, 1, 2 of 3 zijn."));
+                Assert.IsTrue(found);
+            };
+            TestHelper.AssertLogMessages(call, asserts);
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_TwoPrflWithSameId_TrueAndErrorLog()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "TwoPrflWithSameId", "profiel001.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(130074.3, 543717.4),
+                new Point2D(130084.3, 543727.4)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            Action<IEnumerable<string>> asserts = messages =>
+            {
+                var start = "Meerdere profieldata definities gevonden voor profiel 'profiel001'. Bestand '";
+                var end = "' wordt overgeslagen.";
+                bool found = messages.Any(m => m.StartsWith(start) && m.EndsWith(end));
+                Assert.IsTrue(found);
+            };
+            TestHelper.AssertLogMessages(call, asserts);
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_FromFileWithDupplicateId_TrueAndLogWarnings()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "Voorlanden_12-2_same_id_3_times.shp"));
+
+            var referenceLine = CreateMatchingReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] messageArray = messages.ToArray();
+                string expectedMessage = "Profiel locatie met ID 'profiel001' is opnieuw ingelezen.";
+                Assert.AreEqual(expectedMessage, messageArray[0]);
+                Assert.AreEqual(expectedMessage, messageArray[1]);
+            });
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_PrflWithProfileNotZero_TrueAndErrorLog()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "PrflWithProfileNotZero", "Voorland_12-2.shp"));
+
+            var referenceLine = CreateMatchingReferenceLine();
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            Action<IEnumerable<string>> asserts = messages =>
+            {
+                bool found = messages.Any(message => message.StartsWith("Profieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen:"));
+                Assert.IsTrue(found);
+            };
+            TestHelper.AssertLogMessages(call, asserts);
+            Assert.IsTrue(importResult);
+        }
+
+        [Test]
+        public void Import_PrflIsIncomplete_TrueAndErrorLog()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "PrflIsIncomplete", "Voorland_12-2.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(130074.3, 543717.4),
+                new Point2D(130084.3, 543727.4)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+
+            // Precondition
+            var importResult = true;
+
+            // Call
+            Action call = () => importResult = testProfilesImporter.Import();
+
+            // Assert
+            Action<IEnumerable<string>> asserts = messages =>
+            {
+                bool found = messages.First().Contains(": De volgende parameters zijn niet aanwezig in het bestand: VOORLAND, DAMWAND, KRUINHOOGTE, DIJK, MEMO");
+                Assert.IsTrue(found);
+            };
+            TestHelper.AssertLogMessages(call, asserts);
+            Assert.IsTrue(importResult);
+        }
+
+        private ReferenceLine CreateMatchingReferenceLine()
+        {
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(131223.2, 548393.4),
+                new Point2D(133854.3, 545323.1),
+                new Point2D(135561.0, 541920.3),
+                new Point2D(136432.1, 538235.2),
+                new Point2D(136039.4, 533920.2)
+            });
+            return referenceLine;
+        }
+
+        private class TestProfilesImporter : ProfilesImporter<ObservableList<TestProfile>>
+        {
+            public TestProfilesImporter(ObservableList<TestProfile> importTarget, ReferenceLine referenceLine, string filePath)
+                : base(referenceLine, filePath, importTarget) {}
+
+            protected override void CreateProfiles(ReadResult<DikeProfileLocation> importDikeProfilesResult, ReadResult<DikeProfileData> importDikeProfileDataResult) {}
+
+            protected override void HandleUserCancellingImport()
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        private class TestProfile {};
+    }
+}

@@ -59,7 +59,7 @@
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverFailureMechanismContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\WaveImpactAsphaltCoverFailureMechanismContextPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\ForeShoresContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ForehoreProfilesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismSectionResultRowTest.cs" />

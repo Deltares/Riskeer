@@ -164,4 +164,55 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="HydraulicBoundaryLocationsFilterList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exceptions_DoNotCalculate.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="ForeshoresImporter_DisplayName" xml:space="preserve">
+    <value>Voorland locaties</value>
+  </data>
+  <data name="Foreshore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Foreshore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline" xml:space="preserve">
+    <value>Een profiel locatie met ID '{0}' ligt niet op de referentielijn. Locatie wordt overgeslagen.</value>
+  </data>
+  <data name="ProfilesImporter_AddNextDikeProfileLocation_Location_with_id_0_already_read" xml:space="preserve">
+    <value>Profiel locatie met ID '{0}' is opnieuw ingelezen.</value>
+  </data>
+  <data name="DikeProfilesImporter_DisplayName" xml:space="preserve">
+    <value>Dijkprofiel locaties</value>
+  </data>
+  <data name="ProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped" xml:space="preserve">
+    <value>Fout bij het lezen van profiel op regel {0}. {1} Dit profiel wordt overgeslagen.</value>
+  </data>
+  <data name="ProfilesImporter_GetDikeProfileLocationReadResult_reading_profilelocation" xml:space="preserve">
+    <value>Inlezen van profiel locatie.</value>
+  </data>
+  <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
+    <value>Kan geen geldige voorland- en dijkprofieldata vinden voor dijkprofiel locatie met ID: {0}</value>
+  </data>
+  <data name="DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted" xml:space="preserve">
+    <value>Dijkprofielen importeren is afgebroken. Geen data ingelezen.</value>
+  </data>
+  <data name="DikeProfilesImporter_Import_no_referenceline_import_aborted" xml:space="preserve">
+    <value>Er is geen referentielijn beschikbaar. Geen data ingelezen.</value>
+  </data>
+  <data name="ProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped" xml:space="preserve">
+    <value>Meerdere profieldata definities gevonden voor profiel '{0}'. Bestand '{1}' wordt overgeslagen.</value>
+  </data>
+  <data name="ProfilesImporter_ReadDikeProfileData_reading_profiledata" xml:space="preserve">
+    <value>Inlezen van profieldata.</value>
+  </data>
+  <data name="ProfilesImporter_ReadDikeProfileData_reading_profile_data" xml:space="preserve">
+    <value>Inlezen van profieldata uit een prfl bestand.</value>
+  </data>
+  <data name="ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_" xml:space="preserve">
+    <value>Profieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}</value>
+  </data>
+  <data name="ProfilesImporter_ReadProfileLocations_reading_profilelocations" xml:space="preserve">
+    <value>Inlezen van profiel locaties uit een shapebestand.</value>
+  </data>
+  <data name="ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_" xml:space="preserve">
+    <value>Kan geen geldige voorlandprofieldata vinden voor voorlandprofiel locatie met ID: {0}</value>
+  </data>
+  <data name="ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted" xml:space="preserve">
+    <value>Voorlandprofielen importeren is afgebroken. Geen data ingelezen.</value>
+  </data>
 </root>

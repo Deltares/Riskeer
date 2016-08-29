@@ -45,7 +45,7 @@
     <Compile Include="DikeProfiles\BreakWaterType.cs" />
     <Compile Include="Calculation\CalculationScenarioStatus.cs" />
     <Compile Include="DikeProfiles\DikeProfile.cs" />
-    <Compile Include="DikeProfiles\ForeShore.cs" />
+    <Compile Include="DikeProfiles\ForeshoreProfile.cs" />
     <Compile Include="Probabilistics\IDistributionExtensions.cs" />
     <Compile Include="Probabilistics\IDistributionVariationCoefficient.cs" />
     <Compile Include="Probability\EmptyProbabilityAssessmentOutput.cs" />

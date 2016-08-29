@@ -233,7 +233,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
                 TestDelegate call = () => reader.GetNextDikeProfileLocation();
 
                 // Assert
-                var expectedMessage = "Het dijkprofiel heeft geen geldige waarde voor attribuut 'X0'.";
+                var expectedMessage = "Het profiel heeft geen geldige waarde voor attribuut 'X0'.";
                 string message = Assert.Throws<LineParseException>(call).Message;
                 Assert.AreEqual(expectedMessage, message);
             }

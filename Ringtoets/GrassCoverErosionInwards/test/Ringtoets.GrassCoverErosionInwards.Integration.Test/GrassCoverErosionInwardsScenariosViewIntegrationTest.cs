@@ -30,8 +30,8 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 {

@@ -29,7 +29,7 @@ using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Readers;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Common.Data.DikeProfiles;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using GrasCoverErosionInwardsIoResources = Ringtoets.GrassCoverErosionInwards.IO.Properties.Resources;
 

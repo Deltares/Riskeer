@@ -23,6 +23,8 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
 
@@ -35,25 +37,48 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
         public void Constructor_ValidValues_ExpectedValues()
         {
             // Setup
-            var foreshoresList = new ObservableList<ForeShore>();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var foreshoresList = new ObservableList<ForeshoreProfile>();
 
             // Call
-            var context = new ForeShoresContext(foreshoresList);
+            var context = new ForeshoreProfilesContext(foreshoresList, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<ObservableList<ForeShore>>>(context);
+            Assert.IsInstanceOf<WrappedObjectContextBase<ObservableList<ForeshoreProfile>>>(context);
             Assert.AreSame(foreshoresList, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.ParentAssessmentSection);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ObservableListIsNull_ThrowArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new ForeShoresContext(null);
+            TestDelegate call = () => new ForeshoreProfilesContext(null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("wrappedData", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionIsNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new ForeshoreProfilesContext(new ObservableList<ForeshoreProfile>(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("parentAssessmentSection", paramName);
         }
     }
 }

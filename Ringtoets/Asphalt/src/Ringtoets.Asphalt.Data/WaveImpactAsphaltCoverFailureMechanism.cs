@@ -43,7 +43,7 @@ namespace Ringtoets.Asphalt.Data
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
         {
             sectionResults = new List<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
-            Foreshores = new ObservableList<ForeShore>();
+            ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -63,9 +63,9 @@ namespace Ringtoets.Asphalt.Data
         }
 
         /// <summary>
-        /// Gets the available foreshores for this instance.
+        /// Gets the available foreshore profiles for this instance.
         /// </summary>
-        public ObservableList<ForeShore> Foreshores { get; private set; }
+        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
 
         public override void AddSection(FailureMechanismSection section)
         {

@@ -11,7 +11,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 {
@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
             Image image = importInfo.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(GrassCoverErosionInwardsPluginResources.DikeProfile, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.DikeProfile, image);
         }
 
         [Test]

@@ -30,7 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
-using Ringtoets.GrassCoverErosionInwards.Plugin.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.DikeProfile, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.DikeProfile, image);
         }
 
         [Test]

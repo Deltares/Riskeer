@@ -42,16 +42,17 @@ using Ringtoets.GrassCoverErosionInwards.Forms;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using Ringtoets.GrassCoverErosionInwards.Plugin.FileImporter;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Integration.Plugin.FileImporters;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using RingtoetsIntegrationPluginResources = Ringtoets.Integration.Plugin.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin
@@ -111,9 +112,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CreateFileImporter = (context, filePath) => new DikeProfilesImporter(context.WrappedData,
                                                                                      context.ParentAssessmentSection.ReferenceLine,
                                                                                      filePath),
-                Name = GrassCoverErosionInwardsPluginResources.DikeProfilesImporter_DisplayName,
+                Name = RingtoetsIntegrationPluginResources.DikeProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = GrassCoverErosionInwardsPluginResources.DikeProfile,
+                Image = RingtoetsCommonFormsResources.DikeProfile,
                 FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
             };
@@ -148,7 +149,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new TreeNodeInfo<DikeProfile>
             {
                 Text = dikeProfile => dikeProfile.Name,
-                Image = context => GrassCoverErosionInwardsPluginResources.DikeProfile,
+                Image = context => RingtoetsCommonFormsResources.DikeProfile,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()

@@ -44,7 +44,7 @@
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
     <Compile Include="Helpers\NamingHelper.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelper.cs" />
-    <Compile Include="PresentationObjects\ForeShoresContext.cs" />
+    <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
     <Compile Include="PresentationObjects\ICalculationContext.cs" />
     <Compile Include="PresentationObjects\CommentContext.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolder.cs" />
@@ -173,6 +173,7 @@
     <None Include="Resources\cards.png" />
     <None Include="Resources\application_form.png" />
     <Content Include="Resources\broom.png" />
+    <None Include="Resources\DikeProfile.png" />
     <Content Include="Resources\wand-hat.png" />
     <None Include="Resources\database.png" />
     <None Include="Resources\chart_single_line.png" />
