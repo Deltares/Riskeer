@@ -244,21 +244,21 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsTrue(sellmeijerFactorOfSafetyProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, sellmeijerFactorOfSafetyProperty.Category);
             Assert.AreEqual("Veiligheidsfactor [-]", sellmeijerFactorOfSafetyProperty.DisplayName);
-            Assert.AreEqual("De veiligheidsfactor voor het submechanisme Sellmeijer voor deze berekening.", sellmeijerFactorOfSafetyProperty.Description);
+            Assert.AreEqual("De veiligheidsfactor voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.", sellmeijerFactorOfSafetyProperty.Description);
 
             PropertyDescriptor sellmeijerReliabilityProperty = dynamicProperties[6];
             Assert.IsNotNull(sellmeijerReliabilityProperty);
             Assert.IsTrue(sellmeijerReliabilityProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, sellmeijerReliabilityProperty.Category);
             Assert.AreEqual("Betrouwbaarheidsindex [-]", sellmeijerReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex voor het submechanisme Sellmeijer voor deze berekening.", sellmeijerReliabilityProperty.Description);
+            Assert.AreEqual("De betrouwbaarheidsindex voor het submechanisme terugschrijdende erosie (Sellmeijer) voor deze berekening.", sellmeijerReliabilityProperty.Description);
 
             PropertyDescriptor sellmeijerProbabilityProperty = dynamicProperties[7];
             Assert.IsNotNull(sellmeijerProbabilityProperty);
             Assert.IsTrue(sellmeijerProbabilityProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, sellmeijerProbabilityProperty.Category);
             Assert.AreEqual("Kans van voorkomen [1/jaar]", sellmeijerProbabilityProperty.DisplayName);
-            Assert.AreEqual("De kans dat het submechanisme Sellmeijer optreedt voor deze berekening.", sellmeijerProbabilityProperty.Description);
+            Assert.AreEqual("De kans dat het submechanisme terugschrijdende erosie (Sellmeijer) optreedt voor deze berekening.", sellmeijerProbabilityProperty.Description);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[8];
             Assert.IsNotNull(requiredProbabilityProperty);
