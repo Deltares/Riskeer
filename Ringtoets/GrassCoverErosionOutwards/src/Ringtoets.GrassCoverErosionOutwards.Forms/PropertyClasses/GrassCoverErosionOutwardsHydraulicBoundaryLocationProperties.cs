@@ -22,12 +22,9 @@
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
-using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
@@ -68,17 +65,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             get
             {
                 return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation.Location;
-            }
-        }
-
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_SectionSpecificWaterLevel_Description")]
-        public virtual string Convergence
-        {
-            get
-            {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevelCalculationConvergence).DisplayName;
             }
         }
 

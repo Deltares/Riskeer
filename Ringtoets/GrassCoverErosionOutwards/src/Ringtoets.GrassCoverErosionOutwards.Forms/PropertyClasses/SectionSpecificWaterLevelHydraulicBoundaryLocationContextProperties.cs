@@ -23,10 +23,12 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
+using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
@@ -68,8 +70,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         [PropertyOrder(4)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsLocation_SectionSpecificWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsLocation_SectionSpecificWaterLevel_Description")]
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_Description")]
         public RoundedDouble SectionSpecificWaterLevel
         {
             get
@@ -79,11 +81,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(5)]
-        public override string Convergence
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_SectionSpecificWaterLevel_Description")]
+        public string Convergence
         {
             get
             {
-                return base.Convergence;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevelCalculationConvergence).DisplayName;
             }
         }
     }

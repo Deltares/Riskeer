@@ -95,7 +95,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(name, locationProperties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, locationProperties.Location);
-            Assert.AreEqual("Nee", locationProperties.Convergence);
         }
 
         [Test]
@@ -155,7 +154,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
             PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);
             PropertyDescriptor locationProperty = dynamicProperties.Find("Location", false);
-            PropertyDescriptor convergenceProperty = dynamicProperties.Find("Convergence", false);
 
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
@@ -167,8 +165,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDisplayName = "Coördinaten [m]";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
-            const string expectedConvergenceDisplayName = "Convergentie";
-            const string expectedConvergenceDescription = "Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?";
 
             Assert.IsNotNull(idProperty);
             Assert.IsTrue(idProperty.IsReadOnly);
@@ -190,13 +186,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedCategory, locationProperty.Category);
             Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
             Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
-
-            Assert.IsNotNull(convergenceProperty);
-            Assert.IsTrue(convergenceProperty.IsReadOnly);
-            Assert.IsTrue(convergenceProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, convergenceProperty.Category);
-            Assert.AreEqual(expectedConvergenceDisplayName, convergenceProperty.DisplayName);
-            Assert.AreEqual(expectedConvergenceDescription, convergenceProperty.Description);
         }
 
         private class TestGrassCoverErosionOutwardsLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties {}

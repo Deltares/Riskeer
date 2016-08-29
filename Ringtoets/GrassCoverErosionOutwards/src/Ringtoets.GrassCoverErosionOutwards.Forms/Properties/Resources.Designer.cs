@@ -82,29 +82,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_SectionSpecificWaterLevel_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_SectionSpecificWat" +
+                        "erLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekend waterstand bij doorsnede-eis..
         /// </summary>
-        public static string GrassCoverErosionOutwardsLocation_SectionSpecificWaterLevel_Description {
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsLocation_SectionSpecificWaterLevel_Description", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_Desc" +
+                        "ription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Waterstand bij doorsnede-eis [m+NAP].
         /// </summary>
-        public static string GrassCoverErosionOutwardsLocation_SectionSpecificWaterLevel_DisplayName {
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsLocation_SectionSpecificWaterLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?.
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Convergence_SectionSpecificWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Convergence_SectionSpecificWaterLevel_Description", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_Disp" +
+                        "layName", resourceCulture);
             }
         }
         

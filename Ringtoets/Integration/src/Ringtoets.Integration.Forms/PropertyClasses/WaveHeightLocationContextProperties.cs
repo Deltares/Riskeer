@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
         [ResourcesDescription(typeof(Properties.Resources), "HydraulicBoundaryDatabase_Convergence_WaveHeight_Description")]
         public string Convergence
         {
