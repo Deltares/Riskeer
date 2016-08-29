@@ -548,7 +548,7 @@
     <value>Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel.</value>
   </data>
   <data name="StochasticSoilProfile_Probability_DisplayName" xml:space="preserve">
-    <value>Aandeel in het stochastische ondergrondmodel [%]</value>
+    <value>Aandeel [%]</value>
   </data>
   <data name="StochasticSoilProfile_Type_Description" xml:space="preserve">
     <value>Het type van de ondergrondschematisatie.</value>
