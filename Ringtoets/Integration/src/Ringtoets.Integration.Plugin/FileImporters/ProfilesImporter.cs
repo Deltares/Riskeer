@@ -54,7 +54,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// <param name="referenceLine">The reference line used to check if the imported profiles are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="importTarget">The import target.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
+        /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
         protected ProfilesImporter(ReferenceLine referenceLine, string filePath, T importTarget) : base(filePath, importTarget)
         {
             if (referenceLine == null)

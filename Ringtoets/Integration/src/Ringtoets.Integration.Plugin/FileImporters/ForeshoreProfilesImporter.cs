@@ -47,8 +47,8 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// <param name="referenceLine">The reference line used to check if the <see cref="ForeshoreProfile"/>
         /// objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="importTarget"/> 
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
+        /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
         public ForeshoreProfilesImporter(ObservableList<ForeshoreProfile> importTarget, ReferenceLine referenceLine, string filePath)
             : base(referenceLine, filePath, importTarget)
         {

@@ -66,6 +66,39 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void ParameterdConstructor_ImportTargetNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DikeProfilesImporter(null, new ReferenceLine(), "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("importTarget", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameterdConstructor_ReferenceLineNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DikeProfilesImporter(new ObservableList<DikeProfile>(), null, "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("referenceLine", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameterdConstructor_FilePathNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DikeProfilesImporter(new ObservableList<DikeProfile>(), new ReferenceLine(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
         public void Import_FromFileWithUnmatchableId_TrueAndLogError()
         {
             // Setup

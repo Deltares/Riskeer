@@ -442,7 +442,7 @@
   <data name="CalculationsGroup_Generate_calculations" xml:space="preserve">
     <value>Genereer &amp;berekeningen...</value>
   </data>
-  <data name="Plugin_GetTreeNodeInfos_ForeShores" xml:space="preserve">
+  <data name="Plugin_ForeShores_DisplayName" xml:space="preserve">
     <value>Voorlanden</value>
   </data>
   <data name="Categories_General" xml:space="preserve">

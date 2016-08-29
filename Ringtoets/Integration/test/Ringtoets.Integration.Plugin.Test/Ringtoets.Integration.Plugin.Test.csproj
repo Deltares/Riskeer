@@ -75,6 +75,7 @@
     <Compile Include="FileImporters\HydraulicBoundaryLocationFilterTest.cs" />
     <Compile Include="FileImporters\ProfilesImporterTest.cs" />
     <Compile Include="ImportInfos\FailureMechanismSectionsContextImportInfoTest.cs" />
+    <Compile Include="ImportInfos\ForeshoreProfilesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\ReferenceLineContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RingtoetsPluginTest.cs" />
