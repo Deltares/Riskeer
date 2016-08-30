@@ -96,9 +96,7 @@ namespace Ringtoets.Piping.Plugin
                 Name = PipingFormsResources.StochasticSoilProfileCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
-                FileFilter = string.Format("{0} {1} (*.soil)|*.soil",
-                                           PipingFormsResources.StochasticSoilProfileCollection_DisplayName,
-                                           PipingPluginResources.Soil_file_name),
+                FileFilter = string.Format("{0} (*.soil)|*.soil", PipingPluginResources.Soil_file_name),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new PipingSoilProfilesImporter(context.WrappedData,
                                                                                            filePath)

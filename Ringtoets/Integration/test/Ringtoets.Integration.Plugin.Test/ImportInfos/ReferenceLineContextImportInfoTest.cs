@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             string fileFilter = importInfo.FileFilter;
 
             // Assert
-            Assert.AreEqual("ESRI Shapefile (*.shp)|*.shp", fileFilter);
+            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
         }
 
         [Test]
