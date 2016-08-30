@@ -142,27 +142,27 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsTrue(upliftModelFactorProperty.IsReadOnly);
             Assert.AreEqual(modelFactorCategory, upliftModelFactorProperty.Category);
             Assert.AreEqual("Modelfactor opbarsten [-]", upliftModelFactorProperty.DisplayName);
-            Assert.AreEqual("Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen.", upliftModelFactorProperty.Description);
+            Assert.AreEqual("Rekenwaarde om de onzekerheid in het model van opbarsten in rekening te brengen.", upliftModelFactorProperty.Description);
 
             PropertyDescriptor sellmeijerModelFactorProperty = dynamicProperties[4];
             Assert.IsNotNull(sellmeijerModelFactorProperty);
             Assert.IsTrue(sellmeijerModelFactorProperty.IsReadOnly);
             Assert.AreEqual(modelFactorCategory, sellmeijerModelFactorProperty.Category);
-            Assert.AreEqual("Modelfactor piping toegepast op Sellmeijermodel [-]", sellmeijerModelFactorProperty.DisplayName);
-            Assert.AreEqual("Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen.", sellmeijerModelFactorProperty.Description);
+            Assert.AreEqual("Modelfactor piping toegepast op het model van Sellmeijer [-]", sellmeijerModelFactorProperty.DisplayName);
+            Assert.AreEqual("Rekenwaarde om de onzekerheid in het model van Sellmeijer in rekening te brengen.", sellmeijerModelFactorProperty.Description);
 
             PropertyDescriptor aProperty = dynamicProperties[5];
             Assert.IsNotNull(aProperty);
             Assert.IsFalse(aProperty.IsReadOnly);
             Assert.AreEqual(semiProbabilisticCategory, aProperty.Category);
-            Assert.AreEqual("a", aProperty.DisplayName);
+            Assert.AreEqual("a [-]", aProperty.DisplayName);
             Assert.AreEqual("De parameter 'a' die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans.", aProperty.Description);
 
             PropertyDescriptor bProperty = dynamicProperties[6];
             Assert.IsNotNull(bProperty);
             Assert.IsTrue(bProperty.IsReadOnly);
             Assert.AreEqual(semiProbabilisticCategory, bProperty.Category);
-            Assert.AreEqual("b", bProperty.DisplayName);
+            Assert.AreEqual("b [m]", bProperty.DisplayName);
             Assert.AreEqual("De parameter 'b' die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans.", bProperty.Description);
 
             PropertyDescriptor heaveNormDependentFactor = dynamicProperties[7];
@@ -226,14 +226,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsTrue(gravityProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, gravityProperty.Category);
             Assert.AreEqual("Valversnelling [m/s²]", gravityProperty.DisplayName);
-            Assert.AreEqual("Valversnelling", gravityProperty.Description);
+            Assert.AreEqual("Valversnelling.", gravityProperty.Description);
 
             PropertyDescriptor meanDiameter70Property = dynamicProperties[16];
             Assert.IsNotNull(meanDiameter70Property);
             Assert.IsTrue(meanDiameter70Property.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, meanDiameter70Property.Category);
             Assert.AreEqual("Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m]", meanDiameter70Property.DisplayName);
-            Assert.AreEqual("Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit.", meanDiameter70Property.Description);
+            Assert.AreEqual("Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop de formule van Sellmeijer is gefit.", meanDiameter70Property.Description);
 
             PropertyDescriptor reductionFactorSellmeijerProperty = dynamicProperties[17];
             Assert.IsNotNull(reductionFactorSellmeijerProperty);
