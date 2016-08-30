@@ -56,10 +56,10 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 0.6, 9.69402E-05)]
-        [TestCase(30000, 0.4, 0.001966461)]
-        [TestCase(1000, 0.6, 0.000733478)]
-        [TestCase(1000, 0.4, 0.009699472)]
+        [TestCase(30000, 0.6, 0.000233010568259)]
+        [TestCase(30000, 0.4, 0.003967252123066)]
+        [TestCase(20000, 0.6, 0.000292193848324)]
+        [TestCase(20000, 0.4, 0.004742775184826)]
         public void HeaveProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
@@ -76,10 +76,10 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 0.9, 3.40071E-06)]
-        [TestCase(30000, 0.6, 0.000330755)]
-        [TestCase(1000, 0.9, 0.000179351)]
-        [TestCase(1000, 0.6, 0.006680766)]
+        [TestCase(30000, 0.9, 1.0988217217028E-05)]
+        [TestCase(30000, 0.6, 8.22098269097995E-04)]
+        [TestCase(20000, 0.9, 1.80799783465546E-05)]
+        [TestCase(20000, 0.6, 1.20312928722076E-03)]
         public void SellmeijerProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
@@ -96,12 +96,12 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 1.2, 0.6, 0.9, 4.499810081)]
-        [TestCase(30000, 1.2, 1.4, 0.9, 5.489239245)]
-        [TestCase(30000, 1.2, 0.6, 1.1, 5.041620959)]
-        [TestCase(1000, 1.2, 0.6, 0.9, 3.568740768)]
-        [TestCase(1000, 1.2, 1.4, 0.9, 4.943521575)]
-        [TestCase(1000, 1.2, 0.6, 1.1, 4.110551646)]
+        [TestCase(30000, 1.4, 0.6, 0.9, double.PositiveInfinity)]
+        [TestCase(30000, 1.1, 1.4, 0.9, 5.264767065)]
+        [TestCase(30000, 1.1, 0.6, 1.1, 4.786155161)]
+        [TestCase(20000, 1.4, 0.6, 0.9, double.PositiveInfinity)]
+        [TestCase(20000, 1.1, 1.4, 0.9, 5.203962658)]
+        [TestCase(20000, 1.1, 0.6, 1.1, 4.673091832)]
         public void PipingReliability_DifferentInputs_ReturnsExpectedValue(int norm, double fosUplift, double fosHeave, double fosSellmeijer, double expectedResult)
         {
             // Setup
@@ -150,7 +150,7 @@ namespace Ringtoets.Piping.Service.Test
             double fosUplift = 1.2;
             double fosHeave = 0.6;
             double fosSellmeijer = 0.9;
-            double expectedResult = 0.941940161;
+            double expectedResult = 0.888;
 
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
@@ -194,28 +194,6 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             var accuracy = Math.Pow(10.0, -result.NumberOfDecimalPlaces); // Less strict accuracy because of calculation using rounded doubles
             Assert.AreEqual(calculation.SemiProbabilisticOutput.PipingReliability/calculation.SemiProbabilisticOutput.RequiredReliability, result, accuracy);
-        }
-
-        [Test]
-        public void Calculate_CompleteInput_ReturnsPipingSemiProbabilisticOutputWithValues()
-        {
-            // Setup
-            var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput
-            {
-                SectionLength = 6000
-            };
-            var pipingOutput = new PipingOutput(double.NaN, 1.2, double.NaN, 0.6, double.NaN, 0.9);
-            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = pipingOutput
-            };
-
-            // Call
-            PipingSemiProbabilisticCalculationService.Calculate(pipingCalculation, pipingProbabilityAssessmentInput, 30000, 24);
-
-            // Assert
-            RoundedDouble result = pipingCalculation.SemiProbabilisticOutput.PipingFactorOfSafety;
-            Assert.AreEqual(0.942, result, result.GetAccuracy());
         }
 
         [Test]

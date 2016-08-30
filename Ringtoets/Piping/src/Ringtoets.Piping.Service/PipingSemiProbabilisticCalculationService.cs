@@ -72,10 +72,8 @@ namespace Ringtoets.Piping.Service
         /// <param name="constantB">The constant b.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <param name="upliftCriticalSafetyFactor">The critical safety factor which is compared to the safety factor of uplift to determine a probability.</param>
-        /// <param name="heaveNormDependentFactor">The norm dependent factor used in determining the reliability of heave.</param>
-        /// <param name="sellmeijerNormDependentFactor">The norm dependent factor used in determining the reliability of Sellmeijer.</param>
         /// <param name="contribution">The contribution of piping to the total failure.</param>
-        private PipingSemiProbabilisticCalculationService(double upliftFactorOfSafety, double heaveFactorOfSafety, double sellmeijerFactorOfSafety, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double upliftCriticalSafetyFactor, double heaveNormDependentFactor, double sellmeijerNormDependentFactor, double contribution)
+        private PipingSemiProbabilisticCalculationService(double upliftFactorOfSafety, double heaveFactorOfSafety, double sellmeijerFactorOfSafety, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double upliftCriticalSafetyFactor, double contribution)
         {
             this.heaveFactorOfSafety = heaveFactorOfSafety;
             this.upliftFactorOfSafety = upliftFactorOfSafety;
@@ -85,8 +83,6 @@ namespace Ringtoets.Piping.Service
             this.constantB = constantB;
             this.assessmentSectionLength = assessmentSectionLength;
             this.upliftCriticalSafetyFactor = upliftCriticalSafetyFactor;
-            this.heaveNormDependentFactor = heaveNormDependentFactor;
-            this.sellmeijerNormDependentFactor = sellmeijerNormDependentFactor;
             this.contribution = contribution;
         }
 
@@ -116,8 +112,6 @@ namespace Ringtoets.Piping.Service
                 pipingProbabilityAssessmentInput.B,
                 pipingProbabilityAssessmentInput.SectionLength,
                 pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor,
-                pipingProbabilityAssessmentInput.GetHeaveNormDependentFactor(norm),
-                pipingProbabilityAssessmentInput.GetSellmeijerNormDependentFactor(norm),
                 contribution/100);
 
             calculator.Calculate();
@@ -167,10 +161,10 @@ namespace Ringtoets.Piping.Service
         {
             upliftProbability = UpliftProbability();
 
-            heaveReliability = HeaveReliability(heaveFactorOfSafety);
+            heaveReliability = SubMechanismReliability(heaveFactorOfSafety, heaveFactors);
             heaveProbability = ReliabilityToProbability(heaveReliability);
 
-            sellmeijerReliability = SellmeijerReliability(sellmeijerFactorOfSafety);
+            sellmeijerReliability = SubMechanismReliability(sellmeijerFactorOfSafety, sellmeijerFactors);
             sellmeijerProbability = ReliabilityToProbability(sellmeijerReliability);
 
             pipingProbability = PipingProbability(upliftProbability, heaveProbability, sellmeijerProbability);
@@ -203,14 +197,12 @@ namespace Ringtoets.Piping.Service
             return upliftFactorOfSafety <= upliftCriticalSafetyFactor ? 1 : 0;
         }
 
-        private double HeaveReliability(double factorOfSafety)
+        private double SubMechanismReliability(double factorOfSafety, SubCalculationFactors factors)
         {
-            return 2.08*Math.Log(factorOfSafety/heaveNormDependentFactor);
-        }
+            var norm = (1.0/returnPeriod);
+            var bNorm = ProbabilityToReliability(norm);
 
-        private double SellmeijerReliability(double factorOfSafety)
-        {
-            return 2.7*Math.Log(factorOfSafety/sellmeijerNormDependentFactor);
+            return (1/factors.A)*(Math.Log(factorOfSafety/factors.B) + (factors.C*bNorm));
         }
 
         private static void ValidateOutputOnCalculation(PipingCalculation calculation)
@@ -230,5 +222,30 @@ namespace Ringtoets.Piping.Service
         {
             return Normal.InvCDF(0, 1, 1 - probability);
         }
+
+        #region sub-calculation constants
+
+        private struct SubCalculationFactors
+        {
+            public double A;
+            public double B;
+            public double C;
+        }
+
+        private readonly SubCalculationFactors heaveFactors = new SubCalculationFactors
+        {
+            A = 0.48,
+            B = 0.37,
+            C = 0.30
+        };
+
+        private readonly SubCalculationFactors sellmeijerFactors = new SubCalculationFactors
+        {
+            A = 0.37,
+            B = 1.04,
+            C = 0.43
+        };
+
+        #endregion
     }
 }
