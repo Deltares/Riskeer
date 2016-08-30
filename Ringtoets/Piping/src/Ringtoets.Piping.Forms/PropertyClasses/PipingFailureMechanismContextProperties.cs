@@ -170,30 +170,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(23)]
-        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_HeaveNormDependentFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_HeaveNormDependentFactor_Description")]
-        public RoundedDouble HeaveNormDependentFactor
-        {
-            get
-            {
-                return data.WrappedData.PipingProbabilityAssessmentInput.GetHeaveNormDependentFactor(data.Parent.FailureMechanismContribution.Norm);
-            }
-        }
-
-        [PropertyOrder(24)]
-        [ResourcesCategory(typeof(Resources), "Categories_SemiProbabilisticParameters")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SellmeijerNormDependentFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SellmeijerNormDependentFactor_Description")]
-        public RoundedDouble SellmeijerNormDependentFactor
-        {
-            get
-            {
-                return data.WrappedData.PipingProbabilityAssessmentInput.GetSellmeijerNormDependentFactor(data.Parent.FailureMechanismContribution.Norm);
-            }
-        }
-
         #endregion
 
         #region Sellmeijer
