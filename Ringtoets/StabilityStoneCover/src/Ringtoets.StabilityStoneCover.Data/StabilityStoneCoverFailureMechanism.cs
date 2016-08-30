@@ -43,6 +43,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         {
             sectionResults = new List<StabilityStoneCoverFailureMechanismSectionResult>();
             HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, false);
+            GeneralInput = new GeneralStabilityStoneCoverWaveConditionsInput();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -52,6 +53,11 @@ namespace Ringtoets.StabilityStoneCover.Data
                 yield break;
             }
         }
+
+        /// <summary>
+        /// Gets the general stability stone cover wave conditions input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralStabilityStoneCoverWaveConditionsInput GeneralInput { get; private set; }
 
         /// <summary>
         /// Gets the container of all hydraulic boundary calculations.

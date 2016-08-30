@@ -46,6 +46,8 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
 
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
+
+            Assert.IsInstanceOf<GeneralStabilityStoneCoverWaveConditionsInput>(failureMechanism.GeneralInput);
         }
 
         [Test]
