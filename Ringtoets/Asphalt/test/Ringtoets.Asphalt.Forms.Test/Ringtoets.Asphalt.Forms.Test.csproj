@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{B2EF69C0-C3E7-4F38-82F3-EA3C747AEC9D}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -59,11 +59,8 @@
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverFailureMechanismContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\WaveImpactAsphaltCoverFailureMechanismContextPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\ForehoreProfilesContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismSectionResultRowTest.cs" />
-    <Compile Include="WaveImpactAsphaltCoverResultViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -76,10 +73,6 @@
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Project>{1D27F91F-4E62-4EAF-A0A8-A32708B9A9B1}</Project>
-      <Name>Core.Common.Controls.TreeView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
@@ -91,10 +84,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
-      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
-      <Name>Core.Common.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
@@ -115,10 +104,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.Asphalt.Forms\Ringtoets.Asphalt.Forms.csproj">
       <Project>{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}</Project>
       <Name>Ringtoets.Asphalt.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Asphalt.Plugin\Ringtoets.Asphalt.Plugin.csproj">
-      <Project>{83A782F1-BA78-4D5C-B213-39066605AFD8}</Project>
-      <Name>Ringtoets.Asphalt.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

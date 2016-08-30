@@ -27,11 +27,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Asphalt.Data;
-using Ringtoets.Asphalt.Plugin;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Asphalt.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Asphalt.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultContextTreeNodeInfoTest

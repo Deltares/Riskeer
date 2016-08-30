@@ -28,13 +28,12 @@ using Rhino.Mocks;
 using Ringtoets.Asphalt.Data;
 using Ringtoets.Asphalt.Forms.PresentationObjects;
 using Ringtoets.Asphalt.Forms.Views;
-using Ringtoets.Asphalt.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Asphalt.Forms.Test
+namespace Ringtoets.Asphalt.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverResultViewInfoTest

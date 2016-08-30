@@ -29,13 +29,12 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Asphalt.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Asphalt.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Asphalt.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class ForehoreProfilesContextTreeNodeInfoTest
