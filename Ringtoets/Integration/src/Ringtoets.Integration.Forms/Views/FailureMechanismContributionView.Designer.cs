@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             resources.ApplyResources(this.normInput, "normInput");
             this.normInput.Maximum = new decimal(new int[] {
-            300000,
+            1000000,
             0,
             0,
             0});
