@@ -32,7 +32,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.IO;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -111,6 +110,7 @@ namespace Demo.Ringtoets.Commands
             SetHydraulicBoundaryLocationWaveHeightCalculationConvergence(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
 
             demoAssessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(demoAssessmentSection.HydraulicBoundaryDatabase);
+            demoAssessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
         }
 
         private void InitializeDemoFailureMechanismSections(AssessmentSection demoAssessmentSection)

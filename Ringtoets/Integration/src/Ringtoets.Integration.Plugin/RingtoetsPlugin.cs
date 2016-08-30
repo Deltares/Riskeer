@@ -438,7 +438,7 @@ namespace Ringtoets.Integration.Plugin
         /// </summary>
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new TreeNodeInfo<IAssessmentSection>
+            yield return new TreeNodeInfo<AssessmentSection>
             {
                 Text = assessmentSection => assessmentSection.Name,
                 Image = assessmentSection => RingtoetsFormsResources.AssessmentSectionFolderIcon,
@@ -811,7 +811,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region AssessmentSection
 
-        private object[] AssessmentSectionChildNodeObjects(IAssessmentSection nodeData)
+        private object[] AssessmentSectionChildNodeObjects(AssessmentSection nodeData)
         {
             var childNodes = new List<object>
             {
@@ -1140,7 +1140,7 @@ namespace Ringtoets.Integration.Plugin
             var connectionItem = new StrictContextMenuItem(
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect,
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => { SelectDatabaseFile(nodeData.WrappedData); });
+                RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => SelectDatabaseFile(nodeData.WrappedData));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(connectionItem)
@@ -1153,7 +1153,7 @@ namespace Ringtoets.Integration.Plugin
                       .Build();
         }
 
-        private void SelectDatabaseFile(IAssessmentSection assessmentSection)
+        private void SelectDatabaseFile(AssessmentSection assessmentSection)
         {
             using (var dialog = new OpenFileDialog
             {
@@ -1165,7 +1165,7 @@ namespace Ringtoets.Integration.Plugin
                 {
                     try
                     {
-                        ImportHydraulicBoundaryDatabase(dialog.FileName, (AssessmentSection) assessmentSection);
+                        ImportHydraulicBoundaryDatabase(dialog.FileName, assessmentSection);
                     }
                     catch (CriticalFileReadException exception)
                     {
@@ -1207,6 +1207,7 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase);
+                    assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
 
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);

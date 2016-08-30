@@ -35,8 +35,8 @@ namespace Ringtoets.Integration.Plugin
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to update.</param>
         /// <param name="hydraulicBoundaryDatabase">The database to use.</param>
-        public static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(this GrassCoverErosionOutwardsFailureMechanism failureMechanism, 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        public static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(this GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                  HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Clear();
             if (hydraulicBoundaryDatabase == null)
@@ -48,7 +48,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation));
             }
-            failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
-        } 
+        }
     }
 }

@@ -23,19 +23,20 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryDatabase"/>.
     /// </summary>
-    public class HydraulicBoundaryDatabaseContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    public class HydraulicBoundaryDatabaseContext : ObservableWrappedObjectContextBase<AssessmentSection>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
         /// </summary>
         /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryDatabaseContext(IAssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
+        public HydraulicBoundaryDatabaseContext(AssessmentSection wrappedAssessmentSection) : base(wrappedAssessmentSection) {}
     }
 }

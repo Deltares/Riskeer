@@ -22,9 +22,9 @@
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
@@ -48,12 +48,10 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             const string filePath = @"C:\file.sqlite";
-            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSectionMock)
+            HydraulicBoundaryDatabaseContext hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection)
             {
                 WrappedData =
                 {
@@ -72,7 +70,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(filePath, properties.FilePath);
-            mocks.VerifyAll();
         }
 
         [Test]

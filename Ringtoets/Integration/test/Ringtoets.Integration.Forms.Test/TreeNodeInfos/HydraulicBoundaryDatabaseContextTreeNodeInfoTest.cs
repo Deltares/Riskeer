@@ -89,10 +89,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             // Setup
             const string name = "Hydraulische randvoorwaarden";
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -104,7 +103,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(name, text);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -127,12 +125,10 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var guiMock = mocks.StrictMock<IGui>();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSection);
+
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-
-            var nodeData = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
-
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -141,11 +137,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var guiMock = mocks.StrictMock<IGui>();
+                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
 
                 mocks.ReplayAll();
@@ -168,9 +165,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ForeColor_ContextHasNoReferenceLine_ReturnDisabledColor()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
@@ -182,16 +177,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ForeColor_ContextHasReferenceLineData_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            mocks.ReplayAll();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            };
 
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
@@ -205,16 +200,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChildNodeObjects_NoHydraulicBoundaryDatabaseSet_ReturnsEmpty()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             using (var plugin = new RingtoetsPlugin())
@@ -227,16 +219,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(0, objects.Length);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChildNodeObjects_HydraulicBoundaryDatabaseSet_ReturnsChildrenOfData()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            mocks.ReplayAll();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            };
 
             var hydraulicBoundaryDatabaseContext = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
@@ -255,7 +247,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 var waveHeightLocationsContext = (WaveHeightLocationsContext) objects[1];
                 Assert.AreSame(assessmentSection, waveHeightLocationsContext.WrappedData);
             }
-            mocks.VerifyAll();
         }
 
         [Test]

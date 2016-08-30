@@ -21,8 +21,8 @@
 
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 
 namespace Ringtoets.Integration.Forms.Test.PresentationObjects
@@ -34,17 +34,14 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
         public void DefaultConstructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSectionMock);
+            var presentationObject = new HydraulicBoundaryDatabaseContext(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
-            Assert.AreSame(assessmentSectionMock, presentationObject.WrappedData);
-            mockRepository.VerifyAll();
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(presentationObject);
+            Assert.AreSame(assessmentSection, presentationObject.WrappedData);
         }
     }
 }
