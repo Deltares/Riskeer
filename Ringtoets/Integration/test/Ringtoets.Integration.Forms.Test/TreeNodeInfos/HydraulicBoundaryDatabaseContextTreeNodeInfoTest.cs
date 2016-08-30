@@ -394,14 +394,11 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         [Test]
         [RequiresSTA]
-        public void GivenFilePathIsSet_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndLocationsWillBeImported()
+        public void GivenFilePathIsSet_WhenOpeningSameFileFromContextMenu_ThenCalculationsWillNotBeClearedAndNoNotifyObservers()
         {
             // Given
             string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             IObserver assessmentObserver = mocks.StrictMock<IObserver>();
-            assessmentObserver.Expect(o => o.UpdateObserver());
-            IObserver observer = mocks.StrictMock<IObserver>();
-
             int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -423,8 +420,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 },
                 Output = pipingOutput
             };
-
-            pipingCalculation.Attach(observer);
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 

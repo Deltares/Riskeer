@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
@@ -34,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of an enumeration of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> with 
     /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel"/> for properties panel.
     /// </summary>
-    public class SectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties : ObjectProperties<SectionSpecificWaterLevelHydraulicBoundaryLocationsContext>
+    public class SectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties : ObjectProperties<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -44,9 +45,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Select(loc => new SectionSpecificWaterLevelHydraulicBoundaryLocationContextProperties
+                return data.Select(loc => new SectionSpecificWaterLevelHydraulicBoundaryLocationContextProperties
                 {
-                    Data = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(data.WrappedData, loc)
+                    Data = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(data, loc)
                 }).ToArray();
             }
         }

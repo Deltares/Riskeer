@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionMock, validFile);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, assessmentSectionMock.HydraulicBoundaryDatabase.FilePath, "", 30);
 
             // Call
@@ -199,7 +199,7 @@ namespace Ringtoets.Integration.Service.Test
             ImportHydraulicBoundaryDatabase(assessmentSectionMock, validFile);
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(loc => loc.Id == 1300001);
             hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedNotConverged;
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, assessmentSectionMock.HydraulicBoundaryDatabase.FilePath, "", 30);
@@ -260,7 +260,7 @@ namespace Ringtoets.Integration.Service.Test
             mockRepository.ReplayAll();
 
             const string locationName = "HRbasis_ijsslm_1000";
-            var hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(loc => loc.Name == locationName);
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(loc => loc.Name == locationName);
             hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
 
             int norm = 300;

@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -34,8 +35,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// Initializes a new instance of the <see cref="HydraulicBoundariesGroupContext"/> class.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
+        /// <param name="assessmentSection">The assessment section this context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HydraulicBoundariesGroupContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-            : base(failureMechanism) {}
+        public HydraulicBoundariesGroupContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(failureMechanism)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; private set; }
     }
 }

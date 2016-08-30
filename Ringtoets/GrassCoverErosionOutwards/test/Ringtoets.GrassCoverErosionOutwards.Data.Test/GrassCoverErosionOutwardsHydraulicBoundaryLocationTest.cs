@@ -34,9 +34,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         [Test]
         public void Constructor_NullHydraulicBoundaryLocation_ThrowsArgumentNullException()
         {
-            // Setup
-
-            // Call
+            // Setup & Call
             TestDelegate test = () => new GrassCoverErosionOutwardsHydraulicBoundaryLocation(null);
 
             // Assert

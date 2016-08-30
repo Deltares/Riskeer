@@ -44,7 +44,6 @@ namespace Ringtoets.Integration.Data
     public sealed class AssessmentSection : Observable, IAssessmentSection
     {
         private ReferenceLine referenceLine;
-        private HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
@@ -192,21 +191,7 @@ namespace Ringtoets.Integration.Data
 
         public FailureMechanismContribution FailureMechanismContribution { get; private set; }
 
-        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase
-        {
-            get
-            {
-                return hydraulicBoundaryDatabase;
-            }
-            set
-            {
-                hydraulicBoundaryDatabase = value;
-                GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(
-                    hydraulicBoundaryDatabase != null ?
-                        hydraulicBoundaryDatabase.Locations :
-                        null);
-            }
-        }
+        public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
         public long StorageId { get; set; }
 

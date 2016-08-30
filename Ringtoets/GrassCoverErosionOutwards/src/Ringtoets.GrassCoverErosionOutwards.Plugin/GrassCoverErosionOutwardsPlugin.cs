@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
@@ -52,7 +53,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 GetObjectPropertiesData = context => context.WrappedData
             };
-            yield return new PropertyInfo<SectionSpecificWaterLevelHydraulicBoundaryLocationsContext, SectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties>();
+            yield return new PropertyInfo<SectionSpecificWaterLevelHydraulicBoundaryLocationsContext, SectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties>
+            {
+                GetObjectPropertiesData = context => context.Locations
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -104,7 +108,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 Text = context => Resources.SectionSpecificWaterLevelHydraulicBoundaryLocationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => !context.WrappedData.Any() ?
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = SectionSpecificWaterLevelHydraulicBoundaryLocationsContextMenuStrip
@@ -148,7 +152,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new HydraulicBoundariesGroupContext(failureMechanism),
+                new HydraulicBoundariesGroupContext(failureMechanism, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output)
             };
         }
@@ -209,10 +213,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext hydraulicBoundariesGroupContext)
         {
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = hydraulicBoundariesGroupContext.WrappedData;
+            IAssessmentSection assessmentSection = hydraulicBoundariesGroupContext.AssessmentSection;
+            ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = hydraulicBoundariesGroupContext.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
             return new object[]
             {
-                new SectionSpecificWaterLevelHydraulicBoundaryLocationsContext(grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations)
+                new SectionSpecificWaterLevelHydraulicBoundaryLocationsContext(assessmentSection, locations)
             };
         }
 
@@ -229,7 +234,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 null);
 
             designWaterLevelItem.Enabled = false;
-            if (!nodeData.WrappedData.Any())
+            if (nodeData.WrappedData.HydraulicBoundaryDatabase != null)
             {
                 designWaterLevelItem.ToolTipText = Resources.SectionSpecificWaterLevel_No_HRD_To_Calculate;
             }

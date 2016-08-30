@@ -100,6 +100,8 @@ namespace Demo.Ringtoets.Test.Commands
             AssertDesignWaterLevelValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
             AssertWaveHeightValuesOnHydraulicBoundaryLocations(hydraulicBoundaryLocations);
 
+            Assert.AreEqual(demoAssessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count, hydraulicBoundaryLocations.Length);
+
             Assert.AreEqual(2380, demoAssessmentSection.ReferenceLine.Points.Count());
 
             var soilModels = demoAssessmentSection.PipingFailureMechanism.StochasticSoilModels.ToArray();

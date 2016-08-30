@@ -38,6 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/> 
         /// this specific water level applies to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryLocation == null)

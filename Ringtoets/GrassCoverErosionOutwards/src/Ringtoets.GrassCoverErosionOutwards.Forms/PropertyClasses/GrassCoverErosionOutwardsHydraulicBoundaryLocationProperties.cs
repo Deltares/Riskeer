@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties : ObjectProperties<SectionSpecificWaterLevelHydraulicBoundaryLocationContext>
+    public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties : ObjectProperties<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Location_Id_DisplayName")]

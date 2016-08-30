@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
-using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
@@ -64,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public GeneralGrassCoverErosionOutwardsInput GeneralInput { get; private set; }
 
         /// <summary>
-        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
+        /// Gets the grass cover erosion outwards hydraulic boundary locations.
         /// </summary>
         public ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> GrassCoverErosionOutwardsHydraulicBoundaryLocations { get; private set; }
 
@@ -79,25 +78,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             {
                 return sectionResults;
             }
-        }
-
-        /// <summary>
-        /// Sets <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocations"/> based upon the <paramref name="hydraulicBoundaryLocations"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocations">An <see cref="IEnumerable{T}"/> of <see cref="HydraulicBoundaryLocation"/>.</param>
-        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-        {
-            GrassCoverErosionOutwardsHydraulicBoundaryLocations.Clear();
-            if (hydraulicBoundaryLocations == null)
-            {
-                return;
-            }
-
-            foreach (var hydraulicBoundaryLocation in hydraulicBoundaryLocations)
-            {
-                GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation));
-            }
-            GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
         }
 
         public override void AddSection(FailureMechanismSection section)

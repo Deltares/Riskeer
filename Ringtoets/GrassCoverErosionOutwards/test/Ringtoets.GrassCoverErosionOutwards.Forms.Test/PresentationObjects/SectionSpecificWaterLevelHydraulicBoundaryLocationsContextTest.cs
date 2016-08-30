@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
@@ -34,14 +37,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void DefaultConstructor_ExpectedValues()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
             var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
 
             // Call
-            var presentationObject = new SectionSpecificWaterLevelHydraulicBoundaryLocationsContext(locations);
+            var presentationObject = new SectionSpecificWaterLevelHydraulicBoundaryLocationsContext(assessmentSectionMock, locations);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>>(presentationObject);
-            Assert.AreSame(locations, presentationObject.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
+            Assert.AreSame(assessmentSectionMock, presentationObject.WrappedData);
+            Assert.AreSame(locations, presentationObject.Locations);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_GrassCoverErosionOutwardsHydraulicBoundaryLocationsIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new SectionSpecificWaterLevelHydraulicBoundaryLocationsContext(assessmentSectionMock, null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("grassCoverErosionOutwardsHydraulicBoundaryLocations", paramName);
         }
     }
 }

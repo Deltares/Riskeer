@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
@@ -33,14 +36,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var context = new HydraulicBoundariesGroupContext(failureMechanism);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<GrassCoverErosionOutwardsFailureMechanism>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            TestDelegate call = () => new HydraulicBoundariesGroupContext(failureMechanism, null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
         }
     }
 }

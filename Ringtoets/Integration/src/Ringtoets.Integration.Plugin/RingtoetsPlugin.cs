@@ -1147,7 +1147,7 @@ namespace Ringtoets.Integration.Plugin
                 {
                     try
                     {
-                        ImportHydraulicBoundaryDatabase(dialog.FileName, assessmentSection);
+                        ImportHydraulicBoundaryDatabase(dialog.FileName, (AssessmentSection) assessmentSection);
                     }
                     catch (CriticalFileReadException exception)
                     {
@@ -1166,7 +1166,7 @@ namespace Ringtoets.Integration.Plugin
         /// <see cref="HydraulicBoundaryDatabase"/> will be assigned.</param>
         /// <exception cref="CriticalFileReadException">Thrown when importing from the <paramref name="databaseFile"/>
         /// failed.</exception>
-        private static void ImportHydraulicBoundaryDatabase(string databaseFile, IAssessmentSection assessmentSection)
+        private static void ImportHydraulicBoundaryDatabase(string databaseFile, AssessmentSection assessmentSection)
         {
             var hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
@@ -1187,7 +1187,9 @@ namespace Ringtoets.Integration.Plugin
                     {
                         ClearCalculations(assessmentSection);
                     }
-                    assessmentSection.NotifyObservers();
+
+                    assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase);
+
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
