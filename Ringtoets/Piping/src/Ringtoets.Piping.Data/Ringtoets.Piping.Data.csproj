@@ -47,7 +47,6 @@
     </Compile>
     <Compile Include="DerivedPipingInput.cs" />
     <Compile Include="GeneralPipingInput.cs" />
-    <Compile Include="NormDependentFactorCollection.cs" />
     <Compile Include="PipingCalculation.cs" />
     <Compile Include="PipingCalculationScenario.cs" />
     <Compile Include="PipingCalculationScenarioExtensions.cs" />
