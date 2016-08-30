@@ -38,7 +38,7 @@ using RingtoetsPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// Imports .soil files (SqlLite database files) created with the DSoilModel application.
+    /// Imports .soil files (SqlLite database files) created with the D-Soil Model application.
     /// </summary>
     public class PipingSoilProfilesImporter : FileImporterBase<ObservableList<StochasticSoilModel>>
     {

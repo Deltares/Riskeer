@@ -24,8 +24,8 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
-    /// This class represents objects which were imported from a DSoilModel database. Instances of this class are transient and are not to be used
-    /// once the DSoilModel database has been imported.
+    /// This class represents objects which were imported from a D-Soil Model database. Instances of this class are transient and are not to be used
+    /// once the D-Soil Model database has been imported.
     /// </summary>
     internal class SoilLayer1D : GenericSoilLayerParameters
     {

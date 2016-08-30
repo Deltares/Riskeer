@@ -25,7 +25,7 @@ using System.Drawing;
 namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
-    /// This class provides helpers for converting double values from the DSoilModel database into
+    /// This class provides helpers for converting double values from the D-Soil Model database into
     /// <see cref="Color"/>.
     /// </summary>
     public static class SoilLayerColorConversionHelper
