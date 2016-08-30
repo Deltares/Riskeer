@@ -20,12 +20,13 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
@@ -40,14 +41,14 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
 
             // Call
-            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSectionMock);
+            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<PipingFailureMechanism>>(context);
-            Assert.AreSame(failureMechanism, context.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<RingtoetsPipingSurfaceLine>>>(context);
+            Assert.AreSame(surfaceLines, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             mocks.VerifyAll();
         }
@@ -56,10 +57,10 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
+            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
 
             // Call
-            TestDelegate test = () => new RingtoetsPipingSurfaceLinesContext(failureMechanism, null);
+            TestDelegate test = () => new RingtoetsPipingSurfaceLinesContext(surfaceLines, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

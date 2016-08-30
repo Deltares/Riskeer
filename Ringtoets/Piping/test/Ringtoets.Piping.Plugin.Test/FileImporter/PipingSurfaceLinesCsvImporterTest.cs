@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -53,14 +53,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            var list = new List<RingtoetsPipingSurfaceLine>();
+            var list = new ObservableList<RingtoetsPipingSurfaceLine>();
             var referenceLine = new ReferenceLine();
 
             // Call
             var importer = new PipingSurfaceLinesCsvImporter(list, referenceLine, "");
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<ICollection<RingtoetsPipingSurfaceLine>>>(importer);
+            Assert.IsInstanceOf<FileImporterBase<ObservableList<RingtoetsPipingSurfaceLine>>>(importer);
         }
 
         [Test]

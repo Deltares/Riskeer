@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
@@ -42,7 +43,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
     /// <para><c>Id;X1;Y1;Z1;...(Xn;Yn;Zn)</c></para>
     /// <para>Where Xn;Yn;Zn form the n-th 3D point describing the geometry of the surface line.</para>
     /// </summary>
-    public class PipingSurfaceLinesCsvImporter : FileImporterBase<ICollection<RingtoetsPipingSurfaceLine>>
+    public class PipingSurfaceLinesCsvImporter : FileImporterBase<ObservableList<RingtoetsPipingSurfaceLine>>
     {
         private enum ReferenceLineIntersectionsResult
         {
@@ -65,7 +66,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="importTarget"/>
         /// or <paramref name="referenceLine"/> is <c>null</c>.</exception>
-        public PipingSurfaceLinesCsvImporter(ICollection<RingtoetsPipingSurfaceLine> importTarget, ReferenceLine referenceLine, string filePath) : base(filePath, importTarget)
+        public PipingSurfaceLinesCsvImporter(ObservableList<RingtoetsPipingSurfaceLine> importTarget, ReferenceLine referenceLine, string filePath) : base(filePath, importTarget)
         {
             if (referenceLine == null)
             {

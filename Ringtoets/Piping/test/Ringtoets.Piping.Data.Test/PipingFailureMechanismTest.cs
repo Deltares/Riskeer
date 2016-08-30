@@ -55,9 +55,11 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<GeneralPipingInput>(piping.GeneralInput);
             CollectionAssert.IsEmpty(piping.Sections);
             CollectionAssert.IsEmpty(piping.SurfaceLines);
-            Assert.IsInstanceOf<List<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
+            Assert.IsInstanceOf<IList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
+            Assert.IsInstanceOf<IObservable>(piping.SurfaceLines);
             CollectionAssert.IsEmpty(piping.StochasticSoilModels);
-            Assert.IsInstanceOf<ObservableList<StochasticSoilModel>>(piping.StochasticSoilModels);
+            Assert.IsInstanceOf<IList<StochasticSoilModel>>(piping.StochasticSoilModels);
+            Assert.IsInstanceOf<IObservable>(piping.StochasticSoilModels);
             Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
             Assert.IsEmpty(piping.CalculationsGroup.Children);
         }

@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Plugin
                                            PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
                                            PipingPluginResources.Csv_file_name),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
-                CreateFileImporter = (context, filePath) => new PipingSurfaceLinesCsvImporter(context.WrappedData.SurfaceLines,
+                CreateFileImporter = (context, filePath) => new PipingSurfaceLinesCsvImporter(context.WrappedData,
                                                                                               context.AssessmentSection.ReferenceLine,
                                                                                               filePath)
             };
@@ -202,8 +202,8 @@ namespace Ringtoets.Piping.Plugin
             {
                 Text = ringtoetsPipingSurfaceLine => PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
                 Image = ringtoetsPipingSurfaceLine => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.SurfaceLines.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.SurfaceLines.Cast<object>().ToArray(),
+                ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()
@@ -529,7 +529,7 @@ namespace Ringtoets.Piping.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection),
+                new RingtoetsPipingSurfaceLinesContext(failureMechanism.SurfaceLines, assessmentSection),
                 new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };

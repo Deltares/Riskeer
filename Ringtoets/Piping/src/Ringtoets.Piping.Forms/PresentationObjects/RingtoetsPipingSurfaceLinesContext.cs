@@ -20,25 +20,27 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
     /// The presentation object for <see cref="PipingFailureMechanism.SurfaceLines"/>.
     /// </summary>
-    public class RingtoetsPipingSurfaceLinesContext : ObservableWrappedObjectContextBase<PipingFailureMechanism>
+    public class RingtoetsPipingSurfaceLinesContext : ObservableWrappedObjectContextBase<ObservableList<RingtoetsPipingSurfaceLine>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="RingtoetsPipingSurfaceLinesContext"/>.
         /// </summary>
-        /// <param name="wrappedFailureMechanism">The failure mechanism to wrap.</param>
+        /// <param name="surfaceLines">The collection to update.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        public RingtoetsPipingSurfaceLinesContext(PipingFailureMechanism wrappedFailureMechanism, IAssessmentSection assessmentSection)
-            : base(wrappedFailureMechanism)
+        public RingtoetsPipingSurfaceLinesContext(ObservableList<RingtoetsPipingSurfaceLine> surfaceLines, IAssessmentSection assessmentSection)
+            : base(surfaceLines)
         {
             if (assessmentSection == null)
             {

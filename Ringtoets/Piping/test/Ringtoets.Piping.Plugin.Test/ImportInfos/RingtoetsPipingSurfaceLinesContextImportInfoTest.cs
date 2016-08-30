@@ -22,6 +22,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
@@ -29,8 +30,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ImportInfos
@@ -93,9 +94,9 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = null;
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
 
-            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -114,9 +115,9 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
 
-            var context = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
+            var context = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -157,9 +158,9 @@ namespace Ringtoets.Piping.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var surfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
 
-            var importTarget = new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection);
+            var importTarget = new RingtoetsPipingSurfaceLinesContext(surfaceLines, assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(importTarget, filePath);
