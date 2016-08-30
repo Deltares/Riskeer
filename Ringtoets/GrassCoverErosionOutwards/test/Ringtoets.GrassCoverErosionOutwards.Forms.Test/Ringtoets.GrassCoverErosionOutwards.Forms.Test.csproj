@@ -60,6 +60,7 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryLocationContextTest.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationsContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundariesGroupContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaterLevelLocationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaterLevelLocationsContextTest.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaterLevelLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaterLevelLocationsContextPropertiesTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveHeightLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />

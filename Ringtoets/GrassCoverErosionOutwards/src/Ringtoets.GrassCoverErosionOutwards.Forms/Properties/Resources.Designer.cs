@@ -82,6 +82,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alle golfhoogtes bij doorsnede-eis berekenen..
+        /// </summary>
+        public static string GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogte bij doorsnede-eis te berekenen..
+        /// </summary>
+        public static string GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?.
         /// </summary>
         public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaterLevel_Description {
@@ -142,6 +160,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         public static string GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogtes bij doorsnede-eis.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName", resourceCulture);
             }
         }
     }

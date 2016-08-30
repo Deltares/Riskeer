@@ -113,6 +113,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = GrassCoverErosionOutwardsWaterLevelLocationsContextMenuStrip
             };
+
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightLocationsContext>
+            {
+                Text = context => Resources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
+                                           Color.FromKnownColor(KnownColor.GrayText) :
+                                           Color.FromKnownColor(KnownColor.ControlText),
+                ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightLocationsContextMenuStrip
+            };
         }
 
         #region ViewInfos
@@ -217,7 +227,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = hydraulicBoundariesGroupContext.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
             return new object[]
             {
-                new GrassCoverErosionOutwardsWaterLevelLocationsContext(assessmentSection, locations)
+                new GrassCoverErosionOutwardsWaterLevelLocationsContext(assessmentSection, locations),
+                new GrassCoverErosionOutwardsWaveHeightLocationsContext(assessmentSection, locations)
             };
         }
 
@@ -234,9 +245,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 null);
 
             designWaterLevelItem.Enabled = false;
-            if (nodeData.WrappedData.HydraulicBoundaryDatabase != null)
+            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
             {
                 designWaterLevelItem.ToolTipText = Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate;
+            }
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCustomItem(designWaterLevelItem)
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
+
+        #region GrassCoverErosionOutwardsWaveHeightLocationsContext TreeNodeInfo
+
+        private ContextMenuStrip GrassCoverErosionOutwardsWaveHeightLocationsContextMenuStrip(GrassCoverErosionOutwardsWaveHeightLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var designWaterLevelItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_all,
+                Resources.GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                null);
+
+            designWaterLevelItem.Enabled = false;
+            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+            {
+                designWaterLevelItem.ToolTipText = Resources.GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate;
             }
 
             return Gui.Get(nodeData, treeViewControl)

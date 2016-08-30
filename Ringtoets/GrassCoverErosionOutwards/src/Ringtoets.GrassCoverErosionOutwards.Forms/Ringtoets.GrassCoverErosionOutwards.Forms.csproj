@@ -41,6 +41,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryLocationContext.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationsContext.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaterLevelLocationContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundariesGroupContext.cs" />
