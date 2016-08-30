@@ -82,7 +82,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genereer randvoorwaarde berekeningen..
+        ///   Looks up a localized string similar to Genereer randvoorwaardeberekeningen..
         /// </summary>
         internal static string StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip {
             get {
