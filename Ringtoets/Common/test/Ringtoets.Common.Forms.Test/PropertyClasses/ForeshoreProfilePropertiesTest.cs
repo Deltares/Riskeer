@@ -20,51 +20,50 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DikeProfilePropertiesTest
+    public class ForeshoreProfilePropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int worldReferencePointPropertyIndex = 1;
         private const int orientationPropertyIndex = 2;
         private const int breakWaterPropertyIndex = 3;
-        private const int foreshorePropertyIndex = 4;
-        private const int dikeGeometryPropertyIndex = 5;
-        private const int dikeHeightPropertyIndex = 6;
+        private const int foreshoreGeometryPropertyIndex = 4;
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new DikeProfileProperties();
+            var properties = new ForeshoreProfileProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<DikeProfile>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ForeshoreProfile>>(properties);
             Assert.IsNull(properties.Data);
         }
 
         [Test]
-        public void Data_SetNewDikeProfileInstance_ReturnCorrectPropertyValues()
+        public void Data_SetNewForeshoreProfileInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            const string name = "Dijkprofiel";
-            var dikeProfile = new DikeProfile(new Point2D(12.34, 56.78), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties
-                                              {
-                                                  Name = name
-                                              });
+            const string name = "Voorland";
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(12.34, 56.78), new Point2D[0],
+                                                        null, new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Name = name
+                                                        });
 
             // Call
-            var properties = new DikeProfileProperties
+            var properties = new ForeshoreProfileProperties
             {
-                Data = dikeProfile
+                Data = foreshoreProfile
             };
 
             // Assert
@@ -72,51 +71,48 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, properties.Orientation.Value);
-            Assert.AreSame(dikeProfile.ForeshoreProfile, properties.BreakWater.Data);
-            Assert.AreSame(dikeProfile.ForeshoreProfile, properties.Foreshore.Data);
-            Assert.AreSame(dikeProfile, properties.DikeGeometry.Data);
-            Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, properties.DikeHeight.Value);
+            Assert.AreSame(foreshoreProfile, properties.BreakWater.Data);
+            Assert.AreEqual(foreshoreProfile, properties.Foreshore.Data);
         }
 
         [Test]
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
+                                                        null, new ForeshoreProfile.ConstructionProperties());
 
             // Call
-            var properties = new DikeProfileProperties
+            var properties = new ForeshoreProfileProperties
             {
-                Data = dikeProfile
+                Data = foreshoreProfile
             };
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsNotNull(nameProperty);
             Assert.IsTrue(nameProperty.IsReadOnly);
             Assert.AreEqual("Algemeen", nameProperty.Category);
             Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("Naam van het dijkprofiel.", nameProperty.Description);
+            Assert.AreEqual("Naam van het voorland.", nameProperty.Description);
 
             PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
             Assert.IsNotNull(worldReferencePointProperty);
             Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
             Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
+            Assert.AreEqual("De coördinaten van de locatie van het voorland in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
             Assert.IsTrue(orientationProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van de dijk.", orientationProperty.Description);
+            Assert.AreEqual("Oriëntatie van het voorland.", orientationProperty.Description);
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
             Assert.IsNotNull(breakWaterProperty);
@@ -126,28 +122,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de dam.", breakWaterProperty.Description);
 
-            PropertyDescriptor foreshoreProperty = dynamicProperties[foreshorePropertyIndex];
+            PropertyDescriptor foreshoreProperty = dynamicProperties[foreshoreGeometryPropertyIndex];
             Assert.IsNotNull(foreshoreProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(foreshoreProperty.Converter);
             Assert.IsTrue(foreshoreProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", foreshoreProperty.Category);
             Assert.AreEqual("Voorlandgeometrie", foreshoreProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreProperty.Description);
-
-            PropertyDescriptor dikeGeometryProperty = dynamicProperties[dikeGeometryPropertyIndex];
-            Assert.IsNotNull(dikeGeometryProperty);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(dikeGeometryProperty.Converter);
-            Assert.IsTrue(dikeGeometryProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", dikeGeometryProperty.Category);
-            Assert.AreEqual("Dijkgeometrie", dikeGeometryProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de dijkgeometrie.", dikeGeometryProperty.Description);
-
-            PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightPropertyIndex];
-            Assert.IsNotNull(dikeHeightProperty);
-            Assert.IsTrue(dikeHeightProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
-            Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dijk.", dikeHeightProperty.Description);
         }
     }
 }

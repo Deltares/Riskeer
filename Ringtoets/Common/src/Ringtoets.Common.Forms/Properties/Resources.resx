@@ -502,7 +502,67 @@
   <data name="DikeProfile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DikeProfile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="BreakWaterHeight_Description" xml:space="preserve">
+    <value>De hoogte van de dam.</value>
+  </data>
+  <data name="BreakWaterHeight_DisplayName" xml:space="preserve">
+    <value>Hoogte [m+NAP]</value>
+  </data>
+  <data name="BreakWaterProperties_Description" xml:space="preserve">
+    <value>Eigenschappen van de dam.</value>
+  </data>
+  <data name="BreakWaterProperties_DisplayName" xml:space="preserve">
+    <value>Dam</value>
+  </data>
+  <data name="BreakWaterType_Description" xml:space="preserve">
+    <value>Het type van de dam.</value>
+  </data>
+  <data name="BreakWaterType_DisplayName" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="BreakWater_HasBreakWater_Description" xml:space="preserve">
+    <value>Is er een dam aanwezig?</value>
+  </data>
+  <data name="BreakWater_HasBreakWater_DisplayName" xml:space="preserve">
+    <value>Aanwezig</value>
+  </data>
+  <data name="Categories_Schematisation" xml:space="preserve">
+    <value>Schematisatie</value>
+  </data>
+  <data name="ForeshoreProfilesContext_DisplayName" xml:space="preserve">
+    <value>Voorlanden</value>
+  </data>
+  <data name="ForeshoreProfile_Name_Description" xml:space="preserve">
+    <value>Naam van het voorland.</value>
+  </data>
+  <data name="Geometry_Coordinates_Description" xml:space="preserve">
+    <value>Lijst met punten in lokale coördinaten.</value>
+  </data>
+  <data name="Geometry_Coordinates_DisplayName" xml:space="preserve">
+    <value>Coördinaten [m]</value>
+  </data>
+  <data name="Orientation_DisplayName" xml:space="preserve">
+    <value>Oriëntatie [°]</value>
+  </data>
+  <data name="Orientation_ForeshoreProfile_Description" xml:space="preserve">
+    <value>Oriëntatie van het voorland.</value>
+  </data>
+  <data name="Profile_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="WorldReferencePoint_DisplayName" xml:space="preserve">
+    <value>Locatie (RD) [m]</value>
+  </data>
+  <data name="WorldReferencePoint_ForeshoreProfile_Description" xml:space="preserve">
+    <value>De coördinaten van de locatie van het voorland in het Rijksdriehoeksstelsel.</value>
+  </data>
   <data name="CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_" xml:space="preserve">
     <value>Berekeningen konden niet worden gestart. {0}</value>
+  </data>
+  <data name="ForeshoreProperties_Description" xml:space="preserve">
+    <value>Eigenschappen van de voorlandgeometrie.</value>
+  </data>
+  <data name="ForeshoreProperties_DisplayName" xml:space="preserve">
+    <value>Voorlandgeometrie</value>
   </data>
 </root>

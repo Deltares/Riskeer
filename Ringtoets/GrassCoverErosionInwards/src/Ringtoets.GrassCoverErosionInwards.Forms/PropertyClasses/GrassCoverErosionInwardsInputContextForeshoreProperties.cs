@@ -29,6 +29,7 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
@@ -59,8 +60,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(coordinatesPropertyIndex)]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
-        [ResourcesDisplayName(typeof(Resources), "Geometry_Coordinates_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Geometry_Coordinates_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Geometry_Coordinates_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Geometry_Coordinates_Description")]
         public Point2D[] Coordinates
         {
             get

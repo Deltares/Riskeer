@@ -41,6 +41,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -198,7 +199,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(11, propertyInfos.Length);
+                Assert.AreEqual(12, propertyInfos.Length);
 
                 PropertyInfo ringtoetsProjectProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <IProject, RingtoetsProjectProperties>(propertyInfos);
@@ -265,6 +266,12 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(waveHeightLocationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(waveHeightLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationContextProperties.AfterCreate);
+
+                PropertyInfo forshoreProfileProperties = PluginTestHelper.AssertPropertyInfoDefined
+                    <ForeshoreProfile, ForeshoreProfileProperties>(propertyInfos);
+                Assert.IsNull(forshoreProfileProperties.AdditionalDataCheck);
+                Assert.IsNull(forshoreProfileProperties.GetObjectPropertiesData);
+                Assert.IsNull(forshoreProfileProperties.AfterCreate);
             }
         }
 
@@ -388,20 +395,13 @@ namespace Ringtoets.Integration.Plugin.Test
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.DynamicMultiMock<IGui>(typeof(IGui), typeof(IContextMenuBuilderProvider));
-            mocks.ReplayAll();
-
-            using (var plugin = new RingtoetsPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new RingtoetsPlugin())
             {
                 // Call
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(25, treeNodeInfos.Length);
+                Assert.AreEqual(26, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContext<IFailureMechanism>)));
@@ -412,6 +412,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DesignWaterLevelLocationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveHeightLocationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ForeshoreProfilesContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ForeshoreProfile)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>)));
@@ -428,7 +429,6 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityAssessmentOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsProject)));
             }
-            mocks.VerifyAll();
         }
 
         [Test]

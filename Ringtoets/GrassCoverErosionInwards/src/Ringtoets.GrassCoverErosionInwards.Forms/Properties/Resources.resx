@@ -142,33 +142,6 @@
   <data name="Categories_ModelSettings" xml:space="preserve">
     <value>Modelfactoren</value>
   </data>
-  <data name="Categories_Schematisation" xml:space="preserve">
-    <value>Schematisatie</value>
-  </data>
-  <data name="BreakWaterHeight_Description" xml:space="preserve">
-    <value>De hoogte van de dam.</value>
-  </data>
-  <data name="BreakWaterHeight_DisplayName" xml:space="preserve">
-    <value>Hoogte [m+NAP]</value>
-  </data>
-  <data name="BreakWaterProperties_Description" xml:space="preserve">
-    <value>Eigenschappen van de dam.</value>
-  </data>
-  <data name="BreakWaterProperties_DisplayName" xml:space="preserve">
-    <value>Dam</value>
-  </data>
-  <data name="BreakWaterType_Description" xml:space="preserve">
-    <value>Het type van de dam.</value>
-  </data>
-  <data name="BreakWaterType_DisplayName" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="BreakWater_HasBreakWater_Description" xml:space="preserve">
-    <value>Is er een dam aanwezig?</value>
-  </data>
-  <data name="BreakWater_HasBreakWater_DisplayName" xml:space="preserve">
-    <value>Aanwezig</value>
-  </data>
   <data name="BreakWater_UseBreakWater_Description" xml:space="preserve">
     <value>Moet de dam worden gebruikt tijdens de berekening?</value>
   </data>
@@ -180,12 +153,6 @@
   </data>
   <data name="DikeGeometryProperties_DisplayName" xml:space="preserve">
     <value>Dijkgeometrie</value>
-  </data>
-  <data name="Geometry_Coordinates_Description" xml:space="preserve">
-    <value>Lijst met punten in lokale coördinaten.</value>
-  </data>
-  <data name="Geometry_Coordinates_DisplayName" xml:space="preserve">
-    <value>Coördinaten [m]</value>
   </data>
   <data name="DikeGeometry_Roughness_Description" xml:space="preserve">
     <value>Lijst met de ruwheid van elk onderdeel.</value>
@@ -199,12 +166,6 @@
   <data name="DikeHeight_DisplayName" xml:space="preserve">
     <value>Dijkhoogte [m+NAP]</value>
   </data>
-  <data name="ForeshoreProperties_Description" xml:space="preserve">
-    <value>Eigenschappen van de voorlandgeometrie.</value>
-  </data>
-  <data name="ForeshoreProperties_DisplayName" xml:space="preserve">
-    <value>Voorlandgeometrie</value>
-  </data>
   <data name="Foreshore_UseForeshore_Description" xml:space="preserve">
     <value>Moet het voorland worden gebruikt tijdens de berekening?</value>
   </data>
@@ -214,14 +175,8 @@
   <data name="DikeProfile_Name_Description" xml:space="preserve">
     <value>Naam van het dijkprofiel.</value>
   </data>
-  <data name="DikeProfile_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="Orientation_Description" xml:space="preserve">
+  <data name="Orientation_DikeProfile_Description" xml:space="preserve">
     <value>Oriëntatie van de dijk.</value>
-  </data>
-  <data name="Orientation_DisplayName" xml:space="preserve">
-    <value>Oriëntatie [°]</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FbFactor_Description" xml:space="preserve">
     <value>De parameter 'Fb' die gebruikt wordt in de berekening.</value>
@@ -313,10 +268,7 @@
   <data name="GrassCoverErosionInwardsOutput_DikeHeight_DisplayName" xml:space="preserve">
     <value>HBN [m+NAP]</value>
   </data>
-  <data name="WorldReferencePoint_Description" xml:space="preserve">
+  <data name="WorldReferencePoint_DikeProfile_Description" xml:space="preserve">
     <value>De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel.</value>
-  </data>
-  <data name="WorldReferencePoint_DisplayName" xml:space="preserve">
-    <value>Locatie (RD) [m]</value>
   </data>
 </root>

@@ -26,14 +26,14 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DikeProfile.ForeshoreGeometry"/> for properties panel.
+    /// ViewModel of <see cref="ForeshoreProfile.ForeshoreGeometry"/> for properties panel.
     /// </summary>
-    public class DikeProfileForeshoreProperties : ObjectProperties<DikeProfile>
+    public class ForeshoreGeometryProperties : ObjectProperties<ForeshoreProfile>
     {
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         [ResourcesDisplayName(typeof(Resources), "Geometry_Coordinates_DisplayName")]

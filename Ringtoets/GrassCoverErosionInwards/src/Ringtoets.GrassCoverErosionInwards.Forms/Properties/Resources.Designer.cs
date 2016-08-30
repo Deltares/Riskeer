@@ -82,24 +82,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is er een dam aanwezig?.
-        /// </summary>
-        public static string BreakWater_HasBreakWater_Description {
-            get {
-                return ResourceManager.GetString("BreakWater_HasBreakWater_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aanwezig.
-        /// </summary>
-        public static string BreakWater_HasBreakWater_DisplayName {
-            get {
-                return ResourceManager.GetString("BreakWater_HasBreakWater_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Moet de dam worden gebruikt tijdens de berekening?.
         /// </summary>
         public static string BreakWater_UseBreakWater_Description {
@@ -114,60 +96,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string BreakWater_UseBreakWater_DisplayName {
             get {
                 return ResourceManager.GetString("BreakWater_UseBreakWater_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De hoogte van de dam..
-        /// </summary>
-        public static string BreakWaterHeight_Description {
-            get {
-                return ResourceManager.GetString("BreakWaterHeight_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hoogte [m+NAP].
-        /// </summary>
-        public static string BreakWaterHeight_DisplayName {
-            get {
-                return ResourceManager.GetString("BreakWaterHeight_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen van de dam..
-        /// </summary>
-        public static string BreakWaterProperties_Description {
-            get {
-                return ResourceManager.GetString("BreakWaterProperties_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dam.
-        /// </summary>
-        public static string BreakWaterProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("BreakWaterProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het type van de dam..
-        /// </summary>
-        public static string BreakWaterType_Description {
-            get {
-                return ResourceManager.GetString("BreakWaterType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type.
-        /// </summary>
-        public static string BreakWaterType_DisplayName {
-            get {
-                return ResourceManager.GetString("BreakWaterType_DisplayName", resourceCulture);
             }
         }
         
@@ -232,15 +160,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string Categories_ModelSettings {
             get {
                 return ResourceManager.GetString("Categories_ModelSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Schematisatie.
-        /// </summary>
-        public static string Categories_Schematisation {
-            get {
-                return ResourceManager.GetString("Categories_Schematisation", resourceCulture);
             }
         }
         
@@ -353,15 +272,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string DikeProfile_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeProfile_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Voorland.
         /// </summary>
         public static string Foreshore_DisplayName {
@@ -385,42 +295,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         public static string Foreshore_UseForeshore_DisplayName {
             get {
                 return ResourceManager.GetString("Foreshore_UseForeshore_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen van de voorlandgeometrie..
-        /// </summary>
-        public static string ForeshoreProperties_Description {
-            get {
-                return ResourceManager.GetString("ForeshoreProperties_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voorlandgeometrie.
-        /// </summary>
-        public static string ForeshoreProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("ForeshoreProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lijst met punten in lokale coördinaten..
-        /// </summary>
-        public static string Geometry_Coordinates_Description {
-            get {
-                return ResourceManager.GetString("Geometry_Coordinates_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coördinaten [m].
-        /// </summary>
-        public static string Geometry_Coordinates_DisplayName {
-            get {
-                return ResourceManager.GetString("Geometry_Coordinates_DisplayName", resourceCulture);
             }
         }
         
@@ -656,36 +530,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Oriëntatie van de dijk..
         /// </summary>
-        public static string Orientation_Description {
+        public static string Orientation_DikeProfile_Description {
             get {
-                return ResourceManager.GetString("Orientation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Oriëntatie [°].
-        /// </summary>
-        public static string Orientation_DisplayName {
-            get {
-                return ResourceManager.GetString("Orientation_DisplayName", resourceCulture);
+                return ResourceManager.GetString("Orientation_DikeProfile_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel..
         /// </summary>
-        public static string WorldReferencePoint_Description {
+        public static string WorldReferencePoint_DikeProfile_Description {
             get {
-                return ResourceManager.GetString("WorldReferencePoint_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie (RD) [m].
-        /// </summary>
-        public static string WorldReferencePoint_DisplayName {
-            get {
-                return ResourceManager.GetString("WorldReferencePoint_DisplayName", resourceCulture);
+                return ResourceManager.GetString("WorldReferencePoint_DikeProfile_Description", resourceCulture);
             }
         }
     }

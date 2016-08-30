@@ -24,37 +24,37 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DikeProfileBreakWaterPropertiesTest
+    public class BreakWaterPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup & Call
-            var properties = new DikeProfileBreakWaterProperties();
+            var properties = new BreakWaterProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<DikeProfile>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ForeshoreProfile>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual(string.Empty, properties.ToString());
         }
 
         [Test]
-        public void Data_SetDikeProfileInstanceWithBreakWater_ReturnCorrectPropertyValues()
+        public void Data_SetForeshoreProfileInstanceWithBreakWater_ReturnCorrectPropertyValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
                                               new BreakWater(BreakWaterType.Wall, 10.0),
-                                              new DikeProfile.ConstructionProperties());
+                                              new ForeshoreProfile.ConstructionProperties());
 
-            var properties = new DikeProfileBreakWaterProperties();
+            var properties = new BreakWaterProperties();
 
             // Call
-            properties.Data = dikeProfile;
+            properties.Data = foreshoreProfile;
 
             // Assert
             Assert.IsTrue(properties.HasBreakWater);
@@ -63,33 +63,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetDikeProfileInstanceWithoutBreakWater_ReturnCorrectPropertyValues()
+        public void Data_SetForeshoreProfileInstanceWithoutBreakWater_ReturnCorrectPropertyValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
+                                              null, new ForeshoreProfile.ConstructionProperties());
 
-            var properties = new DikeProfileBreakWaterProperties();
+            var properties = new BreakWaterProperties();
 
             // Call
-            properties.Data = dikeProfile;
+            properties.Data = foreshoreProfile;
 
             // Assert
             Assert.IsFalse(properties.HasBreakWater);
         }
 
         [Test]
-        public void PropertyAttributes_SetDikeProfileInstanceWithBreakWater_ReturnExpectedValues()
+        public void PropertyAttributes_SetForeshoreProfileInstanceWithBreakWater_ReturnExpectedValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
                                               new BreakWater(BreakWaterType.Caisson, 10.0),
-                                              new DikeProfile.ConstructionProperties());
+                                              new ForeshoreProfile.ConstructionProperties());
 
             // Call
-            var properties = new DikeProfileBreakWaterProperties
+            var properties = new BreakWaterProperties
             {
-                Data = dikeProfile
+                Data = foreshoreProfile
             };
 
             // Assert
@@ -119,16 +119,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PropertyAttributes_SetDikeProfileInstanceWithoutBreakWater_ReturnExpectedValues()
+        public void PropertyAttributes_SetForeshoreProfileInstanceWithoutBreakWater_ReturnExpectedValues()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
+                                              null, new ForeshoreProfile.ConstructionProperties());
 
             // Call
-            var properties = new DikeProfileBreakWaterProperties
+            var properties = new BreakWaterProperties
             {
-                Data = dikeProfile
+                Data = foreshoreProfile
             };
 
             // Assert

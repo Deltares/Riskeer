@@ -22,15 +22,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Asphalt.Data;
 using Ringtoets.Asphalt.Forms.PresentationObjects;
 using Ringtoets.Asphalt.Forms.PropertyClasses;
 using Ringtoets.Asphalt.Forms.Views;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Asphalt.Plugin.Test
@@ -50,7 +55,7 @@ namespace Ringtoets.Asphalt.Plugin.Test
         }
 
         [Test]
-        public void GetPropertiesInfos_ReturnSupportedPropertyInfos()
+        public void GetPropertiesInfos_ReturnsSupportedPropertyClasses()
         {
             // Setup
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
@@ -61,9 +66,11 @@ namespace Ringtoets.Asphalt.Plugin.Test
                 // Assert
                 Assert.AreEqual(1, propertyInfos.Length);
 
-                PluginTestHelper.AssertPropertyInfoDefined<
-                    WaveImpactAsphaltCoverFailureMechanismContext,
-                    WaveImpactAsphaltCoverFailureMechanismContextProperties>(propertyInfos);
+                PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined
+                    <WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismContextProperties>(propertyInfos);
+                Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
+                Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(failureMechanismContextProperties.AfterCreate);
             }
         }
 
@@ -99,6 +106,21 @@ namespace Ringtoets.Asphalt.Plugin.Test
                 Assert.AreEqual(2, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>)));
+            }
+        }
+
+        [Test]
+        public void GetImportInfos_Always_ReturnsExpectedImportInfos()
+        {
+            // Setup
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.AreEqual(typeof(ForeshoreProfilesContext), importInfos[0].DataType);
             }
         }
     }

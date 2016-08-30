@@ -93,15 +93,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new GrassCoverErosionInwardsPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 // call
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
@@ -119,24 +111,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsOutput)));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-
-            mocks.ReplayAll();
-
-            using (var plugin = new GrassCoverErosionInwardsPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -148,22 +129,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsInputView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsScenariosView)));
             }
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetImportInfos_Always_ReturnsExpectedImportInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new GrassCoverErosionInwardsPlugin
-            {
-                Gui = guiStub
-            })
+            using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
                 // Call
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
@@ -172,7 +144,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.AreEqual(1, importInfos.Length);
                 Assert.AreEqual(typeof(DikeProfilesContext), importInfos[0].DataType);
             }
-            mocks.VerifyAll();
         }
     }
 }

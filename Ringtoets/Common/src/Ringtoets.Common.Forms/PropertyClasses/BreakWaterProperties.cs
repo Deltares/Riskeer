@@ -26,14 +26,14 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DikeProfile.BreakWater"/> for properties panel.
+    /// ViewModel of <see cref="ForeshoreProfile.BreakWater"/> for properties panel.
     /// </summary>
-    public class DikeProfileBreakWaterProperties : ObjectProperties<DikeProfile>
+    public class BreakWaterProperties : ObjectProperties<ForeshoreProfile>
     {
         [PropertyOrder(1)]
         [ResourcesDisplayName(typeof(Resources), "BreakWater_HasBreakWater_DisplayName")]

@@ -41,6 +41,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.GuiServices;
@@ -274,6 +275,7 @@ namespace Ringtoets.Integration.Plugin
                 GetObjectPropertiesData = context => context.WrappedData.HydraulicBoundaryDatabase
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
+            yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
         }
 
         /// <summary>
@@ -545,6 +547,15 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<ForeshoreProfile>
+            {
+                Text = foreshoreProfile => foreshoreProfile.Name,
+                Image = context => Resources.Foreshore,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 

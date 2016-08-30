@@ -34,6 +34,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.Data;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
@@ -55,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(dikeProfilePropertyIndex)]
         [Editor(typeof(GrassCoverErosionInwardsInputContextDikeProfileEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeProfile_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeProfile_Description")]
         public DikeProfile DikeProfile
@@ -73,9 +74,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(worldReferencePointPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "WorldReferencePoint_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WorldReferencePoint_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "WorldReferencePoint_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WorldReferencePoint_DikeProfile_Description")]
         public Point2D WorldReferencePoint
         {
             get
@@ -89,9 +90,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(orientationPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "Orientation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Orientation_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Orientation_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Orientation_DikeProfile_Description")]
         public RoundedDouble Orientation
         {
             get
@@ -107,9 +108,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(breakWaterPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWaterProperties_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_Description")]
         public GrassCoverErosionInwardsInputContextBreakWaterProperties BreakWater
         {
             get
@@ -123,9 +124,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(foreshorePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
-        [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematisation")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_Description")]
         public GrassCoverErosionInwardsInputContextForeshoreProperties Foreshore
         {
             get
@@ -139,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(dikeGeometryPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeGeometryProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeGeometryProperties_Description")]
         public GrassCoverErosionInwardsInputContextDikeGeometryProperties DikeGeometry
@@ -155,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(dikeHeightPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "DikeHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "DikeHeight_Description")]
         public RoundedDouble DikeHeight
@@ -172,7 +173,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(calculateDikeHeightPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematisation")]
         [ResourcesDisplayName(typeof(Resources), "CalculateDikeHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "CalculateDikeHeight_Description")]
         public bool CalculateDikeHeight

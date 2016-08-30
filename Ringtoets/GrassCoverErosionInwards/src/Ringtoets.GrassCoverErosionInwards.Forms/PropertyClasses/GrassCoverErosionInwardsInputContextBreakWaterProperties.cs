@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 {
@@ -57,8 +58,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(2)]
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWaterType_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "BreakWaterType_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "BreakWaterType_Description")]
         [TypeConverter(typeof(EnumTypeConverter))]
         public BreakWaterType BreakWaterType
         {
@@ -75,8 +76,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(3)]
-        [ResourcesDisplayName(typeof(Resources), "BreakWaterHeight_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "BreakWaterHeight_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "BreakWaterHeight_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "BreakWaterHeight_Description")]
         public RoundedDouble BreakWaterHeight
         {
             get

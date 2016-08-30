@@ -69,8 +69,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\BreakWaterProperties.cs" />
+    <Compile Include="PropertyClasses\ForeshoreGeometryProperties.cs" />
     <Compile Include="PropertyClasses\DistributionProperties.cs" />
     <Compile Include="PropertyClasses\DistributionPropertiesReadOnly.cs" />
+    <Compile Include="PropertyClasses\ForeshoreProfileProperties.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionVariationProperties.cs" />
     <Compile Include="PropertyClasses\NormalDistributionVariationProperties.cs" />
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
