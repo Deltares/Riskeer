@@ -112,7 +112,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 Assert.NotNull(normControl);
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
-                Assert.AreEqual(300000, normControl.Maximum);
+                Assert.AreEqual(1000000, normControl.Maximum);
                 Assert.AreEqual(100, normControl.Minimum);
             }
         }
