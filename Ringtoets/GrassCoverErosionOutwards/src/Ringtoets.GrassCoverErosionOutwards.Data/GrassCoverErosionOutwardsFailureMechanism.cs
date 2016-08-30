@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -47,6 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
             HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GrassCoverErosionOutwardsHydraulicBoundaryLocations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
+            ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -71,6 +73,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// Gets the container of all hydraulic boundary calculations.
         /// </summary>
         public CalculationGroup HydraulicBoundariesCalculationGroup { get; private set; }
+
+        /// <summary>
+        /// Gets the available foreshore profiles for this instance.
+        /// </summary>
+        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
 
         public IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> SectionResults
         {

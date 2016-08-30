@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
@@ -45,6 +48,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.IsFalse(failureMechanism.HydraulicBoundariesCalculationGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundariesCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
+
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+            Assert.IsInstanceOf<IList<ForeshoreProfile>>(failureMechanism.ForeshoreProfiles);
+            Assert.IsInstanceOf<IObservable>(failureMechanism.ForeshoreProfiles);
         }
 
         [Test]

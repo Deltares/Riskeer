@@ -187,12 +187,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(2, inputsFolder.Contents.Count);
+            Assert.AreEqual(3, inputsFolder.Contents.Count);
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[1];
+            var foreshoreProfilesContext = (ForeshoreProfilesContext)inputsFolder.Contents[1];
+            Assert.AreSame(failureMechanism.ForeshoreProfiles, foreshoreProfilesContext.WrappedData);
+            Assert.AreSame(assessmentSection, foreshoreProfilesContext.ParentAssessmentSection);
+
+            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
             var hydraulicBoundariesGroupContext = (HydraulicBoundariesGroupContext) children[1];
