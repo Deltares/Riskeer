@@ -21,10 +21,10 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.StabilityStoneCover.Service.Test
+namespace Ringtoets.Revetment.Service.Test
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationServiceOutputTest
+    public class WaveConditionsCalculationServiceOutputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -35,7 +35,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             double waveOrientation = 2.902;
 
             // Call
-            var output = new StabilityStoneCoverWaveConditionsCalculationServiceOutput(waveHeight, wavePeriod, waveOrientation);
+            var output = new WaveConditionsCalculationServiceOutput(waveHeight, wavePeriod, waveOrientation);
 
             // Assert
             Assert.AreEqual(waveHeight, output.WaveHeight);

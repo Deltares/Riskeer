@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
+using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service.Test
@@ -47,7 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivity<StabilityStoneCoverWaveConditionsCalculationServiceOutput>>(activity);
+            Assert.IsInstanceOf<HydraRingActivity<WaveConditionsCalculationServiceOutput>>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual(calculation.Name, activity.Name);

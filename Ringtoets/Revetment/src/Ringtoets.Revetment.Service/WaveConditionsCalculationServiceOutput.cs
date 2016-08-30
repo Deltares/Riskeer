@@ -19,20 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.StabilityStoneCover.Service
+namespace Ringtoets.Revetment.Service
 {
     /// <summary>
     /// Class containing the results for the stability stone cover wave conditions calculation.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationServiceOutput
+    public class WaveConditionsCalculationServiceOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculationServiceOutput"/>.
+        /// Creates a new instance of <see cref="WaveConditionsCalculationServiceOutput"/>.
         /// </summary>
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="wavePeriod">The calculated wave period.</param>
         /// <param name="waveOrientation">The calculated wave orientation.</param>
-        public StabilityStoneCoverWaveConditionsCalculationServiceOutput(double waveHeight, double wavePeriod, double waveOrientation)
+        public WaveConditionsCalculationServiceOutput(double waveHeight, double wavePeriod, double waveOrientation)
         {
             WaveHeight = waveHeight;
             WavePeriod = wavePeriod;
