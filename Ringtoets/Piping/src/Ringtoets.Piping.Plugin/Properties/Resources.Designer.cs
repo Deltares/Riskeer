@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrondschematisaties importeren afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to Stochastische ondergrondmodellen importeren afgebroken. Geen data ingelezen..
         /// </summary>
         public static string PipingSoilProfilesImporter_Import_Import_cancelled {
             get {

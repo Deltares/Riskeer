@@ -199,7 +199,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;a&apos; die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans..
+        ///   Looks up a localized string similar to De parameter &apos;a&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
         /// </summary>
         public static string GeneralPipingInput_A_Description {
             get {
@@ -217,7 +217,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;b&apos; die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans..
+        ///   Looks up a localized string similar to De parameter &apos;b&apos; die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans..
         /// </summary>
         public static string GeneralPipingInput_B_Description {
             get {
@@ -635,11 +635,11 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De verzameling van ondergrondschematisaties.
+        ///   Looks up a localized string similar to De verzameling van stochastische ondergrondmodellen.
         /// </summary>
-        public static string PipingContext_DataDescription_Soilprofiles {
+        public static string PipingContext_DataDescription_StochasticSoilModels {
             get {
-                return ResourceManager.GetString("PipingContext_DataDescription_Soilprofiles", resourceCulture);
+                return ResourceManager.GetString("PipingContext_DataDescription_StochasticSoilModels", resourceCulture);
             }
         }
         
