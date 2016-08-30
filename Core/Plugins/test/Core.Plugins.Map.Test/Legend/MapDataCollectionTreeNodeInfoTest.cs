@@ -305,10 +305,11 @@ namespace Core.Plugins.Map.Test.Legend
                 mocks.ReplayAll();
 
                 // Call
-                var contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl);
-
-                // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.MapPlusIcon);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.MapPlusIcon);
+                }
             }
         }
     }

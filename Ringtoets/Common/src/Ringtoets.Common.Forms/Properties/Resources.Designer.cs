@@ -755,6 +755,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voorlanden.
+        /// </summary>
+        public static string Foreshores_DisplayName {
+            get {
+                return ResourceManager.GetString("Foreshores_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap GeneralFolderIcon {
@@ -1018,15 +1027,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported {
             get {
                 return ResourceManager.GetString("Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voorlanden.
-        /// </summary>
-        public static string Plugin_ForeShores_DisplayName {
-            get {
-                return ResourceManager.GetString("Plugin_ForeShores_DisplayName", resourceCulture);
             }
         }
         

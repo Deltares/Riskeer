@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
-            // Assert expectacies are called in TearDown()
+            // Assert expectancies are called in TearDown()
         }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -187,11 +188,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     plugin.Gui = guiMock;
 
                     // Call
-                    var contextMenu = info.ContextMenuStrip(project, null, treeViewControl);
-
-                    const string expectedItemText = "T&raject toevoegen...";
-                    const string expectedItemTooltip = "Voeg een nieuw traject toe aan het project.";
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.AddAssessmentSectionFolder);
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(project, null, treeViewControl))
+                    {
+                        const string expectedItemText = "T&raject toevoegen...";
+                        const string expectedItemTooltip = "Voeg een nieuw traject toe aan het project.";
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.AddAssessmentSectionFolder);
+                    }
                 }
             }
             // Assert

@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -186,12 +187,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(2, inputsFolder.Contents.Count);
+            Assert.AreEqual(3, inputsFolder.Contents.Count);
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[1];
+            var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
+            Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
+            Assert.AreSame(assessmentSection, profilesContext.ParentAssessmentSection);
+
+            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
             var hydraulicBoundariesCalculationGroup = (StabilityStoneCoverHydraulicBoundariesCalculationGroupContext) children[1];
@@ -336,13 +341,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
 
-                // Call
-                contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                // Assert
-                Assert.IsFalse(failureMechanism.IsRelevant);
+                    // Assert
+                    Assert.IsFalse(failureMechanism.IsRelevant);
+                }
             }
         }
 
@@ -374,13 +380,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
 
-                // Call
-                contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                // Assert
-                Assert.IsTrue(failureMechanism.IsRelevant);
+                    // Assert
+                    Assert.IsTrue(failureMechanism.IsRelevant);
+                }
             }
         }
 

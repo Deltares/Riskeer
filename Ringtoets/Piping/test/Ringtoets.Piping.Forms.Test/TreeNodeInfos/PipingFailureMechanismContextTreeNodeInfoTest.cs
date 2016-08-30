@@ -256,8 +256,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.ElementAt(0).Attach(observer);
                 failureMechanism.CalculationsGroup.Children.ElementAt(1).Attach(observer);
 
-                ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-
                 string messageBoxTitle = null, messageBoxText = null;
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -276,17 +274,20 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     }
                 };
 
-                // When
-                contextMenuAdapter.Items[contextMenuClearIndex].PerformClick();
-
-                // Then
-                foreach (var calc in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
-                    Assert.AreNotEqual(confirm, calc.HasOutput);
-                }
+                    // When
+                    contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
 
-                Assert.AreEqual("Bevestigen", messageBoxTitle);
-                Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+                    // Then
+                    foreach (var calc in failureMechanism.CalculationsGroup.Children.OfType<ICalculation>())
+                    {
+                        Assert.AreNotEqual(confirm, calc.HasOutput);
+                    }
+
+                    Assert.AreEqual("Bevestigen", messageBoxTitle);
+                    Assert.AreEqual("Weet u zeker dat u alle uitvoer wilt wissen?", messageBoxText);
+                }
             }
         }
 
@@ -330,31 +331,32 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-
-                // Assert
-                Assert.AreEqual(12, menu.Items.Count);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, 0, CoreCommonGuiResources.Open, CoreCommonGuiResources.Open_ToolTip, CoreCommonGuiResources.OpenIcon, false);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, 2, RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant, RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, RingtoetsCommonFormsResources.Checkbox_ticked);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, 4, RingtoetsCommonFormsResources.Validate_all, RingtoetsCommonFormsResources.FailureMechanism_Validate_all_ToolTip, RingtoetsCommonFormsResources.ValidateAllIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 5, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 6, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, 8, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 9, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, false);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, 11, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesHS, false);
-
-                CollectionAssert.AllItemsAreInstancesOfType(new[]
+                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
-                    menu.Items[1],
-                    menu.Items[3],
-                    menu.Items[7],
-                    menu.Items[10]
-                }, typeof(ToolStripSeparator));
+                    // Assert
+                    Assert.AreEqual(12, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 0, CoreCommonGuiResources.Open, CoreCommonGuiResources.Open_ToolTip, CoreCommonGuiResources.OpenIcon, false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 2, RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant, RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip, RingtoetsCommonFormsResources.Checkbox_ticked);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 4, RingtoetsCommonFormsResources.Validate_all, RingtoetsCommonFormsResources.FailureMechanism_Validate_all_ToolTip, RingtoetsCommonFormsResources.ValidateAllIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 5, RingtoetsCommonFormsResources.Calculate_all, RingtoetsCommonFormsResources.Calculate_all_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 6, RingtoetsCommonFormsResources.Clear_all_output, RingtoetsCommonFormsResources.Clear_all_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 8, CoreCommonGuiResources.Expand_all, CoreCommonGuiResources.Expand_all_ToolTip, CoreCommonGuiResources.ExpandAllIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 9, CoreCommonGuiResources.Collapse_all, CoreCommonGuiResources.Collapse_all_ToolTip, CoreCommonGuiResources.CollapseAllIcon, false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 11, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesHS, false);
+
+                    CollectionAssert.AllItemsAreInstancesOfType(new[]
+                    {
+                        menu.Items[1],
+                        menu.Items[3],
+                        menu.Items[7],
+                        menu.Items[10]
+                    }, typeof(ToolStripSeparator));
+                }
             }
         }
 
@@ -380,12 +382,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-
-                // Assert
-                ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-                Assert.IsFalse(clearOutputItem.Enabled);
-                Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+                    Assert.IsFalse(clearOutputItem.Enabled);
+                    Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
+                }
             }
         }
 
@@ -418,12 +421,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 // Call
-                ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-
-                // Assert
-                ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-                Assert.IsTrue(clearOutputItem.Enabled);
-                Assert.AreEqual(RingtoetsCommonFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
+                    Assert.IsTrue(clearOutputItem.Enabled);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.Clear_all_output_ToolTip, clearOutputItem.ToolTipText);
+                }
             }
         }
 
@@ -450,15 +454,16 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Clear();
 
                 // Call
-                ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-
-                // Assert
-                ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndex];
-                ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
-                Assert.IsFalse(validateItem.Enabled);
-                Assert.IsFalse(calculateItem.Enabled);
-                Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
-                Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndex];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndex];
+                    Assert.IsFalse(validateItem.Enabled);
+                    Assert.IsFalse(calculateItem.Enabled);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+                }
             }
         }
 
@@ -566,23 +571,24 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-
-                // Call
-                Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(9, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
+                    // Call
+                    Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
 
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", invalidCalculation.Name), msgs[2]);
-                    // Some validation error from validation service
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
-                });
+                    // Assert
+                    TestHelper.AssertLogMessages(call, messages =>
+                    {
+                        var msgs = messages.ToArray();
+                        Assert.AreEqual(9, msgs.Length);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", validCalculation.Name), msgs[0]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", validCalculation.Name), msgs[1]);
+
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", invalidCalculation.Name), msgs[2]);
+                        // Some validation error from validation service
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", invalidCalculation.Name), msgs[8]);
+                    });
+                }
             }
         }
 
@@ -622,15 +628,16 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-
                 DialogBoxHandler = (name, wnd) =>
                 {
                     // Expect an activity dialog which is automatically closed
                 };
 
-                // Call
-                contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+                }
             }
 
             // Assert
@@ -668,13 +675,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
 
-                // Call
-                contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                // Assert
-                Assert.IsFalse(failureMechanism.IsRelevant);
+                    // Assert
+                    Assert.IsFalse(failureMechanism.IsRelevant);
+                }
             }
         }
 
@@ -705,13 +713,14 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
 
-                // Call
-                contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                // Assert
-                Assert.IsTrue(failureMechanism.IsRelevant);
+                    // Assert
+                    Assert.IsTrue(failureMechanism.IsRelevant);
+                }
             }
         }
 

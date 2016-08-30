@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -372,12 +373,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     var info = GetInfo(plugin);
 
                     // Call
-                    var menu = info.ContextMenuStrip(context, assessmentSection, treeView);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndex,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
-                                                                  RingtoetsCommonFormsResources.Checkbox_ticked);
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
+                    {
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndex,
+                                                                      RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
+                                                                      RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                                      RingtoetsCommonFormsResources.Checkbox_ticked);
+                    }
                 }
 
                 // Assert
@@ -422,13 +424,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                     var info = GetInfo(plugin);
 
-                    var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                    {
+                        // Call
+                        contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
 
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
-
-                    // Assert
-                    Assert.IsFalse(failureMechanism.IsRelevant);
+                        // Assert
+                        Assert.IsFalse(failureMechanism.IsRelevant);
+                    }
                 }
             }
             mocks.VerifyAll();
@@ -468,13 +471,14 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                     var info = GetInfo(plugin);
 
-                    var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                    using (var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                    {
+                        // Call
+                        contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
 
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndex].PerformClick();
-
-                    // Assert
-                    Assert.IsTrue(failureMechanism.IsRelevant);
+                        // Assert
+                        Assert.IsTrue(failureMechanism.IsRelevant);
+                    }
                 }
             }
             mocks.VerifyAll();

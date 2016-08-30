@@ -177,14 +177,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     plugin.Gui = guiMock;
 
                     // Call
-                    ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // Assert
+                        const string expectedItemText = "Alles be&rekenen";
+                        const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.";
 
-                    // Assert
-                    const string expectedItemText = "Alles be&rekenen";
-                    const string expectedItemTooltip = "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de toetspeilen te berekenen.";
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunAssessmentLevelCalculationsIndex,
-                                                                  expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunAssessmentLevelCalculationsIndex,
+                                                                      expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
+                    }
                 }
             }
 
@@ -215,14 +216,15 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     plugin.Gui = guiMock;
 
                     // Call
-                    ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // Assert
+                        const string expectedItemText = @"Alles be&rekenen";
+                        const string expectedItemTooltip = @"Alle toetspeilen berekenen.";
 
-                    // Assert
-                    const string expectedItemText = @"Alles be&rekenen";
-                    const string expectedItemTooltip = @"Alle toetspeilen berekenen.";
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunAssessmentLevelCalculationsIndex,
-                                                                  expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon);
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunAssessmentLevelCalculationsIndex,
+                                                                      expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon);
+                    }
                 }
             }
 
@@ -274,20 +276,21 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     plugin.Gui = guiMock;
                     plugin.Activate();
 
-                    ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl);
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    {
+                        // When
+                        Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
 
-                    // When
-                    Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
+                        // Then
+                        string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+                                                       hydraulicBoundaryDatabase.FilePath);
+                        TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
 
-                    // Then
-                    string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
-                                                   hydraulicBoundaryDatabase.FilePath);
-                    TestHelper.AssertLogMessageWithLevelIsGenerated(action, new Tuple<string, LogLevelConstant>(message, LogLevelConstant.Error));
+                        Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
 
-                    Assert.IsNaN(hydraulicBoundaryLocation1.DesignWaterLevel); // No result set
-
-                    // Previous result not cleared
-                    Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation2.DesignWaterLevel, hydraulicBoundaryLocation2.DesignWaterLevel.GetAccuracy());
+                        // Previous result not cleared
+                        Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation2.DesignWaterLevel, hydraulicBoundaryLocation2.DesignWaterLevel.GetAccuracy());
+                    }
                 }
             }
             mockRepository.VerifyAll();

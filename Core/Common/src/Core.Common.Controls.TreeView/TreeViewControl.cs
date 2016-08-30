@@ -755,9 +755,7 @@ namespace Core.Common.Controls.TreeView
                     var parentTag = GetParentTag(selectedNode);
 
                     // Update the context menu (relevant in case of keyboard navigation in the tree view)
-                    selectedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                                        ? treeNodeInfo.ContextMenuStrip(selectedNode.Tag, parentTag, this)
-                                                        : null;
+                    UpdateContextMenuStrip(selectedNode, treeNodeInfo, parentTag);
 
                     if (treeView.ContextMenu != null && selectedNode.ContextMenuStrip != null)
                     {
@@ -823,9 +821,7 @@ namespace Core.Common.Controls.TreeView
                 var parentTag = GetParentTag(clickedNode);
 
                 // Update the context menu
-                clickedNode.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
-                                                   ? treeNodeInfo.ContextMenuStrip(clickedNode.Tag, parentTag, this)
-                                                   : null;
+                UpdateContextMenuStrip(clickedNode, treeNodeInfo, parentTag);
 
                 return;
             }
@@ -835,6 +831,17 @@ namespace Core.Common.Controls.TreeView
             {
                 clickedNode.Checked = !clickedNode.Checked;
             }
+        }
+
+        private void UpdateContextMenuStrip(TreeNode node, TreeNodeInfo treeNodeInfo, object parentTag)
+        {
+            if (node.ContextMenuStrip != null)
+            {
+                node.ContextMenuStrip.Dispose();
+            }
+            node.ContextMenuStrip = treeNodeInfo.ContextMenuStrip != null
+                                        ? treeNodeInfo.ContextMenuStrip(node.Tag, parentTag, this)
+                                        : null;
         }
 
         private bool IsOnCheckBox(Point point)

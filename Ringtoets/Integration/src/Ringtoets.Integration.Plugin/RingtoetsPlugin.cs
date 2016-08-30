@@ -529,6 +529,24 @@ namespace Ringtoets.Integration.Plugin
                 ContextMenuStrip = WaveHeightLocationsContextMenuStrip
             };
 
+            yield return new TreeNodeInfo<ForeshoreProfilesContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Foreshores_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ForeColor = context => context.WrappedData.Any() ?
+                                           Color.FromKnownColor(KnownColor.ControlText) :
+                                           Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = context => context.WrappedData
+                                                     .Cast<object>()
+                                                     .ToArray(),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
+                                                                                 .Build()
+            };
+
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();

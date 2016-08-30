@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -336,13 +337,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
 
-                // Call
-                contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                // Assert
-                Assert.IsFalse(failureMechanism.IsRelevant);
+                    // Assert
+                    Assert.IsFalse(failureMechanism.IsRelevant);
+                }
             }
         }
 
@@ -374,13 +376,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
 
-                // Call
-                contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                // Assert
-                Assert.IsTrue(failureMechanism.IsRelevant);
+                    // Assert
+                    Assert.IsTrue(failureMechanism.IsRelevant);
+                }
             }
         }
 

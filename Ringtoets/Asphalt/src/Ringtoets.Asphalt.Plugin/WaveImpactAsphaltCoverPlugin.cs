@@ -89,24 +89,6 @@ namespace Ringtoets.Asphalt.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<ForeshoreProfilesContext>
-            {
-                Text = context => RingtoetsCommonFormsResources.Plugin_ForeShores_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = context => context.WrappedData.Any() ?
-                                           Color.FromKnownColor(KnownColor.ControlText) :
-                                           Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = context => context.WrappedData
-                                                     .Cast<object>()
-                                                     .ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddImportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

@@ -1014,10 +1014,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                                                                                        });
 
                 // Call
-                ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSectionMock, treeView);
-
-                // Assert
-                Assert.AreSame(contextMenuStripRelevant, result);
+                using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSectionMock, treeView))
+                {
+                    // Assert
+                    Assert.AreSame(contextMenuStripRelevant, contextMenuStrip);
+                }
                 mocks.VerifyAll();
             }
         }
@@ -1058,10 +1059,11 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
                                                                                                                                        });
 
                 // Call
-                ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSectionMock, treeView);
-
-                // Assert
-                Assert.AreSame(contextMenuStripNotRelevant, result);
+                using (ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSectionMock, treeView))
+                {
+                    // Assert
+                    Assert.AreSame(contextMenuStripNotRelevant, result);
+                }
                 mocks.VerifyAll();
             }
         }

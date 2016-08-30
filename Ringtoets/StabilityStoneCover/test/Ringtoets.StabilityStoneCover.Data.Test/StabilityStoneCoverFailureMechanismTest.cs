@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.StabilityStoneCover.Data.Test
@@ -43,6 +46,10 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.AreEqual("Hydraulische randvoorwaarden", failureMechanism.HydraulicBoundariesCalculationGroup.Name);
             Assert.IsFalse(failureMechanism.HydraulicBoundariesCalculationGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundariesCalculationGroup.Children);
+
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+            Assert.IsInstanceOf<IObservable>(failureMechanism.ForeshoreProfiles);
+            Assert.IsInstanceOf<IList<ForeshoreProfile>>(failureMechanism.ForeshoreProfiles);
 
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);

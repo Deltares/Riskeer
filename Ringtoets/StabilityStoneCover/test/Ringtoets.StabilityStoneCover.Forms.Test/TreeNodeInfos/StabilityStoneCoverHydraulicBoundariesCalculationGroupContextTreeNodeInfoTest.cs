@@ -201,69 +201,70 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             plugin.Gui = gui;
 
             // Call
-            ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
-
-            // Assert
-            Assert.AreEqual(14, menu.Items.Count);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
-                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                          "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                                                          RingtoetsCommonFormsResources.AddFolderIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
-                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                          RingtoetsCommonFormsResources.FailureMechanismIcon,
-                                                          false);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
-                                                          RingtoetsCommonFormsResources.Validate_all,
-                                                          "Er zijn geen berekeningen om te valideren.",
-                                                          RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
-                                                          RingtoetsCommonFormsResources.Calculate_all,
-                                                          "Er zijn geen berekeningen om uit te voeren.",
-                                                          RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputNestedGroupIndex,
-                                                          "&Wis alle uitvoer...",
-                                                          "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                          RingtoetsCommonFormsResources.ClearIcon,
-                                                          false);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 7,
-                                                          CoreCommonGuiResources.Rename,
-                                                          CoreCommonGuiResources.Rename_ToolTip,
-                                                          CoreCommonGuiResources.RenameIcon);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 8,
-                                                          CoreCommonGuiResources.Delete,
-                                                          CoreCommonGuiResources.Delete_ToolTip,
-                                                          CoreCommonGuiResources.DeleteIcon);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 10,
-                                                          CoreCommonGuiResources.Expand_all,
-                                                          CoreCommonGuiResources.Expand_all_ToolTip,
-                                                          CoreCommonGuiResources.ExpandAllIcon,
-                                                          false);
-            TestHelper.AssertContextMenuStripContainsItem(menu, 11,
-                                                          CoreCommonGuiResources.Collapse_all,
-                                                          CoreCommonGuiResources.Collapse_all_ToolTip,
-                                                          CoreCommonGuiResources.CollapseAllIcon,
-                                                          false);
-
-            TestHelper.AssertContextMenuStripContainsItem(menu, 13,
-                                                          CoreCommonGuiResources.Properties,
-                                                          CoreCommonGuiResources.Properties_ToolTip,
-                                                          CoreCommonGuiResources.PropertiesHS,
-                                                          false);
-
-            CollectionAssert.AllItemsAreInstancesOfType(new[]
+            using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
-                menu.Items[2],
-                menu.Items[6],
-                menu.Items[9],
-                menu.Items[12]
-            }, typeof(ToolStripSeparator));
+                // Assert
+                Assert.AreEqual(14, menu.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                              "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                              RingtoetsCommonFormsResources.AddFolderIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                              "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                              RingtoetsCommonFormsResources.FailureMechanismIcon,
+                                                              false);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
+                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              "Er zijn geen berekeningen om te valideren.",
+                                                              RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              "Er zijn geen berekeningen om uit te voeren.",
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputNestedGroupIndex,
+                                                              "&Wis alle uitvoer...",
+                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
+                                                              RingtoetsCommonFormsResources.ClearIcon,
+                                                              false);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, 7,
+                                                              CoreCommonGuiResources.Rename,
+                                                              CoreCommonGuiResources.Rename_ToolTip,
+                                                              CoreCommonGuiResources.RenameIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 8,
+                                                              CoreCommonGuiResources.Delete,
+                                                              CoreCommonGuiResources.Delete_ToolTip,
+                                                              CoreCommonGuiResources.DeleteIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+                                                              CoreCommonGuiResources.Expand_all,
+                                                              CoreCommonGuiResources.Expand_all_ToolTip,
+                                                              CoreCommonGuiResources.ExpandAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 11,
+                                                              CoreCommonGuiResources.Collapse_all,
+                                                              CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                              CoreCommonGuiResources.CollapseAllIcon,
+                                                              false);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                                                              CoreCommonGuiResources.Properties,
+                                                              CoreCommonGuiResources.Properties_ToolTip,
+                                                              CoreCommonGuiResources.PropertiesHS,
+                                                              false);
+
+                CollectionAssert.AllItemsAreInstancesOfType(new[]
+                {
+                    menu.Items[2],
+                    menu.Items[6],
+                    menu.Items[9],
+                    menu.Items[12]
+                }, typeof(ToolStripSeparator));
+            }
         }
 
         [Test]
@@ -298,66 +299,67 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
-
-                // Assert
-                Assert.AreEqual(15, menu.Items.Count);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                              "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-                                                              RingtoetsCommonFormsResources.AddFolderIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                                                              "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                              RingtoetsCommonFormsResources.FailureMechanismIcon,
-                                                              false);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
-                                                              "Er zijn geen berekeningen of mappen om te verwijderen.",
-                                                              RingtoetsCommonFormsResources.RemoveAllIcon,
-                                                              false);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.Validate_all,
-                                                              "Er zijn geen berekeningen om te valideren.",
-                                                              RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.Calculate_all,
-                                                              "Er zijn geen berekeningen om uit te voeren.",
-                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
-                                                              "&Wis alle uitvoer...",
-                                                              "Er zijn geen berekeningen met uitvoer om te wissen.",
-                                                              RingtoetsCommonFormsResources.ClearIcon,
-                                                              false);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
-                                                              CoreCommonGuiResources.Expand_all,
-                                                              CoreCommonGuiResources.Expand_all_ToolTip,
-                                                              CoreCommonGuiResources.ExpandAllIcon,
-                                                              false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
-                                                              CoreCommonGuiResources.Collapse_all,
-                                                              CoreCommonGuiResources.Collapse_all_ToolTip,
-                                                              CoreCommonGuiResources.CollapseAllIcon,
-                                                              false);
-
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
-                                                              CoreCommonGuiResources.Properties,
-                                                              CoreCommonGuiResources.Properties_ToolTip,
-                                                              CoreCommonGuiResources.PropertiesHS,
-                                                              false);
-                CollectionAssert.AllItemsAreInstancesOfType(new[]
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    menu.Items[1],
-                    menu.Items[4],
-                    menu.Items[6],
-                    menu.Items[10],
-                    menu.Items[13]
-                }, typeof(ToolStripSeparator));
+                    // Assert
+                    Assert.AreEqual(15, menu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.AddFolderIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
+                                                                  "Er zijn geen berekeningen of mappen om te verwijderen.",
+                                                                  RingtoetsCommonFormsResources.RemoveAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.Validate_all,
+                                                                  "Er zijn geen berekeningen om te valideren.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.Calculate_all,
+                                                                  "Er zijn geen berekeningen om uit te voeren.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
+                                                                  "&Wis alle uitvoer...",
+                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
+                                                                  CoreCommonGuiResources.Expand_all,
+                                                                  CoreCommonGuiResources.Expand_all_ToolTip,
+                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
+                                                                  CoreCommonGuiResources.Collapse_all,
+                                                                  CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
+                                                                  CoreCommonGuiResources.Properties,
+                                                                  CoreCommonGuiResources.Properties_ToolTip,
+                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  false);
+                    CollectionAssert.AllItemsAreInstancesOfType(new[]
+                    {
+                        menu.Items[1],
+                        menu.Items[4],
+                        menu.Items[6],
+                        menu.Items[10],
+                        menu.Items[13]
+                    }, typeof(ToolStripSeparator));
+                }
             }
         }
 
@@ -386,15 +388,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
-
-                // Assert
-                ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
-                ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
-                Assert.IsFalse(validateItem.Enabled);
-                Assert.IsFalse(calculateItem.Enabled);
-                Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
-                Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
+                    Assert.IsFalse(validateItem.Enabled);
+                    Assert.IsFalse(calculateItem.Enabled);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+                }
             }
         }
 
@@ -421,12 +424,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
-
-                // Assert
-                ToolStripItem removeAllItemDisabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
-                Assert.IsFalse(removeAllItemDisabled.Enabled);
-                Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove, removeAllItemDisabled.ToolTipText);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem removeAllItemDisabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
+                    Assert.IsFalse(removeAllItemDisabled.Enabled);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove, removeAllItemDisabled.ToolTipText);
+                }
             }
         }
 
@@ -459,12 +463,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
-
-                // Assert
-                ToolStripItem removeAllItemEnabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
-                Assert.IsTrue(removeAllItemEnabled.Enabled);
-                Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip, removeAllItemEnabled.ToolTipText);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem removeAllItemEnabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
+                    Assert.IsTrue(removeAllItemEnabled.Enabled);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip, removeAllItemEnabled.ToolTipText);
+                }
             }
         }
 
@@ -502,20 +507,21 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 nodeData.Attach(observer);
 
-                ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Precondition
+                    Assert.AreEqual(1, group.Children.Count);
 
-                // Precondition
-                Assert.AreEqual(1, group.Children.Count);
+                    // Call
+                    contextMenu.Items[contextMenuAddCalculationGroupIndexNestedGroup].PerformClick();
 
-                // Call
-                contextMenu.Items[contextMenuAddCalculationGroupIndexNestedGroup].PerformClick();
-
-                // Assert
-                Assert.AreEqual(2, group.Children.Count);
-                var newlyAddedItem = group.Children.Last();
-                Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
-                Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
-                                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                    // Assert
+                    Assert.AreEqual(2, group.Children.Count);
+                    var newlyAddedItem = group.Children.Last();
+                    Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
+                    Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
+                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                }
             }
         }
 
@@ -556,13 +562,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     dialog.ClickOk();
                 };
 
-                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRemoveAllChildrenIndexRootGroup].PerformClick();
 
-                // Call
-                contextMenu.Items[contextMenuRemoveAllChildrenIndexRootGroup].PerformClick();
-
-                // Assert
-                Assert.IsEmpty(group.Children);
+                    // Assert
+                    Assert.IsEmpty(group.Children);
+                }
             }
         }
 

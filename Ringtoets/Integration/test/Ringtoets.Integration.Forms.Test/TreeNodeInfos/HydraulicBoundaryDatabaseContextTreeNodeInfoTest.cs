@@ -286,21 +286,22 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl);
-
-                // When
-                Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
-
-                // Then
-                TestHelper.AssertLogMessages(action, messages =>
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl))
                 {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(2, msgs.Length);
-                    Assert.AreEqual("De hydraulische randvoorwaardenlocaties zijn ingelezen.", msgs[0]);
-                    Assert.AreEqual(string.Format("Database op pad '{0}' gekoppeld.", testFile), msgs[1]);
-                });
+                    // When
+                    Action action = () => contextMenuStrip.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
-                Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+                    // Then
+                    TestHelper.AssertLogMessages(action, messages =>
+                    {
+                        string[] msgs = messages.ToArray();
+                        Assert.AreEqual(2, msgs.Length);
+                        Assert.AreEqual("De hydraulische randvoorwaardenlocaties zijn ingelezen.", msgs[0]);
+                        Assert.AreEqual(string.Format("Database op pad '{0}' gekoppeld.", testFile), msgs[1]);
+                    });
+
+                    Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+                }
             }
             mocks.VerifyAll();
         }
@@ -333,17 +334,18 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuStrip.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
-                // When
-                Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
+                    // Then
+                    string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen locaties verkrijgen van de database. Het bestand wordt overgeslagen.",
+                                                           testFile);
+                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
-                // Then
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen locaties verkrijgen van de database. Het bestand wordt overgeslagen.",
-                                                       testFile);
-                TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
-
-                Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+                    Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+                }
             }
             mocks.VerifyAll();
         }
@@ -376,18 +378,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuStrip.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
-                // When
-                Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
+                    // Then
+                    string expectedMessage =
+                        string.Format("Fout bij het lezen van bestand '{0}': Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.",
+                                      testFile);
+                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
-                // Then
-                string expectedMessage =
-                    string.Format("Fout bij het lezen van bestand '{0}': Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.",
-                                  testFile);
-                TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
-
-                Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+                    Assert.IsNull(assessmentSection.HydraulicBoundaryDatabase);
+                }
             }
             mocks.VerifyAll();
         }
@@ -447,21 +450,22 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(hydraulicBoundaryDatabaseContext, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
 
-                // When
-                Action action = () => contextMenuAdapter.Items[contextMenuImportHydraulicBoundaryDatabaseIndex].PerformClick();
+                    // Then
+                    string expectedMessage = string.Format("Database op pad '{0}' gekoppeld.", validFile);
+                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
 
-                // Then
-                string expectedMessage = string.Format("Database op pad '{0}' gekoppeld.", validFile);
-                TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
-
-                Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
-                Assert.AreEqual(currentFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
-                Assert.AreEqual(currentVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
-                CollectionAssert.AreEqual(currentLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations.First(), pipingCalculation.InputParameters.HydraulicBoundaryLocation);
-                Assert.AreSame(pipingOutput, pipingCalculation.Output);
+                    Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+                    Assert.AreEqual(currentFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+                    Assert.AreEqual(currentVersion, assessmentSection.HydraulicBoundaryDatabase.Version);
+                    CollectionAssert.AreEqual(currentLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);
+                    Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations.First(), pipingCalculation.InputParameters.HydraulicBoundaryLocation);
+                    Assert.AreSame(pipingOutput, pipingCalculation.Output);
+                }
             }
             mocks.VerifyAll();
         }

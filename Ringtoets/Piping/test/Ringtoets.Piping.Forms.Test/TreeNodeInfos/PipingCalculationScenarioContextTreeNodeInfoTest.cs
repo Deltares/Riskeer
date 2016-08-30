@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
@@ -198,12 +199,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
-
-                // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear, RingtoetsCommonFormsResources.ClearIcon, false);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear, RingtoetsCommonFormsResources.ClearIcon, false);
+                }
             }
         }
 
@@ -238,12 +240,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl);
-
-                // Assert
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
-                TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.Clear_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, RingtoetsCommonFormsResources.Validate, RingtoetsCommonFormsResources.Validate_ToolTip, RingtoetsCommonFormsResources.ValidateIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 1, RingtoetsCommonFormsResources.Calculate, RingtoetsCommonFormsResources.Calculate_ToolTip, RingtoetsCommonFormsResources.CalculateIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2, RingtoetsCommonFormsResources.Clear_output, RingtoetsCommonFormsResources.Clear_output_ToolTip, RingtoetsCommonFormsResources.ClearIcon);
+                }
             }
         }
 
@@ -424,33 +427,34 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 calculation.Attach(observer);
 
-                var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl);
-
                 DialogBoxHandler = (name, wnd) =>
                 {
                     // Expect an activity dialog which is automatically closed
                 };
 
-                // When
-                var calculateContextMenuItemIndex = 1;
-                Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
-
-                // Then
-                var expectedValidationMessageCount = 5;
-                TestHelper.AssertLogMessages(action, messages =>
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
                 {
-                    var msgs = messages.GetEnumerator();
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", msgs.Current);
-                    for (int i = 0; i < expectedValidationMessageCount; i++)
+                    // When
+                    var calculateContextMenuItemIndex = 1;
+                    Action action = () => { contextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick(); };
+
+                    // Then
+                    var expectedValidationMessageCount = 5;
+                    TestHelper.AssertLogMessages(action, messages =>
                     {
+                        var msgs = messages.GetEnumerator();
                         Assert.IsTrue(msgs.MoveNext());
-                        StringAssert.StartsWith("Validatie mislukt: ", msgs.Current);
-                    }
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
-                });
-                Assert.IsNull(calculation.Output);
+                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", msgs.Current);
+                        for (int i = 0; i < expectedValidationMessageCount; i++)
+                        {
+                            Assert.IsTrue(msgs.MoveNext());
+                            StringAssert.StartsWith("Validatie mislukt: ", msgs.Current);
+                        }
+                        Assert.IsTrue(msgs.MoveNext());
+                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
+                    });
+                    Assert.IsNull(calculation.Output);
+                }
             }
         }
 
@@ -482,17 +486,18 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 calculation.Attach(observer);
 
-                var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl);
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
+                {
+                    // When
+                    var validateContextMenuItemIndex = 0;
+                    Action action = () => contextMenuStrip.Items[validateContextMenuItemIndex].PerformClick();
 
-                // When
-                var validateContextMenuItemIndex = 0;
-                Action action = () => contextMenuAdapter.Items[validateContextMenuItemIndex].PerformClick();
-
-                // Then
-                var expectedValidationMessageCount = 5;
-                var expectedStatusMessageCount = 2;
-                var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
-                TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
+                    // Then
+                    var expectedValidationMessageCount = 5;
+                    var expectedStatusMessageCount = 2;
+                    var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
+                    TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
+                }
             }
         }
 
@@ -532,32 +537,33 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 calculation.Attach(observer);
 
-                var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl);
-
                 DialogBoxHandler = (name, wnd) =>
                 {
                     // Expect an activity dialog which is automatically closed
                 };
 
-                // When
-                var calculateContextMenuItemIndex = 1;
-                Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
-
-                // Then
-                TestHelper.AssertLogMessages(action, messages =>
+                using (var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
                 {
-                    var msgs = messages.GetEnumerator();
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", msgs.Current);
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
+                    // When
+                    var calculateContextMenuItemIndex = 1;
+                    Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
 
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", msgs.Current);
-                    Assert.IsTrue(msgs.MoveNext());
-                    StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
-                });
-                Assert.IsNotNull(calculation.Output);
+                    // Then
+                    TestHelper.AssertLogMessages(action, messages =>
+                    {
+                        var msgs = messages.GetEnumerator();
+                        Assert.IsTrue(msgs.MoveNext());
+                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", msgs.Current);
+                        Assert.IsTrue(msgs.MoveNext());
+                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
+
+                        Assert.IsTrue(msgs.MoveNext());
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", msgs.Current);
+                        Assert.IsTrue(msgs.MoveNext());
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", msgs.Current);
+                    });
+                    Assert.IsNotNull(calculation.Output);
+                }
             }
         }
 
@@ -595,8 +601,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 calculation.Output = new TestPipingOutput();
                 calculation.Attach(observer);
 
-                var contextMenuAdapter = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl);
-
                 string messageBoxText = null, messageBoxTitle = null;
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -613,14 +617,17 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     }
                 };
 
-                // When
-                int clearOutputItemPosition = 2;
-                contextMenuAdapter.Items[clearOutputItemPosition].PerformClick();
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(pipingCalculationContext, null, treeViewControl))
+                {
+                    // When
+                    int clearOutputItemPosition = 2;
+                    contextMenuStrip.Items[clearOutputItemPosition].PerformClick();
 
-                // Then
-                Assert.AreNotEqual(confirm, calculation.HasOutput);
-                Assert.AreEqual("Bevestigen", messageBoxTitle);
-                Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
+                    // Then
+                    Assert.AreNotEqual(confirm, calculation.HasOutput);
+                    Assert.AreEqual("Bevestigen", messageBoxTitle);
+                    Assert.AreEqual("Weet u zeker dat u de uitvoer van deze berekening wilt wissen?", messageBoxText);
+                }
             }
         }
 

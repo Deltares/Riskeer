@@ -290,8 +290,9 @@ namespace Core.Common.Controls.TreeView.Test
 
             // Assert
             using (var treeViewControl = new TreeViewControl())
+            using (var contextMenuStrip = treeNodeInfo.ContextMenuStrip(0, 1, treeViewControl))
             {
-                Assert.AreEqual(1, treeNodeInfo.ContextMenuStrip(0, 1, treeViewControl).Items.Count);
+                Assert.AreEqual(1, contextMenuStrip.Items.Count);
                 treeNodeInfo.OnDrop(0, 1, 2, 3, treeViewControl);
                 Assert.AreEqual(1, onDropCounter);
             }

@@ -145,6 +145,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
