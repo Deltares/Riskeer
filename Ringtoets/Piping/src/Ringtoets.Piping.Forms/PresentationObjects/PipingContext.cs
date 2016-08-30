@@ -104,11 +104,11 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// Asserts the inputs are not null.
         /// </summary>
         /// <param name="surfaceLines">The surface lines.</param>
-        /// <param name="soilProfiles">The soil profiles.</param>
+        /// <param name="stochasticSoilModels">The stochastic soil models.</param>
         /// <param name="pipingFailureMechanism">The piping failure mechanism.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="System.ArgumentNullException">When any input parameter is null.</exception>
-        private static void AssertInputsAreNotNull(object surfaceLines, object soilProfiles, object pipingFailureMechanism, object assessmentSection)
+        private static void AssertInputsAreNotNull(object surfaceLines, object stochasticSoilModels, object pipingFailureMechanism, object assessmentSection)
         {
             if (surfaceLines == null)
             {
@@ -116,11 +116,11 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
                                             Resources.PipingContext_DataDescription_Surfacelines);
                 throw new ArgumentNullException("surfaceLines", message);
             }
-            if (soilProfiles == null)
+            if (stochasticSoilModels == null)
             {
                 var message = string.Format(Resources.PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_Soilprofiles);
-                throw new ArgumentNullException("soilProfiles", message);
+                                            Resources.PipingContext_DataDescription_StochasticSoilModels);
+                throw new ArgumentNullException("stochasticSoilModels", message);
             }
             if (pipingFailureMechanism == null)
             {

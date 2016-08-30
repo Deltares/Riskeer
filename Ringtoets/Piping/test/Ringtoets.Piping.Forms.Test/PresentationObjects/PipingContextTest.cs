@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void ParameteredConstructor_ProfilesIsNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_StochasticSoilModelsIsNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             {
                 Environment.NewLine
             }, StringSplitOptions.None)[0];
-            Assert.AreEqual("De verzameling van ondergrondschematisaties mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("De verzameling van stochastische ondergrondmodellen mag niet 'null' zijn.", customMessage);
             mocks.VerifyAll();
         }
 
