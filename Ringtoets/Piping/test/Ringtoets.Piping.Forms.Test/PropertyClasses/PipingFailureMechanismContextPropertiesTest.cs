@@ -156,14 +156,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsFalse(aProperty.IsReadOnly);
             Assert.AreEqual(semiProbabilisticCategory, aProperty.Category);
             Assert.AreEqual("a [-]", aProperty.DisplayName);
-            Assert.AreEqual("De parameter 'a' die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans.", aProperty.Description);
+            Assert.AreEqual("De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.", aProperty.Description);
 
             PropertyDescriptor bProperty = dynamicProperties[6];
             Assert.IsNotNull(bProperty);
             Assert.IsTrue(bProperty.IsReadOnly);
             Assert.AreEqual(semiProbabilisticCategory, bProperty.Category);
             Assert.AreEqual("b [m]", bProperty.DisplayName);
-            Assert.AreEqual("De parameter 'b' die gebruikt wordt voor het lengte effect in berekening van de maximaal toelaatbare faalkans.", bProperty.Description);
+            Assert.AreEqual("De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.", bProperty.Description);
 
             PropertyDescriptor heaveNormDependentFactor = dynamicProperties[7];
             Assert.IsNotNull(heaveNormDependentFactor);
