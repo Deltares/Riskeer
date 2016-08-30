@@ -134,7 +134,7 @@
     <value>Het grasbekleding erosie kruin en binnentalud toetsspoor</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_N_Description" xml:space="preserve">
-    <value>De parameter 'N' die gebruikt wordt voor het lengte-effect in de berekening.</value>
+    <value>De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_N_DisplayName" xml:space="preserve">
     <value>N [-]</value>

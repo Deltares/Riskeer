@@ -161,7 +161,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsFalse(lengthEffectProperty.IsReadOnly);
             Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
             Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
-            Assert.AreEqual("De parameter 'N'.", lengthEffectProperty.Description);
+            Assert.AreEqual("De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.", lengthEffectProperty.Description);
 
             PropertyDescriptor modelfactorOvertoppingFlowProperty = dynamicProperties[modelfactorOvertoppingFlowPropertyIndex];
             Assert.IsNotNull(modelfactorOvertoppingFlowProperty);

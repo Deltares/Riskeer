@@ -563,7 +563,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt voor het lengte-effect in de berekening..
+        ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling..
         /// </summary>
         public static string GrassCoverErosionInwardsInput_N_Description {
             get {
