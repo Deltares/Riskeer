@@ -61,17 +61,17 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryLocationContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundariesGroupContextTest.cs" />
-    <Compile Include="PresentationObjects\SectionSpecificWaterLevelHydraulicBoundaryLocationContextTest.cs" />
-    <Compile Include="PresentationObjects\SectionSpecificWaterLevelHydraulicBoundaryLocationsContextTest.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaterLevelLocationContextTest.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaterLevelLocationsContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\SectionSpecificWaterLevelHydraulicBoundaryLocationContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\SectionSpecificWaterLevelHydraulicBoundaryLocationsContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaterLevelLocationContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaterLevelLocationsContextPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\SectionSpecificWaterLevelHydraulicBoundaryLocationsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaterLevelLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>

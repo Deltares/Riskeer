@@ -54,9 +54,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Assert
             Assert.IsInstanceOf<IStorable>(grassCoverErosionOutwardsHydraulicBoundaryLocation);
             Assert.AreSame(hydraulicBoundaryLocation, grassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel);
-            Assert.AreEqual(2, grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevelCalculationConvergence);
+            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel);
+            Assert.AreEqual(2, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevelCalculationConvergence);
         }
 
         [Test]
@@ -67,12 +67,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
 
             // Call
-            var sectionSpecificWaterLevel = (RoundedDouble) 1.23456;
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel = sectionSpecificWaterLevel;
+            var waterLevel = (RoundedDouble) 1.23456;
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel = waterLevel;
 
             // Assert
-            Assert.AreEqual(sectionSpecificWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel, 
-                grassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel.GetAccuracy());
+            Assert.AreEqual(waterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel,
+                            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel.GetAccuracy());
         }
     }
 }

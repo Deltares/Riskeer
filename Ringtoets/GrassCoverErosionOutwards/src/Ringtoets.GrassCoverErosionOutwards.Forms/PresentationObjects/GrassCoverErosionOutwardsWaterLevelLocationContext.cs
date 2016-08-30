@@ -27,20 +27,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
-    /// with <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel"/>.
+    /// with <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel"/>.
     /// </summary>
-    public class SectionSpecificWaterLevelHydraulicBoundaryLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
+    public class GrassCoverErosionOutwardsWaterLevelLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SectionSpecificWaterLevelHydraulicBoundaryLocationContext"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaterLevelLocationContext"/>.
         /// </summary>
         /// <param name="wrappedList">The <see cref="ObservableList{T}"/> which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> 
         /// belongs to.</param>
         /// <param name="grassCoverErosionOutwardsHydraulicBoundaryLocation">The <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
         /// which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public SectionSpecificWaterLevelHydraulicBoundaryLocationContext(ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> wrappedList,
-                                                                         GrassCoverErosionOutwardsHydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation)
+        public GrassCoverErosionOutwardsWaterLevelLocationContext(ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> wrappedList,
+                                                                  GrassCoverErosionOutwardsHydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation)
             : base(wrappedList, grassCoverErosionOutwardsHydraulicBoundaryLocation) {}
     }
 }

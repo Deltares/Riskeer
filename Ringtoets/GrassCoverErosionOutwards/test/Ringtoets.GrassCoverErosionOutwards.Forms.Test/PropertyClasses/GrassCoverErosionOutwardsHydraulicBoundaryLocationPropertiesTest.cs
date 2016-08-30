@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             };
 
-            var context = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Call
             TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationProperties
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             };
-            var context = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Call
             TestGrassCoverErosionOutwardsLocationProperties locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
@@ -111,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             };
-            var context = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Call
             TestGrassCoverErosionOutwardsLocationProperties locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
@@ -138,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             };
-            var context = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             var locationProperties = new TestGrassCoverErosionOutwardsLocationProperties
             {

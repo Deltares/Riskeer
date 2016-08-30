@@ -34,13 +34,13 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class SectionSpecificWaterLevelHydraulicBoundaryLocationContextPropertiesTest
+    public class GrassCoverErosionOutwardsWaterLevelLocationContextPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new SectionSpecificWaterLevelHydraulicBoundaryLocationContextProperties();
+            var properties = new GrassCoverErosionOutwardsWaterLevelLocationContextProperties();
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties>(properties);
@@ -58,21 +58,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const double x = 567.0;
             const double y = 890.0;
             const string name = "name";
-            var sectionSpecificWaterLevel = (RoundedDouble) 1234;
+            var waterLevel = (RoundedDouble) 1234;
             var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
                 new HydraulicBoundaryLocation(id, name, x, y))
             {
-                SectionSpecificWaterLevel = sectionSpecificWaterLevel,
-                SectionSpecificWaterLevelCalculationConvergence = convergenceReached
+                WaterLevel = waterLevel,
+                WaterLevelCalculationConvergence = convergenceReached
             };
             var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             };
-            var context = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Call
-            var properties = new SectionSpecificWaterLevelHydraulicBoundaryLocationContextProperties
+            var properties = new GrassCoverErosionOutwardsWaterLevelLocationContextProperties
             {
                 Data = context
             };
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            Assert.AreEqual(sectionSpecificWaterLevel, properties.SectionSpecificWaterLevel, properties.SectionSpecificWaterLevel.GetAccuracy());
+            Assert.AreEqual(waterLevel, properties.WaterLevel, properties.WaterLevel.GetAccuracy());
             Assert.AreEqual(expectedConvergenceValue, properties.Convergence);
         }
 
@@ -100,9 +100,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             };
-            var context = new SectionSpecificWaterLevelHydraulicBoundaryLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
-            var properties = new SectionSpecificWaterLevelHydraulicBoundaryLocationContextProperties
+            var properties = new GrassCoverErosionOutwardsWaterLevelLocationContextProperties
             {
                 Data = context
             };
@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
             PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);
             PropertyDescriptor locationProperty = dynamicProperties.Find("Location", false);
-            PropertyDescriptor sectionSpecificWaterLevelProperty = dynamicProperties.Find("SectionSpecificWaterLevel", false);
+            PropertyDescriptor waterLevelProperty = dynamicProperties.Find("WaterLevel", false);
             PropertyDescriptor convergenceProperty = dynamicProperties.Find("Convergence", false);
 
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
@@ -128,8 +128,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDisplayName = "Coördinaten [m]";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
-            const string expectedSectionSpecificWaterLevelDisplayName = "Waterstand bij doorsnede-eis [m+NAP]";
-            const string expectedSectionSpecificWaterLevelDescription = "Berekend waterstand bij doorsnede-eis.";
+            const string expectedWaterLevelDisplayName = "Waterstand bij doorsnede-eis [m+NAP]";
+            const string expectedWaterLevelDescription = "Berekende waterstand bij doorsnede-eis.";
             const string expectedConvergenceDisplayName = "Convergentie";
             const string expectedConvergenceDescription = "Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?";
 
@@ -154,12 +154,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedLocationDisplayName, locationProperty.DisplayName);
             Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
 
-            Assert.IsNotNull(sectionSpecificWaterLevelProperty);
-            Assert.IsTrue(sectionSpecificWaterLevelProperty.IsReadOnly);
-            Assert.IsTrue(sectionSpecificWaterLevelProperty.IsBrowsable);
-            Assert.AreEqual(expectedCategory, sectionSpecificWaterLevelProperty.Category);
-            Assert.AreEqual(expectedSectionSpecificWaterLevelDisplayName, sectionSpecificWaterLevelProperty.DisplayName);
-            Assert.AreEqual(expectedSectionSpecificWaterLevelDescription, sectionSpecificWaterLevelProperty.Description);
+            Assert.IsNotNull(waterLevelProperty);
+            Assert.IsTrue(waterLevelProperty.IsReadOnly);
+            Assert.IsTrue(waterLevelProperty.IsBrowsable);
+            Assert.AreEqual(expectedCategory, waterLevelProperty.Category);
+            Assert.AreEqual(expectedWaterLevelDisplayName, waterLevelProperty.DisplayName);
+            Assert.AreEqual(expectedWaterLevelDescription, waterLevelProperty.Description);
 
             Assert.IsNotNull(convergenceProperty);
             Assert.IsTrue(convergenceProperty.IsReadOnly);

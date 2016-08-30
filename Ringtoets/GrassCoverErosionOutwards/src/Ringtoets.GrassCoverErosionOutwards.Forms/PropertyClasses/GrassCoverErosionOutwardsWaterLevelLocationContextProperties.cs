@@ -35,10 +35,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> with 
-    /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel"/> for properties panel.
+    /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class SectionSpecificWaterLevelHydraulicBoundaryLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties
+    public class GrassCoverErosionOutwardsWaterLevelLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties
     {
         [PropertyOrder(1)]
         public override long Id
@@ -70,25 +70,25 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         [PropertyOrder(4)]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_Description")]
-        public RoundedDouble SectionSpecificWaterLevel
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_Description")]
+        public RoundedDouble WaterLevel
         {
             get
             {
-                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevel;
+                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel;
             }
         }
 
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryDatabase_Convergence_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_SectionSpecificWaterLevel_Description")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaterLevel_Description")]
         public string Convergence
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.SectionSpecificWaterLevelCalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevelCalculationConvergence).DisplayName;
             }
         }
     }

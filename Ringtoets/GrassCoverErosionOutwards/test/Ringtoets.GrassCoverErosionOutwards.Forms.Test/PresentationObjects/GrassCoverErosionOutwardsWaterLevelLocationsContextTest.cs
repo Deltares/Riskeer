@@ -31,7 +31,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class SectionSpecificWaterLevelHydraulicBoundaryLocationsContextTest
+    public class GrassCoverErosionOutwardsWaterLevelLocationsContextTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
 
             // Call
-            var presentationObject = new SectionSpecificWaterLevelHydraulicBoundaryLocationsContext(assessmentSectionMock, locations);
+            var presentationObject = new GrassCoverErosionOutwardsWaterLevelLocationsContext(assessmentSectionMock, locations);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SectionSpecificWaterLevelHydraulicBoundaryLocationsContext(assessmentSectionMock, null);
+            TestDelegate call = () => new GrassCoverErosionOutwardsWaterLevelLocationsContext(assessmentSectionMock, null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

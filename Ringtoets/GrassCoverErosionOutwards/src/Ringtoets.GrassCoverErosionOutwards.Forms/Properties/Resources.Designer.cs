@@ -84,66 +84,64 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?.
         /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_SectionSpecificWaterLevel_Description {
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaterLevel_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_SectionSpecificWat" +
-                        "erLevel_Description", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaterLevel_Descrip" +
+                        "tion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekend waterstand bij doorsnede-eis..
+        ///   Looks up a localized string similar to Berekende waterstand bij doorsnede-eis..
         /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_Description {
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_Desc" +
-                        "ription", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Waterstand bij doorsnede-eis [m+NAP].
         /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_DisplayName {
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_Disp" +
-                        "layName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Alles be&amp;rekenen.
         /// </summary>
-        public static string SectionSpecificWaterLevel_Calculate_All {
+        public static string GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All {
             get {
-                return ResourceManager.GetString("SectionSpecificWaterLevel_Calculate_All", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Alle waterstanden bij doorsnede-eis berekenen..
         /// </summary>
-        public static string SectionSpecificWaterLevel_Calculate_All_ToolTip {
+        public static string GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip {
             get {
-                return ResourceManager.GetString("SectionSpecificWaterLevel_Calculate_All_ToolTip", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de waterstanden bij doorsnede-eis te berekenen..
         /// </summary>
-        public static string SectionSpecificWaterLevel_No_HRD_To_Calculate {
+        public static string GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate {
             get {
-                return ResourceManager.GetString("SectionSpecificWaterLevel_No_HRD_To_Calculate", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Waterstand bij doorsnede-eis.
         /// </summary>
-        public static string SectionSpecificWaterLevelHydraulicBoundaryLocationsContext_DisplayName {
+        public static string GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName {
             get {
-                return ResourceManager.GetString("SectionSpecificWaterLevelHydraulicBoundaryLocationsContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName", resourceCulture);
             }
         }
     }

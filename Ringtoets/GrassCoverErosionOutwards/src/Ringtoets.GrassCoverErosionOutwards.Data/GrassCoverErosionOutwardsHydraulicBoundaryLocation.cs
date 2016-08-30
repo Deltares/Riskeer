@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// </summary>
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocation : IStorable
     {
-        private RoundedDouble sectionSpecificWaterLevel;
+        private RoundedDouble waterLevel;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
@@ -46,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 throw new ArgumentNullException("hydraulicBoundaryLocation");
             }
             HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            sectionSpecificWaterLevel = new RoundedDouble(2, double.NaN);
+            waterLevel = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
@@ -55,24 +55,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
 
         /// <summary>
-        /// Gets or sets the section specific water level of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
+        /// Gets or sets the water level of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
         /// </summary>
-        public RoundedDouble SectionSpecificWaterLevel
+        public RoundedDouble WaterLevel
         {
             get
             {
-                return sectionSpecificWaterLevel;
+                return waterLevel;
             }
             set
             {
-                sectionSpecificWaterLevel = value.ToPrecision(sectionSpecificWaterLevel.NumberOfDecimalPlaces);
+                waterLevel = value.ToPrecision(waterLevel.NumberOfDecimalPlaces);
             }
         }
 
         /// <summary>
-        /// Gets or sets the convergence status of the section specific water level calculation.
+        /// Gets or sets the convergence status of the water level calculation.
         /// </summary>
-        public CalculationConvergence SectionSpecificWaterLevelCalculationConvergence { get; set; }
+        public CalculationConvergence WaterLevelCalculationConvergence { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the storage of the class.

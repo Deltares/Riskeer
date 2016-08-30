@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SectionSpecificWaterLevel_No_HRD_To_Calculate" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate" xml:space="preserve">
     <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de waterstanden bij doorsnede-eis te berekenen.</value>
   </data>
-  <data name="SectionSpecificWaterLevel_Calculate_All" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All" xml:space="preserve">
     <value>Alles be&amp;rekenen</value>
   </data>
-  <data name="SectionSpecificWaterLevel_Calculate_All_ToolTip" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle waterstanden bij doorsnede-eis berekenen.</value>
   </data>
-  <data name="SectionSpecificWaterLevelHydraulicBoundaryLocationsContext_DisplayName" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_Description" xml:space="preserve">
-    <value>Berekend waterstand bij doorsnede-eis.</value>
+  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_Description" xml:space="preserve">
+    <value>Berekende waterstand bij doorsnede-eis.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_SectionSpecificWaterLevel_DisplayName" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_DisplayName" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis [m+NAP]</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_SectionSpecificWaterLevel_Description" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaterLevel_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?</value>
   </data>
 </root>

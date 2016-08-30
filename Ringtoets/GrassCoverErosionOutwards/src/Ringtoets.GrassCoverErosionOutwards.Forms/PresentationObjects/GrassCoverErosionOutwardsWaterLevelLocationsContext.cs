@@ -31,17 +31,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an enumeration of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
     /// for water level at intersection probability calculations.
     /// </summary>
-    public class SectionSpecificWaterLevelHydraulicBoundaryLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    public class GrassCoverErosionOutwardsWaterLevelLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SectionSpecificWaterLevelHydraulicBoundaryLocationsContext"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaterLevelLocationsContext"/>.
         /// </summary>
         /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the 
-        /// <see cref="SectionSpecificWaterLevelHydraulicBoundaryLocationsContext"/> belongs to.</param>
+        /// <see cref="GrassCoverErosionOutwardsWaterLevelLocationsContext"/> belongs to.</param>
         /// <param name="grassCoverErosionOutwardsHydraulicBoundaryLocations">The grass cover erosion outwards hydraulic boundary locations for this context.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public SectionSpecificWaterLevelHydraulicBoundaryLocationsContext(IAssessmentSection wrappedAssessmentSection,
-                                                                          ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations)
+        public GrassCoverErosionOutwardsWaterLevelLocationsContext(IAssessmentSection wrappedAssessmentSection,
+                                                                   ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations)
             : base(wrappedAssessmentSection)
         {
             if (grassCoverErosionOutwardsHydraulicBoundaryLocations == null)

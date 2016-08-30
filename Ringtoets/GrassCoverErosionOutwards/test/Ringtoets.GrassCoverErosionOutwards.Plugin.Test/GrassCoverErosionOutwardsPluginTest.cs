@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundariesGroupContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SectionSpecificWaterLevelHydraulicBoundaryLocationsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaterLevelLocationsContext)));
             }
         }
 
@@ -104,11 +104,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsNull(grassCoverErosionOutwardsFailureMechanismProperties.AdditionalDataCheck);
                 Assert.IsNull(grassCoverErosionOutwardsFailureMechanismProperties.AfterCreate);
 
-                var sectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined<
-                    SectionSpecificWaterLevelHydraulicBoundaryLocationsContext,
-                    SectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties>(propertyInfos);
-                Assert.IsNull(sectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties.AdditionalDataCheck);
-                Assert.IsNull(sectionSpecificWaterLevelHydraulicBoundaryLocationsContextProperties.AfterCreate);
+                var waterLevelHydraulicBoundaryLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined<
+                    GrassCoverErosionOutwardsWaterLevelLocationsContext,
+                    GrassCoverErosionOutwardsWaterLevelLocationsContextProperties>(propertyInfos);
+                Assert.IsNull(waterLevelHydraulicBoundaryLocationsContextProperties.AdditionalDataCheck);
+                Assert.IsNull(waterLevelHydraulicBoundaryLocationsContextProperties.AfterCreate);
             }
         }
     }
