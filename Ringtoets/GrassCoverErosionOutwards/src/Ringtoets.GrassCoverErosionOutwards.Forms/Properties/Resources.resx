@@ -147,4 +147,13 @@
   <data name="GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle golfhoogtes bij doorsnede-eis berekenen.</value>
   </data>
+  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Description" xml:space="preserve">
+    <value>Is convergentie bereikt in de golfhoogte bij doorsnede-eis berekening?</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_Description" xml:space="preserve">
+    <value>Berekende golfhoogte bij doorsnede-eis.</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName" xml:space="preserve">
+    <value>Golfhoogte bij doorsnede-eis [m+NAP]</value>
+  </data>
 </root>

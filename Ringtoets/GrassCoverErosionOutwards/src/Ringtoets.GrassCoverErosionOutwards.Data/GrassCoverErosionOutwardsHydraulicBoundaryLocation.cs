@@ -27,17 +27,20 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Data
 {
     /// <summary>
-    /// Hydraulic boundary location for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+    /// Hydraulic boundary location for which values are calculated during the assessment of the 
+    /// <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsHydraulicBoundaryLocation : IStorable
     {
         private RoundedDouble waterLevel;
+        private RoundedDouble waveHeight;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/> 
-        /// this specific water level applies to.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> 
+        /// which is used in the calculation of grass cover erosion outwards specific properties of the
+        /// location.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
@@ -47,6 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             }
             HydraulicBoundaryLocation = hydraulicBoundaryLocation;
             waterLevel = new RoundedDouble(2, double.NaN);
+            waveHeight = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
@@ -73,6 +77,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// Gets or sets the convergence status of the water level calculation.
         /// </summary>
         public CalculationConvergence WaterLevelCalculationConvergence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the wave height of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
+        /// </summary>
+        public RoundedDouble WaveHeight
+        {
+            get
+            {
+                return waveHeight;
+            }
+            set
+            {
+                waveHeight = value.ToPrecision(waveHeight.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the convergence status of the wave height calculation.
+        /// </summary>
+        public CalculationConvergence WaveHeightCalculationConvergence { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the storage of the class.

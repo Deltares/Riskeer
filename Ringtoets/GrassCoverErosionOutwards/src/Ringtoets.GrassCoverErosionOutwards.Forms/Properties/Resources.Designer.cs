@@ -110,6 +110,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is convergentie bereikt in de golfhoogte bij doorsnede-eis berekening?.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Descrip" +
+                        "tion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekende waterstand bij doorsnede-eis..
         /// </summary>
         public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_Description {
@@ -124,6 +134,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende golfhoogte bij doorsnede-eis..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis [m+NAP].
+        /// </summary>
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName", resourceCulture);
             }
         }
         
