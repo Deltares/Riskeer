@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void CreateFileImporter_ValidInput_SuccesfullImport()
+        public void CreateFileImporter_ValidInput_SuccessfulImport()
         {
             // Setup
             var mocks = new MockRepository();

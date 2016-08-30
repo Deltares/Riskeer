@@ -66,6 +66,7 @@
     <Compile Include="FileImporter\PipingSurfaceLinesCsvImporterTest.cs" />
     <Compile Include="FileImporter\RingtoetsPipingSurfaceLineExtensionsTest.cs" />
     <Compile Include="ImportInfos\RingtoetsPipingSurfaceLinesContextImportInfoTest.cs" />
+    <Compile Include="ImportInfos\StochasticSoilModelsContextImportInfoTest.cs" />
     <Compile Include="PipingPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewInfos\PipingInputViewInfoTest.cs" />

@@ -31,7 +31,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StochasticSoilModelContextTest
+    public class StochasticSoilModelsContextTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
@@ -44,7 +44,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSectionMock);
+            var context = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<StochasticSoilModel>>>(context);
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var stochasticSoilModels = new ObservableList<StochasticSoilModel>();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelContext(stochasticSoilModels, null, assessmentSectionMock);
+            TestDelegate test = () => new StochasticSoilModelsContext(stochasticSoilModels, null, assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate test = () => new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
+            TestDelegate test = () => new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

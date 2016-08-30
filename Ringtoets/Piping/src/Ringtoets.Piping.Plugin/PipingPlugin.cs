@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                               filePath)
             };
 
-            yield return new ImportInfo<StochasticSoilModelContext>
+            yield return new ImportInfo<StochasticSoilModelsContext>
             {
                 Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
@@ -221,7 +221,7 @@ namespace Ringtoets.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<StochasticSoilModelContext>
+            yield return new TreeNodeInfo<StochasticSoilModelsContext>
             {
                 Text = stochasticSoilModelContext => PipingFormsResources.StochasticSoilModelCollection_DisplayName,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
@@ -530,7 +530,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new RingtoetsPipingSurfaceLinesContext(failureMechanism, assessmentSection),
-                new StochasticSoilModelContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
+                new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
@@ -598,8 +598,8 @@ namespace Ringtoets.Piping.Plugin
             var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
             if (calculationGroupContext != null)
             {
-                var succesfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationScenarioContext.WrappedData);
-                if (succesfullyRemovedData)
+                bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationScenarioContext.WrappedData);
+                if (successfullyRemovedData)
                 {
                     calculationGroupContext.NotifyObservers();
                 }

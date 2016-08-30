@@ -37,8 +37,8 @@ namespace Core.Common.Base.Test.Service
             TestDelegate test = () => new FileImportActivity(null, "");
 
             // Assert
-            var message = Assert.Throws<ArgumentNullException>(test).Message;
-            StringAssert.EndsWith("fileImporter", message);
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            StringAssert.EndsWith("fileImporter", paramName);
         }
 
         [Test]
@@ -53,8 +53,8 @@ namespace Core.Common.Base.Test.Service
             TestDelegate call = () => new FileImportActivity(importer, null);
 
             // Assert
-            var message = Assert.Throws<ArgumentNullException>(call).Message;
-            StringAssert.EndsWith("name", message);
+            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            StringAssert.EndsWith("name", paramName);
             mocks.VerifyAll();
         }
 
@@ -77,7 +77,7 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Run_FileImportActivityWithFileImporter_ProvidedFileShouldBeImported()
+        public void Run_FileImportActivityWithFileImporter_FileImporterImportCalled()
         {
             // Setup
             var mocks = new MockRepository();

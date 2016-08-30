@@ -22,31 +22,30 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Asphalt.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ImportInfos
+namespace Ringtoets.Piping.Plugin.Test.ImportInfos
 {
-    public class ForeshoreProfilesContextImportInfoTest
+    [TestFixture]
+    public class StochasticSoilModelsContextImportInfoTest
     {
         private ImportInfo importInfo;
-        private WaveImpactAsphaltCoverPlugin plugin;
+        private PipingPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new WaveImpactAsphaltCoverPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(ForeshoreProfilesContext));
+            plugin = new PipingPlugin();
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StochasticSoilModelsContext));
         }
 
         [TearDown]
@@ -62,7 +61,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             string name = importInfo.Name;
 
             // Assert
-            Assert.AreEqual("Voorlandprofiel locaties", name);
+            Assert.AreEqual("Stochastische ondergrondmodellen", name);
         }
 
         [Test]
@@ -82,7 +81,28 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             Image image = importInfo.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.Foreshore, image);
+            TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingSoilProfileIcon, image);
+        }
+
+        [Test]
+        public void IsEnabled_ReferenceLineNull_ReturnFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = null;
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+
+            var context = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
+
+            // Call
+            bool isEnabled = importInfo.IsEnabled(context);
+
+            // Assert
+            Assert.IsFalse(isEnabled);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -94,9 +114,9 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var list = new ObservableList<ForeshoreProfile>();
+            var failureMechanism = new PipingFailureMechanism();
 
-            var context = new ForeshoreProfilesContext(list, assessmentSection);
+            var context = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = importInfo.IsEnabled(context);
@@ -107,74 +127,46 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineNotSet_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = null;
-            mocks.ReplayAll();
-
-            var list = new ObservableList<ForeshoreProfile>();
-
-            var context = new ForeshoreProfilesContext(list, assessmentSection);
-
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
-
-            // Assert
-            Assert.IsFalse(isEnabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void FileFilter_Always_ReturnExpectedFileFilter()
         {
             // Call
             string fileFilter = importInfo.FileFilter;
 
             // Assert
-            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
+            Assert.AreEqual("D-Soil Model bestand (*.soil)|*.soil", fileFilter);
         }
 
         [Test]
         public void CreateFileImporter_ValidInput_SuccessfulImport()
         {
             // Setup
+            var filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO,
+                                                      Path.Combine("PipingSoilProfilesReader", "complete.soil"));
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(3.3, -1),
+                new Point2D(3.3, 1),
+                new Point2D(94270, 427775.65),
+                new Point2D(94270, 427812.08)
+            });
+
             var mocks = new MockRepository();
-            ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
-            var list = new ObservableList<ForeshoreProfile>();
+            var failureMechanism = new PipingFailureMechanism();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                     Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
-
-            var importTarget = new ForeshoreProfilesContext(list, assessmentSection);
+            var importTarget = new StochasticSoilModelsContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection);
 
             // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget, path);
+            IFileImporter importer = importInfo.CreateFileImporter(importTarget, filePath);
 
             // Assert
             Assert.IsTrue(importer.Import());
-
             mocks.VerifyAll();
-        }
-
-        private ReferenceLine CreateMatchingReferenceLine()
-        {
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(131223.2, 548393.4),
-                new Point2D(133854.3, 545323.1),
-                new Point2D(135561.0, 541920.3),
-                new Point2D(136432.1, 538235.2),
-                new Point2D(136039.4, 533920.2)
-            });
-            return referenceLine;
         }
     }
 }

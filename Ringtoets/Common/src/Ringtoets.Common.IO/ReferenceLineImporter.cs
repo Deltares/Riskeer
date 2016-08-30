@@ -100,8 +100,6 @@ namespace Ringtoets.Common.IO
 
         private bool ConfirmImportOfReferenceLineToClearReferenceLineDependentData()
         {
-            var clearReferenceLineDependentData = false;
-
             DialogResult result = MessageBox.Show(RingtoetsCommonIOResources.ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
@@ -113,11 +111,10 @@ namespace Ringtoets.Common.IO
             {
                 if (ImportTarget.GetFailureMechanisms() != null)
                 {
-                    clearReferenceLineDependentData = true;
+                    return true;
                 }
             }
-
-            return clearReferenceLineDependentData;
+            return false;
         }
 
         private static void HandleUserCancellingImport()

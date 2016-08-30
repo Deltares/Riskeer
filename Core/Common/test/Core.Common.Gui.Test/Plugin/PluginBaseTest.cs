@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -117,7 +119,7 @@ namespace Core.Common.Gui.Test.Plugin
             })
             {
                 // Call
-                var infos = plugin.GetPropertyInfos();
+                IEnumerable<PropertyInfo> infos = plugin.GetPropertyInfos();
 
                 // Assert
                 CollectionAssert.IsEmpty(infos);
@@ -139,7 +141,7 @@ namespace Core.Common.Gui.Test.Plugin
             })
             {
                 // Call
-                var infos = plugin.GetViewInfos();
+                IEnumerable<ViewInfo> infos = plugin.GetViewInfos();
 
                 // Assert
                 CollectionAssert.IsEmpty(infos);
@@ -161,7 +163,7 @@ namespace Core.Common.Gui.Test.Plugin
             })
             {
                 // Call
-                var infos = plugin.GetTreeNodeInfos();
+                IEnumerable<TreeNodeInfo> infos = plugin.GetTreeNodeInfos();
 
                 // Assert
                 CollectionAssert.IsEmpty(infos);
@@ -183,7 +185,29 @@ namespace Core.Common.Gui.Test.Plugin
             })
             {
                 // Call
-                var infos = plugin.GetChildDataWithViewDefinitions(null);
+                IEnumerable<object> chidrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(null);
+
+                // Assert
+                CollectionAssert.IsEmpty(chidrenWithViewDefinitions);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetImportInfos_ReturnsEmptyEnumerable()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var gui = mocks.StrictMock<IGui>();
+            mocks.ReplayAll();
+
+            using (var plugin = new SimplePlugin
+            {
+                Gui = gui
+            })
+            {
+                // Call
+                IEnumerable<ImportInfo> infos = plugin.GetImportInfos();
 
                 // Assert
                 CollectionAssert.IsEmpty(infos);
@@ -205,7 +229,7 @@ namespace Core.Common.Gui.Test.Plugin
             })
             {
                 // Call
-                var infos = plugin.GetExportInfos();
+                IEnumerable<ExportInfo> infos = plugin.GetExportInfos();
 
                 // Assert
                 CollectionAssert.IsEmpty(infos);

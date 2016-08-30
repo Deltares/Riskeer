@@ -59,25 +59,23 @@ namespace Core.Common.Gui.Plugin
         public virtual void Deactivate() {}
 
         /// <summary>
-        /// This method returns an enumeration of <see cref="ImportInfo"/>.
+        /// Returns all <see cref="ImportInfo"/> instances provided by this plugin.
         /// </summary>
-        /// <returns>The enumeration of <see cref="ImportInfo"/> provided by the <see cref="PluginBase"/>.</returns>
         public virtual IEnumerable<ImportInfo> GetImportInfos()
         {
             yield break;
         }
 
         /// <summary>
-        /// This method returns an enumeration of <see cref="ExportInfo"/>.
+        /// Returns all <see cref="ExportInfo"/> instances provided by this plugin.
         /// </summary>
-        /// <returns>The enumeration of <see cref="ExportInfo"/> provided by the <see cref="PluginBase"/>.</returns>
         public virtual IEnumerable<ExportInfo> GetExportInfos()
         {
             yield break;
         }
 
         /// <summary>
-        /// Returns all <see cref="PropertyInfo"/> instances provided for data of this plugin.
+        /// Returns all <see cref="PropertyInfo"/> instances by of this plugin.
         /// </summary>
         public virtual IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -85,7 +83,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="ViewInfo"/> instances provided for data of this plugin.
+        /// Returns all <see cref="ViewInfo"/> instances provided by this plugin.
         /// </summary>
         public virtual IEnumerable<ViewInfo> GetViewInfos()
         {
@@ -93,7 +91,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of this plugin.
+        /// Returns all <see cref="TreeNodeInfo"/> instances provided by this plugin.
         /// </summary>
         public virtual IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {

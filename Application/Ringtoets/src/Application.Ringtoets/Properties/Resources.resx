@@ -124,10 +124,10 @@
   <data name="ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed" xml:space="preserve">
     <value>Het Ringtoetsproject is niet opgeslagen.</value>
   </data>
-  <data name="ExceptionDialog_ButtonSaveProjectClick_Succesfully_saved_project" xml:space="preserve">
+  <data name="ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project" xml:space="preserve">
     <value>Het Ringtoetsproject is succesvol opgeslagen.</value>
   </data>
-  <data name="ExceptionDialog_ButtonSaveProjectClick_Succesfully_saved_project_caption" xml:space="preserve">
+  <data name="ExceptionDialog_ButtonSaveProjectClick_Successfully_saved_project_caption" xml:space="preserve">
     <value>Project opgeslagen</value>
   </data>
   <data name="ExceptionDialog_ButtonSaveProjectClick_Saving_project_failed_caption" xml:space="preserve">

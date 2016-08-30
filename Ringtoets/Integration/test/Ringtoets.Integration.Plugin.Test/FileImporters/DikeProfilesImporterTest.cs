@@ -28,29 +28,16 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin.FileImporters;
-using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
-using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class DikeProfilesImporterTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
         public void ParameterdConstructor_ExpectedValues()
         {
@@ -106,11 +93,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
 
@@ -128,7 +111,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -149,10 +131,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             };
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
 
@@ -177,9 +155,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath)
@@ -208,7 +183,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profieldata.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
@@ -218,21 +192,14 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
-            var observer = mockRepository.StrictMock<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
 
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-            targetContext.Attach(observer);
-
             // Call
             dikeProfilesImporter.Import();
-            DikeProfile dikeProfile = targetContext.WrappedData[4];
+            DikeProfile dikeProfile = failureMechanism.DikeProfiles[4];
 
             // Assert
             Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), dikeProfile.WorldReferencePoint);
@@ -241,7 +208,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile.Orientation);
             Assert.IsTrue(dikeProfile.HasBreakWater);
             Assert.AreEqual(new RoundedDouble(2, 6.0), dikeProfile.DikeHeight);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
@@ -251,21 +217,14 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
                                                          Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
-            var observer = mockRepository.StrictMock<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath)
             {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
+                ProgressChanged = (description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps))
             };
-
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
-            targetContext.Attach(observer);
 
             // Call
             bool importResult = dikeProfilesImporter.Import();
@@ -288,8 +247,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profieldata.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, targetContext.WrappedData.Count);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            Assert.AreEqual(5, failureMechanism.DikeProfiles.Count);
         }
 
         [Test]
@@ -301,9 +259,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
 
@@ -317,7 +272,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Dijkprofielen importeren is afgebroken. Geen data ingelezen.", 1);
             Assert.IsFalse(importResult);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
@@ -329,11 +283,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
-
-            var targetContext = new DikeProfilesContext(failureMechanism.DikeProfiles, assessmentSection);
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
 
@@ -346,8 +295,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(5, targetContext.WrappedData.Count);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            Assert.AreEqual(5, failureMechanism.DikeProfiles.Count);
         }
 
         private ReferenceLine CreateMatchingReferenceLine()

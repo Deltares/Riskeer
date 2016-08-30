@@ -138,7 +138,7 @@ namespace Core.Common.Gui.Test.Commands
         }
 
         [Test]
-        public void CanImportOn_HasOneImporterInfoForTargetThatIsNotEnabledForTarget_ReturnFalse()
+        public void CanImportOn_HasOneImportInfoForTargetThatIsNotEnabledForTarget_ReturnFalse()
         {
             // Setup
             var target = new object();
