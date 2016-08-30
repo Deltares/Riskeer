@@ -95,7 +95,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             var text = info.Text(stochasticSoilModelContextMock);
 
             // Assert
-            Assert.AreEqual(Resources.StochasticSoilProfileCollection_DisplayName, text);
+            Assert.AreEqual(Resources.StochasticSoilModelCollection_DisplayName, text);
         }
 
         [Test]

@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new ImportInfo<StochasticSoilModelContext>
             {
-                Name = PipingFormsResources.StochasticSoilProfileCollection_DisplayName,
+                Name = PipingFormsResources.StochasticSoilModelCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = PipingFormsResources.PipingSoilProfileIcon,
                 FileFilter = string.Format("{0} (*.soil)|*.soil", PipingPluginResources.Soil_file_name),
@@ -223,7 +223,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<StochasticSoilModelContext>
             {
-                Text = stochasticSoilModelContext => PipingFormsResources.StochasticSoilProfileCollection_DisplayName,
+                Text = stochasticSoilModelContext => PipingFormsResources.StochasticSoilModelCollection_DisplayName,
                 Image = stochasticSoilModelContext => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = stochasticSoilModelContext => stochasticSoilModelContext.WrappedData.Any() ?
                                                               Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
