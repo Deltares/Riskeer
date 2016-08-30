@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Integration.Forms.GuiServices
+namespace Ringtoets.Common.Forms.GuiServices
 {
     /// <summary>
     /// Interface for <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> and 

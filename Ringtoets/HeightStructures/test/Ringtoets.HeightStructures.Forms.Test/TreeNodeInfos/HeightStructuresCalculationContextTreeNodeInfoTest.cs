@@ -40,6 +40,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Service.Properties;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
@@ -230,28 +231,28 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSectionMock, treeViewControl))
                 {
-                    // Assert
-                    Assert.AreEqual(6, menu.Items.Count);
+                // Assert
+                Assert.AreEqual(6, menu.Items.Count);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
-                                                                  RingtoetsCommonFormsResources.Validate,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
-                                                                  false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
+                                                              RingtoetsCommonFormsResources.Validate,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.ValidateIcon,
+                                                              false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
-                                                                  false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
+                                                              RingtoetsCommonFormsResources.Calculate,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.CalculateIcon,
+                                                              false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
-                                                                  RingtoetsCommonFormsResources.Clear_output,
-                                                                  RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
-                                                                  false);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
+                                                              RingtoetsCommonFormsResources.Clear_output,
+                                                              RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
+                                                              RingtoetsCommonFormsResources.ClearIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -276,14 +277,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                              RingtoetsCommonFormsResources.Calculate,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.CalculateIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -314,14 +315,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                              RingtoetsCommonFormsResources.Calculate,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsCommonFormsResources.CalculateIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -353,15 +354,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
+                // Assert
+                ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
 
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Calculate, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
+                Assert.AreEqual(RingtoetsCommonFormsResources.Calculate, contextMenuItem.Text);
+                StringAssert.Contains(string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
+                Assert.IsFalse(contextMenuItem.Enabled);
             }
+        }
         }
 
         [Test]
@@ -401,13 +402,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate,
-                                                                  RingtoetsCommonFormsResources.Calculate_ToolTip,
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
+                                                              RingtoetsCommonFormsResources.Calculate,
+                                                              RingtoetsCommonFormsResources.Calculate_ToolTip,
+                                                              RingtoetsCommonFormsResources.CalculateIcon);
             }
+        }
         }
 
         [Test]
@@ -432,14 +433,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  RingtoetsCommonFormsResources.Validate,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
+                                                              RingtoetsCommonFormsResources.Validate,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.ValidateIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -470,14 +471,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  RingtoetsCommonFormsResources.Validate,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
+                                                              RingtoetsCommonFormsResources.Validate,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsCommonFormsResources.ValidateIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -509,15 +510,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateIndex];
+                // Assert
+                ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateIndex];
 
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Validate, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
+                Assert.AreEqual(RingtoetsCommonFormsResources.Validate, contextMenuItem.Text);
+                StringAssert.Contains(string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, contextMenuItem.Image);
+                Assert.IsFalse(contextMenuItem.Enabled);
             }
+        }
         }
 
         [Test]
@@ -557,13 +558,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  RingtoetsCommonFormsResources.Validate,
-                                                                  RingtoetsCommonFormsResources.Validate_ToolTip,
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
+                                                              RingtoetsCommonFormsResources.Validate,
+                                                              RingtoetsCommonFormsResources.Validate_ToolTip,
+                                                              RingtoetsCommonFormsResources.ValidateIcon);
             }
+        }
         }
 
         [Test]
@@ -626,26 +627,26 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
                 {
-                    // When
+                // When
                     Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
-                    // Then
-                    TestHelper.AssertLogMessages(action, messages =>
-                    {
-                        var msgs = messages.ToArray();
-                        Assert.AreEqual(7, msgs.Length);
-                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                        StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                        StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
-                        StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[4]);
-                        StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
-                        StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is mislukt.", calculation.Name), msgs[6]);
-                    });
+                // Then
+                TestHelper.AssertLogMessages(action, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
+                    StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                    StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is mislukt.", calculation.Name), msgs[6]);
+                });
 
-                    Assert.IsNull(calculation.Output);
-                }
+                Assert.IsNull(calculation.Output);
             }
+        }
         }
 
         [Test]
@@ -699,19 +700,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
                 {
-                    // When
+                // When
                     Action action = () => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
-                    // Then
-                    TestHelper.AssertLogMessages(action, messages =>
-                    {
-                        var msgs = messages.ToArray();
-                        Assert.AreEqual(2, msgs.Length);
-                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    });
-                }
+                // Then
+                TestHelper.AssertLogMessages(action, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(2, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                });
             }
+        }
         }
 
         [Test]

@@ -29,10 +29,10 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.GuiServices;
 
-namespace Ringtoets.Integration.Forms.Test.GuiServices
+namespace Ringtoets.Common.Forms.Test.GuiServices
 {
     [TestFixture]
     public class HydraulicBoundaryLocationGuiServiceTest : NUnitFormTest

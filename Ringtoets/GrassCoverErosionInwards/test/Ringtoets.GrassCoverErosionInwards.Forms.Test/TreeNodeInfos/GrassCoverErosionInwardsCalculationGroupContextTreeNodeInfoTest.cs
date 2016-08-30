@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Service.Properties;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
@@ -235,38 +236,38 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
-                    // Assert
-                    Assert.AreEqual(12, menu.Items.Count);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
-                                                                  RingtoetsCommonFormsResources.AddFolderIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation_Tooltip,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenRootGroupIndex,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove,
-                                                                  RingtoetsCommonFormsResources.RemoveAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Clear_all_output,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
-                                                                  false);
-                }
+                // Assert
+                Assert.AreEqual(12, menu.Items.Count);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
+                                                              RingtoetsCommonFormsResources.AddFolderIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation_Tooltip,
+                                                              RingtoetsCommonFormsResources.FailureMechanismIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenRootGroupIndex,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove,
+                                                              RingtoetsCommonFormsResources.RemoveAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
+                                                              RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.Clear_all_output,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                              RingtoetsCommonFormsResources.ClearIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -337,35 +338,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
-                    // Assert
-                    Assert.AreEqual(9, menu.Items.Count);
+                // Assert
+                Assert.AreEqual(9, menu.Items.Count);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
-                                                                  RingtoetsCommonFormsResources.AddFolderIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation_Tooltip,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
+                                                              RingtoetsCommonFormsResources.AddFolderIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation_Tooltip,
+                                                              RingtoetsCommonFormsResources.FailureMechanismIcon);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.Clear_all_output,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
-                                                                  RingtoetsCommonFormsResources.ClearIcon,
-                                                                  false);
-                }
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
+                                                              RingtoetsCommonFormsResources.Validate_all,
+                                                              RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
+                                                              RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                              false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexNestedGroup,
+                                                              RingtoetsCommonFormsResources.Clear_all_output,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                              RingtoetsCommonFormsResources.ClearIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -407,14 +408,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -463,14 +464,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -519,15 +520,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexRootGroup];
+                // Assert
+                ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexRootGroup];
 
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Calculate_all, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
+                Assert.AreEqual(RingtoetsCommonFormsResources.Calculate_all, contextMenuItem.Text);
+                StringAssert.Contains(string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                Assert.IsFalse(contextMenuItem.Enabled);
             }
+        }
         }
 
         [Test]
@@ -575,13 +576,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_CalculateAll_ToolTip,
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.Calculate_all,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_CalculateAll_ToolTip,
+                                                              RingtoetsCommonFormsResources.CalculateAllIcon);
             }
+        }
         }
 
         [Test]
@@ -608,14 +609,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Call
                 using (var contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
-                                                                  GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip,
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                                                  false);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
+                                                              GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip,
+                                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                              false);
             }
+        }
         }
 
         [Test]
@@ -643,13 +644,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
-                                                                  GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip,
-                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
-                }
+                // Assert
+                TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
+                                                              RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
+                                                              GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip,
+                                                              RingtoetsCommonFormsResources.GenerateScenariosIcon);
             }
+        }
         }
 
         [Test]
@@ -708,20 +709,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
-                    // Call
-                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick(), messages =>
-                    {
-                        var messageList = messages.ToList();
+                // Call
+                TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndexRootGroup].PerformClick(), messages =>
+                {
+                    var messageList = messages.ToList();
 
-                        // Assert
-                        Assert.AreEqual(4, messageList.Count);
-                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
-                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
-                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[2]);
-                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
-                    });
-                }
+                    // Assert
+                    Assert.AreEqual(4, messageList.Count);
+                    StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
+                    StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
+                    StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[2]);
+                    StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
+                });
             }
+        }
         }
 
         [Test]
@@ -788,30 +789,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
-                    // Call
-                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndexRootGroup].PerformClick(), messages =>
-                    {
-                        var messageList = messages.ToList();
+                // Call
+                TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndexRootGroup].PerformClick(), messages =>
+                {
+                    var messageList = messages.ToList();
 
-                        // Assert
-                        Assert.AreEqual(14, messageList.Count);
-                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
-                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
-                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
-                        StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", messageList[3]);
-                        Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'A' is niet gelukt.", messageList[4]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
-                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
-                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
-                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
-                        StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", messageList[9]);
-                        Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'B' is niet gelukt.", messageList[10]);
-                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
-                        Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);
-                        Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[13]);
-                    });
-                }
+                    // Assert
+                    Assert.AreEqual(14, messageList.Count);
+                    StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
+                    StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
+                    StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
+                    StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", messageList[3]);
+                    Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'A' is niet gelukt.", messageList[4]);
+                    StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
+                    StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
+                    StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
+                    StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
+                    StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", messageList[9]);
+                    Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'B' is niet gelukt.", messageList[10]);
+                    StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
+                    Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);
+                    Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[13]);
+                });
             }
+        }
         }
 
         [Test]
@@ -844,20 +845,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Precondition
-                    Assert.AreEqual(1, group.Children.Count);
+                // Precondition
+                Assert.AreEqual(1, group.Children.Count);
 
-                    // Call
-                    contextMenu.Items[contextMenuAddCalculationGroupIndexRootGroup].PerformClick();
+                // Call
+                contextMenu.Items[contextMenuAddCalculationGroupIndexRootGroup].PerformClick();
 
-                    // Assert
-                    Assert.AreEqual(2, group.Children.Count);
-                    var newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
-                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                }
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                var newlyAddedItem = group.Children.Last();
+                Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
+                Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
+                                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
+        }
         }
 
         [Test]
@@ -890,20 +891,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Precondition
-                    Assert.AreEqual(1, group.Children.Count);
+                // Precondition
+                Assert.AreEqual(1, group.Children.Count);
 
-                    // Call
-                    contextMenu.Items[contextMenuAddCalculationIndexRootGroup].PerformClick();
+                // Call
+                contextMenu.Items[contextMenuAddCalculationIndexRootGroup].PerformClick();
 
-                    // Assert
-                    Assert.AreEqual(2, group.Children.Count);
-                    var newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(newlyAddedItem);
-                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
-                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                }
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                var newlyAddedItem = group.Children.Last();
+                Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(newlyAddedItem);
+                Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
+                                "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
             }
+        }
         }
 
         [Test]
@@ -946,13 +947,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Call
-                    contextMenu.Items[contextMenuRemoveAllChildrenRootGroupIndex].PerformClick();
+                // Call
+                contextMenu.Items[contextMenuRemoveAllChildrenRootGroupIndex].PerformClick();
 
-                    // Assert
-                    Assert.IsEmpty(group.Children);
-                }
+                // Assert
+                Assert.IsEmpty(group.Children);
             }
+        }
         }
 
         [Test]
@@ -1002,14 +1003,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // When
-                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+                // When
+                contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
-                    // Then
-                    var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
-                    Assert.AreEqual(1, grassCoverErosionInwardsCalculations.Length);
-                }
+                // Then
+                var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
+                Assert.AreEqual(1, grassCoverErosionInwardsCalculations.Length);
             }
+        }
         }
 
         [Test]
@@ -1059,13 +1060,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // When
-                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+                // When
+                contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
-                    // Then
-                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().Count());
-                }
+                // Then
+                Assert.AreEqual(0, failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().Count());
             }
+        }
         }
 
         [Test]
@@ -1124,17 +1125,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    string expectedNewName = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, existingCalculationName, c => c.Name);
+                string expectedNewName = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, existingCalculationName, c => c.Name);
 
-                    // When
-                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+                // When
+                contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
-                    // Then
-                    var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
-                    Assert.AreEqual(2, grassCoverErosionInwardsCalculations.Length);
-                    Assert.AreEqual(expectedNewName, grassCoverErosionInwardsCalculations[1].Name);
-                }
+                // Then
+                var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
+                Assert.AreEqual(2, grassCoverErosionInwardsCalculations.Length);
+                Assert.AreEqual(expectedNewName, grassCoverErosionInwardsCalculations[1].Name);
             }
+        }
         }
 
         [Test]

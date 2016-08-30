@@ -43,6 +43,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -60,7 +61,6 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Commands;
-using Ringtoets.Integration.Forms.GuiServices;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
@@ -77,6 +77,7 @@ using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
@@ -664,7 +665,7 @@ namespace Ringtoets.Integration.Plugin
                 if (validationProblem != null)
                 {
                     log.WarnFormat(
-                        RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
+                        RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                         validationProblem);
                 }
             }

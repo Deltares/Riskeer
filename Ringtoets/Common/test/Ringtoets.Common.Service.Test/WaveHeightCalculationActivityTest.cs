@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
 
-namespace Ringtoets.Integration.Service.Test
+namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
     public class WaveHeightCalculationActivityTest

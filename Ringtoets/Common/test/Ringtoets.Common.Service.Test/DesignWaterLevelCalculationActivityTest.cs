@@ -29,11 +29,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
-using Ringtoets.Integration.Service.Properties;
 
-namespace Ringtoets.Integration.Service.Test
+namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
     public class DesignWaterLevelCalculationActivityTest

@@ -138,6 +138,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekeningen konden niet worden gestart. {0}.
+        /// </summary>
+        public static string CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_ {
+            get {
+                return ResourceManager.GetString("CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap CalculateIcon {
@@ -800,15 +809,6 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("GenericInputOutputIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}.
-        /// </summary>
-        public static string Hydraulic_boundary_database_connection_failed_0_ {
-            get {
-                return ResourceManager.GetString("Hydraulic_boundary_database_connection_failed_0_", resourceCulture);
             }
         }
         

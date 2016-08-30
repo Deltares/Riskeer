@@ -21,7 +21,7 @@
 
 using System.IO;
 using log4net;
-using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -29,11 +29,8 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Integration.Service.Properties;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Service
+namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for marginal wave statistics.
@@ -59,7 +56,7 @@ namespace Ringtoets.Integration.Service
 
             if (!isValid)
             {
-                CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonFormsResources.Hydraulic_boundary_database_connection_failed_0_,
+                CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
                                                             validationProblem);
             }
 

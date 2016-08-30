@@ -24,12 +24,12 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.Utils;
 using log4net;
+using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Service.Properties;
 
-namespace Ringtoets.Integration.Service
+namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// <see cref="Activity"/> for running a water height calculation.

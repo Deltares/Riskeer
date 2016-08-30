@@ -26,12 +26,12 @@ using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
+using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Integration.Forms.Properties;
-using Ringtoets.Integration.Service;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.GuiServices
+namespace Ringtoets.Common.Forms.GuiServices
 {
     /// <summary>
     /// This class is responsible for calculating the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>
