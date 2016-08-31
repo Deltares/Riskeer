@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -30,34 +29,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an enumeration of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
-    /// for wave height at intersection probability calculations.
+    /// with <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight"/> for a given norm.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveHeightLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    public class GrassCoverErosionOutwardsWaveHeightLocationsContext : ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsContext"/>.
         /// </summary>
-        /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> to which the hydraulic boundary locations
-        /// are assigned.</param>
         /// <param name="grassCoverErosionOutwardsHydraulicBoundaryLocations">The grass cover erosion outwards hydraulic boundary locations
         /// for this context.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedAssessmentSection"/> or 
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to which the hydraulic boundary locations
+        /// are assigned.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> or 
         /// <paramref name="grassCoverErosionOutwardsHydraulicBoundaryLocations"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveHeightLocationsContext(
-            IAssessmentSection wrappedAssessmentSection,
-            ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations)
-            : base(wrappedAssessmentSection)
+            ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations, 
+            IAssessmentSection assessmentSection)
+            : base(grassCoverErosionOutwardsHydraulicBoundaryLocations)
         {
-            if (grassCoverErosionOutwardsHydraulicBoundaryLocations == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException("grassCoverErosionOutwardsHydraulicBoundaryLocations");
+                throw new ArgumentNullException("assessmentSection");
             }
-            Locations = grassCoverErosionOutwardsHydraulicBoundaryLocations;
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
-        /// Gets the grass cover erosion outwards hydraulic boundary locations.
+        /// Gets the assessment section to which the hydraulic boundary locations belong.
         /// </summary>
-        public ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> Locations { get; private set; }
+        public IAssessmentSection AssessmentSection { get; private set; }
     }
 }

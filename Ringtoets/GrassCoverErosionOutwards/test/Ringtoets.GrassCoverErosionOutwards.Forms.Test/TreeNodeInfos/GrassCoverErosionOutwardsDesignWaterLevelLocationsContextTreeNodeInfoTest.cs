@@ -93,8 +93,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                assessmentSectionMock,
-                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
+                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                assessmentSectionMock);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -116,8 +116,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                assessmentSectionMock,
-                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
+                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                assessmentSectionMock);
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -144,8 +144,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                        assessmentSectionMock,
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
+                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                        assessmentSectionMock);
 
                     var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -161,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
+                    using (info.ContextMenuStrip(context, null, treeViewControl)) {}
                 }
             }
 
@@ -187,8 +187,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                        assessmentSectionMock,
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
+                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                        assessmentSectionMock);
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -205,20 +205,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl);
-
-                    // Assert
-                    Assert.AreEqual(3, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 0, Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
-                                                                  Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate, RingtoetsCommonFormsResources.CalculateAllIcon, false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 2, CoreCommonGuiResources.Properties,
-                                                                  CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesHS, false);
-
-                    CollectionAssert.AllItemsAreInstancesOfType(new[]
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
-                        menu.Items[1],
-                    }, typeof(ToolStripSeparator));
+                        // Assert
+                        Assert.AreEqual(3, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                      0,
+                                                                      Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
+                                                                      Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate,
+                                                                      RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                      false);
+                        TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                      2,
+                                                                      CoreCommonGuiResources.Properties,
+                                                                      CoreCommonGuiResources.Properties_ToolTip,
+                                                                      CoreCommonGuiResources.PropertiesHS,
+                                                                      false);
+
+                        CollectionAssert.AllItemsAreInstancesOfType(new[]
+                        {
+                            menu.Items[1],
+                        }, typeof(ToolStripSeparator));
+                    }
                 }
             }
             mockRepository.VerifyAll();
@@ -243,8 +252,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                        assessmentSectionMock,
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
+                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                        assessmentSectionMock);
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -261,18 +270,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl);
-
-                    // Assert
-                    Assert.AreEqual(3, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 0, Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
-                                                                  Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon);
-
-                    CollectionAssert.AllItemsAreInstancesOfType(new[]
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
-                        menu.Items[1],
-                    }, typeof(ToolStripSeparator));
+                        // Assert
+                        Assert.AreEqual(3, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                      0,
+                                                                      Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
+                                                                      Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip,
+                                                                      RingtoetsCommonFormsResources.CalculateAllIcon);
+                        TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                      2,
+                                                                      CoreCommonGuiResources.Properties,
+                                                                      CoreCommonGuiResources.Properties_ToolTip,
+                                                                      CoreCommonGuiResources.PropertiesHS,
+                                                                      false);
+
+                        CollectionAssert.AllItemsAreInstancesOfType(new[]
+                        {
+                            menu.Items[1],
+                        }, typeof(ToolStripSeparator));
+                    }
                 }
             }
             mockRepository.VerifyAll();
@@ -297,7 +316,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             {
                 new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation)
             };
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(assessmentSectionMock, locations);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSectionMock);
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -317,7 +336,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(assessmentSectionMock, new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
+                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                assessmentSectionMock);
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -360,7 +381,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     Contribution = 1
                 }
             });
-            assessmentSectionMock.Expect(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 5));
+            assessmentSectionMock
+                .Expect(a => a.FailureMechanismContribution)
+                .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 5));
+
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             var grassCoverErosionOutwardsHydraulicBoundaryLocation1 = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation1);
             var grassCoverErosionOutwardsHydraulicBoundaryLocation2 = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation2)
@@ -373,7 +397,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 grassCoverErosionOutwardsHydraulicBoundaryLocation1,
                 grassCoverErosionOutwardsHydraulicBoundaryLocation2
             };
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(assessmentSectionMock, grassCoverErosionOutwardsHydraulicBoundaryLocations);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(grassCoverErosionOutwardsHydraulicBoundaryLocations, assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
             {

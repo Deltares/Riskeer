@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationsContext, GrassCoverErosionOutwardsWaveHeightLocationsContextProperties>
             {
-                GetObjectPropertiesData = context => context.Locations
+                GetObjectPropertiesData = context => context.WrappedData
             };
         }
 
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 Text = context => Resources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
+                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightLocationsContextMenuStrip
@@ -261,8 +261,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = hydraulicBoundariesGroupContext.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
             return new object[]
             {
-                new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(assessmentSection, locations),
-                new GrassCoverErosionOutwardsWaveHeightLocationsContext(assessmentSection, locations)
+                new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection),
+                new GrassCoverErosionOutwardsWaveHeightLocationsContext(locations, assessmentSection)
             };
         }
 
@@ -323,15 +323,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
-                Resources.GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip,
+                nodeData.AssessmentSection.HydraulicBoundaryDatabase == null 
+                    ? Resources.GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate
+                    : Resources.GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
-                null);
-
-            designWaterLevelItem.Enabled = false;
-            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+                null)
             {
-                designWaterLevelItem.ToolTipText = Resources.GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate;
-            }
+                Enabled = false
+            };
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(designWaterLevelItem)
