@@ -57,7 +57,6 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             mocks.VerifyAll();
         }
 
-
         [Test]
         public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
