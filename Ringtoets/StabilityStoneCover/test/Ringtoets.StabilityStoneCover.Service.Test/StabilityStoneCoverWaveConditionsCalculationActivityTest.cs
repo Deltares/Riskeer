@@ -49,7 +49,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivity<List<WaveConditionsOutput>>>(activity);
+            Assert.IsInstanceOf<HydraRingActivity<StabilityStoneCoverWaveConditionsCalculationActivityOutput>>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual(calculation.Name, activity.Name);
