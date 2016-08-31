@@ -61,6 +61,11 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
+        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
+        /// </summary>
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        /// <summary>
         /// Gets or sets the dike profile.
         /// </summary>
         public DikeProfile DikeProfile
@@ -75,11 +80,6 @@ namespace Ringtoets.Revetment.Data
                 UpdateDikeProfileParameters();
             }
         }
-
-        /// <summary>
-        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
-        /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
         /// Gets or sets if <see cref="BreakWater"/> needs to be taken into account.
@@ -261,16 +261,26 @@ namespace Ringtoets.Revetment.Data
         private IEnumerable<RoundedDouble> DetermineWaterLevels()
         {
             var waterLevels = new List<RoundedDouble>();
-            var upperBoundary = new RoundedDouble(2, Math.Min(DetermineUpperWaterLevel(), Math.Min(UpperBoundaryRevetment, UpperBoundaryWaterLevels)));
-            var lowerBoundary = new RoundedDouble(2, Math.Max(LowerBoundaryRevetment, LowerBoundaryWaterLevels));
 
-            if (double.IsNaN(upperBoundary) ||
-                double.IsNaN(lowerBoundary) ||
-                Math.Abs(lowerBoundary - upperBoundary) < 1e-6 ||
-                Math.Abs(StepSize) < 1e-6)
+            var upperBoundary = new RoundedDouble(2, Math.Min(DetermineUpperWaterLevel(),
+                                                              Math.Min(UpperBoundaryRevetment,
+                                                                       !double.IsNaN(UpperBoundaryWaterLevels)
+                                                                           ? UpperBoundaryWaterLevels
+                                                                           : double.MaxValue)));
+
+            var lowerBoundary = new RoundedDouble(2, Math.Max(LowerBoundaryRevetment,
+                                                              !double.IsNaN(LowerBoundaryWaterLevels)
+                                                                  ? LowerBoundaryWaterLevels
+                                                                  : double.MinValue));
+
+            if (double.IsNaN(upperBoundary)
+                || double.IsNaN(lowerBoundary)
+                || double.IsNaN(stepSize))
             {
                 return waterLevels;
             }
+
+            waterLevels.Add(lowerBoundary);
 
             RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary/stepSize)*stepSize + stepSize);
 
@@ -280,12 +290,6 @@ namespace Ringtoets.Revetment.Data
                 currentWaterLevel = (currentWaterLevel + stepSize).ToPrecision(currentWaterLevel.NumberOfDecimalPlaces);
             }
 
-            if (!waterLevels.Any())
-            {
-                return waterLevels;
-            }
-
-            waterLevels.Insert(0, lowerBoundary);
             waterLevels.Add(upperBoundary);
 
             return waterLevels;

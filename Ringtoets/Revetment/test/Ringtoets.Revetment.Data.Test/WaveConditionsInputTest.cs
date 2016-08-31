@@ -95,11 +95,11 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryRevetment);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryRevetment);
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryRevetment);
             Assert.AreEqual(new RoundedDouble(1, double.NaN), input.StepSize);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryWaterLevels);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryWaterLevels);
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryWaterLevels);
             CollectionAssert.IsEmpty(input.WaterLevels);
         }
 
@@ -487,24 +487,24 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(0.1, 0.02, 0)]
-        [TestCase(double.NaN, double.NaN, double.NaN)]
-        [TestCase(1, 8.01, 7.99)]
-        [TestCase(2, 3.52, 3.5)]
-        public void WaterLevels_InvalidData_NoWaterLevels(double stepSize, double upperBoundaryLevel, double lowerBoundaryLevel)
+        [TestCase(double.NaN, 1.0, 10.0, 12.0)]
+        [TestCase(1.0, double.NaN, 10.0, 12.0)]
+        [TestCase(1.0, 1.0, double.NaN, 12.0)]
+        [TestCase(1.0, 1.0, 10.0, double.NaN)]
+        public void WaterLevels_InvalidData_NoWaterLevels(double stepSize, double lowerBoundaryRevetments, double upperBoundaryRevetments, double designWaterLevel)
         {
             // Setup
             var input = new WaveConditionsInput
             {
-                StepSize = (RoundedDouble) stepSize,
-                UpperBoundaryRevetment = (RoundedDouble) (upperBoundaryLevel - 0.01),
-                UpperBoundaryWaterLevels = (RoundedDouble) (upperBoundaryLevel - 0.01),
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevel = (RoundedDouble) upperBoundaryLevel
+                    DesignWaterLevel = (RoundedDouble) designWaterLevel
                 },
-                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryLevel,
-                LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryLevel
+                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetments,
+                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetments,
+                StepSize = (RoundedDouble) stepSize,
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
 
             // Call
