@@ -199,9 +199,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Call
             dikeProfilesImporter.Import();
-            DikeProfile dikeProfile = failureMechanism.DikeProfiles[4];
 
             // Assert
+            DikeProfile dikeProfile = failureMechanism.DikeProfiles[4];
             Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), dikeProfile.WorldReferencePoint);
             Assert.AreEqual("profiel005", dikeProfile.Name);
             Assert.AreEqual(15.56165507, dikeProfile.X0);
