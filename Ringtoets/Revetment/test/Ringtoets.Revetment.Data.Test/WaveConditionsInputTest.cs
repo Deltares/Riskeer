@@ -247,16 +247,19 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        public void LowerBoundaryRevetment_AboveUpperBoundaryRevetment_ThrowsArgumentOutOfRangeException()
+        [TestCase(5.0, 4.0)]
+        [TestCase(4.0, 4.0)]
+        [TestCase(3.995, 4.0)]
+        public void LowerBoundaryRevetment_InvalidValueAccordingtoUpperBoundaryRevetment_ThrowsArgumentOutOfRangeException(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
             var input = new WaveConditionsInput
             {
-                UpperBoundaryRevetment = (RoundedDouble) 0.0
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
 
             // Call
-            TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble) 3.0;
+            TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
 
             // Assert
             string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
@@ -300,16 +303,19 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        public void UpperBoundaryRevetment_BelowLowerBoundaryRevetment_ThrowsArgumentOutOfRangeException()
+        [TestCase(4.0, 3.0)]
+        [TestCase(4.0, 4.0)]
+        [TestCase(4.0, 4.004)]
+        public void UpperBoundaryRevetment_InvalidValueAccordingtoLowerBoundaryRevetment_ThrowsArgumentOutOfRangeException(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
             var input = new WaveConditionsInput
             {
-                LowerBoundaryRevetment = (RoundedDouble) 0.0
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
             };
 
             // Call
-            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) (-3);
+            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
 
             // Assert
             string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
@@ -369,19 +375,19 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(5)]
-        [TestCase(3.004)]
-        [TestCase(3.009)]
-        public void LowerBoundaryWaterLevels_BoundaryAboveUpperBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double newValue)
+        [TestCase(5.0, 4.0)]
+        [TestCase(4.0, 4.0)]
+        [TestCase(3.995, 4.0)]
+        public void LowerBoundaryWaterLevels_InvalidValueAccordingtoUpperBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
         {
             // Setup
             var input = new WaveConditionsInput
             {
-                UpperBoundaryWaterLevels = (RoundedDouble) 3.0
+                UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
 
             // Call
-            TestDelegate test = () => input.LowerBoundaryWaterLevels = (RoundedDouble) newValue;
+            TestDelegate test = () => input.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels;
 
             // Assert
             string expectedMessage = Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels;
@@ -425,22 +431,22 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(1)]
-        [TestCase(3.004)]
-        [TestCase(2.999)]
-        public void UpperBoundaryWaterLevels_BoundaryBelowLowerBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double newValue)
+        [TestCase(4.0, 3.0)]
+        [TestCase(4.0, 4.0)]
+        [TestCase(4.0, 4.004)]
+        public void UpperBoundaryWaterLevels_InvalidValueAccordingtoLowerBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
         {
             // Setup
             var input = new WaveConditionsInput
             {
-                LowerBoundaryWaterLevels = (RoundedDouble) 3.0
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryWaterLevels
             };
 
             // Call
-            TestDelegate test = () => input.UpperBoundaryWaterLevels = (RoundedDouble) newValue;
+            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryWaterLevels;
 
             // Assert
-            string expectedMessage = Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels;
+            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
