@@ -22,20 +22,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Asphalt.Data;
 using Ringtoets.Asphalt.Forms.PresentationObjects;
 using Ringtoets.Asphalt.Forms.PropertyClasses;
 using Ringtoets.Asphalt.Forms.Views;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Asphalt.Plugin.Test
