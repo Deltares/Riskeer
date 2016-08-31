@@ -68,7 +68,7 @@
     <Compile Include="Commands\OpenMapViewCommandTest.cs" />
     <Compile Include="GUIs\DemoProjectPluginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ribbons\RingtoestDemoProjectRibbonTest.cs" />
+    <Compile Include="Ribbons\RingtoetsDemoProjectRibbonTest.cs" />
     <Compile Include="Views\ChartDataViewTest.cs" />
     <Compile Include="Views\MapDataViewTest.cs" />
   </ItemGroup>
