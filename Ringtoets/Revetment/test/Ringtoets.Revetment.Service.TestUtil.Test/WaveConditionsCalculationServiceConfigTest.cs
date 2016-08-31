@@ -21,18 +21,17 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Services;
 
-namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
+namespace Ringtoets.Revetment.Service.TestUtil.Test
 {
     [TestFixture]
-    public class HydraRingCalculationServiceConfigTest
+    public class WaveConditionsCalculationServiceConfigTest
     {
         [Test]
         public void Constructor_NewInstanceCanBeDisposed()
         {
             // Call
-            var service = new HydraRingCalculationServiceConfig();
+            var service = new WaveConditionsCalculationServiceConfig();
 
             // Assert
             Assert.IsInstanceOf<IDisposable>(service);
@@ -43,10 +42,10 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         public void Constructor_SetsTestFactoryForPipingCalculatorService()
         {
             // Call
-            using (new HydraRingCalculationServiceConfig())
+            using (new WaveConditionsCalculationServiceConfig())
             {
                 // Assert
-                Assert.IsInstanceOf<TestHydraRingCalculationService>(HydraRingCalculationService.Instance);
+                Assert.IsInstanceOf<TestWaveConditionsCalculationService>(WaveConditionsCalculationService.Instance);
             }
         }
 
@@ -54,13 +53,13 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         public void Dispose_Always_ResetsFactoryToPreviousValue()
         {
             // Setup
-            var expectedService = HydraRingCalculationService.Instance;
+            var expectedService = WaveConditionsCalculationService.Instance;
 
             // Call
-            using (new HydraRingCalculationServiceConfig()) { }
+            using (new WaveConditionsCalculationServiceConfig()) { }
 
             // Assert
-            Assert.AreSame(expectedService, HydraRingCalculationService.Instance);
+            Assert.AreSame(expectedService, WaveConditionsCalculationService.Instance);
         }
     }
 }

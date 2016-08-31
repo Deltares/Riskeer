@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
-using System.Reflection;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -45,7 +47,7 @@ namespace Ringtoets.Revetment.Service.Test
             [Values(true, false)] bool useBreakWater)
         {
             // Setup
-            double waterLevel = 4.20;
+            RoundedDouble waterLevel = (RoundedDouble) 4.20;
             double a = 1.0;
             double b = 0.8;
             double c = 0.4;
@@ -53,21 +55,7 @@ namespace Ringtoets.Revetment.Service.Test
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
-                DikeProfile = new DikeProfile(new Point2D(0, 0),
-                                              new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
-                                              }, new[]
-                                              {
-                                                  new Point2D(2.2, 3.3),
-                                                  new Point2D(4.4, 5.5),
-                                              },
-                                              new BreakWater(BreakWaterType.Wall, 5.5),
-                                              new DikeProfile.ConstructionProperties
-                                              {
-                                                  Orientation = 1.1,
-                                                  DikeHeight = 4.4
-                                              }),
+                DikeProfile = CreateDikeProfile(),
                 UseBreakWater = useBreakWater,
                 UseForeshore = useForeshore
             };
@@ -81,7 +69,7 @@ namespace Ringtoets.Revetment.Service.Test
                 var testService = (TestHydraRingCalculationService) HydraRingCalculationService.Instance;
 
                 // Call
-                WaveConditionsCalculationService.Calculate(waterLevel, a, b, c, norm, input, hlcdDirectory, ringId, name);
+                WaveConditionsCalculationService.Instance.Calculate(waterLevel, a, b, c, norm, input, hlcdDirectory, ringId, name);
 
                 // Assert
                 Assert.AreEqual(hlcdDirectory, testService.HlcdDirectory);
@@ -95,7 +83,77 @@ namespace Ringtoets.Revetment.Service.Test
             }
         }
 
-        private void AssertInput(WaveConditionsCosineCalculationInput expectedInput, HydraRingCalculationInput actualInput, bool useBreakWater)
+        [Test]
+        public void Calculate_CalculationOutputNull_LogError()
+        {
+            // Setup
+            RoundedDouble waterLevel = (RoundedDouble) 4.20;
+            double a = 1.0;
+            double b = 0.8;
+            double c = 0.4;
+            double norm = 5;
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
+                DikeProfile = CreateDikeProfile()
+            };
+
+            string hlcdDirectory = "C:/temp";
+            string ringId = "11-1";
+            string name = "test";
+
+            using (new HydraRingCalculationServiceConfig())
+            {
+                // Call
+                Action call = () => WaveConditionsCalculationService.Instance.Calculate(waterLevel, a, b, c, norm, input, hlcdDirectory, ringId, name);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(1, msgs.Length);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", name, waterLevel), msgs[0]);
+                });
+            }
+        }
+
+        private static DikeProfile CreateDikeProfile()
+        {
+            return new DikeProfile(new Point2D(0, 0),
+                                   new[]
+                                   {
+                                       new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
+                                   }, new[]
+                                   {
+                                       new Point2D(2.2, 3.3),
+                                       new Point2D(4.4, 5.5),
+                                   },
+                                   new BreakWater(BreakWaterType.Wall, 5.5),
+                                   new DikeProfile.ConstructionProperties
+                                   {
+                                       Orientation = 1.1,
+                                       DikeHeight = 4.4
+                                   });
+        }
+
+        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
+        {
+            return new WaveConditionsCosineCalculationInput(1,
+                                                            input.HydraulicBoundaryLocation.Id,
+                                                            norm,
+                                                            useForeshore ?
+                                                                input.ForeshoreGeometry.Select(coordinate => new HydraRingForelandPoint(coordinate.X, coordinate.Y))
+                                                                : new HydraRingForelandPoint[0],
+                                                            useBreakWater
+                                                                ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height)
+                                                                : null,
+                                                            waterLevel,
+                                                            a,
+                                                            b,
+                                                            c);
+        }
+
+        private static void AssertInput(WaveConditionsCosineCalculationInput expectedInput, HydraRingCalculationInput actualInput, bool useBreakWater)
         {
             Assert.AreEqual(expectedInput.Beta, actualInput.Beta);
             if (useBreakWater)
@@ -121,23 +179,6 @@ namespace Ringtoets.Revetment.Service.Test
             Assert.AreEqual(expectedInput.HydraulicBoundaryLocationId, actualInput.HydraulicBoundaryLocationId);
 
             HydraRingVariableAssert.AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
-        }
-
-        private WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
-        {
-            return new WaveConditionsCosineCalculationInput(1,
-                                                            input.HydraulicBoundaryLocation.Id,
-                                                            norm,
-                                                            useForeshore ? 
-                                                                input.ForeshoreGeometry.Select(coordinate => new HydraRingForelandPoint(coordinate.X, coordinate.Y))
-                                                                : new HydraRingForelandPoint[0],
-                                                            useBreakWater 
-                                                                ? new HydraRingBreakWater((int)input.BreakWater.Type, input.BreakWater.Height)
-                                                                : null,
-                                                            waterLevel,
-                                                            a,
-                                                            b,
-                                                            c);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De q variant berekening &apos;{0}&apos; voor waterstand: &apos;{1}&apos; is niet gelukt..
+        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; is niet gelukt..
         /// </summary>
         internal static string WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_wave_conditions_calculation_0_for_waterlevel_1 {
             get {

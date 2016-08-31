@@ -20,12 +20,16 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Service;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Service.Properties;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Service
 {
@@ -34,6 +38,8 @@ namespace Ringtoets.StabilityStoneCover.Service
     /// </summary>
     public class StabilityStoneCoverWaveConditionsCalculationActivity : HydraRingActivity<StabilityStoneCoverWaveConditionsCalculationActivityOutput>
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(StabilityStoneCoverWaveConditionsCalculationActivity));
+
         private readonly StabilityStoneCoverWaveConditionsCalculation calculation;
         private readonly string hlcdDirectory;
         private readonly StabilityStoneCoverFailureMechanism failureMechanism;
@@ -77,6 +83,84 @@ namespace Ringtoets.StabilityStoneCover.Service
 
         protected override void OnRun()
         {
+            PerformRun(() => true,
+                       () => StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
+                       () =>
+                       {
+                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
+                                                  calculation.Name,
+                                                  DateTimeService.CurrentTimeAsString));
+
+                           Output = new StabilityStoneCoverWaveConditionsCalculationActivityOutput();
+
+                           var generalInput = failureMechanism.GeneralInput;
+                           var aBlocks = generalInput.ABlocks;
+                           var bBlocks = generalInput.BBlocks;
+                           var cBlocks = generalInput.CBlocks;
+                           var aColumns = generalInput.AColumns;
+                           var bColumns = generalInput.BColumns;
+                           var cColumns = generalInput.CColumns;
+                           var norm = assessmentSection.FailureMechanismContribution.Norm;
+
+                           foreach (var waterLevel in calculation.InputParameters.WaterLevels)
+                           {
+                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_started_time_1_,
+                                                      calculation.Name,
+                                                      waterLevel,
+                                                      DateTimeService.CurrentTimeAsString));
+
+                               var blocksOuput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
+                                                                                                     aBlocks,
+                                                                                                     bBlocks,
+                                                                                                     cBlocks,
+                                                                                                     norm,
+                                                                                                     calculation.InputParameters,
+                                                                                                     hlcdDirectory,
+                                                                                                     assessmentSection.Id,
+                                                                                                     calculation.Name);
+
+                               if (blocksOuput != null)
+                               {
+                                   Output.AddBlocksOutput(blocksOuput);
+                               }
+
+                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_ended_time_1_,
+                                                      calculation.Name,
+                                                      waterLevel,
+                                                      DateTimeService.CurrentTimeAsString));
+
+                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_started_time_1_,
+                                                      calculation.Name,
+                                                      waterLevel,
+                                                      DateTimeService.CurrentTimeAsString));
+
+                               var columnsOuput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
+                                                                                                      aColumns,
+                                                                                                      bColumns,
+                                                                                                      cColumns,
+                                                                                                      norm,
+                                                                                                      calculation.InputParameters,
+                                                                                                      hlcdDirectory,
+                                                                                                      assessmentSection.Id,
+                                                                                                      calculation.Name);
+
+                               if (columnsOuput != null)
+                               {
+                                   Output.AddColumnsOutput(columnsOuput);
+                               }
+
+                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_ended_time_1_,
+                                                      calculation.Name,
+                                                      waterLevel,
+                                                      DateTimeService.CurrentTimeAsString));
+                           }
+
+                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
+                                                  calculation.Name,
+                                                  DateTimeService.CurrentTimeAsString));
+
+                           return !Output.ColumnsOutput.Any() && !Output.BlocksOutput.Any() ? null : Output;
+                       });
         }
 
         protected override void OnFinish()

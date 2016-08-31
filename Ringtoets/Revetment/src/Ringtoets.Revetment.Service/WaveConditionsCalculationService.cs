@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
 using log4net;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
@@ -35,34 +36,35 @@ namespace Ringtoets.Revetment.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for wave conditions calculations.
     /// </summary>
-    public static class WaveConditionsCalculationService
+    public class WaveConditionsCalculationService : IWaveConditionsCalculationService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveConditionsCalculationService));
+        private static IWaveConditionsCalculationService instance;
 
         /// <summary>
-        /// Performs a wave conditions cosine calculation based on the supplied <see cref="WaveConditionsInput"/>
-        /// and returns the <see cref="WaveConditionsOutput"/> if the calculation was succesful.
-        /// Error and status information is logged during the execution of the operation.
+        /// Gets or sets an instance of <see cref="IWaveConditionsCalculationService"/>.
         /// </summary>
-        /// <param name="waterLevel">The water level to calculate the wave conditions for.</param>
-        /// <param name="a">The a-value to use during the calculation.</param>
-        /// <param name="b">The b-value to use during the calculation.</param>
-        /// <param name="c">The c-value to use during the calculation.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="input">The <see cref="WaveConditionsInput"/> that holds the information required to perform a calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="name">The name of the calculation to perform.</param>
-        /// <returns>A <see cref="WaveConditionsOutput"/> on a succesful calculation. <c>null</c> otherwise.</returns>
-        public static WaveConditionsOutput Calculate(double waterLevel,
-                                                     double a,
-                                                     double b,
-                                                     double c,
-                                                     double norm,
-                                                     WaveConditionsInput input,
-                                                     string hlcdDirectory,
-                                                     string ringId,
-                                                     string name)
+        public static IWaveConditionsCalculationService Instance
+        {
+            get
+            {
+                return instance ?? (instance = new WaveConditionsCalculationService());
+            }
+            set
+            {
+                instance = value;
+            }
+        }
+
+        public WaveConditionsOutput Calculate(RoundedDouble waterLevel,
+                                              double a,
+                                              double b,
+                                              double c,
+                                              double norm,
+                                              WaveConditionsInput input,
+                                              string hlcdDirectory,
+                                              string ringId,
+                                              string name)
         {
             WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input);
             var waveConditionsCalculationParser = new WaveConditionsCalculationParser();
@@ -87,7 +89,7 @@ namespace Ringtoets.Revetment.Service
                        null;
         }
 
-        private static void VerifyWaveConditionsCalculationOutput(WaveConditionsCalculationOutput output, string name, double waterLevel)
+        private static void VerifyWaveConditionsCalculationOutput(WaveConditionsCalculationOutput output, string name, RoundedDouble waterLevel)
         {
             if (output == null)
             {
@@ -115,7 +117,7 @@ namespace Ringtoets.Revetment.Service
 
         private static HydraRingBreakWater GetBreakWater(WaveConditionsInput input)
         {
-            return input.UseBreakWater ? new HydraRingBreakWater((int)input.BreakWater.Type, input.BreakWater.Height) : null;
+            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
         }
 
         private static IEnumerable<HydraRingForelandPoint> GetForeshore(WaveConditionsInput input)

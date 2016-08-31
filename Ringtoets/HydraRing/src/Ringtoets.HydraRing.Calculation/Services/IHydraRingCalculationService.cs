@@ -26,6 +26,9 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Services
 {
+    /// <summary>
+    /// Service responsible for performing a calculation via Hydra-Ring.
+    /// </summary>
     public interface IHydraRingCalculationService
     {
         /// <summary>
@@ -42,6 +45,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
             string ringId,
             HydraRingUncertaintiesType uncertaintiesType,
             HydraRingCalculationInput hydraRingCalculationInput,
-                                       IEnumerable<IHydraRingFileParser> parsers);
+            IEnumerable<IHydraRingFileParser> parsers);
     }
 }

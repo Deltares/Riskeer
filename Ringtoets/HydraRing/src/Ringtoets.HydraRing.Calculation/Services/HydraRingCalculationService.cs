@@ -41,6 +41,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private static Process hydraRingProcess;
         private static IHydraRingCalculationService instance;
 
+        /// <summary>
+        /// Gets or sets an instance of <see cref="IHydraRingCalculationService"/>.
+        /// </summary>
         public static IHydraRingCalculationService Instance
         {
             get
