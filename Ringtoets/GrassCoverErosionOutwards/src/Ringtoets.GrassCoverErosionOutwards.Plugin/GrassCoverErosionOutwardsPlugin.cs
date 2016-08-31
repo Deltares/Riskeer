@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.IO;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
@@ -41,6 +42,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 {
@@ -130,6 +132,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightLocationsContextMenuStrip
+            };
+        }
+
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return new ExportInfo<HydraulicBoundariesGroupContext>
+            {
+                CreateFileExporter = (context, filePath) =>
+                                     new HydraulicBoundaryLocationsExporter(context.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations,
+                                                                            filePath, "Waterstand bij doorsnede-eis"),
+                IsEnabled = context => context.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count > 0,
+                FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };
         }
 

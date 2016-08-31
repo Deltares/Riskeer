@@ -1047,6 +1047,16 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd..
+        /// </summary>
+        public static string HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocation" +
+                        "s_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap InputFolderIcon {

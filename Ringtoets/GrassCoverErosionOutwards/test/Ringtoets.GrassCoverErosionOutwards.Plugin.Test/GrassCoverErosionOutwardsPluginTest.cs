@@ -118,5 +118,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsNull(waveHeightLocationContextProperties.AfterCreate);
             }
         }
+
+        [Test]
+        public void GetExportInfos_ReturnsSupportedExportInfos()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                // Call
+                ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, exportInfos.Length);
+                var hydraulicBoundaryLocationExportInfo = exportInfos.Single(ei => ei.DataType == typeof(HydraulicBoundariesGroupContext));
+                Assert.IsNull(hydraulicBoundaryLocationExportInfo.Name);
+                Assert.IsNull(hydraulicBoundaryLocationExportInfo.Image);
+                Assert.IsNull(hydraulicBoundaryLocationExportInfo.Category);
+            }
+        }
     }
 }

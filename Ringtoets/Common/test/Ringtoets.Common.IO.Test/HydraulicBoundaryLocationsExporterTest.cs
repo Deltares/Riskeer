@@ -27,9 +27,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Plugin.FileExporters;
 
-namespace Ringtoets.Integration.Plugin.Test.FileExporters
+namespace Ringtoets.Common.IO.Test
 {
     public class HydraulicBoundaryLocationsExporterTest
     {
@@ -49,7 +48,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath);
+            }, filePath, "aName");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(hydraulicBoundaryLocationsExporter);
@@ -62,7 +61,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(null, filePath);
+            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(null, filePath, "aName");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -83,10 +82,33 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, null);
+            }, null, "aName");
 
             // Assert
             Assert.Throws<ArgumentException>(call);
+        }
+
+        [Test]
+        public void ParameteredConstructor_DesignWaterLevelNameNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            {
+                DesignWaterLevel = (RoundedDouble) 111.111,
+                WaveHeight = (RoundedDouble) 222.222
+            };
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
+
+            // Call
+            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
+            {
+                hydraulicBoundaryLocation
+            }, filePath, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("designWaterLevelName", exception.ParamName);
         }
 
         [Test]
@@ -107,7 +129,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath);
+            }, filePath, "aName");
 
             bool isExported;
             try
@@ -142,7 +164,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileExporters
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath);
+            }, filePath, "aName");
 
             try
             {

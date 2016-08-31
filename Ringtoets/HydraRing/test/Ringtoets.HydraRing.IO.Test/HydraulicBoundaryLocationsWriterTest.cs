@@ -33,6 +33,17 @@ namespace Ringtoets.HydraRing.IO.Test
     public class HydraulicBoundaryLocationsWriterTest
     {
         [Test]
+        public void ParameteredConstructor_DesignWaterLevelNameNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new HydraulicBoundaryLocationsWriter(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("designWaterLevelName", exception.ParamName);
+        }
+
+        [Test]
         public void WriteHydraulicBoundaryLocations_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Setup
@@ -40,7 +51,7 @@ namespace Ringtoets.HydraRing.IO.Test
                                                          Path.Combine("WriteHydraulicBoundaryLocations_NullhydraulicBoundaryLocations_ThrowArgumentNullException",
                                                                       "test.shp"));
 
-            var writer = new HydraulicBoundaryLocationsWriter();
+            var writer = new HydraulicBoundaryLocationsWriter("aName");
 
             // Call
             TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(null, filePath);
@@ -55,7 +66,7 @@ namespace Ringtoets.HydraRing.IO.Test
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
 
-            var writer = new HydraulicBoundaryLocationsWriter();
+            var writer = new HydraulicBoundaryLocationsWriter("aName");
 
             // Call
             TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(new[]
@@ -83,7 +94,7 @@ namespace Ringtoets.HydraRing.IO.Test
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";
 
-            var writer = new HydraulicBoundaryLocationsWriter();
+            var writer = new HydraulicBoundaryLocationsWriter("Toetspeil");
 
             // Precondition
             AssertEssentialShapefileExists(directoryPath, baseName, false);

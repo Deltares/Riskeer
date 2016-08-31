@@ -55,6 +55,7 @@
     <Compile Include="AssessmentSectionSettingsReaderTest.cs" />
     <Compile Include="AssessmentSectionSettingsTest.cs" />
     <Compile Include="Exceptions\CriticalFileValidationExceptionTest.cs" />
+    <Compile Include="HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="ReferenceLineExporterTest.cs" />
     <Compile Include="ReferenceLineMetaImporterTest.cs" />
     <Compile Include="ReferenceLinesMetaReaderTest.cs" />
@@ -80,6 +81,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>

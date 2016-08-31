@@ -27,43 +27,54 @@ using Core.Common.Utils;
 using log4net;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Integration.Plugin.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.FileExporters
+namespace Ringtoets.Common.IO
 {
     /// <summary>
-    /// Exports the locations of a <see cref="HydraulicBoundaryDatabase"/> and stores them as a shapefile.
+    /// Exports hydraulic boundary locations and stores them as a shapefile.
     /// </summary>
     public class HydraulicBoundaryLocationsExporter : IFileExporter
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsExporter));
 
-        private readonly ICollection<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
+        private readonly IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations;
         private readonly string filePath;
+        private readonly string designWaterLevelName;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsExporter"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
+        /// <param name="designWaterLevelName">The Dutch name of the content of the 
+        /// <see cref="IHydraulicBoundaryLocation.DesignWaterLevel"/> property.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> 
+        /// or <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public HydraulicBoundaryLocationsExporter(ICollection<HydraulicBoundaryLocation> hydraulicBoundaryLocations, string filePath)
+        public HydraulicBoundaryLocationsExporter(IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                  string filePath, string designWaterLevelName)
         {
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException("hydraulicBoundaryLocations");
             }
 
+            if (designWaterLevelName == null)
+            {
+                throw new ArgumentNullException("designWaterLevelName");
+            }
+
             FileUtils.ValidateFilePath(filePath);
 
             this.hydraulicBoundaryLocations = hydraulicBoundaryLocations;
             this.filePath = filePath;
+            this.designWaterLevelName = designWaterLevelName;
         }
 
         public bool Export()
         {
-            var hydraulicBoundaryLocationsWriter = new HydraulicBoundaryLocationsWriter();
+            var hydraulicBoundaryLocationsWriter = new HydraulicBoundaryLocationsWriter(designWaterLevelName);
 
             try
             {
@@ -71,7 +82,7 @@ namespace Ringtoets.Integration.Plugin.FileExporters
             }
             catch (CriticalFileWriteException e)
             {
-                log.ErrorFormat(Resources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
+                log.ErrorFormat(RingtoetsCommonFormsResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
                 return false;
             }
 

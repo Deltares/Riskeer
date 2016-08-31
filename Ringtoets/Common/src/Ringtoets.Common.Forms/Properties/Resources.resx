@@ -565,6 +565,9 @@
   <data name="ForeshoreProperties_DisplayName" xml:space="preserve">
     <value>Voorlandgeometrie</value>
   </data>
+  <data name="HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported" xml:space="preserve">
+    <value>{0} Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.</value>
+  </data>
   <data name="Calculation_Input" xml:space="preserve">
     <value>Invoer</value>
   </data>

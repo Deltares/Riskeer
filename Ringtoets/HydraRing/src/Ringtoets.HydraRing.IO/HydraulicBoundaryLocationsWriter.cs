@@ -37,16 +37,35 @@ namespace Ringtoets.HydraRing.IO
     /// </summary>
     public class HydraulicBoundaryLocationsWriter
     {
+        private readonly string designWaterLevelName;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationsWriter"/>.
+        /// </summary>
+        /// <param name="designWaterLevelName">The Dutch name of the content of the 
+        /// <see cref="IHydraulicBoundaryLocation.DesignWaterLevel"/> property.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryLocationsWriter(string designWaterLevelName)
+        {
+            if (designWaterLevelName == null)
+            {
+                throw new ArgumentNullException("designWaterLevelName");
+            }
+
+            this.designWaterLevelName = designWaterLevelName;
+        }
+
         /// <summary>
         /// Writes the locations of a <see cref="HydraulicBoundaryDatabase"/> as point features in a shapefile.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to be written to file.</param>
         /// <param name="filePath">The path to the shapefile.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> or 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> or
         /// <paramref name="filePath"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
-        public void WriteHydraulicBoundaryLocations(ICollection<HydraulicBoundaryLocation> hydraulicBoundaryLocations, string filePath)
+        public void WriteHydraulicBoundaryLocations(IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                    string filePath)
         {
             if (hydraulicBoundaryLocations == null)
             {
@@ -67,7 +86,7 @@ namespace Ringtoets.HydraRing.IO
             pointShapeFileWriter.SaveAs(filePath);
         }
 
-        private MapPointData CreateMapPointData(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private MapPointData CreateMapPointData(IHydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryLocation == null)
             {
@@ -89,9 +108,9 @@ namespace Ringtoets.HydraRing.IO
             });
 
             mapFeature.MetaData.Add("Naam", hydraulicBoundaryLocation.Name);
-            mapFeature.MetaData.Add("Id", hydraulicBoundaryLocation.Id);
-            mapFeature.MetaData.Add("Toetspeil", hydraulicBoundaryLocation.DesignWaterLevel.Value);
-            mapFeature.MetaData.Add("Hs", hydraulicBoundaryLocation.WaveHeight.Value);
+            mapFeature.MetaData.Add("ID", hydraulicBoundaryLocation.Id);
+            mapFeature.MetaData.Add(designWaterLevelName, hydraulicBoundaryLocation.DesignWaterLevel.Value);
+            mapFeature.MetaData.Add("Golfhoogte", hydraulicBoundaryLocation.WaveHeight.Value);
 
             return new MapPointData(hydraulicBoundaryLocation.Name)
             {

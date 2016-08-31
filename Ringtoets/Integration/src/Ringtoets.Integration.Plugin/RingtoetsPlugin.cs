@@ -66,7 +66,6 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using Ringtoets.Integration.Plugin.FileExporters;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
@@ -407,7 +406,8 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
-                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath),
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
+                                                                context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath, "Toetspeil"),
                 IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase != null,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };
