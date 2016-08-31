@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data.Properties;
 
@@ -226,6 +227,26 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
+        [TestCase(4.0, 5.0)]
+        [TestCase(4.0, double.NaN)]
+        [TestCase(double.NaN, 5.0)]
+        [TestCase(double.NaN, double.NaN)]
+        public void LowerBoundaryRevetment_ValidValueAccordingtoUpperBoundaryRevetment_ValueIsSet(double lowerBoundaryRevetment, double upperBoundaryRevetment)
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
+            };
+
+            // Call
+            input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
+
+            // Assert
+            Assert.AreEqual(lowerBoundaryRevetment, input.LowerBoundaryRevetment, input.LowerBoundaryRevetment.GetAccuracy());
+        }
+
+        [Test]
         public void LowerBoundaryRevetment_AboveUpperBoundaryRevetment_ThrowsArgumentOutOfRangeException()
         {
             // Setup
@@ -256,6 +277,26 @@ namespace Ringtoets.Revetment.Data.Test
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.UpperBoundaryRevetment.NumberOfDecimalPlaces);
             Assert.AreEqual(1.23, input.UpperBoundaryRevetment.Value);
+        }
+
+        [Test]
+        [TestCase(4.0, 5.0)]
+        [TestCase(4.0, double.NaN)]
+        [TestCase(double.NaN, 5.0)]
+        [TestCase(double.NaN, double.NaN)]
+        public void UpperBoundaryRevetment_ValidValueAccordingtoLowerBoundaryRevetment_ValueIsSet(double lowerBoundaryRevetment, double upperBoundaryRevetment)
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
+            };
+
+            // Call
+            input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
+
+            // Assert
+            Assert.AreEqual(upperBoundaryRevetment, input.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());
         }
 
         [Test]
@@ -308,6 +349,26 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
+        [TestCase(4.0, 5.0)]
+        [TestCase(4.0, double.NaN)]
+        [TestCase(double.NaN, 5.0)]
+        [TestCase(double.NaN, double.NaN)]
+        public void LowerBoundaryWaterLevels_ValidValueAccordingtoUpperBoundaryWaterLevels_ValueIsSet(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
+            };
+
+            // Call
+            input.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels;
+
+            // Assert
+            Assert.AreEqual(lowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
+        }
+
+        [Test]
         [TestCase(5)]
         [TestCase(3.004)]
         [TestCase(3.009)]
@@ -344,6 +405,26 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
+        [TestCase(4.0, 5.0)]
+        [TestCase(4.0, double.NaN)]
+        [TestCase(double.NaN, 5.0)]
+        [TestCase(double.NaN, double.NaN)]
+        public void UpperBoundaryWaterLevels_ValidValueAccordingtoLowerBoundaryWaterLevels_ValueIsSet(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels
+            };
+
+            // Call
+            input.UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels;
+
+            // Assert
+            Assert.AreEqual(upperBoundaryWaterLevels, input.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
+        }
+
+        [Test]
         [TestCase(1)]
         [TestCase(3.004)]
         [TestCase(2.999)]
@@ -364,7 +445,7 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(0, 0.02, 0)]
+        [TestCase(0.1, 0.02, 0)]
         [TestCase(double.NaN, double.NaN, double.NaN)]
         [TestCase(1, 8.01, 7.99)]
         [TestCase(2, 3.52, 3.5)]
