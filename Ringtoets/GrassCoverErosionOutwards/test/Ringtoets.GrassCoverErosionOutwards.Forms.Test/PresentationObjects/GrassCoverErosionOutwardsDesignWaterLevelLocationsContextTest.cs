@@ -46,14 +46,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var presentationObject = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(assessmentSectionMock, locations);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(presentationObject);
-            Assert.AreSame(assessmentSectionMock, presentationObject.WrappedData);
-            Assert.AreSame(locations, presentationObject.Locations);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>>(presentationObject);
+            Assert.AreSame(assessmentSectionMock, presentationObject.AssessmentSection);
+            Assert.AreSame(locations, presentationObject.WrappedData);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Constructor_GrassCoverErosionOutwardsHydraulicBoundaryLocationsIsNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("grassCoverErosionOutwardsHydraulicBoundaryLocations", paramName);
+            Assert.AreEqual("assessmentSection", paramName);
         }
     }
 }

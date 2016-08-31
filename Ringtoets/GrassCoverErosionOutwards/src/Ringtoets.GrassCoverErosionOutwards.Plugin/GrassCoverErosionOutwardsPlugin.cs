@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
             yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties>
             {
-                GetObjectPropertiesData = context => context.Locations
+                GetObjectPropertiesData = context => context.WrappedData
             };
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationsContext, GrassCoverErosionOutwardsWaveHeightLocationsContextProperties>
             {
@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 Text = context => Resources.GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.HydraulicBoundaryDatabase == null ?
+                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = GrassCoverErosionOutwardsWaterLevelLocationsContextMenuStrip
@@ -269,21 +269,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    IAssessmentSection assessmentSection = nodeData.WrappedData;
-                    GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().First();
+                    IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+                    GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().FirstOrDefault();
+                    if (failureMechanism == null)
+                    {
+                        return;
+                    }
+
                     var correctedNormFactor = assessmentSection.FailureMechanismContribution.Norm*
                                               (failureMechanism.Contribution/100)/
                                               failureMechanism.GeneralInput.N;
 
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations,
-                        failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations,
+                        nodeData.WrappedData,
+                        nodeData.WrappedData,
                         assessmentSection.Id,
                         correctedNormFactor);
                 });
 
-            if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
+            if (nodeData.AssessmentSection.HydraulicBoundaryDatabase == null)
             {
                 designWaterLevelItem.Enabled = false;
                 designWaterLevelItem.ToolTipText = Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate;

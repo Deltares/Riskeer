@@ -31,29 +31,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an enumeration of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
     /// for water level at intersection probability calculations.
     /// </summary>
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsContext"/>.
         /// </summary>
-        /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the 
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which the 
         /// <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsContext"/> belongs to.</param>
         /// <param name="grassCoverErosionOutwardsHydraulicBoundaryLocations">The grass cover erosion outwards hydraulic boundary locations for this context.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(IAssessmentSection wrappedAssessmentSection,
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(IAssessmentSection assessmentSection,
                                                                    ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations)
-            : base(wrappedAssessmentSection)
+            : base(grassCoverErosionOutwardsHydraulicBoundaryLocations)
         {
-            if (grassCoverErosionOutwardsHydraulicBoundaryLocations == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException("grassCoverErosionOutwardsHydraulicBoundaryLocations");
+                throw new ArgumentNullException("assessmentSection");
             }
-            Locations = grassCoverErosionOutwardsHydraulicBoundaryLocations;
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
-        /// Gets the grass cover erosion outwards hydraulic boundary locations.
+        /// Gets the assessment section.
         /// </summary>
-        public ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> Locations { get; private set; }
+        public IAssessmentSection AssessmentSection { get; private set; }
     }
 }
