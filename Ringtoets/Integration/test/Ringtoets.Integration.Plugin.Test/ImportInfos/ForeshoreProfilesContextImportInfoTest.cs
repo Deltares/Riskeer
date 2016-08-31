@@ -29,7 +29,6 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Asphalt.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -40,12 +39,12 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
     public class ForeshoreProfilesContextImportInfoTest
     {
         private ImportInfo importInfo;
-        private WaveImpactAsphaltCoverPlugin plugin;
+        private RingtoetsPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new WaveImpactAsphaltCoverPlugin();
+            plugin = new RingtoetsPlugin();
             importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(ForeshoreProfilesContext));
         }
 

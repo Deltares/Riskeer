@@ -103,20 +103,5 @@ namespace Ringtoets.Asphalt.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>)));
             }
         }
-
-        [Test]
-        public void GetImportInfos_Always_ReturnsExpectedImportInfos()
-        {
-            // Setup
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
-            {
-                // Call
-                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, importInfos.Length);
-                Assert.AreEqual(typeof(ForeshoreProfilesContext), importInfos[0].DataType);
-            }
-        }
     }
 }

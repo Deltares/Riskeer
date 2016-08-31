@@ -76,9 +76,11 @@ using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
+using RingtoetsIntegrationPluginResources = Ringtoets.Integration.Plugin.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
@@ -392,6 +394,17 @@ namespace Ringtoets.Integration.Plugin
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
                                                                                                  context.ParentAssessmentSection.ReferenceLine,
                                                                                                  filePath)
+            };
+            yield return new ImportInfo<ForeshoreProfilesContext>
+            {
+                CreateFileImporter = (context, filePath) => new ForeshoreProfilesImporter(context.WrappedData,
+                                                                                     context.ParentAssessmentSection.ReferenceLine,
+                                                                                     filePath),
+                Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsIntegrationPluginResources.Foreshore,
+                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
             };
         }
 

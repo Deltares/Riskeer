@@ -33,7 +33,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
-using Ringtoets.Integration.Plugin.FileImporters;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -62,21 +61,6 @@ namespace Ringtoets.Asphalt.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
-            };
-        }
-
-        public override IEnumerable<ImportInfo> GetImportInfos()
-        {
-            yield return new ImportInfo<ForeshoreProfilesContext>
-            {
-                CreateFileImporter = (context, filePath) => new ForeshoreProfilesImporter(context.WrappedData,
-                                                                                     context.ParentAssessmentSection.ReferenceLine,
-                                                                                     filePath),
-                Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsIntegrationPluginResources.Foreshore,
-                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
-                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
             };
         }
 
