@@ -228,6 +228,7 @@ namespace Ringtoets.Revetment.Data.Test
 
         [Test]
         [TestCase(4.0, 5.0)]
+        [TestCase(4.994, 5.0)]
         [TestCase(4.0, double.NaN)]
         [TestCase(double.NaN, 5.0)]
         [TestCase(double.NaN, double.NaN)]
@@ -284,6 +285,7 @@ namespace Ringtoets.Revetment.Data.Test
 
         [Test]
         [TestCase(4.0, 5.0)]
+        [TestCase(4.0, 4.005)]
         [TestCase(4.0, double.NaN)]
         [TestCase(double.NaN, 5.0)]
         [TestCase(double.NaN, double.NaN)]
@@ -339,6 +341,38 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
+        [TestCase(1.0)]
+        [TestCase(0.05)]
+        public void StepSize_ValidValue_ValueIsSet(double stepSize)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            input.StepSize = (RoundedDouble) stepSize;
+
+            // Assert
+            Assert.AreEqual(stepSize, input.StepSize, input.StepSize.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(-1.0)]
+        [TestCase(0.0)]
+        [TestCase(0.004)]
+        public void StepSize_InvalidValue_ThrowsArgumentOutOfRangeException(double stepSize)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            TestDelegate test = () => input.StepSize = (RoundedDouble)stepSize;
+
+            // Assert
+            string expectedMessage = Resources.WaveConditionsInput_StepSize_Should_be_greater_than_zero;
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
         public void LowerBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
@@ -356,6 +390,7 @@ namespace Ringtoets.Revetment.Data.Test
 
         [Test]
         [TestCase(4.0, 5.0)]
+        [TestCase(4.994, 5.0)]
         [TestCase(4.0, double.NaN)]
         [TestCase(double.NaN, 5.0)]
         [TestCase(double.NaN, double.NaN)]
@@ -412,6 +447,7 @@ namespace Ringtoets.Revetment.Data.Test
 
         [Test]
         [TestCase(4.0, 5.0)]
+        [TestCase(4.0, 4.005)]
         [TestCase(4.0, double.NaN)]
         [TestCase(double.NaN, 5.0)]
         [TestCase(double.NaN, double.NaN)]
