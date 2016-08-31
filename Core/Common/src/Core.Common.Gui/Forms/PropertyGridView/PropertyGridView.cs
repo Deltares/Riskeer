@@ -38,17 +38,17 @@ namespace Core.Common.Gui.Forms.PropertyGridView
     /// </summary>
     public class PropertyGridView : PropertyGrid, IView, IObserver
     {
-        /// <summary>
-        /// This delegate enabled asynchronous calls to methods without arguments.
-        /// </summary>
-        private delegate void ArgumentlessDelegate();
-
         private readonly IApplicationSelection applicationSelection;
         private readonly IPropertyResolver propertyResolver;
 
         private object data;
 
         private IObservable observable;
+
+        /// <summary>
+        /// This delegate enabled asynchronous calls to methods without arguments.
+        /// </summary>
+        private delegate void ArgumentlessDelegate();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyGridView"/> class.
