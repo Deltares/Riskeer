@@ -56,12 +56,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
+            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(assessmentSectionMock, null);
+            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(null, locations);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
