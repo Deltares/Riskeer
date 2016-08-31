@@ -51,11 +51,11 @@ namespace Ringtoets.Revetment.Data
         /// </summary>
         public WaveConditionsInput()
         {
-            upperRevetmentLevel = new RoundedDouble(2);
-            lowerRevetmentLevel = new RoundedDouble(2);
-            stepSize = new RoundedDouble(1);
-            upperBoundaryCalculatorSeries = new RoundedDouble(2);
-            lowerBoundaryCalculatorSeries = new RoundedDouble(2);
+            upperRevetmentLevel = new RoundedDouble(2, double.NaN);
+            lowerRevetmentLevel = new RoundedDouble(2, double.NaN);
+            stepSize = new RoundedDouble(1, double.NaN);
+            upperBoundaryCalculatorSeries = new RoundedDouble(2, double.NaN);
+            lowerBoundaryCalculatorSeries = new RoundedDouble(2, double.NaN);
 
             UpdateDikeProfileParameters();
         }
@@ -235,7 +235,7 @@ namespace Ringtoets.Revetment.Data
         {
             return HydraulicBoundaryLocation != null && !double.IsNaN(HydraulicBoundaryLocation.DesignWaterLevel)
                        ? HydraulicBoundaryLocation.DesignWaterLevel - designWaterLevelSubstraction
-                       : (RoundedDouble) 0;
+                       : double.NaN;
         }
 
         private IEnumerable<RoundedDouble> DetermineWaterLevels()
