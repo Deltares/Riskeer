@@ -217,7 +217,9 @@ namespace Ringtoets.Revetment.Data
 
         private static void ValidateRevetmentLevels(RoundedDouble lowerRevetmentLevelValue, RoundedDouble upperRevetmentLevelValue)
         {
-            if (lowerRevetmentLevelValue >= upperRevetmentLevelValue)
+            if (!double.IsNaN(lowerRevetmentLevelValue)
+                && !double.IsNaN(upperRevetmentLevelValue)
+                && lowerRevetmentLevelValue >= upperRevetmentLevelValue)
             {
                 throw new ArgumentOutOfRangeException(null, Resources.WaveConditionsInput_ValidateRevetmentLevels_Upper_revetment_level_must_be_above_lower_revetment_level);
             }
@@ -225,7 +227,9 @@ namespace Ringtoets.Revetment.Data
 
         private static void ValidateCalculatorSeriesBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary)
         {
-            if (lowerBoundary >= upperBoundary)
+            if (!double.IsNaN(lowerBoundary)
+                && !double.IsNaN(upperBoundary)
+                && lowerBoundary >= upperBoundary)
             {
                 throw new ArgumentOutOfRangeException(null, Resources.WaveConditionsInput_ValidateCalculatorSeriesBoundaries_Calculator_series_upperboundary_must_be_above_lowerboundary);
             }

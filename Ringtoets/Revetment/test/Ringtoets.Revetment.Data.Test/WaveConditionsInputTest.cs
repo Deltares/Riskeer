@@ -246,10 +246,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerRevetmentLevel_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput
-            {
-                UpperRevetmentLevel = (RoundedDouble) 4.0
-            };
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.LowerRevetmentLevel.NumberOfDecimalPlaces;
 
@@ -298,10 +295,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryCalculatorSeries_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput
-            {
-                UpperBoundaryCalculatorSeries = (RoundedDouble) 3.0
-            };
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.LowerBoundaryCalculatorSeries.NumberOfDecimalPlaces;
 
@@ -342,7 +336,6 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput
             {
-                UpperBoundaryCalculatorSeries = (RoundedDouble) 4.0,
                 LowerBoundaryCalculatorSeries = (RoundedDouble) 3.0
             };
 
