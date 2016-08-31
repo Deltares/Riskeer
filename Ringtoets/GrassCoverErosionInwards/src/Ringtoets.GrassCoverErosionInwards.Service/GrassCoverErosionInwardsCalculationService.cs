@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
             var waveHeightParser = new OvertoppingCalculationWaveHeightParser();
 
-            HydraRingCalculationService.PerformCalculation(
+            HydraRingCalculationService.Instance.PerformCalculation(
                 hlcdDirectory,
                 ringId,
                 HydraRingUncertaintiesType.All,
@@ -120,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
 
-            HydraRingCalculationService.PerformCalculation(
+            HydraRingCalculationService.Instance.PerformCalculation(
                 hlcdDirectory,
                 ringId,
                 HydraRingUncertaintiesType.All,

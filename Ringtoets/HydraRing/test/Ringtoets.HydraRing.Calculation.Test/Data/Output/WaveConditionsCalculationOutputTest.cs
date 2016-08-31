@@ -33,14 +33,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
             // Setup
             double waveAngle = 3.0;
             double waveHeight = 9.93;
-            double wavePeriod = 18;
+            double wavePeakPeriod = 18;
 
             // Call
-            var output = new WaveConditionsCalculationOutput(waveHeight, wavePeriod, waveAngle);
+            var output = new WaveConditionsCalculationOutput(waveHeight, wavePeakPeriod, waveAngle);
 
             // Assert
             Assert.AreEqual(waveHeight, output.WaveHeight);
-            Assert.AreEqual(wavePeriod, output.WavePeriod);
+            Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod);
             Assert.AreEqual(waveAngle, output.WaveAngle);
         }
     }

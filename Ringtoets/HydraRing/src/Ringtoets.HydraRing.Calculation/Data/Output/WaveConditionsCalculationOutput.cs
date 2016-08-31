@@ -27,12 +27,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         /// Creates a new instance of <see cref="WaveConditionsCalculationOutput"/>.
         /// </summary>
         /// <param name="waveHeight">The calculated wave height.</param>
-        /// <param name="wavePeriod">The calculated wave period.</param>
+        /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
         /// <param name="waveAngle">The calculated wave angle.</param>
-        public WaveConditionsCalculationOutput(double waveHeight, double wavePeriod, double waveAngle)
+        public WaveConditionsCalculationOutput(double waveHeight, double wavePeakPeriod, double waveAngle)
         {
             WaveHeight = waveHeight;
-            WavePeriod = wavePeriod;
+            WavePeakPeriod = wavePeakPeriod;
             WaveAngle = waveAngle;
         }
 
@@ -42,9 +42,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Output
         public double WaveHeight { get; private set; }
 
         /// <summary>
-        /// Gets the calculated wave period.
+        /// Gets the calculated wave peak period.
         /// </summary>
-        public double WavePeriod { get; private set; }
+        public double WavePeakPeriod { get; private set; }
 
         /// <summary>
         /// Gets the calculated wave angle.

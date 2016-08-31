@@ -34,11 +34,24 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations.
     /// </summary>
-    public static class HydraRingCalculationService
+    public class HydraRingCalculationService : IHydraRingCalculationService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraRingCalculationService));
 
         private static Process hydraRingProcess;
+        private static IHydraRingCalculationService instance;
+
+        public static IHydraRingCalculationService Instance
+        {
+            get
+            {
+                return instance ?? (instance = new HydraRingCalculationService());
+            }
+            set
+            {
+                instance = value;
+            }
+        }
 
         /// <summary>
         /// This method performs a type II calculation via Hydra-Ring:
@@ -49,7 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
         /// <param name="hydraRingCalculationInput">The input of the calculation to perform.</param>
         /// <param name="parsers">Parsers that will be invoked after the Hydra-Ring calculation has ran.</param>
-        public static void PerformCalculation(
+        public void PerformCalculation(
             string hlcdDirectory,
             string ringId,
             HydraRingUncertaintiesType uncertaintiesType,

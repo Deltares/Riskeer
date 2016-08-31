@@ -35,13 +35,13 @@ namespace Ringtoets.Revetment.Data
         /// <param name="waterLevel">The water level for which the calculation has been performed.</param>
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
-        /// <param name="waveOrientation">The calculated wave orientation.</param>
-        public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveOrientation)
+        /// <param name="waveAngle">The calculated wave angle.</param>
+        public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle)
         {
             WaterLevel = waterLevel;
             WaveHeight = waveHeight;
             WavePeakPeriod = wavePeakPeriod;
-            WaveOrientation = waveOrientation;
+            WaveAngle = waveAngle;
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace Ringtoets.Revetment.Data
         public double WavePeakPeriod { get; private set; }
 
         /// <summary>
-        /// Gets the calculated wave orientation.
+        /// Gets the calculated wave angle.
         /// </summary>
-        public double WaveOrientation { get; private set; }
+        public double WaveAngle { get; private set; }
     }
 }

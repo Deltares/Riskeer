@@ -63,6 +63,11 @@
       <Name>Ringtoets.HydraRing.Calculation</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Service\Ringtoets.Revetment.Service.csproj">
       <Project>{2331235F-1E56-4344-ACC2-191C22A39594}</Project>
       <Name>Ringtoets.Revetment.Service</Name>

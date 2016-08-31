@@ -52,6 +52,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="HydraRingCalculationServiceConfig.cs" />
+    <Compile Include="TestHydraRingCalculationService.cs" />
     <Compile Include="HydraRingVariableAssert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

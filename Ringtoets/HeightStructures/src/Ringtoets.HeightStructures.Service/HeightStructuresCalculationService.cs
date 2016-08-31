@@ -77,7 +77,7 @@ namespace Ringtoets.HeightStructures.Service
                 calculation.Name,
                 () =>
                 {
-                    HydraRingCalculationService.PerformCalculation(
+                    HydraRingCalculationService.Instance.PerformCalculation(
                         hlcdDirectory,
                         ringId,
                         HydraRingUncertaintiesType.All,

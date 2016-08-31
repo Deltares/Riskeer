@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.Revetment.Service;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service
@@ -31,7 +32,7 @@ namespace Ringtoets.StabilityStoneCover.Service
     /// <summary>
     /// <see cref="Activity"/> for running a stability stone cover wave conditions calculation.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationActivity : HydraRingActivity<WaveConditionsCalculationServiceOutput>
+    public class StabilityStoneCoverWaveConditionsCalculationActivity : HydraRingActivity<List<WaveConditionsOutput>>
     {
         private readonly StabilityStoneCoverWaveConditionsCalculation calculation;
         private readonly string hlcdDirectory;

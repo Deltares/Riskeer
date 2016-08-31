@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.AreEqual(22.01300, parser.Output.WaveAngle);
             Assert.AreEqual(1.87957, parser.Output.WaveHeight);
-            Assert.AreEqual(11.15140, parser.Output.WavePeriod);
+            Assert.AreEqual(11.15140, parser.Output.WavePeakPeriod);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
         }
 

@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private const string qVariantStart = "Submechanism = Q-variant";
         private const string waveAngle = "Wave angle";
         private const string waveHeight = "Wave height";
-        private const string wavePeriod = "Wave period";
+        private const string wavePeakPeriod = "Wave period";
         private const string reductionFactor = "reduction factor";
         
         private const char equalsCharacter = '=';
@@ -79,7 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
                 if (finalResult != null)
                 {
-                    Output = new WaveConditionsCalculationOutput(finalResult.WaveHeight, finalResult.WavePeriod, finalResult.WaveAngle);
+                    Output = new WaveConditionsCalculationOutput(finalResult.WaveHeight, finalResult.WavePeakPeriod, finalResult.WaveAngle);
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                     string readLine = file.ReadLine();
                     TryParseWaveAngle(readLine, result);
                     TryParseWaveHeight(readLine, result);
-                    TryParseWavePeriod(readLine, result);
+                    TryParseWavePeakPeriod(readLine, result);
                 }
                 results.Add(result);
             }
@@ -133,12 +133,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
         }
 
-        private void TryParseWavePeriod(string line, Result result)
+        private void TryParseWavePeakPeriod(string line, Result result)
         {
-            if (line.Contains(wavePeriod))
+            if (line.Contains(wavePeakPeriod))
             {
                 string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                result.WavePeriod = ParseStringResult(resultAsString);
+                result.WavePeakPeriod = ParseStringResult(resultAsString);
             }
         }
 
@@ -150,7 +150,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private class Result
         {
             public double WaveHeight { get; set; }
-            public double WavePeriod { get; set; }
+            public double WavePeakPeriod { get; set; }
             public double WaveAngle { get; set; }
         }
     }

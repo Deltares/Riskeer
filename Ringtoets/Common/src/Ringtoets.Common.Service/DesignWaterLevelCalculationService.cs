@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Service
                 calculationName,
                 () =>
                 {
-                    HydraRingCalculationService.PerformCalculation(
+                    HydraRingCalculationService.Instance.PerformCalculation(
                         hlcdDirectory,
                         ringId,
                         HydraRingUncertaintiesType.All,
