@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or set the dike profile.
+        /// Gets or sets the dike profile.
         /// </summary>
         public DikeProfile DikeProfile
         {
@@ -168,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or set the hydraulic boundary location from which to use the assessment level.
+        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 

@@ -33,7 +33,7 @@ using Ringtoets.Revetment.Data.Properties;
 namespace Ringtoets.Revetment.Data
 {
     /// <summary>
-    /// Class that holds all wave conditions calculation specific input paramaters.
+    /// Class that holds all wave conditions calculation specific input parameters.
     /// </summary>
     public class WaveConditionsInput : Observable, ICalculationInput
     {
@@ -65,7 +65,7 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or set the dike profile.
+        /// Gets or sets the dike profile.
         /// </summary>
         public DikeProfile DikeProfile
         {
@@ -81,7 +81,7 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or set the hydraulic boundary location from which to use the assessment level.
+        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation
         {
@@ -127,7 +127,7 @@ namespace Ringtoets.Revetment.Data
         /// <summary>
         /// Gets or sets the upper level of the revetment.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than <see cref="LowerRevetmentLevel"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerRevetmentLevel"/>.</exception>
         public RoundedDouble UpperRevetmentLevel
         {
             get
@@ -147,7 +147,7 @@ namespace Ringtoets.Revetment.Data
         /// <summary>
         /// Gets or sets the lower level of the revetment.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than <see cref="UpperRevetmentLevel"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperRevetmentLevel"/>.</exception>
         public RoundedDouble LowerRevetmentLevel
         {
             get
@@ -161,6 +161,46 @@ namespace Ringtoets.Revetment.Data
                 ValidateRevetmentLevels(newLowerRevetmentLevel, UpperRevetmentLevel);
 
                 lowerRevetmentLevel = newLowerRevetmentLevel;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the upper boundary for the calculator series.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerBoundaryCalculatorSeries"/>.</exception>
+        public RoundedDouble UpperBoundaryCalculatorSeries
+        {
+            get
+            {
+                return upperBoundaryCalculatorSeries;
+            }
+            set
+            {
+                var newUpperBoundaryCalculatorSeries = value.ToPrecision(upperBoundaryCalculatorSeries.NumberOfDecimalPlaces);
+
+                ValidateCalculatorSeriesBoundaries(LowerBoundaryCalculatorSeries, newUpperBoundaryCalculatorSeries);
+
+                upperBoundaryCalculatorSeries = newUpperBoundaryCalculatorSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the lower boundary for the calculator series.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperBoundaryCalculatorSeries"/>.</exception>
+        public RoundedDouble LowerBoundaryCalculatorSeries
+        {
+            get
+            {
+                return lowerBoundaryCalculatorSeries;
+            }
+            set
+            {
+                var newLowerBoundaryCalculatorSeries = value.ToPrecision(lowerBoundaryCalculatorSeries.NumberOfDecimalPlaces);
+
+                ValidateCalculatorSeriesBoundaries(newLowerBoundaryCalculatorSeries, UpperBoundaryCalculatorSeries);
+
+                lowerBoundaryCalculatorSeries = newLowerBoundaryCalculatorSeries;
             }
         }
 
@@ -205,47 +245,7 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the upper boundary for the calculator series.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than <see cref="LowerBoundaryCalculatorSeries"/>.</exception>
-        public RoundedDouble UpperBoundaryCalculatorSeries
-        {
-            get
-            {
-                return upperBoundaryCalculatorSeries;
-            }
-            set
-            {
-                var newUpperBoundaryCalculatorSeries = value.ToPrecision(upperBoundaryCalculatorSeries.NumberOfDecimalPlaces);
-
-                ValidateCalculatorSeriesBoundaries(LowerBoundaryCalculatorSeries, newUpperBoundaryCalculatorSeries);
-
-                upperBoundaryCalculatorSeries = newUpperBoundaryCalculatorSeries;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the lower boundary for the calculator series.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than <see cref="UpperBoundaryCalculatorSeries"/>.</exception>
-        public RoundedDouble LowerBoundaryCalculatorSeries
-        {
-            get
-            {
-                return lowerBoundaryCalculatorSeries;
-            }
-            set
-            {
-                var newLowerBoundaryCalculatorSeries = value.ToPrecision(lowerBoundaryCalculatorSeries.NumberOfDecimalPlaces);
-
-                ValidateCalculatorSeriesBoundaries(newLowerBoundaryCalculatorSeries, UpperBoundaryCalculatorSeries);
-
-                lowerBoundaryCalculatorSeries = newLowerBoundaryCalculatorSeries;
-            }
-        }
-
-        private void ValidateRevetmentLevels(RoundedDouble lowerRevetmentLevelValue, RoundedDouble upperRevetmentLevelValue)
+        private static void ValidateRevetmentLevels(RoundedDouble lowerRevetmentLevelValue, RoundedDouble upperRevetmentLevelValue)
         {
             if (lowerRevetmentLevelValue >= upperRevetmentLevelValue)
             {

@@ -41,7 +41,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         }
 
         /// <summary>
-        /// Gets the input paramaters to perform a wave conditions calculation with.
+        /// Gets the input parameters to perform a wave conditions calculation with.
         /// </summary>
         public WaveConditionsInput InputParameters { get; private set; }
 

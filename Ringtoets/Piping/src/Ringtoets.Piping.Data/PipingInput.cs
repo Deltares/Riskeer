@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Data
         public StochasticSoilProfile StochasticSoilProfile { get; set; }
 
         /// <summary>
-        /// Gets or set the hydraulic boundary location from which to use the assessment level.
+        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
