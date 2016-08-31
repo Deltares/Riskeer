@@ -1143,7 +1143,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Handleiding Openen.
+        ///   Looks up a localized string similar to Gebruikershandleiding Openen.
         /// </summary>
         public static string Ribbon_Open_Manual {
             get {

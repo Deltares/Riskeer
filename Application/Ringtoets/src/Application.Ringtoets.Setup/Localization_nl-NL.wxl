@@ -8,8 +8,8 @@
   <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
   <String Id="StartApplicationDescription">Bereken hydraulische randvoorwaarden, toets resultaten en registreer toetsoordelen met !(loc.ApplicationLongName).</String>
 
-  <String Id="UserManualName">Handleiding</String>
-  <String Id="UserManualDescription">Open de handleiding van Ringtoets.</String>
+  <String Id="UserManualName">Gebruikershandleiding</String>
+  <String Id="UserManualDescription">Open de gebruikershandleiding van Ringtoets.</String>
 
   <String Id="Dlg_Title">[ProductName] Installatiehulpprogramma</String>
   
