@@ -39,7 +39,7 @@ namespace Ringtoets.Revetment.Data
     {
         private const double designWaterLevelSubstraction = 0.01;
 
-        private DikeProfile dikeProfile;
+        private ForeshoreProfile foreshoreProfile;
         private RoundedDouble upperBoundaryRevetment;
         private RoundedDouble lowerBoundaryRevetment;
         private RoundedDouble stepSize;
@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.Data
             upperBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
             lowerBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
 
-            UpdateDikeProfileParameters();
+            UpdateForeshoreProfileParameters();
         }
 
         /// <summary>
@@ -66,18 +66,18 @@ namespace Ringtoets.Revetment.Data
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
-        /// Gets or sets the dike profile.
+        /// Gets or sets the foreshore profile.
         /// </summary>
-        public DikeProfile DikeProfile
+        public ForeshoreProfile ForeshoreProfile
         {
             get
             {
-                return dikeProfile;
+                return foreshoreProfile;
             }
             set
             {
-                dikeProfile = value;
-                UpdateDikeProfileParameters();
+                foreshoreProfile = value;
+                UpdateForeshoreProfileParameters();
             }
         }
 
@@ -103,8 +103,8 @@ namespace Ringtoets.Revetment.Data
         {
             get
             {
-                return dikeProfile != null
-                           ? dikeProfile.ForeshoreGeometry
+                return foreshoreProfile != null
+                           ? foreshoreProfile.ForeshoreGeometry
                            : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
             }
         }
@@ -295,9 +295,9 @@ namespace Ringtoets.Revetment.Data
             return waterLevels;
         }
 
-        private void UpdateDikeProfileParameters()
+        private void UpdateForeshoreProfileParameters()
         {
-            if (dikeProfile == null)
+            if (foreshoreProfile == null)
             {
                 UseForeshore = false;
                 UseBreakWater = false;
@@ -305,10 +305,10 @@ namespace Ringtoets.Revetment.Data
             }
             else
             {
-                UseForeshore = dikeProfile.ForeshoreGeometry.Count() > 1;
-                UseBreakWater = dikeProfile.HasBreakWater;
-                BreakWater = dikeProfile.HasBreakWater
-                                 ? new BreakWater(dikeProfile.BreakWater.Type, dikeProfile.BreakWater.Height)
+                UseForeshore = foreshoreProfile.ForeshoreGeometry.Count() > 1;
+                UseBreakWater = foreshoreProfile.HasBreakWater;
+                BreakWater = foreshoreProfile.HasBreakWater
+                                 ? new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height)
                                  : GetDefaultBreakWater();
             }
         }

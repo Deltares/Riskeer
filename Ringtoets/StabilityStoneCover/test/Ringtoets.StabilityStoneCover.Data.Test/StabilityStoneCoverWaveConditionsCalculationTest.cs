@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
-            Assert.IsNull(calculation.InputParameters.DikeProfile);
+            Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
         }
 
         [Test]

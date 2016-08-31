@@ -55,7 +55,7 @@ namespace Ringtoets.Revetment.Service.Test
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
-                DikeProfile = CreateDikeProfile(),
+                ForeshoreProfile = CreateForeshoreProfile(),
                 UseBreakWater = useBreakWater,
                 UseForeshore = useForeshore
             };
@@ -95,7 +95,7 @@ namespace Ringtoets.Revetment.Service.Test
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
-                DikeProfile = CreateDikeProfile()
+                ForeshoreProfile = CreateForeshoreProfile()
             };
 
             string hlcdDirectory = "C:/temp";
@@ -117,23 +117,16 @@ namespace Ringtoets.Revetment.Service.Test
             }
         }
 
-        private static DikeProfile CreateDikeProfile()
+        private static ForeshoreProfile CreateForeshoreProfile()
         {
-            return new DikeProfile(new Point2D(0, 0),
-                                   new[]
-                                   {
-                                       new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
-                                   }, new[]
-                                   {
-                                       new Point2D(2.2, 3.3),
-                                       new Point2D(4.4, 5.5),
-                                   },
-                                   new BreakWater(BreakWaterType.Wall, 5.5),
-                                   new DikeProfile.ConstructionProperties
-                                   {
-                                       Orientation = 1.1,
-                                       DikeHeight = 4.4
-                                   });
+            return new ForeshoreProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new Point2D(2.2, 3.3),
+                                            new Point2D(4.4, 5.5)
+                                        },
+                                        new BreakWater(BreakWaterType.Wall, 5.5),
+                                        new ForeshoreProfile.ConstructionProperties());
         }
 
         private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, bool useForeshore, bool useBreakWater)

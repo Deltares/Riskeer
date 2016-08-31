@@ -108,7 +108,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.IsInstanceOf<Observable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
             Assert.IsNull(input.HydraulicBoundaryLocation);
-            Assert.IsNull(input.DikeProfile);
+            Assert.IsNull(input.ForeshoreProfile);
             Assert.IsFalse(input.UseBreakWater);
             Assert.AreEqual(BreakWaterType.Dam, input.BreakWater.Type);
             Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
@@ -124,7 +124,7 @@ namespace Ringtoets.Revetment.Data.Test
 
         [Test]
         [Combinatorial]
-        public void DikeProfile_SetNewValue_InputSyncedAccordingly(
+        public void ForeshoreProfile_SetNewValue_InputSyncedAccordingly(
             [Values(true, false)] bool withBreakWater,
             [Values(true, false)] bool withValidForeshore)
         {
@@ -134,14 +134,14 @@ namespace Ringtoets.Revetment.Data.Test
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
-            var foreShoreGeometry = new List<Point2D>
+            var foreshoreGeometry = new List<Point2D>
             {
                 new Point2D(2.2, 3.3)
             };
 
             if (withValidForeshore)
             {
-                foreShoreGeometry.Add(new Point2D(4.4, 5.5));
+                foreshoreGeometry.Add(new Point2D(4.4, 5.5));
             }
 
             BreakWater breakWater = null;
@@ -157,32 +157,26 @@ namespace Ringtoets.Revetment.Data.Test
                 breakWater = new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
             }
 
-            var dikeProfile = new DikeProfile(new Point2D(0, 0),
-                                              new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
-                                              }, foreShoreGeometry.ToArray(), breakWater,
-                                              new DikeProfile.ConstructionProperties
-                                              {
-                                                  Orientation = 1.1,
-                                                  DikeHeight = 4.4
-                                              });
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                        foreshoreGeometry.ToArray(),
+                                                        breakWater,
+                                                        new ForeshoreProfile.ConstructionProperties());
 
             // Call
-            input.DikeProfile = dikeProfile;
+            input.ForeshoreProfile = foreshoreProfile;
 
             // Assert
-            Assert.AreSame(dikeProfile, input.DikeProfile);
+            Assert.AreSame(foreshoreProfile, input.ForeshoreProfile);
             Assert.AreEqual(withBreakWater, input.UseBreakWater);
-            Assert.AreEqual(withBreakWater ? dikeProfile.BreakWater.Type : originalBreakWaterType, input.BreakWater.Type);
-            Assert.AreEqual(withBreakWater ? dikeProfile.BreakWater.Height : originalBreakWaterHeight, input.BreakWater.Height);
+            Assert.AreEqual(withBreakWater ? foreshoreProfile.BreakWater.Type : originalBreakWaterType, input.BreakWater.Type);
+            Assert.AreEqual(withBreakWater ? foreshoreProfile.BreakWater.Height : originalBreakWaterHeight, input.BreakWater.Height);
             Assert.AreEqual(withValidForeshore, input.UseForeshore);
-            CollectionAssert.AreEqual(dikeProfile.ForeshoreGeometry, input.ForeshoreGeometry);
+            CollectionAssert.AreEqual(foreshoreProfile.ForeshoreGeometry, input.ForeshoreGeometry);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
         }
 
         [Test]
-        public void DikeProfile_SetNullValue_InputSyncedToDefaults()
+        public void Foreshore_SetNullValue_InputSyncedToDefaults()
         {
             // Setup
             var input = new WaveConditionsInput();
@@ -190,26 +184,19 @@ namespace Ringtoets.Revetment.Data.Test
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
-            var dikeProfile = new DikeProfile(new Point2D(0, 0),
-                                              new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(7.7, 8.8), 0.6)
-                                              }, new[]
-                                              {
-                                                  new Point2D(3.3, 4.4),
-                                                  new Point2D(5.5, 6.6)
-                                              },
-                                              new BreakWater(BreakWaterType.Caisson, 2.2),
-                                              new DikeProfile.ConstructionProperties
-                                              {
-                                                  Orientation = 1.1,
-                                                  DikeHeight = 9.9
-                                              });
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                        new[]
+                                                        {
+                                                            new Point2D(3.3, 4.4),
+                                                            new Point2D(5.5, 6.6)
+                                                        },
+                                                        new BreakWater(BreakWaterType.Caisson, 2.2),
+                                                        new ForeshoreProfile.ConstructionProperties());
 
-            input.DikeProfile = dikeProfile;
+            input.ForeshoreProfile = foreshoreProfile;
 
             // Precondition
-            Assert.AreSame(dikeProfile, input.DikeProfile);
+            Assert.AreSame(foreshoreProfile, input.ForeshoreProfile);
             Assert.IsTrue(input.UseBreakWater);
             Assert.AreNotEqual(originalBreakWaterType, input.BreakWater.Type);
             Assert.AreNotEqual(originalBreakWaterHeight, input.BreakWater.Height);
@@ -218,7 +205,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
 
             // Call
-            input.DikeProfile = null;
+            input.ForeshoreProfile = null;
 
             // Assert
             Assert.IsFalse(input.UseBreakWater);

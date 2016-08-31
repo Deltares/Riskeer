@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class ForeShoresContextTest
+    public class ForeshoreProfilesContextTest
     {
         [Test]
         public void Constructor_ValidValues_ExpectedValues()

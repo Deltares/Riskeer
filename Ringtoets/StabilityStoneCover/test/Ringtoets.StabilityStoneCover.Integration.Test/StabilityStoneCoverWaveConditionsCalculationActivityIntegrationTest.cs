@@ -57,7 +57,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = CreateDikeProfile(),
+                    ForeshoreProfile = CreateForeshoreProfile(),
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = (RoundedDouble) 0.5,
@@ -101,7 +101,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = CreateDikeProfile(),
+                    ForeshoreProfile = CreateForeshoreProfile(),
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = (RoundedDouble) 0.5,
@@ -157,7 +157,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = CreateDikeProfile(),
+                    ForeshoreProfile = CreateForeshoreProfile(),
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = (RoundedDouble) 0.5,
@@ -214,7 +214,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = CreateDikeProfile(),
+                    ForeshoreProfile = CreateForeshoreProfile(),
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = (RoundedDouble) 0.5,
@@ -231,10 +231,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             using (new HydraRingCalculationServiceConfig())
             {
                 List<string> progessTexts = new List<string>();
-                activity.ProgressChanged += (sender, args) =>
-                {
-                    progessTexts.Add(activity.ProgressText);
-                };
+                activity.ProgressChanged += (sender, args) => { progessTexts.Add(activity.ProgressText); };
 
                 // Call
                 activity.Run();
@@ -260,24 +257,16 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             }
         }
 
-        private static DikeProfile CreateDikeProfile()
+        private static ForeshoreProfile CreateForeshoreProfile()
         {
-            return new DikeProfile(new Point2D(0, 0),
-                                   new[]
-                                   {
-                                       new RoughnessPoint(new Point2D(1.1, 2.2), 0.6),
-                                       new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
-                                   }, new[]
-                                   {
-                                       new Point2D(3.3, 4.4),
-                                       new Point2D(5.5, 6.6)
-                                   },
-                                   new BreakWater(BreakWaterType.Dam, 10.0),
-                                   new DikeProfile.ConstructionProperties
-                                   {
-                                       Orientation = 5.5,
-                                       DikeHeight = 10
-                                   });
+            return new ForeshoreProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new Point2D(3.3, 4.4),
+                                            new Point2D(5.5, 6.6)
+                                        },
+                                        new BreakWater(BreakWaterType.Dam, 10.0),
+                                        new ForeshoreProfile.ConstructionProperties());
         }
     }
 }

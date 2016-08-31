@@ -78,14 +78,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             LogNormalDistribution originalCriticalFlowRate = input.CriticalFlowRate;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
-            var foreShoreGeometry = new List<Point2D>
+            var foreshoreGeometry = new List<Point2D>
             {
                 new Point2D(2.2, 3.3)
             };
 
             if (withValidForeshore)
             {
-                foreShoreGeometry.Add(new Point2D(4.4, 5.5));
+                foreshoreGeometry.Add(new Point2D(4.4, 5.5));
             }
 
             BreakWater breakWater = null;
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                                               new[]
                                               {
                                                   new RoughnessPoint(new Point2D(6.6, 7.7), 0.8)
-                                              }, foreShoreGeometry.ToArray(), breakWater,
+                                              }, foreshoreGeometry.ToArray(), breakWater,
                                               new DikeProfile.ConstructionProperties
                                               {
                                                   Orientation = 1.1, DikeHeight = 4.4

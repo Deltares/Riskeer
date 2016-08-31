@@ -267,11 +267,11 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(waveHeightLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationContextProperties.AfterCreate);
 
-                PropertyInfo forshoreProfileProperties = PluginTestHelper.AssertPropertyInfoDefined
+                PropertyInfo foreshoreProfileProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <ForeshoreProfile, ForeshoreProfileProperties>(propertyInfos);
-                Assert.IsNull(forshoreProfileProperties.AdditionalDataCheck);
-                Assert.IsNull(forshoreProfileProperties.GetObjectPropertiesData);
-                Assert.IsNull(forshoreProfileProperties.AfterCreate);
+                Assert.IsNull(foreshoreProfileProperties.AdditionalDataCheck);
+                Assert.IsNull(foreshoreProfileProperties.GetObjectPropertiesData);
+                Assert.IsNull(foreshoreProfileProperties.AfterCreate);
             }
         }
 

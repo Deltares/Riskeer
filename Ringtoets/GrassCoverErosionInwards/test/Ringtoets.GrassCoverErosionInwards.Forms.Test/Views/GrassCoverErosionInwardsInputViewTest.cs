@@ -173,14 +173,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(3, chartData.Collection.Count());
 
                 var dikeGeometryData = (ChartLineData) chartData.Collection.ElementAt(dikeProfileIndex);
-                var foreShoreData = (ChartLineData) chartData.Collection.ElementAt(foreshoreIndex);
+                var foreshoreData = (ChartLineData) chartData.Collection.ElementAt(foreshoreIndex);
                 var dikeHeightData = (ChartLineData) chartData.Collection.ElementAt(dikeHeightIndex);
 
                 CollectionAssert.IsEmpty(dikeGeometryData.Points);
-                CollectionAssert.IsEmpty(foreShoreData.Points);
+                CollectionAssert.IsEmpty(foreshoreData.Points);
                 CollectionAssert.IsEmpty(dikeHeightData.Points);
                 Assert.AreEqual(Resources.DikeProfile_DisplayName, dikeGeometryData.Name);
-                Assert.AreEqual(Resources.Foreshore_DisplayName, foreShoreData.Name);
+                Assert.AreEqual(Resources.Foreshore_DisplayName, foreshoreData.Name);
                 Assert.AreEqual(Resources.DikeHeight_ChartName, dikeHeightData.Name);
             }
         }
@@ -212,11 +212,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(3, chartData.Collection.Count());
 
                 var dikeGeometryData = (ChartLineData) chartData.Collection.ElementAt(dikeProfileIndex);
-                var foreShoreData = (ChartLineData) chartData.Collection.ElementAt(foreshoreIndex);
+                var foreshoreData = (ChartLineData) chartData.Collection.ElementAt(foreshoreIndex);
                 var dikeHeightData = (ChartLineData) chartData.Collection.ElementAt(dikeHeightIndex);
 
-                CollectionAssert.IsEmpty(foreShoreData.Points);
-                Assert.AreEqual(Resources.Foreshore_DisplayName, foreShoreData.Name);
+                CollectionAssert.IsEmpty(foreshoreData.Points);
+                Assert.AreEqual(Resources.Foreshore_DisplayName, foreshoreData.Name);
                 AssertDikeProfileChartData(dikeProfile, dikeGeometryData);
                 AssertDikeHeightChartData(dikeProfile, dikeHeightData);
             }
