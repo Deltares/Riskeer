@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>
             {
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                GetViewName = (view, input) => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName,
+                GetViewName = (view, input) => RingtoetsCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
                 CloseForData = CloseInputViewForData
             };
@@ -187,7 +187,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsInputContext>
             {
-                Text = inputContext => GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName,
+                Text = inputContext => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

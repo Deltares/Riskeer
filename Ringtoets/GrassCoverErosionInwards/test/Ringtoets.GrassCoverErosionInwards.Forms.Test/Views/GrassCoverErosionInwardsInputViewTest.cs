@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Chart, view.Controls[0]);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Chart).Dock);
-                Assert.AreEqual(Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName, view.Chart.Data.Name);
+                Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, view.Chart.Data.Name);
                 Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Distance_DisplayName, view.Chart.BottomAxisTitle);
                 Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Height_DisplayName, view.Chart.LeftAxisTitle);
                 AssertEmptyChartData(view.Chart.Data);

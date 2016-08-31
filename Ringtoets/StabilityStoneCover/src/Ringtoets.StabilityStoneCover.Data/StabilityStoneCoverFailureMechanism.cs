@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityStoneCover.Data
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
         {
             sectionResults = new List<StabilityStoneCoverFailureMechanismSectionResult>();
-            HydraulicBoundariesCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, false);
+            WaveConditionsCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, false);
             GeneralInput = new GeneralStabilityStoneCoverWaveConditionsInput();
             ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
         }
@@ -63,9 +63,9 @@ namespace Ringtoets.StabilityStoneCover.Data
         public GeneralStabilityStoneCoverWaveConditionsInput GeneralInput { get; private set; }
 
         /// <summary>
-        /// Gets the container of all hydraulic boundary calculations.
+        /// Gets the container of all wave conditions calculations.
         /// </summary>
-        public CalculationGroup HydraulicBoundariesCalculationGroup { get; private set; }
+        public CalculationGroup WaveConditionsCalculationGroup { get; private set; }
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.

@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.StabilityStoneCover.Data.Properties {
+namespace Ringtoets.StabilityStoneCover.Forms.Properties {
     using System;
     
     
@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.StabilityStoneCover.Data.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.StabilityStoneCover.Forms.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -82,29 +82,12 @@ namespace Ringtoets.StabilityStoneCover.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ZST.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static string StabilityStoneCoverFailureMechanism_Code {
+        public static System.Drawing.Bitmap CalculationIcon {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Stabiliteit steenzetting.
-        /// </summary>
-        public static string StabilityStoneCoverFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuwe berekening.
-        /// </summary>
-        public static string StabilityStoneCoverWaveConditionsCalculation_DefaultName {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculation_DefaultName", resourceCulture);
+                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

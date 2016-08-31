@@ -565,4 +565,7 @@
   <data name="ForeshoreProperties_DisplayName" xml:space="preserve">
     <value>Voorlandgeometrie</value>
   </data>
+  <data name="Calculation_Input" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
 </root>

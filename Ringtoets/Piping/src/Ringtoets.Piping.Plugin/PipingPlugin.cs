@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new ViewInfo<PipingInputContext, PipingCalculationScenario, PipingInputView>
             {
                 GetViewData = context => context.PipingCalculation,
-                GetViewName = (view, input) => PipingFormsResources.PipingInputContext_NodeDisplayName,
+                GetViewName = (view, input) => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = PipingFormsResources.PipingInputIcon,
                 CloseForData = ClosePipingInputViewForData
             };
@@ -189,7 +189,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new TreeNodeInfo<PipingInputContext>
             {
-                Text = pipingInputContext => PipingFormsResources.PipingInputContext_NodeDisplayName,
+                Text = pipingInputContext => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

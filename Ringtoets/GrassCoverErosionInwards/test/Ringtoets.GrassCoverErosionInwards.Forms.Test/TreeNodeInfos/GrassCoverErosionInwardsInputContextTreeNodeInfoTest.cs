@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
-using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
@@ -101,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var text = info.Text(grassCoverErosionInwardsInputContext);
 
             // Assert
-            Assert.AreEqual(GrassCoverErosionInwardsFormsResources.GrassCoverErosionInwardsInputContext_NodeDisplayName, text);
+            Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, text);
         }
 
         [Test]

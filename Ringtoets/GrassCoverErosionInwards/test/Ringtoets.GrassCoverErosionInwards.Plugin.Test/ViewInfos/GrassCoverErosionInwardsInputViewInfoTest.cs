@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -76,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(view, calculation);
 
                 // Assert
-                Assert.AreEqual(Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName, viewName);
+                Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, viewName);
             }
         }
 

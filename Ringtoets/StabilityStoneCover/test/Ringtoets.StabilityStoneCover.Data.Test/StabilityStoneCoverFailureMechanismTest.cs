@@ -43,9 +43,9 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.AreEqual("Dijken en dammen - Stabiliteit steenzetting", failureMechanism.Name);
             Assert.AreEqual("ZST", failureMechanism.Code);
 
-            Assert.AreEqual("Hydraulische randvoorwaarden", failureMechanism.HydraulicBoundariesCalculationGroup.Name);
-            Assert.IsFalse(failureMechanism.HydraulicBoundariesCalculationGroup.IsNameEditable);
-            CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundariesCalculationGroup.Children);
+            Assert.AreEqual("Hydraulische randvoorwaarden", failureMechanism.WaveConditionsCalculationGroup.Name);
+            Assert.IsFalse(failureMechanism.WaveConditionsCalculationGroup.IsNameEditable);
+            CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
 
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             Assert.IsInstanceOf<IObservable>(failureMechanism.ForeshoreProfiles);

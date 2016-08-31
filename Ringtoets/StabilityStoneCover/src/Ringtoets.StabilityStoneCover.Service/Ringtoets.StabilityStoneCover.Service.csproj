@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="StabilityStoneCoverDataSynchronizationService.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationActivityOutput.cs" />
+    <Compile Include="StabilityStoneCoverCalculationService.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationActivity.cs" />
   </ItemGroup>
   <ItemGroup>

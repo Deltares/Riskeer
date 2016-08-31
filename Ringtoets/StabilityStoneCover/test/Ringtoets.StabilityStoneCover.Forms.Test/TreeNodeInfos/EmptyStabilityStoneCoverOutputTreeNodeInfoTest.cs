@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
@@ -26,29 +27,25 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.Properties;
-using Ringtoets.Piping.Plugin;
-using Ringtoets.Piping.Primitives;
+using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
+namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingInputContextTreeNodeInfoTest
+    public class EmptyStabilityStoneCoverOutputTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private PipingPlugin plugin;
+        private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingInputContext));
+            plugin = new StabilityStoneCoverPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyStabilityStoneCoverOutput));
         }
 
         [TearDown]
@@ -65,10 +62,9 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(PipingInputContext), info.TagType);
-            Assert.IsNull(info.ForeColor);
+            Assert.AreEqual(typeof(EmptyStabilityStoneCoverOutput), info.TagType);
+
             Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
@@ -80,74 +76,77 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
             Assert.IsNull(info.OnDrop);
+            Assert.IsNull(info.ChildNodeObjects);
         }
 
         [Test]
-        public void Text_Always_ReturnsTextFromResource()
+        public void Text_Always_ReturnName()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var pipingInputContext = new PipingInputContext(
-                new PipingInput(new GeneralPipingInput()),
-                new PipingCalculationScenario(new GeneralPipingInput()),
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                Enumerable.Empty<StochasticSoilModel>(),
-                new PipingFailureMechanism(),
-                assessmentSection);
-
             mocks.ReplayAll();
 
+            var output = new EmptyStabilityStoneCoverOutput();
+
             // Call
-            var text = info.Text(pipingInputContext);
+            string nodeText = info.Text(output);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, text);
+            Assert.AreEqual("Resultaat", nodeText);
         }
 
         [Test]
-        public void Image_Always_ReturnsSetImage()
+        public void ForeColor_Always_ReturnGrayText()
         {
             // Setup
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            var pipingInputContext = new PipingInputContext(
-                new PipingInput(new GeneralPipingInput()),
-                new PipingCalculationScenario(new GeneralPipingInput()),
-                Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                Enumerable.Empty<StochasticSoilModel>(),
-                new PipingFailureMechanism(),
-                assessmentSection);
-
             mocks.ReplayAll();
 
+            var output = new EmptyStabilityStoneCoverOutput();
+
             // Call
-            var image = info.Image(pipingInputContext);
+            Color color = info.ForeColor(output);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.PipingInputIcon, image);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsBuilder()
+        public void Image_Always_ReturnOutputIcon()
         {
             // Setup
-            var gui = mocks.Stub<IGui>();
-            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            mocks.ReplayAll();
 
-            menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            var output = new EmptyStabilityStoneCoverOutput();
 
+            // Call
+            Image icon = info.Image(output);
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, icon);
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
+        {
+            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                var output = new EmptyStabilityStoneCoverOutput();
+
+                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
+
+                var gui = mocks.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(output, treeViewControl)).Return(menuBuilder);
+
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(null, null, treeViewControl);
+                info.ContextMenuStrip(output, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies are called in TearDown()
         }

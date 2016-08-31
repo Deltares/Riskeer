@@ -44,6 +44,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismContextTreeNodeInfoTest
     {
+        private const int contextMenuRelevancyIndexWhenRelevant = 0;
+        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
@@ -199,8 +201,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
-            var hydraulicBoundariesCalculationGroup = (StabilityStoneCoverHydraulicBoundariesCalculationGroupContext) children[1];
-            Assert.AreSame(failureMechanism.HydraulicBoundariesCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
+            var hydraulicBoundariesCalculationGroup = (StabilityStoneCoverWaveConditionsCalculationGroupContext) children[1];
+            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
             Assert.AreSame(failureMechanism, hydraulicBoundariesCalculationGroup.FailureMechanism);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
@@ -390,8 +392,5 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 }
             }
         }
-
-        private const int contextMenuRelevancyIndexWhenRelevant = 0;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
     }
 }

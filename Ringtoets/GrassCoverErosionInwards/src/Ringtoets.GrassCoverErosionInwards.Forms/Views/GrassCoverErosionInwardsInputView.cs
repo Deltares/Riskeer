@@ -25,7 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             chartControl.Data.Add(dikeGeometryChartData);
             chartControl.Data.Add(dikeHeightChartData);
 
-            chartControl.Data.Name = Resources.GrassCoverErosionInwardsInputContext_NodeDisplayName;
+            chartControl.Data.Name = RingtoetsCommonFormsResources.Calculation_Input;
         }
 
         public object Data

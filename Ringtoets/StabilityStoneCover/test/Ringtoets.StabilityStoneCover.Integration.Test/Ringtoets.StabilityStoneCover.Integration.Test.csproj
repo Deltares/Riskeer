@@ -95,7 +95,7 @@
       <Name>Ringtoets.Revetment.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Service.TestUtil\Ringtoets.Revetment.Service.TestUtil.csproj">
-      <Project>{EA416DD2-1633-439E-8512-B9933E37B9C5}</Project>
+      <Project>{ea416dd2-1633-439e-8512-b9933e37b9c5}</Project>
       <Name>Ringtoets.Revetment.Service.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">

@@ -31,6 +31,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using Ringtoets.Piping.Primitives;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 {
@@ -76,7 +77,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(view, calculationScenario);
 
                 // Assert
-                Assert.AreEqual(PipingFormsResources.PipingInputContext_NodeDisplayName, viewName);
+                Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, viewName);
             }
         }
 

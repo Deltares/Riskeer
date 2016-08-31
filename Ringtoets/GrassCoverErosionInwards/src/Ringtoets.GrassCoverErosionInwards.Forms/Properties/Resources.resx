@@ -133,9 +133,6 @@
   <data name="GrassCoverErosionInwardsInputContext_DataDescription_GrassCoverErosionInwardsInputCalculationItem" xml:space="preserve">
     <value>De berekening</value>
   </data>
-  <data name="GrassCoverErosionInwardsInputContext_NodeDisplayName" xml:space="preserve">
-    <value>Invoer</value>
-  </data>
   <data name="Categories_CriticalValues" xml:space="preserve">
     <value>Toetseisen</value>
   </data>

@@ -379,9 +379,6 @@
   <data name="PipingContext_DataDescription_PipingFailureMechanism" xml:space="preserve">
     <value>Het piping toetsspoor</value>
   </data>
-  <data name="PipingInputContext_NodeDisplayName" xml:space="preserve">
-    <value>Invoer</value>
-  </data>
   <data name="DesignVariableTypeConverter_DesignValue_Description" xml:space="preserve">
     <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
   </data>

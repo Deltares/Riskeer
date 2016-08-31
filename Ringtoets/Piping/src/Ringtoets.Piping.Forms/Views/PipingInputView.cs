@@ -28,7 +28,6 @@ using Core.Common.Utils.Extensions;
 using Core.Components.Charting.Data;
 using Core.Components.Charting.Forms;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -93,7 +92,7 @@ namespace Ringtoets.Piping.Forms.Views
             chartControl.Data.Add(exitPointChartData);
             chartControl.Data.Add(entryPointChartData);
 
-            chartControl.Data.Name = Resources.PipingInputContext_NodeDisplayName;
+            chartControl.Data.Name = RingtoetsCommonFormsResources.Calculation_Input;
 
             soilLayerChartDataLookup = new List<ChartMultipleAreaData>(); // Use lookup because the ordering in the chart data collection might change
         }
