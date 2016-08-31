@@ -112,7 +112,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", name, waterLevel), msgs[0]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", name, waterLevel.ToString()), msgs[0]);
                 });
             }
         }
