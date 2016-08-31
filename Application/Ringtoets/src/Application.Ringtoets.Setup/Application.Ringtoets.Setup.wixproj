@@ -65,6 +65,7 @@
     <Content Include="Banner_493x77.bmp" />
     <Content Include="GenerateVariables.wxi" />
     <Content Include="GenerateVariables.wxi.svn" />
+    <Content Include="Handleiding_Ringtoets_16.1.1.pdf" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.prj" />
     <Content Include="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.qpj" />
@@ -73,7 +74,6 @@
     <Content Include="Licentie.rtf" />
     <Content Include="Manual.ico" />
     <Content Include="Ringtoets.ico" />
-    <Content Include="Ringtoets_manual.pdf" />
     <Content Include="Start_493x312.bmp" />
     <Content Include="Variables.wxi" />
   </ItemGroup>
