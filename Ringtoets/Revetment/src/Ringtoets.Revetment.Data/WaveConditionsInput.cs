@@ -40,22 +40,22 @@ namespace Ringtoets.Revetment.Data
         private const double designWaterLevelSubstraction = 0.01;
 
         private DikeProfile dikeProfile;
-        private RoundedDouble upperRevetmentLevel;
-        private RoundedDouble lowerRevetmentLevel;
+        private RoundedDouble upperBoundaryRevetment;
+        private RoundedDouble lowerBoundaryRevetment;
         private RoundedDouble stepSize;
-        private RoundedDouble upperBoundaryCalculatorSeries;
-        private RoundedDouble lowerBoundaryCalculatorSeries;
+        private RoundedDouble upperBoundaryWaterLevels;
+        private RoundedDouble lowerBoundaryWaterLevels;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
         /// </summary>
         public WaveConditionsInput()
         {
-            upperRevetmentLevel = new RoundedDouble(2, double.NaN);
-            lowerRevetmentLevel = new RoundedDouble(2, double.NaN);
+            upperBoundaryRevetment = new RoundedDouble(2, double.NaN);
+            lowerBoundaryRevetment = new RoundedDouble(2, double.NaN);
             stepSize = new RoundedDouble(1, double.NaN);
-            upperBoundaryCalculatorSeries = new RoundedDouble(2, double.NaN);
-            lowerBoundaryCalculatorSeries = new RoundedDouble(2, double.NaN);
+            upperBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
+            lowerBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
 
             UpdateDikeProfileParameters();
         }
@@ -110,42 +110,42 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the upper level of the revetment.
+        /// Gets or sets the lower boundary of the revetment.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerRevetmentLevel"/>.</exception>
-        public RoundedDouble UpperRevetmentLevel
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperBoundaryRevetment"/>.</exception>
+        public RoundedDouble LowerBoundaryRevetment
         {
             get
             {
-                return upperRevetmentLevel;
+                return lowerBoundaryRevetment;
             }
             set
             {
-                var newUpperRevetmentLevel = value.ToPrecision(upperRevetmentLevel.NumberOfDecimalPlaces);
+                var newLowerBoundaryRevetment = value.ToPrecision(lowerBoundaryRevetment.NumberOfDecimalPlaces);
 
-                ValidateRevetmentLevels(LowerRevetmentLevel, newUpperRevetmentLevel);
+                ValidateRevetmentBoundaries(newLowerBoundaryRevetment, UpperBoundaryRevetment);
 
-                upperRevetmentLevel = newUpperRevetmentLevel;
+                lowerBoundaryRevetment = newLowerBoundaryRevetment;
             }
         }
 
         /// <summary>
-        /// Gets or sets the lower level of the revetment.
+        /// Gets or sets the upper boundary of the revetment.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperRevetmentLevel"/>.</exception>
-        public RoundedDouble LowerRevetmentLevel
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerBoundaryRevetment"/>.</exception>
+        public RoundedDouble UpperBoundaryRevetment
         {
             get
             {
-                return lowerRevetmentLevel;
+                return upperBoundaryRevetment;
             }
             set
             {
-                var newLowerRevetmentLevel = value.ToPrecision(lowerRevetmentLevel.NumberOfDecimalPlaces);
+                var newUpperBoundaryRevetment = value.ToPrecision(upperBoundaryRevetment.NumberOfDecimalPlaces);
 
-                ValidateRevetmentLevels(newLowerRevetmentLevel, UpperRevetmentLevel);
+                ValidateRevetmentBoundaries(LowerBoundaryRevetment, newUpperBoundaryRevetment);
 
-                lowerRevetmentLevel = newLowerRevetmentLevel;
+                upperBoundaryRevetment = newUpperBoundaryRevetment;
             }
         }
 
@@ -165,47 +165,55 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the upper boundary for the calculator series.
+        /// Gets or sets the lower boundary of the <see cref="WaterLevels"/> range.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerBoundaryCalculatorSeries"/>.</exception>
-        public RoundedDouble UpperBoundaryCalculatorSeries
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperBoundaryWaterLevels"/>.</exception>
+        /// <remarks>
+        /// Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
+        /// equals <see cref="double.NaN"/>, only <see cref="LowerBoundaryRevetment"/> will be taken into account.
+        /// </remarks>
+        public RoundedDouble LowerBoundaryWaterLevels
         {
             get
             {
-                return upperBoundaryCalculatorSeries;
+                return lowerBoundaryWaterLevels;
             }
             set
             {
-                var newUpperBoundaryCalculatorSeries = value.ToPrecision(upperBoundaryCalculatorSeries.NumberOfDecimalPlaces);
+                var newLowerBoundaryWaterLevels = value.ToPrecision(lowerBoundaryWaterLevels.NumberOfDecimalPlaces);
 
-                ValidateCalculatorSeriesBoundaries(LowerBoundaryCalculatorSeries, newUpperBoundaryCalculatorSeries);
+                ValidateWaterLevelBoundaries(newLowerBoundaryWaterLevels, UpperBoundaryWaterLevels);
 
-                upperBoundaryCalculatorSeries = newUpperBoundaryCalculatorSeries;
+                lowerBoundaryWaterLevels = newLowerBoundaryWaterLevels;
             }
         }
 
         /// <summary>
-        /// Gets or sets the lower boundary for the calculator series.
+        /// Gets or sets the upper boundary of the <see cref="WaterLevels"/> range.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperBoundaryCalculatorSeries"/>.</exception>
-        public RoundedDouble LowerBoundaryCalculatorSeries
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerBoundaryWaterLevels"/>.</exception>
+        /// <remarks>
+        /// Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
+        /// equals <see cref="double.NaN"/>, only <see cref="UpperBoundaryRevetment"/> will be taken into account.
+        /// </remarks>
+        public RoundedDouble UpperBoundaryWaterLevels
         {
             get
             {
-                return lowerBoundaryCalculatorSeries;
+                return upperBoundaryWaterLevels;
             }
             set
             {
-                var newLowerBoundaryCalculatorSeries = value.ToPrecision(lowerBoundaryCalculatorSeries.NumberOfDecimalPlaces);
+                var newUpperBoundaryWaterLevels = value.ToPrecision(upperBoundaryWaterLevels.NumberOfDecimalPlaces);
 
-                ValidateCalculatorSeriesBoundaries(newLowerBoundaryCalculatorSeries, UpperBoundaryCalculatorSeries);
+                ValidateWaterLevelBoundaries(LowerBoundaryWaterLevels, newUpperBoundaryWaterLevels);
 
-                lowerBoundaryCalculatorSeries = newLowerBoundaryCalculatorSeries;
+                upperBoundaryWaterLevels = newUpperBoundaryWaterLevels;
             }
         }
 
         /// <summary>
-        /// Gets the water levels to calculate for.
+        /// Gets the water levels to perform a wave conditions calculation for.
         /// </summary>
         public IEnumerable<RoundedDouble> WaterLevels
         {
@@ -215,23 +223,23 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
-        private static void ValidateRevetmentLevels(RoundedDouble lowerRevetmentLevelValue, RoundedDouble upperRevetmentLevelValue)
+        private static void ValidateRevetmentBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary)
         {
-            if (!double.IsNaN(lowerRevetmentLevelValue)
-                && !double.IsNaN(upperRevetmentLevelValue)
-                && lowerRevetmentLevelValue >= upperRevetmentLevelValue)
-            {
-                throw new ArgumentOutOfRangeException(null, Resources.WaveConditionsInput_ValidateRevetmentLevels_Upper_revetment_level_must_be_above_lower_revetment_level);
-            }
+            ValidateBoundaries(lowerBoundary, upperBoundary, Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment);
         }
 
-        private static void ValidateCalculatorSeriesBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary)
+        private static void ValidateWaterLevelBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary)
+        {
+            ValidateBoundaries(lowerBoundary, upperBoundary, Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels);
+        }
+
+        private static void ValidateBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary, string exceptionMessage)
         {
             if (!double.IsNaN(lowerBoundary)
                 && !double.IsNaN(upperBoundary)
                 && lowerBoundary >= upperBoundary)
             {
-                throw new ArgumentOutOfRangeException(null, Resources.WaveConditionsInput_ValidateCalculatorSeriesBoundaries_Calculator_series_upperboundary_must_be_above_lowerboundary);
+                throw new ArgumentOutOfRangeException(null, exceptionMessage);
             }
         }
 
@@ -245,8 +253,8 @@ namespace Ringtoets.Revetment.Data
         private IEnumerable<RoundedDouble> DetermineWaterLevels()
         {
             var waterLevels = new List<RoundedDouble>();
-            var upperBoundary = new RoundedDouble(2, Math.Min(DetermineUpperWaterLevel(), Math.Min(UpperRevetmentLevel, UpperBoundaryCalculatorSeries)));
-            var lowerBoundary = new RoundedDouble(2, Math.Max(LowerRevetmentLevel, LowerBoundaryCalculatorSeries));
+            var upperBoundary = new RoundedDouble(2, Math.Min(DetermineUpperWaterLevel(), Math.Min(UpperBoundaryRevetment, UpperBoundaryWaterLevels)));
+            var lowerBoundary = new RoundedDouble(2, Math.Max(LowerBoundaryRevetment, LowerBoundaryWaterLevels));
 
             if (double.IsNaN(upperBoundary) ||
                 double.IsNaN(lowerBoundary) ||

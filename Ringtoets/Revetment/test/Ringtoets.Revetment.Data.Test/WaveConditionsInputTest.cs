@@ -94,11 +94,11 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperRevetmentLevel);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerRevetmentLevel);
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryRevetment);
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryRevetment);
             Assert.AreEqual(new RoundedDouble(1, double.NaN), input.StepSize);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryCalculatorSeries);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryCalculatorSeries);
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryWaterLevels);
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryWaterLevels);
             CollectionAssert.IsEmpty(input.WaterLevels);
         }
 
@@ -210,68 +210,68 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        public void UpperRevetmentLevel_SetNewValue_ValueIsRounded()
+        public void LowerBoundaryRevetment_SetNewValue_ValueIsRounded()
         {
             // Setup
             var input = new WaveConditionsInput();
 
-            int originalNumberOfDecimalPlaces = input.UpperRevetmentLevel.NumberOfDecimalPlaces;
+            int originalNumberOfDecimalPlaces = input.LowerBoundaryRevetment.NumberOfDecimalPlaces;
 
             // Call
-            input.UpperRevetmentLevel = new RoundedDouble(5, 1.23456);
+            input.LowerBoundaryRevetment = new RoundedDouble(5, 1.23456);
 
             // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, input.UpperRevetmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.23, input.UpperRevetmentLevel.Value);
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.LowerBoundaryRevetment.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, input.LowerBoundaryRevetment.Value);
         }
 
         [Test]
-        public void UpperRevetmentLevel_BelowLowerRevetmentLevel_ThrowsArgumentOutOfRangeException()
+        public void LowerBoundaryRevetment_AboveUpperBoundaryRevetment_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var input = new WaveConditionsInput
             {
-                LowerRevetmentLevel = (RoundedDouble) 0.0
+                UpperBoundaryRevetment = (RoundedDouble) 0.0
             };
 
             // Call
-            TestDelegate test = () => input.UpperRevetmentLevel = (RoundedDouble) (-3);
+            TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble) 3.0;
 
             // Assert
-            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentLevels_Upper_revetment_level_must_be_above_lower_revetment_level;
+            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
         [Test]
-        public void LowerRevetmentLevel_SetNewValue_ValueIsRounded()
+        public void UpperBoundaryRevetment_SetNewValue_ValueIsRounded()
         {
             // Setup
             var input = new WaveConditionsInput();
 
-            int originalNumberOfDecimalPlaces = input.LowerRevetmentLevel.NumberOfDecimalPlaces;
+            int originalNumberOfDecimalPlaces = input.UpperBoundaryRevetment.NumberOfDecimalPlaces;
 
             // Call
-            input.LowerRevetmentLevel = new RoundedDouble(5, 1.23456);
+            input.UpperBoundaryRevetment = new RoundedDouble(5, 1.23456);
 
             // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, input.LowerRevetmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.23, input.LowerRevetmentLevel.Value);
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.UpperBoundaryRevetment.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, input.UpperBoundaryRevetment.Value);
         }
 
         [Test]
-        public void LowerRevetmentLevel_AboveUpperRevetmentLevel_ThrowsArgumentOutOfRangeException()
+        public void UpperBoundaryRevetment_BelowLowerBoundaryRevetment_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var input = new WaveConditionsInput
             {
-                UpperRevetmentLevel = (RoundedDouble) 0.0
+                LowerBoundaryRevetment = (RoundedDouble) 0.0
             };
 
             // Call
-            TestDelegate test = () => input.LowerRevetmentLevel = (RoundedDouble) 3.0;
+            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) (-3);
 
             // Assert
-            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentLevels_Upper_revetment_level_must_be_above_lower_revetment_level;
+            string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
 
@@ -292,75 +292,75 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        public void LowerBoundaryCalculatorSeries_SetNewValue_ValueIsRounded()
+        public void LowerBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
             var input = new WaveConditionsInput();
 
-            int originalNumberOfDecimalPlaces = input.LowerBoundaryCalculatorSeries.NumberOfDecimalPlaces;
+            int originalNumberOfDecimalPlaces = input.LowerBoundaryWaterLevels.NumberOfDecimalPlaces;
 
             // Call
-            input.LowerBoundaryCalculatorSeries = new RoundedDouble(5, 1.23456);
+            input.LowerBoundaryWaterLevels = new RoundedDouble(5, 1.23456);
 
             // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, input.LowerBoundaryCalculatorSeries.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.23, input.LowerBoundaryCalculatorSeries.Value);
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, input.LowerBoundaryWaterLevels.Value);
         }
 
         [Test]
         [TestCase(5)]
         [TestCase(3.004)]
         [TestCase(3.009)]
-        public void LowerBoundaryCalculatorSeries_BoundaryAboveUpperBoundary_ThrowsArgumentOutOfRangeException(double newValue)
+        public void LowerBoundaryWaterLevels_BoundaryAboveUpperBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
             var input = new WaveConditionsInput
             {
-                UpperBoundaryCalculatorSeries = (RoundedDouble) 3.0
+                UpperBoundaryWaterLevels = (RoundedDouble) 3.0
             };
 
             // Call
-            TestDelegate test = () => input.LowerBoundaryCalculatorSeries = (RoundedDouble) newValue;
+            TestDelegate test = () => input.LowerBoundaryWaterLevels = (RoundedDouble) newValue;
 
             // Assert
-            string expectedMessage = Resources.WaveConditionsInput_ValidateCalculatorSeriesBoundaries_Calculator_series_upperboundary_must_be_above_lowerboundary;
+            string expectedMessage = Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        public void UpperBoundaryWaterLevels_SetNewValue_ValueIsRounded()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            int originalNumberOfDecimalPlaces = input.UpperBoundaryWaterLevels.NumberOfDecimalPlaces;
+
+            // Call
+            input.UpperBoundaryWaterLevels = new RoundedDouble(5, 1.23456);
+
+            // Assert
+            Assert.AreEqual(originalNumberOfDecimalPlaces, input.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.23, input.UpperBoundaryWaterLevels.Value);
         }
 
         [Test]
         [TestCase(1)]
         [TestCase(3.004)]
         [TestCase(2.999)]
-        public void UpperBoundaryCalculatorSeries_BoundaryBelowLowerBoundary_ThrowsArgumentOutOfRangeException(double newValue)
+        public void UpperBoundaryWaterLevels_BoundaryBelowLowerBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
             var input = new WaveConditionsInput
             {
-                LowerBoundaryCalculatorSeries = (RoundedDouble) 3.0
+                LowerBoundaryWaterLevels = (RoundedDouble) 3.0
             };
 
             // Call
-            TestDelegate test = () => input.UpperBoundaryCalculatorSeries = (RoundedDouble)newValue;
+            TestDelegate test = () => input.UpperBoundaryWaterLevels = (RoundedDouble) newValue;
 
             // Assert
-            string expectedMessage = Resources.WaveConditionsInput_ValidateCalculatorSeriesBoundaries_Calculator_series_upperboundary_must_be_above_lowerboundary;
+            string expectedMessage = Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-        }
-
-        [Test]
-        public void UpperBoundaryCalculatorSeries_SetNewValue_ValueIsRounded()
-        {
-            // Setup
-            var input = new WaveConditionsInput();
-
-            int originalNumberOfDecimalPlaces = input.UpperBoundaryCalculatorSeries.NumberOfDecimalPlaces;
-
-            // Call
-            input.UpperBoundaryCalculatorSeries = new RoundedDouble(5, 1.23456);
-
-            // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, input.UpperBoundaryCalculatorSeries.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.23, input.UpperBoundaryCalculatorSeries.Value);
         }
 
         [Test]
@@ -374,14 +374,14 @@ namespace Ringtoets.Revetment.Data.Test
             var input = new WaveConditionsInput
             {
                 StepSize = (RoundedDouble) stepSize,
-                UpperRevetmentLevel = (RoundedDouble) (upperBoundaryLevel - 0.01),
-                UpperBoundaryCalculatorSeries = (RoundedDouble) (upperBoundaryLevel - 0.01),
+                UpperBoundaryRevetment = (RoundedDouble) (upperBoundaryLevel - 0.01),
+                UpperBoundaryWaterLevels = (RoundedDouble) (upperBoundaryLevel - 0.01),
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
                     DesignWaterLevel = (RoundedDouble) upperBoundaryLevel
                 },
-                LowerRevetmentLevel = (RoundedDouble) lowerBoundaryLevel,
-                LowerBoundaryCalculatorSeries = (RoundedDouble) lowerBoundaryLevel
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryLevel,
+                LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryLevel
             };
 
             // Call
@@ -393,22 +393,22 @@ namespace Ringtoets.Revetment.Data.Test
 
         [Test]
         [TestCaseSource("WaterLevels")]
-        public void WaterLevels_ValidData_ReturnsWaterLevels(double stepSize, double upperRevetmentLevel,
-                                                             double lowerRevetmentLevel, double upperBoundaryCalculatorSeries, double lowerBoundaryCalculatorSeries,
+        public void WaterLevels_ValidData_ReturnsWaterLevels(double stepSize, double upperBoundaryRevetment,
+                                                             double lowerBoundaryRevetment, double upperBoundaryWaterLevels, double lowerBoundaryWaterLevels,
                                                              double designWaterLevel, IEnumerable<RoundedDouble> expectedWaterLevels)
         {
             // Setup
             var input = new WaveConditionsInput
             {
                 StepSize = (RoundedDouble) stepSize,
-                UpperRevetmentLevel = (RoundedDouble) upperRevetmentLevel,
-                UpperBoundaryCalculatorSeries = (RoundedDouble) upperBoundaryCalculatorSeries,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
+                UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels,
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
                     DesignWaterLevel = (RoundedDouble) designWaterLevel
                 },
-                LowerRevetmentLevel = (RoundedDouble) lowerRevetmentLevel,
-                LowerBoundaryCalculatorSeries = (RoundedDouble) lowerBoundaryCalculatorSeries
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
+                LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels
             };
 
             // Call

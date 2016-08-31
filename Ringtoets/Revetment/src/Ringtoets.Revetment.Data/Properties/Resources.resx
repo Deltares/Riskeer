@@ -98,10 +98,10 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-  <data name="WaveConditionsInput_ValidateCalculatorSeriesBoundaries_Calculator_series_upperboundary_must_be_above_lowerboundary" xml:space="preserve">
+  <data name="WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels" xml:space="preserve">
     <value>De bovengrens van de rekenreeks moet boven de ondergrens liggen.</value>
   </data>
-  <data name="WaveConditionsInput_ValidateRevetmentLevels_Upper_revetment_level_must_be_above_lower_revetment_level" xml:space="preserve">
+  <data name="WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment" xml:space="preserve">
     <value>De bovengrens van de bekleding moet boven de ondergrens liggen.</value>
   </data>
 </root>
