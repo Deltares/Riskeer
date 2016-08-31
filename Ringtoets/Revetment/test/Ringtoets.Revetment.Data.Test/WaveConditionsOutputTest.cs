@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.Revetment.Data.Test
 {
     [TestFixture]
-    public class WaveConditionsOuputTest
+    public class WaveConditionsOutputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -34,18 +34,18 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             double waterLevel = 3.0;
             double waveHeight = 4.0;
-            double wavePeriod = 0.4;
+            double wavePeakPeriod = 0.4;
             double waveOrientation = 180;
 
             // Call
-            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeriod, waveOrientation);
+            var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveOrientation);
 
             // Assert
             Assert.IsInstanceOf<Observable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.AreEqual(waterLevel, output.WaterLevel);
             Assert.AreEqual(waveHeight, output.WaveHeight);
-            Assert.AreEqual(wavePeriod, output.WavePeriod);
+            Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod);
             Assert.AreEqual(waveOrientation, output.WaveOrientation);
         }
     }

@@ -27,7 +27,7 @@ using Ringtoets.StabilityStoneCover.Data.Properties;
 namespace Ringtoets.StabilityStoneCover.Data
 {
     /// <summary>
-    /// Class holding information about a calculation for the <see cref="StabilityStoneCoverFailureMechanism"/>.
+    /// Class holding information about a wave conditions calculation for the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
     public class StabilityStoneCoverWaveConditionsCalculation : Observable, ICalculation
     {

@@ -275,20 +275,9 @@ namespace Ringtoets.Revetment.Data
 
         private IEnumerable<RoundedDouble> DetermineWaterLevels()
         {
-            RoundedDouble upperBoundary;
-
-            if (UpperWaterLevel < UpperRevetmentLevel)
-            {
-                upperBoundary = UpperWaterLevel < UpperBoundaryCalculatorSeries ? UpperWaterLevel : upperBoundaryCalculatorSeries;
-            }
-            else
-            {
-                upperBoundary = UpperRevetmentLevel < UpperBoundaryCalculatorSeries ? upperRevetmentLevel : upperBoundaryCalculatorSeries;
-            }
-
-            var lowerBoundary = LowerBoundaryCalculatorSeries > LowerRevetmentLevel ? LowerBoundaryCalculatorSeries : LowerRevetmentLevel;
-
             var waterLevels = new List<RoundedDouble>();
+            var upperBoundary = new RoundedDouble(2, Math.Min(UpperWaterLevel, Math.Min(UpperRevetmentLevel, UpperBoundaryCalculatorSeries)));
+            var lowerBoundary = new RoundedDouble(2, Math.Max(LowerRevetmentLevel, LowerBoundaryCalculatorSeries));
 
             if (double.IsNaN(upperBoundary) ||
                 double.IsNaN(lowerBoundary) ||

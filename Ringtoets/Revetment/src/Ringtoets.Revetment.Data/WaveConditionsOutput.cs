@@ -25,27 +25,27 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.Revetment.Data
 {
     /// <summary>
-    /// The result of the wave conditions assessment.
+    /// Container for the results of a wave conditions calculation.
     /// </summary>
     public class WaveConditionsOutput : Observable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsOutput"/>.
         /// </summary>
-        /// <param name="waterLevel">The water level which has been calculated.</param>
+        /// <param name="waterLevel">The water level for which the calculation has been performed.</param>
         /// <param name="waveHeight">The calculated wave height.</param>
-        /// <param name="wavePeriod">The calculated wave period.</param>
+        /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
         /// <param name="waveOrientation">The calculated wave orientation.</param>
-        public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeriod, double waveOrientation)
+        public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveOrientation)
         {
             WaterLevel = waterLevel;
             WaveHeight = waveHeight;
-            WavePeriod = wavePeriod;
+            WavePeakPeriod = wavePeakPeriod;
             WaveOrientation = waveOrientation;
         }
 
         /// <summary>
-        /// Gets the water level which has been calculated.
+        /// Gets the water level for which the calculation has been performed.
         /// </summary>
         public double WaterLevel { get; private set; }
 
@@ -55,9 +55,9 @@ namespace Ringtoets.Revetment.Data
         public double WaveHeight { get; private set; }
 
         /// <summary>
-        /// Gets the calculated wave period.
+        /// Gets the calculated wave peak period.
         /// </summary>
-        public double WavePeriod { get; private set; }
+        public double WavePeakPeriod { get; private set; }
 
         /// <summary>
         /// Gets the calculated wave orientation.

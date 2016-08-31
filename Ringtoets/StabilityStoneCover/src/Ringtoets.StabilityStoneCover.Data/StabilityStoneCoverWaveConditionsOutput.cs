@@ -28,7 +28,7 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.StabilityStoneCover.Data
 {
     /// <summary>
-    /// The result of the stability stone cover wave conditions assessment.
+    /// Container for the results of a stability stone cover wave conditions calculation.
     /// </summary>
     public class StabilityStoneCoverWaveConditionsOutput : Observable, ICalculationOutput
     {
@@ -56,13 +56,13 @@ namespace Ringtoets.StabilityStoneCover.Data
         }
 
         /// <summary>
-        /// Gets the wave conditions output for blocks.
-        /// </summary>
-        public IEnumerable<WaveConditionsOutput> BlocksOutput { get; private set; }
-
-        /// <summary>
         /// Gets the wave conditions output for columns.
         /// </summary>
         public IEnumerable<WaveConditionsOutput> ColumnsOutput { get; private set; }
+
+        /// <summary>
+        /// Gets the wave conditions output for blocks.
+        /// </summary>
+        public IEnumerable<WaveConditionsOutput> BlocksOutput { get; private set; }
     }
 }
