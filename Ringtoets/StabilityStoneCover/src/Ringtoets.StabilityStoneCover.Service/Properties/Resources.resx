@@ -110,4 +110,10 @@
   <data name="StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_ended_time_1_" xml:space="preserve">
     <value>Zuilen berekening '{0}' voor waterstand '{1}' beëindigd om: {2}</value>
   </data>
+  <data name="StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_" xml:space="preserve">
+    <value>Blokken waterstand '{0}' berekenen.</value>
+  </data>
+  <data name="StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_waterlevel_0_" xml:space="preserve">
+    <value>Zuilen waterstand '{0}' berekenen.</value>
+  </data>
 </root>

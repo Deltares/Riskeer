@@ -109,6 +109,8 @@ namespace Ringtoets.StabilityStoneCover.Service
                                                       waterLevel,
                                                       DateTimeService.CurrentTimeAsString));
 
+                               ProgressText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_, waterLevel);
+
                                var blocksOuput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
                                                                                                      aBlocks,
                                                                                                      bBlocks,
@@ -133,6 +135,8 @@ namespace Ringtoets.StabilityStoneCover.Service
                                                       calculation.Name,
                                                       waterLevel,
                                                       DateTimeService.CurrentTimeAsString));
+
+                               ProgressText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_waterlevel_0_, waterLevel);
 
                                var columnsOuput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
                                                                                                       aColumns,

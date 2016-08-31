@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -35,6 +36,7 @@ using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service;
+using Ringtoets.StabilityStoneCover.Service.Properties;
 
 namespace Ringtoets.StabilityStoneCover.Integration.Test
 {
@@ -44,7 +46,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
-        public void Run_NoWaterLevels_LogStartAndEnd()
+        public void OnRun_NoWaterLevels_LogStartAndEnd()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -88,7 +90,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        public void Run_CalculationWithWaterLevels_PerformCalculationAndLogStartAndEnd()
+        public void OnRun_CalculationWithWaterLevels_PerformCalculationAndLogStartAndEnd()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -144,7 +146,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        public void Run_CalculationWithWaterLevelsCannotPerformCalculation_LogStartAndErrorAndEnd()
+        public void OnRun_CalculationWithWaterLevelsCannotPerformCalculation_LogStartAndErrorAndEnd()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -197,6 +199,54 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[19]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
+        }
+
+        [Test]
+        public void OnRun_Always_SetProgressTexts()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    StepSize = (RoundedDouble) 0.5,
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.10
+                }
+            };
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
+
+            using (new HydraRingCalculationServiceConfig())
+            {
+                List<string> progessTexts = new List<string>();
+                activity.ProgressChanged += (sender, args) =>
+                {
+                    progessTexts.Add(activity.ProgressText);
+                };
+
+                // Call
+                activity.Run();
+
+                // Assert
+                foreach (var waterLevel in calculation.InputParameters.WaterLevels)
+                {
+                    var blocksText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_, waterLevel);
+                    var columnsText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_waterlevel_0_, waterLevel);
+                    CollectionAssert.Contains(progessTexts, blocksText);
+                    CollectionAssert.Contains(progessTexts, columnsText);
+                }
             }
         }
 
