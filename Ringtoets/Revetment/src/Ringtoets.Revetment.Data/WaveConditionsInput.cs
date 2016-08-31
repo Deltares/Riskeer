@@ -150,8 +150,9 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the step size for wave conditions calculations.
+        /// Gets or sets the step size used for determining <see cref="WaterLevels"/>.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <c>0</c>.</exception>
         public RoundedDouble StepSize
         {
             get
@@ -160,7 +161,14 @@ namespace Ringtoets.Revetment.Data
             }
             set
             {
-                stepSize = value.ToPrecision(stepSize.NumberOfDecimalPlaces);
+                var newStepSize = value.ToPrecision(stepSize.NumberOfDecimalPlaces);
+
+                if (!double.IsNaN(newStepSize) && newStepSize <= 0)
+                {
+                    throw new ArgumentOutOfRangeException(null, Resources.WaveConditionsInput_StepSize_Should_be_greater_than_zero);
+                }
+
+                stepSize = newStepSize;
             }
         }
 

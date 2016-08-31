@@ -82,6 +82,15 @@ namespace Ringtoets.Revetment.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stapgrootte moet groter zijn dan 0..
+        /// </summary>
+        internal static string WaveConditionsInput_StepSize_Should_be_greater_than_zero {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_StepSize_Should_be_greater_than_zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De bovengrens van de bekleding moet boven de ondergrens liggen..
         /// </summary>
         internal static string WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment {
