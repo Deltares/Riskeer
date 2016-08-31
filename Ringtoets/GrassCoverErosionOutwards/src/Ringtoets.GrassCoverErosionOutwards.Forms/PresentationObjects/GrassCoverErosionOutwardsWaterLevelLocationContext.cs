@@ -27,7 +27,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
-    /// with <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel"/>.
+    /// with <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsWaterLevelLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
     {

@@ -33,13 +33,13 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaterLevelLocationsContextPropertiesTest
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new GrassCoverErosionOutwardsWaterLevelLocationsContextProperties();
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>>(properties);
@@ -50,14 +50,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            RoundedDouble waterLevel = (RoundedDouble) 12.34;
+            RoundedDouble designWaterLevel = (RoundedDouble) 12.34;
             var location = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "name", 1.0, 2.0))
             {
-                WaterLevel = waterLevel
+                DesignWaterLevel = designWaterLevel
             };
 
             // Call
-            GrassCoverErosionOutwardsWaterLevelLocationsContextProperties properties = new GrassCoverErosionOutwardsWaterLevelLocationsContextProperties
+            GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties
             {
                 Data = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
                 {
@@ -68,18 +68,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(1, properties.Locations.Length);
 
-            GrassCoverErosionOutwardsWaterLevelLocationContextProperties locationProperties = properties.Locations[0];
-            Assert.AreEqual(location.HydraulicBoundaryLocation.Name, locationProperties.Name);
-            Assert.AreEqual(location.HydraulicBoundaryLocation.Id, locationProperties.Id);
-            Assert.AreEqual(location.HydraulicBoundaryLocation.Location, locationProperties.Location);
-            Assert.AreEqual(waterLevel, locationProperties.WaterLevel, location.WaterLevel.GetAccuracy());
+            GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties locationProperties = properties.Locations[0];
+            Assert.AreEqual(location.Name, locationProperties.Name);
+            Assert.AreEqual(location.Id, locationProperties.Id);
+            Assert.AreEqual(location.Location, locationProperties.Location);
+            Assert.AreEqual(designWaterLevel, locationProperties.DesignWaterLevel, location.DesignWaterLevel.GetAccuracy());
         }
 
         [Test]
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var properties = new GrassCoverErosionOutwardsWaterLevelLocationsContextProperties();
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties();
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             const string expectedLocationsDisplayName = "Locaties";

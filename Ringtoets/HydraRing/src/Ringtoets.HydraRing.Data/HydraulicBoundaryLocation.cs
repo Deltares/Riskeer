@@ -20,17 +20,15 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 
 namespace Ringtoets.HydraRing.Data
 {
     /// <summary>
     /// Location of a hydraulic boundary.
     /// </summary>
-    public class HydraulicBoundaryLocation : Observable, IStorable
+    public class HydraulicBoundaryLocation : IHydraulicBoundaryLocation
     {
         private RoundedDouble designWaterLevel;
         private RoundedDouble waveHeight;
@@ -55,21 +53,6 @@ namespace Ringtoets.HydraRing.Data
             designWaterLevel = new RoundedDouble(2, double.NaN);
             waveHeight = new RoundedDouble(2, double.NaN);
         }
-
-        /// <summary>
-        /// Gets the database id of <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public long Id { get; private set; }
-
-        /// <summary>
-        /// Gets the name of <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public string Name { get; private set; }
-
-        /// <summary>
-        /// Gets the coordinates of <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        public Point2D Location { get; private set; }
 
         /// <summary>
         /// Gets or sets the design water level of <see cref="HydraulicBoundaryLocation"/>.
@@ -110,6 +93,12 @@ namespace Ringtoets.HydraRing.Data
         /// Gets or sets the convergence status of the waveheight calculation.
         /// </summary>
         public CalculationConvergence WaveHeightCalculationConvergence { get; set; }
+
+        public long Id { get; private set; }
+
+        public string Name { get; private set; }
+
+        public Point2D Location { get; private set; }
 
         /// <summary>
         /// Gets or sets the unique identifier for the storage of the class.

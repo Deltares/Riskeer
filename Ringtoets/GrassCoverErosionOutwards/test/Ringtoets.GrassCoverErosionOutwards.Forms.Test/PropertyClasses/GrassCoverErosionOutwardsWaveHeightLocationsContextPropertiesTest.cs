@@ -71,9 +71,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(1, properties.Locations.Length);
 
             GrassCoverErosionOutwardsWaveHeightLocationContextProperties designWaterLevelLocationProperties = properties.Locations.First();
-            Assert.AreEqual(location.HydraulicBoundaryLocation.Name, designWaterLevelLocationProperties.Name);
-            Assert.AreEqual(location.HydraulicBoundaryLocation.Id, designWaterLevelLocationProperties.Id);
-            Assert.AreEqual(location.HydraulicBoundaryLocation.Location, designWaterLevelLocationProperties.Location);
+            Assert.AreEqual(location.Name, designWaterLevelLocationProperties.Name);
+            Assert.AreEqual(location.Id, designWaterLevelLocationProperties.Id);
+            Assert.AreEqual(location.Location, designWaterLevelLocationProperties.Location);
             Assert.AreEqual(waveHeight, designWaterLevelLocationProperties.WaveHeight, location.WaveHeight.GetAccuracy());
             Assert.AreEqual("Nee", designWaterLevelLocationProperties.Convergence);
         }

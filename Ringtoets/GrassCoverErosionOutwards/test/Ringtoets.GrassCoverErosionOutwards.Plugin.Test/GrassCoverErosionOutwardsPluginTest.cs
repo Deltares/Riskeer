@@ -107,10 +107,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
 
                 var waterLevelHydraulicBoundaryLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined<
                     GrassCoverErosionOutwardsWaterLevelLocationsContext,
-                    GrassCoverErosionOutwardsWaterLevelLocationsContextProperties>(propertyInfos);
+                    GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties>(propertyInfos);
                 Assert.IsNull(waterLevelHydraulicBoundaryLocationsContextProperties.AdditionalDataCheck);
                 Assert.IsNull(waterLevelHydraulicBoundaryLocationsContextProperties.AfterCreate);
-                
+
                 var waveHeightLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined<
                     GrassCoverErosionOutwardsWaveHeightLocationsContext,
                     GrassCoverErosionOutwardsWaveHeightLocationsContextProperties>(propertyInfos);

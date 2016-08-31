@@ -129,13 +129,13 @@
   <data name="GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_Description" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_Description" xml:space="preserve">
     <value>Berekende waterstand bij doorsnede-eis.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_DisplayName" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis [m+NAP]</value>
   </data>
-  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaterLevel_Description" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_DesignWaterLevel_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName" xml:space="preserve">

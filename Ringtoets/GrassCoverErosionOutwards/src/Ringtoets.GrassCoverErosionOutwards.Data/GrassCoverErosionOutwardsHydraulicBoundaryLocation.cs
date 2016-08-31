@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
+using Core.Common.Base.Geometry;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
@@ -30,53 +30,49 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// Hydraulic boundary location for which values are calculated during the assessment of the 
     /// <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsHydraulicBoundaryLocation : IStorable
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocation : IHydraulicBoundaryLocation
     {
-        private RoundedDouble waterLevel;
+        private readonly IHydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private RoundedDouble designWaterLevel;
         private RoundedDouble waveHeight;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> 
+        /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> 
         /// which is used in the calculation of grass cover erosion outwards specific properties of the
         /// location.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public GrassCoverErosionOutwardsHydraulicBoundaryLocation(IHydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException("hydraulicBoundaryLocation");
             }
-            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            waterLevel = new RoundedDouble(2, double.NaN);
+            this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            designWaterLevel = new RoundedDouble(2, double.NaN);
             waveHeight = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
-        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation"/>.
+        /// Gets or sets the design water level of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
         /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the water level of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
-        /// </summary>
-        public RoundedDouble WaterLevel
+        public RoundedDouble DesignWaterLevel
         {
             get
             {
-                return waterLevel;
+                return designWaterLevel;
             }
             set
             {
-                waterLevel = value.ToPrecision(waterLevel.NumberOfDecimalPlaces);
+                designWaterLevel = value.ToPrecision(designWaterLevel.NumberOfDecimalPlaces);
             }
         }
 
         /// <summary>
-        /// Gets or sets the convergence status of the water level calculation.
+        /// Gets or sets the convergence status of the design water level calculation.
         /// </summary>
-        public CalculationConvergence WaterLevelCalculationConvergence { get; set; }
+        public CalculationConvergence DesignWaterLevelCalculationConvergence { get; set; }
 
         /// <summary>
         /// Gets or sets the wave height of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
@@ -97,6 +93,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// Gets or sets the convergence status of the wave height calculation.
         /// </summary>
         public CalculationConvergence WaveHeightCalculationConvergence { get; set; }
+
+        public long Id
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Id;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Name;
+            }
+        }
+
+        public Point2D Location
+        {
+            get
+            {
+                return hydraulicBoundaryLocation.Location;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the unique identifier for the storage of the class.

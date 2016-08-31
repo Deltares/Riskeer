@@ -102,10 +102,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?.
         /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaterLevel_Description {
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_DesignWaterLevel_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaterLevel_Descrip" +
-                        "tion", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_DesignWaterLevel_D" +
+                        "escription", resourceCulture);
             }
         }
         
@@ -122,18 +122,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekende waterstand bij doorsnede-eis..
         /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_Description {
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_Description {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_Description", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Waterstand bij doorsnede-eis [m+NAP].
         /// </summary>
-        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_DisplayName {
+        public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaterLevel_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName", resourceCulture);
             }
         }
         

@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation.Id;
+                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.Id;
             }
         }
 
@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation.Name;
+                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.Name;
             }
         }
 
@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation.Location;
+                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.Location;
             }
         }
 

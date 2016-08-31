@@ -34,13 +34,13 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaterLevelLocationContextPropertiesTest
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationContextPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new GrassCoverErosionOutwardsWaterLevelLocationContextProperties();
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties();
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties>(properties);
@@ -58,12 +58,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const double x = 567.0;
             const double y = 890.0;
             const string name = "name";
-            var waterLevel = (RoundedDouble) 1234;
+            var designWaterLevel = (RoundedDouble) 1234;
             var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
                 new HydraulicBoundaryLocation(id, name, x, y))
             {
-                WaterLevel = waterLevel,
-                WaterLevelCalculationConvergence = convergenceReached
+                DesignWaterLevel = designWaterLevel,
+                DesignWaterLevelCalculationConvergence = convergenceReached
             };
             var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
             {
@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaterLevelLocationContextProperties
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
             {
                 Data = context
             };
@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             Point2D coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-            Assert.AreEqual(waterLevel, properties.WaterLevel, properties.WaterLevel.GetAccuracy());
+            Assert.AreEqual(designWaterLevel, properties.DesignWaterLevel, properties.DesignWaterLevel.GetAccuracy());
             Assert.AreEqual(expectedConvergenceValue, properties.Convergence);
         }
 
@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             };
             var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
-            var properties = new GrassCoverErosionOutwardsWaterLevelLocationContextProperties
+            var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
             {
                 Data = context
             };
@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
             PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);
             PropertyDescriptor locationProperty = dynamicProperties.Find("Location", false);
-            PropertyDescriptor waterLevelProperty = dynamicProperties.Find("WaterLevel", false);
+            PropertyDescriptor waterLevelProperty = dynamicProperties.Find("DesignWaterLevel", false);
             PropertyDescriptor convergenceProperty = dynamicProperties.Find("Convergence", false);
 
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);

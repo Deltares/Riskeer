@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 GetObjectPropertiesData = context => context.WrappedData
             };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaterLevelLocationsContext, GrassCoverErosionOutwardsWaterLevelLocationsContextProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties>
             {
                 GetObjectPropertiesData = context => context.Locations
             };

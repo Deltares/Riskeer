@@ -21,8 +21,9 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
@@ -51,11 +52,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<IStorable>(grassCoverErosionOutwardsHydraulicBoundaryLocation);
-            Assert.AreSame(hydraulicBoundaryLocation, grassCoverErosionOutwardsHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel);
-            Assert.AreEqual(2, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevelCalculationConvergence);
+            Assert.IsInstanceOf<IHydraulicBoundaryLocation>(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            Assert.AreEqual(hydraulicBoundaryLocation.Name, grassCoverErosionOutwardsHydraulicBoundaryLocation.Name);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, grassCoverErosionOutwardsHydraulicBoundaryLocation.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Location, grassCoverErosionOutwardsHydraulicBoundaryLocation.Location);
+            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.AreEqual(2, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
 
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(2, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight.NumberOfDecimalPlaces);
@@ -66,15 +69,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         public void WaterLevel_ValidParameters_ReturnsExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 0.0, 0.0);
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+            var mockRepository = new MockRepository();
+            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
+            mockRepository.ReplayAll();
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocationMock);
             var waterLevel = (RoundedDouble) 1.23456;
 
             // Call
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel = waterLevel;
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel = waterLevel;
 
             // Assert
-            Assert.AreEqual(1.23, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel, 1e-8);
+            Assert.AreEqual(waterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel,
+                            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+            mockRepository.VerifyAll();
         }
 
         [Test]

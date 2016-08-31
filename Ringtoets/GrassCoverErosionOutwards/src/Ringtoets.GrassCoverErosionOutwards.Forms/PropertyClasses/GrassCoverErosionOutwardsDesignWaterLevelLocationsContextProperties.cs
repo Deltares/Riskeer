@@ -33,19 +33,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of an enumeration of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> with 
-    /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaterLevel"/> for properties panel.
+    /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaterLevelLocationsContextProperties : ObjectProperties<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties : ObjectProperties<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryDatabase_Locations_DisplayName")]
         [ResourcesDescription(typeof(Resources), "HydraulicBoundaryDatabase_Locations_Description")]
-        public GrassCoverErosionOutwardsWaterLevelLocationContextProperties[] Locations
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties[] Locations
         {
             get
             {
-                return data.Select(loc => new GrassCoverErosionOutwardsWaterLevelLocationContextProperties
+                return data.Select(loc => new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
                 {
                     Data = new GrassCoverErosionOutwardsWaterLevelLocationContext(data, loc)
                 }).ToArray();
