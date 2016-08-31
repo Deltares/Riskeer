@@ -1091,6 +1091,7 @@ namespace Ringtoets.Integration.Plugin
 
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
+                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase,
                         assessmentSection.HydraulicBoundaryDatabase.Locations,
                         assessmentSection.Id,
@@ -1126,6 +1127,7 @@ namespace Ringtoets.Integration.Plugin
                     }
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
+                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase,
                         assessmentSection.HydraulicBoundaryDatabase.Locations,
                         assessmentSection.Id,

@@ -44,11 +44,11 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationsContext.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaterLevelLocationContext.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelLocationContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundariesGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaterLevelLocationsContext.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelLocationsContext.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

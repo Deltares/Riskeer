@@ -56,8 +56,12 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 return;
             }
-            CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase, locations,
-                                                       AssessmentSection.Id, AssessmentSection.FailureMechanismContribution.Norm);
+            CalculationGuiService.CalculateWaveHeights(
+                AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                AssessmentSection.HydraulicBoundaryDatabase,
+                locations,
+                AssessmentSection.Id,
+                AssessmentSection.FailureMechanismContribution.Norm);
         }
 
         protected override void InitializeDataGridView()

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -30,6 +31,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -47,13 +49,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
     /// </summary>
     public class GrassCoverErosionOutwardsPlugin : PluginBase
     {
+        private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismProperties>
             {
                 GetObjectPropertiesData = context => context.WrappedData
             };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties>
             {
                 GetObjectPropertiesData = context => context.Locations
             };
@@ -108,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaterLevelLocationsContext>
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext>
             {
                 Text = context => Resources.GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -127,6 +131,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightLocationsContextMenuStrip
             };
+        }
+
+        public override void Activate()
+        {
+            base.Activate();
+
+            if (Gui == null)
+            {
+                throw new InvalidOperationException("Gui cannot be null");
+            }
+            hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
         }
 
         #region ViewInfos
@@ -232,7 +247,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = hydraulicBoundariesGroupContext.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
             return new object[]
             {
-                new GrassCoverErosionOutwardsWaterLevelLocationsContext(assessmentSection, locations),
+                new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(assessmentSection, locations),
                 new GrassCoverErosionOutwardsWaveHeightLocationsContext(assessmentSection, locations)
             };
         }
@@ -241,17 +256,36 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsWaterLevelLocationsContext TreeNodeInfo
 
-        private ContextMenuStrip GrassCoverErosionOutwardsWaterLevelLocationsContextMenuStrip(GrassCoverErosionOutwardsWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip GrassCoverErosionOutwardsWaterLevelLocationsContextMenuStrip(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
                 Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
-                null);
+                (sender, args) =>
+                {
+                    if (hydraulicBoundaryLocationCalculationGuiService == null)
+                    {
+                        return;
+                    }
 
-            designWaterLevelItem.Enabled = false;
+                    IAssessmentSection assessmentSection = nodeData.WrappedData;
+                    GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().First();
+                    var correctedNormFactor = assessmentSection.FailureMechanismContribution.Norm*
+                                              (failureMechanism.Contribution/100)/
+                                              failureMechanism.GeneralInput.N;
+
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
+                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                        failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations,
+                        failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations,
+                        assessmentSection.Id,
+                        correctedNormFactor);
+                });
+
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
             {
+                designWaterLevelItem.Enabled = false;
                 designWaterLevelItem.ToolTipText = Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate;
             }
 

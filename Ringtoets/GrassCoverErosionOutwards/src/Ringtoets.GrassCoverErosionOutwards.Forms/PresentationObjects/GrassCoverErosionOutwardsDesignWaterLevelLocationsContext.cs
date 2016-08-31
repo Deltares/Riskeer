@@ -31,16 +31,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an enumeration of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
     /// for water level at intersection probability calculations.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaterLevelLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaterLevelLocationsContext"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsContext"/>.
         /// </summary>
         /// <param name="wrappedAssessmentSection">The <see cref="IAssessmentSection"/> which the 
-        /// <see cref="GrassCoverErosionOutwardsWaterLevelLocationsContext"/> belongs to.</param>
+        /// <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsContext"/> belongs to.</param>
         /// <param name="grassCoverErosionOutwardsHydraulicBoundaryLocations">The grass cover erosion outwards hydraulic boundary locations for this context.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaterLevelLocationsContext(IAssessmentSection wrappedAssessmentSection,
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(IAssessmentSection wrappedAssessmentSection,
                                                                    ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations)
             : base(wrappedAssessmentSection)
         {

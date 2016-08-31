@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundariesGroupContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaterLevelLocationsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext)));
             }
         }
@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsNull(grassCoverErosionOutwardsFailureMechanismProperties.AfterCreate);
 
                 var waterLevelHydraulicBoundaryLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined<
-                    GrassCoverErosionOutwardsWaterLevelLocationsContext,
+                    GrassCoverErosionOutwardsDesignWaterLevelLocationsContext,
                     GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties>(propertyInfos);
                 Assert.IsNull(waterLevelHydraulicBoundaryLocationsContextProperties.AdditionalDataCheck);
                 Assert.IsNull(waterLevelHydraulicBoundaryLocationsContextProperties.AfterCreate);

@@ -20,10 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
@@ -63,40 +60,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(2, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-        }
-
-        [Test]
-        public void WaterLevel_ValidParameters_ReturnsExpectedValues()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
-            mockRepository.ReplayAll();
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocationMock);
-            var waterLevel = (RoundedDouble) 1.23456;
-
-            // Call
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel = waterLevel;
-
-            // Assert
-            Assert.AreEqual(waterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel,
-                            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void WaveHeight_UnroundedValue_ReturnsRoundedValue()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 0.0, 0.0);
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
-            var waveHeight = (RoundedDouble) 5.12445889125;
-
-            // Call
-            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight = waveHeight;
-
-            // Assert
-            Assert.AreEqual(5.12, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight, 1e-8);
         }
     }
 }

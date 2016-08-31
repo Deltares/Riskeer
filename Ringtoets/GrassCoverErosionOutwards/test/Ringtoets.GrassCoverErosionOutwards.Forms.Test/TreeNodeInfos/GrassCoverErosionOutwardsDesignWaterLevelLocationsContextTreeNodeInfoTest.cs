@@ -42,7 +42,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaterLevelLocationsContextTreeNodeInfoTest
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextTreeNodeInfoTest
     {
         private MockRepository mockRepository;
         private GrassCoverErosionOutwardsPlugin plugin;
@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         {
             mockRepository = new MockRepository();
             plugin = new GrassCoverErosionOutwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaterLevelLocationsContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext));
         }
 
         [TearDown]
@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             mockRepository.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaterLevelLocationsContext), info.TagType);
+            Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext), info.TagType);
 
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.CanRename);
@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
-            var context = new GrassCoverErosionOutwardsWaterLevelLocationsContext(
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                 assessmentSectionMock,
                 new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
 
@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
-            var context = new GrassCoverErosionOutwardsWaterLevelLocationsContext(
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                 assessmentSectionMock,
                 new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
 
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new GrassCoverErosionOutwardsWaterLevelLocationsContext(
+                var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                     assessmentSectionMock,
                     new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
 
@@ -164,10 +164,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var exportCommandHandler = mockRepository.Stub<IExportCommandHandler>();
             var viewCommandsHandler = mockRepository.Stub<IViewCommands>();
 
-
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new GrassCoverErosionOutwardsWaterLevelLocationsContext(
+                var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                     assessmentSectionMock,
                     new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
 
@@ -191,8 +190,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(3, menu.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 0, Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All, Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate, RingtoetsCommonFormsResources.CalculateAllIcon, false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 2, CoreCommonGuiResources.Properties, CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesHS, false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 0, Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
+                                                              Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate, RingtoetsCommonFormsResources.CalculateAllIcon, false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 2, CoreCommonGuiResources.Properties,
+                                                              CoreCommonGuiResources.Properties_ToolTip, CoreCommonGuiResources.PropertiesHS, false);
 
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
@@ -202,7 +203,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithHydraulicDatabase_CalculateAllDisabledWithEnabledTooltip()
+        public void ContextMenuStrip_WithHydraulicDatabase_EnabledCalculateAllAndTooltip()
         {
             // Setup
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
@@ -213,10 +214,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var exportCommandHandler = mockRepository.Stub<IExportCommandHandler>();
             var viewCommandsHandler = mockRepository.Stub<IViewCommands>();
 
-
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new GrassCoverErosionOutwardsWaterLevelLocationsContext(
+                var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                     assessmentSectionMock,
                     new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
 
@@ -240,7 +240,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(3, menu.Items.Count);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 0, Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All, Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon, false);
+                TestHelper.AssertContextMenuStripContainsItem(menu, 0, Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
+                                                              Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip, RingtoetsCommonFormsResources.CalculateAllIcon);
 
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
@@ -268,7 +269,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             {
                 new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation)
             };
-            var context = new GrassCoverErosionOutwardsWaterLevelLocationsContext(assessmentSectionMock, locations);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(assessmentSectionMock, locations);
 
             // Call
             Color color = info.ForeColor(context);
@@ -283,7 +284,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
-            var context = new GrassCoverErosionOutwardsWaterLevelLocationsContext(assessmentSectionMock, new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(assessmentSectionMock, new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>());
 
             // Call
             Color color = info.ForeColor(context);

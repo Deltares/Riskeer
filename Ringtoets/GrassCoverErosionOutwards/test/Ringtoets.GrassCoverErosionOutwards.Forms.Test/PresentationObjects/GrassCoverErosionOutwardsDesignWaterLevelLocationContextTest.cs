@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaterLevelLocationContextTest
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationContextTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             };
 
             // Call
-            var presentationObject = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var presentationObject = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>(presentationObject);

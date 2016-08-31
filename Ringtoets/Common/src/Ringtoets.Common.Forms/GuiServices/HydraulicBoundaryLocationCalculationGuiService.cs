@@ -23,13 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.GuiServices
 {
@@ -55,52 +56,51 @@ namespace Ringtoets.Common.Forms.GuiServices
             this.viewParent = viewParent;
         }
 
-        public void CalculateDesignWaterLevels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                               IEnumerable<HydraulicBoundaryLocation> locations, string ringId, int norm)
+        public void CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath, IObservable observable,
+                                               IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (observable == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryDatabase");
+                throw new ArgumentNullException("observable");
             }
             if (locations == null)
             {
                 throw new ArgumentNullException("locations");
             }
             var activities = locations.Select(hbl => new DesignWaterLevelCalculationActivity(hbl,
-                                                                                             hydraulicBoundaryDatabase.FilePath,
+                                                                                             hydraulicBoundaryDatabasePath,
                                                                                              ringId,
                                                                                              norm)).ToArray();
-            RunActivities(hydraulicBoundaryDatabase, activities);
+            RunActivities(hydraulicBoundaryDatabasePath, activities, observable);
         }
 
-        public void CalculateWaveHeights(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                         IEnumerable<HydraulicBoundaryLocation> locations, string ringId, int norm)
+        public void CalculateWaveHeights(string hydraulicBoundaryDatabasePath, IObservable observable,
+                                         IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (observable == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryDatabase");
+                throw new ArgumentNullException("observable");
             }
             if (locations == null)
             {
                 throw new ArgumentNullException("locations");
             }
             var activities = locations.Select(hbl => new WaveHeightCalculationActivity(hbl,
-                                                                                       hydraulicBoundaryDatabase.FilePath,
+                                                                                       hydraulicBoundaryDatabasePath,
                                                                                        ringId,
                                                                                        norm)).ToArray();
-            RunActivities(hydraulicBoundaryDatabase, activities);
+            RunActivities(hydraulicBoundaryDatabasePath, activities, observable);
         }
 
-        private void RunActivities<TActivity>(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                              IList<TActivity> activities) where TActivity : Activity
+        private void RunActivities<TActivity>(string hydraulicBoundaryDatabasePath,
+                                              IList<TActivity> activities, IObservable observable) where TActivity : Activity
         {
-            var hrdFile = hydraulicBoundaryDatabase.FilePath;
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hrdFile);
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabasePath);
             if (string.IsNullOrEmpty(validationProblem))
             {
                 ActivityProgressDialogRunner.Run(viewParent, activities);
 
-                hydraulicBoundaryDatabase.NotifyObservers();
+                observable.NotifyObservers();
             }
             else
             {

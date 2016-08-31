@@ -43,10 +43,10 @@ namespace Ringtoets.Common.Service
         /// Performs validation of the values in the given <paramref name="hydraulicBoundaryLocation"/>. Error information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for which to validate the values.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> for which to validate the values.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <returns><c>False</c> if the connection to <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains validation errors; <c>True</c> otherwise.</returns>
-        internal static bool Validate(HydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath)
+        internal static bool Validate(IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath)
         {
             var calculationName = string.Format(Resources.DesignWaterLevelCalculationService_Name_Assessment_level_for_location_0_, hydraulicBoundaryLocation.Name);
             CalculationServiceHelper.LogValidationBeginTime(calculationName);
@@ -66,16 +66,16 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// Performs a design water level calculation based on the supplied <see cref="HydraulicBoundaryLocation"/> and returns the result
+        /// Performs a design water level calculation based on the supplied <see cref="IHydraulicBoundaryLocation"/> and returns the result
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <returns>A <see cref="ReliabilityIndexCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        internal static ReliabilityIndexCalculationOutput Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath,
-                                                                    string ringId, int norm)
+        internal static ReliabilityIndexCalculationOutput Calculate(IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath,
+                                                                    string ringId, double norm)
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             var input = CreateInput(hydraulicBoundaryLocation, norm);
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Service
             }
         }
 
-        private static AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, int norm)
+        private static AssessmentLevelCalculationInput CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
         {
             return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
         }

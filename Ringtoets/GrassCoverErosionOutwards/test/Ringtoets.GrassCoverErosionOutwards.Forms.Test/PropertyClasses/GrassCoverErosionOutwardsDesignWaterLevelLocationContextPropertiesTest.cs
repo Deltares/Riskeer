@@ -69,7 +69,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             };
-            var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             // Call
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             };
-            var context = new GrassCoverErosionOutwardsWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
             {

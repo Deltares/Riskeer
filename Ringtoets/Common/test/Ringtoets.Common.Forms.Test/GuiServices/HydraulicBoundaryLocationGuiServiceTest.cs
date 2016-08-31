@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_NullHydraulicBoundaryDatabase_ThrowsArgumentNullException()
+        public void CalculateDesignWaterLevels_NullObservable_ThrowsArgumentNullException()
         {
             // Setup
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
@@ -82,11 +82,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(null, locations, "", 1);
+                TestDelegate test = () => guiService.CalculateDesignWaterLevels("", null, locations, "", 1);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "hydraulicBoundaryDatabase";
+                const string expectedParamName = "observable";
                 Assert.AreEqual(expectedParamName, paramName);
             }
         }
@@ -95,36 +95,32 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateDesignWaterLevels_NullLocations_ThrowsArgumentNullException()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
+            const string databasePath = "Does not exist";
 
             using (var viewParent = new Form())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(hydraulicBoundaryDatabase, null, "", 1);
+                TestDelegate test = () => guiService.CalculateDesignWaterLevels(databasePath, observableMock, null, "", 1);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
                 const string expectedParamName = "locations";
                 Assert.AreEqual(expectedParamName, paramName);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CalculateDesignWaterLevels_HydraulicDatabaseDoesNotExist_LogsErrorAndDoesNotNotifyObservers()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = "Does not exist"
-            };
-
-            var observerMock = mockRepository.StrictMock<IObserver>();
+            var observableMock = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
-
-            hydraulicBoundaryDatabase.Attach(observerMock);
-
+            const string databasePath = "Does not exist";
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             using (var viewParent = new Form())
@@ -132,7 +128,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(hydraulicBoundaryDatabase, locations, "", 1);
+                Action call = () => guiService.CalculateDesignWaterLevels(databasePath, observableMock, locations, "", 1);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -149,17 +145,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateDesignWaterLevels_ValidPathEmptyList_NotifyObserversButNoLog()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
+            string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.NotifyObservers();
             mockRepository.ReplayAll();
-
-            hydraulicBoundaryDatabase.Attach(observerMock);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -172,7 +162,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(hydraulicBoundaryDatabase, locations, "", 1);
+                Action call = () => guiService.CalculateDesignWaterLevels(validDatabasePath, observableMock, locations, "", 1);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
@@ -184,17 +174,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateDesignWaterLevels_ValidPathOneLocationInTheList_NotifyObserversAndLogsMessages()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
+            string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.NotifyObservers();
             mockRepository.ReplayAll();
-
-            hydraulicBoundaryDatabase.Attach(observerMock);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -211,7 +195,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(hydraulicBoundaryDatabase, locations, "", 1);
+                Action call = () => guiService.CalculateDesignWaterLevels(validDatabasePath, observableMock, locations, "", 1);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -230,7 +214,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_NullHydraulicBoundaryDatabase_ThrowsArgumentNullException()
+        public void CalculateWaveHeights_NullObservable_ThrowsArgumentNullException()
         {
             // Setup
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
@@ -240,11 +224,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateWaveHeights(null, locations, "", 1);
+                TestDelegate test = () => guiService.CalculateWaveHeights("", null, locations, "", 1);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "hydraulicBoundaryDatabase";
+                const string expectedParamName = "observable";
                 Assert.AreEqual(expectedParamName, paramName);
             }
         }
@@ -253,14 +237,16 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateWaveHeights_NullLocations_ThrowsArgumentNullException()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
+            const string databasePath = "Does not exist";
 
             using (var viewParent = new Form())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateWaveHeights(hydraulicBoundaryDatabase, null, "", 1);
+                TestDelegate test = () => guiService.CalculateWaveHeights(databasePath, observableMock, null, "", 1);
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -273,14 +259,9 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateWaveHeights_HydraulicDatabaseDoesNotExist_LogsErrorAndDoesNotNotifyObservers()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = "Does not exist"
-            };
-
-            var observerMock = mockRepository.StrictMock<IObserver>();
+            var observableMock = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
-            hydraulicBoundaryDatabase.Attach(observerMock);
+            const string databasePath = "Does not exist";
 
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
@@ -289,7 +270,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(hydraulicBoundaryDatabase, locations, "", 1);
+                Action call = () => guiService.CalculateWaveHeights(databasePath, observableMock, locations, "", 1);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -306,17 +287,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateWaveHeights_ValidPathEmptyList_NotifyObserversButNoLog()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
+            string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.NotifyObservers();
             mockRepository.ReplayAll();
-
-            hydraulicBoundaryDatabase.Attach(observerMock);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -330,7 +305,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(hydraulicBoundaryDatabase, locations, "", 1);
+                Action call = () => guiService.CalculateWaveHeights(validDatabasePath, observableMock, locations, "", 1);
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
@@ -342,17 +317,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateWaveHeights_ValidPathOneLocationInTheList_NotifyObserversAndLogsMessages()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
+            string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
-            var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
+            var observableMock = mockRepository.StrictMock<IObservable>();
+            observableMock.NotifyObservers();
             mockRepository.ReplayAll();
-
-            hydraulicBoundaryDatabase.Attach(observerMock);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -369,7 +338,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(hydraulicBoundaryDatabase, locations, "", 1);
+                Action call = () => guiService.CalculateWaveHeights(validDatabasePath, observableMock, locations, "", 1);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>

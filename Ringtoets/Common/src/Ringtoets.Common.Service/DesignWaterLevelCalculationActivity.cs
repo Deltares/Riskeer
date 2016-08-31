@@ -37,20 +37,20 @@ namespace Ringtoets.Common.Service
     public class DesignWaterLevelCalculationActivity : HydraRingActivity<ReliabilityIndexCalculationOutput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationActivity));
-        private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
-        private readonly int norm;
+        private readonly IHydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string ringId;
 
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationActivity"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, int norm)
+        public DesignWaterLevelCalculationActivity(IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm)
         {
             if (hydraulicBoundaryLocation == null)
             {

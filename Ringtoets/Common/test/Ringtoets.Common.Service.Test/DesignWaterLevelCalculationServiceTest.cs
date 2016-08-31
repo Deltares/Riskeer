@@ -35,9 +35,8 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class DesignWaterLevelCalculationServiceTest
     {
+        private const string validFile = "HRD dutch coast south.sqlite";
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
-        private readonly string validFile = "HRD dutch coast south.sqlite";
 
         [Test]
         public void Validate_ValidHydraulicBoundaryDatabase_ReturnsTrue()

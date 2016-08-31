@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 
@@ -43,5 +44,25 @@ namespace Ringtoets.HydraRing.Data
         /// Gets the coordinates of <see cref="IHydraulicBoundaryLocation"/>.
         /// </summary>
         Point2D Location { get; }
+
+        /// <summary>
+        /// Gets or sets the design water level of <see cref="IHydraulicBoundaryLocation"/>.
+        /// </summary>
+        RoundedDouble DesignWaterLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the wave height of <see cref="IHydraulicBoundaryLocation"/>.
+        /// </summary>
+        RoundedDouble WaveHeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the convergence status of the design waterlevel calculation.
+        /// </summary>
+        CalculationConvergence DesignWaterLevelCalculationConvergence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the convergence status of the waveheight calculation.
+        /// </summary>
+        CalculationConvergence WaveHeightCalculationConvergence { get; set; }
     }
 }

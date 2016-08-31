@@ -35,6 +35,7 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class WaveHeightCalculationServiceTest
     {
+        private const string validFile = "HRD dutch coast south.sqlite";
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
@@ -152,8 +153,6 @@ namespace Ringtoets.Common.Service.Test
             Assert.IsNull(output);
             mockRepository.VerifyAll();
         }
-
-        private const string validFile = "HRD dutch coast south.sqlite";
 
         private void ImportHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Forms.GuiServices
@@ -34,27 +35,29 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> calculation for all <paramref name="locations"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundaries database.</param>
-        /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
+        /// <param name="hydraulicBoundaryDatabasePath">The path to the hydraulic boundaries database.</param>
+        /// <param name="observable">The object to be notified when the calculation was successful.</param>
+        /// <param name="locations">The <see cref="IHydraulicBoundaryLocation"/> objects to calculate 
         /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="observable"/> 
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
-        void CalculateDesignWaterLevels(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                        IEnumerable<HydraulicBoundaryLocation> locations, string ringId, int norm);
+        void CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath, IObservable observable,
+                                        IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm);
 
         /// <summary>
         /// Performs the <see cref="HydraulicBoundaryLocation.WaveHeight"/> calculation for all <paramref name="locations"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundaries database.</param>
-        /// <param name="locations">The <see cref="HydraulicBoundaryLocation"/> objects to calculate 
+        /// <param name="hydraulicBoundaryDatabasePath">The path to the hydraulic boundaries database.</param>
+        /// <param name="observable">The object to be notified when the calculation was successful.</param>
+        /// <param name="locations">The <see cref="IHydraulicBoundaryLocation"/> objects to calculate 
         /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="observable"/> 
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
-        void CalculateWaveHeights(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                  IEnumerable<HydraulicBoundaryLocation> locations, string ringId, int norm);
+        void CalculateWaveHeights(string hydraulicBoundaryDatabasePath, IObservable observable,
+                                  IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm);
     }
 }

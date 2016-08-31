@@ -212,8 +212,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             IEnumerable<HydraulicBoundaryLocation> locations = null;
-            guiServiceMock.Expect(ch => ch.CalculateWaveHeights(null, null, null, 1)).IgnoreArguments().WhenCalled(
-                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1]; });
+            guiServiceMock.Expect(ch => ch.CalculateWaveHeights(null, null, null, null, 1)).IgnoreArguments().WhenCalled(
+                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[2]; });
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiServiceMock;

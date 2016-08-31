@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             {
                 return data.Select(loc => new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
                 {
-                    Data = new GrassCoverErosionOutwardsWaterLevelLocationContext(data, loc)
+                    Data = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(data, loc)
                 }).ToArray();
             }
         }

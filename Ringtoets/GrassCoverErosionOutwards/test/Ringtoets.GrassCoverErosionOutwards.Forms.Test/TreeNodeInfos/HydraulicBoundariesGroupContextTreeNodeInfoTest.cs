@@ -158,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(2, children.Length);
-            var waterLevelHydraulicBoundaryLocationsContext = (GrassCoverErosionOutwardsWaterLevelLocationsContext) children[0];
+            var waterLevelHydraulicBoundaryLocationsContext = (GrassCoverErosionOutwardsDesignWaterLevelLocationsContext) children[0];
             Assert.AreSame(assessmentSectionMock, waterLevelHydraulicBoundaryLocationsContext.WrappedData);
             Assert.AreSame(failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations, waterLevelHydraulicBoundaryLocationsContext.Locations);
 
