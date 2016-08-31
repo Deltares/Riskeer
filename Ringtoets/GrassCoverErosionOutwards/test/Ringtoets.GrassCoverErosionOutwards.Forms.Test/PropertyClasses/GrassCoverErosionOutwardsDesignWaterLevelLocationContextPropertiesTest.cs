@@ -131,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const string expectedWaterLevelDisplayName = "Waterstand bij doorsnede-eis [m+NAP]";
             const string expectedWaterLevelDescription = "Berekende waterstand bij doorsnede-eis.";
             const string expectedConvergenceDisplayName = "Convergentie";
-            const string expectedConvergenceDescription = "Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?";
+            const string expectedConvergenceDescription = "Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?";
 
             Assert.IsNotNull(idProperty);
             Assert.IsTrue(idProperty.IsReadOnly);

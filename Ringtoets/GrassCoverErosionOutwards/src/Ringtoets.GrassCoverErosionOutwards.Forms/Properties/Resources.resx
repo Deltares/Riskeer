@@ -136,7 +136,7 @@
     <value>Waterstand bij doorsnede-eis [m+NAP]</value>
   </data>
   <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_DesignWaterLevel_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?</value>
+    <value>Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName" xml:space="preserve">
     <value>Golfhoogtes bij doorsnede-eis</value>
@@ -148,7 +148,7 @@
     <value>Alle golfhoogtes bij doorsnede-eis berekenen.</value>
   </data>
   <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de golfhoogte bij doorsnede-eis berekening?</value>
+    <value>Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?</value>
   </data>
   <data name="GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_Description" xml:space="preserve">
     <value>Berekende golfhoogte bij doorsnede-eis.</value>

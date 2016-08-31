@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de waterstand bij doorsnede-eis berekening?.
+        ///   Looks up a localized string similar to Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?.
         /// </summary>
         public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_DesignWaterLevel_Description {
             get {
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de golfhoogte bij doorsnede-eis berekening?.
+        ///   Looks up a localized string similar to Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?.
         /// </summary>
         public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_Convergence_WaveHeight_Description {
             get {

@@ -132,7 +132,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const string expectedWaveHeightDisplayName = "Golfhoogte bij doorsnede-eis [m+NAP]";
             const string expectedWaveHeightDescription = "Berekende golfhoogte bij doorsnede-eis.";
             const string expectedConvergenceDisplayName = "Convergentie";
-            const string expectedConvergenceDescription = "Is convergentie bereikt in de golfhoogte bij doorsnede-eis berekening?";
+            const string expectedConvergenceDescription = "Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?";
 
             Assert.IsNotNull(idProperty);
             Assert.IsTrue(idProperty.IsReadOnly);
