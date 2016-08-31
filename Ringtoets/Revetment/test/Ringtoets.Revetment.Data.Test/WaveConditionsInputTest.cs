@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data.Properties;
 
@@ -97,11 +96,10 @@ namespace Ringtoets.Revetment.Data.Test
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             Assert.AreEqual(new RoundedDouble(2), input.UpperRevetmentLevel);
             Assert.AreEqual(new RoundedDouble(2), input.LowerRevetmentLevel);
-            Assert.AreEqual(new RoundedDouble(2), input.UpperWaterLevel);
             Assert.AreEqual(new RoundedDouble(1), input.StepSize);
-            CollectionAssert.IsEmpty(input.WaterLevels);
             Assert.AreEqual(new RoundedDouble(2), input.UpperBoundaryCalculatorSeries);
             Assert.AreEqual(new RoundedDouble(2), input.LowerBoundaryCalculatorSeries);
+            CollectionAssert.IsEmpty(input.WaterLevels);
         }
 
         [Test]
@@ -364,85 +362,6 @@ namespace Ringtoets.Revetment.Data.Test
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.UpperBoundaryCalculatorSeries.NumberOfDecimalPlaces);
             Assert.AreEqual(1.23, input.UpperBoundaryCalculatorSeries.Value);
-        }
-
-        [Test]
-        public void HydraulicBoundaryLocation_SetNewValue_UpperWaterLevelUpdated()
-        {
-            // Setup
-            var input = new WaveConditionsInput();
-
-            var designWaterLevel = 8.19;
-            var expectedWaterLevel = 8.18;
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-            {
-                DesignWaterLevel = (RoundedDouble) designWaterLevel
-            };
-
-            // Call
-            input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-
-            // Assert
-            Assert.AreEqual(expectedWaterLevel, input.UpperWaterLevel, input.UpperWaterLevel.GetAccuracy());
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void HydraulicBoundaryLocation_WithoutDesignWaterLevel_UpperWaterLevelSetToDefault(bool withDesignWaterLevel)
-        {
-            // Setup
-            var input = new WaveConditionsInput();
-
-            if (withDesignWaterLevel)
-            {
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-                {
-                    DesignWaterLevel = new RoundedDouble(2, 6.34)
-                };
-
-                input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-
-                // Precondition
-                Assert.AreEqual(6.33, input.UpperWaterLevel, input.UpperWaterLevel.GetAccuracy());
-            }
-
-            var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-
-            // Call
-            input.HydraulicBoundaryLocation = newHydraulicBoundaryLocation;
-
-            // Assert
-            Assert.AreEqual(new RoundedDouble(2), input.UpperWaterLevel);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void HydraulicBoundaryLocation_HydraulicBoundaryLocationNull_UpperWaterLevelSetToDefault(bool withDesignWaterLevel)
-        {
-            // Setup
-            var input = new WaveConditionsInput();
-
-            if (withDesignWaterLevel)
-            {
-                var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
-                {
-                    DesignWaterLevel = new RoundedDouble(2, 6.34)
-                };
-
-                input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-
-                // Precondition
-                Assert.AreEqual(6.33, input.UpperWaterLevel, input.UpperWaterLevel.GetAccuracy());
-            }
-
-            // Call
-            input.HydraulicBoundaryLocation = null;
-
-            // Assert
-            Assert.AreEqual(new RoundedDouble(2), input.UpperWaterLevel);
         }
 
         [Test]
