@@ -37,17 +37,17 @@ namespace Core.Plugins.ProjectExplorer
     /// </summary>
     public class ProjectExplorerViewController : IDisposable
     {
-        /// <summary>
-        /// Fired when the project explorer view has been opened.
-        /// </summary>
-        public event EventHandler<EventArgs> OnOpenView;
-
         private readonly IViewController viewController;
         private readonly IEnumerable<TreeNodeInfo> treeNodeInfos;
         private readonly IApplicationSelection applicationSelection;
         private readonly IViewCommands viewCommands;
 
         private ProjectExplorer projectExplorer;
+
+        /// <summary>
+        /// Fired when the project explorer view has been opened.
+        /// </summary>
+        public event EventHandler<EventArgs> OnOpenView;
 
         /// <summary>
         /// Creates a new instance of <see cref="ProjectExplorerViewController"/>.

@@ -76,10 +76,6 @@ namespace Core.Common.Controls.TreeView
     /// </remarks>
     public partial class TreeViewControl : UserControl
     {
-        public event EventHandler DataDoubleClick;
-        public event EventHandler SelectedDataChanged;
-        public event EventHandler<EventArgs<object>> DataDeleted; // TODO; Way to explicit!
-
         private const int maximumTextLength = 259;
         private const string stateImageLocationString = "StateImage";
         private const int uncheckedCheckBoxStateImageIndex = 0;
@@ -90,6 +86,10 @@ namespace Core.Common.Controls.TreeView
         private readonly Dictionary<TreeNode, TreeNodeObserver> treeNodeObserverLookup = new Dictionary<TreeNode, TreeNodeObserver>();
 
         private object data;
+
+        public event EventHandler DataDoubleClick;
+        public event EventHandler SelectedDataChanged;
+        public event EventHandler<EventArgs<object>> DataDeleted; // TODO; Way to explicit!
 
         /// <summary>
         /// Creates a new instance of <see cref="TreeViewControl"/>.

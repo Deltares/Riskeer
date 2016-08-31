@@ -30,13 +30,13 @@ namespace Core.Common.Controls.TextEditor
     /// </summary>
     public partial class RichTextBoxControl : UserControl
     {
+        private bool loaded;
+        private string rtfToSetAfterLoad;
+
         /// <summary>
         /// The event which is send when the text changes.
         /// </summary>
         public event EventHandler TextBoxValueChanged;
-
-        private bool loaded;
-        private string rtfToSetAfterLoad;
 
         /// <summary>
         /// Creates a new instance of <see cref="RichTextBoxControl"/>.

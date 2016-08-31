@@ -37,11 +37,6 @@ namespace Core.Common.Gui.Forms.ViewHost
     /// </summary>
     public partial class AvalonDockViewHost : IViewHost
     {
-        public event EventHandler<EventArgs> ActiveDocumentViewChanging;
-        public event EventHandler<EventArgs> ActiveDocumentViewChanged;
-        public event EventHandler<ViewChangeEventArgs> ActiveViewChanged;
-        public event EventHandler<EventArgs> ViewClosed;
-
         private readonly List<IView> toolViews;
         private readonly List<IView> documentViews;
         private readonly List<WindowsFormsHost> hostControls;
@@ -49,6 +44,11 @@ namespace Core.Common.Gui.Forms.ViewHost
         private IView focussedView;
         private IView activeDocumentView;
         private bool removingProgrammatically;
+
+        public event EventHandler<EventArgs> ActiveDocumentViewChanging;
+        public event EventHandler<EventArgs> ActiveDocumentViewChanged;
+        public event EventHandler<ViewChangeEventArgs> ActiveViewChanged;
+        public event EventHandler<EventArgs> ViewClosed;
 
         /// <summary>
         /// Creates a new instance of the <see cref="AvalonDockViewHost"/> class.
