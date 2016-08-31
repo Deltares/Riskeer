@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -87,7 +88,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Calculate_CalculationOutputNull_LogError()
         {
             // Setup
-            RoundedDouble waterLevel = (RoundedDouble) 4.20;
+            RoundedDouble waterLevel = (RoundedDouble) double.Parse("4.20");
             double a = 1.0;
             double b = 0.8;
             double c = 0.4;
