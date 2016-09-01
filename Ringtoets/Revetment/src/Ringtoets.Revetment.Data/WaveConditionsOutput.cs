@@ -25,7 +25,7 @@ using Ringtoets.Common.Data.Calculation;
 namespace Ringtoets.Revetment.Data
 {
     /// <summary>
-    /// Container for the results of a wave conditions calculation.
+    /// The result of a wave conditions calculation.
     /// </summary>
     public class WaveConditionsOutput : Observable, ICalculationOutput
     {
