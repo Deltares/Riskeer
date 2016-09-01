@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
     /// </summary>
     public class SoilDatabaseVersionReader : SqLiteDatabaseReaderBase
     {
-        private const string databaseRequiredVersion = "15.0.5.0";
+        private const string databaseRequiredVersion = "15.0.6.0";
 
         /// <summary>
         /// Creates a new instance of <see cref="SoilDatabaseVersionReader"/>, 
