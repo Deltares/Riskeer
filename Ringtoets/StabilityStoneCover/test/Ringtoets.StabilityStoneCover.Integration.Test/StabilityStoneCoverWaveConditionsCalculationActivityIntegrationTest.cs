@@ -67,7 +67,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     LowerBoundaryWaterLevels = (RoundedDouble) 5
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
@@ -93,7 +94,7 @@ namespace Ringtoets.Revetment.Service
         {
             if (output == null)
             {
-                log.ErrorFormat(Resources.WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_wave_conditions_calculation_0_for_waterlevel_1, name, waterLevel);
+                log.ErrorFormat(CultureInfo.CurrentCulture, Resources.WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_wave_conditions_calculation_0_for_waterlevel_1, name, waterLevel);
             }
         }
 

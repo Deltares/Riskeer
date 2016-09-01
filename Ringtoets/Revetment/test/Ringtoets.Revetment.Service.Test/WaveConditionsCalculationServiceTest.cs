@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -88,7 +87,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Calculate_CalculationOutputNull_LogError()
         {
             // Setup
-            RoundedDouble waterLevel = (RoundedDouble) double.Parse("4.20");
+            RoundedDouble waterLevel = (RoundedDouble) 4.20;
             double a = 1.0;
             double b = 0.8;
             double c = 0.4;
@@ -113,7 +112,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", name, waterLevel.ToString()), msgs[0]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", name, waterLevel), msgs[0]);
                 });
             }
         }
