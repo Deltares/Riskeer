@@ -44,7 +44,6 @@ using Core.Plugins.Map;
 using Core.Plugins.ProjectExplorer;
 using log4net;
 using log4net.Appender;
-using Ringtoets.Asphalt.Plugin;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.HeightStructures.Plugin;
@@ -52,6 +51,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.StabilityStoneCover.Plugin;
+using Ringtoets.WaveImpactAsphaltCover.Plugin;
 using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
 using Demo.Ringtoets.GUIs;

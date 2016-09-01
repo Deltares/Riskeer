@@ -845,38 +845,38 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosion
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Asphalt", "Asphalt", "{F9525724-F55E-4574-8581-1DC990FA8518}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WaveImpactAsphaltCover", "WaveImpactAsphaltCover", "{F9525724-F55E-4574-8581-1DC990FA8518}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{363E7AE9-3D49-414B-92DF-9010D7F6370B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{69B95FED-E2DF-42E8-BF6E-8A94EFACD2DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Asphalt.Data", "Ringtoets\Asphalt\src\Ringtoets.Asphalt.Data\Ringtoets.Asphalt.Data.csproj", "{567E0B69-5280-41CE-ADD6-443725A61C86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.WaveImpactAsphaltCover.Data", "Ringtoets\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj", "{567E0B69-5280-41CE-ADD6-443725A61C86}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Asphalt.Forms", "Ringtoets\Asphalt\src\Ringtoets.Asphalt.Forms\Ringtoets.Asphalt.Forms.csproj", "{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.WaveImpactAsphaltCover.Forms", "Ringtoets\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Forms\Ringtoets.WaveImpactAsphaltCover.Forms.csproj", "{1AC97B51-88C2-437D-89E6-65C69AB3CCAD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Asphalt.Plugin", "Ringtoets\Asphalt\src\Ringtoets.Asphalt.Plugin\Ringtoets.Asphalt.Plugin.csproj", "{83A782F1-BA78-4D5C-B213-39066605AFD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.WaveImpactAsphaltCover.Plugin", "Ringtoets\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Plugin\Ringtoets.WaveImpactAsphaltCover.Plugin.csproj", "{83A782F1-BA78-4D5C-B213-39066605AFD8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Asphalt.Data.Test", "Ringtoets\Asphalt\test\Ringtoets.Asphalt.Data.Test\Ringtoets.Asphalt.Data.Test.csproj", "{3E58A6FA-F383-4606-9BA9-7994C6007C83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.WaveImpactAsphaltCover.Data.Test", "Ringtoets\WaveImpactAsphaltCover\test\Ringtoets.WaveImpactAsphaltCover.Data.Test\Ringtoets.WaveImpactAsphaltCover.Data.Test.csproj", "{3E58A6FA-F383-4606-9BA9-7994C6007C83}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Asphalt.Forms.Test", "Ringtoets\Asphalt\test\Ringtoets.Asphalt.Forms.Test\Ringtoets.Asphalt.Forms.Test.csproj", "{B2EF69C0-C3E7-4F38-82F3-EA3C747AEC9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.WaveImpactAsphaltCover.Forms.Test", "Ringtoets\WaveImpactAsphaltCover\test\Ringtoets.WaveImpactAsphaltCover.Forms.Test\Ringtoets.WaveImpactAsphaltCover.Forms.Test.csproj", "{B2EF69C0-C3E7-4F38-82F3-EA3C747AEC9D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Asphalt.Plugin.Test", "Ringtoets\Asphalt\test\Ringtoets.Asphalt.Plugin.Test\Ringtoets.Asphalt.Plugin.Test.csproj", "{99980C97-7018-4A2B-9C2D-4B434BF344AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.WaveImpactAsphaltCover.Plugin.Test", "Ringtoets\WaveImpactAsphaltCover\test\Ringtoets.WaveImpactAsphaltCover.Plugin.Test\Ringtoets.WaveImpactAsphaltCover.Plugin.Test.csproj", "{99980C97-7018-4A2B-9C2D-4B434BF344AD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
