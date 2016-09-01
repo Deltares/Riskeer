@@ -38,9 +38,9 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         /// </summary>
         double HExit { set; }
 
-        /// <summar>
+        /// <summary>
         /// Sets the Ich property to use in the heave calculation.
-        /// </summar>
+        /// </summary>
         double Ich { set; }
 
         /// <summary>
