@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// of the Piping Mechanism from the DSoil-Model database.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
-        /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> @ME_Name needs to be 
+        /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> ME_Name needs to be 
         /// defined as <see cref="MechanismDatabaseColumns.MechanismName"/>.</remarks>
         public static string GetStochasticSoilModelOfMechanismQuery()
         {
@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// Returns the SQL query to execute to check if version of the DSoil-Model database is as expected.
         /// </summary>
         /// <returns>The SQL query to execute.</returns>
-        /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> @Value needs to be 
+        /// <remarks><see cref="System.Data.SQLite.SQLiteParameter"/> Value needs to be 
         /// defined as the required database version.</remarks>
         public static string GetCheckVersionQuery()
         {

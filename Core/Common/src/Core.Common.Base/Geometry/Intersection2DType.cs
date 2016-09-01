@@ -30,10 +30,12 @@ namespace Core.Common.Base.Geometry
         /// No intersections have been found.
         /// </summary>
         DoesNotIntersect,
+
         /// <summary>
         /// Intersections have been found.
         /// </summary>
         Intersects,
+
         /// <summary>
         /// There is some overlap between two elements.
         /// </summary>

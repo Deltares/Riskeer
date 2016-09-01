@@ -37,14 +37,14 @@ namespace Core.Common.Base.Service
     /// </remarks>
     public abstract class Activity
     {
+        private readonly ILog log = LogManager.GetLogger(typeof(Activity));
+
+        private string progressText;
+
         /// <summary>
         /// Event for notifying progress changes.
         /// </summary>
         public event EventHandler ProgressChanged;
-
-        private readonly ILog log = LogManager.GetLogger(typeof(Activity));
-
-        private string progressText;
 
         /// <summary>
         /// Constructs a new <see cref="Activity"/>.

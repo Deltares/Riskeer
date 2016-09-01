@@ -65,8 +65,6 @@ namespace Application.Ringtoets
     /// </summary>
     public partial class App
     {
-        private delegate void ExceptionDelegate(Exception exception, bool isTerminating);
-
         // Start application after this process will exit (used during restart)
         private const string argumentWaitForProcess = "--wait-for-process=";
         private const int numberOfDaysToKeepLogFiles = 30;
@@ -85,6 +83,8 @@ namespace Application.Ringtoets
 
             log.Info(string.Format(Core.Common.Gui.Properties.Resources.App_Starting_Ringtoets_version_0, SettingsHelper.ApplicationVersion));
         }
+
+        private delegate void ExceptionDelegate(Exception exception, bool isTerminating);
 
         protected override void OnExit(ExitEventArgs e)
         {
