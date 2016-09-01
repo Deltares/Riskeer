@@ -57,18 +57,18 @@ namespace Ringtoets.Common.Service
                                                    string hydraulicBoundaryDatabaseFilePath,
                                                    string ringId, double norm)
         {
-            if (hydraulicBoundaryLocation == null)
-            {
-                throw new ArgumentNullException("hydraulicBoundaryLocation");
-            }
-            this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
-
             if (messageProvider == null)
             {
                 throw new ArgumentNullException("messageProvider");
             }
             this.messageProvider = messageProvider;
 
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException("hydraulicBoundaryLocation");
+            }
+            this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.ringId = ringId;
             this.norm = norm;

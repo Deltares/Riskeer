@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]
-        public void GetCalculationName_VariousParameters_ReturnsExpectedValue(string name)
+        public void GetCalculationName_ValidNames_ExpectedValue(string name)
         {
             // Setup
             var provider = new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider();
@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]
-        public void GetActivityName_VariousParameters_ReturnsExpectedValue(string name)
+        public void GetActivityName_ValidNames_ExpectedValue(string name)
         {
             // Setup
             var provider = new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider();
@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]
-        public void GetCalculationFailedMessage_VariousParameters_ReturnsExpectedValue(string name)
+        public void GetCalculationFailedMessage_ValidNames_ExpectedValue(string name)
         {
             // Setup
             var provider = new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider();
@@ -94,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         [TestCase(null)]
         [TestCase("")]
         [TestCase("value")]
-        public void GetCalculatedNotConvergedMessage_VariousParameters_ReturnsExpectedValue(string name)
+        public void GetCalculatedNotConvergedMessage_ValidNames_ExpectedValue(string name)
         {
             // Setup
             var provider = new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider();

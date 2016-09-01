@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Forms.GuiServices
             {
                 throw new ArgumentNullException("locations");
             }
-            var activities = locations.Select(hbl => new WaveHeightCalculationActivity(hbl,
+            var activities = locations.Select(hbl => new WaveHeightCalculationActivity(messageProvider, hbl,
                                                                                        hydraulicBoundaryDatabasePath,
                                                                                        ringId,
                                                                                        norm)).ToArray();

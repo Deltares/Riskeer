@@ -24,7 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.Utils;
 using log4net;
-using Ringtoets.Common.Service.Properties;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
@@ -41,29 +41,37 @@ namespace Ringtoets.Common.Service
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string ringId;
+        private readonly ICalculationMessageProvider messageProvider;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationActivity"/>.
         /// </summary>
+        /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public WaveHeightCalculationActivity(IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm)
+        public WaveHeightCalculationActivity(ICalculationMessageProvider messageProvider,
+                                             IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm)
         {
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException("messageProvider");
+            }
+            this.messageProvider = messageProvider;
+
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException("hydraulicBoundaryLocation");
             }
-
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.ringId = ringId;
             this.norm = norm;
 
-            Name = string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_,
-                                 hydraulicBoundaryLocation.Name);
+            Name = messageProvider.GetActivityName(hydraulicBoundaryLocation.Name);
         }
 
         protected override void OnRun()
@@ -74,10 +82,13 @@ namespace Ringtoets.Common.Service
                 return;
             }
 
-            PerformRun(() => WaveHeightCalculationService.Validate(hydraulicBoundaryLocation, hydraulicBoundaryDatabaseFilePath),
+            PerformRun(() => WaveHeightCalculationService.Validate(
+                messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name),
+                hydraulicBoundaryDatabaseFilePath),
                        () => hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) double.NaN,
-                       () => WaveHeightCalculationService.Calculate(hydraulicBoundaryLocation, hydraulicBoundaryDatabaseFilePath,
-                                                                    ringId, norm));
+                       () => WaveHeightCalculationService.Calculate(
+                           messageProvider, hydraulicBoundaryLocation, hydraulicBoundaryDatabaseFilePath,
+                           ringId, norm));
         }
 
         protected override void OnFinish()
@@ -89,7 +100,7 @@ namespace Ringtoets.Common.Service
                     Math.Abs(Output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3;
                 if (!waveHeightCalculationConvergence)
                 {
-                    log.WarnFormat(Resources.WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged, hydraulicBoundaryLocation.Name);
+                    log.WarnFormat(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));
                 }
                 hydraulicBoundaryLocation.WaveHeightCalculationConvergence = waveHeightCalculationConvergence
                                                                                  ? CalculationConvergence.CalculatedConverged

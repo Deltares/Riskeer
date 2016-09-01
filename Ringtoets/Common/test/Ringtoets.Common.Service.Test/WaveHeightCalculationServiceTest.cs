@@ -22,13 +22,13 @@
 using System;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -42,19 +42,18 @@ namespace Ringtoets.Common.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabase_ReturnsTrue()
         {
             // Setup
+            const string calculationName = "calculationName";
             string validFilePath = Path.Combine(testDataPath, validFile);
             bool valid = false;
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(hydraulicBoundaryLocation, validFilePath);
+            Action call = () => valid = WaveHeightCalculationService.Validate(calculationName, validFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                var calculationName = string.Format("Golfhoogte voor locatie {0}", hydraulicBoundaryLocation.Name);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
             });
@@ -65,19 +64,18 @@ namespace Ringtoets.Common.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
         {
             // Setup
+            const string calculationName = "calculationName";
             string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             bool valid = false;
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(hydraulicBoundaryLocation, notValidFilePath);
+            Action call = () => valid = WaveHeightCalculationService.Validate(calculationName, notValidFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                var calculationName = string.Format("Golfhoogte voor locatie {0}", hydraulicBoundaryLocation.Name);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[2]);
@@ -89,20 +87,29 @@ namespace Ringtoets.Common.Service.Test
         public void CalculateWaveHeight_ValidHydraulicBoundaryDatabaseAndLocation_LogStartAndEndAndReturnOutput()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            ImportHydraulicBoundaryDatabase(assessmentSectionMock);
-            mockRepository.ReplayAll();
+            string validFilePath = Path.Combine(testDataPath, validFile);
 
-            var hydraulicBoundaryLocation = assessmentSectionMock.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+            const string locationName = "punt_flw_ 1";
+            const string calculationName = "locationName";
+
+            var mockRepository = new MockRepository();
+            var hydraulicBoundaryLocationMock = mockRepository.Stub<IHydraulicBoundaryLocation>();
+            hydraulicBoundaryLocationMock.Expect(hbl => hbl.Id).Return(1300001).Repeat.AtLeastOnce();
+            hydraulicBoundaryLocationMock.Expect(hbl => hbl.Name).Return(locationName).Repeat.AtLeastOnce();
+            hydraulicBoundaryLocationMock.DesignWaterLevel = new RoundedDouble(2, double.NaN);
+
+            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
+
+            mockRepository.ReplayAll();
 
             ReliabilityIndexCalculationOutput output = null;
 
             // Call
             Action call = () => output = WaveHeightCalculationService.Calculate(
-                hydraulicBoundaryLocation,
-                assessmentSectionMock.HydraulicBoundaryDatabase.FilePath,
-                assessmentSectionMock.Id,
+                calculationMessageProviderMock,
+                hydraulicBoundaryLocationMock,
+                validFilePath, "",
                 300000);
 
             // Assert
@@ -110,7 +117,6 @@ namespace Ringtoets.Common.Service.Test
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
-                var calculationName = string.Format("Golfhoogte voor locatie {0}", hydraulicBoundaryLocation.Name);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[0]);
                 StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[2]);
@@ -123,45 +129,42 @@ namespace Ringtoets.Common.Service.Test
         public void CalculateWaveHeight_ValidHydraulicBoundaryDatabaseInvalidHydraulicBoundaryLocation_LogStartAndEndAndErrorMessageAndReturnNull()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            ImportHydraulicBoundaryDatabase(assessmentSectionMock);
-            mockRepository.ReplayAll();
+            string validFilePath = Path.Combine(testDataPath, validFile);
+            const string locationName = "locationName";
+            const string calculationName = "locationName";
+            const string calculationFailedMessage = "calculationFailedMessage";
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1);
+            var mockRepository = new MockRepository();
+            var hydraulicBoundaryLocationMock = mockRepository.Stub<IHydraulicBoundaryLocation>();
+            hydraulicBoundaryLocationMock.Expect(hbl => hbl.Id).Return(1).Repeat.AtLeastOnce();
+            hydraulicBoundaryLocationMock.Expect(hbl => hbl.Name).Return(locationName).Repeat.AtLeastOnce();
+            hydraulicBoundaryLocationMock.DesignWaterLevel = new RoundedDouble(2, double.NaN);
+
+            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationFailedMessage(locationName)).Return(calculationFailedMessage).Repeat.AtLeastOnce();
+            mockRepository.ReplayAll();
 
             ReliabilityIndexCalculationOutput output = null;
 
             // Call
             Action call = () => output = WaveHeightCalculationService.Calculate(
-                hydraulicBoundaryLocation,
-                assessmentSectionMock.HydraulicBoundaryDatabase.FilePath,
-                assessmentSectionMock.Id,
-                300000);
+                calculationMessageProviderMock,
+                hydraulicBoundaryLocationMock,
+                validFilePath, "", 30000);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                var calculationName = string.Format("Golfhoogte voor locatie {0}", hydraulicBoundaryLocation.Name);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[0]);
                 StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Er is een fout opgetreden tijdens de golfhoogte berekening '{0}': inspecteer het logbestand.", hydraulicBoundaryLocation.Name), msgs[2]);
+                StringAssert.StartsWith(calculationFailedMessage, msgs[2]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[3]);
             });
             Assert.IsNull(output);
             mockRepository.VerifyAll();
-        }
-
-        private void ImportHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
-        {
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
         }
     }
 }
