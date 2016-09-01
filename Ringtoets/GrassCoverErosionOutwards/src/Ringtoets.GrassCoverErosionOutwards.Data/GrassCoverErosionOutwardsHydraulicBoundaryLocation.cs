@@ -54,9 +54,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             waveHeight = new RoundedDouble(2, double.NaN);
         }
 
-        /// <summary>
-        /// Gets or sets the design water level of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
-        /// </summary>
         public RoundedDouble DesignWaterLevel
         {
             get
@@ -69,14 +66,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the convergence status of the design water level calculation.
-        /// </summary>
         public CalculationConvergence DesignWaterLevelCalculationConvergence { get; set; }
 
-        /// <summary>
-        /// Gets or sets the wave height of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
-        /// </summary>
         public RoundedDouble WaveHeight
         {
             get
@@ -89,9 +80,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the convergence status of the wave height calculation.
-        /// </summary>
         public CalculationConvergence WaveHeightCalculationConvergence { get; set; }
 
         public long Id

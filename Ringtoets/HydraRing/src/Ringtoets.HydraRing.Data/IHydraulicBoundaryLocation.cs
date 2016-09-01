@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Data
         CalculationConvergence DesignWaterLevelCalculationConvergence { get; set; }
 
         /// <summary>
-        /// Gets or sets the convergence status of the waveheight calculation.
+        /// Gets or sets the convergence status of the wave height calculation.
         /// </summary>
         CalculationConvergence WaveHeightCalculationConvergence { get; set; }
     }
