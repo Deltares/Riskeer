@@ -47,6 +47,8 @@
     </Compile>
     <Compile Include="WaveImpactAsphaltCoverFailureMechanism.cs" />
     <Compile Include="WaveImpactAsphaltCoverFailureMechanismSectionResult.cs" />
+    <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculation.cs" />
+    <Compile Include="WaveImpactAsphaltCoverWaveConditionsOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -68,6 +70,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

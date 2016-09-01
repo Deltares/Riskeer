@@ -98,5 +98,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Properties {
                 return ResourceManager.GetString("WaveImpactAsphaltCoverFailureMechanism_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuwe berekening.
+        /// </summary>
+        internal static string WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName {
+            get {
+                return ResourceManager.GetString("WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName", resourceCulture);
+            }
+        }
     }
 }
