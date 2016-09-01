@@ -59,5 +59,23 @@ namespace Ringtoets.Asphalt.Data.Test
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
+
+        [Test]
+        public void CleanAllSections_WithSection_RemoveSectionResults()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+
+            // Call
+            failureMechanism.ClearAllSections();
+
+            // Assert
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+        }
     }
 }
