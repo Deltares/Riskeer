@@ -274,7 +274,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
-                Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip,
+                nodeData.AssessmentSection.HydraulicBoundaryDatabase != null ?
+                    Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip :
+                    Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -305,7 +307,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             if (nodeData.AssessmentSection.HydraulicBoundaryDatabase == null)
             {
                 designWaterLevelItem.Enabled = false;
-                designWaterLevelItem.ToolTipText = Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate;
             }
 
             return Gui.Get(nodeData, treeViewControl)
