@@ -215,7 +215,8 @@ namespace Ringtoets.Revetment.Data
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerBoundaryWaterLevels"/>.</exception>
         /// <remarks>
         /// Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
-        /// equals <see cref="double.NaN"/>, only <see cref="UpperBoundaryRevetment"/> will be taken into account.
+        /// equals <see cref="double.NaN"/>, only <see cref="UpperBoundaryDesignWaterLevel"/> and <see cref="UpperBoundaryRevetment"/>
+        /// will be taken into account.
         /// </remarks>
         public RoundedDouble UpperBoundaryWaterLevels
         {
