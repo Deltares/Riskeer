@@ -114,6 +114,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryDesignWaterLevel);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryRevetment);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryRevetment);
             Assert.AreEqual(new RoundedDouble(1, double.NaN), input.StepSize);
@@ -214,6 +215,49 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void UpperBoundaryDesignWaterLevel_NoHydraulicBoundaryLocation_ReturnNaN()
+        {
+            // Setup
+            var waveConditionsInput = new WaveConditionsInput();
+
+            // Call
+            waveConditionsInput.HydraulicBoundaryLocation = null;
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), waveConditionsInput.UpperBoundaryDesignWaterLevel);
+        }
+
+        [Test]
+        public void UpperBoundaryDesignWaterLevel_NoDesignWaterLevel_ReturnNaN()
+        {
+            // Setup
+            var waveConditionsInput = new WaveConditionsInput();
+
+            // Call
+            waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0);
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), waveConditionsInput.UpperBoundaryDesignWaterLevel);
+        }
+
+        [Test]
+        public void UpperBoundaryDesignWaterLevel_DesignWaterLevelSet_ReturnValueJustBelowDesignWaterLevel()
+        {
+            // Setup
+            var designWaterLevel = (RoundedDouble) 1.0;
+            var waveConditionsInput = new WaveConditionsInput();
+
+            // Call
+            waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
+            {
+                DesignWaterLevel = designWaterLevel
+            };
+
+            // Assert
+            Assert.AreEqual(new RoundedDouble(2, designWaterLevel - 0.01), waveConditionsInput.UpperBoundaryDesignWaterLevel);
         }
 
         [Test]

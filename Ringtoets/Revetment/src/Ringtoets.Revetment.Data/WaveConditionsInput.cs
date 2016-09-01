@@ -110,6 +110,19 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
+        /// Gets the upper boundary based on <see cref="HydraRing.Data.HydraulicBoundaryLocation.DesignWaterLevel"/>.
+        /// </summary>
+        public RoundedDouble UpperBoundaryDesignWaterLevel
+        {
+            get
+            {
+                return new RoundedDouble(2, HydraulicBoundaryLocation != null && !double.IsNaN(HydraulicBoundaryLocation.DesignWaterLevel)
+                                                ? HydraulicBoundaryLocation.DesignWaterLevel - designWaterLevelSubstraction
+                                                : double.NaN);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the lower boundary of the revetment.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperBoundaryRevetment"/>.</exception>
@@ -251,18 +264,11 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
-        private double DetermineUpperWaterLevel()
-        {
-            return HydraulicBoundaryLocation != null && !double.IsNaN(HydraulicBoundaryLocation.DesignWaterLevel)
-                       ? HydraulicBoundaryLocation.DesignWaterLevel - designWaterLevelSubstraction
-                       : double.NaN;
-        }
-
         private IEnumerable<RoundedDouble> DetermineWaterLevels()
         {
             var waterLevels = new List<RoundedDouble>();
 
-            var upperBoundary = new RoundedDouble(2, Math.Min(DetermineUpperWaterLevel(),
+            var upperBoundary = new RoundedDouble(2, Math.Min(UpperBoundaryDesignWaterLevel,
                                                               Math.Min(UpperBoundaryRevetment,
                                                                        !double.IsNaN(UpperBoundaryWaterLevels)
                                                                            ? UpperBoundaryWaterLevels
