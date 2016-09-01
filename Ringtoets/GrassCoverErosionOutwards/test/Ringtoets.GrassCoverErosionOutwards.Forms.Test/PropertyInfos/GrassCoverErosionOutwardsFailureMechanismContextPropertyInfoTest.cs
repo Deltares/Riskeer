@@ -32,7 +32,7 @@ using Ringtoets.GrassCoverErosionOutwards.Plugin;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertyInfoTest
+    public class GrassCoverErosionOutwardsFailureMechanismContextPropertyInfoTest
     {
         [Test]
         public void GetObjectPropertiesData_Always_ReturnsHydraulicBoundaryDatabase()
@@ -42,20 +42,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                grassCoverErosionOutwardsHydraulicBoundaryLocations, assessmentSectionMock);
+            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                PropertyInfo info = plugin.GetPropertyInfos().Single(pi => pi.DataType == typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext));
+                PropertyInfo info = plugin.GetPropertyInfos().Single(pi => pi.DataType == typeof(GrassCoverErosionOutwardsFailureMechanismContext));
 
                 // Call
                 var objectPropertiesData = info.GetObjectPropertiesData(context);
 
                 // Assert
-                Assert.AreSame(grassCoverErosionOutwardsHydraulicBoundaryLocations, objectPropertiesData);
+                Assert.AreSame(failureMechanism, objectPropertiesData);
             }
             mockRepository.VerifyAll();
         }
