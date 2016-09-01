@@ -239,8 +239,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                               RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                              RingtoetsCommonFormsResources.FailureMechanismIcon,
-                                                              false);
+                                                              RingtoetsCommonFormsResources.FailureMechanismIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               RingtoetsCommonFormsResources.Validate_all,
@@ -338,8 +337,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon,
-                                                                  false);
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
