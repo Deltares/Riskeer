@@ -23,11 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Calculation.TestUtil;
@@ -95,22 +97,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = CreateForeshoreProfile(),
-                    UseForeshore = true,
-                    UseBreakWater = true,
-                    StepSize = (RoundedDouble) 0.5,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            var calculation = GetValidCalculation(assessmentSection);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
@@ -151,22 +138,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = CreateForeshoreProfile(),
-                    UseForeshore = true,
-                    UseBreakWater = true,
-                    StepSize = (RoundedDouble) 0.5,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 7.10
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            var calculation = GetValidCalculation(assessmentSection);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
@@ -208,22 +180,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = CreateForeshoreProfile(),
-                    UseForeshore = true,
-                    UseBreakWater = true,
-                    StepSize = (RoundedDouble) 0.5,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 7.10
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            var calculation = GetValidCalculation(assessmentSection);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
@@ -244,6 +201,89 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     CollectionAssert.Contains(progessTexts, columnsText);
                 }
             }
+        }
+
+        [Test]
+        public void OnFinish_CalculationPerformed_SetsOutputAndNotifiesObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            var calculation = GetValidCalculation(assessmentSection);
+            calculation.Attach(observer);
+
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
+
+            using (new HydraRingCalculationServiceConfig())
+            using (new WaveConditionsCalculationServiceConfig())
+            {
+                activity.Run();
+
+                // Call
+                activity.Finish();
+
+                // Assert
+                Assert.IsNotNull(calculation.Output);
+                Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());
+                Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void OnFinish_CalculationFailed_OutputNullObserversNotNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            var calculation = GetValidCalculation(assessmentSection);
+            calculation.Attach(observer);
+
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
+
+            using (new HydraRingCalculationServiceConfig())
+            {
+                activity.Run();
+
+                // Call
+                activity.Finish();
+
+                // Assert
+                Assert.IsNull(calculation.Output);
+                mocks.VerifyAll(); // No update observers expected
+            }
+        }
+
+        private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation(AssessmentSection assessmentSection)
+        {
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    ForeshoreProfile = CreateForeshoreProfile(),
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    StepSize = (RoundedDouble) 0.5,
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
+                }
+            };
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            return calculation;
         }
 
         private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)

@@ -169,6 +169,11 @@ namespace Ringtoets.StabilityStoneCover.Service
 
         protected override void OnFinish()
         {
+            PerformFinish(() =>
+            {
+                calculation.Output = new StabilityStoneCoverWaveConditionsOutput(Output.ColumnsOutput, Output.BlocksOutput);
+                calculation.NotifyObservers();
+            });
         }
     }
 }
