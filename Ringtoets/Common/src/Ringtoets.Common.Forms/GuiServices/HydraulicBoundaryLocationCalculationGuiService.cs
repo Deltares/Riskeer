@@ -29,6 +29,7 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
 
@@ -47,6 +48,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// Initializes a new instance of the <see cref="HydraulicBoundaryLocationCalculationGuiService"/> class.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
+        /// <exception cref="ArgumentNullException">When any of the parameters is <c>null</c>.</exception>
         public HydraulicBoundaryLocationCalculationGuiService(IWin32Window viewParent)
         {
             if (viewParent == null)
@@ -56,9 +58,16 @@ namespace Ringtoets.Common.Forms.GuiServices
             this.viewParent = viewParent;
         }
 
-        public void CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath, IObservable observable,
-                                               IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm)
+        public void CalculateDesignWaterLevels(ICalculationMessageProvider messageProvider,
+                                               string hydraulicBoundaryDatabasePath,
+                                               IObservable observable,
+                                               IEnumerable<IHydraulicBoundaryLocation> locations,
+                                               string ringId, double norm)
         {
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException("messageProvider");
+            }
             if (observable == null)
             {
                 throw new ArgumentNullException("observable");
@@ -67,16 +76,22 @@ namespace Ringtoets.Common.Forms.GuiServices
             {
                 throw new ArgumentNullException("locations");
             }
-            var activities = locations.Select(hbl => new DesignWaterLevelCalculationActivity(hbl,
+            var activities = locations.Select(hbl => new DesignWaterLevelCalculationActivity(messageProvider, hbl,
                                                                                              hydraulicBoundaryDatabasePath,
                                                                                              ringId,
                                                                                              norm)).ToArray();
             RunActivities(hydraulicBoundaryDatabasePath, activities, observable);
         }
 
-        public void CalculateWaveHeights(string hydraulicBoundaryDatabasePath, IObservable observable,
-                                         IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm)
+        public void CalculateWaveHeights(ICalculationMessageProvider messageProvider,
+                                         string hydraulicBoundaryDatabasePath, IObservable observable,
+                                         IEnumerable<IHydraulicBoundaryLocation> locations,
+                                         string ringId, double norm)
         {
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException("messageProvider");
+            }
             if (observable == null)
             {
                 throw new ArgumentNullException("observable");

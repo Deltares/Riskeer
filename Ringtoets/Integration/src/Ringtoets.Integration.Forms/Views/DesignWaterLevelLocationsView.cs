@@ -25,6 +25,7 @@ using Core.Common.Utils.Reflection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
+using Ringtoets.Integration.Service.MessageProviders;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -57,6 +58,7 @@ namespace Ringtoets.Integration.Forms.Views
                 return;
             }
             CalculationGuiService.CalculateDesignWaterLevels(
+                new DesignWaterLevelCalculationMessageProvider(),
                 AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                 AssessmentSection.HydraulicBoundaryDatabase,
                 locations,

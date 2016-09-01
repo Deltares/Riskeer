@@ -69,6 +69,7 @@ using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
+using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
@@ -1104,6 +1105,7 @@ namespace Ringtoets.Integration.Plugin
 
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
+                        new DesignWaterLevelCalculationMessageProvider(),
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase,
                         assessmentSection.HydraulicBoundaryDatabase.Locations,
@@ -1140,6 +1142,7 @@ namespace Ringtoets.Integration.Plugin
                     }
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
+                        new WaveHeightCalculationMessageProvider(),
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase,
                         assessmentSection.HydraulicBoundaryDatabase.Locations,

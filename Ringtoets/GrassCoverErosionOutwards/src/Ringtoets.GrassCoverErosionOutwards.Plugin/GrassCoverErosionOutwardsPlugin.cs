@@ -40,6 +40,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
+using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
@@ -297,6 +298,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                               failureMechanism.GeneralInput.N;
 
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
+                        new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider(),
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         nodeData.WrappedData,
                         nodeData.WrappedData,
@@ -324,7 +326,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
-                nodeData.AssessmentSection.HydraulicBoundaryDatabase == null 
+                nodeData.AssessmentSection.HydraulicBoundaryDatabase == null
                     ? Resources.GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate
                     : Resources.GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,

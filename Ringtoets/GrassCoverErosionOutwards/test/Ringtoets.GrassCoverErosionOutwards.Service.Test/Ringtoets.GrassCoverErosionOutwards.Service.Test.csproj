@@ -37,6 +37,10 @@
     <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -44,12 +48,24 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="MessageProviders\GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
+      <Name>Ringtoets.Common.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Service\Ringtoets.GrassCoverErosionOutwards.Service.csproj">
+      <Project>{18E9F7C8-3170-4E9D-8D9F-1378225EED90}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

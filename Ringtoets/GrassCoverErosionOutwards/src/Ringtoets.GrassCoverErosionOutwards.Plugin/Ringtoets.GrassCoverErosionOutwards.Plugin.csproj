@@ -85,6 +85,11 @@
       <Name>Ringtoets.Common.IO</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+      <Project>{D951D6DA-FE83-4920-9FDB-63BF96480B54}</Project>
+      <Name>Ringtoets.Common.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
@@ -98,6 +103,11 @@
     <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Forms\Ringtoets.GrassCoverErosionOutwards.Forms.csproj">
       <Project>{41B829C1-630F-40B0-8BEE-B1C4C94EC8C4}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Service\Ringtoets.GrassCoverErosionOutwards.Service.csproj">
+      <Project>{18e9f7c8-3170-4e9d-8d9f-1378225eed90}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Service</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
