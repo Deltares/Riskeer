@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogte bij doorsnede-eis te berekenen..
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes bij doorsnede-eis te berekenen..
         /// </summary>
         public static string GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate {
             get {

@@ -142,7 +142,7 @@
     <value>Golfhoogtes bij doorsnede-eis</value>
   </data>
   <data name="GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogte bij doorsnede-eis te berekenen.</value>
+    <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de golfhoogtes bij doorsnede-eis te berekenen.</value>
   </data>
   <data name="GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle golfhoogtes bij doorsnede-eis berekenen.</value>
