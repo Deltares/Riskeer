@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <typeparam name="T">Type of objects in the collection.</typeparam>
         /// <param name="existingObjects">All existing named objects.</param>
         /// <param name="nameBase">The base naming scheme to use.</param>
-        /// <param name="nameGetter">Getter method to determine the name of each object in <paramref cref="existingObjects"/>.</param>
+        /// <param name="nameGetter">Getter method to determine the name of each object in <paramref name="existingObjects"/>.</param>
         /// <returns>A unique name based on <paramref name="nameBase"/> that is not used
         /// in <paramref name="existingObjects"/>.</returns>
         public static string GetUniqueName<T>(IEnumerable<T> existingObjects, string nameBase, Func<T, string> nameGetter)

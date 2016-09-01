@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of the <see cref="DikeProfile"/> class.
         /// </summary>
-        /// <param name="worldCoordinate">worldCoordinate">The value for <see cref="WorldReferencePoint"/>.</param>
+        /// <param name="worldCoordinate">The value for <see cref="WorldReferencePoint"/>.</param>
         /// <param name="dikeGeometry">The geometry of the dike.</param>
         /// <param name="foreshoreGeometry">The geometry of the dike foreshore.</param>
         /// <param name="breakWater">The break water definition (can be null).</param>
