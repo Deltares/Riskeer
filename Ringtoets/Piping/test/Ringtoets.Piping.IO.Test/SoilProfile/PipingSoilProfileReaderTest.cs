@@ -130,7 +130,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_IncorrectVersion_ThrowsCriticalFileReadException()
         {
             // Setup
-            var version = "15.0.5.0";
+            var version = "15.0.6.0";
             var dbName = "incorrectversion.soil";
             string dbFile = Path.Combine(testDataPath, dbName);
 
