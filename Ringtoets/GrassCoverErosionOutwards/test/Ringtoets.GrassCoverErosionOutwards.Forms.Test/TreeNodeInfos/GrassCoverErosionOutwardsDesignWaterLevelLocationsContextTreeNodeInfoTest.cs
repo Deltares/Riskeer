@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 string nodeText = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("Waterstand bij doorsnede-eis", nodeText);
+                Assert.AreEqual("Waterstanden bij doorsnede-eis", nodeText);
             }
             mockRepository.VerifyAll();
         }

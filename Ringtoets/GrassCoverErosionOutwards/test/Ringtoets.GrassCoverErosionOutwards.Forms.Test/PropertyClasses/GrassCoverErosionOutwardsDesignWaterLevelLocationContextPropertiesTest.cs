@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDisplayName = "Coördinaten [m]";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
-            const string expectedWaterLevelDisplayName = "Waterstand bij doorsnede-eis [m+NAP]";
+            const string expectedWaterLevelDisplayName = "Waterstanden bij doorsnede-eis [m+NAP]";
             const string expectedWaterLevelDescription = "Berekende waterstand bij doorsnede-eis.";
             const string expectedConvergenceDisplayName = "Convergentie";
             const string expectedConvergenceDescription = "Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?";
