@@ -210,7 +210,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var observableMock = mockRepository.StrictMock<IObservable>();
-            observableMock.NotifyObservers();
+            observableMock.Expect(o=>o.NotifyObservers());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
@@ -355,7 +355,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var observableMock = mockRepository.StrictMock<IObservable>();
-            observableMock.NotifyObservers();
+            observableMock.Expect(o => o.NotifyObservers());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -388,7 +388,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var observableMock = mockRepository.StrictMock<IObservable>();
-            observableMock.NotifyObservers();
+            observableMock.Expect(o => o.NotifyObservers());
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
