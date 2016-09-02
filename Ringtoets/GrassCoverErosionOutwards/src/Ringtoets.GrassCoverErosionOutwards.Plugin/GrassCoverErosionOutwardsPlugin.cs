@@ -269,7 +269,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #endregion
 
-        #region GrassCoverErosionOutwardsWaterLevelLocationsContext TreeNodeInfo
+        #region GrassCoverErosionOutwardsDesignWaterLevelLocationsContext TreeNodeInfo
 
         private ContextMenuStrip GrassCoverErosionOutwardsWaterLevelLocationsContextMenuStrip(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {

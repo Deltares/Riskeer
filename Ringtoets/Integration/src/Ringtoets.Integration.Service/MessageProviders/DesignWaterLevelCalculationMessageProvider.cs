@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Service.MessageProviders
     {
         public string GetCalculationName(string locationName)
         {
-            return string.Format(Resources.DesignWaterLevelCalculationService_Name_Assessment_level_for_location_0_, locationName);
+            return string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_, locationName);
         }
 
         public string GetActivityName(string locationName)

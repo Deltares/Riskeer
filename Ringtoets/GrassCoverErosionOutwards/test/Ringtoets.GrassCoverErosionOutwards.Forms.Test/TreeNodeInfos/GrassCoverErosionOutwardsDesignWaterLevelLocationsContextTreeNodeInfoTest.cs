@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -42,6 +43,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -53,6 +55,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
     {
         private const int contextMenuRunDesignWaterLevelCalculationsIndex = 0;
         private MockRepository mockRepository;
+
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [SetUp]
         public void SetUp()
@@ -93,7 +97,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
                 assessmentSectionMock);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -116,7 +120,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
                 assessmentSectionMock);
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -144,7 +148,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
                         assessmentSectionMock);
 
                     var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
@@ -187,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
                         assessmentSectionMock);
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
@@ -252,7 +256,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
                         assessmentSectionMock);
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
@@ -337,7 +341,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(), 
+                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
                 assessmentSectionMock);
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -364,11 +368,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(100002, "", 3.3, 4.4);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                Locations =
-                {
-                    hydraulicBoundaryLocation1,
-                    hydraulicBoundaryLocation2
-                },
                 FilePath = "D:/nonExistingDirectory/nonExistingFile"
             };
 
@@ -426,6 +425,76 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         // Previous result not cleared
                         Assert.AreEqual(designWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation2.DesignWaterLevel,
                                         grassCoverErosionOutwardsHydraulicBoundaryLocation2.DesignWaterLevel.GetAccuracy());
+                    }
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenHydraulicBoundaryLocationThatFails_CalculatingDesignWaterLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
+        {
+            // Given
+            var guiMock = mockRepository.DynamicMock<IGui>();
+
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.Expect(a => a.Id).Return("Id");
+            assessmentSectionMock.Expect(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                new GrassCoverErosionOutwardsFailureMechanism
+                {
+                    Contribution = 1
+                }
+            });
+            assessmentSectionMock.Expect(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            const string locationName = "HRbasis_ijsslm_1000";
+            var location = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
+                new HydraulicBoundaryLocation(700002, locationName, 1.1, 2.2));
+            var grassCoverErosionOutwardsHydraulicBoundaryLocations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            {
+                location
+            };
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(grassCoverErosionOutwardsHydraulicBoundaryLocations, assessmentSectionMock);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = guiMock;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new HydraRingCalculationServiceConfig())
+                    {
+                        // When
+                        Action action = () => { contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick(); };
+
+                        // Then
+                        TestHelper.AssertLogMessages(action, messages =>
+                        {
+                            var msgs = messages.ToArray();
+                            Assert.AreEqual(6, msgs.Length);
+                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie {0}' gestart om:", locationName), msgs[0]);
+                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie {0}' beëindigd om:", locationName), msgs[1]);
+                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie {0}' gestart om:", locationName), msgs[2]);
+                            StringAssert.StartsWith(string.Format("Er is een fout opgetreden tijdens de Waterstand bij doorsnede-eis berekening '{0}': inspecteer het logbestand.", locationName), msgs[3]);
+                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie {0}' beëindigd om:", locationName), msgs[4]);
+                            StringAssert.StartsWith(string.Format("Uitvoeren van 'Waterstand bij doorsnede-eis berekenen voor locatie '{0}'' is mislukt.", locationName), msgs[5]);
+                        });
+                        Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
                     }
                 }
             }

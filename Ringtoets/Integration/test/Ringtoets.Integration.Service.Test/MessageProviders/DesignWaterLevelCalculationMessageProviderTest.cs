@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             var calculationName = provider.GetCalculationName(name);
 
             // Assert
-            var expectedName = string.Format(Resources.DesignWaterLevelCalculationService_Name_Assessment_level_for_location_0_, name);
+            var expectedName = string.Format(Resources.DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_, name);
             Assert.AreEqual(expectedName, calculationName);
         }
 
