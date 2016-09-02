@@ -1,0 +1,901 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using Core.Common.Base;
+using Core.Common.Base.Geometry;
+using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.Commands;
+using Core.Common.Gui.ContextMenu;
+using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
+using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Data;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.Plugin;
+using StabilityStoneCoverFormsResources = Ringtoets.StabilityStoneCover.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
+namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
+{
+    [TestFixture]
+    public class StabilityStoneCoverWaveConditionsCalculationContextTreeNodeInfoTest : NUnitFormTest
+    {
+        private const int validateMenuItemIndex = 0;
+
+        private const int clearOutputMenuItemIndex = 2;
+
+        private const int calculateMenuItemIndex = 1;
+        private MockRepository mocks;
+        private StabilityStoneCoverPlugin plugin;
+        private TreeNodeInfo info;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+            plugin = new StabilityStoneCoverPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationContext));
+        }
+
+        [TearDown]
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+            base.TearDown();
+        }
+
+        [Test]
+        public void Initialized_Always_ExpectedPropertiesSet()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Assert
+            Assert.AreEqual(typeof(StabilityStoneCoverWaveConditionsCalculationContext), info.TagType);
+
+            Assert.IsNull(info.ForeColor);
+            Assert.IsNull(info.CanCheck);
+            Assert.IsNull(info.IsChecked);
+            Assert.IsNull(info.OnNodeChecked);
+            Assert.IsNull(info.CanDrop);
+            Assert.IsNull(info.CanInsert);
+            Assert.IsNull(info.OnDrop);
+        }
+
+        [Test]
+        public void Text_Always_ReturnCalculationName()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            const string name = "cool name";
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = name
+            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            // Call
+            string text = info.Text(context);
+
+            // Assert
+            Assert.AreEqual(name, text);
+        }
+
+        [Test]
+        public void Image_Always_ReturnCalculationIcon()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            Image icon = info.Image(null);
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(StabilityStoneCoverFormsResources.CalculationIcon, icon);
+        }
+
+        [Test]
+        public void EnsureVisibleOnCreate_Always_ReturnTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            bool shouldBeVisible = info.EnsureVisibleOnCreate(null, null);
+
+            // Assert
+            Assert.IsTrue(shouldBeVisible);
+        }
+
+        [Test]
+        public void ChildNodeObjects_CalculationWithoutOutput_ReturnChildrenWithEmptyOutput()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = null
+            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            // Call
+            object[] children = info.ChildNodeObjects(context);
+
+            // Assert
+            Assert.AreEqual(3, children.Length);
+
+            var commentsContext = (CommentContext<ICommentable>) children[0];
+            Assert.AreSame(calculation, commentsContext.WrappedData);
+
+            var inputContext = (StabilityStoneCoverWaveConditionsCalculationInputContext) children[1];
+            Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
+            Assert.AreSame(failureMechanism, inputContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
+
+            Assert.IsInstanceOf<EmptyStabilityStoneCoverOutput>(children[2]);
+        }
+
+        [Test]
+        public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithEmptyOutput()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            // Call
+            object[] children = info.ChildNodeObjects(context);
+
+            // Assert
+            Assert.AreEqual(3, children.Length);
+
+            var commentsContext = (CommentContext<ICommentable>) children[0];
+            Assert.AreSame(calculation, commentsContext.WrappedData);
+
+            var inputContext = (StabilityStoneCoverWaveConditionsCalculationInputContext) children[1];
+            Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
+            Assert.AreSame(failureMechanism, inputContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
+
+            var output = (StabilityStoneCoverWaveConditionsOutput) children[2];
+            Assert.AreSame(calculation.Output, output);
+        }
+
+        [Test]
+        public void CanRename_Always_ReturnTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            bool canRename = info.CanRename(null, null);
+
+            // Assert
+            Assert.IsTrue(canRename);
+        }
+
+        [Test]
+        public void OnNodeRenamed_ChangeNameOfCalculationAndNotifyObservers()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            calculation.Attach(observer);
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+            const string name = "the new name!";
+
+            // Call
+            info.OnNodeRenamed(context, name);
+
+            // Assert
+            Assert.AreEqual(name, calculation.Name);
+        }
+
+        [Test]
+        public void CanRemove_CalculationInParent_ReturnTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            // Call
+            bool canRemoveCalculation = info.CanRemove(context, parentContext);
+
+            // Assert
+            Assert.IsTrue(canRemoveCalculation);
+        }
+
+        [Test]
+        public void CanRemove_CalculationNotInParent_ReturnTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            // Call
+            bool canRemoveCalculation = info.CanRemove(context, parentContext);
+
+            // Assert
+            Assert.IsFalse(canRemoveCalculation);
+        }
+
+        [Test]
+        public void OnNodeRemoved_CalculationInParent_ReturnTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(context, parentContext);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, calculation);
+        }
+
+        [Test]
+        public void CanDrag_Always_ReturnTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            bool canDrag = info.CanDrag(null, null);
+
+            // Assert
+            Assert.IsTrue(canDrag);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsBuilder()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                info.ContextMenuStrip(context, null, treeViewControl);
+            }
+            // Assert
+            // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithoutSections_ThenValidationItemDisabled()
+        {
+            // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Er is geen vakindeling geïmporteerd.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithoutHydroDatabase_ThenValidationItemDisabled()
+        {
+            // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithoutValidPathForCalculation_ThenValidationItemDisabled()
+        {
+            // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithValidPathForCalculation_ThenValidationItemEnabled()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenValidCalculation_WhenValidating_ThenCalculationPassesValidation()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+
+                    // When
+                    ToolStripItem validateMeniItem = contextMenu.Items[validateMenuItemIndex];
+                    Action call = () => validateMeniItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        var messages = logMessages.ToArray();
+                        Assert.AreEqual(2, messages.Length);
+                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAnyCalculation_ThenCalculateItemEnabled()
+        {
+            // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                }
+            }
+        }
+
+        // TODO: WTI-724 Create unit test that clicks on 'calculate' context menu item and asserts calculation is performed and observers are notified.
+
+        [Test]
+        public void GivenCalculationWithoutOutput_ThenClearOutputItemDisabled()
+        {
+            // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                Output = null
+            };
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  clearOutputMenuItemIndex,
+                                                                  "&Wis uitvoer...",
+                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutput_ThenClearOutputItemEnabled()
+        {
+            // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  clearOutputMenuItemIndex,
+                                                                  "&Wis uitvoer...",
+                                                                  "Wis de uitvoer van deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutput_WhenClearingOutput_ThenClearOutput()
+        {
+            // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A",
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(),
+                                                                     Enumerable.Empty<WaveConditionsOutput>())
+            };
+            calculation.Attach(observer);
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var messageBox = new MessageBoxTester(wnd);
+                    messageBox.ClickOk();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  clearOutputMenuItemIndex,
+                                                                  "&Wis uitvoer...",
+                                                                  "Wis de uitvoer van deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon);
+
+                    // When
+                    ToolStripItem validateMeniItem = contextMenu.Items[clearOutputMenuItemIndex];
+                    validateMeniItem.PerformClick();
+
+                    // Then
+                    Assert.IsNull(calculation.Output);
+                    // Check expectancies in TearDown()
+                }
+            }
+        }
+    }
+}

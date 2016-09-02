@@ -322,10 +322,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
             }
 
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
-                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, validationProblem);
+                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                                     validationProblem);
             }
 
             return null;
@@ -338,7 +339,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) =>
                                              {
-                                                 /* TODO: Implement for WTI-427 */
+                                                 /* TODO: Implement for WTI-733 */
                                              })
             {
                 Enabled = false
