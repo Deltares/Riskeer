@@ -65,7 +65,7 @@ namespace Ringtoets.StabilityStoneCover.Service
         }
 
         /// <summary>
-        /// Adds an <see cref="WaveConditionsOutput"/> to <see cref="BlocksOutput"/>.
+        /// Adds a <see cref="WaveConditionsOutput"/> to <see cref="BlocksOutput"/>.
         /// </summary>
         /// <param name="element">The output to add.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="element"/> 
@@ -76,7 +76,7 @@ namespace Ringtoets.StabilityStoneCover.Service
         }
 
         /// <summary>
-        /// Adds an <see cref="WaveConditionsOutput"/> to <see cref="ColumnsOutput"/>.
+        /// Adds a <see cref="WaveConditionsOutput"/> to <see cref="ColumnsOutput"/>.
         /// </summary>
         /// <param name="element">The output to add.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="element"/> 
