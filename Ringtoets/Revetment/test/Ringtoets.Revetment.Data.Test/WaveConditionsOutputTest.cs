@@ -22,6 +22,7 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Revetment.Data.Test
 {
@@ -32,10 +33,10 @@ namespace Ringtoets.Revetment.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            double waterLevel = 3.0;
-            double waveHeight = 4.0;
-            double wavePeakPeriod = 0.4;
-            double waveAngle = 180;
+            double waterLevel = 3.09378;
+            double waveHeight = 4.29884;
+            double wavePeakPeriod = 0.19435;
+            double waveAngle = 180.62353;
 
             // Call
             var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle);
@@ -43,10 +44,10 @@ namespace Ringtoets.Revetment.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
-            Assert.AreEqual(waterLevel, output.WaterLevel);
-            Assert.AreEqual(waveHeight, output.WaveHeight);
-            Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod);
-            Assert.AreEqual(waveAngle, output.WaveAngle);
+            Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.AreEqual(wavePeakPeriod, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
+            Assert.AreEqual(waveAngle, output.WaveAngle, output.WaveAngle.GetAccuracy());
         }
     }
 }

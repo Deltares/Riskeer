@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Revetment.Data
@@ -36,32 +37,33 @@ namespace Ringtoets.Revetment.Data
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
         /// <param name="waveAngle">The calculated wave angle.</param>
+        /// <remarks>All provided output values will be rounded to 2 decimals.</remarks>
         public WaveConditionsOutput(double waterLevel, double waveHeight, double wavePeakPeriod, double waveAngle)
         {
-            WaterLevel = waterLevel;
-            WaveHeight = waveHeight;
-            WavePeakPeriod = wavePeakPeriod;
-            WaveAngle = waveAngle;
+            WaterLevel = new RoundedDouble(2, waterLevel);
+            WaveHeight = new RoundedDouble(2, waveHeight);
+            WavePeakPeriod = new RoundedDouble(2, wavePeakPeriod);
+            WaveAngle = new RoundedDouble(2, waveAngle);
         }
 
         /// <summary>
         /// Gets the water level for which the calculation has been performed.
         /// </summary>
-        public double WaterLevel { get; private set; }
+        public RoundedDouble WaterLevel { get; private set; }
 
         /// <summary>
         /// Gets the calculated wave height.
         /// </summary>
-        public double WaveHeight { get; private set; }
+        public RoundedDouble WaveHeight { get; private set; }
 
         /// <summary>
         /// Gets the calculated wave peak period.
         /// </summary>
-        public double WavePeakPeriod { get; private set; }
+        public RoundedDouble WavePeakPeriod { get; private set; }
 
         /// <summary>
         /// Gets the calculated wave angle.
         /// </summary>
-        public double WaveAngle { get; private set; }
+        public RoundedDouble WaveAngle { get; private set; }
     }
 }
