@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Service
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             var input = CreateInput(hydraulicBoundaryLocation, norm);
             var targetProbabilityCalculationParser = new ReliabilityIndexCalculationParser();
-            var calculationName = string.Format(Resources.WaveHeightCalculationService_Name_Wave_height_for_location_0_, hydraulicBoundaryLocation.Name);
+            var calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
 
             CalculationServiceHelper.PerformCalculation(
                 calculationName,
