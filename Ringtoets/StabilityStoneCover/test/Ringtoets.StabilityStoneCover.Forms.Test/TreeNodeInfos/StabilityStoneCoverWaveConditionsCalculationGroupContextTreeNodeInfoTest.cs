@@ -630,5 +630,106 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, group);
         }
+
+        [Test]
+        public void GivenCalculationWithoutOutput_ThenClearOutputItemDisabled()
+        {
+            // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                       failureMechanism,
+                                                                                       assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuAddCalculationIndexRootGroup,
+                                                                  "Berekening &toevoegen",
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutput_WhenClearingOutput_ThenClearOutput()
+        {
+            // Given
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                       failureMechanism,
+                                                                                       assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuAddCalculationIndexRootGroup,
+                                                                  "Berekening &toevoegen",
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+
+                    // When
+                    ToolStripItem validateMeniItem = contextMenu.Items[contextMenuAddCalculationIndexRootGroup];
+                    validateMeniItem.PerformClick();
+
+                    // Then
+                    Assert.AreEqual(1, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
+                    Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(failureMechanism.WaveConditionsCalculationGroup.Children[0]);
+                    // Check expectancies in TearDown()
+                }
+            }
+        }
     }
 }
