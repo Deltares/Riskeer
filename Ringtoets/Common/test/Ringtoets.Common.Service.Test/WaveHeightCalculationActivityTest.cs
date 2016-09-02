@@ -27,6 +27,7 @@ using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
 
@@ -214,8 +215,6 @@ namespace Ringtoets.Common.Service.Test
             // Call
             Action call = () => activity.Run();
 
-            hydraulicBoundaryLocationMock.WaveHeight = (RoundedDouble) 2;
-
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
@@ -394,11 +393,7 @@ namespace Ringtoets.Common.Service.Test
             // Call
             activity.Finish();
 
-            // TEST FOR VERIFY
-            hydraulicBoundaryLocationMock.WaveHeight = (RoundedDouble) 789;
-
             // Assert
-            // Assert.AreEqual(waveHeight, hydraulicBoundaryLocationMock.WaveHeight, hydraulicBoundaryLocationMock.WaveHeight.GetAccuracy());
             mockRepository.VerifyAll();
         }
     }

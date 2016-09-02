@@ -206,13 +206,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
+            const string calculationName = "calculationName";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var observableMock = mockRepository.StrictMock<IObservable>();
             observableMock.NotifyObservers();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName").Repeat.AtLeastOnce();
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return("GetCalculationName").Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -236,12 +237,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
-                    string expectedName = "GetCalculationName";
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", expectedName), msgs.First());
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", expectedName), msgs.Skip(1).First());
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", expectedName), msgs.Skip(2).First());
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", expectedName), msgs.Skip(3).First());
-                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", expectedName), msgs.Last());
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs.First());
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs.Skip(1).First());
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs.Skip(2).First());
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs.Skip(3).First());
+                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", calculationName), msgs.Last());
                 });
             }
             mockRepository.VerifyAll();
@@ -383,11 +383,15 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         public void CalculateWaveHeights_ValidPathOneLocationInTheList_NotifyObserversAndLogsMessages()
         {
             // Setup
+            const string hydraulicLocationName = "name";
+            const string calculationName = "calculationName";
             string validDatabasePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var observableMock = mockRepository.StrictMock<IObservable>();
             observableMock.NotifyObservers();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(hydraulicLocationName)).Return("GetActivityName");
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(hydraulicLocationName)).Return(calculationName).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -395,7 +399,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Expect an activity dialog which is automatically closed
             };
 
-            const string hydraulicLocationName = "name";
             var locations = new List<IHydraulicBoundaryLocation>
             {
                 new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
@@ -412,12 +415,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
-                    string expectedName = string.Format("Golfhoogte voor locatie {0}", hydraulicLocationName);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", expectedName), msgs.First());
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", expectedName), msgs.Skip(1).First());
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", expectedName), msgs.Skip(2).First());
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", expectedName), msgs.Skip(3).First());
-                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", expectedName), msgs.Last());
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs.First());
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs.Skip(1).First());
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs.Skip(2).First());
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs.Skip(3).First());
+                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", calculationName), msgs.Last());
                 });
             }
             mockRepository.VerifyAll();
