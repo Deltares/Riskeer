@@ -34,7 +34,7 @@ namespace Ringtoets.Revetment.Service.TestUtil
     /// <code>
     /// using(new WaveConditionsCalculationServiceConfig())
     /// {
-    ///     var testService = (TestWaveConditionsCalculationService) service.Instance;
+    ///     var testService = (TestWaveConditionsCalculationService) WaveConditionsCalculationService.Instance;
     /// 
     ///     // Perform test with service
     /// }
@@ -55,6 +55,10 @@ namespace Ringtoets.Revetment.Service.TestUtil
             WaveConditionsCalculationService.Instance = new TestWaveConditionsCalculationService();
         }
 
+        /// <summary>
+        /// Reverts the <see cref="WaveConditionsCalculationService.Instance"/> to the value
+        /// it had at time of construction of the <see cref="WaveConditionsCalculationServiceConfig"/>.
+        /// </summary>
         public void Dispose()
         {
             WaveConditionsCalculationService.Instance = previousInstance;

@@ -19,40 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Class for parsing wave condition results from a wave conditions calculation calculation.
+    /// Class for parsing wave condition results from a wave conditions calculation.
     /// </summary>
     public class WaveConditionsCalculationParser : IHydraRingFileParser
     {
-        private const string qVariantStart = "Submechanism = Q-variant";
-        private const string waveAngle = "Wave angle";
-        private const string waveHeight = "Wave height";
-        private const string wavePeakPeriod = "Wave period";
-        private const string reductionFactor = "reduction factor";
+        private const string waveAngleText = "Wave angle";
+        private const string waveHeightText = "Wave height";
+        private const string wavePeakPeriodText = "Wave period";
+        private const string reductionFactorText = "reduction factor";
         
         private const char equalsCharacter = '=';
 
-        private readonly List<Result> results;
+        private double? waveAngle;
+        private double? waveHeight;
+        private double? wavePeakPeriod;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsCalculationParser"/>.
-        /// </summary>
-        public WaveConditionsCalculationParser()
-        {
-            results = new List<Result>();
-        }
-
-        /// <summary>
-        /// Gets the output that was parsed form the output file.
+        /// Gets the output that was parsed from the output file.
         /// </summary>
         public WaveConditionsCalculationOutput Output { get; private set; }
 
@@ -73,14 +64,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private void SetOutput()
         {
-            if (results != null && results.Any())
+            if (waveAngle != null && waveHeight != null && wavePeakPeriod != null)
             {
-                var finalResult = results.Last();
-
-                if (finalResult != null)
-                {
-                    Output = new WaveConditionsCalculationOutput(finalResult.WaveHeight, finalResult.WavePeakPeriod, finalResult.WaveAngle);
-                }
+                Output = new WaveConditionsCalculationOutput(waveHeight.Value, wavePeakPeriod.Value, waveAngle.Value);
             }
         }
 
@@ -93,65 +79,48 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                     while (!file.EndOfStream)
                     {
                         string currentLine = file.ReadLine();
-                        TryParseQVariant(currentLine, file);
+
+                        waveAngle = TryParseWaveAngle(currentLine) ?? waveAngle;
+                        waveHeight = TryParseWaveHeight(currentLine) ?? waveHeight;
+                        wavePeakPeriod = TryParseWavePeakPeriod(currentLine) ?? wavePeakPeriod;
                     }
                 }
             }
         }
 
-        private void TryParseQVariant(string startLine, StreamReader file)
+        private static double? TryParseWaveAngle(string line)
         {
-            if (startLine.Contains(qVariantStart))
-            {
-                var result = new Result();
-                while (!file.EndOfStream)
-                {
-                    string readLine = file.ReadLine();
-                    TryParseWaveAngle(readLine, result);
-                    TryParseWaveHeight(readLine, result);
-                    TryParseWavePeakPeriod(readLine, result);
-                }
-                results.Add(result);
-            }
-        }
-
-        private void TryParseWaveAngle(string line, Result result)
-        {
-            if (line.Contains(waveAngle) && !line.Contains(reductionFactor))
+            if (line.Contains(waveAngleText) && !line.Contains(reductionFactorText))
             {
                 string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                result.WaveAngle= ParseStringResult(resultAsString);
+                return ParseStringResult(resultAsString);
             }
+            return null;
         }
 
-        private void TryParseWaveHeight(string line, Result result)
+        private static double? TryParseWaveHeight(string line)
         {
-            if (line.Contains(waveHeight))
+            if (line.Contains(waveHeightText))
             {
                 string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                result.WaveHeight = ParseStringResult(resultAsString);
+                return ParseStringResult(resultAsString);
             }
+            return null;
         }
 
-        private void TryParseWavePeakPeriod(string line, Result result)
+        private static double? TryParseWavePeakPeriod(string line)
         {
-            if (line.Contains(wavePeakPeriod))
+            if (line.Contains(wavePeakPeriodText))
             {
                 string resultAsString = line.Split(equalsCharacter)[1].Trim();
-                result.WavePeakPeriod = ParseStringResult(resultAsString);
+                return ParseStringResult(resultAsString);
             }
+            return null;
         }
 
         private static double ParseStringResult(string resultAsString)
         {
             return double.Parse(resultAsString, CultureInfo.InvariantCulture);
-        }
-
-        private class Result
-        {
-            public double WaveHeight { get; set; }
-            public double WavePeakPeriod { get; set; }
-            public double WaveAngle { get; set; }
         }
     }
 }

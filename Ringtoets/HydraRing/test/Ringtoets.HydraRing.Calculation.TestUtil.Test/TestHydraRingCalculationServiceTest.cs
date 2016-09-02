@@ -67,8 +67,8 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
             Assert.AreEqual(hlcdDirectory, testService.HlcdDirectory);
             Assert.AreEqual(ringId, testService.RingId);
             Assert.AreEqual(uncertaintiesType, testService.UncertaintiesType);
-            Assert.AreEqual(input, testService.HydraRingCalculationInput);
-            Assert.AreEqual(parsers, testService.Parsers);
+            Assert.AreSame(input, testService.HydraRingCalculationInput);
+            Assert.AreSame(parsers, testService.Parsers);
         }
 
         private class TestInput : HydraRingCalculationInput

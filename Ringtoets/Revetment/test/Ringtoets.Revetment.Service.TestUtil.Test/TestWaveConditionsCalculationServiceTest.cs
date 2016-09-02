@@ -49,9 +49,9 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
 
             // Assert
             Assert.AreEqual(waterLevel, output.WaterLevel, waterLevel.GetAccuracy());
-            Assert.AreEqual(3.0, output.WaveHeight);
-            Assert.AreEqual(5.39, output.WavePeakPeriod);
-            Assert.AreEqual(29, output.WaveAngle);
+            Assert.AreEqual(3.0, output.WaveHeight, output.WaveHeight.GetAccuracy());
+            Assert.AreEqual(5.39, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
+            Assert.AreEqual(29, output.WaveAngle, output.WaveAngle.GetAccuracy());
         }
     }
 }

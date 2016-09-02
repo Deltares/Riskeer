@@ -33,10 +33,10 @@ namespace Ringtoets.Revetment.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            double waterLevel = 3.09378;
-            double waveHeight = 4.29884;
-            double wavePeakPeriod = 0.19435;
-            double waveAngle = 180.62353;
+            const double waterLevel = 3.09378;
+            const double waveHeight = 4.29884;
+            const double wavePeakPeriod = 0.19435;
+            const double waveAngle = 180.62353;
 
             // Call
             var output = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle);

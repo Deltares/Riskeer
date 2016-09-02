@@ -41,32 +41,32 @@ namespace Ringtoets.StabilityStoneCover.Data
         }
 
         /// <summary>
-        /// Gets the 'A' parameter used in wave conditions calculations for blocks.
+        /// Gets the 'a' parameter used in wave conditions calculations for blocks.
         /// </summary>
         public double ABlocks { get; private set; }
 
         /// <summary>
-        /// Gets the 'B' parameter used in wave conditions calculations for blocks.
+        /// Gets the 'b' parameter used in wave conditions calculations for blocks.
         /// </summary>
         public double BBlocks { get; private set; }
 
         /// <summary>
-        /// Gets the 'C' parameter used in wave conditions calculations for blocks.
+        /// Gets the 'c' parameter used in wave conditions calculations for blocks.
         /// </summary>
         public double CBlocks { get; private set; }
 
         /// <summary>
-        /// Gets the 'A' parameter used in wave conditions calculations for columns.
+        /// Gets the 'a' parameter used in wave conditions calculations for columns.
         /// </summary>
         public double AColumns { get; private set; }
 
         /// <summary>
-        /// Gets the 'B' parameter used in wave conditions calculations for columns.
+        /// Gets the 'b' parameter used in wave conditions calculations for columns.
         /// </summary>
         public double BColumns { get; private set; }
 
         /// <summary>
-        /// Gets the 'C' parameter used in wave conditions calculations for columns.
+        /// Gets the 'c' parameter used in wave conditions calculations for columns.
         /// </summary>
         public double CColumns { get; private set; }
     }

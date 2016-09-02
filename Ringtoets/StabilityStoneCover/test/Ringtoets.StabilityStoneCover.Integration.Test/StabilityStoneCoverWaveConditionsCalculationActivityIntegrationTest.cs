@@ -23,13 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Calculation.TestUtil;
@@ -204,19 +202,13 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        public void OnFinish_CalculationPerformed_SetsOutputAndNotifiesObservers()
+        public void OnFinish_CalculationPerformed_SetsOutput()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
             var calculation = GetValidCalculation(assessmentSection);
-            calculation.Attach(observer);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
@@ -232,23 +224,17 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 Assert.IsNotNull(calculation.Output);
                 Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());
                 Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
-                mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void OnFinish_CalculationFailed_OutputNullObserversNotNotified()
+        public void OnFinish_CalculationFailed_OutputNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
             var calculation = GetValidCalculation(assessmentSection);
-            calculation.Attach(observer);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
@@ -261,7 +247,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
                 // Assert
                 Assert.IsNull(calculation.Output);
-                mocks.VerifyAll(); // No update observers expected
             }
         }
 

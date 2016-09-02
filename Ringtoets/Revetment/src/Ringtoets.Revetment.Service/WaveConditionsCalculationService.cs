@@ -35,12 +35,14 @@ using Ringtoets.Revetment.Service.Properties;
 namespace Ringtoets.Revetment.Service
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-Ring calculations for wave conditions calculations.
+    /// Service that provides methods for performing Hydra-Ring wave conditions calculations.
     /// </summary>
     public class WaveConditionsCalculationService : IWaveConditionsCalculationService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveConditionsCalculationService));
         private static IWaveConditionsCalculationService instance;
+
+        private WaveConditionsCalculationService() {}
 
         /// <summary>
         /// Gets or sets an instance of <see cref="IWaveConditionsCalculationService"/>.

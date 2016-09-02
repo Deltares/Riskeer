@@ -21,6 +21,9 @@
 
 namespace Ringtoets.HydraRing.Calculation.Data.Output
 {
+    /// <summary>
+    /// Class containing the results of a Hydra-Ring wave conditions calculation.
+    /// </summary>s
     public class WaveConditionsCalculationOutput
     {
         /// <summary>

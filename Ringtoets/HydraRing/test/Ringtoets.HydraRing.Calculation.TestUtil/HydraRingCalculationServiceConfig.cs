@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
     /// <code>
     /// using(new HydraRingCalculationServiceConfig())
     /// {
-    ///     var testService = (TestHydraRingCalculationService) service.Instance;
+    ///     var testService = (TestHydraRingCalculationService) HydraRingCalculationService.Instance;
     /// 
     ///     // Perform test with service
     /// }

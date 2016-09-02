@@ -93,13 +93,12 @@ namespace Ringtoets.StabilityStoneCover.Service
 
                            Output = new StabilityStoneCoverWaveConditionsCalculationActivityOutput();
 
-                           var generalInput = failureMechanism.GeneralInput;
-                           var aBlocks = generalInput.ABlocks;
-                           var bBlocks = generalInput.BBlocks;
-                           var cBlocks = generalInput.CBlocks;
-                           var aColumns = generalInput.AColumns;
-                           var bColumns = generalInput.BColumns;
-                           var cColumns = generalInput.CColumns;
+                           var aBlocks = failureMechanism.GeneralInput.ABlocks;
+                           var bBlocks = failureMechanism.GeneralInput.BBlocks;
+                           var cBlocks = failureMechanism.GeneralInput.CBlocks;
+                           var aColumns = failureMechanism.GeneralInput.AColumns;
+                           var bColumns = failureMechanism.GeneralInput.BColumns;
+                           var cColumns = failureMechanism.GeneralInput.CColumns;
                            var norm = assessmentSection.FailureMechanismContribution.Norm;
 
                            foreach (var waterLevel in calculation.InputParameters.WaterLevels)
@@ -111,7 +110,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
                                ProgressText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_, waterLevel);
 
-                               var blocksOuput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
+                               var blocksOutput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
                                                                                                      aBlocks,
                                                                                                      bBlocks,
                                                                                                      cBlocks,
@@ -121,9 +120,9 @@ namespace Ringtoets.StabilityStoneCover.Service
                                                                                                      assessmentSection.Id,
                                                                                                      calculation.Name);
 
-                               if (blocksOuput != null)
+                               if (blocksOutput != null)
                                {
-                                   Output.AddBlocksOutput(blocksOuput);
+                                   Output.AddBlocksOutput(blocksOutput);
                                }
 
                                log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_ended_time_1_,
@@ -172,7 +171,6 @@ namespace Ringtoets.StabilityStoneCover.Service
             PerformFinish(() =>
             {
                 calculation.Output = new StabilityStoneCoverWaveConditionsOutput(Output.ColumnsOutput, Output.BlocksOutput);
-                calculation.NotifyObservers();
             });
         }
     }

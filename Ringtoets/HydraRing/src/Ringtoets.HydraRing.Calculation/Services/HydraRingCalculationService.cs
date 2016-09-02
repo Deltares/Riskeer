@@ -41,6 +41,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private static Process hydraRingProcess;
         private static IHydraRingCalculationService instance;
 
+        private HydraRingCalculationService() {}
+
         /// <summary>
         /// Gets or sets an instance of <see cref="IHydraRingCalculationService"/>.
         /// </summary>
@@ -57,14 +59,16 @@ namespace Ringtoets.HydraRing.Calculation.Services
         }
 
         /// <summary>
-        /// This method performs a type II calculation via Hydra-Ring:
-        /// Iterate towards a target probability, provided as reliability index.
+        /// Cancels any currently running Hydra-Ring calculation.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="uncertaintiesType">The <see cref="HydraRingUncertaintiesType"/> to use while executing the calculation.</param>
-        /// <param name="hydraRingCalculationInput">The input of the calculation to perform.</param>
-        /// <param name="parsers">Parsers that will be invoked after the Hydra-Ring calculation has ran.</param>
+        public static void CancelRunningCalculation()
+        {
+            if (hydraRingProcess != null && !hydraRingProcess.HasExited)
+            {
+                hydraRingProcess.StandardInput.WriteLine("b");
+            }
+        }
+
         public void PerformCalculation(
             string hlcdDirectory,
             string ringId,
@@ -85,17 +89,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
             PerformCalculation(workingDirectory, hydraRingInitializationService);
 
             PerformPostProcessing(hydraRingCalculationInput, parsers.ToList(), hydraRingInitializationService);
-        }
-
-        /// <summary>
-        /// Cancels any currently running Hydra-Ring calculation.
-        /// </summary>
-        public static void CancelRunningCalculation()
-        {
-            if (hydraRingProcess != null && !hydraRingProcess.HasExited)
-            {
-                hydraRingProcess.StandardInput.WriteLine("b");
-            }
         }
 
         private static void PerformPostProcessing(HydraRingCalculationInput hydraRingCalculationInput,

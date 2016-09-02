@@ -33,6 +33,9 @@ namespace Ringtoets.StabilityStoneCover.Service
         private readonly ICollection<WaveConditionsOutput> columnsOutput;
         private readonly ICollection<WaveConditionsOutput> blocksOutput;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculationActivityOutput"/>.
+        /// </summary>
         internal StabilityStoneCoverWaveConditionsCalculationActivityOutput()
         {
             columnsOutput = new List<WaveConditionsOutput>();

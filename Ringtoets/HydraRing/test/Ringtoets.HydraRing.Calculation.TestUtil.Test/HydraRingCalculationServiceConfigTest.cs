@@ -40,7 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
         }
 
         [Test]
-        public void Constructor_SetsTestFactoryForPipingCalculatorService()
+        public void Constructor_SetsTestServiceForHydraRingCalculationService()
         {
             // Call
             using (new HydraRingCalculationServiceConfig())

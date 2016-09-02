@@ -25,7 +25,7 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.Revetment.Service
 {
     /// <summary>
-    /// Service responsible for performing a wave condition calculation.
+    /// Service responsible for performing a wave conditions calculation.
     /// </summary>
     public interface IWaveConditionsCalculationService
     {

@@ -51,7 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var parser = new WaveConditionsCalculationParser();
 
             // Call
-            parser.Parse(testDataPath, 1);
+            parser.Parse(testDataPath, sectionId);
 
             // Assert
             Assert.IsNull(parser.Output);
@@ -90,11 +90,41 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_InvalidHydraRingOutputFile_OutputNull()
+        public void Parse_InvalidHydraRingOutputFileWaveAngleMissing_OutputNull()
         {
             // Setup
             var parser = new WaveConditionsCalculationParser();
-            var workingDirectory = Path.Combine(testDataPath, "output-no-qvariant");
+            var workingDirectory = Path.Combine(testDataPath, "output-no-waveAngle");
+
+            // Call
+            parser.Parse(workingDirectory, sectionId);
+
+            // Assert
+            Assert.IsNull(parser.Output);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+        }
+
+        [Test]
+        public void Parse_InvalidHydraRingOutputFileWaveHeightMissing_OutputNull()
+        {
+            // Setup
+            var parser = new WaveConditionsCalculationParser();
+            var workingDirectory = Path.Combine(testDataPath, "output-no-waveHeight");
+
+            // Call
+            parser.Parse(workingDirectory, sectionId);
+
+            // Assert
+            Assert.IsNull(parser.Output);
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, outputFileName)));
+        }
+
+        [Test]
+        public void Parse_InvalidHydraRingOutputFileWavePeakPeriodMissing_OutputNull()
+        {
+            // Setup
+            var parser = new WaveConditionsCalculationParser();
+            var workingDirectory = Path.Combine(testDataPath, "output-no-wavePeakPeriod");
 
             // Call
             parser.Parse(workingDirectory, sectionId);

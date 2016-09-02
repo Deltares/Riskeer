@@ -55,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         public string RingId { get; private set; }
 
         /// <summary>
-        /// Gets the hlcd directory used in <see cref="IHydraRingCalculationService.PerformCalculation"/>.
+        /// Gets the HLCD directory used in <see cref="IHydraRingCalculationService.PerformCalculation"/>.
         /// </summary>
         public string HlcdDirectory { get; private set; }
 

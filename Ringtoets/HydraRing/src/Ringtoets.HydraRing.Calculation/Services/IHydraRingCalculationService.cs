@@ -32,8 +32,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
     public interface IHydraRingCalculationService
     {
         /// <summary>
-        /// This method performs a type II calculation via Hydra-Ring:
-        /// Iterate towards a target probability, provided as reliability index.
+        /// This method performs a calculation via Hydra-Ring.
         /// </summary>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
