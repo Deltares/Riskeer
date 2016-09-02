@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden bij doorsnede-eis [m+NAP].
+        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis [m+NAP].
         /// </summary>
         public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName {
             get {
