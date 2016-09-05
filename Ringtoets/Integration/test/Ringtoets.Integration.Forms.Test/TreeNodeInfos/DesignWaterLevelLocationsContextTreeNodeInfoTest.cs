@@ -37,11 +37,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Plugin;
+using Ringtoets.Integration.Service.MessageProviders;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
@@ -300,51 +302,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_ContextHasNoHydraulicBoundaryDatabase_ReturnDisabledColor()
-        {
-            // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                Color color = info.ForeColor(context);
-
-                // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ForeColor_ContextHasHydraulicBoundaryDatabase_ReturnControlColor()
-        {
-            // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            mockRepository.ReplayAll();
-
-            var context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
-
-            using (var plugin = new RingtoetsPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                Color color = info.ForeColor(context);
-
-                // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         [RequiresSTA]
         public void GivenHydraulicBoundaryLocationThatFails_CalculatingAssessmentLevelFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
         {
@@ -386,26 +343,66 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculationServiceConfig())
                     {
-                        // When
-                        Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
-
-                        // Then
-                        TestHelper.AssertLogMessages(action, messages =>
+                        using (new DesignWaterLevelCalculationServiceConfig())
                         {
-                            var msgs = messages.ToArray();
-                            Assert.AreEqual(6, msgs.Length);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Toetspeil berekenen voor locatie '{0}'' gestart om:", locationName), msgs[0]);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Toetspeil berekenen voor locatie '{0}'' beëindigd om:", locationName), msgs[1]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Toetspeil berekenen voor locatie '{0}'' gestart om:", locationName), msgs[2]);
-                            StringAssert.StartsWith(string.Format("Er is een fout opgetreden tijdens de toetspeil berekening '{0}': inspecteer het logbestand.", locationName), msgs[3]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Toetspeil berekenen voor locatie '{0}'' beëindigd om:", locationName), msgs[4]);
-                            StringAssert.StartsWith(string.Format("Uitvoeren van 'Toetspeil berekenen voor locatie '{0}'' is mislukt.", locationName), msgs[5]);
-                        });
-                        Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
+                            var testService = (TestDesignWaterLevelCalculationService) DesignWaterLevelCalculationService.Instance;
+                            testService.SetCalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+
+                            // When
+                            contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
+
+                            // Then
+                            Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(testService.MessageProvider);
+                            Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
+                        }
                     }
                 }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ForeColor_ContextHasNoHydraulicBoundaryDatabase_ReturnDisabledColor()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                Color color = info.ForeColor(context);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ForeColor_ContextHasHydraulicBoundaryDatabase_ReturnControlColor()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            mockRepository.ReplayAll();
+
+            var context = new DesignWaterLevelLocationsContext(assessmentSectionMock);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                Color color = info.ForeColor(context);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
             mockRepository.VerifyAll();
         }

@@ -33,8 +33,10 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.GuiServices;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.Service.MessageProviders;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -215,9 +217,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mockRepository = new MockRepository();
             var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
+            ICalculationMessageProvider messageProvider = null;
             IEnumerable<HydraulicBoundaryLocation> locations = null;
             guiServiceMock.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, null, 1)).IgnoreArguments().WhenCalled(
-                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[3]; });
+                invocation =>
+                {
+                    messageProvider = (ICalculationMessageProvider) invocation.Arguments[0];
+                    locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[3];
+                });
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiServiceMock;
@@ -227,10 +234,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             buttonTester.Click();
 
             // Assert
+            Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProvider);
             var hydraulicBoundaryLocations = locations.ToArray();
             Assert.AreEqual(1, hydraulicBoundaryLocations.Length);
             HydraulicBoundaryLocation expectedLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(expectedLocation, hydraulicBoundaryLocations.First());
+
             mockRepository.VerifyAll();
         }
 
