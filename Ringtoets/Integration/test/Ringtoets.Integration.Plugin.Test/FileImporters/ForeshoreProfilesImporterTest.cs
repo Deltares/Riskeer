@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_FromFileWithUnmatchableId_TrueAndLogError()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -111,10 +111,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath);
 
-            //Precondition
-            var importResult = true;
-
             // Call
+            var importResult = true;
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
@@ -132,7 +130,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourForeshoreProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -153,23 +151,22 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath);
 
-            //Precondition
-            var importResult = true;
-
             // Call
+            var importResult = true;
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
             string expectedMessage = "Een profiel locatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
+            Assert.AreEqual(4, failureMechanism.ForeshoreProfiles.Count);
         }
 
         [Test]
         public void Import_AllOkTestData_TrueAndLogMessagesAndFiveForeshoreProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -205,6 +202,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profieldata.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
+            Assert.AreEqual(5, failureMechanism.ForeshoreProfiles.Count);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
@@ -212,7 +210,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_AllOkTestData_CorrectForeshoreProfileProperties()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var observer = mockRepository.StrictMock<IObserver>();
@@ -229,9 +227,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Call
             foreshoreProfilesImporter.Import();
-            ForeshoreProfile foreshoreProfile = targetContext.WrappedData[4];
 
             // Assert
+            ForeshoreProfile foreshoreProfile = targetContext.WrappedData[4];
             Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), foreshoreProfile.WorldReferencePoint);
             Assert.AreEqual("profiel005", foreshoreProfile.Name);
             Assert.AreEqual(15.56165507, foreshoreProfile.X0);
@@ -244,7 +242,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_AllDamTypes_TrueAndLogMessagesAndFiveForeshoreProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
             var observer = mockRepository.StrictMock<IObserver>();
@@ -292,7 +290,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_CancelOfImportToValidTargetWithValidFile_CancelImportAndLog()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -305,9 +303,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Precondition
             foreshoreProfilesImporter.Cancel();
-            bool importResult = true;
 
             // Call
+            var importResult = true;
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
@@ -320,7 +318,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_TrueAndLogMessagesAndFiveForeshoreProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();

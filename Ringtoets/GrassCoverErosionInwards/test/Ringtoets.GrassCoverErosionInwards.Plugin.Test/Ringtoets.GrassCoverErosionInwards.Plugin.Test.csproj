@@ -55,7 +55,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="GrassCoverErosionInwardsPluginTest.cs" />
-    <Compile Include="ImportInfos\DikeProfilesContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionInwardsInputViewInfoTest.cs" />

@@ -29,11 +29,11 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.IO.Properties;
+using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
+namespace Ringtoets.Common.IO.DikeProfiles
 {
     /// <summary>
     /// Reader responsible for reading the data for a dike profile from a .prfl file.

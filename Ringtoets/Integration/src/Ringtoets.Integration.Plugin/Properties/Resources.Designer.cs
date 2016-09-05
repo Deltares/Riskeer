@@ -352,38 +352,38 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Een profiel locatie met ID &apos;{0}&apos; ligt niet op de referentielijn. Locatie wordt overgeslagen..
         /// </summary>
-        public static string ProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline {
+        public static string ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline {
             get {
-                return ResourceManager.GetString("ProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_reference" +
-                        "line", resourceCulture);
+                return ResourceManager.GetString("ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline" +
+                        "", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Profiel locatie met ID &apos;{0}&apos; is opnieuw ingelezen..
         /// </summary>
-        public static string ProfilesImporter_AddNextDikeProfileLocation_Location_with_id_0_already_read {
+        public static string ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read {
             get {
-                return ResourceManager.GetString("ProfilesImporter_AddNextDikeProfileLocation_Location_with_id_0_already_read", resourceCulture);
+                return ResourceManager.GetString("ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Fout bij het lezen van profiel op regel {0}. {1} Dit profiel wordt overgeslagen..
         /// </summary>
-        public static string ProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped {
+        public static string ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped {
             get {
-                return ResourceManager.GetString("ProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_Profile_LineNumbe" +
-                        "r_0_Error_1_The_Profile_is_skipped", resourceCulture);
+                return ResourceManager.GetString("ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_" +
+                        "Error_1_The_Profile_is_skipped", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van profiel locatie..
         /// </summary>
-        public static string ProfilesImporter_GetDikeProfileLocationReadResult_reading_profilelocation {
+        public static string ProfilesImporter_GetProfileLocationReadResult_reading_profilelocation {
             get {
-                return ResourceManager.GetString("ProfilesImporter_GetDikeProfileLocationReadResult_reading_profilelocation", resourceCulture);
+                return ResourceManager.GetString("ProfilesImporter_GetProfileLocationReadResult_reading_profilelocation", resourceCulture);
             }
         }
         

@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
+using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Integration.Plugin.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -57,10 +57,10 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             this.importTarget = importTarget;
         }
 
-        protected override void CreateProfiles(ReadResult<DikeProfileLocation> importDikeProfilesResult,
+        protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult)
         {
-            IEnumerable<DikeProfile> importedDikeProfiles = CreateDikeProfiles(importDikeProfilesResult.ImportedItems,
+            IEnumerable<DikeProfile> importedDikeProfiles = CreateDikeProfiles(importProfileLocationResult.ImportedItems,
                                                                                importDikeProfileDataResult.ImportedItems);
 
             foreach (DikeProfile dikeProfile in importedDikeProfiles)
@@ -72,14 +72,14 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         protected override void HandleUserCancellingImport()
         {
             log.Info(Resources.DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted);
-            Canceled = false;
+            base.HandleUserCancellingImport();
         }
 
-        private IEnumerable<DikeProfile> CreateDikeProfiles(IEnumerable<DikeProfileLocation> dikeProfileLocationCollection,
+        private IEnumerable<DikeProfile> CreateDikeProfiles(IEnumerable<ProfileLocation> dikeProfileLocationCollection,
                                                             ICollection<DikeProfileData> dikeProfileDataCollection)
         {
             var dikeProfiles = new List<DikeProfile>();
-            foreach (DikeProfileLocation dikeProfileLocation in dikeProfileLocationCollection)
+            foreach (ProfileLocation dikeProfileLocation in dikeProfileLocationCollection)
             {
                 string id = dikeProfileLocation.Id;
 
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return dikeProfiles;
         }
 
-        private static DikeProfile CreateDikeProfile(DikeProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
+        private static DikeProfile CreateDikeProfile(ProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
         {
             var dikeProfile = new DikeProfile(dikeProfileLocation.Point, dikeProfileData.DikeGeometry,
                                               dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray(),

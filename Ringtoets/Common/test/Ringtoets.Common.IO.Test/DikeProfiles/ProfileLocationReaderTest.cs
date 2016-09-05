@@ -26,22 +26,22 @@ using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
+using Ringtoets.Common.IO.DikeProfiles;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
+namespace Ringtoets.Common.IO.Test.DikeProfiles
 {
     [TestFixture]
-    public class DikeProfileLocationReaderTest
+    public class ProfileLocationReaderTest
     {
         [Test]
         public void Constructor_ValidFilePath_ExpectedValues()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
 
             // Call
-            using (var reader = new DikeProfileLocationReader(validFilePath))
+            using (var reader = new ProfileLocationReader(validFilePath))
             {
                 // Assert
                 Assert.IsInstanceOf<IDisposable>(reader);
@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new DikeProfileLocationReader(invalidFilePath);
+            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.",
@@ -69,12 +69,12 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             // Setup
             char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
             string invalidFilePath = validFilePath.Replace("1", invalidFileNameChars[1].ToString());
 
             // Call
-            TestDelegate call = () => new DikeProfileLocationReader(invalidFilePath);
+            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
@@ -86,11 +86,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void Constructor_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new DikeProfileLocationReader(invalidFilePath);
+            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.",
@@ -102,11 +102,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void Constructor_ShapefileDoesntExist_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 "I_do_not_exist.shp");
 
             // Call
-            TestDelegate call = () => new DikeProfileLocationReader(invalidFilePath);
+            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
                                                                 shapeFileName);
 
             // Call
-            TestDelegate call = () => new DikeProfileLocationReader(invalidFilePath);
+            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand mag uitsluitend punten bevatten.",
@@ -146,11 +146,11 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             string fileName, string missingColumnName)
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.Combine("DikeProfiles", fileName));
 
             // Call
-            TestDelegate call = () => new DikeProfileLocationReader(invalidFilePath);
+            TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
@@ -163,10 +163,10 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void GetLocationCount_FileWithFivePoints_GetFive()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
 
-            using (var reader = new DikeProfileLocationReader(validFilePath))
+            using (var reader = new ProfileLocationReader(validFilePath))
             {
                 // Call
                 int count = reader.GetLocationCount;
@@ -183,17 +183,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             string fileName, int expectedNumberOfDikeProfileLocations)
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", fileName));
-            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
+            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
 
-            using (var reader = new DikeProfileLocationReader(validFilePath))
+            using (var reader = new ProfileLocationReader(validFilePath))
             {
                 // Call
                 int count = reader.GetLocationCount;
                 for (int i = 0; i < count; i++)
                 {
-                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                    dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
 
                 // Assert
@@ -205,13 +205,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void GetDikeProfileLocation_FileWithNullId_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyId.shp"));
 
-            using (var reader = new DikeProfileLocationReader(invalidFilePath))
+            using (var reader = new ProfileLocationReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextDikeProfileLocation();
+                TestDelegate call = () => reader.GetNextProfileLocation();
 
                 // Assert
                 var expectedMessage = "De locatie parameter 'ID' heeft geen waarde.";
@@ -224,13 +224,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void GetDikeProfileLocation_FileWithNullX0_ThrowCriticalFileReadException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyX0.shp"));
 
-            using (var reader = new DikeProfileLocationReader(invalidFilePath))
+            using (var reader = new ProfileLocationReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextDikeProfileLocation();
+                TestDelegate call = () => reader.GetNextProfileLocation();
 
                 // Assert
                 var expectedMessage = "Het profiel heeft geen geldige waarde voor attribuut 'X0'.";
@@ -245,13 +245,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void GetDikeProfileLocation_FileWithIllegalCharactersInId_ThrowCriticalFileReadException(string fileName)
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.Combine("DikeProfiles", fileName));
 
-            using (var reader = new DikeProfileLocationReader(invalidFilePath))
+            using (var reader = new ProfileLocationReader(invalidFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextDikeProfileLocation();
+                TestDelegate call = () => reader.GetNextProfileLocation();
 
                 // Assert
                 var expectedMessage = "De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.";
@@ -264,17 +264,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void GetDikeProfileLocation_FileWithNullAsNameAttribute_GetLocations()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.Combine("DikeProfiles", "Voorlanden_12-2_EmptyName.shp"));
-            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
+            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
 
-            using (var reader = new DikeProfileLocationReader(invalidFilePath))
+            using (var reader = new ProfileLocationReader(invalidFilePath))
             {
                 // Call
                 int count = reader.GetLocationCount;
                 for (int i = 0; i < count; i++)
                 {
-                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                    dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
 
                 // Assert
@@ -286,17 +286,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void GetDikeProfileLocation_FileWithFivePoints_GetFiveLocationsWithCorrectAtrributes()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
-            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
+            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
 
-            using (var reader = new DikeProfileLocationReader(validFilePath))
+            using (var reader = new ProfileLocationReader(validFilePath))
             {
                 // Call
                 int count = reader.GetLocationCount;
                 for (int i = 0; i < count; i++)
                 {
-                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                    dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
 
                 // Assert
@@ -324,17 +324,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void GetDikeProfileLocation_FileWithFivePoints_GetFiveLocationsWithPoint2D()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
-            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
+            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
 
-            using (var reader = new DikeProfileLocationReader(validFilePath))
+            using (var reader = new ProfileLocationReader(validFilePath))
             {
                 // Call
                 int count = reader.GetLocationCount;
                 for (int i = 0; i < count; i++)
                 {
-                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                    dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
 
                 // Assert
@@ -350,17 +350,17 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void GetDikeProfileLocation_FileWithFivePoints_GetFivePoint2DsWithCorrectCoordinates()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
-            IList<DikeProfileLocation> dikeProfileLocations = new List<DikeProfileLocation>();
+            IList<ProfileLocation> dikeProfileLocations = new List<ProfileLocation>();
 
-            using (var reader = new DikeProfileLocationReader(validFilePath))
+            using (var reader = new ProfileLocationReader(validFilePath))
             {
                 // Call
                 int count = reader.GetLocationCount;
                 for (int i = 0; i < count; i++)
                 {
-                    dikeProfileLocations.Add(reader.GetNextDikeProfileLocation());
+                    dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
 
                 // Assert

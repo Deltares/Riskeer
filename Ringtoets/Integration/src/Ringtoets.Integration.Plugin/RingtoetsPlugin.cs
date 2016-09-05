@@ -407,6 +407,18 @@ namespace Ringtoets.Integration.Plugin
                 FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
             };
+
+            yield return new ImportInfo<DikeProfilesContext>
+            {
+                CreateFileImporter = (context, filePath) => new DikeProfilesImporter(context.WrappedData,
+                                                                                     context.ParentAssessmentSection.ReferenceLine,
+                                                                                     filePath),
+                Name = RingtoetsIntegrationPluginResources.DikeProfilesImporter_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.DikeProfile,
+                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
+                IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null
+            };
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -561,6 +573,15 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddCollapseAllItem()
                                                                                  .AddExpandAllItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<DikeProfile>
+            {
+                Text = dikeProfile => dikeProfile.Name,
+                Image = context => RingtoetsCommonFormsResources.DikeProfile,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 

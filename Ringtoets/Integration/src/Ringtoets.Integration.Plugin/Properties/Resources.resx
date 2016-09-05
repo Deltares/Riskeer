@@ -167,19 +167,19 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="Foreshore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Foreshore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline" xml:space="preserve">
+  <data name="ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline" xml:space="preserve">
     <value>Een profiel locatie met ID '{0}' ligt niet op de referentielijn. Locatie wordt overgeslagen.</value>
   </data>
-  <data name="ProfilesImporter_AddNextDikeProfileLocation_Location_with_id_0_already_read" xml:space="preserve">
+  <data name="ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read" xml:space="preserve">
     <value>Profiel locatie met ID '{0}' is opnieuw ingelezen.</value>
   </data>
   <data name="DikeProfilesImporter_DisplayName" xml:space="preserve">
     <value>Dijkprofiel locaties</value>
   </data>
-  <data name="ProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped" xml:space="preserve">
+  <data name="ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped" xml:space="preserve">
     <value>Fout bij het lezen van profiel op regel {0}. {1} Dit profiel wordt overgeslagen.</value>
   </data>
-  <data name="ProfilesImporter_GetDikeProfileLocationReadResult_reading_profilelocation" xml:space="preserve">
+  <data name="ProfilesImporter_GetProfileLocationReadResult_reading_profilelocation" xml:space="preserve">
     <value>Inlezen van profiel locatie.</value>
   </data>
   <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">

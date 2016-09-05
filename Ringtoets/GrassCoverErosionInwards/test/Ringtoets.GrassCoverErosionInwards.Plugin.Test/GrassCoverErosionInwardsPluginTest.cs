@@ -21,12 +21,9 @@
 
 using System.Linq;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -99,10 +96,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(10, treeNodeInfos.Length);
+                Assert.AreEqual(9, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DikeProfilesContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DikeProfile)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsScenariosContext)));
@@ -128,21 +124,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsInputView)));
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(GrassCoverErosionInwardsScenariosView)));
-            }
-        }
-
-        [Test]
-        public void GetImportInfos_Always_ReturnsExpectedImportInfos()
-        {
-            // Setup
-            using (var plugin = new GrassCoverErosionInwardsPlugin())
-            {
-                // Call
-                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, importInfos.Length);
-                Assert.AreEqual(typeof(DikeProfilesContext), importInfos[0].DataType);
             }
         }
     }

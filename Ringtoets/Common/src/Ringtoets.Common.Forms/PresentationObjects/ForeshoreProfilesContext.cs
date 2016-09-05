@@ -36,12 +36,12 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="ForeshoreProfilesContext"/> class.
         /// </summary>
-        /// <param name="foreshores">The observable list of <see cref="ForeshoreProfile"/> objects.</param>
+        /// <param name="foreshoreProfiles">The observable list of <see cref="ForeshoreProfile"/> objects.</param>
         /// <param name="parentAssessmentSection">The parent assessment section.</param>
-        /// <exception cref="ArgumentNullException">When either <paramref name="foreshores"/>
+        /// <exception cref="ArgumentNullException">When either <paramref name="foreshoreProfiles"/>
         /// or <paramref name="parentAssessmentSection"/> is null.</exception>
-        public ForeshoreProfilesContext(ObservableList<ForeshoreProfile> foreshores, IAssessmentSection parentAssessmentSection)
-            : base(foreshores)
+        public ForeshoreProfilesContext(ObservableList<ForeshoreProfile> foreshoreProfiles, IAssessmentSection parentAssessmentSection)
+            : base(foreshoreProfiles)
         {
             if (parentAssessmentSection == null)
             {

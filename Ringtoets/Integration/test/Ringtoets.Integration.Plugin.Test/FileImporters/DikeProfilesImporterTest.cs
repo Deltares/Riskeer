@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
     public class DikeProfilesImporterTest
     {
         [Test]
-        public void ParameterdConstructor_ExpectedValues()
+        public void Constructor_WithValidParameters_ReturnsNewInstance()
         {
             // Setup
             var importTarget = new ObservableList<DikeProfile>();
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_ImportTargetNull_ThrowArgumentNullException()
+        public void Constructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => new DikeProfilesImporter(null, new ReferenceLine(), "");
@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_ReferenceLineNull_ThrowArgumentNullException()
+        public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => new DikeProfilesImporter(new ObservableList<DikeProfile>(), null, "");
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_FilePathNull_ThrowArgumentNullException()
+        public void Constructor_FilePathNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => new DikeProfilesImporter(new ObservableList<DikeProfile>(), new ReferenceLine(), null);
@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_FromFileWithUnmatchableId_TrueAndLogError()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -97,10 +97,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
 
-            //Precondition
-            var importResult = true;
-
             // Call
+            var importResult = true;
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
@@ -117,7 +115,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourDikeProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -134,10 +132,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
 
-            //Precondition
-            var importResult = true;
-
             // Call
+            var importResult = true;
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
@@ -150,7 +146,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_AllOkTestData_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -189,7 +185,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_AllOkTestData_CorrectDikeProfileProperties()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -214,7 +210,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_AllDamTypes_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -254,7 +250,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_CancelOfImportToValidTargetWithValidFile_CancelImportAndLog()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
@@ -264,9 +260,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Precondition
             dikeProfilesImporter.Cancel();
-            bool importResult = true;
 
             // Call
+            bool importResult = true;
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
@@ -278,7 +274,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();

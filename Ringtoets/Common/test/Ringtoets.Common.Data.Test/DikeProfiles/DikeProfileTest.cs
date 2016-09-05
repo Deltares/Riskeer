@@ -26,7 +26,6 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
@@ -34,7 +33,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
     public class DikeProfileTest
     {
         [Test]
-        public void Constructor_Valid()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             var worldCoordinate = new Point2D(1.1, 2.2);
@@ -125,7 +124,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("foreshoreGeometry", paramName);
+            Assert.AreEqual("geometry", paramName);
         }
 
         [Test]

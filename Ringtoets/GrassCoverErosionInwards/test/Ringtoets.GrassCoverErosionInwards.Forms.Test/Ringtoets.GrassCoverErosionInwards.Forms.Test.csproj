@@ -79,7 +79,6 @@
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextDikeGeometryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextForeshorePropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DikeProfilesContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionInwardsScenariosContextTreeNodeInfoTest.cs" />

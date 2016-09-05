@@ -54,6 +54,10 @@
     </Compile>
     <Compile Include="AssessmentSectionSettingsReaderTest.cs" />
     <Compile Include="AssessmentSectionSettingsTest.cs" />
+    <Compile Include="DikeProfiles\DikeProfileDataReaderTest.cs" />
+    <Compile Include="DikeProfiles\DikeProfileDataTest.cs" />
+    <Compile Include="DikeProfiles\ProfileLocationReaderTest.cs" />
+    <Compile Include="DikeProfiles\ProfileLocationTest.cs" />
     <Compile Include="Exceptions\CriticalFileValidationExceptionTest.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="ReferenceLineExporterTest.cs" />
@@ -105,6 +109,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

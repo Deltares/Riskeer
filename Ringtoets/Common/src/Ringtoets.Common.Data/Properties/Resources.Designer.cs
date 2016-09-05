@@ -267,9 +267,9 @@ namespace Ringtoets.Common.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Een punt in de geometrie voor het voorland heeft geen waarde..
         /// </summary>
-        public static string ForeshoreProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null {
+        public static string ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null {
             get {
-                return ResourceManager.GetString("ForeshoreProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null", resourceCulture);
+                return ResourceManager.GetString("ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null", resourceCulture);
             }
         }
         

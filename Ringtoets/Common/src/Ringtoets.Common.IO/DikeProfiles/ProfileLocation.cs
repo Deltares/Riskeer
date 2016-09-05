@@ -22,44 +22,44 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using GrasCoverErosionInwardsIoResources = Ringtoets.GrassCoverErosionInwards.IO.Properties.Resources;
+using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
+namespace Ringtoets.Common.IO.DikeProfiles
 {
     /// <summary>
-    /// Representation of a dike profile location as read from a shapefile.
+    /// Representation of a profile location as read from a shapefile.
     /// </summary>
-    public class DikeProfileLocation
+    public class ProfileLocation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DikeProfileLocation"/>.
+        /// Creates a new instance of <see cref="ProfileLocation"/>.
         /// </summary>
-        /// <param name="id">The identifier for this <see cref="DikeProfileLocation"/></param>
-        /// <param name="name">The name of this <see cref="DikeProfileLocation"/></param>
-        /// <param name="offset">The coordinate offset in the local coordinate system for this <see cref="DikeProfileLocation"/></param>
+        /// <param name="id">The identifier for this <see cref="ProfileLocation"/></param>
+        /// <param name="name">The name of this <see cref="ProfileLocation"/></param>
+        /// <param name="offset">The coordinate offset in the local coordinate system for this <see cref="ProfileLocation"/></param>
         /// <param name="point">The coordinates of the location as a <see cref="Point2D"/>.</param>
         /// <exception cref="ArgumentException"><list type="Bullet">
         /// <item>The Id parameter is null.</item>
         /// <item>The Id parameter contains illegal characters.</item>
         /// <item>The Point parameter is null.</item>
         /// </list></exception>
-        public DikeProfileLocation(string id, string name, double offset, Point2D point)
+        public ProfileLocation(string id, string name, double offset, Point2D point)
         {
             if (id == null)
             {
-                throw new ArgumentException(GrasCoverErosionInwardsIoResources.DikeProfileLocation_DikeProfileLocation_Id_is_null);
+                throw new ArgumentException(Resources.ProfileLocation_ProfileLocation_Id_is_null);
             }
             if (!id.All(char.IsLetterOrDigit))
             {
-                throw new ArgumentException(GrasCoverErosionInwardsIoResources.DikeProfileLocation_DikeProfileLocation_Id_is_invalid);
+                throw new ArgumentException(Resources.ProfileLocation_ProfileLocation_Id_is_invalid);
             }
             if (double.IsNaN(offset) || double.IsInfinity(offset))
             {
-                throw new ArgumentException(GrasCoverErosionInwardsIoResources.DikeProfileLocation_DikeProfileLocation_X0_is_invalid);
+                throw new ArgumentException(Resources.ProfileLocation_ProfileLocation_X0_is_invalid);
             }
             if (point == null)
             {
-                throw new ArgumentException(GrasCoverErosionInwardsIoResources.DikeProfileLocation_DikeProfileLocation_Point_is_null);
+                throw new ArgumentException(Resources.ProfileLocation_ProfileLocation_Point_is_null);
             }
             Id = id;
             Name = name;
@@ -68,22 +68,22 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         }
 
         /// <summary>
-        /// Gets the identifier for this <see cref="DikeProfileLocation"/>.
+        /// Gets the identifier for this <see cref="ProfileLocation"/>.
         /// </summary>
         public string Id { get; private set; }
 
         /// <summary>
-        /// Gets the name of this <see cref="DikeProfileLocation"/>.
+        /// Gets the name of this <see cref="ProfileLocation"/>.
         /// </summary>
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the coordinate offset in the local coordinate system for this <see cref="DikeProfileLocation"/>.
+        /// Gets the coordinate offset in the local coordinate system for this <see cref="ProfileLocation"/>.
         /// </summary>
         public double Offset { get; private set; }
 
         /// <summary>
-        /// Gets the actual location of this <see cref="DikeProfileLocation"/>.
+        /// Gets the actual location of this <see cref="ProfileLocation"/>.
         /// </summary>
         public Point2D Point { get; private set; }
     }

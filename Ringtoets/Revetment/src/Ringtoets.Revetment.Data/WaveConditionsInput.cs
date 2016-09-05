@@ -104,7 +104,7 @@ namespace Ringtoets.Revetment.Data
             get
             {
                 return foreshoreProfile != null
-                           ? foreshoreProfile.ForeshoreGeometry
+                           ? foreshoreProfile.Geometry
                            : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
             }
         }
@@ -312,7 +312,7 @@ namespace Ringtoets.Revetment.Data
             }
             else
             {
-                UseForeshore = foreshoreProfile.ForeshoreGeometry.Count() > 1;
+                UseForeshore = foreshoreProfile.Geometry.Count() > 1;
                 UseBreakWater = foreshoreProfile.HasBreakWater;
                 BreakWater = foreshoreProfile.HasBreakWater
                                  ? new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height)

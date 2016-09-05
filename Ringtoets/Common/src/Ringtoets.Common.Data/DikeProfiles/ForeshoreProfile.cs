@@ -38,30 +38,30 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// Creates a new instance of the <see cref="ForeshoreProfile"/> class.
         /// </summary>
         /// <param name="worldCoordinate">worldCoordinate">The value for <see cref="WorldReferencePoint"/>.</param>
-        /// <param name="foreshoreGeometry">The geometry of the foreshore.</param>
+        /// <param name="geometry">The geometry of the foreshore.</param>
         /// <param name="breakWater">The break water definition (can be null).</param>
         /// <param name="properties">The property values required to create an instance of <see cref="ForeshoreProfile"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="foreshoreGeometry"/>, 
+        /// <exception cref="ArgumentNullException">Thrown when either <paramref name="geometry"/>, 
         /// <paramref name="worldCoordinate"/> or <paramref name="properties"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when any element of 
-        /// <paramref name="foreshoreGeometry"/> is <c>null</c>.</exception>
-        public ForeshoreProfile(Point2D worldCoordinate, Point2D[] foreshoreGeometry,
+        /// <paramref name="geometry"/> is <c>null</c>.</exception>
+        public ForeshoreProfile(Point2D worldCoordinate, IEnumerable<Point2D> geometry,
                                 BreakWater breakWater, ConstructionProperties properties)
         {
             if (worldCoordinate == null)
             {
                 throw new ArgumentNullException("worldCoordinate");
             }
-            if (foreshoreGeometry == null)
+            if (geometry == null)
             {
-                throw new ArgumentNullException("foreshoreGeometry");
+                throw new ArgumentNullException("geometry");
             }
             if (properties == null)
             {
                 throw new ArgumentNullException("properties");
             }
 
-            SetForeshoreGeometry(foreshoreGeometry);
+            SetGeometry(geometry);
 
             Orientation = new RoundedDouble(2, properties.Orientation);
 
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         }
 
         /// <summary>
-        /// Gets or sets the name of the foreshore profile.
+        /// Gets the name of the foreshore profile.
         /// </summary>
         public string Name { get; private set; }
 
@@ -82,18 +82,18 @@ namespace Ringtoets.Common.Data.DikeProfiles
         public Point2D WorldReferencePoint { get; private set; }
 
         /// <summary>
-        /// Gets or sets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
+        /// Gets the local x-coordinate corresponding to the world reference point <see cref="WorldReferencePoint"/>.
         /// </summary>
         public double X0 { get; private set; }
 
         /// <summary>
-        /// Gets or sets the orientation of the foreshore profile geometry with respect to North
+        /// Gets the orientation of the foreshore profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
         public RoundedDouble Orientation { get; private set; }
 
         /// <summary>
-        /// Indicates if there is a break water object available for this instance or not.
+        /// Gets a value indicating if there is a break water object available.
         /// </summary>
         public bool HasBreakWater
         {
@@ -104,14 +104,14 @@ namespace Ringtoets.Common.Data.DikeProfiles
         }
 
         /// <summary>
-        /// Gets or sets the break water object of the foreshore profile, if any.
+        /// Gets the break water object of the foreshore profile, if any.
         /// </summary>
         public BreakWater BreakWater { get; private set; }
 
         /// <summary>
-        /// Gets the geometry of the foreshore.
+        /// Gets the geometry of the foreshore profile.
         /// </summary>
-        public RoundedPoint2DCollection ForeshoreGeometry { get; private set; }
+        public RoundedPoint2DCollection Geometry { get; private set; }
 
         public long StorageId { get; set; }
 
@@ -120,15 +120,15 @@ namespace Ringtoets.Common.Data.DikeProfiles
             return Name;
         }
 
-        private void SetForeshoreGeometry(IEnumerable<Point2D> points)
+        private void SetGeometry(IEnumerable<Point2D> points)
         {
             var foreshorePoints = points.ToArray();
             if (foreshorePoints.Any(p => p == null))
             {
-                throw new ArgumentException(Resources.ForeshoreProfile_SetForeshoreGeometry_A_point_in_the_collection_is_null);
+                throw new ArgumentException(Resources.ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null);
             }
 
-            ForeshoreGeometry = new RoundedPoint2DCollection(2, foreshorePoints);
+            Geometry = new RoundedPoint2DCollection(2, foreshorePoints);
         }
 
         /// <summary>
@@ -149,6 +149,8 @@ namespace Ringtoets.Common.Data.DikeProfiles
             /// <summary>
             /// Gets or sets the value for <see cref="ForeshoreProfile.Orientation"/>.
             /// </summary>
+            /// <remark><paramref name="value"/> will be rounded to the <see cref="RoundedDouble.NumberOfDecimalPlaces"/> 
+            /// of <see cref="ForeshoreProfile.Orientation"/>.</remark>
             public double Orientation { get; set; }
         }
     }

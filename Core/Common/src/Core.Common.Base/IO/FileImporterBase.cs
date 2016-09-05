@@ -30,7 +30,6 @@ namespace Core.Common.Base.IO
     /// during the import.
     /// </summary>
     /// <typeparam name="T">Object type that is the target for this importer.</typeparam>
-    /// <seealso cref="IFileImporter" />
     public abstract class FileImporterBase<T> : IFileImporter
     {
         /// <summary>
@@ -38,8 +37,8 @@ namespace Core.Common.Base.IO
         /// </summary>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="importTarget">The import target.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentNullException">When <paramref name="importTarget"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/> or 
+        /// <paramref name="importTarget"/> is <c>null</c>.</exception>
         protected FileImporterBase(string filePath, T importTarget)
         {
             if (filePath == null)

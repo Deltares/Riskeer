@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="ForeshoreProfile.ForeshoreGeometry"/> for properties panel.
+    /// ViewModel of <see cref="ForeshoreProfile.Geometry"/> for properties panel.
     /// </summary>
     public class ForeshoreGeometryProperties : ObjectProperties<ForeshoreProfile>
     {
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.ForeshoreGeometry.ToArray();
+                return data.Geometry.ToArray();
             }
         }
 

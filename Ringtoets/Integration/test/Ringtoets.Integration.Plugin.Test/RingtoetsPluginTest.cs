@@ -28,7 +28,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
@@ -48,6 +47,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.Properties;
+using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -401,7 +401,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(26, treeNodeInfos.Length);
+                Assert.AreEqual(27, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContext<IFailureMechanism>)));
@@ -412,6 +412,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DesignWaterLevelLocationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveHeightLocationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ForeshoreProfilesContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DikeProfile)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ForeshoreProfile)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>)));
@@ -497,10 +498,11 @@ namespace Ringtoets.Integration.Plugin.Test
                 ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, importInfos.Length);
+                Assert.AreEqual(4, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(DikeProfilesContext)));
             }
         }
 

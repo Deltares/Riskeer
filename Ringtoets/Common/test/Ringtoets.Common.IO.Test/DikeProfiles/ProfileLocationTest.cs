@@ -22,25 +22,25 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
+using Ringtoets.Common.IO.DikeProfiles;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
+namespace Ringtoets.Common.IO.Test.DikeProfiles
 {
     [TestFixture]
-    public class DikeProfileLocationTest
+    public class ProfileLocationTest
     {
         [Test]
         public void Constructor_InitializedWithValidValues_CorrectProperties()
         {
             // Setup
             var referencePoint = new Point2D(2.2, 3.3);
-            DikeProfileLocation dikeProfileLocation = new DikeProfileLocation("id", "name", 1.1, referencePoint);
+            ProfileLocation profileLocation = new ProfileLocation("id", "name", 1.1, referencePoint);
 
             // Assert
-            Assert.AreEqual("id", dikeProfileLocation.Id);
-            Assert.AreEqual("name", dikeProfileLocation.Name);
-            Assert.AreEqual(1.1, dikeProfileLocation.Offset);
-            Assert.AreEqual(referencePoint, dikeProfileLocation.Point);
+            Assert.AreEqual("id", profileLocation.Id);
+            Assert.AreEqual("name", profileLocation.Name);
+            Assert.AreEqual(1.1, profileLocation.Offset);
+            Assert.AreEqual(referencePoint, profileLocation.Point);
         }
 
         [Test]
@@ -48,13 +48,13 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         {
             // Setup
             var referencePoint = new Point2D(2.2, 3.3);
-            DikeProfileLocation dikeProfileLocation = new DikeProfileLocation("id", null, 1.1, referencePoint);
+            ProfileLocation profileLocation = new ProfileLocation("id", null, 1.1, referencePoint);
 
             // Assert
-            Assert.IsInstanceOf(typeof(string), dikeProfileLocation.Id);
-            Assert.IsNull(dikeProfileLocation.Name);
-            Assert.IsInstanceOf(typeof(double), dikeProfileLocation.Offset);
-            Assert.IsInstanceOf(typeof(Point2D), dikeProfileLocation.Point);
+            Assert.IsInstanceOf(typeof(string), profileLocation.Id);
+            Assert.IsNull(profileLocation.Name);
+            Assert.IsInstanceOf(typeof(double), profileLocation.Offset);
+            Assert.IsInstanceOf(typeof(Point2D), profileLocation.Point);
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             var referencePoint = new Point2D(2.2, 3.3);
 
             // Call
-            TestDelegate call = () => new DikeProfileLocation(null, "aNAME", 1.1, referencePoint);
+            TestDelegate call = () => new ProfileLocation(null, "aNAME", 1.1, referencePoint);
 
             // Assert
             var expectedMessage = "De locatie parameter 'ID' heeft geen waarde.";
@@ -76,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void Constructor_InitializedWithNullPoint_ThrownArgumentException()
         {
             // Call
-            TestDelegate call = () => new DikeProfileLocation("anID", "aNAME", 1.1, null);
+            TestDelegate call = () => new ProfileLocation("anID", "aNAME", 1.1, null);
 
             // Assert
             var expectedMessage = "De locatie heeft geen coördinaten.";
@@ -95,7 +95,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             var referencePoint = new Point2D(2.2, 3.3);
 
             // Call
-            TestDelegate call = () => new DikeProfileLocation(id, "aNAME", 1.1, referencePoint);
+            TestDelegate call = () => new ProfileLocation(id, "aNAME", 1.1, referencePoint);
 
             // Assert
             var expectedMessage = "De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.";
@@ -113,7 +113,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             var referencePoint = new Point2D(2.2, 3.3);
 
             // Call
-            TestDelegate call = () => new DikeProfileLocation("anID", "aNAME", x0, referencePoint);
+            TestDelegate call = () => new ProfileLocation("anID", "aNAME", x0, referencePoint);
 
             // Assert
             var expectedMessage = "De locatie parameter 'X0' bevat een ongeldig getal.";

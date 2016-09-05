@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Integration.Forms.TreeNodeInfos
 {
     [TestFixture]
     public class DikeProfileTreeNodeInfoTest

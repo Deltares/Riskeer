@@ -148,11 +148,6 @@
       <Name>Ringtoets.GrassCoverErosionInwards.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.IO\Ringtoets.GrassCoverErosionInwards.IO.csproj">
-      <Project>{F55CCA9C-3B25-417D-9AF4-797D1F5EB95E}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>

@@ -31,7 +31,7 @@ using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
+using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Integration.Plugin.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         public override bool Import()
         {
-            ReadResult<DikeProfileLocation> importDikeProfilesResult = ReadDikeProfileLocations();
+            ReadResult<ProfileLocation> importDikeProfilesResult = ReadProfileLocations();
             if (importDikeProfilesResult.CriticalErrorOccurred)
             {
                 return false;
@@ -101,9 +101,9 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         /// <summary>
         /// Create profile objects from location and geometry data.
         /// </summary>
-        /// <param name="importDikeProfilesResult">The read dike profile locations.</param>
+        /// <param name="importProfileLocationResult">The read profile locations.</param>
         /// <param name="importDikeProfileDataResult">The read dike profile geometries.</param>
-        protected abstract void CreateProfiles(ReadResult<DikeProfileLocation> importDikeProfilesResult,
+        protected abstract void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult);
 
         /// <summary>
@@ -125,14 +125,33 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return null;
         }
 
-        private ReadResult<DikeProfileLocation> ReadDikeProfileLocations()
+        /// <summary>
+        /// Obtain the dike profile geometry object matching a given <paramref name="id"/>.
+        /// </summary>
+        /// <param name="dikeProfileDataCollection">The available dike profile geometry objects.</param>
+        /// <param name="id">The id on which to match.</param>
+        /// <returns>The matching <see cref="DikeProfileData"/>.</returns>
+        protected static DikeProfileData GetMatchingDikeProfileData(IEnumerable<DikeProfileData> dikeProfileDataCollection, string id)
+        {
+            return dikeProfileDataCollection.FirstOrDefault(d => d.Id.Equals(id));
+        }
+
+        /// <summary>
+        /// Act upon the user cancelling the import operation.
+        /// </summary>
+        protected virtual void HandleUserCancellingImport()
+        {
+            Canceled = false;
+        }
+
+        private ReadResult<ProfileLocation> ReadProfileLocations()
         {
             NotifyProgress(Resources.ProfilesImporter_ReadProfileLocations_reading_profilelocations, 1, 1);
             try
             {
-                using (var dikeProfileLocationReader = new DikeProfileLocationReader(FilePath))
+                using (var profileLocationReader = new ProfileLocationReader(FilePath))
                 {
-                    return GetDikeProfileLocationReadResult(dikeProfileLocationReader);
+                    return GetProfileLocationReadResult(profileLocationReader);
                 }
             }
             catch (CriticalFileReadException exception)
@@ -143,30 +162,30 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             {
                 log.Error(exception.Message);
             }
-            return new ReadResult<DikeProfileLocation>(true);
+            return new ReadResult<ProfileLocation>(true);
         }
 
-        private ReadResult<DikeProfileLocation> GetDikeProfileLocationReadResult(DikeProfileLocationReader dikeProfileLocationReader)
+        private ReadResult<ProfileLocation> GetProfileLocationReadResult(ProfileLocationReader profileLocationReader)
         {
-            var dikeProfileLocations = new Collection<DikeProfileLocation>();
+            var profileLocations = new Collection<ProfileLocation>();
 
-            int totalNumberOfSteps = dikeProfileLocationReader.GetLocationCount;
+            int totalNumberOfSteps = profileLocationReader.GetLocationCount;
             for (int i = 0; i < totalNumberOfSteps; i++)
             {
                 if (Canceled)
                 {
-                    return new ReadResult<DikeProfileLocation>(false);
+                    return new ReadResult<ProfileLocation>(false);
                 }
 
                 try
                 {
-                    NotifyProgress(Resources.ProfilesImporter_GetDikeProfileLocationReadResult_reading_profilelocation, i + 1, totalNumberOfSteps);
-                    AddNextDikeProfileLocation(dikeProfileLocationReader, dikeProfileLocations);
+                    NotifyProgress(Resources.ProfilesImporter_GetProfileLocationReadResult_reading_profilelocation, i + 1, totalNumberOfSteps);
+                    AddNextProfileLocation(profileLocationReader, profileLocations);
                 }
                 catch (LineParseException exception)
                 {
-                    var message = String.Format(
-                        Resources.ProfilesImporter_GetDikeProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped,
+                    var message = string.Format(
+                        Resources.ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped,
                         i + 1,
                         exception.Message);
                     log.Warn(message);
@@ -174,40 +193,40 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 catch (CriticalFileReadException exception)
                 {
                     log.Error(exception.Message);
-                    return new ReadResult<DikeProfileLocation>(true);
+                    return new ReadResult<ProfileLocation>(true);
                 }
             }
-            return new ReadResult<DikeProfileLocation>(false)
+            return new ReadResult<ProfileLocation>(false)
             {
-                ImportedItems = dikeProfileLocations
+                ImportedItems = profileLocations
             };
         }
 
         /// <summary>
-        /// Get the next <see cref="DikeProfileLocation"/> from <paramref name="dikeProfileLocationReader"/>
-        /// and add to <paramref name="dikeProfileLocations"/> in case it is close enough to the <see cref="ReferenceLine"/>.
+        /// Get the next <see cref="ProfileLocation"/> from <paramref name="profileLocationReader"/>
+        /// and add to <paramref name="profileLocations"/> in case it is close enough to the <see cref="ReferenceLine"/>.
         /// </summary>
-        /// <param name="dikeProfileLocationReader">Reader reading <see cref="DikeProfileLocation"/> objects from a shapefile.</param>
-        /// <param name="dikeProfileLocations">Collection of <see cref="DikeProfileLocation"/> objects
-        /// to which the new <see cref="DikeProfileLocation"/> is to be added.</param>
+        /// <param name="profileLocationReader">Reader reading <see cref="ProfileLocation"/> objects from a shapefile.</param>
+        /// <param name="profileLocations">Collection of <see cref="ProfileLocation"/> objects
+        /// to which the new <see cref="ProfileLocation"/> is to be added.</param>
         /// <exception cref="LineParseException"><list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
-        private void AddNextDikeProfileLocation(DikeProfileLocationReader dikeProfileLocationReader, ICollection<DikeProfileLocation> dikeProfileLocations)
+        private void AddNextProfileLocation(ProfileLocationReader profileLocationReader, ICollection<ProfileLocation> profileLocations)
         {
-            DikeProfileLocation dikeProfileLocation = dikeProfileLocationReader.GetNextDikeProfileLocation();
-            double distanceToReferenceLine = GetDistanceToReferenceLine(dikeProfileLocation.Point);
+            ProfileLocation profileLocation = profileLocationReader.GetNextProfileLocation();
+            double distanceToReferenceLine = GetDistanceToReferenceLine(profileLocation.Point);
             if (distanceToReferenceLine > 1.0)
             {
-                log.ErrorFormat(Resources.ProfilesImporter_AddNextDikeProfileLocation_0_skipping_location_outside_referenceline, dikeProfileLocation.Id);
+                log.ErrorFormat(Resources.ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline, profileLocation.Id);
                 return;
             }
-            if (dikeProfileLocations.Any(dpl => dpl.Id.Equals(dikeProfileLocation.Id)))
+            if (profileLocations.Any(dpl => dpl.Id.Equals(profileLocation.Id)))
             {
-                log.WarnFormat(Resources.ProfilesImporter_AddNextDikeProfileLocation_Location_with_id_0_already_read, dikeProfileLocation.Id);
+                log.WarnFormat(Resources.ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read, profileLocation.Id);
             }
-            dikeProfileLocations.Add(dikeProfileLocation);
+            profileLocations.Add(profileLocation);
         }
 
         private ReadResult<DikeProfileData> ReadDikeProfileData(string folderPath)
@@ -264,17 +283,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             };
         }
 
-        /// <summary>
-        /// Obtain the dike profile geometry object matching a given id.
-        /// </summary>
-        /// <param name="dikeProfileDataCollection">The available dike profile geometry objects.</param>
-        /// <param name="id">The id on which to match.</param>
-        /// <returns>The matching <see cref="DikeProfileData"/>.</returns>
-        protected static DikeProfileData GetMatchingDikeProfileData(IEnumerable<DikeProfileData> dikeProfileDataCollection, string id)
-        {
-            return dikeProfileDataCollection.FirstOrDefault(d => d.Id.Equals(id));
-        }
-
         private void LogDuplicate(DikeProfileData data, string prflFilePath)
         {
             var message = String.Format(
@@ -283,11 +291,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 prflFilePath);
             log.Error(message);
         }
-
-        /// <summary>
-        /// Act upon the user cancelling the import operation.
-        /// </summary>
-        protected abstract void HandleUserCancellingImport();
 
         private double GetDistanceToReferenceLine(Point2D point)
         {

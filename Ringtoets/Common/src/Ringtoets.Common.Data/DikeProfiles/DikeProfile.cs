@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <paramref name="properties"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when any element of <paramref name="dikeGeometry"/>
         /// or <paramref name="foreshoreGeometry"/> is <c>null</c>.</exception>
-        public DikeProfile(Point2D worldCoordinate, RoughnessPoint[] dikeGeometry, Point2D[] foreshoreGeometry,
+        public DikeProfile(Point2D worldCoordinate, IEnumerable<RoughnessPoint> dikeGeometry, IEnumerable<Point2D> foreshoreGeometry,
                            BreakWater breakWater, ConstructionProperties properties)
         {
             if (properties == null)
@@ -145,7 +145,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         {
             get
             {
-                return ForeshoreProfile.ForeshoreGeometry;
+                return ForeshoreProfile.Geometry;
             }
         }
 
@@ -211,6 +211,8 @@ namespace Ringtoets.Common.Data.DikeProfiles
             /// <summary>
             /// Gets or sets the value for <see cref="DikeProfile.DikeHeight"/>.
             /// </summary>
+            /// <remark><paramref name="value"/> will be rounded to the <see cref="RoundedDouble.NumberOfDecimalPlaces"/>
+            ///  of <see cref="DikeProfile.DikeHeight"/>.</remark>
             public double DikeHeight { get; set; }
         }
     }

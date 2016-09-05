@@ -19,9 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+namespace Ringtoets.Common.IO.DikeProfiles
+{
+    /// <summary>
+    /// Specifies the type of dam at the offshore side of a dike profile.
+    /// </summary>
+    public enum DamType
+    {
+        /// <summary>
+        /// Indicates there is not dam at the offshore side.
+        /// </summary>
+        None = 0,
 
-[assembly: AssemblyTitle("Ringtoets.GrassCoverErosionInwards.IO.Test")]
-[assembly: AssemblyProduct("Ringtoets.GrassCoverErosionInwards.IO.Test")]
-[assembly: Guid("200ceb90-dd70-46f1-9a72-0d6036def006")]
+        /// <summary>
+        /// Indicates there is a caisson-shaped dam at the offshore side.
+        /// </summary>
+        Caisson = 1,
+
+        /// <summary>
+        /// Indicates there is a vertical structure-shaped dam at the offshore side.
+        /// </summary>
+        Vertical = 2,
+
+        /// <summary>
+        /// Indicates there is a harbor dam at the offshore side.
+        /// </summary>
+        HarborDam = 3
+    }
+}

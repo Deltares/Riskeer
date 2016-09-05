@@ -49,6 +49,12 @@
     </Compile>
     <Compile Include="AssessmentSectionSettings.cs" />
     <Compile Include="AssessmentSectionSettingsReader.cs" />
+    <Compile Include="DikeProfiles\DamType.cs" />
+    <Compile Include="DikeProfiles\DikeProfileData.cs" />
+    <Compile Include="DikeProfiles\DikeProfileDataReader.cs" />
+    <Compile Include="DikeProfiles\ProfileLocation.cs" />
+    <Compile Include="DikeProfiles\ProfileLocationReader.cs" />
+    <Compile Include="DikeProfiles\SheetPileType.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="ReferenceLineExporter.cs" />

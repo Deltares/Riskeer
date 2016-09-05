@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
+using Ringtoets.Common.IO.DikeProfiles;
 using Ringtoets.Integration.Plugin.Properties;
 using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -55,11 +55,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             this.importTarget = importTarget;
         }
 
-        protected override void CreateProfiles(ReadResult<DikeProfileLocation> importDikeProfilesResult,
+        protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult)
         {
             IEnumerable<ForeshoreProfile> importedForeshoreProfiles =
-                CreateForeshoreProfiles(importDikeProfilesResult.ImportedItems, importDikeProfileDataResult.ImportedItems);
+                CreateForeshoreProfiles(importProfileLocationResult.ImportedItems, importDikeProfileDataResult.ImportedItems);
 
             foreach (ForeshoreProfile foreshoreProfile in importedForeshoreProfiles)
             {
@@ -67,11 +67,11 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
-        private IEnumerable<ForeshoreProfile> CreateForeshoreProfiles(ICollection<DikeProfileLocation> dikeProfileLocationCollection,
+        private IEnumerable<ForeshoreProfile> CreateForeshoreProfiles(ICollection<ProfileLocation> dikeProfileLocationCollection,
                                                                       ICollection<DikeProfileData> dikeProfileDataCollection)
         {
             var foreshoreProfiles = new List<ForeshoreProfile>();
-            foreach (DikeProfileLocation dikeProfileLocation in dikeProfileLocationCollection)
+            foreach (ProfileLocation dikeProfileLocation in dikeProfileLocationCollection)
             {
                 string id = dikeProfileLocation.Id;
 
@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return foreshoreProfiles;
         }
 
-        private static ForeshoreProfile CreateForeshoreProfile(DikeProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
+        private static ForeshoreProfile CreateForeshoreProfile(ProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
         {
             var foreshoreProfile = new ForeshoreProfile(dikeProfileLocation.Point, 
                                                         dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray(),
@@ -106,7 +106,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
         protected override void HandleUserCancellingImport()
         {
             log.Info(Resources.ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted);
-            Canceled = false;
+            base.HandleUserCancellingImport();
         }
     }
 }

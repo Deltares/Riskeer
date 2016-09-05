@@ -172,7 +172,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(withBreakWater ? foreshoreProfile.BreakWater.Type : originalBreakWaterType, input.BreakWater.Type);
             Assert.AreEqual(withBreakWater ? foreshoreProfile.BreakWater.Height : originalBreakWaterHeight, input.BreakWater.Height);
             Assert.AreEqual(withValidForeshore, input.UseForeshore);
-            CollectionAssert.AreEqual(foreshoreProfile.ForeshoreGeometry, input.ForeshoreGeometry);
+            CollectionAssert.AreEqual(foreshoreProfile.Geometry, input.ForeshoreGeometry);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
         }
 

@@ -29,17 +29,15 @@ using Core.Common.Utils;
 using Core.Common.Utils.Builders;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Readers;
-using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
-using GrasCoverErosionInwardsIoResources = Ringtoets.GrassCoverErosionInwards.IO.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
+namespace Ringtoets.Common.IO.DikeProfiles
 {
     /// <summary>
-    /// This class is responsible for reading map locations for <see cref="DikeProfile"/>
-    /// instances.
+    /// This class is responsible for reading map locations for <see cref="ProfileLocation"/> instances.
     /// </summary>
-    public class DikeProfileLocationReader : IDisposable
+    public class ProfileLocationReader : IDisposable
     {
         private const string idAttributeName = "ID";
         private const string nameAttributeName = "Naam";
@@ -47,7 +45,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         private readonly PointShapeFileReader pointsShapeFileReader;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DikeProfileLocationReader"/> class.
+        /// Initializes a new instance of the <see cref="ProfileLocationReader"/> class.
         /// </summary>
         /// <param name="shapeFilePath">The shape file path.</param>
         /// <exception cref="ArgumentException"><paramref name="shapeFilePath"/> is invalid.</exception>
@@ -56,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         /// <item><paramref name="shapeFilePath"/> does not only contain point features.</item>
         /// <item><paramref name="shapeFilePath"/> does not contain all of the required attributes.</item>
         /// </list></exception>
-        public DikeProfileLocationReader(string shapeFilePath)
+        public ProfileLocationReader(string shapeFilePath)
         {
             FileUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
@@ -72,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         }
 
         /// <summary>
-        /// Gets the number of dike profile locations present in the shapefile.
+        /// Gets the number of profile locations present in the shapefile.
         /// </summary>
         public int GetLocationCount
         {
@@ -83,15 +81,15 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
         }
 
         /// <summary>
-        /// Retrieve a <see cref="DikeProfileLocation"/> based on the next point feature in the shapefile.
+        /// Retrieve a <see cref="ProfileLocation"/> based on the next point feature in the shapefile.
         /// </summary>
         /// <exception cref="LineParseException">Thrown when either:
         /// <list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
-        /// <returns>A <see cref="DikeProfileLocation"/> based on the next point feature in the shapefile.</returns>
-        public DikeProfileLocation GetNextDikeProfileLocation()
+        /// <returns>A <see cref="ProfileLocation"/> based on the next point feature in the shapefile.</returns>
+        public ProfileLocation GetNextProfileLocation()
         {
             MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadFeature();
 
@@ -104,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             Point2D point = mapPointData.Features.First().MapGeometries.First().PointCollections.First().First();
             try
             {
-                return new DikeProfileLocation(attributeIdValue, attributeNameValue, attributeX0Value, point);
+                return new ProfileLocation(attributeIdValue, attributeNameValue, attributeX0Value, point);
             }
             catch (ArgumentException exception)
             {
@@ -133,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             catch (CriticalFileReadException e)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points);
+                    .Build(Resources.ProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points);
                 throw new CriticalFileReadException(message, e);
             }
         }
@@ -143,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
             var attributeX0Value = attributes[offsetAttributeName] as double?;
             if (attributeX0Value == null)
             {
-                throw new LineParseException(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_GetDikeProfileLocations_Invalid_X0);
+                throw new LineParseException(Resources.ProfileLocationReader_GetProfileLocations_Invalid_X0);
             }
             return attributeX0Value.Value;
         }
@@ -173,7 +171,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
                 if (!pointsShapeFileReader.HasAttribute(attribute))
                 {
                     throw new CriticalFileReadException(
-                        string.Format(GrasCoverErosionInwardsIoResources.DikeProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_, attribute));
+                        string.Format(Resources.ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_, attribute));
                 }
             }
         }

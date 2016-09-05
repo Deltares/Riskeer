@@ -26,14 +26,13 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Test.DikeProfiles
 {
     public class ForeshoreProfileTest
     {
         [Test]
-        public void Constructor_Valid()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             var worldCoordinate = new Point2D(1.1, 2.2);
@@ -60,8 +59,8 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             Assert.AreEqual(0.0, foreshoreProfile.Orientation.Value);
             Assert.AreEqual(2, foreshoreProfile.Orientation.NumberOfDecimalPlaces);
             Assert.IsNull(foreshoreProfile.BreakWater);
-            CollectionAssert.AreEqual(foreshoreGeometry, foreshoreProfile.ForeshoreGeometry);
-            Assert.AreEqual(2, foreshoreProfile.ForeshoreGeometry.NumberOfDecimalPlaces);
+            CollectionAssert.AreEqual(foreshoreGeometry, foreshoreProfile.Geometry);
+            Assert.AreEqual(2, foreshoreProfile.Geometry.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -83,7 +82,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("foreshoreGeometry", paramName);
+            Assert.AreEqual("geometry", paramName);
         }
 
         [Test]

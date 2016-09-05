@@ -25,9 +25,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles;
+using Ringtoets.Common.IO.DikeProfiles;
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
+namespace Ringtoets.Common.IO.Test.DikeProfiles
 {
     [TestFixture]
     public class DikeProfileDataReaderTest
@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             // Setup
             char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
 
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "profiel001 - Ringtoets.prfl"));
             string invalidFilePath = validFilePath.Replace("-", invalidFileNameChars[3].ToString());
 
@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadReferenceLine_FilePathIsActuallyDirectoryPath_ThrowArgumentException()
         {
             // Setup
-            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                 Path.DirectorySeparatorChar.ToString());
 
             var reader = new DikeProfileDataReader();
@@ -103,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
             string validFileName)
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", validFileName));
 
             var reader = new DikeProfileDataReader();
@@ -137,7 +137,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_ValidFilePath2_ReturnDikeProfileData()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "profiel004 - Ringtoets.prfl"));
 
             var reader = new DikeProfileDataReader();
@@ -181,7 +181,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_ValidFilePath3_ReturnDikeProfileData()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "profiel001_DifferentDamAndDamwand.prfl"));
 
             var reader = new DikeProfileDataReader();
@@ -215,7 +215,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         public void ReadDikeProfileData_ValidFilePath4_ReturnDikeProfileData()
         {
             // Setup
-            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("DikeProfiles", "fileWithEmptyDikeAndForeshore.prfl"));
 
             var reader = new DikeProfileDataReader();
@@ -677,7 +677,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         private void ReadFileAndExpectCriticalFileReadException(string fileName, int lineNumber, string errorMessage)
         {
             // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                Path.Combine("DikeProfiles", fileName));
 
             var reader = new DikeProfileDataReader();
@@ -695,7 +695,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.DikeProfiles
         private void ReadFileAndExpectCriticalFileReadException(string fileName, string errorMessage)
         {
             // Setup
-            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string faultyFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                Path.Combine("DikeProfiles", fileName));
 
             var reader = new DikeProfileDataReader();

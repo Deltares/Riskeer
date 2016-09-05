@@ -91,6 +91,302 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De regel (&apos;{0}&apos;) bevat ongeldige tekst..
+        /// </summary>
+        public static string DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_HandleUnexpectedText_Line_0_is_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen damhoogte (&apos;{0}&apos;) is geen getal..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseDamHeight_DamHeight_0_not_number {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDamHeight_DamHeight_0_not_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen damhoogte (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseDamHeight_DamHeight_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDamHeight_DamHeight_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen damtype (&apos;{0}&apos;) moet 0, 1, 2 of 3 zijn..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDamType_DamType_0_must_be_in_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen dijkhoogte (&apos;{0}&apos;) is geen getal..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_not_number {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_not_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen dijkhoogte (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseDikeHeight_DikeHeight_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen aantal geometriepunten dijk (&apos;{0}&apos;) is geen geheel getal..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen aantal geometriepunten dijk (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen aantal geometriepunten voorland (&apos;{0}&apos;) is geen geheel getal..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen aantal geometriepunten voorland (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen oriëntatie (&apos;{0}&apos;) is geen getal..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseOrientation_Orientation_0_not_double {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseOrientation_Orientation_0_not_double", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen oriëntatie (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseOrientation_Orientation_0_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseOrientation_Orientation_0_overflows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen {0} (&apos;{1}&apos;) is geen getal..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_number {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_nu" +
+                        "mber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen {0} (&apos;{1}&apos;) is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_overflows {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_overfl" +
+                        "ows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen damwandtype (&apos;{0}&apos;) moet 0, 1 of 2 zijn..
+        /// </summary>
+        public static string DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen aantal geometriepunten dijk (&apos;{0}&apos;) mag niet negatief zijn..
+        /// </summary>
+        public static string DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het ingelezen aantal geometriepunten voorland (&apos;{0}&apos;) mag niet negatief zijn..
+        /// </summary>
+        public static string DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen regel (&apos;{0}&apos;) is geen &apos;X Y ruwheid&apos; definitie..
+        /// </summary>
+        public static string DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen ruwheid (&apos;{0}&apos;) moet binnen het bereik [{1}, 1] vallen..
+        /// </summary>
+        public static string DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_1_ {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_" +
+                        "1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ruwheid.
+        /// </summary>
+        public static string DikeProfileDataReader_ReadRoughnessPoint_Roughness_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_Roughness_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X-coördinaat.
+        /// </summary>
+        public static string DikeProfileDataReader_ReadRoughnessPoint_X_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_X_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-coördinaat.
+        /// </summary>
+        public static string DikeProfileDataReader_ReadRoughnessPoint_Z_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ReadRoughnessPoint_Z_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het aantal dijkpunten gevonden in het bestand (&apos;{0}&apos;) komt niet overeen met de daarin aangegeven hoeveelheid (&apos;{1}&apos;)..
+        /// </summary>
+        public static string DikeProfileDataReader_TryReadDikeRoughnessPoints_DikeCount_0_does_not_correspond_ExpectedCount_1_ {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_TryReadDikeRoughnessPoints_DikeCount_0_does_not_correspond_" +
+                        "ExpectedCount_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het aantal voorlandpunten gevonden in het bestand (&apos;{0}&apos;) komt niet overeen met de daarin aangegeven hoeveelheid (&apos;{1}&apos;)..
+        /// </summary>
+        public static string DikeProfileDataReader_TryReadForeshoreRoughnessPoints_ForeshoreCount_0_does_not_correspond_ExpectedCount_1_ {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_TryReadForeshoreRoughnessPoints_ForeshoreCount_0_does_not_c" +
+                        "orrespond_ExpectedCount_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De X-coördinaten van de dijkgeometrie punten moeten strikt toenemend zijn..
+        /// </summary>
+        public static string DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De X-coördinaten van de voorlandgeometrie punten moeten strikt toenemend zijn..
+        /// </summary>
+        public static string DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_mes" +
+                        "sage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen ID (&apos;{0}&apos;) bevat spaties. Spaties zijn niet toegestaan..
+        /// </summary>
+        public static string DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen ID (&apos;{0}&apos;) is ongeldig..
+        /// </summary>
+        public static string DikeProfileDataReader_ValidateId_Id_0_not_valid {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateId_Id_0_not_valid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De volgende parameters zijn niet aanwezig in het bestand: {0}.
+        /// </summary>
+        public static string DikeProfileDataReader_ValidateNoMissingKeywords_List_mising_keywords_0_ {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateNoMissingKeywords_List_mising_keywords_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De parameter {0} is al eerder in het bestand gedefinieerd..
+        /// </summary>
+        public static string DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defined {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateNoPriorParameterDefinition_Parameter_0_already_defi" +
+                        "ned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De ingelezen oriëntatie waarde (&apos;{0}&apos;) moet binnen het bereik [0, 360] vallen..
+        /// </summary>
+        public static string DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enkel bestanden van versie &apos;4.0&apos; worden ondersteund..
+        /// </summary>
+        public static string DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported {
+            get {
+                return ResourceManager.GetString("DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund..
         /// </summary>
         public static string FailureMechanismSectionReader_File_has_unsupported_multiPolyline {
@@ -186,6 +482,69 @@ namespace Ringtoets.Common.IO.Properties {
         public static string IHW_filecontents {
             get {
                 return ResourceManager.GetString("IHW_filecontents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie parameter &apos;ID&apos; mag uitsluitend uit letters en cijfers bestaan..
+        /// </summary>
+        public static string ProfileLocation_ProfileLocation_Id_is_invalid {
+            get {
+                return ResourceManager.GetString("ProfileLocation_ProfileLocation_Id_is_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie parameter &apos;ID&apos; heeft geen waarde..
+        /// </summary>
+        public static string ProfileLocation_ProfileLocation_Id_is_null {
+            get {
+                return ResourceManager.GetString("ProfileLocation_ProfileLocation_Id_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie heeft geen coördinaten..
+        /// </summary>
+        public static string ProfileLocation_ProfileLocation_Point_is_null {
+            get {
+                return ResourceManager.GetString("ProfileLocation_ProfileLocation_Point_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie parameter &apos;X0&apos; bevat een ongeldig getal..
+        /// </summary>
+        public static string ProfileLocation_ProfileLocation_X0_is_invalid {
+            get {
+                return ResourceManager.GetString("ProfileLocation_ProfileLocation_X0_is_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand heeft geen attribuut &apos;{0}&apos;. Dit attribuut is vereist..
+        /// </summary>
+        public static string ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_ {
+            get {
+                return ResourceManager.GetString("ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het profiel heeft geen geldige waarde voor attribuut &apos;X0&apos;..
+        /// </summary>
+        public static string ProfileLocationReader_GetProfileLocations_Invalid_X0 {
+            get {
+                return ResourceManager.GetString("ProfileLocationReader_GetProfileLocations_Invalid_X0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand mag uitsluitend punten bevatten..
+        /// </summary>
+        public static string ProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points {
+            get {
+                return ResourceManager.GetString("ProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points", resourceCulture);
             }
         }
         

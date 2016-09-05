@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.GrassCoverErosionInwards.IO.DikeProfiles
+namespace Ringtoets.Common.IO.DikeProfiles
 {
     /// <summary>
     /// Specifies how a dike profile can be characterized.

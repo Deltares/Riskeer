@@ -13,18 +13,18 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
+namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 {
     [TestFixture]
     public class DikeProfilesContextImportInfoTest
     {
         private ImportInfo importInfo;
-        private GrassCoverErosionInwardsPlugin plugin;
+        private RingtoetsPlugin plugin;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new GrassCoverErosionInwardsPlugin();
+            plugin = new RingtoetsPlugin();
             importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(DikeProfilesContext));
         }
 
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 
             var list = new ObservableList<DikeProfile>();
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionInwards.IO,
+            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                      Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             var importTarget = new DikeProfilesContext(list, assessmentSection);
