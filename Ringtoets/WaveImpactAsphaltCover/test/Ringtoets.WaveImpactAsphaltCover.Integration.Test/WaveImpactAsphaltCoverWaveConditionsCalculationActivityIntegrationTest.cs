@@ -45,7 +45,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-
         [Test]
         public void OnRun_NoWaterLevels_LogStartAndEnd()
         {
@@ -61,11 +60,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     ForeshoreProfile = CreateForeshoreProfile(),
                     UseForeshore = true,
                     UseBreakWater = true,
-                    StepSize = (RoundedDouble)0.5,
-                    LowerBoundaryRevetment = (RoundedDouble)5.3,
-                    UpperBoundaryRevetment = (RoundedDouble)10,
-                    UpperBoundaryWaterLevels = (RoundedDouble)5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble)5
+                    StepSize = (RoundedDouble) 0.5,
+                    LowerBoundaryRevetment = (RoundedDouble) 5.3,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 5
                 }
             };
 
@@ -206,6 +205,60 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             }
         }
 
+        [Test]
+        public void OnFinish_CalculationPerformed_SetsOutput()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            var calculation = GetValidCalculation(assessmentSection);
+
+            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
+                                                                                       testDataPath,
+                                                                                       assessmentSection.WaveImpactAsphaltCover,
+                                                                                       assessmentSection);
+
+            using (new HydraRingCalculationServiceConfig())
+            using (new WaveConditionsCalculationServiceConfig())
+            {
+                activity.Run();
+
+                // Call
+                activity.Finish();
+
+                // Assert
+                Assert.IsNotNull(calculation.Output);
+                Assert.AreEqual(3, calculation.Output.Items.Count());
+            }
+        }
+
+        [Test]
+        public void OnFinish_CalculationFailed_OutputNull()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            var calculation = GetValidCalculation(assessmentSection);
+
+            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
+                                                                                       testDataPath,
+                                                                                       assessmentSection.WaveImpactAsphaltCover,
+                                                                                       assessmentSection);
+
+            using (new HydraRingCalculationServiceConfig())
+            {
+                activity.Run();
+
+                // Call
+                activity.Finish();
+
+                // Assert
+                Assert.IsNull(calculation.Output);
+            }
+        }
+
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation(AssessmentSection assessmentSection)
         {
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -216,14 +269,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     ForeshoreProfile = CreateForeshoreProfile(),
                     UseForeshore = true,
                     UseBreakWater = true,
-                    StepSize = (RoundedDouble)0.5,
-                    LowerBoundaryRevetment = (RoundedDouble)4,
-                    UpperBoundaryRevetment = (RoundedDouble)10,
-                    UpperBoundaryWaterLevels = (RoundedDouble)8,
-                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                    StepSize = (RoundedDouble) 0.5,
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
             return calculation;
         }
 

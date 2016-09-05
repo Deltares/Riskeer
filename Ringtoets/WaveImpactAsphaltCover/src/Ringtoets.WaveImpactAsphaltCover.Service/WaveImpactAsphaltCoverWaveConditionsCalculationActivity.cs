@@ -140,6 +140,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                        });
         }
 
-        protected override void OnFinish() {}
+        protected override void OnFinish()
+        {
+            PerformFinish(() =>
+            {
+                calculation.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Output);
+            });
+        }
     }
 }
