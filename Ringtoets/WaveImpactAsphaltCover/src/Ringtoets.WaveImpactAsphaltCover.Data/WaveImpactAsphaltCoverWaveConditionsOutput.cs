@@ -28,7 +28,7 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.WaveImpactAsphaltCover.Data
 {
     /// <summary>
-    /// Container for the results of a stability stone cover wave conditions calculation.
+    /// Container for the results of a wave impact asphalt cover wave conditions calculation.
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsOutput : Observable, ICalculationOutput
     {
