@@ -1839,7 +1839,6 @@ Global
 		{18078167-A1C8-4545-BFAC-236E5386D4AA}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{18078167-A1C8-4545-BFAC-236E5386D4AA}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{F54583EA-781F-46AA-994E-C923AC6FB04F}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{F54583EA-781F-46AA-994E-C923AC6FB04F}.CreateInstaller|x86.Build.0 = Release|x86
 		{F54583EA-781F-46AA-994E-C923AC6FB04F}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
 		{F54583EA-781F-46AA-994E-C923AC6FB04F}.Debug|x86.ActiveCfg = Debug|x86
 		{F54583EA-781F-46AA-994E-C923AC6FB04F}.Debug|x86.Build.0 = Debug|x86
