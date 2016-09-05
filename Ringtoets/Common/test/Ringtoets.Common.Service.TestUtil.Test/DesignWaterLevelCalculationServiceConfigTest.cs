@@ -22,16 +22,16 @@
 using System;
 using NUnit.Framework;
 
-namespace Ringtoets.Revetment.Service.TestUtil.Test
+namespace Ringtoets.Common.Service.TestUtil.Test
 {
     [TestFixture]
-    public class WaveConditionsCalculationServiceConfigTest
+    public class DesignWaterLevelCalculationServiceConfigTest
     {
         [Test]
         public void Constructor_NewInstanceCanBeDisposed()
         {
             // Call
-            var service = new WaveConditionsCalculationServiceConfig();
+            var service = new DesignWaterLevelCalculationServiceConfig();
 
             // Assert
             Assert.IsInstanceOf<IDisposable>(service);
@@ -42,24 +42,24 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
         public void Constructor_SetsTestWaveConditionsCalculationService()
         {
             // Call
-            using (new WaveConditionsCalculationServiceConfig())
+            using (new DesignWaterLevelCalculationServiceConfig())
             {
                 // Assert
-                Assert.IsInstanceOf<TestWaveConditionsCalculationService>(WaveConditionsCalculationService.Instance);
+                Assert.IsInstanceOf<TestDesignWaterLevelCalculationService>(DesignWaterLevelCalculationService.Instance);
             }
         }
 
         [Test]
-        public void Dispose_Always_ResetsWaveConditionsCalculationServiceToPreviousValue()
+        public void Dispose_Always_ResetsDesignWaterLevelCalculationServiceToPreviousValue()
         {
             // Setup
-            var expectedService = WaveConditionsCalculationService.Instance;
+            var expectedService = DesignWaterLevelCalculationService.Instance;
 
             // Call
-            using (new WaveConditionsCalculationServiceConfig()) { }
+            using (new DesignWaterLevelCalculationServiceConfig()) {}
 
             // Assert
-            Assert.AreSame(expectedService, WaveConditionsCalculationService.Instance);
+            Assert.AreSame(expectedService, DesignWaterLevelCalculationService.Instance);
         }
     }
 }
