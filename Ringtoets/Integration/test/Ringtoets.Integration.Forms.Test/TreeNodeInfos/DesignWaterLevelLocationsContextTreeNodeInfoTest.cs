@@ -308,8 +308,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
 
-            const string locationName = "locationName";
-            var location = new HydraulicBoundaryLocation(1, locationName, 1.1, 2.2);
+            var location = new HydraulicBoundaryLocation(1, "locationName", 1.1, 2.2);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase

@@ -39,11 +39,13 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
-using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -437,12 +439,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         {
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
-            };
-
+            var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionMock.Expect(a => a.Id).Return("Id");
             assessmentSectionMock.Expect(a => a.GetFailureMechanisms()).Return(new[]
@@ -453,16 +450,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 }
             });
             assessmentSectionMock.Expect(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
-            const string locationName = "HRbasis_ijsslm_1000";
-            var location = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
-                new HydraulicBoundaryLocation(700002, locationName, 1.1, 2.2));
-            var grassCoverErosionOutwardsHydraulicBoundaryLocations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                location
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite"),
+                Locations =
+                {
+                    location
+                }
             };
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(grassCoverErosionOutwardsHydraulicBoundaryLocations, assessmentSectionMock);
+
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(location);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            {
+                grassCoverErosionOutwardsHydraulicBoundaryLocation
+            }, assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -477,24 +478,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculationServiceConfig())
                     {
-                        // When
-                        Action action = () => { contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick(); };
-
-                        // Then
-                        TestHelper.AssertLogMessages(action, messages =>
+                        using (new DesignWaterLevelCalculationServiceConfig())
                         {
-                            var msgs = messages.ToArray();
-                            Assert.AreEqual(6, msgs.Length);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie {0}' gestart om:", locationName), msgs[0]);
-                            StringAssert.StartsWith(string.Format("Validatie van 'Waterstand bij doorsnede-eis voor locatie {0}' beëindigd om:", locationName), msgs[1]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie {0}' gestart om:", locationName), msgs[2]);
-                            StringAssert.StartsWith(string.Format("Er is een fout opgetreden tijdens de Waterstand bij doorsnede-eis berekening '{0}': inspecteer het logbestand.", locationName), msgs[3]);
-                            StringAssert.StartsWith(string.Format("Berekening van 'Waterstand bij doorsnede-eis voor locatie {0}' beëindigd om:", locationName), msgs[4]);
-                            StringAssert.StartsWith(string.Format("Uitvoeren van 'Waterstand bij doorsnede-eis berekenen voor locatie '{0}'' is mislukt.", locationName), msgs[5]);
-                        });
-                        Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
+                            var testService = (TestDesignWaterLevelCalculationService) DesignWaterLevelCalculationService.Instance;
+                            testService.SetCalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+
+                            // When
+                            contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
+
+                            // Then
+                            Assert.IsInstanceOf<GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider>(testService.MessageProvider);
+                            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+                        }
                     }
                 }
             }
