@@ -19,23 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Controls.PresentationObjects;
+using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
+namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
-    /// <summary>
-    /// Presentation object for <see cref="GrassCoverErosionOutwardsFailureMechanism.HydraulicBoundariesCalculationGroup"/>.
-    /// </summary>
-    public class GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext : ObservableWrappedObjectContextBase<CalculationGroup>
+    [TestFixture]
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTest
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext"/> class.
-        /// </summary>
-        /// <param name="calculationGroup">The wrapped <see cref="CalculationGroup"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContext(CalculationGroup calculationGroup) : base(calculationGroup) { }
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup();
+
+            // Call
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup);
+
+            // Assert
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<CalculationGroup>>(context);
+            Assert.AreSame(calculationGroup, context.WrappedData);
+        }
     }
 }

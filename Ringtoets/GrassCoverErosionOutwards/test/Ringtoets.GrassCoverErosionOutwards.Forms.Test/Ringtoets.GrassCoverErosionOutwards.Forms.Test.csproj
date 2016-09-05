@@ -62,7 +62,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismContextTest.cs" />
-    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundariesCalculationGroupContextTest.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryLocationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationsContextTest.cs" />
