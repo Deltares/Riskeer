@@ -288,7 +288,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                               c.AssessmentSection.FailureMechanismContribution.Norm,
                                                               c.AssessmentSection.HydraulicBoundaryDatabase),
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
-                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll)
+                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 

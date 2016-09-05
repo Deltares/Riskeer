@@ -19,14 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -34,6 +39,12 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Plugin;
@@ -395,12 +406,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                var group = new CalculationGroup();
-
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                var group = new CalculationGroup();
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
@@ -427,6 +436,267 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     Assert.IsFalse(calculateItem.Enabled);
                     Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
                     Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithNoSections_ValidateAndCalculateAllDisabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                var group = new CalculationGroup();
+                group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
+                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
+                    Assert.IsFalse(validateItem.Enabled);
+                    Assert.IsFalse(calculateItem.Enabled);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported, calculateItem.ToolTipText);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported, validateItem.ToolTipText);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_AssessmentSectionWithoutHydraulicBoundaryDatabase_ValidateAndCalculateAllDisabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                failureMechanism.AddSection(new FailureMechanismSection("", new [] {new Point2D(0,0)}));
+                var group = new CalculationGroup();
+                group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
+                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
+                    Assert.IsFalse(validateItem.Enabled);
+                    Assert.IsFalse(calculateItem.Enabled);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported, calculateItem.ToolTipText);
+                    Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported, validateItem.ToolTipText);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_AssessmentSectionWithInvalidHydraulicBoundaryDatabasePath_ValidateAndCalculateAllDisabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                failureMechanism.AddSection(new FailureMechanismSection("", new [] {new Point2D(0,0)}));
+                var group = new CalculationGroup();
+                group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = ""
+                };
+                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
+                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
+                    Assert.IsFalse(validateItem.Enabled);
+                    Assert.IsFalse(calculateItem.Enabled);
+                    var message = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.";
+                    Assert.AreEqual(message, calculateItem.ToolTipText);
+                    Assert.AreEqual(message, validateItem.ToolTipText);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_TwoCalculationsClickOnValidateAllInGroup_ValidationMessagesLogged()
+        {
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+
+            var group = new CalculationGroup();
+            group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+            group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    Action test = () => contextMenu.Items[3].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessages(test, m =>
+                    {
+                        var messages = m.ToArray();
+                        Assert.AreEqual(4, messages.Length);
+                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", messages[1]);
+                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", messages[2]);
+                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", messages[3]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_TwoCalculationsClickOnCalculateAllInGroup_MessagesLogged()
+        {
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+            assessmentSection.Stub(a => a.Id).Return("someId");
+
+            var group = new CalculationGroup();
+            group.Children.Add(GetValidCalculation());
+            group.Children.Add(GetValidCalculation());
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    Action test = () => contextMenu.Items[4].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessages(test, m =>
+                    {
+                        var messages = m.ToArray();
+                        Assert.AreEqual(30, messages.Length);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[13]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[14]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[27]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[28]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[29]);
+                    });
                 }
             }
         }
@@ -556,7 +826,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_ClickOnRemoveAllInGroup_RemovesAllChildren()
+        public void ContextMenuStrip_ClickOnRemoveAllInGroupAndConfirm_RemovesAllChildren()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -594,6 +864,48 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                     // Assert
                     Assert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnRemoveAllInGroupAndCancel_ChildrenNotRemoved()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var calculation = mocks.Stub<ICalculation>();
+                var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialog = new MessageBoxTester(wnd);
+                    dialog.ClickCancel();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRemoveAllChildrenIndexRootGroup].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(new [] { calculation }, failureMechanism.WaveConditionsCalculationGroup.Children);
                 }
             }
         }
@@ -730,6 +1042,39 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     // Check expectancies in TearDown()
                 }
             }
+        }
+
+        private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()
+        {
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0.0, 0.0),
+                    ForeshoreProfile = CreateForeshoreProfile(),
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    StepSize = (RoundedDouble)0.5,
+                    LowerBoundaryRevetment = (RoundedDouble)4,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)8,
+                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                }
+            };
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
+            return calculation;
+        }
+
+        private static ForeshoreProfile CreateForeshoreProfile()
+        {
+            return new ForeshoreProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new Point2D(3.3, 4.4),
+                                            new Point2D(5.5, 6.6)
+                                        },
+                                        new BreakWater(BreakWaterType.Dam, 10.0),
+                                        new ForeshoreProfile.ConstructionProperties());
         }
     }
 }

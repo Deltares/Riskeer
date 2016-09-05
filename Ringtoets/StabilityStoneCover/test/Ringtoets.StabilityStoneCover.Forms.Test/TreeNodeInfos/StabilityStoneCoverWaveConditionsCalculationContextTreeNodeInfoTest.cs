@@ -762,7 +762,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
                 new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
 
-            var calculation = GetValidCalculation(assessmentSection);
+            var calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
@@ -991,7 +991,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             }
         }
 
-        private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation(IAssessmentSection assessmentSection)
+        private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation()
         {
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
