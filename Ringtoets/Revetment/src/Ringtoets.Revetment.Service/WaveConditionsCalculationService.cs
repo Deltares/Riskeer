@@ -24,6 +24,7 @@ using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
+using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -57,6 +58,13 @@ namespace Ringtoets.Revetment.Service
             {
                 instance = value;
             }
+        }
+
+        public bool Validate(string name)
+        {
+            // TODO: Implement validation with WTI-826
+            return CalculationServiceHelper.PerformValidation(name,
+                                                              () => new string[0]);
         }
 
         public WaveConditionsOutput Calculate(RoundedDouble waterLevel,

@@ -30,6 +30,11 @@ namespace Ringtoets.Revetment.Service.TestUtil
     /// </summary>
     public class TestWaveConditionsCalculationService : IWaveConditionsCalculationService
     {
+        public bool Validate(string name)
+        {
+            return true;
+        }
+
         public WaveConditionsOutput Calculate(RoundedDouble waterLevel,
                                               double a,
                                               double b,

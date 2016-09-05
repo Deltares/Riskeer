@@ -149,10 +149,12 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(20, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    Assert.AreEqual(22, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
 
-                    int i = 0;
+                    int i = 2;
                     foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                     {
                         StringAssert.StartsWith(string.Format("Blokken berekening '{0}' voor waterstand '{1}' gestart om: ", calculation.Name, waterLevel), msgs[i + 1]);
@@ -165,7 +167,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                         i = i + 6;
                     }
 
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[19]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[21]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }

@@ -29,7 +29,6 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
-    [ResourcesDisplayName(typeof(Resources), "CalculationContextProperties_DisplayName")]
     public class CalculationContextProperties : ObjectProperties<ICalculationContext<ICalculation, IFailureMechanism>>
     {
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]

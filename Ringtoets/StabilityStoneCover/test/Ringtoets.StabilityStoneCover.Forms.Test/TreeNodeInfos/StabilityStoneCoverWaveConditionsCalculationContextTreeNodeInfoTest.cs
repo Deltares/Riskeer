@@ -25,21 +25,27 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Plugin;
@@ -630,6 +636,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             {
                 FilePath = validHydroDatabasePath
             };
+            assessmentSection.Stub(a => a.Id).Return("someId");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -669,8 +678,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.ValidateIcon);
 
                     // When
-                    ToolStripItem validateMeniItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMeniItem.PerformClick();
+                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
+                    Action call = () => validateMenuItem.PerformClick();
 
                     // Then
                     TestHelper.AssertLogMessages(call, logMessages =>
@@ -731,7 +740,91 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             }
         }
 
-        // TODO: WTI-724 Create unit test that clicks on 'calculate' context menu item and asserts calculation is performed and observers are notified.
+        [Test]
+        public void GivenValidCalculation_WhenCalculating_ThenCalculationReturnsResult()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+            assessmentSection.Stub(a => a.Id).Return("someId");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+
+            var calculation = GetValidCalculation(assessmentSection);
+            calculation.Name = "A";
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+                var observerMock = mocks.StrictMock<IObserver>();
+                observerMock.Expect(o => o.UpdateObserver());
+                calculation.Attach(observerMock);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+
+                    // When
+                    ToolStripItem calculateMenuItem = contextMenu.Items[calculateMenuItemIndex];
+                    Action call = () => calculateMenuItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        var messages = logMessages.ToArray();
+                        Assert.AreEqual(15, messages.Length);
+                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[13]);
+                        StringAssert.StartsWith("Uitvoeren van 'A' is gelukt.", messages[14]);
+                    });
+                }
+            }
+        }
 
         [Test]
         public void GivenCalculationWithoutOutput_ThenClearOutputItemDisabled()
@@ -888,14 +981,47 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.ClearIcon);
 
                     // When
-                    ToolStripItem validateMeniItem = contextMenu.Items[clearOutputMenuItemIndex];
-                    validateMeniItem.PerformClick();
+                    ToolStripItem validateMenuItem = contextMenu.Items[clearOutputMenuItemIndex];
+                    validateMenuItem.PerformClick();
 
                     // Then
                     Assert.IsNull(calculation.Output);
                     // Check expectancies in TearDown()
                 }
             }
+        }
+
+        private static StabilityStoneCoverWaveConditionsCalculation GetValidCalculation(IAssessmentSection assessmentSection)
+        {
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0.0, 0.0),
+                    ForeshoreProfile = CreateForeshoreProfile(),
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    StepSize = (RoundedDouble)0.5,
+                    LowerBoundaryRevetment = (RoundedDouble)4,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)8,
+                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                }
+            };
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
+            return calculation;
+        }
+
+        private static ForeshoreProfile CreateForeshoreProfile()
+        {
+            return new ForeshoreProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new Point2D(3.3, 4.4),
+                                            new Point2D(5.5, 6.6)
+                                        },
+                                        new BreakWater(BreakWaterType.Dam, 10.0),
+                                        new ForeshoreProfile.ConstructionProperties());
         }
     }
 }

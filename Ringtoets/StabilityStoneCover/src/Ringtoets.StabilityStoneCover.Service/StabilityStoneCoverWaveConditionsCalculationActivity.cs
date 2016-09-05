@@ -83,7 +83,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
         protected override void OnRun()
         {
-            PerformRun(() => true,
+            PerformRun(() => WaveConditionsCalculationService.Instance.Validate(calculation.Name),
                        () => StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
                        () =>
                        {

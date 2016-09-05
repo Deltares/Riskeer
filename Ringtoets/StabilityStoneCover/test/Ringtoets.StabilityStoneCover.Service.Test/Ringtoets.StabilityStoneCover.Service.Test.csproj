@@ -54,7 +54,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StabilityStoneCoverCalculationFactory.cs" />
-    <Compile Include="StabilityStoneCoverCalculationServiceTest.cs" />
     <Compile Include="StabilityStoneCoverDataSynchronizationService.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationActivityOutputTest.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationActivityTest.cs" />
