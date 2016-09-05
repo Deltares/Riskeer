@@ -88,64 +88,61 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         protected override void OnRun()
         {
             PerformRun(() => true,
-                      () => GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
-                      () =>
-                      {
-                          log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
-                                                 calculation.Name,
-                                                 DateTimeService.CurrentTimeAsString));
+                       () => GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
+                       () =>
+                       {
+                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
+                                                  calculation.Name,
+                                                  DateTimeService.CurrentTimeAsString));
 
-                          List<WaveConditionsOutput> outputs = new List<WaveConditionsOutput>();
+                           List<WaveConditionsOutput> outputs = new List<WaveConditionsOutput>();
 
-                          var a = failureMechanism.GeneralInput.A;
-                          var b = failureMechanism.GeneralInput.B;
-                          var c = failureMechanism.GeneralInput.C;
-                          var norm = assessmentSection.FailureMechanismContribution.Norm;
+                           var a = failureMechanism.GeneralInput.A;
+                           var b = failureMechanism.GeneralInput.B;
+                           var c = failureMechanism.GeneralInput.C;
+                           var norm = assessmentSection.FailureMechanismContribution.Norm;
 
-                          foreach (var waterLevel in calculation.InputParameters.WaterLevels)
-                          {
-                              log.Info(string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_,
-                                                     calculation.Name,
-                                                     waterLevel,
-                                                     DateTimeService.CurrentTimeAsString));
+                           foreach (var waterLevel in calculation.InputParameters.WaterLevels)
+                           {
+                               log.Info(string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_,
+                                                      calculation.Name,
+                                                      waterLevel,
+                                                      DateTimeService.CurrentTimeAsString));
 
-                              ProgressText = string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevel);
+                               ProgressText = string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevel);
 
-                              var output = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
-                                                                                               a,
-                                                                                               b,
-                                                                                               c,
-                                                                                               norm,
-                                                                                               calculation.InputParameters,
-                                                                                               hlcdDirectory,
-                                                                                               assessmentSection.Id,
-                                                                                               calculation.Name);
+                               var output = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
+                                                                                                a,
+                                                                                                b,
+                                                                                                c,
+                                                                                                norm,
+                                                                                                calculation.InputParameters,
+                                                                                                hlcdDirectory,
+                                                                                                assessmentSection.Id,
+                                                                                                calculation.Name);
 
-                              if (output != null)
-                              {
-                                  outputs.Add(output);
-                              }
+                               if (output != null)
+                               {
+                                   outputs.Add(output);
+                               }
 
-                              log.Info(string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_ended_time_2_,
-                                                     calculation.Name,
-                                                     waterLevel,
-                                                     DateTimeService.CurrentTimeAsString));
-                          }
+                               log.Info(string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_ended_time_2_,
+                                                      calculation.Name,
+                                                      waterLevel,
+                                                      DateTimeService.CurrentTimeAsString));
+                           }
 
-                          log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
-                                                 calculation.Name,
-                                                 DateTimeService.CurrentTimeAsString));
+                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
+                                                  calculation.Name,
+                                                  DateTimeService.CurrentTimeAsString));
 
-                          return outputs.Any() ? outputs : null;
-                      });
+                           return outputs.Any() ? outputs : null;
+                       });
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() =>
-            {
-                calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Output);
-            });
+            PerformFinish(() => { calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Output); });
         }
     }
 }
