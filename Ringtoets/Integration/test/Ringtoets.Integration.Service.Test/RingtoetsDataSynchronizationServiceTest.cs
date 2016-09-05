@@ -346,7 +346,7 @@ namespace Ringtoets.Integration.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOuputAndReturnsAffectedCalculations()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
         {
             // Setup
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

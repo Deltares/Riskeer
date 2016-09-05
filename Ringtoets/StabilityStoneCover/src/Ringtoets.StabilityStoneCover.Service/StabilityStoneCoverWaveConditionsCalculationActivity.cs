@@ -111,14 +111,14 @@ namespace Ringtoets.StabilityStoneCover.Service
                                ProgressText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_, waterLevel);
 
                                var blocksOutput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
-                                                                                                     aBlocks,
-                                                                                                     bBlocks,
-                                                                                                     cBlocks,
-                                                                                                     norm,
-                                                                                                     calculation.InputParameters,
-                                                                                                     hlcdDirectory,
-                                                                                                     assessmentSection.Id,
-                                                                                                     calculation.Name);
+                                                                                                      aBlocks,
+                                                                                                      bBlocks,
+                                                                                                      cBlocks,
+                                                                                                      norm,
+                                                                                                      calculation.InputParameters,
+                                                                                                      hlcdDirectory,
+                                                                                                      assessmentSection.Id,
+                                                                                                      calculation.Name);
 
                                if (blocksOutput != null)
                                {
@@ -137,19 +137,19 @@ namespace Ringtoets.StabilityStoneCover.Service
 
                                ProgressText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_waterlevel_0_, waterLevel);
 
-                               var columnsOuput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
-                                                                                                      aColumns,
-                                                                                                      bColumns,
-                                                                                                      cColumns,
-                                                                                                      norm,
-                                                                                                      calculation.InputParameters,
-                                                                                                      hlcdDirectory,
-                                                                                                      assessmentSection.Id,
-                                                                                                      calculation.Name);
+                               var columnsOutput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
+                                                                                                       aColumns,
+                                                                                                       bColumns,
+                                                                                                       cColumns,
+                                                                                                       norm,
+                                                                                                       calculation.InputParameters,
+                                                                                                       hlcdDirectory,
+                                                                                                       assessmentSection.Id,
+                                                                                                       calculation.Name);
 
-                               if (columnsOuput != null)
+                               if (columnsOutput != null)
                                {
-                                   Output.AddColumnsOutput(columnsOuput);
+                                   Output.AddColumnsOutput(columnsOutput);
                                }
 
                                log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_ended_time_1_,
@@ -168,10 +168,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
         protected override void OnFinish()
         {
-            PerformFinish(() =>
-            {
-                calculation.Output = new StabilityStoneCoverWaveConditionsOutput(Output.ColumnsOutput, Output.BlocksOutput);
-            });
+            PerformFinish(() => { calculation.Output = new StabilityStoneCoverWaveConditionsOutput(Output.ColumnsOutput, Output.BlocksOutput); });
         }
     }
 }
