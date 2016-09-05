@@ -29,7 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Plugin;
+using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyInfos
@@ -37,13 +37,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
     [TestFixture]
     public class DikeProfileTreeNodeInfoTest
     {
-        private GrassCoverErosionInwardsPlugin plugin;
+        private RingtoetsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new GrassCoverErosionInwardsPlugin();
+            plugin = new RingtoetsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DikeProfile));
         }
 

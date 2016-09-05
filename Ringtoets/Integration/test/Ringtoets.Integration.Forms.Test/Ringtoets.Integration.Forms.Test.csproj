@@ -195,10 +195,6 @@
       <Project>{73E7E100-C015-4874-A548-AD6E33E7955E}</Project>
       <Name>Ringtoets.Common.Service.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Plugin\Ringtoets.GrassCoverErosionInwards.Plugin.csproj">
-      <Project>{20955E2A-8CEB-46B0-ADC4-A97D4C6BBDF5}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Plugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
