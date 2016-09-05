@@ -19,36 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data
+using System;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+
+namespace Ringtoets.GrassCoverErosionOutwards.Service
 {
     /// <summary>
-    /// Class that holds all the static wave impact asphalt cover wave conditions input parameters.
+    /// Service for synchronizing grass cover erosion outwards data.
     /// </summary>
-    public class GeneralWaveImpactAsphaltCoverWaveConditionsInput
+    public static class GrassCoverErosionOutwardsDataSynchronizationService
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralWaveImpactAsphaltCoverWaveConditionsInput"/>.
+        /// Clears the output of the given <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
         /// </summary>
-        public GeneralWaveImpactAsphaltCoverWaveConditionsInput()
+        /// <param name="calculation">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>
+        /// to clear the output for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
+        /// is <c>null</c>.</exception>
+        public static void ClearWaveConditionsCalculationOutput(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
-            A = 1.0;
-            B = 0.0;
-            C = 0.0;
+            if (calculation == null)
+            {
+                throw new ArgumentNullException("calculation");
+            }
+
+            calculation.Output = null;
         }
-
-        /// <summary>
-        /// Gets the 'a' parameter used in wave conditions calculations.
-        /// </summary>
-        public double A { get; private set; }
-
-        /// <summary>
-        /// Gets the 'b' parameter used in wave conditions calculations.
-        /// </summary>
-        public double B { get; private set; }
-
-        /// <summary>
-        /// Gets the 'c' parameter used in wave conditions calculations.
-        /// </summary>
-        public double C { get; private set; }
     }
 }

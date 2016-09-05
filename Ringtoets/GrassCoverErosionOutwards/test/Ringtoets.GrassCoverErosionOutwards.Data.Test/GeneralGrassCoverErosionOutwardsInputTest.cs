@@ -37,6 +37,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.AreEqual(2, inputParameters.N);
+            Assert.AreEqual(1.0, inputParameters.A);
+            Assert.AreEqual(0.67, inputParameters.B);
+            Assert.AreEqual(0.0, inputParameters.C);
         }
 
         [Test]
