@@ -303,7 +303,7 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Expect(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
             mockRepository.ReplayAll();
 
-            string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+            string validFilePath = Path.Combine(testDataPath, validFile);
             const int norm = 300;
             var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock, hydraulicBoundaryLocationMock,
                                                                    validFilePath, "", norm);

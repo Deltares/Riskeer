@@ -324,19 +324,46 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private ContextMenuStrip GrassCoverErosionOutwardsWaveHeightLocationsContextMenuStrip(GrassCoverErosionOutwardsWaveHeightLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var designWaterLevelItem = new StrictContextMenuItem(
+            var waveHeightItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
                 nodeData.AssessmentSection.HydraulicBoundaryDatabase == null
                     ? Resources.GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate
                     : Resources.GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
-                null)
+                (sender, args) =>
+                {
+                    if (hydraulicBoundaryLocationCalculationGuiService == null)
+                    {
+                        return;
+                    }
+
+                    IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+                    GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().FirstOrDefault();
+                    if (failureMechanism == null)
+                    {
+                        return;
+                    }
+
+                    var correctedNormFactor = assessmentSection.FailureMechanismContribution.Norm*
+                                              (failureMechanism.Contribution/100)/
+                                              failureMechanism.GeneralInput.N;
+
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
+                        new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider(),
+                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                        nodeData.WrappedData,
+                        nodeData.WrappedData,
+                        assessmentSection.Id,
+                        correctedNormFactor);
+                });
+
+            if (nodeData.AssessmentSection.HydraulicBoundaryDatabase == null)
             {
-                Enabled = false
-            };
+                waveHeightItem.Enabled = false;
+            }
 
             return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomItem(designWaterLevelItem)
+                      .AddCustomItem(waveHeightItem)
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();

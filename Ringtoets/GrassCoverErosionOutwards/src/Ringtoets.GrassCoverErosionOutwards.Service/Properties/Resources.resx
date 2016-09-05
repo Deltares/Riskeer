@@ -120,11 +120,17 @@
   <data name="GrassCoverErosionOutwardsPlugin_Calculate_Error_in_DesignWaterLevel_0_calculation" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de Waterstand bij doorsnede-eis berekening '{0}': inspecteer het logbestand.</value>
   </data>
+  <data name="GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeight_0_calculation" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{0}': inspecteer het logbestand.</value>
+  </data>
   <data name="GrassCoverErosionOutwardsPlugin_DesignWaterLevel_calculation_for_location_0_not_converged" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis berekening voor locatie {0} is niet geconvergeerd.</value>
   </data>
   <data name="GrassCoverErosionOutwardsPlugin_Name_Calculate_DesignWaterLevel_for_location_0_" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis berekenen voor locatie '{0}'</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsPlugin_Name_Calculate_WaveHeight_for_location_0_" xml:space="preserve">
+    <value>Golfhoogte bij doorsnede-eis berekenen voor locatie '{0}'</value>
   </data>
   <data name="GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_location_0_" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis voor locatie {0}</value>
@@ -137,5 +143,11 @@
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_" xml:space="preserve">
     <value>Berekening '{0}' voor waterstand '{1}' gestart om: {2}</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsPlugin_Name_WaveHeight_for_location_0_" xml:space="preserve">
+    <value>Golfhoogte bij doorsnede-eis voor locatie {0}</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsPlugin_WaveHeight_calculation_for_location_0_not_converged" xml:space="preserve">
+    <value>Golfhoogte bij doorsnede-eis berekening voor locatie {0} is niet geconvergeerd.</value>
   </data>
 </root>

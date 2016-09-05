@@ -36,18 +36,27 @@ namespace Ringtoets.Common.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for marginal wave statistics.
     /// </summary>
-    internal static class WaveHeightCalculationService
+    public class WaveHeightCalculationService : IWaveHeightCalculationService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveHeightCalculationService));
+        private static IWaveHeightCalculationService instance;
 
         /// <summary>
-        /// Performs validation of the values in the given <paramref name="hydraulicBoundaryDatabaseFilePath"/>. Error information is logged during
-        /// the execution of the operation.
+        /// Gets or sets an instance of <see cref="IWaveHeightCalculationService"/>.
         /// </summary>
-        /// <param name="name">The name to use in the validation logs.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
-        /// <returns><c>False</c> if the connection to <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains validation errors; <c>True</c> otherwise.</returns>
-        internal static bool Validate(string name, string hydraulicBoundaryDatabaseFilePath)
+        public static IWaveHeightCalculationService Instance
+        {
+            get
+            {
+                return instance ?? (instance = new WaveHeightCalculationService());
+            }
+            set
+            {
+                instance = value;
+            }
+        }
+
+        public bool Validate(string name, string hydraulicBoundaryDatabaseFilePath)
         {
             CalculationServiceHelper.LogValidationBeginTime(name);
 
@@ -65,20 +74,10 @@ namespace Ringtoets.Common.Service
             return isValid;
         }
 
-        /// <summary>
-        /// Performs a wave height calculation based on the supplied <see cref="IHydraulicBoundaryLocation"/> and returns the result
-        /// if the calculation was successful. Error and status information is logged during the execution of the operation.
-        /// </summary>
-        /// <param name="messageProvider">The message provider for the services.</param>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> to perform the calculation for.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
-        /// <returns>A <see cref="ReliabilityIndexCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        internal static ReliabilityIndexCalculationOutput Calculate(ICalculationMessageProvider messageProvider,
-                                                                    IHydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                    string hydraulicBoundaryDatabaseFilePath,
-                                                                    string ringId, double norm)
+        public ReliabilityIndexCalculationOutput Calculate(ICalculationMessageProvider messageProvider,
+                                                           IHydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                           string hydraulicBoundaryDatabaseFilePath,
+                                                           string ringId, double norm)
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             var input = CreateInput(hydraulicBoundaryLocation, norm);

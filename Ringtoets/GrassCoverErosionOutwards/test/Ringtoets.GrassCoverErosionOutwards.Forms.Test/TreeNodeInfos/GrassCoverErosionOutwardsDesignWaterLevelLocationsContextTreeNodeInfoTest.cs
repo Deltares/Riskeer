@@ -144,31 +144,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
 
             using (var treeViewControl = new TreeViewControl())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                using (var plugin = new GrassCoverErosionOutwardsPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
-                    var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
-                        assessmentSectionMock);
+                var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
+                    new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
+                    assessmentSectionMock);
 
-                    var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
 
-                    var gui = mockRepository.StrictMock<IGui>();
-                    gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                var gui = mockRepository.StrictMock<IGui>();
+                gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
 
-                    mockRepository.ReplayAll();
+                mockRepository.ReplayAll();
 
-                    plugin.Gui = gui;
+                plugin.Gui = gui;
 
-                    // Call
-                    using (info.ContextMenuStrip(context, null, treeViewControl)) {}
-                }
+                // Call
+                using (info.ContextMenuStrip(context, null, treeViewControl)) {}
+                
             }
 
             // Assert

@@ -29,13 +29,13 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Common.Service.TestUtil.Test
 {
     [TestFixture]
-    public class TestDesignWaterLevelCalculationServiceTest
+    public class TestWaveHeightCalculationServiceTest
     {
         [Test]
         public void Validate_Always_ReturnTrue()
         {
             // Setup
-            var service = new TestDesignWaterLevelCalculationService();
+            var service = new TestWaveHeightCalculationService();
 
             // Call
             bool validated = service.Validate(string.Empty, string.Empty);
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
 
             mockRepository.ReplayAll();
-            var service = new TestDesignWaterLevelCalculationService();
+            var service = new TestWaveHeightCalculationService();
             const double norm = 12.34;
 
             // Call
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
 
             mockRepository.ReplayAll();
-            var service = new TestDesignWaterLevelCalculationService
+            var service = new TestWaveHeightCalculationService
             {
                 SetCalculationConvergenceOutput = CalculationConvergence.CalculatedConverged
             };
@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
 
             mockRepository.ReplayAll();
-            var service = new TestDesignWaterLevelCalculationService
+            var service = new TestWaveHeightCalculationService
             {
                 SetCalculationConvergenceOutput = CalculationConvergence.NotCalculated
             };
@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
 
             mockRepository.ReplayAll();
-            var service = new TestDesignWaterLevelCalculationService
+            var service = new TestWaveHeightCalculationService
             {
                 SetCalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged
             };

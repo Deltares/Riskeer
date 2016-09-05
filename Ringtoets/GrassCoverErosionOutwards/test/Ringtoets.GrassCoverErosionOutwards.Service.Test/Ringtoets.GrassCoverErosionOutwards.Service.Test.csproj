@@ -55,6 +55,7 @@
     <Compile Include="GrassCoverErosionOutwardsDataSynchronizationServiceTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationActivityTest.cs" />
     <Compile Include="MessageProviders\GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProviderTest.cs" />
+    <Compile Include="MessageProviders\GrassCoverErosionOutwardsWaveHeightCalculationMessageProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

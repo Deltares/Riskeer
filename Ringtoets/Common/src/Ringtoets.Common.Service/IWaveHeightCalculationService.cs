@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Service
     /// <summary>
     /// Interface that provides methods for performing Hydra-Ring calculations for design water level.
     /// </summary>
-    public interface IDesignWaterLevelCalculationService
+    public interface IWaveHeightCalculationService
     {
         /// <summary>
         /// Performs validation of the values in the given <paramref name="hydraulicBoundaryDatabaseFilePath"/>. Error information is logged during
@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Service
         bool Validate(string name, string hydraulicBoundaryDatabaseFilePath);
 
         /// <summary>
-        /// Performs a design water level calculation based on the supplied <see cref="IHydraulicBoundaryLocation"/> and returns the result
+        /// Performs a wave height calculation based on the supplied <see cref="IHydraulicBoundaryLocation"/> and returns the result
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="messageProvider">The message provider for the services.</param>

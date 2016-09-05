@@ -82,11 +82,11 @@ namespace Ringtoets.Common.Service
                 return;
             }
 
-            PerformRun(() => WaveHeightCalculationService.Validate(
+            PerformRun(() => WaveHeightCalculationService.Instance.Validate(
                 messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name),
                 hydraulicBoundaryDatabaseFilePath),
                        () => hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) double.NaN,
-                       () => WaveHeightCalculationService.Calculate(
+                       () => WaveHeightCalculationService.Instance.Calculate(
                            messageProvider, hydraulicBoundaryLocation, hydraulicBoundaryDatabaseFilePath,
                            ringId, norm));
         }
