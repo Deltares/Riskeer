@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyInfos
+namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class DikeProfileTreeNodeInfoTest
@@ -114,18 +114,26 @@ namespace Ringtoets.Integration.Forms.Test.PropertyInfos
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
 
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
+                using (var p = new RingtoetsPlugin())
+                {
+                    p.Gui = gui;
+                    var i = p.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DikeProfile));
 
-                // Call
-                info.ContextMenuStrip(null, null, treeViewControl);
+                    // Call
+                    i.ContextMenuStrip(null, null, treeViewControl);
+                }
             }
+
             // Assert
             mocks.VerifyAll();
         }

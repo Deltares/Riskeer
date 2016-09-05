@@ -87,7 +87,7 @@
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightLocationsContextPropertiesTest.cs" />
-    <Compile Include="PropertyInfos\DikeProfileTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\DikeProfileTreeNodeInfoTest.cs" />
     <Compile Include="PropertyInfos\WaveHeightLocationsContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\DesignWaterLevelLocationsContextPropertyInfoTest.cs" />
     <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
