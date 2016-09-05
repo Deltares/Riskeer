@@ -103,7 +103,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
                            foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                            {
-                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_started_time_1_,
+                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_started_time_2_,
                                                       calculation.Name,
                                                       waterLevel,
                                                       DateTimeService.CurrentTimeAsString));
@@ -125,12 +125,12 @@ namespace Ringtoets.StabilityStoneCover.Service
                                    Output.AddBlocksOutput(blocksOutput);
                                }
 
-                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_ended_time_1_,
+                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_ended_time_2_,
                                                       calculation.Name,
                                                       waterLevel,
                                                       DateTimeService.CurrentTimeAsString));
 
-                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_started_time_1_,
+                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_started_time_2_,
                                                       calculation.Name,
                                                       waterLevel,
                                                       DateTimeService.CurrentTimeAsString));
@@ -152,7 +152,7 @@ namespace Ringtoets.StabilityStoneCover.Service
                                    Output.AddColumnsOutput(columnsOutput);
                                }
 
-                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_ended_time_1_,
+                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_ended_time_2_,
                                                       calculation.Name,
                                                       waterLevel,
                                                       DateTimeService.CurrentTimeAsString));

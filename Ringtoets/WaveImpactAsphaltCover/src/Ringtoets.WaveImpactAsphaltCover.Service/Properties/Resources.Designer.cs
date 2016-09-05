@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.StabilityStoneCover.Service.Properties {
+namespace Ringtoets.WaveImpactAsphaltCover.Service.Properties {
     using System;
     
     
@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.StabilityStoneCover.Service.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.WaveImpactAsphaltCover.Service.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -82,62 +82,32 @@ namespace Ringtoets.StabilityStoneCover.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blokken waterstand &apos;{0}&apos; berekenen..
+        ///   Looks up a localized string similar to Waterstand {0} berekenen..
         /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_ {
+        internal static string WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_ {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_water" +
-                        "level_0_", resourceCulture);
+                return ResourceManager.GetString("WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Calculate_waterleve" +
+                        "l_0_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zuilen waterstand &apos;{0}&apos; berekenen..
+        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; beëindigd om: {2}.
         /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_waterlevel_0_ {
+        internal static string WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_ended_time_2_ {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_wate" +
-                        "rlevel_0_", resourceCulture);
+                return ResourceManager.GetString("WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Subject_0_for_water" +
+                        "level_1_ended_time_2_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blokken berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; beëindigd om: {2}.
+        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; gestart om: {2}.
         /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_ended_time_2_ {
+        internal static string WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_ {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_w" +
-                        "aterlevel_1_ended_time_2_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Blokken berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; gestart om: {2}.
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_started_time_2_ {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_w" +
-                        "aterlevel_1_started_time_2_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zuilen berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; beëindigd om: {2}.
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_ended_time_2_ {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_" +
-                        "waterlevel_1_ended_time_2_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zuilen berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; gestart om: {2}.
-        /// </summary>
-        internal static string StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_started_time_2_ {
-            get {
-                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_" +
-                        "waterlevel_1_started_time_2_", resourceCulture);
+                return ResourceManager.GetString("WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Subject_0_for_water" +
+                        "level_1_started_time_2_", resourceCulture);
             }
         }
     }
