@@ -41,6 +41,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             Assert.AreEqual("AGK", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+
+            Assert.IsInstanceOf<GeneralWaveImpactAsphaltCoverWaveConditionsInput>(failureMechanism.GeneralInput);
         }
 
         [Test]

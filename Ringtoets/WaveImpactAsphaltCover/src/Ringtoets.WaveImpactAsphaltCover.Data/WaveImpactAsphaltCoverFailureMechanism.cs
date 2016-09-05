@@ -44,6 +44,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         {
             sectionResults = new List<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
             ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
+            GeneralInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -54,6 +55,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
             }
         }
 
+        /// <summary>
+        /// Gets the available foreshore profiles for this instance.
+        /// </summary>
+        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
+
+        /// <summary>
+        /// Gets the general wave impact asphalt cover wave conditions input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralWaveImpactAsphaltCoverWaveConditionsInput GeneralInput { get; private set; }
+
         public IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
         {
             get
@@ -61,11 +72,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
                 return sectionResults;
             }
         }
-
-        /// <summary>
-        /// Gets the available foreshore profiles for this instance.
-        /// </summary>
-        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
 
         public override void AddSection(FailureMechanismSection section)
         {
