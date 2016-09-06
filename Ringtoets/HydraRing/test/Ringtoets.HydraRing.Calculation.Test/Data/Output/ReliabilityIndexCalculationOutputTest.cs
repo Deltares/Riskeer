@@ -31,11 +31,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Output
         public void Constructor_ExpectedValues()
         {
             // Call
-            var targetProbabilityCalculationOutput = new ReliabilityIndexCalculationOutput(1.1, 2.2);
+            var reliabilityIndexCalculationOutput = new ReliabilityIndexCalculationOutput(1.1, 2.2);
 
             // Assert
-            Assert.AreEqual(1.1, targetProbabilityCalculationOutput.Result);
-            Assert.AreEqual(2.2, targetProbabilityCalculationOutput.CalculatedReliabilityIndex);
+            Assert.AreEqual(1.1, reliabilityIndexCalculationOutput.Result);
+            Assert.AreEqual(2.2, reliabilityIndexCalculationOutput.CalculatedReliabilityIndex);
         }
     }
 }

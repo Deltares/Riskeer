@@ -47,65 +47,65 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingOutputFile_OutputNull()
         {
             // Setup
-            var targetProbabilityCalculationParser = new ReliabilityIndexCalculationParser();
+            var reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
 
             // Call
-            targetProbabilityCalculationParser.Parse(testDataPath, 1);
+            reliabilityIndexCalculationParser.Parse(testDataPath, 1);
 
             // Assert
-            Assert.IsNull(targetProbabilityCalculationParser.Output);
+            Assert.IsNull(reliabilityIndexCalculationParser.Output);
         }
 
         [Test]
         public void Parse_EmptyOutputFile_OutputNull()
         {
             // Setup
-            var targetProbabilityCalculationParser = new ReliabilityIndexCalculationParser();
+            var reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "empty");
 
             // Call
-            targetProbabilityCalculationParser.Parse(workingDirectory, 1);
+            reliabilityIndexCalculationParser.Parse(workingDirectory, 1);
 
             // Assert
-            Assert.IsNull(targetProbabilityCalculationParser.Output);
+            Assert.IsNull(reliabilityIndexCalculationParser.Output);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
         }
 
         [Test]
         [TestCase(1, 1.1, 11.11)]
         [TestCase(3, 3.3, 33.33)]
-        public void Parse_ExampleHydraRingOutputFileContainingSectionIds_ReturnsExpectedTargetProbabilityCalculationResult(int sectionId, double result, double actual)
+        public void Parse_ExampleHydraRingOutputFileContainingSectionIds_ReturnsExpectedReliabilityIndexCalculationResult(int sectionId, double result, double actual)
         {
             // Setup
-            var targetProbabilityCalculationParser = new ReliabilityIndexCalculationParser();
+            var reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "exampleOutputTable");
 
             // Call
-            targetProbabilityCalculationParser.Parse(workingDirectory, sectionId);
+            reliabilityIndexCalculationParser.Parse(workingDirectory, sectionId);
 
             // Assert
-            var targetProbabilityCalculationOutput = targetProbabilityCalculationParser.Output;
-            Assert.IsNotNull(targetProbabilityCalculationOutput);
-            Assert.AreEqual(result, targetProbabilityCalculationOutput.Result);
-            Assert.AreEqual(actual, targetProbabilityCalculationOutput.CalculatedReliabilityIndex);
+            var reliabilityIndexCalculationOutput = reliabilityIndexCalculationParser.Output;
+            Assert.IsNotNull(reliabilityIndexCalculationOutput);
+            Assert.AreEqual(result, reliabilityIndexCalculationOutput.Result);
+            Assert.AreEqual(actual, reliabilityIndexCalculationOutput.CalculatedReliabilityIndex);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
         }
 
         [Test]
-        public void Parse_ExampleHydraRingOutputFileContainingExtraWhiteLine_ReturnsExpectedTargetProbabilityCalculationResult()
+        public void Parse_ExampleHydraRingOutputFileContainingExtraWhiteLine_ReturnsExpectedReliabilityIndexCalculationResult()
         {
             // Setup
-            var targetProbabilityCalculationParser = new ReliabilityIndexCalculationParser();
+            var reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "exampleOutputTableWithWhiteLine");
 
             // Call
-            targetProbabilityCalculationParser.Parse(workingDirectory, 1);
+            reliabilityIndexCalculationParser.Parse(workingDirectory, 1);
 
             // Assert
-            var targetProbabilityCalculationOutput = targetProbabilityCalculationParser.Output;
-            Assert.IsNotNull(targetProbabilityCalculationOutput);
-            Assert.AreEqual(1.1, targetProbabilityCalculationOutput.Result);
-            Assert.AreEqual(11.11, targetProbabilityCalculationOutput.CalculatedReliabilityIndex);
+            var reliabilityIndexCalculationOutput = reliabilityIndexCalculationParser.Output;
+            Assert.IsNotNull(reliabilityIndexCalculationOutput);
+            Assert.AreEqual(1.1, reliabilityIndexCalculationOutput.Result);
+            Assert.AreEqual(11.11, reliabilityIndexCalculationOutput.CalculatedReliabilityIndex);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
         }
 
@@ -113,14 +113,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ExampleHydraRingOutputFileNotContainingSectionId_OutputNull()
         {
             // Setup
-            var targetProbabilityCalculationParser = new ReliabilityIndexCalculationParser();
+            var reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "exampleOutputTable");
 
             // Call
-            targetProbabilityCalculationParser.Parse(workingDirectory, 2);
+            reliabilityIndexCalculationParser.Parse(workingDirectory, 2);
 
             // Assert
-            Assert.IsNull(targetProbabilityCalculationParser.Output);
+            Assert.IsNull(reliabilityIndexCalculationParser.Output);
             Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
         }
     }

@@ -27,7 +27,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// <summary>
     /// Container for all data necessary for performing a dike height calculation via Hydra-Ring.
     /// </summary>
-    public class DikeHeightCalculationInput : TargetProbabilityCalculationInput
+    public class DikeHeightCalculationInput : ReliabilityIndexCalculationInput
     {
         private readonly HydraRingSection section;
         private readonly IEnumerable<HydraRingProfilePoint> profilePoints;

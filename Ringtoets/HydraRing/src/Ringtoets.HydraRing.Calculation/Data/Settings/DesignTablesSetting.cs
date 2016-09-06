@@ -32,8 +32,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         /// <summary>
         /// Creates a new instance of the <see cref="DesignTablesSetting"/> class.
         /// </summary>
-        /// <param name="valueMin">The minimum value to use while iterating to a target probability.</param>
-        /// <param name="valueMax">The maximum value to use while iterating to a target probability.</param>
+        /// <param name="valueMin">The minimum value to use while iterating towards a reliability index.</param>
+        /// <param name="valueMax">The maximum value to use while iterating towards a reliability index.</param>
         public DesignTablesSetting(double valueMin, double valueMax)
         {
             this.valueMin = valueMin;
@@ -41,7 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         }
 
         /// <summary>
-        /// Gets the minimum value to use while iterating to a target probability.
+        /// Gets the minimum value to use while iterating towards a reliability index.
         /// </summary>
         /// <remarks>This property is only applicable in case of type II computations.</remarks>
         public double ValueMin
@@ -53,7 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         }
 
         /// <summary>
-        /// Gets the maximum value to use while iterating to a target probability.
+        /// Gets the maximum value to use while iterating towards a reliability index.
         /// </summary>
         /// <remarks>This property is only applicable in case of type II computations.</remarks>
         public double ValueMax

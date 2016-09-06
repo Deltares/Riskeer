@@ -25,19 +25,19 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
 {
     /// <summary>
     /// Container of all data necessary for performing a type II calculation via Hydra-Ring:
-    /// Iterate towards a target probability, provided as reliability index.
+    /// Iterate towards a reliability index.
     /// </summary>
-    public abstract class TargetProbabilityCalculationInput : HydraRingCalculationInput
+    public abstract class ReliabilityIndexCalculationInput : HydraRingCalculationInput
     {
         private readonly double beta;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="TargetProbabilityCalculationInput"/> class.
+        /// Creates a new instance of the <see cref="ReliabilityIndexCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
-        protected TargetProbabilityCalculationInput(long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
+        protected ReliabilityIndexCalculationInput(long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId)
         {
             beta = StatisticsConverter.NormToBeta(norm);
         }

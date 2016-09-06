@@ -26,7 +26,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// <summary>
     /// Container of all data necessary for performing a wave height calculation via Hydra-Ring.
     /// </summary>
-    public class WaveHeightCalculationInput : TargetProbabilityCalculationInput
+    public class WaveHeightCalculationInput : ReliabilityIndexCalculationInput
     {
         private readonly HydraRingSection section;
 

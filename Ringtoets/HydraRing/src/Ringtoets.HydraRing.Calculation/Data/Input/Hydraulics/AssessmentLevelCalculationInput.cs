@@ -26,7 +26,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
     /// <summary>
     /// Container of all data necessary for performing an assessment level calculation via Hydra-Ring.
     /// </summary>
-    public class AssessmentLevelCalculationInput : TargetProbabilityCalculationInput
+    public class AssessmentLevelCalculationInput : ReliabilityIndexCalculationInput
     {
         private readonly HydraRingSection section;
 

@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             var input = CreateInput(hydraulicBoundaryLocation, norm);
-            var targetProbabilityCalculationParser = new ReliabilityIndexCalculationParser();
+            var reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
             var calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
 
             CalculationServiceHelper.PerformCalculation(
@@ -95,13 +95,13 @@ namespace Ringtoets.Common.Service
                         input,
                         new[]
                         {
-                            targetProbabilityCalculationParser
+                            reliabilityIndexCalculationParser
                         });
 
-                    VerifyOutput(targetProbabilityCalculationParser.Output, messageProvider, hydraulicBoundaryLocation.Name);
+                    VerifyOutput(reliabilityIndexCalculationParser.Output, messageProvider, hydraulicBoundaryLocation.Name);
                 });
 
-            return targetProbabilityCalculationParser.Output;
+            return reliabilityIndexCalculationParser.Output;
         }
 
         private static void VerifyOutput(ReliabilityIndexCalculationOutput output, ICalculationMessageProvider messageProvider, string locationName)

@@ -77,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             const int expectedCalculationTypeId = 2;
             const int expectedVariableId = 1;
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
-            Assert.IsInstanceOf<TargetProbabilityCalculationInput>(dikeHeightCalculationInput);
+            Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(dikeHeightCalculationInput);
             Assert.AreEqual(expectedCalculationTypeId, dikeHeightCalculationInput.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, dikeHeightCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.DikesHeight, dikeHeightCalculationInput.FailureMechanismType);

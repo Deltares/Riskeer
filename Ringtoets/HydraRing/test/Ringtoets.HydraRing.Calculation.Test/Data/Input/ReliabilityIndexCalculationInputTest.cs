@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
 {
     [TestFixture]
-    public class TargetProbabilityCalculationInputTest
+    public class ReliabilityIndexCalculationInputTest
     {
         [Test]
         [TestCase(2, 10000)]
@@ -38,22 +38,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
         public void Constructed_UsingDifferentNormAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double norm)
         {
             // Call
-            var targetProbabilityCalculationInputImplementation = new SimpleTargetProbabilityCalculationInput(locationId, norm);
+            var reliabilityIndexCalculationInput = new SimpleReliabilityIndexCalculationInput(locationId, norm);
 
             // Assert
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
-            Assert.AreEqual(locationId, targetProbabilityCalculationInputImplementation.HydraulicBoundaryLocationId);
-            Assert.AreEqual(2, targetProbabilityCalculationInputImplementation.CalculationTypeId);
-            CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.Variables);
-            CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.ProfilePoints);
-            CollectionAssert.IsEmpty(targetProbabilityCalculationInputImplementation.ForelandsPoints);
-            Assert.IsNull(targetProbabilityCalculationInputImplementation.BreakWater);
-            Assert.AreEqual(expectedBeta, targetProbabilityCalculationInputImplementation.Beta);
+            Assert.AreEqual(locationId, reliabilityIndexCalculationInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(2, reliabilityIndexCalculationInput.CalculationTypeId);
+            CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.Variables);
+            CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.ProfilePoints);
+            CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.ForelandsPoints);
+            Assert.IsNull(reliabilityIndexCalculationInput.BreakWater);
+            Assert.AreEqual(expectedBeta, reliabilityIndexCalculationInput.Beta);
         }
 
-        private class SimpleTargetProbabilityCalculationInput : TargetProbabilityCalculationInput
+        private class SimpleReliabilityIndexCalculationInput : ReliabilityIndexCalculationInput
         {
-            public SimpleTargetProbabilityCalculationInput(int i, double norm)
+            public SimpleReliabilityIndexCalculationInput(int i, double norm)
                 : base(i, norm) {}
 
             public override HydraRingFailureMechanismType FailureMechanismType
