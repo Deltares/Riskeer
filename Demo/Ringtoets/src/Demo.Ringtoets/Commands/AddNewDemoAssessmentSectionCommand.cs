@@ -97,57 +97,6 @@ namespace Demo.Ringtoets.Commands
             }
         }
 
-        private void InitializeDemoHydraulicBoundaryDatabase(AssessmentSection demoAssessmentSection)
-        {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
-            using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
-            {
-                var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
-                hydraulicBoundaryDatabaseImporter.Import(demoAssessmentSection, filePath);
-            }
-
-            SetHydraulicBoundaryLocationDesignWaterLevelValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
-            SetHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
-            SetHydraulicBoundaryLocationWaveHeightValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
-            SetHydraulicBoundaryLocationWaveHeightCalculationConvergence(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
-
-            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelValues(demoAssessmentSection.GrassCoverErosionOutwards, demoAssessmentSection.HydraulicBoundaryDatabase);
-            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(demoAssessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
-        }
-
-        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                                        HydraulicBoundaryDatabase database)
-        {
-            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(database);
-            ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
-            locations.ElementAt(0).DesignWaterLevel = (RoundedDouble) 4.54;
-            locations.ElementAt(1).DesignWaterLevel = (RoundedDouble) 4.54;
-            locations.ElementAt(2).DesignWaterLevel = (RoundedDouble) 4.54;
-            locations.ElementAt(3).DesignWaterLevel = (RoundedDouble) 4.53;
-            locations.ElementAt(4).DesignWaterLevel = (RoundedDouble) 4.53;
-            locations.ElementAt(5).DesignWaterLevel = (RoundedDouble) 4.66;
-            locations.ElementAt(6).DesignWaterLevel = (RoundedDouble) 4.66;
-            locations.ElementAt(7).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(8).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(9).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(10).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(11).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(12).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(13).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(14).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(15).DesignWaterLevel = (RoundedDouble) 4.34;
-            locations.ElementAt(16).DesignWaterLevel = (RoundedDouble) 4.44;
-            locations.ElementAt(17).DesignWaterLevel = (RoundedDouble) 4.48;
-        }
-
-        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(ICollection<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations)
-        {
-            foreach (GrassCoverErosionOutwardsHydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
-            {
-                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged;
-            }
-        }
-
         private void InitializeDemoFailureMechanismSections(AssessmentSection demoAssessmentSection)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "traject_6-3_vakken.shp", "traject_6-3_vakken.dbf", "traject_6-3_vakken.prj", "traject_6-3_vakken.shx"))
@@ -179,6 +128,10 @@ namespace Demo.Ringtoets.Commands
             return new FailureMechanismSection(section.Name,
                                                section.Points.Select(p => new Point2D(p.X, p.Y)));
         }
+
+        #region FailureMechanisms
+
+        #region PipingFailureMechanism
 
         private void InitializeDemoPipingData(AssessmentSection demoAssessmentSection)
         {
@@ -216,6 +169,10 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.NotifyObservers();
         }
 
+        #endregion
+
+        #region GrassCoverErosionInwardsFailureMechanism
+
         private static void InitializeGrassCoverErosionInwardsData(AssessmentSection demoAssessmentSection)
         {
             GrassCoverErosionInwardsFailureMechanism failureMechanism = demoAssessmentSection.GrassCoverErosionInwards;
@@ -226,6 +183,10 @@ namespace Demo.Ringtoets.Commands
             calculation.InputParameters.NotifyObservers();
         }
 
+        #endregion
+
+        #region GrassCoverErosionInwardsFailureMechanism
+
         private static void InitializeHeightStructuresData(AssessmentSection demoAssessmentSection)
         {
             HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
@@ -234,6 +195,104 @@ namespace Demo.Ringtoets.Commands
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
+        }
+
+        #endregion
+
+        #region GrassCoverErosionOutwardsFailureMechanism
+
+        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
+            locations.ElementAt(0).DesignWaterLevel = (RoundedDouble) 4.54;
+            locations.ElementAt(1).DesignWaterLevel = (RoundedDouble) 4.54;
+            locations.ElementAt(2).DesignWaterLevel = (RoundedDouble) 4.54;
+            locations.ElementAt(3).DesignWaterLevel = (RoundedDouble) 4.53;
+            locations.ElementAt(4).DesignWaterLevel = (RoundedDouble) 4.53;
+            locations.ElementAt(5).DesignWaterLevel = (RoundedDouble) 4.66;
+            locations.ElementAt(6).DesignWaterLevel = (RoundedDouble) 4.66;
+            locations.ElementAt(7).DesignWaterLevel = (RoundedDouble) 4.65;
+            locations.ElementAt(8).DesignWaterLevel = (RoundedDouble) 4.65;
+            locations.ElementAt(9).DesignWaterLevel = (RoundedDouble) 4.65;
+            locations.ElementAt(10).DesignWaterLevel = (RoundedDouble) 4.65;
+            locations.ElementAt(11).DesignWaterLevel = (RoundedDouble) 4.65;
+            locations.ElementAt(12).DesignWaterLevel = (RoundedDouble) 4.65;
+            locations.ElementAt(13).DesignWaterLevel = (RoundedDouble) 4.65;
+            locations.ElementAt(14).DesignWaterLevel = (RoundedDouble) 4.65;
+            locations.ElementAt(15).DesignWaterLevel = (RoundedDouble) 4.34;
+            locations.ElementAt(16).DesignWaterLevel = (RoundedDouble) 4.44;
+            locations.ElementAt(17).DesignWaterLevel = (RoundedDouble) 4.48;
+        }
+
+        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(ICollection<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations)
+        {
+            foreach (GrassCoverErosionOutwardsHydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
+            {
+                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged;
+            }
+        }
+
+        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
+            locations.ElementAt(0).WaveHeight = (RoundedDouble) 3.31;
+            locations.ElementAt(1).WaveHeight = (RoundedDouble) 3.36;
+            locations.ElementAt(2).WaveHeight = (RoundedDouble) 3.20;
+            locations.ElementAt(3).WaveHeight = (RoundedDouble) 3.06;
+            locations.ElementAt(4).WaveHeight = (RoundedDouble) 2.92;
+            locations.ElementAt(5).WaveHeight = (RoundedDouble) 2.01;
+            locations.ElementAt(6).WaveHeight = (RoundedDouble) 2.29;
+            locations.ElementAt(7).WaveHeight = (RoundedDouble) 2.42;
+            locations.ElementAt(8).WaveHeight = (RoundedDouble) 2.52;
+            locations.ElementAt(9).WaveHeight = (RoundedDouble) 2.65;
+            locations.ElementAt(10).WaveHeight = (RoundedDouble) 2.73;
+            locations.ElementAt(11).WaveHeight = (RoundedDouble) 2.79;
+            locations.ElementAt(12).WaveHeight = (RoundedDouble) 2.82;
+            locations.ElementAt(13).WaveHeight = (RoundedDouble) 2.82;
+            locations.ElementAt(14).WaveHeight = (RoundedDouble) 2.47;
+            locations.ElementAt(15).WaveHeight = (RoundedDouble) 7.84;
+            locations.ElementAt(16).WaveHeight = (RoundedDouble) 6.72;
+            locations.ElementAt(17).WaveHeight = (RoundedDouble) 3.06;
+        }
+
+        private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightCalculationConvergence(ICollection<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations)
+        {
+            foreach (GrassCoverErosionOutwardsHydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
+            {
+                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region HydraulicBoundaryDatabase
+
+        private void InitializeDemoHydraulicBoundaryDatabase(AssessmentSection demoAssessmentSection)
+        {
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
+            {
+                using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
+                {
+                    var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");
+                    hydraulicBoundaryDatabaseImporter.Import(demoAssessmentSection, filePath);
+                }
+            }
+
+            SetHydraulicBoundaryLocationDesignWaterLevelValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationWaveHeightValues(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            SetHydraulicBoundaryLocationWaveHeightCalculationConvergence(demoAssessmentSection.HydraulicBoundaryDatabase.Locations);
+
+            demoAssessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(demoAssessmentSection.HydraulicBoundaryDatabase);
+            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelValues(demoAssessmentSection.GrassCoverErosionOutwards);
+            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(
+                demoAssessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
+
+            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightValues(demoAssessmentSection.GrassCoverErosionOutwards);
+            SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightCalculationConvergence(
+                demoAssessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
         }
 
         private static void SetHydraulicBoundaryLocationDesignWaterLevelValues(ICollection<HydraulicBoundaryLocation> locations)
@@ -295,5 +354,7 @@ namespace Demo.Ringtoets.Commands
                 hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
             }
         }
+
+        #endregion
     }
 }
