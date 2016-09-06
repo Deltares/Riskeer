@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
@@ -643,9 +644,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
             assessmentSection.Stub(a => a.Id).Return("someId");
 
+            var observerA = mocks.StrictMock<IObserver>();
+            observerA.Expect(o => o.UpdateObserver());
+            var observerB = mocks.StrictMock<IObserver>();
+            observerB.Expect(o => o.UpdateObserver());
+
             var group = new CalculationGroup();
-            group.Children.Add(GetValidCalculation());
-            group.Children.Add(GetValidCalculation());
+            var calculationA = GetValidCalculation();
+            var calculationB = GetValidCalculation();
+            calculationA.Attach(observerA);
+            calculationB.Attach(observerB);
+            group.Children.Add(calculationA);
+            group.Children.Add(calculationB);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
@@ -697,6 +707,213 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                         Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[28]);
                         Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[29]);
                     });
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_NoCalculations_ClearAllOutputItemDisabled()
+        {
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+            assessmentSection.Stub(a => a.Id).Return("someId");
+
+            var group = new CalculationGroup();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    var clearAllOutputItem = contextMenu.Items[5];
+
+                    // Assert
+                    Assert.IsFalse(clearAllOutputItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_TwoCalculationsWithoutOutput_ClearAllOutputItemDisabled()
+        {
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+            assessmentSection.Stub(a => a.Id).Return("someId");
+
+            var group = new CalculationGroup();
+            var calculationA = GetValidCalculation();
+            var calculationB = GetValidCalculation();
+            group.Children.Add(calculationA);
+            group.Children.Add(calculationB);
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    var clearAllOutputItem = contextMenu.Items[5];
+
+                    // Assert
+                    Assert.IsFalse(clearAllOutputItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
+        {
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+            assessmentSection.Stub(a => a.Id).Return("someId");
+
+            var observerA = mocks.StrictMock<IObserver>();
+            var observerB = mocks.StrictMock<IObserver>();
+            if (confirm)
+            {
+                observerA.Expect(o => o.UpdateObserver());
+                observerB.Expect(o => o.UpdateObserver());
+            }
+
+            var group = new CalculationGroup();
+            var calculationA = GetValidCalculation();
+            calculationA.Output = new StabilityStoneCoverWaveConditionsOutput(
+                Enumerable.Empty<WaveConditionsOutput>(),
+                Enumerable.Empty<WaveConditionsOutput>());
+            var calculationB = GetValidCalculation();
+            calculationB.Output = new StabilityStoneCoverWaveConditionsOutput(
+                Enumerable.Empty<WaveConditionsOutput>(),
+                Enumerable.Empty<WaveConditionsOutput>());
+            group.Children.Add(calculationA);
+            group.Children.Add(calculationB);
+            calculationA.Attach(observerA);
+            calculationB.Attach(observerB);
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var dialog = new MessageBoxTester(wnd);
+                if (confirm)
+                {
+                    dialog.ClickOk();
+                }
+                else
+                {
+                    dialog.ClickCancel();
+                }
+            };
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[5].PerformClick();
+
+                    // Assert
+                    if (confirm)
+                    {
+                        Assert.IsNull(calculationA.Output);
+                        Assert.IsNull(calculationB.Output);
+                    }
                 }
             }
         }
@@ -842,6 +1059,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var viewCommandsMock = mocks.StrictMock<IViewCommands>();
                 viewCommandsMock.Expect(vc => vc.RemoveAllViewsForItem(calculation));
+
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
