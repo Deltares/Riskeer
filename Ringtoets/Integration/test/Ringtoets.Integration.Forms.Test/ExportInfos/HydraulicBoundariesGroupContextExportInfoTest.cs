@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            HydraulicBoundariesGroupContext context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
             string filePath = "test";
 
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            HydraulicBoundariesGroupContext context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
 
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -118,7 +118,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
                 }
             });
 
-            HydraulicBoundariesGroupContext context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
 
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
             {

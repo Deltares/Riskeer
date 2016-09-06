@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -36,19 +37,11 @@ namespace Ringtoets.Common.IO.Test
         public void ParameteredConstructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            {
-                DesignWaterLevel = (RoundedDouble) 111.111,
-                WaveHeight = (RoundedDouble) 222.222
-            };
 
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
 
             // Call
-            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(new[]
-            {
-                hydraulicBoundaryLocation
-            }, filePath, "aName");
+            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(Enumerable.Empty<IHydraulicBoundaryLocation>(), filePath, "aName");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(hydraulicBoundaryLocationsExporter);

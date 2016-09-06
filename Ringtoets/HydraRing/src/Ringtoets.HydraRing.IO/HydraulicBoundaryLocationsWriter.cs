@@ -29,6 +29,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Writers;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.IO.Properties;
 
 namespace Ringtoets.HydraRing.IO
 {
@@ -107,10 +108,10 @@ namespace Ringtoets.HydraRing.IO
                 hydraulicBoundaryLocationGeometry
             });
 
-            mapFeature.MetaData.Add("Naam", hydraulicBoundaryLocation.Name);
-            mapFeature.MetaData.Add("ID", hydraulicBoundaryLocation.Id);
+            mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Name, hydraulicBoundaryLocation.Name);
+            mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Id, hydraulicBoundaryLocation.Id);
             mapFeature.MetaData.Add(designWaterLevelName, hydraulicBoundaryLocation.DesignWaterLevel.Value);
-            mapFeature.MetaData.Add("Golfhoogte", hydraulicBoundaryLocation.WaveHeight.Value);
+            mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_WaveHeight, hydraulicBoundaryLocation.WaveHeight.Value);
 
             return new MapPointData(hydraulicBoundaryLocation.Name)
             {

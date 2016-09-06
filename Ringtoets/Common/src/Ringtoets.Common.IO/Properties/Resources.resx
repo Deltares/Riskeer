@@ -308,4 +308,7 @@ Er is geen referentielijn geëxporteerd.</value>
   <data name="ProfileLocation_ProfileLocation_X0_is_invalid" xml:space="preserve">
     <value>De locatie parameter 'X0' bevat een ongeldig getal.</value>
   </data>
+  <data name="HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported" xml:space="preserve">
+    <value>{0} Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.</value>
+  </data>
 </root>

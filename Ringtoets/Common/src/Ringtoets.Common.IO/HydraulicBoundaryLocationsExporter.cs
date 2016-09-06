@@ -25,9 +25,9 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Utils;
 using log4net;
+using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Common.IO
 {
@@ -82,7 +82,7 @@ namespace Ringtoets.Common.IO
             }
             catch (CriticalFileWriteException e)
             {
-                log.ErrorFormat(RingtoetsCommonFormsResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
+                log.ErrorFormat(Resources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
                 return false;
             }
 

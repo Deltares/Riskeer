@@ -64,15 +64,10 @@ namespace Ringtoets.HydraRing.IO.Test
         public void WriteHydraulicBoundaryLocations_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2);
-
             var writer = new HydraulicBoundaryLocationsWriter("aName");
 
             // Call
-            TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(new[]
-            {
-                hydraulicBoundaryLocation
-            }, null);
+            TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(Enumerable.Empty<IHydraulicBoundaryLocation>(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

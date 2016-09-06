@@ -414,6 +414,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd..
+        /// </summary>
+        public static string HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocation" +
+                        "s_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TRAJECT_ID;N
         ///1-1;3
         ///1-2;2
