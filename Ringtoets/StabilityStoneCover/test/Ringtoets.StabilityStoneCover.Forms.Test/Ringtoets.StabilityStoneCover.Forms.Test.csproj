@@ -76,6 +76,7 @@
     <Compile Include="PresentationObjects\StabilityStoneCoverWaveConditionsCalculationInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextPropertiesTest.cs" />
+    <Compile Include="StabilityStoneCoverCalculationConfigurationHelperTest.cs" />
     <Compile Include="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialogTest.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsCalculationInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputContextPropertiesTest.cs" />

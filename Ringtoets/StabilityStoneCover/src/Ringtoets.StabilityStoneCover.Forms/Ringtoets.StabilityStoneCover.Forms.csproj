@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsCalculationInputContextProperties.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextProperties.cs" />
+    <Compile Include="StabilityStoneCoverCalculationConfigurationHelper.cs" />
     <Compile Include="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>

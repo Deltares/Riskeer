@@ -373,16 +373,20 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                                                                 nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
             {
                 dialog.ShowDialog();
-                foreach (IHydraulicBoundaryLocation location in dialog.SelectedLocations)
-                {
-                    nodeData.WrappedData.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
-                }
+                GenerateStabilityStoneCoverCalculations(nodeData.WrappedData, dialog.SelectedLocations);
 
                 if (dialog.SelectedLocations.Any())
                 {
                     nodeData.NotifyObservers();
                 }
             }
+        }
+
+        private static void GenerateStabilityStoneCoverCalculations(CalculationGroup target, IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(
+                hydraulicBoundaryLocations.OfType<HydraulicBoundaryLocation>(),
+                target.Children);
         }
 
         private void AddWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
