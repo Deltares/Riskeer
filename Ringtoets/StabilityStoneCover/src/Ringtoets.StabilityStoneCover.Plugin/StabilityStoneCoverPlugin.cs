@@ -114,6 +114,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                                                  .Build()
             };
 
+            yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsOutput>
+            {
+                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

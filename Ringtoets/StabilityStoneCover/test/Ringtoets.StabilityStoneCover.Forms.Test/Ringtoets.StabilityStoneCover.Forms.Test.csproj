@@ -82,6 +82,7 @@
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="Views\StabilityStoneCoverResultViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverSectionResultRowTest.cs" />
   </ItemGroup>
