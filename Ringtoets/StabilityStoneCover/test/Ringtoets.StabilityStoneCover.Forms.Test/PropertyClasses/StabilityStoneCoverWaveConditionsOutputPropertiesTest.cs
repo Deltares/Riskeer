@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Revetment.Data;
@@ -30,13 +32,16 @@ using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsOutputContextPropertiesTest
+    public class StabilityStoneCoverWaveConditionsOutputPropertiesTest
     {
+        private readonly int requiredBlockPropertyIndex = 0;
+        private readonly int requiredColumnPropertyIndex = 1;
+
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Data_WithBlocksAndColumns_ReturnsExpectedValues()
         {
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsOutputContextProperties();
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties();
 
             //Assert
             Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverWaveConditionsOutput>>(properties);
@@ -51,7 +56,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             {
                 new WaveConditionsOutput(6, 2, 9, 4),
             };
-            
+
             var columnsOutput = new[]
             {
                 new WaveConditionsOutput(1, 0, 3, 5),
@@ -60,7 +65,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsOutputContextProperties()
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties()
             {
                 Data = stabilityStoneCoverWaveConditionsOutput
             };
@@ -97,32 +102,44 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             const string expectedColumnDisplayName = "Zuilen";
             const string expectedBlockDisplayName = "Blokken";
+            const string expectedColumnDescription = "Berekende resultaten voor zuilen";
+            const string expectedBlockDescription = "Berekende resultaten voor blokken";
+            const string expectedCategory = "Resultaat";
 
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
-            var properties = new StabilityStoneCoverWaveConditionsOutputContextProperties()
+            var properties = new StabilityStoneCoverWaveConditionsOutputProperties()
             {
                 Data = stabilityStoneCoverWaveConditionsOutput
             };
 
             // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             // Asssert
             var propertyBag = new DynamicPropertyBag(properties);
+            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
 
-            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
+            Assert.AreEqual(2, dynamicProperties.Count);
 
-            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties();
-            PropertyDescriptor columnsProperty = dynamicProperties.Find("Columns", false);
-            PropertyDescriptor blocksProperty = dynamicProperties.Find("Blocks", false);
-
-            Assert.IsNotNull(columnsProperty);
-            Assert.IsTrue(columnsProperty.IsReadOnly);
-            Assert.AreEqual(expectedColumnDisplayName, columnsProperty.DisplayName);
-
+            PropertyDescriptor blocksProperty = dynamicProperties[requiredBlockPropertyIndex];
             Assert.IsNotNull(expectedBlockDisplayName);
             Assert.IsTrue(blocksProperty.IsReadOnly);
+            Assert.IsInstanceOf<ExpandableArrayConverter>(blocksProperty.Converter);
+            Assert.AreEqual(expectedCategory, blocksProperty.Category);
             Assert.AreEqual(expectedBlockDisplayName, blocksProperty.DisplayName);
+            Assert.AreEqual(expectedBlockDescription, blocksProperty.Description);
+
+            PropertyDescriptor columnsProperty = dynamicProperties[requiredColumnPropertyIndex];
+            Assert.IsNotNull(columnsProperty);
+            Assert.IsTrue(columnsProperty.IsReadOnly);
+            Assert.IsInstanceOf<ExpandableArrayConverter>(columnsProperty.Converter);
+            Assert.AreEqual(expectedCategory, columnsProperty.Category);
+            Assert.AreEqual(expectedColumnDisplayName, columnsProperty.DisplayName);
+            Assert.AreEqual(expectedColumnDescription, columnsProperty.Description);
         }
     }
 }

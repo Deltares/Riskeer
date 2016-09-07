@@ -79,7 +79,7 @@
     <Compile Include="StabilityStoneCoverCalculationConfigurationHelperTest.cs" />
     <Compile Include="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialogTest.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsCalculationInputContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyStabilityStoneCoverOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />

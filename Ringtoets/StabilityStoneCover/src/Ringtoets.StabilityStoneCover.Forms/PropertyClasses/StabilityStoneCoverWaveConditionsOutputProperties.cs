@@ -21,18 +21,26 @@
 
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsOutput"/> for properties panel.
+    /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class StabilityStoneCoverWaveConditionsOutputContextProperties : ObjectProperties<StabilityStoneCoverWaveConditionsOutput>
+    public class StabilityStoneCoverWaveConditionsOutputProperties : ObjectProperties<StabilityStoneCoverWaveConditionsOutput>
     {
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_Blocks_DisplayName")]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Blocks_Description")]
         public WaveConditionsOutputProperties[] Blocks
         {
             get
@@ -44,7 +52,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             }
         }
 
-        [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_Columns_DisplayName")]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
+        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Columns_Description")]
         public WaveConditionsOutputProperties[] Columns
         {
             get

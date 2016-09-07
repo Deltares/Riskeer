@@ -32,6 +32,11 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
     [TestFixture]
     public class WaveConditionsOutputPropertiesTest
     {
+        private const int requiredWaterLevelPropertyIndex = 0;
+        private const int requiredWaveHeightPropertyIndex = 1;
+        private const int requiredWavePeakPeriodPropertyIndex = 2;
+        private const int requiredWaveAnglePropertyIndex = 3;
+
         [Test]
         public void GetProperties_ValidData_ReturnsExpectedValues()
         {
@@ -63,10 +68,16 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const double wavePeakPeriod = 0.19435;
             const double waveAngle = 180.62353;
 
+            const string expectedCategory = "Algemeen";
             const string expectedWaterLevelDisplayName = "Waterstand [m+NAP]";
             const string expectedWaveHeightDisplayName = "Golfhoogte [m]";
             const string expectedWavePeakPeriodDisplayName = "Golfperiode [s]";
             const string expectedWaveAngleDisplayName = "Golfrichting [°]";
+
+            const string expectedWaterLevelDescription = "Berekende waterstand";
+            const string expectedWaveHeightDescription = "Berekende golfhoogte";
+            const string expectedWavePeakPeriodDescription = "Berekende golfperiode";
+            const string expectedWaveAngleDescription = "Berekende golfrichting";
 
             var properties = new WaveConditionsOutputProperties
             {
@@ -79,29 +90,41 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Assert 
             var propertyBag = new DynamicPropertyBag(properties);
 
+            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+
+            Assert.AreEqual(4, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
-            PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties();
-            PropertyDescriptor waterLevelProperty = dynamicProperties.Find("WaterLevel", false);
-            PropertyDescriptor waveHeightProperty = dynamicProperties.Find("WaveHeight", false);
-            PropertyDescriptor wavePeakPeriodProperty = dynamicProperties.Find("WavePeakPeriod", false);
-            PropertyDescriptor waveAngleProperty = dynamicProperties.Find("WaveAngle", false);
-
+            PropertyDescriptor waterLevelProperty = dynamicProperties[requiredWaterLevelPropertyIndex];
             Assert.IsNotNull(waterLevelProperty);
             Assert.IsTrue(waterLevelProperty.IsReadOnly);
+            Assert.AreEqual(expectedCategory, waterLevelProperty.Category);
             Assert.AreEqual(expectedWaterLevelDisplayName, waterLevelProperty.DisplayName);
+            Assert.AreEqual(expectedWaterLevelDescription, waterLevelProperty.Description);
 
+            PropertyDescriptor waveHeightProperty = dynamicProperties[requiredWaveHeightPropertyIndex];
             Assert.IsNotNull(waveHeightProperty);
             Assert.IsTrue(waveHeightProperty.IsReadOnly);
+            Assert.AreEqual(expectedCategory, waveHeightProperty.Category);
             Assert.AreEqual(expectedWaveHeightDisplayName, waveHeightProperty.DisplayName);
-            
+            Assert.AreEqual(expectedWaveHeightDescription, waveHeightProperty.Description);
+
+            PropertyDescriptor wavePeakPeriodProperty = dynamicProperties[requiredWavePeakPeriodPropertyIndex];
             Assert.IsNotNull(wavePeakPeriodProperty);
             Assert.IsTrue(wavePeakPeriodProperty.IsReadOnly);
+            Assert.AreEqual(expectedCategory, wavePeakPeriodProperty.Category);
             Assert.AreEqual(expectedWavePeakPeriodDisplayName, wavePeakPeriodProperty.DisplayName);
-            
+            Assert.AreEqual(expectedWavePeakPeriodDescription, wavePeakPeriodProperty.Description);
+
+            PropertyDescriptor waveAngleProperty = dynamicProperties[requiredWaveAnglePropertyIndex];
             Assert.IsNotNull(waveAngleProperty);
             Assert.IsTrue(waveAngleProperty.IsReadOnly);
+            Assert.AreEqual(expectedCategory, waveAngleProperty.Category);
             Assert.AreEqual(expectedWaveAngleDisplayName, waveAngleProperty.DisplayName);
+            Assert.AreEqual(expectedWaveAngleDescription, waveAngleProperty.Description);
         }
     }
 }

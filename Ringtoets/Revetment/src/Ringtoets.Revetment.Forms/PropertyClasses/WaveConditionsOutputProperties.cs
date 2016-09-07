@@ -30,11 +30,16 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 
 namespace Ringtoets.Revetment.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="WaveConditionsOutput"/> for properties panel.
+    /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class WaveConditionsOutputProperties : ObjectProperties<WaveConditionsOutput>
     {
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WaterLevel_Description")]
         public RoundedDouble WaterLevel
         {
             get
@@ -44,7 +49,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WaveHeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WaveHeight_Description")]
         public RoundedDouble WaveHeight
         {
             get
@@ -54,7 +61,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WavePeakPeriod_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WavePeakPeriod_Description")]
         public RoundedDouble WavePeakPeriod
         {
             get
@@ -64,7 +73,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsOutput_WaveAngle_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsOutput_WaveAngle_Description")]
         public RoundedDouble WaveAngle
         {
             get

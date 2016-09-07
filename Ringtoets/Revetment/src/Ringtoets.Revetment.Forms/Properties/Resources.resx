@@ -117,14 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="WaveConditionsOutput_WaterLevel_Description" xml:space="preserve">
+    <value>Berekende waterstand</value>
+  </data>
   <data name="WaveConditionsOutput_WaterLevel_DisplayName" xml:space="preserve">
     <value>Waterstand [m+NAP]</value>
+  </data>
+  <data name="WaveConditionsOutput_WaveAngle_Description" xml:space="preserve">
+    <value>Berekende golfrichting</value>
   </data>
   <data name="WaveConditionsOutput_WaveAngle_DisplayName" xml:space="preserve">
     <value>Golfrichting [°]</value>
   </data>
+  <data name="WaveConditionsOutput_WaveHeight_Description" xml:space="preserve">
+    <value>Berekende golfhoogte</value>
+  </data>
   <data name="WaveConditionsOutput_WaveHeight_DisplayName" xml:space="preserve">
     <value>Golfhoogte [m]</value>
+  </data>
+  <data name="WaveConditionsOutput_WavePeakPeriod_Description" xml:space="preserve">
+    <value>Berekende golfperiode</value>
   </data>
   <data name="WaveConditionsOutput_WavePeakPeriod_DisplayName" xml:space="preserve">
     <value>Golfperiode [s]</value>

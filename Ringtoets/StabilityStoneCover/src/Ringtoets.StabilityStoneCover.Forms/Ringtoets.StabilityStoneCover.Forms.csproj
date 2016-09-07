@@ -66,7 +66,7 @@
     </Compile>
     <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditor.cs" />
     <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextHydraulicBoundaryLocationEditor.cs" />
-    <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputContextProperties.cs" />
+    <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputProperties.cs" />
     <Compile Include="Views\StabilityStoneCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
