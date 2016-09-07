@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="GeneralWaveConditionsInput_A_Description" xml:space="preserve">
+    <value>De waarde van de parameter 'a' in de berekening voor golf condities.</value>
+  </data>
+  <data name="GeneralWaveConditionsInput_A_DisplayName" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="GeneralWaveConditionsInput_B_Description" xml:space="preserve">
+    <value>De waarde van de parameter 'b' in de berekening voor golf condities.</value>
+  </data>
+  <data name="GeneralWaveConditionsInput_B_DisplayName" xml:space="preserve">
+    <value>b</value>
+  </data>
+  <data name="GeneralWaveConditionsInput_C_Description" xml:space="preserve">
+    <value>De waarde van de parameter 'c' in de berekening voor golf condities.</value>
+  </data>
+  <data name="GeneralWaveConditionsInput_C_DisplayName" xml:space="preserve">
+    <value>c</value>
+  </data>
   <data name="WaveConditionsOutput_WaterLevel_Description" xml:space="preserve">
     <value>Berekende waterstand</value>
   </data>

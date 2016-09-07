@@ -19,14 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="StabilityStoneCoverFailureMechanismContext"/> for properties panel.
+    /// </summary>
     public class StabilityStoneCoverFailureMechanismContextProperties : ObjectProperties<StabilityStoneCoverFailureMechanismContext>
     {
         #region General
@@ -52,6 +58,42 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.Code;
+            }
+        }
+
+        #endregion
+
+        #region Model settings
+
+        [PropertyOrder(3)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditions_Blocks_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsFailureMechanism_Blocks_Description")]
+        public GeneralWaveConditionsInputProperties Blocks
+        {
+            get
+            {
+                return new GeneralWaveConditionsInputProperties
+                {
+                    Data = data.WrappedData.GeneralInput.GeneralBlocksWaveConditionsInput
+                };
+            }
+        }
+
+        [PropertyOrder(4)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditions_Columns_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsFailureMechanism_Columns_Description")]
+        public GeneralWaveConditionsInputProperties Columns
+        {
+            get
+            {
+                return new GeneralWaveConditionsInputProperties
+                {
+                    Data = data.WrappedData.GeneralInput.GeneralColumnsWaveConditionsInput
+                };
             }
         }
 

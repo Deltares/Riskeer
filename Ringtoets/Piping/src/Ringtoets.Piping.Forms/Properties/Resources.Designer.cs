@@ -109,15 +109,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelinstellingen.
-        /// </summary>
-        public static string Categories_ModelSettings {
-            get {
-                return ResourceManager.GetString("Categories_ModelSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Terugschrijdende erosie (Sellmeijer).
         /// </summary>
         public static string Categories_Sellmeijer {

@@ -43,6 +43,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 
 namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsCalculationInputContext"/> for properties panel.
+    /// </summary>
     public class StabilityStoneCoverWaveConditionsCalculationInputContextProperties : ObjectProperties<StabilityStoneCoverWaveConditionsCalculationInputContext>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;

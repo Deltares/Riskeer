@@ -61,6 +61,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreSame(failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput, properties.Blocks.Data);
+            Assert.AreSame(failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput, properties.Columns.Data);
             mockRepository.VerifyAll();
         }
 
@@ -86,7 +88,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             {
                 BrowsableAttribute.Yes
             });
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             Assert.IsTrue(nameProperty.IsReadOnly);
@@ -99,6 +101,20 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual("Algemeen", codeProperty.Category);
             Assert.AreEqual("Label", codeProperty.DisplayName);
             Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
+
+            PropertyDescriptor blocksProperty = dynamicProperties[2];
+            Assert.IsTrue(blocksProperty.IsReadOnly);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(blocksProperty.Converter);
+            Assert.AreEqual("Modelinstellingen", blocksProperty.Category);
+            Assert.AreEqual("Blokken", blocksProperty.DisplayName);
+            Assert.AreEqual("De modelinstellingen voor het berekenen van golfcondities voor blokken.", blocksProperty.Description);
+
+            PropertyDescriptor columnsProperty = dynamicProperties[3];
+            Assert.IsTrue(columnsProperty.IsReadOnly);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(columnsProperty.Converter);
+            Assert.AreEqual("Modelinstellingen", columnsProperty.Category);
+            Assert.AreEqual("Zuilen", columnsProperty.DisplayName);
+            Assert.AreEqual("De modelinstellingen voor het berekenen van golfcondities voor zuilen.", columnsProperty.Description);
             mockRepository.VerifyAll();
         }
     }

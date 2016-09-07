@@ -442,9 +442,6 @@
   <data name="GeneralPipingInput_B_DisplayName" xml:space="preserve">
     <value>b [m]</value>
   </data>
-  <data name="Categories_ModelSettings" xml:space="preserve">
-    <value>Modelinstellingen</value>
-  </data>
   <data name="PipingSemiProbabilisticOutput_PipingFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor deze berekening.</value>
   </data>

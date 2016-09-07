@@ -595,4 +595,7 @@
   <data name="Foreshore_UseForeshore_DisplayName" xml:space="preserve">
     <value>Gebruik</value>
   </data>
+  <data name="Categories_ModelSettings" xml:space="preserve">
+    <value>Modelinstellingen</value>
+  </data>
 </root>

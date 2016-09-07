@@ -178,10 +178,10 @@
   <data name="StabilityStoneCover_StoneRevetment_DisplayName" xml:space="preserve">
     <value>Steen (blokken en zuilen)</value>
   </data>
-  <data name="StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName" xml:space="preserve">
+  <data name="StabilityStoneCoverWaveConditions_Blocks_DisplayName" xml:space="preserve">
     <value>Blokken</value>
   </data>
-  <data name="StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName" xml:space="preserve">
+  <data name="StabilityStoneCoverWaveConditions_Columns_DisplayName" xml:space="preserve">
     <value>Zuilen</value>
   </data>
   <data name="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Select_Location" xml:space="preserve">
@@ -195,5 +195,11 @@
   </data>
   <data name="StabilityStoneCoverWaveConditionsOutputProperties_Columns_Description" xml:space="preserve">
     <value>Berekende resultaten voor zuilen</value>
+  </data>
+  <data name="StabilityStoneCoverWaveConditionsFailureMechanism_Blocks_Description" xml:space="preserve">
+    <value>De modelinstellingen voor het berekenen van golfcondities voor blokken.</value>
+  </data>
+  <data name="StabilityStoneCoverWaveConditionsFailureMechanism_Columns_Description" xml:space="preserve">
+    <value>De modelinstellingen voor het berekenen van golfcondities voor zuilen.</value>
   </data>
 </root>

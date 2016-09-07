@@ -39,7 +39,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditions_Blocks_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Blocks_Description")]
         public WaveConditionsOutputProperties[] Blocks
         {
@@ -54,7 +54,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditions_Columns_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsOutputProperties_Columns_Description")]
         public WaveConditionsOutputProperties[] Columns
         {

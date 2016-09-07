@@ -464,6 +464,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modelinstellingen.
+        /// </summary>
+        public static string Categories_ModelSettings {
+            get {
+                return ResourceManager.GetString("Categories_ModelSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string Categories_Result {
