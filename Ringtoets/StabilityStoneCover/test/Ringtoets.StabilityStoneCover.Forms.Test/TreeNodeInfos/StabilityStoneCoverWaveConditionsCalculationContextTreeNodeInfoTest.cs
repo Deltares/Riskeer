@@ -184,7 +184,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithEmptyOutput()
+        public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithOutput()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
