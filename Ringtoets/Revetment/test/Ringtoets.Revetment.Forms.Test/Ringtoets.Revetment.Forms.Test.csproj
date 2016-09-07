@@ -83,10 +83,6 @@
       <Name>Ringtoets.Common.Data.TestUtil</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Forms.Test\Ringtoets.Common.Forms.Test.csproj">
-      <Project>{886fdbe5-7065-4ab9-a894-869dbfd4e440}</Project>
-      <Name>Ringtoets.Common.Forms.Test</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
