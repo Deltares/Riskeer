@@ -289,5 +289,23 @@ namespace Ringtoets.StabilityStoneCover.Forms.Properties {
                 return ResourceManager.GetString("WaveConditionsOutput_Columns_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische randvoorwaardenlocatie.
+        /// </summary>
+        public static string StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Location_Name {
+            get {
+                return ResourceManager.GetString("StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Location_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruik.
+        /// </summary>
+        public static string StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Select_Location {
+            get {
+                return ResourceManager.GetString("StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Select_Location", resourceCulture);
+            }
+        }
     }
 }

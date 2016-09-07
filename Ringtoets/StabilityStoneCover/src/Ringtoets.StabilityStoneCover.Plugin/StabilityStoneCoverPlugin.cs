@@ -39,6 +39,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Forms;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.Views;
@@ -235,7 +236,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         #endregion
 
-        #region StabilityStoneCoverWaveCibdutuibsCalculationGroupContext
+        #region StabilityStoneCoverWaveConditionsCalculationGroupContext
 
         private object[] WaveConditionsCalculationGroupContextChildNodeObjects(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
         {
@@ -350,16 +351,38 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
         {
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = nodeData.AssessmentSection.HydraulicBoundaryDatabase;
+            bool locationsAvailable = hydraulicBoundaryDatabase != null && hydraulicBoundaryDatabase.Locations.Any();
+
+            string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
+                                                                                         ? Resources.StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                                                         : Resources.StabilityStoneCover_WaveConditions_No_HRD_To_Calculate;
+
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-                                             Resources.StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip,
+                                             stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                             (sender, args) =>
-                                             {
-                                                 /* TODO: Implement for WTI-733 */
-                                             })
+                                             (sender, args) => { ShowStabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(nodeData); })
             {
-                Enabled = false
+                Enabled = locationsAvailable
             };
+        }
+
+        private void ShowStabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
+        {
+            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(Gui.MainWindow,
+                                                                                                nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
+            {
+                dialog.ShowDialog();
+                foreach (IHydraulicBoundaryLocation location in dialog.SelectedLocations)
+                {
+                    nodeData.WrappedData.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+                }
+
+                if (dialog.SelectedLocations.Any())
+                {
+                    nodeData.NotifyObservers();
+                }
+            }
         }
 
         private void AddWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
@@ -451,7 +474,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             return builder.AddValidateCalculationItem(nodeData,
                                                       c => ValidateAll(
-                                                          new [] { c.WrappedData },
+                                                          new[]
+                                                          {
+                                                              c.WrappedData
+                                                          },
                                                           c.FailureMechanism.GeneralInput,
                                                           c.AssessmentSection.FailureMechanismContribution.Norm,
                                                           c.AssessmentSection.HydraulicBoundaryDatabase),

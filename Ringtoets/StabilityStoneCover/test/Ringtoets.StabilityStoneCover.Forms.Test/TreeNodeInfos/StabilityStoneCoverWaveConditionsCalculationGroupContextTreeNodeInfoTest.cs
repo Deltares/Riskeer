@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -73,6 +74,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndexNestedGroup = 4;
         private const int contextMenuClearOutputNestedGroupIndex = 5;
 
+        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 0;
         private const int customOnlyContextMenuRemoveAllChildrenIndex = 5;
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
@@ -306,7 +308,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithoutParentNodeDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
+        public void ContextMenuStrip_WithoutParentNodeWithoutHydraulicLocationsDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -342,6 +344,116 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     Assert.AreEqual(15, menu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                                  RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                                                  "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen aan te maken.",
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.AddFolderIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
+                                                                  "Er zijn geen berekeningen of mappen om te verwijderen.",
+                                                                  RingtoetsCommonFormsResources.RemoveAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.Validate_all,
+                                                                  "Er zijn geen berekeningen om te valideren.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.Calculate_all,
+                                                                  "Er zijn geen berekeningen om uit te voeren.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
+                                                                  "&Wis alle uitvoer...",
+                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
+                                                                  CoreCommonGuiResources.Expand_all,
+                                                                  CoreCommonGuiResources.Expand_all_ToolTip,
+                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
+                                                                  CoreCommonGuiResources.Collapse_all,
+                                                                  CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
+                                                                  CoreCommonGuiResources.Properties,
+                                                                  CoreCommonGuiResources.Properties_ToolTip,
+                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  false);
+                    CollectionAssert.AllItemsAreInstancesOfType(new[]
+                    {
+                        menu.Items[1],
+                        menu.Items[4],
+                        menu.Items[6],
+                        menu.Items[10],
+                        menu.Items[13]
+                    }, typeof(ToolStripSeparator));
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_WithoutParentNodeWithHydraulicLocationsDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "1", 1, 1)
+                }
+            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                                                         importHandlerMock,
+                                                         exportHandlerMock,
+                                                         viewCommandsHandler,
+                                                         nodeData,
+                                                         treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(15, menu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                                  RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                                                  "Genereer randvoorwaardenberekeningen.",
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                                                                   "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -489,7 +601,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("", new [] {new Point2D(0,0)}));
+                failureMechanism.AddSection(new FailureMechanismSection("", new[]
+                {
+                    new Point2D(0, 0)
+                }));
                 var group = new CalculationGroup();
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -531,7 +646,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("", new [] {new Point2D(0,0)}));
+                failureMechanism.AddSection(new FailureMechanismSection("", new[]
+                {
+                    new Point2D(0, 0)
+                }));
                 var group = new CalculationGroup();
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -589,7 +707,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
@@ -603,7 +724,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
@@ -658,7 +778,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
@@ -677,7 +800,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-
                 var mainWindow = mocks.Stub<IMainWindow>();
 
                 var gui = mocks.Stub<IGui>();
@@ -728,7 +850,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
@@ -742,7 +867,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-
                 var mainWindow = mocks.Stub<IMainWindow>();
 
                 var gui = mocks.Stub<IGui>();
@@ -787,7 +911,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
@@ -801,7 +928,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-
                 var mainWindow = mocks.Stub<IMainWindow>();
 
                 var gui = mocks.Stub<IGui>();
@@ -864,7 +990,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             calculationB.Attach(observerB);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[] { new Point2D(0, 0) }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
@@ -1126,13 +1255,195 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuRemoveAllChildrenIndexRootGroup].PerformClick();
 
                     // Assert
-                    Assert.AreEqual(new [] { calculation }, failureMechanism.WaveConditionsCalculationGroup.Children);
+                    Assert.AreEqual(new[]
+                    {
+                        calculation
+                    }, failureMechanism.WaveConditionsCalculationGroup.Children);
                 }
             }
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsPipingCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
+        public void ContextMenuStrip_ClickOnGenerateCalculations_ShowStabilityStoneCoverHydraulicBoundaryLocationSelectionDialog()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "1", 1, 1)
+                    }
+                };
+                var observerMock = mocks.StrictMock<IObserver>();
+                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                nodeData.Attach(observerMock);
+
+                StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog dialog = null;
+                DataGridViewControl grid = null;
+                int rowCount = 0;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    dialog = (StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                    rowCount = grid.Rows.Count;
+                    new ButtonTester("CustomCancelButton", dialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+                }
+
+                // Assert
+                Assert.NotNull(dialog);
+                Assert.NotNull(grid);
+                Assert.AreEqual(1, rowCount);
+            }
+        }
+
+        [Test]
+        public void GivenDialogGenerateCalculationButtonClicked_WhenCalculationSelectedAndDialogClosed_ThenUpdateCalculationGroup()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var group = new CalculationGroup();
+                var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "1", 1, 1),
+                        new HydraulicBoundaryLocation(2, "2", 2, 2)
+                    }
+                };
+
+                var observerMock = mocks.StrictMock<IObserver>();
+                observerMock.Expect(o => o.UpdateObserver());
+                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                nodeData.Attach(observerMock);
+
+                StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog dialog = null;
+                DataGridViewControl grid = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    dialog = (StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                    grid.Rows[0].Cells[0].Value = true;
+                    grid.Rows[1].Cells[0].Value = true;
+                    new ButtonTester("GenerateForSelectedButton", dialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+                }
+
+                // Assert
+                Assert.AreEqual(2, group.Children.Count);
+                Assert.NotNull(dialog);
+                Assert.NotNull(grid);
+            }
+        }
+
+        [Test]
+        public void GivenDialogGenerateCalculationButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationGroupNotUpdated()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var group = new CalculationGroup();
+                var failureMechanism = new StabilityStoneCoverFailureMechanism();
+                var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+                assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "1", 1, 1)
+                    }
+                };
+
+                var observerMock = mocks.StrictMock<IObserver>();
+                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                            failureMechanism,
+                                                                                            assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+                nodeData.Attach(observerMock);
+
+                StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog dialog = null;
+                DataGridViewControl grid = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    dialog = (StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                    grid.Rows[0].Cells[0].Value = true;
+                    new ButtonTester("CustomCancelButton", dialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+                }
+
+                // Assert
+                Assert.AreEqual(0, group.Children.Count);
+                Assert.NotNull(dialog);
+                Assert.NotNull(grid);
+            }
+        }
+
+        [Test]
+        public void OnNodeRemoved_ParentIsWaveConditionsCalculationGrouContainingGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -1275,14 +1586,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     ForeshoreProfile = CreateForeshoreProfile(),
                     UseForeshore = true,
                     UseBreakWater = true,
-                    StepSize = (RoundedDouble)0.5,
-                    LowerBoundaryRevetment = (RoundedDouble)4,
-                    UpperBoundaryRevetment = (RoundedDouble)10,
-                    UpperBoundaryWaterLevels = (RoundedDouble)8,
-                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                    StepSize = (RoundedDouble) 0.5,
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
             return calculation;
         }
 

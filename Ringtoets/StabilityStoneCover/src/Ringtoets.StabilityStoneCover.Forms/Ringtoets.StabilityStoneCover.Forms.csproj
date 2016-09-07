@@ -34,8 +34,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -55,6 +57,12 @@
     </Compile>
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsCalculationInputContextProperties.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextProperties.cs" />
+    <Compile Include="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.Designer.cs">
+      <DependentUpon>StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditor.cs" />
     <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextHydraulicBoundaryLocationEditor.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputContextProperties.cs" />
@@ -129,6 +137,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.resx">
+      <DependentUpon>StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

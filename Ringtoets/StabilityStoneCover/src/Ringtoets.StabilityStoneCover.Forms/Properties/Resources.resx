@@ -184,4 +184,10 @@
   <data name="WaveConditionsOutput_Columns_DisplayName" xml:space="preserve">
     <value>Zuilen</value>
   </data>
+  <data name="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Select_Location" xml:space="preserve">
+    <value>Gebruik</value>
+  </data>
+  <data name="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Location_Name" xml:space="preserve">
+    <value>Hydraulische randvoorwaardenlocatie</value>
+  </data>
 </root>

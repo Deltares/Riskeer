@@ -120,4 +120,7 @@
   <data name="StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip" xml:space="preserve">
     <value>Genereer randvoorwaardenberekeningen.</value>
   </data>
+  <data name="StabilityStoneCover_WaveConditions_No_HRD_To_Calculate" xml:space="preserve">
+    <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen aan te maken.</value>
+  </data>
 </root>
