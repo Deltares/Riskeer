@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -109,8 +110,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.IsNaN(properties.LowerBoundaryWaterLevels.Value);
             Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, properties.StepSize.NumberOfDecimalPlaces);
-            Assert.IsNaN(properties.StepSize.Value);
+            Assert.AreEqual(0.5, properties.StepSize.AsValue());
             CollectionAssert.AreEqual(input.WaterLevels, properties.WaterLevels);
 
             Assert.IsNull(properties.ForeshoreProfile);
@@ -139,7 +139,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var lowerBoundaryWaterLevels = (RoundedDouble)random.NextDouble();
             var upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble)random.NextDouble();
             var upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble)random.NextDouble();
-            var stepSize = (RoundedDouble)0.5;
+            var stepSize = WaveConditionsInputStepSize.Half;
 
             var worldX = (RoundedDouble) random.NextDouble();
             var worldY = (RoundedDouble) random.NextDouble();
@@ -210,7 +210,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var newLowerBoundaryWaterLevels = (RoundedDouble)random.NextDouble();
             var newUpperBoundaryRevetment = newLowerBoundaryRevetment + (RoundedDouble)random.NextDouble();
             var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble)random.NextDouble();
-            var newStepSize = (RoundedDouble)0.5;
+            var newStepSize = WaveConditionsInputStepSize.Half;
 
             var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1)
             {
@@ -256,8 +256,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(newLowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, properties.StepSize.NumberOfDecimalPlaces);
-            Assert.AreEqual(newStepSize.Value, properties.StepSize.Value);
+            Assert.AreEqual(newStepSize, properties.StepSize);
             mockRepository.VerifyAll();
         }
 
@@ -349,6 +348,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             PropertyDescriptor stepSizeProperty = dynamicProperties[stepSizePropertyIndex];
             Assert.IsNotNull(stepSizeProperty);
+            Assert.IsInstanceOf<EnumTypeConverter>(stepSizeProperty.Converter);
             Assert.IsFalse(stepSizeProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, stepSizeProperty.Category);
             Assert.AreEqual("Stapgrootte [m]", stepSizeProperty.DisplayName);

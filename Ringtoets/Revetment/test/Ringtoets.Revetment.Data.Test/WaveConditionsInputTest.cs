@@ -41,13 +41,13 @@ namespace Ringtoets.Revetment.Data.Test
         {
             get
             {
-                yield return new TestCaseData(10, 3.58, 6.10, 3.40, 5.88, 5.99, new[]
+                yield return new TestCaseData(WaveConditionsInputStepSize.Two, 2.58, 6.10, 2.40, 3.89, 5.99, new[]
                 {
-                    new RoundedDouble(2, 3.58),
-                    new RoundedDouble(2, 5.88)
+                    new RoundedDouble(2, 2.58),
+                    new RoundedDouble(2, 3.89)
                 });
 
-                yield return new TestCaseData(0.5, 3.58, 6.10, 3.40, 5.88, 5.99, new[]
+                yield return new TestCaseData(WaveConditionsInputStepSize.Half, 3.58, 6.10, 3.40, 5.88, 5.99, new[]
                 {
                     new RoundedDouble(2, 3.58),
                     new RoundedDouble(2, 4),
@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.Data.Test
                     new RoundedDouble(2, 5.88)
                 });
 
-                yield return new TestCaseData(1, -1.30, 5.80, -1.20, 6.01, 6.10, new[]
+                yield return new TestCaseData(WaveConditionsInputStepSize.One, -1.30, 5.80, -1.20, 6.01, 6.10, new[]
                 {
                     new RoundedDouble(2, -1.20),
                     new RoundedDouble(2, -1),
@@ -70,7 +70,7 @@ namespace Ringtoets.Revetment.Data.Test
                     new RoundedDouble(2, 5.80)
                 });
 
-                yield return new TestCaseData(2, -4.29, 8.67, -4.29, 8.58, 8.58, new[]
+                yield return new TestCaseData(WaveConditionsInputStepSize.Two, -4.29, 8.67, -4.29, 8.58, 8.58, new[]
                 {
                     new RoundedDouble(2, -4.29),
                     new RoundedDouble(2, -4),
@@ -83,7 +83,7 @@ namespace Ringtoets.Revetment.Data.Test
                     new RoundedDouble(2, 8.57)
                 });
 
-                yield return new TestCaseData(2, -4.29, 8.67, double.NaN, double.NaN, 8.58, new[]
+                yield return new TestCaseData(WaveConditionsInputStepSize.Two, -4.29, 8.67, double.NaN, double.NaN, 8.58, new[]
                 {
                     new RoundedDouble(2, -4.29),
                     new RoundedDouble(2, -4),
@@ -118,7 +118,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryDesignWaterLevel);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryRevetment);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryRevetment);
-            Assert.AreEqual(new RoundedDouble(1, double.NaN), input.StepSize);
+            Assert.AreEqual(WaveConditionsInputStepSize.Half, input.StepSize);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryWaterLevels);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryWaterLevels);
             CollectionAssert.IsEmpty(input.WaterLevels);
@@ -414,54 +414,6 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        public void StepSize_SetNewValue_ValueIsRounded()
-        {
-            // Setup
-            var input = new WaveConditionsInput();
-
-            int originalNumberOfDecimalPlaces = input.StepSize.NumberOfDecimalPlaces;
-
-            // Call
-            input.StepSize = new RoundedDouble(5, 1.23456);
-
-            // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, input.StepSize.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.2, input.StepSize.Value);
-        }
-
-        [Test]
-        [TestCase(1.0)]
-        [TestCase(0.05)]
-        public void StepSize_ValidValue_ValueIsSet(double stepSize)
-        {
-            // Setup
-            var input = new WaveConditionsInput();
-
-            // Call
-            input.StepSize = (RoundedDouble) stepSize;
-
-            // Assert
-            Assert.AreEqual(stepSize, input.StepSize, input.StepSize.GetAccuracy());
-        }
-
-        [Test]
-        [TestCase(-1.0)]
-        [TestCase(0.0)]
-        [TestCase(0.004)]
-        public void StepSize_InvalidValue_ThrowsArgumentOutOfRangeException(double stepSize)
-        {
-            // Setup
-            var input = new WaveConditionsInput();
-
-            // Call
-            TestDelegate test = () => input.StepSize = (RoundedDouble) stepSize;
-
-            // Assert
-            string expectedMessage = Resources.WaveConditionsInput_StepSize_Should_be_greater_than_zero;
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-        }
-
-        [Test]
         public void LowerBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
@@ -576,11 +528,10 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(double.NaN, 1.0, 10.0, 12.0)]
-        [TestCase(1.0, double.NaN, 10.0, 12.0)]
-        [TestCase(1.0, 1.0, double.NaN, 12.0)]
-        [TestCase(1.0, 1.0, 10.0, double.NaN)]
-        public void WaterLevels_InvalidInput_NoWaterLevels(double stepSize, double lowerBoundaryRevetments, double upperBoundaryRevetments, double designWaterLevel)
+        [TestCase(double.NaN, 10.0, 12.0)]
+        [TestCase(1.0, double.NaN, 12.0)]
+        [TestCase(1.0, 10.0, double.NaN)]
+        public void WaterLevels_InvalidInput_NoWaterLevels(double lowerBoundaryRevetments, double upperBoundaryRevetments, double designWaterLevel)
         {
             // Setup
             var input = new WaveConditionsInput
@@ -591,7 +542,7 @@ namespace Ringtoets.Revetment.Data.Test
                 },
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
-                StepSize = (RoundedDouble) stepSize,
+                StepSize = WaveConditionsInputStepSize.One,
                 LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                 UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
@@ -610,8 +561,8 @@ namespace Ringtoets.Revetment.Data.Test
             var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
-                UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                StepSize = (RoundedDouble) 1.0,
+                UpperBoundaryRevetment = (RoundedDouble)10.0,
+                StepSize = WaveConditionsInputStepSize.One,
                 LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                 UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
@@ -625,7 +576,7 @@ namespace Ringtoets.Revetment.Data.Test
 
         [Test]
         [TestCaseSource("WaterLevels")]
-        public void WaterLevels_ValidInput_ReturnsWaterLevels(double stepSize, double lowerBoundaryRevetment, double upperBoundaryRevetment,
+        public void WaterLevels_ValidInput_ReturnsWaterLevels(WaveConditionsInputStepSize stepSize, double lowerBoundaryRevetment, double upperBoundaryRevetment,
                                                               double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels,
                                                               double designWaterLevel, IEnumerable<RoundedDouble> expectedWaterLevels)
         {
@@ -638,7 +589,7 @@ namespace Ringtoets.Revetment.Data.Test
                 },
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
-                StepSize = (RoundedDouble) stepSize,
+                StepSize = stepSize,
                 LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
                 UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };

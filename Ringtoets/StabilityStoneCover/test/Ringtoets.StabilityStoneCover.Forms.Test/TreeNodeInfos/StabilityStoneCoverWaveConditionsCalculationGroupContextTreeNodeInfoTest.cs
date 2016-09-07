@@ -1586,11 +1586,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     ForeshoreProfile = CreateForeshoreProfile(),
                     UseForeshore = true,
                     UseBreakWater = true,
-                    StepSize = (RoundedDouble) 0.5,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
+                    StepSize = WaveConditionsInputStepSize.Half,
+                    LowerBoundaryRevetment = (RoundedDouble)4,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)8,
+                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
                 }
             };
             calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;

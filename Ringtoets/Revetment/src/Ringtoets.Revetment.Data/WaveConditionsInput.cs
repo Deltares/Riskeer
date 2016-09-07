@@ -42,7 +42,7 @@ namespace Ringtoets.Revetment.Data
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble upperBoundaryRevetment;
         private RoundedDouble lowerBoundaryRevetment;
-        private RoundedDouble stepSize;
+        private WaveConditionsInputStepSize stepSize;
         private RoundedDouble upperBoundaryWaterLevels;
         private RoundedDouble lowerBoundaryWaterLevels;
 
@@ -53,7 +53,7 @@ namespace Ringtoets.Revetment.Data
         {
             upperBoundaryRevetment = new RoundedDouble(2, double.NaN);
             lowerBoundaryRevetment = new RoundedDouble(2, double.NaN);
-            stepSize = new RoundedDouble(1, double.NaN);
+            stepSize = WaveConditionsInputStepSize.Half;
             upperBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
             lowerBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
 
@@ -176,7 +176,7 @@ namespace Ringtoets.Revetment.Data
         /// Gets or sets the step size used for determining <see cref="WaterLevels"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <c>0</c>.</exception>
-        public RoundedDouble StepSize
+        public WaveConditionsInputStepSize StepSize
         {
             get
             {
@@ -184,14 +184,7 @@ namespace Ringtoets.Revetment.Data
             }
             set
             {
-                var newStepSize = value.ToPrecision(stepSize.NumberOfDecimalPlaces);
-
-                if (!double.IsNaN(newStepSize) && newStepSize <= 0)
-                {
-                    throw new ArgumentOutOfRangeException(null, Resources.WaveConditionsInput_StepSize_Should_be_greater_than_zero);
-                }
-
-                stepSize = newStepSize;
+                stepSize = value;
             }
         }
 
@@ -291,20 +284,20 @@ namespace Ringtoets.Revetment.Data
                                                                   : double.MinValue));
 
             if (double.IsNaN(upperBoundary)
-                || double.IsNaN(lowerBoundary)
-                || double.IsNaN(stepSize))
+                || double.IsNaN(lowerBoundary))
             {
                 return waterLevels;
             }
 
             waterLevels.Add(lowerBoundary);
 
-            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary/stepSize)*stepSize + stepSize);
+            double stepSizeValue = stepSize.AsValue();
+            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary/stepSizeValue)*stepSizeValue + stepSizeValue);
 
             while (currentWaterLevel < upperBoundary)
             {
                 waterLevels.Add(currentWaterLevel);
-                currentWaterLevel = (currentWaterLevel + stepSize).ToPrecision(currentWaterLevel.NumberOfDecimalPlaces);
+                currentWaterLevel = new RoundedDouble(currentWaterLevel.NumberOfDecimalPlaces, currentWaterLevel + stepSizeValue);
             }
 
             waterLevels.Add(upperBoundary);

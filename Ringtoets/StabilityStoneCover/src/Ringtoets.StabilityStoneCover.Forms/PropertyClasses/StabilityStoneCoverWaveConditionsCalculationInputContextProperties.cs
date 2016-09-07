@@ -29,10 +29,12 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.UITypeEditors;
@@ -171,10 +173,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         }
 
         [PropertyOrder(stepSizePropertyIndex)]
+        [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_StepSize_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_StepSize_Description")]
-        public RoundedDouble StepSize
+        public WaveConditionsInputStepSize StepSize
         {
             get
             {
