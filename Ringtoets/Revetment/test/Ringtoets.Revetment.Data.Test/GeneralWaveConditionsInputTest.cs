@@ -21,21 +21,26 @@
 
 using NUnit.Framework;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
+namespace Ringtoets.Revetment.Data.Test
 {
     [TestFixture]
-    public class GeneralWaveImpactAsphaltCoverWaveConditionsInputTest
+    public class GeneralWaveConditionsInputTest
     {
         [Test]
-        public void Constructor_ExpectedValue()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            double a = 1.0;
+            double b = 0.76;
+            double c = 0.8;
+
             // Call
-            var generalInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
+            var generalInput = new GeneralWaveConditionsInput(a, b, c);
 
             // Assert
-            Assert.AreEqual(1.0, generalInput.A);
-            Assert.AreEqual(0, generalInput.B);
-            Assert.AreEqual(0, generalInput.C);
+            Assert.AreEqual(a, generalInput.A);
+            Assert.AreEqual(b, generalInput.B);
+            Assert.AreEqual(c, generalInput.C);
         }
     }
 }

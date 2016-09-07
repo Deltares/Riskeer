@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data.Properties;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data
@@ -44,7 +45,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         {
             sectionResults = new List<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
             ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
-            GeneralInput = new GeneralWaveImpactAsphaltCoverWaveConditionsInput();
+            GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -61,9 +62,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
 
         /// <summary>
-        /// Gets the general wave impact asphalt cover wave conditions input parameters that apply to each calculation.
+        /// Gets the general wave conditions input parameters that apply to each calculation.
         /// </summary>
-        public GeneralWaveImpactAsphaltCoverWaveConditionsInput GeneralInput { get; private set; }
+        public GeneralWaveConditionsInput GeneralInput { get; private set; }
 
         public IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
         {

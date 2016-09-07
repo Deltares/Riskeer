@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.Properties;
+using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
 {
@@ -37,25 +38,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public GeneralGrassCoverErosionOutwardsInput()
         {
             n = 2;
-            A = 1.0;
-            B = 0.67;
-            C = 0.0;
+            GeneralWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.67, 0.0);
         }
 
         /// <summary>
-        /// Gets the 'a' parameter used in wave conditions calculations.
+        /// Gets the general input parameter used in wave conditions calculations.
         /// </summary>
-        public double A { get; private set; }
+        public GeneralWaveConditionsInput GeneralWaveConditionsInput { get; private set; }
 
-        /// <summary>
-        /// Gets the 'b' parameter used in wave conditions calculations.
-        /// </summary>
-        public double B { get; private set; }
-
-        /// <summary>
-        /// Gets the 'c' parameter used in wave conditions calculations.
-        /// </summary>
-        public double C { get; private set; }
 
         #region Probability assessment
 

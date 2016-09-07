@@ -19,21 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data
+namespace Ringtoets.Revetment.Data
 {
     /// <summary>
-    /// Class that holds all the static wave impact asphalt cover wave conditions input parameters.
+    /// Class that holds all the static wave conditions input parameters.
     /// </summary>
-    public class GeneralWaveImpactAsphaltCoverWaveConditionsInput
+    public class GeneralWaveConditionsInput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralWaveImpactAsphaltCoverWaveConditionsInput"/>.
+        /// Creates a new instance of <see cref="GeneralWaveConditionsInput"/>.
         /// </summary>
-        public GeneralWaveImpactAsphaltCoverWaveConditionsInput()
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        public GeneralWaveConditionsInput(double a, double b, double c)
         {
-            A = 1.0;
-            B = 0.0;
-            C = 0.0;
+            A = a;
+            B = b;
+            C = c;
         }
 
         /// <summary>

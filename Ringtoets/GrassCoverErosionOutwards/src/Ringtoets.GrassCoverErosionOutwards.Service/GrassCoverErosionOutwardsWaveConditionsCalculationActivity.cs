@@ -97,9 +97,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
                            List<WaveConditionsOutput> outputs = new List<WaveConditionsOutput>();
 
-                           var a = failureMechanism.GeneralInput.A;
-                           var b = failureMechanism.GeneralInput.B;
-                           var c = failureMechanism.GeneralInput.C;
+                           var a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
+                           var b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
+                           var c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
                            var norm = assessmentSection.FailureMechanismContribution.Norm;
 
                            foreach (var waterLevel in calculation.InputParameters.WaterLevels)

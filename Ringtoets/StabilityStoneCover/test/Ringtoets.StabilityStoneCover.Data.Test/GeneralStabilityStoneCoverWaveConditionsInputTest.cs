@@ -42,12 +42,12 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
 
             // Assert
-            Assert.AreEqual(aBlocks, generalInput.ABlocks);
-            Assert.AreEqual(bBlocks, generalInput.BBlocks);
-            Assert.AreEqual(cBlocks, generalInput.CBlocks);
-            Assert.AreEqual(aColumns, generalInput.AColumns);
-            Assert.AreEqual(bColumns, generalInput.BColumns);
-            Assert.AreEqual(cColumns, generalInput.CColumns);
+            Assert.AreEqual(aBlocks, generalInput.GeneralBlocksWaveConditionsInput.A);
+            Assert.AreEqual(bBlocks, generalInput.GeneralBlocksWaveConditionsInput.B);
+            Assert.AreEqual(cBlocks, generalInput.GeneralBlocksWaveConditionsInput.C);
+            Assert.AreEqual(aColumns, generalInput.GeneralColumnsWaveConditionsInput.A);
+            Assert.AreEqual(bColumns, generalInput.GeneralColumnsWaveConditionsInput.B);
+            Assert.AreEqual(cColumns, generalInput.GeneralColumnsWaveConditionsInput.C);
         }
     }
 }

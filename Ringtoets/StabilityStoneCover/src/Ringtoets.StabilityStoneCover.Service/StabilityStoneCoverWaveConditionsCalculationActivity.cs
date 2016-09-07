@@ -93,12 +93,12 @@ namespace Ringtoets.StabilityStoneCover.Service
 
                            Output = new StabilityStoneCoverWaveConditionsCalculationActivityOutput();
 
-                           var aBlocks = failureMechanism.GeneralInput.ABlocks;
-                           var bBlocks = failureMechanism.GeneralInput.BBlocks;
-                           var cBlocks = failureMechanism.GeneralInput.CBlocks;
-                           var aColumns = failureMechanism.GeneralInput.AColumns;
-                           var bColumns = failureMechanism.GeneralInput.BColumns;
-                           var cColumns = failureMechanism.GeneralInput.CColumns;
+                           var aBlocks = failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput.A;
+                           var bBlocks = failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput.B;
+                           var cBlocks = failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput.C;
+                           var aColumns = failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput.A;
+                           var bColumns = failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput.B;
+                           var cColumns = failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput.C;
                            var norm = assessmentSection.FailureMechanismContribution.Norm;
 
                            foreach (var waterLevel in calculation.InputParameters.WaterLevels)

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Revetment.Data;
+
 namespace Ringtoets.StabilityStoneCover.Data
 {
     /// <summary>
@@ -31,43 +33,18 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// </summary>
         public GeneralStabilityStoneCoverWaveConditionsInput()
         {
-            ABlocks = 1.0;
-            BBlocks = 1.0;
-            CBlocks = 1.0;
-
-            AColumns = 1.0;
-            BColumns = 0.4;
-            CColumns = 0.8;
+            GeneralBlocksWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 1.0, 1.0);
+            GeneralColumnsWaveConditionsInput = new GeneralWaveConditionsInput(1.0, 0.4, 0.8);
         }
 
         /// <summary>
-        /// Gets the 'a' parameter used in wave conditions calculations for blocks.
+        /// Gets the general input parameter used in wave conditions calculations for blocks.
         /// </summary>
-        public double ABlocks { get; private set; }
+        public GeneralWaveConditionsInput GeneralBlocksWaveConditionsInput { get; private set; }
 
         /// <summary>
-        /// Gets the 'b' parameter used in wave conditions calculations for blocks.
+        /// Gets the general input parameter used in wave conditions calculations for columns.
         /// </summary>
-        public double BBlocks { get; private set; }
-
-        /// <summary>
-        /// Gets the 'c' parameter used in wave conditions calculations for blocks.
-        /// </summary>
-        public double CBlocks { get; private set; }
-
-        /// <summary>
-        /// Gets the 'a' parameter used in wave conditions calculations for columns.
-        /// </summary>
-        public double AColumns { get; private set; }
-
-        /// <summary>
-        /// Gets the 'b' parameter used in wave conditions calculations for columns.
-        /// </summary>
-        public double BColumns { get; private set; }
-
-        /// <summary>
-        /// Gets the 'c' parameter used in wave conditions calculations for columns.
-        /// </summary>
-        public double CColumns { get; private set; }
+        public GeneralWaveConditionsInput GeneralColumnsWaveConditionsInput { get; private set; }
     }
 }

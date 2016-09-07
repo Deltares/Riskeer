@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 {
@@ -42,7 +43,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
 
-            Assert.IsInstanceOf<GeneralWaveImpactAsphaltCoverWaveConditionsInput>(failureMechanism.GeneralInput);
+            Assert.IsInstanceOf<GeneralWaveConditionsInput>(failureMechanism.GeneralInput);
         }
 
         [Test]
