@@ -173,5 +173,27 @@ namespace Ringtoets.Common.IO.Test
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
+
+        [Test]
+        public void ReadReferenceLine_FileInUse_ThrowCriticalFileReadException()
+        {
+            // Setup
+            var validReferenceLineShapeFile = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                         Path.Combine("ReferenceLine", "traject_10-2.shp"));
+            var reader = new ReferenceLineReader();
+
+            using (new FileStream(validReferenceLineShapeFile, FileMode.Open))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadReferenceLine(validReferenceLineShapeFile);
+
+                // Assert
+                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand in gebruik door een andere applicatie.",
+                                                validReferenceLineShapeFile);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<IOException>(exception.InnerException);
+            }
+        }
     }
 }

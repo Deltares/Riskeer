@@ -84,7 +84,7 @@ namespace Core.Components.Gis.IO.Test.Readers
                 TestDelegate call = () => new PolylineShapeFileReader(testFilePath);
 
                 // Assert
-                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand.",
+                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand in gebruik door een andere applicatie.",
                                                     testFilePath);
                 CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);

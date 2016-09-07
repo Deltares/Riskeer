@@ -148,7 +148,7 @@
     <value>Regel bevat te veel tekst om in het RAM geheugen opgeslagen te worden.</value>
   </data>
   <data name="Error_General_IO_Import_ErrorMessage" xml:space="preserve">
-    <value>Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand.</value>
+    <value>Het bestand kon niet worden geopend. Mogelijk is het bestand in gebruik door een andere applicatie.</value>
   </data>
   <data name="TextFile_On_LineNumber_0_" xml:space="preserve">
     <value>op regel {0}</value>
