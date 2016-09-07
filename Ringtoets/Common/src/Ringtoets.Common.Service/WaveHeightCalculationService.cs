@@ -74,10 +74,11 @@ namespace Ringtoets.Common.Service
             return isValid;
         }
 
-        public ReliabilityIndexCalculationOutput Calculate(ICalculationMessageProvider messageProvider,
-                                                           IHydraulicBoundaryLocation hydraulicBoundaryLocation,
+        public ReliabilityIndexCalculationOutput Calculate(IHydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                            string hydraulicBoundaryDatabaseFilePath,
-                                                           string ringId, double norm)
+                                                           string ringId,
+                                                           double norm,
+                                                           ICalculationMessageProvider messageProvider)
         {
             var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             var input = CreateInput(hydraulicBoundaryLocation, norm);

@@ -57,10 +57,11 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             const double norm = 12.34;
 
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(calculationMessageProviderMock,
-                                                                         hydraulicBoundaryLocationMock,
+            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocationMock,
                                                                          string.Empty,
-                                                                         string.Empty, norm);
+                                                                         string.Empty,
+                                                                         norm,
+                                                                         calculationMessageProviderMock);
 
             // Assert
             var expectedOutput = new ReliabilityIndexCalculationOutput(norm, StatisticsConverter.NormToBeta(norm));
@@ -79,15 +80,16 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             mockRepository.ReplayAll();
             var service = new TestWaveHeightCalculationService
             {
-                SetCalculationConvergenceOutput = CalculationConvergence.CalculatedConverged
+                CalculationConvergenceOutput = CalculationConvergence.CalculatedConverged
             };
             const double norm = 12.34;
 
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(calculationMessageProviderMock,
-                                                                         hydraulicBoundaryLocationMock,
+            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocationMock,
                                                                          string.Empty,
-                                                                         string.Empty, norm);
+                                                                         string.Empty,
+                                                                         norm,
+                                                                         calculationMessageProviderMock);
 
             // Assert
             Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);
@@ -107,15 +109,16 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             mockRepository.ReplayAll();
             var service = new TestWaveHeightCalculationService
             {
-                SetCalculationConvergenceOutput = CalculationConvergence.NotCalculated
+                CalculationConvergenceOutput = CalculationConvergence.NotCalculated
             };
             const double norm = 12.34;
 
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(calculationMessageProviderMock,
-                                                                         hydraulicBoundaryLocationMock,
+            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocationMock,
                                                                          string.Empty,
-                                                                         string.Empty, norm);
+                                                                         string.Empty,
+                                                                         norm,
+                                                                         calculationMessageProviderMock);
 
             // Assert
             Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);
@@ -134,15 +137,16 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             mockRepository.ReplayAll();
             var service = new TestWaveHeightCalculationService
             {
-                SetCalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged
+                CalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged
             };
             const double norm = 12.34;
 
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(calculationMessageProviderMock,
-                                                                         hydraulicBoundaryLocationMock,
+            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocationMock,
                                                                          string.Empty,
-                                                                         string.Empty, norm);
+                                                                         string.Empty,
+                                                                         norm,
+                                                                         calculationMessageProviderMock);
 
             // Assert
             Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);

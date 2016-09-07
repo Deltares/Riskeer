@@ -229,6 +229,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     }
                 }
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -291,6 +292,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     }
                 }
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -324,6 +326,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -345,6 +348,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -396,7 +400,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         using (new WaveHeightCalculationServiceConfig())
                         {
                             var testService = (TestWaveHeightCalculationService) WaveHeightCalculationService.Instance;
-                            testService.SetCalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+                            testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
 
                             // When
                             contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();

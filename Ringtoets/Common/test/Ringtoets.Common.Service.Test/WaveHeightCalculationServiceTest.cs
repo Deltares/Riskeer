@@ -116,11 +116,11 @@ namespace Ringtoets.Common.Service.Test
             {
                 var testService = (TestHydraRingCalculationService) HydraRingCalculationService.Instance;
 
-                WaveHeightCalculationService.Instance.Calculate(
-                    calculationMessageProviderMock,
-                    hydraulicBoundaryLocationMock,
-                    validFilePath, ringId,
-                    norm);
+                WaveHeightCalculationService.Instance.Calculate(hydraulicBoundaryLocationMock,
+                                                                validFilePath,
+                                                                ringId,
+                                                                norm,
+                                                                calculationMessageProviderMock);
 
                 // Assert
                 Assert.AreEqual(testDataPath, testService.HlcdDirectory);
@@ -161,10 +161,11 @@ namespace Ringtoets.Common.Service.Test
             using (new HydraRingCalculationServiceConfig())
             {
                 // Call
-                Action call = () => output = WaveHeightCalculationService.Instance.Calculate(
-                    calculationMessageProviderMock,
-                    hydraulicBoundaryLocationMock,
-                    validFilePath, ringId, norm);
+                Action call = () => output = WaveHeightCalculationService.Instance.Calculate(hydraulicBoundaryLocationMock,
+                                                                                             validFilePath,
+                                                                                             ringId,
+                                                                                             norm,
+                                                                                             calculationMessageProviderMock);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>

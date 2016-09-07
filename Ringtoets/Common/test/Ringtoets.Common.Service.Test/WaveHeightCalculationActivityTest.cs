@@ -271,7 +271,7 @@ namespace Ringtoets.Common.Service.Test
             using (new WaveHeightCalculationServiceConfig())
             {
                 var testService = (TestWaveHeightCalculationService) WaveHeightCalculationService.Instance;
-                testService.SetCalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+                testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
 
                 activity.Run();
             }
@@ -306,13 +306,16 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
             const int norm = 300;
-            var activity = new WaveHeightCalculationActivity(calculationMessageProviderMock, hydraulicBoundaryLocationMock,
-                                                             validFilePath, "", norm);
+            var activity = new WaveHeightCalculationActivity(calculationMessageProviderMock,
+                                                             hydraulicBoundaryLocationMock,
+                                                             validFilePath,
+                                                             "",
+                                                             norm);
 
             using (new WaveHeightCalculationServiceConfig())
             {
                 var testService = (TestWaveHeightCalculationService) WaveHeightCalculationService.Instance;
-                testService.SetCalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged;
+                testService.CalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged;
                 activity.Run();
             }
 

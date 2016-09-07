@@ -86,9 +86,9 @@ namespace Ringtoets.Common.Service
                 messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name),
                 hydraulicBoundaryDatabaseFilePath),
                        () => hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) double.NaN,
-                       () => WaveHeightCalculationService.Instance.Calculate(
-                           messageProvider, hydraulicBoundaryLocation, hydraulicBoundaryDatabaseFilePath,
-                           ringId, norm));
+                       () => WaveHeightCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
+                                                                             hydraulicBoundaryDatabaseFilePath,
+                                                                             ringId, norm, messageProvider));
         }
 
         protected override void OnFinish()

@@ -35,9 +35,9 @@ namespace Ringtoets.Common.Service.TestUtil
         private CalculationConvergence returnValidOutput = CalculationConvergence.CalculatedConverged;
 
         /// <summary>
-        /// Set the expected output for <see cref="Calculate"/>.
+        /// Sets the expected output for <see cref="Calculate"/>.
         /// </summary>
-        public CalculationConvergence SetCalculationConvergenceOutput
+        public CalculationConvergence CalculationConvergenceOutput
         {
             set
             {
@@ -55,9 +55,11 @@ namespace Ringtoets.Common.Service.TestUtil
             return true;
         }
 
-        public ReliabilityIndexCalculationOutput Calculate(ICalculationMessageProvider messageProvider,
-                                                           IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath,
-                                                           string ringId, double norm)
+        public ReliabilityIndexCalculationOutput Calculate(IHydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                           string hydraulicBoundaryDatabaseFilePath,
+                                                           string ringId,
+                                                           double norm,
+                                                           ICalculationMessageProvider messageProvider)
         {
             MessageProvider = messageProvider;
             switch (returnValidOutput)
