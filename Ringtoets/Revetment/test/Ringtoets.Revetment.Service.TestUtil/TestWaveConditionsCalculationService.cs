@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Ringtoets.Revetment.Data;
 
@@ -30,6 +31,27 @@ namespace Ringtoets.Revetment.Service.TestUtil
     /// </summary>
     public class TestWaveConditionsCalculationService : IWaveConditionsCalculationService
     {
+        private readonly List<TestWaveConditionsCalculationServiceInput> inputs;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestWaveConditionsCalculationService"/>.
+        /// </summary>
+        public TestWaveConditionsCalculationService()
+        {
+            inputs = new List<TestWaveConditionsCalculationServiceInput>();
+        }
+
+        /// <summary>
+        /// Gets all the inputs that are passed when calling <see cref="Calculate"/>.
+        /// </summary>
+        public IEnumerable<TestWaveConditionsCalculationServiceInput> Inputs
+        {
+            get
+            {
+                return inputs;
+            }
+        }
+
         public bool Validate(string name)
         {
             return true;
@@ -39,12 +61,14 @@ namespace Ringtoets.Revetment.Service.TestUtil
                                               double a,
                                               double b,
                                               double c,
-                                              double norm,
+                                              int norm,
                                               WaveConditionsInput input,
                                               string hlcdDirectory,
                                               string ringId,
                                               string name)
         {
+            inputs.Add(new TestWaveConditionsCalculationServiceInput(waterLevel, a, b, c, norm, input, hlcdDirectory, ringId, name));
+
             return new WaveConditionsOutput(waterLevel, 3.0, 5.39, 29);
         }
     }

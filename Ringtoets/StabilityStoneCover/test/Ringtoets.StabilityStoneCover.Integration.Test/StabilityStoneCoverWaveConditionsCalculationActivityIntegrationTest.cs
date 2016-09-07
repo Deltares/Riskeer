@@ -33,6 +33,8 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Service;
 using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service;
@@ -70,7 +72,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
-            using (new HydraRingCalculationServiceConfig())
             using (new WaveConditionsCalculationServiceConfig())
             {
                 // Call
@@ -95,11 +96,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
-            using (new HydraRingCalculationServiceConfig())
             using (new WaveConditionsCalculationServiceConfig())
             {
                 // Call
@@ -136,7 +136,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
@@ -180,7 +180,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
@@ -204,17 +204,73 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
+        public void OnRun_Always_InputPropertiesCorrectlySendToService()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
+                                                                                    testDataPath,
+                                                                                    assessmentSection.StabilityStoneCover,
+                                                                                    assessmentSection);
+
+            using (new WaveConditionsCalculationServiceConfig())
+            {
+                var testService = (TestWaveConditionsCalculationService) WaveConditionsCalculationService.Instance;
+
+                // Call
+                activity.Run();
+
+                // Assert
+                TestWaveConditionsCalculationServiceInput[] testWaveConditionsInputs = testService.Inputs.ToArray();
+                Assert.AreEqual(6, testWaveConditionsInputs.Length);
+
+                int waterLevelIndex = 0;
+
+                for (int i = 0; i < testWaveConditionsInputs.Length; i++)
+                {
+                    GeneralStabilityStoneCoverWaveConditionsInput generalWaveConditionsInput = assessmentSection.StabilityStoneCover.GeneralInput;
+
+                    if (i%2 == 0)
+                    {
+                        Assert.AreEqual(calculation.InputParameters.WaterLevels.ToArray()[waterLevelIndex], testWaveConditionsInputs[i].WaterLevel);
+                        Assert.AreEqual(generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.A, testWaveConditionsInputs[i].A);
+                        Assert.AreEqual(generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.B, testWaveConditionsInputs[i].B);
+                        Assert.AreEqual(generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.C, testWaveConditionsInputs[i].C);
+                    }
+                    else
+                    {
+                        Assert.AreEqual(calculation.InputParameters.WaterLevels.ToArray()[waterLevelIndex], testWaveConditionsInputs[i].WaterLevel);
+                        Assert.AreEqual(generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.A, testWaveConditionsInputs[i].A);
+                        Assert.AreEqual(generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.B, testWaveConditionsInputs[i].B);
+                        Assert.AreEqual(generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.C, testWaveConditionsInputs[i].C);
+
+                        waterLevelIndex++;
+                    }
+
+                    Assert.AreEqual(assessmentSection.FailureMechanismContribution.Norm, testWaveConditionsInputs[i].Norm);
+                    Assert.AreSame(calculation.InputParameters, testWaveConditionsInputs[i].WaveConditionsInput);
+                    Assert.AreEqual(testDataPath, testWaveConditionsInputs[i].HlcdDirectory);
+                    Assert.AreEqual(assessmentSection.Id, testWaveConditionsInputs[i].RingId);
+                    Assert.AreEqual(calculation.Name, testWaveConditionsInputs[i].Name);
+                }
+            }
+        }
+
+        [Test]
         public void OnFinish_CalculationPerformed_SetsOutput()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 
-            using (new HydraRingCalculationServiceConfig())
             using (new WaveConditionsCalculationServiceConfig())
             {
                 activity.Run();
@@ -236,7 +292,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
 

@@ -51,7 +51,7 @@ namespace Ringtoets.Revetment.Service.Test
             double a = 1.0;
             double b = 0.8;
             double c = 0.4;
-            double norm = 5;
+            int norm = 5;
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
@@ -91,7 +91,7 @@ namespace Ringtoets.Revetment.Service.Test
             double a = 1.0;
             double b = 0.8;
             double c = 0.4;
-            double norm = 5;
+            int norm = 5;
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),

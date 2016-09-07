@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.Service
                                        double a,
                                        double b,
                                        double c,
-                                       double norm,
+                                       int norm,
                                        WaveConditionsInput input,
                                        string hlcdDirectory,
                                        string ringId,

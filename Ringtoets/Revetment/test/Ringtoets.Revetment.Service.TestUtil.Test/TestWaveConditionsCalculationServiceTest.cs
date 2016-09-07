@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
@@ -29,6 +30,29 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
     [TestFixture]
     public class TestWaveConditionsCalculationServiceTest
     {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var testService = new TestWaveConditionsCalculationService();
+
+            // Assert
+            CollectionAssert.IsEmpty(testService.Inputs);
+        }
+
+        [Test]
+        public void Validate_Always_ReturnsTrue()
+        {
+            // Setup
+            var testService = new TestWaveConditionsCalculationService();
+
+            // Call
+            var valid = testService.Validate(string.Empty);
+
+            // Assert
+            Assert.IsTrue(valid);
+        }
+
         [Test]
         public void Calculate_Always_ReturnsOutput()
         {
@@ -41,7 +65,7 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
                                                                 double.NaN,
                                                                 double.NaN,
                                                                 double.NaN,
-                                                                double.NaN,
+                                                                0,
                                                                 new WaveConditionsInput(),
                                                                 string.Empty,
                                                                 string.Empty,
@@ -52,6 +76,40 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
             Assert.AreEqual(3.0, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(5.39, output.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(29, output.WaveAngle, output.WaveAngle.GetAccuracy());
+        }
+
+        [Test]
+        public void Inputs_Always_ReturnsInputsOfCalculateMethod()
+        {
+            // Setup
+            RoundedDouble waterLevel = (RoundedDouble)23.5;
+            const double a = 1.0;
+            const double b = 0.3;
+            const double c = 0.8;
+            const int norm = 5;
+            var input = new WaveConditionsInput();
+            const string hlcdDirectory = "C/temp";
+            const string ringId = "11-1";
+            const string name = "test";
+
+            var testService = new TestWaveConditionsCalculationService();
+
+            testService.Calculate(waterLevel, a, b, c, norm, input, hlcdDirectory, ringId, name);
+
+            // Call
+            TestWaveConditionsCalculationServiceInput[] inputs = testService.Inputs.ToArray();
+
+            // Assert
+            Assert.AreEqual(1, inputs.Length);
+            Assert.AreEqual(waterLevel, inputs[0].WaterLevel);
+            Assert.AreEqual(a, inputs[0].A);
+            Assert.AreEqual(b, inputs[0].B);
+            Assert.AreEqual(c, inputs[0].C);
+            Assert.AreEqual(norm, inputs[0].Norm);
+            Assert.AreSame(input, inputs[0].WaveConditionsInput);
+            Assert.AreEqual(hlcdDirectory, inputs[0].HlcdDirectory);
+            Assert.AreEqual(ringId, inputs[0].RingId);
+            Assert.AreEqual(name, inputs[0].Name);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
     /// <summary>
     /// <see cref="Activity"/> for running a wave impact asphalt cover wave conditions calculation.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : HydraRingActivity<List<WaveConditionsOutput>>
+    public class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : HydraRingActivity<IEnumerable<WaveConditionsOutput>>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
 
@@ -95,12 +95,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                                                   calculation.Name,
                                                   DateTimeService.CurrentTimeAsString));
 
-                           List<WaveConditionsOutput> outputs = new List<WaveConditionsOutput>();
+                           var outputs = new List<WaveConditionsOutput>();
 
-                           var a = failureMechanism.GeneralInput.A;
-                           var b = failureMechanism.GeneralInput.B;
-                           var c = failureMechanism.GeneralInput.C;
-                           var norm = assessmentSection.FailureMechanismContribution.Norm;
+                           double a = failureMechanism.GeneralInput.A;
+                           double b = failureMechanism.GeneralInput.B;
+                           double c = failureMechanism.GeneralInput.C;
+                           int norm = assessmentSection.FailureMechanismContribution.Norm;
 
                            foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                            {
@@ -111,7 +111,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
                                ProgressText = string.Format(Resources.WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevel);
 
-                               var output = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
+                               WaveConditionsOutput output = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
                                                                                                 a,
                                                                                                 b,
                                                                                                 c,

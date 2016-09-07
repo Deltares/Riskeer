@@ -49,7 +49,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivity<List<WaveConditionsOutput>>>(activity);
+            Assert.IsInstanceOf<HydraRingActivity<IEnumerable<WaveConditionsOutput>>>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual(calculation.Name, activity.Name);

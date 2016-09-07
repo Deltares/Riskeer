@@ -98,6 +98,10 @@
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Service\Ringtoets.Revetment.Service.csproj">
+      <Project>{2331235F-1E56-4344-ACC2-191C22A39594}</Project>
+      <Name>Ringtoets.Revetment.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Service.TestUtil\Ringtoets.Revetment.Service.TestUtil.csproj">
       <Project>{ea416dd2-1633-439e-8512-b9933e37b9c5}</Project>
       <Name>Ringtoets.Revetment.Service.TestUtil</Name>

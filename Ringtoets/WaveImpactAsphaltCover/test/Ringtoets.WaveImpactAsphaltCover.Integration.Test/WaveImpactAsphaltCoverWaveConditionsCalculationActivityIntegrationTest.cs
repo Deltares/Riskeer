@@ -30,9 +30,12 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Service;
 using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Service;
@@ -73,7 +76,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                                                                                        assessmentSection.WaveImpactAsphaltCover,
                                                                                        assessmentSection);
 
-            using (new HydraRingCalculationServiceConfig())
             using (new WaveConditionsCalculationServiceConfig())
             {
                 // Call
@@ -98,14 +100,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
                                                                                        testDataPath,
                                                                                        assessmentSection.WaveImpactAsphaltCover,
                                                                                        assessmentSection);
 
-            using (new HydraRingCalculationServiceConfig())
             using (new WaveConditionsCalculationServiceConfig())
             {
                 // Call
@@ -139,7 +140,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
                                                                                        testDataPath,
@@ -181,7 +182,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
                                                                                        testDataPath,
@@ -206,20 +207,61 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
-        public void OnFinish_CalculationPerformed_SetsOutput()
+        public void OnRun_Always_InputPropertiesCorrectlySendToService()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
                                                                                        testDataPath,
                                                                                        assessmentSection.WaveImpactAsphaltCover,
                                                                                        assessmentSection);
 
-            using (new HydraRingCalculationServiceConfig())
+            using (new WaveConditionsCalculationServiceConfig())
+            {
+                var testService = (TestWaveConditionsCalculationService) WaveConditionsCalculationService.Instance;
+
+                // Call
+                activity.Run();
+
+                // Assert
+                TestWaveConditionsCalculationServiceInput[] testWaveConditionsInputs = testService.Inputs.ToArray();
+                Assert.AreEqual(3, testWaveConditionsInputs.Length);
+
+                for (int i = 0; i < testWaveConditionsInputs.Length; i++)
+                {
+                    GeneralWaveConditionsInput generalWaveConditionsInput = assessmentSection.WaveImpactAsphaltCover.GeneralInput;
+
+                    Assert.AreEqual(calculation.InputParameters.WaterLevels.ToArray()[i], testWaveConditionsInputs[i].WaterLevel);
+                    Assert.AreEqual(generalWaveConditionsInput.A, testWaveConditionsInputs[i].A);
+                    Assert.AreEqual(generalWaveConditionsInput.B, testWaveConditionsInputs[i].B);
+                    Assert.AreEqual(generalWaveConditionsInput.C, testWaveConditionsInputs[i].C);
+                    Assert.AreEqual(assessmentSection.FailureMechanismContribution.Norm, testWaveConditionsInputs[i].Norm);
+                    Assert.AreSame(calculation.InputParameters, testWaveConditionsInputs[i].WaveConditionsInput);
+                    Assert.AreEqual(testDataPath, testWaveConditionsInputs[i].HlcdDirectory);
+                    Assert.AreEqual(assessmentSection.Id, testWaveConditionsInputs[i].RingId);
+                    Assert.AreEqual(calculation.Name, testWaveConditionsInputs[i].Name);
+                }
+            }
+        }
+
+        [Test]
+        public void OnFinish_CalculationPerformed_SetsOutput()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+
+            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
+                                                                                       testDataPath,
+                                                                                       assessmentSection.WaveImpactAsphaltCover,
+                                                                                       assessmentSection);
+
             using (new WaveConditionsCalculationServiceConfig())
             {
                 activity.Run();
@@ -240,7 +282,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = GetValidCalculation(assessmentSection);
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
             var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
                                                                                        testDataPath,
