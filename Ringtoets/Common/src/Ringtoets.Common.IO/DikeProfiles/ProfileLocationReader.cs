@@ -120,7 +120,13 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="shapeFilePath">Shape file path.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException">Shapefile does not only contain point features.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when
+        /// <list type="bullet">
+        /// <item><paramref name="shapeFilePath"/> points to a file that doesn't exist.</item>
+        /// <item>The shapefile has non-point geometries in it.</item>
+        /// <item>An unexpected error occurred when reading the shapefile.</item>
+        /// </list>
+        /// </exception>
         /// <returns>Return an instance of <see cref="PointShapeFileReader"/>.</returns>
         private static PointShapeFileReader OpenPointsShapeFile(string shapeFilePath)
         {
@@ -130,9 +136,14 @@ namespace Ringtoets.Common.IO.DikeProfiles
             }
             catch (CriticalFileReadException e)
             {
-                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(Resources.ProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points);
-                throw new CriticalFileReadException(message, e);
+                if (e.InnerException.GetType() == typeof(ApplicationException))
+                {
+                    string message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                        .Build(Resources.ProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points);
+                    throw new CriticalFileReadException(message, e);
+                }
+
+                throw;
             }
         }
 

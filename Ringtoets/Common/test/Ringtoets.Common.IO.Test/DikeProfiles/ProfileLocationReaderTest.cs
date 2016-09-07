@@ -160,6 +160,27 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
+        public void Constructor_FileInUse_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("DikeProfiles", "Voorlanden 12-2.shp"));
+
+            using (new FileStream(validFilePath, FileMode.Open))
+            {
+                // Call
+                TestDelegate call = () => new ProfileLocationReader(validFilePath);
+
+                // Assert
+                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand in gebruik door een andere applicatie.",
+                                                validFilePath);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<IOException>(exception.InnerException);
+            }
+        }
+
+        [Test]
         public void GetLocationCount_FileWithFivePoints_GetFive()
         {
             // Setup
@@ -179,7 +200,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         [TestCase("Voorlanden 12-2.shp", 5)]
         [TestCase("Voorlanden_12-2_Alternative.shp", 9)]
-        public void GetDikeProfileLocation_FileWithNLocations_GetNDikeProfileLocations(
+        public void GetNextProfileLocation_FileWithNLocations_GetNDikeProfileLocations(
             string fileName, int expectedNumberOfDikeProfileLocations)
         {
             // Setup
@@ -202,7 +223,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void GetDikeProfileLocation_FileWithNullId_ThrowCriticalFileReadException()
+        public void GetNextProfileLocation_FileWithNullId_ThrowCriticalFileReadException()
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -221,7 +242,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void GetDikeProfileLocation_FileWithNullX0_ThrowCriticalFileReadException()
+        public void GetNextProfileLocation_FileWithNullX0_ThrowCriticalFileReadException()
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -242,7 +263,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         [TestCase("Voorlanden_12-2_IdWithSymbol.shp")]
         [TestCase("Voorlanden_12-2_IdWithWhitespace.shp")]
-        public void GetDikeProfileLocation_FileWithIllegalCharactersInId_ThrowCriticalFileReadException(string fileName)
+        public void GetNextProfileLocation_FileWithIllegalCharactersInId_ThrowCriticalFileReadException(string fileName)
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -261,7 +282,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void GetDikeProfileLocation_FileWithNullAsNameAttribute_GetLocations()
+        public void GetNextProfileLocation_FileWithNullAsNameAttribute_GetLocations()
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -283,7 +304,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void GetDikeProfileLocation_FileWithFivePoints_GetFiveLocationsWithCorrectAtrributes()
+        public void GetNextProfileLocation_FileWithFivePoints_GetFiveLocationsWithCorrectAtrributes()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -321,7 +342,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void GetDikeProfileLocation_FileWithFivePoints_GetFiveLocationsWithPoint2D()
+        public void GetNextProfileLocation_FileWithFivePoints_GetFiveLocationsWithPoint2D()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -347,7 +368,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         }
 
         [Test]
-        public void GetDikeProfileLocation_FileWithFivePoints_GetFivePoint2DsWithCorrectCoordinates()
+        public void GetNextProfileLocation_FileWithFivePoints_GetFivePoint2DsWithCorrectCoordinates()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
