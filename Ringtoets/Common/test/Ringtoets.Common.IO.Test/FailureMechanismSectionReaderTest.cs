@@ -307,5 +307,26 @@ namespace Ringtoets.Common.IO.Test
                 Assert.AreEqual("Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.", message);
             }
         }
+
+        [Test]
+        public void ReadFailureMechanismSection_FileInUse_ThrowCriticalFileReadException()
+        {
+             // Setup
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                              Path.Combine("FailureMechanismSections", "traject_227_vakken.shp"));
+
+            using (new FileStream(validFilePath, FileMode.Open))
+            {
+                // Call
+                TestDelegate call = () => new FailureMechanismSectionReader(validFilePath);
+
+                // Assert
+                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand in gebruik door een andere applicatie.",
+                                                validFilePath);
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<IOException>(exception.InnerException);
+            }
+        }
     }
 }

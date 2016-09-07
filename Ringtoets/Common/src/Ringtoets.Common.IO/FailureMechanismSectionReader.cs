@@ -50,7 +50,13 @@ namespace Ringtoets.Common.IO
         /// </summary>
         /// <param name="shapeFilePath">The shape file path.</param>
         /// <exception cref="ArgumentException"><paramref name="shapeFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException"><paramref name="shapeFilePath"/> points to a file that does not exist.</exception>
+        /// <exception cref="CriticalFileReadException">When either:
+        /// <list type="bullet">
+        /// <item><paramref name="shapeFilePath"/> points to a file that doesn't exist.</item>
+        /// <item>The shapefile has non-line geometries in it.</item>
+        /// <item>An unexpected error occurred when reading the shapefile.</item>
+        /// </list>
+        /// </exception>
         public FailureMechanismSectionReader(string shapeFilePath)
         {
             FileUtils.ValidateFilePath(shapeFilePath);
@@ -122,9 +128,14 @@ namespace Ringtoets.Common.IO
             }
             catch (CriticalFileReadException e)
             {
-                string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(RingtoetsCommonIOResources.FailureMechanismSectionReader_OpenPolyLineShapeFile_File_can_only_have_polylines);
-                throw new CriticalFileReadException(message, e);
+                if (e.InnerException.GetType() == typeof(ArgumentException))
+                {
+                    string message = new FileReaderErrorMessageBuilder(shapeFilePath)
+                        .Build(RingtoetsCommonIOResources.FailureMechanismSectionReader_OpenPolyLineShapeFile_File_can_only_have_polylines);
+                    throw new CriticalFileReadException(message, e);
+                }
+
+                throw;
             }
         }
 
