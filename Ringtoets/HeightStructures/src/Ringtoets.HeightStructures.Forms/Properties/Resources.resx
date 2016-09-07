@@ -157,17 +157,11 @@
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor overslagdebiet [-]</value>
   </data>
-  <data name="Categories_Schematisation" xml:space="preserve">
-    <value>Schematisatie</value>
-  </data>
   <data name="AllowableIncreaseOfLevelForStorage_Description" xml:space="preserve">
     <value>De toegestane peilverhoging op het kombergend oppervlak.</value>
   </data>
   <data name="AllowableIncreaseOfLevelForStorage_DisplayName" xml:space="preserve">
     <value>Toegestane peilverhoging komberging [m]</value>
-  </data>
-  <data name="Categories_HydraulicData" xml:space="preserve">
-    <value>Hydraulische gegevens</value>
   </data>
   <data name="CriticalOvertoppingDischarge_Description" xml:space="preserve">
     <value>Het kritieke overslagdebiet per strekkende meter.</value>
@@ -186,12 +180,6 @@
   </data>
   <data name="FlowWidthAtBottomProtection_DisplayName" xml:space="preserve">
     <value>Stroomvoerende breedte bij bodembescherming [m]</value>
-  </data>
-  <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden.</value>
-  </data>
-  <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
-    <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
   <data name="LevelOfCrestOfStructure_Description" xml:space="preserve">
     <value>De kerende hoogte van het kunstwerk.</value>

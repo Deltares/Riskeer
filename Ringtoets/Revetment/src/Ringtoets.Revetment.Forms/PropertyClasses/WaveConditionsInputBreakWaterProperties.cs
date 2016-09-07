@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -27,16 +27,15 @@ using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Ringtoets.Revetment.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GrassCoverErosionInwardsInput.BreakWater"/> for properties panel.
+    /// ViewModel of <see cref="WaveConditionsInput.BreakWater
     /// </summary>
-    public class GrassCoverErosionInwardsInputContextBreakWaterProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
+    public class WaveConditionsInputBreakWaterProperties : ObjectProperties<WaveConditionsInput>
     {
         [DynamicReadOnly]
         [PropertyOrder(1)]
@@ -46,12 +45,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.UseBreakWater;
+                return data.UseBreakWater;
             }
             set
             {
-                data.WrappedData.UseBreakWater = value;
-                data.WrappedData.NotifyObservers();
+                data.UseBreakWater = value;
+                data.NotifyObservers();
             }
         }
 
@@ -64,12 +63,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.BreakWater.Type;
+                return data.BreakWater.Type;
             }
             set
             {
-                data.WrappedData.BreakWater.Type = value;
-                data.WrappedData.NotifyObservers();
+                data.BreakWater.Type = value;
+                data.NotifyObservers();
             }
         }
 
@@ -81,24 +80,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.BreakWater.Height;
+                return data.BreakWater.Height;
             }
             set
             {
-                data.WrappedData.BreakWater.Height = value;
-                data.WrappedData.NotifyObservers();
+                data.BreakWater.Height = value;
+                data.NotifyObservers();
             }
         }
 
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (data.WrappedData.DikeProfile == null)
+            if (data.ForeshoreProfile == null)
             {
                 return true;
             }
 
-            if (!propertyName.Equals(TypeUtils.GetMemberName<GrassCoverErosionInwardsInputContextBreakWaterProperties>(i => i.UseBreakWater)))
+            if (!propertyName.Equals(TypeUtils.GetMemberName<WaveConditionsInputBreakWaterProperties>(i => i.UseBreakWater)))
             {
                 return !UseBreakWater;
             }

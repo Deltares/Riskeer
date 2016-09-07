@@ -27,33 +27,26 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsInputContextForeshorePropertiesTest
+    public class WaveConditionsInputForeshoreProfilePropertiesTest
     {
+
         private const int useForeshorePropertyIndex = 0;
         private const int coordinatesPropertyIndex = 1;
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup & Call
-            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
+            var properties = new WaveConditionsInputForeshoreProfileProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<WaveConditionsInput>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual(string.Empty, properties.ToString());
         }
@@ -62,48 +55,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var input = new GrassCoverErosionInwardsInput();
-            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
+            var input = new WaveConditionsInput();
+            var properties = new WaveConditionsInputForeshoreProfileProperties();
 
             // Call
-            properties.Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock);
+            properties.Data = input;
 
             // Assert
             Assert.IsFalse(properties.UseForeshore);
             CollectionAssert.IsEmpty(properties.Coordinates);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Data_SetInputContextInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var input = new WaveConditionsInput
             {
-                InputParameters =
-                {
-                    UseForeshore = true,
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
-                                                  new[]
-                                                  {
-                                                      new Point2D(1.1, 2.2),
-                                                      new Point2D(3.3, 4.4)
-                                                  }, null, new DikeProfile.ConstructionProperties())
-                }
+                ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                        new[]
+                                                        {
+                                                            new Point2D(1.1, 2.2),
+                                                            new Point2D(3.3, 4.4)
+                                                        }, null, new ForeshoreProfile.ConstructionProperties())
             };
-            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties();
+            var properties = new WaveConditionsInputForeshoreProfileProperties();
 
             // Call
-            properties.Data = new GrassCoverErosionInwardsInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSectionMock);
+            properties.Data = input;
 
             // Assert
             var expectedCoordinates = new[]
@@ -113,26 +92,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
             Assert.IsTrue(properties.UseForeshore);
             CollectionAssert.AreEqual(expectedCoordinates, properties.Coordinates);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
+            var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
             const int numberProperties = 1;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var input = new GrassCoverErosionInwardsInput();
-            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties
+            var input = new WaveConditionsInput();
+            var properties = new WaveConditionsInputForeshoreProfileProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
+                Data = input
             };
 
             input.Attach(observerMock);
@@ -149,21 +124,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithDikeProfileAndWithEmptyForeland_ReturnExpectedValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var input = new GrassCoverErosionInwardsInput
+            var input = new WaveConditionsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties())
+                ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
+                                              null, new ForeshoreProfile.ConstructionProperties())
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties
+            var properties = new WaveConditionsInputForeshoreProfileProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
+                Data = input
             };
 
             // Assert
@@ -182,32 +152,25 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(coordinatesProperty.IsReadOnly);
             Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
             Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void PropertyAttributes_WithDikeProfileAndWithOnePointForeland_ReturnExpectedValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var input = new GrassCoverErosionInwardsInput
+            var input = new WaveConditionsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
                                               new[]
                                               {
                                                   new Point2D(0, 0)
-                                              }, null, new DikeProfile.ConstructionProperties())
+                                              }, null, new ForeshoreProfile.ConstructionProperties())
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties
+            var properties = new WaveConditionsInputForeshoreProfileProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
+                Data = input
             };
 
             // Assert
@@ -226,33 +189,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(coordinatesProperty.IsReadOnly);
             Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
             Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void PropertyAttributes_WithDikeProfileAndWithTwoPointForeland_ReturnExpectedValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var input = new GrassCoverErosionInwardsInput
+            var input = new WaveConditionsInput
             {
-                DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
                                               new[]
                                               {
                                                   new Point2D(0, 0),
                                                   new Point2D(1, 1)
-                                              }, null, new DikeProfile.ConstructionProperties())
+                                              }, null, new ForeshoreProfile.ConstructionProperties())
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties
+            var properties = new WaveConditionsInputForeshoreProfileProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
+                Data = input
             };
 
             // Assert
@@ -271,8 +227,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(coordinatesProperty.IsReadOnly);
             Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
             Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
-
-            mockRepository.VerifyAll();
         }
 
         [TestCase(true)]
@@ -280,27 +234,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithOrWithoutDikeProfile_ReturnExpectedValues(bool withDikeProfile)
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var input = new GrassCoverErosionInwardsInput();
+            var input = new WaveConditionsInput();
 
             if (withDikeProfile)
             {
-                input.DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0],
+                input.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
                                                     new[]
                                                     {
                                                         new Point2D(0, 0),
                                                         new Point2D(1, 1)
-                                                    }, null, new DikeProfile.ConstructionProperties());
+                                                    }, null, new ForeshoreProfile.ConstructionProperties());
             }
 
             // Call
-            var properties = new GrassCoverErosionInwardsInputContextForeshoreProperties
+            var properties = new WaveConditionsInputForeshoreProfileProperties
             {
-                Data = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock)
+                Data = input
             };
 
             // Assert
@@ -319,8 +268,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(coordinatesProperty.IsReadOnly);
             Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
             Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
-
-            mockRepository.VerifyAll();
-        }
+        } 
     }
 }

@@ -92,6 +92,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm..
+        /// </summary>
+        public static string AssessmentLevel_Description {
+            get {
+                return ResourceManager.GetString("AssessmentLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetspeil [m+NAP].
+        /// </summary>
+        public static string AssessmentLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is er een dam aanwezig?.
         /// </summary>
         public static string BreakWater_HasBreakWater_Description {
@@ -106,6 +124,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string BreakWater_HasBreakWater_DisplayName {
             get {
                 return ResourceManager.GetString("BreakWater_HasBreakWater_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moet de dam worden gebruikt tijdens de berekening?.
+        /// </summary>
+        public static string BreakWater_UseBreakWater_Description {
+            get {
+                return ResourceManager.GetString("BreakWater_UseBreakWater_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruik.
+        /// </summary>
+        public static string BreakWater_UseBreakWater_DisplayName {
+            get {
+                return ResourceManager.GetString("BreakWater_UseBreakWater_DisplayName", resourceCulture);
             }
         }
         
@@ -410,6 +446,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische gegevens.
+        /// </summary>
+        public static string Categories_HydraulicData {
+            get {
+                return ResourceManager.GetString("Categories_HydraulicData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameters.
         /// </summary>
         public static string Categories_LengthEffect {
@@ -430,9 +475,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Schematisatie.
         /// </summary>
-        public static string Categories_Schematisation {
+        public static string Categories_Schematization {
             get {
-                return ResourceManager.GetString("Categories_Schematisation", resourceCulture);
+                return ResourceManager.GetString("Categories_Schematization", resourceCulture);
             }
         }
         
@@ -854,6 +899,33 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voorlandprofiel.
+        /// </summary>
+        public static string Foreshore_DisplayName {
+            get {
+                return ResourceManager.GetString("Foreshore_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moet het voorlandprofiel worden gebruikt tijdens de berekening?.
+        /// </summary>
+        public static string Foreshore_UseForeshore_Description {
+            get {
+                return ResourceManager.GetString("Foreshore_UseForeshore_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruik.
+        /// </summary>
+        public static string Foreshore_UseForeshore_DisplayName {
+            get {
+                return ResourceManager.GetString("Foreshore_UseForeshore_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam van het voorland..
         /// </summary>
         public static string ForeshoreProfile_Name_Description {
@@ -863,11 +935,11 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorlanden.
+        ///   Looks up a localized string similar to Voorlandprofielen.
         /// </summary>
-        public static string ForeshoreProfilesContext_DisplayName {
+        public static string ForeshoreProfiles_DisplayName {
             get {
-                return ResourceManager.GetString("ForeshoreProfilesContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ForeshoreProfiles_DisplayName", resourceCulture);
             }
         }
         
@@ -886,15 +958,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string ForeshoreProperties_DisplayName {
             get {
                 return ResourceManager.GetString("ForeshoreProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voorlanden.
-        /// </summary>
-        public static string Foreshores_DisplayName {
-            get {
-                return ResourceManager.GetString("Foreshores_DisplayName", resourceCulture);
             }
         }
         
@@ -1043,6 +1106,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string HydraulicBoundaryDatabase_Locations_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabase_Locations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden..
+        /// </summary>
+        public static string HydraulicBoundaryLocation_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
+        /// </summary>
+        public static string HydraulicBoundaryLocation_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocation_DisplayName", resourceCulture);
             }
         }
         

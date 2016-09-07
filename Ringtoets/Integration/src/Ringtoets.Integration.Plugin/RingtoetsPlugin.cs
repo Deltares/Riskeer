@@ -560,7 +560,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<ForeshoreProfilesContext>
             {
-                Text = context => RingtoetsCommonFormsResources.Foreshores_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.ForeshoreProfiles_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ?
                                            Color.FromKnownColor(KnownColor.ControlText) :

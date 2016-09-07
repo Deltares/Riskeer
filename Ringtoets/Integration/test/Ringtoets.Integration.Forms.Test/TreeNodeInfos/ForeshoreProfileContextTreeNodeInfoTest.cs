@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual("Voorlanden", text);
+            Assert.AreEqual("Voorlandprofielen", text);
         }
 
         [Test]

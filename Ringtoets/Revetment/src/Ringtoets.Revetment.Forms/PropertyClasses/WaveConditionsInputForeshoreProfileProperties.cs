@@ -26,16 +26,15 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Ringtoets.Revetment.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GrassCoverErosionInwardsInput.ForeshoreGeometry"/> for properties panel.
+    /// ViewModel of <see cref="WaveConditionsInput.ForeshoreGeometry"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsInputContextForeshoreProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
+    public class WaveConditionsInputForeshoreProfileProperties : ObjectProperties<WaveConditionsInput>
     {
         private const int useForeshorePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
@@ -48,12 +47,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.UseForeshore;
+                return data.UseForeshore;
             }
             set
             {
-                data.WrappedData.UseForeshore = value;
-                data.WrappedData.NotifyObservers();
+                data.UseForeshore = value;
+                data.NotifyObservers();
             }
         }
 
@@ -65,14 +64,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.ForeshoreGeometry.ToArray();
+                return data.ForeshoreGeometry.ToArray();
             }
         }
 
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return data.WrappedData.DikeProfile == null || data.WrappedData.ForeshoreGeometry.Count() < 2;
+            return data.ForeshoreProfile == null || data.ForeshoreGeometry.Count() < 2;
         }
 
         public override string ToString()

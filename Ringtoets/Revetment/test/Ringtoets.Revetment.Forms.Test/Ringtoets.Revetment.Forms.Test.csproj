@@ -41,6 +41,10 @@
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -49,6 +53,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyClasses\WaveConditionsInputBreakWaterPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\WaveConditionsInputForeshoreProfilePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveConditionsOutputPropertiesTest.cs" />
   </ItemGroup>
   <ItemGroup>

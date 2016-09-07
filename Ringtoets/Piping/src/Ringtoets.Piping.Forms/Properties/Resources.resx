@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PipingInput_AssessmentLevel_Description" xml:space="preserve">
-    <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>
-  </data>
-  <data name="PipingInput_AssessmentLevel_DisplayName" xml:space="preserve">
-    <value>Toetspeil [m+NAP]</value>
-  </data>
   <data name="GeneralPipingInput_BeddingAngle_Description" xml:space="preserve">
     <value>Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd.</value>
   </data>
@@ -448,14 +442,8 @@
   <data name="GeneralPipingInput_B_DisplayName" xml:space="preserve">
     <value>b [m]</value>
   </data>
-  <data name="Categories_HydraulicData" xml:space="preserve">
-    <value>Hydraulische gegevens</value>
-  </data>
   <data name="Categories_ModelSettings" xml:space="preserve">
     <value>Modelinstellingen</value>
-  </data>
-  <data name="Categories_Schematization" xml:space="preserve">
-    <value>Schematisatie</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_PipingFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor deze berekening.</value>

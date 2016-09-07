@@ -139,12 +139,6 @@
   <data name="Categories_ModelSettings" xml:space="preserve">
     <value>Modelfactoren</value>
   </data>
-  <data name="BreakWater_UseBreakWater_Description" xml:space="preserve">
-    <value>Moet de dam worden gebruikt tijdens de berekening?</value>
-  </data>
-  <data name="BreakWater_UseBreakWater_DisplayName" xml:space="preserve">
-    <value>Gebruik</value>
-  </data>
   <data name="DikeGeometryProperties_Description" xml:space="preserve">
     <value>Eigenschappen van de dijkgeometrie.</value>
   </data>
@@ -162,12 +156,6 @@
   </data>
   <data name="DikeHeight_DisplayName" xml:space="preserve">
     <value>Dijkhoogte [m+NAP]</value>
-  </data>
-  <data name="Foreshore_UseForeshore_Description" xml:space="preserve">
-    <value>Moet het voorland worden gebruikt tijdens de berekening?</value>
-  </data>
-  <data name="Foreshore_UseForeshore_DisplayName" xml:space="preserve">
-    <value>Gebruik</value>
   </data>
   <data name="DikeProfile_Name_Description" xml:space="preserve">
     <value>Naam van het dijkprofiel.</value>
@@ -205,23 +193,11 @@
   <data name="CriticalFlowRate_DisplayName" xml:space="preserve">
     <value>Kritisch overslagdebiet [m³/s/m]</value>
   </data>
-  <data name="Categories_HydraulicData" xml:space="preserve">
-    <value>Hydraulische gegevens</value>
-  </data>
-  <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
-    <value>De locatie met hydraulische randvoorwaarden.</value>
-  </data>
-  <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
-    <value>Locatie met hydraulische randvoorwaarden</value>
-  </data>
   <data name="DikeProfile_Description" xml:space="preserve">
     <value>De schematisatie van het dijkprofiel.</value>
   </data>
   <data name="DikeProfile_DisplayName" xml:space="preserve">
     <value>Dijkprofiel</value>
-  </data>
-  <data name="Foreshore_DisplayName" xml:space="preserve">
-    <value>Voorland</value>
   </data>
   <data name="DikeHeight_ChartName" xml:space="preserve">
     <value>Dijkhoogte</value>

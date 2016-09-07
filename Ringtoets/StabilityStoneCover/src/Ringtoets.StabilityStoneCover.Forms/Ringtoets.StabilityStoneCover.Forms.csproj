@@ -53,7 +53,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsCalculationInputContextProperties.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextProperties.cs" />
+    <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditor.cs" />
+    <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextHydraulicBoundaryLocationEditor.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputContextProperties.cs" />
     <Compile Include="Views\StabilityStoneCoverResultView.cs">
       <SubType>UserControl</SubType>
@@ -96,6 +99,10 @@
       <Name>Ringtoets.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
+      <Name>Ringtoets.HydraRing.Calculation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
@@ -121,6 +128,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

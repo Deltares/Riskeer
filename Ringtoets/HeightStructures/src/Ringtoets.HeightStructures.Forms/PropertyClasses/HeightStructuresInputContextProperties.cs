@@ -35,6 +35,7 @@ using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HeightStructures.Forms.UITypeEditors;
 using Ringtoets.HydraRing.Data;
 using CoreCommonBasePropertiesResources = Core.Common.Base.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 {
@@ -87,7 +88,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         #region Schematisation
 
         [PropertyOrder(orientationOfTheNormalOfTheStructurePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "OrientationOfTheNormalOfTheStructure_DisplayName")]
         [ResourcesDescription(typeof(Resources), "OrientationOfTheNormalOfTheStructure_Description")]
         public RoundedDouble OrientationOfTheNormalOfTheStructure
@@ -105,7 +106,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(levelOfCrestOfStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "LevelOfCrestOfStructure_DisplayName")]
         [ResourcesDescription(typeof(Resources), "LevelOfCrestOfStructure_Description")]
         public NormalDistributionProperties LevelOfCrestOfStructure
@@ -121,7 +122,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(allowableIncreaseOfLevelForStoragePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "AllowableIncreaseOfLevelForStorage_DisplayName")]
         [ResourcesDescription(typeof(Resources), "AllowableIncreaseOfLevelForStorage_Description")]
         public LogNormalDistributionProperties AllowableIncreaseOfLevelForStorage
@@ -137,7 +138,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(storageStructureAreaPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "StorageStructureArea_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StorageStructureArea_Description")]
         public LogNormalDistributionVariationProperties StorageStructureArea
@@ -153,7 +154,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(flowWidthAtBottomProtectionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "FlowWidthAtBottomProtection_DisplayName")]
         [ResourcesDescription(typeof(Resources), "FlowWidthAtBottomProtection_Description")]
         public LogNormalDistributionProperties FlowWidthAtBottomProtection
@@ -169,7 +170,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(widthOfFlowAperturesPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "WidthOfFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WidthOfFlowApertures_Description")]
         public NormalDistributionProperties WidthOfFlowApertures
@@ -185,7 +186,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(criticalOvertoppingDischargePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "CriticalOvertoppingDischarge_DisplayName")]
         [ResourcesDescription(typeof(Resources), "CriticalOvertoppingDischarge_Description")]
         public LogNormalDistributionVariationProperties CriticalOvertoppingDischarge
@@ -200,7 +201,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(failureProbabilityOfStructureGivenErosionPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "FailureProbabilityOfStructureGivenErosion_DisplayName")]
         [ResourcesDescription(typeof(Resources), "FailureProbabilityOfStructureGivenErosion_Description")]
         public string FailureProbabilityOfStructureGivenErosion
@@ -237,9 +238,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
         [Editor(typeof(HeightStructuresInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocation_Description")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
         public HydraulicBoundaryLocation HydraulicBoundaryLocation
         {
             get
@@ -255,7 +256,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(stormDurationPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "StormDuration_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StormDuration_Description")]
         public LogNormalDistributionVariationProperties StormDuration

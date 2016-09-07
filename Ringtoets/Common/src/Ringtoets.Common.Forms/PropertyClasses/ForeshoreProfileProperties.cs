@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(worldReferencePointPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "WorldReferencePoint_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WorldReferencePoint_ForeshoreProfile_Description")]
         public Point2D WorldReferencePoint
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(orientationPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Orientation_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Orientation_ForeshoreProfile_Description")]
         public RoundedDouble Orientation
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(breakWaterPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterProperties_Description")]
         public BreakWaterProperties BreakWater
@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [PropertyOrder(foreshorePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_Schematisation")]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
         public ForeshoreGeometryProperties Foreshore

@@ -439,8 +439,8 @@
   <data name="CalculationsGroup_Generate_calculations" xml:space="preserve">
     <value>Genereer &amp;berekeningen...</value>
   </data>
-  <data name="Foreshores_DisplayName" xml:space="preserve">
-    <value>Voorlanden</value>
+  <data name="ForeshoreProfiles_DisplayName" xml:space="preserve">
+    <value>Voorlandprofielen</value>
   </data>
   <data name="Categories_General" xml:space="preserve">
     <value>Algemeen</value>
@@ -526,11 +526,8 @@
   <data name="BreakWater_HasBreakWater_DisplayName" xml:space="preserve">
     <value>Aanwezig</value>
   </data>
-  <data name="Categories_Schematisation" xml:space="preserve">
+  <data name="Categories_Schematization" xml:space="preserve">
     <value>Schematisatie</value>
-  </data>
-  <data name="ForeshoreProfilesContext_DisplayName" xml:space="preserve">
-    <value>Voorlanden</value>
   </data>
   <data name="ForeshoreProfile_Name_Description" xml:space="preserve">
     <value>Naam van het voorland.</value>
@@ -567,5 +564,35 @@
   </data>
   <data name="Calculation_Input" xml:space="preserve">
     <value>Invoer</value>
+  </data>
+  <data name="Categories_HydraulicData" xml:space="preserve">
+    <value>Hydraulische gegevens</value>
+  </data>
+  <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
+    <value>De locatie met hydraulische randvoorwaarden.</value>
+  </data>
+  <data name="HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
+    <value>Locatie met hydraulische randvoorwaarden</value>
+  </data>
+  <data name="AssessmentLevel_Description" xml:space="preserve">
+    <value>Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.</value>
+  </data>
+  <data name="AssessmentLevel_DisplayName" xml:space="preserve">
+    <value>Toetspeil [m+NAP]</value>
+  </data>
+  <data name="BreakWater_UseBreakWater_Description" xml:space="preserve">
+    <value>Moet de dam worden gebruikt tijdens de berekening?</value>
+  </data>
+  <data name="BreakWater_UseBreakWater_DisplayName" xml:space="preserve">
+    <value>Gebruik</value>
+  </data>
+  <data name="Foreshore_DisplayName" xml:space="preserve">
+    <value>Voorlandprofiel</value>
+  </data>
+  <data name="Foreshore_UseForeshore_Description" xml:space="preserve">
+    <value>Moet het voorlandprofiel worden gebruikt tijdens de berekening?</value>
+  </data>
+  <data name="Foreshore_UseForeshore_DisplayName" xml:space="preserve">
+    <value>Gebruik</value>
   </data>
 </root>

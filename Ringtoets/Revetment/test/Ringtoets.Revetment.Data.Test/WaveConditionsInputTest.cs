@@ -114,6 +114,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
+            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.AssessmentLevel);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryDesignWaterLevel);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryRevetment);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryRevetment);
@@ -121,6 +122,44 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryWaterLevels);
             Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryWaterLevels);
             CollectionAssert.IsEmpty(input.WaterLevels);
+        }
+
+        [Test]
+        public void HydraulicBoundaryLocation_SetNewValue_AssessmentLevelAndUpperBoundaryDesignWaterLevelNaN()
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+            var assessmentLevel = 3.2;
+
+            // Call
+            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0, 0)
+            {
+                DesignWaterLevel = (RoundedDouble)assessmentLevel
+            };
+
+            // Assert
+            Assert.AreEqual(assessmentLevel, input.AssessmentLevel.Value, input.UpperBoundaryDesignWaterLevel.GetAccuracy());
+            Assert.AreEqual(assessmentLevel - 0.01, input.UpperBoundaryDesignWaterLevel.Value, input.UpperBoundaryDesignWaterLevel.GetAccuracy());
+        }
+
+        [Test]
+        public void HydraulicBoundaryLocation_SetNullValue_AssessmentLevelAndUpperBoundaryDesignWaterLevelNaN()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 3.2
+                }
+            };
+
+            // Call
+            input.HydraulicBoundaryLocation = null;
+
+            // Assert
+            Assert.IsNaN(input.AssessmentLevel.Value);
+            Assert.IsNaN(input.UpperBoundaryDesignWaterLevel.Value);
         }
 
         [Test]

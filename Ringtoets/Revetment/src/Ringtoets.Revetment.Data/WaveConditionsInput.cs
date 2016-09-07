@@ -66,6 +66,18 @@ namespace Ringtoets.Revetment.Data
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
+        /// Gets the assessment level from the current hydraulic boundary location, or <see cref="double.NaN"/> if there is no
+        /// location selected.
+        /// </summary>
+        public RoundedDouble AssessmentLevel
+        {
+            get
+            {
+                return HydraulicBoundaryLocation != null ? HydraulicBoundaryLocation.DesignWaterLevel : new RoundedDouble(2, double.NaN);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the foreshore profile.
         /// </summary>
         public ForeshoreProfile ForeshoreProfile
@@ -116,9 +128,7 @@ namespace Ringtoets.Revetment.Data
         {
             get
             {
-                return new RoundedDouble(2, HydraulicBoundaryLocation != null && !double.IsNaN(HydraulicBoundaryLocation.DesignWaterLevel)
-                                                ? HydraulicBoundaryLocation.DesignWaterLevel - designWaterLevelSubstraction
-                                                : double.NaN);
+                return new RoundedDouble(2, AssessmentLevel - designWaterLevelSubstraction);
             }
         }
 

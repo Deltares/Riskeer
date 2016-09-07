@@ -110,29 +110,11 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische gegevens.
-        /// </summary>
-        public static string Categories_HydraulicData {
-            get {
-                return ResourceManager.GetString("Categories_HydraulicData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Modelfactoren.
         /// </summary>
         public static string Categories_ModelSettings {
             get {
                 return ResourceManager.GetString("Categories_ModelSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Schematisatie.
-        /// </summary>
-        public static string Categories_Schematisation {
-            get {
-                return ResourceManager.GetString("Categories_Schematisation", resourceCulture);
             }
         }
         
@@ -320,24 +302,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
             get {
                 return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayNa" +
                         "me", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden..
-        /// </summary>
-        public static string HydraulicBoundaryLocation_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie met hydraulische randvoorwaarden.
-        /// </summary>
-        public static string HydraulicBoundaryLocation_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocation_DisplayName", resourceCulture);
             }
         }
         

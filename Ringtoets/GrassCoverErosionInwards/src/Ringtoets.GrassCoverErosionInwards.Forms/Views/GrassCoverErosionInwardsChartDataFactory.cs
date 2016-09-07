@@ -26,6 +26,7 @@ using Core.Components.Charting.Styles;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
@@ -53,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <returns>The created <see cref="ChartLineData"/>.</returns>
         public static ChartLineData CreateForeshoreGeometryChartData()
         {
-            return new ChartLineData(Resources.Foreshore_DisplayName)
+            return new ChartLineData(RingtoetsCommonFormsResources.Foreshore_DisplayName)
             {
                 Style = new ChartLineStyle(Color.DarkOrange, 2, DashStyle.Solid)
             };
@@ -103,8 +104,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             chartData.Name = input != null && input.DikeProfile != null && input.UseForeshore
                                  ? string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
                                                  input.DikeProfile.Name,
-                                                 Resources.Foreshore_DisplayName)
-                                 : Resources.Foreshore_DisplayName;
+                                                 RingtoetsCommonFormsResources.Foreshore_DisplayName)
+                                 : RingtoetsCommonFormsResources.Foreshore_DisplayName;
         }
     }
 }
