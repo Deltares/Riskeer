@@ -117,14 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\control_equalizer_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="WaveConditionsOutput_WaterLevel_DisplayName" xml:space="preserve">
+    <value>Waterstand [m+NAP]</value>
   </data>
-  <data name="WaveConditionsOutput_Blocks_DisplayName" xml:space="preserve">
-    <value>Blokken</value>
+  <data name="WaveConditionsOutput_WaveAngle_DisplayName" xml:space="preserve">
+    <value>Golfrichting [°]</value>
   </data>
-  <data name="WaveConditionsOutput_Columns_DisplayName" xml:space="preserve">
-    <value>Zuilen</value>
+  <data name="WaveConditionsOutput_WaveHeight_DisplayName" xml:space="preserve">
+    <value>Golfhoogte [m]</value>
+  </data>
+  <data name="WaveConditionsOutput_WavePeakPeriod_DisplayName" xml:space="preserve">
+    <value>Golfperiode [s]</value>
   </data>
 </root>

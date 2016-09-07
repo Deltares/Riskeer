@@ -76,6 +76,7 @@
     <Compile Include="PresentationObjects\StabilityStoneCoverWaveConditionsCalculationInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputContextPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyStabilityStoneCoverOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
@@ -153,6 +154,10 @@
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
+      <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
+      <Name>Ringtoets.Revetment.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Service.TestUtil\Ringtoets.Revetment.Service.TestUtil.csproj">
       <Project>{EA416DD2-1633-439E-8512-B9933E37B9C5}</Project>

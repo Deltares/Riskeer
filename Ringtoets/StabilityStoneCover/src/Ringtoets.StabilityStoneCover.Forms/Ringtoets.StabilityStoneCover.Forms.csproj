@@ -54,6 +54,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputContextProperties.cs" />
     <Compile Include="Views\StabilityStoneCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -103,6 +104,11 @@
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
+      <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
+      <Name>Ringtoets.Revetment.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
