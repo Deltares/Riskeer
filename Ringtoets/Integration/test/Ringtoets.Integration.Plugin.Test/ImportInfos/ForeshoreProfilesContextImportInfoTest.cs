@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             string name = importInfo.Name;
 
             // Assert
-            Assert.AreEqual("Voorlandprofiel locaties", name);
+            Assert.AreEqual("Voorlandprofiellocaties", name);
         }
 
         [Test]

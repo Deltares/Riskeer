@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            string expectedMessage = "Een profiel locatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
+            string expectedMessage = "Een profiellocatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
         }
@@ -165,12 +165,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.IsTrue(importResult);
             List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
             {
-                new ProgressNotification("Inlezen van profiel locaties uit een shapebestand.", 1, 1),
-                new ProgressNotification("Inlezen van profiel locatie.", 1, 5),
-                new ProgressNotification("Inlezen van profiel locatie.", 2, 5),
-                new ProgressNotification("Inlezen van profiel locatie.", 3, 5),
-                new ProgressNotification("Inlezen van profiel locatie.", 4, 5),
-                new ProgressNotification("Inlezen van profiel locatie.", 5, 5),
+                new ProgressNotification("Inlezen van profiellocaties uit een shapebestand.", 1, 1),
+                new ProgressNotification("Inlezen van profiellocatie.", 1, 5),
+                new ProgressNotification("Inlezen van profiellocatie.", 2, 5),
+                new ProgressNotification("Inlezen van profiellocatie.", 3, 5),
+                new ProgressNotification("Inlezen van profiellocatie.", 4, 5),
+                new ProgressNotification("Inlezen van profiellocatie.", 5, 5),
                 new ProgressNotification("Inlezen van profieldata uit een prfl bestand.", 1, 1),
                 new ProgressNotification("Inlezen van profieldata.", 1, 5),
                 new ProgressNotification("Inlezen van profieldata.", 2, 5),
@@ -229,12 +229,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.IsTrue(importResult);
             List<ProgressNotification> expectedProgressMessages = new List<ProgressNotification>
             {
-                new ProgressNotification("Inlezen van profiel locaties uit een shapebestand.", 1, 1),
-                new ProgressNotification("Inlezen van profiel locatie.", 1, 5),
-                new ProgressNotification("Inlezen van profiel locatie.", 2, 5),
-                new ProgressNotification("Inlezen van profiel locatie.", 3, 5),
-                new ProgressNotification("Inlezen van profiel locatie.", 4, 5),
-                new ProgressNotification("Inlezen van profiel locatie.", 5, 5),
+                new ProgressNotification("Inlezen van profiellocaties uit een shapebestand.", 1, 1),
+                new ProgressNotification("Inlezen van profiellocatie.", 1, 5),
+                new ProgressNotification("Inlezen van profiellocatie.", 2, 5),
+                new ProgressNotification("Inlezen van profiellocatie.", 3, 5),
+                new ProgressNotification("Inlezen van profiellocatie.", 4, 5),
+                new ProgressNotification("Inlezen van profiellocatie.", 5, 5),
                 new ProgressNotification("Inlezen van profieldata uit een prfl bestand.", 1, 1),
                 new ProgressNotification("Inlezen van profieldata.", 1, 5),
                 new ProgressNotification("Inlezen van profieldata.", 2, 5),

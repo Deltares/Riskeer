@@ -326,7 +326,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
-            var expectedMessages = Enumerable.Repeat("Een profiel locatie met ID 'profiel001' ligt niet op de referentielijn. Locatie wordt overgeslagen.", 5).ToArray();
+            var expectedMessages = Enumerable.Repeat("Een profiellocatie met ID 'profiel001' ligt niet op de referentielijn. Locatie wordt overgeslagen.", 5).ToArray();
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, expectedMessages.Length);
             Assert.IsTrue(importResult);
         }
@@ -377,8 +377,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
-            {
-                var start = "Meerdere profieldata definities gevonden voor profiel 'profiel001'. Bestand '";
+            {                
+                var start = "Meerdere definities gevonden voor profiel 'profiel001'. Bestand '";
                 var end = "' wordt overgeslagen.";
                 bool found = messages.Any(m => m.StartsWith(start) && m.EndsWith(end));
                 Assert.IsTrue(found);
@@ -405,7 +405,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = "Profiel locatie met ID 'profiel001' is opnieuw ingelezen.";
+                string expectedMessage = "Profiellocatie met ID 'profiel001' is opnieuw ingelezen.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
                 Assert.AreEqual(expectedMessage, messageArray[1]);
             });

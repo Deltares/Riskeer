@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             string name = importInfo.Name;
 
             // Assert
-            Assert.AreEqual("Dijkprofiel locaties", name);
+            Assert.AreEqual("Dijkprofiellocaties", name);
         }
 
         [Test]
