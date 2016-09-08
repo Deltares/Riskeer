@@ -26,6 +26,8 @@ using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Forms;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityStoneCover.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -36,10 +38,8 @@ namespace Ringtoets.StabilityStoneCover.Forms
     /// A dialog which allows the user to make a selection form a given set of <see cref="IHydraulicBoundaryLocation"/>. Upon
     /// closing of the dialog, the selected <see cref="IHydraulicBoundaryLocation"/> can be obtained.
     /// </summary>
-    public partial class StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog : DialogBase
+    public partial class StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog : SelectionDialogBase<IHydraulicBoundaryLocation>
     {
-        private const int locationCalculateColumnIndex = 0;
-
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog"/>.
         /// </summary>
@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Forms
         /// <param name="hydraulicBoundaryLocations">The collection of <see cref="IHydraulicBoundaryLocation"/> to show in the dialog.</param>
         public StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(IWin32Window dialogParent,
                                                                            IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations)
-            : base(dialogParent, RingtoetsCommonFormsResources.GenerateScenariosIcon, 370, 550)
+            : base(dialogParent)
         {
             if (hydraulicBoundaryLocations == null)
             {
@@ -55,117 +55,9 @@ namespace Ringtoets.StabilityStoneCover.Forms
             }
 
             InitializeComponent();
-            InitializeEventHandlers();
-            InitializeDataGridView();
+            InitializeDataGridView(Resources.StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Location_Name);
 
-            SetDataSource(hydraulicBoundaryLocations);
-            SelectedLocations = new List<IHydraulicBoundaryLocation>();
+            SetDataSource(hydraulicBoundaryLocations.Select(loc => new SelectableRow<IHydraulicBoundaryLocation>(loc, loc.Name)).ToArray());
         }
-
-        /// <summary>
-        /// Gets a collection of selected <see cref="IHydraulicBoundaryLocation"/> if they were selected
-        /// in the dialog and a confirmation was given. If no confirmation was given or no 
-        /// <see cref="IHydraulicBoundaryLocation"/> was selected an empty collection is returned.
-        /// </summary>
-        public IEnumerable<IHydraulicBoundaryLocation> SelectedLocations { get; private set; }
-
-        protected override Button GetCancelButton()
-        {
-            return CustomCancelButton;
-        }
-
-        /// <summary>
-        /// Gets the currently selected hydraulic boundary locations from the data grid view.
-        /// </summary>
-        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="IHydraulicBoundaryLocation"/>
-        /// which were selected in the view.</returns>
-        private IEnumerable<IHydraulicBoundaryLocation> GetSelectedLocations()
-        {
-            return GetHydraulicBoundaryLocationContextRows().Where(row => row.Selected).Select(row => row.Location).ToArray();
-        }
-
-        private void SetDataSource(IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations)
-        {
-            dataGridViewControl.SetDataSource(hydraulicBoundaryLocations.Select(loc => new HydraulicBoundaryLocationContextRow(loc)).ToArray());
-        }
-
-        /// <summary>
-        /// Initializes the <see cref="DataGridView"/>.
-        /// </summary>
-        private void InitializeDataGridView()
-        {
-            dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Selected),
-                                                  Resources.StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Select_Location);
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationContextRow>(row => row.Name),
-                                                 Resources.StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Location_Name,
-                                                 false, DataGridViewAutoSizeColumnMode.Fill);
-        }
-
-        private IEnumerable<HydraulicBoundaryLocationContextRow> GetHydraulicBoundaryLocationContextRows()
-        {
-            return dataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => (HydraulicBoundaryLocationContextRow) row.DataBoundItem);
-        }
-
-        private void UpdateGenerateForSelectedButton()
-        {
-            GenerateForSelectedButton.Enabled = GetHydraulicBoundaryLocationContextRows().Any(r => r.Selected);
-        }
-
-        private class HydraulicBoundaryLocationContextRow
-        {
-            public HydraulicBoundaryLocationContextRow(IHydraulicBoundaryLocation location)
-            {
-                Selected = false;
-                Name = location.Name;
-                Location = location;
-            }
-
-            public bool Selected { get; set; }
-            public string Name { get; private set; }
-            public IHydraulicBoundaryLocation Location { get; private set; }
-        }
-
-        #region Event handling
-
-        private void SelectAllButton_Click(object sender, EventArgs e)
-        {
-            GetHydraulicBoundaryLocationContextRows().ForEachElementDo(row => row.Selected = true);
-            dataGridViewControl.RefreshDataGridView();
-            UpdateGenerateForSelectedButton();
-        }
-
-        private void DeselectAllButton_Click(object sender, EventArgs e)
-        {
-            GetHydraulicBoundaryLocationContextRows().ForEachElementDo(row => row.Selected = false);
-            dataGridViewControl.RefreshDataGridView();
-            UpdateGenerateForSelectedButton();
-        }
-
-        private void InitializeEventHandlers()
-        {
-            dataGridViewControl.AddCellValueChangedHandler(DataGridViewCellValueChanged);
-        }
-
-        private void DataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex != locationCalculateColumnIndex)
-            {
-                return;
-            }
-            UpdateGenerateForSelectedButton();
-        }
-
-        private void GenerateForSelectedButton_Click(object sender, EventArgs e)
-        {
-            SelectedLocations = GetSelectedLocations();
-            Close();
-        }
-
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        #endregion
     }
 }

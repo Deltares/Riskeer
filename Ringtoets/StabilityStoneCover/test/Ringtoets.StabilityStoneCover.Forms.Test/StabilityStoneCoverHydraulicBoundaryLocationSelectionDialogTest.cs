@@ -23,9 +23,10 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Forms;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -36,7 +37,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
     {
         private const int locationSelectionColumnIndex = 0;
         private const int locationColumnIndex = 1;
-
+        
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
@@ -73,260 +74,71 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
                 using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<IHydraulicBoundaryLocation>()))
                 {
                     // Assert
-                    Assert.IsInstanceOf<DialogBase>(dialog);
-                    Assert.IsEmpty(dialog.SelectedLocations);
+                    Assert.IsInstanceOf<SelectionDialogBase<IHydraulicBoundaryLocation>>(dialog);
+                    Assert.IsEmpty(dialog.SelectedItems);
                     Assert.AreEqual("Selecteer hydraulische randvoorwaardenlocaties", dialog.Text);
-
-                    var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
-                    var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
-                    Assert.AreEqual(2, dataGridView.ColumnCount);
-
-                    var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationSelectionColumnIndex];
-                    const string expectedLocationCalculateHeaderText = "Gebruik";
-                    Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
-                    Assert.AreEqual("Selected", locationCalculateColumn.DataPropertyName);
-                    Assert.IsFalse(locationCalculateColumn.ReadOnly);
-
-                    var locationColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
-                    const string expectedLocationHeaderText = "Hydraulische randvoorwaardenlocatie";
-                    Assert.AreEqual(expectedLocationHeaderText, locationColumn.HeaderText);
-                    Assert.AreEqual("Name", locationColumn.DataPropertyName);
-                    Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, locationColumn.AutoSizeMode);
-                    Assert.IsTrue(locationColumn.ReadOnly);
-
-                    var buttonTester = new ButtonTester("GenerateForSelectedButton", dialog);
-                    var button = (Button) buttonTester.TheObject;
-                    Assert.IsFalse(button.Enabled);
                 }
             }
         }
 
         [Test]
-        public void OnLoad_Always_SetMinimumSize()
+        public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup
+            // Setup & Call
             using (var viewParent = new Form())
             using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<IHydraulicBoundaryLocation>()))
             {
-                // Call
                 dialog.Show();
 
                 // Assert
-                Assert.AreEqual(370, dialog.MinimumSize.Width);
-                Assert.AreEqual(550, dialog.MinimumSize.Height);
+                Assert.IsEmpty(dialog.SelectedItems);
+
+                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
+                Assert.AreEqual(2, dataGridView.ColumnCount);
+
+                var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[locationSelectionColumnIndex];
+                const string expectedLocationCalculateHeaderText = "Gebruik";
+                Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
+                Assert.AreEqual("Selected", locationCalculateColumn.DataPropertyName);
+                Assert.IsFalse(locationCalculateColumn.ReadOnly);
+
+                var nameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationColumnIndex];
+                const string expectedNameHeaderText = "Hydraulische randvoorwaardenlocatie";
+                Assert.AreEqual(expectedNameHeaderText, nameColumn.HeaderText);
+                Assert.AreEqual("Name", nameColumn.DataPropertyName);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, nameColumn.AutoSizeMode);
+                Assert.IsTrue(nameColumn.ReadOnly);
             }
         }
 
         [Test]
-        public void GivenDialogWithSelectedLocations_WhenCloseWithoutConfirmation_ThenReturnsEmptyCollection()
-        {
-            // Given
-            var locations = new[]
-            {
-                new HydraulicBoundaryLocation(1, "1", 1, 1),
-                new HydraulicBoundaryLocation(2, "2", 2, 2)
-            };
-
-            using (var viewParent = new Form())
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, locations))
-            {
-                var selectionView = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
-
-                dialog.Show();
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                dialog.Close();
-
-                // Then
-                Assert.IsEmpty(dialog.SelectedLocations);
-            }
-        }
-
-        [Test]
-        public void GivenDialogWithSelectedLocations_WhenCancelButtonClicked_ThenReturnsSelectedCollection()
-        {
-            // Given
-            var selectedLocation = new HydraulicBoundaryLocation(1, "1", 1, 1);
-            var locations = new[]
-            {
-                selectedLocation,
-                new HydraulicBoundaryLocation(2, "2", 2, 2)
-            };
-
-            using (var viewParent = new Form())
-            {
-                using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, locations))
-                {
-                    var selectionView = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
-
-                    dialog.Show();
-                    selectionView.Rows[0].Cells[0].Value = true;
-
-                    // When
-                    var cancelButton = new ButtonTester("CustomCancelButton", dialog);
-                    cancelButton.Click();
-
-                    // Then
-                    Assert.IsEmpty(dialog.SelectedLocations);
-                }
-            }
-        }
-
-        [Test]
-        public void GivenDialogWithSelectedLocations_WhenGenerateButtonClicked_ThenReturnsSelectedCollection()
-        {
-            // Given
-            var selectedLocation = new HydraulicBoundaryLocation(1, "1", 1, 1);
-            var locations = new[]
-            {
-                selectedLocation,
-                new HydraulicBoundaryLocation(2, "2", 2, 2)
-            };
-
-            using (var viewParent = new Form())
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, locations))
-            {
-                var selectionView = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
-
-                dialog.Show();
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                var generateButton = new ButtonTester("GenerateForSelectedButton", dialog);
-                generateButton.Click();
-
-                // Then
-                var result = dialog.SelectedLocations;
-
-                CollectionAssert.AreEqual(new[]
-                {
-                    selectedLocation
-                }, result);
-            }
-        }
-
-        [Test]
-        public void SelectAllButton_SelectAllButtonClicked_AllLocationsSelected()
+        public void Constructor_HydraulicBoundaryLocationOneEntry_OneRowInGrid()
         {
             // Setup
-            var locations = new[]
-            {
-                new HydraulicBoundaryLocation(1, "1", 1, 1),
-                new HydraulicBoundaryLocation(2, "2", 2, 2)
-            };
+            const string testname = "testName";
+            
+            var mock = new MockRepository();
+            var hydraulicBoundaryLocationMock = mock.Stub<IHydraulicBoundaryLocation>();
+            hydraulicBoundaryLocationMock.Expect(h => h.Name).Return(testname);
+            mock.ReplayAll();
 
+            // Call
             using (var viewParent = new Form())
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, locations))
+            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, new[]
             {
+                hydraulicBoundaryLocationMock
+            }))
+            {
+                // Assert
                 dialog.Show();
 
-                var dataGridView = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
-                var rows = dataGridView.Rows;
-                var button = new ButtonTester("SelectAllButton", dialog);
-
-                // Precondition
-                Assert.IsFalse((bool) rows[0].Cells[locationSelectionColumnIndex].Value);
-                Assert.IsFalse((bool) rows[1].Cells[locationSelectionColumnIndex].Value);
-
-                // Call
-                button.Click();
-
-                // Assert
-                Assert.IsTrue((bool) rows[0].Cells[locationSelectionColumnIndex].Value);
-                Assert.IsTrue((bool) rows[1].Cells[locationSelectionColumnIndex].Value);
+                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl").TheObject;
+                Assert.AreEqual(1, dataGridViewControl.Rows.Count);
+                Assert.IsFalse((bool)dataGridViewControl.Rows[0].Cells[locationSelectionColumnIndex].Value);
+                Assert.AreEqual(testname, (string)dataGridViewControl.Rows[0].Cells[locationColumnIndex].Value);
             }
-        }
-
-        [Test]
-        public void DeselectAllButton_AllLocationsSelectedDeselectAllButtonClicked_AllLocationsNotSelected()
-        {
-            // Setup
-            var locations = new[]
-            {
-                new HydraulicBoundaryLocation(1, "1", 1, 1),
-                new HydraulicBoundaryLocation(2, "2", 2, 2)
-            };
-
-            using (var viewParent = new Form())
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, locations))
-            {
-                dialog.Show();
-
-                var dataGridView = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
-                var rows = dataGridView.Rows;
-                var button = new ButtonTester("DeselectAllButton", dialog);
-
-                foreach (DataGridViewRow row in rows)
-                {
-                    row.Cells[locationSelectionColumnIndex].Value = true;
-                }
-
-                // Precondition
-                Assert.IsTrue((bool) rows[0].Cells[locationSelectionColumnIndex].Value);
-                Assert.IsTrue((bool) rows[1].Cells[locationSelectionColumnIndex].Value);
-
-                // Call
-                button.Click();
-
-                // Assert
-                Assert.IsFalse((bool) rows[0].Cells[locationSelectionColumnIndex].Value);
-                Assert.IsFalse((bool) rows[1].Cells[locationSelectionColumnIndex].Value);
-            }
-        }
-
-        [Test]
-        public void GenerateForSelectedButton_NoneSelected_GenerateForSelectedButtonDisabled()
-        {
-            // Setup
-            var locations = new[]
-            {
-                new HydraulicBoundaryLocation(1, "1", 1, 1),
-                new HydraulicBoundaryLocation(2, "2", 2, 2)
-            };
-
-            using (var viewParent = new Form())
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, locations))
-            {
-                dialog.Show();
-                var buttonTester = new ButtonTester("GenerateForSelectedButton", dialog);
-
-                // Call
-                var button = (Button) buttonTester.TheObject;
-
-                // Assert
-                Assert.IsFalse(button.Enabled);
-                Assert.IsEmpty(dialog.SelectedLocations);
-            }
-        }
-
-        [Test]
-        public void GenerateForSelectedButton_OneSelected_ReturnsSelectedLocations()
-        {
-            // Setup
-            var selectedLocation = new HydraulicBoundaryLocation(1, "1", 1, 1);
-            var locations = new[]
-            {
-                selectedLocation,
-                new HydraulicBoundaryLocation(2, "2", 2, 2)
-            };
-
-            using (var viewParent = new Form())
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, locations))
-            {
-                dialog.Show();
-                var dataGridView = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
-                var rows = dataGridView.Rows;
-                rows[0].Cells[locationSelectionColumnIndex].Value = true;
-                var buttonTester = new ButtonTester("GenerateForSelectedButton", dialog);
-
-                // Call
-                buttonTester.Click();
-
-                // Assert
-                Assert.AreEqual(1, dialog.SelectedLocations.Count());
-                Assert.AreEqual(selectedLocation, dialog.SelectedLocations.First());
-            }
+            mock.VerifyAll();
         }
     }
 }

@@ -159,21 +159,6 @@
   <data name="SelectAllButton.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="SelectAllButton.Text" xml:space="preserve">
-    <value>Selecteer alles</value>
-  </data>
-  <data name="&gt;&gt;SelectAllButton.Name" xml:space="preserve">
-    <value>SelectAllButton</value>
-  </data>
-  <data name="&gt;&gt;SelectAllButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SelectAllButton.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;SelectAllButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="DeselectAllButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -185,21 +170,6 @@
   </data>
   <data name="DeselectAllButton.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
-  </data>
-  <data name="DeselectAllButton.Text" xml:space="preserve">
-    <value>Deselecteer alles</value>
-  </data>
-  <data name="&gt;&gt;DeselectAllButton.Name" xml:space="preserve">
-    <value>DeselectAllButton</value>
-  </data>
-  <data name="&gt;&gt;DeselectAllButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DeselectAllButton.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;DeselectAllButton.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -213,18 +183,6 @@
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;panel2.Name" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;panel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel2.Parent" xml:space="preserve">
-    <value>ButtonGroupBox</value>
-  </data>
-  <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="ButtonGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -236,18 +194,6 @@
   </data>
   <data name="ButtonGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;ButtonGroupBox.Name" xml:space="preserve">
-    <value>ButtonGroupBox</value>
-  </data>
-  <data name="&gt;&gt;ButtonGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ButtonGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ButtonGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="GenerateForSelectedButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -267,21 +213,6 @@
   <data name="GenerateForSelectedButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="GenerateForSelectedButton.Text" xml:space="preserve">
-    <value>Genereren</value>
-  </data>
-  <data name="&gt;&gt;GenerateForSelectedButton.Name" xml:space="preserve">
-    <value>GenerateForSelectedButton</value>
-  </data>
-  <data name="&gt;&gt;GenerateForSelectedButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GenerateForSelectedButton.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;GenerateForSelectedButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="CustomCancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -297,21 +228,6 @@
   <data name="CustomCancelButton.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="CustomCancelButton.Text" xml:space="preserve">
-    <value>Annuleren</value>
-  </data>
-  <data name="&gt;&gt;CustomCancelButton.Name" xml:space="preserve">
-    <value>CustomCancelButton</value>
-  </data>
-  <data name="&gt;&gt;CustomCancelButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CustomCancelButton.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;CustomCancelButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
@@ -324,21 +240,9 @@
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="$this.Localizable" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
@@ -358,6 +262,6 @@
     <value>StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Core.Common.Controls.Dialogs.DialogBase, Core.Common.Controls, Version=16.2.1.5098, Culture=neutral, PublicKeyToken=null</value>
+    <value>Ringtoets.Common.Forms.SelectionDialogBase, Ringtoets.Common.Forms, Version=16.2.1.5236, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>

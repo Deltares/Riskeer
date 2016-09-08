@@ -1314,7 +1314,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 DialogBoxHandler = (name, wnd) =>
                 {
                     dialog = (StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
-                    grid = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                     rowCount = grid.Rows.Count;
                     new ButtonTester("CustomCancelButton", dialog).Click();
                 };
@@ -1375,10 +1375,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 DialogBoxHandler = (name, wnd) =>
                 {
                     dialog = (StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
-                    grid = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                     grid.Rows[0].Cells[0].Value = true;
                     grid.Rows[1].Cells[0].Value = true;
-                    new ButtonTester("GenerateForSelectedButton", dialog).Click();
+                    new ButtonTester("DoForSelectedButton", dialog).Click();
                 };
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -1435,7 +1435,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 DialogBoxHandler = (name, wnd) =>
                 {
                     dialog = (StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
-                    grid = (DataGridViewControl) new ControlTester("dataGridViewControl", dialog).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                     grid.Rows[0].Cells[0].Value = true;
                     new ButtonTester("CustomCancelButton", dialog).Click();
                 };
