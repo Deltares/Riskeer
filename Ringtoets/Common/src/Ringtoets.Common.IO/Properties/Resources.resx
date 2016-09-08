@@ -123,9 +123,6 @@
   <data name="ReferenceLineReader_File_must_contain_1_polyline" xml:space="preserve">
     <value>Het bestand moet exact 1 gehele polylijn bevatten.</value>
   </data>
-  <data name="FailureMechanismSectionReader_OpenPolyLineShapeFile_File_can_only_have_polylines" xml:space="preserve">
-    <value>Het bestand mag uitsluitend polylijnen bevatten.</value>
-  </data>
   <data name="FailureMechanismSectionReader_File_has_unsupported_multiPolyline" xml:space="preserve">
     <value>Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.</value>
   </data>

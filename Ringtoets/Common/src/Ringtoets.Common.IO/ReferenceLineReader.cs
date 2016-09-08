@@ -85,21 +85,7 @@ namespace Ringtoets.Common.IO
         /// </exception>
         private static PolylineShapeFileReader OpenPolyLineShapeFile(string shapeFilePath)
         {
-            try
-            {
-                return new PolylineShapeFileReader(shapeFilePath);
-            }
-            catch (CriticalFileReadException e)
-            {
-                if (e.InnerException.GetType() == typeof(ArgumentException))
-                {
-                    string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                        .Build(RingtoetsCommonIOResources.ReferenceLineReader_File_must_contain_1_polyline);
-                    throw new CriticalFileReadException(message, e);
-                }
-                
-                throw;
-            }
+            return new PolylineShapeFileReader(shapeFilePath);
         }
 
         /// <summary>

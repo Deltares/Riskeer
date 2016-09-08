@@ -291,10 +291,10 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
 
             using (var reader = new ProfileLocationReader(invalidFilePath))
             {
-                // Call
                 int count = reader.GetLocationCount;
                 for (int i = 0; i < count; i++)
                 {
+                    // Call
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
 
@@ -313,10 +313,10 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
 
             using (var reader = new ProfileLocationReader(validFilePath))
             {
-                // Call
                 int count = reader.GetLocationCount;
                 for (int i = 0; i < count; i++)
                 {
+                    // Call
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
 
@@ -351,10 +351,10 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
 
             using (var reader = new ProfileLocationReader(validFilePath))
             {
-                // Call
                 int count = reader.GetLocationCount;
                 for (int i = 0; i < count; i++)
                 {
+                    // Call
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
 
@@ -377,10 +377,10 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
 
             using (var reader = new ProfileLocationReader(validFilePath))
             {
-                // Call
                 int count = reader.GetLocationCount;
                 for (int i = 0; i < count; i++)
                 {
+                    // Call
                     dikeProfileLocations.Add(reader.GetNextProfileLocation());
                 }
 

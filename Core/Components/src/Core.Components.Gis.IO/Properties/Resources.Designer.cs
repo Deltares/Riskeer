@@ -82,7 +82,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestand bevat geen enkele lijn..
+        ///   Looks up a localized string similar to Het bestand bevat geometrieën anders dan een lijn..
         /// </summary>
         internal static string LineShapeFileReader_File_contains_geometries_not_line {
             get {

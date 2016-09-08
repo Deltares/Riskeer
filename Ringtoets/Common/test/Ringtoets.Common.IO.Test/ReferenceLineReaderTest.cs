@@ -130,13 +130,32 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        [TestCase("Empty_PolyLine_with_ID.shp")]
         [TestCase("Multiple_Point_with_ID.shp")]
         [TestCase("Multiple_Polygon_with_ID.shp")]
-        [TestCase("Multiple_PolyLine_with_ID.shp")]
         [TestCase("Single_Multi-Polygon_with_ID.shp")]
         [TestCase("Single_Point_with_ID.shp")]
         [TestCase("Single_Polygon_with_ID.shp")]
+        public void ReadReferenceLine_ShapefileContainsOtherThanPolyline_ThrowCriticalFileReadException(string shapeFileName)
+        {
+            // Setup
+            string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                shapeFileName);
+
+            var reader = new ReferenceLineReader();
+
+            // Call
+            TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
+
+            // Assert
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bevat geometrieën anders dan een lijn.",
+                                                invalidFilePath);
+            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase("Empty_PolyLine_with_ID.shp")]
+        [TestCase("Multiple_PolyLine_with_ID.shp")]
         public void ReadReferenceLine_ShapefileDoesNotHaveSinglePolyline_ThrowCriticalFileReadException(string shapeFileName)
         {
             // Setup

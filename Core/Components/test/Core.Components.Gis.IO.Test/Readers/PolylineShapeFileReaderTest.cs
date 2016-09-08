@@ -66,7 +66,7 @@ namespace Core.Components.Gis.IO.Test.Readers
             TestDelegate call = () => new PolylineShapeFileReader(nonLineShapeFile);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestand bevat geen enkele lijn.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bevat geometrieën anders dan een lijn.",
                                                 nonLineShapeFile);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
