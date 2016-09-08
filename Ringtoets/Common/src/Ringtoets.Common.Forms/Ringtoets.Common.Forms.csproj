@@ -79,6 +79,12 @@
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\NormalDistributionProperties.cs" />
+    <Compile Include="SelectionDialogBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectionDialogBase.Designer.cs">
+      <DependentUpon>SelectionDialogBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RingtoetsMapDataFeaturesFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
@@ -99,12 +105,16 @@
       <DependentUpon>FailureMechanismResultView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\RingtoetsMapDataFactory.cs" />
+    <Compile Include="Views\SelectableRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectionDialogBase.resx">
+      <DependentUpon>SelectionDialogBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CommentView.resx">
       <DependentUpon>CommentView.cs</DependentUpon>

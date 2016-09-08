@@ -22,9 +22,10 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Piping.Forms.Views;
+using Ringtoets.Common.Forms;
 using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Forms.Test
@@ -32,6 +33,9 @@ namespace Ringtoets.Piping.Forms.Test
     [TestFixture]
     public class PipingSurfaceLineSelectionDialogTest
     {
+        private const int selectItemColumnIndex = 0;
+        private const int nameColumnIndex = 1;
+
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
@@ -68,113 +72,66 @@ namespace Ringtoets.Piping.Forms.Test
                 using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<RingtoetsPipingSurfaceLine>()))
                 {
                     // Assert
-                    Assert.IsEmpty(dialog.SelectedSurfaceLines);
-                    Assert.IsInstanceOf<PipingSurfaceLineSelectionView>(new ControlTester("PipingSurfaceLineSelectionView", dialog).TheObject);
+                    Assert.IsInstanceOf<SelectionDialogBase<RingtoetsPipingSurfaceLine>>(dialog);
+                    Assert.IsEmpty(dialog.SelectedItems);
                     Assert.AreEqual("Selecteer profielschematisaties", dialog.Text);
                 }
             }
         }
 
         [Test]
-        public void OnLoad_Always_SetMinimumSize()
+        public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup
+            // Setup & Call
             using (var viewParent = new Form())
             using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<RingtoetsPipingSurfaceLine>()))
             {
-                // Call
                 dialog.Show();
 
                 // Assert
-                Assert.AreEqual(300, dialog.MinimumSize.Width);
-                Assert.AreEqual(400, dialog.MinimumSize.Height);
+                Assert.IsEmpty(dialog.SelectedItems);
+
+                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
+                Assert.AreEqual(2, dataGridView.ColumnCount);
+
+                var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[selectItemColumnIndex];
+                const string expectedLocationCalculateHeaderText = "Gebruik";
+                Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
+                Assert.AreEqual("Selected", locationCalculateColumn.DataPropertyName);
+                Assert.IsFalse(locationCalculateColumn.ReadOnly);
+
+                var nameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[nameColumnIndex];
+                const string expectedNameHeaderText = "Profielschematisatie";
+                Assert.AreEqual(expectedNameHeaderText, nameColumn.HeaderText);
+                Assert.AreEqual("Name", nameColumn.DataPropertyName);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, nameColumn.AutoSizeMode);
+                Assert.IsTrue(nameColumn.ReadOnly);
             }
         }
 
         [Test]
-        public void GivenDialogWithSelectedSurfaceLines_WhenCloseWithoutConfirmation_ThenReturnsEmptyCollection()
+        public void Constructor_SurfaceLinesOneEntry_OneRowInGrid()
         {
-            // Given
-            var surfaceLines = new[]
-            {
-                new RingtoetsPipingSurfaceLine(),
-                new RingtoetsPipingSurfaceLine()
-            };
+            // Setup
+            var testname = "testName";
+            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
+            ringtoetsPipingSurfaceLine.Name = testname;
 
+            // Call
             using (var viewParent = new Form())
-            using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, surfaceLines))
+            using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, new[]
             {
-                var selectionView = (DataGridView) new ControlTester("SurfaceLineDataGrid", dialog).TheObject;
-
+                ringtoetsPipingSurfaceLine
+            }))
+            {
+                // Assert
                 dialog.Show();
-                selectionView.Rows[0].Cells[0].Value = true;
 
-                // When
-                dialog.Close();
-
-                // Then
-                Assert.IsEmpty(dialog.SelectedSurfaceLines);
-            }
-        }
-
-        [Test]
-        public void GivenDialogWithSelectedSurfaceLines_WhenCancelButtonClicked_ThenReturnsSelectedCollection()
-        {
-            // Given
-            var selectedSurfaceLine = new RingtoetsPipingSurfaceLine();
-            var surfaceLines = new[]
-            {
-                selectedSurfaceLine,
-                new RingtoetsPipingSurfaceLine()
-            };
-
-            using (var viewParent = new Form())
-            using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, surfaceLines))
-            {
-                var selectionView = (DataGridView) new ControlTester("SurfaceLineDataGrid", dialog).TheObject;
-
-                dialog.Show();
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                var cancelButton = new ButtonTester("CustomCancelButton", dialog);
-                cancelButton.Click();
-
-                // Then
-                Assert.IsEmpty(dialog.SelectedSurfaceLines);
-            }
-        }
-
-        [Test]
-        public void GivenDialogWithSelectedSurfaceLines_WhenGenerateButtonClicked_ThenReturnsSelectedCollection()
-        {
-            // Given
-            var selectedSurfaceLine = new RingtoetsPipingSurfaceLine();
-            var surfaceLines = new[]
-            {
-                selectedSurfaceLine,
-                new RingtoetsPipingSurfaceLine()
-            };
-
-            using (var viewParent = new Form())
-            using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, surfaceLines))
-            {
-                var selectionView = (DataGridView) new ControlTester("SurfaceLineDataGrid", dialog).TheObject;
-
-                dialog.Show();
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                var okButton = new ButtonTester("OkButton", dialog);
-                okButton.Click();
-
-                // Then
-                var result = dialog.SelectedSurfaceLines;
-
-                CollectionAssert.AreEqual(new[]
-                {
-                    selectedSurfaceLine
-                }, result);
+                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl").TheObject;
+                Assert.AreEqual(1, dataGridViewControl.Rows.Count);
+                Assert.IsFalse((bool)dataGridViewControl.Rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.AreEqual(testname, (string)dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
             }
         }
     }

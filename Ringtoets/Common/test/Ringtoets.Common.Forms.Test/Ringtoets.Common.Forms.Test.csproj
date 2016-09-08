@@ -84,6 +84,7 @@
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormalDistributionPropertiesTest.cs" />
+    <Compile Include="SelectionDialogBaseTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilderTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactoryTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactoryTest.cs" />
@@ -96,6 +97,7 @@
     </Compile>
     <Compile Include="Views\RingtoetsMapDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFeaturesFactoryTest.cs" />
+    <Compile Include="Views\SelectableRowTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

@@ -598,4 +598,7 @@
   <data name="Categories_ModelSettings" xml:space="preserve">
     <value>Modelinstellingen</value>
   </data>
+  <data name="SelectionDialogBase_ColumnSelect_DisplayName" xml:space="preserve">
+    <value>Gebruik</value>
+  </data>
 </root>

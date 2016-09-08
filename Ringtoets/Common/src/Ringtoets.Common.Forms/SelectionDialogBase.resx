@@ -117,42 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="DataGridViewControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 169</value>
-  </data>
-  <data name="&gt;&gt;DataGridViewControl.Name" xml:space="preserve">
-    <value>DataGridViewControl</value>
-  </data>
-  <data name="&gt;&gt;DataGridViewControl.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=16.2.1.5236, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;DataGridViewControl.Parent" xml:space="preserve">
-    <value>ButtonGroupBox</value>
-  </data>
-  <data name="&gt;&gt;DataGridViewControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="DoForSelectedButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 6</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.Localizable" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>284, 262</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Selecteer profielschematisaties</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>PipingSurfaceLineSelectionDialog</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>Ringtoets.Common.Forms.SelectionDialogBase, Ringtoets.Common.Forms, Version=16.2.1.5236, Culture=neutral, PublicKeyToken=null</value>
-  </data>
 </root>

@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -152,10 +153,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
             Assert.AreSame(calculationItem, children[0]);
-            var returnedCalculationContext = (PipingCalculationScenarioContext) children[1];
+            var returnedCalculationContext = (PipingCalculationScenarioContext)children[1];
             Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationContext.FailureMechanism);
-            var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[2];
+            var returnedCalculationGroupContext = (PipingCalculationGroupContext)children[2];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, returnedCalculationGroupContext.AssessmentSection);
@@ -1026,13 +1027,13 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 PipingSurfaceLineSelectionDialog selectionDialog = null;
-                DataGridView grid = null;
+                DataGridViewControl grid = null;
                 int rowCount = 0;
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    grid = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
-                    rowCount = grid.RowCount;
+                    selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                    grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                    rowCount = grid.Rows.Count;
                     new ButtonTester("CustomCancelButton", selectionDialog).Click();
                 };
 
@@ -1182,12 +1183,12 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    var grid = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+                    var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 
-                    new ButtonTester("OkButton", selectionDialog).Click();
+                    new ButtonTester("DoForSelectedButton", selectionDialog).Click();
                 };
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -1301,8 +1302,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    var grid = (DataGridView) new ControlTester("SurfaceLineDataGrid", selectionDialog).TheObject;
+                    var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 

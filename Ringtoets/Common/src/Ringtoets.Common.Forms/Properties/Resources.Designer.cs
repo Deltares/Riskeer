@@ -1467,6 +1467,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gebruik.
+        /// </summary>
+        public static string SelectionDialogBase_ColumnSelect_DisplayName {
+            get {
+                return ResourceManager.GetString("SelectionDialogBase_ColumnSelect_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SelectionDialogIcon {
