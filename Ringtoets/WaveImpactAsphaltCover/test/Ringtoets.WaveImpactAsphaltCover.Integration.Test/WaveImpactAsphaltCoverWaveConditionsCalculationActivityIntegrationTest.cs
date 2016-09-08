@@ -249,6 +249,45 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
+        public void Cancel_WhenPerformingCalculation_CurrentAndSubsequentWaterLevelCalculationsCancelled()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+
+            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.WaveImpactAsphaltCover, assessmentSection);
+
+            using (new WaveConditionsCalculationServiceConfig())
+            {
+                activity.ProgressChanged += (sender, args) =>
+                {
+                    if (activity.State != ActivityState.Canceled)
+                    {
+                        // Call
+                        activity.Cancel();
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(() => activity.Run(), messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    RoundedDouble firstWaterLevel = calculation.InputParameters.WaterLevels.First();
+
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' gestart om: ", calculation.Name, firstWaterLevel), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd om: ", calculation.Name, firstWaterLevel), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                });
+
+                Assert.AreEqual(ActivityState.Canceled, activity.State);
+            }
+        }
+
+        [Test]
         public void OnFinish_CalculationPerformed_SetsOutput()
         {
             // Setup

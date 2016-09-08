@@ -104,6 +104,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
                            foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                            {
+                               if (State == ActivityState.Canceled)
+                               {
+                                   break;
+                               }
+
                                log.Info(string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_,
                                                       calculation.Name,
                                                       waterLevel,

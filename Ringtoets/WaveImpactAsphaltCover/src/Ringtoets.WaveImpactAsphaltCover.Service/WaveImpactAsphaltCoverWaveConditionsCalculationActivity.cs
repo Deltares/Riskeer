@@ -104,6 +104,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
                            foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                            {
+                               if (State == ActivityState.Canceled)
+                               {
+                                   break;
+                               }
+
                                log.Info(string.Format(Resources.WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_,
                                                       calculation.Name,
                                                       waterLevel,
