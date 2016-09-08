@@ -45,6 +45,7 @@ namespace Ringtoets.StabilityStoneCover.Forms
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="hydraulicBoundaryLocations">The collection of <see cref="IHydraulicBoundaryLocation"/> to show in the dialog.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(IWin32Window dialogParent,
                                                                            IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations)
             : base(dialogParent)

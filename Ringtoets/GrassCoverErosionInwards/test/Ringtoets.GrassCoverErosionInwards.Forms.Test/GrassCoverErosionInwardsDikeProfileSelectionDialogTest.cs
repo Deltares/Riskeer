@@ -23,16 +23,20 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.Views;
+using Ringtoets.Common.Forms;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
 {
     [TestFixture]
     public class GrassCoverErosionInwardsDikeProfileSelectionDialogTest
     {
+        private const int locationSelectionColumnIndex = 0;
+        private const int locationColumnIndex = 1;
+
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
@@ -69,119 +73,74 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test
                 using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, Enumerable.Empty<DikeProfile>()))
                 {
                     // Assert
-                    Assert.IsEmpty(dialog.SelectedDikeProfiles);
-                    Assert.IsInstanceOf<GrassCoverErosionInwardsDikeProfileSelectionView>(new ControlTester("GrassCoverErosionInwardsDikeProfileSelectionView", dialog).TheObject);
+                    Assert.IsInstanceOf<SelectionDialogBase<DikeProfile>>(dialog);
+                    Assert.IsEmpty(dialog.SelectedItems);
                     Assert.AreEqual("Selecteer dijkprofielen", dialog.Text);
                 }
             }
         }
 
         [Test]
-        public void OnLoad_Always_SetMinimumSize()
+        public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup
+            // Setup & Call
             using (var viewParent = new Form())
             using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, Enumerable.Empty<DikeProfile>()))
             {
-                // Call
                 dialog.Show();
 
                 // Assert
-                Assert.AreEqual(300, dialog.MinimumSize.Width);
-                Assert.AreEqual(400, dialog.MinimumSize.Height);
+                Assert.IsEmpty(dialog.SelectedItems);
+
+                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
+                Assert.AreEqual(2, dataGridView.ColumnCount);
+
+                var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[locationSelectionColumnIndex];
+                const string expectedLocationCalculateHeaderText = "Gebruik";
+                Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
+                Assert.AreEqual("Selected", locationCalculateColumn.DataPropertyName);
+                Assert.IsFalse(locationCalculateColumn.ReadOnly);
+
+                var nameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationColumnIndex];
+                const string expectedNameHeaderText = "Dijkprofiel";
+                Assert.AreEqual(expectedNameHeaderText, nameColumn.HeaderText);
+                Assert.AreEqual("Name", nameColumn.DataPropertyName);
+                Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, nameColumn.AutoSizeMode);
+                Assert.IsTrue(nameColumn.ReadOnly);
             }
         }
 
         [Test]
-        public void GivenDialogWithSelectedDikeProfiles_WhenCloseWithoutConfirmation_ThenReturnsEmptyCollection()
+        public void Constructor_HydraulicBoundaryLocationOneEntry_OneRowInGrid()
         {
-            // Given
-            var dikeProfiles = new[]
-            {
-                CreateDikeProfile(),
-                CreateDikeProfile()
-            };
+            // Setup
+            const string testname = "testName";
 
+            // Call
             using (var viewParent = new Form())
-            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, dikeProfiles))
+            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, new[]
             {
-                var selectionView = (DataGridView) new ControlTester("DikeProfileDataGrid", dialog).TheObject;
-
+                CreateDikeProfile(testname)
+            }))
+            {
+                // Assert
                 dialog.Show();
-                selectionView.Rows[0].Cells[0].Value = true;
 
-                // When
-                dialog.Close();
-
-                // Then
-                Assert.IsEmpty(dialog.SelectedDikeProfiles);
+                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl").TheObject;
+                Assert.AreEqual(1, dataGridViewControl.Rows.Count);
+                Assert.IsFalse((bool)dataGridViewControl.Rows[0].Cells[locationSelectionColumnIndex].Value);
+                Assert.AreEqual(testname, (string)dataGridViewControl.Rows[0].Cells[locationColumnIndex].Value);
             }
         }
 
-        [Test]
-        public void GivenDialogWithSelectedDikeProfiles_WhenCancelButtonClicked_ThenReturnsSelectedCollection()
-        {
-            // Given
-            var selectedDikeProfile = CreateDikeProfile();
-            var dikeProfiles = new[]
-            {
-                selectedDikeProfile,
-                CreateDikeProfile()
-            };
-
-            using (var viewParent = new Form())
-            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, dikeProfiles))
-            {
-                var selectionView = (DataGridView) new ControlTester("DikeProfileDataGrid", dialog).TheObject;
-
-                dialog.Show();
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                var cancelButton = new ButtonTester("CustomCancelButton", dialog);
-                cancelButton.Click();
-
-                // Then
-                Assert.IsEmpty(dialog.SelectedDikeProfiles);
-            }
-        }
-
-        [Test]
-        public void GivenDialogWithSelectedDikeProfiles_WhenGenerateButtonClicked_ThenReturnsSelectedCollection()
-        {
-            // Given
-            var selectedDikeProfile = CreateDikeProfile();
-            var dikeProfiles = new[]
-            {
-                selectedDikeProfile,
-                CreateDikeProfile()
-            };
-
-            using (var viewParent = new Form())
-            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(viewParent, dikeProfiles))
-            {
-                var selectionView = (DataGridView) new ControlTester("DikeProfileDataGrid", dialog).TheObject;
-
-                dialog.Show();
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                var okButton = new ButtonTester("OkButton", dialog);
-                okButton.Click();
-
-                // Then
-                var result = dialog.SelectedDikeProfiles;
-                CollectionAssert.AreEqual(new[]
-                {
-                    selectedDikeProfile
-                }, result);
-            }
-        }
-
-        private DikeProfile CreateDikeProfile()
+        private static DikeProfile CreateDikeProfile(string name)
         {
             return new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                   null, new DikeProfile.ConstructionProperties());
+                                   null, new DikeProfile.ConstructionProperties
+                                   {
+                                       Name = name
+                                   });
         }
     }
 }

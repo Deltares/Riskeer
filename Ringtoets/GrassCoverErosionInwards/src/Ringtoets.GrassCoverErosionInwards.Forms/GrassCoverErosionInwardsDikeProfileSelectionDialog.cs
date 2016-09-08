@@ -21,11 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Controls.Dialogs;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.Views;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.Common.Forms;
+using Ringtoets.Common.Forms.Views;
+using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms
 {
@@ -33,49 +34,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms
     /// A dialog which allows the user to make a selection form a given set of <see cref="GrassCoverErosionInwardsDikeProfileSelectionDialog"/>. Upon
     /// closing of the dialog, the selected <see cref="DikeProfile"/> can be obtained.
     /// </summary>
-    public partial class GrassCoverErosionInwardsDikeProfileSelectionDialog : DialogBase
+    public partial class GrassCoverErosionInwardsDikeProfileSelectionDialog : SelectionDialogBase<DikeProfile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsDikeProfileSelectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="dikeProfiles">The collection of <see cref="DikeProfile"/> to show in the dialog.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsDikeProfileSelectionDialog(IWin32Window dialogParent, IEnumerable<DikeProfile> dikeProfiles)
-            : base(dialogParent, RingtoetsCommonFormsResources.GenerateScenariosIcon, 300, 400)
+            : base(dialogParent)
         {
-            InitializeComponent();
-
-            DikeProfileSelectionView = new GrassCoverErosionInwardsDikeProfileSelectionView(dikeProfiles)
+            if (dikeProfiles == null)
             {
-                Dock = DockStyle.Fill
-            };
-            Controls.Add(DikeProfileSelectionView);
-            SelectedDikeProfiles = new List<DikeProfile>();
-        }
+                throw new ArgumentNullException("dikeProfiles");
+            }
 
-        /// <summary>
-        /// Gets a collection of selected <see cref="DikeProfile"/> if they were selected
-        /// in the dialog and a confirmation was given. If no confirmation was given or no 
-        /// <see cref="DikeProfile"/> was selected, then an empty collection is returned.
-        /// </summary>
-        public IEnumerable<DikeProfile> SelectedDikeProfiles { get; private set; }
+            InitializeComponent();
+            InitializeDataGridView(Resources.DikeProfile_DisplayName);
 
-        protected override Button GetCancelButton()
-        {
-            return CustomCancelButton;
-        }
-
-        private GrassCoverErosionInwardsDikeProfileSelectionView DikeProfileSelectionView { get; set; }
-
-        private void OkButtonOnClick(object sender, EventArgs e)
-        {
-            SelectedDikeProfiles = DikeProfileSelectionView.GetSelectedDikeProfiles();
-            Close();
-        }
-
-        private void CancelButtonOnClick(object sender, EventArgs eventArgs)
-        {
-            Close();
+            SetDataSource(dikeProfiles.Select(p => new SelectableRow<DikeProfile>(p, p.Name)).ToArray());
         }
     }
 }

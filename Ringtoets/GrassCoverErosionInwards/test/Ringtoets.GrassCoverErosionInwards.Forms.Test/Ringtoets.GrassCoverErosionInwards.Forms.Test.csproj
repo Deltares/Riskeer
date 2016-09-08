@@ -92,7 +92,6 @@
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsChartDataFactoryTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsChartDataPointsFactoryTest.cs" />
-    <Compile Include="Views\GrassCoverErosionInwardsDikeProfileSelectionViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsInputViewTest.cs" />

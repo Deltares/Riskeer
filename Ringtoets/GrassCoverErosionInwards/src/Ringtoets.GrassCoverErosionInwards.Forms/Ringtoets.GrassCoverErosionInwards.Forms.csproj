@@ -77,12 +77,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismSectionResultRow.cs" />
-    <Compile Include="Views\GrassCoverErosionInwardsDikeProfileSelectionView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\GrassCoverErosionInwardsDikeProfileSelectionView.Designer.cs">
-      <DependentUpon>GrassCoverErosionInwardsDikeProfileSelectionView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\GrassCoverErosionInwardsInputView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -172,9 +166,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\GrassCoverErosionInwardsDikeProfileSelectionView.resx">
-      <DependentUpon>GrassCoverErosionInwardsDikeProfileSelectionView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\GrassCoverErosionInwardsInputView.resx">
       <DependentUpon>GrassCoverErosionInwardsInputView.cs</DependentUpon>

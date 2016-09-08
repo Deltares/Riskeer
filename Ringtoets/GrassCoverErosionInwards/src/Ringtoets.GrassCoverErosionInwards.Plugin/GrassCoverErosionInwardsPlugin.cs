@@ -514,7 +514,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             using (var view = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Gui.MainWindow, nodeData.AvailableDikeProfiles))
             {
                 view.ShowDialog();
-                GenerateCalculations(nodeData.WrappedData, nodeData.FailureMechanism, view.SelectedDikeProfiles);
+                GenerateCalculations(nodeData.WrappedData, nodeData.FailureMechanism, view.SelectedItems);
             }
             nodeData.NotifyObservers();
         }
