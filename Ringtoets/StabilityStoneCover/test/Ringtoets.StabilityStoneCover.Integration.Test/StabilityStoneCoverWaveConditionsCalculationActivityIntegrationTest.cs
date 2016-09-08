@@ -193,12 +193,13 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 activity.Run();
 
                 // Assert
-                foreach (var waterLevel in calculation.InputParameters.WaterLevels)
+                var waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                for (var i = 0; i < waterLevels.Length; i++)
                 {
-                    var blocksText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_, waterLevel);
-                    var columnsText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_waterlevel_0_, waterLevel);
-                    CollectionAssert.Contains(progessTexts, blocksText);
-                    CollectionAssert.Contains(progessTexts, columnsText);
+                    var blocksText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_, waterLevels[i]);
+                    var columnsText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_waterlevel_0_, waterLevels[i]);
+                    Assert.AreEqual(progessTexts[i * 2], blocksText);
+                    Assert.AreEqual(progessTexts[i * 2 + 1], columnsText);
                 }
             }
         }

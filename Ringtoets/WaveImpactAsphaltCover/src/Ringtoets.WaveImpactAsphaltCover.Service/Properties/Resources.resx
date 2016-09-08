@@ -124,6 +124,6 @@
     <value>Berekening '{0}' voor waterstand '{1}' gestart om: {2}</value>
   </data>
   <data name="WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_" xml:space="preserve">
-    <value>Waterstand {0} berekenen.</value>
+    <value>Waterstand '{0}' berekenen.</value>
   </data>
 </root>

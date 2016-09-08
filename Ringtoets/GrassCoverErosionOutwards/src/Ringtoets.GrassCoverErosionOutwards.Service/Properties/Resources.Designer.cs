@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand {0} berekenen..
+        ///   Looks up a localized string similar to Waterstand &apos;{0}&apos; berekenen..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_ {
             get {

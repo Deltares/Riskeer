@@ -30,7 +30,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -198,10 +197,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 activity.Run();
 
                 // Assert
-                foreach (var waterLevel in calculation.InputParameters.WaterLevels)
+                var waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                for (var i = 0; i < waterLevels.Length; i++)
                 {
-                    var text = string.Format(Resources.WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevel);
-                    CollectionAssert.Contains(progessTexts, text);
+                    var text = string.Format(Resources.WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevels[i]);
+                    Assert.AreEqual(progessTexts[i], text);
                 }
             }
         }

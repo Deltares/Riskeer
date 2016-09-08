@@ -136,7 +136,7 @@
     <value>Waterstand bij doorsnede-eis voor locatie {0}</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_" xml:space="preserve">
-    <value>Waterstand {0} berekenen.</value>
+    <value>Waterstand '{0}' berekenen.</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_ended_time_2_" xml:space="preserve">
     <value>Berekening '{0}' voor waterstand '{1}' beëindigd om: {2}</value>

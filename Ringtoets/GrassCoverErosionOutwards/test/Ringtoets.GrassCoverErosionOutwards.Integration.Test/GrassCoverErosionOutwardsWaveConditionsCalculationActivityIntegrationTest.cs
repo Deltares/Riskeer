@@ -197,10 +197,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 activity.Run();
 
                 // Assert
-                foreach (var waterLevel in calculation.InputParameters.WaterLevels)
+                var waterLevels = calculation.InputParameters.WaterLevels.ToArray();
+                for (var i = 0; i < waterLevels.Length; i++)
                 {
-                    var text = string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevel);
-                    CollectionAssert.Contains(progessTexts, text);
+                    var text = string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevels[i]);
+                    Assert.AreEqual(progessTexts[i], text);
                 }
             }
         }
