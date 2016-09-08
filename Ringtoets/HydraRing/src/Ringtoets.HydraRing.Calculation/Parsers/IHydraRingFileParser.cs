@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         /// <summary>
         /// Tries to parse output from a file in the <paramref name="workingDirectory"/> based on a <paramref name="sectionId"/>.
         /// </summary>
-        /// <param name="workingDirectory">The path to the directory which contains the output of the Hydra-Ring type I calculation.</param>
+        /// <param name="workingDirectory">The path to the directory which contains the output of the Hydra-Ring calculation.</param>
         /// <param name="sectionId">The section id to get the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="workingDirectory"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="workingDirectory"/>
