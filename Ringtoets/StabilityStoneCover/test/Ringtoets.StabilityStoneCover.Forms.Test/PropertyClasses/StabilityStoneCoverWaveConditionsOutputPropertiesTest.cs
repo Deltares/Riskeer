@@ -113,16 +113,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             };
 
             // Call
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
-
-            // Asssert
             var propertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
             {
                 new BrowsableAttribute(true)
             });
 
+            // Asssert
             Assert.AreEqual(2, dynamicProperties.Count);
 
             PropertyDescriptor blocksProperty = dynamicProperties[requiredBlockPropertyIndex];

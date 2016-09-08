@@ -34,7 +34,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsOutput"/> for properties panel.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class StabilityStoneCoverWaveConditionsOutputProperties : ObjectProperties<StabilityStoneCoverWaveConditionsOutput>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]

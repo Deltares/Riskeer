@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
@@ -82,6 +83,11 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             {
                 return data.WaveAngle;
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Empty;
         }
     }
 }
