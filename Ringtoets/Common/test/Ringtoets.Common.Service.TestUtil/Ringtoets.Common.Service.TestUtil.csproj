@@ -48,8 +48,7 @@
     </Compile>
     <Compile Include="DesignWaterLevelCalculationServiceConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDesignWaterLevelCalculationService.cs" />
-    <Compile Include="TestWaveHeightCalculationService.cs" />
+    <Compile Include="TestHydraulicBoundaryLocationCalculationService.cs" />
     <Compile Include="WaveHeightCalculationServiceConfig.cs" />
   </ItemGroup>
   <ItemGroup>

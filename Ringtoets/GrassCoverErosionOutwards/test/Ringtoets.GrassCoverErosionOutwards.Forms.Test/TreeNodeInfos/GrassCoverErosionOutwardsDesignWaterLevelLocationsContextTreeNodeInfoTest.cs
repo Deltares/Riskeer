@@ -406,7 +406,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new DesignWaterLevelCalculationServiceConfig())
                     {
-                        var testService = (TestDesignWaterLevelCalculationService) DesignWaterLevelCalculationService.Instance;
+                        var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
 
                         // Call
                         contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
@@ -548,8 +548,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new DesignWaterLevelCalculationServiceConfig())
                     {
-                        var testService = (TestDesignWaterLevelCalculationService) DesignWaterLevelCalculationService.Instance;
-                        testService.SetCalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+                        var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
+                        testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
 
                         // When
                         contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();

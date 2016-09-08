@@ -35,7 +35,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
         public void Validate_Always_ReturnTrue()
         {
             // Setup
-            var service = new TestWaveHeightCalculationService();
+            var service = new TestHydraulicBoundaryLocationCalculationService();
 
             // Call
             bool validated = service.Validate(string.Empty, string.Empty);
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
 
             mockRepository.ReplayAll();
-            var service = new TestWaveHeightCalculationService();
+            var service = new TestHydraulicBoundaryLocationCalculationService();
             const double norm = 12.34;
 
             // Call
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
 
             mockRepository.ReplayAll();
-            var service = new TestWaveHeightCalculationService
+            var service = new TestHydraulicBoundaryLocationCalculationService
             {
                 CalculationConvergenceOutput = CalculationConvergence.CalculatedConverged
             };
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
 
             mockRepository.ReplayAll();
-            var service = new TestWaveHeightCalculationService
+            var service = new TestHydraulicBoundaryLocationCalculationService
             {
                 CalculationConvergenceOutput = CalculationConvergence.NotCalculated
             };
@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
 
             mockRepository.ReplayAll();
-            var service = new TestWaveHeightCalculationService
+            var service = new TestHydraulicBoundaryLocationCalculationService
             {
                 CalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged
             };

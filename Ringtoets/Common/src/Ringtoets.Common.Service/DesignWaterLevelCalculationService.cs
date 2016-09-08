@@ -19,32 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.IO;
 using log4net;
-using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.Common.Service.Properties;
-using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
-using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for design water level.
     /// </summary>
-    public class DesignWaterLevelCalculationService : IDesignWaterLevelCalculationService
+    public class DesignWaterLevelCalculationService : HydraulicBoundaryLocationCalculationService<AssessmentLevelCalculationInput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationService));
-        private static IDesignWaterLevelCalculationService instance;
+        private static IHydraulicBoundaryLocationCalculationService instance;
 
         /// <summary>
-        /// Gets or sets an instance of <see cref="IDesignWaterLevelCalculationService"/>.
+        /// Gets or sets an instance of <see cref="IHydraulicBoundaryLocationCalculationService"/>.
         /// </summary>
-        public static IDesignWaterLevelCalculationService Instance
+        public static IHydraulicBoundaryLocationCalculationService Instance
         {
             get
             {
@@ -56,63 +48,7 @@ namespace Ringtoets.Common.Service
             }
         }
 
-        public bool Validate(string name, string hydraulicBoundaryDatabaseFilePath)
-        {
-            CalculationServiceHelper.LogValidationBeginTime(name);
-
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
-            var isValid = string.IsNullOrEmpty(validationProblem);
-
-            if (!isValid)
-            {
-                CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
-                                                            validationProblem);
-            }
-
-            CalculationServiceHelper.LogValidationEndTime(name);
-
-            return isValid;
-        }
-
-        public ReliabilityIndexCalculationOutput Calculate(ICalculationMessageProvider messageProvider,
-                                                           IHydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                           string hydraulicBoundaryDatabaseFilePath,
-                                                           string ringId, double norm)
-        {
-            var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            var input = CreateInput(hydraulicBoundaryLocation, norm);
-            var reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
-            var calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
-
-            CalculationServiceHelper.PerformCalculation(
-                calculationName,
-                () =>
-                {
-                    HydraRingCalculationService.Instance.PerformCalculation(
-                        hlcdDirectory,
-                        ringId,
-                        HydraRingUncertaintiesType.All,
-                        input,
-                        new[]
-                        {
-                            reliabilityIndexCalculationParser
-                        });
-
-                    VerifyOutput(reliabilityIndexCalculationParser.Output, messageProvider, hydraulicBoundaryLocation.Name);
-                });
-
-            return reliabilityIndexCalculationParser.Output;
-        }
-
-        private static void VerifyOutput(ReliabilityIndexCalculationOutput output, ICalculationMessageProvider messageProvider, string locationName)
-        {
-            if (output == null)
-            {
-                log.Error(messageProvider.GetCalculationFailedMessage(locationName));
-            }
-        }
-
-        private static AssessmentLevelCalculationInput CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
+        protected override AssessmentLevelCalculationInput CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
         {
             return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
         }

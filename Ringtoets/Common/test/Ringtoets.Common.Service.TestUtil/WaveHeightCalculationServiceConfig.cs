@@ -24,7 +24,7 @@ using System;
 namespace Ringtoets.Common.Service.TestUtil
 {
     /// <summary>
-    /// This class can be used to set a temporary <see cref="IWaveHeightCalculationService"/>
+    /// This class can be used to set a temporary <see cref="IHydraulicBoundaryLocationCalculationService"/>
     /// for <see cref="WaveHeightCalculationService.Instance"/> while testing.
     /// Disposing an instance of this class will revert the
     /// <see cref="DesignWaterLevelCalculationService.Instance"/>.
@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Service.TestUtil
     /// <code>
     /// using(new WaveHeightCalculationServiceConfig())
     /// {
-    ///     var testService = (TestWaveHeightCalculationService) WaveHeightCalculationService.Instance;
+    ///     var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
     /// 
     ///     // Perform test with service
     /// }
@@ -42,17 +42,17 @@ namespace Ringtoets.Common.Service.TestUtil
     /// </example>
     public class WaveHeightCalculationServiceConfig : IDisposable
     {
-        private readonly IWaveHeightCalculationService previousInstance;
+        private readonly IHydraulicBoundaryLocationCalculationService previousInstance;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationServiceConfig"/>.
-        /// Sets a <see cref="TestWaveHeightCalculationService"/> to
+        /// Sets a <see cref="TestHydraulicBoundaryLocationCalculationService"/> to
         /// <see cref="WaveHeightCalculationService.Instance"/>.
         /// </summary>
         public WaveHeightCalculationServiceConfig()
         {
             previousInstance = WaveHeightCalculationService.Instance;
-            WaveHeightCalculationService.Instance = new TestWaveHeightCalculationService();
+            WaveHeightCalculationService.Instance = new TestHydraulicBoundaryLocationCalculationService();
         }
 
         /// <summary>

@@ -33,6 +33,10 @@ using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.Common.Service
 {
+    /// <summary>
+    /// Abstract service that provides methods for performing Hydra-Ring calculations for hydraulic boundary locations.
+    /// </summary>
+    /// <typeparam name="T">The input type of the calculation.</typeparam>
     public abstract class HydraulicBoundaryLocationCalculationService<T> : IHydraulicBoundaryLocationCalculationService 
         where T : HydraRingCalculationInput
     {
@@ -91,6 +95,12 @@ namespace Ringtoets.Common.Service
             }
         }
 
+        /// <summary>
+        /// Creates the input for the calculation.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to create the input for.</param>
+        /// <param name="norm">The norm which is needed in the input.</param>
+        /// <returns>The created Input.</returns>
         protected abstract T CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm);
     }
 }

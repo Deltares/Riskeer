@@ -87,9 +87,11 @@ namespace Ringtoets.Common.Service
             PerformRun(() => DesignWaterLevelCalculationService.Instance.Validate(
                 messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name), hydraulicBoundaryDatabaseFilePath),
                        () => hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) double.NaN,
-                       () => DesignWaterLevelCalculationService.Instance.Calculate(
-                           messageProvider, hydraulicBoundaryLocation, hydraulicBoundaryDatabaseFilePath,
-                           ringId, norm));
+                       () => DesignWaterLevelCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
+                                                                                   hydraulicBoundaryDatabaseFilePath,
+                                                                                   ringId,
+                                                                                   norm,
+                                                                                   messageProvider));
         }
 
         protected override void OnFinish()

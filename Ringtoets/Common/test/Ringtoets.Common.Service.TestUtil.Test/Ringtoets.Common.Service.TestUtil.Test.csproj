@@ -56,7 +56,7 @@
     </Compile>
     <Compile Include="DesignWaterLevelCalculationServiceConfigTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDesignWaterLevelCalculationServiceTest.cs" />
+    <Compile Include="TestHydraulicBoundaryLocationCalculationServiceTest.cs" />
     <Compile Include="TestWaveHeightCalculationServiceTest.cs" />
     <Compile Include="WaveHeightCalculationServiceConfigTest.cs" />
   </ItemGroup>

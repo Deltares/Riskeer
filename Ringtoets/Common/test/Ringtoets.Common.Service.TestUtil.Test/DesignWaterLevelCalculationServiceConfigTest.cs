@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             using (new DesignWaterLevelCalculationServiceConfig())
             {
                 // Assert
-                Assert.IsInstanceOf<TestDesignWaterLevelCalculationService>(DesignWaterLevelCalculationService.Instance);
+                Assert.IsInstanceOf<TestHydraulicBoundaryLocationCalculationService>(DesignWaterLevelCalculationService.Instance);
             }
         }
 

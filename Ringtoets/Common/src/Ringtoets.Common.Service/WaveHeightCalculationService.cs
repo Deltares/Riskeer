@@ -19,32 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.IO;
 using log4net;
-using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.Common.Service.Properties;
-using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
-using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for marginal wave statistics.
     /// </summary>
-    public class WaveHeightCalculationService : IWaveHeightCalculationService
+    public class WaveHeightCalculationService : HydraulicBoundaryLocationCalculationService<WaveHeightCalculationInput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveHeightCalculationService));
-        private static IWaveHeightCalculationService instance;
+        private static IHydraulicBoundaryLocationCalculationService instance;
 
         /// <summary>
-        /// Gets or sets an instance of <see cref="IWaveHeightCalculationService"/>.
+        /// Gets or sets an instance of <see cref="IHydraulicBoundaryLocationCalculationService"/>.
         /// </summary>
-        public static IWaveHeightCalculationService Instance
+        public static IHydraulicBoundaryLocationCalculationService Instance
         {
             get
             {
@@ -56,64 +48,7 @@ namespace Ringtoets.Common.Service
             }
         }
 
-        public bool Validate(string name, string hydraulicBoundaryDatabaseFilePath)
-        {
-            CalculationServiceHelper.LogValidationBeginTime(name);
-
-            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
-            var isValid = string.IsNullOrEmpty(validationProblem);
-
-            if (!isValid)
-            {
-                CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
-                                                            validationProblem);
-            }
-
-            CalculationServiceHelper.LogValidationEndTime(name);
-
-            return isValid;
-        }
-
-        public ReliabilityIndexCalculationOutput Calculate(IHydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                           string hydraulicBoundaryDatabaseFilePath,
-                                                           string ringId,
-                                                           double norm,
-                                                           ICalculationMessageProvider messageProvider)
-        {
-            var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            var input = CreateInput(hydraulicBoundaryLocation, norm);
-            var reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
-            var calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
-
-            CalculationServiceHelper.PerformCalculation(
-                calculationName,
-                () =>
-                {
-                    HydraRingCalculationService.Instance.PerformCalculation(
-                        hlcdDirectory,
-                        ringId,
-                        HydraRingUncertaintiesType.All,
-                        input,
-                        new[]
-                        {
-                            reliabilityIndexCalculationParser
-                        });
-
-                    VerifyOutput(reliabilityIndexCalculationParser.Output, messageProvider, hydraulicBoundaryLocation.Name);
-                });
-
-            return reliabilityIndexCalculationParser.Output;
-        }
-
-        private static void VerifyOutput(ReliabilityIndexCalculationOutput output, ICalculationMessageProvider messageProvider, string locationName)
-        {
-            if (output == null)
-            {
-                log.Error(messageProvider.GetCalculationFailedMessage(locationName));
-            }
-        }
-
-        private static WaveHeightCalculationInput CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
+        protected override WaveHeightCalculationInput CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
         {
             return new WaveHeightCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
         }

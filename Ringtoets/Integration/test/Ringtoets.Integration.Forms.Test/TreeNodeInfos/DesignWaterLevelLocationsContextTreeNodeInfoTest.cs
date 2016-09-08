@@ -345,8 +345,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     {
                         using (new DesignWaterLevelCalculationServiceConfig())
                         {
-                            var testService = (TestDesignWaterLevelCalculationService) DesignWaterLevelCalculationService.Instance;
-                            testService.SetCalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+                            var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
+                            testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
 
                             // When
                             contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();

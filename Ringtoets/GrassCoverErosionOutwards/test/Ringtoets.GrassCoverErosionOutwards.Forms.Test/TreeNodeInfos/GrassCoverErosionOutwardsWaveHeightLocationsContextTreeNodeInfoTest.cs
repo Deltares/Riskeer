@@ -399,7 +399,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     {
                         using (new WaveHeightCalculationServiceConfig())
                         {
-                            var testService = (TestWaveHeightCalculationService) WaveHeightCalculationService.Instance;
+                            var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
                             testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
 
                             // When

@@ -30,14 +30,14 @@ namespace Ringtoets.Common.Service.TestUtil
     /// This class allows mocking an actual design water level calculation, 
     /// so that tests can be performed upon them.
     /// </summary>
-    public class TestDesignWaterLevelCalculationService : IDesignWaterLevelCalculationService
+    public class TestHydraulicBoundaryLocationCalculationService : IHydraulicBoundaryLocationCalculationService
     {
         private CalculationConvergence returnValidOutput = CalculationConvergence.CalculatedConverged;
 
         /// <summary>
         /// Set the expected output for <see cref="Calculate"/>.
         /// </summary>
-        public CalculationConvergence SetCalculationConvergenceOutput
+        public CalculationConvergence CalculationConvergenceOutput
         {
             set
             {
@@ -75,11 +75,11 @@ namespace Ringtoets.Common.Service.TestUtil
             return true;
         }
 
-        public ReliabilityIndexCalculationOutput Calculate(ICalculationMessageProvider messageProvider,
-                                                           IHydraulicBoundaryLocation hydraulicBoundaryLocation,
+        public ReliabilityIndexCalculationOutput Calculate(IHydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                            string hydraulicBoundaryDatabaseFilePath,
                                                            string ringId,
-                                                           double norm)
+                                                           double norm,
+                                                           ICalculationMessageProvider messageProvider)
         {
             MessageProvider = messageProvider;
             HydraulicBoundaryLocation = hydraulicBoundaryLocation;

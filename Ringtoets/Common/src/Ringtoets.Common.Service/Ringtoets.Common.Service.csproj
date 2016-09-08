@@ -53,8 +53,6 @@
     <Compile Include="DesignWaterLevelCalculationService.cs" />
     <Compile Include="HydraulicBoundaryLocationCalculationService.cs" />
     <Compile Include="IHydraulicBoundaryLocationCalculationService.cs" />
-    <Compile Include="IDesignWaterLevelCalculationService.cs" />
-    <Compile Include="IWaveHeightCalculationService.cs" />
     <Compile Include="MessageProviders\ICalculationMessageProvider.cs" />
     <Compile Include="ProbabilityAssessmentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

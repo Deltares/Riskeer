@@ -24,7 +24,7 @@ using System;
 namespace Ringtoets.Common.Service.TestUtil
 {
     /// <summary>
-    /// This class can be used to set a temporary <see cref="IDesignWaterLevelCalculationService"/>
+    /// This class can be used to set a temporary <see cref="IHydraulicBoundaryLocationCalculationService"/>
     /// for <see cref="DesignWaterLevelCalculationService.Instance"/> while testing.
     /// Disposing an instance of this class will revert the
     /// <see cref="DesignWaterLevelCalculationService.Instance"/>.
@@ -42,17 +42,17 @@ namespace Ringtoets.Common.Service.TestUtil
     /// </example>
     public class DesignWaterLevelCalculationServiceConfig : IDisposable
     {
-        private readonly IDesignWaterLevelCalculationService previousInstance;
+        private readonly IHydraulicBoundaryLocationCalculationService previousInstance;
 
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationServiceConfig"/>.
-        /// Sets a <see cref="TestDesignWaterLevelCalculationService"/> to
+        /// Sets a <see cref="TestHydraulicBoundaryLocationCalculationService"/> to
         /// <see cref="DesignWaterLevelCalculationService.Instance"/>.
         /// </summary>
         public DesignWaterLevelCalculationServiceConfig()
         {
             previousInstance = DesignWaterLevelCalculationService.Instance;
-            DesignWaterLevelCalculationService.Instance = new TestDesignWaterLevelCalculationService();
+            DesignWaterLevelCalculationService.Instance = new TestHydraulicBoundaryLocationCalculationService();
         }
 
         /// <summary>

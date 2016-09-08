@@ -170,7 +170,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new WaveHeightCalculationServiceConfig())
             {
-                var testService = (TestWaveHeightCalculationService) WaveHeightCalculationService.Instance;
+                var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
 
                 // Call
                 activity.Run();
@@ -270,7 +270,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new WaveHeightCalculationServiceConfig())
             {
-                var testService = (TestWaveHeightCalculationService) WaveHeightCalculationService.Instance;
+                var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
                 testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
 
                 activity.Run();
@@ -314,7 +314,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new WaveHeightCalculationServiceConfig())
             {
-                var testService = (TestWaveHeightCalculationService) WaveHeightCalculationService.Instance;
+                var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
                 testService.CalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged;
                 activity.Run();
             }

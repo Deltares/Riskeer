@@ -173,7 +173,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new DesignWaterLevelCalculationServiceConfig())
             {
-                var testService = (TestDesignWaterLevelCalculationService) DesignWaterLevelCalculationService.Instance;
+                var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
 
                 // Call
                 activity.Run();
@@ -275,8 +275,8 @@ namespace Ringtoets.Common.Service.Test
 
             using (new DesignWaterLevelCalculationServiceConfig())
             {
-                var testService = (TestDesignWaterLevelCalculationService) DesignWaterLevelCalculationService.Instance;
-                testService.SetCalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+                var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
+                testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
 
                 activity.Run();
             }
@@ -316,8 +316,8 @@ namespace Ringtoets.Common.Service.Test
 
             using (new DesignWaterLevelCalculationServiceConfig())
             {
-                var testService = (TestDesignWaterLevelCalculationService) DesignWaterLevelCalculationService.Instance;
-                testService.SetCalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged;
+                var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
+                testService.CalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged;
 
                 activity.Run();
             }
