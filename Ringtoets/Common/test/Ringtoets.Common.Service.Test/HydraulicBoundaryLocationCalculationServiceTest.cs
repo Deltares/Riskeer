@@ -45,6 +45,16 @@ namespace Ringtoets.Common.Service.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var service = new TestHydraulicBoundaryLocationCalculationService();
+
+            // Assert
+            Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationService>(service);
+        }
+
+        [Test]
         public void Validate_ValidHydraulicBoundaryDatabasePath_ReturnsTrue()
         {
             // Setup
