@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LineShapeFileReader_File_contains_geometries_not_line" xml:space="preserve">
-    <value>Het bestand bevat geometrieën anders dan een lijn.</value>
+    <value>Het bestand bevat geen lijn geometrieën.</value>
   </data>
   <data name="PolylineShapeFileReader_ReadLine_Line" xml:space="preserve">
     <value>Lijn</value>
