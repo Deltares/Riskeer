@@ -50,16 +50,43 @@ namespace Ringtoets.Common.Service.TestUtil
         /// </summary>
         public ICalculationMessageProvider MessageProvider { get; private set; }
 
+        /// <summary>
+        /// Gets the used <see cref="IHydraulicBoundaryLocation"/>.
+        /// </summary>
+        public IHydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
+
+        /// <summary>
+        /// Gets the used hydraulic boundary databse file path.
+        /// </summary>
+        public string HydraulicBoundaryDatabaseFilePath { get; private set; }
+
+        /// <summary>
+        /// Gets the used ring id.
+        /// </summary>
+        public string RingId { get; private set; }
+
+        /// <summary>
+        /// Gets the used norm.
+        /// </summary>
+        public double Norm { get; private set; }
+
         public bool Validate(string name, string hydraulicBoundaryDatabaseFilePath)
         {
             return true;
         }
 
-        public ReliabilityIndexCalculationOutput Calculate(ICalculationMessageProvider messageProvider, 
-            IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, 
-            string ringId, double norm)
+        public ReliabilityIndexCalculationOutput Calculate(ICalculationMessageProvider messageProvider,
+                                                           IHydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                           string hydraulicBoundaryDatabaseFilePath,
+                                                           string ringId,
+                                                           double norm)
         {
             MessageProvider = messageProvider;
+            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            HydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
+            RingId = ringId;
+            Norm = norm;
+
             switch (returnValidOutput)
             {
                 case CalculationConvergence.NotCalculated:

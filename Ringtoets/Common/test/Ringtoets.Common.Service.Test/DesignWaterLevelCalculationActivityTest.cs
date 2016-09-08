@@ -155,6 +155,8 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "punt_flw_";
             const string activityName = "GetActivityName";
             const string calculationName = "locationName";
+            const string ringId = "11-1";
+            const double norm = 30;
 
             var hydraulicBoundaryLocationMock = mockRepository.Stub<IHydraulicBoundaryLocation>();
             hydraulicBoundaryLocationMock.Expect(hbl => hbl.Name).Return(locationName).Repeat.AtLeastOnce();
@@ -167,7 +169,7 @@ namespace Ringtoets.Common.Service.Test
 
             var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock,
                                                                    hydraulicBoundaryLocationMock,
-                                                                   validFilePath, "", 30);
+                                                                   validFilePath, ringId, norm);
 
             using (new DesignWaterLevelCalculationServiceConfig())
             {
@@ -178,6 +180,10 @@ namespace Ringtoets.Common.Service.Test
 
                 // Assert
                 Assert.AreSame(calculationMessageProviderMock, testService.MessageProvider);
+                Assert.AreSame(hydraulicBoundaryLocationMock, testService.HydraulicBoundaryLocation);
+                Assert.AreEqual(validFilePath, testService.HydraulicBoundaryDatabaseFilePath);
+                Assert.AreEqual(ringId, testService.RingId);
+                Assert.AreEqual(norm, testService.Norm);
             }
             Assert.AreEqual(ActivityState.Executed, activity.State);
             mockRepository.VerifyAll();

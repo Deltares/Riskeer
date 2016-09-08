@@ -293,8 +293,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    var correctedNormFactor = assessmentSection.FailureMechanismContribution.Norm*
-                                              (failureMechanism.Contribution/100)/
+                    var correctedNormFactor = assessmentSection.FailureMechanismContribution.Norm/
+                                              (failureMechanism.Contribution/100)*
                                               failureMechanism.GeneralInput.N;
 
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
