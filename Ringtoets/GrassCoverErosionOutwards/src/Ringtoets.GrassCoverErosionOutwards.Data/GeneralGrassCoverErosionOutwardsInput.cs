@@ -46,7 +46,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         public GeneralWaveConditionsInput GeneralWaveConditionsInput { get; private set; }
 
-
         #region Probability assessment
 
         /// <summary>

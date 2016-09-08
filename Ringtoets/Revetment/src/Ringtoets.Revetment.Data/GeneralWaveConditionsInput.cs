@@ -29,9 +29,9 @@ namespace Ringtoets.Revetment.Data
         /// <summary>
         /// Creates a new instance of <see cref="GeneralWaveConditionsInput"/>.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="a">The 'a' parameter used in wave conditions calculations.</param>
+        /// <param name="b">The 'b' parameter used in wave conditions calculations.</param>
+        /// <param name="c">The 'c' parameter used in wave conditions calculations.</param>
         public GeneralWaveConditionsInput(double a, double b, double c)
         {
             A = a;
