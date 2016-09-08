@@ -67,7 +67,7 @@ namespace Ringtoets.Common.IO
                 throw new CriticalFileReadException(message);
             }
 
-            polylineShapeFileReader = OpenPolyLineShapeFile(shapeFilePath);
+            polylineShapeFileReader = new PolylineShapeFileReader(shapeFilePath);
         }
 
         /// <summary>
@@ -118,23 +118,6 @@ namespace Ringtoets.Common.IO
                                             sectionNameAttributeKey);
                 throw new CriticalFileReadException(message);
             }
-        }
-
-        /// <summary>
-        /// Opens the polyline shapefile.
-        /// </summary>
-        /// <param name="shapeFilePath">The file path to the shapefile.</param>
-        /// <returns>The reader that can be used to read the shapefile.</returns>
-        /// <exception cref="CriticalFileReadException">When either:
-        /// <list type="bullet">
-        /// <item><paramref name="shapeFilePath"/> points to a file that doesn't exist.</item>
-        /// <item>The shapefile has non-line geometries in it.</item>
-        /// <item>An unexpected error occurred when reading the shapefile.</item>
-        /// </list>
-        /// </exception>
-        private static PolylineShapeFileReader OpenPolyLineShapeFile(string shapeFilePath)
-        {
-            return new PolylineShapeFileReader(shapeFilePath);
         }
 
         /// <summary>
