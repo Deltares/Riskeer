@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.Test
     public class HydraulicBoundaryLocationsExporterTest
     {
         [Test]
-        public void ParameteredConstructor_ValidParameters_ExpectedValues()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
 
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void ParameteredConstructor_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        public void Constructor_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void ParameteredConstructor_FilePathNull_ThrowArgumentException()
+        public void Constructor_FilePathNull_ThrowArgumentException()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
@@ -82,7 +82,7 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void ParameteredConstructor_DesignWaterLevelNameNull_ThrowArgumentNullException()
+        public void Constructor_DesignWaterLevelNameNull_ThrowArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
@@ -164,9 +164,13 @@ namespace Ringtoets.Common.IO.Test
                 using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
                 {
                     // Call
-                    var isExported = exporter.Export();
+                    bool isExported = true;
+                    Action call = () => isExported = exporter.Export();
 
                     // Assert
+                    string expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'. " +
+                                                           "Er zijn geen hydraulische randvoorwaarden locaties geëxporteerd.", filePath);
+                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
                     Assert.IsFalse(isExported);
                 }
             }

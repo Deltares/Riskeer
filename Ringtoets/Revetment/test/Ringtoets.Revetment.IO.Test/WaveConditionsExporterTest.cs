@@ -1,0 +1,171 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.IO;
+using Core.Common.Base.Data;
+using Core.Common.Base.IO;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Data;
+
+namespace Ringtoets.Revetment.IO.Test
+{
+    [TestFixture]
+    public class WaveConditionsExporterTest
+    {
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "test.csv");
+
+            // Call
+            var waveConditionsExporter = new WaveConditionsExporter(new ExportableWaveConditions[0], filePath);
+
+            // Assert
+            Assert.IsInstanceOf<IFileExporter>(waveConditionsExporter);
+        }
+
+        [Test]
+        public void Constructor_ExportableWaveConditionsCollectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "test.csv");
+
+            // Call
+            TestDelegate call = () => new WaveConditionsExporter(null, filePath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("exportableWaveConditionsCollection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FilePathNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WaveConditionsExporter(new ExportableWaveConditions[0], null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
+        public void Export_InvalidData_LogErrorAndFalse()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "test_.csv");
+            string invalidFilePath = filePath.Replace("_", ">");
+            var waveConditionsExporter = new WaveConditionsExporter(new ExportableWaveConditions[0], invalidFilePath);
+
+            // Call
+            bool isExported = true;
+            Action call = () => isExported = waveConditionsExporter.Export();
+
+            // Assert
+            string expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'. " +
+                                                   "Er zijn geen golfrandvoorwaarden geëxporteerd.", invalidFilePath);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            Assert.IsFalse(isExported);
+        }
+
+        [Test]
+        public void Export_ValidData_ReturnTrue()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+                                                              "Export_ValidData_ReturnTrue");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.csv");
+
+            try
+            {
+                var waveConditionsExporter = new WaveConditionsExporter(new ExportableWaveConditions[0], filePath);
+
+                // Call
+                bool isExported = waveConditionsExporter.Export();
+
+                // Assert
+                Assert.IsTrue(isExported);
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_ValidData_ValidFile()
+        {
+            // Setup
+            ExportableWaveConditions[] exportableWaveConditions =
+            {
+                new ExportableWaveConditions("blocksName", new WaveConditionsInput
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                    {
+                        DesignWaterLevel = (RoundedDouble) 12.34567
+                    },
+                    LowerBoundaryRevetment = (RoundedDouble) 5.68,
+                    UpperBoundaryRevetment = (RoundedDouble) 7.214,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247
+                }, new WaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444), CoverType.Blocks),
+                new ExportableWaveConditions("columnsName", new WaveConditionsInput
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
+                    {
+                        DesignWaterLevel = (RoundedDouble) 28.36844
+                    },
+                    LowerBoundaryRevetment = (RoundedDouble) 1.384,
+                    UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
+                    StepSize = WaveConditionsInputStepSize.Half,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
+                }, new WaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222), CoverType.Columns)
+            };
+
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+                                                              "Export_ValidData_ValidFile");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.csv");
+
+            try
+            {
+                // Call
+                WaveConditionsWriter.WriteWaveConditions(exportableWaveConditions, filePath);
+
+                // Assert
+                Assert.IsTrue(File.Exists(filePath));
+                string fileContent = File.ReadAllText(filePath);
+                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting\r\nblocksName, , 0.000, 0.000, , nee, nee, 1.11, Steen (blokken), 2.22, 3.33, 4.44\r\ncolumnsName, aLocation, 44.000, 123.456, , nee, nee, 3.33, Steen (zuilen), 1.11, 4.44, 2.22\r\n", fileContent);
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+    }
+}

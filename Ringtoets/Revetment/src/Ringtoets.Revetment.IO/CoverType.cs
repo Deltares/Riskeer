@@ -19,9 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+using Core.Common.Utils.Attributes;
+using Ringtoets.Revetment.IO.Properties;
 
-[assembly: AssemblyTitle("Ringtoets.Revetment.IO.Test")]
-[assembly: AssemblyProduct("Ringtoets.Revetment.IO.Test")]
-[assembly: Guid("b58beeba-17a4-47b6-a131-a3f53b1c717d")]
+namespace Ringtoets.Revetment.IO
+{
+    /// <summary>
+    /// Specifies the type of dike cover.
+    /// </summary>
+    public enum CoverType
+    {
+        /// <summary>
+        /// Dike cover made of blocks.
+        /// </summary>
+        /// 
+        [ResourcesDisplayName(typeof(Resources), "CoverType_Blocks")]
+        Blocks = 1,
+
+        /// <summary>
+        /// Dike cover made of columns.
+        /// </summary>
+        /// 
+        [ResourcesDisplayName(typeof(Resources), "CoverType_Columns")]
+        Columns = 2
+    }
+}

@@ -69,6 +69,8 @@
     <Compile Include="ExportInfos\HydraulicBoundariesGroupContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\ReferenceLineContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContextTest.cs" />
@@ -198,6 +200,18 @@
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
+      <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
+      <Name>Ringtoets.Revetment.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
+      <Project>{9DDC42CC-A2CC-4900-A711-AA1DD6D3A94A}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>

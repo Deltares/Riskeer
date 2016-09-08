@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(SolutionDir)\build\Ringtoets.targets"/>
+  <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <PropertyGroup>
     <ProjectGuid>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -23,7 +23,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
     <DefineConstants>TRACE</DefineConstants>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Optimize>true</Optimize>
@@ -32,6 +32,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -39,7 +43,59 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="CoverType.cs" />
+    <Compile Include="ExportableWaveConditions.cs" />
+    <Compile Include="ExportableWaveConditionsFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="WaveConditionsExporter.cs" />
+    <Compile Include="WaveConditionsWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.licenseheader">
+      <Link>Copying.licenseheader</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
+      <Name>Core.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

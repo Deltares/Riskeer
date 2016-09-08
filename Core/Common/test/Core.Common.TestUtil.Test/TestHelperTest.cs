@@ -114,6 +114,9 @@ namespace Core.Common.TestUtil.Test
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin);
             Assert.IsTrue(Directory.Exists(path));
+
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO);
+            Assert.IsTrue(Directory.Exists(path));
         }
 
         [Test]

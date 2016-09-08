@@ -37,6 +37,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Revetment.IO;
 using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
@@ -135,6 +136,42 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                                                  .Build()
             };
         }
+
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
+            {
+                CreateFileExporter = (context, filePath) => CreateWaveConditionsExporter(context.WrappedData.Children.OfType<ICalculation>().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
+                IsEnabled = context => context.WrappedData.Children.OfType<ICalculation>().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
+                FileFilter = Resources.DataTypeDisplayName_csv_file_filter
+            };
+
+            yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
+            {
+                CreateFileExporter = (context, filePath) => CreateWaveConditionsExporter(new[] { context.WrappedData }, filePath),
+                IsEnabled = context => context.WrappedData.HasOutput,
+                FileFilter = Resources.DataTypeDisplayName_csv_file_filter
+            };
+        }
+
+        #region ExportInfos
+
+        private static WaveConditionsExporter CreateWaveConditionsExporter(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, string filePath)
+        {
+            var exportableWaveConditions = new List<ExportableWaveConditions>();
+
+            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> exportableCalculations = calculations.Where(c => c.HasOutput);
+
+            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in exportableCalculations)
+            {
+                exportableWaveConditions.AddRange(
+                    ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
+                        calculation.Name, calculation.InputParameters, calculation.Output.ColumnsOutput, calculation.Output.BlocksOutput));
+            }
+            return new WaveConditionsExporter(exportableWaveConditions, filePath);
+        }
+
+        #endregion
 
         #region ViewInfos
 
@@ -279,11 +316,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             if (!isNestedGroup)
             {
-                builder.AddCustomItem(generateCalculationsItem)
-                       .AddSeparator();
+                builder.AddCustomItem(generateCalculationsItem);
             }
 
-            builder.AddCreateCalculationGroupItem(group)
+            builder.AddExportItem()
+                   .AddSeparator()
+                   .AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation);
 
             if (!isNestedGroup)
@@ -489,6 +527,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                       ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
+                          .AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
                           .AddDeleteItem()

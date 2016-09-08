@@ -378,6 +378,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);

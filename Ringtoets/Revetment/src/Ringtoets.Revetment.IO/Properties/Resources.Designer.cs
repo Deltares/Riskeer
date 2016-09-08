@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.StabilityStoneCover.Plugin.Properties {
+namespace Ringtoets.Revetment.IO.Properties {
     using System;
     
     
@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.StabilityStoneCover.Plugin.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Revetment.IO.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -82,30 +82,38 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen aan te maken..
+        ///   Looks up a localized string similar to Steen (blokken).
         /// </summary>
-        internal static string StabilityStoneCover_WaveConditions_No_HRD_To_Calculate {
+        internal static string CoverType_Blocks {
             get {
-                return ResourceManager.GetString("StabilityStoneCover_WaveConditions_No_HRD_To_Calculate", resourceCulture);
+                return ResourceManager.GetString("CoverType_Blocks", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comma-separated values (*.csv)|*.csv.
+        ///   Looks up a localized string similar to Steen (zuilen).
         /// </summary>
-        internal static string DataTypeDisplayName_csv_file_filter {
+        internal static string CoverType_Columns {
             get {
-                return ResourceManager.GetString("DataTypeDisplayName_csv_file_filter", resourceCulture);
+                return ResourceManager.GetString("CoverType_Columns", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genereer randvoorwaardenberekeningen..
+        ///   Looks up a localized string similar to {0} Er zijn geen golfrandvoorwaarden geëxporteerd..
         /// </summary>
-        internal static string StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip {
+        internal static string WaveConditionsExporter_Error_Exception_0_no_WaveConditions_exported {
             get {
-                return ResourceManager.GetString("StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip" +
-                        "", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsExporter_Error_Exception_0_no_WaveConditions_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting.
+        /// </summary>
+        internal static string WaveConditionsWriter_HeaderLine {
+            get {
+                return ResourceManager.GetString("WaveConditionsWriter_HeaderLine", resourceCulture);
             }
         }
     }

@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
 
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
-                ExportInfo info = GetInfo(plugin);
+                ExportInfo info = GetExportInfo(plugin);
 
                 // Call
                 IFileExporter fileExporter = info.CreateFileExporter(context, filePath);
@@ -64,13 +64,13 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             // Setup
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
-                ExportInfo info = GetInfo(plugin);
+                ExportInfo info = GetExportInfo(plugin);
 
                 // Call
                 string fileFilter = info.FileFilter;
 
                 // Assert
-                Assert.AreEqual(RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter, fileFilter);
+                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
 
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
-                ExportInfo info = GetInfo(plugin);
+                ExportInfo info = GetExportInfo(plugin);
 
                 // Call
                 bool isEnabled = info.IsEnabled(context);
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
 
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
             {
-                ExportInfo info = GetInfo(plugin);
+                ExportInfo info = GetExportInfo(plugin);
 
                 // Call
                 bool isEnabled = info.IsEnabled(context);
@@ -115,7 +115,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             }
         }
 
-        private static ExportInfo GetInfo(RingtoetsPlugin plugin)
+        private static ExportInfo GetExportInfo(RingtoetsPlugin plugin)
         {
             return plugin.GetExportInfos().First(ei => ei.DataType == typeof(ReferenceLineContext));
         }

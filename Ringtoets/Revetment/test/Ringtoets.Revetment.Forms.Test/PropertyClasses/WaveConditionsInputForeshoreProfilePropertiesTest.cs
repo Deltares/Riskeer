@@ -25,7 +25,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;

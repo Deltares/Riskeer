@@ -116,9 +116,12 @@ namespace Ringtoets.Common.IO.Test
                 using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
                 {
                     // Call
-                    bool isExported = exporter.Export();
+                    bool isExported = true;
+                    Action call = () => isExported = exporter.Export();
 
                     // Assert
+                    string expectedMessage = string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.\r\nEr is geen referentielijn geëxporteerd.", filePath);
+                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
                     Assert.IsFalse(isExported);
                 }
             }
