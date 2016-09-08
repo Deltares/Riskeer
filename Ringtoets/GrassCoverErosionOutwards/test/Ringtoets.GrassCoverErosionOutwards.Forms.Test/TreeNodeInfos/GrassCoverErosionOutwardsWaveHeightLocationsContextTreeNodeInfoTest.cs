@@ -415,6 +415,75 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void CalculateDesignWaterLevelsFromContextMenu_Always_SendsRightInputToCalculationService()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            var guiMock = mockRepository.DynamicMock<IGui>();
+            var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 1
+            };
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.Stub(a => a.Id).Return("Id");
+            assessmentSectionMock.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSectionMock.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
+            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath,
+                Locations =
+                {
+                    location
+                }
+            };
+
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(location);
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            {
+                grassCoverErosionOutwardsHydraulicBoundaryLocation
+            }, assessmentSectionMock);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = guiMock;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new WaveHeightCalculationServiceConfig())
+                    {
+                        var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
+
+                        // Call
+                        contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
+
+                        // Assert
+                        Assert.AreSame(grassCoverErosionOutwardsHydraulicBoundaryLocation, testService.HydraulicBoundaryLocation);
+                        Assert.AreEqual(filePath, testService.HydraulicBoundaryDatabaseFilePath);
+                        Assert.AreEqual(assessmentSectionMock.Id, testService.RingId);
+
+                        var expectedNorm = assessmentSectionMock.FailureMechanismContribution.Norm /
+                                           (failureMechanism.Contribution / 100) *
+                                           failureMechanism.GeneralInput.N;
+                        Assert.AreEqual(expectedNorm, testService.Norm);
+                    }
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
         private static TreeNodeInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext));
