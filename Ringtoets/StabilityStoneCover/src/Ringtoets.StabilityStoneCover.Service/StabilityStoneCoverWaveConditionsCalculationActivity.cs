@@ -103,6 +103,11 @@ namespace Ringtoets.StabilityStoneCover.Service
 
                            foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                            {
+                               if (State == ActivityState.Canceled)
+                               {
+                                   break;
+                               }
+
                                log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_started_time_2_,
                                                       calculation.Name,
                                                       waterLevel,
@@ -129,6 +134,11 @@ namespace Ringtoets.StabilityStoneCover.Service
                                                       calculation.Name,
                                                       waterLevel,
                                                       DateTimeService.CurrentTimeAsString));
+
+                               if (State == ActivityState.Canceled)
+                               {
+                                   break;
+                               }
 
                                log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_started_time_2_,
                                                       calculation.Name,

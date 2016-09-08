@@ -198,8 +198,8 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 {
                     var blocksText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_, waterLevels[i]);
                     var columnsText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_waterlevel_0_, waterLevels[i]);
-                    Assert.AreEqual(progessTexts[i * 2], blocksText);
-                    Assert.AreEqual(progessTexts[i * 2 + 1], columnsText);
+                    Assert.AreEqual(progessTexts[i*2], blocksText);
+                    Assert.AreEqual(progessTexts[i*2 + 1], columnsText);
                 }
             }
         }
@@ -258,6 +258,86 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     Assert.AreEqual(assessmentSection.Id, testWaveConditionsInputs[i].RingId);
                     Assert.AreEqual(calculation.Name, testWaveConditionsInputs[i].Name);
                 }
+            }
+        }
+
+        [Test]
+        public void Cancel_WhenPerformingCalculationForBlocks_CurrentAndSubsequentWaterLevelCalculationsCancelled()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
+
+            using (new WaveConditionsCalculationServiceConfig())
+            {
+                activity.ProgressChanged += (sender, args) =>
+                {
+                    if (activity.State != ActivityState.Canceled && activity.ProgressText.Contains("Blokken"))
+                    {
+                        // Call
+                        activity.Cancel();
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(() => activity.Run(), messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    RoundedDouble firstWaterLevel = calculation.InputParameters.WaterLevels.First();
+
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Blokken berekening '{0}' voor waterstand '{1}' gestart om: ", calculation.Name, firstWaterLevel), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Blokken berekening '{0}' voor waterstand '{1}' beëindigd om: ", calculation.Name, firstWaterLevel), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                });
+
+                Assert.AreEqual(ActivityState.Canceled, activity.State);
+            }
+        }
+
+        [Test]
+        public void Cancel_WhenPerformingCalculationForColumns_CurrentAndSubsequentWaterLevelCalculationsCancelled()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
+
+            using (new WaveConditionsCalculationServiceConfig())
+            {
+                activity.ProgressChanged += (sender, args) =>
+                {
+                    if (activity.State != ActivityState.Canceled && activity.ProgressText.Contains("Zuilen"))
+                    {
+                        // Call
+                        activity.Cancel();
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(() => activity.Run(), messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    RoundedDouble firstWaterLevel = calculation.InputParameters.WaterLevels.First();
+
+                    Assert.AreEqual(6, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Blokken berekening '{0}' voor waterstand '{1}' gestart om: ", calculation.Name, firstWaterLevel), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Blokken berekening '{0}' voor waterstand '{1}' beëindigd om: ", calculation.Name, firstWaterLevel), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Zuilen berekening '{0}' voor waterstand '{1}' gestart om: ", calculation.Name, firstWaterLevel), msgs[3]);
+                    StringAssert.StartsWith(string.Format("Zuilen berekening '{0}' voor waterstand '{1}' beëindigd om: ", calculation.Name, firstWaterLevel), msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+
+                Assert.AreEqual(ActivityState.Canceled, activity.State);
             }
         }
 
