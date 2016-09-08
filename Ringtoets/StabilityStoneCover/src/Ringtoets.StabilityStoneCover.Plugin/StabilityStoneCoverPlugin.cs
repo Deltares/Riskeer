@@ -63,7 +63,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             yield return new PropertyInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismContextProperties>();
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsCalculationInputContext, StabilityStoneCoverWaveConditionsCalculationInputContextProperties>();
-            yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutputProperties, StabilityStoneCoverWaveConditionsOutputProperties>();
+            yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutput, StabilityStoneCoverWaveConditionsOutputProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

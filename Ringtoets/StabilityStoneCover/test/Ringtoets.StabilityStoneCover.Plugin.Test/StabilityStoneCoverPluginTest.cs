@@ -57,7 +57,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                     StabilityStoneCoverWaveConditionsCalculationInputContext,
                     StabilityStoneCoverWaveConditionsCalculationInputContextProperties>(propertyInfos);
                 PluginTestHelper.AssertPropertyInfoDefined<
-                    StabilityStoneCoverWaveConditionsOutputProperties,
+                    StabilityStoneCoverWaveConditionsOutput,
                     StabilityStoneCoverWaveConditionsOutputProperties>(propertyInfos);
             }
         }
