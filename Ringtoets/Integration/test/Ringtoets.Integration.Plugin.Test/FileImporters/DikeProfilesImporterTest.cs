@@ -96,9 +96,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+            var importResult = false;
 
             // Call
-            var importResult = true;
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
@@ -132,8 +132,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
 
+            var importResult = false;
+
             // Call
-            var importResult = true;
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
@@ -258,11 +259,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
 
-            // Precondition
             dikeProfilesImporter.Cancel();
+            bool importResult = true;
 
             // Call
-            bool importResult = true;
             Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
