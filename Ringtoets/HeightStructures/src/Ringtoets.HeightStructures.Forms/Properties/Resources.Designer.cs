@@ -110,15 +110,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactoren.
-        /// </summary>
-        public static string Categories_ModelSettings {
-            get {
-                return ResourceManager.GetString("Categories_ModelSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het kritieke overslagdebiet per strekkende meter..
         /// </summary>
         public static string CriticalOvertoppingDischarge_Description {

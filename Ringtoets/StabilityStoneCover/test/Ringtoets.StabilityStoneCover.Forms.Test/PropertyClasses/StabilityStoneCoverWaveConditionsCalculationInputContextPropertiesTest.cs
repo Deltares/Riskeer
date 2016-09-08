@@ -116,7 +116,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.IsNull(properties.ForeshoreProfile);
             Assert.IsNull(properties.WorldReferencePoint);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
-            Assert.IsNaN(properties.Orientation.Value);
+            Assert.AreEqual(0, properties.Orientation.Value);
             Assert.AreSame(input, properties.BreakWater.Data);
             Assert.AreSame(input, properties.ForeshoreGeometry.Data);
             Assert.AreEqual("Steen (blokken en zuilen)", properties.RevetmentType);
@@ -197,7 +197,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberProperties = 7;
+            const int numberProperties = 8;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
@@ -205,6 +205,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var random = new Random(21);
+            var orientation = (RoundedDouble)random.NextDouble();
             var assessmentLevel = (RoundedDouble)random.NextDouble();
             var newLowerBoundaryRevetment = (RoundedDouble)random.NextDouble();
             var newLowerBoundaryWaterLevels = (RoundedDouble)random.NextDouble();
@@ -242,6 +243,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             properties.LowerBoundaryWaterLevels = newLowerBoundaryWaterLevels;
             properties.StepSize = newStepSize;
             properties.HydraulicBoundaryLocation = newHydraulicBoundaryLocation;
+            properties.Orientation = orientation;
 
             // Assert
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
@@ -256,6 +258,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(newLowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.Value, properties.LowerBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(2, properties.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
+            Assert.AreEqual(orientation, properties.Orientation.Value, properties.Orientation.GetAccuracy());
+            Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(newStepSize, properties.StepSize);
             mockRepository.VerifyAll();
         }
@@ -378,7 +382,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
-            Assert.IsTrue(orientationProperty.IsReadOnly);
+            Assert.AreEqual(!withForeshoreProfile, orientationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van het voorland.", orientationProperty.Description);
@@ -386,7 +390,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
             Assert.IsNotNull(breakWaterProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(breakWaterProperty.Converter);
-            Assert.IsFalse(breakWaterProperty.IsReadOnly);
+            Assert.IsTrue(breakWaterProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, breakWaterProperty.Category);
             Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de dam.", breakWaterProperty.Description);
@@ -394,7 +398,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             PropertyDescriptor foreshoreGeometryProperty = dynamicProperties[foreshoreGeometryPropertyIndex];
             Assert.IsNotNull(foreshoreGeometryProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(foreshoreGeometryProperty.Converter);
-            Assert.AreEqual(!withForeshoreProfile, foreshoreGeometryProperty.IsReadOnly);
+            Assert.IsTrue(foreshoreGeometryProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, foreshoreGeometryProperty.Category);
             Assert.AreEqual("Voorlandgeometrie", foreshoreGeometryProperty.DisplayName);
             Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreGeometryProperty.Description);

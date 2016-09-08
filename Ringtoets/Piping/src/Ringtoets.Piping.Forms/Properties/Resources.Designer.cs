@@ -100,15 +100,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactoren.
-        /// </summary>
-        public static string Categories_ModelFactors {
-            get {
-                return ResourceManager.GetString("Categories_ModelFactors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Terugschrijdende erosie (Sellmeijer).
         /// </summary>
         public static string Categories_Sellmeijer {

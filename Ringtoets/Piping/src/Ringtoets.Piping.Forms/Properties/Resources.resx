@@ -352,9 +352,6 @@
   <data name="Categories_Heave" xml:space="preserve">
     <value>Heave</value>
   </data>
-  <data name="Categories_ModelFactors" xml:space="preserve">
-    <value>Modelfactoren</value>
-  </data>
   <data name="Categories_Sellmeijer" xml:space="preserve">
     <value>Terugschrijdende erosie (Sellmeijer)</value>
   </data>

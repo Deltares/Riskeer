@@ -131,6 +131,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
 
             // Assert
+            var generalCategory = "Algemeen";
+            var lengthEffectCategory = "Lengte-effect parameters";
+            var modelSettingsCategory = "Modelinstellingen";
+
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(7, dynamicProperties.Count);
@@ -138,28 +142,28 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsNotNull(nameProperty);
             Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", nameProperty.Category);
+            Assert.AreEqual(generalCategory, nameProperty.Category);
             Assert.AreEqual("Naam", nameProperty.DisplayName);
             Assert.AreEqual("De naam van het toetsspoor.", nameProperty.Description);
 
             PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
             Assert.IsNotNull(codeProperty);
             Assert.IsTrue(codeProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", nameProperty.Category);
+            Assert.AreEqual(generalCategory, nameProperty.Category);
             Assert.AreEqual("Label", codeProperty.DisplayName);
             Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
 
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
             Assert.IsNotNull(gravitationalAccelerationProperty);
             Assert.IsTrue(gravitationalAccelerationProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", gravitationalAccelerationProperty.Category);
+            Assert.AreEqual(generalCategory, gravitationalAccelerationProperty.Category);
             Assert.AreEqual("Valversnelling [m/s²]", gravitationalAccelerationProperty.DisplayName);
             Assert.AreEqual("De valversnelling van de zwaartekracht.", gravitationalAccelerationProperty.Description);
 
             PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
             Assert.IsNotNull(lengthEffectProperty);
             Assert.IsFalse(lengthEffectProperty.IsReadOnly);
-            Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
+            Assert.AreEqual(lengthEffectCategory, lengthEffectProperty.Category);
             Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
             Assert.AreEqual("De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.", lengthEffectProperty.Description);
 
@@ -167,7 +171,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsNotNull(modelfactorOvertoppingFlowProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelfactorOvertoppingFlowProperty.Converter);
             Assert.IsTrue(modelfactorOvertoppingFlowProperty.IsReadOnly);
-            Assert.AreEqual("Modelfactoren", modelfactorOvertoppingFlowProperty.Category);
+            Assert.AreEqual(modelSettingsCategory, modelfactorOvertoppingFlowProperty.Category);
             Assert.AreEqual("Modelfactor overslagdebiet [-]", modelfactorOvertoppingFlowProperty.DisplayName);
             Assert.AreEqual("Het modelfactor overslagdebiet.", modelfactorOvertoppingFlowProperty.Description);
 
@@ -175,7 +179,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsNotNull(modelFactorForStorageVolumeProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorForStorageVolumeProperty.Converter);
             Assert.IsTrue(modelFactorForStorageVolumeProperty.IsReadOnly);
-            Assert.AreEqual("Modelfactoren", modelFactorForStorageVolumeProperty.Category);
+            Assert.AreEqual(modelSettingsCategory, modelFactorForStorageVolumeProperty.Category);
             Assert.AreEqual("Modelfactor kombergingsvolume [-]", modelFactorForStorageVolumeProperty.DisplayName);
             Assert.AreEqual("Het modelfactor kombergingsvolume.", modelFactorForStorageVolumeProperty.Description);
 

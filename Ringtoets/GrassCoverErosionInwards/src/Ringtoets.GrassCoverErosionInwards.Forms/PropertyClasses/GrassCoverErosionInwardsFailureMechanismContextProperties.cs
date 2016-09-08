@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(frunupModelFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FrunupModelFactor_Description")]
         public NormalDistributionProperties FrunupModelFactor
@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(fbFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FbFactor_Description")]
         public NormalDistributionProperties FbFactor
@@ -128,7 +128,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(fnFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FnFactor_Description")]
         public NormalDistributionProperties FnFactor
@@ -144,7 +144,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(fshallowModelFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GrassCoverErosionInwardsInput_FshallowModelFactor_Description")]
         public NormalDistributionProperties FshallowModelFactor

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Revetment.Data;
@@ -30,7 +29,6 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="GeneralWaveConditionsInput"/> for properties panel.
     /// </summary>
-    [DisplayName("")]
     public class GeneralWaveConditionsInputProperties : ObjectProperties<GeneralWaveConditionsInput>
     {
         [ResourcesDisplayName(typeof(Resources), "GeneralWaveConditionsInput_A_DisplayName")]

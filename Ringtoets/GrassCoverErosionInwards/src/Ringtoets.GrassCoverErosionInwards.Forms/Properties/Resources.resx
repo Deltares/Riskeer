@@ -136,9 +136,6 @@
   <data name="Categories_CriticalValues" xml:space="preserve">
     <value>Toetseisen</value>
   </data>
-  <data name="Categories_ModelSettings" xml:space="preserve">
-    <value>Modelfactoren</value>
-  </data>
   <data name="DikeGeometryProperties_Description" xml:space="preserve">
     <value>Eigenschappen van de dijkgeometrie.</value>
   </data>

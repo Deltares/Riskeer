@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
@@ -31,14 +30,13 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Forms.UITypeEditors;
 using Ringtoets.StabilityStoneCover.Forms.Properties;
+using Ringtoets.StabilityStoneCover.Forms.UITypeEditors;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
@@ -232,16 +230,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         {
             get
             {
-                if (data.WrappedData.ForeshoreProfile != null && data.WrappedData.ForeshoreProfile.WorldReferencePoint != null)
-                {
-                    return new Point2D(
-                        new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.X),
-                        new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.Y));
-                }
-                return null;
+                return data.WrappedData.ForeshoreProfile == null ? null :
+                           new Point2D(
+                               new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.X),
+                               new RoundedDouble(0, data.WrappedData.ForeshoreProfile.WorldReferencePoint.Y));
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(orientationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Orientation_DisplayName")]
@@ -250,15 +246,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         {
             get
             {
-                if (data.WrappedData.ForeshoreProfile != null)
-                {
-                    return data.WrappedData.ForeshoreProfile.Orientation;
-                }
-                return new RoundedDouble(2, double.NaN);
+                return data.WrappedData.Orientation;
+            }
+            set
+            {
+                data.WrappedData.Orientation = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 
-        [DynamicReadOnly]
         [PropertyOrder(breakWaterPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -275,7 +271,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             }
         }
 
-        [DynamicReadOnly]
         [PropertyOrder(foreshoreGeometryPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -317,8 +312,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (data.WrappedData.ForeshoreProfile == null &&
-                propertyName.Equals(TypeUtils.GetMemberName<StabilityStoneCoverWaveConditionsCalculationInputContextProperties>(i => i.ForeshoreGeometry)))
+            if (data.WrappedData.ForeshoreProfile == null)
             {
                 return true;
             }

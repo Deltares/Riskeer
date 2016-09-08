@@ -136,6 +136,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
+            var generalCategory = "Algemeen";
+            var lengthEffectParameterCategory = "Lengte-effect parameters";
+            var modelSettingsCategory = "Modelinstellingen";
+
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(8, dynamicProperties.Count);
@@ -143,21 +147,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsNotNull(nameProperty);
             Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", nameProperty.Category);
+            Assert.AreEqual(generalCategory, nameProperty.Category);
             Assert.AreEqual("Naam", nameProperty.DisplayName);
             Assert.AreEqual("De naam van het toetsspoor.", nameProperty.Description);
 
             PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
             Assert.IsNotNull(codeProperty);
             Assert.IsTrue(codeProperty.IsReadOnly);
-            Assert.AreEqual("Algemeen", codeProperty.Category);
+            Assert.AreEqual(generalCategory, codeProperty.Category);
             Assert.AreEqual("Label", codeProperty.DisplayName);
             Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
 
             PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
             Assert.IsNotNull(lengthEffectProperty);
             Assert.IsFalse(lengthEffectProperty.IsReadOnly);
-            Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
+            Assert.AreEqual(lengthEffectParameterCategory, lengthEffectProperty.Category);
             Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
             Assert.AreEqual("De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.", lengthEffectProperty.Description);
 
@@ -165,7 +169,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(frunupModelFactorProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(frunupModelFactorProperty.Converter);
             Assert.IsTrue(frunupModelFactorProperty.IsReadOnly);
-            Assert.AreEqual("Modelfactoren", frunupModelFactorProperty.Category);
+            Assert.AreEqual(modelSettingsCategory, frunupModelFactorProperty.Category);
             Assert.AreEqual("Modelfactor Frunup [-]", frunupModelFactorProperty.DisplayName);
             Assert.AreEqual("De parameter 'Frunup' die gebruikt wordt in de berekening.", frunupModelFactorProperty.Description);
 
@@ -173,7 +177,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(fbModelProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(fbModelProperty.Converter);
             Assert.IsTrue(fbModelProperty.IsReadOnly);
-            Assert.AreEqual("Modelfactoren", fbModelProperty.Category);
+            Assert.AreEqual(modelSettingsCategory, fbModelProperty.Category);
             Assert.AreEqual("Modelfactor Fb [-]", fbModelProperty.DisplayName);
             Assert.AreEqual("De parameter 'Fb' die gebruikt wordt in de berekening.", fbModelProperty.Description);
 
@@ -181,7 +185,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(fnFactorProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(fnFactorProperty.Converter);
             Assert.IsTrue(fnFactorProperty.IsReadOnly);
-            Assert.AreEqual("Modelfactoren", fnFactorProperty.Category);
+            Assert.AreEqual(modelSettingsCategory, fnFactorProperty.Category);
             Assert.AreEqual("Modelfactor Fn [-]", fnFactorProperty.DisplayName);
             Assert.AreEqual("De parameter 'Fn' die gebruikt wordt in de berekening.", fnFactorProperty.Description);
 
@@ -189,7 +193,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(fshallowProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(fshallowProperty.Converter);
             Assert.IsTrue(fshallowProperty.IsReadOnly);
-            Assert.AreEqual("Modelfactoren", fshallowProperty.Category);
+            Assert.AreEqual(modelSettingsCategory, fshallowProperty.Category);
             Assert.AreEqual("Modelfactor Fondiep [-]", fshallowProperty.DisplayName);
             Assert.AreEqual("De parameter 'Fondiep' die gebruikt wordt in de berekening.", fshallowProperty.Description);
 

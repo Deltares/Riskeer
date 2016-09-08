@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(modelFactorOvertoppingSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "ModelFactorOvertoppingSuperCriticalFlow_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ModelFactorOvertoppingSuperCriticalFlow_Description")]
         public NormalDistributionProperties ModelFactorOvertoppingSuperCriticalFlow

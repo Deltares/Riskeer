@@ -114,7 +114,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Model Factors
 
         [PropertyOrder(11)]
-        [ResourcesCategory(typeof(Resources), "Categories_ModelFactors")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_UpliftModelFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_UpliftModelFactor_Description")]
         public double UpliftModelFactor
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [PropertyOrder(12)]
-        [ResourcesCategory(typeof(Resources), "Categories_ModelFactors")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_SellmeijerModelFactor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralPipingInput_SellmeijerModelFactor_Description")]
         public double SellmeijerModelFactor

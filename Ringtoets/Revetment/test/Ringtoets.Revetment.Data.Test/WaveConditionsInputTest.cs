@@ -114,13 +114,21 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.AssessmentLevel);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryDesignWaterLevel);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryRevetment);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryRevetment);
+            Assert.AreEqual(0, input.Orientation.Value);
+            Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.AssessmentLevel.Value);
+            Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.UpperBoundaryDesignWaterLevel.Value);
+            Assert.AreEqual(2, input.UpperBoundaryDesignWaterLevel.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.LowerBoundaryRevetment.Value);
+            Assert.AreEqual(2, input.LowerBoundaryRevetment.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.UpperBoundaryRevetment.Value);
+            Assert.AreEqual(2, input.UpperBoundaryRevetment.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.LowerBoundaryWaterLevels.Value);
+            Assert.AreEqual(2, input.LowerBoundaryWaterLevels.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.UpperBoundaryWaterLevels.Value);
+            Assert.AreEqual(2, input.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(WaveConditionsInputStepSize.Half, input.StepSize);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.LowerBoundaryWaterLevels);
-            Assert.AreEqual(new RoundedDouble(2, double.NaN), input.UpperBoundaryWaterLevels);
             CollectionAssert.IsEmpty(input.WaterLevels);
         }
 
@@ -134,7 +142,7 @@ namespace Ringtoets.Revetment.Data.Test
             // Call
             input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0, 0)
             {
-                DesignWaterLevel = (RoundedDouble)assessmentLevel
+                DesignWaterLevel = (RoundedDouble) assessmentLevel
             };
 
             // Assert
@@ -197,10 +205,14 @@ namespace Ringtoets.Revetment.Data.Test
                 breakWater = new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
             }
 
+            double orientation = 96;
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
                                                         foreshoreGeometry.ToArray(),
                                                         breakWater,
-                                                        new ForeshoreProfile.ConstructionProperties());
+                                                        new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Orientation = orientation
+                                                        });
 
             // Call
             input.ForeshoreProfile = foreshoreProfile;
@@ -213,6 +225,8 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(withValidForeshore, input.UseForeshore);
             CollectionAssert.AreEqual(foreshoreProfile.Geometry, input.ForeshoreGeometry);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreEqual(orientation, input.Orientation.Value);
+            Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
         }
 
         [Test]
@@ -231,7 +245,10 @@ namespace Ringtoets.Revetment.Data.Test
                                                             new Point2D(5.5, 6.6)
                                                         },
                                                         new BreakWater(BreakWaterType.Caisson, 2.2),
-                                                        new ForeshoreProfile.ConstructionProperties());
+                                                        new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Orientation = 96
+                                                        });
 
             input.ForeshoreProfile = foreshoreProfile;
 
@@ -254,6 +271,27 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreEqual(0, input.Orientation.Value);
+            Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
+        }
+
+        [Test]
+        [TestCase(1233)]
+        [TestCase(359.994)]
+        [TestCase(300)]
+        [TestCase(0)]
+        [TestCase(-0.005)]
+        [TestCase(-23)]
+        public void Orientation_ValidValues_NewValueSet(double orientation)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            input.Orientation = (RoundedDouble) orientation;
+
+            // Assert
+            Assert.AreEqual(orientation, input.Orientation, input.Orientation.GetAccuracy());
         }
 
         [Test]
@@ -561,7 +599,7 @@ namespace Ringtoets.Revetment.Data.Test
             var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
-                UpperBoundaryRevetment = (RoundedDouble)10.0,
+                UpperBoundaryRevetment = (RoundedDouble) 10.0,
                 StepSize = WaveConditionsInputStepSize.One,
                 LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                 UpperBoundaryWaterLevels = (RoundedDouble) 10.0

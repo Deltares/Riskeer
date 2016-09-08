@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             var generalCategory = "Algemeen";
             var heaveCategory = "Heave";
-            var modelFactorCategory = "Modelfactoren";
+            var modelFactorCategory = "Modelinstellingen";
             var upliftCategory = "Opbarsten";
             var semiProbabilisticCategory = "Semi-probabilistische parameters";
             var sellmeijerCategory = "Terugschrijdende erosie (Sellmeijer)";

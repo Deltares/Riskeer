@@ -128,15 +128,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactoren.
-        /// </summary>
-        public static string Categories_ModelSettings {
-            get {
-                return ResourceManager.GetString("Categories_ModelSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kritisch overslagdebiet per strekkende meter..
         /// </summary>
         public static string CriticalFlowRate_Description {

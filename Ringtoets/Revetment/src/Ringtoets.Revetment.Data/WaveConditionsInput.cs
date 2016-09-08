@@ -45,12 +45,15 @@ namespace Ringtoets.Revetment.Data
         private WaveConditionsInputStepSize stepSize;
         private RoundedDouble upperBoundaryWaterLevels;
         private RoundedDouble lowerBoundaryWaterLevels;
+        private RoundedDouble orientation;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
         /// </summary>
         public WaveConditionsInput()
         {
+            orientation = new RoundedDouble(2);
+
             upperBoundaryRevetment = new RoundedDouble(2, double.NaN);
             lowerBoundaryRevetment = new RoundedDouble(2, double.NaN);
             stepSize = WaveConditionsInputStepSize.Half;
@@ -90,6 +93,22 @@ namespace Ringtoets.Revetment.Data
             {
                 foreshoreProfile = value;
                 UpdateForeshoreProfileParameters();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the orientation of the foreshore profile geometry with respect to North
+        /// in degrees. A positive value equals a clockwise rotation.
+        /// </summary>
+        public RoundedDouble Orientation
+        {
+            get
+            {
+                return orientation;
+            }
+            set
+            {
+                orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
             }
         }
 
@@ -309,12 +328,14 @@ namespace Ringtoets.Revetment.Data
         {
             if (foreshoreProfile == null)
             {
+                Orientation = (RoundedDouble)0.0;
                 UseForeshore = false;
                 UseBreakWater = false;
                 BreakWater = GetDefaultBreakWater();
             }
             else
             {
+                Orientation = foreshoreProfile.Orientation;
                 UseForeshore = foreshoreProfile.Geometry.Count() > 1;
                 UseBreakWater = foreshoreProfile.HasBreakWater;
                 BreakWater = foreshoreProfile.HasBreakWater
