@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, propertyInfos.Length);
+                Assert.AreEqual(3, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined<
                     StabilityStoneCoverFailureMechanismContext,
@@ -56,6 +56,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined<
                     StabilityStoneCoverWaveConditionsCalculationInputContext,
                     StabilityStoneCoverWaveConditionsCalculationInputContextProperties>(propertyInfos);
+                PluginTestHelper.AssertPropertyInfoDefined<
+                    StabilityStoneCoverWaveConditionsOutputProperties,
+                    StabilityStoneCoverWaveConditionsOutputProperties>(propertyInfos);
             }
         }
 

@@ -38,7 +38,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         private readonly int requiredColumnPropertyIndex = 1;
 
         [Test]
-        public void Data_WithBlocksAndColumns_ReturnsExpectedValues()
+        public void DefaultConstructor_ExpectedValues()
         {
             // Call
             var properties = new StabilityStoneCoverWaveConditionsOutputProperties();
@@ -49,7 +49,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetColumnProperties_WithData_ReturnExpectedValues()
+        public void Data_WithBlocksAndColumns_ReturnsExpectedValues()
         {
             // Setup
             var blocksOutput = new[]
@@ -102,8 +102,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             const string expectedColumnDisplayName = "Zuilen";
             const string expectedBlockDisplayName = "Blokken";
-            const string expectedColumnDescription = "Berekende resultaten voor zuilen";
-            const string expectedBlockDescription = "Berekende resultaten voor blokken";
+            const string expectedColumnDescription = "Berekende resultaten voor zuilen.";
+            const string expectedBlockDescription = "Berekende resultaten voor blokken.";
             const string expectedCategory = "Resultaat";
 
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
@@ -126,7 +126,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(2, dynamicProperties.Count);
 
             PropertyDescriptor blocksProperty = dynamicProperties[requiredBlockPropertyIndex];
-            Assert.IsNotNull(expectedBlockDisplayName);
+            Assert.IsNotNull(blocksProperty);
             Assert.IsTrue(blocksProperty.IsReadOnly);
             Assert.IsInstanceOf<ExpandableArrayConverter>(blocksProperty.Converter);
             Assert.AreEqual(expectedCategory, blocksProperty.Category);
