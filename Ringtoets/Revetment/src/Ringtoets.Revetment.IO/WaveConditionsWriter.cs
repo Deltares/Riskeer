@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using Core.Common.Base.Data;
@@ -87,16 +88,16 @@ namespace Ringtoets.Revetment.IO
             {
                 exportableWaveConditions.CalculationName,
                 exportableWaveConditions.LocationName,
-                new RoundedDouble(3, exportableWaveConditions.LocationXCoordinate).ToString(),
-                new RoundedDouble(3, exportableWaveConditions.LocationYCoordinate).ToString(),
+                new RoundedDouble(3, exportableWaveConditions.LocationXCoordinate).ToString(null, CultureInfo.InvariantCulture),
+                new RoundedDouble(3, exportableWaveConditions.LocationYCoordinate).ToString(null, CultureInfo.InvariantCulture),
                 exportableWaveConditions.ForeshoreName ?? "",
                 exportableWaveConditions.HasBreakWater ? "ja" : "nee",
                 exportableWaveConditions.UseForeshore ? "ja" : "nee",
-                new RoundedDouble(2, exportableWaveConditions.WaterLevel).ToString(),
+                new RoundedDouble(2, exportableWaveConditions.WaterLevel).ToString(null, CultureInfo.InvariantCulture),
                 new EnumDisplayWrapper<CoverType>(exportableWaveConditions.CoverType).DisplayName,
-                new RoundedDouble(2, exportableWaveConditions.WaveHeight).ToString(),
-                new RoundedDouble(2, exportableWaveConditions.WavePeriod).ToString(),
-                new RoundedDouble(2, exportableWaveConditions.WaveAngle).ToString()
+                new RoundedDouble(2, exportableWaveConditions.WaveHeight).ToString(null, CultureInfo.InvariantCulture),
+                new RoundedDouble(2, exportableWaveConditions.WavePeriod).ToString(null, CultureInfo.InvariantCulture),
+                new RoundedDouble(2, exportableWaveConditions.WaveAngle).ToString(null, CultureInfo.InvariantCulture)
             };
 
             return string.Join(", ", stringComponents);
