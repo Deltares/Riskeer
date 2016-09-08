@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = "Kan geen geldige voorland- en dijkprofieldata vinden voor dijkprofiel locatie met ID: unmatchable";
+                string expectedMessage = "Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID 'unmatchable'.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);

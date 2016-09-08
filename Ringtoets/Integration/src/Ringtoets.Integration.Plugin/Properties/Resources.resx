@@ -183,7 +183,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Inlezen van profiellocatie.</value>
   </data>
   <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
-    <value>Kan geen geldige voorland- en dijkprofieldata vinden voor dijkprofiel locatie met ID: {0}</value>
+    <value>Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID '{0}'.</value>
   </data>
   <data name="DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted" xml:space="preserve">
     <value>Dijkprofielen importeren is afgebroken. Geen data ingelezen.</value>
