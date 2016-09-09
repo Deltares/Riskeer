@@ -433,7 +433,8 @@ namespace Ringtoets.Integration.Plugin
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(
-                                                                context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath, "Toetspeil"),
+                                                                context.WrappedData.HydraulicBoundaryDatabase.Locations, filePath, 
+                                                                Resources.DesignWaterLevel_Description, Resources.WaveHeight_Description),
                 IsEnabled = context => context.WrappedData.HydraulicBoundaryDatabase != null,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };

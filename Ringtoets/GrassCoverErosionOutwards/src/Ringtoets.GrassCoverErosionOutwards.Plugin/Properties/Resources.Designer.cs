@@ -89,5 +89,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
                 return ResourceManager.GetString("DesignWaterLevel_Description", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis.
+        /// </summary>
+        internal static string WaveHeight_Description {
+            get {
+                return ResourceManager.GetString("WaveHeight_Description", resourceCulture);
+            }
+        }
     }
 }

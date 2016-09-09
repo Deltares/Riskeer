@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Test
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
 
             // Call
-            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(Enumerable.Empty<IHydraulicBoundaryLocation>(), filePath, "aName");
+            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(Enumerable.Empty<IHydraulicBoundaryLocation>(), filePath, "Toetspeil", "Golfhoogte");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(hydraulicBoundaryLocationsExporter);
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.IO.Test
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(null, filePath, "aName");
+            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(null, filePath, "Toetspeil", "Golfhoogte");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, null, "aName");
+            }, null, "Toetspeil", "Golfhoogte");
 
             // Assert
             Assert.Throws<ArgumentException>(call);
@@ -97,11 +97,34 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath, null);
+            }, filePath, null, "Golfhoogte");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("designWaterLevelName", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WaveHeightNameNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            {
+                DesignWaterLevel = (RoundedDouble)111.111,
+                WaveHeight = (RoundedDouble)222.222
+            };
+
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
+
+            // Call
+            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(new[]
+            {
+                hydraulicBoundaryLocation
+            }, filePath, "Toetspeil", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("waveHeightName", exception.ParamName);
         }
 
         [Test]
@@ -123,7 +146,7 @@ namespace Ringtoets.Common.IO.Test
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath, "aName");
+            }, filePath, "Toetspeil", "Golfhoogte");
 
             bool isExported;
             try
@@ -161,7 +184,7 @@ namespace Ringtoets.Common.IO.Test
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath, "Toetspeil");
+            }, filePath, "Toetspeil", "Golfhoogte");
 
             // Precondition
             AssertEssentialShapefileExists(directoryPath, baseName, false);
@@ -199,7 +222,7 @@ namespace Ringtoets.Common.IO.Test
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {
                 hydraulicBoundaryLocation
-            }, filePath, "aName");
+            }, filePath, "Toetspeil", "Golfhoogte");
 
             try
             {

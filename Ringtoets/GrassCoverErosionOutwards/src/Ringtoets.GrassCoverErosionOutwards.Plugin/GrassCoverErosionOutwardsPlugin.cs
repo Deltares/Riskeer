@@ -142,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 CreateFileExporter = (context, filePath) =>
                                      new HydraulicBoundaryLocationsExporter(context.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations,
-                                                                            filePath, Properties.Resources.DesignWaterLevel_Description),
+                                                                            filePath, Properties.Resources.DesignWaterLevel_Description, Properties.Resources.WaveHeight_Description),
                 IsEnabled = context => context.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count > 0,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };

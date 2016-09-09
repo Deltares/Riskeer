@@ -91,6 +91,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toetspeil.
+        /// </summary>
+        public static string DesignWaterLevel_Description {
+            get {
+                return ResourceManager.GetString("DesignWaterLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dijkprofiellocaties.
         /// </summary>
         public static string DikeProfilesImporter_DisplayName {
@@ -439,6 +448,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         public static string RingtoetsRibbon_GroupBox_New {
             get {
                 return ResourceManager.GetString("RingtoetsRibbon_GroupBox_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogte.
+        /// </summary>
+        public static string WaveHeight_Description {
+            get {
+                return ResourceManager.GetString("WaveHeight_Description", resourceCulture);
             }
         }
     }

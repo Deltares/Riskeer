@@ -39,21 +39,30 @@ namespace Ringtoets.HydraRing.IO
     public class HydraulicBoundaryLocationsWriter
     {
         private readonly string designWaterLevelName;
+        private readonly string waveHeightName;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsWriter"/>.
         /// </summary>
         /// <param name="designWaterLevelName">The Dutch name of the content of the 
         /// <see cref="IHydraulicBoundaryLocation.DesignWaterLevel"/> property.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationsWriter(string designWaterLevelName)
+        /// <param name="waveHeightName">The Dutch name of the content of the
+        /// <see cref="IHydraulicBoundaryLocation.WaveHeight"/> property.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelName"/> or
+        /// <see cref="waveHeightName"/> is <c>null</c>.</exception>
+        public HydraulicBoundaryLocationsWriter(string designWaterLevelName, string waveHeightName)
         {
             if (designWaterLevelName == null)
             {
                 throw new ArgumentNullException("designWaterLevelName");
             }
+            if (waveHeightName == null)
+            {
+                throw new ArgumentNullException("waveHeightName");
+            }
 
             this.designWaterLevelName = designWaterLevelName;
+            this.waveHeightName = waveHeightName;
         }
 
         /// <summary>
@@ -111,7 +120,7 @@ namespace Ringtoets.HydraRing.IO
             mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Name, hydraulicBoundaryLocation.Name);
             mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_Id, hydraulicBoundaryLocation.Id);
             mapFeature.MetaData.Add(designWaterLevelName, hydraulicBoundaryLocation.DesignWaterLevel.Value);
-            mapFeature.MetaData.Add(Resources.HydraulicBoundaryLocation_WaveHeight, hydraulicBoundaryLocation.WaveHeight.Value);
+            mapFeature.MetaData.Add(waveHeightName, hydraulicBoundaryLocation.WaveHeight.Value);
 
             return new MapPointData(hydraulicBoundaryLocation.Name)
             {

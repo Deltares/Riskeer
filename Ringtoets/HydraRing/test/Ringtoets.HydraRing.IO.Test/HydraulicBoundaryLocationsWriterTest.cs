@@ -36,11 +36,22 @@ namespace Ringtoets.HydraRing.IO.Test
         public void ParameteredConstructor_DesignWaterLevelNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsWriter(null);
+            TestDelegate call = () => new HydraulicBoundaryLocationsWriter(null, "bName");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("designWaterLevelName", exception.ParamName);
+        }
+
+        [Test]
+        public void ParameteredConstructor_WaveHeightNameNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new HydraulicBoundaryLocationsWriter("aName", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("waveHeightName", exception.ParamName);
         }
 
         [Test]
@@ -51,7 +62,7 @@ namespace Ringtoets.HydraRing.IO.Test
                                                          Path.Combine("WriteHydraulicBoundaryLocations_NullhydraulicBoundaryLocations_ThrowArgumentNullException",
                                                                       "test.shp"));
 
-            var writer = new HydraulicBoundaryLocationsWriter("aName");
+            var writer = new HydraulicBoundaryLocationsWriter("aName", "bName");
 
             // Call
             TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(null, filePath);
@@ -64,7 +75,7 @@ namespace Ringtoets.HydraRing.IO.Test
         public void WriteHydraulicBoundaryLocations_FilePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var writer = new HydraulicBoundaryLocationsWriter("aName");
+            var writer = new HydraulicBoundaryLocationsWriter("aName", "bName");
 
             // Call
             TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(Enumerable.Empty<IHydraulicBoundaryLocation>(), null);
@@ -89,7 +100,7 @@ namespace Ringtoets.HydraRing.IO.Test
             string filePath = Path.Combine(directoryPath, "test.shp");
             var baseName = "test";
 
-            var writer = new HydraulicBoundaryLocationsWriter("Toetspeil");
+            var writer = new HydraulicBoundaryLocationsWriter("Toetspeil", "Golfhoogte");
 
             // Precondition
             AssertEssentialShapefileExists(directoryPath, baseName, false);
