@@ -123,28 +123,21 @@ namespace Ringtoets.Integration.Service
         /// Clears the output of the hydraulic boundary locations within the <see cref="HydraulicBoundaryDatabase"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> wich contains the locations.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the locations of the failure mechanisms.</param>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> which contains the locations.</param>
         /// <returns><c>true</c> when one or multiple locations are affected by clearing the output. <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
-        public static bool ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IAssessmentSection assessmentSection)
+        public static bool ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException("hydraulicBoundaryDatabase");
             }
-            if (assessmentSection == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException("assessmentSection");
+                throw new ArgumentNullException("failureMechanism");
             }
 
-            var locationsAffected = false;
-
-            var failureMechanism = assessmentSection.GetFailureMechanisms().First(fm => fm.GetType() == typeof(GrassCoverErosionOutwardsFailureMechanism)) as GrassCoverErosionOutwardsFailureMechanism;
-
-            if (failureMechanism != null)
-            {
-                locationsAffected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
-            }
+            var locationsAffected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
 
             foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations
                                                                                .Where(hydraulicBoundaryLocation =>

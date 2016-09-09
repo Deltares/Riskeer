@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -56,33 +57,41 @@ namespace Ringtoets.Integration.Forms.Test
             var waveHeight = (RoundedDouble) 3.0;
             var designWaterLevel = (RoundedDouble) 4.2;
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
             {
                 WaveHeight = waveHeight,
                 DesignWaterLevel = designWaterLevel
-            });
+            };
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             };
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var heightStructuresCalculation = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
+
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation)
+            {
+                WaveHeight = waveHeight,
+                DesignWaterLevel = designWaterLevel
+            };
+            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
@@ -100,6 +109,8 @@ namespace Ringtoets.Integration.Forms.Test
             calculationObserver.Expect(co => co.UpdateObserver()).Repeat.Times(numberOfCalculations);
             IObserver hydraulicBoundaryDatabaseObserver = mockRepository.StrictMock<IObserver>();
             hydraulicBoundaryDatabaseObserver.Expect(hbdo => hbdo.UpdateObserver());
+            IObserver grassCoverErosionOutwardsObserver = mockRepository.StrictMock<IObserver>();
+            grassCoverErosionOutwardsObserver.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
             failureMechanismContribution.Attach(observerMock);
@@ -113,8 +124,10 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(calculationObserver);
             heightStructuresCalculation.Attach(calculationObserver);
 
-            using (Form form = new Form())
-            using (FailureMechanismContributionView distributionView = new FailureMechanismContributionView
+            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserver);
+
+            using (var form = new Form())
+            using (var distributionView = new FailureMechanismContributionView
             {
                 Data = failureMechanismContribution,
                 AssessmentSection = assessmentSection
@@ -123,14 +136,15 @@ namespace Ringtoets.Integration.Forms.Test
                 form.Controls.Add(distributionView);
                 form.Show();
 
-                ControlTester normTester = new ControlTester("normInput");
-
-                HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+                var normTester = new ControlTester("normInput");
 
                 // Precondition
                 Assert.AreEqual(failureMechanismContribution.Norm.ToString(), normTester.Text);
                 Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
                 Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                Assert.AreEqual(waveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight.GetAccuracy());
+                Assert.AreEqual(designWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                
                 Assert.IsNotNull(pipingCalculation.Output);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNotNull(heightStructuresCalculation.Output);
@@ -148,6 +162,8 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
+                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
                 Assert.IsNull(pipingCalculation.Output);
                 Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNull(heightStructuresCalculation.Output);
