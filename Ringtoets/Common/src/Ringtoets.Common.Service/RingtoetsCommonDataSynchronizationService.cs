@@ -21,6 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Utils;
+using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service
@@ -64,6 +66,22 @@ namespace Ringtoets.Common.Service
             }
 
             location.WaveHeight = (RoundedDouble) double.NaN;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="output"></param>
+        /// <param name="norm"></param>
+        /// <returns></returns>
+        public static bool CalculationConverged(ReliabilityIndexCalculationOutput output, double norm)
+        {
+            if (output == null)
+            {
+                throw new ArgumentNullException("output");
+            }
+            double temp = StatisticsConverter.NormToBeta(norm);
+            return Math.Abs(output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3;
         }
     }
 }

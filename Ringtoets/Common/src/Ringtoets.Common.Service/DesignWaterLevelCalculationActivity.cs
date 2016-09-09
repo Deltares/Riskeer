@@ -83,7 +83,8 @@ namespace Ringtoets.Common.Service
             }
 
             PerformRun(() => DesignWaterLevelCalculationService.Instance.Validate(
-                messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name), hydraulicBoundaryDatabaseFilePath),
+                messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name), 
+                hydraulicBoundaryDatabaseFilePath),
                        () => RingtoetsCommonDataSynchronizationService.ClearDesignWaterLevel(hydraulicBoundaryLocation),
                        () => DesignWaterLevelCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
                                                                                    hydraulicBoundaryDatabaseFilePath,
@@ -97,8 +98,7 @@ namespace Ringtoets.Common.Service
             PerformFinish(() =>
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) Output.Result;
-                bool designWaterLevelCalculationConvergence =
-                    Math.Abs(Output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3;
+                bool designWaterLevelCalculationConvergence = RingtoetsCommonDataSynchronizationService.CalculationConverged(Output, norm);
                 if (!designWaterLevelCalculationConvergence)
                 {
                     log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));

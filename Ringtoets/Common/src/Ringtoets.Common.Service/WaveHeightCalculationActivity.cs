@@ -97,8 +97,7 @@ namespace Ringtoets.Common.Service
             PerformFinish(() =>
             {
                 hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) Output.Result;
-                bool waveHeightCalculationConvergence =
-                    Math.Abs(Output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3;
+                bool waveHeightCalculationConvergence = RingtoetsCommonDataSynchronizationService.CalculationConverged(Output, norm); 
                 if (!waveHeightCalculationConvergence)
                 {
                     log.WarnFormat(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));
