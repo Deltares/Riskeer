@@ -33,7 +33,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.ExportInfos
+namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
 {
     [TestFixture]
     public class HydraulicBoundariesGroupContextExportInfoTest

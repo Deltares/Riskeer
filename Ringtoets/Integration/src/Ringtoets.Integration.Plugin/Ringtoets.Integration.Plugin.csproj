@@ -60,7 +60,6 @@
     <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporter.cs" />
     <Compile Include="FileImporters\HydraulicBoundaryLocationFilter.cs" />
     <Compile Include="FileImporters\ProfilesImporter.cs" />
-    <Compile Include="GrassCoverErosionOutwardsFailureMechanismExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -106,6 +105,11 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Plugin\Ringtoets.GrassCoverErosionOutwards.Plugin.csproj">
+      <Project>{9b3ed064-e29f-4d38-85e0-3a82b77ba702}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
