@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -37,7 +38,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void WriteWaveConditions_ExportableWaveConditionsCollectionNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(null, null);
+            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(null, "afilePath");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -48,7 +49,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void WriteWaveConditions_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(new ExportableWaveConditions[0], null);
+            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -62,7 +63,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void WriteWaveConditions_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(new ExportableWaveConditions[0], filePath);
+            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -86,7 +87,7 @@ namespace Ringtoets.Revetment.IO.Test
                     StepSize = WaveConditionsInputStepSize.Half,
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247
-                }, new WaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444), CoverType.Blocks),
+                }, new WaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444), CoverType.StoneCoverBlocks),
                 new ExportableWaveConditions("columnsName", new WaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
@@ -98,7 +99,7 @@ namespace Ringtoets.Revetment.IO.Test
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                     UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                }, new WaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222), CoverType.Columns)
+                }, new WaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222), CoverType.StoneCoverColumns)
             };
 
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
@@ -114,7 +115,10 @@ namespace Ringtoets.Revetment.IO.Test
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting\r\nblocksName, , 0.000, 0.000, , nee, nee, 1.11, Steen (blokken), 2.22, 3.33, 4.44\r\ncolumnsName, aLocation, 44.000, 123.456, , nee, nee, 3.33, Steen (zuilen), 1.11, 4.44, 2.22\r\n", fileContent);
+                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting\r\n" +
+                                "blocksName, , 0.000, 0.000, , nee, nee, 1.11, Steen (blokken), 2.22, 3.33, 4.44\r\n" +
+                                "columnsName, aLocation, 44.000, 123.456, , nee, nee, 3.33, Steen (zuilen), 1.11, 4.44, 2.22\r\n", 
+                                fileContent);
             }
             finally
             {

@@ -129,4 +129,10 @@
   <data name="WaveConditionsWriter_HeaderLine" xml:space="preserve">
     <value>Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting</value>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>ja</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>nee</value>
+  </data>
 </root>

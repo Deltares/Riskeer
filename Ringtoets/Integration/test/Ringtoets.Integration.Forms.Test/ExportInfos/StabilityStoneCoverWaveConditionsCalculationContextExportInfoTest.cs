@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
     public class StabilityStoneCoverWaveConditionsCalculationContextExportInfoTest
     {
         [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        public void CreateFileExporter_Always_ExpectedPropertiesSet()
         {
             // Setup
             var mocks = new MockRepository();
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
                 IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
                 // Assert
-                Assert.IsInstanceOf<WaveConditionsExporter>(fileExporter);
+                Assert.IsInstanceOf<WaveConditionsExporterBase>(fileExporter);
             }
             mocks.VerifyAll();
         }
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
                 string fileFilter = info.FileFilter;
 
                 // Assert
-                Assert.AreEqual("Comma-separated values (*.csv)|*.csv", fileFilter);
+                Assert.AreEqual("Kommagescheiden bestand (*.csv)|*.csv", fileFilter);
             }
         }
 
@@ -126,11 +126,13 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             };
 
             // Call
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput)
-            },
-                                                                                  failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(
+                new StabilityStoneCoverWaveConditionsCalculation
+                {
+                    Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput)
+                },
+                failureMechanism, assessmentSection);
+
             using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);

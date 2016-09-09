@@ -100,6 +100,15 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to nee.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Er zijn geen golfrandvoorwaarden geëxporteerd..
         /// </summary>
         internal static string WaveConditionsExporter_Error_Exception_0_no_WaveConditions_exported {
@@ -114,6 +123,15 @@ namespace Ringtoets.Revetment.IO.Properties {
         internal static string WaveConditionsWriter_HeaderLine {
             get {
                 return ResourceManager.GetString("WaveConditionsWriter_HeaderLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ja.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

@@ -37,14 +37,25 @@ namespace Ringtoets.Revetment.IO
         /// <param name="waveConditionsInput">The input parameters of the parent calculation.</param>
         /// <param name="waveConditionsOutput">The output parameters of the parent calculation.</param>
         /// <param name="coverType">The type of dike cover.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="waveConditionsOutput.HydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="waveConditionsInput"/> or 
+        /// <paramref name="waveConditionsOutput"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
+        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
         public ExportableWaveConditions(string name, WaveConditionsInput waveConditionsInput, WaveConditionsOutput waveConditionsOutput, CoverType coverType)
         {
             if (name == null)
             {
                 throw new ArgumentNullException("name");
             }
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException("waveConditionsInput");
+            }
+            if (waveConditionsOutput == null)
+            {
+                throw new ArgumentNullException("waveConditionsOutput");
+            }
+
             if (waveConditionsInput.HydraulicBoundaryLocation == null)
             {
                 throw new ArgumentException("HydraulicBoundaryLocation is null.", "waveConditionsInput");
@@ -59,7 +70,7 @@ namespace Ringtoets.Revetment.IO
             {
                 ForeshoreName = waveConditionsInput.ForeshoreProfile.Name;
             }
-            HasBreakWater = UseForeshore && waveConditionsInput.ForeshoreProfile.HasBreakWater;
+            UseBreakWater = waveConditionsInput.UseBreakWater;
             CoverType = coverType;
             WaterLevel = waveConditionsOutput.WaterLevel;
             WaveHeight = waveConditionsOutput.WaveHeight;
@@ -93,14 +104,14 @@ namespace Ringtoets.Revetment.IO
         public CoverType CoverType { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether there is a foreshore.
+        /// Gets a value indicating whether a foreshore profile was used in the calculation.
         /// </summary>
         public bool UseForeshore { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether there is a breakwater.
+        /// Gets a value indicating whether a break water was used in the calculation. 
         /// </summary>
-        public bool HasBreakWater { get; private set; }
+        public bool UseBreakWater { get; private set; }
 
         /// <summary>
         /// Gets the name of the foreshore.

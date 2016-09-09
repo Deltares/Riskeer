@@ -34,11 +34,16 @@ namespace Ringtoets.Revetment.IO.Test
     [TestFixture]
     public class ExportableWaveConditionsFactoryTest
     {
+        private readonly WaveConditionsOutput[] waveConditionsOutputCollection =
+        {
+            new WaveConditionsOutput(0.0, 1.1, 2.2, 3.3)
+        };
+
         [Test]
         public void CreateExportableWaveConditionsCollection_NameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, null, null, null);
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new WaveConditionsInput(), waveConditionsOutputCollection, waveConditionsOutputCollection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -46,10 +51,21 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollection_columnsOutputNull_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollection_WaveConditionsInputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(), null, null);
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", null, waveConditionsOutputCollection, waveConditionsOutputCollection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("waveConditionsInput", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateExportableWaveConditionsCollection_ColumnsOutputNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(), null, waveConditionsOutputCollection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,10 +73,10 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollection_blocksOutputNull_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollection_BlocksOutputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(), new WaveConditionsOutput[0], null);
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(), waveConditionsOutputCollection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -73,8 +89,8 @@ namespace Ringtoets.Revetment.IO.Test
             // Call
             IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection =
                 ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(),
-                                                                                         new WaveConditionsOutput[0],
-                                                                                         new WaveConditionsOutput[0]);
+                                                                                         Enumerable.Empty<WaveConditionsOutput>(),
+                                                                                         Enumerable.Empty<WaveConditionsOutput>());
 
             // Assert
             Assert.IsEmpty(exportableWaveConditionsCollection);
@@ -89,22 +105,16 @@ namespace Ringtoets.Revetment.IO.Test
                                                                                          new WaveConditionsInput
                                                                                          {
                                                                                              HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
-                                                                                             ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties()),
+                                                                                             ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()),
                                                                                              UseForeshore = true
                                                                                          },
-                                                                                         new[]
-                                                                                         {
-                                                                                             new WaveConditionsOutput(0.0, 1.1, 2.2, 3.3)
-                                                                                         },
-                                                                                         new[]
-                                                                                         {
-                                                                                             new WaveConditionsOutput(0.0, 1.1, 2.2, 3.3)
-                                                                                         }).ToArray();
+                                                                                         waveConditionsOutputCollection,
+                                                                                         waveConditionsOutputCollection).ToArray();
 
             // Assert
             Assert.AreEqual(2, exportableWaveConditionsCollection.Length);
-            Assert.AreEqual(1, exportableWaveConditionsCollection.Count(e => e.CoverType == CoverType.Columns));
-            Assert.AreEqual(1, exportableWaveConditionsCollection.Count(e => e.CoverType == CoverType.Blocks));
+            Assert.AreEqual(1, exportableWaveConditionsCollection.Count(e => e.CoverType == CoverType.StoneCoverColumns));
+            Assert.AreEqual(1, exportableWaveConditionsCollection.Count(e => e.CoverType == CoverType.StoneCoverBlocks));
 
             ExportableWaveConditions exportableWaveConditions = exportableWaveConditionsCollection[0];
             Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
@@ -112,9 +122,13 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual(1.0, exportableWaveConditions.LocationXCoordinate);
             Assert.AreEqual(8.0, exportableWaveConditions.LocationYCoordinate);
             Assert.AreEqual(null, exportableWaveConditions.ForeshoreName);
-            Assert.AreEqual(false, exportableWaveConditions.HasBreakWater);
+            Assert.AreEqual(false, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(true, exportableWaveConditions.UseForeshore);
-            Assert.AreEqual(CoverType.Columns, exportableWaveConditions.CoverType);
+            Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
+            Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, exportableWaveConditions.WaveAngle.NumberOfDecimalPlaces);
             Assert.AreEqual(new RoundedDouble(2, 0.0), exportableWaveConditions.WaterLevel);
             Assert.AreEqual(new RoundedDouble(2, 1.1), exportableWaveConditions.WaveHeight);
             Assert.AreEqual(new RoundedDouble(2, 2.2), exportableWaveConditions.WavePeriod);

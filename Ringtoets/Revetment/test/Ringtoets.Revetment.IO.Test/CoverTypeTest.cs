@@ -19,26 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Revetment.IO.Properties;
+using NUnit.Framework;
 
-namespace Ringtoets.Revetment.IO
+namespace Ringtoets.Revetment.IO.Test
 {
-    /// <summary>
-    /// Class describing the type of cover.
-    /// </summary>
-    public class CoverType
+    [TestFixture]
+    public class CoverTypeTest
     {
-        public static CoverType StoneCoverBlocks = new CoverType(Resources.CoverType_Blocks);
-        public static CoverType StoneCoverColumns = new CoverType(Resources.CoverType_Columns);
-
-        private CoverType(string name)
+        [Test]
+        public void Name_StoneCoverBlocks_CorrectName()
         {
-            Name = name;
+            // Assert
+            Assert.AreEqual("Steen (blokken)", CoverType.StoneCoverBlocks.Name);
         }
 
-        /// <summary>
-        /// Gets the name of the type of cover.
-        /// </summary>
-        public string Name { get; private set; }
+        [Test]
+        public void Name_StoneCoverColumns_CorrectName()
+        {
+            // Assert
+            Assert.AreEqual("Steen (zuilen)", CoverType.StoneCoverColumns.Name);
+        }
     }
 }

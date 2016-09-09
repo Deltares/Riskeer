@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -31,16 +32,15 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.Revetment.IO.Test
 {
     [TestFixture]
-    public class WaveConditionsExporterTest
+    public class WaveConditionsExporterBaseTest
     {
+        private readonly string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "test.csv");
+
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "test.csv");
-
             // Call
-            var waveConditionsExporter = new WaveConditionsExporter(new ExportableWaveConditions[0], filePath);
+            var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], testFilePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(waveConditionsExporter);
@@ -49,11 +49,8 @@ namespace Ringtoets.Revetment.IO.Test
         [Test]
         public void Constructor_ExportableWaveConditionsCollectionNull_ThrowArgumentNullException()
         {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "test.csv");
-
             // Call
-            TestDelegate call = () => new WaveConditionsExporter(null, filePath);
+            TestDelegate call = () => new TestWaveConditionsExporter(null, testFilePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -64,7 +61,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void Constructor_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WaveConditionsExporter(new ExportableWaveConditions[0], null);
+            TestDelegate call = () => new TestWaveConditionsExporter(new ExportableWaveConditions[0], null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -77,7 +74,7 @@ namespace Ringtoets.Revetment.IO.Test
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO, "test_.csv");
             string invalidFilePath = filePath.Replace("_", ">");
-            var waveConditionsExporter = new WaveConditionsExporter(new ExportableWaveConditions[0], invalidFilePath);
+            var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], invalidFilePath);
 
             // Call
             bool isExported = true;
@@ -101,7 +98,7 @@ namespace Ringtoets.Revetment.IO.Test
 
             try
             {
-                var waveConditionsExporter = new WaveConditionsExporter(new ExportableWaveConditions[0], filePath);
+                var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], filePath);
 
                 // Call
                 bool isExported = waveConditionsExporter.Export();
@@ -132,7 +129,7 @@ namespace Ringtoets.Revetment.IO.Test
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247
-                }, new WaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444), CoverType.Blocks),
+                }, new WaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444), CoverType.StoneCoverBlocks),
                 new ExportableWaveConditions("columnsName", new WaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
@@ -144,7 +141,7 @@ namespace Ringtoets.Revetment.IO.Test
                     StepSize = WaveConditionsInputStepSize.Half,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                     UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                }, new WaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222), CoverType.Columns)
+                }, new WaveConditionsOutput(3.33333, 1.11111, 4.44444, 2.22222), CoverType.StoneCoverColumns)
             };
 
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
@@ -160,12 +157,20 @@ namespace Ringtoets.Revetment.IO.Test
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting\r\nblocksName, , 0.000, 0.000, , nee, nee, 1.11, Steen (blokken), 2.22, 3.33, 4.44\r\ncolumnsName, aLocation, 44.000, 123.456, , nee, nee, 3.33, Steen (zuilen), 1.11, 4.44, 2.22\r\n", fileContent);
+                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting\r\n" +
+                                "blocksName, , 0.000, 0.000, , nee, nee, 1.11, Steen (blokken), 2.22, 3.33, 4.44\r\n" +
+                                "columnsName, aLocation, 44.000, 123.456, , nee, nee, 3.33, Steen (zuilen), 1.11, 4.44, 2.22\r\n", 
+                                fileContent);
             }
             finally
             {
                 Directory.Delete(directoryPath, true);
             }
+        }
+
+        private class TestWaveConditionsExporter : WaveConditionsExporterBase
+        {
+            public TestWaveConditionsExporter(IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection, string filePath) : base(exportableWaveConditionsCollection, filePath) {}
         }
     }
 }

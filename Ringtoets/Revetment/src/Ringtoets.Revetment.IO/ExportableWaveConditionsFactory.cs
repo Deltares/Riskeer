@@ -38,14 +38,20 @@ namespace Ringtoets.Revetment.IO
         /// <param name="columnsOutput">The <see cref="WaveConditionsOutput"/> objects resulting from columns calculations.</param>
         /// <param name="blocksOutput">The <see cref="WaveConditionsOutput"/> objects resulting from blocks calculations.</param>
         /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="columnsOutput"/> or 
-        /// <paramref name="blocksOutput"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c> or 
+        /// when <see cref="WaveConditionsOutput"/> is <c>null</c> for <paramref name="columnsOutput"/> or <paramref name="blocksOutput"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
+        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
         public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
             string name, WaveConditionsInput waveConditionsInput, IEnumerable<WaveConditionsOutput> columnsOutput, IEnumerable<WaveConditionsOutput> blocksOutput)
         {
             if (name == null)
             {
                 throw new ArgumentNullException("name");
+            }
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException("waveConditionsInput");
             }
             if (columnsOutput == null)
             {
@@ -60,12 +66,12 @@ namespace Ringtoets.Revetment.IO
 
             foreach (WaveConditionsOutput waveConditionsOutput in columnsOutput)
             {
-                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, CoverType.Columns));
+                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, CoverType.StoneCoverColumns));
             }
 
             foreach (WaveConditionsOutput blocksConditionsOutput in blocksOutput)
             {
-                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, blocksConditionsOutput, CoverType.Blocks));
+                exportableWaveConditionsCollection.Add(new ExportableWaveConditions(name, waveConditionsInput, blocksConditionsOutput, CoverType.StoneCoverBlocks));
             }
 
             return exportableWaveConditionsCollection;

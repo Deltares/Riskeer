@@ -310,6 +310,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
+                    menu.Items[1],
                     menu.Items[4],
                     menu.Items[8],
                     menu.Items[11],

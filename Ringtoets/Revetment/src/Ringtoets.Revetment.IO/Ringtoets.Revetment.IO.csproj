@@ -52,7 +52,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="WaveConditionsExporter.cs" />
+    <Compile Include="WaveConditionsExporterBase.cs" />
     <Compile Include="WaveConditionsWriter.cs" />
   </ItemGroup>
   <ItemGroup>

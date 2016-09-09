@@ -29,17 +29,17 @@ using Ringtoets.Revetment.IO.Properties;
 namespace Ringtoets.Revetment.IO
 {
     /// <summary>
-    /// Exports wave conditions and stores them as a csv file.
+    /// Abstract class for wave conditions to csv file exporters.
     /// </summary>
-    public class WaveConditionsExporter : IFileExporter
+    public abstract class WaveConditionsExporterBase : IFileExporter
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(WaveConditionsExporter));
+        private static readonly ILog log = LogManager.GetLogger(typeof(WaveConditionsExporterBase));
 
         private readonly IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection;
         private readonly string filePath;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsExporter"/>.
+        /// Creates a new instance of <see cref="WaveConditionsExporterBase"/>. 
         /// </summary>
         /// <param name="exportableWaveConditionsCollection">The <see cref="ExportableWaveConditions"/> objects to export.</param>
         /// <param name="filePath">The file path to export to.</param>
@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.IO
         /// <paramref name="filePath"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the file could not be written.</exception>
-        public WaveConditionsExporter(IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection, string filePath)
+        protected WaveConditionsExporterBase(IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection, string filePath)
         {
             if (exportableWaveConditionsCollection == null)
             {

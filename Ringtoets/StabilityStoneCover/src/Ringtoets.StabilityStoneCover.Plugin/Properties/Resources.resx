@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DataTypeDisplayName_csv_file_filter" xml:space="preserve">
-    <value>Comma-separated values (*.csv)|*.csv</value>
+    <value>Kommagescheiden bestand (*.csv)|*.csv</value>
   </data>
   <data name="StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip" xml:space="preserve">
     <value>Genereer randvoorwaardenberekeningen.</value>

@@ -82,20 +82,20 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kommagescheiden bestand (*.csv)|*.csv.
+        /// </summary>
+        internal static string DataTypeDisplayName_csv_file_filter {
+            get {
+                return ResourceManager.GetString("DataTypeDisplayName_csv_file_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen aan te maken..
         /// </summary>
         internal static string StabilityStoneCover_WaveConditions_No_HRD_To_Calculate {
             get {
                 return ResourceManager.GetString("StabilityStoneCover_WaveConditions_No_HRD_To_Calculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Comma-separated values (*.csv)|*.csv.
-        /// </summary>
-        internal static string DataTypeDisplayName_csv_file_filter {
-            get {
-                return ResourceManager.GetString("DataTypeDisplayName_csv_file_filter", resourceCulture);
             }
         }
         

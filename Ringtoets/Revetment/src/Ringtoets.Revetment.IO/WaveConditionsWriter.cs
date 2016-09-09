@@ -26,7 +26,6 @@ using System.IO;
 using System.Text;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
-using Core.Common.Utils;
 using Ringtoets.Revetment.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
@@ -37,8 +36,10 @@ namespace Ringtoets.Revetment.IO
     /// </summary>
     public static class WaveConditionsWriter
     {
+        private static string separator = ", ";
+
         /// <summary>
-        /// Writes waveconditions to a csv file.
+        /// Writes wave conditions to a csv file.
         /// </summary>
         /// <param name="exportableWaveConditionsCollection">The <see cref="ExportableWaveConditions"/> to be written to file.</param>
         /// <param name="filePath">The path to the csv file.</param>
@@ -90,17 +91,17 @@ namespace Ringtoets.Revetment.IO
                 exportableWaveConditions.LocationName,
                 new RoundedDouble(3, exportableWaveConditions.LocationXCoordinate).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(3, exportableWaveConditions.LocationYCoordinate).ToString(null, CultureInfo.InvariantCulture),
-                exportableWaveConditions.ForeshoreName ?? "",
-                exportableWaveConditions.HasBreakWater ? "ja" : "nee",
-                exportableWaveConditions.UseForeshore ? "ja" : "nee",
+                exportableWaveConditions.ForeshoreName ?? string.Empty,
+                exportableWaveConditions.UseBreakWater ? Resources.Yes : Resources.No,
+                exportableWaveConditions.UseForeshore ? Resources.Yes : Resources.No,
                 new RoundedDouble(2, exportableWaveConditions.WaterLevel).ToString(null, CultureInfo.InvariantCulture),
-                new EnumDisplayWrapper<CoverType>(exportableWaveConditions.CoverType).DisplayName,
+                exportableWaveConditions.CoverType.Name,
                 new RoundedDouble(2, exportableWaveConditions.WaveHeight).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(2, exportableWaveConditions.WavePeriod).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(2, exportableWaveConditions.WaveAngle).ToString(null, CultureInfo.InvariantCulture)
             };
 
-            return string.Join(", ", stringComponents);
+            return string.Join(separator, stringComponents);
         }
     }
 }

@@ -44,6 +44,7 @@ using Ringtoets.StabilityStoneCover.Forms;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.Views;
+using Ringtoets.StabilityStoneCover.IO;
 using Ringtoets.StabilityStoneCover.Plugin.Properties;
 using Ringtoets.StabilityStoneCover.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -141,37 +142,18 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
             {
-                CreateFileExporter = (context, filePath) => CreateWaveConditionsExporter(context.WrappedData.Children.OfType<ICalculation>().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
+                CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.Children.OfType<ICalculation>().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.Children.OfType<ICalculation>().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 FileFilter = Resources.DataTypeDisplayName_csv_file_filter
             };
 
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
             {
-                CreateFileExporter = (context, filePath) => CreateWaveConditionsExporter(new[] { context.WrappedData }, filePath),
+                CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(new[] { context.WrappedData }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 FileFilter = Resources.DataTypeDisplayName_csv_file_filter
             };
         }
-
-        #region ExportInfos
-
-        private static WaveConditionsExporter CreateWaveConditionsExporter(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, string filePath)
-        {
-            var exportableWaveConditions = new List<ExportableWaveConditions>();
-
-            IEnumerable<StabilityStoneCoverWaveConditionsCalculation> exportableCalculations = calculations.Where(c => c.HasOutput);
-
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in exportableCalculations)
-            {
-                exportableWaveConditions.AddRange(
-                    ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.ColumnsOutput, calculation.Output.BlocksOutput));
-            }
-            return new WaveConditionsExporter(exportableWaveConditions, filePath);
-        }
-
-        #endregion
 
         #region ViewInfos
 
