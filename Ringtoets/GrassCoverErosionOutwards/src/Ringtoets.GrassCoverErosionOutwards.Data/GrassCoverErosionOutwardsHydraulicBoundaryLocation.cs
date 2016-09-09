@@ -106,9 +106,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the unique identifier for the storage of the class.
-        /// </summary>
         public long StorageId { get; set; }
     }
 }

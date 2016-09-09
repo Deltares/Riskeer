@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Service
 
         /// <summary>
         /// Determines whether the calculated output is converged,
-        /// based on the <paramref name="output"/> 
+        /// based on the <paramref name="output"/> and the <paramref name="norm"/>
         /// </summary>
         /// <param name="output">The resultant <see cref="ReliabilityIndexCalculationOutput"/> 
         /// object after a calculation.</param>
