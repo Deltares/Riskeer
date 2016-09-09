@@ -85,6 +85,11 @@
     <Compile Include="SelectionDialogBase.Designer.cs">
       <DependentUpon>SelectionDialogBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectionDialogBase1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SelectionDialogBase.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\RingtoetsMapDataFeaturesFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
@@ -115,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SelectionDialogBase.resx">
       <DependentUpon>SelectionDialogBase.cs</DependentUpon>
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SelectionDialogBase1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CommentView.resx">
       <DependentUpon>CommentView.cs</DependentUpon>

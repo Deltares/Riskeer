@@ -147,7 +147,7 @@ namespace Ringtoets.Common.Forms.Test
         }
 
         [Test]
-        public void GivenDialogWithSelectedItems_WhenCancelButtonClicked_ThenReturnsSelectedCollection()
+        public void GivenDialogWithSelectedItems_WhenCancelButtonClicked_ThenReturnsEmptyCollection()
         {
             // Given
             var selectedItem = new object();
@@ -300,36 +300,7 @@ namespace Ringtoets.Common.Forms.Test
                 Assert.IsEmpty(dialog.SelectedItems);
             }
         }
-
-        [Test]
-        public void DoForSelectedButton_OneSelected_ReturnsSelectedItems()
-        {
-            // Setup
-            var selectedItem = new object();
-            var items = new[]
-            {
-                selectedItem,
-                new object()
-            };
-
-            using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
-            {
-                dialog.SetDataSource(items);
-                dialog.Show();
-                var dataGridView = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
-                var rows = dataGridView.Rows;
-                rows[0].Cells[selectItemColumnIndex].Value = true;
-                var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
-
-                // Call
-                buttonTester.Click();
-
-                // Assert
-                Assert.AreEqual(1, dialog.SelectedItems.Count());
-                Assert.AreEqual(selectedItem, dialog.SelectedItems.First());
-            }
-        }
-
+        
         private class TestSelectionDialogBase : SelectionDialogBase<object>
         {
             public TestSelectionDialogBase(IWin32Window dialogParent) : base(dialogParent) {}

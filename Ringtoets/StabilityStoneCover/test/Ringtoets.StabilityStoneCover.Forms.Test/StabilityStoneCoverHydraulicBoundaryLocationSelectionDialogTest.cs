@@ -98,14 +98,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
                 Assert.AreEqual(2, dataGridView.ColumnCount);
 
                 var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[locationSelectionColumnIndex];
-                const string expectedLocationCalculateHeaderText = "Gebruik";
-                Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
+                Assert.AreEqual("Gebruik", locationCalculateColumn.HeaderText);
                 Assert.AreEqual("Selected", locationCalculateColumn.DataPropertyName);
                 Assert.IsFalse(locationCalculateColumn.ReadOnly);
 
                 var nameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationColumnIndex];
-                const string expectedNameHeaderText = "Hydraulische randvoorwaardenlocatie";
-                Assert.AreEqual(expectedNameHeaderText, nameColumn.HeaderText);
+                Assert.AreEqual("Hydraulische randvoorwaardenlocatie", nameColumn.HeaderText);
                 Assert.AreEqual("Name", nameColumn.DataPropertyName);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, nameColumn.AutoSizeMode);
                 Assert.IsTrue(nameColumn.ReadOnly);

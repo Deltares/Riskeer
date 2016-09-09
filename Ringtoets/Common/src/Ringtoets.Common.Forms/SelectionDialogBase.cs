@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -86,18 +85,19 @@ namespace Ringtoets.Common.Forms
             SelectedItems = GetSelectedItems();
         }
 
-        private IEnumerable<SelectableRow<T>> GetSelectableRow()
+        private IEnumerable<SelectableRow<T>> GetSelectableRows()
         {
             return DataGridViewControl.Rows.Cast<DataGridViewRow>().Select(row => row.DataBoundItem).Cast<SelectableRow<T>>();
         }
 
         private IEnumerable<T> GetSelectedItems()
         {
-            return GetSelectableRow().Where(row => row.Selected).Select(row => row.Item).ToArray();
+            return GetSelectableRows().Where(row => row.Selected).Select(row => row.Item).ToArray();
         }
 
         /// <summary>
         /// Initializes the <see cref="DataGridView"/>.
+        /// <param name="nameColumnHeader">Display name of the column header for <see cref="SelectableRow{T}.Name"/>.</param>
         /// </summary>
         protected void InitializeDataGridView(string nameColumnHeader)
         {
@@ -112,14 +112,14 @@ namespace Ringtoets.Common.Forms
 
         private void SelectAllButton_Click(object sender, EventArgs e)
         {
-            GetSelectableRow().ForEachElementDo(row => row.Selected = true);
+            GetSelectableRows().ForEachElementDo(row => row.Selected = true);
             DataGridViewControl.RefreshDataGridView();
             UpdateDoForSelectedButton();
         }
 
         private void DeselectAllButton_Click(object sender, EventArgs e)
         {
-            GetSelectableRow().ForEachElementDo(row => row.Selected = false);
+            GetSelectableRows().ForEachElementDo(row => row.Selected = false);
             DataGridViewControl.RefreshDataGridView();
             UpdateDoForSelectedButton();
         }
@@ -151,7 +151,7 @@ namespace Ringtoets.Common.Forms
 
         private void UpdateDoForSelectedButton()
         {
-            DoForSelectedButton.Enabled = GetSelectableRow().Any(row => row.Selected);
+            DoForSelectedButton.Enabled = GetSelectableRows().Any(row => row.Selected);
         }
 
         #endregion

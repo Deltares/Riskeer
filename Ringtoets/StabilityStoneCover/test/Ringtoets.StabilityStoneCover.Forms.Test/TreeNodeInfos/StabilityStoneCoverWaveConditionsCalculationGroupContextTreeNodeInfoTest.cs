@@ -1275,64 +1275,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_ClickOnGenerateCalculations_ShowStabilityStoneCoverHydraulicBoundaryLocationSelectionDialog()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    Locations =
-                    {
-                        new HydraulicBoundaryLocation(1, "1", 1, 1)
-                    }
-                };
-                var observerMock = mocks.StrictMock<IObserver>();
-                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var mainWindow = mocks.Stub<IMainWindow>();
-                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-                nodeData.Attach(observerMock);
-
-                StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog dialog = null;
-                DataGridViewControl grid = null;
-                int rowCount = 0;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    dialog = (StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
-                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
-                    rowCount = grid.Rows.Count;
-                    new ButtonTester("CustomCancelButton", dialog).Click();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
-                }
-
-                // Assert
-                Assert.NotNull(dialog);
-                Assert.NotNull(grid);
-                Assert.AreEqual(1, rowCount);
-            }
-        }
-
-        [Test]
         public void GivenDialogGenerateCalculationButtonClicked_WhenCalculationSelectedAndDialogClosed_ThenUpdateCalculationGroup()
         {
             // Given
@@ -1381,13 +1323,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     new ButtonTester("DoForSelectedButton", dialog).Click();
                 };
 
+                // When
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Call
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
                 }
 
-                // Assert
+                // Then
                 Assert.AreEqual(2, group.Children.Count);
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
@@ -1440,13 +1382,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     new ButtonTester("CustomCancelButton", dialog).Click();
                 };
 
+                // When
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
-                    // Call
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
                 }
 
-                // Assert
+                // Then
                 Assert.AreEqual(0, group.Children.Count);
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
@@ -1454,7 +1396,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsWaveConditionsCalculationGrouContainingGroup_RemoveGroupAndNotifyObservers()
+        public void OnNodeRemoved_ParentIsWaveConditionsCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -1518,6 +1460,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
+                // When
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Then
@@ -1576,8 +1519,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
 
                     // When
-                    ToolStripItem validateMeniItem = contextMenu.Items[contextMenuAddCalculationIndexRootGroup];
-                    validateMeniItem.PerformClick();
+                    ToolStripItem validateMenuItem = contextMenu.Items[contextMenuAddCalculationIndexRootGroup];
+                    validateMenuItem.PerformClick();
 
                     // Then
                     Assert.AreEqual(1, failureMechanism.WaveConditionsCalculationGroup.Children.Count);

@@ -33,7 +33,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
     public class StabilityStoneCoverCalculationConfigurationHelperTest
     {
         [Test]
-        public void GenerateCalculationItemsStructure_LocationsIsNull_ThrowsArgumentNullException()
+        public void AddCalculationsFromLocations_LocationsIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculations = new List<ICalculationBase>();
@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_CalculationsIsNull_ThrowsArgumentNullException()
+        public void AddCalculationsFromLocations_CalculationsIsNull_ThrowsArgumentNullException()
         {
             // Setup
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
@@ -61,7 +61,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_EmptyCollections_ReturnsEmptyList()
+        public void AddCalculationsFromLocations_EmptyCollections_ReturnsEmptyList()
         {
             // Setup
             var locations = Enumerable.Empty<HydraulicBoundaryLocation>();
@@ -75,7 +75,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations()
+        public void AddCalculationsFromLocations_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations()
         {
             // Setup
             const string name = "name";
@@ -95,13 +95,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
             Assert.AreEqual(name, firstCalculation.Name);
             Assert.AreEqual(locations[0], firstCalculation.InputParameters.HydraulicBoundaryLocation);
 
-            var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.Skip(1).First();
+            var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual(string.Format("{0} (1)", name), secondCalculation.Name);
-            Assert.AreEqual(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreSame(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         [Test]
-        public void GenerateCalculationItemsStructure_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations()
+        public void AddCalculationsFromLocations_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations()
         {
             // Setup
             const string name = "name";
@@ -123,13 +123,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
 
             // Assert
             Assert.AreEqual(3, calculationBases.Count);
-            var firstCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.Skip(1).First();
+            var firstCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual(string.Format("{0} (1)", name), firstCalculation.Name);
             Assert.AreEqual(locations[0], firstCalculation.InputParameters.HydraulicBoundaryLocation);
 
-            var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.Skip(2).First();
+            var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation)calculationBases.ElementAt(2);
             Assert.AreEqual(string.Format("{0} (2)", name), secondCalculation.Name);
-            Assert.AreEqual(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreSame(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
         }
     }
 }

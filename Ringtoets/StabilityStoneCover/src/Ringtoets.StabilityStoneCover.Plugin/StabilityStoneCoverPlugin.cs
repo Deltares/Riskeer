@@ -412,10 +412,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                                                                 nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
             {
                 dialog.ShowDialog();
-                GenerateStabilityStoneCoverCalculations(nodeData.WrappedData, dialog.SelectedItems);
-
+                
                 if (dialog.SelectedItems.Any())
                 {
+                    GenerateStabilityStoneCoverCalculations(nodeData.WrappedData, dialog.SelectedItems);
                     nodeData.NotifyObservers();
                 }
             }
