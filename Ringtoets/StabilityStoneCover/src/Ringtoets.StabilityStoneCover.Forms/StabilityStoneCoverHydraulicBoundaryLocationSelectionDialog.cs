@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Views;

@@ -30,10 +30,10 @@ namespace Ringtoets.Revetment.Service
     public interface IWaveConditionsCalculationService
     {
         /// <summary>
-        /// Performs validation over the values on the given calculation.
+        /// Performs validation of the values of the given calculation.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="name">The name of the calculation to perform.</param>
+        /// <param name="name">The name of the calculation to validate.</param>
         /// <returns><c>False</c> if given parameters result in validation errors;
         /// <c>True</c> otherwise.</returns>
         bool Validate(string name);

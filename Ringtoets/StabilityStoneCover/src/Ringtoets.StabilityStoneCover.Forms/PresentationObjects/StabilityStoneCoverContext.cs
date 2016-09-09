@@ -29,7 +29,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object representing all required stability stone cover input knowledge
-    /// to configure and created related calculation objects.
+    /// to configure and create related calculation objects.
     /// </summary>
     /// <typeparam name="T">The observable object type of the wrapped instance.</typeparam>
     public abstract class StabilityStoneCoverContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
@@ -40,7 +40,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         protected StabilityStoneCoverContext(T wrappedData,
                                              StabilityStoneCoverFailureMechanism failureMechanism,
                                              IAssessmentSection assessmentSection) : base(wrappedData)

@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpelStabilityStoneCoverContext(null, failureMechanism, assessmentSection);
+            TestDelegate call = () => new SimpleStabilityStoneCoverContext(null, failureMechanism, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -61,7 +61,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpelStabilityStoneCoverContext(observable, null, assessmentSection);
+            TestDelegate call = () => new SimpleStabilityStoneCoverContext(observable, null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -80,7 +80,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpelStabilityStoneCoverContext(observable, failureMechanism, null);
+            TestDelegate call = () => new SimpleStabilityStoneCoverContext(observable, failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -100,7 +100,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            var context = new SimpelStabilityStoneCoverContext(observable, failureMechanism, assessmentSection);
+            var context = new SimpleStabilityStoneCoverContext(observable, failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreSame(observable, context.WrappedData);
@@ -109,9 +109,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
-        private class SimpelStabilityStoneCoverContext : StabilityStoneCoverContext<IObservable>
+        private class SimpleStabilityStoneCoverContext : StabilityStoneCoverContext<IObservable>
         {
-            public SimpelStabilityStoneCoverContext(IObservable wrappedData,
+            public SimpleStabilityStoneCoverContext(IObservable wrappedData,
                                                     StabilityStoneCoverFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection) :
                                                         base(wrappedData, failureMechanism, assessmentSection) {}

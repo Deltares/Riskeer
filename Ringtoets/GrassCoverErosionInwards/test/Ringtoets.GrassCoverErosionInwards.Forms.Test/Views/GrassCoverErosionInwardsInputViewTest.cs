@@ -28,7 +28,6 @@ using Core.Components.Charting.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -65,9 +64,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(view.Chart, view.Controls[0]);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Chart).Dock);
-                Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, view.Chart.Data.Name);
-                Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Distance_DisplayName, view.Chart.BottomAxisTitle);
-                Assert.AreEqual(RingtoetsCommonFormsResources.InputView_Height_DisplayName, view.Chart.LeftAxisTitle);
+                Assert.AreEqual("Invoer", view.Chart.Data.Name);
+                Assert.AreEqual("Afstand [m]", view.Chart.BottomAxisTitle);
+                Assert.AreEqual("Hoogte [m+NAP]", view.Chart.LeftAxisTitle);
                 AssertEmptyChartData(view.Chart.Data);
             }
         }
@@ -179,9 +178,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 CollectionAssert.IsEmpty(dikeGeometryData.Points);
                 CollectionAssert.IsEmpty(foreshoreData.Points);
                 CollectionAssert.IsEmpty(dikeHeightData.Points);
-                Assert.AreEqual(Resources.DikeProfile_DisplayName, dikeGeometryData.Name);
-                Assert.AreEqual(RingtoetsCommonFormsResources.Foreshore_DisplayName, foreshoreData.Name);
-                Assert.AreEqual(Resources.DikeHeight_ChartName, dikeHeightData.Name);
+                Assert.AreEqual("Dijkprofiel", dikeGeometryData.Name);
+                Assert.AreEqual("Voorlandprofiel", foreshoreData.Name);
+                Assert.AreEqual("Dijkhoogte", dikeHeightData.Name);
             }
         }
 
@@ -216,7 +215,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dikeHeightData = (ChartLineData) chartData.Collection.ElementAt(dikeHeightIndex);
 
                 CollectionAssert.IsEmpty(foreshoreData.Points);
-                Assert.AreEqual(RingtoetsCommonFormsResources.Foreshore_DisplayName, foreshoreData.Name);
+                Assert.AreEqual("Voorlandprofiel", foreshoreData.Name);
                 AssertDikeProfileChartData(dikeProfile, dikeGeometryData);
                 AssertDikeHeightChartData(dikeProfile, dikeHeightData);
             }
@@ -381,13 +380,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Precondition
                 var dikeProfileChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeProfileIndex);
-                Assert.AreEqual(Resources.DikeProfile_DisplayName, dikeProfileChartData.Name);
+                Assert.AreEqual("Dijkprofiel", dikeProfileChartData.Name);
 
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedForeshoreIndex);
-                Assert.AreEqual(RingtoetsCommonFormsResources.Foreshore_DisplayName, foreshoreChartData.Name);
+                Assert.AreEqual("Voorlandprofiel", foreshoreChartData.Name);
 
                 var dikeHeightChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeHeightIndex);
-                Assert.AreEqual(Resources.DikeHeight_ChartName, dikeHeightChartData.Name);
+                Assert.AreEqual("Dijkhoogte", dikeHeightChartData.Name);
 
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
                 calculation.InputParameters.DikeProfile = dikeProfile;
@@ -397,18 +396,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
                 // Assert
                 var actualDikeProfileChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeProfileIndex);
-                string expectedDikeProfileName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
-                                                               dikeProfile.Name, Resources.DikeProfile_DisplayName);
+                string expectedDikeProfileName = string.Format("{0} - {1}",
+                                                               dikeProfile.Name, "Dijkprofiel");
                 Assert.AreEqual(expectedDikeProfileName, actualDikeProfileChartData.Name);
 
                 var actualForeshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedForeshoreIndex);
-                string expectedForeshoreName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+                string expectedForeshoreName = string.Format("{0} - {1}",
                                                              dikeProfile.Name,
-                                                             RingtoetsCommonFormsResources.Foreshore_DisplayName);
+                                                             "Voorlandprofiel");
                 Assert.AreEqual(expectedForeshoreName, actualForeshoreChartData.Name);
 
                 var actualDikeHeightChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(updatedDikeHeightIndex);
-                Assert.AreEqual(Resources.DikeHeight_ChartName, actualDikeHeightChartData.Name);
+                Assert.AreEqual("Dijkhoogte", actualDikeHeightChartData.Name);
             }
         }
 
@@ -510,9 +509,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             CollectionAssert.IsEmpty(dikeProfileData.Points);
             CollectionAssert.IsEmpty(dikeHeightData.Points);
 
-            Assert.AreEqual(RingtoetsCommonFormsResources.Foreshore_DisplayName, foreshoreData.Name);
-            Assert.AreEqual(Resources.DikeProfile_DisplayName, dikeProfileData.Name);
-            Assert.AreEqual(Resources.DikeHeight_ChartName, dikeHeightData.Name);
+            Assert.AreEqual("Voorlandprofiel", foreshoreData.Name);
+            Assert.AreEqual("Dijkprofiel", dikeProfileData.Name);
+            Assert.AreEqual("Dijkhoogte", dikeHeightData.Name);
         }
 
         private static void AssertDikeProfileChartData(DikeProfile dikeProfile, ChartData chartData)
@@ -524,9 +523,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(dikeGeometry.Length, dikeProfileChartData.Points.Length);
             CollectionAssert.AreEqual(dikeGeometry.Select(dg => dg.Point), dikeProfileChartData.Points);
 
-            string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+            string expectedName = string.Format("{0} - {1}",
                                                 dikeProfile.Name,
-                                                Resources.DikeProfile_DisplayName);
+                                                "Dijkprofiel");
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
@@ -539,9 +538,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(foreshoreGeometry.Count(), foreshoreChartData.Points.Length);
             CollectionAssert.AreEqual(foreshoreGeometry, foreshoreChartData.Points);
 
-            string expectedName = string.Format(Resources.GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_,
+            string expectedName = string.Format("{0} - {1}",
                                                 dikeProfile.Name,
-                                                RingtoetsCommonFormsResources.Foreshore_DisplayName);
+                                                "Voorlandprofiel");
             Assert.AreEqual(expectedName, chartData.Name);
         }
 
@@ -559,7 +558,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(dikeHeightGeometry.Length, dikeHeightChartData.Points.Length);
             CollectionAssert.AreEqual(dikeHeightGeometry, dikeHeightChartData.Points);
 
-            Assert.AreEqual(Resources.DikeHeight_ChartName, chartData.Name);
+            Assert.AreEqual("Dijkhoogte", chartData.Name);
         }
     }
 }

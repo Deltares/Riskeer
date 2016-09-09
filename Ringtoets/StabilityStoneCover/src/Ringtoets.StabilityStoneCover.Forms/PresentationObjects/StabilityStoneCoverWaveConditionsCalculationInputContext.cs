@@ -38,19 +38,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverWaveConditionsCalculationInputContext"/> class.
         /// </summary>
-        /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
+        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StabilityStoneCoverWaveConditionsCalculationInputContext(WaveConditionsInput wrappedData,
                                                                         StabilityStoneCoverFailureMechanism failureMechanism,
                                                                         IAssessmentSection assessmentSection) :
                                                                             base(wrappedData, failureMechanism, assessmentSection) {}
 
         /// <summary>
-        /// Gets the available hydraulic boundary locations.
+        /// Gets the hydraulic boundary locations.
         /// </summary>
-        public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations
+        public IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
         {
             get
             {
@@ -61,9 +61,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the available foreshore profiles.
+        /// Gets the foreshore profiles.
         /// </summary>
-        public IEnumerable<ForeshoreProfile> AvailableForeshoreProfiles
+        public IEnumerable<ForeshoreProfile> ForeshoreProfiles
         {
             get
             {

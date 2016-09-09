@@ -34,10 +34,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverWaveConditionsCalculationContext"/> class.
         /// </summary>
-        /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
+        /// <param name="wrappedData">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/> wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="System.ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="System.ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StabilityStoneCoverWaveConditionsCalculationContext(StabilityStoneCoverWaveConditionsCalculation wrappedData,
                                                                    StabilityStoneCoverFailureMechanism failureMechanism,
                                                                    IAssessmentSection assessmentSection) :

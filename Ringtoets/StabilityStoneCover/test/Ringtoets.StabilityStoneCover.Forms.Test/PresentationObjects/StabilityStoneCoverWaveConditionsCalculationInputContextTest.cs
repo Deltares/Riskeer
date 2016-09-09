@@ -95,8 +95,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(0, "A", 0, 0),
+                    new HydraulicBoundaryLocation(1, "B", 1, 1)
+                }
+            };
+
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -111,11 +121,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             Assert.AreSame(input, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
+            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AvailableForeshoreProfiles_ReturnForeshoreProfilesOfFailureMechanism()
+        public void AvailableForeshoreProfiles_Always_ReturnForeshoreProfilesOfFailureMechanism()
         {
             // Setup
             var mocks = new MockRepository();
@@ -143,7 +154,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var context = new StabilityStoneCoverWaveConditionsCalculationInputContext(input, failureMechanism, assessmentSection);
 
             // Assert
-            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, context.AvailableForeshoreProfiles);
+            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
             mocks.VerifyAll();
         }
 
@@ -164,37 +175,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var context = new StabilityStoneCoverWaveConditionsCalculationInputContext(input, failureMechanism, assessmentSection);
 
             // Assert
-            CollectionAssert.IsEmpty(context.AvailableHydraulicBoundaryLocations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AvailableHydraulicBoundaryLocations_AssessmentSectionWithDatabase_ReturnDatabaseLocations()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(0, "A", 0, 0),
-                    new HydraulicBoundaryLocation(1, "B", 1, 1)
-                }
-            };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var input = new WaveConditionsInput();
-
-            // Call
-            var context = new StabilityStoneCoverWaveConditionsCalculationInputContext(input, failureMechanism, assessmentSection);
-
-            // Assert
-            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations, context.AvailableHydraulicBoundaryLocations);
+            CollectionAssert.IsEmpty(context.HydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
     }

@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var text = info.Text(grassCoverErosionInwardsInputContext);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, text);
+            Assert.AreEqual("Invoer", text);
         }
 
         [Test]

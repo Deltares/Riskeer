@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -35,10 +36,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverWaveConditionsCalculationGroupContext"/> class.
         /// </summary>
-        /// <param name="calculationGroup">The calculation group.</param>
-        /// <param name="failureMechanism">The failure mechanism.</param>
-        /// <param name="assessmentSection">The assessment section.</param>
-        /// <exception cref="System.ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <param name="calculationGroup">The wrapped <see cref="CalculationGroup"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism the calculation group belongs to.</param>
+        /// <param name="assessmentSection">The assessment section  the calculation group belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StabilityStoneCoverWaveConditionsCalculationGroupContext(CalculationGroup calculationGroup,
                                                                         StabilityStoneCoverFailureMechanism failureMechanism,
                                                                         IAssessmentSection assessmentSection) :

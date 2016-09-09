@@ -301,23 +301,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
-            return data.AvailableHydraulicBoundaryLocations;
+            return data.HydraulicBoundaryLocations;
         }
 
         public IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
-            return data.AvailableForeshoreProfiles;
+            return data.ForeshoreProfiles;
         }
 
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (data.WrappedData.ForeshoreProfile == null)
-            {
-                return true;
-            }
-
-            return false;
+            return data.WrappedData.ForeshoreProfile == null;
         }
     }
 }

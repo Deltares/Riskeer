@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(view, calculation);
 
                 // Assert
-                Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, viewName);
+                Assert.AreEqual("Invoer", viewName);
             }
         }
 

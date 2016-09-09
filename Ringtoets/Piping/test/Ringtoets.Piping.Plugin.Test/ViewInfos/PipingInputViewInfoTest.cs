@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(view, calculationScenario);
 
                 // Assert
-                Assert.AreEqual(RingtoetsCommonFormsResources.Calculation_Input, viewName);
+                Assert.AreEqual("Invoer", viewName);
             }
         }
 
