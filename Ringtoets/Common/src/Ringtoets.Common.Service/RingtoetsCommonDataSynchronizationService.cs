@@ -34,12 +34,12 @@ namespace Ringtoets.Common.Service
     {
         /// <summary>
         /// Clears the output design water level
-        /// of the <see cref="HydraulicBoundaryLocation"/>
+        /// of the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="location">The <see cref="HydraulicBoundaryLocation"/> 
-        /// to clear the output for</param>
+        /// to clear the output for</param>.
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
-        /// is <c>null</c></exception>
+        /// is <c>null</c>.</exception>
         public static void ClearDesignWaterLevel(IHydraulicBoundaryLocation location)
         {
             if (location == null)
@@ -52,12 +52,12 @@ namespace Ringtoets.Common.Service
 
         /// <summary>
         /// Clears the output WaveHeight 
-        /// of the <see cref="HydraulicBoundaryLocation"/>
+        /// of the <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="location">The <see cref="HydraulicBoundaryLocation"/> 
-        /// to clear the output for</param>
+        /// to clear the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
-        /// is <c>null</c></exception>
+        /// is <c>null</c>.</exception>
         public static void ClearWaveHeight(IHydraulicBoundaryLocation location)
         {
             if (location == null)
@@ -69,18 +69,21 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// 
+        /// Determines whether the calculated output is converged,
+        /// based on the <paramref name="output"/> 
         /// </summary>
-        /// <param name="output"></param>
-        /// <param name="norm"></param>
-        /// <returns></returns>
+        /// <param name="output">The resultant <see cref="ReliabilityIndexCalculationOutput"/> 
+        /// object after a calculation.</param>
+        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <returns>True if the solution converged, false if otherwise</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> 
+        /// is <c>null</c></exception>
         public static bool CalculationConverged(ReliabilityIndexCalculationOutput output, double norm)
         {
             if (output == null)
             {
                 throw new ArgumentNullException("output");
             }
-            double temp = StatisticsConverter.NormToBeta(norm);
             return Math.Abs(output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3;
         }
     }

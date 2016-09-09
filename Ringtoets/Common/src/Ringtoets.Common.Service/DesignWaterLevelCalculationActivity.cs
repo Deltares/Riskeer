@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
-using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.Activities;
@@ -82,9 +81,8 @@ namespace Ringtoets.Common.Service
                 return;
             }
 
-            PerformRun(() => DesignWaterLevelCalculationService.Instance.Validate(
-                messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name), 
-                hydraulicBoundaryDatabaseFilePath),
+            PerformRun(() => DesignWaterLevelCalculationService.Instance.Validate(messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name),
+                                                                                  hydraulicBoundaryDatabaseFilePath),
                        () => RingtoetsCommonDataSynchronizationService.ClearDesignWaterLevel(hydraulicBoundaryLocation),
                        () => DesignWaterLevelCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
                                                                                    hydraulicBoundaryDatabaseFilePath,

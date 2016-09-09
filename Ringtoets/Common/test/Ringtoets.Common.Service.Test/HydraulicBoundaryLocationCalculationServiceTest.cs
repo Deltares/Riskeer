@@ -128,15 +128,15 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculationServiceConfig())
             {
-                var testService = (TestHydraRingCalculationService)HydraRingCalculationService.Instance;
+                var testService = (TestHydraRingCalculationService) HydraRingCalculationService.Instance;
 
                 var service = new TestHydraulicBoundaryLocationCalculationService();
 
                 // Call
                 service.Calculate(hydraulicBoundaryLocationMock,
-                                  validFilePath, 
-                                  ringId, 
-                                  norm, 
+                                  validFilePath,
+                                  ringId,
+                                  norm,
                                   calculationMessageProviderMock);
 
                 // Assert

@@ -93,10 +93,10 @@ namespace Ringtoets.Common.Forms.GuiServices
             {
                 throw new ArgumentNullException("locations");
             }
-            var activities = locations.Select(location => new WaveHeightCalculationActivity(messageProvider, location,
+            var activities = locations.Select(location => new WaveHeightCalculationActivity(location,
                                                                                        hydraulicBoundaryDatabasePath,
                                                                                        ringId,
-                                                                                       norm)).ToArray();
+                                                                                       norm, messageProvider)).ToArray();
             return RunActivities(hydraulicBoundaryDatabasePath, activities);
         }
 

@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
-using Core.Common.Utils;
 using log4net;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.Activities;
@@ -46,14 +45,13 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationActivity"/>.
         /// </summary>
-        /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public WaveHeightCalculationActivity(ICalculationMessageProvider messageProvider,
-                                             IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm)
+        public WaveHeightCalculationActivity(IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm, ICalculationMessageProvider messageProvider)
         {
             if (hydraulicBoundaryLocation == null)
             {
@@ -83,9 +81,8 @@ namespace Ringtoets.Common.Service
                 return;
             }
 
-            PerformRun(() => WaveHeightCalculationService.Instance.Validate(
-                messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name),
-                hydraulicBoundaryDatabaseFilePath),
+            PerformRun(() => WaveHeightCalculationService.Instance.Validate(messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name),
+                                                                            hydraulicBoundaryDatabaseFilePath),
                        () => RingtoetsCommonDataSynchronizationService.ClearWaveHeight(hydraulicBoundaryLocation),
                        () => WaveHeightCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
                                                                              hydraulicBoundaryDatabaseFilePath,
@@ -97,7 +94,7 @@ namespace Ringtoets.Common.Service
             PerformFinish(() =>
             {
                 hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) Output.Result;
-                bool waveHeightCalculationConvergence = RingtoetsCommonDataSynchronizationService.CalculationConverged(Output, norm); 
+                bool waveHeightCalculationConvergence = RingtoetsCommonDataSynchronizationService.CalculationConverged(Output, norm);
                 if (!waveHeightCalculationConvergence)
                 {
                     log.WarnFormat(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));

@@ -257,11 +257,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs.First());
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs.Skip(1).First());
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs.Skip(2).First());
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs.Skip(3).First());
-                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", calculationName), msgs.Last());
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[3]);
+                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", calculationName), msgs[4]);
                 });
             }
             mockRepository.VerifyAll();
@@ -489,11 +489,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs.First());
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs.Skip(1).First());
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs.Skip(2).First());
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs.Skip(3).First());
-                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", calculationName), msgs.Last());
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[3]);
+                    StringAssert.AreNotEqualIgnoringCase(string.Format("Uitvoeren van '{0}' is mislukt.", calculationName), msgs[4]);
                 });
             }
             mockRepository.VerifyAll();
