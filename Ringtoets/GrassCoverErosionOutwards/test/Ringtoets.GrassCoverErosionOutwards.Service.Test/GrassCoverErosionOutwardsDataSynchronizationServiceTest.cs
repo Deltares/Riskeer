@@ -21,8 +21,11 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
@@ -58,6 +61,77 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationOutput_LocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(3.4, 5.3)]
+        [TestCase(3.4, double.NaN)]
+        [TestCase(double.NaN, 8.5)]
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsTrue(double designWaterLevel, double waveHeight)
+        {
+            // Setup
+            var location = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, string.Empty, 0, 0))
+            {
+                DesignWaterLevel = (RoundedDouble) designWaterLevel,
+                WaveHeight = (RoundedDouble) waveHeight
+            };
+
+            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            {
+                location
+            };
+
+            // Call
+            bool affected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
+
+            // Assert
+            Assert.IsNaN(location.DesignWaterLevel);
+            Assert.IsNaN(location.WaveHeight);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+            Assert.IsTrue(affected);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_ReturnsFalse()
+        {
+            // Setup
+            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
+
+            // Call
+            bool affected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
+
+            // Assert
+            Assert.IsFalse(affected);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_ReturnsFalse()
+        {
+            // Setup
+            var location = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, string.Empty, 0, 0));
+
+            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            {
+                location
+            };
+
+            // Call
+            bool affected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
+
+            // Assert
+            Assert.IsFalse(affected);
         }
     }
 }

@@ -20,7 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service
 {
@@ -44,6 +48,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             }
 
             calculation.Output = null;
+        }
+
+        /// <summary>
+        /// Clears the output of the grass cover erosion outwards hydraulic boundary locations within the <see cref="HydraulicBoundaryDatabase"/>.
+        /// </summary>
+        /// <param name="locations">The locations.</param>
+        /// <returns><c>true</c> when one or multiple locations are affected by clearing the output. <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
+        public static bool ClearHydraulicBoundaryLocationOutput(ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations)
+        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException("locations");
+            }
+
+            var locationsAffected = false;
+
+            foreach (var location in locations.Where(location =>
+                                                     !double.IsNaN(location.DesignWaterLevel) ||
+                                                     !double.IsNaN(location.WaveHeight)))
+            {
+                location.DesignWaterLevel = (RoundedDouble) double.NaN;
+                location.WaveHeight = (RoundedDouble) double.NaN;
+                location.DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated;
+                location.WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated;
+                locationsAffected = true;
+            }
+
+            return locationsAffected;
         }
     }
 }

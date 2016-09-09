@@ -298,7 +298,7 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)
             {
-                bool hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase);
+                bool hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
                 if (hydraulicBoundaryLocationAffected)
                 {
                     assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
