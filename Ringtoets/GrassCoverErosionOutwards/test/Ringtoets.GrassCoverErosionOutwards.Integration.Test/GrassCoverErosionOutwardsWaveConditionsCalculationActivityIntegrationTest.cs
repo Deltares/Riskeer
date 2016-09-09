@@ -222,7 +222,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             using (new WaveConditionsCalculationServiceConfig())
             {
-                var testService = (TestWaveConditionsCalculationService)WaveConditionsCalculationService.Instance;
+                var testService = (TestWaveConditionsCalculationService) WaveConditionsCalculationService.Instance;
 
                 // Call
                 activity.Run();
@@ -249,7 +249,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
-        public void Cancel_WhenPerformingCalculation_CurrentAndSubsequentWaterLevelCalculationsCancelled()
+        public void Cancel_WhenPerformingCalculation_CurrentCalculationForWaterLevelCompletesAndSubsequentCalculationsDidNotRun()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -257,7 +257,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
-            var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionOutwards, assessmentSection);
+            var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
+                                                                                          testDataPath,
+                                                                                          assessmentSection.GrassCoverErosionOutwards,
+                                                                                          assessmentSection);
 
             using (new WaveConditionsCalculationServiceConfig())
             {
@@ -284,6 +287,42 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 });
 
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
+            }
+        }
+
+        [Test]
+        public void OnFinish_WhenCancelled_OutputNull()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+
+            var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
+                                                                                          testDataPath,
+                                                                                          assessmentSection.GrassCoverErosionOutwards,
+                                                                                          assessmentSection);
+
+            using (new WaveConditionsCalculationServiceConfig())
+            {
+                activity.ProgressChanged += (sender, args) =>
+                {
+                    if (activity.State != ActivityState.Canceled)
+                    {
+                        // Call
+                        activity.Cancel();
+                    }
+                };
+
+                activity.Run();
+
+                // Call
+                activity.Finish();
+
+                // Assert
+                Assert.AreEqual(ActivityState.Canceled, activity.State);
+                Assert.IsNull(calculation.Output);
             }
         }
 

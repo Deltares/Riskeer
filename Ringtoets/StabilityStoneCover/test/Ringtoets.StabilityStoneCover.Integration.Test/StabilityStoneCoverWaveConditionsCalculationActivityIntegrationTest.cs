@@ -262,7 +262,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        public void Cancel_WhenPerformingCalculationForBlocks_CurrentAndSubsequentWaterLevelCalculationsCancelled()
+        public void Cancel_WhenPerformingCalculationForBlocks_CurrentCalculationForWaterLevelCompletesAndSubsequentCalculationsDidNotRun()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -270,7 +270,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
+                                                                                    testDataPath,
+                                                                                    assessmentSection.StabilityStoneCover,
+                                                                                    assessmentSection);
 
             using (new WaveConditionsCalculationServiceConfig())
             {
@@ -301,7 +304,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        public void Cancel_WhenPerformingCalculationForColumns_CurrentAndSubsequentWaterLevelCalculationsCancelled()
+        public void Cancel_WhenPerformingCalculationForColumns_CurrentCalculationForWaterLevelCompletesAndSubsequentCalculationsDidNotRun()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -309,7 +312,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
 
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, assessmentSection.StabilityStoneCover, assessmentSection);
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
+                                                                                    testDataPath,
+                                                                                    assessmentSection.StabilityStoneCover,
+                                                                                    assessmentSection);
 
             using (new WaveConditionsCalculationServiceConfig())
             {
@@ -338,6 +344,42 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 });
 
                 Assert.AreEqual(ActivityState.Canceled, activity.State);
+            }
+        }
+
+        [Test]
+        public void OnFinish_WhenCancelled_OutputNull()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
+                                                                                    testDataPath,
+                                                                                    assessmentSection.StabilityStoneCover,
+                                                                                    assessmentSection);
+
+            using (new WaveConditionsCalculationServiceConfig())
+            {
+                activity.ProgressChanged += (sender, args) =>
+                {
+                    if (activity.State != ActivityState.Canceled)
+                    {
+                        // Call
+                        activity.Cancel();
+                    }
+                };
+
+                activity.Run();
+
+                // Call
+                activity.Finish();
+
+                // Assert
+                Assert.AreEqual(ActivityState.Canceled, activity.State);
+                Assert.IsNull(calculation.Output);
             }
         }
 
