@@ -119,7 +119,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                 new BrowsableAttribute(true)
             });
 
-            // Asssert
+            // Assert
             Assert.AreEqual(2, dynamicProperties.Count);
 
             PropertyDescriptor blocksProperty = dynamicProperties[requiredBlockPropertyIndex];
