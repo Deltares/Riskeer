@@ -136,7 +136,7 @@
     <value>c</value>
   </data>
   <data name="WaveConditionsOutput_WaterLevel_Description" xml:space="preserve">
-    <value>Berekende waterstand.</value>
+    <value>De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend.</value>
   </data>
   <data name="WaveConditionsOutput_WaterLevel_DisplayName" xml:space="preserve">
     <value>Waterstand [m+NAP]</value>
@@ -151,12 +151,12 @@
     <value>Berekende golfhoogte.</value>
   </data>
   <data name="WaveConditionsOutput_WaveHeight_DisplayName" xml:space="preserve">
-    <value>Golfhoogte [m]</value>
+    <value>Golfhoogte (Hs) [m]</value>
   </data>
   <data name="WaveConditionsOutput_WavePeakPeriod_Description" xml:space="preserve">
     <value>Berekende golfperiode.</value>
   </data>
   <data name="WaveConditionsOutput_WavePeakPeriod_DisplayName" xml:space="preserve">
-    <value>Golfperiode [s]</value>
+    <value>Golfperiode (Tp) [s]</value>
   </data>
 </root>

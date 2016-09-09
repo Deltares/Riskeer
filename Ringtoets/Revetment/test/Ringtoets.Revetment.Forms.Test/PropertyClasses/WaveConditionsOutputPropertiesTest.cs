@@ -70,11 +70,11 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             const string expectedCategory = "Algemeen";
             const string expectedWaterLevelDisplayName = "Waterstand [m+NAP]";
-            const string expectedWaveHeightDisplayName = "Golfhoogte [m]";
-            const string expectedWavePeakPeriodDisplayName = "Golfperiode [s]";
+            const string expectedWaveHeightDisplayName = "Golfhoogte (Hs) [m]";
+            const string expectedWavePeakPeriodDisplayName = "Golfperiode (Tp) [s]";
             const string expectedWaveAngleDisplayName = "Golfrichting [°]";
 
-            const string expectedWaterLevelDescription = "Berekende waterstand.";
+            const string expectedWaterLevelDescription = "De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend.";
             const string expectedWaveHeightDescription = "Berekende golfhoogte.";
             const string expectedWavePeakPeriodDescription = "Berekende golfperiode.";
             const string expectedWaveAngleDescription = "Berekende golfrichting.";

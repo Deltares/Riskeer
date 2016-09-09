@@ -136,7 +136,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende waterstand..
+        ///   Looks up a localized string similar to De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend..
         /// </summary>
         internal static string WaveConditionsOutput_WaterLevel_Description {
             get {
@@ -181,7 +181,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte [m].
+        ///   Looks up a localized string similar to Golfhoogte (Hs) [m].
         /// </summary>
         internal static string WaveConditionsOutput_WaveHeight_DisplayName {
             get {
@@ -199,7 +199,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfperiode [s].
+        ///   Looks up a localized string similar to Golfperiode (Tp) [s].
         /// </summary>
         internal static string WaveConditionsOutput_WavePeakPeriod_DisplayName {
             get {
