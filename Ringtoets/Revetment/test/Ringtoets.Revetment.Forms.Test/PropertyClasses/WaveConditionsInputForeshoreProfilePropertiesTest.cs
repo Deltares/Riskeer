@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -34,7 +36,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
     [TestFixture]
     public class WaveConditionsInputForeshoreProfilePropertiesTest
     {
-
         private const int useForeshorePropertyIndex = 0;
         private const int coordinatesPropertyIndex = 1;
 
@@ -119,130 +120,25 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        [Test]
-        public void PropertyAttributes_WithDikeProfileAndWithEmptyForeland_ReturnExpectedValues()
-        {
-            // Setup
-            var input = new WaveConditionsInput
-            {
-                ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                              null, new ForeshoreProfile.ConstructionProperties())
-            };
-
-            // Call
-            var properties = new WaveConditionsInputForeshoreProfileProperties
-            {
-                Data = input
-            };
-
-            // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(3, dynamicProperties.Count);
-
-            PropertyDescriptor useForeshoreProperty = dynamicProperties[useForeshorePropertyIndex];
-            Assert.IsNotNull(useForeshoreProperty);
-            Assert.IsTrue(useForeshoreProperty.IsReadOnly);
-            Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
-            Assert.AreEqual("Moet het voorlandprofiel worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
-
-            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
-            Assert.IsNotNull(coordinatesProperty);
-            Assert.IsTrue(coordinatesProperty.IsReadOnly);
-            Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
-        }
-
-        [Test]
-        public void PropertyAttributes_WithDikeProfileAndWithOnePointForeland_ReturnExpectedValues()
-        {
-            // Setup
-            var input = new WaveConditionsInput
-            {
-                ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                              new[]
-                                              {
-                                                  new Point2D(0, 0)
-                                              }, null, new ForeshoreProfile.ConstructionProperties())
-            };
-
-            // Call
-            var properties = new WaveConditionsInputForeshoreProfileProperties
-            {
-                Data = input
-            };
-
-            // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(3, dynamicProperties.Count);
-
-            PropertyDescriptor useForeshoreProperty = dynamicProperties[useForeshorePropertyIndex];
-            Assert.IsNotNull(useForeshoreProperty);
-            Assert.IsTrue(useForeshoreProperty.IsReadOnly);
-            Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
-            Assert.AreEqual("Moet het voorlandprofiel worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
-
-            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
-            Assert.IsNotNull(coordinatesProperty);
-            Assert.IsTrue(coordinatesProperty.IsReadOnly);
-            Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
-        }
-
-        [Test]
-        public void PropertyAttributes_WithDikeProfileAndWithTwoPointForeland_ReturnExpectedValues()
-        {
-            // Setup
-            var input = new WaveConditionsInput
-            {
-                ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                              new[]
-                                              {
-                                                  new Point2D(0, 0),
-                                                  new Point2D(1, 1)
-                                              }, null, new ForeshoreProfile.ConstructionProperties())
-            };
-
-            // Call
-            var properties = new WaveConditionsInputForeshoreProfileProperties
-            {
-                Data = input
-            };
-
-            // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(3, dynamicProperties.Count);
-
-            PropertyDescriptor useForeshoreProperty = dynamicProperties[useForeshorePropertyIndex];
-            Assert.IsNotNull(useForeshoreProperty);
-            Assert.IsFalse(useForeshoreProperty.IsReadOnly);
-            Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
-            Assert.AreEqual("Moet het voorlandprofiel worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
-
-            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
-            Assert.IsNotNull(coordinatesProperty);
-            Assert.IsTrue(coordinatesProperty.IsReadOnly);
-            Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
-        }
-
-        [TestCase(true)]
-        [TestCase(false)]
-        public void PropertyAttributes_WithOrWithoutDikeProfile_ReturnExpectedValues(bool withDikeProfile)
+        [TestCase(true, 0, true, TestName = "Properties_ForeshoreProfileAndForelands_ReturnValues(true, 0, true)")]
+        [TestCase(true, 1, true, TestName = "Properties_ForeshoreProfileAndForelands_ReturnValues(true, 1, true)")]
+        [TestCase(true, 2, false, TestName = "Properties_ForeshoreProfileAndForelands_ReturnValues(true, 2, false)")]
+        [TestCase(false, 0, true, TestName = "Properties_ForeshoreProfileAndForelands_ReturnValues(false, 0, true)")]
+        public void PropertyAttributes_WithOrWithoutForeshoreProfileAndForelands_ReturnExpectedValues(bool withDikeProfile, int forlands, bool expectedCoordinatesPropertyReadOnly)
         {
             // Setup
             var input = new WaveConditionsInput();
 
             if (withDikeProfile)
             {
+                var point2Ds = new List<Point2D>();
+                for (var i = 0; i < forlands; i++)
+                {
+                    point2Ds.Add(new Point2D(i, i));
+                }
+
                 input.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                    new[]
-                                                    {
-                                                        new Point2D(0, 0),
-                                                        new Point2D(1, 1)
-                                                    }, null, new ForeshoreProfile.ConstructionProperties());
+                                                              point2Ds, null, new ForeshoreProfile.ConstructionProperties());
             }
 
             // Call
@@ -253,12 +149,15 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(3, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                BrowsableAttribute.Yes
+            });
+            Assert.AreEqual(2, dynamicProperties.Count);
 
             PropertyDescriptor useForeshoreProperty = dynamicProperties[useForeshorePropertyIndex];
             Assert.IsNotNull(useForeshoreProperty);
-            Assert.AreEqual(!withDikeProfile, useForeshoreProperty.IsReadOnly);
+            Assert.AreEqual(expectedCoordinatesPropertyReadOnly, useForeshoreProperty.IsReadOnly);
             Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
             Assert.AreEqual("Moet het voorlandprofiel worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
 
@@ -267,6 +166,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.IsTrue(coordinatesProperty.IsReadOnly);
             Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
             Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
-        } 
+        }
     }
 }

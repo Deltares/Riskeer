@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -63,10 +64,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 5.3,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
+                    LowerBoundaryRevetment = (RoundedDouble)5.3,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)5.4,
+                    LowerBoundaryWaterLevels = (RoundedDouble)5
                 }
             };
 
@@ -220,7 +221,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
             using (new WaveConditionsCalculationServiceConfig())
             {
-                var testService = (TestWaveConditionsCalculationService) WaveConditionsCalculationService.Instance;
+                var testService = (TestWaveConditionsCalculationService)WaveConditionsCalculationService.Instance;
 
                 // Call
                 activity.Run();
@@ -233,21 +234,21 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
                 for (int i = 0; i < testWaveConditionsInputs.Length; i++)
                 {
-                    GeneralStabilityStoneCoverWaveConditionsInput generalWaveConditionsInput = assessmentSection.StabilityStoneCover.GeneralInput;
+                    GeneralStabilityStoneCoverWaveConditionsInput generalInput = assessmentSection.StabilityStoneCover.GeneralInput;
 
                     if (i%2 == 0)
                     {
                         Assert.AreEqual(calculation.InputParameters.WaterLevels.ToArray()[waterLevelIndex], testWaveConditionsInputs[i].WaterLevel);
-                        Assert.AreEqual(generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.A, testWaveConditionsInputs[i].A);
-                        Assert.AreEqual(generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.B, testWaveConditionsInputs[i].B);
-                        Assert.AreEqual(generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.C, testWaveConditionsInputs[i].C);
+                        Assert.AreEqual(generalInput.GeneralBlocksWaveConditionsInput.A, testWaveConditionsInputs[i].A, generalInput.GeneralBlocksWaveConditionsInput.A.GetAccuracy());
+                        Assert.AreEqual(generalInput.GeneralBlocksWaveConditionsInput.B, testWaveConditionsInputs[i].B, generalInput.GeneralBlocksWaveConditionsInput.B.GetAccuracy());
+                        Assert.AreEqual(generalInput.GeneralBlocksWaveConditionsInput.C, testWaveConditionsInputs[i].C, generalInput.GeneralBlocksWaveConditionsInput.C.GetAccuracy());
                     }
                     else
                     {
                         Assert.AreEqual(calculation.InputParameters.WaterLevels.ToArray()[waterLevelIndex], testWaveConditionsInputs[i].WaterLevel);
-                        Assert.AreEqual(generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.A, testWaveConditionsInputs[i].A);
-                        Assert.AreEqual(generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.B, testWaveConditionsInputs[i].B);
-                        Assert.AreEqual(generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.C, testWaveConditionsInputs[i].C);
+                        Assert.AreEqual(generalInput.GeneralColumnsWaveConditionsInput.A, testWaveConditionsInputs[i].A, generalInput.GeneralColumnsWaveConditionsInput.A.GetAccuracy());
+                        Assert.AreEqual(generalInput.GeneralColumnsWaveConditionsInput.B, testWaveConditionsInputs[i].B, generalInput.GeneralColumnsWaveConditionsInput.B.GetAccuracy());
+                        Assert.AreEqual(generalInput.GeneralColumnsWaveConditionsInput.C, testWaveConditionsInputs[i].C, generalInput.GeneralColumnsWaveConditionsInput.C.GetAccuracy());
 
                         waterLevelIndex++;
                     }
@@ -442,13 +443,13 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
+                    LowerBoundaryRevetment = (RoundedDouble)4,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)8,
+                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
             return calculation;
         }
 

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -97,52 +98,11 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public void PropertyAttributes_Always_ReturnExpectedValues(bool withDikeProfile)
-        {
-            // Setup
-            var input = new WaveConditionsInput();
-
-            if (withDikeProfile)
-            {
-                input.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(),
-                                                    new BreakWater(BreakWaterType.Caisson, 1.1), new ForeshoreProfile.ConstructionProperties());
-            }
-
-            // Call
-            var properties = new WaveConditionsInputBreakWaterProperties
-            {
-                Data = input
-            };
-
-            // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
-            Assert.IsNotNull(useBreakWaterProperty);
-            Assert.AreEqual(!withDikeProfile, useBreakWaterProperty.IsReadOnly);
-            Assert.AreEqual("Gebruik", useBreakWaterProperty.DisplayName);
-            Assert.AreEqual("Moet de dam worden gebruikt tijdens de berekening?", useBreakWaterProperty.Description);
-
-            PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
-            Assert.IsNotNull(breakWaterTypeProperty);
-            Assert.AreEqual(!withDikeProfile, breakWaterTypeProperty.IsReadOnly);
-            Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
-            Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
-
-            PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
-            Assert.IsNotNull(breakWaterHeightProperty);
-            Assert.AreEqual(!withDikeProfile, breakWaterHeightProperty.IsReadOnly);
-            Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dam.", breakWaterHeightProperty.Description);
-        }
-
-        [TestCase(true, TestName = "PropertyAttributes_WithDikeProfileAndWaterState_ReturnValues(true)")]
-        [TestCase(false, TestName = "PropertyAttributes_WithDikeProfileAndWaterState_ReturnValues(false)")]
-        public void PropertyAttributes_WithDikeProfileAndSpecificUseBreakWaterState_ReturnExpectedValues(bool useBreakWaterState)
+        [TestCase(true, true, TestName = "Property_ForeshoreProfileAndUseBreakWaterState_ReturnValues(true, true)")]
+        [TestCase(true, false, TestName = "Property_ForeshoreProfileAndUseBreakWaterState_ReturnValues(true, false)")]
+        [TestCase(false, true, TestName = "Property_ForeshoreProfileAndUseBreakWaterState_ReturnValues(false, true)")]
+        [TestCase(false, false, TestName = "Property_ForeshoreProfileAndUseBreakWaterState_ReturnValues(false, false)")]
+        public void PropertyAttributes_SpecificForeshoreProfileAndUseBreakWaterState_ReturnExpectedValues(bool useBreakWaterState, bool useForeshoreProfile)
         {
             // Setup
             var input = new WaveConditionsInput();
@@ -152,13 +112,14 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 breakWater = new BreakWater(BreakWaterType.Caisson, 1.1);
             }
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(),
-                                                    breakWater, new ForeshoreProfile.ConstructionProperties());
-
-            input.ForeshoreProfile = foreshoreProfile;
+            if (useForeshoreProfile)
+            {
+                input.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(),
+                                                              breakWater, new ForeshoreProfile.ConstructionProperties());
+            }
 
             // Precondition
-            Assert.AreEqual(useBreakWaterState, input.UseBreakWater);
+            Assert.AreEqual(useBreakWaterState && useForeshoreProfile, input.UseBreakWater);
 
             // Call
             var properties = new WaveConditionsInputBreakWaterProperties
@@ -168,26 +129,29 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(4, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                BrowsableAttribute.Yes
+            });
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
             Assert.IsNotNull(useBreakWaterProperty);
-            Assert.IsFalse(useBreakWaterProperty.IsReadOnly);
+            Assert.AreEqual(!useForeshoreProfile, useBreakWaterProperty.IsReadOnly);
             Assert.AreEqual("Gebruik", useBreakWaterProperty.DisplayName);
             Assert.AreEqual("Moet de dam worden gebruikt tijdens de berekening?", useBreakWaterProperty.Description);
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
             Assert.IsNotNull(breakWaterTypeProperty);
-            Assert.AreEqual(!useBreakWaterState, breakWaterTypeProperty.IsReadOnly);
+            Assert.AreEqual(!(useBreakWaterState && useForeshoreProfile), breakWaterTypeProperty.IsReadOnly);
             Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
             Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
 
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
             Assert.IsNotNull(breakWaterHeightProperty);
-            Assert.AreEqual(!useBreakWaterState, breakWaterHeightProperty.IsReadOnly);
+            Assert.AreEqual(!(useBreakWaterState && useForeshoreProfile), breakWaterHeightProperty.IsReadOnly);
             Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de dam.", breakWaterHeightProperty.Description);
-        } 
+        }
     }
 }

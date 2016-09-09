@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
+
 namespace Ringtoets.Revetment.Data
 {
     /// <summary>
@@ -26,6 +28,10 @@ namespace Ringtoets.Revetment.Data
     /// </summary>
     public class GeneralWaveConditionsInput
     {
+        private readonly RoundedDouble a;
+        private readonly RoundedDouble b;
+        private readonly RoundedDouble c;
+
         /// <summary>
         /// Creates a new instance of <see cref="GeneralWaveConditionsInput"/>.
         /// </summary>
@@ -34,24 +40,42 @@ namespace Ringtoets.Revetment.Data
         /// <param name="c">The 'c' parameter used in wave conditions calculations.</param>
         public GeneralWaveConditionsInput(double a, double b, double c)
         {
-            A = a;
-            B = b;
-            C = c;
+            this.a = new RoundedDouble(2, a);
+            this.b = new RoundedDouble(2, b);
+            this.c = new RoundedDouble(2, c);
         }
 
         /// <summary>
         /// Gets the 'a' parameter used in wave conditions calculations.
         /// </summary>
-        public double A { get; private set; }
+        public RoundedDouble A
+        {
+            get
+            {
+                return a;
+            }
+        }
 
         /// <summary>
         /// Gets the 'b' parameter used in wave conditions calculations.
         /// </summary>
-        public double B { get; private set; }
+        public RoundedDouble B
+        {
+            get
+            {
+                return b;
+            }
+        }
 
         /// <summary>
         /// Gets the 'c' parameter used in wave conditions calculations.
         /// </summary>
-        public double C { get; private set; }
+        public RoundedDouble C
+        {
+            get
+            {
+                return c;
+            }
+        }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.StabilityStoneCover.Data.Test
 {
@@ -29,25 +30,23 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            double aBlocks = 1.0;
-            double bBlocks = 1.0;
-            double cBlocks = 1.0;
-
-            double aColumns = 1.0;
-            double bColumns = 0.4;
-            double cColumns = 0.8;
-
             // Call
             var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
 
             // Assert
-            Assert.AreEqual(aBlocks, generalInput.GeneralBlocksWaveConditionsInput.A);
-            Assert.AreEqual(bBlocks, generalInput.GeneralBlocksWaveConditionsInput.B);
-            Assert.AreEqual(cBlocks, generalInput.GeneralBlocksWaveConditionsInput.C);
-            Assert.AreEqual(aColumns, generalInput.GeneralColumnsWaveConditionsInput.A);
-            Assert.AreEqual(bColumns, generalInput.GeneralColumnsWaveConditionsInput.B);
-            Assert.AreEqual(cColumns, generalInput.GeneralColumnsWaveConditionsInput.C);
+            const double aBlocks = 1.0;
+            const double bBlocks = 1.0;
+            const double cBlocks = 1.0;
+
+            const double aColumns = 1.0;
+            const double bColumns = 0.4;
+            const double cColumns = 0.8;
+            Assert.AreEqual(aBlocks, generalInput.GeneralBlocksWaveConditionsInput.A, generalInput.GeneralBlocksWaveConditionsInput.A.GetAccuracy());
+            Assert.AreEqual(bBlocks, generalInput.GeneralBlocksWaveConditionsInput.B, generalInput.GeneralBlocksWaveConditionsInput.B.GetAccuracy());
+            Assert.AreEqual(cBlocks, generalInput.GeneralBlocksWaveConditionsInput.C, generalInput.GeneralBlocksWaveConditionsInput.C.GetAccuracy());
+            Assert.AreEqual(aColumns, generalInput.GeneralColumnsWaveConditionsInput.A, generalInput.GeneralColumnsWaveConditionsInput.A.GetAccuracy());
+            Assert.AreEqual(bColumns, generalInput.GeneralColumnsWaveConditionsInput.B, generalInput.GeneralColumnsWaveConditionsInput.B.GetAccuracy());
+            Assert.AreEqual(cColumns, generalInput.GeneralColumnsWaveConditionsInput.C, generalInput.GeneralColumnsWaveConditionsInput.C.GetAccuracy());
         }
     }
 }

@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
@@ -63,10 +64,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 5.3,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
+                    LowerBoundaryRevetment = (RoundedDouble)5.3,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)5.4,
+                    LowerBoundaryWaterLevels = (RoundedDouble)5
                 }
             };
 
@@ -222,7 +223,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
 
             using (new WaveConditionsCalculationServiceConfig())
             {
-                var testService = (TestWaveConditionsCalculationService) WaveConditionsCalculationService.Instance;
+                var testService = (TestWaveConditionsCalculationService)WaveConditionsCalculationService.Instance;
 
                 // Call
                 activity.Run();
@@ -236,9 +237,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     GeneralWaveConditionsInput generalWaveConditionsInput = assessmentSection.WaveImpactAsphaltCover.GeneralInput;
 
                     Assert.AreEqual(calculation.InputParameters.WaterLevels.ToArray()[i], testWaveConditionsInputs[i].WaterLevel);
-                    Assert.AreEqual(generalWaveConditionsInput.A, testWaveConditionsInputs[i].A);
-                    Assert.AreEqual(generalWaveConditionsInput.B, testWaveConditionsInputs[i].B);
-                    Assert.AreEqual(generalWaveConditionsInput.C, testWaveConditionsInputs[i].C);
+                    Assert.AreEqual(generalWaveConditionsInput.A, testWaveConditionsInputs[i].A, generalWaveConditionsInput.A.GetAccuracy());
+                    Assert.AreEqual(generalWaveConditionsInput.B, testWaveConditionsInputs[i].B, generalWaveConditionsInput.B.GetAccuracy());
+                    Assert.AreEqual(generalWaveConditionsInput.C, testWaveConditionsInputs[i].C, generalWaveConditionsInput.C.GetAccuracy());
                     Assert.AreEqual(assessmentSection.FailureMechanismContribution.Norm, testWaveConditionsInputs[i].Norm);
                     Assert.AreSame(calculation.InputParameters, testWaveConditionsInputs[i].WaveConditionsInput);
                     Assert.AreEqual(testDataPath, testWaveConditionsInputs[i].HlcdDirectory);
@@ -390,13 +391,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
+                    LowerBoundaryRevetment = (RoundedDouble)4,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)8,
+                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
             return calculation;
         }
 

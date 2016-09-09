@@ -30,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
@@ -63,10 +64,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 5.3,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
+                    LowerBoundaryRevetment = (RoundedDouble)5.3,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)5.4,
+                    LowerBoundaryWaterLevels = (RoundedDouble)5
                 }
             };
 
@@ -233,12 +234,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
                 for (int i = 0; i < testWaveConditionsInputs.Length; i++)
                 {
-                    GeneralGrassCoverErosionOutwardsInput generalWaveConditionsInput = assessmentSection.GrassCoverErosionOutwards.GeneralInput;
+                    GeneralGrassCoverErosionOutwardsInput generalInput = assessmentSection.GrassCoverErosionOutwards.GeneralInput;
 
                     Assert.AreEqual(calculation.InputParameters.WaterLevels.ToArray()[i], testWaveConditionsInputs[i].WaterLevel);
-                    Assert.AreEqual(generalWaveConditionsInput.GeneralWaveConditionsInput.A, testWaveConditionsInputs[i].A);
-                    Assert.AreEqual(generalWaveConditionsInput.GeneralWaveConditionsInput.B, testWaveConditionsInputs[i].B);
-                    Assert.AreEqual(generalWaveConditionsInput.GeneralWaveConditionsInput.C, testWaveConditionsInputs[i].C);
+                    Assert.AreEqual(generalInput.GeneralWaveConditionsInput.A, testWaveConditionsInputs[i].A, generalInput.GeneralWaveConditionsInput.A.GetAccuracy());
+                    Assert.AreEqual(generalInput.GeneralWaveConditionsInput.B, testWaveConditionsInputs[i].B, generalInput.GeneralWaveConditionsInput.B.GetAccuracy());
+                    Assert.AreEqual(generalInput.GeneralWaveConditionsInput.C, testWaveConditionsInputs[i].C, generalInput.GeneralWaveConditionsInput.C.GetAccuracy());
                     Assert.AreEqual(assessmentSection.FailureMechanismContribution.Norm, testWaveConditionsInputs[i].Norm);
                     Assert.AreSame(calculation.InputParameters, testWaveConditionsInputs[i].WaveConditionsInput);
                     Assert.AreEqual(testDataPath, testWaveConditionsInputs[i].HlcdDirectory);
@@ -390,13 +391,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
+                    LowerBoundaryRevetment = (RoundedDouble)4,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)8,
+                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
             return calculation;
         }
 

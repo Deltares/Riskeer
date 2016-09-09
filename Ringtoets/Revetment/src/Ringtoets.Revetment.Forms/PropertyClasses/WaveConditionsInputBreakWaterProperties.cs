@@ -33,7 +33,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Revetment.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="WaveConditionsInput.BreakWater
+    /// ViewModel of <see cref="WaveConditionsInput.BreakWater"/>.
     /// </summary>
     public class WaveConditionsInputBreakWaterProperties : ObjectProperties<WaveConditionsInput>
     {

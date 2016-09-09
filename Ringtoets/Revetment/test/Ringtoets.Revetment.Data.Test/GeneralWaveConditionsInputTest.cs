@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Revetment.Data.Test
 {
@@ -30,17 +32,21 @@ namespace Ringtoets.Revetment.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            double a = 1.0;
-            double b = 0.76;
-            double c = 0.8;
+            var random = new Random(21);
+            double a = random.NextDouble();
+            double b = random.NextDouble();
+            double c = random.NextDouble();
 
             // Call
             var generalInput = new GeneralWaveConditionsInput(a, b, c);
 
             // Assert
-            Assert.AreEqual(a, generalInput.A);
-            Assert.AreEqual(b, generalInput.B);
-            Assert.AreEqual(c, generalInput.C);
+            Assert.AreEqual(a, generalInput.A, generalInput.A.GetAccuracy());
+            Assert.AreEqual(2, generalInput.A.NumberOfDecimalPlaces);
+            Assert.AreEqual(b, generalInput.B, generalInput.B.GetAccuracy());
+            Assert.AreEqual(2, generalInput.B.NumberOfDecimalPlaces);
+            Assert.AreEqual(c, generalInput.C, generalInput.C.GetAccuracy());
+            Assert.AreEqual(2, generalInput.C.NumberOfDecimalPlaces);
         }
     }
 }

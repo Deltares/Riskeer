@@ -42,7 +42,6 @@ namespace Ringtoets.Revetment.Data
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble upperBoundaryRevetment;
         private RoundedDouble lowerBoundaryRevetment;
-        private WaveConditionsInputStepSize stepSize;
         private RoundedDouble upperBoundaryWaterLevels;
         private RoundedDouble lowerBoundaryWaterLevels;
         private RoundedDouble orientation;
@@ -56,7 +55,7 @@ namespace Ringtoets.Revetment.Data
 
             upperBoundaryRevetment = new RoundedDouble(2, double.NaN);
             lowerBoundaryRevetment = new RoundedDouble(2, double.NaN);
-            stepSize = WaveConditionsInputStepSize.Half;
+            StepSize = WaveConditionsInputStepSize.Half;
             upperBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
             lowerBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
 
@@ -194,18 +193,7 @@ namespace Ringtoets.Revetment.Data
         /// <summary>
         /// Gets or sets the step size used for determining <see cref="WaterLevels"/>.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <c>0</c>.</exception>
-        public WaveConditionsInputStepSize StepSize
-        {
-            get
-            {
-                return stepSize;
-            }
-            set
-            {
-                stepSize = value;
-            }
-        }
+        public WaveConditionsInputStepSize StepSize { get; set; }
 
         /// <summary>
         /// Gets or sets the lower boundary of the <see cref="WaterLevels"/> range.
@@ -310,7 +298,7 @@ namespace Ringtoets.Revetment.Data
 
             waterLevels.Add(lowerBoundary);
 
-            double stepSizeValue = stepSize.AsValue();
+            double stepSizeValue = StepSize.AsValue();
             RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary/stepSizeValue)*stepSizeValue + stepSizeValue);
 
             while (currentWaterLevel < upperBoundary)

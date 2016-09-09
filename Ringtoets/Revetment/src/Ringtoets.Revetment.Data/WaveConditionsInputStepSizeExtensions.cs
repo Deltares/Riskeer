@@ -33,6 +33,7 @@ namespace Ringtoets.Revetment.Data
         /// </summary>
         /// <param name="stepSize">The step size to get a real value for.</param>
         /// <returns>The real value of <paramref name="stepSize"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stepSize"/> when using an invalid stepsize.</exception>
         public static double AsValue(this WaveConditionsInputStepSize stepSize)
         {
             switch (stepSize)
@@ -44,7 +45,7 @@ namespace Ringtoets.Revetment.Data
                 case WaveConditionsInputStepSize.Two:
                     return 2.0;
                 default:
-                    throw new InvalidEnumArgumentException("stepSize", (int) stepSize, typeof(WaveConditionsInputStepSize));
+                    throw new InvalidEnumArgumentException("stepSize", (int)stepSize, typeof(WaveConditionsInputStepSize));
             }
         }
     }

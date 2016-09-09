@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Revetment.Data;
@@ -33,7 +34,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     {
         [ResourcesDisplayName(typeof(Resources), "GeneralWaveConditionsInput_A_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralWaveConditionsInput_A_Description")]
-        public double A
+        public RoundedDouble A
         {
             get
             {
@@ -43,7 +44,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
 
         [ResourcesDisplayName(typeof(Resources), "GeneralWaveConditionsInput_B_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralWaveConditionsInput_B_Description")]
-        public double B
+        public RoundedDouble B
         {
             get
             {
@@ -53,7 +54,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
 
         [ResourcesDisplayName(typeof(Resources), "GeneralWaveConditionsInput_C_DisplayName")]
         [ResourcesDescription(typeof(Resources), "GeneralWaveConditionsInput_C_Description")]
-        public double C
+        public RoundedDouble C
         {
             get
             {

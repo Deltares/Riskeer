@@ -23,8 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
@@ -33,7 +32,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
     [TestFixture]
     public class GeneralWaveConditionsInputPropertiesTest
     {
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -59,9 +57,9 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             properties.Data = new GeneralWaveConditionsInput(a, b, c);
 
             // Assert
-            Assert.AreEqual(a, properties.A);
-            Assert.AreEqual(b, properties.B);
-            Assert.AreEqual(c, properties.C);
+            Assert.AreEqual(a, properties.A, properties.A.GetAccuracy());
+            Assert.AreEqual(b, properties.B, properties.B.GetAccuracy());
+            Assert.AreEqual(c, properties.C, properties.C.GetAccuracy());
         }
 
         [Test]

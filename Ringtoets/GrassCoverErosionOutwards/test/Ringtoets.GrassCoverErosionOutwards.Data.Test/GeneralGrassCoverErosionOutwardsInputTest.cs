@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {
@@ -37,9 +38,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.AreEqual(2, inputParameters.N);
-            Assert.AreEqual(1.0, inputParameters.GeneralWaveConditionsInput.A);
-            Assert.AreEqual(0.67, inputParameters.GeneralWaveConditionsInput.B);
-            Assert.AreEqual(0.0, inputParameters.GeneralWaveConditionsInput.C);
+            Assert.AreEqual(1.0, inputParameters.GeneralWaveConditionsInput.A, inputParameters.GeneralWaveConditionsInput.A.GetAccuracy());
+            Assert.AreEqual(0.67, inputParameters.GeneralWaveConditionsInput.B, inputParameters.GeneralWaveConditionsInput.B.GetAccuracy());
+            Assert.AreEqual(0.0, inputParameters.GeneralWaveConditionsInput.C, inputParameters.GeneralWaveConditionsInput.C.GetAccuracy());
         }
 
         [Test]
@@ -75,6 +76,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Assert
             var expectedMessage = Resources.N_Value_should_be_in_interval_1_20;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-        } 
+        }
     }
 }
