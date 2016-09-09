@@ -38,7 +38,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ForeshoreProfileContextTreeNodeInfoTest
+    public class ForeshoreProfilesContextTreeNodeInfoTest
     {
         private RingtoetsPlugin plugin;
         private TreeNodeInfo info;

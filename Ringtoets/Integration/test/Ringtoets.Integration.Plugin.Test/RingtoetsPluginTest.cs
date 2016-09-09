@@ -46,7 +46,6 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Service.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -57,6 +56,7 @@ using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -179,7 +179,7 @@ namespace Ringtoets.Integration.Plugin.Test
                     // Then
                     var fileMissingMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.", nonExistingFileExistingFile);
                     string message = string.Format(
-                        Resources.Hydraulic_boundary_database_connection_failed_0_,
+                        RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                         fileMissingMessage);
                     TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
                 }
