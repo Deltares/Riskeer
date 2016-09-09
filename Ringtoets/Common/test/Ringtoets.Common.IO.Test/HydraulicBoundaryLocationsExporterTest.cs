@@ -105,7 +105,7 @@ namespace Ringtoets.Common.IO.Test
         }
 
         [Test]
-        public void Export_ValidData_ReturnTrue()
+        public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
@@ -118,6 +118,7 @@ namespace Ringtoets.Common.IO.Test
                                                               "Export_ValidData_ReturnTrue");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
+            var baseName = "test";
 
             var exporter = new HydraulicBoundaryLocationsExporter(new[]
             {
@@ -129,14 +130,55 @@ namespace Ringtoets.Common.IO.Test
             {
                 // Call
                 isExported = exporter.Export();
+
+                // Assert
+                AssertEssentialShapefileExists(directoryPath, baseName, true);
             }
             finally
             {
                 Directory.Delete(directoryPath, true);
             }
 
-            // Assert
             Assert.IsTrue(isExported);
+        }
+
+        [Test]
+        public void Export_ValidData_WritesCorrectData()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            {
+                DesignWaterLevel = (RoundedDouble) 111.111,
+                WaveHeight = (RoundedDouble) 222.222
+            };
+
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                              "Export_ValidData_ReturnTrue");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.shp");
+            var baseName = "test";
+
+            var exporter = new HydraulicBoundaryLocationsExporter(new[]
+            {
+                hydraulicBoundaryLocation
+            }, filePath, "Toetspeil");
+
+            // Precondition
+            AssertEssentialShapefileExists(directoryPath, baseName, false);
+
+            try
+            {
+                // Call
+                exporter.Export();
+
+                // Assert
+                AssertEssentialShapefileExists(directoryPath, baseName, true);
+                AssertEssentialShapefileMd5Hashes(directoryPath, baseName);
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
         }
 
         [Test]
@@ -178,6 +220,33 @@ namespace Ringtoets.Common.IO.Test
             {
                 Directory.Delete(directoryPath, true);
             }
+        }
+
+        private static void AssertEssentialShapefileExists(string directoryPath, string baseName, bool shouldExist)
+        {
+            string pathName = Path.Combine(directoryPath, baseName);
+            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shp"));
+            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shx"));
+            Assert.AreEqual(shouldExist, File.Exists(pathName + ".dbf"));
+        }
+
+        private void AssertEssentialShapefileMd5Hashes(string directoryPath, string baseName)
+        {
+            string refPathName = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO), "PointShapefileMd5");
+            string pathName = Path.Combine(directoryPath, baseName);
+
+            AssertBinaryFileContent(refPathName, pathName, ".shp", 100, 28);
+            AssertBinaryFileContent(refPathName, pathName, ".shx", 100, 8);
+            AssertBinaryFileContent(refPathName, pathName, ".dbf", 32, 441);
+        }
+
+        private static void AssertBinaryFileContent(string refPathName, string pathName, string extension, int headerLength, int bodyLength)
+        {
+            var refContent = File.ReadAllBytes(refPathName + extension);
+            var content = File.ReadAllBytes(pathName + extension);
+            Assert.AreEqual(headerLength + bodyLength, content.Length);
+            Assert.AreEqual(refContent.Skip(headerLength).Take(bodyLength),
+                            content.Skip(headerLength).Take(bodyLength));
         }
     }
 }
