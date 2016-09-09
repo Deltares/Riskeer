@@ -76,6 +76,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
