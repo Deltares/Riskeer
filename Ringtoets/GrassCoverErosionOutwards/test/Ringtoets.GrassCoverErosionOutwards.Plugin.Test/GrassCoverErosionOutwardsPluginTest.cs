@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
@@ -134,6 +135,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsNull(hydraulicBoundaryLocationExportInfo.Name);
                 Assert.IsNull(hydraulicBoundaryLocationExportInfo.Image);
                 Assert.IsNull(hydraulicBoundaryLocationExportInfo.Category);
+            }
+        }
+
+        [Test]
+        public void Activate_GuiNull_ThrowInvalidOperationException()
+        {
+            // Setup
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                // Call
+                TestDelegate test = () => plugin.Activate();
+
+                // Assert
+                var exception = Assert.Throws<InvalidOperationException>(test);
+                Assert.AreEqual("Gui cannot be null", exception.Message);
             }
         }
     }
