@@ -311,7 +311,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 {
                     if (activity.State != ActivityState.Canceled)
                     {
-                        // Call
                         activity.Cancel();
                     }
                 };

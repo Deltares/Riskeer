@@ -368,7 +368,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 {
                     if (activity.State != ActivityState.Canceled)
                     {
-                        // Call
                         activity.Cancel();
                     }
                 };
