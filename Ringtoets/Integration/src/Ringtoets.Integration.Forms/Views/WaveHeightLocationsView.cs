@@ -57,13 +57,10 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 return;
             }
-            CalculationGuiService.CalculateWaveHeights(
-                new WaveHeightCalculationMessageProvider(),
-                AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                AssessmentSection.HydraulicBoundaryDatabase,
+            CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                 locations,
                 AssessmentSection.Id,
-                AssessmentSection.FailureMechanismContribution.Norm);
+                AssessmentSection.FailureMechanismContribution.Norm, new WaveHeightCalculationMessageProvider());
         }
 
         protected override void InitializeDataGridView()

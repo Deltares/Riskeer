@@ -46,29 +46,27 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationActivity"/>.
         /// </summary>
-        /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationActivity(ICalculationMessageProvider messageProvider,
-                                                   IHydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                   string hydraulicBoundaryDatabaseFilePath,
-                                                   string ringId, double norm)
+        public DesignWaterLevelCalculationActivity(IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm, ICalculationMessageProvider messageProvider)
         {
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException("messageProvider");
-            }
-            this.messageProvider = messageProvider;
-
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException("hydraulicBoundaryLocation");
             }
+
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException("messageProvider");
+            }
+
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
-            
+            this.messageProvider = messageProvider;
+
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.ringId = ringId;
             this.norm = norm;
@@ -86,7 +84,7 @@ namespace Ringtoets.Common.Service
 
             PerformRun(() => DesignWaterLevelCalculationService.Instance.Validate(
                 messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name), hydraulicBoundaryDatabaseFilePath),
-                       () => hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) double.NaN,
+                       () => RingtoetsCommonDataSynchronizationService.ClearDesignWaterLevel(hydraulicBoundaryLocation),
                        () => DesignWaterLevelCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
                                                                                    hydraulicBoundaryDatabaseFilePath,
                                                                                    ringId,

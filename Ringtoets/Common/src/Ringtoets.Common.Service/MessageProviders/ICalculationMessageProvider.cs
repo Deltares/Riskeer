@@ -22,7 +22,7 @@
 namespace Ringtoets.Common.Service.MessageProviders
 {
     /// <summary>
-    /// Interface for messages used during calculations.
+    /// Interface for providing messages during calculations.
     /// </summary>
     public interface ICalculationMessageProvider
     {

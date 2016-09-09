@@ -297,13 +297,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                               (failureMechanism.Contribution/100)*
                                               failureMechanism.GeneralInput.N;
 
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
-                        new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider(),
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        nodeData.WrappedData,
-                        nodeData.WrappedData,
-                        assessmentSection.Id,
-                        correctedNormFactor);
+                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                                           nodeData.WrappedData,
+                                                                                                                           assessmentSection.Id,
+                                                                                                                           correctedNormFactor, new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
+                    if (successfulCalculation)
+                    {
+                        nodeData.WrappedData.NotifyObservers();
+                    }
                 });
 
             if (nodeData.AssessmentSection.HydraulicBoundaryDatabase == null)
@@ -348,13 +349,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                               (failureMechanism.Contribution/100)*
                                               failureMechanism.GeneralInput.N;
 
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
-                        new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider(),
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        nodeData.WrappedData,
-                        nodeData.WrappedData,
-                        assessmentSection.Id,
-                        correctedNormFactor);
+                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                                     nodeData.WrappedData,
+                                                                                                                     assessmentSection.Id,
+                                                                                                                     correctedNormFactor, new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
+
+                    if (successfulCalculation)
+                    {
+                        nodeData.WrappedData.NotifyObservers();
+                    }
                 });
 
             if (nodeData.AssessmentSection.HydraulicBoundaryDatabase == null)

@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// Initializes a new instance of the <see cref="HydraulicBoundaryLocationCalculationGuiService"/> class.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
-        /// <exception cref="ArgumentNullException">When any of the parameters is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">When the input parameter is <c>null</c>.</exception>
         public HydraulicBoundaryLocationCalculationGuiService(IWin32Window viewParent)
         {
             if (viewParent == null)
@@ -58,70 +58,60 @@ namespace Ringtoets.Common.Forms.GuiServices
             this.viewParent = viewParent;
         }
 
-        public void CalculateDesignWaterLevels(ICalculationMessageProvider messageProvider,
-                                               string hydraulicBoundaryDatabasePath,
-                                               IObservable observable,
-                                               IEnumerable<IHydraulicBoundaryLocation> locations,
-                                               string ringId, double norm)
+        public bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath, 
+            IEnumerable<IHydraulicBoundaryLocation> locations, 
+            string ringId, double norm, 
+            ICalculationMessageProvider messageProvider)
         {
             if (messageProvider == null)
             {
                 throw new ArgumentNullException("messageProvider");
             }
-            if (observable == null)
-            {
-                throw new ArgumentNullException("observable");
-            }
+
             if (locations == null)
             {
                 throw new ArgumentNullException("locations");
             }
-            var activities = locations.Select(hbl => new DesignWaterLevelCalculationActivity(messageProvider, hbl,
+            var activities = locations.Select(location => new DesignWaterLevelCalculationActivity(location,
                                                                                              hydraulicBoundaryDatabasePath,
                                                                                              ringId,
-                                                                                             norm)).ToArray();
-            RunActivities(hydraulicBoundaryDatabasePath, activities, observable);
+                                                                                             norm, messageProvider)).ToArray();
+            return RunActivities(hydraulicBoundaryDatabasePath, activities);
         }
 
-        public void CalculateWaveHeights(ICalculationMessageProvider messageProvider,
-                                         string hydraulicBoundaryDatabasePath, IObservable observable,
-                                         IEnumerable<IHydraulicBoundaryLocation> locations,
-                                         string ringId, double norm)
+        public bool CalculateWaveHeights(string hydraulicBoundaryDatabasePath, 
+            IEnumerable<IHydraulicBoundaryLocation> locations, 
+            string ringId, double norm, 
+            ICalculationMessageProvider messageProvider)
         {
             if (messageProvider == null)
             {
                 throw new ArgumentNullException("messageProvider");
             }
-            if (observable == null)
-            {
-                throw new ArgumentNullException("observable");
-            }
+
             if (locations == null)
             {
                 throw new ArgumentNullException("locations");
             }
-            var activities = locations.Select(hbl => new WaveHeightCalculationActivity(messageProvider, hbl,
+            var activities = locations.Select(location => new WaveHeightCalculationActivity(messageProvider, location,
                                                                                        hydraulicBoundaryDatabasePath,
                                                                                        ringId,
                                                                                        norm)).ToArray();
-            RunActivities(hydraulicBoundaryDatabasePath, activities, observable);
+            return RunActivities(hydraulicBoundaryDatabasePath, activities);
         }
 
-        private void RunActivities<TActivity>(string hydraulicBoundaryDatabasePath,
-                                              IList<TActivity> activities, IObservable observable) where TActivity : Activity
+        private bool RunActivities<TActivity>(string hydraulicBoundaryDatabasePath, IList<TActivity> activities) where TActivity : Activity
         {
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabasePath);
             if (string.IsNullOrEmpty(validationProblem))
             {
                 ActivityProgressDialogRunner.Run(viewParent, activities);
 
-                observable.NotifyObservers();
+                return true;
             }
-            else
-            {
-                log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_,
-                                validationProblem);
-            }
+            log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_,
+                            validationProblem);
+            return false;
         }
     }
 }

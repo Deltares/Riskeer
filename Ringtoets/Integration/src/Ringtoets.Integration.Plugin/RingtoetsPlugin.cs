@@ -1125,13 +1125,10 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
-                        new DesignWaterLevelCalculationMessageProvider(),
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        assessmentSection.HydraulicBoundaryDatabase,
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase.Locations,
                         assessmentSection.Id,
-                        assessmentSection.FailureMechanismContribution.Norm);
+                        assessmentSection.FailureMechanismContribution.Norm, new DesignWaterLevelCalculationMessageProvider());
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
@@ -1162,13 +1159,10 @@ namespace Ringtoets.Integration.Plugin
                         return;
                     }
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
-                        new WaveHeightCalculationMessageProvider(),
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        assessmentSection.HydraulicBoundaryDatabase,
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         assessmentSection.HydraulicBoundaryDatabase.Locations,
                         assessmentSection.Id,
-                        assessmentSection.FailureMechanismContribution.Norm);
+                        assessmentSection.FailureMechanismContribution.Norm, new WaveHeightCalculationMessageProvider());
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)

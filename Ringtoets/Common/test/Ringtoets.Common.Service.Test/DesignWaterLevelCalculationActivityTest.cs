@@ -63,7 +63,9 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             // Call
-            var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock, hydraulicBoundaryLocationMock, validFilePath, "", 1);
+            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationMock,
+                                                                   validFilePath, "", 1,
+                                                                   calculationMessageProviderMock);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -83,7 +85,9 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             // Call
-            TestDelegate call = () => new DesignWaterLevelCalculationActivity(null, hydraulicBoundaryLocationMock, validFilePath, "", 1);
+            TestDelegate call = () => new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationMock,
+                                                                              validFilePath, "", 1,
+                                                                              null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -101,7 +105,8 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             // Call
-            TestDelegate call = () => new DesignWaterLevelCalculationActivity(calculationMessageProviderMock, null, validFilePath, "", 1);
+            TestDelegate call = () => new DesignWaterLevelCalculationActivity(null,
+                                                                              validFilePath, "", 1, calculationMessageProviderMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -129,8 +134,8 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
-            var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock,
-                                                                   hydraulicBoundaryLocationMock, inValidFilePath, "", 1);
+            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationMock,
+                                                                   inValidFilePath, "", 1, calculationMessageProviderMock);
 
             // Call
             Action call = () => activity.Run();
@@ -167,9 +172,8 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
-            var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock,
-                                                                   hydraulicBoundaryLocationMock,
-                                                                   validFilePath, ringId, norm);
+            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationMock,
+                                                                   validFilePath, ringId, norm, calculationMessageProviderMock);
 
             using (new DesignWaterLevelCalculationServiceConfig())
             {
@@ -205,8 +209,9 @@ namespace Ringtoets.Common.Service.Test
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
             mockRepository.ReplayAll();
 
-            var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock,
-                                                                   hydraulicBoundaryLocationMock, validFilePath, "", 30);
+            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationMock,
+                                                                   validFilePath, "", 30,
+                                                                   calculationMessageProviderMock);
 
             // Call
             Action call = () => activity.Run();
@@ -237,8 +242,8 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
-            var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock, hydraulicBoundaryLocationMock,
-                                                                   validFilePath, "", 30);
+            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationMock,
+                                                                   validFilePath, "", 30, calculationMessageProviderMock);
 
             using (new DesignWaterLevelCalculationServiceConfig())
             {
@@ -270,8 +275,8 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
-            var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock, hydraulicBoundaryLocationMock,
-                                                                   validFilePath, "", 30);
+            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationMock,
+                                                                   validFilePath, "", 30, calculationMessageProviderMock);
 
             using (new DesignWaterLevelCalculationServiceConfig())
             {
@@ -311,8 +316,8 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
             const int norm = 300;
-            var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock, hydraulicBoundaryLocationMock,
-                                                                   validFilePath, "", norm);
+            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationMock,
+                                                                   validFilePath, "", norm, calculationMessageProviderMock);
 
             using (new DesignWaterLevelCalculationServiceConfig())
             {
@@ -356,7 +361,9 @@ namespace Ringtoets.Common.Service.Test
 
             string validFilePath = Path.Combine(testDataPath, validFile);
 
-            var activity = new DesignWaterLevelCalculationActivity(calculationMessageProviderMock, hydraulicBoundaryLocationMock, validFilePath, "", 30);
+            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationMock,
+                                                                   validFilePath, "", 30,
+                                                                   calculationMessageProviderMock);
 
             using (new DesignWaterLevelCalculationServiceConfig())
             {

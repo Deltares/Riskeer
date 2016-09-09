@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
 
@@ -36,31 +35,29 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <summary>
         /// Performs the <see cref="IHydraulicBoundaryLocation.DesignWaterLevel"/> calculation for all <paramref name="locations"/>.
         /// </summary>
-        /// <param name="messageProvider">The message provider for the services.</param>
         /// <param name="hydraulicBoundaryDatabasePath">The path to the hydraulic boundaries database.</param>
-        /// <param name="observable">The object to be notified when the calculation was successful.</param>
         /// <param name="locations">The <see cref="IHydraulicBoundaryLocation"/> objects to calculate 
-        /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
+        ///     the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/>, <paramref name="observable"/>, 
+        /// <param name="messageProvider">The message provider for the services.</param>
+        /// <returns>True if the observers should be notified; false if otherwise</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/> 
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
-        void CalculateDesignWaterLevels(ICalculationMessageProvider messageProvider, string hydraulicBoundaryDatabasePath, IObservable observable,
-                                        IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm);
+        bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath, IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm, ICalculationMessageProvider messageProvider);
 
         /// <summary>
         /// Performs the <see cref="IHydraulicBoundaryLocation.WaveHeight"/> calculation for all <paramref name="locations"/>.
         /// </summary>
-        /// <param name="messageProvider">The message provider for the services.</param>
         /// <param name="hydraulicBoundaryDatabasePath">The path to the hydraulic boundaries database.</param>
-        /// <param name="observable">The object to be notified when the calculation was successful.</param>
         /// <param name="locations">The <see cref="IHydraulicBoundaryLocation"/> objects to calculate 
-        /// the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
+        ///     the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/>, <paramref name="observable"/>, 
+        /// <param name="messageProvider">The message provider for the services.</param>
+        /// <returns>True if the observers should be notified; false if otherwise</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageProvider"/> 
         /// or <paramref name="locations"/> is <c>null</c>.</exception>
-        void CalculateWaveHeights(ICalculationMessageProvider messageProvider, string hydraulicBoundaryDatabasePath, IObservable observable,
-                                  IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm);
+        bool CalculateWaveHeights(string hydraulicBoundaryDatabasePath, IEnumerable<IHydraulicBoundaryLocation> locations, string ringId, double norm, ICalculationMessageProvider messageProvider);
     }
 }

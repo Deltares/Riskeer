@@ -55,17 +55,18 @@ namespace Ringtoets.Common.Service
         public WaveHeightCalculationActivity(ICalculationMessageProvider messageProvider,
                                              IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm)
         {
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException("messageProvider");
-            }
-            this.messageProvider = messageProvider;
-
             if (hydraulicBoundaryLocation == null)
             {
                 throw new ArgumentNullException("hydraulicBoundaryLocation");
             }
+
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException("messageProvider");
+            }
+
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            this.messageProvider = messageProvider;
 
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.ringId = ringId;
@@ -85,7 +86,7 @@ namespace Ringtoets.Common.Service
             PerformRun(() => WaveHeightCalculationService.Instance.Validate(
                 messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name),
                 hydraulicBoundaryDatabaseFilePath),
-                       () => hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) double.NaN,
+                       () => RingtoetsCommonDataSynchronizationService.ClearWaveHeight(hydraulicBoundaryLocation),
                        () => WaveHeightCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
                                                                              hydraulicBoundaryDatabaseFilePath,
                                                                              ringId, norm, messageProvider));

@@ -219,12 +219,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             ICalculationMessageProvider messageProvider = null;
             IEnumerable<HydraulicBoundaryLocation> locations = null;
-            guiServiceMock.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, null, null, 1)).IgnoreArguments().WhenCalled(
+            guiServiceMock.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
-                    messageProvider = (ICalculationMessageProvider) invocation.Arguments[0];
-                    locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[3];
-                });
+                    locations = (IEnumerable<HydraulicBoundaryLocation>)invocation.Arguments[1];
+                    messageProvider = (ICalculationMessageProvider) invocation.Arguments[4];
+                }).Return(false);
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiServiceMock;
