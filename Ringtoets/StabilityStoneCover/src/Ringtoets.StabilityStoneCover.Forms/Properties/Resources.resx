@@ -128,7 +128,7 @@
     <value>Voorlandprofiel</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsCalculationInput_LowerBoundaryRevetment_Description" xml:space="preserve">
-    <value>Ondergrens tot waaraan de bekleding loopt.</value>
+    <value>Ondergrens van de bekleding.</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsCalculationInput_LowerBoundaryRevetment_DisplayName" xml:space="preserve">
     <value>Ondergrens bekleding [m+NAP]</value>
@@ -146,7 +146,7 @@
     <value>Type bekleding</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsCalculationInput_StepSize_Description" xml:space="preserve">
-    <value>De stapgrootte waarop waterstanden worden bepaald.</value>
+    <value>Grootte van de stappen waarmee de waterstanden in de berekening worden bepaald.</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsCalculationInput_StepSize_DisplayName" xml:space="preserve">
     <value>Stapgrootte [m]</value>
@@ -158,7 +158,7 @@
     <value>Bovengrens op basis van toetspeil [m+NAP]</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsCalculationInput_UpperBoundaryRevetment_Description" xml:space="preserve">
-    <value>Bovengrens tot waaraan de bekleding loopt.</value>
+    <value>Bovengrens van de bekleding.</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsCalculationInput_UpperBoundaryRevetment_DisplayName" xml:space="preserve">
     <value>Bovengrens bekleding [m+NAP]</value>
@@ -170,10 +170,10 @@
     <value>Bovengrens waterstanden [m+NAP]</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsCalculationInput_WaterLevels_Description" xml:space="preserve">
-    <value>De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opggegeven waterstanden.</value>
+    <value>De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte.</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsCalculationInput_WaterLevels_DisplayName" xml:space="preserve">
-    <value>Te berekenen waterstanden</value>
+    <value>Waterstanden in berekening [m+NAP]</value>
   </data>
   <data name="StabilityStoneCover_StoneRevetment_DisplayName" xml:space="preserve">
     <value>Steen (blokken en zuilen)</value>

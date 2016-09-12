@@ -327,14 +327,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.IsTrue(upperBoundaryDesignWaterLevelProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, upperBoundaryRevetmentProperty.Category);
             Assert.AreEqual("Bovengrens bekleding [m+NAP]", upperBoundaryRevetmentProperty.DisplayName);
-            Assert.AreEqual("Bovengrens tot waaraan de bekleding loopt.", upperBoundaryRevetmentProperty.Description);
+            Assert.AreEqual("Bovengrens van de bekleding.", upperBoundaryRevetmentProperty.Description);
 
             PropertyDescriptor lowerBoundaryRevetmentProperty = dynamicProperties[lowerBoundaryRevetmentPropertyIndex];
             Assert.IsNotNull(lowerBoundaryRevetmentProperty);
             Assert.IsFalse(lowerBoundaryRevetmentProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, lowerBoundaryRevetmentProperty.Category);
             Assert.AreEqual("Ondergrens bekleding [m+NAP]", lowerBoundaryRevetmentProperty.DisplayName);
-            Assert.AreEqual("Ondergrens tot waaraan de bekleding loopt.", lowerBoundaryRevetmentProperty.Description);
+            Assert.AreEqual("Ondergrens van de bekleding.", lowerBoundaryRevetmentProperty.Description);
 
             PropertyDescriptor upperBoundaryWaterLevelsProperty = dynamicProperties[upperBoundaryWaterLevelsPropertyIndex];
             Assert.IsNotNull(upperBoundaryWaterLevelsProperty);
@@ -356,15 +356,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.IsFalse(stepSizeProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, stepSizeProperty.Category);
             Assert.AreEqual("Stapgrootte [m]", stepSizeProperty.DisplayName);
-            Assert.AreEqual("De stapgrootte waarop waterstanden worden bepaald.", stepSizeProperty.Description);
+            Assert.AreEqual("Grootte van de stappen waarmee de waterstanden in de berekening worden bepaald.", stepSizeProperty.Description);
 
             PropertyDescriptor waterLevelsProperty = dynamicProperties[waterLevelsPropertyIndex];
             Assert.IsNotNull(waterLevelsProperty);
             Assert.IsInstanceOf<ExpandableArrayConverter>(waterLevelsProperty.Converter);
             Assert.IsTrue(waterLevelsProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, waterLevelsProperty.Category);
-            Assert.AreEqual("Te berekenen waterstanden", waterLevelsProperty.DisplayName);
-            Assert.AreEqual("De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opggegeven waterstanden.", waterLevelsProperty.Description);
+            Assert.AreEqual("Waterstanden in berekening [m+NAP]", waterLevelsProperty.DisplayName);
+            Assert.AreEqual("De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte.", waterLevelsProperty.Description);
 
             PropertyDescriptor foreshoreProfileProperty = dynamicProperties[foreshoreProfilePropertyIndex];
             Assert.IsNotNull(foreshoreProfileProperty);
@@ -385,7 +385,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(!withForeshoreProfile, orientationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van het voorland.", orientationProperty.Description);
+            Assert.AreEqual("Oriëntatie van het voorland ten opzichte van het noorden.", orientationProperty.Description);
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
             Assert.IsNotNull(breakWaterProperty);
