@@ -62,8 +62,13 @@ namespace Ringtoets.Integration.Forms.Test
                 WaveHeight = waveHeight,
                 DesignWaterLevel = designWaterLevel
             };
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {

@@ -120,11 +120,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_ReturnsFalse()
         {
             // Setup
-            var location = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, string.Empty, 0, 0));
-
             var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
             {
-                location
+                new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, string.Empty, 0, 0))
             };
 
             // Call

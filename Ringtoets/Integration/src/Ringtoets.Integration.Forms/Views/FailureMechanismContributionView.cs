@@ -299,10 +299,10 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)
             {
-                var grassCoverErosionOutwardsFailureMechanism = (GrassCoverErosionOutwardsFailureMechanism)assessmentSection.GetFailureMechanisms()
-                                                                                                                                    .First(fm => fm.GetType() == typeof(GrassCoverErosionOutwardsFailureMechanism));
+                var grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().First();
 
-                bool hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, grassCoverErosionOutwardsFailureMechanism);
+                bool hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                                                                  grassCoverErosionOutwardsFailureMechanism);
                 if (hydraulicBoundaryLocationAffected)
                 {
                     grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();

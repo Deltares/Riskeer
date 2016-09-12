@@ -120,12 +120,14 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Clears the output of the hydraulic boundary locations within the <see cref="HydraulicBoundaryDatabase"/>.
+        /// Clears the output of the hydraulic boundary locations within the <paramref name="hydraulicBoundaryDatabase"/>
+        /// and <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> wich contains the locations.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> which contains the locations.</param>
         /// <returns><c>true</c> when one or multiple locations are affected by clearing the output. <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/> 
+        /// or <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static bool ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (hydraulicBoundaryDatabase == null)
