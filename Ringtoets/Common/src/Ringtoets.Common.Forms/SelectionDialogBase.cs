@@ -47,8 +47,17 @@ namespace Ringtoets.Common.Forms
         {
             InitializeComponent();
             InitializeEventHandlers();
+            Localize();
 
             SelectedItems = new List<T>();
+        }
+
+        private void Localize()
+        {
+            SelectAllButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Select_all;
+            DeselectAllButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Deselect_all;
+            DoForSelectedButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Generate;
+            CustomCancelButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Cancel;
         }
 
         /// <summary>

@@ -1476,6 +1476,42 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Annuleren.
+        /// </summary>
+        public static string SelectionDialogBase_SelectionDialogBase_Cancel {
+            get {
+                return ResourceManager.GetString("SelectionDialogBase_SelectionDialogBase_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deselecteer alles.
+        /// </summary>
+        public static string SelectionDialogBase_SelectionDialogBase_Deselect_all {
+            get {
+                return ResourceManager.GetString("SelectionDialogBase_SelectionDialogBase_Deselect_all", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genereren.
+        /// </summary>
+        public static string SelectionDialogBase_SelectionDialogBase_Generate {
+            get {
+                return ResourceManager.GetString("SelectionDialogBase_SelectionDialogBase_Generate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer alles.
+        /// </summary>
+        public static string SelectionDialogBase_SelectionDialogBase_Select_all {
+            get {
+                return ResourceManager.GetString("SelectionDialogBase_SelectionDialogBase_Select_all", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SelectionDialogIcon {

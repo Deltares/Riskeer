@@ -36,7 +36,6 @@ namespace Ringtoets.Common.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectionDialogBase));
             this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -52,51 +51,76 @@ namespace Ringtoets.Common.Forms
             // 
             // DataGridViewControl
             // 
-            resources.ApplyResources(this.DataGridViewControl, "DataGridViewControl");
+            this.DataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridViewControl.Location = new System.Drawing.Point(3, 16);
             this.DataGridViewControl.MultiSelect = true;
             this.DataGridViewControl.Name = "DataGridViewControl";
+            this.DataGridViewControl.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.DataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.DataGridViewControl.Size = new System.Drawing.Size(261, 66);
+            this.DataGridViewControl.TabIndex = 0;
             // 
             // ButtonGroupBox
             // 
             this.ButtonGroupBox.Controls.Add(this.DataGridViewControl);
             this.ButtonGroupBox.Controls.Add(this.panel2);
-            resources.ApplyResources(this.ButtonGroupBox, "ButtonGroupBox");
+            this.ButtonGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ButtonGroupBox.Location = new System.Drawing.Point(0, 0);
             this.ButtonGroupBox.Name = "ButtonGroupBox";
+            this.ButtonGroupBox.Size = new System.Drawing.Size(267, 124);
+            this.ButtonGroupBox.TabIndex = 7;
             this.ButtonGroupBox.TabStop = false;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.SelectAllButton);
             this.panel2.Controls.Add(this.DeselectAllButton);
-            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(3, 82);
             this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(261, 39);
+            this.panel2.TabIndex = 6;
             // 
             // SelectAllButton
             // 
-            resources.ApplyResources(this.SelectAllButton, "SelectAllButton");
+            this.SelectAllButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.SelectAllButton.Location = new System.Drawing.Point(9, 6);
             this.SelectAllButton.Name = "SelectAllButton";
+            this.SelectAllButton.Size = new System.Drawing.Size(111, 23);
+            this.SelectAllButton.TabIndex = 5;
             this.SelectAllButton.UseVisualStyleBackColor = true;
             this.SelectAllButton.Click += new System.EventHandler(this.SelectAllButton_Click);
             // 
             // DeselectAllButton
             // 
-            resources.ApplyResources(this.DeselectAllButton, "DeselectAllButton");
+            this.DeselectAllButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.DeselectAllButton.Location = new System.Drawing.Point(126, 6);
             this.DeselectAllButton.Name = "DeselectAllButton";
+            this.DeselectAllButton.Size = new System.Drawing.Size(111, 23);
+            this.DeselectAllButton.TabIndex = 4;
             this.DeselectAllButton.UseVisualStyleBackColor = true;
             this.DeselectAllButton.Click += new System.EventHandler(this.DeselectAllButton_Click);
             // 
             // DoForSelectedButton
             // 
-            resources.ApplyResources(this.DoForSelectedButton, "DoForSelectedButton");
+            this.DoForSelectedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DoForSelectedButton.Enabled = false;
+            this.DoForSelectedButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.DoForSelectedButton.Location = new System.Drawing.Point(80, 6);
             this.DoForSelectedButton.Name = "DoForSelectedButton";
+            this.DoForSelectedButton.Size = new System.Drawing.Size(86, 23);
+            this.DoForSelectedButton.TabIndex = 3;
             this.DoForSelectedButton.UseVisualStyleBackColor = true;
             this.DoForSelectedButton.Click += new System.EventHandler(this.DoForSelectedButton_Click);
             // 
             // CustomCancelButton
             // 
-            resources.ApplyResources(this.CustomCancelButton, "CustomCancelButton");
+            this.CustomCancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CustomCancelButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.CustomCancelButton.Location = new System.Drawing.Point(172, 6);
             this.CustomCancelButton.Name = "CustomCancelButton";
+            this.CustomCancelButton.Size = new System.Drawing.Size(86, 23);
+            this.CustomCancelButton.TabIndex = 6;
             this.CustomCancelButton.UseVisualStyleBackColor = true;
             this.CustomCancelButton.Click += new System.EventHandler(this.CustomCancelButton_Click);
             // 
@@ -104,16 +128,23 @@ namespace Ringtoets.Common.Forms
             // 
             this.panel1.Controls.Add(this.DoForSelectedButton);
             this.panel1.Controls.Add(this.CustomCancelButton);
-            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 124);
             this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(267, 35);
+            this.panel1.TabIndex = 8;
             // 
             // SelectionDialogBase
             // 
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoScrollMinSize = new System.Drawing.Size(240, 90);
+            this.ClientSize = new System.Drawing.Size(267, 159);
             this.Controls.Add(this.ButtonGroupBox);
             this.Controls.Add(this.panel1);
             this.Name = "SelectionDialogBase";
+            this.Text = "SelectionDialogBase";
             this.ButtonGroupBox.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

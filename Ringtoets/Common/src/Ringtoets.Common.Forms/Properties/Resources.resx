@@ -601,4 +601,16 @@
   <data name="SelectionDialogBase_ColumnSelect_DisplayName" xml:space="preserve">
     <value>Gebruik</value>
   </data>
+  <data name="SelectionDialogBase_SelectionDialogBase_Select_all" xml:space="preserve">
+    <value>Selecteer alles</value>
+  </data>
+  <data name="SelectionDialogBase_SelectionDialogBase_Deselect_all" xml:space="preserve">
+    <value>Deselecteer alles</value>
+  </data>
+  <data name="SelectionDialogBase_SelectionDialogBase_Generate" xml:space="preserve">
+    <value>Genereren</value>
+  </data>
+  <data name="SelectionDialogBase_SelectionDialogBase_Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
 </root>
