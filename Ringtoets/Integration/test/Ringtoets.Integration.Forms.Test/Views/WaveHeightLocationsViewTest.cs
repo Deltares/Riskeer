@@ -199,7 +199,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeights()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeights(bool isSuccessful)
         {
             // Setup
             WaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
@@ -211,12 +213,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mockRepository = new MockRepository();
             var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
+            var observer = mockRepository.StrictMock<IObserver>();
+            assessmentSection.HydraulicBoundaryDatabase.Attach(observer);
+
+            if (isSuccessful)
+            {
+                observer.Expect(o => o.UpdateObserver());
+            }
+
             IEnumerable<HydraulicBoundaryLocation> locations = null;
             guiServiceMock.Expect(ch => ch.CalculateWaveHeights(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
-                invocation =>
-                {
-                    locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1];
-                }).Return(false);
+                invocation => { locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1]; }).Return(isSuccessful);
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiServiceMock;

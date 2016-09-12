@@ -205,7 +205,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels(bool isSuccessful)
         {
             // Setup
             DesignWaterLevelLocationsView view = ShowFullyConfiguredDesignWaterLevelLocationsView();
@@ -217,14 +219,22 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mockRepository = new MockRepository();
             var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
+            var observer = mockRepository.StrictMock<IObserver>();
+            assessmentSection.HydraulicBoundaryDatabase.Attach(observer);
+
+            if (isSuccessful)
+            {
+                observer.Expect(o => o.UpdateObserver());
+            }
+
             ICalculationMessageProvider messageProvider = null;
             IEnumerable<HydraulicBoundaryLocation> locations = null;
             guiServiceMock.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, 1, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
-                    locations = (IEnumerable<HydraulicBoundaryLocation>)invocation.Arguments[1];
+                    locations = (IEnumerable<HydraulicBoundaryLocation>) invocation.Arguments[1];
                     messageProvider = (ICalculationMessageProvider) invocation.Arguments[4];
-                }).Return(false);
+                }).Return(isSuccessful);
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiServiceMock;

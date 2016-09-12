@@ -1126,10 +1126,15 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        assessmentSection.HydraulicBoundaryDatabase.Locations,
-                        assessmentSection.Id,
-                        assessmentSection.FailureMechanismContribution.Norm, new DesignWaterLevelCalculationMessageProvider());
+                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                                           assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                                                           assessmentSection.Id,
+                                                                                                                           assessmentSection.FailureMechanismContribution.Norm, 
+                                                                                                                           new DesignWaterLevelCalculationMessageProvider());
+                    if (successfulCalculation)
+                    {
+                        nodeData.NotifyObservers();
+                    }
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)
@@ -1160,10 +1165,15 @@ namespace Ringtoets.Integration.Plugin
                         return;
                     }
                     IAssessmentSection assessmentSection = nodeData.WrappedData;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        assessmentSection.HydraulicBoundaryDatabase.Locations,
-                        assessmentSection.Id,
-                        assessmentSection.FailureMechanismContribution.Norm, new WaveHeightCalculationMessageProvider());
+                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                                                    assessmentSection.HydraulicBoundaryDatabase.Locations,
+                                                                                                                    assessmentSection.Id,
+                                                                                                                    assessmentSection.FailureMechanismContribution.Norm, 
+                                                                                                                    new WaveHeightCalculationMessageProvider());
+                    if (successfulCalculation)
+                    {
+                        nodeData.NotifyObservers();
+                    }
                 });
 
             if (nodeData.WrappedData.HydraulicBoundaryDatabase == null)

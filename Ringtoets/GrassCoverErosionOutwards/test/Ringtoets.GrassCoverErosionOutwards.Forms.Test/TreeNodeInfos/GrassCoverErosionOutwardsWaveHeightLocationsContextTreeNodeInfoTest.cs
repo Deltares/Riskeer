@@ -449,6 +449,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             }, assessmentSectionMock);
 
+            var observer = mockRepository.StrictMock<IObserver>();
+            context.Attach(observer);
+            observer.Expect(o => o.UpdateObserver());
+
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
@@ -474,7 +478,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         Assert.AreEqual(filePath, testService.HydraulicBoundaryDatabaseFilePath);
                         Assert.AreEqual(assessmentSectionMock.Id, testService.RingId);
 
-                        var expectedNorm = assessmentSectionMock.FailureMechanismContribution.Norm /
+                        var expectedNorm = assessmentSectionMock.FailureMechanismContribution.Norm/
                                            (failureMechanism.Contribution / 100) *
                                            failureMechanism.GeneralInput.N;
                         Assert.AreEqual(expectedNorm, testService.Norm);

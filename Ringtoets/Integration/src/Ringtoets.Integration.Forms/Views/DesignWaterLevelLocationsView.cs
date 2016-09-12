@@ -57,10 +57,14 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 return;
             }
-            CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                locations,
-                AssessmentSection.Id,
-                AssessmentSection.FailureMechanismContribution.Norm, new DesignWaterLevelCalculationMessageProvider());
+            bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                          locations,
+                                                                                          AssessmentSection.Id,
+                                                                                          AssessmentSection.FailureMechanismContribution.Norm, new DesignWaterLevelCalculationMessageProvider());
+            if (successfulCalculation)
+            {
+               AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+            }
         }
 
         protected override void InitializeDataGridView()

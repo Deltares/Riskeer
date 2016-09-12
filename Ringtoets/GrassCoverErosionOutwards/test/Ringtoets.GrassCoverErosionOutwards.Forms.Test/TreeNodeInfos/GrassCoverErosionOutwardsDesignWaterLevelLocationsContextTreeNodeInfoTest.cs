@@ -391,6 +391,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             }, assessmentSectionMock);
 
+            var observer = mockRepository.StrictMock<IObserver>();
+            context.Attach(observer);
+            observer.Expect(o => o.UpdateObserver());
+
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
