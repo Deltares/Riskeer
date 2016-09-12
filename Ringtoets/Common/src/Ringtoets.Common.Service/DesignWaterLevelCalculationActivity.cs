@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Service
             PerformFinish(() =>
             {
                 hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) Output.Result;
-                bool designWaterLevelCalculationConvergence = RingtoetsCommonDataSynchronizationService.CalculationConverged(Output, norm);
+                bool designWaterLevelCalculationConvergence = RingtoetsCommonDataCalculationService.CalculationConverged(Output, norm);
                 if (!designWaterLevelCalculationConvergence)
                 {
                     log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));

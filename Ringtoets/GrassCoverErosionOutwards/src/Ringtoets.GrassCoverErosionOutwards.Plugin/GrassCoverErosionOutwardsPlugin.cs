@@ -300,7 +300,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                                            nodeData.WrappedData,
                                                                                                                            assessmentSection.Id,
-                                                                                                                           correctedNormFactor, new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
+                                                                                                                           correctedNormFactor,
+                                                                                                                           new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
                     if (successfulCalculation)
                     {
                         nodeData.WrappedData.NotifyObservers();
@@ -352,8 +353,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                                      nodeData.WrappedData,
                                                                                                                      assessmentSection.Id,
-                                                                                                                     correctedNormFactor, new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
-
+                                                                                                                     correctedNormFactor,
+                                                                                                                     new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
                     if (successfulCalculation)
                     {
                         nodeData.WrappedData.NotifyObservers();

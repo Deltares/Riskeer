@@ -61,6 +61,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RingtoetsCommonDataCalculationService.cs" />
     <Compile Include="RingtoetsCommonDataSynchronizationService.cs" />
     <Compile Include="WaveHeightCalculationActivity.cs" />
     <Compile Include="WaveHeightCalculationService.cs" />

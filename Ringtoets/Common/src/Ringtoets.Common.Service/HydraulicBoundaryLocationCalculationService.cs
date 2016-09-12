@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Service
             CalculationServiceHelper.LogValidationBeginTime(name);
 
             string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
-            var isValid = string.IsNullOrEmpty(validationProblem);
+            bool isValid = string.IsNullOrEmpty(validationProblem);
 
             if (!isValid)
             {
@@ -62,10 +62,10 @@ namespace Ringtoets.Common.Service
 
         public ReliabilityIndexCalculationOutput Calculate(IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm, ICalculationMessageProvider messageProvider)
         {
-            var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
-            var input = CreateInput(hydraulicBoundaryLocation, norm);
+            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+            HydraRingCalculationInput input = CreateInput(hydraulicBoundaryLocation, norm);
             var reliabilityIndexCalculationParser = new ReliabilityIndexCalculationParser();
-            var calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
+            string calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
 
             CalculationServiceHelper.PerformCalculation(
                 calculationName,

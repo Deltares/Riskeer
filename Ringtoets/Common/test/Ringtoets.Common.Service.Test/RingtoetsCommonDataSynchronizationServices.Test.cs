@@ -21,10 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Utils;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service.Test
@@ -44,16 +41,13 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ClearDesignWaterLevel_WithHydraulicBoundaryLocation_OutputNan()
+        public void ClearDesignWaterLevel_WithHydraulicBoundaryLocation_OutputNaN()
         {
             // Setup
             var calculation = new HydraulicBoundaryLocation(0, "Location 1", 0.5, 0.5)
             {
                 DesignWaterLevel = (RoundedDouble) 5.0
             };
-
-            // Precondition
-            Assert.IsNotNull(calculation.DesignWaterLevel);
 
             // Call
             RingtoetsCommonDataSynchronizationService.ClearDesignWaterLevel(calculation);
@@ -74,7 +68,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ClearWaveHeight_WithHydraulicBoundaryLocation_OutputNan()
+        public void ClearWaveHeight_WithHydraulicBoundaryLocation_OutputNaN()
         {
             // Setup
             var calculation = new HydraulicBoundaryLocation(0, "Location 1", 0.5, 0.5)
@@ -82,60 +76,11 @@ namespace Ringtoets.Common.Service.Test
                 WaveHeight = (RoundedDouble) 5.0
             };
 
-            // Precondition
-            Assert.IsNotNull(calculation.WaveHeight);
-
             // Call
             RingtoetsCommonDataSynchronizationService.ClearWaveHeight(calculation);
 
             // Assert
             Assert.IsNaN(calculation.WaveHeight);
-        }
-
-        [Test]
-        public void CalculationConverged_WithNullOutput_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => RingtoetsCommonDataSynchronizationService.CalculationConverged(null, 1.0);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("output", exception.ParamName);
-        }
-
-        [Test]
-        public void CalculationConverged_WithConvergedResults_CalculationConvergedTrue()
-        {
-            // Setup
-            double norm = 1.0e3;
-            double reliabilityIndex = StatisticsConverter.NormToBeta(norm);
-            var output = new ReliabilityIndexCalculationOutput(reliabilityIndex, reliabilityIndex);
-            
-            // Precondition
-            Assert.IsNotNull(output);
-
-            // Call
-            bool calculationConverged = RingtoetsCommonDataSynchronizationService.CalculationConverged(output, norm);
-
-            // Assert
-            Assert.IsTrue(calculationConverged);
-        }
-
-        [Test]
-        public void CalculationConverged_WithoutConvergedResults_CalculationConvergedFalse()
-        {
-            // Setup
-            var output = new ReliabilityIndexCalculationOutput(5.0e-3, 5.0e-3);
-            double norm = 1;
-
-            // Precondition
-            Assert.IsNotNull(output);
-
-            // Call
-            bool calculationConverged = RingtoetsCommonDataSynchronizationService.CalculationConverged(output, norm);
-
-            // Assert
-            Assert.IsFalse(calculationConverged);
         }
     }
 }
