@@ -129,10 +129,10 @@ namespace Ringtoets.Revetment.IO.Test
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveAngle.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(2, 0.0), exportableWaveConditions.WaterLevel);
-            Assert.AreEqual(new RoundedDouble(2, 1.1), exportableWaveConditions.WaveHeight);
-            Assert.AreEqual(new RoundedDouble(2, 2.2), exportableWaveConditions.WavePeriod);
-            Assert.AreEqual(new RoundedDouble(2, 3.3), exportableWaveConditions.WaveAngle);
+            Assert.AreEqual(0.0, exportableWaveConditions.WaterLevel.Value);
+            Assert.AreEqual(1.1, exportableWaveConditions.WaveHeight.Value);
+            Assert.AreEqual(2.2, exportableWaveConditions.WavePeriod.Value);
+            Assert.AreEqual(3.3, exportableWaveConditions.WaveAngle.Value);
         }
     }
 }
