@@ -131,7 +131,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new FailureMechanismSectionReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bevat geen lijn geometrieën.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen lijnen vinden in dit bestand.",
                                                 invalidFilePath);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
@@ -321,7 +321,7 @@ namespace Ringtoets.Common.IO.Test
                 TestDelegate call = () => new FailureMechanismSectionReader(validFilePath);
 
                 // Assert
-                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand in gebruik door een andere applicatie.",
+                var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
                                                 validFilePath);
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);

@@ -239,16 +239,28 @@ namespace Core.Plugins.Map.Legend
                 log.Info(MapResources.MapLegendView_CheckDataFormat_Shapefile_Is_Imported);
                 mapDataCollection.NotifyObservers();
             }
+            catch (ArgumentException)
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                    .Build(MapResources.MapLegendView_CheckDataFormat_File_does_not_contain_geometries);
+                log.Error(message);
+            }
             catch (FileNotFoundException)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(MapResources.MapLegendView_CheckDataFormat_File_Does_Not_Exist_Or_Misses_Needed_Files);
+                    .Build(MapResources.MapLegendView_CheckDataFormat_File_does_not_exist_or_misses_needed_files);
+                log.Error(message);
+            }
+            catch (NullReferenceException)
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                    .Build(MapResources.MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file);
                 log.Error(message);
             }
             catch (IOException)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(MapResources.MapLegendView_CheckDataFormat_An_Error_Occured_When_Trying_To_Read_The_File);
+                    .Build(MapResources.MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file);
                 log.Error(message);
             }
             catch (CriticalFileReadException e)

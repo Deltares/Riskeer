@@ -67,6 +67,12 @@ namespace Core.Components.Gis.IO.Readers
                     .Build(GisIOResources.PointShapeFileReader_File_contains_geometries_not_points);
                 throw new CriticalFileReadException(message, e);
             }
+            catch (ArgumentException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                    .Build(GisIOResources.PointShapeFileReader_File_contains_geometries_not_points);
+                throw new CriticalFileReadException(message, e);
+            }
             catch (IOException exception)
             {
                 var message = new FileReaderErrorMessageBuilder(filePath).Build(CoreCommonUtilsResources.Error_General_IO_Import_ErrorMessage);

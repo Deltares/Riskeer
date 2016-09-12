@@ -121,20 +121,29 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand is niet toegankelijk..
+        ///   Looks up a localized string similar to Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie..
         /// </summary>
-        public static string MapLegendView_CheckDataFormat_An_Error_Occured_When_Trying_To_Read_The_File {
+        public static string MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file {
             get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_An_Error_Occured_When_Trying_To_Read_The_File", resourceCulture);
+                return ResourceManager.GetString("MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kon geen geometrieën vinden in dit bestand..
+        /// </summary>
+        public static string MapLegendView_CheckDataFormat_File_does_not_contain_geometries {
+            get {
+                return ResourceManager.GetString("MapLegendView_CheckDataFormat_File_does_not_contain_geometries", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het bestand of andere benodigde bestanden zijn niet gevonden..
         /// </summary>
-        public static string MapLegendView_CheckDataFormat_File_Does_Not_Exist_Or_Misses_Needed_Files {
+        public static string MapLegendView_CheckDataFormat_File_does_not_exist_or_misses_needed_files {
             get {
-                return ResourceManager.GetString("MapLegendView_CheckDataFormat_File_Does_Not_Exist_Or_Misses_Needed_Files", resourceCulture);
+                return ResourceManager.GetString("MapLegendView_CheckDataFormat_File_does_not_exist_or_misses_needed_files", resourceCulture);
             }
         }
         

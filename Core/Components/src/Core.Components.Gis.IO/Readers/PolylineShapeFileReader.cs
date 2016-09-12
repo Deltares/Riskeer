@@ -64,7 +64,7 @@ namespace Core.Components.Gis.IO.Readers
             catch (ArgumentException exception)
             {
                 string message = new FileReaderErrorMessageBuilder(shapeFilePath)
-                    .Build(GisIOResources.LineShapeFileReader_File_contains_geometries_not_line);
+                    .Build(GisIOResources.PolylineShapeFileReader_File_contains_geometries_not_line);
                 throw new CriticalFileReadException(message, exception);
             }
             catch (IOException exception)

@@ -82,16 +82,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand bevat geen lijn geometrieën..
-        /// </summary>
-        internal static string LineShapeFileReader_File_contains_geometries_not_line {
-            get {
-                return ResourceManager.GetString("LineShapeFileReader_File_contains_geometries_not_line", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bestand bevat geen enkele punt..
+        ///   Looks up a localized string similar to Kon geen punten vinden in dit bestand..
         /// </summary>
         internal static string PointShapeFileReader_File_contains_geometries_not_points {
             get {
@@ -100,7 +91,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestand bevat geen enkele polygoon..
+        ///   Looks up a localized string similar to Kon geen polygonen vinden in dit bestand..
         /// </summary>
         internal static string PointShapeFileReader_File_contains_geometries_not_polygons {
             get {
@@ -133,6 +124,15 @@ namespace Core.Components.Gis.IO.Properties {
         internal static string PolygonShapeFileReader_ReadLine_Polygon {
             get {
                 return ResourceManager.GetString("PolygonShapeFileReader_ReadLine_Polygon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kon geen lijnen vinden in dit bestand..
+        /// </summary>
+        internal static string PolylineShapeFileReader_File_contains_geometries_not_line {
+            get {
+                return ResourceManager.GetString("PolylineShapeFileReader_File_contains_geometries_not_line", resourceCulture);
             }
         }
         
