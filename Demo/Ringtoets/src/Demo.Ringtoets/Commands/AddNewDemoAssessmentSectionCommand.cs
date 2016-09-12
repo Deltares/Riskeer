@@ -204,24 +204,24 @@ namespace Demo.Ringtoets.Commands
         private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
-            locations.ElementAt(0).DesignWaterLevel = (RoundedDouble) 4.54;
-            locations.ElementAt(1).DesignWaterLevel = (RoundedDouble) 4.54;
-            locations.ElementAt(2).DesignWaterLevel = (RoundedDouble) 4.54;
-            locations.ElementAt(3).DesignWaterLevel = (RoundedDouble) 4.53;
-            locations.ElementAt(4).DesignWaterLevel = (RoundedDouble) 4.53;
-            locations.ElementAt(5).DesignWaterLevel = (RoundedDouble) 4.66;
-            locations.ElementAt(6).DesignWaterLevel = (RoundedDouble) 4.66;
-            locations.ElementAt(7).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(8).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(9).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(10).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(11).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(12).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(13).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(14).DesignWaterLevel = (RoundedDouble) 4.65;
-            locations.ElementAt(15).DesignWaterLevel = (RoundedDouble) 4.34;
-            locations.ElementAt(16).DesignWaterLevel = (RoundedDouble) 4.44;
-            locations.ElementAt(17).DesignWaterLevel = (RoundedDouble) 4.48;
+            locations.ElementAt(0).DesignWaterLevel = (RoundedDouble) 7.19;
+            locations.ElementAt(1).DesignWaterLevel = (RoundedDouble) 7.19;
+            locations.ElementAt(2).DesignWaterLevel = (RoundedDouble) 7.18;
+            locations.ElementAt(3).DesignWaterLevel = (RoundedDouble) 7.18;
+            locations.ElementAt(4).DesignWaterLevel = (RoundedDouble) 7.18;
+            locations.ElementAt(5).DesignWaterLevel = (RoundedDouble) 7.39;
+            locations.ElementAt(6).DesignWaterLevel = (RoundedDouble) 7.39;
+            locations.ElementAt(7).DesignWaterLevel = (RoundedDouble) 7.39;
+            locations.ElementAt(8).DesignWaterLevel = (RoundedDouble) 7.40;
+            locations.ElementAt(9).DesignWaterLevel = (RoundedDouble) 7.40;
+            locations.ElementAt(10).DesignWaterLevel = (RoundedDouble) 7.40;
+            locations.ElementAt(11).DesignWaterLevel = (RoundedDouble) 7.40;
+            locations.ElementAt(12).DesignWaterLevel = (RoundedDouble) 7.41;
+            locations.ElementAt(13).DesignWaterLevel = (RoundedDouble) 7.41;
+            locations.ElementAt(14).DesignWaterLevel = (RoundedDouble) 7.41;
+            locations.ElementAt(15).DesignWaterLevel = (RoundedDouble) 6.91;
+            locations.ElementAt(16).DesignWaterLevel = (RoundedDouble) 7.53;
+            locations.ElementAt(17).DesignWaterLevel = (RoundedDouble) 7.81;
         }
 
         private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelCalculationConvergence(ICollection<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations)
@@ -235,24 +235,24 @@ namespace Demo.Ringtoets.Commands
         private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
-            locations.ElementAt(0).WaveHeight = (RoundedDouble) 3.31;
-            locations.ElementAt(1).WaveHeight = (RoundedDouble) 3.36;
-            locations.ElementAt(2).WaveHeight = (RoundedDouble) 3.20;
-            locations.ElementAt(3).WaveHeight = (RoundedDouble) 3.06;
-            locations.ElementAt(4).WaveHeight = (RoundedDouble) 2.92;
-            locations.ElementAt(5).WaveHeight = (RoundedDouble) 2.01;
-            locations.ElementAt(6).WaveHeight = (RoundedDouble) 2.29;
-            locations.ElementAt(7).WaveHeight = (RoundedDouble) 2.42;
-            locations.ElementAt(8).WaveHeight = (RoundedDouble) 2.52;
-            locations.ElementAt(9).WaveHeight = (RoundedDouble) 2.65;
-            locations.ElementAt(10).WaveHeight = (RoundedDouble) 2.73;
-            locations.ElementAt(11).WaveHeight = (RoundedDouble) 2.79;
-            locations.ElementAt(12).WaveHeight = (RoundedDouble) 2.82;
-            locations.ElementAt(13).WaveHeight = (RoundedDouble) 2.82;
-            locations.ElementAt(14).WaveHeight = (RoundedDouble) 2.47;
-            locations.ElementAt(15).WaveHeight = (RoundedDouble) 7.84;
-            locations.ElementAt(16).WaveHeight = (RoundedDouble) 6.72;
-            locations.ElementAt(17).WaveHeight = (RoundedDouble) 3.06;
+            locations.ElementAt(0).WaveHeight = (RoundedDouble) 4.99;
+            locations.ElementAt(1).WaveHeight = (RoundedDouble) 5.04;
+            locations.ElementAt(2).WaveHeight = (RoundedDouble) 4.87;
+            locations.ElementAt(3).WaveHeight = (RoundedDouble) 4.73;
+            locations.ElementAt(4).WaveHeight = (RoundedDouble) 4.59;
+            locations.ElementAt(5).WaveHeight = (RoundedDouble) 3.35;
+            locations.ElementAt(6).WaveHeight = (RoundedDouble) 3.83;
+            locations.ElementAt(7).WaveHeight = (RoundedDouble) 4.00;
+            locations.ElementAt(8).WaveHeight = (RoundedDouble) 4.20;
+            locations.ElementAt(9).WaveHeight = (RoundedDouble) 4.41;
+            locations.ElementAt(10).WaveHeight = (RoundedDouble) 4.50;
+            locations.ElementAt(11).WaveHeight = (RoundedDouble) 4.57;
+            locations.ElementAt(12).WaveHeight = (RoundedDouble) 4.63;
+            locations.ElementAt(13).WaveHeight = (RoundedDouble) 4.68;
+            locations.ElementAt(14).WaveHeight = (RoundedDouble) 4.17;
+            locations.ElementAt(15).WaveHeight = (RoundedDouble) 11.14;
+            locations.ElementAt(16).WaveHeight = (RoundedDouble) 9.24;
+            locations.ElementAt(17).WaveHeight = (RoundedDouble) 5.34;
         }
 
         private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightCalculationConvergence(ICollection<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations)
