@@ -67,6 +67,22 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             }
         }
 
+        protected override void HandleUserCancellingImport()
+        {
+            log.Info(Resources.ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted);
+            base.HandleUserCancellingImport();
+        }
+
+        protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)
+        {
+            if (data.DamType != DamType.None || data.ForeshoreGeometry.Any())
+            {
+                return true;
+            }
+            log.WarnFormat(Resources.ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped, prflFilePath);
+            return false;
+        }
+
         private IEnumerable<ForeshoreProfile> CreateForeshoreProfiles(ICollection<ProfileLocation> dikeProfileLocationCollection,
                                                                       ICollection<DikeProfileData> dikeProfileDataCollection)
         {
@@ -91,7 +107,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private static ForeshoreProfile CreateForeshoreProfile(ProfileLocation dikeProfileLocation, DikeProfileData dikeProfileData)
         {
-            var foreshoreProfile = new ForeshoreProfile(dikeProfileLocation.Point, 
+            var foreshoreProfile = new ForeshoreProfile(dikeProfileLocation.Point,
                                                         dikeProfileData.ForeshoreGeometry.Select(fg => fg.Point).ToArray(),
                                                         CreateBreakWater(dikeProfileData),
                                                         new ForeshoreProfile.ConstructionProperties
@@ -101,12 +117,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                                                             Orientation = dikeProfileData.Orientation
                                                         });
             return foreshoreProfile;
-        }
-
-        protected override void HandleUserCancellingImport()
-        {
-            log.Info(Resources.ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted);
-            base.HandleUserCancellingImport();
         }
     }
 }

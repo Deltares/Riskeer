@@ -112,6 +112,36 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void Import_FiveDikeProfilesWithoutGeometries_TrueAndLogWarningAndNoDikeProfiles()
+        {
+            // Setup
+            string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "NoDikeProfileGeometries"));
+            string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+
+            // Call
+            bool importResult = false;
+            Action call = () => importResult = dikeProfilesImporter.Import();
+
+            // Assert
+            string[] expectedMessages =
+            {
+                string.Format("Profieldata definieert geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
+                string.Format("Profieldata definieert geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel002 - Ringtoets.prfl")),
+                string.Format("Profieldata definieert geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
+                string.Format("Profieldata definieert geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")),
+                string.Format("Profieldata definieert geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel005 - Ringtoets.prfl"))
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(0, failureMechanism.DikeProfiles.Count);
+        }
+
+        [Test]
         public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourDikeProfiles()
         {
             // Setup
@@ -141,6 +171,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string expectedMessage = "Een profiellocatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
+            Assert.AreEqual(4, failureMechanism.DikeProfiles.Count);
         }
 
         [Test]
@@ -180,6 +211,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profieldata.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
+            Assert.AreEqual(5, failureMechanism.DikeProfiles.Count);
         }
 
         [Test]

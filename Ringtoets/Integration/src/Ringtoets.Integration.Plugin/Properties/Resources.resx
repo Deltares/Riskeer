@@ -218,4 +218,10 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="WaveHeight_Description" xml:space="preserve">
     <value>Golfhoogte</value>
   </data>
+  <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
+    <value>Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
+  </data>
+  <data name="DikeProfilesImporter_No_dike_geometry_file_0_skipped" xml:space="preserve">
+    <value>Profieldata definieert geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.</value>
+  </data>
 </root>

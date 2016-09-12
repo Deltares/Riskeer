@@ -124,7 +124,7 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// Method used to check if a collection of messages have occured in the log.
+        /// Method used to check if a collection of messages have occurred in the log.
         /// This function allowed checking log messages being generated like <see cref="AssertLogMessageIsGenerated"/>
         /// without having to rerun the action for every single message. Fails the test when any of checks fail.
         /// </summary>
@@ -254,7 +254,7 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// Method used to check if a collection of messages have occured in the log.
+        /// Method used to check if a collection of messages have occurred in the log.
         /// This function allowed checking log messages being generated like <see cref="AssertLogMessageIsGenerated"/>
         /// without having to rerun the action for every single message. Fails the test when any of checks fail.
         /// </summary>
@@ -271,7 +271,7 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// Method used to check if a collection of messages have occured in the log.
+        /// Method used to check if a collection of messages have occurred in the log.
         /// This function allowed checking log messages being generated like <see cref="AssertLogMessageIsGenerated"/>
         /// without having to rerun the action for every single message. Fails the test when any of checks fail.
         /// </summary>

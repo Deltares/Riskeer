@@ -75,6 +75,16 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             base.HandleUserCancellingImport();
         }
 
+        protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)
+        {
+            if (data.DikeGeometry.Any())
+            {
+                return true;
+            }
+            log.WarnFormat(Resources.DikeProfilesImporter_No_dike_geometry_file_0_skipped, prflFilePath);
+            return false;
+        }
+
         private IEnumerable<DikeProfile> CreateDikeProfiles(IEnumerable<ProfileLocation> dikeProfileLocationCollection,
                                                             ICollection<DikeProfileData> dikeProfileDataCollection)
         {

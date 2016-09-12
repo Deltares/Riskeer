@@ -137,6 +137,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profieldata definieert geen dijkgeometrie. Bestand &apos;{0}&apos; wordt overgeslagen..
+        /// </summary>
+        public static string DikeProfilesImporter_No_dike_geometry_file_0_skipped {
+            get {
+                return ResourceManager.GetString("DikeProfilesImporter_No_dike_geometry_file_0_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} 
         ///Er is geen vakindeling geïmporteerd..
         /// </summary>
@@ -247,6 +256,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
             get {
                 return ResourceManager.GetString("ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_abor" +
                         "ted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profieldata definieert geen dam en geen voorlandgeometrie. Bestand &apos;{0}&apos; wordt overgeslagen..
+        /// </summary>
+        public static string ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped {
+            get {
+                return ResourceManager.GetString("ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped", resourceCulture);
             }
         }
         

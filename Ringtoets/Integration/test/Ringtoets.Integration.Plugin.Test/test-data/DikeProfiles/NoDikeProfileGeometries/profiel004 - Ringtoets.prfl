@@ -1,10 +1,10 @@
 VERSIE	4.0
-ID	profiel001
+ID	profiel004
 
 RICHTING	330
 
 DAM	0
-DAMHOOGTE	0
+DAMHOOGTE	0.5
 
 VOORLAND	3
 -150.000	-9.000	1.000
@@ -13,13 +13,10 @@ VOORLAND	3
 
 DAMWAND	0
 KRUINHOOGTE	6
-DIJK	2
-0.000	0.000	1.000
-18.000	6.000	1.000
+DIJK	0
 
 MEMO
 Verkenning prfl format:
-Basis:
 geen dam
-geen voorland
-recht talud
+voorland
+talud met (ruwe) berm

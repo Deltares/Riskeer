@@ -144,6 +144,14 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             Canceled = false;
         }
 
+        /// <summary>
+        /// Validate the consistency of a <see cref="DikeProfileData"/> object.
+        /// </summary>
+        /// <param name="data">The <see cref="DikeProfileData"/> to validate.</param>
+        /// <param name="prflFilePath">Filepath of the profile data file.</param>
+        /// <returns>Value indicating whether the <see cref="DikeProfileData"/> is valid.</returns>
+        protected abstract bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath);
+
         private ReadResult<ProfileLocation> ReadProfileLocations()
         {
             NotifyProgress(Resources.ProfilesImporter_ReadProfileLocations_reading_profilelocations, 1, 1);
@@ -255,6 +263,12 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                     NotifyProgress(Resources.ProfilesImporter_ReadDikeProfileData_reading_profiledata, i + 1, totalNumberOfSteps);
 
                     DikeProfileData data = dikeProfileDataReader.ReadDikeProfileData(prflFilePath);
+
+                    if (!DikeProfileDataIsValid(data, prflFilePath))
+                    {
+                        continue;
+                    }
+
                     if (data.SheetPileType != SheetPileType.Coordinates)
                     {
                         log.Error(String.Format(Resources.ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_, prflFilePath));

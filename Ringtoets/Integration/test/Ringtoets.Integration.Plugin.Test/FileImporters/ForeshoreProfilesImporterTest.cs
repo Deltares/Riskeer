@@ -127,6 +127,36 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void Import_FiveForeshoreProfilesWithoutDamsAndGeometries_TrueAndLogWarningAndNoForeshoreProfiles()
+        {
+            // Setup
+            string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                         Path.Combine("DikeProfiles", "NoDamsAndNoForeshoreGeometries"));
+            string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
+
+            ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath);
+
+            // Call
+            bool importResult = false;
+            Action call = () => importResult = foreshoreProfilesImporter.Import();
+
+            // Assert
+            string[] expectedMessages =
+            {
+                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
+                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel002 - Ringtoets.prfl")),
+                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
+                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")),
+                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel005 - Ringtoets.prfl"))
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(0, failureMechanism.ForeshoreProfiles.Count);
+        }
+
+        [Test]
         public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourForeshoreProfiles()
         {
             // Setup

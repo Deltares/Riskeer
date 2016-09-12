@@ -539,6 +539,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 : base(referenceLine, filePath, importTarget) {}
 
             protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult, ReadResult<DikeProfileData> importDikeProfileDataResult) {}
+            
+            protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)
+            {
+                return true;
+            }
         }
 
         private class TestProfile {};
