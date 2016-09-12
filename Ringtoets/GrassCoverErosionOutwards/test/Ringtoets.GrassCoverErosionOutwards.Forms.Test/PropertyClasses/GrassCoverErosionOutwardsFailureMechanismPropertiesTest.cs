@@ -22,12 +22,14 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
@@ -123,6 +125,53 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
             Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
             Assert.AreEqual("De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.", lengthEffectProperty.Description);
+        }
+        
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void LengthEffect_ValueSet_HydraulicBoundaryLocationsCleared(int value)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            var hydraulicLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicLocation)
+            {
+                DesignWaterLevel = (RoundedDouble)3.8,
+                WaveHeight = (RoundedDouble)5.2
+            };
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                GrassCoverErosionOutwardsHydraulicBoundaryLocations =
+                {
+                    grassCoverErosionOutwardsHydraulicBoundaryLocation
+                }
+            };
+
+            failureMechanism.Attach(observerMock);
+
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties
+            {
+                Data = failureMechanism
+            };
+
+            // Call
+            properties.LengthEffect = value;
+
+            // Assert
+            Assert.AreEqual(value, properties.LengthEffect);
+            Assert.AreEqual(value, failureMechanism.GeneralInput.N);
+            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
+            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            mockRepository.VerifyAll();
         }
 
         private const int namePropertyIndex = 0;

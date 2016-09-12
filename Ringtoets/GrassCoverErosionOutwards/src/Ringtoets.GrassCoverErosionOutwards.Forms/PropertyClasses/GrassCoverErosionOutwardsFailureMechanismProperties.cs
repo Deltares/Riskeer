@@ -24,7 +24,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-
+using Ringtoets.GrassCoverErosionOutwards.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
@@ -78,6 +78,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             set
             {
                 data.GeneralInput.N = value;
+                GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(data.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
                 data.NotifyObservers();
             }
         }
