@@ -118,7 +118,7 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting.
+        ///   Looks up a localized string similar to Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam aanwezig, Voorlandgeometrie aanwezig, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting [°].
         /// </summary>
         internal static string WaveConditionsWriter_HeaderLine {
             get {

@@ -83,7 +83,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting\r\n", fileContent);
+                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam aanwezig, Voorlandgeometrie aanwezig, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting [°]\r\n", fileContent);
             }
             finally
             {
@@ -119,7 +119,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting\r\n", fileContent);
+                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam aanwezig, Voorlandgeometrie aanwezig, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting [°]\r\n", fileContent);
             }
             finally
             {
@@ -174,9 +174,9 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie, Y HR locatie, Naam voorland, Dam aanwezig, Voorland aanwezig, Waterstand, Type bekleding, Golfhoogte, Golfperiode, Golfrichting\r\n" +
-                                "aCalculation, aLocation, 44.000, 123.456, , nee, nee, 1.11, Steen (zuilen), 2.22, 3.33, 4.44\r\n" +
-                                "aCalculation, aLocation, 44.000, 123.456, , nee, nee, 3.33, Steen (blokken), 1.11, 4.44, 2.22\r\n", 
+                Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam aanwezig, Voorlandgeometrie aanwezig, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting [°]\r\n" +
+                                "aCalculation, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), 1.11, 2.22, 3.33, 4.44\r\n" +
+                                "aCalculation, aLocation, 44.000, 123.456, , nee, nee, Steen (blokken), 3.33, 1.11, 4.44, 2.22\r\n", 
                                 fileContent);
             }
             finally

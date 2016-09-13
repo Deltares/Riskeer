@@ -94,8 +94,8 @@ namespace Ringtoets.Revetment.IO
                 exportableWaveConditions.ForeshoreName ?? string.Empty,
                 exportableWaveConditions.UseBreakWater ? Resources.Yes : Resources.No,
                 exportableWaveConditions.UseForeshore ? Resources.Yes : Resources.No,
-                new RoundedDouble(2, exportableWaveConditions.WaterLevel).ToString(null, CultureInfo.InvariantCulture),
                 exportableWaveConditions.CoverType.Name,
+                new RoundedDouble(2, exportableWaveConditions.WaterLevel).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(2, exportableWaveConditions.WaveHeight).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(2, exportableWaveConditions.WavePeriod).ToString(null, CultureInfo.InvariantCulture),
                 new RoundedDouble(2, exportableWaveConditions.WaveAngle).ToString(null, CultureInfo.InvariantCulture)
