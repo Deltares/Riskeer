@@ -82,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis.
+        ///   Looks up a localized string similar to Hs(doorsn).
         /// </summary>
         internal static string DesignWaterLevel_Description {
             get {
@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis.
+        ///   Looks up a localized string similar to h(doorsn).
         /// </summary>
         internal static string WaveHeight_Description {
             get {
