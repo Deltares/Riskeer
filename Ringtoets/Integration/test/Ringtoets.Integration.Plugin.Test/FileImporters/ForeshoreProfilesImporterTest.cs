@@ -127,7 +127,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void Import_FiveForeshoreProfilesWithoutDamsAndGeometries_TrueAndLogWarningAndNoForeshoreProfiles()
+        public void Import_FiveForeshoreProfilesWithoutDamsAndGeometries_TrueAndLogWarningAndTwoForeshoreProfiles()
         {
             // Setup
             string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
@@ -135,8 +135,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath);
+            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
             // Call
             bool importResult = false;
@@ -146,14 +146,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string[] expectedMessages =
             {
                 string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel002 - Ringtoets.prfl")),
                 string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
                 string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel005 - Ringtoets.prfl"))
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(0, failureMechanism.ForeshoreProfiles.Count);
+            Assert.AreEqual(2, foreshoreProfiles.Count);
         }
 
         [Test]
@@ -163,7 +161,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var referencePoints = new List<Point2D>
             {
                 new Point2D(131223.2, 548393.4),
@@ -179,7 +176,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath);
+            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
             // Call
             var importResult = true;
@@ -189,7 +187,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string expectedMessage = "Een profiellocatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(4, failureMechanism.ForeshoreProfiles.Count);
+            Assert.AreEqual(4, foreshoreProfiles.Count);
         }
 
         [Test]
@@ -200,13 +198,13 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath)
+            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath)
             {
                 ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
             };
@@ -232,7 +230,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, failureMechanism.ForeshoreProfiles.Count);
+            Assert.AreEqual(5, foreshoreProfiles.Count);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
@@ -245,21 +243,21 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var observer = mockRepository.StrictMock<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath);
+            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
-            var targetContext = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection);
+            var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, assessmentSection);
             targetContext.Attach(observer);
 
             // Call
             foreshoreProfilesImporter.Import();
 
             // Assert
-            ForeshoreProfile foreshoreProfile = targetContext.WrappedData[4];
+            ForeshoreProfile foreshoreProfile = foreshoreProfiles[4];
             Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), foreshoreProfile.WorldReferencePoint);
             Assert.AreEqual("profiel005", foreshoreProfile.Name);
             Assert.AreEqual(15.56165507, foreshoreProfile.X0);
@@ -277,18 +275,18 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             var observer = mockRepository.StrictMock<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath)
+            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath)
             {
                 ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
             };
 
-            var targetContext = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection);
+            var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, assessmentSection);
             targetContext.Attach(observer);
 
             // Call
@@ -312,7 +310,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, targetContext.WrappedData.Count);
+            Assert.AreEqual(5, foreshoreProfiles.Count);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
@@ -324,12 +322,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath);
+            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
             // Precondition
             foreshoreProfilesImporter.Cancel();
@@ -352,14 +350,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.ReferenceLine = referenceLine;
             mockRepository.ReplayAll();
 
-            var targetContext = new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection);
-
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath);
+            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
+            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
 
             foreshoreProfilesImporter.Cancel();
             bool importResult = foreshoreProfilesImporter.Import();
@@ -370,7 +366,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(5, targetContext.WrappedData.Count);
+            Assert.AreEqual(5, foreshoreProfiles.Count);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 

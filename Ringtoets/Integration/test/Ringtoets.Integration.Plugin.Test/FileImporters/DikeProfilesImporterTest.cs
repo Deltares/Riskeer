@@ -120,8 +120,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
             // Call
             bool importResult = false;
@@ -138,7 +139,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(0, failureMechanism.DikeProfiles.Count);
+            Assert.AreEqual(0, dikeProfiles.Count);
         }
 
         [Test]
@@ -148,7 +149,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var referencePoints = new List<Point2D>
             {
                 new Point2D(131223.2, 548393.4),
@@ -160,7 +160,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
 
-            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
             var importResult = false;
 
@@ -171,7 +172,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string expectedMessage = "Een profiellocatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(4, failureMechanism.DikeProfiles.Count);
+            Assert.AreEqual(4, dikeProfiles.Count);
         }
 
         [Test]
@@ -182,10 +183,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath)
+
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath)
             {
                 ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
             };
@@ -211,7 +213,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, failureMechanism.DikeProfiles.Count);
+            Assert.AreEqual(5, dikeProfiles.Count);
         }
 
         [Test]
@@ -222,15 +224,15 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
             // Call
             dikeProfilesImporter.Import();
 
             // Assert
-            DikeProfile dikeProfile = failureMechanism.DikeProfiles[4];
+            DikeProfile dikeProfile = dikeProfiles[4];
             Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), dikeProfile.WorldReferencePoint);
             Assert.AreEqual("profiel005", dikeProfile.Name);
             Assert.AreEqual(15.56165507, dikeProfile.X0);
@@ -247,10 +249,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath)
+
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath)
             {
                 ProgressChanged = (description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps))
             };
@@ -276,7 +279,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, failureMechanism.DikeProfiles.Count);
+            Assert.AreEqual(5, dikeProfiles.Count);
         }
 
         [Test]
@@ -287,9 +290,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
             dikeProfilesImporter.Cancel();
             bool importResult = true;
@@ -310,9 +313,9 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var dikeProfilesImporter = new DikeProfilesImporter(failureMechanism.DikeProfiles, referenceLine, filePath);
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
             dikeProfilesImporter.Cancel();
             bool importResult = dikeProfilesImporter.Import();
@@ -323,7 +326,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(5, failureMechanism.DikeProfiles.Count);
+            Assert.AreEqual(5, dikeProfiles.Count);
         }
 
         private ReferenceLine CreateMatchingReferenceLine()
