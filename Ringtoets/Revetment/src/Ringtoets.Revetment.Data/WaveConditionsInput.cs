@@ -296,18 +296,18 @@ namespace Ringtoets.Revetment.Data
                 return waterLevels;
             }
 
-            waterLevels.Add(lowerBoundary);
+            waterLevels.Add(upperBoundary);
 
             double stepSizeValue = StepSize.AsValue();
-            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Floor(lowerBoundary/stepSizeValue)*stepSizeValue + stepSizeValue);
+            RoundedDouble currentWaterLevel = new RoundedDouble(2, Math.Ceiling(upperBoundary/stepSizeValue)*stepSizeValue - stepSizeValue);
 
-            while (currentWaterLevel < upperBoundary)
+            while (currentWaterLevel > lowerBoundary)
             {
                 waterLevels.Add(currentWaterLevel);
-                currentWaterLevel = new RoundedDouble(currentWaterLevel.NumberOfDecimalPlaces, currentWaterLevel + stepSizeValue);
+                currentWaterLevel = new RoundedDouble(currentWaterLevel.NumberOfDecimalPlaces, currentWaterLevel - stepSizeValue);
             }
 
-            waterLevels.Add(upperBoundary);
+            waterLevels.Add(lowerBoundary);
 
             return waterLevels;
         }

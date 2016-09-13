@@ -43,57 +43,57 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 yield return new TestCaseData(WaveConditionsInputStepSize.Two, 2.58, 6.10, 2.40, 3.89, 5.99, new[]
                 {
-                    new RoundedDouble(2, 2.58),
-                    new RoundedDouble(2, 3.89)
+                    new RoundedDouble(2, 3.89),
+                    new RoundedDouble(2, 2.58)
                 });
 
                 yield return new TestCaseData(WaveConditionsInputStepSize.Half, 3.58, 6.10, 3.40, 5.88, 5.99, new[]
                 {
-                    new RoundedDouble(2, 3.58),
-                    new RoundedDouble(2, 4),
-                    new RoundedDouble(2, 4.5),
-                    new RoundedDouble(2, 5),
+                    new RoundedDouble(2, 5.88),
                     new RoundedDouble(2, 5.5),
-                    new RoundedDouble(2, 5.88)
+                    new RoundedDouble(2, 5),
+                    new RoundedDouble(2, 4.5),
+                    new RoundedDouble(2, 4),
+                    new RoundedDouble(2, 3.58)
                 });
 
                 yield return new TestCaseData(WaveConditionsInputStepSize.One, -1.30, 5.80, -1.20, 6.01, 6.10, new[]
                 {
-                    new RoundedDouble(2, -1.20),
-                    new RoundedDouble(2, -1),
-                    new RoundedDouble(2),
-                    new RoundedDouble(2, 1),
-                    new RoundedDouble(2, 2),
-                    new RoundedDouble(2, 3),
-                    new RoundedDouble(2, 4),
+                    new RoundedDouble(2, 5.80),
                     new RoundedDouble(2, 5),
-                    new RoundedDouble(2, 5.80)
+                    new RoundedDouble(2, 4),
+                    new RoundedDouble(2, 3),
+                    new RoundedDouble(2, 2),
+                    new RoundedDouble(2, 1),
+                    new RoundedDouble(2),
+                    new RoundedDouble(2, -1),
+                    new RoundedDouble(2, -1.20)
                 });
 
                 yield return new TestCaseData(WaveConditionsInputStepSize.Two, -4.29, 8.67, -4.29, 8.58, 8.58, new[]
                 {
-                    new RoundedDouble(2, -4.29),
-                    new RoundedDouble(2, -4),
-                    new RoundedDouble(2, -2),
-                    new RoundedDouble(2),
-                    new RoundedDouble(2, 2),
-                    new RoundedDouble(2, 4),
-                    new RoundedDouble(2, 6),
+                    new RoundedDouble(2, 8.57),
                     new RoundedDouble(2, 8),
-                    new RoundedDouble(2, 8.57)
+                    new RoundedDouble(2, 6),
+                    new RoundedDouble(2, 4),
+                    new RoundedDouble(2, 2),
+                    new RoundedDouble(2),
+                    new RoundedDouble(2, -2),
+                    new RoundedDouble(2, -4),
+                    new RoundedDouble(2, -4.29)
                 });
 
                 yield return new TestCaseData(WaveConditionsInputStepSize.Two, -4.29, 8.67, double.NaN, double.NaN, 8.58, new[]
                 {
-                    new RoundedDouble(2, -4.29),
-                    new RoundedDouble(2, -4),
-                    new RoundedDouble(2, -2),
-                    new RoundedDouble(2),
-                    new RoundedDouble(2, 2),
-                    new RoundedDouble(2, 4),
-                    new RoundedDouble(2, 6),
+                    new RoundedDouble(2, 8.57),
                     new RoundedDouble(2, 8),
-                    new RoundedDouble(2, 8.57)
+                    new RoundedDouble(2, 6),
+                    new RoundedDouble(2, 4),
+                    new RoundedDouble(2, 2),
+                    new RoundedDouble(2),
+                    new RoundedDouble(2, -2),
+                    new RoundedDouble(2, -4),
+                    new RoundedDouble(2, -4.29)
                 });
             }
         }
