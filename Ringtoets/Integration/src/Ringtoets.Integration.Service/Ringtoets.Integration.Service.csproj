@@ -105,6 +105,16 @@
       <Name>Ringtoets.Piping.Service</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+      <Project>{B479E3AF-7C34-488C-BB73-D324100D36C9}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Service\Ringtoets.StabilityStoneCover.Service.csproj">
+      <Project>{66DD5FFB-EE06-40F2-9260-01F26D6FD1B4}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

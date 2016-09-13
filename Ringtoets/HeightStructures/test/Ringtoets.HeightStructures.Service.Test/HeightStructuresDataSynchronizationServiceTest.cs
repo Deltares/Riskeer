@@ -47,18 +47,18 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void ClearAllCalculationOutput_WithOutput_ClearsCalculationsOutput()
         {
             // Setup
-            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
-            HeightStructuresCalculation calculation1 = new HeightStructuresCalculation
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation1 = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            HeightStructuresCalculation calculation2 = new HeightStructuresCalculation
+            var calculation2 = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+            var calculation3 = new HeightStructuresCalculation();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
@@ -94,7 +94,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutput()
         {
             // Setup
-            HeightStructuresCalculation calculation = new HeightStructuresCalculation
+            var calculation = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -121,10 +121,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void ClearHydraulicBoundaryLocations_WithHydraulicBoundaryLocation_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
-            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            HeightStructuresCalculation calculation1 = new HeightStructuresCalculation
+            var calculation1 = new HeightStructuresCalculation
             {
                 InputParameters =
                 {
@@ -132,7 +132,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 }
             };
 
-            HeightStructuresCalculation calculation2 = new HeightStructuresCalculation
+            var calculation2 = new HeightStructuresCalculation
             {
                 InputParameters =
                 {
@@ -140,7 +140,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 }
             };
 
-            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+            var calculation3 = new HeightStructuresCalculation();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);

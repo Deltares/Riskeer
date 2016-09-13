@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -34,6 +35,8 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
+using Ringtoets.Revetment.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.Integration.Service.Test
 {
@@ -55,22 +58,22 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithAssessmentSection_ClearsFailureMechanismCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             };
 
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
 
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var heightStructuresCalculation = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -101,12 +104,12 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithMultiplePipingFailureMechanisms_ClearsOutputAndReturnsAffectedItems()
         {
             // Setup
-            PipingFailureMechanism failureMechanism1 = new PipingFailureMechanism();
+            var failureMechanism1 = new PipingFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             });
-            PipingFailureMechanism failureMechanism2 = new PipingFailureMechanism();
+            var failureMechanism2 = new PipingFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
@@ -141,12 +144,12 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithMultipleGrassCoverErosionInwardsFailureMechanisms_ClearsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            GrassCoverErosionInwardsFailureMechanism failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             });
-            GrassCoverErosionInwardsFailureMechanism failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
@@ -181,12 +184,12 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithMultipleHeightStructuresFailureMechanisms_ClearsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            HeightStructuresFailureMechanism failureMechanism1 = new HeightStructuresFailureMechanism();
+            var failureMechanism1 = new HeightStructuresFailureMechanism();
             failureMechanism1.CalculationsGroup.Children.Add(new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             });
-            HeightStructuresFailureMechanism failureMechanism2 = new HeightStructuresFailureMechanism();
+            var failureMechanism2 = new HeightStructuresFailureMechanism();
             failureMechanism2.CalculationsGroup.Children.Add(new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
@@ -232,11 +235,11 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -245,8 +248,8 @@ namespace Ringtoets.Integration.Service.Test
                 Output = new TestPipingOutput()
             };
 
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -255,8 +258,8 @@ namespace Ringtoets.Integration.Service.Test
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
 
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var heightStructuresCalculation = new HeightStructuresCalculation
             {
                 InputParameters =
                 {
@@ -265,12 +268,24 @@ namespace Ringtoets.Integration.Service.Test
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
+            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
+            };
+
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
 
             // Call
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
@@ -279,13 +294,16 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsNull(pipingCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(grassCoverErosionInwardsCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(heightStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
             Assert.IsNull(heightStructuresCalculation.Output);
+            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.Output);
             CollectionAssert.AreEqual(new ICalculation[]
             {
                 pipingCalculation,
                 grassCoverErosionInwardsCalculation,
+                stabilityStoneCoverWaveConditionsCalculation,
                 heightStructuresCalculation
             }, affectedItems);
         }
@@ -294,11 +312,11 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0);
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -306,8 +324,8 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -315,8 +333,17 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var heightStructuresCalculation = new HeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -330,6 +357,8 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
 
             // Call
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
@@ -338,10 +367,12 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsNull(pipingCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(grassCoverErosionInwardsCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.IsNull(heightStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.InputParameters.HydraulicBoundaryLocation);
             CollectionAssert.AreEqual(new ICalculation[]
             {
                 pipingCalculation,
                 grassCoverErosionInwardsCalculation,
+                stabilityStoneCoverWaveConditionsCalculation,
                 heightStructuresCalculation
             }, affectedItems);
         }
@@ -350,24 +381,30 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
-            PipingCalculation pipingCalculation = new PipingCalculation(new GeneralPipingInput())
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
                 Output = new TestPipingOutput()
             };
 
-            GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
 
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var heightStructuresCalculation = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
             };
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
@@ -376,6 +413,8 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
 
             // Call
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
@@ -384,12 +423,37 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
             Assert.IsNull(heightStructuresCalculation.Output);
+            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.Output);
             CollectionAssert.AreEqual(new ICalculation[]
             {
                 pipingCalculation,
                 grassCoverErosionInwardsCalculation,
+                stabilityStoneCoverWaveConditionsCalculation,
                 heightStructuresCalculation
             }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithoutOutputAndHydraulicBoundaryLocation_ReturnNoAffectedItems()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
+
+            assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
+
+            // Call
+            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
+
+            // Assert
+            CollectionAssert.IsEmpty(affectedItems);
         }
 
         [Test]
@@ -431,7 +495,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
             {
                 WaveHeight = (RoundedDouble) waveHeight,
                 DesignWaterLevel = (RoundedDouble) designWaterLevel
@@ -473,7 +537,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
             };
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
             assessmentSection.HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             // Call
@@ -489,7 +553,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnTrue(double designWaterLevel, double waveHeight)
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -527,7 +591,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_LocationWithoutDataAndGrassCoverErosionOutwardsLocationWithoutData_ReturnFalse()
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
@@ -558,7 +622,7 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_LocationWithDataAndGrassCoverErosionOutwardsLocationWithData_ClearDataAndReturnTrue(double designWaterLevel, double waveHeight)
         {
             // Setup
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
             {
                 DesignWaterLevel = (RoundedDouble)designWaterLevel,
                 WaveHeight = (RoundedDouble)waveHeight

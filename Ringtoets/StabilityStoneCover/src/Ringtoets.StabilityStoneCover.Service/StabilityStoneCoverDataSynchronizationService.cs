@@ -92,7 +92,6 @@ namespace Ringtoets.StabilityStoneCover.Service
                 }
             }
             
-
             return affectedItems;
         }
 

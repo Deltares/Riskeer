@@ -34,6 +34,8 @@ using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Service;
 
 namespace Ringtoets.Integration.Service
 {
@@ -62,6 +64,7 @@ namespace Ringtoets.Integration.Service
             {
                 var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
+                var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
 
                 if (pipingFailureMechanism != null)
@@ -71,6 +74,10 @@ namespace Ringtoets.Integration.Service
                 if (grassCoverErosionInwardsFailureMechanism != null)
                 {
                     affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionInwardsFailureMechanism));
+                }
+                if (stabilityStoneCoverFailureMechanism != null)
+                {
+                    affectedItems.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(stabilityStoneCoverFailureMechanism));
                 }
                 if (heightStructuresFailureMechanism != null)
                 {
