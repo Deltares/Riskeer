@@ -139,6 +139,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
+                new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, wrappedData, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -250,7 +251,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             builder.AddExportItem()
                    .AddSeparator()
                    .AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation);
+                   // TODO Restore in WTI-819
+                   //.AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
+                   ;
 
             if (!isNestedGroup)
             {
@@ -303,8 +306,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
         {
-            // TODO WTI-808
-            return null;
+            // TODO : This is a placeholder, so all corrections, improvements and functionality extensions are part of WTI-808.
+            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                             "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
+                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             (sender, args) => { ShowWaveImpactAsphaltCoverHydraulicBoundaryLocationSelectionDialog(nodeData); })
+            {
+                Enabled = false
+            };
         }
 
         private void ShowWaveImpactAsphaltCoverHydraulicBoundaryLocationSelectionDialog(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
@@ -319,14 +328,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private void AddWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
         {
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
-                                                  WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName,
-                                                  c => c.Name)
-            };
-            nodeData.WrappedData.Children.Add(calculation);
-            nodeData.WrappedData.NotifyObservers();
+            // TODO WTI-819, also add ViewInfo
+//            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+//            {
+//                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
+//                                                  WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName,
+//                                                  c => c.Name)
+//            };
+//            nodeData.WrappedData.Children.Add(calculation);
+//            nodeData.WrappedData.NotifyObservers();
         }
 
         private void ValidateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, GeneralWaveConditionsInput generalInput, int norm, HydraulicBoundaryDatabase database)

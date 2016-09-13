@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data
 {
@@ -44,6 +46,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
         {
             sectionResults = new List<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
+            WaveConditionsCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName, false);
             ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
             GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);
         }
@@ -52,7 +55,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         {
             get
             {
-                yield break;
+                return WaveConditionsCalculationGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
             }
         }
 
@@ -65,6 +68,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// Gets the general wave conditions input parameters that apply to each calculation.
         /// </summary>
         public GeneralWaveConditionsInput GeneralInput { get; private set; }
+
+        /// <summary>
+        /// Gets the container of all wave conditions calculations.
+        /// </summary>
+        public CalculationGroup WaveConditionsCalculationGroup { get; private set; }
 
         public IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
         {

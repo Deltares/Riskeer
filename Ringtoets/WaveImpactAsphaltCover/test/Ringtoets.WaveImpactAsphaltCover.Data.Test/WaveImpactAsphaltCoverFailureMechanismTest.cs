@@ -19,9 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Revetment.Data;
 
@@ -40,8 +45,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Golfklappen op asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AGK", failureMechanism.Code);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            Assert.AreEqual("Hydraulische randvoorwaarden", failureMechanism.WaveConditionsCalculationGroup.Name);
+            Assert.IsFalse(failureMechanism.WaveConditionsCalculationGroup.IsNameEditable);
+            CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+            Assert.IsInstanceOf<IObservable>(failureMechanism.ForeshoreProfiles);
+            Assert.IsInstanceOf<IList<ForeshoreProfile>>(failureMechanism.ForeshoreProfiles);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
 
             Assert.IsInstanceOf<GeneralWaveConditionsInput>(failureMechanism.GeneralInput);
         }
@@ -79,6 +93,36 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+        }
+
+        [Test]
+        public void Calculations_MultipleChildrenAdded_ReturnWaveImpactAsphaltCoverCalculations()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                WaveConditionsCalculationGroup =
+                {
+                    Children =
+                    {
+                        new CalculationGroup(),
+                        new WaveImpactAsphaltCoverWaveConditionsCalculation(),
+                        mocks.StrictMock<ICalculation>(),
+                        new WaveImpactAsphaltCoverWaveConditionsCalculation()
+                    }
+                }
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var calculations = failureMechanism.Calculations.ToList();
+
+            // Assert
+            Assert.AreEqual(2, calculations.Count);
+            Assert.IsTrue(calculations.All(c => c is WaveImpactAsphaltCoverWaveConditionsCalculation));
+            mocks.VerifyAll();
         }
     }
 }
