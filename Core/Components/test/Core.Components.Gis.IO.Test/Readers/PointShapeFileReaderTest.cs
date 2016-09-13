@@ -74,6 +74,57 @@ namespace Core.Components.Gis.IO.Test.Readers
         }
 
         [Test]
+        public void ParameteredConstructor_InvalidFilePath_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string nonExistingPointShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                          "NonExistingFile");
+
+            // Call 
+            TestDelegate call = () => new PointShapeFileReader(nonExistingPointShapeFile);
+
+            // Assert 
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
+                                                nonExistingPointShapeFile);
+            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ParameteredConstructor_ShapeFileIsEmptyFile_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string emptyPointShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                    "EmptyFile.shp");
+
+            // Call
+            TestDelegate call = () => new PointShapeFileReader(emptyPointShapeFile);
+
+            // Assert
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.",
+                                                emptyPointShapeFile);
+            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void ParameteredConstructor_ShapeFileIsCorruptFile_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string corruptPointShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
+                                                                  "CorruptFile.shp");
+
+            // Call
+            TestDelegate call = () => new PointShapeFileReader(corruptPointShapeFile);
+
+            // Assert
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
+                                                corruptPointShapeFile);
+            var message = Assert.Throws<CriticalFileReadException>(call).Message;
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
         public void ParameteredConstructor_ShapeFileIsInUse_ThrowsCriticalFileReadException()
         {
             // Setup

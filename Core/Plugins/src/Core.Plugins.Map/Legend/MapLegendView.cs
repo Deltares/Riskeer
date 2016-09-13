@@ -251,12 +251,6 @@ namespace Core.Plugins.Map.Legend
                     .Build(MapResources.MapLegendView_CheckDataFormat_File_does_not_exist_or_misses_needed_files);
                 log.Error(message);
             }
-            catch (NullReferenceException)
-            {
-                string message = new FileReaderErrorMessageBuilder(filePath)
-                    .Build(MapResources.MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file);
-                log.Error(message);
-            }
             catch (IOException)
             {
                 string message = new FileReaderErrorMessageBuilder(filePath)
@@ -266,6 +260,14 @@ namespace Core.Plugins.Map.Legend
             catch (CriticalFileReadException e)
             {
                 log.Error(e.Message);
+            }
+            catch(Exception)
+            {
+                // Because we expect NullEeference and NotImplemented exceptions when reading in a corrupt shape file
+				// from a third party library, we catch all the exceptions here
+                string message = new FileReaderErrorMessageBuilder(filePath)
+                   .Build(MapResources.MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file);
+                log.Error(message);
             }
         }
 

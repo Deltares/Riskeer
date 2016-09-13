@@ -32,6 +32,7 @@ using Core.Common.Utils.Reflection;
 using Core.Components.Gis.Data;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using GuiResources = Core.Common.Gui.Properties.Resources;
@@ -39,7 +40,7 @@ using GuiResources = Core.Common.Gui.Properties.Resources;
 namespace Core.Plugins.Map.Test.Legend
 {
     [TestFixture]
-    public class MapDataCollectionTreeNodeInfoTest
+    public class MapDataCollectionTreeNodeInfoTest : NUnitFormTest
     {
         private MockRepository mocks;
         private MapLegendView mapLegendView;
@@ -58,14 +59,6 @@ namespace Core.Plugins.Map.Test.Legend
             Dictionary<Type, TreeNodeInfo> treeNodeInfoLookup = TypeUtils.GetField<Dictionary<Type, TreeNodeInfo>>(treeViewControl, "tagTypeTreeNodeInfoLookup");
 
             info = treeNodeInfoLookup[typeof(MapDataCollection)];
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mapLegendView.Dispose();
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -311,6 +304,113 @@ namespace Core.Plugins.Map.Test.Legend
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, 0, expectedItemText, expectedItemTooltip, Resources.MapPlusIcon);
                 }
             }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenFilePathIsSet_WhenShapeFileIsCorrupt_ThenNoMapDataViewIsAdded()
+        {
+            // Setup
+            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "CorruptFile.shp");
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                tester.OpenFile(testFilePath);
+            };
+
+            // When
+            var mapDataCollection = new MapDataCollection("test data");
+            using (var treeViewControl = new TreeViewControl())
+            {
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuStrip.Items[0].PerformClick();
+
+                    // Then
+                    var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
+                                                        testFilePath);
+                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenFilePathIsSet_WhenShapeFileIsEmpty_ThenNoMapDataViewIsAdded()
+        {
+            // Setup
+            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "EmptyFile.shp");
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                tester.OpenFile(testFilePath);
+            };
+
+            // When
+            var mapDataCollection = new MapDataCollection("test data");
+            using (var treeViewControl = new TreeViewControl())
+            {
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuStrip.Items[0].PerformClick();
+
+                    // Then
+                    var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen geometrieën vinden in dit bestand.",
+                                                        testFilePath);
+                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
+                }
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void GivenFilePathIsSet_WhenShapeFileIsValid_ThenMapDataViewIsAdded()
+        {
+            // Setup
+            string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, "Single_Point_with_ID.shp");
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                OpenFileDialogTester tester = new OpenFileDialogTester(wnd);
+                tester.OpenFile(testFilePath);
+            };
+
+            // When
+            var mapDataCollection = new MapDataCollection("test data");
+            using (var treeViewControl = new TreeViewControl())
+            {
+                contextMenuBuilderProvider.Expect(cmbp => cmbp.Get(mapDataCollection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(mapDataCollection, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuStrip.Items[0].PerformClick();
+
+                    // Then
+                    string expectedMessage = "Het shapebestand is geïmporteerd.";
+                    TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
+                }
+            }
+        }
+
+        public override void TearDown()
+        {
+            mapLegendView.Dispose();
+
+            mocks.VerifyAll();
         }
     }
 }
