@@ -123,4 +123,10 @@
   <data name="WaveHeight_Description" xml:space="preserve">
     <value>h(doorsn)</value>
   </data>
+  <data name="GrassCoverErosionOutwardsPlugin_CalculateWaveHeights_Cannot_calculate_when_Contribution_is_zero" xml:space="preserve">
+    <value>De golfhoogtes bij doorsnede-eis kunnen niet berekend worden zonder contributie.</value>
+  </data>
+  <data name="GrassCoverErosionOutwardsPlugin_CalculateDesignWaterLevel_Cannot_calculate_when_Contribution_is_zero" xml:space="preserve">
+    <value>De waterstanden bij doorsnede-eis kunnen niet berekend worden zonder contributie.</value>
+  </data>
 </root>

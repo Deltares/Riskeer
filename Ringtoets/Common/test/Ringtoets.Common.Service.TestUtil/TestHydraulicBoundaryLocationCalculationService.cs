@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Service.TestUtil
         public IHydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
 
         /// <summary>
-        /// Gets the used hydraulic boundary databse file path.
+        /// Gets the used hydraulic boundary database file path.
         /// </summary>
         public string HydraulicBoundaryDatabaseFilePath { get; private set; }
 

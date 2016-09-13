@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -416,7 +417,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CalculateDesignWaterLevelsFromContextMenu_Always_SendsRightInputToCalculationService()
+        public void CalculateWaveHeightsFromContextMenu_Always_SendsRightInputToCalculationService()
         {
             // Setup
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
@@ -479,9 +480,77 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         Assert.AreEqual(assessmentSectionMock.Id, testService.RingId);
 
                         var expectedNorm = assessmentSectionMock.FailureMechanismContribution.Norm/
-                                           (failureMechanism.Contribution / 100) *
+                                           (failureMechanism.Contribution/100)*
                                            failureMechanism.GeneralInput.N;
                         Assert.AreEqual(expectedNorm, testService.Norm);
+                    }
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateWaveHeightsFromContextMenu_ContributionZero_DoesNotCalculateAndLog()
+        {
+            // Setup
+            string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            var guiMock = mockRepository.DynamicMock<IGui>();
+            var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 0
+            };
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSectionMock.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
+            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath,
+                Locations =
+                {
+                    location
+                }
+            };
+
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(location);
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            {
+                grassCoverErosionOutwardsHydraulicBoundaryLocation
+            }, assessmentSectionMock);
+
+            var contextObserverMock = mockRepository.StrictMock<IObserver>();
+            context.Attach(contextObserverMock);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiMock.Expect(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = guiMock;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new WaveHeightCalculationServiceConfig())
+                    {
+                        var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
+
+                        // Call
+                        Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
+
+                        // Assert
+                        TestHelper.AssertLogMessageIsGenerated(action, "De golfhoogtes bij doorsnede-eis kunnen niet berekend worden zonder contributie.");
+                        Assert.IsNull(testService.HydraulicBoundaryLocation);
+                        Assert.IsNullOrEmpty(testService.HydraulicBoundaryDatabaseFilePath);
+                        Assert.IsNullOrEmpty(testService.RingId);
+                        Assert.AreEqual(0, testService.Norm);
                     }
                 }
             }

@@ -29,6 +29,7 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
+using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.GuiServices;
@@ -37,10 +38,11 @@ using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
+using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
+using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
@@ -52,6 +54,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
     /// </summary>
     public class GrassCoverErosionOutwardsPlugin : PluginBase
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsPlugin));
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
@@ -117,17 +120,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext>
             {
-                Text = context => Resources.GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName,
+                Text = context => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
-                ContextMenuStrip = GrassCoverErosionOutwardsWaterLevelLocationsContextMenuStrip
+                ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelLocationsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightLocationsContext>
             {
-                Text = context => Resources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName,
+                Text = context => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :
@@ -142,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 CreateFileExporter = (context, filePath) =>
                                      new HydraulicBoundaryLocationsExporter(context.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations,
-                                                                            filePath, Properties.Resources.DesignWaterLevel_Description, Properties.Resources.WaveHeight_Description),
+                                                                            filePath, Resources.DesignWaterLevel_Description, Resources.WaveHeight_Description),
                 IsEnabled = context => context.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count > 0,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };
@@ -271,13 +274,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsDesignWaterLevelLocationsContext TreeNodeInfo
 
-        private ContextMenuStrip GrassCoverErosionOutwardsWaterLevelLocationsContextMenuStrip(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip GrassCoverErosionOutwardsDesignWaterLevelLocationsContextMenuStrip(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
-                Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
+                RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
                 nodeData.AssessmentSection.HydraulicBoundaryDatabase != null ?
-                    Resources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip :
-                    Resources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate,
+                    RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip :
+                    RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_No_HRD_To_Calculate,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -292,16 +295,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     {
                         return;
                     }
+                    if (!(failureMechanism.Contribution > 0))
+                    {
+                        log.Info(Resources.GrassCoverErosionOutwardsPlugin_CalculateDesignWaterLevel_Cannot_calculate_when_Contribution_is_zero);
+                        return;
+                    }
 
                     var correctedNormFactor = assessmentSection.FailureMechanismContribution.Norm/
                                               (failureMechanism.Contribution/100)*
                                               failureMechanism.GeneralInput.N;
 
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                           nodeData.WrappedData,
-                                                                                                                           assessmentSection.Id,
-                                                                                                                           correctedNormFactor,
-                                                                                                                           new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
+                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
+                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                        nodeData.WrappedData,
+                        assessmentSection.Id,
+                        correctedNormFactor,
+                        new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
                     if (successfulCalculation)
                     {
                         nodeData.WrappedData.NotifyObservers();
@@ -329,8 +338,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var waveHeightItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
                 nodeData.AssessmentSection.HydraulicBoundaryDatabase == null
-                    ? Resources.GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate
-                    : Resources.GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip,
+                    ? RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate
+                    : RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -345,16 +354,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     {
                         return;
                     }
+                    if (!(failureMechanism.Contribution > 0))
+                    {
+                        log.Info(Resources.GrassCoverErosionOutwardsPlugin_CalculateWaveHeights_Cannot_calculate_when_Contribution_is_zero);
+                        return;
+                    }
 
                     var correctedNormFactor = assessmentSection.FailureMechanismContribution.Norm/
                                               (failureMechanism.Contribution/100)*
                                               failureMechanism.GeneralInput.N;
 
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                     nodeData.WrappedData,
-                                                                                                                     assessmentSection.Id,
-                                                                                                                     correctedNormFactor,
-                                                                                                                     new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
+                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
+                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                        nodeData.WrappedData,
+                        assessmentSection.Id,
+                        correctedNormFactor,
+                        new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
                     if (successfulCalculation)
                     {
                         nodeData.WrappedData.NotifyObservers();
