@@ -91,11 +91,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen aan te maken..
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren..
         /// </summary>
-        internal static string StabilityStoneCover_WaveConditions_No_HRD_To_Calculate {
+        internal static string StabilityStoneCover_WaveConditions_No_HRD_To_Generate {
             get {
-                return ResourceManager.GetString("StabilityStoneCover_WaveConditions_No_HRD_To_Calculate", resourceCulture);
+                return ResourceManager.GetString("StabilityStoneCover_WaveConditions_No_HRD_To_Generate", resourceCulture);
             }
         }
         

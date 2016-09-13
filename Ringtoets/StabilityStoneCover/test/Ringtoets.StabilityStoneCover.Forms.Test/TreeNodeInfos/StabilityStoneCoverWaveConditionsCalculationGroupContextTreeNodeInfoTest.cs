@@ -359,7 +359,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     Assert.AreEqual(16, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
                                                                   RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-                                                                  "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen aan te maken.",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,

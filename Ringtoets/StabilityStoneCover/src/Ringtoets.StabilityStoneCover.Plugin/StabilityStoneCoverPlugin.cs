@@ -377,7 +377,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
                                                                                          ? Resources.StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                         : Resources.StabilityStoneCover_WaveConditions_No_HRD_To_Calculate;
+                                                                                         : Resources.StabilityStoneCover_WaveConditions_No_HRD_To_Generate;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
                                              stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
