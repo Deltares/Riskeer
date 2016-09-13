@@ -22,8 +22,10 @@
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using log4net;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -34,6 +36,36 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsFailureMechanismProperties));
+
+        #region Length effect parameters
+
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
+        public int LengthEffect
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                data.GeneralInput.N = value;
+                ClearHydraulicBoundaryLocationOutput();
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
+
+        private void ClearHydraulicBoundaryLocationOutput()
+        {
+            GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(data.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
+            data.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
+            log.Info(Resources.GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
+        }
 
         #region General
 
@@ -58,28 +90,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             get
             {
                 return data.Code;
-            }
-        }
-
-        #endregion
-
-        #region Length effect parameters
-
-        [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
-        public int LengthEffect
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                data.GeneralInput.N = value;
-                GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(data.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
-                data.NotifyObservers();
             }
         }
 

@@ -24,8 +24,10 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -131,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(20)]
-        public void LengthEffect_ValueSet_HydraulicBoundaryLocationsCleared(int value)
+        public void LengthEffect_NewValueSet_HydraulicBoundaryLocationsClearedNotifyObserversAndLogged(int value)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -154,7 +156,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 }
             };
 
-            failureMechanism.Attach(observerMock);
+            failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(observerMock);
 
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties
             {
@@ -162,9 +164,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            properties.LengthEffect = value;
+            Action action = () => properties.LengthEffect = value;
 
             // Assert
+            const string expectedMessage = "De berekende waterstanden en golfhoogtes bij doorsnede-eis voor alle hydraulische randvoorwaarden locaties zijn verwijderd.";
+            TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
             Assert.AreEqual(value, properties.LengthEffect);
             Assert.AreEqual(value, failureMechanism.GeneralInput.N);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);

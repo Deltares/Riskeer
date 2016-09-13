@@ -299,17 +299,22 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)
             {
-                var grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().First();
+                ClearHydraulicBoundaryLocationOutput();
+            }
+        }
 
-                bool hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                                                                  grassCoverErosionOutwardsFailureMechanism);
-                if (hydraulicBoundaryLocationAffected)
-                {
-                    grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
+        private void ClearHydraulicBoundaryLocationOutput()
+        {
+            var grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().First();
 
-                    assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
-                    log.Info(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
-                }
+            bool hydraulicBoundaryLocationAffected = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase,
+                                                                                                                              grassCoverErosionOutwardsFailureMechanism);
+            if (hydraulicBoundaryLocationAffected)
+            {
+                grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
+
+                assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+                log.Info(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
             }
         }
 
