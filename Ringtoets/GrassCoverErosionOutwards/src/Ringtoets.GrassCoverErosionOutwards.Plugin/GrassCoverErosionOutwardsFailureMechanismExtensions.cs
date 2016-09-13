@@ -22,7 +22,7 @@
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Integration.Plugin
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 {
     /// <summary>
     /// Defines extension methods dealing with <see cref="GrassCoverErosionOutwardsFailureMechanism"/> instances.
