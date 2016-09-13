@@ -356,7 +356,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekende toetspeilen en golfhoogtes van alle hydraulische randvoorwaarden locaties zijn verwijderd..
+        ///   Looks up a localized string similar to Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd..
         /// </summary>
         public static string FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared {
             get {

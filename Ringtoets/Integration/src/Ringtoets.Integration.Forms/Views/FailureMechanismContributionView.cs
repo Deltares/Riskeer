@@ -34,9 +34,11 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
+using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
@@ -299,11 +301,11 @@ namespace Ringtoets.Integration.Forms.Views
 
             if (assessmentSection.HydraulicBoundaryDatabase != null)
             {
-                ClearHydraulicBoundaryLocationOutput();
+                ClearAllHydraulicBoundaryLocationOutput();
             }
         }
 
-        private void ClearHydraulicBoundaryLocationOutput()
+        private void ClearAllHydraulicBoundaryLocationOutput()
         {
             var grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().First();
 
@@ -315,6 +317,17 @@ namespace Ringtoets.Integration.Forms.Views
 
                 assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
                 log.Info(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
+            }
+        }
+
+        private void ClearGrassCoverErosionOutwardsHydraulicBoundaryLocations()
+        {
+            var grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().First();
+            var locationsAffected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
+            if (locationsAffected)
+            {
+                grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
+                log.Info(RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
             }
         }
 
@@ -426,6 +439,11 @@ namespace Ringtoets.Integration.Forms.Views
         {
             assessmentSection.ChangeComposition((AssessmentSectionComposition) assessmentSectionCompositionComboBox.SelectedValue);
             SetGridDataSource();
+
+            if (assessmentSection.HydraulicBoundaryDatabase != null)
+            {
+                ClearGrassCoverErosionOutwardsHydraulicBoundaryLocations();
+            }
 
             assessmentSection.NotifyObservers();
         }

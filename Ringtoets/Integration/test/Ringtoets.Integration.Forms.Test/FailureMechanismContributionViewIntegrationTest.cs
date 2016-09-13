@@ -37,7 +37,6 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -47,6 +46,14 @@ namespace Ringtoets.Integration.Forms.Test
     [TestFixture]
     public class FailureMechanismContributionViewIntegrationTest
     {
+        private const string messageAllHydraulicBoundaryLocationOutputCleared =
+            "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.";
+
+        private const string messageGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputCleared =
+            "De berekende waterstanden en golfhoogtes bij doorsnede-eis voor alle hydraulische randvoorwaarden locaties zijn verwijderd.";
+
+        private const string messageCalculationsremoved = "De resultaten van {0} berekeningen zijn verwijderd.";
+
         [Test]
         public void NormTextBox_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
         {
@@ -149,7 +156,7 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
                 Assert.AreEqual(waveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight.GetAccuracy());
                 Assert.AreEqual(designWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
-                
+
                 Assert.IsNotNull(pipingCalculation.Output);
                 Assert.IsNotNull(grassCoverErosionInwardsCalculation.Output);
                 Assert.IsNotNull(heightStructuresCalculation.Output);
@@ -161,8 +168,8 @@ namespace Ringtoets.Integration.Forms.Test
                 TestHelper.AssertLogMessages(call, msgs =>
                 {
                     string[] messages = msgs.ToArray();
-                    Assert.AreEqual(string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared, numberOfCalculations), messages[0]);
-                    Assert.AreEqual(Resources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared, messages[1]);
+                    Assert.AreEqual(string.Format(messageCalculationsremoved, numberOfCalculations), messages[0]);
+                    Assert.AreEqual(messageAllHydraulicBoundaryLocationOutputCleared, messages[1]);
                 });
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
@@ -243,7 +250,7 @@ namespace Ringtoets.Integration.Forms.Test
                 Action call = () => normTester.Properties.Text = normValue.ToString();
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, Resources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared, 1);
+                TestHelper.AssertLogMessageIsGenerated(call, messageAllHydraulicBoundaryLocationOutputCleared, 1);
 
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
                 Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
@@ -333,7 +340,7 @@ namespace Ringtoets.Integration.Forms.Test
                 Action call = () => normTester.Properties.Text = normValue.ToString();
 
                 // Assert
-                string expectedMessage = string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared,
+                string expectedMessage = string.Format(messageCalculationsremoved,
                                                        numberOfCalculations);
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
@@ -346,7 +353,7 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void NormTextBox_NoHydraulicBoundaryLocationNoOutputAndCalcultionWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
+        public void NormTextBox_NoHydraulicBoundaryLocationNoOutputAndCalculationWithOutputAndValueChanged_CalculationObserverNotifiedAndMessageLogged()
         {
             // Setup
             const int normValue = 200;
@@ -418,7 +425,7 @@ namespace Ringtoets.Integration.Forms.Test
                 Action call = () => normTester.Properties.Text = normValue.ToString();
 
                 // Assert
-                string expectedMessage = string.Format(Resources.FailureMechanismContributionView_NormValueChanged_Results_of_NumberOfCalculations_0_calculations_cleared,
+                string expectedMessage = string.Format(messageCalculationsremoved,
                                                        numberOfCalculations);
                 TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
@@ -544,6 +551,189 @@ namespace Ringtoets.Integration.Forms.Test
                 Assert.AreEqual(normValue, failureMechanismContribution.Norm);
             }
             mockRepository.VerifyAll(); // No update observer expected.
+        }
+
+        [Test]
+        public void AssessmentSectionCompositionComboBox_ValueChanged_ClearsDependentDataAndNotifiesObserversAndLogsMessages()
+        {
+            // Setup
+            var waveHeight = (RoundedDouble) 3.0;
+            var designWaterLevel = (RoundedDouble) 4.2;
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
+            {
+                WaveHeight = waveHeight,
+                DesignWaterLevel = designWaterLevel
+            };
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+            };
+
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation)
+            {
+                WaveHeight = waveHeight,
+                DesignWaterLevel = designWaterLevel
+            };
+            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+
+            var mockRepository = new MockRepository();
+            IObserver observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            IObserver hydraulicBoundaryDatabaseObserverMock = mockRepository.StrictMock<IObserver>();
+            IObserver grassCoverErosionOutwardsObserverMock = mockRepository.StrictMock<IObserver>();
+            grassCoverErosionOutwardsObserverMock.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            assessmentSection.Attach(observerMock);
+            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserverMock);
+            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
+
+            using (var form = new Form())
+            using (var distributionView = new FailureMechanismContributionView
+            {
+                Data = assessmentSection.FailureMechanismContribution,
+                AssessmentSection = assessmentSection
+            })
+            {
+                form.Controls.Add(distributionView);
+                form.Show();
+
+                var compositionTester = (ComboBox) new ControlTester("assessmentSectionCompositionComboBox").TheObject;
+
+                // Precondition
+                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
+                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                Assert.AreEqual(waveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight.GetAccuracy());
+                Assert.AreEqual(designWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+
+                // Call
+                Action call = () => compositionTester.SelectedValue = AssessmentSectionComposition.DikeAndDune;
+
+                // Assert
+                TestHelper.AssertLogMessages(call, msgs =>
+                {
+                    string[] messages = msgs.ToArray();
+                    Assert.AreEqual(1, messages.Length);
+                    Assert.AreEqual(messageGrassCoverErosionOutwardsHydraulicBoundaryLocationOutputCleared, messages[0]);
+                });
+                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
+                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
+                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void AssessmentSectionCompositionComboBox_HydraulicBoundaryDatabaseAndNoLocationsWithOutputAndValueChanged_NoObserversNotified()
+        {
+            // Setup
+            var waveHeight = (RoundedDouble) 3.0;
+            var designWaterLevel = (RoundedDouble) 4.2;
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0.0, 0.0)
+            {
+                WaveHeight = waveHeight,
+                DesignWaterLevel = designWaterLevel
+            };
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
+            };
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
+            };
+
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
+            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+
+            var mockRepository = new MockRepository();
+            IObserver observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            IObserver hydraulicBoundaryDatabaseObserverMock = mockRepository.StrictMock<IObserver>();
+            IObserver grassCoverErosionOutwardsObserverMock = mockRepository.StrictMock<IObserver>();
+            mockRepository.ReplayAll();
+
+            assessmentSection.Attach(observerMock);
+            hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserverMock);
+            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
+
+            using (var form = new Form())
+            using (var distributionView = new FailureMechanismContributionView
+            {
+                Data = assessmentSection.FailureMechanismContribution,
+                AssessmentSection = assessmentSection
+            })
+            {
+                form.Controls.Add(distributionView);
+                form.Show();
+
+                var compositionTester = (ComboBox) new ControlTester("assessmentSectionCompositionComboBox").TheObject;
+
+                // Precondition
+                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
+                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
+                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
+
+                // Call
+                compositionTester.SelectedValue = AssessmentSectionComposition.DikeAndDune;
+
+                // Assert
+                Assert.AreEqual(waveHeight, hydraulicBoundaryLocation.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
+                Assert.AreEqual(designWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
+                Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void AssessmentSectionCompositionComboBox_NoHydraulicBoundaryDatabaseAndValueChanged_NoObserversNotified()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            IObserver observerMock = mockRepository.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            IObserver grassCoverErosionOutwardsObserverMock = mockRepository.StrictMock<IObserver>();
+            mockRepository.ReplayAll();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            assessmentSection.Attach(observerMock);
+            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
+
+            using (var form = new Form())
+            using (var distributionView = new FailureMechanismContributionView
+            {
+                Data = assessmentSection.FailureMechanismContribution,
+                AssessmentSection = assessmentSection
+            })
+            {
+                form.Controls.Add(distributionView);
+                form.Show();
+
+                var compositionTester = (ComboBox) new ControlTester("assessmentSectionCompositionComboBox").TheObject;
+
+                // Call
+                compositionTester.SelectedValue = AssessmentSectionComposition.DikeAndDune;
+            }
+
+            // Assert
+            mockRepository.VerifyAll(); // Expect UpdateObserver call
         }
     }
 }
