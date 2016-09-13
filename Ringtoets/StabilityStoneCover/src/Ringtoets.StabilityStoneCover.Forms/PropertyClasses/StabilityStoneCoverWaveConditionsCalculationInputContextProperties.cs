@@ -192,7 +192,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         }
 
         [PropertyOrder(waterLevelsPropertyIndex)]
-        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_WaterLevels_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_WaterLevels_Description")]

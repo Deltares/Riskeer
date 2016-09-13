@@ -360,7 +360,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             PropertyDescriptor waterLevelsProperty = dynamicProperties[waterLevelsPropertyIndex];
             Assert.IsNotNull(waterLevelsProperty);
-            Assert.IsInstanceOf<ExpandableArrayConverter>(waterLevelsProperty.Converter);
+            Assert.IsInstanceOf<ExpandableReadOnlyArrayConverter>(waterLevelsProperty.Converter);
             Assert.IsTrue(waterLevelsProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, waterLevelsProperty.Category);
             Assert.AreEqual("Waterstanden in berekening [m+NAP]", waterLevelsProperty.DisplayName);
