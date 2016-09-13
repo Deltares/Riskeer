@@ -297,7 +297,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     }
                     if (!(failureMechanism.Contribution > 0))
                     {
-                        log.Info(Resources.GrassCoverErosionOutwardsPlugin_CalculateDesignWaterLevel_Cannot_calculate_when_Contribution_is_zero);
+                        log.Info(Resources.GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBoundaryLocations_Cannot_calculate_when_Contribution_is_zero);
                         return;
                     }
 
@@ -356,7 +356,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     }
                     if (!(failureMechanism.Contribution > 0))
                     {
-                        log.Info(Resources.GrassCoverErosionOutwardsPlugin_CalculateWaveHeights_Cannot_calculate_when_Contribution_is_zero);
+                        log.Info(Resources.GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBoundaryLocations_Cannot_calculate_when_Contribution_is_zero);
                         return;
                     }
 

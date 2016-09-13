@@ -546,7 +546,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Assert
-                        TestHelper.AssertLogMessageIsGenerated(action, "De golfhoogtes bij doorsnede-eis kunnen niet berekend worden zonder contributie.");
+                        TestHelper.AssertLogMessageIsGenerated(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
                         Assert.IsNull(testService.HydraulicBoundaryLocation);
                         Assert.IsNullOrEmpty(testService.HydraulicBoundaryDatabaseFilePath);
                         Assert.IsNullOrEmpty(testService.RingId);

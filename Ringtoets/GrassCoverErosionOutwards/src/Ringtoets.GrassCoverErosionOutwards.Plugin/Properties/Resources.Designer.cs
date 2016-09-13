@@ -91,22 +91,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waterstanden bij doorsnede-eis kunnen niet berekend worden zonder contributie..
+        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd..
         /// </summary>
-        internal static string GrassCoverErosionOutwardsPlugin_CalculateDesignWaterLevel_Cannot_calculate_when_Contribution_is_zero {
+        internal static string GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBoundaryLocations_Cannot_calculate_when_Contribution_is_zero {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_CalculateDesignWaterLevel_Cannot_calculate_when_C" +
-                        "ontribution_is_zero", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De golfhoogtes bij doorsnede-eis kunnen niet berekend worden zonder contributie..
-        /// </summary>
-        internal static string GrassCoverErosionOutwardsPlugin_CalculateWaveHeights_Cannot_calculate_when_Contribution_is_zero {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_CalculateWaveHeights_Cannot_calculate_when_Contri" +
-                        "bution_is_zero", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBounda" +
+                        "ryLocations_Cannot_calculate_when_Contribution_is_zero", resourceCulture);
             }
         }
         
