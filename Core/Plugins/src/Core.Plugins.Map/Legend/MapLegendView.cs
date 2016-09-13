@@ -261,12 +261,12 @@ namespace Core.Plugins.Map.Legend
             {
                 log.Error(e.Message);
             }
-            catch(Exception)
+            catch (Exception)
             {
-                // Because we expect NullReference and NotImplemented exceptions when reading in a corrupt shape file
-				// from a third party library, we catch all the exceptions here
+                // Because NullReferenceException or NotImplementedException when reading in a corrupt shape file
+                // from a third party library is expected, we catch all the exceptions here.
                 string message = new FileReaderErrorMessageBuilder(filePath)
-                   .Build(MapResources.MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file);
+                    .Build(MapResources.MapLegendView_CheckDataFormat_An_error_occured_when_trying_to_read_the_file);
                 log.Error(message);
             }
         }
