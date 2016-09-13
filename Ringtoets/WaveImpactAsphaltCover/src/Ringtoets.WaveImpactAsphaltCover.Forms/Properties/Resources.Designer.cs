@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.WaveImpactAsphaltCover.Data.Properties {
+namespace Ringtoets.WaveImpactAsphaltCover.Forms.Properties {
     using System;
     
     
@@ -60,7 +60,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.WaveImpactAsphaltCover.Forms.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -82,29 +82,41 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AGK.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static string WaveImpactAsphaltCoverFailureMechanism_Code {
+        public static System.Drawing.Bitmap CalculationIcon {
             get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverFailureMechanism_Code", resourceCulture);
+                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Golfklappen op asfaltbekleding.
+        ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
         /// </summary>
-        public static string WaveImpactAsphaltCoverFailureMechanism_DisplayName {
+        public static string WaveImpactAsphaltCoverContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
             get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverFailureMechanism_DisplayName", resourceCulture);
+                return ResourceManager.GetString("WaveImpactAsphaltCoverContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_" +
+                        "null", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuwe berekening.
+        ///   Looks up a localized string similar to Het traject.
         /// </summary>
-        public static string WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName {
+        public static string WaveImpactAsphaltCoverContext_DataDescription_AssessmentSection {
             get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName", resourceCulture);
+                return ResourceManager.GetString("WaveImpactAsphaltCoverContext_DataDescription_AssessmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het golfklap op asfalt toetsspoor.
+        /// </summary>
+        public static string WaveImpactAsphaltCoverContext_DataDescription_WaveImpactAsphaltCoverFailureMechanism {
+            get {
+                return ResourceManager.GetString("WaveImpactAsphaltCoverContext_DataDescription_WaveImpactAsphaltCoverFailureMechan" +
+                        "ism", resourceCulture);
             }
         }
     }

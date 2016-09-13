@@ -21,19 +21,29 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
+using Ringtoets.WaveImpactAsphaltCover.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
+using WaveImpactAsphaltCoverFormsResources = Ringtoets.WaveImpactAsphaltCover.Forms.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 {
@@ -77,6 +87,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
+                WaveConditionsCalculationGroupContextChildNodeObjects,
+                WaveConditionsCalculationGroupContextContextMenuStrip,
+                WaveConditionsCalculationGroupContextOnNodeRemoved);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
+                WaveImpactAsphaltCoverFormsResources.CalculationIcon,
+                WaveConditionsCalculationContextChildNodeObjects,
+                WaveConditionsCalculationContextContextMenuStrip,
+                WaveConditionsCalculationContextOnNodeRemoved);
         }
 
         #region ViewInfos
@@ -178,6 +199,255 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         }
 
         #endregion
+
+        #endregion
+
+        #region WaveImpactAsphaltCover TreeNodeOnfo
+
+        private object[] WaveConditionsCalculationGroupContextChildNodeObjects(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
+        {
+            var childNodeObjects = new List<object>();
+
+            foreach (ICalculationBase item in nodeData.WrappedData.Children)
+            {
+                var calculation = item as WaveImpactAsphaltCoverWaveConditionsCalculation;
+                var group = item as CalculationGroup;
+
+                if (calculation != null)
+                {
+                    childNodeObjects.Add(new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                                    nodeData.FailureMechanism,
+                                                                                                    nodeData.AssessmentSection));
+                }
+                else if (group != null)
+                {
+                    childNodeObjects.Add(new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                                         nodeData.FailureMechanism,
+                                                                                                         nodeData.AssessmentSection));
+                }
+                else
+                {
+                    childNodeObjects.Add(item);
+                }
+            }
+
+            return childNodeObjects.ToArray();
+        }
+
+        private ContextMenuStrip WaveConditionsCalculationGroupContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var group = nodeData.WrappedData;
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var isNestedGroup = parentData is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
+
+            StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
+
+            if (!isNestedGroup)
+            {
+                builder.AddCustomItem(generateCalculationsItem);
+            }
+
+            builder.AddExportItem()
+                   .AddSeparator()
+                   .AddCreateCalculationGroupItem(group)
+                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation);
+
+            if (!isNestedGroup)
+            {
+                builder.AddSeparator()
+                       .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
+            }
+
+            builder.AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(nodeData,
+                                                          c => ValidateAll(
+                                                              c.WrappedData.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>(),
+                                                              c.FailureMechanism.GeneralInput,
+                                                              c.AssessmentSection.FailureMechanismContribution.Norm,
+                                                              c.AssessmentSection.HydraulicBoundaryDatabase),
+                                                          ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
+                   .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddSeparator();
+
+            if (isNestedGroup)
+            {
+                builder.AddRenameItem()
+                       .AddDeleteItem()
+                       .AddSeparator();
+            }
+
+            return builder.AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+        }
+
+        private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+        }
+
+        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        {
+            // TODO WTI-856
+
+            return null;
+        }
+
+        private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
+        {
+            // TODO WTI-808
+            return null;
+        }
+
+        private void ShowWaveImpactAsphaltCoverHydraulicBoundaryLocationSelectionDialog(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
+        {
+            // TODO WTI-808
+        }
+
+        private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(CalculationGroup target, IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            // TODO WTI-808
+        }
+
+        private void AddWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
+        {
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
+                                                  WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName,
+                                                  c => c.Name)
+            };
+            nodeData.WrappedData.Children.Add(calculation);
+            nodeData.WrappedData.NotifyObservers();
+        }
+
+        private void ValidateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, GeneralWaveConditionsInput generalInput, int norm, HydraulicBoundaryDatabase database)
+        {
+            // TODO WTI-856
+        }
+
+        private void CalculateAll(CalculationGroup group, WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
+        {
+            var calculations = group.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
+
+            CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
+        }
+
+        private void CalculateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations,
+                                  WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                  IAssessmentSection assessmentSection)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                calculations
+                    .Select(calculation => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
+                                                                                                       Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                       failureMechanism,
+                                                                                                       assessmentSection))
+                    .ToList());
+
+            foreach (var calculation in calculations)
+            {
+                calculation.NotifyObservers();
+            }
+        }
+
+        private void WaveConditionsCalculationGroupContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
+        {
+            var parentGroupContext = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) parentNodeData;
+
+            parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
+
+            parentGroupContext.NotifyObservers();
+        }
+
+        #endregion
+
+        #region StabilityStoneCoverWaveConditionsCalculationContext
+
+        private object[] WaveConditionsCalculationContextChildNodeObjects(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
+        {
+            var childNodes = new List<object>
+            {
+                new CommentContext<ICommentable>(context.WrappedData),
+                new WaveImpactAsphaltCoverWaveConditionsCalculationInputContext(context.WrappedData.InputParameters,
+                                                                                context.FailureMechanism,
+                                                                                context.AssessmentSection)
+            };
+
+            if (context.WrappedData.HasOutput)
+            {
+                childNodes.Add(context.WrappedData.Output);
+            }
+            else
+            {
+                childNodes.Add(new EmptyWaveImpactAsphaltCoverOutput());
+            }
+
+            return childNodes.ToArray();
+        }
+
+        private ContextMenuStrip WaveConditionsCalculationContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
+
+            return builder.AddValidateCalculationItem(nodeData,
+                                                      c => ValidateAll(
+                                                          new[]
+                                                          {
+                                                              c.WrappedData
+                                                          },
+                                                          c.FailureMechanism.GeneralInput,
+                                                          c.AssessmentSection.FailureMechanismContribution.Norm,
+                                                          c.AssessmentSection.HydraulicBoundaryDatabase),
+                                                      ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
+                          .AddClearCalculationOutputItem(calculation)
+                          .AddExportItem()
+                          .AddSeparator()
+                          .AddRenameItem()
+                          .AddDeleteItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private void PerformCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
+                                        WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
+                                                                                                         Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                         context.FailureMechanism,
+                                                                                                         context.AssessmentSection));
+            calculation.NotifyObservers();
+        }
+
+        private void WaveConditionsCalculationContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData, object parentNodeData)
+        {
+            var calculationGroupContext = parentNodeData as WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
+            if (calculationGroupContext != null)
+            {
+                bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
+                if (successfullyRemovedData)
+                {
+                    calculationGroupContext.NotifyObservers();
+                }
+            }
+        }
 
         #endregion
     }
