@@ -20,6 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service
@@ -44,6 +48,57 @@ namespace Ringtoets.StabilityStoneCover.Service
             }
 
             calculation.Output = null;
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the wave conditions calculations
+        /// in the <see cref="StabilityStoneCoverFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="StabilityStoneCoverFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removing data.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<StabilityStoneCoverWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+            StabilityStoneCoverFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            Collection<StabilityStoneCoverWaveConditionsCalculation> affectedItems = new Collection<StabilityStoneCoverWaveConditionsCalculation>();
+
+            foreach (var calculation in failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>())
+            {
+                var calculationChanged = false;
+
+                if (calculation.HasOutput)
+                {
+                    ClearWaveConditionsCalculationOutput(calculation);
+                    calculationChanged = true;
+                }
+
+                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
+                {
+                    ClearHydraulicBoundaryLocation(calculation);
+                    calculationChanged = true;
+                }
+
+                if (calculationChanged)
+                {
+                    affectedItems.Add(calculation);
+                }
+            }
+            
+
+            return affectedItems;
+        }
+
+        private static void ClearHydraulicBoundaryLocation(StabilityStoneCoverWaveConditionsCalculation calculation)
+        {
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
         }
     }
 }

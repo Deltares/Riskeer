@@ -24,6 +24,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -90,6 +92,36 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+        }
+
+        [Test]
+        public void Calculations_MultipleChildrenAdded_ReturnHeightStructuresCalculations()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                WaveConditionsCalculationGroup =
+                {
+                    Children =
+                    {
+                        new CalculationGroup(),
+                        new StabilityStoneCoverWaveConditionsCalculation(),
+                        mocks.StrictMock<ICalculation>(),
+                        new StabilityStoneCoverWaveConditionsCalculation()
+                    }
+                }
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var calculations = failureMechanism.Calculations.ToList();
+
+            // Assert
+            Assert.AreEqual(2, calculations.Count);
+            Assert.IsTrue(calculations.All(c => c is StabilityStoneCoverWaveConditionsCalculation));
+            mocks.VerifyAll();
         }
     }
 }

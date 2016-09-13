@@ -162,7 +162,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutAssessmentSection_ThrowsArgumentNullException()
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
@@ -176,10 +176,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
-            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            HeightStructuresCalculation calculation1 = new HeightStructuresCalculation
+            var calculation1 = new HeightStructuresCalculation
             {
                 InputParameters =
                 {
@@ -188,7 +188,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            HeightStructuresCalculation calculation2 = new HeightStructuresCalculation
+            var calculation2 = new HeightStructuresCalculation
             {
                 InputParameters =
                 {
@@ -197,7 +197,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+            var calculation3 = new HeightStructuresCalculation();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
@@ -223,10 +223,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
-            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            HeightStructuresCalculation calculation1 = new HeightStructuresCalculation
+            var calculation1 = new HeightStructuresCalculation
             {
                 InputParameters =
                 {
@@ -234,7 +234,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 }
             };
 
-            HeightStructuresCalculation calculation2 = new HeightStructuresCalculation
+            var calculation2 = new HeightStructuresCalculation
             {
                 InputParameters =
                 {
@@ -242,7 +242,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 }
             };
 
-            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+            var calculation3 = new HeightStructuresCalculation();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
@@ -267,19 +267,19 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
         {
             // Setup
-            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            HeightStructuresCalculation calculation1 = new HeightStructuresCalculation
+            var calculation1 = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            HeightStructuresCalculation calculation2 = new HeightStructuresCalculation
+            var calculation2 = new HeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            HeightStructuresCalculation calculation3 = new HeightStructuresCalculation();
+            var calculation3 = new HeightStructuresCalculation();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
@@ -298,6 +298,27 @@ namespace Ringtoets.HeightStructures.Service.Test
                 calculation1,
                 calculation2
             }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationWithoutOutputAndHydraulicBoundaryLocation_ReturnNoAffectedCalculations()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var calculation1 = new HeightStructuresCalculation();
+            var calculation2 = new HeightStructuresCalculation();
+            var calculation3 = new HeightStructuresCalculation();
+
+            failureMechanism.CalculationsGroup.Children.Add(calculation1);
+            failureMechanism.CalculationsGroup.Children.Add(calculation2);
+            failureMechanism.CalculationsGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<HeightStructuresCalculation> affectedItems = HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            CollectionAssert.IsEmpty(affectedItems);
         }
     }
 }
