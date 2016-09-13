@@ -137,7 +137,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Vakindeling komt niet overeen met de huidige referentielijn.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_Import_cancelled_no_data_read" xml:space="preserve">
-    <value>Vakindeling importeren afgebroken. Geen data ingelezen.</value>
+    <value>Vakindeling importeren afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_ProgressText_Reading_file" xml:space="preserve">
     <value>Inlezen vakindeling.</value>
@@ -146,7 +146,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Valideren ingelezen vakindeling.</value>
   </data>
   <data name="FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan het toetsspoor.</value>
+    <value>Geïmporteerde gegevens toevoegen aan het toetsspoor.</value>
   </data>
   <data name="HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found" xml:space="preserve">
     <value>Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
@@ -186,22 +186,22 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID '{0}'.</value>
   </data>
   <data name="DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted" xml:space="preserve">
-    <value>Dijkprofielen importeren is afgebroken. Geen data ingelezen.</value>
+    <value>Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="DikeProfilesImporter_Import_no_referenceline_import_aborted" xml:space="preserve">
-    <value>Er is geen referentielijn beschikbaar. Geen data ingelezen.</value>
+    <value>Er is geen referentielijn beschikbaar. Geen gegevens ingelezen.</value>
   </data>
   <data name="ProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped" xml:space="preserve">
     <value>Meerdere definities gevonden voor profiel '{0}'. Bestand '{1}' wordt overgeslagen.</value>
   </data>
   <data name="ProfilesImporter_ReadDikeProfileData_reading_profiledata" xml:space="preserve">
-    <value>Inlezen van profieldata.</value>
+    <value>Inlezen van profielgegevens.</value>
   </data>
   <data name="ProfilesImporter_ReadDikeProfileData_reading_profile_data" xml:space="preserve">
-    <value>Inlezen van profieldata uit een prfl bestand.</value>
+    <value>Inlezen van profielgegevens uit een prfl bestand.</value>
   </data>
   <data name="ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_" xml:space="preserve">
-    <value>Profieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}</value>
+    <value>Profielgegevens definiëren een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}</value>
   </data>
   <data name="ProfilesImporter_ReadProfileLocations_reading_profilelocations" xml:space="preserve">
     <value>Inlezen van profiellocaties uit een shapebestand.</value>
@@ -210,7 +210,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID {0}</value>
   </data>
   <data name="ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted" xml:space="preserve">
-    <value>Voorlandprofielen importeren is afgebroken. Geen data ingelezen.</value>
+    <value>Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="DesignWaterLevel_Description" xml:space="preserve">
     <value>Toetspeil</value>
@@ -219,9 +219,9 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Golfhoogte</value>
   </data>
   <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
-    <value>Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
+    <value>Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
   </data>
   <data name="DikeProfilesImporter_No_dike_geometry_file_0_skipped" xml:space="preserve">
-    <value>Profieldata definieert geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.</value>
+    <value>Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.</value>
   </data>
 </root>

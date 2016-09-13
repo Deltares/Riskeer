@@ -429,7 +429,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
             {
-                bool found = messages.Any(message => message.StartsWith("Profieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen:"));
+                bool found = messages.Any(message => message.StartsWith("Profielgegevens definiëren een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen:"));
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);

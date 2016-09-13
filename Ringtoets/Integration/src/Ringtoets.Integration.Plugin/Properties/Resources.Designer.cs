@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijkprofielen importeren is afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen..
         /// </summary>
         public static string DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted {
             get {
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar. Geen data ingelezen..
+        ///   Looks up a localized string similar to Er is geen referentielijn beschikbaar. Geen gegevens ingelezen..
         /// </summary>
         public static string DikeProfilesImporter_Import_no_referenceline_import_aborted {
             get {
@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profieldata definieert geen dijkgeometrie. Bestand &apos;{0}&apos; wordt overgeslagen..
+        ///   Looks up a localized string similar to Profielgegevens definiëren geen dijkgeometrie. Bestand &apos;{0}&apos; wordt overgeslagen..
         /// </summary>
         public static string DikeProfilesImporter_No_dike_geometry_file_0_skipped {
             get {
@@ -156,7 +156,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vakindeling importeren afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to Vakindeling importeren afgebroken. Geen gegevens ingelezen..
         /// </summary>
         public static string FailureMechanismSectionsImporter_Import_cancelled_no_data_read {
             get {
@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het toetsspoor..
+        ///   Looks up a localized string similar to Geïmporteerde gegevens toevoegen aan het toetsspoor..
         /// </summary>
         public static string FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism {
             get {
@@ -250,7 +250,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorlandprofielen importeren is afgebroken. Geen data ingelezen..
+        ///   Looks up a localized string similar to Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen..
         /// </summary>
         public static string ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted {
             get {
@@ -260,7 +260,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profieldata definieert geen dam en geen voorlandgeometrie. Bestand &apos;{0}&apos; wordt overgeslagen..
+        ///   Looks up a localized string similar to Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand &apos;{0}&apos; wordt overgeslagen..
         /// </summary>
         public static string ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped {
             get {
@@ -425,7 +425,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van profieldata uit een prfl bestand..
+        ///   Looks up a localized string similar to Inlezen van profielgegevens uit een prfl bestand..
         /// </summary>
         public static string ProfilesImporter_ReadDikeProfileData_reading_profile_data {
             get {
@@ -434,7 +434,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van profieldata..
+        ///   Looks up a localized string similar to Inlezen van profielgegevens..
         /// </summary>
         public static string ProfilesImporter_ReadDikeProfileData_reading_profiledata {
             get {
@@ -443,7 +443,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profieldata specificeert een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}.
+        ///   Looks up a localized string similar to Profielgegevens definiëren een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}.
         /// </summary>
         public static string ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_ {
             get {

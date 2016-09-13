@@ -145,11 +145,11 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Assert
             string[] expectedMessages =
             {
-                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
-                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel002 - Ringtoets.prfl")),
-                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
-                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")),
-                string.Format("Profieldata definieert geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel005 - Ringtoets.prfl"))
+                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel002 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel005 - Ringtoets.prfl"))
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
@@ -224,12 +224,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profiellocatie.", 3, 5),
                 new ProgressNotification("Inlezen van profiellocatie.", 4, 5),
                 new ProgressNotification("Inlezen van profiellocatie.", 5, 5),
-                new ProgressNotification("Inlezen van profieldata uit een prfl bestand.", 1, 1),
-                new ProgressNotification("Inlezen van profieldata.", 1, 5),
-                new ProgressNotification("Inlezen van profieldata.", 2, 5),
-                new ProgressNotification("Inlezen van profieldata.", 3, 5),
-                new ProgressNotification("Inlezen van profieldata.", 4, 5),
-                new ProgressNotification("Inlezen van profieldata.", 5, 5)
+                new ProgressNotification("Inlezen van profielgegevens uit een prfl bestand.", 1, 1),
+                new ProgressNotification("Inlezen van profielgegevens.", 1, 5),
+                new ProgressNotification("Inlezen van profielgegevens.", 2, 5),
+                new ProgressNotification("Inlezen van profielgegevens.", 3, 5),
+                new ProgressNotification("Inlezen van profielgegevens.", 4, 5),
+                new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
             Assert.AreEqual(5, failureMechanism.ForeshoreProfiles.Count);
@@ -304,12 +304,12 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profiellocatie.", 3, 5),
                 new ProgressNotification("Inlezen van profiellocatie.", 4, 5),
                 new ProgressNotification("Inlezen van profiellocatie.", 5, 5),
-                new ProgressNotification("Inlezen van profieldata uit een prfl bestand.", 1, 1),
-                new ProgressNotification("Inlezen van profieldata.", 1, 5),
-                new ProgressNotification("Inlezen van profieldata.", 2, 5),
-                new ProgressNotification("Inlezen van profieldata.", 3, 5),
-                new ProgressNotification("Inlezen van profieldata.", 4, 5),
-                new ProgressNotification("Inlezen van profieldata.", 5, 5)
+                new ProgressNotification("Inlezen van profielgegevens uit een prfl bestand.", 1, 1),
+                new ProgressNotification("Inlezen van profielgegevens.", 1, 5),
+                new ProgressNotification("Inlezen van profielgegevens.", 2, 5),
+                new ProgressNotification("Inlezen van profielgegevens.", 3, 5),
+                new ProgressNotification("Inlezen van profielgegevens.", 4, 5),
+                new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
             Assert.AreEqual(5, targetContext.WrappedData.Count);
@@ -339,7 +339,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Action call = () => importResult = foreshoreProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Voorlandprofielen importeren is afgebroken. Geen data ingelezen.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
             Assert.IsFalse(importResult);
             mockRepository.VerifyAll(); // 'observer' should not be notified
         }
