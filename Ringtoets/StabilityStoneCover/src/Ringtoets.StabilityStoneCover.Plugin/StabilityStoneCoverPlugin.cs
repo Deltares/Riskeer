@@ -141,7 +141,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
             {
-                CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.Children.OfType<ICalculation>().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
+                CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.Children.OfType<ICalculation>().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 FileFilter = Resources.DataTypeDisplayName_csv_file_filter
             };
