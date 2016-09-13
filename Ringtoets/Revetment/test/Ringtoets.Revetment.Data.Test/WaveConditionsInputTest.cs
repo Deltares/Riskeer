@@ -653,6 +653,30 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
+        public void WaterLevels_AllBoundariesAboveUpperBoundaryDesignWaterLevel_NoWaterLevels()
+        {
+            // Setup
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 5.78
+                },
+                LowerBoundaryRevetment = (RoundedDouble) 6,
+                UpperBoundaryRevetment = (RoundedDouble) 6.10,
+                LowerBoundaryWaterLevels = (RoundedDouble) 6.20,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10,
+                StepSize = WaveConditionsInputStepSize.Half
+            };
+
+            // Call
+            IEnumerable<RoundedDouble> waterLevels = input.WaterLevels;
+
+            // Assert
+            CollectionAssert.IsEmpty(waterLevels);
+        }
+
+        [Test]
         public void WaterLevels_HydraulicBoundaryLocationNull_NoWaterLevels()
         {
             // Setup
