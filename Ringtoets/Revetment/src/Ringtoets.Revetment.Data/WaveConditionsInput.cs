@@ -154,6 +154,7 @@ namespace Ringtoets.Revetment.Data
         /// Gets or sets the lower boundary of the revetment.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperBoundaryRevetment"/>.</exception>
+        /// <remarks>When the value is smaller than -50, it will be set to -50.</remarks>
         public RoundedDouble LowerBoundaryRevetment
         {
             get
@@ -163,6 +164,8 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 var newLowerBoundaryRevetment = value.ToPrecision(lowerBoundaryRevetment.NumberOfDecimalPlaces);
+
+                newLowerBoundaryRevetment = ValidateLowerBoundaryInRange(newLowerBoundaryRevetment);
 
                 ValidateRevetmentBoundaries(newLowerBoundaryRevetment, UpperBoundaryRevetment);
 
@@ -174,6 +177,7 @@ namespace Ringtoets.Revetment.Data
         /// Gets or sets the upper boundary of the revetment.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerBoundaryRevetment"/>.</exception>
+        /// <remarks>When the value is larger than 1000, it will be set to 1000.</remarks>
         public RoundedDouble UpperBoundaryRevetment
         {
             get
@@ -183,6 +187,8 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 var newUpperBoundaryRevetment = value.ToPrecision(upperBoundaryRevetment.NumberOfDecimalPlaces);
+
+                newUpperBoundaryRevetment = ValidateUpperBoundaryInRange(newUpperBoundaryRevetment);
 
                 ValidateRevetmentBoundaries(LowerBoundaryRevetment, newUpperBoundaryRevetment);
 
@@ -200,8 +206,11 @@ namespace Ringtoets.Revetment.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is larger than or equal to <see cref="UpperBoundaryWaterLevels"/>.</exception>
         /// <remarks>
-        /// Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
-        /// equals <see cref="double.NaN"/>, only <see cref="LowerBoundaryRevetment"/> will be taken into account.
+        /// <list type="bullet">
+        /// <item>Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
+        /// equals <see cref="double.NaN"/>, only <see cref="LowerBoundaryRevetment"/> will be taken into account.</item>
+        /// <item>When the value is smaller than -50, it will be set to -50.</item>
+        /// </list>
         /// </remarks>
         public RoundedDouble LowerBoundaryWaterLevels
         {
@@ -212,6 +221,8 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 var newLowerBoundaryWaterLevels = value.ToPrecision(lowerBoundaryWaterLevels.NumberOfDecimalPlaces);
+
+                newLowerBoundaryWaterLevels = ValidateLowerBoundaryInRange(newLowerBoundaryWaterLevels);
 
                 ValidateWaterLevelBoundaries(newLowerBoundaryWaterLevels, UpperBoundaryWaterLevels);
 
@@ -224,9 +235,12 @@ namespace Ringtoets.Revetment.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when value is smaller than or equal to <see cref="LowerBoundaryWaterLevels"/>.</exception>
         /// <remarks>
-        /// Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
+        /// <list type="bullet">
+        /// <item>Setting this property is optional when it comes to determining <see cref="WaterLevels"/>; if the value
         /// equals <see cref="double.NaN"/>, only <see cref="UpperBoundaryDesignWaterLevel"/> and <see cref="UpperBoundaryRevetment"/>
-        /// will be taken into account.
+        /// will be taken into account.</item>
+        /// <item>When the value is larger than 1000, it will be set to 1000.</item>
+        /// </list>
         /// </remarks>
         public RoundedDouble UpperBoundaryWaterLevels
         {
@@ -237,6 +251,8 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 var newUpperBoundaryWaterLevels = value.ToPrecision(upperBoundaryWaterLevels.NumberOfDecimalPlaces);
+
+                newUpperBoundaryWaterLevels = ValidateUpperBoundaryInRange(newUpperBoundaryWaterLevels);
 
                 ValidateWaterLevelBoundaries(LowerBoundaryWaterLevels, newUpperBoundaryWaterLevels);
 
@@ -253,6 +269,24 @@ namespace Ringtoets.Revetment.Data
             {
                 return DetermineWaterLevels();
             }
+        }
+
+        private static RoundedDouble ValidateUpperBoundaryInRange(RoundedDouble boundary)
+        {
+            if (boundary > 1000)
+            {
+                boundary = new RoundedDouble(boundary.NumberOfDecimalPlaces, 1000);
+            }
+            return boundary;
+        }
+
+        private static RoundedDouble ValidateLowerBoundaryInRange(RoundedDouble boundary)
+        {
+            if (boundary < -50)
+            {
+                boundary = new RoundedDouble(boundary.NumberOfDecimalPlaces, -50);
+            }
+            return boundary;
         }
 
         private static void ValidateRevetmentBoundaries(RoundedDouble lowerBoundary, RoundedDouble upperBoundary)

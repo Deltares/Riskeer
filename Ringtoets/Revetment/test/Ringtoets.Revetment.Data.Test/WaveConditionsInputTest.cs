@@ -395,6 +395,21 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
+        [TestCase(-50.005)]
+        [TestCase(-100)]
+        public void LowerBoundaryRevetment_BoundarySmallerThanValid_SetValueToValidBoundary(double newValue)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            input.LowerBoundaryRevetment = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(-50, input.LowerBoundaryRevetment, input.LowerBoundaryRevetment.GetAccuracy());
+        }
+
+        [Test]
         public void UpperBoundaryRevetment_SetNewValue_ValueIsRounded()
         {
             // Setup
@@ -449,6 +464,21 @@ namespace Ringtoets.Revetment.Data.Test
             // Assert
             string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(1000.005)]
+        [TestCase(1030)]
+        public void UpperBoundaryRevetment_BoundaryLargerThanValid_SetValueToValidBoundary(double newValue)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            input.UpperBoundaryRevetment = (RoundedDouble)newValue;
+
+            // Assert
+            Assert.AreEqual(1000, input.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());
         }
 
         [Test]
@@ -509,6 +539,21 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
+        [TestCase(-50.005)]
+        [TestCase(-100)]
+        public void LowerBoundaryWaterLevels_BoundarySmallerThanValid_SetValueToValidBoundary(double newValue)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            input.LowerBoundaryWaterLevels = (RoundedDouble)newValue;
+
+            // Assert
+            Assert.AreEqual(-50, input.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
+        }
+
+        [Test]
         public void UpperBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
@@ -563,6 +608,21 @@ namespace Ringtoets.Revetment.Data.Test
             // Assert
             string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(1000.005)]
+        [TestCase(1030)]
+        public void UpperBoundaryWaterLevels_BoundaryLargerThanValid_SetValueToValidBoundary(double newValue)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            input.UpperBoundaryWaterLevels = (RoundedDouble)newValue;
+
+            // Assert
+            Assert.AreEqual(1000, input.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
         }
 
         [Test]
