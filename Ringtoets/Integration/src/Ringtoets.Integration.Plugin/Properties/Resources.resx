@@ -207,7 +207,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Inlezen van profiellocaties uit een shapebestand.</value>
   </data>
   <data name="ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_" xml:space="preserve">
-    <value>Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID {0}</value>
+    <value>Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID '{0}'.</value>
   </data>
   <data name="ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted" xml:space="preserve">
     <value>Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>

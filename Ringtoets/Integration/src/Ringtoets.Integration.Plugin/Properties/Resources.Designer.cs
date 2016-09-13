@@ -240,7 +240,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID {0}.
+        ///   Looks up a localized string similar to Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID &apos;{0}&apos;..
         /// </summary>
         public static string ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_ {
             get {
