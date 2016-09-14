@@ -51,9 +51,9 @@ namespace Ringtoets.Common.Service.TestUtil
         public ICalculationMessageProvider MessageProvider { get; private set; }
 
         /// <summary>
-        /// Gets the used <see cref="IHydraulicBoundaryLocation"/>.
+        /// Gets the used <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public IHydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
 
         /// <summary>
         /// Gets the used hydraulic boundary database file path.
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Service.TestUtil
             return true;
         }
 
-        public ReliabilityIndexCalculationOutput Calculate(IHydraulicBoundaryLocation hydraulicBoundaryLocation,
+        public ReliabilityIndexCalculationOutput Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                            string hydraulicBoundaryDatabaseFilePath,
                                                            string ringId,
                                                            double norm,

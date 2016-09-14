@@ -74,7 +74,7 @@ namespace Ringtoets.HydraRing.IO
         /// <paramref name="filePath"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
-        public void WriteHydraulicBoundaryLocations(IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations,
+        public void WriteHydraulicBoundaryLocations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                     string filePath)
         {
             if (hydraulicBoundaryLocations == null)
@@ -96,7 +96,7 @@ namespace Ringtoets.HydraRing.IO
             pointShapeFileWriter.SaveAs(filePath);
         }
 
-        private MapPointData CreateMapPointData(IHydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private MapPointData CreateMapPointData(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryLocation == null)
             {

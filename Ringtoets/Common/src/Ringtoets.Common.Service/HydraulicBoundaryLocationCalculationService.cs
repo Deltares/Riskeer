@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Service
             return isValid;
         }
 
-        public ReliabilityIndexCalculationOutput Calculate(IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm, ICalculationMessageProvider messageProvider)
+        public ReliabilityIndexCalculationOutput Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm, ICalculationMessageProvider messageProvider)
         {
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             HydraRingCalculationInput input = CreateInput(hydraulicBoundaryLocation, norm);
@@ -101,6 +101,6 @@ namespace Ringtoets.Common.Service
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to create the input for.</param>
         /// <param name="norm">The norm which is needed in the input.</param>
         /// <returns>The created Input.</returns>
-        protected abstract T CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm);
+        protected abstract T CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm);
     }
 }

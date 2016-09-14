@@ -78,7 +78,7 @@ namespace Ringtoets.HydraRing.IO.Test
             var writer = new HydraulicBoundaryLocationsWriter("aName", "bName");
 
             // Call
-            TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(Enumerable.Empty<IHydraulicBoundaryLocation>(), null);
+            TestDelegate call = () => writer.WriteHydraulicBoundaryLocations(Enumerable.Empty<HydraulicBoundaryLocation>(), null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);

@@ -51,7 +51,6 @@ namespace Ringtoets.HydraRing.Data.Test
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
 
             // Assert
-            Assert.IsInstanceOf<IHydraulicBoundaryLocation>(hydraulicBoundaryLocation);
             Assert.AreEqual(id, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(name, hydraulicBoundaryLocation.Name);
             Point2D location = hydraulicBoundaryLocation.Location;

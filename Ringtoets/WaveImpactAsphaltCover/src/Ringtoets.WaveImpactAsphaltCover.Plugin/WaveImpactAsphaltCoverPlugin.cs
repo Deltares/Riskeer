@@ -349,7 +349,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             // TODO WTI-808
         }
 
-        private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(CalculationGroup target, IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(CalculationGroup target, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             // TODO WTI-808
         }

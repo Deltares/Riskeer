@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Test
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");
 
             // Call
-            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(Enumerable.Empty<IHydraulicBoundaryLocation>(), filePath, "Toetspeil", "Golfhoogte");
+            var hydraulicBoundaryLocationsExporter = new HydraulicBoundaryLocationsExporter(Enumerable.Empty<HydraulicBoundaryLocation>(), filePath, "Toetspeil", "Golfhoogte");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(hydraulicBoundaryLocationsExporter);

@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         }
 
         public bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath, 
-            IEnumerable<IHydraulicBoundaryLocation> locations, 
+            IEnumerable<HydraulicBoundaryLocation> locations, 
             string ringId, double norm, 
             ICalculationMessageProvider messageProvider)
         {
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Forms.GuiServices
         }
 
         public bool CalculateWaveHeights(string hydraulicBoundaryDatabasePath, 
-            IEnumerable<IHydraulicBoundaryLocation> locations, 
+            IEnumerable<HydraulicBoundaryLocation> locations, 
             string ringId, double norm, 
             ICalculationMessageProvider messageProvider)
         {

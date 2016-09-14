@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Service
             }
         }
 
-        protected override AssessmentLevelCalculationInput CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
+        protected override AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
         {
             return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
         }

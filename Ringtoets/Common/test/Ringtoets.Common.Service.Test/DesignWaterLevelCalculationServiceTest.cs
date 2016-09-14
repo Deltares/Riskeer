@@ -112,22 +112,22 @@ namespace Ringtoets.Common.Service.Test
             const double norm = 30;
 
             var mockRepository = new MockRepository();
-            var hydraulicBoundaryLocationMock = mockRepository.Stub<IHydraulicBoundaryLocation>();
-            hydraulicBoundaryLocationMock.Expect(hbl => hbl.Id).Return(1300001).Repeat.AtLeastOnce();
-            hydraulicBoundaryLocationMock.Expect(hbl => hbl.Name).Return(locationName).Repeat.AtLeastOnce();
-            hydraulicBoundaryLocationMock.DesignWaterLevel = new RoundedDouble(2, double.NaN);
-
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationFailedMessage(locationName)).Return(calculationFailedMessage);
             mockRepository.ReplayAll();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, locationName, 0, 0)
+            {
+                DesignWaterLevel = new RoundedDouble(2, double.NaN)
+            };
 
             using (new HydraRingCalculationServiceConfig())
             {
                 var testService = (TestHydraRingCalculationService) HydraRingCalculationService.Instance;
 
                 // Call
-                DesignWaterLevelCalculationService.Instance.Calculate(hydraulicBoundaryLocationMock,
+                DesignWaterLevelCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
                                                                       validFilePath,
                                                                       ringId,
                                                                       norm,
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Service.Test
                 var parsers = testService.Parsers.ToArray();
                 Assert.AreEqual(1, parsers.Length);
                 Assert.IsInstanceOf<ReliabilityIndexCalculationParser>(parsers[0]);
-                var expectedInput = CreateInput(hydraulicBoundaryLocationMock, norm);
+                var expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
                 AssertInput(expectedInput, testService.HydraRingCalculationInput);
             }
             mockRepository.VerifyAll();
@@ -159,21 +159,21 @@ namespace Ringtoets.Common.Service.Test
             const double norm = 30;
 
             var mockRepository = new MockRepository();
-            var hydraulicBoundaryLocationMock = mockRepository.Stub<IHydraulicBoundaryLocation>();
-            hydraulicBoundaryLocationMock.Expect(hbl => hbl.Id).Return(1).Repeat.AtLeastOnce();
-            hydraulicBoundaryLocationMock.Expect(hbl => hbl.Name).Return(locationName).Repeat.AtLeastOnce();
-            hydraulicBoundaryLocationMock.DesignWaterLevel = new RoundedDouble(2, double.NaN);
-
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             calculationMessageProviderMock.Expect(calc => calc.GetCalculationFailedMessage(locationName)).Return(calculationFailedMessage);
             mockRepository.ReplayAll();
 
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
+            {
+                DesignWaterLevel = new RoundedDouble(2, double.NaN)
+            };
+
             ReliabilityIndexCalculationOutput output = null;
             using (new HydraRingCalculationServiceConfig())
             {
                 // Call
-                Action call = () => output = DesignWaterLevelCalculationService.Instance.Calculate(hydraulicBoundaryLocationMock,
+                Action call = () => output = DesignWaterLevelCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
                                                                                                    validFilePath,
                                                                                                    ringId,
                                                                                                    norm,
@@ -200,7 +200,7 @@ namespace Ringtoets.Common.Service.Test
             Assert.AreEqual(expectedInput.Beta, hydraRingCalculationInput.Beta);
         }
 
-        private static AssessmentLevelCalculationInput CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
+        private static AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
         {
             return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
         }

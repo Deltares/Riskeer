@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using log4net;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Data;
 
@@ -30,7 +29,6 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public class WaveHeightCalculationService : HydraulicBoundaryLocationCalculationService<WaveHeightCalculationInput>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(WaveHeightCalculationService));
         private static IHydraulicBoundaryLocationCalculationService instance;
 
         /// <summary>
@@ -48,7 +46,7 @@ namespace Ringtoets.Common.Service
             }
         }
 
-        protected override WaveHeightCalculationInput CreateInput(IHydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
+        protected override WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
         {
             return new WaveHeightCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
         }

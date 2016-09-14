@@ -54,13 +54,13 @@ namespace Ringtoets.Common.Service.TestUtil.Test
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
-
             mockRepository.ReplayAll();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
             var service = new TestHydraulicBoundaryLocationCalculationService();
 
             // Call
-            service.Calculate(hydraulicBoundaryLocationMock,
+            service.Calculate(hydraulicBoundaryLocation,
                               filePath,
                               ringId,
                               norm,
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
 
             // Assert
             Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);
-            Assert.AreSame(hydraulicBoundaryLocationMock, service.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, service.HydraulicBoundaryLocation);
             Assert.AreEqual(filePath, service.HydraulicBoundaryDatabaseFilePath);
             Assert.AreEqual(ringId, service.RingId);
             Assert.AreEqual(norm, service.Norm);
@@ -82,13 +82,13 @@ namespace Ringtoets.Common.Service.TestUtil.Test
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
-
             mockRepository.ReplayAll();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
             var service = new TestHydraulicBoundaryLocationCalculationService();
 
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocationMock,
+            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocation,
                                                                          string.Empty,
                                                                          string.Empty,
                                                                          norm,
@@ -108,16 +108,16 @@ namespace Ringtoets.Common.Service.TestUtil.Test
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
-
             mockRepository.ReplayAll();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
             var service = new TestHydraulicBoundaryLocationCalculationService
             {
                 CalculationConvergenceOutput = CalculationConvergence.CalculatedConverged
             };
 
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocationMock,
+            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocation,
                                                                          string.Empty,
                                                                          string.Empty,
                                                                          norm,
@@ -138,16 +138,16 @@ namespace Ringtoets.Common.Service.TestUtil.Test
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
-
             mockRepository.ReplayAll();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
             var service = new TestHydraulicBoundaryLocationCalculationService
             {
                 CalculationConvergenceOutput = CalculationConvergence.NotCalculated
             };
 
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocationMock,
+            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocation,
                                                                          string.Empty,
                                                                          string.Empty,
                                                                          norm,
@@ -167,16 +167,16 @@ namespace Ringtoets.Common.Service.TestUtil.Test
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            var hydraulicBoundaryLocationMock = mockRepository.StrictMock<IHydraulicBoundaryLocation>();
-
             mockRepository.ReplayAll();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
             var service = new TestHydraulicBoundaryLocationCalculationService
             {
                 CalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged
             };
 
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocationMock,
+            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocation,
                                                                          string.Empty,
                                                                          string.Empty,
                                                                          norm,

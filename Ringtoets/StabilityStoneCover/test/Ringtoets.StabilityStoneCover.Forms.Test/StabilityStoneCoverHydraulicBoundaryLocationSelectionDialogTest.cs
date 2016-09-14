@@ -25,7 +25,6 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Forms;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -42,7 +41,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(null, Enumerable.Empty<IHydraulicBoundaryLocation>());
+            TestDelegate test = () => new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -71,10 +70,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
             using (var viewParent = new Form())
             {
                 // Call
-                using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<IHydraulicBoundaryLocation>()))
+                using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<HydraulicBoundaryLocation>()))
                 {
                     // Assert
-                    Assert.IsInstanceOf<SelectionDialogBase<IHydraulicBoundaryLocation>>(dialog);
+                    Assert.IsInstanceOf<SelectionDialogBase<HydraulicBoundaryLocation>>(dialog);
                     Assert.IsEmpty(dialog.SelectedItems);
                     Assert.AreEqual("Selecteer hydraulische randvoorwaardenlocaties", dialog.Text);
                 }
@@ -86,7 +85,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         {
             // Setup & Call
             using (var viewParent = new Form())
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<IHydraulicBoundaryLocation>()))
+            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<HydraulicBoundaryLocation>()))
             {
                 dialog.Show();
 
@@ -116,16 +115,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
             // Setup
             const string testname = "testName";
             
-            var mock = new MockRepository();
-            var hydraulicBoundaryLocationMock = mock.Stub<IHydraulicBoundaryLocation>();
-            hydraulicBoundaryLocationMock.Expect(h => h.Name).Return(testname);
-            mock.ReplayAll();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testname, 0, 0);
 
             // Call
             using (var viewParent = new Form())
             using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, new[]
             {
-                hydraulicBoundaryLocationMock
+                hydraulicBoundaryLocation
             }))
             {
                 // Assert
@@ -136,7 +132,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
                 Assert.IsFalse((bool)dataGridViewControl.Rows[0].Cells[locationSelectionColumnIndex].Value);
                 Assert.AreEqual(testname, (string)dataGridViewControl.Rows[0].Cells[locationColumnIndex].Value);
             }
-            mock.VerifyAll();
         }
     }
 }

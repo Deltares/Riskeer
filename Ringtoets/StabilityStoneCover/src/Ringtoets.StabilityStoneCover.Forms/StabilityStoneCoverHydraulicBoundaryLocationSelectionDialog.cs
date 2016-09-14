@@ -32,19 +32,19 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityStoneCover.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection form a given set of <see cref="IHydraulicBoundaryLocation"/>. Upon
-    /// closing of the dialog, the selected <see cref="IHydraulicBoundaryLocation"/> can be obtained.
+    /// A dialog which allows the user to make a selection form a given set of <see cref="HydraulicBoundaryLocation"/>. Upon
+    /// closing of the dialog, the selected <see cref="HydraulicBoundaryLocation"/> can be obtained.
     /// </summary>
-    public partial class StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog : SelectionDialogBase<IHydraulicBoundaryLocation>
+    public partial class StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog : SelectionDialogBase<HydraulicBoundaryLocation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
-        /// <param name="hydraulicBoundaryLocations">The collection of <see cref="IHydraulicBoundaryLocation"/> to show in the dialog.</param>
+        /// <param name="hydraulicBoundaryLocations">The collection of <see cref="HydraulicBoundaryLocation"/> to show in the dialog.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(IWin32Window dialogParent,
-                                                                           IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations)
+                                                                           IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
             : base(dialogParent)
         {
             if (hydraulicBoundaryLocations == null)
@@ -55,7 +55,7 @@ namespace Ringtoets.StabilityStoneCover.Forms
             InitializeComponent();
             InitializeDataGridView(Resources.StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog_Location_Name);
 
-            SetDataSource(hydraulicBoundaryLocations.Select(loc => new SelectableRow<IHydraulicBoundaryLocation>(loc, loc.Name)).ToArray());
+            SetDataSource(hydraulicBoundaryLocations.Select(loc => new SelectableRow<HydraulicBoundaryLocation>(loc, loc.Name)).ToArray());
         }
     }
 }

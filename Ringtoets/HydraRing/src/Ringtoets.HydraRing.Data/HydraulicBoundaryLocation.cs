@@ -28,7 +28,7 @@ namespace Ringtoets.HydraRing.Data
     /// <summary>
     /// Location of a hydraulic boundary.
     /// </summary>
-    public class HydraulicBoundaryLocation : IHydraulicBoundaryLocation
+    public class HydraulicBoundaryLocation
     {
         private RoundedDouble designWaterLevel;
         private RoundedDouble waveHeight;

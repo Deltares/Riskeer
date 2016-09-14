@@ -402,10 +402,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             }
         }
 
-        private static void GenerateStabilityStoneCoverCalculations(CalculationGroup target, IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        private static void GenerateStabilityStoneCoverCalculations(CalculationGroup target, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(
-                hydraulicBoundaryLocations.OfType<HydraulicBoundaryLocation>(),
+                hydraulicBoundaryLocations,
                 target.Children);
         }
 

@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsExporter));
 
-        private readonly IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations;
+        private readonly IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations;
         private readonly string filePath;
         private readonly string designWaterLevelName;
         private readonly string waveHeightName;
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/>, 
         /// <paramref name="designWaterLevelName"/> or <see cref="waveHeightName"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public HydraulicBoundaryLocationsExporter(IEnumerable<IHydraulicBoundaryLocation> hydraulicBoundaryLocations,
+        public HydraulicBoundaryLocationsExporter(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                   string filePath, string designWaterLevelName, string waveHeightName)
         {
             if (hydraulicBoundaryLocations == null)

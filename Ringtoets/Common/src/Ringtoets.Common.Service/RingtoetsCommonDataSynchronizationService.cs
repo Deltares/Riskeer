@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Service
         /// to clear the output for</param>.
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
         /// is <c>null</c>.</exception>
-        public static void ClearDesignWaterLevel(IHydraulicBoundaryLocation location)
+        public static void ClearDesignWaterLevel(HydraulicBoundaryLocation location)
         {
             if (location == null)
             {
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Service
         /// to clear the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> 
         /// is <c>null</c>.</exception>
-        public static void ClearWaveHeight(IHydraulicBoundaryLocation location)
+        public static void ClearWaveHeight(HydraulicBoundaryLocation location)
         {
             if (location == null)
             {

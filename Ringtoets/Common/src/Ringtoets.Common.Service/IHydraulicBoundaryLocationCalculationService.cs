@@ -40,16 +40,16 @@ namespace Ringtoets.Common.Service
         bool Validate(string name, string hydraulicBoundaryDatabaseFilePath);
 
         /// <summary>
-        /// Performs a design water level calculation based on the supplied <see cref="IHydraulicBoundaryLocation"/> and returns the result
+        /// Performs a design water level calculation based on the supplied <see cref="HydraulicBoundaryLocation"/> and returns the result
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> to perform the calculation for.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The message provider for the services.</param>
         /// <returns>A <see cref="ReliabilityIndexCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        ReliabilityIndexCalculationOutput Calculate(IHydraulicBoundaryLocation hydraulicBoundaryLocation,
+        ReliabilityIndexCalculationOutput Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                     string hydraulicBoundaryDatabaseFilePath,
                                                     string ringId,
                                                     double norm,

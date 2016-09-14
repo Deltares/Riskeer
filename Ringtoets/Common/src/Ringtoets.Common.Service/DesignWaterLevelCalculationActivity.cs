@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Service
     public class DesignWaterLevelCalculationActivity : HydraRingActivity<ReliabilityIndexCalculationOutput>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationActivity));
-        private readonly IHydraulicBoundaryLocation hydraulicBoundaryLocation;
+        private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string ringId;
@@ -51,7 +51,11 @@ namespace Ringtoets.Common.Service
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationActivity(IHydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm, ICalculationMessageProvider messageProvider)
+        public DesignWaterLevelCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                   string hydraulicBoundaryDatabaseFilePath,
+                                                   string ringId,
+                                                   double norm,
+                                                   ICalculationMessageProvider messageProvider)
         {
             if (hydraulicBoundaryLocation == null)
             {
