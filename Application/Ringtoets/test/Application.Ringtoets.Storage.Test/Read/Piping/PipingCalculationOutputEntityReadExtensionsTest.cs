@@ -35,7 +35,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new PipingCalculationOutputEntity
             {
-                PipingCalculationOutputEntityId = 123,
                 HeaveFactorOfSafety = 9.8,
                 HeaveZValue = 7.6,
                 UpliftZValue = 5.4,
@@ -62,7 +61,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new PipingCalculationOutputEntity
             {
-                PipingCalculationOutputEntityId = 645,
                 HeaveFactorOfSafety = null,
                 HeaveZValue = null,
                 UpliftZValue = null,

@@ -51,10 +51,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            var entityId = random.Next(1, 502);
             var entity = new StochasticSoilProfileEntity
             {
-                StochasticSoilProfileEntityId = entityId,
                 Probability = probability,
                 SoilProfileEntity = new SoilProfileEntity
                 {

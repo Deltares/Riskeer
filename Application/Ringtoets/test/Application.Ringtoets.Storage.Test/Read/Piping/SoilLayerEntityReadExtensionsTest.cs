@@ -38,7 +38,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         {
             // Setup
             var random = new Random(21);
-            var entityId = random.Next(1, 502);
             double top = random.NextDouble();
             int color = Color.AliceBlue.ToArgb();
             string materialName = "sand";
@@ -53,7 +52,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new SoilLayerEntity
             {
-                SoilLayerEntityId = entityId,
                 Top = top,
                 IsAquifer = Convert.ToByte(isAquifer),
                 Color = color,

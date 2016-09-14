@@ -67,7 +67,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var entityId = random.Next(1, 502);
             double layerThree = random.NextDouble();
             var collector = new ReadConversionCollector();
 
@@ -75,7 +74,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new GrassCoverErosionInwardsSectionResultEntity
             {
-                GrassCoverErosionInwardsSectionResultEntityId = entityId,
                 LayerThree = layerThree,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
@@ -121,9 +119,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_CalculationEntitySet_ReturnGrassCoverErosionInwardsSectionResultWithCalculation()
         {
             // Setup
-            var random = new Random(21);
-            var entityId = random.Next(1, 502);
-
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
@@ -135,7 +130,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             var entity = new GrassCoverErosionInwardsSectionResultEntity
             {
-                GrassCoverErosionInwardsSectionResultEntityId = entityId,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity,
                 GrassCoverErosionInwardsCalculationEntity = calculationEntity
             };

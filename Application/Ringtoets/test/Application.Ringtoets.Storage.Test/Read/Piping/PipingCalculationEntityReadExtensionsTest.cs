@@ -52,9 +52,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        [TestCase(3456789, true, 0.98, "haha", "hihi", 0.0, 3.4, 123)]
-        [TestCase(234, false, 0.0, null, null, double.NaN, double.NaN, 321)]
-        public void Read_ValidEntity_ReturnPipingCalculationScenario(long id, bool isRelevant, double contribution,
+        [TestCase(true, 0.98, "haha", "hihi", 0.0, 3.4, 123)]
+        [TestCase(false, 0.0, null, null, double.NaN, double.NaN, 321)]
+        public void Read_ValidEntity_ReturnPipingCalculationScenario(bool isRelevant, double contribution,
                                                                      string name, string comments, double entryPoint, double exitPoint, int seed)
         {
             // Setup
@@ -62,7 +62,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new PipingCalculationEntity
             {
-                PipingCalculationEntityId = id,
                 RelevantForScenario = Convert.ToByte(isRelevant),
                 ScenarioContribution = contribution.ToNaNAsNull(),
                 Name = name,
@@ -157,7 +156,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var surfaceLineEntity = new SurfaceLineEntity
             {
-                SurfaceLineEntityId = 123,
                 PointsXml = new Point3DXmlSerializer().ToXml(points)
             };
 
@@ -209,7 +207,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var hydraulicLocationEntity = new HydraulicLocationEntity
             {
-                HydraulicLocationEntityId = 123,
                 Name = "A"
             };
 
@@ -224,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            entity.Read(collector, new GeneralPipingInput());
 
             // Assert
             Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
@@ -269,7 +266,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var stochasticSoilProfileEntity = new StochasticSoilProfileEntity
             {
-                StochasticSoilProfileEntityId = 546,
                 SoilProfileEntity = new SoilProfileEntity
                 {
                     SoilLayerEntities =
@@ -281,7 +277,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
-                StochasticSoilModelEntityId = 75,
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
                 StochasticSoilProfileEntities =
                 {
@@ -312,16 +307,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithPipingCalculationOutputEntity_CalculationWithPipingOutput()
         {
             // Setup
-            const int outputId = 4578;
             var entity = new PipingCalculationEntity
             {
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                PipingCalculationOutputEntity = new PipingCalculationOutputEntity
-                {
-                    PipingCalculationOutputEntityId = outputId
-                }
+                PipingCalculationOutputEntity = new PipingCalculationOutputEntity()
             };
 
             var collector = new ReadConversionCollector();
@@ -337,16 +328,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_EntityWithPipingSemiProbabilisticOutputEntity_CalculationWithPipingSemiProbabilisticOutput()
         {
             // Setup
-            const int outputId = 675;
             var entity = new PipingCalculationEntity
             {
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                PipingSemiProbabilisticOutputEntity = new PipingSemiProbabilisticOutputEntity
-                {
-                    PipingSemiProbabilisticOutputEntityId = outputId
-                }
+                PipingSemiProbabilisticOutputEntity = new PipingSemiProbabilisticOutputEntity()
             };
 
             var collector = new ReadConversionCollector();

@@ -64,7 +64,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
             var entity = new DikeProfileEntity
             {
-                DikeProfileEntityId = 9842,
                 Name = "Just saved",
                 Orientation = 45.67,
                 BreakWaterHeight = null,
@@ -111,7 +110,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
             var entity = new DikeProfileEntity
             {
-                DikeProfileEntityId = 8678,
                 Name = "I have a Breakwater!",
                 Orientation = 360.0,
                 BreakWaterHeight = height,

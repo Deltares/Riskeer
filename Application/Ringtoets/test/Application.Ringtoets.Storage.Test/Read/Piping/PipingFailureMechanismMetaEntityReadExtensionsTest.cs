@@ -35,10 +35,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void ReadAsPipingProbabilityAssessmentInput_Always_ReturnsNewPipingProbabilityAssessmentInputWithPropertiesSet()
         {
             // Setup
-            var entityId = new Random(21).Next(1, 502);
             var entity = new PipingFailureMechanismMetaEntity
             {
-                PipingFailureMechanismMetaEntityId = entityId,
                 A = 0.95,
                 UpliftCriticalSafetyFactor = 2.6
             };

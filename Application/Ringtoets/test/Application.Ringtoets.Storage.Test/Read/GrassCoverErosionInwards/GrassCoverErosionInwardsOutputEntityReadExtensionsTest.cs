@@ -36,7 +36,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var probabilisticOutputEntity = new ProbabilisticOutputEntity
             {
-                ProbabilisticOutputEntityId = 95876,
                 Probability = 0.7,
                 RequiredProbability = 0.4,
                 RequiredReliability = 0.5,
@@ -45,7 +44,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputEntityId = 495876,
                 WaveHeight = 1.1,
                 IsOvertoppingDominant = Convert.ToByte(false),
                 ProbabilisticOutputEntity = probabilisticOutputEntity,
@@ -75,7 +73,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var probabilisticOutputEntity = new ProbabilisticOutputEntity
             {
-                ProbabilisticOutputEntityId = 3456,
                 Probability = null,
                 RequiredProbability = null,
                 RequiredReliability = null,
@@ -84,7 +81,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             };
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputEntityId = 7536,
                 WaveHeight = null,
                 IsOvertoppingDominant = Convert.ToByte(true),
                 ProbabilisticOutputEntity = probabilisticOutputEntity,
@@ -112,13 +108,9 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_DikeHeightNotCalculated_ReturnGrassCoverErosionInwardsOutputWithNotCalculatedDikeHeight()
         {
             // Setup
-            var probabilisticOutputEntity = new ProbabilisticOutputEntity
-            {
-                ProbabilisticOutputEntityId = 3456
-            };
+            var probabilisticOutputEntity = new ProbabilisticOutputEntity();
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                GrassCoverErosionInwardsOutputEntityId = 7536,
                 ProbabilisticOutputEntity = probabilisticOutputEntity,
                 DikeHeight = null,
                 IsDikeHeightCalculated = Convert.ToByte(false)

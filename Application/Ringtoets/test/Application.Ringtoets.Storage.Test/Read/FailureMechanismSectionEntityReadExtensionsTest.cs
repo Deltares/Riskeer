@@ -46,8 +46,6 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_Always_NewPoint()
         {
             // Setup
-            var random = new Random(21);
-            var entityId = random.Next(1, 502);
             string name = "testName";
             var points = new[]
             {
@@ -56,7 +54,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             string pointXml = new Point2DXmlSerializer().ToXml(points);
             var entity = new FailureMechanismSectionEntity
             {
-                FailureMechanismSectionEntityId = entityId,
                 Name = name,
                 FailureMechanismSectionPointXml = pointXml
             };

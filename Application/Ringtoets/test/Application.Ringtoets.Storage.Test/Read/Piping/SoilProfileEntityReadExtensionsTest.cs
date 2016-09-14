@@ -54,11 +54,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             string testName = "testName";
             var random = new Random(21);
-            var entityId = random.Next(1, 502);
             double bottom = random.NextDouble();
             var entity = new SoilProfileEntity
             {
-                SoilProfileEntityId = entityId,
                 Name = testName,
                 Bottom = bottom,
                 SoilLayerEntities =

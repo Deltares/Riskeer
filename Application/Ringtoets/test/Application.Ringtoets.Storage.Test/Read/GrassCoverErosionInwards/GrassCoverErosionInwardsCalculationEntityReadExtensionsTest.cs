@@ -57,7 +57,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                GrassCoverErosionInwardsCalculationEntityId = 457,
                 Name = "sodhfksn",
                 Comments = "s;ohfgwjo5p09u",
                 GrassCoverErosionInwardsOutputEntity = null,
@@ -103,10 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_EntityNotReadBefore_RegisterEntity()
         {
             // Setup
-            var entity = new GrassCoverErosionInwardsCalculationEntity
-            {
-                GrassCoverErosionInwardsCalculationEntityId = 457,
-            };
+            var entity = new GrassCoverErosionInwardsCalculationEntity();
 
             var collector = new ReadConversionCollector();
 
@@ -127,7 +123,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                GrassCoverErosionInwardsCalculationEntityId = 123456,
                 Name = null,
                 Comments = null,
                 Orientation = null,
@@ -164,10 +159,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                               null, new DikeProfile.ConstructionProperties());
-            var dikeProfileEntity = new DikeProfileEntity
-            {
-                DikeProfileEntityId = 7465
-            };
+            var dikeProfileEntity = new DikeProfileEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 DikeProfileEntity = dikeProfileEntity
@@ -189,7 +181,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var dikeProfileEntity = new DikeProfileEntity
             {
-                DikeProfileEntityId = 7465,
                 DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]),
                 ForeShoreXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
@@ -258,14 +249,9 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                GrassCoverErosionInwardsCalculationEntityId = 456,
                 GrassCoverErosionInwardsOutputEntity = new GrassCoverErosionInwardsOutputEntity
                 {
-                    GrassCoverErosionInwardsOutputEntityId = 9745,
-                    ProbabilisticOutputEntity = new ProbabilisticOutputEntity
-                    {
-                        ProbabilisticOutputEntityId = 3245
-                    }
+                    ProbabilisticOutputEntity = new ProbabilisticOutputEntity()
                 }
             };
 
@@ -284,14 +270,9 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                GrassCoverErosionInwardsCalculationEntityId = 456,
                 GrassCoverErosionInwardsOutputEntity = new GrassCoverErosionInwardsOutputEntity
                 {
-                    GrassCoverErosionInwardsOutputEntityId = 9745,
-                    ProbabilisticOutputEntity = new ProbabilisticOutputEntity
-                    {
-                        ProbabilisticOutputEntityId = 3245
-                    }
+                    ProbabilisticOutputEntity = new ProbabilisticOutputEntity()
                 }
             };
 

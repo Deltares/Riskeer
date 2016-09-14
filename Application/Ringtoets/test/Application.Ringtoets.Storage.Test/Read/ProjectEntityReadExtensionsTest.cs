@@ -49,10 +49,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var testDescription = "testName";
-            var entityId = new Random(21).Next(1, 502);
             var entity = new ProjectEntity
             {
-                ProjectEntityId = entityId,
                 Description = testDescription
             };
 

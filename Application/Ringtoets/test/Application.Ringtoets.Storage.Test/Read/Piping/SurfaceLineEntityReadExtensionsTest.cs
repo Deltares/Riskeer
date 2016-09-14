@@ -53,14 +53,12 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var collector = new ReadConversionCollector();
 
-            const long id = 5317846874;
             const string name = "nice name!";
             const double intersectionX = 1.1;
             const double intersectionY = 2.2;
 
             var entity = new SurfaceLineEntity
             {
-                SurfaceLineEntityId = id,
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
                 ReferenceLineIntersectionY = intersectionY,
@@ -91,7 +89,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var collector = new ReadConversionCollector();
 
-            const long id = 489357;
             const string name = "Better name.";
             const double intersectionX = 3.4;
             const double intersectionY = 7.5;
@@ -105,7 +102,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new SurfaceLineEntity
             {
-                SurfaceLineEntityId = id,
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
                 ReferenceLineIntersectionY = intersectionY,
@@ -136,7 +132,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var collector = new ReadConversionCollector();
 
-            const long id = 489357;
             const string name = "Better name.";
             const double intersectionX = 3.4;
             const double intersectionY = 7.5;
@@ -155,7 +150,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new SurfaceLineEntity
             {
-                SurfaceLineEntityId = id,
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
                 ReferenceLineIntersectionY = intersectionY,
@@ -192,7 +186,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var collector = new ReadConversionCollector();
 
-            const long id = 489357;
             const string name = "Better name.";
             const double intersectionX = 3.4;
             const double intersectionY = 7.5;
@@ -208,7 +201,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             var entity = new SurfaceLineEntity
             {
-                SurfaceLineEntityId = id,
                 Name = name,
                 ReferenceLineIntersectionX = intersectionX,
                 ReferenceLineIntersectionY = intersectionY,
@@ -268,11 +260,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var collector = new ReadConversionCollector();
 
-            const long id = 9348765;
-
             var entity = new SurfaceLineEntity
             {
-                SurfaceLineEntityId = id,
                 PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
             };
 

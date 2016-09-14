@@ -35,7 +35,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new ProbabilisticOutputEntity
             {
-                ProbabilisticOutputEntityId = 567567,
                 Probability = 0.1,
                 RequiredProbability = 0.2,
                 RequiredReliability = 0.3,
@@ -60,7 +59,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var entity = new ProbabilisticOutputEntity
             {
-                ProbabilisticOutputEntityId = 87345,
                 Probability = null,
                 RequiredProbability = null,
                 RequiredReliability = null,

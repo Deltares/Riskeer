@@ -43,10 +43,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsStandAloneFailureMechanism_WithoutSectionsSet_ReturnsNewStandAloneFailureMechanism(bool isRelevant)
         {
             // Setup
-            var entityId = new Random(21).Next(1, 502);
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = entityId,
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = "Some comment"
             };
@@ -67,10 +65,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsStandAloneFailureMechanism_WithSectionsSet_ReturnsNewStandAloneFailureMechanismWithFailureMechanismSections()
         {
             // Setup
-            var entityId = new Random(21).Next(1, 502);
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = entityId,
                 FailureMechanismSectionEntities =
                 {
                     CreateSimpleFailureMechanismSectionEntity()
@@ -137,21 +133,15 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingFailureMechanism_WithCollector_ReturnsNewPipingFailureMechanismWithPropertiesSet(bool isRelevant)
         {
             // Setup
-            var entityId = new Random(21).Next(1, 502);
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = entityId,
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = "Some comment",
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntityId = 2
-                },
+                CalculationGroupEntity = new CalculationGroupEntity(),
                 PipingFailureMechanismMetaEntities = new[]
                 {
                     new PipingFailureMechanismMetaEntity
                     {
-                        PipingFailureMechanismMetaEntityId = 3,
                         A = 0.95,
                         UpliftCriticalSafetyFactor = 1.2
                     }
@@ -183,10 +173,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             string emptySegmentPointsXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             var entity = new FailureMechanismEntity
             {
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntityId = 3
-                },
+                CalculationGroupEntity = new CalculationGroupEntity(),
                 StochasticSoilModelEntities =
                 {
                     new StochasticSoilModelEntity
@@ -225,10 +212,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
             var entity = new FailureMechanismEntity
             {
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntityId = 6
-                },
+                CalculationGroupEntity = new CalculationGroupEntity(),
                 SurfaceLineEntities =
                 {
                     new SurfaceLineEntity
@@ -264,21 +248,15 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingFailureMechanism_WithSectionsSet_ReturnsNewPipingFailureMechanismWithFailureMechanismSectionsSet()
         {
             // Setup
-            var entityId = new Random(21).Next(1, 502);
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             var pipingSectionResultEntity = new PipingSectionResultEntity
             {
-                PipingSectionResultEntityId = entityId,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             failureMechanismSectionEntity.PipingSectionResultEntities.Add(pipingSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntityId = 1
-                },
+                CalculationGroupEntity = new CalculationGroupEntity(),
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
@@ -298,17 +276,10 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsPipingFailureMechanism_WithCalculationGroup_ReturnsNewPipingFailureMechanismWithCalculationGroupSet()
         {
             // Setup
-            var entityId = new Random(1328).Next(1, 502);
-            const int rootGroupId = 5;
-            const int childGroup1Id = 7;
-            const int childGroup2Id = 9;
-
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = entityId,
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
-                    CalculationGroupEntityId = rootGroupId,
                     IsEditable = 0,
                     Name = "Berekeningen",
                     Order = 0,
@@ -316,14 +287,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         new CalculationGroupEntity
                         {
-                            CalculationGroupEntityId = childGroup1Id,
                             IsEditable = 1,
                             Name = "Child1",
                             Order = 0
                         },
                         new CalculationGroupEntity
                         {
-                            CalculationGroupEntityId = childGroup2Id,
                             IsEditable = 1,
                             Name = "Child2",
                             Order = 1
@@ -357,26 +326,18 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithPropertiesSet(bool isRelevant)
         {
             // Setup
-            var random = new Random(21);
-            var entityId = random.Next(1, 502);
-            var inputId = random.Next(1, 57893);
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = entityId,
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = "Some comment",
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
                     {
-                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = inputId,
                         N = 3
                     }
                 },
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntityId = 456
-                }
+                CalculationGroupEntity = new CalculationGroupEntity()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -397,18 +358,14 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithDikeProfilesSet_ReturnsGrassCoverErosionInwardsFailureMechanismWithDikeProfilesAdded()
         {
             // Setup
-            const int id1 = 4578;
-            const int id2 = 384729847;
             string emptyDikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]);
             string emptyForeshoreBinaryXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
                     {
-                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = 2,
                         N = 3
                     }
                 },
@@ -416,21 +373,16 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new DikeProfileEntity
                     {
-                        DikeProfileEntityId = id1,
                         DikeGeometryXml = emptyDikeGeometryXml,
                         ForeShoreXml = emptyForeshoreBinaryXml
                     },
                     new DikeProfileEntity
                     {
-                        DikeProfileEntityId = id2,
                         DikeGeometryXml = emptyDikeGeometryXml,
                         ForeShoreXml = emptyForeshoreBinaryXml
                     }
                 },
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntityId = 567
-                }
+                CalculationGroupEntity = new CalculationGroupEntity()
             };
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             ReadConversionCollector collector = new ReadConversionCollector();
@@ -446,17 +398,14 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithSectionsSet_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithFailureMechanismSectionsAdded()
         {
             // Setup
-            var entityId = new Random(21).Next(1, 502);
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
             var grassCoverErosionInwardsSectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
             {
-                GrassCoverErosionInwardsSectionResultEntityId = entityId,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             failureMechanismSectionEntity.GrassCoverErosionInwardsSectionResultEntities.Add(grassCoverErosionInwardsSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = 1,
                 FailureMechanismSectionEntities =
                 {
                     failureMechanismSectionEntity
@@ -465,14 +414,10 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
                     {
-                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = 2,
                         N = 1
                     }
                 },
-                CalculationGroupEntity = new CalculationGroupEntity
-                {
-                    CalculationGroupEntityId = 9867
-                }
+                CalculationGroupEntity = new CalculationGroupEntity()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -488,17 +433,10 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCalculationGroup_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithCalculationGroupSet()
         {
             // Setup
-            var entityId = new Random(984356).Next(1, 502);
-            const int rootGroupId = 1;
-            const int childGroup1Id = 2;
-            const int childGroup2Id = 3;
-
             var entity = new FailureMechanismEntity
             {
-                FailureMechanismEntityId = entityId,
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
-                    CalculationGroupEntityId = rootGroupId,
                     IsEditable = 0,
                     Name = "Berekeningen",
                     Order = 0,
@@ -506,14 +444,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                     {
                         new CalculationGroupEntity
                         {
-                            CalculationGroupEntityId = childGroup1Id,
                             IsEditable = 1,
                             Name = "Child1",
                             Order = 0
                         },
                         new CalculationGroupEntity
                         {
-                            CalculationGroupEntityId = childGroup2Id,
                             IsEditable = 1,
                             Name = "Child2",
                             Order = 1
@@ -524,7 +460,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
                     {
-                        GrassCoverErosionInwardsFailureMechanismMetaEntityId = 3456,
                         N = 1
                     }
                 }

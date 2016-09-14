@@ -37,7 +37,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new PipingSemiProbabilisticOutputEntity
             {
-                PipingSemiProbabilisticOutputEntityId = 5867,
                 HeaveFactorOfSafety = 1.1,
                 HeaveProbability = 0.2,
                 HeaveReliability = 3.3,
@@ -78,7 +77,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Setup
             var entity = new PipingSemiProbabilisticOutputEntity
             {
-                PipingSemiProbabilisticOutputEntityId = 670,
                 HeaveFactorOfSafety = null,
                 HeaveProbability = null,
                 HeaveReliability = null,

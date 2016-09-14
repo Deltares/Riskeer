@@ -52,12 +52,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSet()
         {
             // Setup
-            var entityId = new Random(21).Next(1, 502);
             string testName = "testName";
             string testSegmentName = "testSegmentName";
             var entity = new StochasticSoilModelEntity
             {
-                StochasticSoilModelEntityId = entityId,
                 Name = testName,
                 SegmentName = testSegmentName,
                 StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0])

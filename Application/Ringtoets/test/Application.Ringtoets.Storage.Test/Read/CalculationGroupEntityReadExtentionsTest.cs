@@ -64,15 +64,14 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(123, "A", 1)]
-        [TestCase(1, "b", 0)]
+        [TestCase("A", 1)]
+        [TestCase("b", 0)]
         public void ReadPipingCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            long id, string name, byte isEditable)
+            string name, byte isEditable)
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                CalculationGroupEntityId = id,
                 Name = name,
                 IsEditable = isEditable
             };
@@ -95,34 +94,29 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
             {
-                CalculationGroupEntityId = 1,
                 Name = "A",
                 CalculationGroupEntity1 =
                 {
                     new CalculationGroupEntity
                     {
-                        CalculationGroupEntityId = 2,
                         Name = "AA",
                         IsEditable = 1,
                         Order = 0
                     },
                     new CalculationGroupEntity
                     {
-                        CalculationGroupEntityId = 3,
                         Name = "AB",
                         IsEditable = 0,
                         CalculationGroupEntity1 =
                         {
                             new CalculationGroupEntity
                             {
-                                CalculationGroupEntityId = 4,
                                 Name = "ABA",
                                 IsEditable = 0,
                                 Order = 0
                             },
                             new CalculationGroupEntity
                             {
-                                CalculationGroupEntityId = 5,
                                 Name = "ABB",
                                 IsEditable = 1,
                                 Order = 1
@@ -169,20 +163,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
             {
-                CalculationGroupEntityId = 1,
                 Name = "A",
                 PipingCalculationEntities =
                 {
                     new PipingCalculationEntity
                     {
-                        PipingCalculationEntityId = 3,
                         Order = 0,
                         Name = "1",
                         DampingFactorExitMean = 1,
                     },
                     new PipingCalculationEntity
                     {
-                        PipingCalculationEntityId = 6,
                         Order = 1,
                         Name = "2",
                         DampingFactorExitMean = 2,
@@ -213,20 +204,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
             {
-                CalculationGroupEntityId = 1,
                 Name = "A",
                 PipingCalculationEntities =
                 {
                     new PipingCalculationEntity
                     {
-                        PipingCalculationEntityId = 3,
                         Order = 0,
                         Name = "calculation1",
                         DampingFactorExitMean = 1,
                     },
                     new PipingCalculationEntity
                     {
-                        PipingCalculationEntityId = 6,
                         Order = 2,
                         Name = "calculation2",
                         DampingFactorExitMean = 2,
@@ -236,13 +224,11 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        CalculationGroupEntityId = 2,
                         Order = 1,
                         Name = "group1"
                     },
                     new CalculationGroupEntity
                     {
-                        CalculationGroupEntityId = 4,
                         Order = 3,
                         Name = "group2"
                     }
@@ -287,15 +273,14 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        [TestCase(345, "HAbba", 1)]
-        [TestCase(45, "Dooeis", 0)]
+        [TestCase("HAbba", 1)]
+        [TestCase("Dooeis", 0)]
         public void ReadAsGrassCoverErosionInwardsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
-            long id, string name, byte isEditable)
+            string name, byte isEditable)
         {
             // Setup
             var entity = new CalculationGroupEntity
             {
-                CalculationGroupEntityId = id,
                 Name = name,
                 IsEditable = isEditable
             };
@@ -317,34 +302,29 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
             {
-                CalculationGroupEntityId = 1,
                 Name = "A",
                 CalculationGroupEntity1 =
                 {
                     new CalculationGroupEntity
                     {
-                        CalculationGroupEntityId = 2,
                         Name = "AA",
                         IsEditable = 1,
                         Order = 0
                     },
                     new CalculationGroupEntity
                     {
-                        CalculationGroupEntityId = 3,
                         Name = "AB",
                         IsEditable = 0,
                         CalculationGroupEntity1 =
                         {
                             new CalculationGroupEntity
                             {
-                                CalculationGroupEntityId = 4,
                                 Name = "ABA",
                                 IsEditable = 0,
                                 Order = 0
                             },
                             new CalculationGroupEntity
                             {
-                                CalculationGroupEntityId = 5,
                                 Name = "ABB",
                                 IsEditable = 1,
                                 Order = 1
@@ -390,19 +370,16 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
             {
-                CalculationGroupEntityId = 1,
                 Name = "A",
                 GrassCoverErosionInwardsCalculationEntities =
                 {
                     new GrassCoverErosionInwardsCalculationEntity
                     {
-                        GrassCoverErosionInwardsCalculationEntityId = 3,
                         Order = 0,
                         Name = "1"
                     },
                     new GrassCoverErosionInwardsCalculationEntity
                     {
-                        GrassCoverErosionInwardsCalculationEntityId = 6,
                         Order = 1,
                         Name = "2"
                     }
@@ -431,19 +408,16 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
             {
-                CalculationGroupEntityId = 1,
                 Name = "A",
                 GrassCoverErosionInwardsCalculationEntities =
                 {
                     new GrassCoverErosionInwardsCalculationEntity
                     {
-                        GrassCoverErosionInwardsCalculationEntityId = 3,
                         Order = 0,
                         Name = "calculation1"
                     },
                     new GrassCoverErosionInwardsCalculationEntity
                     {
-                        GrassCoverErosionInwardsCalculationEntityId = 6,
                         Order = 2,
                         Name = "calculation2"
                     }
@@ -452,13 +426,11 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        CalculationGroupEntityId = 2,
                         Order = 1,
                         Name = "group1"
                     },
                     new CalculationGroupEntity
                     {
-                        CalculationGroupEntityId = 4,
                         Order = 3,
                         Name = "group2"
                     }

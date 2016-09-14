@@ -52,7 +52,6 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             // Setup
             var random = new Random(21);
-            var entityId = random.Next(1, 502);
             double layerThree = random.NextDouble();
             var collector = new ReadConversionCollector();
 
@@ -60,7 +59,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new TechnicalInnovationSectionResultEntity
             {
-                TechnicalInnovationSectionResultEntityId = entityId,
                 LayerThree = layerThree,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity

@@ -50,11 +50,9 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var random = new Random(21);
             var n = random.Next(1, 20);
-            var id = random.Next(1, 56);
 
             var entity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
-                GrassCoverErosionInwardsFailureMechanismMetaEntityId = id,
                 N = n
             };
             var inputToUpdate = new GeneralGrassCoverErosionInwardsInput();
