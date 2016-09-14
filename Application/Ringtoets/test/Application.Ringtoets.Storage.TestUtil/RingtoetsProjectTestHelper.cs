@@ -72,6 +72,11 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults,
                               grassCoverErosionInwardsFailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
 
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism);
+            AddSections(grassCoverErosionOutwardsFailureMechanism);
+            SetSectionResults(grassCoverErosionOutwardsFailureMechanism.SectionResults);
+
             AddSections(assessmentSection.MacrostabilityInwards);
             SetSectionResults(assessmentSection.MacrostabilityInwards.SectionResults);
             AddSections(assessmentSection.MacrostabilityOutwards);
@@ -84,8 +89,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(assessmentSection.WaveImpactAsphaltCover.SectionResults);
             AddSections(assessmentSection.WaterPressureAsphaltCover);
             SetSectionResults(assessmentSection.WaterPressureAsphaltCover.SectionResults);
-            AddSections(assessmentSection.GrassCoverErosionOutwards);
-            SetSectionResults(assessmentSection.GrassCoverErosionOutwards.SectionResults);
             AddSections(assessmentSection.GrassCoverSlipOffInwards);
             SetSectionResults(assessmentSection.GrassCoverSlipOffInwards.SectionResults);
             AddSections(assessmentSection.GrassCoverSlipOffOutwards);
@@ -354,6 +357,11 @@ namespace Application.Ringtoets.Storage.TestUtil
                     }
                 }
             });
+        }
+
+        private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            failureMechanism.GeneralInput.N = 15;
         }
 
         private static void SetSectionResults(IEnumerable<PipingFailureMechanismSectionResult> sectionResults)

@@ -184,6 +184,7 @@
     <Compile Include="DbContext\WaveImpactAsphaltCoverSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Serializers\Point2DXmlSerializer.cs" />
     <Compile Include="Serializers\Point3DXmlSerializer.cs" />
     <Compile Include="Serializers\RoughnessPointXmlSerializer.cs" />
@@ -276,7 +277,7 @@
     <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwardsSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />

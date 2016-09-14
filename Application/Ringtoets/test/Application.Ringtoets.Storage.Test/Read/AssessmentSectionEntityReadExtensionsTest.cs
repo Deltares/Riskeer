@@ -408,6 +408,41 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        [TestCase(true, TestName = "GrassCoverErosionOutwardsPropertiesSet_ReturnsNewAssessmentSectionWithPropertiesInGrassCoverErosionOutwardsFailureMechanism(true)")]
+        [TestCase(false, TestName = "GrassCoverErosionOutwardsPropertiesSet_ReturnsNewAssessmentSectionWithPropertiesInGrassCoverErosionOutwardsFailureMechanism(false)")]
+        public void Read_WithGrassCoverErosionOutwardsFailureMechanismPropertiesSet_ReturnsNewAssessmentSectionWithPropertiesInGrassCoverErosionOutwardsFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+            const string comments = "Some text";
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int)FailureMechanismType.GrassRevetmentErosionOutwards,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                IsRelevant = Convert.ToByte(isRelevant),
+                Comments = comments,
+                GrassCoverErosionOutwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(isRelevant, section.GrassCoverErosionOutwards.IsRelevant);
+            Assert.AreEqual(comments, section.GrassCoverErosionOutwards.Comments);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Read_WithStandAloneFailureMechanismsSet_ReturnsNewAssessmentSectionWithFailureMechanismsSet(bool isRelevant)
@@ -424,7 +459,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var stoneRevetmentEntityComment = "36";
             var waveImpactEntityComment = "77";
             var waterPressureEntityComment = "78";
-            var grassCoverErosionOutwardsEntityComment = "133";
             var grassCoverSlipoffOutwardsEntityComment = "134";
             var grassCoverSlipoffInwardsEntityComment = "135";
             var duneErosionEntityComment = "256";
@@ -440,7 +474,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, stoneRevetmentEntityComment, FailureMechanismType.StabilityStoneRevetment));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, waveImpactEntityComment, FailureMechanismType.WaveImpactOnAsphaltRevetment));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, waterPressureEntityComment, FailureMechanismType.WaterOverpressureAsphaltRevetment));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverErosionOutwardsEntityComment, FailureMechanismType.GrassRevetmentErosionOutwards));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverSlipoffOutwardsEntityComment, FailureMechanismType.GrassRevetmentSlidingOutwards));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverSlipoffInwardsEntityComment, FailureMechanismType.GrassRevetmentSlidingInwards));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, duneErosionEntityComment, FailureMechanismType.DuneErosion));
@@ -462,7 +495,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertFailureMechanismEqual(isRelevant, stoneRevetmentEntityComment, 2, section.StabilityStoneCover);
             AssertFailureMechanismEqual(isRelevant, waveImpactEntityComment, 2, section.WaveImpactAsphaltCover);
             AssertFailureMechanismEqual(isRelevant, waterPressureEntityComment, 2, section.WaterPressureAsphaltCover);
-            AssertFailureMechanismEqual(isRelevant, grassCoverErosionOutwardsEntityComment, 2, section.GrassCoverErosionOutwards);
             AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffOutwardsEntityComment, 2, section.GrassCoverSlipOffOutwards);
             AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffInwardsEntityComment, 2, section.GrassCoverSlipOffInwards);
             AssertFailureMechanismEqual(isRelevant, duneErosionEntityComment, 2, section.DuneErosion);

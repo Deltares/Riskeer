@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.Piping;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -156,16 +157,15 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity, GrassCoverErosionInwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadGeneralCalculationInput(failureMechanism.GeneralInput);
+            entity.ReadGeneralGrassCoverErosionInwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadDikeProfiles(failureMechanism.DikeProfiles, collector);
             ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
             entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
         }
 
-        private static void ReadGeneralCalculationInput(this FailureMechanismEntity entity, GeneralGrassCoverErosionInwardsInput input)
+        private static void ReadGeneralGrassCoverErosionInwardsCalculationInput(this FailureMechanismEntity entity, GeneralGrassCoverErosionInwardsInput input)
         {
-            GrassCoverErosionInwardsFailureMechanismMetaEntity t = entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single();
-            t.Read(input);
+            entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single().Read(input);
         }
 
         private static void ReadDikeProfiles(this FailureMechanismEntity entity, ICollection<DikeProfile> dikeProfiles, ReadConversionCollector collector)
@@ -427,7 +427,13 @@ namespace Application.Ringtoets.Storage.Read
         internal static void ReadAsGrassCoverErosionOutwardsFailureMechanism(this FailureMechanismEntity entity, GrassCoverErosionOutwardsFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadGeneralGrassCoverErosionOutwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadGrassCoverErosionOutwardsMechanismSectionResults(failureMechanism, collector);
+        }
+
+        private static void ReadGeneralGrassCoverErosionOutwardsCalculationInput(this FailureMechanismEntity entity, GeneralGrassCoverErosionOutwardsInput input)
+        {
+            entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single().Read(input);
         }
 
         private static void ReadGrassCoverErosionOutwardsMechanismSectionResults(this FailureMechanismEntity entity, GrassCoverErosionOutwardsFailureMechanism failureMechanism, ReadConversionCollector collector)

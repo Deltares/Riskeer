@@ -117,5 +117,20 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities).Count());
         }
+
+        [Test]
+        public void Create_WithUpdatedN_FailureMechanismMetaUpdated()
+        {
+            // Setup
+            var n = new Random(21).Next(1,20);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.GeneralInput.N = n;
+
+            // Call
+            var entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.AreEqual(n, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.First().N);
+        }
     }
 }
