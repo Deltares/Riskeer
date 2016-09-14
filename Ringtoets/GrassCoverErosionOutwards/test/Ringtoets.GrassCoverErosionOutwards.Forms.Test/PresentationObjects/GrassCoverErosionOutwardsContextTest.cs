@@ -24,32 +24,26 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
+namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StabilityStoneCoverContextTest
+    public class GrassCoverErosionOutwardsContextTest
     {
         [Test]
         public void Constructor_WrappedDataNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleStabilityStoneCoverContext(null, failureMechanism, assessmentSection);
+            TestDelegate call = () => new SimpleGrassCoverErosionOutwardsContext(null, failureMechanism);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("wrappedData", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -57,12 +51,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleStabilityStoneCoverContext(observable, null, assessmentSection);
+            TestDelegate call = () => new SimpleGrassCoverErosionOutwardsContext(observable, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -71,52 +64,30 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new SimpleStabilityStoneCoverContext(observable, failureMechanism, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.Stub<IObservable>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var context = new SimpleStabilityStoneCoverContext(observable, failureMechanism, assessmentSection);
+            var context = new SimpleGrassCoverErosionOutwardsContext(observable, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservable>>(context);
             Assert.AreSame(observable, context.WrappedData);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             mocks.VerifyAll();
         }
 
-        private class SimpleStabilityStoneCoverContext : StabilityStoneCoverContext<IObservable>
+        private class SimpleGrassCoverErosionOutwardsContext : GrassCoverErosionOutwardsContext<IObservable>
         {
-            public SimpleStabilityStoneCoverContext(IObservable wrappedData,
-                                                    StabilityStoneCoverFailureMechanism failureMechanism,
-                                                    IAssessmentSection assessmentSection) :
-                                                        base(wrappedData, failureMechanism, assessmentSection) {}
+            public SimpleGrassCoverErosionOutwardsContext(IObservable wrappedData,
+                                                          GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+                : base(wrappedData, failureMechanism) {}
         }
     }
 }
