@@ -111,7 +111,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het golfklap op asfalt toetsspoor.
+        ///   Looks up a localized string similar to Het golfklappen op asfalt toetsspoor.
         /// </summary>
         public static string WaveImpactAsphaltCoverContext_DataDescription_WaveImpactAsphaltCoverFailureMechanism {
             get {

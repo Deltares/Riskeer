@@ -74,7 +74,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<ObservableObject>(observableObject, null, assessmentSectionMock);
 
             // Assert
-            const string expectedMessage = "Het golfklap op asfalt toetsspoor mag niet 'null' zijn.";
+            const string expectedMessage = "Het golfklappen op asfalt toetsspoor mag niet 'null' zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
             mockRepository.VerifyAll();
         }
