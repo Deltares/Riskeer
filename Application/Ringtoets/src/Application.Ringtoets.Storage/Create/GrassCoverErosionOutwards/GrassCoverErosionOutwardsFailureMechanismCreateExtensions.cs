@@ -43,6 +43,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             var entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, registry, entity);
+
+            entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
+
             return entity;
         }
 

@@ -110,7 +110,7 @@ namespace Application.Ringtoets.Storage.Read
 
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);
 
-            ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup,
+            ReadPipingRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup,
                                      failureMechanism.GeneralInput, collector);
         }
 
@@ -133,11 +133,11 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+        private static void ReadPipingRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                      CalculationGroup targetRootCalculationGroup, GeneralPipingInput generalPipingInput,
                                                      ReadConversionCollector collector)
         {
-            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
@@ -159,7 +159,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGeneralGrassCoverErosionInwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadDikeProfiles(failureMechanism.DikeProfiles, collector);
-            ReadRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
+            ReadGrassCoverErosionInwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
             entity.ReadGrassCoverErosionInwardsMechanismSectionResults(failureMechanism, collector);
         }
 
@@ -187,7 +187,7 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+        private static void ReadGrassCoverErosionInwardsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                      CalculationGroup targetRootCalculationGroup,
                                                      ReadConversionCollector collector)
         {
@@ -429,6 +429,8 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGeneralGrassCoverErosionOutwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadGrassCoverErosionOutwardsMechanismSectionResults(failureMechanism, collector);
+
+            ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
         }
 
         private static void ReadGeneralGrassCoverErosionOutwardsCalculationInput(this FailureMechanismEntity entity, GeneralGrassCoverErosionOutwardsInput input)
@@ -447,6 +449,16 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
+
+        private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                     CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
+        {
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
+            }
+        }
         #endregion
 
         #region Grass Cover Slip Off Inwards

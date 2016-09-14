@@ -554,6 +554,57 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(1, failureMechanism.Sections.Count());
         }
 
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithCalculationGroupSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    IsEditable = 0,
+                    Name = "Berekeningen",
+                    Order = 0,
+                    CalculationGroupEntity1 =
+                    {
+                        new CalculationGroupEntity
+                        {
+                            IsEditable = 1,
+                            Name = "Child1",
+                            Order = 0
+                        },
+                        new CalculationGroupEntity
+                        {
+                            IsEditable = 1,
+                            Name = "Child2",
+                            Order = 1
+                        },
+                    }
+                },
+                GrassCoverErosionOutwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
+
+            ICalculationBase child1 = failureMechanism.WaveConditionsCalculationGroup.Children[0];
+            Assert.AreEqual("Child1", child1.Name);
+
+            ICalculationBase child2 = failureMechanism.WaveConditionsCalculationGroup.Children[1];
+            Assert.AreEqual("Child2", child2.Name);
+        }
+
         #endregion
     }
 }
