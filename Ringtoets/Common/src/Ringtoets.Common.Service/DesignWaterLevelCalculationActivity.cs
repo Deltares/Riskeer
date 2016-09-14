@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Service
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationActivity"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="IHydraulicBoundaryLocation"/> to perform the calculation for.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to perform the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The HLCD file that should be used for performing the calculation.</param>
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>

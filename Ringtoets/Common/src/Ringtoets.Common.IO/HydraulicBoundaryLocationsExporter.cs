@@ -49,9 +49,9 @@ namespace Ringtoets.Common.IO
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <param name="designWaterLevelName">The Dutch name of the content of the 
-        /// <see cref="IHydraulicBoundaryLocation.DesignWaterLevel"/> property.</param>
+        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> property.</param>
         /// <param name="waveHeightName">The Dutch name of the content of the 
-        /// <see cref="IHydraulicBoundaryLocation.WaveHeight"/> property.</param>
+        /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> property.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/>, 
         /// <paramref name="designWaterLevelName"/> or <see cref="waveHeightName"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>

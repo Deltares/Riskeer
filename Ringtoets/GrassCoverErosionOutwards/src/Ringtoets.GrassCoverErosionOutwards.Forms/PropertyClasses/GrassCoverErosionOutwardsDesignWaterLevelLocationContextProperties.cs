@@ -26,7 +26,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -34,8 +33,8 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> with 
-    /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> with 
+    /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties

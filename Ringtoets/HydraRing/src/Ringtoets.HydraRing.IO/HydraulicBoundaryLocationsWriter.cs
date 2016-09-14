@@ -45,9 +45,9 @@ namespace Ringtoets.HydraRing.IO
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsWriter"/>.
         /// </summary>
         /// <param name="designWaterLevelName">The Dutch name of the content of the 
-        /// <see cref="IHydraulicBoundaryLocation.DesignWaterLevel"/> property.</param>
+        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> property.</param>
         /// <param name="waveHeightName">The Dutch name of the content of the
-        /// <see cref="IHydraulicBoundaryLocation.WaveHeight"/> property.</param>
+        /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> property.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelName"/> or
         /// <see cref="waveHeightName"/> is <c>null</c>.</exception>
         public HydraulicBoundaryLocationsWriter(string designWaterLevelName, string waveHeightName)
