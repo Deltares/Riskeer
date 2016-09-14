@@ -613,4 +613,13 @@
   <data name="SelectionDialogBase_SelectionDialogBase_Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>
+  <data name="HydraulicBoundaryLocationSelectionDialog_Location_Name" xml:space="preserve">
+    <value>Hydraulische randvoorwaardenlocatie</value>
+  </data>
+  <data name="CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip" xml:space="preserve">
+    <value>Genereer randvoorwaardenberekeningen.</value>
+  </data>
+  <data name="CalculationGroup_No_HRD_To_Generate_ToolTip" xml:space="preserve">
+    <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.</value>
+  </data>
 </root>

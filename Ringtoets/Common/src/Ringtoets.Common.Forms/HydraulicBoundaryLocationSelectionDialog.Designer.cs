@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.StabilityStoneCover.Forms
+namespace Ringtoets.Common.Forms
 {
-    partial class StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog
+    partial class HydraulicBoundaryLocationSelectionDialog
     {
         #region Windows Form Designer generated code
 
@@ -31,19 +31,15 @@ namespace Ringtoets.StabilityStoneCover.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HydraulicBoundaryLocationSelectionDialog));
             this.SuspendLayout();
             // 
-            // dataGridViewControl
-            // 
-            resources.ApplyResources(this.DataGridViewControl, "dataGridViewControl");
-            // 
-            // StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog
+            // HydraulicBoundaryLocationSelectionDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CustomCancelButton;
-            this.Name = "StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog";
+            this.Name = "HydraulicBoundaryLocationSelectionDialog";
             this.ResumeLayout(false);
 
         }

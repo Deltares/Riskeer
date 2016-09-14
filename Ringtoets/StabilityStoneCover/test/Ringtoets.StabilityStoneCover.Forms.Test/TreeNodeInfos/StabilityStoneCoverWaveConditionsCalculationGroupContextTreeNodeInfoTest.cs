@@ -43,6 +43,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
@@ -720,13 +721,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
                     {
-                        DesignWaterLevel = (RoundedDouble)12.0
+                        DesignWaterLevel = (RoundedDouble) 12.0
                     },
-                    LowerBoundaryRevetment = (RoundedDouble)1.0,
-                    UpperBoundaryRevetment = (RoundedDouble)10.0,
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
-                    LowerBoundaryWaterLevels = (RoundedDouble)1.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0
                 }
             };
 
@@ -1329,11 +1330,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
                 nodeData.Attach(observerMock);
 
-                StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog dialog = null;
+                HydraulicBoundaryLocationSelectionDialog dialog = null;
                 DataGridViewControl grid = null;
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    dialog = (StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                    dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
                     grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                     grid.Rows[0].Cells[0].Value = true;
                     grid.Rows[1].Cells[0].Value = true;
@@ -1389,11 +1390,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 plugin.Gui = gui;
                 nodeData.Attach(observerMock);
 
-                StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog dialog = null;
+                HydraulicBoundaryLocationSelectionDialog dialog = null;
                 DataGridViewControl grid = null;
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    dialog = (StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                    dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
                     grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                     grid.Rows[0].Cells[0].Value = true;
                     new ButtonTester("CustomCancelButton", dialog).Click();

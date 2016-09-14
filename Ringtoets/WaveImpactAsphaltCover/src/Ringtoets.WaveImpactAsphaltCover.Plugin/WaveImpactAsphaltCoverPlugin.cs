@@ -32,12 +32,14 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Forms;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
@@ -334,24 +336,41 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
         {
-            // TODO : This is a placeholder, so all corrections, improvements and functionality extensions are part of WTI-808.
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = nodeData.AssessmentSection.HydraulicBoundaryDatabase;
+            bool locationsAvailable = hydraulicBoundaryDatabase != null && hydraulicBoundaryDatabase.Locations.Any();
+
+            string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
+                                                                                         ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                                                         : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
+
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-                                             "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
+                                             stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                             (sender, args) => { ShowWaveImpactAsphaltCoverHydraulicBoundaryLocationSelectionDialog(nodeData); })
+                                             (sender, args) => { ShowHydraulicBoundaryLocationSelectionDialog(nodeData); })
             {
-                Enabled = false
+                Enabled = locationsAvailable
             };
         }
 
-        private void ShowWaveImpactAsphaltCoverHydraulicBoundaryLocationSelectionDialog(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
+        private void ShowHydraulicBoundaryLocationSelectionDialog(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
         {
-            // TODO WTI-808
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
+            {
+                dialog.ShowDialog();
+
+                if (dialog.SelectedItems.Any())
+                {
+                    GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(nodeData.WrappedData, dialog.SelectedItems);
+                    nodeData.NotifyObservers();
+                }
+            }
         }
 
         private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(CalculationGroup target, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
-            // TODO WTI-808
+            WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(
+                hydraulicBoundaryLocations,
+                target.Children);
         }
 
         private void AddWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)

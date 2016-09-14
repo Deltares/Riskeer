@@ -259,7 +259,7 @@
     <value>Selecteer hydraulische randvoorwaardenlocaties</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog</value>
+    <value>HydraulicBoundaryLocationSelectionDialog</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>Ringtoets.Common.Forms.SelectionDialogBase, Ringtoets.Common.Forms, Version=16.2.1.5236, Culture=neutral, PublicKeyToken=null</value>

@@ -120,10 +120,4 @@
   <data name="DataTypeDisplayName_csv_file_filter" xml:space="preserve">
     <value>Kommagescheiden bestand (*.csv)|*.csv</value>
   </data>
-  <data name="StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip" xml:space="preserve">
-    <value>Genereer randvoorwaardenberekeningen.</value>
-  </data>
-  <data name="StabilityStoneCover_WaveConditions_No_HRD_To_Generate" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.</value>
-  </data>
 </root>

@@ -32,6 +32,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -378,22 +379,21 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             bool locationsAvailable = hydraulicBoundaryDatabase != null && hydraulicBoundaryDatabase.Locations.Any();
 
             string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
-                                                                                         ? Resources.StabilityStoneCoverPlugin_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                         : Resources.StabilityStoneCover_WaveConditions_No_HRD_To_Generate;
+                                                                                         ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                                                         : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
                                              stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                             (sender, args) => { ShowStabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(nodeData); })
+                                             (sender, args) => { ShowHydraulicBoundaryLocationSelectionDialog(nodeData); })
             {
                 Enabled = locationsAvailable
             };
         }
 
-        private void ShowStabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
+        private void ShowHydraulicBoundaryLocationSelectionDialog(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
         {
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(Gui.MainWindow,
-                                                                                                nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
             {
                 dialog.ShowDialog();
 

@@ -25,23 +25,21 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Forms;
 using Ringtoets.HydraRing.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test
+namespace Ringtoets.Common.Forms.Test
 {
     [TestFixture]
-    public class StabilityStoneCoverHydraulicBoundaryLocationSelectionDialogTest
+    public class HydraulicBoundaryLocationSelectionDialogTest
     {
         private const int locationSelectionColumnIndex = 0;
         private const int locationColumnIndex = 1;
-        
+
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(null, Enumerable.Empty<HydraulicBoundaryLocation>());
+            TestDelegate test = () => new HydraulicBoundaryLocationSelectionDialog(null, Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -55,7 +53,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
             using (var viewParent = new Form())
             {
                 // Call
-                TestDelegate test = () => new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, null);
+                TestDelegate test = () => new HydraulicBoundaryLocationSelectionDialog(viewParent, null);
 
                 // Assert
                 string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -70,7 +68,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
             using (var viewParent = new Form())
             {
                 // Call
-                using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<HydraulicBoundaryLocation>()))
+                using (var dialog = new HydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<HydraulicBoundaryLocation>()))
                 {
                     // Assert
                     Assert.IsInstanceOf<SelectionDialogBase<HydraulicBoundaryLocation>>(dialog);
@@ -85,23 +83,23 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         {
             // Setup & Call
             using (var viewParent = new Form())
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<HydraulicBoundaryLocation>()))
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(viewParent, Enumerable.Empty<HydraulicBoundaryLocation>()))
             {
                 dialog.Show();
 
                 // Assert
                 Assert.IsEmpty(dialog.SelectedItems);
 
-                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
                 Assert.AreEqual(2, dataGridView.ColumnCount);
 
-                var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[locationSelectionColumnIndex];
+                var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[locationSelectionColumnIndex];
                 Assert.AreEqual("Gebruik", locationCalculateColumn.HeaderText);
                 Assert.AreEqual("Selected", locationCalculateColumn.DataPropertyName);
                 Assert.IsFalse(locationCalculateColumn.ReadOnly);
 
-                var nameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[locationColumnIndex];
+                var nameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationColumnIndex];
                 Assert.AreEqual("Hydraulische randvoorwaardenlocatie", nameColumn.HeaderText);
                 Assert.AreEqual("Name", nameColumn.DataPropertyName);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, nameColumn.AutoSizeMode);
@@ -114,12 +112,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         {
             // Setup
             const string testname = "testName";
-            
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testname, 0, 0);
 
             // Call
             using (var viewParent = new Form())
-            using (var dialog = new StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog(viewParent, new[]
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(viewParent, new[]
             {
                 hydraulicBoundaryLocation
             }))
@@ -127,10 +125,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
                 // Assert
                 dialog.Show();
 
-                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl").TheObject;
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl").TheObject;
                 Assert.AreEqual(1, dataGridViewControl.Rows.Count);
-                Assert.IsFalse((bool)dataGridViewControl.Rows[0].Cells[locationSelectionColumnIndex].Value);
-                Assert.AreEqual(testname, (string)dataGridViewControl.Rows[0].Cells[locationColumnIndex].Value);
+                Assert.IsFalse((bool) dataGridViewControl.Rows[0].Cells[locationSelectionColumnIndex].Value);
+                Assert.AreEqual(testname, (string) dataGridViewControl.Rows[0].Cells[locationColumnIndex].Value);
             }
         }
     }

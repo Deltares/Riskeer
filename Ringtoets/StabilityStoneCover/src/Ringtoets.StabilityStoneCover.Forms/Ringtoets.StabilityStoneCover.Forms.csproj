@@ -56,12 +56,6 @@
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsCalculationInputContextProperties.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextProperties.cs" />
     <Compile Include="StabilityStoneCoverCalculationConfigurationHelper.cs" />
-    <Compile Include="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.Designer.cs">
-      <DependentUpon>StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditor.cs" />
     <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextHydraulicBoundaryLocationEditor.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputProperties.cs" />
@@ -132,9 +126,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.resx">
-      <DependentUpon>StabilityStoneCoverHydraulicBoundaryLocationSelectionDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

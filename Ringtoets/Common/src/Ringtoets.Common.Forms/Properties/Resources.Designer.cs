@@ -364,11 +364,29 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Genereer randvoorwaardenberekeningen..
+        /// </summary>
+        public static string CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Genereer &amp;scenario&apos;s....
         /// </summary>
         public static string CalculationGroup_Generate_Scenarios {
             get {
                 return ResourceManager.GetString("CalculationGroup_Generate_Scenarios", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren..
+        /// </summary>
+        public static string CalculationGroup_No_HRD_To_Generate_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_No_HRD_To_Generate_ToolTip", resourceCulture);
             }
         }
         
@@ -1133,6 +1151,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string HydraulicBoundaryLocation_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische randvoorwaardenlocatie.
+        /// </summary>
+        public static string HydraulicBoundaryLocationSelectionDialog_Location_Name {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationSelectionDialog_Location_Name", resourceCulture);
             }
         }
         

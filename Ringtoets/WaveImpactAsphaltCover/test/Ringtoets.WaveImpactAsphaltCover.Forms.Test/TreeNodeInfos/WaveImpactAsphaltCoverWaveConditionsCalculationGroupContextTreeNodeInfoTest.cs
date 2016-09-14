@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -41,6 +42,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
@@ -460,11 +462,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     Assert.AreEqual(16, menu.Items.Count);
-                    // TODO WTI-856
-                    //TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                    //                                              "Genereer &berekeningen...",
-                    //                                              "Genereer randvoorwaardenberekeningen.",
-                    //                                              RingtoetsCommonFormsResources.GenerateScenariosIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                                  "Genereer &berekeningen...",
+                                                                  "Genereer randvoorwaardenberekeningen.",
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -1275,128 +1276,126 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             }
         }
 
-        // TODO WTI-808
-        //[Test]
-        //public void GivenDialogGenerateCalculationButtonClicked_WhenCalculationSelectedAndDialogClosed_ThenUpdateCalculationGroup()
-        //{
-        //    // Given
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var group = new CalculationGroup();
-        //        var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //        var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //        assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-        //        {
-        //            Locations =
-        //            {
-        //                new HydraulicBoundaryLocation(1, "1", 1, 1),
-        //                new HydraulicBoundaryLocation(2, "2", 2, 2)
-        //            }
-        //        };
+        [Test]
+        public void GivenDialogGenerateCalculationButtonClicked_WhenCalculationSelectedAndDialogClosed_ThenUpdateCalculationGroup()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var group = new CalculationGroup();
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "1", 1, 1),
+                        new HydraulicBoundaryLocation(2, "2", 2, 2)
+                    }
+                };
 
-        //        var observerMock = mocks.StrictMock<IObserver>();
-        //        observerMock.Expect(o => o.UpdateObserver());
-        //        var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-        //                                                                                    failureMechanism,
-        //                                                                                    assessmentSection);
+                var observerMock = mocks.StrictMock<IObserver>();
+                observerMock.Expect(o => o.UpdateObserver());
+                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
 
-        //        var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-        //        var mainWindow = mocks.Stub<IMainWindow>();
-        //        var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-        //        gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
-        //        gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
-        //        nodeData.Attach(observerMock);
+                plugin.Gui = gui;
+                nodeData.Attach(observerMock);
 
-        //        WaveImpactAsphaltCoverHydraulicBoundaryLocationSelectionDialog dialog = null;
-        //        DataGridViewControl grid = null;
-        //        DialogBoxHandler = (name, wnd) =>
-        //        {
-        //            dialog = (WaveImpactAsphaltCoverHydraulicBoundaryLocationSelectionDialog)new FormTester(name).TheObject;
-        //            grid = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
-        //            grid.Rows[0].Cells[0].Value = true;
-        //            grid.Rows[1].Cells[0].Value = true;
-        //            new ButtonTester("DoForSelectedButton", dialog).Click();
-        //        };
+                HydraulicBoundaryLocationSelectionDialog dialog = null;
+                DataGridViewControl grid = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                    grid.Rows[0].Cells[0].Value = true;
+                    grid.Rows[1].Cells[0].Value = true;
+                    new ButtonTester("DoForSelectedButton", dialog).Click();
+                };
 
-        //        // When
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-        //        {
-        //            contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
-        //        }
+                // When
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+                }
 
-        //        // Then
-        //        Assert.AreEqual(2, group.Children.Count);
-        //        Assert.NotNull(dialog);
-        //        Assert.NotNull(grid);
-        //    }
-        //}
+                // Then
+                Assert.AreEqual(2, group.Children.Count);
+                Assert.NotNull(dialog);
+                Assert.NotNull(grid);
+            }
+        }
 
-        // TODO WTI-808
-        //[Test]
-        //public void GivenDialogGenerateCalculationButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationGroupNotUpdated()
-        //{
-        //    // Given
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var group = new CalculationGroup();
-        //        var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //        var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-        //        assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-        //        {
-        //            Locations =
-        //            {
-        //                new HydraulicBoundaryLocation(1, "1", 1, 1)
-        //            }
-        //        };
+        [Test]
+        public void GivenDialogGenerateCalculationButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationGroupNotUpdated()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var group = new CalculationGroup();
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+                assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    Locations =
+                    {
+                        new HydraulicBoundaryLocation(1, "1", 1, 1)
+                    }
+                };
 
-        //        var observerMock = mocks.StrictMock<IObserver>();
-        //        var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-        //                                                                                    failureMechanism,
-        //                                                                                    assessmentSectionMock);
+                var observerMock = mocks.StrictMock<IObserver>();
+                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               failureMechanism,
+                                                                                               assessmentSectionMock);
 
-        //        var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-        //        var mainWindow = mocks.Stub<IMainWindow>();
-        //        var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-        //        gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
-        //        gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Expect(cmp => cmp.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
-        //        nodeData.Attach(observerMock);
+                plugin.Gui = gui;
+                nodeData.Attach(observerMock);
 
-        //        WaveImpactAsphaltCoverHydraulicBoundaryLocationSelectionDialog dialog = null;
-        //        DataGridViewControl grid = null;
-        //        DialogBoxHandler = (name, wnd) =>
-        //        {
-        //            dialog = (WaveImpactAsphaltCoverHydraulicBoundaryLocationSelectionDialog)new FormTester(name).TheObject;
-        //            grid = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
-        //            grid.Rows[0].Cells[0].Value = true;
-        //            new ButtonTester("CustomCancelButton", dialog).Click();
-        //        };
+                HydraulicBoundaryLocationSelectionDialog dialog = null;
+                DataGridViewControl grid = null;
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    dialog = (HydraulicBoundaryLocationSelectionDialog) new FormTester(name).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                    grid.Rows[0].Cells[0].Value = true;
+                    new ButtonTester("CustomCancelButton", dialog).Click();
+                };
 
-        //        // When
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-        //        {
-        //            contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
-        //        }
+                // When
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
+                }
 
-        //        // Then
-        //        Assert.AreEqual(0, group.Children.Count);
-        //        Assert.NotNull(dialog);
-        //        Assert.NotNull(grid);
-        //    }
-        //}
+                // Then
+                Assert.AreEqual(0, group.Children.Count);
+                Assert.NotNull(dialog);
+                Assert.NotNull(grid);
+            }
+        }
 
         [Test]
         public void OnNodeRemoved_ParentIsWaveConditionsCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()

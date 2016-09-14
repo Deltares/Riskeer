@@ -85,6 +85,12 @@
     <Compile Include="SelectionDialogBase.Designer.cs">
       <DependentUpon>SelectionDialogBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="HydraulicBoundaryLocationSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HydraulicBoundaryLocationSelectionDialog.Designer.cs">
+      <DependentUpon>HydraulicBoundaryLocationSelectionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RingtoetsMapDataFeaturesFactory.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilder.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsTreeNodeInfoFactory.cs" />
@@ -112,6 +118,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HydraulicBoundaryLocationSelectionDialog.resx">
+      <DependentUpon>HydraulicBoundaryLocationSelectionDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CommentView.resx">
       <DependentUpon>CommentView.cs</DependentUpon>
