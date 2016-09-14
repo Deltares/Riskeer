@@ -142,13 +142,16 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
             {
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
-                IsEnabled = context => context.WrappedData.Children.OfType<ICalculation>().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
+                IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 FileFilter = Resources.DataTypeDisplayName_csv_file_filter
             };
 
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
             {
-                CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(new[] { context.WrappedData }, filePath),
+                CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(new[]
+                {
+                    context.WrappedData
+                }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 FileFilter = Resources.DataTypeDisplayName_csv_file_filter
             };
@@ -393,7 +396,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                                                                 nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
             {
                 dialog.ShowDialog();
-                
+
                 if (dialog.SelectedItems.Any())
                 {
                     GenerateStabilityStoneCoverCalculations(nodeData.WrappedData, dialog.SelectedItems);
@@ -496,28 +499,30 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
             StabilityStoneCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
 
-            return builder.AddValidateCalculationItem(nodeData,
-                                                      c => ValidateAll(
-                                                          new[]
-                                                          {
-                                                              c.WrappedData
-                                                          },
-                                                          c.FailureMechanism.GeneralInput,
-                                                          c.AssessmentSection.FailureMechanismContribution.Norm,
-                                                          c.AssessmentSection.HydraulicBoundaryDatabase),
-                                                      ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
-                          .AddClearCalculationOutputItem(calculation)
-                          .AddExportItem()
-                          .AddSeparator()
-                          .AddRenameItem()
-                          .AddDeleteItem()
-                          .AddSeparator()
-                          .AddExpandAllItem()
-                          .AddCollapseAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
+            return builder
+                .AddExportItem()
+                .AddSeparator()
+                .AddValidateCalculationItem(nodeData,
+                                            c => ValidateAll(
+                                                new[]
+                                                {
+                                                    c.WrappedData
+                                                },
+                                                c.FailureMechanism.GeneralInput,
+                                                c.AssessmentSection.FailureMechanismContribution.Norm,
+                                                c.AssessmentSection.HydraulicBoundaryDatabase),
+                                            ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
+                .AddClearCalculationOutputItem(calculation)
+                .AddSeparator()
+                .AddRenameItem()
+                .AddDeleteItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
         }
 
         private void PerformCalculation(StabilityStoneCoverWaveConditionsCalculation calculation,
