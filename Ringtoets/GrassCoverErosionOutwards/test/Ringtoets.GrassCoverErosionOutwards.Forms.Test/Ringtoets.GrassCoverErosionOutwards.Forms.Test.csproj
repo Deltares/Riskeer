@@ -72,7 +72,7 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsFailureMechanismPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationContextPropertiesTest.cs" />

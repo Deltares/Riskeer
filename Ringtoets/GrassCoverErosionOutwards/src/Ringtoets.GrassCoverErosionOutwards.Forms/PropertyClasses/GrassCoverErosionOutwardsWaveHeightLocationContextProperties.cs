@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> with 
     /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveHeightLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties
+    public class GrassCoverErosionOutwardsWaveHeightLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties
     {
         [PropertyOrder(1)]
         public override long Id

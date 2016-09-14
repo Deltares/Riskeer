@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties
     {
         [PropertyOrder(1)]
         public override long Id

@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties>(properties);
+            Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties>(properties);
             Assert.IsNull(properties.Data);
         }
 

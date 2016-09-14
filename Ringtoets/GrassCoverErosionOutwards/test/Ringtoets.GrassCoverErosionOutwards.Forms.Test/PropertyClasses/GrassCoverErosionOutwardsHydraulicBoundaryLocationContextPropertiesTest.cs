@@ -31,7 +31,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationPropertiesTest
+    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationContextPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -183,6 +183,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedLocationDescription, locationProperty.Description);
         }
 
-        private class TestGrassCoverErosionOutwardsLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties {}
+        private class TestGrassCoverErosionOutwardsLocationProperties : GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties {}
     }
 }
