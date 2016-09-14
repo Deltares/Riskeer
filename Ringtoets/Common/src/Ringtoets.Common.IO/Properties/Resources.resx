@@ -291,7 +291,7 @@ Er is geen referentielijn geëxporteerd.</value>
     <value>Het profiel heeft geen geldige waarde voor attribuut 'X0'.</value>
   </data>
   <data name="ProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points" xml:space="preserve">
-    <value>Het bestand mag uitsluitend punten bevatten.</value>
+    <value>Kon geen punten vinden in dit bestand.</value>
   </data>
   <data name="ProfileLocation_ProfileLocation_Id_is_invalid" xml:space="preserve">
     <value>De locatie parameter 'ID' mag uitsluitend uit letters en cijfers bestaan.</value>

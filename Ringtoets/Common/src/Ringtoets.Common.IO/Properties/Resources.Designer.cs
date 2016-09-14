@@ -541,7 +541,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand mag uitsluitend punten bevatten..
+        ///   Looks up a localized string similar to Kon geen punten vinden in dit bestand..
         /// </summary>
         public static string ProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points {
             get {

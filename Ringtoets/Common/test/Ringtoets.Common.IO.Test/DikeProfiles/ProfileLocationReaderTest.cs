@@ -132,7 +132,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
             TestDelegate call = () => new ProfileLocationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand mag uitsluitend punten bevatten.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.",
                                                 invalidFilePath);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

@@ -189,7 +189,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             {
                 string[] messageArray = messages.ToArray();
                 string expectedMessage =
-                    string.Format("Fout bij het lezen van bestand '{0}': Het bestand mag uitsluitend punten bevatten.", filePath);
+                    string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.", filePath);
                 StringAssert.EndsWith(expectedMessage, messageArray[0]);
             });
             Assert.IsFalse(importResult);
