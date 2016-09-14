@@ -660,7 +660,10 @@ namespace Ringtoets.Integration.Forms.Test
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new HydraulicBoundaryLocation(hydraulicBoundaryLocation.Id,
+                                                                                                   hydraulicBoundaryLocation.Name,
+                                                                                                   hydraulicBoundaryLocation.Location.X,
+                                                                                                   hydraulicBoundaryLocation.Location.Y);
             assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             var mockRepository = new MockRepository();
