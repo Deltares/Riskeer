@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -29,6 +30,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -36,9 +38,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
@@ -118,8 +124,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -137,8 +143,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
             // Call
             Image icon = info.Image(context);
@@ -157,8 +163,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(groupContext);
@@ -182,8 +188,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(childGroup);
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(nodeData).ToArray();
@@ -191,7 +197,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(failureMechanism.WaveConditionsCalculationGroup.Children.Count, children.Length);
             Assert.AreSame(calculationItem, children[0]);
-            var returnedCalculationGroupContext = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)children[1];
+            var returnedCalculationGroupContext = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) children[1];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism, returnedCalculationGroupContext.FailureMechanism);
         }
@@ -208,11 +214,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
             var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
@@ -243,71 +249,70 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(15, menu.Items.Count);
+                Assert.AreEqual(16, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, 0,
-                                                              CoreCommonGuiResources.Export,
-                                                              CoreCommonGuiResources.Export_ToolTip,
+                                                              "&Exporteren...",
+                                                              "Exporteer de gegevens naar een bestand.",
                                                               CoreCommonGuiResources.ExportIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                              "&Map toevoegen",
                                                               "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.AddFolderIcon);
-                // TODO WTI-819
-                //TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
-                //                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                //                                              "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                //                                              RingtoetsCommonFormsResources.FailureMechanismIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup-1,
-                                                              RingtoetsCommonFormsResources.Validate_all,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
+                                                              "Berekening &toevoegen",
+                                                              "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                              RingtoetsCommonFormsResources.FailureMechanismIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
+                                                              "Alles &valideren",
                                                               "Er zijn geen berekeningen om te valideren.",
                                                               RingtoetsCommonFormsResources.ValidateAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup-1,
-                                                              RingtoetsCommonFormsResources.Calculate_all,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
+                                                              "Alles be&rekenen",
                                                               "Er zijn geen berekeningen om uit te voeren.",
                                                               RingtoetsCommonFormsResources.CalculateAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputNestedGroupIndex-1,
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputNestedGroupIndex,
                                                               "&Wis alle uitvoer...",
                                                               "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                               RingtoetsCommonFormsResources.ClearIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 9-1,
-                                                              CoreCommonGuiResources.Rename,
-                                                              CoreCommonGuiResources.Rename_ToolTip,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 9,
+                                                              "&Hernoemen",
+                                                              "Wijzig de naam van dit element.",
                                                               CoreCommonGuiResources.RenameIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 10-1,
-                                                              CoreCommonGuiResources.Delete,
-                                                              CoreCommonGuiResources.Delete_ToolTip,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 10,
+                                                              "Verwij&deren...",
+                                                              "Verwijder dit element uit de boom.",
                                                               CoreCommonGuiResources.DeleteIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 12-1,
-                                                              CoreCommonGuiResources.Expand_all,
-                                                              CoreCommonGuiResources.Expand_all_ToolTip,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 12,
+                                                              "Alles ui&tklappen",
+                                                              "Klap dit element en alle onderliggende elementen uit.",
                                                               CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
-                TestHelper.AssertContextMenuStripContainsItem(menu, 13-1,
-                                                              CoreCommonGuiResources.Collapse_all,
-                                                              CoreCommonGuiResources.Collapse_all_ToolTip,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 13,
+                                                              "Alles i&nklappen",
+                                                              "Klap dit element en alle onderliggende elementen in.",
                                                               CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, 15-1,
-                                                              CoreCommonGuiResources.Properties,
-                                                              CoreCommonGuiResources.Properties_ToolTip,
+                TestHelper.AssertContextMenuStripContainsItem(menu, 15,
+                                                              "Ei&genschappen",
+                                                              "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                               CoreCommonGuiResources.PropertiesHS,
                                                               false);
 
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {
                     menu.Items[1],
-                    menu.Items[4-1],
-                    menu.Items[8-1],
-                    menu.Items[11-1],
-                    menu.Items[14-1]
+                    menu.Items[4],
+                    menu.Items[8],
+                    menu.Items[11],
+                    menu.Items[14]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -321,8 +326,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
@@ -349,259 +354,256 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(15, menu.Items.Count);
+                    Assert.AreEqual(16, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                                                                  RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                                                  "Genereer &berekeningen...",
                                                                   "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
+                                                                  "&Map toevoegen",
                                                                   "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.AddFolderIcon);
-                    // TODO WTI-819
-                    //TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                    //                                              RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                    //                                              "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                    //                                              RingtoetsCommonFormsResources.FailureMechanismIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup-1,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
+                                                                  "Berekening &toevoegen",
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
+                                                                  "Map &leegmaken...",
                                                                   "Er zijn geen berekeningen of mappen om te verwijderen.",
                                                                   RingtoetsCommonFormsResources.RemoveAllIcon,
                                                                   false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup-1,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                                  "Alles &valideren",
                                                                   "Er zijn geen berekeningen om te valideren.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup-1,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                                  "Alles be&rekenen",
                                                                   "Er zijn geen berekeningen om uit te voeren.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup-1,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
                                                                   "&Wis alle uitvoer...",
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup-1,
-                                                                  CoreCommonGuiResources.Expand_all,
-                                                                  CoreCommonGuiResources.Expand_all_ToolTip,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
+                                                                  "Alles ui&tklappen",
+                                                                  "Klap dit element en alle onderliggende elementen uit.",
                                                                   CoreCommonGuiResources.ExpandAllIcon,
                                                                   false);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup-1,
-                                                                  CoreCommonGuiResources.Collapse_all,
-                                                                  CoreCommonGuiResources.Collapse_all_ToolTip,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
+                                                                  "Alles i&nklappen",
+                                                                  "Klap dit element en alle onderliggende elementen in.",
                                                                   CoreCommonGuiResources.CollapseAllIcon,
                                                                   false);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup-1,
-                                                                  CoreCommonGuiResources.Properties,
-                                                                  CoreCommonGuiResources.Properties_ToolTip,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
+                                                                  "Ei&genschappen",
+                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                                   CoreCommonGuiResources.PropertiesHS,
                                                                   false);
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
                         menu.Items[2],
-                        menu.Items[5-1],
-                        menu.Items[7-1],
-                        menu.Items[11-1],
-                        menu.Items[14-1]
+                        menu.Items[5],
+                        menu.Items[7],
+                        menu.Items[11],
+                        menu.Items[14]
                     }, typeof(ToolStripSeparator));
                 }
             }
         }
 
-        // TODO WTI-819
-        //[Test]
-        //public void ContextMenuStrip_WithoutParentNodeWithHydraulicLocationsDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
-        //{
-        //    // Setup
-        //    var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //    assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-        //    {
-        //        Locations =
-        //        {
-        //            new HydraulicBoundaryLocation(1, "1", 1, 1)
-        //        }
-        //    };
-        //    var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+        [Test]
+        public void ContextMenuStrip_WithoutParentNodeWithHydraulicLocationsDefaultBehavior_ReturnContextMenuWithoutRenameRemove()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "1", 1, 1)
+                }
+            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-        //    var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                                failureMechanism,
-        //                                                                                assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
 
-        //    var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-        //    var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-        //    var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-        //    exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
-        //    var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
-        //                                                 importHandlerMock,
-        //                                                 exportHandlerMock,
-        //                                                 viewCommandsHandler,
-        //                                                 nodeData,
-        //                                                 treeViewControl);
+            var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+            var importHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            exportHandlerMock.Expect(ehm => ehm.CanExportFrom(nodeData)).Return(true);
+            var viewCommandsHandler = mocks.StrictMock<IViewCommands>();
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
+                                                         importHandlerMock,
+                                                         exportHandlerMock,
+                                                         viewCommandsHandler,
+                                                         nodeData,
+                                                         treeViewControl);
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-        //        gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-        //        mocks.ReplayAll();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        // Call
-        //        using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-        //        {
-        //            // Assert
-        //            Assert.AreEqual(16, menu.Items.Count);
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-        //                                                          RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-        //                                                          "Genereer randvoorwaardenberekeningen.",
-        //                                                          RingtoetsCommonFormsResources.GenerateScenariosIcon);
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-        //                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-        //                                                          "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
-        //                                                          RingtoetsCommonFormsResources.AddFolderIcon);
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-        //                                                          RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-        //                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-        //                                                          RingtoetsCommonFormsResources.FailureMechanismIcon);
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(16, menu.Items.Count);
+                    // TODO WTI-856
+                    //TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                    //                                              "Genereer &berekeningen...",
+                    //                                              "Genereer randvoorwaardenberekeningen.",
+                    //                                              RingtoetsCommonFormsResources.GenerateScenariosIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
+                                                                  "&Map toevoegen",
+                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.AddFolderIcon);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
+                                                                  "Berekening &toevoegen",
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
 
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-        //                                                          RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
-        //                                                          "Er zijn geen berekeningen of mappen om te verwijderen.",
-        //                                                          RingtoetsCommonFormsResources.RemoveAllIcon,
-        //                                                          false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
+                                                                  "Map &leegmaken...",
+                                                                  "Er zijn geen berekeningen of mappen om te verwijderen.",
+                                                                  RingtoetsCommonFormsResources.RemoveAllIcon,
+                                                                  false);
 
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-        //                                                          RingtoetsCommonFormsResources.Validate_all,
-        //                                                          "Er zijn geen berekeningen om te valideren.",
-        //                                                          RingtoetsCommonFormsResources.ValidateAllIcon,
-        //                                                          false);
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-        //                                                          RingtoetsCommonFormsResources.Calculate_all,
-        //                                                          "Er zijn geen berekeningen om uit te voeren.",
-        //                                                          RingtoetsCommonFormsResources.CalculateAllIcon,
-        //                                                          false);
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
-        //                                                          "&Wis alle uitvoer...",
-        //                                                          "Er zijn geen berekeningen met uitvoer om te wissen.",
-        //                                                          RingtoetsCommonFormsResources.ClearIcon,
-        //                                                          false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                                  "Alles &valideren",
+                                                                  "Er zijn geen berekeningen om te valideren.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                                  "Alles be&rekenen",
+                                                                  "Er zijn geen berekeningen om uit te voeren.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearOutputIndexRootGroup,
+                                                                  "&Wis alle uitvoer...",
+                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
 
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
-        //                                                          CoreCommonGuiResources.Expand_all,
-        //                                                          CoreCommonGuiResources.Expand_all_ToolTip,
-        //                                                          CoreCommonGuiResources.ExpandAllIcon,
-        //                                                          false);
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
-        //                                                          CoreCommonGuiResources.Collapse_all,
-        //                                                          CoreCommonGuiResources.Collapse_all_ToolTip,
-        //                                                          CoreCommonGuiResources.CollapseAllIcon,
-        //                                                          false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
+                                                                  "Alles ui&tklappen",
+                                                                  "Klap dit element en alle onderliggende elementen uit.",
+                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
+                                                                  "Alles i&nklappen",
+                                                                  "Klap dit element en alle onderliggende elementen in.",
+                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  false);
 
-        //            TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
-        //                                                          CoreCommonGuiResources.Properties,
-        //                                                          CoreCommonGuiResources.Properties_ToolTip,
-        //                                                          CoreCommonGuiResources.PropertiesHS,
-        //                                                          false);
-        //            CollectionAssert.AllItemsAreInstancesOfType(new[]
-        //            {
-        //                menu.Items[2],
-        //                menu.Items[5],
-        //                menu.Items[7],
-        //                menu.Items[11],
-        //                menu.Items[14]
-        //            }, typeof(ToolStripSeparator));
-        //        }
-        //    }
-        //}
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
+                                                                  "Ei&genschappen",
+                                                                  "Toon de eigenschappen in het Eigenschappenpaneel.",
+                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  false);
+                    CollectionAssert.AllItemsAreInstancesOfType(new[]
+                    {
+                        menu.Items[2],
+                        menu.Items[5],
+                        menu.Items[7],
+                        menu.Items[11],
+                        menu.Items[14]
+                    }, typeof(ToolStripSeparator));
+                }
+            }
+        }
 
-        // TODO WTI-819
-        //[Test]
-        //public void ContextMenuStrip_NestedCalculationGroupWithNoCalculations_ValidateAndCalculateAllDisabled()
-        //{
-        //    // Setup
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //        var group = new CalculationGroup();
-        //        failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-        //        var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //        var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-        //                                                                                    failureMechanism,
-        //                                                                                    assessmentSection);
-        //        var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                                          failureMechanism,
-        //                                                                                          assessmentSection);
+        [Test]
+        public void ContextMenuStrip_NestedCalculationGroupWithNoCalculations_ValidateAndCalculateAllDisabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                var group = new CalculationGroup();
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
+                var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                     failureMechanism,
+                                                                                                     assessmentSection);
 
-        //        var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        // Call
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-        //        {
-        //            // Assert
-        //            ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
-        //            ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
-        //            Assert.IsFalse(validateItem.Enabled);
-        //            Assert.IsFalse(calculateItem.Enabled);
-        //            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
-        //            Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
-        //        }
-        //    }
-        //}
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
+                    Assert.IsFalse(validateItem.Enabled);
+                    Assert.IsFalse(calculateItem.Enabled);
+                    Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", calculateItem.ToolTipText);
+                    Assert.AreEqual("Er zijn geen berekeningen om te valideren.", validateItem.ToolTipText);
+                }
+            }
+        }
 
-        // TODO WTI-819
-        //[Test]
-        //public void ContextMenuStrip_FailureMechanismWithNoSections_ValidateAndCalculateAllDisabled()
-        //{
-        //    // Setup
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //        var group = new CalculationGroup();
-        //        group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
-        //        failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-        //        var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //        var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-        //                                                                                    failureMechanism,
-        //                                                                                    assessmentSection);
-        //        var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                                          failureMechanism,
-        //                                                                                          assessmentSection);
+        [Test]
+        public void ContextMenuStrip_FailureMechanismWithNoSections_ValidateAndCalculateAllDisabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                var group = new CalculationGroup();
+                group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
+                var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                     failureMechanism,
+                                                                                                     assessmentSection);
 
-        //        var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        // Call
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-        //        {
-        //            // Assert
-        //            ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
-        //            ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
-        //            Assert.IsFalse(validateItem.Enabled);
-        //            Assert.IsFalse(calculateItem.Enabled);
-        //            Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported, calculateItem.ToolTipText);
-        //            Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported, validateItem.ToolTipText);
-        //        }
-        //    }
-        //}
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
+                    Assert.IsFalse(validateItem.Enabled);
+                    Assert.IsFalse(calculateItem.Enabled);
+                    Assert.AreEqual("Er is geen vakindeling geïmporteerd.", calculateItem.ToolTipText);
+                    Assert.AreEqual("Er is geen vakindeling geïmporteerd.", validateItem.ToolTipText);
+                }
+            }
+        }
 
         // TODO WTI-856
         //[Test]
@@ -904,230 +906,226 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         //    }
         //}
 
-        // TODO WTI-819
-        //[Test]
-        //public void ContextMenuStrip_TwoCalculationsWithoutOutput_ClearAllOutputItemDisabled()
-        //{
-        //    string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        [Test]
+        public void ContextMenuStrip_TwoCalculationsWithoutOutput_ClearAllOutputItemDisabled()
+        {
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-        //    var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //    assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-        //    {
-        //        FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
-        //    };
-        //    assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-        //        new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
-        //    assessmentSection.Stub(a => a.Id).Return("someId");
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+            assessmentSection.Stub(a => a.Id).Return("someId");
 
-        //    var group = new CalculationGroup();
-        //    var calculationA = GetValidCalculation();
-        //    var calculationB = GetValidCalculation();
-        //    group.Children.Add(calculationA);
-        //    group.Children.Add(calculationB);
+            var group = new CalculationGroup();
+            var calculationA = GetValidCalculation();
+            var calculationB = GetValidCalculation();
+            group.Children.Add(calculationA);
+            group.Children.Add(calculationB);
 
-        //    var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //    failureMechanism.AddSection(new FailureMechanismSection("", new[]
-        //    {
-        //        new Point2D(0, 0)
-        //    }));
-        //    failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-        //    var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-        //                                                                                failureMechanism,
-        //                                                                                assessmentSection);
-        //    var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                                      failureMechanism,
-        //                                                                                      assessmentSection);
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
 
-        //    var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-        //    // Setup
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var mainWindow = mocks.Stub<IMainWindow>();
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-        //        gui.Stub(g => g.MainWindow).Return(mainWindow);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        using (new HydraRingCalculationServiceConfig())
-        //        using (new WaveConditionsCalculationServiceConfig())
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-        //        {
-        //            // Call
-        //            var clearAllOutputItem = contextMenu.Items[6];
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    var clearAllOutputItem = contextMenu.Items[6];
 
-        //            // Assert
-        //            Assert.IsFalse(clearAllOutputItem.Enabled);
-        //        }
-        //    }
-        //}
+                    // Assert
+                    Assert.IsFalse(clearAllOutputItem.Enabled);
+                }
+            }
+        }
 
-        // TODO WTI-819
-        //[Test]
-        //[TestCase(true)]
-        //[TestCase(false)]
-        //public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
-        //{
-        //    string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
+        {
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-        //    var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //    assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-        //    {
-        //        FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
-        //    };
-        //    assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-        //        new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
-        //    assessmentSection.Stub(a => a.Id).Return("someId");
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+            assessmentSection.Stub(a => a.Id).Return("someId");
 
-        //    var observerA = mocks.StrictMock<IObserver>();
-        //    var observerB = mocks.StrictMock<IObserver>();
-        //    if (confirm)
-        //    {
-        //        observerA.Expect(o => o.UpdateObserver());
-        //        observerB.Expect(o => o.UpdateObserver());
-        //    }
+            var observerA = mocks.StrictMock<IObserver>();
+            var observerB = mocks.StrictMock<IObserver>();
+            if (confirm)
+            {
+                observerA.Expect(o => o.UpdateObserver());
+                observerB.Expect(o => o.UpdateObserver());
+            }
 
-        //    var group = new CalculationGroup();
-        //    var calculationA = GetValidCalculation();
-        //    calculationA.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>());
-        //    var calculationB = GetValidCalculation();
-        //    calculationB.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>());
-        //    group.Children.Add(calculationA);
-        //    group.Children.Add(calculationB);
-        //    calculationA.Attach(observerA);
-        //    calculationB.Attach(observerB);
+            var group = new CalculationGroup();
+            var calculationA = GetValidCalculation();
+            calculationA.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>());
+            var calculationB = GetValidCalculation();
+            calculationB.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>());
+            group.Children.Add(calculationA);
+            group.Children.Add(calculationB);
+            calculationA.Attach(observerA);
+            calculationB.Attach(observerB);
 
-        //    var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //    failureMechanism.AddSection(new FailureMechanismSection("", new[]
-        //    {
-        //        new Point2D(0, 0)
-        //    }));
-        //    failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-        //    var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-        //                                                                                failureMechanism,
-        //                                                                                assessmentSection);
-        //    var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                                      failureMechanism,
-        //                                                                                      assessmentSection);
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
 
-        //    var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-        //    DialogBoxHandler = (name, wnd) =>
-        //    {
-        //        var dialog = new MessageBoxTester(wnd);
-        //        if (confirm)
-        //        {
-        //            dialog.ClickOk();
-        //        }
-        //        else
-        //        {
-        //            dialog.ClickCancel();
-        //        }
-        //    };
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var dialog = new MessageBoxTester(wnd);
+                if (confirm)
+                {
+                    dialog.ClickOk();
+                }
+                else
+                {
+                    dialog.ClickCancel();
+                }
+            };
 
-        //    // Setup
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var mainWindow = mocks.Stub<IMainWindow>();
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-        //        gui.Stub(g => g.MainWindow).Return(mainWindow);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        using (new HydraRingCalculationServiceConfig())
-        //        using (new WaveConditionsCalculationServiceConfig())
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-        //        {
-        //            // Call
-        //            contextMenu.Items[6].PerformClick();
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[6].PerformClick();
 
-        //            // Assert
-        //            if (confirm)
-        //            {
-        //                Assert.IsNull(calculationA.Output);
-        //                Assert.IsNull(calculationB.Output);
-        //            }
-        //        }
-        //    }
-        //}
+                    // Assert
+                    if (confirm)
+                    {
+                        Assert.IsNull(calculationA.Output);
+                        Assert.IsNull(calculationB.Output);
+                    }
+                }
+            }
+        }
 
-        // TODO WTI-819
-        //[Test]
-        //public void ContextMenuStrip_WithoutParentNodeWithNoChildren_RemoveAllChildrenDisabled()
-        //{
-        //    // Setup
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var assessmentSection = mocks.Stub<IAssessmentSection>();
+        [Test]
+        public void ContextMenuStrip_WithoutParentNodeWithNoChildren_RemoveAllChildrenDisabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-        //        var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //        var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                                    failureMechanism,
-        //                                                                                    assessmentSection);
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
 
-        //        var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-        //        gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        // Call
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-        //        {
-        //            // Assert
-        //            ToolStripItem removeAllItemDisabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
-        //            Assert.IsFalse(removeAllItemDisabled.Enabled);
-        //            Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove, removeAllItemDisabled.ToolTipText);
-        //        }
-        //    }
-        //}
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem removeAllItemDisabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
+                    Assert.IsFalse(removeAllItemDisabled.Enabled);
+                    Assert.AreEqual("Er zijn geen berekeningen of mappen om te verwijderen.", removeAllItemDisabled.ToolTipText);
+                }
+            }
+        }
 
-        // TODO WTI-819
-        //[Test]
-        //public void ContextMenuStrip_WithoutParentNodeWithChildren_RemoveAllChildrenEnabled()
-        //{
-        //    // Setup
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //        var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //        failureMechanism.WaveConditionsCalculationGroup.Children.Add(mocks.Stub<ICalculation>());
-        //        var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                                    failureMechanism,
-        //                                                                                    assessmentSection);
+        [Test]
+        public void ContextMenuStrip_WithoutParentNodeWithChildren_RemoveAllChildrenEnabled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(mocks.Stub<ICalculation>());
+                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
 
-        //        var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-        //        gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        // Call
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-        //        {
-        //            // Assert
-        //            ToolStripItem removeAllItemEnabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
-        //            Assert.IsTrue(removeAllItemEnabled.Enabled);
-        //            Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip, removeAllItemEnabled.ToolTipText);
-        //        }
-        //    }
-        //}
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem removeAllItemEnabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
+                    Assert.IsTrue(removeAllItemEnabled.Enabled);
+                    Assert.AreEqual("Verwijder alle berekeningen en mappen binnen deze map.", removeAllItemEnabled.ToolTipText);
+                }
+            }
+        }
 
         [Test]
         public void ContextMenuStrip_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
@@ -1142,11 +1140,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
                 var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                                     failureMechanism,
+                                                                                                     assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1185,99 +1183,97 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             }
         }
 
-        // TODO WTI-819
-        //[Test]
-        //public void ContextMenuStrip_ClickOnRemoveAllInGroupAndConfirm_RemovesAllChildren()
-        //{
-        //    // Setup
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //        var calculation = mocks.Stub<ICalculation>();
-        //        var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //        failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-        //        var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                                    failureMechanism,
-        //                                                                                    assessmentSection);
+        [Test]
+        public void ContextMenuStrip_ClickOnRemoveAllInGroupAndConfirm_RemovesAllChildren()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var calculation = mocks.Stub<ICalculation>();
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
 
-        //        var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-        //        var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-        //        viewCommandsMock.Expect(vc => vc.RemoveAllViewsForItem(calculation));
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+                viewCommandsMock.Expect(vc => vc.RemoveAllViewsForItem(calculation));
 
-        //        var observer = mocks.StrictMock<IObserver>();
-        //        observer.Expect(o => o.UpdateObserver());
-        //        failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-        //        gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        DialogBoxHandler = (name, wnd) =>
-        //        {
-        //            var dialog = new MessageBoxTester(wnd);
-        //            dialog.ClickOk();
-        //        };
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialog = new MessageBoxTester(wnd);
+                    dialog.ClickOk();
+                };
 
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-        //        {
-        //            // Call
-        //            contextMenu.Items[contextMenuRemoveAllInGroup].PerformClick();
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRemoveAllInGroup].PerformClick();
 
-        //            // Assert
-        //            Assert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
-        //        }
-        //    }
-        //}
+                    // Assert
+                    Assert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+                }
+            }
+        }
 
-        // TODO WTI-819
-        //[Test]
-        //public void ContextMenuStrip_ClickOnRemoveAllInGroupAndCancel_ChildrenNotRemoved()
-        //{
-        //    // Setup
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //        var calculation = mocks.Stub<ICalculation>();
-        //        var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //        failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-        //        var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                                    failureMechanism,
-        //                                                                                    assessmentSection);
+        [Test]
+        public void ContextMenuStrip_ClickOnRemoveAllInGroupAndCancel_ChildrenNotRemoved()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var calculation = mocks.Stub<ICalculation>();
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                               failureMechanism,
+                                                                                               assessmentSection);
 
-        //        var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-        //        var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-        //        gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        DialogBoxHandler = (name, wnd) =>
-        //        {
-        //            var dialog = new MessageBoxTester(wnd);
-        //            dialog.ClickCancel();
-        //        };
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialog = new MessageBoxTester(wnd);
+                    dialog.ClickCancel();
+                };
 
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-        //        {
-        //            // Call
-        //            contextMenu.Items[contextMenuRemoveAllInGroup].PerformClick();
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRemoveAllInGroup].PerformClick();
 
-        //            // Assert
-        //            Assert.AreEqual(new[]
-        //            {
-        //                calculation
-        //            }, failureMechanism.WaveConditionsCalculationGroup.Children);
-        //        }
-        //    }
-        //}
+                    // Assert
+                    Assert.AreEqual(new[]
+                    {
+                        calculation
+                    }, failureMechanism.WaveConditionsCalculationGroup.Children);
+                }
+            }
+        }
 
         // TODO WTI-808
         //[Test]
@@ -1342,7 +1338,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         //    }
         //}
 
-        // TODO WTI-819
+        // TODO WTI-808
         //[Test]
         //public void GivenDialogGenerateCalculationButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationGroupNotUpdated()
         //{
@@ -1416,13 +1412,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
 
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
             parentNodeData.Attach(observer);
 
             // Precondition
@@ -1435,109 +1431,107 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, group);
         }
 
-        // TODO WTI-819
-        //[Test]
-        //public void GivenCalculationWithoutOutput_ThenClearOutputItemDisabled()
-        //{
-        //    // Given
-        //    var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //    var assessmentSection = mocks.Stub<IAssessmentSection>();
+        [Test]
+        public void GivenCalculationWithoutOutput_ThenClearOutputItemDisabled()
+        {
+            // Given
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-        //    var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                               failureMechanism,
-        //                                                                               assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-        //        var importHandler = mocks.Stub<IImportCommandHandler>();
-        //        var exportHandler = mocks.Stub<IExportCommandHandler>();
-        //        var viewCommands = mocks.Stub<IViewCommands>();
-        //        var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
-        //                                                     importHandler,
-        //                                                     exportHandler,
-        //                                                     viewCommands,
-        //                                                     context,
-        //                                                     treeViewControl);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(g => g.ViewCommands).Return(viewCommands);
-        //        gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        // When
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-        //        {
-        //            // Then
-        //            TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-        //                                                          contextMenuAddCalculationIndexRootGroup,
-        //                                                          "Berekening &toevoegen",
-        //                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-        //                                                          RingtoetsCommonFormsResources.FailureMechanismIcon);
-        //        }
-        //    }
-        //}
+                // When
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuAddCalculationIndexRootGroup,
+                                                                  "Berekening &toevoegen",
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
+                }
+            }
+        }
 
-        // TODO WTI-819
-        //[Test]
-        //public void GivenCalculationWithOutput_WhenClearingOutput_ThenClearOutput()
-        //{
-        //    // Given
-        //    var observer = mocks.Stub<IObserver>();
-        //    observer.Expect(o => o.UpdateObserver());
+        [Test]
+        public void GivenCalculationWithOutput_WhenClearingOutput_ThenClearOutput()
+        {
+            // Given
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
 
-        //    var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-        //    failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
-        //    var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-        //    var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-        //                                                                               failureMechanism,
-        //                                                                               assessmentSection);
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
-        //    using (var treeViewControl = new TreeViewControl())
-        //    {
-        //        var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-        //        var importHandler = mocks.Stub<IImportCommandHandler>();
-        //        var exportHandler = mocks.Stub<IExportCommandHandler>();
-        //        var viewCommands = mocks.Stub<IViewCommands>();
-        //        var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
-        //                                                     importHandler,
-        //                                                     exportHandler,
-        //                                                     viewCommands,
-        //                                                     context,
-        //                                                     treeViewControl);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
 
-        //        var gui = mocks.Stub<IGui>();
-        //        gui.Stub(g => g.ViewCommands).Return(viewCommands);
-        //        gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
 
-        //        mocks.ReplayAll();
+                mocks.ReplayAll();
 
-        //        plugin.Gui = gui;
+                plugin.Gui = gui;
 
-        //        using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-        //        {
-        //            // Precondition
-        //            TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-        //                                                          contextMenuAddCalculationIndexRootGroup,
-        //                                                          "Berekening &toevoegen",
-        //                                                          "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-        //                                                          RingtoetsCommonFormsResources.FailureMechanismIcon);
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  contextMenuAddCalculationIndexRootGroup,
+                                                                  "Berekening &toevoegen",
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
 
-        //            // When
-        //            ToolStripItem validateMenuItem = contextMenu.Items[contextMenuAddCalculationIndexRootGroup];
-        //            validateMenuItem.PerformClick();
+                    // When
+                    ToolStripItem validateMenuItem = contextMenu.Items[contextMenuAddCalculationIndexRootGroup];
+                    validateMenuItem.PerformClick();
 
-        //            // Then
-        //            Assert.AreEqual(1, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
-        //            Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculation>(failureMechanism.WaveConditionsCalculationGroup.Children[0]);
-        //            // Check expectancies in TearDown()
-        //        }
-        //    }
-        //}
+                    // Then
+                    Assert.AreEqual(1, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
+                    Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculation>(failureMechanism.WaveConditionsCalculationGroup.Children[0]);
+                    // Check expectancies in TearDown()
+                }
+            }
+        }
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation()
         {
@@ -1550,13 +1544,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble)4,
-                    UpperBoundaryRevetment = (RoundedDouble)10,
-                    UpperBoundaryWaterLevels = (RoundedDouble)8,
-                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
             return calculation;
         }
 

@@ -27,15 +27,14 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Revetment.Data;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Plugin;
+using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Ringtoets.WaveImpactAsphaltCover.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
+namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsOutputTreeNodeInfoTest
+    public class EmptyWaveImpactAsphaltCoverOutputTreeNodeInfoTest
     {
         private MockRepository mocks;
 
@@ -49,7 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -67,7 +66,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
                 Assert.IsNull(info.ChildNodeObjects);
-                Assert.IsNull(info.ForeColor);
             }
         }
 
@@ -75,9 +73,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
-            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            var output = new EmptyWaveImpactAsphaltCoverOutput();
 
-            using (var plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -90,15 +88,32 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnOutputIcon()
+        public void ForeColor_Always_ReturnGrayText()
         {
             // Setup
-            var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+            var output = new EmptyWaveImpactAsphaltCoverOutput();
 
-            using (var plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 var info = GetInfo(plugin);
 
+                // Call
+                Color color = info.ForeColor(output);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            }
+        }
+
+        [Test]
+        public void Image_Always_ReturnOutputIcon()
+        {
+            // Setup
+            var output = new EmptyWaveImpactAsphaltCoverOutput();
+
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            {
+                var info = GetInfo(plugin);
                 // Call
                 Image icon = info.Image(output);
 
@@ -113,7 +128,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
+                var output = new EmptyWaveImpactAsphaltCoverOutput();
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
@@ -124,7 +139,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var plugin = new StabilityStoneCoverPlugin())
+                using (var plugin = new WaveImpactAsphaltCoverPlugin())
                 {
                     var info = GetInfo(plugin);
                     plugin.Gui = gui;
@@ -138,9 +153,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Assert expectancies are called in TearDown()
         }
 
-        private TreeNodeInfo GetInfo(StabilityStoneCoverPlugin plugin)
+        private TreeNodeInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsOutput));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyWaveImpactAsphaltCoverOutput));
         }
     }
 }

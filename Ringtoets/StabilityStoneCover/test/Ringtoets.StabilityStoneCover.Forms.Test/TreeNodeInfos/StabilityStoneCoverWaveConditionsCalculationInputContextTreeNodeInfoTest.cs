@@ -36,50 +36,41 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 {
+    [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationInputContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private StabilityStoneCoverPlugin plugin;
-        private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new StabilityStoneCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationInputContext));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
+            using (var plugin = new StabilityStoneCoverPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(typeof(StabilityStoneCoverWaveConditionsCalculationInputContext), info.TagType);
-
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
-            Assert.IsNull(info.ChildNodeObjects);
-            Assert.IsNull(info.ForeColor);
+                // Assert
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.IsChecked);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.ForeColor);
+            }
         }
 
         [Test]
@@ -95,11 +86,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                                                                                        failureMechanism,
                                                                                        assessmentSection);
 
-            // Call
-            string nodeText = info.Text(context);
+            using (var plugin = new StabilityStoneCoverPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual("Invoer", nodeText);
+                // Call
+                string nodeText = info.Text(context);
+
+                // Assert
+                Assert.AreEqual("Invoer", nodeText);
+            }
         }
 
         [Test]
@@ -114,12 +110,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             var context = new StabilityStoneCoverWaveConditionsCalculationInputContext(input,
                                                                                        failureMechanism,
                                                                                        assessmentSection);
+            using (var plugin = new StabilityStoneCoverPlugin())
+            {
+                var info = GetInfo(plugin);
+                // Call
+                Image icon = info.Image(context);
 
-            // Call
-            Image icon = info.Image(context);
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, icon);
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, icon);
+            }
         }
 
         [Test]
@@ -145,14 +144,23 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
+                using (var plugin = new StabilityStoneCoverPlugin())
+                {
+                    var info = GetInfo(plugin);
+                    plugin.Gui = gui;
 
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
+                    // Call
+                    info.ContextMenuStrip(context, null, treeViewControl);
+                }
             }
 
             // Assert
             // Assert expectancies are called in TearDown()
+        }
+
+        private TreeNodeInfo GetInfo(StabilityStoneCoverPlugin plugin)
+        {
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationInputContext));
         }
     }
 }

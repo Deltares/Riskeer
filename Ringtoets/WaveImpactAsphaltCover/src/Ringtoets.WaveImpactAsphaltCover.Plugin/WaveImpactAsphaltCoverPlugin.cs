@@ -21,6 +21,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -31,6 +32,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
@@ -97,6 +99,34 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);
+
+            yield return new TreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationInputContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<EmptyWaveImpactAsphaltCoverOutput>
+            {
+                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsOutput>
+            {
+                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
         }
 
         #region ViewInfos
@@ -234,7 +264,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip WaveConditionsCalculationGroupContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip WaveConditionsCalculationGroupContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData,
+                                                                                       object parentData, TreeViewControl treeViewControl)
         {
             var group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -250,9 +281,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             builder.AddExportItem()
                    .AddSeparator()
                    .AddCreateCalculationGroupItem(group)
-                   // TODO Restore in WTI-819
-                   //.AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
-                   ;
+                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation);
 
             if (!isNestedGroup)
             {
@@ -298,9 +327,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
-            // TODO WTI-856
+            // TODO WTI-856 Contextmenu item is now set to Enabled == false by returning !NullOrEmpty from this method.
 
-            return null;
+            return "Er is geen vakindeling geïmporteerd.";
         }
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
@@ -327,15 +356,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private void AddWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
         {
-            // TODO WTI-819, also add ViewInfo
-//            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-//            {
-//                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
-//                                                  WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName,
-//                                                  c => c.Name)
-//            };
-//            nodeData.WrappedData.Children.Add(calculation);
-//            nodeData.WrappedData.NotifyObservers();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
+                                                  WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName,
+                                                  c => c.Name)
+            };
+            nodeData.WrappedData.Children.Add(calculation);
+            nodeData.WrappedData.NotifyObservers();
         }
 
         private void ValidateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, GeneralWaveConditionsInput generalInput, int norm, HydraulicBoundaryDatabase database)
@@ -404,13 +432,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             return childNodes.ToArray();
         }
 
-        private ContextMenuStrip WaveConditionsCalculationContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip WaveConditionsCalculationContextContextMenuStrip(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData,
+                                                                                  object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = nodeData.WrappedData;
 
-            return builder.AddValidateCalculationItem(nodeData,
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddValidateCalculationItem(nodeData,
                                                       c => ValidateAll(
                                                           new[]
                                                           {
@@ -422,7 +453,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                                       ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
-                          .AddExportItem()
                           .AddSeparator()
                           .AddRenameItem()
                           .AddDeleteItem()
