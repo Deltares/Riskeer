@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -39,7 +38,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var inputParameters = new GeneralGrassCoverErosionInwardsInput();
 
             // Assert
-            Assert.IsInstanceOf<IStorable>(inputParameters);
             Assert.AreEqual(2, inputParameters.N);
 
             var fbFactor = new NormalDistribution(2)
@@ -72,7 +70,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             Assert.AreEqual(1, inputParameters.CriticalOvertoppingModelFactor);
             Assert.AreEqual(1, inputParameters.OvertoppingModelFactor);
-            Assert.AreEqual(0, inputParameters.StorageId);
         }
 
         [Test]

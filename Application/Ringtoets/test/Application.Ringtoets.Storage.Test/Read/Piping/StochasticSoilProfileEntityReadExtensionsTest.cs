@@ -71,7 +71,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNotNull(profile);
-            Assert.AreEqual(entityId, profile.StorageId);
             Assert.AreEqual(probability, profile.Probability, 1e-6);
         }
 

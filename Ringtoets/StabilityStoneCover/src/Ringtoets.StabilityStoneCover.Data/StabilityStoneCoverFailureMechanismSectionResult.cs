@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.StabilityStoneCover.Data
@@ -30,7 +29,7 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// This class holds information about the result of a calculation on section level for the
     /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
+    public class StabilityStoneCoverFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
@@ -53,7 +52,5 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
-
-        public long StorageId { get; set; }
     }
 }

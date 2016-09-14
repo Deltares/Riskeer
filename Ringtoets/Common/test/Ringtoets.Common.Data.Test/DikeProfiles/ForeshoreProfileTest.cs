@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -48,11 +47,9 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                         null, new ForeshoreProfile.ConstructionProperties());
 
             // Assert
-            Assert.IsInstanceOf<IStorable>(foreshoreProfile);
             Assert.IsInstanceOf<RoundedDouble>(foreshoreProfile.Orientation);
             Assert.IsInstanceOf<double>(foreshoreProfile.X0);
 
-            Assert.AreEqual(0, foreshoreProfile.StorageId);
             Assert.IsNull(foreshoreProfile.Name);
             Assert.AreSame(worldCoordinate, foreshoreProfile.WorldReferencePoint);
             Assert.AreEqual(0.0, foreshoreProfile.X0);

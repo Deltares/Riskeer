@@ -54,7 +54,6 @@ namespace Application.Ringtoets.Storage.Create
 
             mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

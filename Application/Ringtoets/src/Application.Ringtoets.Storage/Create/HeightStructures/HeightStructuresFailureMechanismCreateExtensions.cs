@@ -43,7 +43,6 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             var entity = mechanism.Create(FailureMechanismType.StructureHeight, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

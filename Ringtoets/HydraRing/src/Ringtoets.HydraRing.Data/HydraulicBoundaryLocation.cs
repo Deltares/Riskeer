@@ -100,11 +100,6 @@ namespace Ringtoets.HydraRing.Data
 
         public Point2D Location { get; private set; }
 
-        /// <summary>
-        /// Gets or sets the unique identifier for the storage of the class.
-        /// </summary>
-        public long StorageId { get; set; }
-
         public override string ToString()
         {
             return Name;

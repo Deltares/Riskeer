@@ -51,7 +51,6 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             {
                 N = input.N
             };
-            registry.Register(entity, input);
             return entity;
         }
     }

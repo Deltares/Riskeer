@@ -80,7 +80,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(entity.GrassCoverErosionInwardsCalculationEntityId, calculation.StorageId);
             Assert.AreEqual(entity.Name, calculation.Name);
             Assert.AreEqual(entity.Comments, calculation.Comments);
 
@@ -144,7 +143,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(entity.GrassCoverErosionInwardsCalculationEntityId, calculation.StorageId);
             Assert.IsNull(calculation.Name);
             Assert.IsNull(calculation.Comments);
 

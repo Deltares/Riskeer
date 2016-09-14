@@ -72,7 +72,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNotNull(layer);
-            Assert.AreEqual(entityId, layer.StorageId);
             Assert.AreEqual(top, layer.Top, 1e-6);
             Assert.AreEqual(isAquifer, layer.IsAquifer);
             Assert.AreEqual(Color.FromArgb(color), layer.Color);

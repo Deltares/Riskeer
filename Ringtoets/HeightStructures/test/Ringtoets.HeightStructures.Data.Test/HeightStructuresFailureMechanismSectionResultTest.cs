@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -42,12 +41,10 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
-            Assert.IsInstanceOf<IStorable>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsFalse(sectionResult.AssessmentLayerOne);
             Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
-            Assert.AreEqual(0, sectionResult.StorageId);
         }
 
         [Test]

@@ -48,7 +48,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNotNull(pipingProbabilityAssessmentInput);
-            Assert.AreEqual(entityId, pipingProbabilityAssessmentInput.StorageId);
             Assert.AreEqual(entity.A, pipingProbabilityAssessmentInput.A);
             Assert.AreEqual(entity.UpliftCriticalSafetyFactor, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor.GetAccuracy());
         }

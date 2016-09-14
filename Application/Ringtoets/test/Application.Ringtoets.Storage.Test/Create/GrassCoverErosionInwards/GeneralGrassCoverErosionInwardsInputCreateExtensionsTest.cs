@@ -62,24 +62,5 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Assert
             Assert.AreEqual(n, entity.N);
         }
-
-        [Test]
-        public void Create_ValidGeneralInput_RegisterEntityToRegistry()
-        {
-            // Setup
-            var input = new GeneralGrassCoverErosionInwardsInput
-            {
-                N = 1
-            };
-            var registry = new PersistenceRegistry();
-
-            // Call
-            GrassCoverErosionInwardsFailureMechanismMetaEntity entity = input.Create(registry);
-
-            // Assert
-            entity.GrassCoverErosionInwardsFailureMechanismMetaEntityId = 23456789;
-            registry.TransferIds();
-            Assert.AreEqual(entity.GrassCoverErosionInwardsFailureMechanismMetaEntityId, input.StorageId);
-        }
     }
 }

@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards
             var entity = mechanism.Create(FailureMechanismType.GrassRevetmentSlidingInwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

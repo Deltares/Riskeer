@@ -21,7 +21,6 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 
@@ -30,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// The result of a Grass Cover Erosion Inwards assessment.
     /// </summary>
-    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput, IStorable
+    public class GrassCoverErosionInwardsOutput : Observable, ICalculationOutput
     {
         private readonly double? dikeHeight;
 
@@ -88,7 +87,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// inwards calculation output.
         /// </summary>
         public ProbabilityAssessmentOutput ProbabilityAssessmentOutput { get; private set; }
-
-        public long StorageId { get; set; }
     }
 }

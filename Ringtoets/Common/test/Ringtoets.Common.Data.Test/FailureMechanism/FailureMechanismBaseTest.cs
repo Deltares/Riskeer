@@ -77,7 +77,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             Assert.AreEqual(0, failureMechanism.Contribution);
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(code, failureMechanism.Code);
-            Assert.AreEqual(0, failureMechanism.StorageId);
             Assert.IsTrue(failureMechanism.IsRelevant);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }

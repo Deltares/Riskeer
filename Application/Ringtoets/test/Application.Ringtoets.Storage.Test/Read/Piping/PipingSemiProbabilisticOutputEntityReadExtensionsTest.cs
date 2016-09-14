@@ -57,7 +57,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             PipingSemiProbabilisticOutput pipingSemiProbabilisticOutput = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.PipingSemiProbabilisticOutputEntityId, pipingSemiProbabilisticOutput.StorageId);
             AssertAreEqual(entity.HeaveFactorOfSafety, pipingSemiProbabilisticOutput.HeaveFactorOfSafety);
             AssertAreEqual(entity.HeaveProbability, pipingSemiProbabilisticOutput.HeaveProbability);
             AssertAreEqual(entity.HeaveReliability, pipingSemiProbabilisticOutput.HeaveReliability);
@@ -99,7 +98,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             PipingSemiProbabilisticOutput pipingSemiProbabilisticOutput = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.PipingSemiProbabilisticOutputEntityId, pipingSemiProbabilisticOutput.StorageId);
             Assert.IsNaN(pipingSemiProbabilisticOutput.HeaveFactorOfSafety);
             Assert.IsNaN(pipingSemiProbabilisticOutput.HeaveProbability);
             Assert.IsNaN(pipingSemiProbabilisticOutput.HeaveReliability);

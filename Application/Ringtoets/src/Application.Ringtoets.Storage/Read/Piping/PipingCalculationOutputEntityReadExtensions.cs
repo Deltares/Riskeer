@@ -41,10 +41,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         {
             return new PipingOutput(entity.UpliftZValue.ToNullAsNaN(), entity.UpliftFactorOfSafety.ToNullAsNaN(),
                                     entity.HeaveZValue.ToNullAsNaN(), entity.HeaveFactorOfSafety.ToNullAsNaN(),
-                                    entity.SellmeijerZValue.ToNullAsNaN(), entity.SellmeijerFactorOfSafety.ToNullAsNaN())
-            {
-                StorageId = entity.PipingCalculationOutputEntityId
-            };
+                                    entity.SellmeijerZValue.ToNullAsNaN(), entity.SellmeijerFactorOfSafety.ToNullAsNaN());
         }
     }
 }

@@ -52,7 +52,6 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                 throw new ArgumentNullException("sectionResult");
             }
 
-            sectionResult.StorageId = entity.GrassCoverErosionInwardsSectionResultEntityId;
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
             if (entity.GrassCoverErosionInwardsCalculationEntity != null)

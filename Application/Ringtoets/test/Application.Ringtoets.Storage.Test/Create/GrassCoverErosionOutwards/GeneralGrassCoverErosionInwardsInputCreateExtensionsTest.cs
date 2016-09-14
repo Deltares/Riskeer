@@ -20,44 +20,47 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
+using Application.Ringtoets.Storage.Create;
+using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
+using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
+namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 {
     [TestFixture]
-    public class TechnicalInnovationFailureMechanismSectionResultTest
+    public class GeneralGrassCoverErosionOutwardsInputCreateExtensionsTest
     {
         [Test]
-        public void Constructor_WithoutSection_ThrowsArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
         {
+            // Setup
+            var input = new GeneralGrassCoverErosionOutwardsInput();
+
             // Call
-            TestDelegate test = () => new TechnicalInnovationFailureMechanismSectionResult(null);
+            TestDelegate call = () => input.Create(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("registry", paramName);
         }
 
         [Test]
-        public void Constructor_WithSection_ResultCreatedForSection()
+        public void Create_ValidGeneralInput_ReturnEntity()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
+            var n = new Random(21).Next(0, 20);
+            var input = new GeneralGrassCoverErosionOutwardsInput
             {
-                new Point2D(0, 0)
-            });
+                N = n
+            };
+            var registry = new PersistenceRegistry();
 
             // Call
-            var result = new TechnicalInnovationFailureMechanismSectionResult(section);
+            GrassCoverErosionOutwardsFailureMechanismMetaEntity entity = input.Create(registry);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
-            Assert.AreSame(section, result.Section);
-            Assert.IsFalse(result.AssessmentLayerOne);
-            Assert.IsNaN(result.AssessmentLayerThree);
+            Assert.AreEqual(n, entity.N);
         }
     }
 }

@@ -179,32 +179,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_Always_RegisterEntityToPersistenceRegistry()
-        {
-            // Setup
-            var dikeProfile = new DikeProfile(new Point2D(1.1, 2.2),
-                                              new[]
-                                              {
-                                                  new RoughnessPoint(new Point2D(3.3, 4.4), 0.75),
-                                                  new RoughnessPoint(new Point2D(5.5, 6.6), 0.75)
-                                              },
-                                              new[]
-                                              {
-                                                  new Point2D(7.7, 8.8),
-                                                  new Point2D(9.9, 10.10)
-                                              }, null, new DikeProfile.ConstructionProperties());
-            var registry = new PersistenceRegistry();
-
-            // Call
-            DikeProfileEntity entity = dikeProfile.Create(registry, 0);
-
-            // Assert
-            entity.DikeProfileEntityId = 345678;
-            registry.TransferIds();
-            Assert.AreEqual(entity.DikeProfileEntityId, dikeProfile.StorageId);
-        }
-
-        [Test]
         public void Create_DikeProfileAlreadyRegistered_ReturnRegisteredEntity()
         {
             // Setup

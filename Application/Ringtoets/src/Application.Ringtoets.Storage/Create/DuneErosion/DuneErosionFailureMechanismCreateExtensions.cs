@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
             var entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

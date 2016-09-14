@@ -51,7 +51,6 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 
-            registry.Register(sectionResultEntity, result);
             return sectionResultEntity;
         }
     }

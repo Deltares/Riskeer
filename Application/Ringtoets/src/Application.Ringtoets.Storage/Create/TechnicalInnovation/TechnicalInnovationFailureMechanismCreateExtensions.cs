@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Create.TechnicalInnovation
             var entity = mechanism.Create(FailureMechanismType.TechnicalInnovations, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityOutwards
             var entity = mechanism.Create(FailureMechanismType.MacrostabilityOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

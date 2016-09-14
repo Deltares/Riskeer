@@ -290,7 +290,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
 
             public string Comments { get; set; }
-            public long StorageId { get; set; }
             public string Id { get; set; }
             public string Name { get; set; }
             public AssessmentSectionComposition Composition { get; private set; }

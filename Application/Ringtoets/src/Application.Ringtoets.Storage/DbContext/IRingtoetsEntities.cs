@@ -139,6 +139,12 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; }
 
         /// <summary>
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="GrassCoverErosionOutwardsFailureMechanismMetaEntity"/> containing
+        /// every entity found in the database.
+        /// </summary>
+        DbSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities { get; }
+
+        /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="GrassCoverErosionOutwardsSectionResultEntity"/> containing
         /// every entity found in the database.
         /// </summary>

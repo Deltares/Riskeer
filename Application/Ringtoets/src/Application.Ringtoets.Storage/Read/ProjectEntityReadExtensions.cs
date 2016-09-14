@@ -47,7 +47,6 @@ namespace Application.Ringtoets.Storage.Read
             }
             var project = new RingtoetsProject
             {
-                StorageId = entity.ProjectEntityId,
                 Description = entity.Description
             };
 

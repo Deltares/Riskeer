@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
@@ -31,7 +30,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
     /// <summary>
     /// Base implementation of assessment sections.
     /// </summary>
-    public interface IAssessmentSection : ICommentable, IObservable, IStorable
+    public interface IAssessmentSection : ICommentable, IObservable
     {
         /// <summary>
         /// Gets the identifier of the assessment section.

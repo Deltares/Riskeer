@@ -21,7 +21,6 @@
 
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
@@ -51,7 +50,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.IsInstanceOf<Observable>(output);
-            Assert.IsInstanceOf<IStorable>(output);
 
             Assert.AreEqual(new RoundedDouble(2, waveHeight), output.WaveHeight);
             Assert.AreEqual(2, output.WaveHeight.NumberOfDecimalPlaces);
@@ -61,8 +59,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsTrue(output.DikeHeightCalculated);
 
             Assert.AreSame(probabilityAssessmentOutput, output.ProbabilityAssessmentOutput);
-
-            Assert.AreEqual(0, output.StorageId);
         }
 
         [Test]

@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 
 namespace Ringtoets.Revetment.Data.Test

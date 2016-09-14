@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults
@@ -30,7 +29,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// This class holds information about the result of a calculation on section level for the
     /// Dune Erosion failure mechanism.
     /// </summary>
-    public class DuneErosionFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
+    public class DuneErosionFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismSectionResult"/>.
@@ -53,7 +52,5 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
-
-        public long StorageId { get; set; }
     }
 }

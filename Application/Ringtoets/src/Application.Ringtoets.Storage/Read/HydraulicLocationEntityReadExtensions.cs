@@ -53,10 +53,7 @@ namespace Application.Ringtoets.Storage.Read
                 entity.LocationId,
                 entity.Name,
                 entity.LocationX.ToNullAsNaN(),
-                entity.LocationY.ToNullAsNaN())
-            {
-                StorageId = entity.HydraulicLocationEntityId
-            };
+                entity.LocationY.ToNullAsNaN());
 
             hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) entity.DesignWaterLevel.ToNullAsNaN();
             hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) entity.WaveHeight.ToNullAsNaN();

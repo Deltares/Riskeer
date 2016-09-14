@@ -50,7 +50,6 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 
-            registry.Register(heightStructuresSectionResultEntity, result);
             return heightStructuresSectionResultEntity;
         }
     }

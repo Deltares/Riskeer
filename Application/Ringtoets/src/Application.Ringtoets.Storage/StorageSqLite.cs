@@ -228,7 +228,6 @@ namespace Application.Ringtoets.Storage
                     });
                     dbContext.ProjectEntities.Add(stagedProjectEntity);
                     dbContext.SaveChanges();
-                    registry.TransferIds();
 
                     stagedProject.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
                 }

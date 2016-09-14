@@ -43,10 +43,7 @@ namespace Application.Ringtoets.Storage.Read
                                                    entity.RequiredReliability.ToNullAsNaN(),
                                                    entity.Probability.ToNullAsNaN(),
                                                    entity.Reliability.ToNullAsNaN(),
-                                                   entity.FactorOfSafety.ToNullAsNaN())
-            {
-                StorageId = entity.ProbabilisticOutputEntityId
-            };
+                                                   entity.FactorOfSafety.ToNullAsNaN());
         }
     }
 }

@@ -55,10 +55,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                                               new RoughnessPointXmlSerializer().FromXml(entity.DikeGeometryXml),
                                               new Point2DXmlSerializer().FromXml(entity.ForeShoreXml),
                                               CreateBreakWater(entity),
-                                              CreateProperties(entity))
-            {
-                StorageId = entity.DikeProfileEntityId
-            };
+                                              CreateProperties(entity));
 
             collector.Read(entity, dikeProfile);
 

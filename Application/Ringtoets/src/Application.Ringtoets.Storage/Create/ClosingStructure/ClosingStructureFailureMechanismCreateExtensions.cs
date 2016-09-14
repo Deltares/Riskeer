@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructure
             var entity = mechanism.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

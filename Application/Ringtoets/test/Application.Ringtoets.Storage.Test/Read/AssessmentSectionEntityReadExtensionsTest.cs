@@ -78,7 +78,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(section);
-            Assert.AreEqual(entityId, section.StorageId);
             Assert.AreEqual(testId, section.Id);
             Assert.AreEqual(testName, section.Name);
             Assert.AreEqual(comments, section.Comments);
@@ -194,7 +193,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(entityId, section.PipingFailureMechanism.StorageId);
             Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
             Assert.AreEqual(comments, section.PipingFailureMechanism.Comments);
             Assert.AreEqual(parameterA, section.PipingFailureMechanism.PipingProbabilityAssessmentInput.A);
@@ -240,7 +238,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.StochasticSoilModels.Count);
-            Assert.AreEqual(entityId, section.PipingFailureMechanism.StorageId);
             Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
         }
 
@@ -284,7 +281,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.SurfaceLines.Count);
-            Assert.AreEqual(entityId, section.PipingFailureMechanism.StorageId);
             Assert.AreEqual(isRelevant, section.PipingFailureMechanism.IsRelevant);
         }
 
@@ -332,11 +328,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             var section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(rootGroupEntityId, section.PipingFailureMechanism.CalculationsGroup.StorageId);
             IList<ICalculationBase> childCalculationGroups = section.PipingFailureMechanism.CalculationsGroup.Children;
             Assert.AreEqual(2, childCalculationGroups.Count);
-            Assert.AreEqual(childGroupEntity1Id, ((CalculationGroup) childCalculationGroups[0]).StorageId);
-            Assert.AreEqual(childGroupEntity2Id, ((CalculationGroup) childCalculationGroups[1]).StorageId);
         }
 
         [Test]
@@ -381,8 +374,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, section.PipingFailureMechanism.Sections.Count());
-            Assert.AreEqual(pipingSectionIdA, section.PipingFailureMechanism.SectionResults.ElementAt(0).StorageId);
-            Assert.AreEqual(pipingSectionIdB, section.PipingFailureMechanism.SectionResults.ElementAt(1).StorageId);
         }
 
         [Test]
@@ -422,7 +413,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var section = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(entityId, section.GrassCoverErosionInwards.StorageId);
             Assert.AreEqual(isRelevant, section.GrassCoverErosionInwards.IsRelevant);
             Assert.AreEqual(comments, section.GrassCoverErosionInwards.Comments);
         }
@@ -546,7 +536,6 @@ namespace Application.Ringtoets.Storage.Test.Read
         private static void AssertFailureMechanismEqual(bool expectedIsRelevant, int expectedEntityId,
                                                         int expectedSectionCount, IFailureMechanism failureMechanism)
         {
-            Assert.AreEqual(expectedEntityId, failureMechanism.StorageId);
             Assert.AreEqual(expectedIsRelevant, failureMechanism.IsRelevant);
             var expectedComments = expectedEntityId.ToString();
             Assert.AreEqual(expectedComments, failureMechanism.Comments);

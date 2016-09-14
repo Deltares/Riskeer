@@ -57,7 +57,6 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             {
                 Name = entity.Name,
                 Comments = entity.Comments,
-                StorageId = entity.GrassCoverErosionInwardsCalculationEntityId,
                 InputParameters =
                 {
                     DikeProfile = GetDikeProfileValue(entity.DikeProfileEntity, collector),

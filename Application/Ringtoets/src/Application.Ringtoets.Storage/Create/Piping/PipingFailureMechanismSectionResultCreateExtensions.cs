@@ -50,7 +50,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 
-            registry.Register(pipingSectionResultEntity, result);
             return pipingSectionResultEntity;
         }
     }

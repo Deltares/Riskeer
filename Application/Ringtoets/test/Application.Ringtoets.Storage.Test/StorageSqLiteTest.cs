@@ -315,7 +315,6 @@ namespace Application.Ringtoets.Storage.Test
             var mockRepository = new MockRepository();
             var projectMock = mockRepository.StrictMock<RingtoetsProject>();
             projectMock.Description = "<some description>";
-            projectMock.StorageId = 1L;
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);
             try
@@ -328,7 +327,6 @@ namespace Application.Ringtoets.Storage.Test
 
                 // Assert
                 Assert.IsInstanceOf<RingtoetsProject>(loadedProject);
-                Assert.AreEqual(1L, loadedProject.StorageId);
                 Assert.AreEqual(projectName, loadedProject.Name);
                 Assert.AreEqual(projectMock.Description, loadedProject.Description);
             }
@@ -632,7 +630,6 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             var mockRepository = new MockRepository();
             var projectMock = mockRepository.StrictMock<RingtoetsProject>();
-            projectMock.StorageId = 1234L;
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();
 

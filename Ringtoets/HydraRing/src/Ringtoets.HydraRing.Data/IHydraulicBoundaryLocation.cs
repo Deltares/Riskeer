@@ -21,14 +21,13 @@
 
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 
 namespace Ringtoets.HydraRing.Data
 {
     /// <summary>
     /// Interface for an object for which a hydraulic boundary location can be stored.
     /// </summary>
-    public interface IHydraulicBoundaryLocation : IStorable
+    public interface IHydraulicBoundaryLocation
     {
         /// <summary>
         /// Gets the database id of <see cref="IHydraulicBoundaryLocation"/>.

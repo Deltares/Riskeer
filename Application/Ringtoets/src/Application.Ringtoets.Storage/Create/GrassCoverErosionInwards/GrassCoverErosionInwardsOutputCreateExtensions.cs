@@ -56,8 +56,6 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 WaveHeight = output.WaveHeight.Value.ToNaNAsNull()
             };
 
-            registry.Register(entity, output);
-
             return entity;
         }
     }

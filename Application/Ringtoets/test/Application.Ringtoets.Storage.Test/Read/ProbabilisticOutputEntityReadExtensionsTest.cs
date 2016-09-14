@@ -47,7 +47,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             ProbabilityAssessmentOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.ProbabilisticOutputEntityId, output.StorageId);
             Assert.AreEqual(entity.FactorOfSafety, output.FactorOfSafety.Value);
             Assert.AreEqual(entity.Probability, output.Probability);
             Assert.AreEqual(entity.RequiredProbability, output.RequiredProbability);
@@ -73,7 +72,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             ProbabilityAssessmentOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.ProbabilisticOutputEntityId, output.StorageId);
             Assert.IsNaN(output.FactorOfSafety);
             Assert.IsNaN(output.Probability);
             Assert.IsNaN(output.RequiredProbability);

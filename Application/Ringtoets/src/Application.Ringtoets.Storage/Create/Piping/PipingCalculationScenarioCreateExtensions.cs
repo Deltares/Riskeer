@@ -58,8 +58,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
             CreatePipingOutputEntity(entity, calculation.Output, registry);
             CreatePipingSemiProbabilisticOutputEntity(entity, calculation.SemiProbabilisticOutput, registry);
 
-            registry.Register(entity, calculation);
-
             return entity;
         }
 

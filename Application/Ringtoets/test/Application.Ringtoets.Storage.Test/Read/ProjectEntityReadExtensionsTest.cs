@@ -61,7 +61,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(project);
-            Assert.AreEqual(entityId, project.StorageId);
             Assert.AreEqual(testDescription, project.Description);
         }
 

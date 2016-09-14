@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Piping.Data
@@ -29,7 +28,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds the information for a calculation scenario.
     /// </summary>
-    public class PipingCalculationScenario : PipingCalculation, ICalculationScenario, IStorable
+    public class PipingCalculationScenario : PipingCalculation, ICalculationScenario
     {
         private RoundedDouble contribution;
 
@@ -85,7 +84,5 @@ namespace Ringtoets.Piping.Data
                 return double.IsNaN(SemiProbabilisticOutput.PipingProbability) ? CalculationScenarioStatus.Failed : CalculationScenarioStatus.Done;
             }
         }
-
-        public long StorageId { get; set; }
     }
 }

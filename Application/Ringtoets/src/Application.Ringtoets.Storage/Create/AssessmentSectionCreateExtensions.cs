@@ -96,7 +96,6 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(registry));
             entity.FailureMechanismEntities.Add(section.StrengthStabilityPointConstruction.Create(registry));
 
-            registry.Register(entity, section);
             return entity;
         }
 

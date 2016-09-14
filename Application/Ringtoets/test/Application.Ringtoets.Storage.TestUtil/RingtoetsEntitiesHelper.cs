@@ -53,6 +53,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             DbSet<MacrostabilityInwardsSectionResultEntity> macrostabilityInwardsSectionResultsSet = CreateEmptyTestDbSet<MacrostabilityInwardsSectionResultEntity>();
             DbSet<MacrostabilityOutwardsSectionResultEntity> macrostabilityOutwardsSectionResultsSet = CreateEmptyTestDbSet<MacrostabilityOutwardsSectionResultEntity>();
             DbSet<WaveImpactAsphaltCoverSectionResultEntity> waveImpactAsphaltCoverSectionResultsSet = CreateEmptyTestDbSet<WaveImpactAsphaltCoverSectionResultEntity>();
+            DbSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity> grassCoverErosionOutwardsMetaSet = CreateEmptyTestDbSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
             DbSet<GrassCoverErosionOutwardsSectionResultEntity> grassCoverErosionOutwardsSectionResultsSet = CreateEmptyTestDbSet<GrassCoverErosionOutwardsSectionResultEntity>();
             DbSet<GrassCoverSlipOffInwardsSectionResultEntity> grassCoverSlipOffInwardsSectionResultsSet = CreateEmptyTestDbSet<GrassCoverSlipOffInwardsSectionResultEntity>();
             DbSet<GrassCoverSlipOffOutwardsSectionResultEntity> grassCoverSlipOffOutwardsSectionResultsSet = CreateEmptyTestDbSet<GrassCoverSlipOffOutwardsSectionResultEntity>();
@@ -94,6 +95,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ringtoetsEntities.Stub(r => r.MacrostabilityInwardsSectionResultEntities).Return(macrostabilityInwardsSectionResultsSet);
             ringtoetsEntities.Stub(r => r.MacrostabilityOutwardsSectionResultEntities).Return(macrostabilityOutwardsSectionResultsSet);
             ringtoetsEntities.Stub(r => r.WaveImpactAsphaltCoverSectionResultEntities).Return(waveImpactAsphaltCoverSectionResultsSet);
+            ringtoetsEntities.Stub(r => r.GrassCoverErosionOutwardsFailureMechanismMetaEntities).Return(grassCoverErosionOutwardsMetaSet);
             ringtoetsEntities.Stub(r => r.GrassCoverErosionOutwardsSectionResultEntities).Return(grassCoverErosionOutwardsSectionResultsSet);
             ringtoetsEntities.Stub(r => r.GrassCoverSlipOffInwardsSectionResultEntities).Return(grassCoverSlipOffInwardsSectionResultsSet);
             ringtoetsEntities.Stub(r => r.GrassCoverSlipOffOutwardsSectionResultEntities).Return(grassCoverSlipOffOutwardsSectionResultsSet);

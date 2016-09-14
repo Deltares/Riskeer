@@ -74,7 +74,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual(entityId, location.StorageId);
             Assert.AreEqual(testId, location.Id);
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(x, location.Location.X, 1e-6);

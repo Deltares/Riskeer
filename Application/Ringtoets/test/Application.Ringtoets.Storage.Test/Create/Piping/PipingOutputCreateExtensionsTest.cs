@@ -91,22 +91,5 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(0, entity.PipingCalculationOutputEntityId);
             CollectionAssert.IsEmpty(entity.PipingCalculationEntities);
         }
-
-        [Test]
-        public void Create_Always_RegisterNewEntityInPersistenceRegistry()
-        {
-            // Setup
-            var pipingOutput = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            PipingCalculationOutputEntity entity = pipingOutput.Create(registry);
-
-            // Assert
-            entity.PipingCalculationOutputEntityId = 39458;
-            registry.TransferIds();
-            Assert.AreEqual(entity.PipingCalculationOutputEntityId, pipingOutput.StorageId);
-        }
     }
 }

@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
@@ -30,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// This class holds information about the result of a calculation on section level for the
     /// Grass Cover Erosion Outwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
+    public class GrassCoverErosionOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
@@ -58,7 +57,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
-
-        public long StorageId { get; set; }
     }
 }

@@ -50,7 +50,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
 
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

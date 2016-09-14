@@ -84,7 +84,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNotNull(profile);
-            Assert.AreEqual(entityId, profile.StorageId);
             Assert.AreEqual(testName, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom, 1e-6);
             CollectionAssert.AreEqual(new[]

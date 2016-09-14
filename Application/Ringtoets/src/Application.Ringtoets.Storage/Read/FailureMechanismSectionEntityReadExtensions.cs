@@ -48,10 +48,7 @@ namespace Application.Ringtoets.Storage.Read
             }
 
             Point2D[] points = new Point2DXmlSerializer().FromXml(entity.FailureMechanismSectionPointXml);
-            var mechanismSection = new FailureMechanismSection(entity.Name, points)
-            {
-                StorageId = entity.FailureMechanismSectionEntityId
-            };
+            var mechanismSection = new FailureMechanismSection(entity.Name, points);
 
             collector.Read(entity, mechanismSection);
 

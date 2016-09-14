@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.HeightStructures.Data
@@ -30,7 +29,7 @@ namespace Ringtoets.HeightStructures.Data
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
     /// for a height structures assessment.
     /// </summary>
-    public class HeightStructuresFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
+    public class HeightStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private readonly double assessmentLayerTwoA;
 
@@ -65,7 +64,5 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the state of the assessment layer one.
         /// </summary>
         public bool AssessmentLayerOne { get; set; }
-
-        public long StorageId { get; set; }
     }
 }

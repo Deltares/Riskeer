@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -55,11 +54,9 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
-            Assert.IsInstanceOf<IStorable>(result);
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
             Assert.IsNaN(result.AssessmentLayerThree.Value);
-            Assert.AreEqual(0, result.StorageId);
         }
     }
 }

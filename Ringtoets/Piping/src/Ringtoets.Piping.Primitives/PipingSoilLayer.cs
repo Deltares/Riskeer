@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using Core.Common.Base.Storage;
 
 namespace Ringtoets.Piping.Primitives
 {
@@ -29,7 +28,7 @@ namespace Ringtoets.Piping.Primitives
     /// This class represents profiles that were imported from D-Soil Model and will later on be used to create the
     /// necessary input for executing a piping calculation.
     /// </summary>
-    public class PipingSoilLayer : IStorable
+    public class PipingSoilLayer
     {
         private string materialName;
 
@@ -128,7 +127,5 @@ namespace Ringtoets.Piping.Primitives
         /// Gets or sets the <see cref="Color"/> that was used to represent the <see cref="PipingSoilLayer"/>.
         /// </summary>
         public Color Color { get; set; }
-
-        public long StorageId { get; set; }
     }
 }

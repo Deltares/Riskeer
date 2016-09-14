@@ -71,7 +71,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(id, surfaceLine.StorageId);
             Assert.AreEqual(name, surfaceLine.Name);
             Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
@@ -117,7 +116,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(id, surfaceLine.StorageId);
             Assert.AreEqual(name, surfaceLine.Name);
             Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
@@ -174,7 +172,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(id, surfaceLine.StorageId);
             Assert.AreEqual(name, surfaceLine.Name);
             Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);
@@ -249,7 +246,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             RingtoetsPipingSurfaceLine surfaceLine = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(id, surfaceLine.StorageId);
             Assert.AreEqual(name, surfaceLine.Name);
             Assert.AreEqual(intersectionX, surfaceLine.ReferenceLineIntersectionWorldPoint.X);
             Assert.AreEqual(intersectionY, surfaceLine.ReferenceLineIntersectionWorldPoint.Y);

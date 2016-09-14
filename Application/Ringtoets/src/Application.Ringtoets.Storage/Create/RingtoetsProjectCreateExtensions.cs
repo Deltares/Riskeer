@@ -51,7 +51,6 @@ namespace Application.Ringtoets.Storage.Create
 
             AddEntitiesForAssessmentSections(project, entity, registry);
 
-            registry.Register(entity, project);
             return entity;
         }
 

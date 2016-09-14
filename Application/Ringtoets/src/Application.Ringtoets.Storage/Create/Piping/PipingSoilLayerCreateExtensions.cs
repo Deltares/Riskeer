@@ -61,7 +61,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 Order = order
             };
 
-            registry.Register(entity, layer);
             return entity;
         }
     }

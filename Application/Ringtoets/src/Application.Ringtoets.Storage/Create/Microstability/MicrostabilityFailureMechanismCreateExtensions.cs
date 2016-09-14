@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Create.Microstability
             var entity = mechanism.Create(FailureMechanismType.Microstability, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

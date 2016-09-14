@@ -50,7 +50,6 @@ namespace Application.Ringtoets.Storage.Create.TechnicalInnovation
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 
-            registry.Register(sectionResultEntity, result);
             return sectionResultEntity;
         }
     }

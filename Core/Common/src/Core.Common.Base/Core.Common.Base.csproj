@@ -121,7 +121,6 @@
     <Compile Include="Service\Activity.cs" />
     <Compile Include="Service\ActivityState.cs" />
     <Compile Include="Service\FileImportActivity.cs" />
-    <Compile Include="Storage\IStorable.cs" />
     <Compile Include="Storage\UpdateStorageException.cs" />
     <Compile Include="TypeConverters\RoundedDoubleConverter.cs" />
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

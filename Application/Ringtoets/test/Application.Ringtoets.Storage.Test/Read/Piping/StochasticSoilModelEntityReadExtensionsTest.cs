@@ -69,7 +69,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNotNull(model);
-            Assert.AreEqual(entityId, model.StorageId);
             Assert.AreEqual(testName, model.Name);
             Assert.AreEqual(testSegmentName, model.SegmentName);
         }

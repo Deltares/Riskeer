@@ -434,7 +434,6 @@ namespace Core.Common.Gui.Test.Commands
             var projectMock = mocks.Stub<IProject>();
             const string projectName = "Project";
             projectMock.Name = projectName;
-            projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
             projectStorageMock.Expect(ps => ps.StageProject(projectMock));
             projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);
@@ -479,7 +478,6 @@ namespace Core.Common.Gui.Test.Commands
             var projectMock = mocks.Stub<IProject>();
             const string projectName = "Project";
             projectMock.Name = projectName;
-            projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
             projectStorageMock.Expect(ps => ps.StageProject(projectMock));
             projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);
@@ -524,7 +522,6 @@ namespace Core.Common.Gui.Test.Commands
             var projectMock = mocks.Stub<IProject>();
             const string projectName = "Project";
             projectMock.Name = projectName;
-            projectMock.StorageId = 1234L;
             var projectFilePath = "some path";
 
             var projectStorageMock = mocks.Stub<IStoreProject>();
@@ -574,7 +571,6 @@ namespace Core.Common.Gui.Test.Commands
             var projectMock = mocks.Stub<IProject>();
             const string projectName = "Project";
             projectMock.Name = projectName;
-            projectMock.StorageId = 1234L;
             var projectStorageMock = mocks.Stub<IStoreProject>();
             projectStorageMock.Expect(ps => ps.StageProject(projectMock));
             projectStorageMock.Expect(ps => ps.HasStagedProject).Return(true);

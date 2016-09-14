@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data
@@ -30,7 +29,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
     /// This class holds information about the result of a calculation on section level for the
     /// Wave Impact on Asphalt failure mechanism.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
@@ -58,7 +57,5 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
-
-        public long StorageId { get; set; }
     }
 }

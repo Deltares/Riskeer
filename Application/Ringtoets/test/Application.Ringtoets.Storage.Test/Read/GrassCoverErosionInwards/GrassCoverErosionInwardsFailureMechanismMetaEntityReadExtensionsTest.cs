@@ -64,7 +64,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.AreEqual(n, inputToUpdate.N);
-            Assert.AreEqual(id, inputToUpdate.StorageId);
         }
     }
 }

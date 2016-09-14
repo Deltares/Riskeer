@@ -89,8 +89,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
             }
         }
 
-        public long StorageId { get; set; }
-
         public string Comments { get; set; }
 
         public bool IsRelevant { get; set; }

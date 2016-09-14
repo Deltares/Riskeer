@@ -82,7 +82,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             PipingCalculationScenario calculation = entity.Read(collector, generalInputParameters);
 
             // Assert
-            Assert.AreEqual(id, calculation.StorageId);
             Assert.AreEqual(isRelevant, calculation.IsRelevant);
             Assert.AreEqual(contribution, calculation.Contribution, 1e-6);
             Assert.AreEqual(name, calculation.Name);
@@ -176,7 +175,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
 
             // Assert
-            Assert.AreEqual(surfaceLineEntity.SurfaceLineEntityId, calculation.InputParameters.SurfaceLine.StorageId);
             Assert.IsTrue(collector.Contains(surfaceLineEntity));
             CollectionAssert.AreEqual(points, calculation.InputParameters.SurfaceLine.Points);
         }
@@ -229,7 +227,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
 
             // Assert
-            Assert.AreEqual(hydraulicLocationEntity.HydraulicLocationEntityId, calculation.InputParameters.HydraulicBoundaryLocation.StorageId);
             Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
         }
 
@@ -304,11 +301,9 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            entity.Read(collector, new GeneralPipingInput());
 
             // Assert
-            Assert.AreEqual(stochasticSoilProfileEntity.StochasticSoilProfileEntityId, calculation.InputParameters.StochasticSoilProfile.StorageId);
-            Assert.AreEqual(stochasticSoilModelEntity.StochasticSoilModelEntityId, calculation.InputParameters.StochasticSoilModel.StorageId);
             Assert.IsTrue(collector.Contains(stochasticSoilProfileEntity));
             Assert.IsTrue(collector.Contains(stochasticSoilModelEntity));
         }
@@ -336,7 +331,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            Assert.AreEqual(outputId, calculation.Output.StorageId);
         }
 
         [Test]
@@ -362,7 +356,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
 
             // Assert
             Assert.IsNotNull(calculation.SemiProbabilisticOutput);
-            Assert.AreEqual(outputId, calculation.SemiProbabilisticOutput.StorageId);
         }
 
         private void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)

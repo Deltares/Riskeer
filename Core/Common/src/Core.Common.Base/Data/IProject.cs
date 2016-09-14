@@ -19,14 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Base.Storage;
-
 namespace Core.Common.Base.Data
 {
     /// <summary>
     /// Interface for a project.
     /// </summary>
-    public interface IProject : IStorable, IObservable
+    public interface IProject : IObservable
     {
         /// <summary>
         /// Gets or sets the name of the <see cref="IProject"/>.

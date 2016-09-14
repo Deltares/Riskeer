@@ -38,7 +38,6 @@ using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Plugin;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;

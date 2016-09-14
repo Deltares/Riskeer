@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -54,12 +53,10 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                               null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            Assert.IsInstanceOf<IStorable>(dikeProfile);
             Assert.IsInstanceOf<RoundedDouble>(dikeProfile.Orientation);
             Assert.IsInstanceOf<RoundedDouble>(dikeProfile.DikeHeight);
             Assert.IsInstanceOf<double>(dikeProfile.X0);
 
-            Assert.AreEqual(0, dikeProfile.StorageId);
             Assert.IsNull(dikeProfile.Name);
             Assert.AreSame(worldCoordinate, dikeProfile.WorldReferencePoint);
             Assert.AreEqual(0.0, dikeProfile.X0);

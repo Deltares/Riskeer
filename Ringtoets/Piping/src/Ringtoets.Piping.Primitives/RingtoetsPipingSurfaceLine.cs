@@ -25,7 +25,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 using Ringtoets.Piping.Primitives.Exceptions;
 using Ringtoets.Piping.Primitives.Properties;
 
@@ -34,7 +33,7 @@ namespace Ringtoets.Piping.Primitives
     /// <summary>
     /// Definition of a surfaceline for piping.
     /// </summary>
-    public class RingtoetsPipingSurfaceLine : IStorable
+    public class RingtoetsPipingSurfaceLine
     {
         private const int numberOfDecimalPlaces = 2;
         private Point2D[] localGeometry;
@@ -114,8 +113,6 @@ namespace Ringtoets.Piping.Primitives
                 return localGeometry;
             }
         }
-
-        public long StorageId { get; set; }
 
         /// <summary>
         /// Sets the geometry of the surfaceline.

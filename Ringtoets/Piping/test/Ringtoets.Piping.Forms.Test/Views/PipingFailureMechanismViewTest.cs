@@ -695,8 +695,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             public FailureMechanismContribution FailureMechanismContribution { get; private set; }
             public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
-            public long StorageId { get; set; }
-
             public IEnumerable<IFailureMechanism> GetFailureMechanisms()
             {
                 yield break;

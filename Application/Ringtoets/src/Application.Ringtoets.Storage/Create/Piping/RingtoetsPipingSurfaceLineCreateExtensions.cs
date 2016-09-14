@@ -97,7 +97,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 Y = point.Y.ToNaNAsNull(),
                 Z = point.Z.ToNaNAsNull()
             };
-            registry.Register(entity, point);
             return entity;
         }
     }

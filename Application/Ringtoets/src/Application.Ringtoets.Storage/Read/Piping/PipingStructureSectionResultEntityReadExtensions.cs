@@ -48,7 +48,6 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 throw new ArgumentNullException("sectionResult");
             }
 
-            sectionResult.StorageId = entity.PipingStructureSectionResultEntityId;
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
             sectionResult.AssessmentLayerTwoA = (AssessmentLayerTwoAResult) entity.LayerTwoA;
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();

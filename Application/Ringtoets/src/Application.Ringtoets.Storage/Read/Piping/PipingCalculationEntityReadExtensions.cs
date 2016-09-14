@@ -50,7 +50,6 @@ namespace Application.Ringtoets.Storage.Read.Piping
 
             var calculation = new PipingCalculationScenario(generalInputParameters)
             {
-                StorageId = entity.PipingCalculationEntityId,
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
                 Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
                 Name = entity.Name,

@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.DikeProfiles
@@ -32,7 +31,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
     /// <summary>
     /// Definition for a foreshore profile for a failure mechanism.
     /// </summary>
-    public class ForeshoreProfile : IStorable
+    public class ForeshoreProfile
     {
         /// <summary>
         /// Creates a new instance of the <see cref="ForeshoreProfile"/> class.
@@ -112,8 +111,6 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// Gets the geometry of the foreshore profile.
         /// </summary>
         public RoundedPoint2DCollection Geometry { get; private set; }
-
-        public long StorageId { get; set; }
 
         public override string ToString()
         {

@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data
@@ -30,7 +29,7 @@ namespace Ringtoets.Piping.Data
     /// This class contains the results of a semi-probabilistic assessment of the piping
     /// failure mechanism.
     /// </summary>
-    public class PipingSemiProbabilisticOutput : IStorable
+    public class PipingSemiProbabilisticOutput
     {
         private double requiredProbability;
         private double pipingProbability;
@@ -251,7 +250,5 @@ namespace Ringtoets.Piping.Data
                 }
             }
         }
-
-        public long StorageId { get; set; }
     }
 }

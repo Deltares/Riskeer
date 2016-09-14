@@ -379,8 +379,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; set; }
 
-            public long StorageId { get; set; }
-
             public IEnumerable<IFailureMechanism> GetFailureMechanisms()
             {
                 yield break;

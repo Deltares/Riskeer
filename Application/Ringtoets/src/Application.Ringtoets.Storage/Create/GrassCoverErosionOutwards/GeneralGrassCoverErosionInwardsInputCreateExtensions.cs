@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2016. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -21,36 +21,35 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover
+namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
 {
     /// <summary>
-    /// Extension methods for <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/> related to creating a 
-    /// <see cref="WaterPressureAsphaltCoverSectionResultEntity"/>.
-    /// </summary>
-    internal static class WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensions
+    /// Extension methods for <see cref="GeneralGrassCoverErosionInwardsInput"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// </summary> 
+    internal static class GeneralGrassCoverErosionInwardsInputCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> based on the information of the <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
         /// </summary>
-        /// <param name="result">The result to create a database entity for.</param>
+        /// <param name="generalInput">The general failure mechanism input to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="WaterPressureAsphaltCoverSectionResultEntity"/>.</returns>
+        /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static WaterPressureAsphaltCoverSectionResultEntity Create(this WaterPressureAsphaltCoverFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static GrassCoverErosionOutwardsFailureMechanismMetaEntity Create(this GeneralGrassCoverErosionOutwardsInput generalInput, PersistenceRegistry registry)
         {
             if (registry == null)
             {
                 throw new ArgumentNullException("registry");
             }
-            var sectionResultEntity = new WaterPressureAsphaltCoverSectionResultEntity
-            {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
-            };
 
-            return sectionResultEntity;
+            var entity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
+            {
+                N = Convert.ToByte(generalInput.N)
+            };
+            return entity;
         }
     }
 }

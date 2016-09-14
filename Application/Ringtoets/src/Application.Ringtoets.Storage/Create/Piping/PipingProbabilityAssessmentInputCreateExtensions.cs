@@ -50,8 +50,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 UpliftCriticalSafetyFactor = assessmentInput.UpliftCriticalSafetyFactor
             };
 
-            registry.Register(entity, assessmentInput);
-
             return entity;
         }
     }

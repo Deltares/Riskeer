@@ -105,7 +105,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 return hydraulicBoundaryLocation.Location;
             }
         }
-
-        public long StorageId { get; set; }
     }
 }

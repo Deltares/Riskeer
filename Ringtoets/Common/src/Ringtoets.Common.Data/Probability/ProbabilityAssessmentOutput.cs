@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.Calculation;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -31,7 +30,7 @@ namespace Ringtoets.Common.Data.Probability
     /// <summary>
     /// This class contains the results of a probabilistic assessment calculation.
     /// </summary>
-    public class ProbabilityAssessmentOutput : Observable, ICalculationOutput, IStorable
+    public class ProbabilityAssessmentOutput : Observable, ICalculationOutput
     {
         private double requiredProbability;
         private double probability;
@@ -119,7 +118,5 @@ namespace Ringtoets.Common.Data.Probability
         /// Gets the factor of safety of the failure mechanism.
         /// </summary>
         public RoundedDouble FactorOfSafety { get; private set; }
-
-        public long StorageId { get; set; }
     }
 }

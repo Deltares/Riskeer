@@ -43,10 +43,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             return new GrassCoverErosionInwardsOutput(entity.WaveHeight.ToNullAsNaN(),
                                                       Convert.ToBoolean(entity.IsOvertoppingDominant),
                                                       entity.ProbabilisticOutputEntity.Read(),
-                                                      GetDikeHeightValue(entity))
-            {
-                StorageId = entity.GrassCoverErosionInwardsOutputEntityId
-            };
+                                                      GetDikeHeightValue(entity));
         }
 
         private static double? GetDikeHeightValue(GrassCoverErosionInwardsOutputEntity entity)

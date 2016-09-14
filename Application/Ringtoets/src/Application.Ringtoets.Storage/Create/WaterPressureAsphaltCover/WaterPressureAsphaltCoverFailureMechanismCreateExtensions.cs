@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover
             var entity = mechanism.Create(FailureMechanismType.WaterOverpressureAsphaltRevetment, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

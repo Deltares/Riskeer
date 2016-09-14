@@ -54,7 +54,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 UpliftFactorOfSafety = output.UpliftFactorOfSafety.ToNaNAsNull(),
                 UpliftZValue = output.UpliftZValue.ToNaNAsNull()
             };
-            registry.Register(entity, output);
             return entity;
         }
     }

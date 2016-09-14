@@ -46,7 +46,6 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             {
                 throw new ArgumentNullException("input");
             }
-            input.StorageId = entity.GrassCoverErosionInwardsFailureMechanismMetaEntityId;
             input.N = entity.N;
         }
     }

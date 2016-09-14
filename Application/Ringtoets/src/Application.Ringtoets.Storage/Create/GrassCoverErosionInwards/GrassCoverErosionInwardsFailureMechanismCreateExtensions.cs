@@ -47,7 +47,6 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

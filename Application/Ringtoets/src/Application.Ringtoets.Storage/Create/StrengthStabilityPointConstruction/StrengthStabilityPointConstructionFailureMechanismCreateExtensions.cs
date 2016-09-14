@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Create.StrengthStabilityPointConstructio
             var entity = mechanism.Create(FailureMechanismType.StrengthAndStabilityPointConstruction, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

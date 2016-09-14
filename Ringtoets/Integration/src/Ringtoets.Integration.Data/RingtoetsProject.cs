@@ -61,11 +61,6 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public string Description { get; set; }
 
-        /// <summary>
-        /// Gets or sets the unique identifier for the storage of the <see cref="RingtoetsProject"/>.
-        /// </summary>
-        public long StorageId { get; set; }
-
         public bool Equals(IProject other)
         {
             var otherProject = other as RingtoetsProject;
@@ -75,7 +70,6 @@ namespace Ringtoets.Integration.Data
             }
             return string.Equals(Name, otherProject.Name) &&
                    string.Equals(Description, otherProject.Description) &&
-                   StorageId == otherProject.StorageId &&
                    AssessmentSections.SequenceEqual(otherProject.AssessmentSections);
         }
 
@@ -98,7 +92,7 @@ namespace Ringtoets.Integration.Data
 
         public override int GetHashCode()
         {
-            return StorageId.GetHashCode() ^ Name.GetHashCode() ^ Description.GetHashCode();
+            return Name.GetHashCode() ^ Description.GetHashCode();
         }
     }
 }

@@ -31,8 +31,7 @@
 namespace Application.Ringtoets.Storage.DbContext
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class StrengthStabilityLengthwiseConstructionSectionResultEntity
     {
         public long StrengthStabilityLengthwiseConstructionSectionResultEntityId { get; set; }

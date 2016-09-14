@@ -172,23 +172,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_ValidCalculation_EntityIsRegisteredInPersistenceRegistry()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
-
-            // Assert
-            entity.GrassCoverErosionInwardsCalculationEntityId = 8734;
-            registry.TransferIds();
-            Assert.AreEqual(entity.GrassCoverErosionInwardsCalculationEntityId, calculation.StorageId);
-        }
-
-        [Test]
         public void Create_CalculationWithAlreadySavedDikeProfile_ReturnEntityWithDikeProfileEntity()
         {
             // Setup

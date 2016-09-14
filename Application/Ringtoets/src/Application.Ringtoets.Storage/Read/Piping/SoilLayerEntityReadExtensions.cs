@@ -41,7 +41,6 @@ namespace Application.Ringtoets.Storage.Read.Piping
         {
             var pipingSoilLayer = new PipingSoilLayer(entity.Top.ToNullAsNaN())
             {
-                StorageId = entity.SoilLayerEntityId,
                 IsAquifer = Convert.ToBoolean(entity.IsAquifer),
                 Color = Color.FromArgb(Convert.ToInt32(entity.Color)),
                 MaterialName = entity.MaterialName ?? string.Empty,

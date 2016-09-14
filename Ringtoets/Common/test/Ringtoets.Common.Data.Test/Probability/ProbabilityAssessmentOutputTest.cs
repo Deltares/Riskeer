@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -50,7 +49,6 @@ namespace Ringtoets.Common.Data.Test.Probability
             // Assert
             Assert.IsInstanceOf<Observable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
-            Assert.IsInstanceOf<IStorable>(output);
 
             Assert.IsNotNull(output);
             Assert.AreEqual(requiredProbability, output.RequiredProbability);
@@ -58,8 +56,6 @@ namespace Ringtoets.Common.Data.Test.Probability
             Assert.AreEqual(probability, output.Probability);
             Assert.AreEqual(reliability, output.Reliability);
             Assert.AreEqual(factorOfSafety, output.FactorOfSafety);
-
-            Assert.AreEqual(0, output.StorageId);
         }
 
         [Test]

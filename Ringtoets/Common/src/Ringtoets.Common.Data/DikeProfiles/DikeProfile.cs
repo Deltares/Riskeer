@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.DikeProfiles
@@ -32,7 +31,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
     /// <summary>
     /// Definition for a dike profile for a failure mechanism.
     /// </summary>
-    public class DikeProfile : IStorable
+    public class DikeProfile
     {
         /// <summary>
         /// Creates a new instance of the <see cref="DikeProfile"/> class.
@@ -164,8 +163,6 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// Gets or sets the height of the dike [m+NAP].
         /// </summary>
         public RoundedDouble DikeHeight { get; private set; }
-
-        public long StorageId { get; set; }
 
         public override string ToString()
         {

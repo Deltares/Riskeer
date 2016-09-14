@@ -44,10 +44,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
                 entity.HeaveFactorOfSafety.ToNullAsNaN(), entity.HeaveReliability.ToNullAsNaN(), entity.HeaveProbability.ToNullAsNaN(),
                 entity.SellmeijerFactorOfSafety.ToNullAsNaN(), entity.SellmeijerReliability.ToNullAsNaN(), entity.SellmeijerProbability.ToNullAsNaN(),
                 entity.RequiredProbability.ToNullAsNaN(), entity.RequiredReliability.ToNullAsNaN(),
-                entity.PipingProbability.ToNullAsNaN(), entity.PipingReliability.ToNullAsNaN(), entity.PipingFactorOfSafety.ToNullAsNaN())
-            {
-                StorageId = entity.PipingSemiProbabilisticOutputEntityId
-            };
+                entity.PipingProbability.ToNullAsNaN(), entity.PipingReliability.ToNullAsNaN(), entity.PipingFactorOfSafety.ToNullAsNaN());
         }
     }
 }

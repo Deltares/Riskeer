@@ -55,8 +55,6 @@ namespace Application.Ringtoets.Storage.Create
                 FactorOfSafety = output.FactorOfSafety.Value.ToNaNAsNull()
             };
 
-            registry.Register(entity, output);
-
             return entity;
         }
     }

@@ -57,7 +57,6 @@ namespace Application.Ringtoets.Storage.Create
             };
             CreateChildElements(group, entity, registry);
 
-            registry.Register(entity, group);
             return entity;
         }
 

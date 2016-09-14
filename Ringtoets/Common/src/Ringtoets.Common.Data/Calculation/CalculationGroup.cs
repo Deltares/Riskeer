@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.Common.Data.Calculation
@@ -30,7 +29,7 @@ namespace Ringtoets.Common.Data.Calculation
     /// <summary>
     /// Class to allow grouping one or multiple <see cref="ICalculation"/> instances.
     /// </summary>
-    public class CalculationGroup : Observable, ICalculationBase, IStorable
+    public class CalculationGroup : Observable, ICalculationBase
     {
         private string name;
 
@@ -77,7 +76,5 @@ namespace Ringtoets.Common.Data.Calculation
                 name = value;
             }
         }
-
-        public long StorageId { get; set; }
     }
 }

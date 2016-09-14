@@ -85,22 +85,5 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsNull(entity.RequiredProbability);
             Assert.IsNull(entity.RequiredReliability);
         }
-
-        [Test]
-        public void Create_ValidValues_RegistersEntity()
-        {
-            // Setup
-            var output = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            ProbabilisticOutputEntity entity = output.Create(registry);
-
-            // Assert
-            entity.ProbabilisticOutputEntityId = 948576;
-            registry.TransferIds();
-            Assert.AreEqual(entity.ProbabilisticOutputEntityId, output.StorageId);
-        }
     }
 }

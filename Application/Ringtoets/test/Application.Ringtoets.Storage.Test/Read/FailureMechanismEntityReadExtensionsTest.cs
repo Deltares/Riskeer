@@ -58,7 +58,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsEmpty(failureMechanism.Sections);
-            Assert.AreEqual(entityId, failureMechanism.StorageId);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
             Assert.AreEqual(entity.Comments, failureMechanism.Comments);
             Assert.IsEmpty(failureMechanism.Sections);
@@ -166,7 +165,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(entityId, failureMechanism.StorageId);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
             Assert.AreEqual(entity.Comments, failureMechanism.Comments);
             Assert.IsEmpty(failureMechanism.StochasticSoilModels);
@@ -174,7 +172,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
             var probabilityAssessmentInput = pipingFailureMechanismMetaEntities[0];
-            Assert.AreEqual(probabilityAssessmentInput.PipingFailureMechanismMetaEntityId, failureMechanism.PipingProbabilityAssessmentInput.StorageId);
             Assert.AreEqual(probabilityAssessmentInput.A, failureMechanism.PipingProbabilityAssessmentInput.A);
             Assert.AreEqual(probabilityAssessmentInput.UpliftCriticalSafetyFactor, failureMechanism.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor.Value);
         }
@@ -295,7 +292,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(entityId, failureMechanism.SectionResults.First().StorageId);
         }
 
         [Test]
@@ -342,16 +338,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(rootGroupId, failureMechanism.CalculationsGroup.StorageId);
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
 
             ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child1", child1.Name);
-            Assert.AreEqual(childGroup1Id, ((CalculationGroup) child1).StorageId);
 
             ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child2", child2.Name);
-            Assert.AreEqual(childGroup2Id, ((CalculationGroup) child2).StorageId);
         }
 
         #endregion
@@ -393,12 +386,10 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(entityId, failureMechanism.StorageId);
             Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
             Assert.AreEqual(entity.Comments, failureMechanism.Comments);
             Assert.IsEmpty(failureMechanism.Sections);
 
-            Assert.AreEqual(inputId, failureMechanism.GeneralInput.StorageId);
             Assert.AreEqual(3, failureMechanism.GeneralInput.N);
         }
 
@@ -449,8 +440,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(2, failureMechanism.DikeProfiles.Count);
-            Assert.AreEqual(id1, failureMechanism.DikeProfiles[0].StorageId);
-            Assert.AreEqual(id2, failureMechanism.DikeProfiles[1].StorageId);
         }
 
         [Test]
@@ -493,7 +482,6 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(entityId, failureMechanism.SectionResults.First().StorageId);
         }
 
         [Test]
@@ -548,16 +536,13 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsGrassCoverErosionInwardsFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(rootGroupId, failureMechanism.CalculationsGroup.StorageId);
             Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
 
             ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child1", child1.Name);
-            Assert.AreEqual(childGroup1Id, ((CalculationGroup) child1).StorageId);
 
             ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child2", child2.Name);
-            Assert.AreEqual(childGroup2Id, ((CalculationGroup) child2).StorageId);
         }
 
         #endregion

@@ -54,7 +54,6 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 sectionResultEntity.GrassCoverErosionInwardsCalculationEntity = registry.Get(result.Calculation);
             }
 
-            registry.Register(sectionResultEntity, result);
             return sectionResultEntity;
         }
     }

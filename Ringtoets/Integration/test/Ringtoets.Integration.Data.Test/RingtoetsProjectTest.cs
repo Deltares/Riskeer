@@ -133,25 +133,6 @@ namespace Ringtoets.Integration.Data.Test
         }
 
         [Test]
-        public void Equals_ProjectStorageIdChanged_ReturnsFalse()
-        {
-            // Setup
-            RingtoetsProject newProject = new RingtoetsProject();
-            RingtoetsProject changedProject = new RingtoetsProject
-            {
-                StorageId = 1L
-            };
-
-            // Call
-            bool result = newProject.Equals(changedProject);
-            bool result2 = changedProject.Equals(newProject);
-
-            // Assert
-            Assert.IsFalse(result);
-            Assert.IsFalse(result2);
-        }
-
-        [Test]
         public void Equals_ProjectAssessmentSectionsChanged_ReturnsFalse()
         {
             // Setup
@@ -172,16 +153,15 @@ namespace Ringtoets.Integration.Data.Test
         public void GetHashCode_ProjectsAreEqual_ReturnsEqualHashes()
         {
             // Setup
-            const long storageId = 1234;
             const string name = "Some name";
             const string desctiption = "Some desctiption";
             var project = new RingtoetsProject(name)
             {
-                StorageId = storageId, Description = desctiption
+                Description = desctiption
             };
             var otherProject = new RingtoetsProject(name)
             {
-                StorageId = storageId, Description = desctiption
+                Description = desctiption
             };
 
             // Call

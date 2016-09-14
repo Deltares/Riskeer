@@ -52,7 +52,6 @@ namespace Application.Ringtoets.Storage.Read
 
             var assessmentSection = new AssessmentSection((AssessmentSectionComposition) entity.Composition)
             {
-                StorageId = entity.AssessmentSectionEntityId,
                 Id = entity.Id,
                 Name = entity.Name,
                 Comments = entity.Comments,

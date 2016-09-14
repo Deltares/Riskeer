@@ -112,23 +112,5 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.DikeHeight);
             Assert.AreEqual(Convert.ToByte(false), entity.IsDikeHeightCalculated);
         }
-
-        [Test]
-        public void Create_ValidValues_RegisterEntity()
-        {
-            // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.005, 1.0, 0.06, 0.8, 0.5);
-            var output = new GrassCoverErosionInwardsOutput(1.1, false, probabilityAssessmentOutput, 2.2);
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            GrassCoverErosionInwardsOutputEntity entity = output.Create(registry);
-
-            // Assert
-            entity.GrassCoverErosionInwardsOutputEntityId = 984756;
-            registry.TransferIds();
-            Assert.AreEqual(entity.GrassCoverErosionInwardsOutputEntityId, output.StorageId);
-        }
     }
 }

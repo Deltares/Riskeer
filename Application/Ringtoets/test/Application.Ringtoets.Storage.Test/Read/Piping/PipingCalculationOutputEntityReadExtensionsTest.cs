@@ -48,7 +48,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             PipingOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.PipingCalculationOutputEntityId, output.StorageId);
             Assert.AreEqual(entity.HeaveFactorOfSafety, output.HeaveFactorOfSafety);
             Assert.AreEqual(entity.HeaveZValue, output.HeaveZValue);
             Assert.AreEqual(entity.SellmeijerFactorOfSafety, output.SellmeijerFactorOfSafety);
@@ -76,7 +75,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             PipingOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.PipingCalculationOutputEntityId, output.StorageId);
             Assert.IsNaN(output.HeaveFactorOfSafety);
             Assert.IsNaN(output.HeaveZValue);
             Assert.IsNaN(output.SellmeijerFactorOfSafety);

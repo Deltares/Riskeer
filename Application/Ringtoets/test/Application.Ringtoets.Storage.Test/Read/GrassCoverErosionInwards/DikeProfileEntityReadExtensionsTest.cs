@@ -83,7 +83,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             DikeProfile dikeProfile = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(entity.DikeProfileEntityId, dikeProfile.StorageId);
             Assert.AreEqual(entity.Name, dikeProfile.Name);
             Assert.AreEqual(entity.Orientation, dikeProfile.Orientation.Value);
             CollectionAssert.AreEqual(foreshorePoints, dikeProfile.ForeshoreGeometry);
@@ -131,7 +130,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             DikeProfile dikeProfile = entity.Read(collector);
 
             // Assert
-            Assert.AreEqual(entity.DikeProfileEntityId, dikeProfile.StorageId);
             Assert.AreEqual(entity.Name, dikeProfile.Name);
             Assert.AreEqual(entity.Orientation, dikeProfile.Orientation.Value);
             CollectionAssert.AreEqual(foreshorePoints, dikeProfile.ForeshoreGeometry);

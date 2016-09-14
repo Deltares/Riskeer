@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Properties;
 
@@ -30,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Class that holds all the static grass cover erosion inwards calculation input parameters.
     /// </summary>
-    public class GeneralGrassCoverErosionInwardsInput : IStorable
+    public class GeneralGrassCoverErosionInwardsInput
     {
         private int n;
 
@@ -88,8 +87,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         #endregion
-
-        public long StorageId { get; set; }
 
         #region Factors
 

@@ -46,7 +46,6 @@ namespace Application.Ringtoets.Storage.Read
             {
                 throw new ArgumentNullException("sectionResult");
             }
-            sectionResult.StorageId = entity.HeightStructuresSectionResultEntityId;
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }

@@ -44,7 +44,6 @@ namespace Application.Ringtoets.Storage.Create.PipingStructure
             var entity = mechanism.Create(FailureMechanismType.PipingAtStructure, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
-            registry.Register(entity, mechanism);
             return entity;
         }
 

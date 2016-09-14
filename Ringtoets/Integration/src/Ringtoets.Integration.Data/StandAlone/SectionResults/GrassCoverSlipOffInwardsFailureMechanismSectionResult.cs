@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults
@@ -30,7 +29,7 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
     /// This class holds information about the result of a calculation on section level for the
     /// Grass Cover Slip Off Inwards failure mechanism.
     /// </summary>
-    public class GrassCoverSlipOffInwardsFailureMechanismSectionResult : FailureMechanismSectionResult, IStorable
+    public class GrassCoverSlipOffInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
@@ -58,7 +57,5 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
         public RoundedDouble AssessmentLayerThree { get; set; }
-
-        public long StorageId { get; set; }
     }
 }

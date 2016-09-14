@@ -40,7 +40,6 @@ namespace Application.Ringtoets.Storage.Read.Piping
         {
             return new PipingProbabilityAssessmentInput
             {
-                StorageId = entity.PipingFailureMechanismMetaEntityId,
                 A = entity.A,
                 UpliftCriticalSafetyFactor = (RoundedDouble) entity.UpliftCriticalSafetyFactor
             };

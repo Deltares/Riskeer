@@ -57,13 +57,11 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.GrassCoverErosionInwardsOutputEntityId, output.StorageId);
             Assert.AreEqual(entity.WaveHeight, output.WaveHeight.Value);
             Assert.IsFalse(output.IsOvertoppingDominant);
             Assert.AreEqual(entity.DikeHeight, output.DikeHeight.Value);
             Assert.IsTrue(output.DikeHeightCalculated);
 
-            Assert.AreEqual(probabilisticOutputEntity.ProbabilisticOutputEntityId, output.ProbabilityAssessmentOutput.StorageId);
             Assert.AreEqual(probabilisticOutputEntity.FactorOfSafety, output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
             Assert.AreEqual(probabilisticOutputEntity.Probability, output.ProbabilityAssessmentOutput.Probability);
             Assert.AreEqual(probabilisticOutputEntity.RequiredProbability, output.ProbabilityAssessmentOutput.RequiredProbability);
@@ -98,13 +96,11 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             GrassCoverErosionInwardsOutput output = entity.Read();
 
             // Assert
-            Assert.AreEqual(entity.GrassCoverErosionInwardsOutputEntityId, output.StorageId);
             Assert.IsNaN(output.WaveHeight);
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.IsNaN(output.DikeHeight);
             Assert.IsTrue(output.DikeHeightCalculated);
 
-            Assert.AreEqual(probabilisticOutputEntity.ProbabilisticOutputEntityId, output.ProbabilityAssessmentOutput.StorageId);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.Probability);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredProbability);
