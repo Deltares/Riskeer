@@ -207,37 +207,37 @@ Er is geen referentielijn geëxporteerd.</value>
     <value>De ingelezen dijkhoogte ('{0}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer" xml:space="preserve">
-    <value>Het ingelezen aantal geometriepunten dijk ('{0}') is geen geheel getal.</value>
+    <value>Het ingelezen aantal punten van de dijkgeometrie ('{0}') is geen geheel getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows" xml:space="preserve">
-    <value>Het ingelezen aantal geometriepunten dijk ('{0}') is te groot of te klein om ingelezen te worden.</value>
+    <value>Het ingelezen aantal punten van de dijkgeometrie ('{0}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer" xml:space="preserve">
-    <value>Het ingelezen aantal geometriepunten voorland ('{0}') is geen geheel getal.</value>
+    <value>Het ingelezen aantal punten van de voorlandgeometrie ('{0}') is geen geheel getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows" xml:space="preserve">
-    <value>Het ingelezen aantal geometriepunten voorland ('{0}') is te groot of te klein om ingelezen te worden.</value>
+    <value>Het ingelezen aantal punten van de voorlandgeometrie ('{0}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_not_double" xml:space="preserve">
     <value>De ingelezen oriëntatie ('{0}') is geen getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_overflows" xml:space="preserve">
-    <value>De ingelezen oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.</value>
+    <value>De in te lezen oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_number" xml:space="preserve">
     <value>De ingelezen {0} ('{1}') is geen getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_overflows" xml:space="preserve">
-    <value>De ingelezen {0} ('{1}') is te groot of te klein om ingelezen te worden.</value>
+    <value>De in te lezen {0} ('{1}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range" xml:space="preserve">
     <value>Het ingelezen damwandtype ('{0}') moet 0, 1 of 2 zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative" xml:space="preserve">
-    <value>Het ingelezen aantal geometriepunten dijk ('{0}') mag niet negatief zijn.</value>
+    <value>Het aantal punten van de dijkgeometrie ('{0}') mag niet negatief zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_ForeshoreCount_0_cannot_be_negative" xml:space="preserve">
-    <value>Het ingelezen aantal geometriepunten voorland ('{0}') mag niet negatief zijn.</value>
+    <value>Het aantal punten van de voorlandgeometrie ('{0}') mag niet negatief zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ReadRoughnessPoint_Line_0_not_x_y_roughness_definition" xml:space="preserve">
     <value>De ingelezen regel ('{0}') is geen 'X Y ruwheid' definitie.</value>
@@ -255,16 +255,16 @@ Er is geen referentielijn geëxporteerd.</value>
     <value>Z-coördinaat</value>
   </data>
   <data name="DikeProfileDataReader_TryReadDikeRoughnessPoints_DikeCount_0_does_not_correspond_ExpectedCount_1_" xml:space="preserve">
-    <value>Het aantal dijkpunten gevonden in het bestand ('{0}') komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').</value>
+    <value>Het aantal punten van de dijkgeometrie gevonden in het bestand '{0}' komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').</value>
   </data>
   <data name="DikeProfileDataReader_TryReadForeshoreRoughnessPoints_ForeshoreCount_0_does_not_correspond_ExpectedCount_1_" xml:space="preserve">
-    <value>Het aantal voorlandpunten gevonden in het bestand ('{0}') komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').</value>
+    <value>Het aantal punten van de voorlandgeometrie gevonden in het bestand '{0}' komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').</value>
   </data>
   <data name="DikeProfileDataReader_ValidateDikePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
-    <value>De X-coördinaten van de dijkgeometrie punten moeten strikt toenemend zijn.</value>
+    <value>De X-coördinaten van de dijkgeometriepunten moeten strikt toenemend zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateForeshorePointsAreMonotonicallyIncreasing_Error_message" xml:space="preserve">
-    <value>De X-coördinaten van de voorlandgeometrie punten moeten strikt toenemend zijn.</value>
+    <value>De X-coördinaten van de voorlandgeometriepunten moeten strikt toenemend zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateId_Id_0_has_unsupported_white_space" xml:space="preserve">
     <value>De ingelezen ID ('{0}') bevat spaties. Spaties zijn niet toegestaan.</value>

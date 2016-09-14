@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Data_SetNewForeshoreProfileInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            const string name = "Voorland";
+            const string name = "Voorlandprofiel";
             var foreshoreProfile = new ForeshoreProfile(new Point2D(12.34, 56.78), new Point2D[0],
                                                         null, new ForeshoreProfile.ConstructionProperties
                                                         {
@@ -97,21 +97,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsTrue(nameProperty.IsReadOnly);
             Assert.AreEqual("Algemeen", nameProperty.Category);
             Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("Naam van het voorland.", nameProperty.Description);
+            Assert.AreEqual("Naam van het voorlandprofiel.", nameProperty.Description);
 
             PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
             Assert.IsNotNull(worldReferencePointProperty);
             Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
             Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie van het voorland in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
+            Assert.AreEqual("De coördinaten van de locatie van het voorlandprofiel in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
             Assert.IsTrue(orientationProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van het voorland ten opzichte van het noorden.", orientationProperty.Description);
+            Assert.AreEqual("Oriëntatie van het voorlandprofiel ten opzichte van het noorden.", orientationProperty.Description);
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
             Assert.IsNotNull(breakWaterProperty);

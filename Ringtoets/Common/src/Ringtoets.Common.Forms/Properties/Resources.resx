@@ -530,7 +530,7 @@
     <value>Schematisatie</value>
   </data>
   <data name="ForeshoreProfile_Name_Description" xml:space="preserve">
-    <value>Naam van het voorland.</value>
+    <value>Naam van het voorlandprofiel.</value>
   </data>
   <data name="Geometry_Coordinates_Description" xml:space="preserve">
     <value>Lijst met punten in lokale coördinaten.</value>
@@ -542,7 +542,7 @@
     <value>Oriëntatie [°]</value>
   </data>
   <data name="Orientation_ForeshoreProfile_Description" xml:space="preserve">
-    <value>Oriëntatie van het voorland ten opzichte van het noorden.</value>
+    <value>Oriëntatie van het voorlandprofiel ten opzichte van het noorden.</value>
   </data>
   <data name="Profile_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
@@ -551,7 +551,7 @@
     <value>Locatie (RD) [m]</value>
   </data>
   <data name="WorldReferencePoint_ForeshoreProfile_Description" xml:space="preserve">
-    <value>De coördinaten van de locatie van het voorland in het Rijksdriehoeksstelsel.</value>
+    <value>De coördinaten van de locatie van het voorlandprofiel in het Rijksdriehoeksstelsel.</value>
   </data>
   <data name="CalculateHydraulicBoundaryLocation_ContextMenuStrip_Start_calculation_failed_0_" xml:space="preserve">
     <value>Berekeningen konden niet worden gestart. {0}</value>

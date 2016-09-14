@@ -378,14 +378,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, worldReferencePointProperty.Category);
             Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie van het voorland in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
+            Assert.AreEqual("De coördinaten van de locatie van het voorlandprofiel in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
             Assert.AreEqual(!withForeshoreProfile, orientationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van het voorland ten opzichte van het noorden.", orientationProperty.Description);
+            Assert.AreEqual("Oriëntatie van het voorlandprofiel ten opzichte van het noorden.", orientationProperty.Description);
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
             Assert.IsNotNull(breakWaterProperty);

@@ -135,7 +135,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                       }, null, new DikeProfile.ConstructionProperties());
 
             // Assert
-            var expectedMessage = "Een punt in de geometrie voor het voorland heeft geen waarde.";
+            var expectedMessage = "Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 

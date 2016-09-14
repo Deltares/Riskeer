@@ -308,7 +308,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithNegativeForeshorePointCount_ThrowCriticalFileReadException()
         {
-            string expectedMessage = "Het ingelezen aantal geometriepunten voorland ('-1') mag niet negatief zijn.";
+            string expectedMessage = "Het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl", 9, expectedMessage);
         }
 
@@ -392,7 +392,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowOrientation_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("De in te lezen oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
@@ -496,7 +496,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableDikeCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal geometriepunten dijk ('{0}') is geen geheel getal.",
+            string expectedMessage = string.Format("Het ingelezen aantal punten van de dijkgeometrie ('{0}') is geen geheel getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
         }
@@ -507,7 +507,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowDijkCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal geometriepunten dijk ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Het ingelezen aantal punten van de dijkgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
         }
@@ -515,7 +515,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeFileName_FileWithNegativeDikeCount_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het ingelezen aantal geometriepunten dijk ('-1') mag niet negatief zijn.";
+            string expectedMessage = "Het aantal punten van de dijkgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_dijkCountNegative.prfl", 13, expectedMessage);
         }
 
@@ -570,7 +570,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_OverflowRoughnessPoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedParameterName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De ingelezen {0} ('{1}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("De in te lezen {0} ('{1}') is te groot of te klein om ingelezen te worden.",
                                                    expectedParameterName, expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
@@ -582,7 +582,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithMissingDikePoints_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, int actualCount, int expectedCount)
         {
-            string expectedMessage = string.Format("Het aantal dijkpunten gevonden in het bestand ('{0}') komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').",
+            string expectedMessage = string.Format("Het aantal punten van de dijkgeometrie gevonden in het bestand '{0}' komt niet overeen met de daarin aangegeven hoeveelheid ('{1}').",
                                                    actualCount, expectedCount);
             ReadFileAndExpectCriticalFileReadException(faultyFileName,
                                                        expectedLineNumber, expectedMessage);
@@ -596,7 +596,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_IncorrectOrderingX_ThrowsCriticalFileReadException(
             string faultyFileName, int expectedLineNumber, string expectedTypePrefix)
         {
-            string expectedMessage = string.Format("De X-coördinaten van de {0}geometrie punten moeten strikt toenemend zijn.",
+            string expectedMessage = string.Format("De X-coördinaten van de {0}geometriepunten moeten strikt toenemend zijn.",
                                                    expectedTypePrefix);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }
@@ -608,7 +608,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal geometriepunten voorland ('{0}') is geen geheel getal.",
+            string expectedMessage = string.Format("Het ingelezen aantal punten van de voorlandgeometrie ('{0}') is geen geheel getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }
@@ -619,7 +619,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal geometriepunten voorland ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Het ingelezen aantal punten van de voorlandgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }
@@ -627,7 +627,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithNegativeForeshoreCount_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het ingelezen aantal geometriepunten voorland ('-1') mag niet negatief zijn.";
+            string expectedMessage = "Het aantal punten van de voorlandgeometrie ('-1') mag niet negatief zijn.";
             ReadFileAndExpectCriticalFileReadException("faulty_voorlandCountNegative.prfl",
                                                        9, expectedMessage);
         }
@@ -635,7 +635,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         [Test]
         public void ReadDikeProfileData_FileWithMissingForeshorePoints_ThrowsCriticalFileReadException()
         {
-            string expectedMessage = "Het aantal voorlandpunten gevonden in het bestand ('1') komt niet overeen met de daarin aangegeven hoeveelheid ('3').";
+            string expectedMessage = "Het aantal punten van de voorlandgeometrie gevonden in het bestand '1' komt niet overeen met de daarin aangegeven hoeveelheid ('3').";
             ReadFileAndExpectCriticalFileReadException("faulty_unparsableVoorland_missingElements.prfl",
                                                        11, expectedMessage);
         }

@@ -265,7 +265,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een punt in de geometrie voor het voorland heeft geen waarde..
+        ///   Looks up a localized string similar to Een punt in de geometrie voor het voorlandprofiel heeft geen waarde..
         /// </summary>
         public static string ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null {
             get {

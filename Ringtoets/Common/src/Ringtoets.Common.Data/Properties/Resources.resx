@@ -193,7 +193,7 @@
     <value>De verschuiving mag niet groter zijn dan de verwachtingswaarde.</value>
   </data>
   <data name="ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null" xml:space="preserve">
-    <value>Een punt in de geometrie voor het voorland heeft geen waarde.</value>
+    <value>Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.</value>
   </data>
   <data name="DikeProfile_SetGeometry_A_point_in_the_collection_is_null" xml:space="preserve">
     <value>Een punt in de geometrie voor het dijkprofiel heeft geen waarde.</value>
