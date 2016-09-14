@@ -49,7 +49,7 @@ namespace Core.Common.Controls.DataGrid
         {
             get
             {
-                return wrappedObject == null ? Resources.DataGridViewComboBoxItemWrapper_DisplayName_None : wrappedObject.ToString();
+                return wrappedObject == null ? Resources.DisplayName_None : wrappedObject.ToString();
             }
         }
 

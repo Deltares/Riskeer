@@ -237,7 +237,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             }
         }
 
-        [DynamicReadOnly]
         [PropertyOrder(orientationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Orientation_DisplayName")]
@@ -307,12 +306,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         public IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
             return data.ForeshoreProfiles;
-        }
-
-        [DynamicReadOnlyValidationMethod]
-        public bool DynamicReadOnlyValidationMethod(string propertyName)
-        {
-            return data.WrappedData.ForeshoreProfile == null;
         }
     }
 }

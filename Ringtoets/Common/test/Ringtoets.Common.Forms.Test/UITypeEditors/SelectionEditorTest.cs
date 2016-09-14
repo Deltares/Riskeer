@@ -105,5 +105,36 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
 
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void EditValue_NullItem_ReturnsNull()
+        {
+            var nullItem = new object();
+            var editor = new TestSelectionEditor(nullItem);
+
+            var mockRepository = new MockRepository();
+            var provider = mockRepository.StrictMock<IServiceProvider>();
+            var service = mockRepository.StrictMock<IWindowsFormsEditorService>();
+            var context = mockRepository.StrictMock<ITypeDescriptorContext>();
+            provider.Expect(p => p.GetService(null)).IgnoreArguments().Return(service);
+            service.Expect(s => s.DropDownControl(null)).IgnoreArguments();
+            service.Expect(s => s.CloseDropDown());
+            mockRepository.ReplayAll();
+
+            // Call
+            var result = editor.EditValue(context, provider, nullItem);
+
+            // Assert
+            Assert.IsNull(result);
+            mockRepository.VerifyAll();
+        }
+
+        private class TestSelectionEditor : SelectionEditor<IObjectProperties, object>
+        {
+            public TestSelectionEditor(object nullItem)
+            {
+                NullItem = nullItem;
+            }
+        }
     }
 }

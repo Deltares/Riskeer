@@ -84,9 +84,9 @@ namespace Core.Common.Controls.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;geen&gt;.
         /// </summary>
-        public static string DataGridViewComboBoxItemWrapper_DisplayName_None {
+        public static string DisplayName_None {
             get {
-                return ResourceManager.GetString("DataGridViewComboBoxItemWrapper_DisplayName_None", resourceCulture);
+                return ResourceManager.GetString("DisplayName_None", resourceCulture);
             }
         }
     }

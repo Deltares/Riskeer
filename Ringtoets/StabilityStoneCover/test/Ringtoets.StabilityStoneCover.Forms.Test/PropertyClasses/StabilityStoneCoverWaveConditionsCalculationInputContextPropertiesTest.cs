@@ -125,7 +125,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewInputContextInstanceWithDikeProfile_ReturnCorrectPropertyValues()
+        public void Data_SetNewInputContextInstanceWithForeshoreProfile_ReturnCorrectPropertyValues()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -382,7 +382,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
             Assert.IsNotNull(orientationProperty);
-            Assert.AreEqual(!withForeshoreProfile, orientationProperty.IsReadOnly);
+            Assert.IsFalse(orientationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van het voorlandprofiel ten opzichte van het noorden.", orientationProperty.Description);

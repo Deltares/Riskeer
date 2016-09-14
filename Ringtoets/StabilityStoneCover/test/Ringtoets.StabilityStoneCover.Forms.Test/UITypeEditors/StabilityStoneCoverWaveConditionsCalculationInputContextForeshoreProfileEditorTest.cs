@@ -78,7 +78,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             var descriptorContextMock = mockRepository.StrictMock<ITypeDescriptorContext>();
             serviceProviderMock.Expect(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
             serviceMock.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
+            serviceMock.Expect(s => s.CloseDropDown());
+            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Times(3);
             mockRepository.ReplayAll();
 
             var someValue = new object();
@@ -87,7 +88,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
-            Assert.AreSame(someValue, result);
+            Assert.IsNull(result);
 
             mockRepository.VerifyAll();
         }
@@ -128,7 +129,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             serviceProviderMock.Expect(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
             serviceMock.Expect(s => s.DropDownControl(null)).IgnoreArguments();
             serviceMock.Expect(s => s.CloseDropDown()).IgnoreArguments();
-            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
+            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Times(3);
             mockRepository.ReplayAll();
 
             var someValue = new object();

@@ -63,15 +63,30 @@ namespace Ringtoets.Common.Forms.UITypeEditors
                 editorService.DropDownControl(listBox);
 
                 // Return user selected object, or original value if user did not select anything:
-                return listBox.SelectedItem ?? originalValue;
+                if (listBox.SelectedItem == null)
+                {
+                    return originalValue;
+                }
+
+                if (ReferenceEquals(listBox.SelectedItem, NullItem))
+                {
+                    return null;
+                }
+
+                return listBox.SelectedItem;
             }
             return base.EditValue(context, provider, originalValue);
         }
 
         /// <summary>
-        /// Gets which member to show of <typeparamref name="TProperty"/> in the dropdown editor.
+        /// Sets which member to show of <typeparamref name="TProperty"/> in the dropdown editor.
         /// </summary>
         protected string DisplayMember { private get; set; }
+
+        /// <summary>
+        /// Sets the item to show which represents a null value.
+        /// </summary>
+        protected TProperty NullItem { private get; set; }
 
         /// <summary>
         /// Gets the available options which populate the dropdown editor.
@@ -111,6 +126,15 @@ namespace Ringtoets.Common.Forms.UITypeEditors
                 DisplayMember = DisplayMember
             };
             listBox.SelectedValueChanged += (sender, eventArgs) => editorService.CloseDropDown();
+
+            if (NullItem != null)
+            {
+                int index = listBox.Items.Add(NullItem);
+                if (GetCurrentOption(context) == null)
+                {
+                    listBox.SelectedIndex = index;
+                }
+            }
 
             foreach (TProperty option in GetAvailableOptions(context))
             {
