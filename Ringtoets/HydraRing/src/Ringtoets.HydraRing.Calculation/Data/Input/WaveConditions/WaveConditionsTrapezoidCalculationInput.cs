@@ -36,6 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// Creates a new instance of the <see cref="WaveConditionsTrapezoidCalculationInput"/> class.
         /// </summary>
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
+        /// <param name="sectionNormal">The normal of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
@@ -46,6 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="beta1">The beta1-value to use during the calculation.</param>
         /// <param name="beta2">The beta2-value to use during the calculation.</param>
         public WaveConditionsTrapezoidCalculationInput(int sectionId,
+                                                       double sectionNormal,
                                                        long hydraulicBoundaryLocationId,
                                                        double norm,
                                                        IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -56,6 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
                                                        double beta1,
                                                        double beta2)
             : base(sectionId,
+                   sectionNormal,
                    hydraulicBoundaryLocationId,
                    norm,
                    forelandPoints,

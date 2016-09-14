@@ -34,7 +34,6 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service.Properties;
-
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -76,7 +75,7 @@ namespace Ringtoets.Revetment.Service
                 CalculationServiceHelper.LogValidationEndTime(name);
                 return false;
             }
-            
+
             string validationErrorMessage = ValidateWaveConditionsInput(input);
             if (!string.IsNullOrEmpty(validationErrorMessage))
             {
@@ -138,6 +137,7 @@ namespace Ringtoets.Revetment.Service
                                                                         WaveConditionsInput input)
         {
             return new WaveConditionsCosineCalculationInput(1,
+                                                            input.Orientation,
                                                             input.HydraulicBoundaryLocation.Id,
                                                             norm,
                                                             GetForeshore(input),
@@ -158,7 +158,6 @@ namespace Ringtoets.Revetment.Service
             return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0];
         }
 
-
         private static string ValidateHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (hydraulicBoundaryDatabase == null)
@@ -178,7 +177,7 @@ namespace Ringtoets.Revetment.Service
 
         private static string ValidateWaveConditionsInput(WaveConditionsInput input)
         {
-           if (input.HydraulicBoundaryLocation == null)
+            if (input.HydraulicBoundaryLocation == null)
             {
                 return Resources.WaveConditionsCalculationService_ValidateInput_No_hydraulic_boundary_location_selected;
             }

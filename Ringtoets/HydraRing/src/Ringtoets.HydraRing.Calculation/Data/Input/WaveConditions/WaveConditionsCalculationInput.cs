@@ -41,6 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// Creates a new instance of the <see cref="WaveConditionsCalculationInput"/> class.
         /// </summary>
         /// <param name="sectionId">The id of the section to use during the calculation.</param>
+        /// <param name="sectionNormal">The normal of the section to use during the calculation.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
@@ -50,6 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="b">The b-value to use during the calculation.</param>
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
         protected WaveConditionsCalculationInput(int sectionId,
+                                                 double sectionNormal,
                                                  long hydraulicBoundaryLocationId,
                                                  double norm,
                                                  IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -65,7 +67,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             this.waterLevel = waterLevel;
             this.a = a;
             this.b = b;
-            section = new HydraRingSection(sectionId, double.NaN, double.NaN);
+            section = new HydraRingSection(sectionId, double.NaN, sectionNormal);
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType

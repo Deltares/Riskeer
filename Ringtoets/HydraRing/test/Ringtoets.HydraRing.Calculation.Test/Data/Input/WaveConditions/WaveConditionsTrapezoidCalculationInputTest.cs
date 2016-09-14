@@ -37,6 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
         {
             // Setup
             const int sectionId = 111;
+            const double sectionNormal = 90;
             const int hydraulicBoundaryLocationId = 222;
             const int norm = 333;
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
@@ -49,6 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
 
             // Call
             var waveConditionsTrapezoidCalculationInput = new WaveConditionsTrapezoidCalculationInput(sectionId,
+                                                                                                      sectionNormal,
                                                                                                       hydraulicBoundaryLocationId,
                                                                                                       norm,
                                                                                                       forelandPoints,
@@ -70,6 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsTrapezoidCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(waveConditionsTrapezoidCalculationInput.Section);
             Assert.AreEqual(sectionId, waveConditionsTrapezoidCalculationInput.Section.SectionId);
+            Assert.AreEqual(sectionNormal, waveConditionsTrapezoidCalculationInput.Section.CrossSectionNormal);
             HydraRingVariableAssert.AreEqual(GetExpectedVariables(waterLevel, a, b, beta1, beta2).ToArray(), waveConditionsTrapezoidCalculationInput.Variables.ToArray());
             Assert.AreSame(forelandPoints, waveConditionsTrapezoidCalculationInput.ForelandsPoints);
             Assert.AreSame(breakWater, waveConditionsTrapezoidCalculationInput.BreakWater);
@@ -84,6 +87,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
         {
             // Call
             var waveConditionsTrapezoidCalculationInput = new WaveConditionsTrapezoidCalculationInput(111,
+                                                                                                      1.1,
                                                                                                       222,
                                                                                                       333,
                                                                                                       Enumerable.Empty<HydraRingForelandPoint>(),

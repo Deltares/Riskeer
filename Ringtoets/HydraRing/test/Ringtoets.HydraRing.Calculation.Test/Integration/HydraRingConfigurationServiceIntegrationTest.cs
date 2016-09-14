@@ -565,6 +565,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
                 new WaveConditionsCosineCalculationInput(1,
+                                                         56.23,
                                                          hydraulicBoundaryLocationId,
                                                          10000,
                                                          forelandPoints,
@@ -578,7 +579,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [HydraulicModels] VALUES (3, 1, 'WTI 2017');" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Sections];" + Environment.NewLine +
-                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
+                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 56.23, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 7, 114, 0, 0, 0, 0, 5, 15, 3.71901648545568);" + Environment.NewLine +
@@ -661,6 +662,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
                 new WaveConditionsTrapezoidCalculationInput(1,
+                                                            86.48,
                                                             hydraulicBoundaryLocationId,
                                                             10000,
                                                             forelandPoints,
@@ -675,7 +677,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [HydraulicModels] VALUES (3, 1, 'WTI 2017');" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Sections];" + Environment.NewLine +
-                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
+                                            "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 86.48, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
                                             "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 7, 114, 0, 0, 0, 0, 5, 15, 3.71901648545568);" + Environment.NewLine +

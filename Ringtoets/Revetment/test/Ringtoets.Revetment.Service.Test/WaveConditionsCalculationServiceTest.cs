@@ -332,6 +332,7 @@ namespace Ringtoets.Revetment.Service.Test
         private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
         {
             return new WaveConditionsCosineCalculationInput(1,
+                                                            input.Orientation,
                                                             input.HydraulicBoundaryLocation.Id,
                                                             norm,
                                                             useForeshore ?
@@ -370,6 +371,8 @@ namespace Ringtoets.Revetment.Service.Test
             }
 
             Assert.AreEqual(expectedInput.HydraulicBoundaryLocationId, actualInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(expectedInput.Section.SectionId, actualInput.Section.SectionId);
+            Assert.AreEqual(expectedInput.Section.CrossSectionNormal, actualInput.Section.CrossSectionNormal);
 
             HydraRingVariableAssert.AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
         }

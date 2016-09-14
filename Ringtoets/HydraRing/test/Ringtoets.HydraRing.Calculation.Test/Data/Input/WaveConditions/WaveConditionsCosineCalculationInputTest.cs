@@ -37,18 +37,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
         {
             // Setup
             const int sectionId = 111;
+            const double sectionNormal = 90;
             const int hydraulicBoundaryLocationId = 222;
             const int norm = 333;
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 4.4);
 
-            // Call
             const double waterLevel = 5.5;
             const double a = 6.6;
             const double b = 7.7;
             const double c = 8.8;
 
+            // Call
             var waveConditionsCosineCalculationInput = new WaveConditionsCosineCalculationInput(sectionId,
+                                                                                                sectionNormal,
                                                                                                 hydraulicBoundaryLocationId,
                                                                                                 norm,
                                                                                                 forelandPoints,
@@ -69,6 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsCosineCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(waveConditionsCosineCalculationInput.Section);
             Assert.AreEqual(sectionId, waveConditionsCosineCalculationInput.Section.SectionId);
+            Assert.AreEqual(sectionNormal, waveConditionsCosineCalculationInput.Section.CrossSectionNormal);
             HydraRingVariableAssert.AreEqual(GetExpectedVariables(waterLevel, a, b, c).ToArray(), waveConditionsCosineCalculationInput.Variables.ToArray());
             Assert.AreSame(forelandPoints, waveConditionsCosineCalculationInput.ForelandsPoints);
             Assert.AreSame(breakWater, waveConditionsCosineCalculationInput.BreakWater);
@@ -83,6 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
         {
             // Call
             var waveConditionsCosineCalculationInput = new WaveConditionsCosineCalculationInput(111,
+                                                                                                1.1,
                                                                                                 222,
                                                                                                 333,
                                                                                                 Enumerable.Empty<HydraRingForelandPoint>(),
