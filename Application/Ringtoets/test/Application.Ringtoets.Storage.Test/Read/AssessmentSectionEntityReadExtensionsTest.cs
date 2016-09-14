@@ -443,6 +443,45 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        [TestCase(true, TestName = "StabilityStoneCoverGroupsSet_ReturnsNewAssessmentSectionWithCalculationGroupStabilityStoneCover(true)")]
+        [TestCase(false, TestName = "StabilityStoneCoverGroupsSet_ReturnsNewAssessmentSectionWithCalculationGroupStabilityStoneCover(false)")]
+        public void Read_WithStabilityStoneCoverFailureMechanismWithWaveConditionsCalculationGroupsSet_ReturnsNewAssessmentSectionWithCalculationGroupsInFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int)FailureMechanismType.StabilityStoneRevetment,
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntity1 =
+                    {
+                        new CalculationGroupEntity
+                        {
+                            Order = 0
+                        },
+                        new CalculationGroupEntity
+                        {
+                            Order = 1
+                        }
+                    }
+                },
+                IsRelevant = Convert.ToByte(isRelevant)
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            IList<ICalculationBase> childCalculationGroups = section.StabilityStoneCover.WaveConditionsCalculationGroup.Children;
+            Assert.AreEqual(2, childCalculationGroups.Count);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Read_WithStandAloneFailureMechanismsSet_ReturnsNewAssessmentSectionWithFailureMechanismsSet(bool isRelevant)
@@ -456,7 +495,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var closingEntityComment = "16";
             var failingOfConstructionPointEntityComment = "22";
             var failingOfConstructionLengthwiseEntityComment = "23";
-            var stoneRevetmentEntityComment = "36";
             var waveImpactEntityComment = "77";
             var waterPressureEntityComment = "78";
             var grassCoverSlipoffOutwardsEntityComment = "134";
@@ -471,7 +509,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, closingEntityComment, FailureMechanismType.ReliabilityClosingOfStructure));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionPointEntityComment, FailureMechanismType.StrengthAndStabilityPointConstruction));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionLengthwiseEntityComment, FailureMechanismType.StrengthAndStabilityParallelConstruction));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, stoneRevetmentEntityComment, FailureMechanismType.StabilityStoneRevetment));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, waveImpactEntityComment, FailureMechanismType.WaveImpactOnAsphaltRevetment));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, waterPressureEntityComment, FailureMechanismType.WaterOverpressureAsphaltRevetment));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverSlipoffOutwardsEntityComment, FailureMechanismType.GrassRevetmentSlidingOutwards));
@@ -492,7 +529,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertFailureMechanismEqual(isRelevant, closingEntityComment, 2, section.ClosingStructure);
             AssertFailureMechanismEqual(isRelevant, failingOfConstructionPointEntityComment, 2, section.StrengthStabilityPointConstruction);
             AssertFailureMechanismEqual(isRelevant, failingOfConstructionLengthwiseEntityComment, 2, section.StrengthStabilityLengthwiseConstruction);
-            AssertFailureMechanismEqual(isRelevant, stoneRevetmentEntityComment, 2, section.StabilityStoneCover);
             AssertFailureMechanismEqual(isRelevant, waveImpactEntityComment, 2, section.WaveImpactAsphaltCover);
             AssertFailureMechanismEqual(isRelevant, waterPressureEntityComment, 2, section.WaterPressureAsphaltCover);
             AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffOutwardsEntityComment, 2, section.GrassCoverSlipOffOutwards);

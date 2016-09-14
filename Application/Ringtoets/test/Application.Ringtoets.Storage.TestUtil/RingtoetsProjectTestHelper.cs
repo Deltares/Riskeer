@@ -77,14 +77,17 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(grassCoverErosionOutwardsFailureMechanism);
             SetSectionResults(grassCoverErosionOutwardsFailureMechanism.SectionResults);
 
+            StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
+            ConfigureStabilityStoneCoverFailureMechanism(stabilityStoneCoverFailureMechanism);
+            AddSections(stabilityStoneCoverFailureMechanism);
+            SetSectionResults(stabilityStoneCoverFailureMechanism.SectionResults);
+
             AddSections(assessmentSection.MacrostabilityInwards);
             SetSectionResults(assessmentSection.MacrostabilityInwards.SectionResults);
             AddSections(assessmentSection.MacrostabilityOutwards);
             SetSectionResults(assessmentSection.MacrostabilityOutwards.SectionResults);
             AddSections(assessmentSection.Microstability);
             SetSectionResults(assessmentSection.Microstability.SectionResults);
-            AddSections(assessmentSection.StabilityStoneCover);
-            SetSectionResults(assessmentSection.StabilityStoneCover.SectionResults);
             AddSections(assessmentSection.WaveImpactAsphaltCover);
             SetSectionResults(assessmentSection.WaveImpactAsphaltCover.SectionResults);
             AddSections(assessmentSection.WaterPressureAsphaltCover);
@@ -362,6 +365,25 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             failureMechanism.GeneralInput.N = 15;
+        }
+
+        private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism)
+        {
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "SSC A"
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "SSC B",
+                Children =
+                {
+                    new CalculationGroup
+                    {
+                        Name = "SSC B 1",
+                    }
+                }
+            });
         }
 
         private static void SetSectionResults(IEnumerable<PipingFailureMechanismSectionResult> sectionResults)

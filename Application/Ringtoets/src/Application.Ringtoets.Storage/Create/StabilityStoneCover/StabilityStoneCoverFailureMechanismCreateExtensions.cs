@@ -43,6 +43,8 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
             var entity = mechanism.Create(FailureMechanismType.StabilityStoneRevetment, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
+            entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
+
             return entity;
         }
 

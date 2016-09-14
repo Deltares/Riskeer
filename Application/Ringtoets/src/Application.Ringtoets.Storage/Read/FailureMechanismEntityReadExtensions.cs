@@ -449,7 +449,6 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-
         private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                      CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
         {
@@ -459,6 +458,7 @@ namespace Application.Ringtoets.Storage.Read
                 targetRootCalculationGroup.Children.Add(calculationBase);
             }
         }
+
         #endregion
 
         #region Grass Cover Slip Off Inwards
@@ -608,6 +608,8 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStabilityStoneCoverMechanismSectionResults(failureMechanism, collector);
+
+            ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
         }
 
         private static void ReadStabilityStoneCoverMechanismSectionResults(this FailureMechanismEntity entity, StabilityStoneCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -618,6 +620,16 @@ namespace Application.Ringtoets.Storage.Read
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
+            }
+        }
+
+        private static void ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                     CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
+        {
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
             }
         }
 

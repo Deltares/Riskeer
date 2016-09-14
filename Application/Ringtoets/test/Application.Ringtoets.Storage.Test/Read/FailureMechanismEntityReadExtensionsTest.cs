@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -594,6 +595,50 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
+
+            ICalculationBase child1 = failureMechanism.WaveConditionsCalculationGroup.Children[0];
+            Assert.AreEqual("Child1", child1.Name);
+
+            ICalculationBase child2 = failureMechanism.WaveConditionsCalculationGroup.Children[1];
+            Assert.AreEqual("Child2", child2.Name);
+        }
+
+        [Test]
+        public void ReadAsStabilityStoneCoverFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewStabilityStoneCoverFailureMechanismWithCalculationGroupSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    IsEditable = 0,
+                    Name = "Berekeningen",
+                    Order = 0,
+                    CalculationGroupEntity1 =
+                    {
+                        new CalculationGroupEntity
+                        {
+                            IsEditable = 1,
+                            Name = "Child1",
+                            Order = 0
+                        },
+                        new CalculationGroupEntity
+                        {
+                            IsEditable = 1,
+                            Name = "Child2",
+                            Order = 1
+                        },
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityStoneCoverFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(2, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
