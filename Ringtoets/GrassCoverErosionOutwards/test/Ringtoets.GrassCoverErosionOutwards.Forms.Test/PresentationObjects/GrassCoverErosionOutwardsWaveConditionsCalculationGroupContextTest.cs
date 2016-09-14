@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
@@ -30,17 +33,49 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
     public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(null, failureMechanism);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("wrappedData", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculationGroup = new CalculationGroup();
 
             // Call
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup);
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<CalculationGroup>>(context);
+            Assert.IsInstanceOf<ICalculationContext<CalculationGroup, GrassCoverErosionOutwardsFailureMechanism>>(context);
+
             Assert.AreSame(calculationGroup, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
         }
     }
 }

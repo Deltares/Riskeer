@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -29,13 +29,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for <see cref="GrassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext : ObservableWrappedObjectContextBase<CalculationGroup>
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext : GrassCoverErosionOutwardsContext<CalculationGroup>,
+                                                                                  ICalculationContext<CalculationGroup, GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext"/> class.
         /// </summary>
         /// <param name="calculationGroup">The wrapped <see cref="CalculationGroup"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism the calculation group belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(CalculationGroup calculationGroup) : base(calculationGroup) { }
+        public GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(CalculationGroup calculationGroup,
+                                                                              GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+            : base(calculationGroup, failureMechanism) {}
     }
 }
