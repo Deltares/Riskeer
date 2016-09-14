@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithCollectorAndLayers_ReturnsSoilProfileEntityWithPropertiesAndSoilLayerEntitiesSet()
+        public void Create_WithCollectorAndGeometry_ReturnsFailureMechanismSectionWithGeometryStringSet()
         {
             // Setup
             string testName = "testName";

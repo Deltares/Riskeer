@@ -608,8 +608,17 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStabilityStoneCoverMechanismSectionResults(failureMechanism, collector);
+            entity.ReadStabilityStoneCoverForeshoreProfiles(failureMechanism, collector);
 
             ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
+        }
+
+        private static void ReadStabilityStoneCoverForeshoreProfiles(this FailureMechanismEntity entity, StabilityStoneCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
+        {
+            foreach (var foreshoreProfileEntity in entity.ForeshoreProfileEntities.OrderBy(fpe => fpe.Order))
+            {
+                failureMechanism.ForeshoreProfiles.Add(foreshoreProfileEntity.Read(collector));
+            }
         }
 
         private static void ReadStabilityStoneCoverMechanismSectionResults(this FailureMechanismEntity entity, StabilityStoneCoverFailureMechanism failureMechanism, ReadConversionCollector collector)

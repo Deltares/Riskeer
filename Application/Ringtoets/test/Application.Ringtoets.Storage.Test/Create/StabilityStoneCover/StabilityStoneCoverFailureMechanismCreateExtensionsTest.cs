@@ -25,8 +25,10 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.StabilityStoneCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
@@ -117,6 +119,33 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityStoneCoverSectionResultEntities).Count());
+        }
+
+        [Test]
+        public void Create_WithoutForeshoreProfiles_EmptyForeshoreProfilesEntities()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            // Call
+            var entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.IsEmpty(entity.ForeshoreProfileEntities);
+        }
+
+        [Test]
+        public void Create_WithForeshoreProfiles_ForeshoreProfilesEntitiesCreated()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+
+            // Call
+            var entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
         }
 
         [Test]

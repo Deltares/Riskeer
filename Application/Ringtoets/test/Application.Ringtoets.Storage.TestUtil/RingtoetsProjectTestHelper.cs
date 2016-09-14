@@ -369,6 +369,21 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism)
         {
+            failureMechanism.ForeshoreProfiles.Add(new ForeshoreProfile(
+                new Point2D(2,5), new []
+                {
+                    new Point2D(1, 6), 
+                    new Point2D(8, 5), 
+                }, new BreakWater(BreakWaterType.Caisson, 2.5), new ForeshoreProfile.ConstructionProperties
+                {
+                    Name = "FP",
+                    Orientation = 95.5,
+                    X0 = 22.1
+                }));
+
+            failureMechanism.ForeshoreProfiles.Add(new ForeshoreProfile(
+                new Point2D(2,5), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()));
+
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Name = "SSC A"

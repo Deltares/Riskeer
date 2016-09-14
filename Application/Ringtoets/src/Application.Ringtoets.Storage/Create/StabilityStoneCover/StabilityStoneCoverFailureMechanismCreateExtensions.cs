@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
@@ -42,6 +43,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
         {
             var entity = mechanism.Create(FailureMechanismType.StabilityStoneRevetment, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
 
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
@@ -57,6 +59,20 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
                 var sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 var section = registry.Get(failureMechanismSectionResult.Section);
                 section.StabilityStoneCoverSectionResultEntities.Add(sectionResultEntity);
+            }
+        }
+
+        private static void AddEntitiesForForeshoreProfiles(
+            IEnumerable<ForeshoreProfile> foreshoreProfiles,
+            FailureMechanismEntity entity,
+            PersistenceRegistry registry)
+        {
+            int i = 0;
+
+            foreach (var foreshoreProfile in foreshoreProfiles)
+            {
+                var foreshoreProfileEntity = foreshoreProfile.Create(registry, i++);
+                entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
         }
     }

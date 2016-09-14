@@ -77,6 +77,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\ForeshoreProfileCreateExtensionsTest.cs" />
+    <Compile Include="Read\ForeshoreProfileReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
     <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />

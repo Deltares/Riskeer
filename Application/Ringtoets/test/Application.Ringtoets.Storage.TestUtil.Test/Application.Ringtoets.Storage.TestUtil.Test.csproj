@@ -61,6 +61,8 @@
     <Compile Include="RingtoetsProjectTestHelperTest.cs" />
     <Compile Include="SqLiteDatabaseHelperTest.cs" />
     <Compile Include="TestFailureMechanismSectionTest.cs" />
+    <Compile Include="TestForeshoreProfile.cs" />
+    <Compile Include="TestForeshoreProfileTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
