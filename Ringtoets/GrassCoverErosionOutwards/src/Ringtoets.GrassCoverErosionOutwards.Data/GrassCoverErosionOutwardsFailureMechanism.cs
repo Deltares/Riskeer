@@ -25,6 +25,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
+using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
@@ -47,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             sectionResults = new List<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
             WaveConditionsCalculationGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
-            GrassCoverErosionOutwardsHydraulicBoundaryLocations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
+            HydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
             ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
         }
 
@@ -65,9 +66,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public GeneralGrassCoverErosionOutwardsInput GeneralInput { get; private set; }
 
         /// <summary>
-        /// Gets the grass cover erosion outwards hydraulic boundary locations.
+        /// Gets the hydraulic boundary locations.
         /// </summary>
-        public ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> GrassCoverErosionOutwardsHydraulicBoundaryLocations { get; private set; }
+        public ObservableList<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; private set; }
 
         /// <summary>
         /// Gets the container of all wave conditions calculations.

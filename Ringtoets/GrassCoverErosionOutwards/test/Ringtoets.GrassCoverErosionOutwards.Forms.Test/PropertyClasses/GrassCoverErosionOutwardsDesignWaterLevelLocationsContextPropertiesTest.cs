@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             RoundedDouble designWaterLevel = (RoundedDouble) 12.34;
-            var location = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "name", 1.0, 2.0))
+            var location = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0)
             {
                 DesignWaterLevel = designWaterLevel
             };
@@ -59,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call
             GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties
             {
-                Data = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+                Data = new ObservableList<HydraulicBoundaryLocation>
                 {
                     location
                 }

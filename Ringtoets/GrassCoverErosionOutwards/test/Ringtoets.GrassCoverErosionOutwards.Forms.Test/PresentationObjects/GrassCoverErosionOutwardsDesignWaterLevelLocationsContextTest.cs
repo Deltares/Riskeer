@@ -25,8 +25,8 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
@@ -40,13 +40,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
             var presentationObject = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>>(presentationObject);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
             Assert.AreSame(assessmentSectionMock, presentationObject.AssessmentSection);
             Assert.AreSame(locations, presentationObject.WrappedData);
             mockRepository.VerifyAll();
@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
             TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, null);

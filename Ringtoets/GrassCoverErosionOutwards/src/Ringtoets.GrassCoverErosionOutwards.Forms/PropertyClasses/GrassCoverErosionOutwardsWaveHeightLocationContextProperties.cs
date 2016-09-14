@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight;
+                return data.HydraulicBoundaryLocation.WaveHeight;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence).DisplayName;
+                return new EnumDisplayWrapper<CalculationConvergence>(data.HydraulicBoundaryLocation.WaveHeightCalculationConvergence).DisplayName;
             }
         }
     }

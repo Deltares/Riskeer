@@ -26,16 +26,16 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> with 
-    /// <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight"/> for properties panel.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with 
+    /// <see cref="HydraulicBoundaryLocation.WaveHeight"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveHeightLocationsContextProperties : ObjectProperties<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>
+    public class GrassCoverErosionOutwardsWaveHeightLocationsContextProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]

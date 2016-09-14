@@ -21,7 +21,6 @@
 
 using Core.Common.Base;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 
@@ -34,15 +33,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void DefaultConstructor_ExpectedValues()
         {
             // Setup
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
-                new HydraulicBoundaryLocation(1, "name", 2.0, 3.0));
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
+            var locations = new ObservableList<HydraulicBoundaryLocation>
             {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
+                hydraulicBoundaryLocation
             };
 
             // Call
-            var presentationObject = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var presentationObject = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, hydraulicBoundaryLocation);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>(presentationObject);

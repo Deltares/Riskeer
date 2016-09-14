@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
+                new ObservableList<HydraulicBoundaryLocation>(),
                 assessmentSectionMock);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -118,7 +118,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
+                new ObservableList<HydraulicBoundaryLocation>(),
                 assessmentSectionMock);
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
+                        new ObservableList<HydraulicBoundaryLocation>(),
                         assessmentSectionMock);
 
                     var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
@@ -187,7 +187,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
+                        new ObservableList<HydraulicBoundaryLocation>(),
                         assessmentSectionMock);
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
@@ -251,7 +251,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                        new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
+                        new ObservableList<HydraulicBoundaryLocation>(),
                         assessmentSectionMock);
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
@@ -311,9 +311,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             };
             assessmentSectionMock.HydraulicBoundaryDatabase = database;
             mockRepository.ReplayAll();
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var locations = new ObservableList<HydraulicBoundaryLocation>
             {
-                new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation)
+                hydraulicBoundaryLocation
             };
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(locations, assessmentSectionMock);
 
@@ -337,7 +337,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>(),
+                new ObservableList<HydraulicBoundaryLocation>(),
                 assessmentSectionMock);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -378,8 +378,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(location);
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = location;
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             }, assessmentSectionMock);
@@ -444,8 +444,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(location);
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = location;
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             }, assessmentSectionMock);
@@ -516,8 +516,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(location);
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = location;
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
             }, assessmentSectionMock);

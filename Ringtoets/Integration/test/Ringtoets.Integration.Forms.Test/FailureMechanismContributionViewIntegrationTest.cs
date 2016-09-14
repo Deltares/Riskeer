@@ -33,7 +33,6 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -98,12 +97,11 @@ namespace Ringtoets.Integration.Forms.Test
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation)
-            {
-                WaveHeight = waveHeight,
-                DesignWaterLevel = designWaterLevel
-            };
-            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight = waveHeight;
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel = designWaterLevel;
+
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
@@ -136,7 +134,7 @@ namespace Ringtoets.Integration.Forms.Test
             grassCoverErosionInwardsCalculation.Attach(calculationObserver);
             heightStructuresCalculation.Attach(calculationObserver);
 
-            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserver);
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserver);
 
             using (var form = new Form())
             using (var distributionView = new FailureMechanismContributionView
@@ -578,12 +576,16 @@ namespace Ringtoets.Integration.Forms.Test
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation)
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new HydraulicBoundaryLocation(hydraulicBoundaryLocation.Id,
+                                                                                                   hydraulicBoundaryLocation.Name,
+                                                                                                   hydraulicBoundaryLocation.Location.X,
+                                                                                                   hydraulicBoundaryLocation.Location.Y)
             {
                 WaveHeight = waveHeight,
                 DesignWaterLevel = designWaterLevel
             };
-            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             var mockRepository = new MockRepository();
             IObserver observerMock = mockRepository.StrictMock<IObserver>();
@@ -595,7 +597,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             assessmentSection.Attach(observerMock);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserverMock);
-            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
 
             using (var form = new Form())
             using (var distributionView = new FailureMechanismContributionView
@@ -658,8 +660,8 @@ namespace Ringtoets.Integration.Forms.Test
                 HydraulicBoundaryDatabase = hydraulicBoundaryDatabase
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
-            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(grassCoverErosionOutwardsHydraulicBoundaryLocation);
 
             var mockRepository = new MockRepository();
             IObserver observerMock = mockRepository.StrictMock<IObserver>();
@@ -670,7 +672,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             assessmentSection.Attach(observerMock);
             hydraulicBoundaryDatabase.Attach(hydraulicBoundaryDatabaseObserverMock);
-            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
 
             using (var form = new Form())
             using (var distributionView = new FailureMechanismContributionView
@@ -714,7 +716,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             assessmentSection.Attach(observerMock);
-            assessmentSection.GrassCoverErosionOutwards.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsObserverMock);
 
             using (var form = new Form())
             using (var distributionView = new FailureMechanismContributionView

@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 
@@ -36,40 +35,39 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_NullHydraulicBoundaryLocation_ThrowsArgumentNullException()
         {
             // Setup
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
             TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationContext(locations, null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("grassCoverErosionOutwardsHydraulicBoundaryLocation", paramName);
+            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }
 
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
-                new HydraulicBoundaryLocation(1, "name", 2.0, 3.0));
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2.0, 3.0);
+            var locations = new ObservableList<HydraulicBoundaryLocation>
             {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
+                hydraulicBoundaryLocation
             };
 
             // Call
-            var presentationObject = new TestGrassCoverErosionOutwardsLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var presentationObject = new TestGrassCoverErosionOutwardsLocationContext(locations, hydraulicBoundaryLocation);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>>(presentationObject);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>>(presentationObject);
             Assert.AreSame(locations, presentationObject.WrappedData);
-            Assert.AreSame(grassCoverErosionOutwardsHydraulicBoundaryLocation, presentationObject.GrassCoverErosionOutwardsHydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, presentationObject.HydraulicBoundaryLocation);
         }
 
         private class TestGrassCoverErosionOutwardsLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
         {
-            public TestGrassCoverErosionOutwardsLocationContext(ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> observable,
-                                                                GrassCoverErosionOutwardsHydraulicBoundaryLocation location)
+            public TestGrassCoverErosionOutwardsLocationContext(ObservableList<HydraulicBoundaryLocation> observable,
+                                                                HydraulicBoundaryLocation location)
                 : base(observable, location) {}
         }
     }

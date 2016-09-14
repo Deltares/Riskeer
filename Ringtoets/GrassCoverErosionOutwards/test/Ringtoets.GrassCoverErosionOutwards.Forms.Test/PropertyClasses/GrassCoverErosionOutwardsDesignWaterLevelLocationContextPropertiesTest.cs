@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.HydraRing.Data;
@@ -59,17 +58,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const double y = 890.0;
             const string name = "name";
             var designWaterLevel = (RoundedDouble) 1234;
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
-                new HydraulicBoundaryLocation(id, name, x, y))
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
                 DesignWaterLevel = designWaterLevel,
                 DesignWaterLevelCalculationConvergence = convergenceReached
             };
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var locations = new ObservableList<HydraulicBoundaryLocation>
             {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
+                hydraulicBoundaryLocation
             };
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, hydraulicBoundaryLocation);
 
             // Call
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
@@ -94,13 +92,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const double x = 567.0;
             const double y = 890.0;
             const string name = "name";
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
-                new HydraulicBoundaryLocation(id, name, x, y));
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+            var locations = new ObservableList<HydraulicBoundaryLocation>
             {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
+                hydraulicBoundaryLocation
             };
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, hydraulicBoundaryLocation);
 
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
             {

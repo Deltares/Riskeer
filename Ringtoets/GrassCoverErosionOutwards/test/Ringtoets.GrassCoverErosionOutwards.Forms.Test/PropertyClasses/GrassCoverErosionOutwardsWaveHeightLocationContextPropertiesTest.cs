@@ -27,7 +27,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.HydraRing.Data;
@@ -60,17 +59,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const double y = 890.0;
             const string name = "name";
             var waveHeight = (RoundedDouble) 1234;
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
-                new HydraulicBoundaryLocation(id, name, x, y))
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y)
             {
                 WaveHeight = waveHeight,
                 WaveHeightCalculationConvergence = convergenceReached
             };
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var locations = new ObservableList<HydraulicBoundaryLocation>
             {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
+                hydraulicBoundaryLocation
             };
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, hydraulicBoundaryLocation);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
@@ -91,13 +89,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(
-                new HydraulicBoundaryLocation(1, "name", 567.0, 890.0));
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 567.0, 890.0);
+            var locations = new ObservableList<HydraulicBoundaryLocation>
             {
-                grassCoverErosionOutwardsHydraulicBoundaryLocation
+                hydraulicBoundaryLocation
             };
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, grassCoverErosionOutwardsHydraulicBoundaryLocation);
+            var context = new GrassCoverErosionOutwardsWaveHeightLocationContext(locations, hydraulicBoundaryLocation);
 
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationContextProperties
             {

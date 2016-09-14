@@ -146,7 +146,7 @@ namespace Ringtoets.Integration.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            var locationsAffected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
+            var locationsAffected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(failureMechanism.HydraulicBoundaryLocations);
 
             foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations
                                                                                .Where(hydraulicBoundaryLocation =>

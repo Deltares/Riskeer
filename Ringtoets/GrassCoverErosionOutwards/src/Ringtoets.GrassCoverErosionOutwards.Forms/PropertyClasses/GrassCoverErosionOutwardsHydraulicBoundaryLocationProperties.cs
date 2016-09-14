@@ -23,14 +23,14 @@ using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationProperties : ObjectProperties<GrassCoverErosionOutwardsHydraulicBoundaryLocationContext>
@@ -42,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.Id;
+                return data.HydraulicBoundaryLocation.Id;
             }
         }
 
@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.Name;
+                return data.HydraulicBoundaryLocation.Name;
             }
         }
 
@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.GrassCoverErosionOutwardsHydraulicBoundaryLocation.Location;
+                return data.HydraulicBoundaryLocation.Location;
             }
         }
 

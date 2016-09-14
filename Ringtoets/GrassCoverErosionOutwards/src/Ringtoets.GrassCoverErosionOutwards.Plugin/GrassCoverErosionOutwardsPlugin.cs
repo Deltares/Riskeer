@@ -42,6 +42,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
+using Ringtoets.HydraRing.Data;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -144,9 +145,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new ExportInfo<HydraulicBoundariesGroupContext>
             {
                 CreateFileExporter = (context, filePath) =>
-                                     new HydraulicBoundaryLocationsExporter(context.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations,
+                                     new HydraulicBoundaryLocationsExporter(context.WrappedData.HydraulicBoundaryLocations,
                                                                             filePath, Resources.DesignWaterLevel_Description, Resources.WaveHeight_Description),
-                IsEnabled = context => context.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Count > 0,
+                IsEnabled = context => context.WrappedData.HydraulicBoundaryLocations.Count > 0,
                 FileFilter = RingtoetsCommonIoResources.DataTypeDisplayName_shape_file_filter
             };
         }
@@ -262,7 +263,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         private object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext hydraulicBoundariesGroupContext)
         {
             IAssessmentSection assessmentSection = hydraulicBoundariesGroupContext.AssessmentSection;
-            ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations = hydraulicBoundariesGroupContext.WrappedData.GrassCoverErosionOutwardsHydraulicBoundaryLocations;
+            ObservableList<HydraulicBoundaryLocation> locations = hydraulicBoundariesGroupContext.WrappedData.HydraulicBoundaryLocations;
             return new object[]
             {
                 new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection),

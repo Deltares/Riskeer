@@ -313,7 +313,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                                                                                               grassCoverErosionOutwardsFailureMechanism);
             if (hydraulicBoundaryLocationAffected)
             {
-                grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
+                grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.NotifyObservers();
 
                 assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
                 log.Info(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
@@ -323,10 +323,10 @@ namespace Ringtoets.Integration.Forms.Views
         private void ClearGrassCoverErosionOutwardsHydraulicBoundaryLocations()
         {
             var grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().First();
-            var locationsAffected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
+            var locationsAffected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
             if (locationsAffected)
             {
-                grassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
+                grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.NotifyObservers();
                 log.Info(RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
             }
         }

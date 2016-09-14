@@ -29,33 +29,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of a <see cref="GrassCoverErosionOutwardsFailureMechanism"/> 
-    /// specific <see cref="HydraulicBoundaryLocation"/>.
+    /// specific <see cref="HydraRing.Data.HydraulicBoundaryLocation"/>.
     /// </summary>
     public abstract class GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
-        : ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>
+        : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/>.
         /// </summary>
         /// <param name="wrappedList">The <see cref="ObservableList{T}"/> which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> 
         /// belongs to.</param>
-        /// <param name="grassCoverErosionOutwardsHydraulicBoundaryLocation">The <see cref="Ringtoets.GrassCoverErosionOutwards.Data.GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraRing.Data.HydraulicBoundaryLocation"/> 
         /// which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> wrappedList,
-                                                                            GrassCoverErosionOutwardsHydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation)
+        protected GrassCoverErosionOutwardsHydraulicBoundaryLocationContext(ObservableList<HydraulicBoundaryLocation> wrappedList,
+                                                                            HydraulicBoundaryLocation hydraulicBoundaryLocation)
             : base(wrappedList)
         {
-            if (grassCoverErosionOutwardsHydraulicBoundaryLocation == null)
+            if (hydraulicBoundaryLocation == null)
             {
-                throw new ArgumentNullException("grassCoverErosionOutwardsHydraulicBoundaryLocation");
+                throw new ArgumentNullException("hydraulicBoundaryLocation");
             }
-            GrassCoverErosionOutwardsHydraulicBoundaryLocation = grassCoverErosionOutwardsHydraulicBoundaryLocation;
+            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
         }
 
         /// <summary>
-        /// Gets the <see cref="Ringtoets.GrassCoverErosionOutwards.Data.GrassCoverErosionOutwardsHydraulicBoundaryLocation"/>.
+        /// Gets the <see cref="HydraRing.Data.HydraulicBoundaryLocation"/>.
         /// </summary>
-        public GrassCoverErosionOutwardsHydraulicBoundaryLocation GrassCoverErosionOutwardsHydraulicBoundaryLocation { get; private set; }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
     }
 }

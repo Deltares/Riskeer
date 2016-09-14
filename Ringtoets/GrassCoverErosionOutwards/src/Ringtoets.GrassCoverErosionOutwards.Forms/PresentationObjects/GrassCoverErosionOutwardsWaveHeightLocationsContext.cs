@@ -24,28 +24,28 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an enumeration of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
-    /// with <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight"/> for a given norm.
+    /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocation"/> 
+    /// with <see cref="HydraulicBoundaryLocation.WaveHeight"/> for a given norm.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveHeightLocationsContext : ObservableWrappedObjectContextBase<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>
+    public class GrassCoverErosionOutwardsWaveHeightLocationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightLocationsContext"/>.
         /// </summary>
-        /// <param name="grassCoverErosionOutwardsHydraulicBoundaryLocations">The grass cover erosion outwards hydraulic boundary locations
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
         /// for this context.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to which the hydraulic boundary locations
         /// are assigned.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> or 
-        /// <paramref name="grassCoverErosionOutwardsHydraulicBoundaryLocations"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightLocationsContext(
-            ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations, 
-            IAssessmentSection assessmentSection)
-            : base(grassCoverErosionOutwardsHydraulicBoundaryLocations)
+        /// <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
+        public GrassCoverErosionOutwardsWaveHeightLocationsContext(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                   IAssessmentSection assessmentSection)
+            : base(hydraulicBoundaryLocations)
         {
             if (assessmentSection == null)
             {

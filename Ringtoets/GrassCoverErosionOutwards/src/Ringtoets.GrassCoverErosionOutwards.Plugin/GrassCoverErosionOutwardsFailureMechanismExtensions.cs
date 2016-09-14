@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Extensions;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 
@@ -30,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
     public static class GrassCoverErosionOutwardsFailureMechanismExtensions
     {
         /// <summary>
-        /// Sets <see cref="GrassCoverErosionOutwardsFailureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations"/> 
+        /// Sets <see cref="GrassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations"/> 
         /// based upon the <paramref name="hydraulicBoundaryDatabase"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to update.</param>
@@ -38,16 +39,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         public static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(this GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                                   HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Clear();
+            failureMechanism.HydraulicBoundaryLocations.Clear();
             if (hydraulicBoundaryDatabase == null)
             {
                 return;
             }
 
-            foreach (var hydraulicBoundaryLocation in hydraulicBoundaryDatabase.Locations)
-            {
-                failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Add(new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation));
-            }
+            hydraulicBoundaryDatabase.Locations.ForEachElementDo(location => failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(location.Id,
+                                                                                                                                                           location.Name,
+                                                                                                                                                           location.Location.X,
+                                                                                                                                                           location.Location.Y)));
         }
     }
 }

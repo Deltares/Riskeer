@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// <param name="locations">The locations for which the output needs to be cleared.</param>
         /// <returns><c>true</c> when one or multiple locations are affected by clearing the output. <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public static bool ClearHydraulicBoundaryLocationOutput(ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> locations)
+        public static bool ClearHydraulicBoundaryLocationOutput(ObservableList<HydraulicBoundaryLocation> locations)
         {
             if (locations == null)
             {

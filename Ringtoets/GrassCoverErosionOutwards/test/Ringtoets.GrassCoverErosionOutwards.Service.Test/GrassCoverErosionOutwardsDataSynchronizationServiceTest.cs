@@ -81,13 +81,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_LocationWithData_ClearsDataAndReturnsTrue(double designWaterLevel, double waveHeight)
         {
             // Setup
-            var location = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, string.Empty, 0, 0))
+            var location = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
                 DesignWaterLevel = (RoundedDouble) designWaterLevel,
                 WaveHeight = (RoundedDouble) waveHeight
             };
 
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var locations = new ObservableList<HydraulicBoundaryLocation>
             {
                 location
             };
@@ -107,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryDatabaseWithoutLocations_ReturnsFalse()
         {
             // Setup
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>();
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
             bool affected = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(locations);
@@ -120,9 +120,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_LocationWithoutWaveHeightAndDesignWaterLevel_ReturnsFalse()
         {
             // Setup
-            var locations = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+            var locations = new ObservableList<HydraulicBoundaryLocation>
             {
-                new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, string.Empty, 0, 0))
+                new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             };
 
             // Call

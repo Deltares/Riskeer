@@ -62,8 +62,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 
         private void ClearHydraulicBoundaryLocationOutput()
         {
-            GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(data.GrassCoverErosionOutwardsHydraulicBoundaryLocations);
-            data.GrassCoverErosionOutwardsHydraulicBoundaryLocations.NotifyObservers();
+            GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(data.HydraulicBoundaryLocations);
+            data.HydraulicBoundaryLocations.NotifyObservers();
             log.Info(Resources.GrassCoverErosionOutwards_NormValueChanged_Waveheight_and_design_water_level_results_cleared);
         }
 

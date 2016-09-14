@@ -21,13 +21,13 @@
 
 using System;
 using Core.Common.Base;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
-    /// with <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel"/> for a given norm.
+    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocation"/> 
+    /// with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/> for a given norm.
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationContext : GrassCoverErosionOutwardsHydraulicBoundaryLocationContext
     {
@@ -36,11 +36,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedList">The <see cref="ObservableList{T}"/> which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> 
         /// belongs to.</param>
-        /// <param name="grassCoverErosionOutwardsHydraulicBoundaryLocation">The <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
+        /// <param name="hydraulicBoundaryLocation">The <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocation"/> 
         /// which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationContext(ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation> wrappedList,
-                                                                  GrassCoverErosionOutwardsHydraulicBoundaryLocation grassCoverErosionOutwardsHydraulicBoundaryLocation)
-            : base(wrappedList, grassCoverErosionOutwardsHydraulicBoundaryLocation) {}
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationContext(ObservableList<HydraulicBoundaryLocation> wrappedList,
+                                                                  HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            : base(wrappedList, hydraulicBoundaryLocation) {}
     }
 }

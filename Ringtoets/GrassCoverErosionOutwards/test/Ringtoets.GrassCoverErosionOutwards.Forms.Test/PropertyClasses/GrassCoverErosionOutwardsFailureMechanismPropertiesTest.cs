@@ -140,8 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var hydraulicLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicLocation)
+            var hydraulicLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)           
             {
                 DesignWaterLevel = (RoundedDouble)3.8,
                 WaveHeight = (RoundedDouble)5.2
@@ -149,13 +148,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                GrassCoverErosionOutwardsHydraulicBoundaryLocations =
+                HydraulicBoundaryLocations =
                 {
-                    grassCoverErosionOutwardsHydraulicBoundaryLocation
+                    hydraulicLocation
                 }
             };
 
-            failureMechanism.GrassCoverErosionOutwardsHydraulicBoundaryLocations.Attach(observerMock);
+            failureMechanism.HydraulicBoundaryLocations.Attach(observerMock);
 
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties
             {
@@ -170,10 +169,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             TestHelper.AssertLogMessageIsGenerated(action, expectedMessage);
             Assert.AreEqual(value, properties.LengthEffect);
             Assert.AreEqual(value, failureMechanism.GeneralInput.N);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
+            Assert.IsNaN(hydraulicLocation.DesignWaterLevel);
+            Assert.IsNaN(hydraulicLocation.WaveHeight);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
         }
 

@@ -27,7 +27,6 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.HydraRing.Data;
 
@@ -43,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationsContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -52,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             RoundedDouble waveHeight = (RoundedDouble) 12.34;
-            var location = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(new HydraulicBoundaryLocation(1, "name", 1.0, 2.0))
+            var location = new HydraulicBoundaryLocation(1, "name", 1.0, 2.0)
             {
                 WaveHeight = waveHeight,
                 WaveHeightCalculationConvergence = CalculationConvergence.CalculatedNotConverged
@@ -61,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call
             var properties = new GrassCoverErosionOutwardsWaveHeightLocationsContextProperties
             {
-                Data = new ObservableList<GrassCoverErosionOutwardsHydraulicBoundaryLocation>
+                Data = new ObservableList<HydraulicBoundaryLocation>
                 {
                     location
                 }

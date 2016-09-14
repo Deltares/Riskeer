@@ -562,15 +562,13 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation)
-            {
-                DesignWaterLevel = (RoundedDouble) designWaterLevel,
-                WaveHeight = (RoundedDouble) waveHeight
-            };
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) designWaterLevel;
+            grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight = (RoundedDouble) waveHeight;
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                GrassCoverErosionOutwardsHydraulicBoundaryLocations =
+                HydraulicBoundaryLocations =
                 {
                     grassCoverErosionOutwardsHydraulicBoundaryLocation
                 }
@@ -600,12 +598,11 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                GrassCoverErosionOutwardsHydraulicBoundaryLocations =
+                HydraulicBoundaryLocations =
                 {
-                    grassCoverErosionOutwardsHydraulicBoundaryLocation
+                    hydraulicBoundaryLocation
                 }
             };
 
@@ -635,15 +632,11 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            var grassCoverErosionOutwardsHydraulicBoundaryLocation = new GrassCoverErosionOutwardsHydraulicBoundaryLocation(hydraulicBoundaryLocation)
-            {
-                DesignWaterLevel = (RoundedDouble)designWaterLevel,
-                WaveHeight = (RoundedDouble)waveHeight
-            };
+            var grassCoverErosionOutwardsHydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                GrassCoverErosionOutwardsHydraulicBoundaryLocations =
+                HydraulicBoundaryLocations =
                 {
                     grassCoverErosionOutwardsHydraulicBoundaryLocation
                 }
