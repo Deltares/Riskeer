@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -40,6 +41,205 @@ namespace Ringtoets.Revetment.Service.Test
     [TestFixture]
     public class WaveConditionsCalculationServiceTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+        [Test]
+        public void Validate_NoHydraulicBoundaryDatabase_ReturnsFalseAndLogsValidationError()
+        {
+            // Setup 
+            string name = "test";
+            bool isValid = false;
+
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, null, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_InvalidHydraulicBoundaryDatabaseFileLocation_ReturnsFalseAndLogsError()
+        {
+            // Setup 
+            string name = "test";
+            bool isValid = false;
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "NonExisting.sqlite")
+            };
+            
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, database, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_NoHydraulicBoundaryLocation_ReturnsFalseAndLogsValidationError()
+        {
+            // Setup 
+            string name = "test";
+            bool isValid = false;
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            var input = new WaveConditionsInput();
+
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_NoHydraulicBoundaryLocationDesignWaterLevel_ReturnsFalseAndLogsValidationError()
+        {
+            // Setup 
+            string name = "test";
+            bool isValid = false;
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            var input = new WaveConditionsInput()
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+            };
+
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        [TestCase(double.NaN, 10.0, 12.0)]
+        [TestCase(1.0, double.NaN, 12.0)]
+        public void Validate_NoWaterLevels_ReturnsFalseAndLogsValidationError(double lowerBoundaryRevetments, double upperBoundaryRevetments, double designWaterLevel)
+        {
+            // Setup
+            string name = "test";
+            bool isValid = false;
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble)designWaterLevel
+                },
+                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetments,
+                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetments,
+                StepSize = WaveConditionsInputStepSize.One,
+                LowerBoundaryWaterLevels = (RoundedDouble)1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble)10.0
+            };
+            
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_AllInputConditionsSatisfied_ReturnsTrueAndLogsValidationMessages()
+        {
+            // Setup 
+            string name = "test";
+            bool isValid = false;
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble)12.0
+                },
+                LowerBoundaryRevetment = (RoundedDouble)1.0,
+                UpperBoundaryRevetment = (RoundedDouble)10.0,
+                StepSize = WaveConditionsInputStepSize.One,
+                LowerBoundaryWaterLevels = (RoundedDouble)1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble)10.0
+            };
+
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+            });
+
+            Assert.IsTrue(isValid);
+        }
+
         [Test]
         [Combinatorial]
         public void Calculate_Always_StartsCalculationWithRightParameters(

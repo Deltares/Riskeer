@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.Service.TestUtil
@@ -52,7 +53,7 @@ namespace Ringtoets.Revetment.Service.TestUtil
             }
         }
 
-        public bool Validate(string name)
+        public bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name)
         {
             return true;
         }

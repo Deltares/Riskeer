@@ -643,8 +643,21 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Name = "A"
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
+                    {
+                        DesignWaterLevel = (RoundedDouble) 12.0
+                    },
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+                }
             };
+
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
@@ -689,6 +702,83 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                         Assert.AreEqual(2, messages.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenInValidCalculation_WhenValidating_ThenCalculationFailsValidation()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+            assessmentSection.Stub(a => a.Id).Return("someId");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+
+                    // When
+                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
+                    Action call = () => validateMenuItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        var messages = logMessages.ToArray();
+                        Assert.AreEqual(3, messages.Length);
+                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
+                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[2]);
                     });
                 }
             }
@@ -1003,13 +1093,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble)4,
-                    UpperBoundaryRevetment = (RoundedDouble)10,
-                    UpperBoundaryWaterLevels = (RoundedDouble)8,
-                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
             return calculation;
         }
 

@@ -51,13 +51,13 @@ namespace Ringtoets.Piping.Service
             var inputValidationResults = ValidateInput(calculation.InputParameters);
             if (inputValidationResults.Count > 0)
             {
-                CalculationServiceHelper.LogMessagesAsError(Resources.Error_in_piping_validation_0, inputValidationResults.ToArray());
+                CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, inputValidationResults.ToArray());
                 CalculationServiceHelper.LogValidationEndTime(calculation.Name);
                 return false;
             }
 
             var validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters), PipingSubCalculatorFactory.Instance).Validate();
-            CalculationServiceHelper.LogMessagesAsError(Resources.Error_in_piping_validation_0, validationResults.ToArray());
+            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, validationResults.ToArray());
 
             CalculationServiceHelper.LogValidationEndTime(calculation.Name);
 

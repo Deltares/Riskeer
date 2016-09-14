@@ -714,9 +714,25 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
                 new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
 
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
+                    {
+                        DesignWaterLevel = (RoundedDouble)12.0
+                    },
+                    LowerBoundaryRevetment = (RoundedDouble)1.0,
+                    UpperBoundaryRevetment = (RoundedDouble)10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble)1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                }
+            };
+
             var group = new CalculationGroup();
-            group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
-            group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+            group.Children.Add(calculation);
+            group.Children.Add(calculation);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -1335,7 +1351,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
             }
-                }
+        }
 
         [Test]
         public void GivenDialogGenerateCalculationButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationGroupNotUpdated()
@@ -1542,13 +1558,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble)4,
-                    UpperBoundaryRevetment = (RoundedDouble)10,
-                    UpperBoundaryWaterLevels = (RoundedDouble)8,
-                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
             return calculation;
         }
 
