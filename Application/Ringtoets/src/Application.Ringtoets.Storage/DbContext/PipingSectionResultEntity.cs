@@ -31,7 +31,8 @@
 namespace Application.Ringtoets.Storage.DbContext
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class PipingSectionResultEntity
     {
         public long PipingSectionResultEntityId { get; set; }

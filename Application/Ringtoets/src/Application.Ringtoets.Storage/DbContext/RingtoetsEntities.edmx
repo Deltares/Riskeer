@@ -155,8 +155,8 @@
             <PropertyRef Name="GrassCoverErosionOutwardsFailureMechanismMetaEntityId" />
           </Key>
           <Property Name="GrassCoverErosionOutwardsFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FailureMechanismEntityId" Type="integer" />
-          <Property Name="N" Type="tinyint" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="N" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsSectionResultEntity">
           <Key>
@@ -283,7 +283,7 @@
             <PropertyRef Name="PipingFailureMechanismMetaEntityId" />
           </Key>
           <Property Name="PipingFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FailureMechanismEntityId" Type="integer" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="A" Type="real" Nullable="false" />
           <Property Name="UpliftCriticalSafetyFactor" Type="real" Nullable="false" />
         </EntityType>
@@ -672,7 +672,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0">
-          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="0..1" />
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Type="Self.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismEntity">
@@ -852,7 +852,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PipingFailureMechanismMetaEntity_0_0">
-          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="0..1" />
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="PipingFailureMechanismMetaEntity" Type="Self.PipingFailureMechanismMetaEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismEntity">
@@ -1678,8 +1678,8 @@
             <PropertyRef Name="GrassCoverErosionOutwardsFailureMechanismMetaEntityId" />
           </Key>
           <Property Name="GrassCoverErosionOutwardsFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismEntityId" Type="Int64" />
-          <Property Name="N" Type="Byte" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="N" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" FromRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsSectionResultEntity">
@@ -1824,7 +1824,7 @@
             <PropertyRef Name="PipingFailureMechanismMetaEntityId" />
           </Key>
           <Property Name="PipingFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismEntityId" Type="Int64" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="A" Type="Double" Nullable="false" />
           <Property Name="UpliftCriticalSafetyFactor" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="PipingFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
@@ -2200,7 +2200,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Role="GrassCoverErosionOutwardsFailureMechanismMetaEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismEntity">
@@ -2212,7 +2212,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PipingFailureMechanismMetaEntity_0_0">
-          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" Role="PipingFailureMechanismMetaEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismEntity">

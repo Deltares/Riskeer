@@ -20,47 +20,48 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
+namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 {
     [TestFixture]
-    public class GeneralGrassCoverErosionOutwardsInputCreateExtensionsTest
+    public class GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
+        public void Read_GeneralInputIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var input = new GeneralGrassCoverErosionOutwardsInput();
+            var entity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity();
 
             // Call
-            TestDelegate call = () => input.Create(null);
+            TestDelegate call = () => entity.Read(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
+            Assert.AreEqual("input", paramName);
         }
 
         [Test]
-        public void Create_ValidGeneralInput_ReturnEntity()
+        public void Read_ValidEntity_ReturnGeneralGrassCoverErosionOutwardsInput()
         {
             // Setup
-            var n = new Random(21).Next(0, 20);
-            var input = new GeneralGrassCoverErosionOutwardsInput
+            var random = new Random(21);
+            var n = random.Next(1, 20);
+
+            var entity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
             {
                 N = n
             };
-            var registry = new PersistenceRegistry();
+            var inputToUpdate = new GeneralGrassCoverErosionOutwardsInput();
 
             // Call
-            GrassCoverErosionOutwardsFailureMechanismMetaEntity entity = input.Create(registry);
+            entity.Read(inputToUpdate);
 
             // Assert
-            Assert.AreEqual(n, entity.N);
+            Assert.AreEqual(n, inputToUpdate.N);
         }
     }
 }

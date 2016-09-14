@@ -21,15 +21,14 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
 {
     /// <summary>
-    /// Extension methods for <see cref="GeneralGrassCoverErosionInwardsInput"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="GeneralGrassCoverErosionOutwardsInput"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary> 
-    internal static class GeneralGrassCoverErosionInwardsInputCreateExtensions
+    internal static class GeneralGrassCoverErosionOutwardsInputCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
@@ -47,7 +46,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
 
             var entity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
             {
-                N = Convert.ToByte(generalInput.N)
+                N = generalInput.N
             };
             return entity;
         }

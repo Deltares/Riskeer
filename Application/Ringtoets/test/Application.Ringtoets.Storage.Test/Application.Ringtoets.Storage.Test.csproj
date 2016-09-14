@@ -76,7 +76,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionInwardsInputCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsOutputCreateExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
     <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />
     <Compile Include="Serializers\RoughnessPointXmlSerializerTest.cs" />
@@ -166,7 +167,7 @@
     <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />

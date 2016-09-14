@@ -31,7 +31,8 @@
 namespace Application.Ringtoets.Storage.DbContext
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class WaterPressureAsphaltCoverSectionResultEntity
     {
         public long WaterPressureAsphaltCoverSectionResultEntityId { get; set; }

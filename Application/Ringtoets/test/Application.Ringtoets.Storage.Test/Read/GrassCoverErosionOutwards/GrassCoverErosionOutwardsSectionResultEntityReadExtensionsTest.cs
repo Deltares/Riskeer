@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest
