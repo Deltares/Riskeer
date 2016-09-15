@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -30,6 +31,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
+using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 {
@@ -115,6 +117,159 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.CalculationIcon, icon);
+        }
+
+        [Test]
+        public void EnsureVisibleOnCreate_Always_ReturnTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            bool shouldBeVisible = info.EnsureVisibleOnCreate(null, null);
+
+            // Assert
+            Assert.IsTrue(shouldBeVisible);
+        }
+
+        [Test]
+        public void CanRename_Always_ReturnTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            bool canRename = info.CanRename(null, null);
+
+            // Assert
+            Assert.IsTrue(canRename);
+        }
+
+        [Test]
+        public void OnNodeRenamed_ChangeNameOfCalculationAndNotifyObservers()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            calculation.Attach(observer);
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+            const string name = "the new name!";
+
+            // Call
+            info.OnNodeRenamed(context, name);
+
+            // Assert
+            Assert.AreEqual(name, calculation.Name);
+        }
+
+        [Test]
+        public void CanRemove_CalculationInParent_ReturnTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            // Call
+            bool canRemoveCalculation = info.CanRemove(context, parentContext);
+
+            // Assert
+            Assert.IsTrue(canRemoveCalculation);
+        }
+
+        [Test]
+        public void CanRemove_CalculationNotInParent_ReturnTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            // Call
+            bool canRemoveCalculation = info.CanRemove(context, parentContext);
+
+            // Assert
+            Assert.IsFalse(canRemoveCalculation);
+        }
+
+        [Test]
+        public void OnNodeRemoved_CalculationInParent_ReturnTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(context, parentContext);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, calculation);
+        }
+
+        [Test]
+        public void CanDrag_Always_ReturnTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            bool canDrag = info.CanDrag(null, null);
+
+            // Assert
+            Assert.IsTrue(canDrag);
         }
     }
 }

@@ -115,7 +115,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 RingtoetsGrassCoverErosionOutwardsFormsResources.CalculationIcon,
                 null,
                 null,
-                null);
+                WaveConditionsCalculationContextOnNodeRemoved);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>>
             {
@@ -570,6 +570,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
 
             parentGroupContext.NotifyObservers();
+        }
+
+        #endregion
+
+        #region GrassCoverErosionOutwardsWaveConditionsCalculationContext TreeNodeInfo
+
+        private void WaveConditionsCalculationContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
+                                                                   object parentNodeData)
+        {
+            var calculationGroupContext = parentNodeData as GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
+            if (calculationGroupContext != null)
+            {
+                bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
+                if (successfullyRemovedData)
+                {
+                    calculationGroupContext.NotifyObservers();
+                }
+            }
         }
 
         #endregion
