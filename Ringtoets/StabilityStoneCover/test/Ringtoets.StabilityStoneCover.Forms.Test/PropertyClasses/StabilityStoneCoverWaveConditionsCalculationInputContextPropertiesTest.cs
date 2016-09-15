@@ -385,7 +385,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.IsFalse(orientationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van het voorlandprofiel ten opzichte van het noorden.", orientationProperty.Description);
+            Assert.AreEqual("Oriëntatie van de dijknormaal ten opzichte van het noorden.", orientationProperty.Description);
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
             Assert.IsNotNull(breakWaterProperty);

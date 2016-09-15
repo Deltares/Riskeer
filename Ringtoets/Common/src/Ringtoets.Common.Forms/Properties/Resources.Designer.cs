@@ -1282,7 +1282,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oriëntatie van het voorlandprofiel ten opzichte van het noorden..
+        ///   Looks up a localized string similar to Oriëntatie van de dijknormaal ten opzichte van het noorden..
         /// </summary>
         public static string Orientation_ForeshoreProfile_Description {
             get {

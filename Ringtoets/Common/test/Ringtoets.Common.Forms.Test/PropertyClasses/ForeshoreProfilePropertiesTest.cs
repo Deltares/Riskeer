@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.IsTrue(orientationProperty.IsReadOnly);
             Assert.AreEqual("Schematisatie", orientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van het voorlandprofiel ten opzichte van het noorden.", orientationProperty.Description);
+            Assert.AreEqual("Oriëntatie van de dijknormaal ten opzichte van het noorden.", orientationProperty.Description);
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
             Assert.IsNotNull(breakWaterProperty);

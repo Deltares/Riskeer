@@ -542,7 +542,7 @@
     <value>Oriëntatie [°]</value>
   </data>
   <data name="Orientation_ForeshoreProfile_Description" xml:space="preserve">
-    <value>Oriëntatie van het voorlandprofiel ten opzichte van het noorden.</value>
+    <value>Oriëntatie van de dijknormaal ten opzichte van het noorden.</value>
   </data>
   <data name="Profile_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
