@@ -45,6 +45,11 @@ namespace Application.Ringtoets.Storage.Create
             {
                 throw new ArgumentNullException("registry");
             }
+            if (registry.Contains(foreshoreProfile))
+            {
+                return registry.Get(foreshoreProfile);
+            }
+
             var foreshoreProfileEntity = new ForeshoreProfileEntity
             {
                 Name = foreshoreProfile.Name.DeepClone(),
@@ -61,6 +66,8 @@ namespace Application.Ringtoets.Storage.Create
                 foreshoreProfileEntity.BreakWaterHeight = foreshoreProfile.BreakWater.Height;
                 foreshoreProfileEntity.BreakWaterType = (byte) foreshoreProfile.BreakWater.Type;
             }
+
+            registry.Register(foreshoreProfileEntity, foreshoreProfile);
 
             return foreshoreProfileEntity;
         }

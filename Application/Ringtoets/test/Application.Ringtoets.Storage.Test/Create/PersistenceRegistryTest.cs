@@ -425,11 +425,9 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Contains_OtherDikeProfileAdded_ReturnsFalse()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = CreateDikeProfile();
+            var otherDikeProfile = CreateDikeProfile();
 
-            var otherDikeProfile = new DikeProfile(new Point2D(1, 1), new RoughnessPoint[0], new Point2D[0],
-                                                   null, new DikeProfile.ConstructionProperties());
             var registry = new PersistenceRegistry();
             registry.Register(new DikeProfileEntity(), otherDikeProfile);
 
@@ -444,13 +442,73 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Contains_NoDikeProfileAdded_ReturnsFalse()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = CreateDikeProfile();
 
             var registry = new PersistenceRegistry();
 
             // Call
             bool result = registry.Contains(dikeProfile);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_WithoutForeshoreProfile_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Contains((ForeshoreProfile)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_ForeshoreProfileAdded_ReturnsTrue()
+        {
+            // Setup
+            var foreshoreProfile = new TestForeshoreProfile();
+            var registry = new PersistenceRegistry();
+            registry.Register(new ForeshoreProfileEntity(), foreshoreProfile);
+
+            // Call
+            bool result = registry.Contains(foreshoreProfile);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_OtherForeshoreProfileAdded_ReturnsFalse()
+        {
+            // Setup
+            var foreshoreProfile = new TestForeshoreProfile();
+            var otherForeshoreProfile = new TestForeshoreProfile();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(new ForeshoreProfileEntity(), otherForeshoreProfile);
+
+            // Call
+            bool result = registry.Contains(foreshoreProfile);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_NoForeshoreProfileAdded_ReturnsFalse()
+        {
+            // Setup
+            var foreshoreProfile = new TestForeshoreProfile();
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            bool result = registry.Contains(foreshoreProfile);
 
             // Assert
             Assert.IsFalse(result);
@@ -893,8 +951,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_NoDikeProfileAdded_ThrowsInvalidOperationException()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = CreateDikeProfile();
             var registry = new PersistenceRegistry();
 
             // Call
@@ -908,10 +965,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_OtherDikeProfileAdded_ThrowsInvalidOperationException()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
-            var registeredDikeProfile = new DikeProfile(new Point2D(1, 1), new RoughnessPoint[0], new Point2D[0],
-                                                        null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = CreateDikeProfile();
+            var registeredDikeProfile = CreateDikeProfile();
             var registeredEntity = new DikeProfileEntity();
 
             var registry = new PersistenceRegistry();
@@ -928,8 +983,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void Get_DikeProfileAdded_ReturnsEntity()
         {
             // Setup
-            var dikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                              null, new DikeProfile.ConstructionProperties());
+            var dikeProfile = CreateDikeProfile();
             var registeredEntity = new DikeProfileEntity();
 
             var registry = new PersistenceRegistry();
@@ -937,6 +991,69 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             DikeProfileEntity retrievedEntity = registry.Get(dikeProfile);
+
+            // Assert
+            Assert.AreSame(registeredEntity, retrievedEntity);
+        }
+
+        [Test]
+        public void Get_WithoutForeshoreProfile_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get((ForeshoreProfile) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_NoForeshoreProfileAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var foreshoreProfile = new TestForeshoreProfile();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get(foreshoreProfile);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_OtherForeshoreProfileAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var foreshoreProfile = new TestForeshoreProfile();
+            var registeredForeshoreProfile = new TestForeshoreProfile();
+            var registeredEntity = new ForeshoreProfileEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, registeredForeshoreProfile);
+
+            // Call
+            TestDelegate call = () => registry.Get(foreshoreProfile);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_ForeshoreProfileAdded_ReturnsEntity()
+        {
+            // Setup
+            var foreshoreProfile = new TestForeshoreProfile();
+            var registeredEntity = new ForeshoreProfileEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, foreshoreProfile);
+
+            // Call
+            ForeshoreProfileEntity retrievedEntity = registry.Get(foreshoreProfile);
 
             // Assert
             Assert.AreSame(registeredEntity, retrievedEntity);
@@ -1059,6 +1176,34 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(null, CreateDikeProfile());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullForeshoreProfile_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new ForeshoreProfileEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullForeshoreProfileEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, new TestForeshoreProfile());
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

@@ -33,33 +33,20 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class HydraulicLocationEntity
+    public partial class StabilityStoneCoverWaveConditionsOutputEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HydraulicLocationEntity()
+        public StabilityStoneCoverWaveConditionsOutputEntity()
         {
-            this.GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
-            this.PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
             this.StabilityStoneCoverWaveConditionsCalculationEntities = new HashSet<StabilityStoneCoverWaveConditionsCalculationEntity>();
         }
     
-        public long HydraulicLocationEntityId { get; set; }
-        public long AssessmentSectionEntityId { get; set; }
-        public long LocationId { get; set; }
-        public string Name { get; set; }
-        public Nullable<double> LocationX { get; set; }
-        public Nullable<double> LocationY { get; set; }
-        public Nullable<double> DesignWaterLevel { get; set; }
+        public long StabilityStoneCoverWaveConditionsOutputEntityId { get; set; }
+        public Nullable<double> WaterLevel { get; set; }
         public Nullable<double> WaveHeight { get; set; }
-        public int Order { get; set; }
-        public byte DesignWaterLevelCalculationConvergence { get; set; }
-        public byte WaveHeightCalculationConvergence { get; set; }
+        public Nullable<double> WavePeakPeriod { get; set; }
+        public Nullable<double> WaveAngle { get; set; }
     
-        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityStoneCoverWaveConditionsCalculationEntity> StabilityStoneCoverWaveConditionsCalculationEntities { get; set; }
     }

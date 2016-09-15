@@ -33,28 +33,30 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class ForeshoreProfileEntity
+    public partial class StabilityStoneCoverWaveConditionsCalculationEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ForeshoreProfileEntity()
-        {
-            this.StabilityStoneCoverWaveConditionsCalculationEntities = new HashSet<StabilityStoneCoverWaveConditionsCalculationEntity>();
-        }
-    
-        public long ForeshoreProfileEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public string Name { get; set; }
-        public Nullable<double> Orientation { get; set; }
-        public Nullable<byte> BreakWaterType { get; set; }
-        public Nullable<double> BreakWaterHeight { get; set; }
-        public string GeometryXml { get; set; }
-        public Nullable<double> X { get; set; }
-        public Nullable<double> Y { get; set; }
-        public Nullable<double> X0 { get; set; }
+        public long StabilityStoneCoverWaveConditionsCalculationEntityId { get; set; }
+        public long CalculationGroupEntityId { get; set; }
+        public Nullable<long> ForeshoreProfileEntityId { get; set; }
+        public Nullable<long> HydraulicLocationEntityId { get; set; }
+        public Nullable<long> StabilityStoneCoverWaveConditionsOutputEntityId { get; set; }
         public int Order { get; set; }
+        public string Name { get; set; }
+        public string Comments { get; set; }
+        public byte UseBreakWater { get; set; }
+        public byte BreakWaterType { get; set; }
+        public Nullable<double> BreakWaterHeight { get; set; }
+        public byte UseForeshore { get; set; }
+        public Nullable<double> Orientation { get; set; }
+        public Nullable<double> UpperBoundaryRevetment { get; set; }
+        public Nullable<double> LowerBoundaryRevetment { get; set; }
+        public Nullable<double> UpperBoundaryWaterLevels { get; set; }
+        public Nullable<double> LowerBoundaryWaterLevels { get; set; }
+        public byte StepSize { get; set; }
     
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StabilityStoneCoverWaveConditionsCalculationEntity> StabilityStoneCoverWaveConditionsCalculationEntities { get; set; }
+        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
+        public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
+        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
+        public virtual StabilityStoneCoverWaveConditionsOutputEntity StabilityStoneCoverWaveConditionsOutputEntity { get; set; }
     }
 }

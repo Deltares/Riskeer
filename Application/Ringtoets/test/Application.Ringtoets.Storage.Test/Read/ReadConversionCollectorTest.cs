@@ -950,6 +950,155 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         #endregion
 
+        #region ForeshoreProfileEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutForeshoreProfileEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((ForeshoreProfileEntity) null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_ForeshoreProfileEntityAdded_ReturnsTrue()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ForeshoreProfileEntity();
+            collector.Read(entity, new TestForeshoreProfile());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoForeshoreProfileEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ForeshoreProfileEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherForeshoreProfileEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ForeshoreProfileEntity();
+            collector.Read(new ForeshoreProfileEntity(), new TestForeshoreProfile());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutForeshoreProfileEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((ForeshoreProfileEntity) null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_ForeshoreProfileEntityAdded_ReturnsForeshoreProfile()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            ForeshoreProfile foreshoreProfile = new TestForeshoreProfile();
+            var entity = new ForeshoreProfileEntity();
+            collector.Read(entity, foreshoreProfile);
+
+            // Call
+            ForeshoreProfile result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(foreshoreProfile, result);
+        }
+
+        [Test]
+        public void Get_NoForeshoreProfileEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ForeshoreProfileEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherForeshoreProfileEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ForeshoreProfileEntity();
+            collector.Read(new ForeshoreProfileEntity(), new TestForeshoreProfile());
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullForeshoreProfileEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new TestForeshoreProfile());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullForeshoreProfile_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new ForeshoreProfileEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
+
         #region GrassCoverErosionInwardsCalculationEntity: Read, Contains, Get
 
         [Test]

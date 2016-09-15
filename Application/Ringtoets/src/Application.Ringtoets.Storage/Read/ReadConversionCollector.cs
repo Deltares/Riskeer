@@ -45,6 +45,7 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations = CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = CreateDictionary<DikeProfileEntity, DikeProfile>();
+        private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles = CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
         private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations = CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
@@ -544,6 +545,78 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return dikeProfiles[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region ForeshoreProfileEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="ForeshoreProfileEntity"/> and the
+        /// <see cref="foreshoreProfiles"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="ForeshoreProfileEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="ForeshoreProfile"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Read(ForeshoreProfileEntity entity, ForeshoreProfile model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            foreshoreProfiles[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="ForeshoreProfileEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="ForeshoreProfileEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(ForeshoreProfileEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            return foreshoreProfiles.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="ForeshoreProfile"/> which was read for the
+        /// given <see cref="ForeshoreProfileEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="ForeshoreProfileEntity"/> for which a read
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="ForeshoreProfile"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(ForeshoreProfileEntity)"/> to find out whether a
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal ForeshoreProfile Get(ForeshoreProfileEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            try
+            {
+                return foreshoreProfiles[entity];
             }
             catch (KeyNotFoundException e)
             {

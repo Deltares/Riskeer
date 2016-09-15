@@ -39,6 +39,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -78,7 +79,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(grassCoverErosionOutwardsFailureMechanism.SectionResults);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
-            ConfigureStabilityStoneCoverFailureMechanism(stabilityStoneCoverFailureMechanism);
+            ConfigureStabilityStoneCoverFailureMechanism(stabilityStoneCoverFailureMechanism, assessmentSection);
             AddSections(stabilityStoneCoverFailureMechanism);
             SetSectionResults(stabilityStoneCoverFailureMechanism.SectionResults);
 
@@ -367,9 +368,9 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.GeneralInput.N = 15;
         }
 
-        private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism)
+        private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            failureMechanism.ForeshoreProfiles.Add(new ForeshoreProfile(
+            var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(2,5), new []
                 {
                     new Point2D(1, 6), 
@@ -379,11 +380,42 @@ namespace Application.Ringtoets.Storage.TestUtil
                     Name = "FP",
                     Orientation = 95.5,
                     X0 = 22.1
-                }));
+                });
+            failureMechanism.ForeshoreProfiles.Add(foreshoreProfile);
 
             failureMechanism.ForeshoreProfiles.Add(new ForeshoreProfile(
                 new Point2D(2,5), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()));
 
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GEKB A",
+                Children =
+                {
+                    new StabilityStoneCoverWaveConditionsCalculation
+                    {
+                        Name = "Calculation 1",
+                        Comments = "Comments for Calculation 1",
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two
+                        }
+                    }
+                }
+            });
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Name = "SSC A"

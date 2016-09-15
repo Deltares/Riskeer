@@ -49,17 +49,26 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
+
             Point2D[] points = new Point2DXmlSerializer().FromXml(entity.GeometryXml);
 
-            return new ForeshoreProfile(new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
-                                        points,
-                                        CreateBreakWater(entity.BreakWaterType, entity.BreakWaterHeight),
-                                        new ForeshoreProfile.ConstructionProperties
-                                        {
-                                            Name = entity.Name,
-                                            Orientation = entity.Orientation.ToNullAsNaN(),
-                                            X0 = entity.X0.ToNullAsNaN()
-                                        });
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
+                                                        points,
+                                                        CreateBreakWater(entity.BreakWaterType, entity.BreakWaterHeight),
+                                                        new ForeshoreProfile.ConstructionProperties
+                                                        {
+                                                            Name = entity.Name,
+                                                            Orientation = entity.Orientation.ToNullAsNaN(),
+                                                            X0 = entity.X0.ToNullAsNaN()
+                                                        });
+
+            collector.Read(entity, foreshoreProfile);
+
+            return foreshoreProfile;
         }
 
         private static BreakWater CreateBreakWater(byte? breakWaterType, double? breakWaterHeight)

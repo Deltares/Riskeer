@@ -43,6 +43,7 @@ namespace Application.Ringtoets.Storage.Create
     {
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = CreateDictionary<DikeProfileEntity, DikeProfile>();
+        private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles = CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
         private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations = CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = CreateDictionary<StochasticSoilModelEntity, StochasticSoilModel>();
@@ -98,6 +99,22 @@ namespace Application.Ringtoets.Storage.Create
         internal void Register(DikeProfileEntity entity, DikeProfile model)
         {
             Register(dikeProfiles, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="ForeshoreProfileEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="ForeshoreProfile"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Register(ForeshoreProfileEntity entity, ForeshoreProfile model)
+        {
+            Register(foreshoreProfiles, entity, model);
         }
 
         /// <summary>
@@ -268,6 +285,18 @@ namespace Application.Ringtoets.Storage.Create
         /// Checks whether a create or update operations has been registered for the given
         /// <paramref name="model"/>.
         /// </summary>
+        /// <param name="model">The <see cref="ForeshoreProfile"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(ForeshoreProfile model)
+        {
+            return ContainsValue(foreshoreProfiles, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create or update operations has been registered for the given
+        /// <paramref name="model"/>.
+        /// </summary>
         /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
@@ -393,6 +422,23 @@ namespace Application.Ringtoets.Storage.Create
         internal DikeProfileEntity Get(DikeProfile model)
         {
             return Get(dikeProfiles, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="ForeshoreProfileEntity"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="ForeshoreProfile"/> for which a
+        /// read/update operation has been registered.</param>
+        /// <returns>The constructed <see cref="ForeshoreProfileEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(DikeProfile)"/> to find out
+        /// whether a create/update operation has been registered for <paramref name="model"/>.</remarks>
+        public ForeshoreProfileEntity Get(ForeshoreProfile model)
+        {
+            return Get(foreshoreProfiles, model);
         }
 
         /// <summary>

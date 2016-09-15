@@ -167,5 +167,24 @@ namespace Application.Ringtoets.Storage.Test.Create
                               "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
             Assert.AreEqual(testName, entity.Name);
         }
+
+        [Test]
+        public void Create_ForeshoreProfileAlreadyRegistered_ReturnRegisteredEntity()
+        {
+            // Setup
+            var forshoreProfile = new TestForeshoreProfile();
+            var registry = new PersistenceRegistry();
+
+            ForeshoreProfileEntity entity1 = forshoreProfile.Create(registry, 0);
+
+            // Precondition:
+            Assert.IsTrue(registry.Contains(forshoreProfile));
+
+            // Call
+            ForeshoreProfileEntity entity2 = forshoreProfile.Create(registry, 0);
+
+            // Assert
+            Assert.AreSame(entity1, entity2);
+        }
     }
 }

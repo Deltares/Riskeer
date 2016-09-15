@@ -47,6 +47,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -270,7 +271,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
                 AssertPipingFailureMechanism(expectedAssessmentSection.PipingFailureMechanism, actualAssessmentSection.PipingFailureMechanism);
                 AssertGrassCoverErosionInwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionInwards, actualAssessmentSection.GrassCoverErosionInwards);
-
+                AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
+                AssertStabilityStoneCoverFailureMechanism(expectedAssessmentSection.StabilityStoneCover, actualAssessmentSection.StabilityStoneCover);
+                
                 IFailureMechanism[] expectedProjectFailureMechanisms = expectedAssessmentSection.GetFailureMechanisms().ToArray();
                 IFailureMechanism[] actualProjectFailureMechanisms = actualAssessmentSection.GetFailureMechanisms().ToArray();
                 for (var fmi = 0; fmi < expectedProjectFailureMechanisms.Length; fmi++)
@@ -859,6 +862,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertGrassCoverErosionInwardsCalculation(expectedGrassCoverErosionInwardsCalculation, (GrassCoverErosionInwardsCalculation) actualChild);
                 }
+                var expectedStabilityStoneCoverWaveConditionsCalculation = expectedChild as StabilityStoneCoverWaveConditionsCalculation;
+                if (expectedStabilityStoneCoverWaveConditionsCalculation != null)
+                {
+                    AssertStabilityStoneCoverWaveConditionsCalculation(expectedStabilityStoneCoverWaveConditionsCalculation, (StabilityStoneCoverWaveConditionsCalculation)actualChild);
+                }
             }
         }
 
@@ -999,12 +1007,66 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
         }
 
+
+        private static void AssertStabilityStoneCoverWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation, StabilityStoneCoverWaveConditionsCalculation actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
+
+            AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+
+            Assert.IsFalse(actualCalculation.HasOutput);
+        }
+
+        private static void AssertWaveConditionsInput(WaveConditionsInput expectedInput, WaveConditionsInput actualInput)
+        {
+            if (expectedInput.ForeshoreProfile == null)
+            {
+                Assert.IsNull(actualInput.ForeshoreProfile);
+            }
+            else
+            {
+                AssertForeshoreProfile(expectedInput.ForeshoreProfile, actualInput.ForeshoreProfile);
+            }
+            if (expectedInput.HydraulicBoundaryLocation == null)
+            {
+                Assert.IsNull(actualInput.HydraulicBoundaryLocation);
+            }
+            else
+            {
+                AssertHydraulicBoundaryLocation(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
+            }
+            AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
+            Assert.AreEqual(expectedInput.Orientation, actualInput.Orientation);
+            Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
+            Assert.AreEqual(expectedInput.UseForeshore, actualInput.UseForeshore);
+            Assert.AreEqual(expectedInput.UpperBoundaryRevetment, actualInput.UpperBoundaryRevetment);
+            Assert.AreEqual(expectedInput.LowerBoundaryRevetment, actualInput.LowerBoundaryRevetment);
+            Assert.AreEqual(expectedInput.UpperBoundaryWaterLevels, actualInput.UpperBoundaryWaterLevels);
+            Assert.AreEqual(expectedInput.LowerBoundaryWaterLevels, actualInput.LowerBoundaryWaterLevels);
+            Assert.AreEqual(expectedInput.StepSize, actualInput.StepSize);
+
+        }
+
         private static void AssertGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism expectedFailureMechanism,
                                                                            GrassCoverErosionInwardsFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
             AssertDikeProfiles(expectedFailureMechanism.DikeProfiles, actualFailureMechanism.DikeProfiles);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism expectedFailureMechanism,
+                                                                           GrassCoverErosionOutwardsFailureMechanism actualFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+        }
+
+        private static void AssertStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism expectedFailureMechanism,
+                                                                           StabilityStoneCoverFailureMechanism actualFailureMechanism)
+        {
+            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
         }
 
         private static void AssertDikeProfiles(IList<DikeProfile> expectedDikeProfiles, IList<DikeProfile> actualDikeProfiles)
@@ -1026,6 +1088,25 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             CollectionAssert.AreEqual(expectedDikeProfile.ForeshoreGeometry, actualDikeProfile.ForeshoreGeometry);
             AssertRoughnessPoints(expectedDikeProfile.DikeGeometry, actualDikeProfile.DikeGeometry);
             Assert.AreEqual(expectedDikeProfile.DikeHeight, actualDikeProfile.DikeHeight);
+        }
+
+        private static void AssertForeshoreProfiles(IList<ForeshoreProfile> expectedForeshoreProfiles, IList<ForeshoreProfile> actualDikeProfiles)
+        {
+            Assert.AreEqual(expectedForeshoreProfiles.Count, actualDikeProfiles.Count);
+            for (int i = 0; i < expectedForeshoreProfiles.Count; i++)
+            {
+                AssertForeshoreProfile(expectedForeshoreProfiles[i], actualDikeProfiles[i]);
+            }
+        }
+
+        private static void AssertForeshoreProfile(ForeshoreProfile expectedDikeProfile, ForeshoreProfile actualDikeProfile)
+        {
+            Assert.AreEqual(expectedDikeProfile.Name, actualDikeProfile.Name);
+            Assert.AreEqual(expectedDikeProfile.WorldReferencePoint, actualDikeProfile.WorldReferencePoint);
+            Assert.AreEqual(expectedDikeProfile.X0, actualDikeProfile.X0);
+            Assert.AreEqual(expectedDikeProfile.Orientation, actualDikeProfile.Orientation);
+            AssertBreakWater(expectedDikeProfile.BreakWater, actualDikeProfile.BreakWater);
+            CollectionAssert.AreEqual(expectedDikeProfile.Geometry, actualDikeProfile.Geometry);
         }
 
         private static void AssertBreakWater(BreakWater expectedBreakWater, BreakWater actualBreakWater)

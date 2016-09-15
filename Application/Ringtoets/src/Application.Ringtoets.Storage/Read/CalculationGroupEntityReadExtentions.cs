@@ -24,6 +24,7 @@ using System.Collections;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.Piping;
+using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 
@@ -170,6 +171,11 @@ namespace Application.Ringtoets.Storage.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector));
                 }
+                var childCalculationEntity = childEntity as StabilityStoneCoverWaveConditionsCalculationEntity;
+                if (childCalculationEntity != null)
+                {
+                    group.Children.Add(childCalculationEntity.Read(collector));
+                }
             }
 
             return group;
@@ -189,6 +195,10 @@ namespace Application.Ringtoets.Storage.Read
             foreach (GrassCoverErosionInwardsCalculationEntity grassCoverErosionInwardsCalculationEntity in entity.GrassCoverErosionInwardsCalculationEntities)
             {
                 sortedList.Add(grassCoverErosionInwardsCalculationEntity.Order, grassCoverErosionInwardsCalculationEntity);
+            }
+            foreach (StabilityStoneCoverWaveConditionsCalculationEntity stabilityStoneCoverWaveConditionsCalculationEntity in entity.StabilityStoneCoverWaveConditionsCalculationEntities)
+            {
+                sortedList.Add(stabilityStoneCoverWaveConditionsCalculationEntity.Order, stabilityStoneCoverWaveConditionsCalculationEntity);
             }
             return sortedList.Values;
         }
