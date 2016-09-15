@@ -48,7 +48,6 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            // Call
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
             using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
             {
@@ -90,7 +89,6 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            // Call
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
             using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
             {
@@ -116,8 +114,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
-
-            // Call
+            
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
             using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
             {
@@ -158,7 +155,6 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
                 Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput)
             });
 
-            // Call
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
             using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
             {
@@ -169,6 +165,62 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
 
                 // Assert
                 Assert.IsTrue(isEnabled);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void IsEnabled_StabilityStoneCoverWaveConditionsCalculationInSubFolder_ReturnsTrueIfHasOutput(bool hasOutput)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var calculationGroup = new CalculationGroup();
+            var columnsOutput = new[]
+            {
+                new WaveConditionsOutput(1, 0, 3, 5),
+                new WaveConditionsOutput(8, 2, 6, 1)
+            };
+
+            var blocksOutput = new[]
+            {
+                new WaveConditionsOutput(6, 2, 9, 4),
+                new WaveConditionsOutput(4, 1, 7, 3)
+            };
+
+
+            StabilityStoneCoverWaveConditionsOutput stabilityStoneCoverWaveConditionsOutput = null;
+            if (hasOutput)
+            {
+                stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
+            }
+            calculationGroup.Children.Add(
+                new CalculationGroup
+                {
+                    Children =
+                    {
+                        new StabilityStoneCoverWaveConditionsCalculation
+                        {
+                            Output = stabilityStoneCoverWaveConditionsOutput
+                        }
+                    }
+                });
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
+            using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
+            {
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Call
+                bool isEnabled = info.IsEnabled(context);
+
+                // Assert
+                Assert.AreEqual(hasOutput, isEnabled);
             }
             mocks.VerifyAll();
         }
