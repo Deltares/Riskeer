@@ -360,17 +360,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(nodeData.WrappedData, dialog.SelectedItems);
+                    GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(dialog.SelectedItems, nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
-        private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(CalculationGroup target, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, IList<ICalculationBase> calculationCollection)
         {
             WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,
-                target.Children);
+                calculationCollection);
         }
 
         private void AddWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
