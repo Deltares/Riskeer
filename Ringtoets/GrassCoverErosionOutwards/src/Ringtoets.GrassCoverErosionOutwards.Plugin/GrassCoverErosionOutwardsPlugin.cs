@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 FailureMechanismDisabledContextMenuStrip);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
-                WaveConditionsCalculationGroupChildenNodeObjects,
+                WaveConditionsCalculationGroupChildrenNodeObjects,
                 WaveConditionsCalculationGroupContextMenuStrip,
                 WaveConditionsCalculationGroupContextOnNodeRemoved);
 
@@ -445,7 +445,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext TreeNodeInfo
 
-        private object[] WaveConditionsCalculationGroupChildenNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        private object[] WaveConditionsCalculationGroupChildrenNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 

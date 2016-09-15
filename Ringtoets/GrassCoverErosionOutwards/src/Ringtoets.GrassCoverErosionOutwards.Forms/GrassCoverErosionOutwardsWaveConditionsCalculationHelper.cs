@@ -30,17 +30,17 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms
 {
     /// <summary>
-    /// Class holds methods to help views when dealing with <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>
+    /// Class holds methods to help views when dealing with <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
     /// </summary>
     public static class GrassCoverErosionOutwardsWaveConditionsCalculationHelper
     {
         /// <summary>
-        /// Adds <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> based on the <paramref name="locations"/> 
+        /// Adds a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> based on the <paramref name="locations"/> 
         /// in the <paramref name="calculations"/>.
         /// </summary>
         /// <param name="locations">Locations to base the calculation upon.</param>
         /// <param name="calculations">The list to update.</param>
-        /// <exception cref="ArgumentNullException">Throw when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static void AddCalculationsFromLocations(IEnumerable<HydraulicBoundaryLocation> locations,
                                                         IList<ICalculationBase> calculations)
         {

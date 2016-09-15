@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         }
 
         [Test]
-        public void AddCalculationsFromLocations_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations()
+        public void AddCalculationsFromLocations_MultipleLocationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations()
         {
             // Setup
             const string name = "name";
@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         }
 
         [Test]
-        public void AddCalculationsFromLocations_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations()
+        public void AddCalculationsFromLocations_MultipleLocationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations()
         {
             // Setup
             const string name = "name";
