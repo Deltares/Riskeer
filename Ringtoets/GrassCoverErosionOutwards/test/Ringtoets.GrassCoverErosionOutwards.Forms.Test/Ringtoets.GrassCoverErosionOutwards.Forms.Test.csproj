@@ -78,6 +78,7 @@
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsCalculationInputContextTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationsContextPropertiesTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertyInfoTest.cs" />

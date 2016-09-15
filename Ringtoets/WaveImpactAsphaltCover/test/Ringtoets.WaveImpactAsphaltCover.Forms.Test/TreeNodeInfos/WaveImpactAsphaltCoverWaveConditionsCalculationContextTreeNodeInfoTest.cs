@@ -741,8 +741,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -790,8 +790,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -845,8 +845,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

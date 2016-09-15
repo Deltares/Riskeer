@@ -117,14 +117,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                                ProgressText = string.Format(Resources.WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevel);
 
                                WaveConditionsOutput output = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
-                                                                                                a,
-                                                                                                b,
-                                                                                                c,
-                                                                                                norm,
-                                                                                                calculation.InputParameters,
-                                                                                                hlcdDirectory,
-                                                                                                assessmentSection.Id,
-                                                                                                calculation.Name);
+                                                                                                                 a,
+                                                                                                                 b,
+                                                                                                                 c,
+                                                                                                                 norm,
+                                                                                                                 calculation.InputParameters,
+                                                                                                                 hlcdDirectory,
+                                                                                                                 assessmentSection.Id,
+                                                                                                                 calculation.Name);
 
                                if (output != null)
                                {
