@@ -555,47 +555,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismWithNoSections_ValidateAndCalculateAllDisabled()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var group = new CalculationGroup();
-                group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
-                var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
-                    Assert.IsFalse(validateItem.Enabled);
-                    Assert.IsFalse(calculateItem.Enabled);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported, calculateItem.ToolTipText);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported, validateItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AssessmentSectionWithoutHydraulicBoundaryDatabase_ValidateAndCalculateAllDisabled()
         {
             // Setup

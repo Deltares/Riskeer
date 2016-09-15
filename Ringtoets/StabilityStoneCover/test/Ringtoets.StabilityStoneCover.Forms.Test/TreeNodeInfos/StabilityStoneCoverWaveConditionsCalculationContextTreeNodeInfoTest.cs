@@ -58,10 +58,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
     public class StabilityStoneCoverWaveConditionsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int validateMenuItemIndex = 2;
-
+        private const int calculateMenuItemIndex = 3;
         private const int clearOutputMenuItemIndex = 4;
 
-        private const int calculateMenuItemIndex = 3;
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;

@@ -107,14 +107,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 FailureMechanismDisabledContextMenuStrip);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
-                WaveConditionsCalculationGroupChildeNodeObjects,
+                WaveConditionsCalculationGroupChildNodeObjects,
                 WaveConditionsCalculationGroupContextMenuStrip,
                 WaveConditionsCalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                 RingtoetsGrassCoverErosionOutwardsFormsResources.CalculationIcon,
                 null,
-                null,
+                WaveConditionsCalculationContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>>
@@ -416,7 +416,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext TreeNodeInfo
 
-        private object[] WaveConditionsCalculationGroupChildeNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        private object[] WaveConditionsCalculationGroupChildNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 
@@ -516,11 +516,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            if (!failureMechanism.Sections.Any())
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
-            }
-
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
                 return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
@@ -575,6 +570,54 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         #endregion
 
         #region GrassCoverErosionOutwardsWaveConditionsCalculationContext TreeNodeInfo
+
+        private ContextMenuStrip WaveConditionsCalculationContextMenuStrip(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
+                                                                           object parentData,
+                                                                           TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = nodeData.WrappedData;
+
+            return builder
+                .AddExportItem()
+                .AddSeparator()
+                .AddValidateCalculationItem(nodeData,
+                                            c => ValidateAll(
+                                                new[]
+                                                {
+                                                    c.WrappedData
+                                                },
+                                                c.AssessmentSection.HydraulicBoundaryDatabase),
+                                            ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                .AddClearCalculationOutputItem(calculation)
+                .AddSeparator()
+                .AddRenameItem()
+                .AddDeleteItem()
+                .AddSeparator()
+                .AddExpandAllItem()
+                .AddCollapseAllItem()
+                .AddSeparator()
+                .AddPropertiesItem()
+                .Build();
+        }
+
+        private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+        }
+
+        private void PerformCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                        GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
+                                                                                                            Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                            context.FailureMechanism,
+                                                                                                            context.AssessmentSection));
+            calculation.NotifyObservers();
+        }
 
         private void WaveConditionsCalculationContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
                                                                    object parentNodeData)

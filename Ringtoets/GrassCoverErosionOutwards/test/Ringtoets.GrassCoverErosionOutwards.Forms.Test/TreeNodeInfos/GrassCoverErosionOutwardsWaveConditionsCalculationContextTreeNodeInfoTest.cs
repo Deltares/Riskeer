@@ -19,25 +19,46 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.Commands;
+using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
+using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Service.TestUtil;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationContextTreeNodeInfoTest
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int validateMenuItemIndex = 2;
+        private const int calculateMenuItemIndex = 3;
+        private const int clearOutputMenuItemIndex = 4;
+
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
@@ -51,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             plugin.Dispose();
             mocks.VerifyAll();
@@ -270,6 +291,824 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(canDrag);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsBuilder()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+            menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                info.ContextMenuStrip(context, null, treeViewControl);
+            }
+            // Assert
+            // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithoutHydroDatabase_ThenValidationItemDisabled()
+        {
+            // Given
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithoutValidPathForCalculation_ThenValidationItemDisabled()
+        {
+            // Given
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithValidPathForCalculation_ThenValidationItemEnabled()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenValidCalculation_WhenValidating_ThenCalculationPassesValidation()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+            assessmentSection.Stub(a => a.Id).Return("someId");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
+                    {
+                        DesignWaterLevel = (RoundedDouble)12.0
+                    },
+                    LowerBoundaryRevetment = (RoundedDouble)1.0,
+                    UpperBoundaryRevetment = (RoundedDouble)10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble)1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                }
+            };
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+
+                    // When
+                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
+                    Action call = () => validateMenuItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        var messages = logMessages.ToArray();
+                        Assert.AreEqual(2, messages.Length);
+                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenInValidCalculation_WhenValidating_ThenCalculationFailsValidation()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+            assessmentSection.Stub(a => a.Id).Return("someId");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  validateMenuItemIndex,
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+
+                    // When
+                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
+                    Action call = () => validateMenuItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        var messages = logMessages.ToArray();
+                        Assert.AreEqual(3, messages.Length);
+                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
+                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[2]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithoutHydroDatabase_ThenCalculationItemDisabled()
+        {
+            // Given
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithoutValidPathForCalculation_ThenCalculationItemDisabled()
+        {
+            // Given
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithValidPathForCalculation_ThenCalculationItemEnabled()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenValidCalculation_WhenCalculating_ThenCalculationReturnsResult()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+            assessmentSection.Stub(a => a.Id).Return("someId");
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
+
+            var calculation = GetValidCalculation();
+            calculation.Name = "A";
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+                var observerMock = mocks.StrictMock<IObserver>();
+                observerMock.Expect(o => o.UpdateObserver());
+                calculation.Attach(observerMock);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Voer deze berekening uit.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+
+                    // When
+                    ToolStripItem calculateMenuItem = contextMenu.Items[calculateMenuItemIndex];
+                    Action call = () => calculateMenuItem.PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(call, logMessages =>
+                    {
+                        var messages = logMessages.ToArray();
+                        Assert.AreEqual(9, messages.Length);
+                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[7]);
+                        StringAssert.StartsWith("Uitvoeren van 'A' is gelukt.", messages[8]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithoutOutput_ThenClearOutputItemDisabled()
+        {
+            // Given
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A",
+                Output = null
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  clearOutputMenuItemIndex,
+                                                                  "&Wis uitvoer...",
+                                                                  "Deze berekening heeft geen uitvoer om te wissen.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutput_ThenClearOutputItemEnabled()
+        {
+            // Given
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A",
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  clearOutputMenuItemIndex,
+                                                                  "&Wis uitvoer...",
+                                                                  "Wis de uitvoer van deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationWithOutput_WhenClearingOutput_ThenClearOutput()
+        {
+            // Given
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var observer = mocks.Stub<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "A",
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            calculation.Attach(observer);
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var messageBox = new MessageBoxTester(wnd);
+                    messageBox.ClickOk();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Precondition
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  clearOutputMenuItemIndex,
+                                                                  "&Wis uitvoer...",
+                                                                  "Wis de uitvoer van deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ClearIcon);
+
+                    // When
+                    ToolStripItem validateMenuItem = contextMenu.Items[clearOutputMenuItemIndex];
+                    validateMenuItem.PerformClick();
+
+                    // Then
+                    Assert.IsNull(calculation.Output);
+                    // Check expectancies in TearDown()
+                }
+            }
+        }
+
+        private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation()
+        {
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0.0, 0.0),
+                    ForeshoreProfile = CreateForeshoreProfile(),
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    StepSize = WaveConditionsInputStepSize.Half,
+                    LowerBoundaryRevetment = (RoundedDouble)4,
+                    UpperBoundaryRevetment = (RoundedDouble)10,
+                    UpperBoundaryWaterLevels = (RoundedDouble)8,
+                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                }
+            };
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
+            return calculation;
+        }
+
+        private static ForeshoreProfile CreateForeshoreProfile()
+        {
+            return new ForeshoreProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new Point2D(3.3, 4.4),
+                                            new Point2D(5.5, 6.6)
+                                        },
+                                        new BreakWater(BreakWaterType.Dam, 10.0),
+                                        new ForeshoreProfile.ConstructionProperties());
         }
     }
 }
