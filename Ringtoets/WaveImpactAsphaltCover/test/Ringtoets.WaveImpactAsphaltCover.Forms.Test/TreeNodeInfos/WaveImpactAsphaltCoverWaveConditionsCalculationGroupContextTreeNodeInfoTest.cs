@@ -744,147 +744,137 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             }
         }
 
-        // TODO WTI-808
-//        [Test]
-//        public void ContextMenuStrip_TwoCalculationsClickOnCalculateAllInGroup_MessagesLogged()
-//        {
-//            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-//
-//            var assessmentSection = mocks.Stub<IAssessmentSection>();
-//            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-//            {
-//                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
-//            };
-//            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-//                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
-//            assessmentSection.Stub(a => a.Id).Return("someId");
-//
-//            var observerA = mocks.StrictMock<IObserver>();
-//            observerA.Expect(o => o.UpdateObserver());
-//            var observerB = mocks.StrictMock<IObserver>();
-//            observerB.Expect(o => o.UpdateObserver());
-//
-//            var group = new CalculationGroup();
-//            var calculationA = GetValidCalculation();
-//            var calculationB = GetValidCalculation();
-//            calculationA.Attach(observerA);
-//            calculationB.Attach(observerB);
-//            group.Children.Add(calculationA);
-//            group.Children.Add(calculationB);
-//
-//            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-//            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-//            {
-//                new Point2D(0, 0)
-//            }));
-//            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-//            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-//                                                                                        failureMechanism,
-//                                                                                        assessmentSection);
-//            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-//                                                                                              failureMechanism,
-//                                                                                              assessmentSection);
-//
-//            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-//
-//            DialogBoxHandler = (name, wnd) =>
-//            {
-//                // Expect an activity dialog which is automatically closed
-//            };
-//
-//            // Setup
-//            using (var treeViewControl = new TreeViewControl())
-//            {
-//                var mainWindow = mocks.Stub<IMainWindow>();
-//
-//                var gui = mocks.Stub<IGui>();
-//                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-//                gui.Stub(g => g.MainWindow).Return(mainWindow);
-//
-//                mocks.ReplayAll();
-//
-//                plugin.Gui = gui;
-//
-//                using (new HydraRingCalculationServiceConfig())
-//                using (new WaveConditionsCalculationServiceConfig())
-//                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-//                {
-//                    // Call
-//                    Action test = () => contextMenu.Items[5].PerformClick();
-//
-//                    // Assert
-//                    TestHelper.AssertLogMessages(test, m =>
-//                    {
-//                        var messages = m.ToArray();
-//                        Assert.AreEqual(30, messages.Length);
-//                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[0]);
-//                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[13]);
-//                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[14]);
-//                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[27]);
-//                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[28]);
-//                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[29]);
-//                    });
-//                }
-//            }
-//        }
-//
-//        // TODO WTI-808
-//        [Test]
-//        public void ContextMenuStrip_NoCalculations_ClearAllOutputItemDisabled()
-//        {
-//            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-//
-//            var assessmentSection = mocks.Stub<IAssessmentSection>();
-//            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-//            {
-//                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
-//            };
-//            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-//                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
-//            assessmentSection.Stub(a => a.Id).Return("someId");
-//
-//            var group = new CalculationGroup();
-//
-//            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-//            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-//            {
-//                new Point2D(0, 0)
-//            }));
-//            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-//            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-//                                                                                        failureMechanism,
-//                                                                                        assessmentSection);
-//            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-//                                                                                              failureMechanism,
-//                                                                                              assessmentSection);
-//
-//            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-//
-//            // Setup
-//            using (var treeViewControl = new TreeViewControl())
-//            {
-//                var mainWindow = mocks.Stub<IMainWindow>();
-//
-//                var gui = mocks.Stub<IGui>();
-//                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-//                gui.Stub(g => g.MainWindow).Return(mainWindow);
-//
-//                mocks.ReplayAll();
-//
-//                plugin.Gui = gui;
-//
-//                using (new HydraRingCalculationServiceConfig())
-//                using (new WaveConditionsCalculationServiceConfig())
-//                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-//                {
-//                    // Call
-//                    var clearAllOutputItem = contextMenu.Items[5];
-//
-//                    // Assert
-//                    Assert.IsFalse(clearAllOutputItem.Enabled);
-//                }
-//            }
-//        }
+        [Test]
+        public void ContextMenuStrip_TwoCalculationsClickOnCalculateAllInGroup_MessagesLogged()
+        {
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+            assessmentSection.Stub(a => a.Id).Return("someId");
+
+            var observerA = mocks.StrictMock<IObserver>();
+            observerA.Expect(o => o.UpdateObserver());
+            var observerB = mocks.StrictMock<IObserver>();
+            observerB.Expect(o => o.UpdateObserver());
+
+            var group = new CalculationGroup();
+            var calculationA = GetValidCalculation();
+            var calculationB = GetValidCalculation();
+            calculationA.Attach(observerA);
+            calculationB.Attach(observerB);
+            group.Children.Add(calculationA);
+            group.Children.Add(calculationB);
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    Action test = () => contextMenu.Items[5].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessages(test, m =>
+                    {
+                        var messages = m.ToArray();
+                        Assert.AreEqual(18, messages.Length);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[7]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[8]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[15]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[16]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[17]);
+                    });
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_NoCalculations_ClearAllOutputItemDisabled()
+        {
+            string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = Path.Combine(hrdPath, "HRD ijsselmeer.sqlite")
+            };
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
+                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
+            assessmentSection.Stub(a => a.Id).Return("someId");
+
+            var group = new CalculationGroup();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                 failureMechanism,
+                                                                                                 assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (new HydraRingCalculationServiceConfig())
+                using (new WaveConditionsCalculationServiceConfig())
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Call
+                    var clearAllOutputItem = contextMenu.Items[5];
+
+                    // Assert
+                    Assert.IsFalse(clearAllOutputItem.Enabled);
+                }
+            }
+        }
 
         [Test]
         public void ContextMenuStrip_TwoCalculationsWithoutOutput_ClearAllOutputItemDisabled()
