@@ -157,6 +157,18 @@
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
+      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
+      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Service.TestUtil\Ringtoets.Revetment.Service.TestUtil.csproj">
+      <Project>{EA416DD2-1633-439E-8512-B9933E37B9C5}</Project>
+      <Name>Ringtoets.Revetment.Service.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
       <Project>{E7225477-577F-4A17-B7EC-6721158E1543}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>

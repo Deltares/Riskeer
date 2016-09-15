@@ -319,8 +319,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                    .AddValidateAllCalculationsInGroupItem(nodeData,
                                                           c => ValidateAll(
                                                               c.WrappedData.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>(),
-                                                              c.FailureMechanism.GeneralInput,
-                                                              c.AssessmentSection.FailureMechanismContribution.Norm,
                                                               c.AssessmentSection.HydraulicBoundaryDatabase),
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
@@ -424,7 +422,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private void ValidateAll(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, GeneralStabilityStoneCoverWaveConditionsInput generalInput, int norm, HydraulicBoundaryDatabase database)
+        private void ValidateAll(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
@@ -439,7 +437,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
         }
 
-        private void CalculateAll(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations,
+        private void CalculateAll(StabilityStoneCoverWaveConditionsCalculation[] calculations,
                                   StabilityStoneCoverFailureMechanism failureMechanism,
                                   IAssessmentSection assessmentSection)
         {
@@ -508,8 +506,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                 {
                                                     c.WrappedData
                                                 },
-                                                c.FailureMechanism.GeneralInput,
-                                                c.AssessmentSection.FailureMechanismContribution.Norm,
                                                 c.AssessmentSection.HydraulicBoundaryDatabase),
                                             ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                 .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)

@@ -22,6 +22,8 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -36,39 +38,68 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(null, failureMechanism);
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("wrappedData", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, null);
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism);
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<CalculationGroup>>(context);
@@ -76,6 +107,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
             Assert.AreSame(calculationGroup, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
+            mocks.VerifyAll();
         }
     }
 }

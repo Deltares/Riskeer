@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -37,9 +38,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="calculationGroup">The wrapped <see cref="CalculationGroup"/>.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation group belongs to.</param>
+        /// <param name="assessmentSection">The assessment section which the calculation group belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(CalculationGroup calculationGroup,
-                                                                              GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-            : base(calculationGroup, failureMechanism) {}
+                                                                              GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                              IAssessmentSection assessmentSection)
+            : base(calculationGroup, failureMechanism)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the assessment section which the calculation group belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; private set; }
     }
 }
