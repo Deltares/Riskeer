@@ -107,8 +107,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 FailureMechanismDisabledContextMenuStrip);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
-                null,
+                WaveConditionsCalculationGroupChildeNodeObjects,
                 WaveConditionsCalculationGroupContextMenuStrip,
+                null);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
+                RingtoetsGrassCoverErosionOutwardsFormsResources.CalculationIcon,
+                null,
+                null,
                 null);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>>
@@ -409,6 +415,36 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         #endregion
 
         #region GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext TreeNodeInfo
+
+        private object[] WaveConditionsCalculationGroupChildeNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        {
+            var childNodeObjects = new List<object>();
+
+            foreach (ICalculationBase item in nodeData.WrappedData.Children)
+            {
+                var calculation = item as GrassCoverErosionOutwardsWaveConditionsCalculation;
+                var group = item as CalculationGroup;
+
+                if (calculation != null)
+                {
+                    childNodeObjects.Add(new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                                       nodeData.FailureMechanism,
+                                                                                                       nodeData.AssessmentSection));
+                }
+                else if (group != null)
+                {
+                    childNodeObjects.Add(new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
+                                                                                                            nodeData.FailureMechanism,
+                                                                                                            nodeData.AssessmentSection));
+                }
+                else
+                {
+                    childNodeObjects.Add(item);
+                }
+            }
+
+            return childNodeObjects.ToArray();
+        }
 
         private ContextMenuStrip WaveConditionsCalculationGroupContextMenuStrip(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
                                                                                 object parentData,

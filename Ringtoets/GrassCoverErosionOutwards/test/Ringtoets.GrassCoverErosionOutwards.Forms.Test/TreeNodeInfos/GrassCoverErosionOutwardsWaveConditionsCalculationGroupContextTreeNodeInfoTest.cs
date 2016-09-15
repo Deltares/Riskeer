@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             plugin.Dispose();
             mocks.VerifyAll();
@@ -150,6 +150,55 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, icon);
+        }
+
+        [Test]
+        public void ChildNodeObjects_EmptyGroup_ReturnEmpty()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            var groupContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
+
+            // Call
+            var children = info.ChildNodeObjects(groupContext);
+
+            // Assert
+            CollectionAssert.IsEmpty(children);
+        }
+
+        [Test]
+        public void ChildNodeObjects_GroupWithChildren_ReturnChildren()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var calculationItem = mocks.StrictMock<ICalculationBase>();
+            mocks.ReplayAll();
+
+            var childGroup = new CalculationGroup();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationItem);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(childGroup);
+
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+
+            // Call
+            var children = info.ChildNodeObjects(nodeData).ToArray();
+
+            // Assert
+            Assert.AreEqual(failureMechanism.WaveConditionsCalculationGroup.Children.Count, children.Length);
+            Assert.AreSame(calculationItem, children[0]);
+            var returnedCalculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)children[1];
+            Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
+            Assert.AreSame(failureMechanism, returnedCalculationGroupContext.FailureMechanism);
         }
 
         [Test]

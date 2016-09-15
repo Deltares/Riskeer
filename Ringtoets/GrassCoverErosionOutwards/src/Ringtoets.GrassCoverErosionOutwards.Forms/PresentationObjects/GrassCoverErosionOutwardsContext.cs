@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -38,22 +39,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
+        /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any paramater is <c>null</c>.</exception>
         protected GrassCoverErosionOutwardsContext(T wrappedData,
-                                                   GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+                                                   GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                   IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
 
             FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; private set; }
+
+        /// <summary>
+        /// Gets the assessment section which the calculation group belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; private set; }
     }
 }

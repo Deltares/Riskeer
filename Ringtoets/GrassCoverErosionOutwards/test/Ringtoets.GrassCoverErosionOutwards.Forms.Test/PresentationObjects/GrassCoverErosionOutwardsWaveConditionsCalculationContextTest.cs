@@ -20,73 +20,71 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsContextTest
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationContextTest
     {
         [Test]
-        public void Constructor_WrappedDataNull_ThrowArgumentNullException()
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionOutwardsContext(null, failureMechanism, assessmentSection);
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationContext(null, failureMechanism, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("wrappedData", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("wrappedData", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionOutwardsContext(observable, null, assessmentSection);
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation, null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            mocks.ReplayAll();
-
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionOutwardsContext(observable, failureMechanism, null);
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation, failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
-            mocks.VerifyAll();
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -94,29 +92,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var observable = mocks.Stub<IObservable>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var context = new SimpleGrassCoverErosionOutwardsContext(observable, failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservable>>(context);
-            Assert.AreSame(observable, context.WrappedData);
+            Assert.IsInstanceOf<GrassCoverErosionOutwardsContext<GrassCoverErosionOutwardsWaveConditionsCalculation>>(context);
+            Assert.IsInstanceOf<ICalculationContext<GrassCoverErosionOutwardsWaveConditionsCalculation, GrassCoverErosionOutwardsFailureMechanism>>(context);
+
+            Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
-        }
-
-        private class SimpleGrassCoverErosionOutwardsContext : GrassCoverErosionOutwardsContext<IObservable>
-        {
-            public SimpleGrassCoverErosionOutwardsContext(IObservable wrappedData,
-                                                          GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                          IAssessmentSection assessmentSection)
-                : base(wrappedData, failureMechanism, assessmentSection) {}
         }
     }
 }
