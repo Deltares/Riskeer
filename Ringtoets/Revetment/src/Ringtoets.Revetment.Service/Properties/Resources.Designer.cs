@@ -84,28 +84,28 @@ namespace Ringtoets.Revetment.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen..
         /// </summary>
-        internal static string WaveConditionsCalculationService_ValidateInput_No_derived_waterlevels {
+        internal static string WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_derived_waterlevels", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kan het toetspeil niet afleiden op basis van de invoer..
         /// </summary>
-        internal static string WaveConditionsCalculationService_ValidateInput_No_designwaterlevel_selected {
+        internal static string WaveConditionsCalculationService_ValidateInput_No_DesignWaterLevel_calculated {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_designwaterlevel_selected", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_DesignWaterLevel_calculated", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardenlocatie geselecteerd..
         /// </summary>
-        internal static string WaveConditionsCalculationService_ValidateInput_No_hydraulic_boundary_location_selected {
+        internal static string WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected {
             get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_hydraulic_boundary_location_sel" +
-                        "ected", resourceCulture);
+                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selec" +
+                        "ted", resourceCulture);
             }
         }
         

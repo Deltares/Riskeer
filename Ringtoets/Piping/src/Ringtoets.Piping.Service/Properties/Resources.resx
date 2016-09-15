@@ -120,9 +120,6 @@
   <data name="Error_in_piping_calculation_0" xml:space="preserve">
     <value>Piping berekening niet gelukt: {0}</value>
   </data>
-  <data name="Error_in_piping_validation_0" xml:space="preserve">
-    <value>Validatie mislukt: {0}</value>
-  </data>
   <data name="PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer" xml:space="preserve">
     <value>Kan de dikte van het watervoerend pakket niet afleiden op basis van de invoer.</value>
   </data>
