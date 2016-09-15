@@ -352,7 +352,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
                 return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
-            }
+        }
 
             string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
@@ -370,8 +370,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             bool locationsAvailable = hydraulicBoundaryDatabase != null && hydraulicBoundaryDatabase.Locations.Any();
 
             string waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
-                                                                                         ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                         : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
+                                                                                            ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                                                            : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
                                              waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip,
@@ -396,7 +396,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             }
         }
 
-        private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, IList<ICalculationBase> calculationCollection)
+        private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                                     IList<ICalculationBase> calculationCollection)
         {
             WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,
@@ -420,7 +421,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
                 WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters, database, calculation.Name);
-            }
+        }
         }
 
         private void CalculateAll(CalculationGroup group, WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)

@@ -24,18 +24,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.Forms
+namespace Ringtoets.GrassCoverErosionOutwards.Forms
 {
     /// <summary>
-    /// Class holds methods to help views when dealing with <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>
+    /// Class holds methods to help views when dealing with <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>
     /// </summary>
-    public static class WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper
+    public static class GrassCoverErosionOutwardsWaveConditionsCalculationHelper
     {
         /// <summary>
-        /// Adds <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> based on the <paramref name="locations"/> 
+        /// Adds <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> based on the <paramref name="locations"/> 
         /// in the <paramref name="calculations"/>.
         /// </summary>
         /// <param name="locations">Locations to base the calculation upon.</param>
@@ -65,7 +65,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms
             var nameBase = hydraulicBoundaryLocation.Name;
             var name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
-            return new WaveImpactAsphaltCoverWaveConditionsCalculation
+            return new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = name,
                 InputParameters =

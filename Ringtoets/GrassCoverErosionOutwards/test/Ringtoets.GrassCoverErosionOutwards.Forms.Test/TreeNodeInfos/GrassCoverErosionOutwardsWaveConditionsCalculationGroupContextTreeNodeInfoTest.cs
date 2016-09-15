@@ -57,15 +57,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
-        private const int contextMenuAddCalculationIndexRootGroup = 3;
-        private const int contextMenuRemoveAllChildrenIndexRootGroup = 5;
-        private const int contextMenuValidateAllIndexRootGroup = 7;
-        private const int contextMenuCalculateAllIndexRootGroup = 8;
-        private const int contextMenuClearOutputIndexRootGroup = 9;
-        private const int contextMenuExpandAllIndexRootGroup = 11;
-        private const int contextMenuCollapseAllIndexRootGroup = 12;
-        private const int contextMenuPropertiesIndexRootGroup = 14;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 3;
+        private const int contextMenuAddCalculationIndexRootGroup = 4;
+        private const int contextMenuRemoveAllChildrenIndexRootGroup = 6;
+        private const int contextMenuValidateAllIndexRootGroup = 8;
+        private const int contextMenuCalculateAllIndexRootGroup = 9;
+        private const int contextMenuClearOutputIndexRootGroup = 10;
+        private const int contextMenuExpandAllIndexRootGroup = 12;
+        private const int contextMenuCollapseAllIndexRootGroup = 13;
+        private const int contextMenuPropertiesIndexRootGroup = 15;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 2;
         private const int contextMenuAddCalculationIndexNestedGroup = 3;
@@ -73,12 +73,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndexNestedGroup = 6;
         private const int contextMenuClearOutputNestedGroupIndex = 7;
 
+        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 0;
         private const int contextMenuValidateAllIndexNestedGroupNoCalculations = 4;
         private const int contextMenuCalculateAllIndexNestedGroupNoCalculations = 5;
 
-        private const int contextMenuRemoveAllInGroup = 4;
+        private const int contextMenuRemoveAllInGroup = 5;
 
-        private const int customOnlyContextMenuRemoveAllChildrenIndex = 4;
+        private const int customOnlyContextMenuRemoveAllChildrenIndex = 5;
 
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
@@ -353,7 +354,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(15, menu.Items.Count);
+                    Assert.AreEqual(16, menu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                                  "Genereer &berekeningen...",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                                                                   "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -401,11 +406,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   false);
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
-                        menu.Items[1],
-                        menu.Items[4],
-                        menu.Items[6],
-                        menu.Items[10],
-                        menu.Items[13]
+                        menu.Items[2],
+                        menu.Items[5],
+                        menu.Items[7],
+                        menu.Items[11],
+                        menu.Items[14]
                     }, typeof(ToolStripSeparator));
                 }
             }
@@ -454,7 +459,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(15, menu.Items.Count);
+                    Assert.AreEqual(16, menu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                                                                  "Genereer &berekeningen...",
+                                                                  "Genereer randvoorwaardenberekeningen.",
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                                                                   "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -504,11 +513,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   false);
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
-                        menu.Items[1],
-                        menu.Items[4],
-                        menu.Items[6],
-                        menu.Items[10],
-                        menu.Items[13]
+                        menu.Items[2],
+                        menu.Items[5],
+                        menu.Items[7],
+                        menu.Items[11],
+                        menu.Items[14]
                     }, typeof(ToolStripSeparator));
                 }
             }

@@ -390,17 +390,18 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateStabilityStoneCoverCalculations(nodeData.WrappedData, dialog.SelectedItems);
+                    GenerateStabilityStoneCoverCalculations(dialog.SelectedItems, nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
-        private static void GenerateStabilityStoneCoverCalculations(CalculationGroup target, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        private static void GenerateStabilityStoneCoverCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                    IList<ICalculationBase> calculationCollection)
         {
             StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,
-                target.Children);
+                calculationCollection);
         }
 
         private void AddWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)

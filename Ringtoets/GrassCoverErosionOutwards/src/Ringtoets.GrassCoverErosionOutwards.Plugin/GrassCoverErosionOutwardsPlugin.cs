@@ -35,12 +35,14 @@ using log4net;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.IO;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Forms;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
@@ -107,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 FailureMechanismDisabledContextMenuStrip);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
-                WaveConditionsCalculationGroupChildNodeObjects,
+                WaveConditionsCalculationGroupChildenNodeObjects,
                 WaveConditionsCalculationGroupContextMenuStrip,
                 WaveConditionsCalculationGroupContextOnNodeRemoved);
 
@@ -415,7 +417,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext TreeNodeInfo
 
-        private object[] WaveConditionsCalculationGroupChildNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        private object[] WaveConditionsCalculationGroupChildenNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 
@@ -453,6 +455,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var isNestedGroup = parentData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
 
+            StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
+
+            if (!isNestedGroup)
+            {
+                builder.AddCustomItem(generateCalculationsItem);
+            }
+
             builder.AddExportItem()
                    .AddSeparator()
                    .AddCreateCalculationGroupItem(group)
@@ -486,6 +495,46 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        {
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = nodeData.AssessmentSection.HydraulicBoundaryDatabase;
+            bool locationsAvailable = hydraulicBoundaryDatabase != null && hydraulicBoundaryDatabase.Locations.Any();
+
+            string grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip = locationsAvailable
+                                                                                               ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                                                               : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
+
+            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                             grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip,
+                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             (sender, args) => { ShowHydraulicBoundaryLocationSelectionDialog(nodeData); })
+            {
+                Enabled = locationsAvailable
+            };
+        }
+
+        private void ShowHydraulicBoundaryLocationSelectionDialog(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        {
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
+            {
+                dialog.ShowDialog();
+
+                if (dialog.SelectedItems.Any())
+                {
+                    GenerateGrassCoverErosionOutwardsWaveConditionsCalculations(dialog.SelectedItems, nodeData.WrappedData.Children);
+                    nodeData.NotifyObservers();
+                }
+            }
+        }
+
+        private static void GenerateGrassCoverErosionOutwardsWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                                        IList<ICalculationBase> calculationCollection)
+        {
+            GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(
+                hydraulicBoundaryLocations,
+                calculationCollection);
         }
 
         private void AddWaveConditionsCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)

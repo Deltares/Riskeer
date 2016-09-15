@@ -62,6 +62,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ExportInfos\HydraulicBoundariesGroupContextExportInfoTest.cs" />
+    <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelperTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationContextTest.cs" />
