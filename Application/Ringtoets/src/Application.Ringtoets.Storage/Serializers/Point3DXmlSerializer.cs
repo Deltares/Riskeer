@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Serializers
     /// Converter class that converts between a collection of <see cref="Point3D"/> and an
     /// XML representation of that data.
     /// </summary>
-    internal class Point3DXmlSerializer : SimpleDataCollectionSerializer<Point3D, Point3DXmlSerializer.SerializablePoint3D>
+    internal class Point3DXmlSerializer : DataCollectionSerializer<Point3D, Point3DXmlSerializer.SerializablePoint3D>
     {
         protected override Point3D[] FromSerializableData(IEnumerable<SerializablePoint3D> serializedElements)
         {

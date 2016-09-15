@@ -49,6 +49,27 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void Read_StochasticSoilModelSegmentPointXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        {
+            // Setup
+            var entity = new StochasticSoilModelEntity
+            {
+                Name = "Name",
+                SegmentName = "SegmentName",
+                StochasticSoilModelSegmentPointXml = xml
+            };
+
+            // Call
+            TestDelegate test = () => entity.Read(new ReadConversionCollector());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            Assert.AreEqual("xml", paramName);
+        }
+
+        [Test]
         public void Read_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSet()
         {
             // Setup

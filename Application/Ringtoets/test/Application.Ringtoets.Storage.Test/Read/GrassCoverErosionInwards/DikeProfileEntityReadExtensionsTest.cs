@@ -34,6 +34,11 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
     [TestFixture]
     public class DikeProfileEntityReadExtensionsTest
     {
+        private const string validRoughnessPointXml = "<ArrayOfRoughnessPointXmlSerializer.SerializableRoughnessPoint " +
+                                        "xmlns=\"http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers\" " +
+                                        "xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">" +
+                                        "</ArrayOfRoughnessPointXmlSerializer.SerializableRoughnessPoint>";
+
         [Test]
         public void Read_ReadConversionCollectorNull_ThrowArgumentNullException()
         {
@@ -46,6 +51,46 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("collector", paramName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void Read_DikeGeometryXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        {
+            // Setup
+            var profile = new DikeProfileEntity
+            {
+                DikeGeometryXml = xml,
+                ForeShoreXml = validRoughnessPointXml
+            };
+
+            // Call
+            TestDelegate test = () => profile.Read(new ReadConversionCollector());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            Assert.AreEqual("xml", paramName);
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void Read_ForeShoreXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        {
+            // Setup
+            var profile = new DikeProfileEntity
+            {
+                DikeGeometryXml = validRoughnessPointXml,
+                ForeShoreXml = xml
+            };
+
+            // Call
+            TestDelegate test = () => profile.Read(new ReadConversionCollector());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            Assert.AreEqual("xml", paramName);
         }
 
         [Test]

@@ -46,13 +46,21 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_GeometryXmlNull_ThrowsArgumentNullException()
+        [TestCase("")]
+        [TestCase(null)]
+        public void Read_GeometryXmlNullOrEmpty_ThrowsArgumentException(string xml)
         {
+            // Setup
+            var entity = new ForeshoreProfileEntity
+            {
+                GeometryXml = xml
+            };
+
             // Call
-            TestDelegate test = () => new ForeshoreProfileEntity().Read(new ReadConversionCollector());
+            TestDelegate test = () => entity.Read(new ReadConversionCollector());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
             Assert.AreEqual("xml", paramName);
         }
 

@@ -43,6 +43,25 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void Read_FailureMechanismSectionPointXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        {
+            // Setup
+            var entity = new FailureMechanismSectionEntity
+            {
+                FailureMechanismSectionPointXml = xml
+            };
+
+            // Call
+            TestDelegate test = () => entity.Read(new ReadConversionCollector());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            Assert.AreEqual("xml", paramName);
+        }
+
+        [Test]
         public void Read_Always_NewPoint()
         {
             // Setup

@@ -43,6 +43,8 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="RingtoetsPipingSurfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="SurfaceLineEntity.PointsXml"/> 
+        /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
         internal static RingtoetsPipingSurfaceLine Read(this SurfaceLineEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)

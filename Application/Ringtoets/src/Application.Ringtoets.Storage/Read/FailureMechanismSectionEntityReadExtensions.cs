@@ -40,6 +40,8 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="FailureMechanismSection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="FailureMechanismSectionEntity.FailureMechanismSectionPointXml"/> 
+        /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
         internal static FailureMechanismSection Read(this FailureMechanismSectionEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)

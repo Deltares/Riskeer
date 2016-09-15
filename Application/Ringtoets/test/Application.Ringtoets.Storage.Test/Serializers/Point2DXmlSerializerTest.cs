@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -30,31 +29,13 @@ namespace Application.Ringtoets.Storage.Test.Serializers
     public class Point2DXmlSerializerTest
     {
         [Test]
-        public void ToXml_PointsCollectionNull_ThrowsArgumentNullException()
+        public void Constructor_ExpectedValues()
         {
-            // Setup
+            // Call
             var serializer = new Point2DXmlSerializer();
 
-            // Call
-            TestDelegate call = () => serializer.ToXml(null);
-
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("elements", paramName);
-        }
-
-        [Test]
-        public void FromXml_XmlNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var serializer = new Point2DXmlSerializer();
-
-            // Call
-            TestDelegate call = () => serializer.FromXml(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("xml", paramName);
+            Assert.IsInstanceOf<DataCollectionSerializer<Point2D, Point2DXmlSerializer.SerializablePoint2D>>(serializer);
         }
 
         [Test]

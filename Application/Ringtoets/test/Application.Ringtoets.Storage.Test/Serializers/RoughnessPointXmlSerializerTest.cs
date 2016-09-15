@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
@@ -32,31 +31,13 @@ namespace Application.Ringtoets.Storage.Test.Serializers
     public class RoughnessPointXmlSerializerTest
     {
         [Test]
-        public void ToXml_PointsCollectionNull_ThrowArgumentNullException()
+        public void Constructor_ExpectedValues()
         {
-            // Setup
-            var converter = new RoughnessPointXmlSerializer();
-
             // Call
-            TestDelegate call = () => converter.ToXml(null);
+            var serializer = new RoughnessPointXmlSerializer();
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("elements", paramName);
-        }
-
-        [Test]
-        public void FromXml_XmlIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var converter = new RoughnessPointXmlSerializer();
-
-            // Call
-            TestDelegate call = () => converter.FromXml(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("xml", paramName);
+            Assert.IsInstanceOf<DataCollectionSerializer<RoughnessPoint, RoughnessPointXmlSerializer.SerializableRoughnessPoint>>(serializer);
         }
 
         [Test]

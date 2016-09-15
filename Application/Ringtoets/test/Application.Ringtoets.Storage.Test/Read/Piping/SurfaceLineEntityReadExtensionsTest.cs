@@ -48,6 +48,24 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void Read_PointsXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        {
+            var entity = new SurfaceLineEntity
+            {
+                PointsXml = xml
+            };
+
+            // Call
+            TestDelegate call = () => entity.Read(new ReadConversionCollector());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentException>(call).ParamName;
+            Assert.AreEqual("xml", paramName);
+        }
+
+        [Test]
         public void Read_SurfaceLineEntityWithoutGeometryPointEntities_ReturnSurfaceLine()
         {
             // Setup

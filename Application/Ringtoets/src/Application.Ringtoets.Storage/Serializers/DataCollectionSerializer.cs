@@ -23,13 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.Text;
 using System.Xml;
 
 namespace Application.Ringtoets.Storage.Serializers
 {
-    internal abstract class SimpleDataCollectionSerializer<TData, TSerializedData>
+    /// <summary>
+    /// Converter class that converts between a collection of <see cref="TSerializedData"/> and an XML representation of that data.
+    /// </summary>
+    internal abstract class DataCollectionSerializer<TData, TSerializedData>
     {
         private static readonly Type serializationRootType = typeof(TSerializedData[]);
         private readonly Encoding encoding = Encoding.UTF8;
@@ -41,9 +43,9 @@ namespace Application.Ringtoets.Storage.Serializers
         /// <returns>The XML data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="elements"/> is <c>null</c>.</exception>
         /// <exception cref="IOException">Thrown when an I/O error occurs.</exception>
+        /// <exception cref="InvalidDataContractException">Thrown when <see cref="TSerializedData"/> does not conform to data contract rules.
+        /// E.g., the <see cref="DataContractAttribute"/> has not been applied to the <see cref="TSerializedData"/>.</exception>
         /// <exception cref="SerializationException">Thrown when an error occurs during serialization.</exception>
-        /// <exception cref="QuotaExceededException">Thrown when <paramref name="elements"/>
-        /// contains too many objects.</exception>
         public string ToXml(IEnumerable<TData> elements)
         {
             if (elements == null)
@@ -71,14 +73,14 @@ namespace Application.Ringtoets.Storage.Serializers
         /// </summary>
         /// <param name="xml">The XML.</param>
         /// <returns>An array of <see cref="TData"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="xml"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="xml"/> is <c>null</c> or empty.</exception>
         /// <exception cref="IOException">Thrown when an I/O error occurs.</exception>
         /// <exception cref="SerializationException">Thrown when an error occurs during deserialization.</exception>
         public TData[] FromXml(string xml)
         {
-            if (xml == null)
+            if (string.IsNullOrEmpty(xml))
             {
-                throw new ArgumentNullException("xml");
+                throw new ArgumentException(@"xml cannot be empty.", "xml");
             }
 
             var stream = new MemoryStream();

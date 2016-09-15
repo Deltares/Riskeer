@@ -40,6 +40,8 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StochasticSoilModel"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="StochasticSoilModelEntity.StochasticSoilModelSegmentPointXml"/> 
+        /// of <paramref name="entity"/> is <c>null</c> or empty.</exception>
         internal static StochasticSoilModel Read(this StochasticSoilModelEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
