@@ -37,7 +37,9 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.IO;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -46,6 +48,7 @@ using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.IO;
 using Ringtoets.WaveImpactAsphaltCover.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
 using WaveImpactAsphaltCoverFormsResources = Ringtoets.WaveImpactAsphaltCover.Forms.Properties.Resources;
 
@@ -316,8 +319,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                    .AddValidateAllCalculationsInGroupItem(nodeData,
                                                           c => ValidateAll(
                                                               c.WrappedData.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>(),
-                                                              c.FailureMechanism.GeneralInput,
-                                                              c.AssessmentSection.FailureMechanismContribution.Norm,
                                                               c.AssessmentSection.HydraulicBoundaryDatabase),
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
@@ -350,9 +351,24 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
-            // TODO WTI-856 Contextmenu item is now set to Enabled == false by returning !NullOrEmpty from this method.
+            if (!failureMechanism.Sections.Any())
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+            }
 
-            return "Er is geen vakindeling geïmporteerd.";
+            if (assessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+            }
+
+            string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                                     validationProblem);
+            }
+            
+            return null;
         }
 
         private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
@@ -406,9 +422,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private void ValidateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, GeneralWaveConditionsInput generalInput, int norm, HydraulicBoundaryDatabase database)
+        private void ValidateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
         {
-            // TODO WTI-856
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
+            {
+                WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters, database, calculation.Name);
+            }
         }
 
         private void CalculateAll(CalculationGroup group, WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
@@ -487,8 +506,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                                           {
                                                               c.WrappedData
                                                           },
-                                                          c.FailureMechanism.GeneralInput,
-                                                          c.AssessmentSection.FailureMechanismContribution.Norm,
                                                           c.AssessmentSection.HydraulicBoundaryDatabase),
                                                       ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)

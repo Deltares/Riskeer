@@ -87,7 +87,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
         protected override void OnRun()
         {
-            PerformRun(() => true,
+            PerformRun(() => WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters, assessmentSection.HydraulicBoundaryDatabase, calculation.Name),
                        () => WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
                        () =>
                        {
