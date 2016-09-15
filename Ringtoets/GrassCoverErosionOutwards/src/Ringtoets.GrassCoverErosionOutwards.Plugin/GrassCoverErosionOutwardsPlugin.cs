@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
                 WaveConditionsCalculationGroupChildeNodeObjects,
                 WaveConditionsCalculationGroupContextMenuStrip,
-                null);
+                WaveConditionsCalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                 RingtoetsGrassCoverErosionOutwardsFormsResources.CalculationIcon,
@@ -560,6 +560,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 calculation.NotifyObservers();
             }
+        }
+
+        private void WaveConditionsCalculationGroupContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
+                                                                        object parentNodeData)
+        {
+            var parentGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) parentNodeData;
+
+            parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
+
+            parentGroupContext.NotifyObservers();
         }
 
         #endregion

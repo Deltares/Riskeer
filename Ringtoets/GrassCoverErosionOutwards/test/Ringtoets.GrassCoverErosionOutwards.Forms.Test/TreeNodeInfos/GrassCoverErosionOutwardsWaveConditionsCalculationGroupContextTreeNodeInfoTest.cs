@@ -162,8 +162,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var groupContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(groupContext);
@@ -187,8 +187,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(childGroup);
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
 
             // Call
             var children = info.ChildNodeObjects(nodeData).ToArray();
@@ -196,7 +196,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(failureMechanism.WaveConditionsCalculationGroup.Children.Count, children.Length);
             Assert.AreSame(calculationItem, children[0]);
-            var returnedCalculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)children[1];
+            var returnedCalculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[1];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism, returnedCalculationGroupContext.FailureMechanism);
         }
@@ -1284,8 +1284,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1334,8 +1334,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1377,6 +1377,39 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     // Check expectancies in TearDown()
                 }
             }
+        }
+
+        [Test]
+        public void OnNodeRemoved_ParentIsWaveConditionsCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var group = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                                    failureMechanism,
+                                                                                                    assessmentSection);
+            parentNodeData.Attach(observer);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, group);
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation()
