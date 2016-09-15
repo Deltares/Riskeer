@@ -438,7 +438,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oriëntatie van de dijk..
+        ///   Looks up a localized string similar to Oriëntatie van de dijknormaal ten opzichte van het noorden..
         /// </summary>
         public static string Orientation_DikeProfile_Description {
             get {

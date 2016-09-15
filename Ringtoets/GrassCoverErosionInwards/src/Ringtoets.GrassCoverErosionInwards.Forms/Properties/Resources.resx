@@ -158,7 +158,7 @@
     <value>Naam van het dijkprofiel.</value>
   </data>
   <data name="Orientation_DikeProfile_Description" xml:space="preserve">
-    <value>Oriëntatie van de dijk.</value>
+    <value>Oriëntatie van de dijknormaal ten opzichte van het noorden.</value>
   </data>
   <data name="GrassCoverErosionInwardsInput_FbFactor_Description" xml:space="preserve">
     <value>De parameter 'Fb' die gebruikt wordt in de berekening.</value>

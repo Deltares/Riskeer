@@ -590,7 +590,7 @@
     <value>Voorlandprofiel</value>
   </data>
   <data name="Foreshore_UseForeshore_Description" xml:space="preserve">
-    <value>Moet het voorlandprofiel worden gebruikt tijdens de berekening?</value>
+    <value>Moet de voorlandgeometrie worden gebruikt tijdens de berekening?</value>
   </data>
   <data name="Foreshore_UseForeshore_DisplayName" xml:space="preserve">
     <value>Gebruik</value>

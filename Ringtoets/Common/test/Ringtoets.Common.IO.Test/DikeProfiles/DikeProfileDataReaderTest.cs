@@ -278,7 +278,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOrientationOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, double expectedOrientationInFile)
         {
-            string expectedMessage = string.Format("De ingelezen oriëntatie waarde ('{0}') moet binnen het bereik [0, 360] vallen.",
+            string expectedMessage = string.Format("De oriëntatie ('{0}') moet binnen het bereik [0, 360] vallen.",
                                                    expectedOrientationInFile);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
@@ -392,7 +392,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowOrientation_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("De in te lezen oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("De oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
@@ -496,7 +496,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableDikeCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal punten van de dijkgeometrie ('{0}') is geen geheel getal.",
+            string expectedMessage = string.Format("Het aantal punten van de dijkgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
         }
@@ -507,7 +507,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowDijkCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal punten van de dijkgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Het gespecificeerde aantal punten van de dijkgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 16, expectedMessage);
         }
@@ -608,7 +608,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal punten van de voorlandgeometrie ('{0}') is geen geheel getal.",
+            string expectedMessage = string.Format("Het aantal punten van de voorlandgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }
@@ -619,7 +619,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowForeshoreCount_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen aantal punten van de voorlandgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
+            string expectedMessage = string.Format("Het gespecificeerde aantal punten van de voorlandgeometrie ('{0}') is te groot of te klein om ingelezen te worden.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 9, expectedMessage);
         }

@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(useForeshoreProperty);
             Assert.IsTrue(useForeshoreProperty.IsReadOnly);
             Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
-            Assert.AreEqual("Moet het voorlandprofiel worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
+            Assert.AreEqual("Moet de voorlandgeometrie worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
             Assert.IsNotNull(coordinatesProperty);
@@ -219,7 +219,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(useForeshoreProperty);
             Assert.IsTrue(useForeshoreProperty.IsReadOnly);
             Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
-            Assert.AreEqual("Moet het voorlandprofiel worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
+            Assert.AreEqual("Moet de voorlandgeometrie worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
             Assert.IsNotNull(coordinatesProperty);
@@ -264,7 +264,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(useForeshoreProperty);
             Assert.IsFalse(useForeshoreProperty.IsReadOnly);
             Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
-            Assert.AreEqual("Moet het voorlandprofiel worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
+            Assert.AreEqual("Moet de voorlandgeometrie worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
             Assert.IsNotNull(coordinatesProperty);
@@ -312,7 +312,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsNotNull(useForeshoreProperty);
             Assert.AreEqual(!withDikeProfile, useForeshoreProperty.IsReadOnly);
             Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
-            Assert.AreEqual("Moet het voorlandprofiel worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
+            Assert.AreEqual("Moet de voorlandgeometrie worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
             Assert.IsNotNull(coordinatesProperty);

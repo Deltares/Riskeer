@@ -301,7 +301,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsFalse(orientationOfTheNormalOfTheStructureProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, orientationOfTheNormalOfTheStructureProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", orientationOfTheNormalOfTheStructureProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van het kunstwerk.", orientationOfTheNormalOfTheStructureProperty.Description);
+            Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", orientationOfTheNormalOfTheStructureProperty.Description);
 
             PropertyDescriptor levelOfCrestOfStructureProperty = dynamicProperties[levelOfCrestOfStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelOfCrestOfStructureProperty.Converter);

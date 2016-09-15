@@ -207,22 +207,22 @@ Er is geen referentielijn geëxporteerd.</value>
     <value>De ingelezen dijkhoogte ('{0}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer" xml:space="preserve">
-    <value>Het ingelezen aantal punten van de dijkgeometrie ('{0}') is geen geheel getal.</value>
+    <value>Het aantal punten van de dijkgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows" xml:space="preserve">
-    <value>Het ingelezen aantal punten van de dijkgeometrie ('{0}') is te groot of te klein om ingelezen te worden.</value>
+    <value>Het gespecificeerde aantal punten van de dijkgeometrie ('{0}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer" xml:space="preserve">
-    <value>Het ingelezen aantal punten van de voorlandgeometrie ('{0}') is geen geheel getal.</value>
+    <value>Het aantal punten van de voorlandgeometrie ('{0}') moet worden gespecificeerd door middel van een geheel getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows" xml:space="preserve">
-    <value>Het ingelezen aantal punten van de voorlandgeometrie ('{0}') is te groot of te klein om ingelezen te worden.</value>
+    <value>Het gespecificeerde aantal punten van de voorlandgeometrie ('{0}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_not_double" xml:space="preserve">
     <value>De ingelezen oriëntatie ('{0}') is geen getal.</value>
   </data>
   <data name="DikeProfileDataReader_ParseOrientation_Orientation_0_overflows" xml:space="preserve">
-    <value>De in te lezen oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.</value>
+    <value>De oriëntatie ('{0}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseRoughnessPointParameter_ParameterName_0_Value_1_not_number" xml:space="preserve">
     <value>De ingelezen {0} ('{1}') is geen getal.</value>
@@ -279,7 +279,7 @@ Er is geen referentielijn geëxporteerd.</value>
     <value>De parameter {0} is al eerder in het bestand gedefinieerd.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range" xml:space="preserve">
-    <value>De ingelezen oriëntatie waarde ('{0}') moet binnen het bereik [0, 360] vallen.</value>
+    <value>De oriëntatie ('{0}') moet binnen het bereik [0, 360] vallen.</value>
   </data>
   <data name="DikeProfileDataReader_ValidateVersion_Only_version_four_zero_supported" xml:space="preserve">
     <value>Enkel bestanden van versie '4.0' worden ondersteund.</value>

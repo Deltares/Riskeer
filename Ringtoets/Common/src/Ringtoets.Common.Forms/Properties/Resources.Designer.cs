@@ -935,7 +935,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Moet het voorlandprofiel worden gebruikt tijdens de berekening?.
+        ///   Looks up a localized string similar to Moet de voorlandgeometrie worden gebruikt tijdens de berekening?.
         /// </summary>
         public static string Foreshore_UseForeshore_Description {
             get {

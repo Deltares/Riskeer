@@ -145,7 +145,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal punten van de dijkgeometrie (&apos;{0}&apos;) is geen geheel getal..
+        ///   Looks up a localized string similar to Het aantal punten van de dijkgeometrie (&apos;{0}&apos;) moet worden gespecificeerd door middel van een geheel getal..
         /// </summary>
         public static string DikeProfileDataReader_ParseNumberOfDikeElements_DijkCount_0_not_integer {
             get {
@@ -154,7 +154,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal punten van de dijkgeometrie (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
+        ///   Looks up a localized string similar to Het gespecificeerde aantal punten van de dijkgeometrie (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
         /// </summary>
         public static string DikeProfileDataReader_ParseNumberOfDikeElements_DikeCount_0_overflows {
             get {
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal punten van de voorlandgeometrie (&apos;{0}&apos;) is geen geheel getal..
+        ///   Looks up a localized string similar to Het aantal punten van de voorlandgeometrie (&apos;{0}&apos;) moet worden gespecificeerd door middel van een geheel getal..
         /// </summary>
         public static string DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_not_integer {
             get {
@@ -173,7 +173,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het ingelezen aantal punten van de voorlandgeometrie (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
+        ///   Looks up a localized string similar to Het gespecificeerde aantal punten van de voorlandgeometrie (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
         /// </summary>
         public static string DikeProfileDataReader_ParseNumberOfForeshoreElements_ForeshoreCount_0_overflows {
             get {
@@ -191,7 +191,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De in te lezen oriëntatie (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
+        ///   Looks up a localized string similar to De oriëntatie (&apos;{0}&apos;) is te groot of te klein om ingelezen te worden..
         /// </summary>
         public static string DikeProfileDataReader_ParseOrientation_Orientation_0_overflows {
             get {
@@ -369,7 +369,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen oriëntatie waarde (&apos;{0}&apos;) moet binnen het bereik [0, 360] vallen..
+        ///   Looks up a localized string similar to De oriëntatie (&apos;{0}&apos;) moet binnen het bereik [0, 360] vallen..
         /// </summary>
         public static string DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range {
             get {

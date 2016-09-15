@@ -191,7 +191,7 @@
     <value>Modelfactor van overloopdebiet bij superkritische stroming [-]</value>
   </data>
   <data name="OrientationOfTheNormalOfTheStructure_Description" xml:space="preserve">
-    <value>Oriëntatie van het kunstwerk.</value>
+    <value>Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.</value>
   </data>
   <data name="OrientationOfTheNormalOfTheStructure_DisplayName" xml:space="preserve">
     <value>Oriëntatie [°]</value>

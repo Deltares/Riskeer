@@ -333,7 +333,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oriëntatie van het kunstwerk..
+        ///   Looks up a localized string similar to Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden..
         /// </summary>
         public static string OrientationOfTheNormalOfTheStructure_Description {
             get {
