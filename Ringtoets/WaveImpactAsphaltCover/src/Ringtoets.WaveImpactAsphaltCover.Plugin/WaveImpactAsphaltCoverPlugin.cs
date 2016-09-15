@@ -38,7 +38,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
@@ -376,12 +375,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = nodeData.AssessmentSection.HydraulicBoundaryDatabase;
             bool locationsAvailable = hydraulicBoundaryDatabase != null && hydraulicBoundaryDatabase.Locations.Any();
 
-            string WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
+            string waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
                                                                                          ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
                                                                                          : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-                                             WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip,
+                                             waveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => { ShowHydraulicBoundaryLocationSelectionDialog(nodeData); })
             {
