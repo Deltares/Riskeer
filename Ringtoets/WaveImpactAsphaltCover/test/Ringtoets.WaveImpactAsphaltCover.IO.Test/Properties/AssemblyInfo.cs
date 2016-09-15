@@ -19,27 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Revetment.IO.Properties;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-namespace Ringtoets.Revetment.IO
-{
-    /// <summary>
-    /// Class describing the type of cover.
-    /// </summary>
-    public class CoverType
-    {
-        public static CoverType StoneCoverBlocks = new CoverType(Resources.CoverType_Blocks);
-        public static CoverType StoneCoverColumns = new CoverType(Resources.CoverType_Columns);
-        public static CoverType Asphalt = new CoverType(Resources.CoverType_Asphalt);
-
-        private CoverType(string name)
-        {
-            Name = name;
-        }
-
-        /// <summary>
-        /// Gets the name of the type of cover.
-        /// </summary>
-        public string Name { get; private set; }
-    }
-}
+[assembly: AssemblyTitle("Ringtoets.WaveImpactAsphaltCover.IO.Test")]
+[assembly: AssemblyProduct("Ringtoets.WaveImpactAsphaltCover.IO.Test")]
+[assembly: Guid("0d3fd1b3-8118-416f-89ae-1966738e73a5")]

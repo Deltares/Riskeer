@@ -45,7 +45,6 @@ using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.Views;
 using Ringtoets.StabilityStoneCover.IO;
-using Ringtoets.StabilityStoneCover.Plugin.Properties;
 using Ringtoets.StabilityStoneCover.Service;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -144,7 +143,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             {
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
-                FileFilter = Resources.DataTypeDisplayName_csv_file_filter
+                FileFilter = RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter
             };
 
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
@@ -154,7 +153,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                     context.WrappedData
                 }, filePath),
                 IsEnabled = context => context.WrappedData.HasOutput,
-                FileFilter = Resources.DataTypeDisplayName_csv_file_filter
+                FileFilter = RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter
             };
         }
 

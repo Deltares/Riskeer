@@ -43,6 +43,7 @@ using Ringtoets.WaveImpactAsphaltCover.Forms;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
+using Ringtoets.WaveImpactAsphaltCover.IO;
 using Ringtoets.WaveImpactAsphaltCover.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
@@ -128,6 +129,26 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
+            };
+        }
+
+        public override IEnumerable<ExportInfo> GetExportInfos()
+        {
+            yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
+            {
+                CreateFileExporter = (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(), filePath),
+                IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
+                FileFilter = RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter
+            };
+
+            yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>
+            {
+                CreateFileExporter = (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsExporter(new[]
+                {
+                    context.WrappedData
+                }, filePath),
+                IsEnabled = context => context.WrappedData.HasOutput,
+                FileFilter = RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter
             };
         }
 
@@ -339,12 +360,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = nodeData.AssessmentSection.HydraulicBoundaryDatabase;
             bool locationsAvailable = hydraulicBoundaryDatabase != null && hydraulicBoundaryDatabase.Locations.Any();
 
-            string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
+            string WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip = locationsAvailable
                                                                                          ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
                                                                                          : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-                                             stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
+                                             WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => { ShowHydraulicBoundaryLocationSelectionDialog(nodeData); })
             {
@@ -427,7 +448,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         #endregion
 
-        #region StabilityStoneCoverWaveConditionsCalculationContext
+        #region WaveImpactAsphaltCoverWaveConditionsCalculationContext
 
         private object[] WaveConditionsCalculationContextChildNodeObjects(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {

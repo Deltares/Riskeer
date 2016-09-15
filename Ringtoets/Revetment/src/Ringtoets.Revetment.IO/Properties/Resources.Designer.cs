@@ -82,6 +82,15 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Asfalt.
+        /// </summary>
+        internal static string CoverType_Asphalt {
+            get {
+                return ResourceManager.GetString("CoverType_Asphalt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Steen (blokken).
         /// </summary>
         internal static string CoverType_Blocks {

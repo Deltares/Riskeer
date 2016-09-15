@@ -105,6 +105,11 @@
       <Name>Ringtoets.Revetment.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
+      <Project>{e3347b16-bb18-41c1-8d34-fbcbf20db695}</Project>
+      <Name>Ringtoets.Revetment.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
@@ -115,9 +120,15 @@
       <Name>Ringtoets.WaveImpactAsphaltCover.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.WaveImpactAsphaltCover.IO\Ringtoets.WaveImpactAsphaltCover.IO.csproj">
+      <Project>{B388D2BA-FC6E-4EE2-B9B5-38D35F340FF5}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.WaveImpactAsphaltCover.Service\Ringtoets.WaveImpactAsphaltCover.Service.csproj">
       <Project>{9E4A7C0B-F8B5-4101-B9D5-90F3F3C0FF7C}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Service</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

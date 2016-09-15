@@ -594,6 +594,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kommagescheiden bestand (*.csv)|*.csv.
+        /// </summary>
+        public static string DataTypeDisplayName_csv_file_filter {
+            get {
+                return ResourceManager.GetString("DataTypeDisplayName_csv_file_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap DikeProfile {

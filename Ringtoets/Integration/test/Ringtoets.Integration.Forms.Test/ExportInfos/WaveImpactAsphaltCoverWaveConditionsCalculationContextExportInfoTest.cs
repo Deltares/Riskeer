@@ -27,14 +27,14 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Plugin;
+using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Ringtoets.WaveImpactAsphaltCover.Plugin;
 
 namespace Ringtoets.Integration.Forms.Test.ExportInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationContextExportInfoTest
+    public class WaveImpactAsphaltCoverWaveConditionsCalculationContextExportInfoTest
     {
         [Test]
         public void CreateFileExporter_Always_ExpectedPropertiesSet()
@@ -44,11 +44,11 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                  failureMechanism, assessmentSection);
-            using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
+                                                                                     failureMechanism, assessmentSection);
+            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
         public void FileFilter_Always_ReturnsFileFilter()
         {
             // Setup
-            using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
+            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -78,18 +78,18 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_StabilityStoneCoverWaveConditionsCalculationHasOutputFalse_ReturnsFalse()
+        public void IsEnabled_WaveImpactAsphaltCoverWaveConditionsCalculationHasOutputFalse_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
-                                                                                  failureMechanism, assessmentSection);
-            using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
+                                                                                     failureMechanism, assessmentSection);
+            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -103,34 +103,28 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_StabilityStoneCoverWaveConditionsCalculationHasOutputTrue_ReturnsTrue()
+        public void IsEnabled_WaveImpactAsphaltCoverWaveConditionsCalculationHasOutputTrue_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var columnsOutput = new[]
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var output = new[]
             {
                 new WaveConditionsOutput(1, 0, 3, 5),
                 new WaveConditionsOutput(8, 2, 6, 1)
             };
 
-            var blocksOutput = new[]
-            {
-                new WaveConditionsOutput(6, 2, 9, 4),
-                new WaveConditionsOutput(4, 1, 7, 3)
-            };
-
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(
-                new StabilityStoneCoverWaveConditionsCalculation
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(
+                new WaveImpactAsphaltCoverWaveConditionsCalculation
                 {
-                    Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput)
+                    Output = new WaveImpactAsphaltCoverWaveConditionsOutput(output)
                 },
                 failureMechanism, assessmentSection);
 
-            using (StabilityStoneCoverPlugin plugin = new StabilityStoneCoverPlugin())
+            using (WaveImpactAsphaltCoverPlugin plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
 
@@ -143,9 +137,9 @@ namespace Ringtoets.Integration.Forms.Test.ExportInfos
             mocks.VerifyAll();
         }
 
-        private static ExportInfo GetExportInfo(StabilityStoneCoverPlugin plugin)
+        private static ExportInfo GetExportInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
-            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext));
+            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext));
         }
     }
 }

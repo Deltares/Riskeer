@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.IO
@@ -75,6 +76,35 @@ namespace Ringtoets.Revetment.IO
             }
 
             return exportableWaveConditionsCollection;
+        }
+
+        /// <summary>
+        /// Create a collection of <see cref="ExportableWaveConditions"/>.
+        /// </summary>
+        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> objects belong.</param>
+        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> used in the calculations.</param>
+        /// <param name="output">The <see cref="WaveConditionsOutput"/> objects resulting from the calculations.</param>
+        /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c> or 
+        /// when <see cref="WaveConditionsOutput"/> is <c>null</c> for <paramref name="output"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
+        /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
+        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(string name, WaveConditionsInput waveConditionsInput, IEnumerable<WaveConditionsOutput> output)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException("name");
+            }
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException("waveConditionsInput");
+            }
+            if (output == null)
+            {
+                throw new ArgumentNullException("output");
+            }
+
+            return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, CoverType.Asphalt));
         }
     }
 }

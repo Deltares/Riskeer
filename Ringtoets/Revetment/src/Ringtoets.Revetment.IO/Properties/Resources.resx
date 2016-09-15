@@ -135,4 +135,7 @@
   <data name="No" xml:space="preserve">
     <value>nee</value>
   </data>
+  <data name="CoverType_Asphalt" xml:space="preserve">
+    <value>Asfalt</value>
+  </data>
 </root>

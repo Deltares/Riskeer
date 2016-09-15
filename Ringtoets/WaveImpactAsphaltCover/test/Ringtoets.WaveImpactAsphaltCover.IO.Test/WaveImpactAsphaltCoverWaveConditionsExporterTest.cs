@@ -19,27 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Revetment.IO.Properties;
+using NUnit.Framework;
 
-namespace Ringtoets.Revetment.IO
+namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
 {
-    /// <summary>
-    /// Class describing the type of cover.
-    /// </summary>
-    public class CoverType
+    [TestFixture]
+    public class WaveImpactAsphaltCoverWaveConditionsExporterTest
     {
-        public static CoverType StoneCoverBlocks = new CoverType(Resources.CoverType_Blocks);
-        public static CoverType StoneCoverColumns = new CoverType(Resources.CoverType_Columns);
-        public static CoverType Asphalt = new CoverType(Resources.CoverType_Asphalt);
-
-        private CoverType(string name)
-        {
-            Name = name;
-        }
-
-        /// <summary>
-        /// Gets the name of the type of cover.
-        /// </summary>
-        public string Name { get; private set; }
+         
     }
 }
