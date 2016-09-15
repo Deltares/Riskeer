@@ -114,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 WaveConditionsCalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
-                null,
+                WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);
 
@@ -158,6 +158,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                            Color.FromKnownColor(KnownColor.GrayText) :
                                            Color.FromKnownColor(KnownColor.ControlText),
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightLocationsContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationInputContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<EmptyGrassCoverErosionOutwardsOutput>
+            {
+                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ForeColor = emptyPipingOutput => Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsOutput>
+            {
+                Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
+                Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
             };
         }
 
@@ -618,6 +646,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         #endregion
 
         #region GrassCoverErosionOutwardsWaveConditionsCalculationContext TreeNodeInfo
+
+        private object[] WaveConditionsCalculationContextChildNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        {
+            var childNodes = new List<object>
+            {
+                new CommentContext<ICommentable>(context.WrappedData),
+                new GrassCoverErosionOutwardsWaveConditionsCalculationInputContext(context.WrappedData.InputParameters,
+                                                                             context.FailureMechanism,
+                                                                             context.AssessmentSection)
+            };
+
+            if (context.WrappedData.HasOutput)
+            {
+                childNodes.Add(context.WrappedData.Output);
+            }
+            else
+            {
+                childNodes.Add(new EmptyGrassCoverErosionOutwardsOutput());
+            }
+
+            return childNodes.ToArray();
+        }
 
         private ContextMenuStrip WaveConditionsCalculationContextMenuStrip(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
                                                                            object parentData,

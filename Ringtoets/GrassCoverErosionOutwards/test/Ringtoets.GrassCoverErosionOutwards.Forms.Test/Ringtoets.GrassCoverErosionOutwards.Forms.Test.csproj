@@ -84,6 +84,7 @@
     <Compile Include="PropertyInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionOutwardsFailureMechanismContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionOutwardsWaveHeightLocationsContextPropertyInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\EmptyGrassCoverErosionOutwardsOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveHeightLocationsContextTreeNodeInfoTest.cs" />
@@ -91,6 +92,8 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsCalculationInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>

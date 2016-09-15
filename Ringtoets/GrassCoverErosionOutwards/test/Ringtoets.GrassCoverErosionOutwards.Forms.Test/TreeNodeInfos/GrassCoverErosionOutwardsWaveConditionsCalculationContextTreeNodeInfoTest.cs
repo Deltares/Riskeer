@@ -36,10 +36,12 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
@@ -290,6 +292,73 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(canDrag);
+        }
+
+        [Test]
+        public void ChildNodeObjects_CalculationWithoutOutput_ReturnChildrenWithEmptyOutput()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = null
+            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            // Call
+            object[] children = info.ChildNodeObjects(context);
+
+            // Assert
+            Assert.AreEqual(3, children.Length);
+
+            var commentsContext = (CommentContext<ICommentable>)children[0];
+            Assert.AreSame(calculation, commentsContext.WrappedData);
+
+            var inputContext = (GrassCoverErosionOutwardsWaveConditionsCalculationInputContext)children[1];
+            Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
+            Assert.AreSame(failureMechanism, inputContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
+
+            Assert.IsInstanceOf<EmptyGrassCoverErosionOutwardsOutput>(children[2]);
+        }
+
+        [Test]
+        public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithOutput()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            // Call
+            object[] children = info.ChildNodeObjects(context);
+
+            // Assert
+            Assert.AreEqual(3, children.Length);
+
+            var commentsContext = (CommentContext<ICommentable>)children[0];
+            Assert.AreSame(calculation, commentsContext.WrappedData);
+
+            var inputContext = (GrassCoverErosionOutwardsWaveConditionsCalculationInputContext)children[1];
+            Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
+            Assert.AreSame(failureMechanism, inputContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
+
+            var output = (GrassCoverErosionOutwardsWaveConditionsOutput)children[2];
+            Assert.AreSame(calculation.Output, output);
         }
 
         [Test]

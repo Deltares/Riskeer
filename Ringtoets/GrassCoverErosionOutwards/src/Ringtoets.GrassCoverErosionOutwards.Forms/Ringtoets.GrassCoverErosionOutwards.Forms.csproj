@@ -46,6 +46,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelper.cs" />
+    <Compile Include="PresentationObjects\EmptyGrassCoverErosionOutwardsOutput.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryLocationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationContext.cs" />
