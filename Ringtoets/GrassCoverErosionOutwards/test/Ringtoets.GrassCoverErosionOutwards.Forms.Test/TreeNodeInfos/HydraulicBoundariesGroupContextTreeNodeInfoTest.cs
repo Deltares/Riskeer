@@ -157,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
-            Assert.AreEqual(2, children.Length);
+            Assert.AreEqual(3, children.Length);
             var waterLevelHydraulicBoundaryLocationsContext = (GrassCoverErosionOutwardsDesignWaterLevelLocationsContext) children[0];
             Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, waterLevelHydraulicBoundaryLocationsContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, waterLevelHydraulicBoundaryLocationsContext.AssessmentSection);
@@ -165,6 +165,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var waveHeightHydraulicBoundaryLocationsContext = (GrassCoverErosionOutwardsWaveHeightLocationsContext)children[1];
             Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, waveHeightHydraulicBoundaryLocationsContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, waveHeightHydraulicBoundaryLocationsContext.AssessmentSection);
+
+            var waveConditionsCalculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[2];
+            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, waveConditionsCalculationGroupContext.WrappedData);
         }
     }
 }

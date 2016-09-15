@@ -97,6 +97,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
+                null,
+                null,
+                null);
+
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -267,7 +272,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection),
-                new GrassCoverErosionOutwardsWaveHeightLocationsContext(locations, assessmentSection)
+                new GrassCoverErosionOutwardsWaveHeightLocationsContext(locations, assessmentSection),
+                new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(hydraulicBoundariesGroupContext.WrappedData.WaveConditionsCalculationGroup,
+                                                                                   hydraulicBoundariesGroupContext.WrappedData)
             };
         }
 
