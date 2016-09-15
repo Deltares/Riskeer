@@ -155,7 +155,7 @@ namespace Ringtoets.Revetment.Service
                 return new[]{message};
             }
             
-            return Enumerable.Empty<string>().ToArray();
+            return new string[0];
         }           
 
         private static string ValidateHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)

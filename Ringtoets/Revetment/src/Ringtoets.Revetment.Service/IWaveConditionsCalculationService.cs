@@ -35,11 +35,10 @@ namespace Ringtoets.Revetment.Service
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> that holds the information required to perform a calculation.</param>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to determine if a hydraulic boundary 
-        /// database was loaded, and validates the file path of the database.</param>
+        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> used when performing a calculation.</param>
         /// <param name="name">The name of the calculation to validate.</param>
-        /// <returns><c>False</c> if given parameters result in validation errors;
-        /// <c>True</c> otherwise.</returns>
+        /// <returns><c>False</c> if <paramref name="input"/> contains invalid values or when no locations could be obtained from 
+        /// the <paramref name="hydraulicBoundaryDatabase"/>; <c>True</c> otherwise.</returns>
         bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name);
 
         /// <summary>
