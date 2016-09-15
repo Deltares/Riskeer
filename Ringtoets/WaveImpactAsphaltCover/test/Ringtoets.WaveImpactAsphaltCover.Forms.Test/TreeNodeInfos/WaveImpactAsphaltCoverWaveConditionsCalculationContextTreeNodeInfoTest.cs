@@ -401,54 +401,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenFailureMechanismWithoutSections_ThenValidationItemDisabled()
-        {
-            // Given
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                Name = "A"
-            };
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
-                                                                                     failureMechanism,
-                                                                                     assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  validateMenuItemIndex,
-                                                                  "&Valideren",
-                                                                  "Er is geen vakindeling geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
         public void GivenAssessmentSectionWithoutHydroDatabase_ThenValidationItemDisabled()
         {
             // Given
@@ -778,7 +730,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAnyCalculation_ThenCalculateItemEnabled()
+        public void GivenAssessmentSectionWithoutHydroDatabase_ThenCalculationItemDisabled()
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -789,8 +741,112 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
-                                                                                     failureMechanism,
-                                                                                     assessmentSection);
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithoutValidPathForCalculation_ThenCalculationItemDisabled()
+        {
+            // Given
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
+                var importHandler = mocks.Stub<IImportCommandHandler>();
+                var exportHandler = mocks.Stub<IExportCommandHandler>();
+                var viewCommands = mocks.Stub<IViewCommands>();
+                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
+                                                             importHandler,
+                                                             exportHandler,
+                                                             viewCommands,
+                                                             context,
+                                                             treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                {
+                    // Then
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
+                                                                  calculateMenuItemIndex,
+                                                                  "Be&rekenen",
+                                                                  "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.",
+                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithValidPathForCalculation_ThenCalculationItemEnabled()
+        {
+            // Given
+            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validHydroDatabasePath
+            };
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "A"
+            };
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

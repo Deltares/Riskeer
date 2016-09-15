@@ -567,57 +567,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismWithNoSections_ValidateAndCalculateAllDisabled()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var group = new CalculationGroup();
-                group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
-                var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                     failureMechanism,
-                                                                                                     assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
-                    Assert.IsFalse(validateItem.Enabled);
-                    Assert.IsFalse(calculateItem.Enabled);
-                    Assert.AreEqual("Er is geen vakindeling geïmporteerd.", calculateItem.ToolTipText);
-                    Assert.AreEqual("Er is geen vakindeling geïmporteerd.", validateItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AssessmentSectionWithoutHydraulicBoundaryDatabase_ValidateAndCalculateAllDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var group = new CalculationGroup();
                 group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -659,10 +614,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var group = new CalculationGroup();
                 group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -754,10 +705,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism,
@@ -960,10 +907,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism,
@@ -1035,10 +978,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             calculationB.Attach(observerB);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
                                                                                            failureMechanism,

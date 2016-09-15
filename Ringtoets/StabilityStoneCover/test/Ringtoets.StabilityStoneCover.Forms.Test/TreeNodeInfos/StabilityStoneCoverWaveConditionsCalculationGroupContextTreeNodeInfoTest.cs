@@ -567,57 +567,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismWithNoSections_ValidateAndCalculateAllDisabled()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var group = new CalculationGroup();
-                group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
-                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
-                    Assert.IsFalse(validateItem.Enabled);
-                    Assert.IsFalse(calculateItem.Enabled);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported, calculateItem.ToolTipText);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported, validateItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AssessmentSectionWithoutHydraulicBoundaryDatabase_ValidateAndCalculateAllDisabled()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var group = new CalculationGroup();
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -659,10 +614,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var group = new CalculationGroup();
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -754,10 +705,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
@@ -825,10 +772,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
@@ -897,10 +840,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
@@ -958,10 +897,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,
@@ -1037,10 +972,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             calculationB.Attach(observerB);
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
+
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                         failureMechanism,

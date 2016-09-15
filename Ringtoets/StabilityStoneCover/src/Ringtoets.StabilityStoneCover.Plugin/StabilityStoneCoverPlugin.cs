@@ -349,11 +349,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, StabilityStoneCoverFailureMechanism failureMechanism)
         {
-            if (!failureMechanism.Sections.Any())
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
-            }
-
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
                 return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
@@ -506,7 +501,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                 },
                                                 c.AssessmentSection.HydraulicBoundaryDatabase),
                                             ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
+                .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                 .AddClearCalculationOutputItem(calculation)
                 .AddSeparator()
                 .AddRenameItem()

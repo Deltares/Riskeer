@@ -561,10 +561,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var group = new CalculationGroup();
                 group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -606,10 +602,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                failureMechanism.AddSection(new FailureMechanismSection("", new[]
-                {
-                    new Point2D(0, 0)
-                }));
                 var group = new CalculationGroup();
                 group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -683,10 +675,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             group.Children.Add(calculation);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism,
@@ -754,10 +742,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism,
@@ -826,10 +810,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism,
@@ -887,10 +867,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism,
@@ -962,10 +938,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             calculationB.Attach(observerB);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
-            {
-                new Point2D(0, 0)
-            }));
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism,

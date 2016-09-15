@@ -182,8 +182,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
             const string name = "the new name!";
 
             // Call
@@ -207,12 +207,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                                                   failureMechanism,
+                                                                                                   assessmentSection);
 
             // Call
             bool canRemoveCalculation = info.CanRemove(context, parentContext);
@@ -234,12 +234,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             };
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                                                   failureMechanism,
+                                                                                                   assessmentSection);
 
             // Call
             bool canRemoveCalculation = info.CanRemove(context, parentContext);
@@ -265,12 +265,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                                                   failureMechanism,
+                                                                                                   assessmentSection);
 
             // Call
             info.OnNodeRemoved(context, parentContext);
@@ -301,8 +301,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilderMock.Expect(mb => mb.AddExportItem()).Return(menuBuilderMock);
@@ -341,11 +341,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -353,8 +348,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -394,11 +389,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
@@ -407,8 +397,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -451,11 +441,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                        Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -467,8 +452,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -510,11 +495,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                        Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -531,19 +511,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
                     {
-                        DesignWaterLevel = (RoundedDouble)12.0
+                        DesignWaterLevel = (RoundedDouble) 12.0
                     },
-                    LowerBoundaryRevetment = (RoundedDouble)1.0,
-                    UpperBoundaryRevetment = (RoundedDouble)10.0,
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
-                    LowerBoundaryWaterLevels = (RoundedDouble)1.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0
                 }
             };
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -598,11 +578,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                        Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -618,8 +593,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             };
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -679,8 +654,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -720,11 +695,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
@@ -733,8 +703,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -777,11 +747,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                        Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -793,8 +758,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -836,11 +801,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                        Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -853,8 +813,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var calculation = GetValidCalculation();
             calculation.Name = "A";
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -927,8 +887,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Output = null
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -976,8 +936,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1028,8 +988,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             };
             calculation.Attach(observer);
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1088,13 +1048,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble)4,
-                    UpperBoundaryRevetment = (RoundedDouble)10,
-                    UpperBoundaryWaterLevels = (RoundedDouble)8,
-                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)9.3;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
             return calculation;
         }
 

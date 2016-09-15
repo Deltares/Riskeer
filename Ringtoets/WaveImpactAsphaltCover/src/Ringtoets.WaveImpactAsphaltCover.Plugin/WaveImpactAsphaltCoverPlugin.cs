@@ -339,21 +339,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
-            if (!failureMechanism.Sections.Any())
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
-            }
-
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
                 return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
@@ -365,7 +360,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                                      validationProblem);
             }
-            
+
             return null;
         }
 
@@ -506,7 +501,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                                           },
                                                           c.AssessmentSection.HydraulicBoundaryDatabase),
                                                       ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
+                          .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
