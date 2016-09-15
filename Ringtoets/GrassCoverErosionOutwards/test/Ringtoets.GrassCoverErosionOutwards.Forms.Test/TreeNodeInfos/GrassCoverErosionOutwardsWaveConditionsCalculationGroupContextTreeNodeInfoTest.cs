@@ -663,8 +663,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
                 new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 30, 2));
 
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculationA = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
+                Name = "A",
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
@@ -678,10 +679,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     UpperBoundaryWaterLevels = (RoundedDouble) 10.0
                 }
             };
+            var calculationB = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "B",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
+                    {
+                        DesignWaterLevel = (RoundedDouble)12.0
+                    },
+                    LowerBoundaryRevetment = (RoundedDouble)1.0,
+                    UpperBoundaryRevetment = (RoundedDouble)10.0,
+                    StepSize = WaveConditionsInputStepSize.One,
+                    LowerBoundaryWaterLevels = (RoundedDouble)1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                }
+            };
+
 
             var group = new CalculationGroup();
-            group.Children.Add(calculation);
-            group.Children.Add(calculation);
+            group.Children.Add(calculationA);
+            group.Children.Add(calculationB);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
@@ -714,15 +732,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     {
                         var messages = m.ToArray();
                         Assert.AreEqual(4, messages.Length);
-                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", messages[1]);
-                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' gestart om: ", messages[2]);
-                        StringAssert.StartsWith("Validatie van 'Nieuwe berekening' beëindigd om: ", messages[3]);
+                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
+                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[1]);
+                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messages[2]);
+                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messages[3]);
                     });
                 }
             }
         }
-
+        
         [Test]
         public void ContextMenuStrip_TwoCalculationsClickOnCalculateAllInGroup_MessagesLogged()
         {
