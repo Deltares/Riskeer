@@ -36,14 +36,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class EmptyWaveImpactAsphaltCoverOutputTreeNodeInfoTest
     {
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -126,6 +118,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var mocks = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
                 var output = new EmptyWaveImpactAsphaltCoverOutput();
@@ -150,7 +143,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
 
         private TreeNodeInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)

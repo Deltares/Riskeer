@@ -117,24 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null" xml:space="preserve">
-    <value>{0} mag niet 'null' zijn.</value>
-  </data>
   <data name="HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism" xml:space="preserve">
     <value>Het hoogte kunstwerk toetsspoor</value>
-  </data>
-  <data name="HeightStructuresContext_DataDescription_AssessmentSection" xml:space="preserve">
-    <value>Het traject</value>
   </data>
   <data name="HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem" xml:space="preserve">
     <value>De berekening</value>
   </data>
   <data name="HeightStructuresInputContext_NodeDisplayName" xml:space="preserve">
     <value>Invoer</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\control_equalizer_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description" xml:space="preserve">
     <value>De valversnelling van de zwaartekracht.</value>

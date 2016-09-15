@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new ViewInfo<PipingFailureMechanismContext, PipingFailureMechanismView>
             {
                 GetViewName = (view, mechanism) => PipingDataResources.PipingFailureMechanism_DisplayName,
-                Image = PipingFormsResources.PipingIcon,
+                Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = ClosePipingFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
             };
@@ -168,7 +168,6 @@ namespace Ringtoets.Piping.Plugin
                 FailureMechanismDisabledContextMenuStrip);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
-                PipingFormsResources.PipingIcon,
                 PipingCalculationContextChildNodeObjects,
                 PipingCalculationContextContextMenuStrip,
                 PipingCalculationContextOnNodeRemoved);

@@ -23,6 +23,7 @@ using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 {
@@ -48,7 +49,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         {
             if (calculation == null)
             {
-                var message = string.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem);
 
                 throw new ArgumentNullException("calculation", message);

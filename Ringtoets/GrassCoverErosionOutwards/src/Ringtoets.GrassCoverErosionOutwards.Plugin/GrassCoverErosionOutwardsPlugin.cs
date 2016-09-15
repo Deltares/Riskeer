@@ -112,7 +112,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 WaveConditionsCalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
-                RingtoetsGrassCoverErosionOutwardsFormsResources.CalculationIcon,
                 null,
                 WaveConditionsCalculationContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);

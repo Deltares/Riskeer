@@ -30,6 +30,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Views;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 {
@@ -60,7 +61,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(PipingFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(PipingFailureMechanismContext), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, info.Image);
         }
 
         [Test]

@@ -100,16 +100,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CalculationIcon {
-            get {
-                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het kritieke overslagdebiet per strekkende meter..
         /// </summary>
         public static string CriticalOvertoppingDischarge_Description {
@@ -187,24 +177,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         public static string FlowWidthAtBottomProtection_DisplayName {
             get {
                 return ResourceManager.GetString("FlowWidthAtBottomProtection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
-        /// </summary>
-        public static string HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
-            get {
-                return ResourceManager.GetString("HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het traject.
-        /// </summary>
-        public static string HeightStructuresContext_DataDescription_AssessmentSection {
-            get {
-                return ResourceManager.GetString("HeightStructuresContext_DataDescription_AssessmentSection", resourceCulture);
             }
         }
         

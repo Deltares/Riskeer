@@ -527,24 +527,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
-        /// </summary>
-        public static string PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
-            get {
-                return ResourceManager.GetString("PipingContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het traject.
-        /// </summary>
-        public static string PipingContext_DataDescription_AssessmentSection {
-            get {
-                return ResourceManager.GetString("PipingContext_DataDescription_AssessmentSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De berekening.
         /// </summary>
         public static string PipingContext_DataDescription_PipingCalculationItem {
@@ -577,16 +559,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingContext_DataDescription_Surfacelines {
             get {
                 return ResourceManager.GetString("PipingContext_DataDescription_Surfacelines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap PipingIcon {
-            get {
-                object obj = ResourceManager.GetObject("PipingIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

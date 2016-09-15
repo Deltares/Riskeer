@@ -88,7 +88,6 @@ namespace Ringtoets.HeightStructures.Plugin
                 CalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<HeightStructuresCalculationContext>(
-                HeightStructuresFormsResources.CalculationIcon,
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);

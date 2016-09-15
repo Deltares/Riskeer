@@ -228,7 +228,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                               RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                              PipingFormsResources.PipingIcon);
+                                                              RingtoetsCommonFormsResources.CalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               RingtoetsCommonFormsResources.Validate_all,
@@ -336,7 +336,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                               RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                              PipingFormsResources.PipingIcon);
+                                                              RingtoetsCommonFormsResources.CalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                               RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,

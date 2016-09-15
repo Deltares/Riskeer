@@ -48,7 +48,6 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -134,7 +133,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             Image icon = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.CalculationIcon, icon);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, icon);
         }
 
         [Test]
@@ -287,7 +286,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemove_CalculationNotInParent_ReturnTrue()
+        public void CanRemove_CalculationNotInParent_ReturnFalse()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -314,7 +313,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_CalculationInParent_ReturnTrue()
+        public void OnNodeRemoved_CalculationInParent_CalculationRemovedFromParent()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

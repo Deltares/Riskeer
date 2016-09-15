@@ -100,16 +100,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CalculationIcon {
-            get {
-                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetseisen.
         /// </summary>
         public static string Categories_CriticalValues {
@@ -242,25 +232,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayN" +
                         "ame_1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
-        /// </summary>
-        public static string GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsContext_AssertInputsAreNotNull_DataDescription_0_cannot_b" +
-                        "e_null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het traject.
-        /// </summary>
-        public static string GrassCoverErosionInwardsContext_DataDescription_AssessmentSection {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsContext_DataDescription_AssessmentSection", resourceCulture);
             }
         }
         

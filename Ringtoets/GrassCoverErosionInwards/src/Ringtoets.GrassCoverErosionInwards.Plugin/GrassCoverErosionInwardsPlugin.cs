@@ -136,7 +136,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                 CalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationContext>(
-                GrassCoverErosionInwardsFormsResources.CalculationIcon,
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);

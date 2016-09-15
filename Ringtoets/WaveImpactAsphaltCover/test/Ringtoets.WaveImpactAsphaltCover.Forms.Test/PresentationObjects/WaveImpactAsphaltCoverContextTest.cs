@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Core.Common.TestUtil;
@@ -36,23 +35,30 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
     [TestFixture]
     public class WaveImpactAsphaltCoverContextTest
     {
+        private MockRepository mockRepository;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+        }
+
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
+            var target = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
-            var target = new ObservableObject();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            var context = new SimpleWaveImpactAsphaltCoverContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            var context = new SimpleWaveImpactAsphaltCoverContext<IObservable>(target, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservable>>(context);
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -64,14 +70,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         public void ParameteredConstructor_FailureMechanismIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var observableObject = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
-            var observableObject = new ObservableObject();
-
             // Call
-            TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<ObservableObject>(observableObject, null, assessmentSectionMock);
+            TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<IObservable>(observableObject, null, assessmentSectionMock);
 
             // Assert
             const string expectedMessage = "Het golfklappen op asfalt toetsspoor mag niet 'null' zijn.";
@@ -83,15 +87,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var observableObject = new ObservableObject();
+            var observableObject = mockRepository.StrictMock<IObservable>();
+            mockRepository.ReplayAll();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<ObservableObject>(observableObject, failureMechanism, null);
+            TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<IObservable>(observableObject, failureMechanism, null);
 
             // Assert
             const string expectedMessage = "Het traject mag niet 'null' zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -101,30 +107,26 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
 
-            var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Twice();
+            var target = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var target = new ObservableObject();
-            var context = new SimpleWaveImpactAsphaltCoverContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            var context = new SimpleWaveImpactAsphaltCoverContext<IObservable>(target, failureMechanism, assessmentSectionMock);
 
             // Call
             var availableHydraulicBoundaryLocations = context.HydraulicBoundaryLocations;
 
             // Assert
-            Assert.AreEqual(1, availableHydraulicBoundaryLocations.Count());
             Assert.AreEqual(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 
-        private class ObservableObject : Observable { }
-
         private class SimpleWaveImpactAsphaltCoverContext<T> : WaveImpactAsphaltCoverContext<T> where T : IObservable
         {
             public SimpleWaveImpactAsphaltCoverContext(T target, WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-                : base(target, failureMechanism, assessmentSection) { }
+                : base(target, failureMechanism, assessmentSection) {}
         }
     }
 }

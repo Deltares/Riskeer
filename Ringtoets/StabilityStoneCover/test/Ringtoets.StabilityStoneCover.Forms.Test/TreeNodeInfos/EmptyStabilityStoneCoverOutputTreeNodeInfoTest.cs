@@ -36,14 +36,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class EmptyStabilityStoneCoverOutputTreeNodeInfoTest
     {
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -92,7 +84,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         {
             // Setup
             var output = new EmptyStabilityStoneCoverOutput();
-            
+
             using (var plugin = new StabilityStoneCoverPlugin())
             {
                 var info = GetInfo(plugin);
@@ -126,15 +118,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
+            MockRepository mocks = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                var output = new EmptyStabilityStoneCoverOutput();
-
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
 
                 var gui = mocks.StrictMock<IGui>();
+                var output = new EmptyStabilityStoneCoverOutput();
                 gui.Expect(cmp => cmp.Get(output, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();
@@ -150,7 +142,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
 
         private TreeNodeInfo GetInfo(StabilityStoneCoverPlugin plugin)

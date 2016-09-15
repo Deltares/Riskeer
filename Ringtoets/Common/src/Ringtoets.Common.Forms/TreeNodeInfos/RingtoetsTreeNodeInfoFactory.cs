@@ -79,13 +79,11 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="TreeNodeInfo"/> object for a calculation context of the type <typeparamref name="TCalculationContext"/>. 
         /// </summary>
         /// <typeparam name="TCalculationContext">The type of calculation context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
-        /// <param name="icon">The icon of the <see cref="TreeNodeInfo"/>.</param>
         /// <param name="childNodeObjects">The function for obtaining the child node objects.</param>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <param name="onNodeRemoved">The action to perform on removing a node.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(
-            Bitmap icon,
             Func<TCalculationContext, object[]> childNodeObjects,
             Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationContext, object> onNodeRemoved)
@@ -94,7 +92,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return new TreeNodeInfo<TCalculationContext>
             {
                 Text = context => context.WrappedData.Name,
-                Image = context => icon,
+                Image = context => Resources.CalculationIcon,
                 EnsureVisibleOnCreate = (context, parent) => true,
                 ChildNodeObjects = childNodeObjects,
                 ContextMenuStrip = contextMenuStrip,

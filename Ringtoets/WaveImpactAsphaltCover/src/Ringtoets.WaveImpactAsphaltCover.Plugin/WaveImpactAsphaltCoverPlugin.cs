@@ -100,7 +100,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 WaveConditionsCalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
-                WaveImpactAsphaltCoverFormsResources.CalculationIcon,
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);

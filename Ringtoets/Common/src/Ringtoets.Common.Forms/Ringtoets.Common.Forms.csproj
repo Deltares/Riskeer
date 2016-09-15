@@ -215,6 +215,7 @@
     <None Include="Resources\application_form.png" />
     <Content Include="Resources\broom.png" />
     <None Include="Resources\DikeProfile.png" />
+    <None Include="Resources\calculation_icon.png" />
     <Content Include="Resources\wand-hat.png" />
     <None Include="Resources\database.png" />
     <None Include="Resources\chart_single_line.png" />

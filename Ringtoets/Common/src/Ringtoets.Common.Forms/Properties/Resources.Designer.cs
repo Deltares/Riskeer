@@ -92,6 +92,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
+        /// </summary>
+        public static string AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
+            get {
+                return ResourceManager.GetString("AssertInputsAreNotNull_DataDescription_0_cannot_be_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm..
         /// </summary>
         public static string AssessmentLevel_Description {
@@ -433,6 +442,16 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string CalculationGroup_Validate_all_ToolTip {
             get {
                 return ResourceManager.GetString("CalculationGroup_Validate_all_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CalculationIcon {
+            get {
+                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -790,6 +809,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanism_Validate_all_ToolTip {
             get {
                 return ResourceManager.GetString("FailureMechanism_Validate_all_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het traject.
+        /// </summary>
+        public static string FailureMechanismContext_DataDescription_AssessmentSection {
+            get {
+                return ResourceManager.GetString("FailureMechanismContext_DataDescription_AssessmentSection", resourceCulture);
             }
         }
         

@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 {
@@ -78,7 +79,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             TestDelegate test = () => new HeightStructuresInputContext(input, null, failureMechanism, assessmentSectionMock);
 
             // Assert
-            var expectedMessage = string.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+            var expectedMessage = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                                 Resources.HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
             mocksRepository.VerifyAll();

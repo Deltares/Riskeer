@@ -82,16 +82,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CalculationIcon {
-            get {
-                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De schematisatie van het voorlandprofiel..
         /// </summary>
         public static string ForeshoreProfile_Description {

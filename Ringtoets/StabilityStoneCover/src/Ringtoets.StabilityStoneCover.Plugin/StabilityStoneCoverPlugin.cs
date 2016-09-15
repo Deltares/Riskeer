@@ -94,7 +94,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 WaveConditionsCalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
-                StabilityStoneCoverFormsResources.CalculationIcon,
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);

@@ -37,14 +37,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsOutputTreeNodeInfoTest
     {
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -111,6 +103,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
+            MockRepository mocks = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
                 var output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>());
@@ -135,7 +128,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
 
         private TreeNodeInfo GetInfo(StabilityStoneCoverPlugin plugin)

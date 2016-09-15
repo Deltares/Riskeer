@@ -133,7 +133,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             Image icon = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(StabilityStoneCoverFormsResources.CalculationIcon, icon);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculationIcon, icon);
         }
 
         [Test]

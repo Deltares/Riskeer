@@ -82,35 +82,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CalculationIcon {
-            get {
-                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} mag niet &apos;null&apos; zijn..
-        /// </summary>
-        public static string WaveImpactAsphaltCoverContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null {
-            get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_" +
-                        "null", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het traject.
-        /// </summary>
-        public static string WaveImpactAsphaltCoverContext_DataDescription_AssessmentSection {
-            get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverContext_DataDescription_AssessmentSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het golfklappen op asfalt toetsspoor.
         /// </summary>
         public static string WaveImpactAsphaltCoverContext_DataDescription_WaveImpactAsphaltCoverFailureMechanism {

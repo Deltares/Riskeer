@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HydraRing.Data;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 {
@@ -52,7 +53,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         {
             if (failureMechanism == null)
             {
-                var message = string.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
                                             Resources.HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism);
 
                 throw new ArgumentNullException("failureMechanism", message);
@@ -60,8 +61,8 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 
             if (assessmentSection == null)
             {
-                var message = string.Format(Resources.HeightStructuresContext_AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.HeightStructuresContext_DataDescription_AssessmentSection);
+                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
+                                            RingtoetsCommonFormsResources.FailureMechanismContext_DataDescription_AssessmentSection);
                 throw new ArgumentNullException("assessmentSection", message);
             }
 
