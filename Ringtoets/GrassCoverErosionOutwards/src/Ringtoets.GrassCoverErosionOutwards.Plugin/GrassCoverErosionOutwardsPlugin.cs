@@ -51,6 +51,7 @@ using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsGrassCoverErosionOutwardsDataResources = Ringtoets.GrassCoverErosionOutwards.Data.Properties.Resources;
@@ -160,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightLocationsContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationInputContext>
+            yield return new TreeNodeInfo<WaveConditionsInputContext>
             {
                 Text = context => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -652,9 +653,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var childNodes = new List<object>
             {
                 new CommentContext<ICommentable>(context.WrappedData),
-                new GrassCoverErosionOutwardsWaveConditionsCalculationInputContext(context.WrappedData.InputParameters,
-                                                                                   context.FailureMechanism,
-                                                                                   context.AssessmentSection)
+                new WaveConditionsInputContext(context.WrappedData.InputParameters,
+                                               context.FailureMechanism.ForeshoreProfiles,
+                                               context.AssessmentSection)
             };
 
             if (context.WrappedData.HasOutput)

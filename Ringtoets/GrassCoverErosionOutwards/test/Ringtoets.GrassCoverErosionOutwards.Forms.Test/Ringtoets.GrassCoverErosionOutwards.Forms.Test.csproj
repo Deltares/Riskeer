@@ -78,7 +78,6 @@
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsCalculationInputContextTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightLocationsContextPropertiesTest.cs" />
     <Compile Include="PropertyInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextPropertyInfoTest.cs" />
@@ -92,7 +91,7 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsCalculationInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\WaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />
@@ -171,6 +170,10 @@
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
+      <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
+      <Name>Ringtoets.Revetment.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Service.TestUtil\Ringtoets.Revetment.Service.TestUtil.csproj">
       <Project>{EA416DD2-1633-439E-8512-B9933E37B9C5}</Project>

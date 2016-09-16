@@ -48,6 +48,7 @@ using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -298,14 +299,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithoutOutput_ReturnChildrenWithEmptyOutput()
         {
             // Setup
+            var location = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location
+                }
+            };
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Output = null
             };
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                       Enumerable.Empty<Point2D>(),
+                                                       new BreakWater(BreakWaterType.Caisson, 1),
+                                                       new ForeshoreProfile.ConstructionProperties());
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    foreshoreProfile
+                }
+            };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
@@ -319,10 +341,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var commentsContext = (CommentContext<ICommentable>)children[0];
             Assert.AreSame(calculation, commentsContext.WrappedData);
 
-            var inputContext = (GrassCoverErosionOutwardsWaveConditionsCalculationInputContext)children[1];
+            var inputContext = (WaveConditionsInputContext)children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
-            Assert.AreSame(failureMechanism, inputContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
+            CollectionAssert.AreEqual(new[] { foreshoreProfile }, inputContext.ForeshoreProfiles);
+            CollectionAssert.AreEqual(new[] { location }, inputContext.HydraulicBoundaryLocations);
 
             Assert.IsInstanceOf<EmptyGrassCoverErosionOutwardsOutput>(children[2]);
         }
@@ -331,14 +353,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithOutput()
         {
             // Setup
+            var location = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location
+                }
+            };
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                       Enumerable.Empty<Point2D>(),
+                                                       new BreakWater(BreakWaterType.Caisson, 1),
+                                                       new ForeshoreProfile.ConstructionProperties());
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    foreshoreProfile
+                }
+            };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
@@ -352,10 +395,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var commentsContext = (CommentContext<ICommentable>)children[0];
             Assert.AreSame(calculation, commentsContext.WrappedData);
 
-            var inputContext = (GrassCoverErosionOutwardsWaveConditionsCalculationInputContext)children[1];
+            var inputContext = (WaveConditionsInputContext)children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
-            Assert.AreSame(failureMechanism, inputContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
+            CollectionAssert.AreEqual(new[] { foreshoreProfile }, inputContext.ForeshoreProfiles);
+            CollectionAssert.AreEqual(new[] { location }, inputContext.HydraulicBoundaryLocations);
 
             var output = (GrassCoverErosionOutwardsWaveConditionsOutput)children[2];
             Assert.AreSame(calculation.Output, output);

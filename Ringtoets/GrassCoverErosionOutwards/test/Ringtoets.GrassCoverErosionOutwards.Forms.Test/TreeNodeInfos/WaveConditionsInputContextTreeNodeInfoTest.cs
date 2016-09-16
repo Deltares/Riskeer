@@ -28,16 +28,16 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationInputContextTreeNodeInfoTest
+    public class WaveConditionsInputContextTreeNodeInfoTest
     {
         private MockRepository mocks;
 
@@ -81,10 +81,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var input = new WaveConditionsInput();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationInputContext(input,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+            var context = new WaveConditionsInputContext(input,
+                                                         new ForeshoreProfile[0],
+                                                         assessmentSection);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -106,10 +105,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var input = new WaveConditionsInput();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationInputContext(input,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+            var context = new WaveConditionsInputContext(input,
+                                                         new ForeshoreProfile[0],
+                                                         assessmentSection);
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 var info = GetInfo(plugin);
@@ -130,10 +128,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var input = new WaveConditionsInput();
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var context = new GrassCoverErosionOutwardsWaveConditionsCalculationInputContext(input,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+                var context = new WaveConditionsInputContext(input,
+                                                             new ForeshoreProfile[0],
+                                                             assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
@@ -160,7 +157,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
         private TreeNodeInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationInputContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveConditionsInputContext));
         }
     }
 }
