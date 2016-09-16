@@ -28,7 +28,6 @@ using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 {

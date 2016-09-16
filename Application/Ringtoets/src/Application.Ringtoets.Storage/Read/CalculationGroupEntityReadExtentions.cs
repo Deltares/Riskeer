@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/>
         /// or <paramref name="generalPipingInput"/> is <c>null</c>.</exception>
         internal static CalculationGroup ReadAsPipingCalculationGroup(this CalculationGroupEntity entity, ReadConversionCollector collector,
-                                                                    GeneralPipingInput generalPipingInput)
+                                                                      GeneralPipingInput generalPipingInput)
         {
             if (collector == null)
             {
@@ -124,7 +124,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static CalculationGroup ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(this CalculationGroupEntity entity,
-                                                                                        ReadConversionCollector collector)
+                                                                                                       ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -155,7 +155,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static CalculationGroup ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(this CalculationGroupEntity entity,
-                                                                                        ReadConversionCollector collector)
+                                                                                                 ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -191,7 +191,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static CalculationGroup ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(this CalculationGroupEntity entity,
-                                                                                        ReadConversionCollector collector)
+                                                                                                    ReadConversionCollector collector)
         {
             if (collector == null)
             {
