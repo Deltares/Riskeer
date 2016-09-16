@@ -33,31 +33,20 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class AssessmentSectionEntity
+    public partial class GrassCoverErosionOutwardsHydraulicLocationEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AssessmentSectionEntity()
-        {
-            this.FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
-            this.HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
-        }
-    
-        public long AssessmentSectionEntityId { get; set; }
-        public long ProjectEntityId { get; set; }
-        public string Id { get; set; }
+        public long GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
+        public long FailureMechanismEntityId { get; set; }
+        public long LocationId { get; set; }
         public string Name { get; set; }
-        public string Comments { get; set; }
-        public int Norm { get; set; }
-        public string HydraulicDatabaseVersion { get; set; }
-        public string HydraulicDatabaseLocation { get; set; }
-        public short Composition { get; set; }
-        public string ReferenceLinePointXml { get; set; }
+        public Nullable<double> LocationX { get; set; }
+        public Nullable<double> LocationY { get; set; }
+        public Nullable<double> DesignWaterLevel { get; set; }
+        public Nullable<double> WaveHeight { get; set; }
+        public byte DesignWaterLevelCalculationConvergence { get; set; }
+        public byte WaveHeightCalculationConvergence { get; set; }
         public int Order { get; set; }
     
-        public virtual ProjectEntity ProjectEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
+        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
 }

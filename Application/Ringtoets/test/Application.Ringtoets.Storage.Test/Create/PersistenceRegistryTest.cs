@@ -704,7 +704,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Get((HydraulicBoundaryLocation) null);
+            TestDelegate test = () => registry.Get<HydraulicBoundaryLocation>(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -721,7 +721,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             registry.Register(entity, hydraulicBoundaryLocation);
 
             // Call
-            HydraulicLocationEntity result = registry.Get(hydraulicBoundaryLocation);
+            HydraulicLocationEntity result = registry.Get<HydraulicLocationEntity>(hydraulicBoundaryLocation);
 
             // Assert
             Assert.AreSame(entity, result);
@@ -735,7 +735,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(5, "6", 7, 8);
 
             // Call
-            TestDelegate test = () => registry.Get(hydraulicBoundaryLocation);
+            TestDelegate test = () => registry.Get<HydraulicLocationEntity>(hydraulicBoundaryLocation);
 
             // Assert
             Assert.Throws<InvalidOperationException>(test);
@@ -750,7 +750,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             registry.Register(new HydraulicLocationEntity(), new HydraulicBoundaryLocation(1, "2", 3, 4));
 
             // Call
-            TestDelegate test = () => registry.Get(hydraulicBoundaryLocation);
+            TestDelegate test = () => registry.Get<HydraulicLocationEntity>(hydraulicBoundaryLocation);
 
             // Assert
             Assert.Throws<InvalidOperationException>(test);
@@ -1245,7 +1245,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate test = () => registry.Register(null, new HydraulicBoundaryLocation(-1, "name", 0, 0));
+            TestDelegate test = () => registry.Register((HydraulicLocationEntity) null, new HydraulicBoundaryLocation(-1, "name", 0, 0));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

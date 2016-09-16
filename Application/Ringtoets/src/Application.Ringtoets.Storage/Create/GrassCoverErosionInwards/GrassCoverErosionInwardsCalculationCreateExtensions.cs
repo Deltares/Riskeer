@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             }
             if (input.HydraulicBoundaryLocation != null)
             {
-                entity.HydraulicLocationEntity = registry.Get(input.HydraulicBoundaryLocation);
+                entity.HydraulicLocationEntity = registry.Get<HydraulicLocationEntity>(input.HydraulicBoundaryLocation);
             }
 
             entity.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();

@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             if (registry.Contains(location))
             {
-                return registry.Get(location);
+                return registry.Get<HydraulicLocationEntity>(location);
             }
 
             var entity = new HydraulicLocationEntity
@@ -59,6 +59,43 @@ namespace Application.Ringtoets.Storage.Create
                 WaveHeight = double.IsNaN(location.WaveHeight) ? (double?) null : location.WaveHeight,
                 DesignWaterLevelCalculationConvergence = (byte) location.DesignWaterLevelCalculationConvergence,
                 WaveHeightCalculationConvergence = (byte) location.WaveHeightCalculationConvergence,
+                Order = order
+            };
+
+            registry.Register(entity, location);
+            return entity;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> based on the information of the <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <param name="location">The location to create a database entity for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param>
+        /// <returns>A new <see cref="HydraulicLocationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static GrassCoverErosionOutwardsHydraulicLocationEntity CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(
+            this HydraulicBoundaryLocation location, PersistenceRegistry registry, int order)
+        {
+            if (registry == null)
+            {
+                throw new ArgumentNullException("registry");
+            }
+            if (registry.Contains(location))
+            {
+                return registry.Get<GrassCoverErosionOutwardsHydraulicLocationEntity>(location);
+            }
+
+            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity
+            {
+                LocationId = location.Id,
+                Name = location.Name.DeepClone(),
+                LocationX = location.Location.X.ToNaNAsNull(),
+                LocationY = location.Location.Y.ToNaNAsNull(),
+                DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?)null : location.DesignWaterLevel,
+                WaveHeight = double.IsNaN(location.WaveHeight) ? (double?)null : location.WaveHeight,
+                DesignWaterLevelCalculationConvergence = (byte)location.DesignWaterLevelCalculationConvergence,
+                WaveHeightCalculationConvergence = (byte)location.WaveHeightCalculationConvergence,
                 Order = order
             };
 

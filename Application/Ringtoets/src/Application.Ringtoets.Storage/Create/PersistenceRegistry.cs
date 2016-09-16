@@ -45,11 +45,12 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = CreateDictionary<DikeProfileEntity, DikeProfile>();
         private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles = CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
         private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations = CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
-        private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations = CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
         private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = CreateDictionary<StochasticSoilModelEntity, StochasticSoilModel>();
         private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = CreateDictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
         private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
+
+        private readonly Dictionary<object, HydraulicBoundaryLocation> hydraulicLocations = CreateDictionary<object, HydraulicBoundaryLocation>();
 
         /// <summary>
         /// Registers a create or update operation for <paramref name="model"/> and the
@@ -129,6 +130,22 @@ namespace Application.Ringtoets.Storage.Create
         /// <item><paramref name="model"/> is <c>null</c></item>
         /// </list></exception>
         internal void Register(HydraulicLocationEntity entity, HydraulicBoundaryLocation model)
+        {
+            Register(hydraulicLocations, entity, model);
+        }
+
+        /// <summary>
+        /// Registers a create or update operation for <paramref name="model"/> and the
+        /// <paramref name="entity"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Register(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocation model)
         {
             Register(hydraulicLocations, entity, model);
         }
@@ -385,11 +402,11 @@ namespace Application.Ringtoets.Storage.Create
         /// has been registered for <paramref name="model"/>.</exception>
         /// <remarks>Use <see cref="Contains(HydraulicBoundaryLocation)"/> to find out
         /// whether a create/update operation has been registered for <paramref name="model"/>.</remarks>
-        internal HydraulicLocationEntity Get(HydraulicBoundaryLocation model)
+        internal T Get<T>(HydraulicBoundaryLocation model) where T : class
         {
-            return Get(hydraulicLocations, model);
+            return Get(hydraulicLocations, model) as T;
         }
-
+        
         /// <summary>
         /// Obtains the <see cref="FailureMechanismSection"/> which was registered for the
         /// given <paramref name="model"/>.
