@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs(norm).
+        ///   Looks up a localized string similar to h(norm).
         /// </summary>
         public static string DesignWaterLevel_Description {
             get {
@@ -470,7 +470,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h(norm).
+        ///   Looks up a localized string similar to Hs(norm).
         /// </summary>
         public static string WaveHeight_Description {
             get {

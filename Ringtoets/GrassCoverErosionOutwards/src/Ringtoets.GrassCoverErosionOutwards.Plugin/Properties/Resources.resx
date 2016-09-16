@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DesignWaterLevel_Description" xml:space="preserve">
-    <value>Hs(doorsn)</value>
+    <value>h(doorsn)</value>
   </data>
   <data name="WaveHeight_Description" xml:space="preserve">
-    <value>h(doorsn)</value>
+    <value>Hs(doorsn)</value>
   </data>
   <data name="GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBoundaryLocations_Cannot_calculate_when_Contribution_is_zero" xml:space="preserve">
     <value>De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.</value>

@@ -213,10 +213,10 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="DesignWaterLevel_Description" xml:space="preserve">
-    <value>Hs(norm)</value>
+    <value>h(norm)</value>
   </data>
   <data name="WaveHeight_Description" xml:space="preserve">
-    <value>h(norm)</value>
+    <value>Hs(norm)</value>
   </data>
   <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
     <value>Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
