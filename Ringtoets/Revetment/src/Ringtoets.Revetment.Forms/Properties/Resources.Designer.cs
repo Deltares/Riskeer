@@ -43,7 +43,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Revetment.Forms.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,7 +84,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De schematisatie van het voorlandprofiel..
         /// </summary>
-        internal static string ForeshoreProfile_Description {
+        public static string ForeshoreProfile_Description {
             get {
                 return ResourceManager.GetString("ForeshoreProfile_Description", resourceCulture);
             }
@@ -93,7 +93,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Voorlandprofiel.
         /// </summary>
-        internal static string ForeshoreProfile_DisplayName {
+        public static string ForeshoreProfile_DisplayName {
             get {
                 return ResourceManager.GetString("ForeshoreProfile_DisplayName", resourceCulture);
             }
@@ -102,7 +102,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waarde van de parameter &apos;a&apos; in de berekening voor golf condities..
         /// </summary>
-        internal static string GeneralWaveConditionsInput_A_Description {
+        public static string GeneralWaveConditionsInput_A_Description {
             get {
                 return ResourceManager.GetString("GeneralWaveConditionsInput_A_Description", resourceCulture);
             }
@@ -111,7 +111,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to a.
         /// </summary>
-        internal static string GeneralWaveConditionsInput_A_DisplayName {
+        public static string GeneralWaveConditionsInput_A_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralWaveConditionsInput_A_DisplayName", resourceCulture);
             }
@@ -120,7 +120,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waarde van de parameter &apos;b&apos; in de berekening voor golf condities..
         /// </summary>
-        internal static string GeneralWaveConditionsInput_B_Description {
+        public static string GeneralWaveConditionsInput_B_Description {
             get {
                 return ResourceManager.GetString("GeneralWaveConditionsInput_B_Description", resourceCulture);
             }
@@ -129,7 +129,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to b.
         /// </summary>
-        internal static string GeneralWaveConditionsInput_B_DisplayName {
+        public static string GeneralWaveConditionsInput_B_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralWaveConditionsInput_B_DisplayName", resourceCulture);
             }
@@ -138,7 +138,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waarde van de parameter &apos;c&apos; in de berekening voor golf condities..
         /// </summary>
-        internal static string GeneralWaveConditionsInput_C_Description {
+        public static string GeneralWaveConditionsInput_C_Description {
             get {
                 return ResourceManager.GetString("GeneralWaveConditionsInput_C_Description", resourceCulture);
             }
@@ -147,7 +147,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to c.
         /// </summary>
-        internal static string GeneralWaveConditionsInput_C_DisplayName {
+        public static string GeneralWaveConditionsInput_C_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralWaveConditionsInput_C_DisplayName", resourceCulture);
             }
@@ -156,7 +156,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ondergrens van de bekleding..
         /// </summary>
-        internal static string WaveConditionsInput_LowerBoundaryRevetment_Description {
+        public static string WaveConditionsInput_LowerBoundaryRevetment_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_LowerBoundaryRevetment_Description", resourceCulture);
             }
@@ -165,7 +165,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ondergrens bekleding [m+NAP].
         /// </summary>
-        internal static string WaveConditionsInput_LowerBoundaryRevetment_DisplayName {
+        public static string WaveConditionsInput_LowerBoundaryRevetment_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_LowerBoundaryRevetment_DisplayName", resourceCulture);
             }
@@ -174,7 +174,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Een aangepaste ondergrens voor de waterstanden..
         /// </summary>
-        internal static string WaveConditionsInput_LowerBoundaryWaterLevels_Description {
+        public static string WaveConditionsInput_LowerBoundaryWaterLevels_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_LowerBoundaryWaterLevels_Description", resourceCulture);
             }
@@ -183,7 +183,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ondergrens waterstanden [m+NAP].
         /// </summary>
-        internal static string WaveConditionsInput_LowerBoundaryWaterLevels_DisplayName {
+        public static string WaveConditionsInput_LowerBoundaryWaterLevels_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_LowerBoundaryWaterLevels_DisplayName", resourceCulture);
             }
@@ -192,7 +192,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het type van de bekleding waarvoor berekend wordt..
         /// </summary>
-        internal static string WaveConditionsInput_RevetmentType_Description {
+        public static string WaveConditionsInput_RevetmentType_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_RevetmentType_Description", resourceCulture);
             }
@@ -201,7 +201,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Type bekleding.
         /// </summary>
-        internal static string WaveConditionsInput_RevetmentType_DisplayName {
+        public static string WaveConditionsInput_RevetmentType_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_RevetmentType_DisplayName", resourceCulture);
             }
@@ -210,7 +210,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Grootte van de stappen waarmee de waterstanden in de berekening worden bepaald..
         /// </summary>
-        internal static string WaveConditionsInput_StepSize_Description {
+        public static string WaveConditionsInput_StepSize_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_StepSize_Description", resourceCulture);
             }
@@ -219,7 +219,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Stapgrootte [m].
         /// </summary>
-        internal static string WaveConditionsInput_StepSize_DisplayName {
+        public static string WaveConditionsInput_StepSize_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_StepSize_DisplayName", resourceCulture);
             }
@@ -228,7 +228,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bovengrens bepaald aan de hand van de waarde van het toetspeil op de geselecteerde hydraulische locatie..
         /// </summary>
-        internal static string WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description {
+        public static string WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description", resourceCulture);
             }
@@ -237,7 +237,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bovengrens op basis van toetspeil [m+NAP].
         /// </summary>
-        internal static string WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName {
+        public static string WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName", resourceCulture);
             }
@@ -246,7 +246,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bovengrens van de bekleding..
         /// </summary>
-        internal static string WaveConditionsInput_UpperBoundaryRevetment_Description {
+        public static string WaveConditionsInput_UpperBoundaryRevetment_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryRevetment_Description", resourceCulture);
             }
@@ -255,7 +255,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bovengrens bekleding [m+NAP].
         /// </summary>
-        internal static string WaveConditionsInput_UpperBoundaryRevetment_DisplayName {
+        public static string WaveConditionsInput_UpperBoundaryRevetment_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryRevetment_DisplayName", resourceCulture);
             }
@@ -264,7 +264,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Een aangepaste bovengrens voor de waterstanden..
         /// </summary>
-        internal static string WaveConditionsInput_UpperBoundaryWaterLevels_Description {
+        public static string WaveConditionsInput_UpperBoundaryWaterLevels_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryWaterLevels_Description", resourceCulture);
             }
@@ -273,7 +273,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bovengrens waterstanden [m+NAP].
         /// </summary>
-        internal static string WaveConditionsInput_UpperBoundaryWaterLevels_DisplayName {
+        public static string WaveConditionsInput_UpperBoundaryWaterLevels_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_UpperBoundaryWaterLevels_DisplayName", resourceCulture);
             }
@@ -282,7 +282,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte..
         /// </summary>
-        internal static string WaveConditionsInput_WaterLevels_Description {
+        public static string WaveConditionsInput_WaterLevels_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_WaterLevels_Description", resourceCulture);
             }
@@ -291,7 +291,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Waterstanden in berekening [m+NAP].
         /// </summary>
-        internal static string WaveConditionsInput_WaterLevels_DisplayName {
+        public static string WaveConditionsInput_WaterLevels_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsInput_WaterLevels_DisplayName", resourceCulture);
             }
@@ -300,7 +300,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend..
         /// </summary>
-        internal static string WaveConditionsOutput_WaterLevel_Description {
+        public static string WaveConditionsOutput_WaterLevel_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsOutput_WaterLevel_Description", resourceCulture);
             }
@@ -309,7 +309,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Waterstand [m+NAP].
         /// </summary>
-        internal static string WaveConditionsOutput_WaterLevel_DisplayName {
+        public static string WaveConditionsOutput_WaterLevel_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsOutput_WaterLevel_DisplayName", resourceCulture);
             }
@@ -318,7 +318,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekende golfrichting..
         /// </summary>
-        internal static string WaveConditionsOutput_WaveAngle_Description {
+        public static string WaveConditionsOutput_WaveAngle_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsOutput_WaveAngle_Description", resourceCulture);
             }
@@ -327,7 +327,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfrichting [°].
         /// </summary>
-        internal static string WaveConditionsOutput_WaveAngle_DisplayName {
+        public static string WaveConditionsOutput_WaveAngle_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsOutput_WaveAngle_DisplayName", resourceCulture);
             }
@@ -336,7 +336,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekende golfhoogte..
         /// </summary>
-        internal static string WaveConditionsOutput_WaveHeight_Description {
+        public static string WaveConditionsOutput_WaveHeight_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsOutput_WaveHeight_Description", resourceCulture);
             }
@@ -345,7 +345,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogte (Hs) [m].
         /// </summary>
-        internal static string WaveConditionsOutput_WaveHeight_DisplayName {
+        public static string WaveConditionsOutput_WaveHeight_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsOutput_WaveHeight_DisplayName", resourceCulture);
             }
@@ -354,7 +354,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekende golfperiode..
         /// </summary>
-        internal static string WaveConditionsOutput_WavePeakPeriod_Description {
+        public static string WaveConditionsOutput_WavePeakPeriod_Description {
             get {
                 return ResourceManager.GetString("WaveConditionsOutput_WavePeakPeriod_Description", resourceCulture);
             }
@@ -363,7 +363,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfperiode (Tp) [s].
         /// </summary>
-        internal static string WaveConditionsOutput_WavePeakPeriod_DisplayName {
+        public static string WaveConditionsOutput_WavePeakPeriod_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsOutput_WavePeakPeriod_DisplayName", resourceCulture);
             }

@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 BrowsableAttribute.Yes
             });
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             Assert.IsNotNull(nameProperty);
@@ -126,6 +126,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual("Lengte-effect parameters", lengthEffectProperty.Category);
             Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
             Assert.AreEqual("De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.", lengthEffectProperty.Description);
+
+            PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
+            Assert.IsNotNull(aProperty);
+            Assert.IsTrue(aProperty.IsReadOnly);
+            Assert.AreEqual("Modelinstellingen", aProperty.Category);
+            Assert.AreEqual("a", aProperty.DisplayName);
+            Assert.AreEqual("De waarde van de parameter 'a' in de berekening voor golf condities.", aProperty.Description);
+
+            PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
+            Assert.IsNotNull(bProperty);
+            Assert.IsTrue(bProperty.IsReadOnly);
+            Assert.AreEqual("Modelinstellingen", bProperty.Category);
+            Assert.AreEqual("b", bProperty.DisplayName);
+            Assert.AreEqual("De waarde van de parameter 'b' in de berekening voor golf condities.", bProperty.Description);
+
+            PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
+            Assert.IsNotNull(cProperty);
+            Assert.IsTrue(cProperty.IsReadOnly);
+            Assert.AreEqual("Modelinstellingen", cProperty.Category);
+            Assert.AreEqual("c", cProperty.DisplayName);
+            Assert.AreEqual("De waarde van de parameter 'c' in de berekening voor golf condities.", cProperty.Description);
         }
         
         [Test]
@@ -179,5 +200,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int lengthEffectPropertyIndex = 2;
+        private const int aPropertyIndex = 3;
+        private const int bPropertyIndex = 4;
+        private const int cPropertyIndex = 5;
     }
 }
