@@ -31,14 +31,13 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationInputContextTreeNodeInfoTest
+    public class WaveConditionsInputContextTreeNodeInfoTest
     {
         private MockRepository mocks;
 
