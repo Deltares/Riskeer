@@ -333,7 +333,7 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_AllInputConditionsSatisfiedWithBreakWater_ReturnsTrueAndLogsValidationMessages()
+        public void Validate_AllInputConditionsSatisfiedWithForeshoreProfileAndUseBreakWater_ReturnsTrueAndLogsValidationMessages()
         {
             // Setup 
             string name = "test";
@@ -376,7 +376,7 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_AllInputConditionsSatisfiedWithForeshoreWithoutBreakWater_ReturnsTrueAndLogsValidationMessages()
+        public void Validate_AllInputConditionsSatisfiedWithForeshoreProfileWithoutBreakWater_ReturnsTrueAndLogsValidationMessages()
         {
             // Setup 
             string name = "test";
