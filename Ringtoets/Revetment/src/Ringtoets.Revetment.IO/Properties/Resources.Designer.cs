@@ -109,6 +109,15 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gras.
+        /// </summary>
+        internal static string CoverType_Grass {
+            get {
+                return ResourceManager.GetString("CoverType_Grass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to nee.
         /// </summary>
         internal static string No {

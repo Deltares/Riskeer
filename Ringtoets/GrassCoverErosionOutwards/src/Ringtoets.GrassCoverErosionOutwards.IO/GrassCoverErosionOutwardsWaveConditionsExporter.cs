@@ -23,28 +23,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.IO.Exceptions;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.IO;
-using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.WaveImpactAsphaltCover.IO
+namespace Ringtoets.GrassCoverErosionOutwards.IO
 {
     /// <summary>
-    /// Exports wave impact asphalt cover wave conditions and stores then as a csv file.
+    /// Exports grass cover erosion outwards wave conditions and stores then as a csv file.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsExporter : WaveConditionsExporterBase
+    public class GrassCoverErosionOutwardsWaveConditionsExporter : WaveConditionsExporterBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsExporter"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsExporter"/>.
         /// </summary>
-        /// <param name="calculations">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> objects to export.</param>
+        /// <param name="calculations">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> objects to export.</param>
         /// <param name="filePath">The file path to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the file could not be written.</exception>
-        public WaveImpactAsphaltCoverWaveConditionsExporter(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, string filePath)
+        public GrassCoverErosionOutwardsWaveConditionsExporter(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, string filePath)
             : base(CreateExportableWaveConditionsCollection(calculations), filePath) {}
 
-        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations)
+        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations)
         {
             if (calculations == null)
             {
@@ -53,14 +53,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO
 
             var exportableWaveConditions = new List<ExportableWaveConditions>();
 
-            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> exportableCalculations =
+            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> exportableCalculations =
                 calculations.Where(c => c.HasOutput && c.InputParameters.HydraulicBoundaryLocation != null);
 
-            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in exportableCalculations)
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in exportableCalculations)
             {
                 exportableWaveConditions.AddRange(
                     ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.Items, CoverType.Asphalt));
+                        calculation.Name, calculation.InputParameters, calculation.Output.Items, CoverType.Grass));
             }
 
             return exportableWaveConditions;

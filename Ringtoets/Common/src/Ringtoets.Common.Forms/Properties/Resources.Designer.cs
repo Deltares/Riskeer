@@ -605,6 +605,16 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap CsvFileIcon {
+            get {
+                object obj = ResourceManager.GetObject("CsvFileIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap DatabaseIcon {
             get {
                 object obj = ResourceManager.GetObject("DatabaseIcon", resourceCulture);
@@ -1201,6 +1211,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstanden en golfhoogten uit marginale statistiek (*.shp)..
+        /// </summary>
+        public static string HydraulicBoundaryLocationsExporter_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationsExporter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap InputFolderIcon {
@@ -1343,6 +1362,16 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported {
             get {
                 return ResourceManager.GetString("Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PointShapefileIcon {
+            get {
+                object obj = ResourceManager.GetObject("PointShapefileIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1638,6 +1667,15 @@ namespace Ringtoets.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("ValidateIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende belastingen bij verschillende waterstanden (*.csv)..
+        /// </summary>
+        public static string WaveConditionsExporter_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsExporter_DisplayName", resourceCulture);
             }
         }
         

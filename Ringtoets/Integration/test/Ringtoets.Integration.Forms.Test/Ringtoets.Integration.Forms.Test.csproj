@@ -66,6 +66,8 @@
     </Compile>
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
+    <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\ReferenceLineContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\StabilityStoneCoverWaveConditionsCalculationContextExportInfoTest.cs" />
@@ -198,6 +200,10 @@
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
       <Project>{73E7E100-C015-4874-A548-AD6E33E7955E}</Project>
       <Name>Ringtoets.Common.Service.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Plugin\Ringtoets.GrassCoverErosionOutwards.Plugin.csproj">
+      <Project>{9B3ED064-E29F-4D38-85E0-3A82B77BA702}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>

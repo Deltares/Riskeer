@@ -138,4 +138,7 @@
   <data name="CoverType_Asphalt" xml:space="preserve">
     <value>Asfalt</value>
   </data>
+  <data name="CoverType_Grass" xml:space="preserve">
+    <value>Gras</value>
+  </data>
 </root>

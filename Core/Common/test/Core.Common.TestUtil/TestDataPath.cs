@@ -74,6 +74,11 @@ namespace Core.Common.TestUtil
                 public static readonly TestDataPath Integration = System.IO.Path.Combine("Ringtoets", "GrassCoverErosionInwards", "test", "Ringtoets.GrassCoverErosionInwards.Integration.Test");
             }
 
+            public static class GrassCoverErosionOutwards
+            {
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "GrassCoverErosionOutwards", "test", "Ringtoets.GrassCoverErosionOutwards.IO.Test");
+            }
+
             public static class HydraRing
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "HydraRing", "test", "Ringtoets.HydraRing.IO.Test");

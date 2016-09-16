@@ -39,5 +39,19 @@ namespace Ringtoets.Revetment.IO.Test
             // Assert
             Assert.AreEqual("Steen (zuilen)", CoverType.StoneCoverColumns.Name);
         }
+
+        [Test]
+        public void Name_Asphalt_CorrectName()
+        {
+            // Assert
+            Assert.AreEqual("Asfalt", CoverType.Asphalt.Name);
+        }
+
+        [Test]
+        public void Name_Grass_CorrectName()
+        {
+            // Assert
+            Assert.AreEqual("Gras", CoverType.Grass.Name);
+        }
     }
 }
