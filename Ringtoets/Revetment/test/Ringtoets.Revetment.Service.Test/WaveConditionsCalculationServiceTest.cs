@@ -87,7 +87,7 @@ namespace Ringtoets.Revetment.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt", msgs[1]);
+                StringAssert.StartsWith("Validatie mislukt: Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
             });
 
@@ -175,15 +175,15 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevel = (RoundedDouble)designWaterLevel
+                    DesignWaterLevel = (RoundedDouble) designWaterLevel
                 },
-                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetments,
-                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetments,
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
                 StepSize = WaveConditionsInputStepSize.One,
-                LowerBoundaryWaterLevels = (RoundedDouble)1.0,
-                UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
-            
+
             // Call
             Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
 
@@ -201,7 +201,113 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_AllInputConditionsSatisfied_ReturnsTrueAndLogsValidationMessages()
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        public void Validate_ForeShoreProfileDoesNotUseBreakWaterAndHasInvalidBreakwaterHeight_ReturnsTrueAndLogsValidationMessages(double breakWaterHeight)
+        {
+            // Setup
+            string name = "test";
+            bool isValid = false;
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            ForeshoreProfile foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                                     new[]
+                                                                     {
+                                                                         new Point2D(3.3, 4.4),
+                                                                         new Point2D(5.5, 6.6)
+                                                                     },
+                                                                     new BreakWater(BreakWaterType.Dam, breakWaterHeight),
+                                                                     new ForeshoreProfile.ConstructionProperties());
+
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 12.0
+                },
+                ForeshoreProfile = foreshoreProfile,
+                UseBreakWater = false,
+                LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                StepSize = WaveConditionsInputStepSize.One,
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+            };
+
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+            });
+
+            Assert.IsTrue(isValid);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        public void Validate_ForeShoreProfileUseBreakWaterAndHasInvalidBreakWaterHeight_ReturnsFalseAndLogsValidationMessages(double breakWaterHeight)
+        {
+            // Setup
+            string name = "test";
+            bool isValid = false;
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            ForeshoreProfile foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                                     new[]
+                                                                     {
+                                                                         new Point2D(3.3, 4.4),
+                                                                         new Point2D(5.5, 6.6)
+                                                                     },
+                                                                     new BreakWater(BreakWaterType.Dam, breakWaterHeight),
+                                                                     new ForeshoreProfile.ConstructionProperties());
+
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 12.0
+                },
+                ForeshoreProfile = foreshoreProfile,
+                LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                StepSize = WaveConditionsInputStepSize.One,
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+            };
+
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_AllInputConditionsSatisfiedWithoutForeshoreProfile_ReturnsTrueAndLogsValidationMessages()
         {
             // Setup 
             string name = "test";
@@ -216,13 +322,113 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevel = (RoundedDouble)12.0
+                    DesignWaterLevel = (RoundedDouble) 12.0
                 },
-                LowerBoundaryRevetment = (RoundedDouble)1.0,
-                UpperBoundaryRevetment = (RoundedDouble)10.0,
+                LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                UpperBoundaryRevetment = (RoundedDouble) 10.0,
                 StepSize = WaveConditionsInputStepSize.One,
-                LowerBoundaryWaterLevels = (RoundedDouble)1.0,
-                UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+            };
+
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+            });
+
+            Assert.IsTrue(isValid);
+        }
+
+        [Test]
+        public void Validate_AllInputConditionsSatisfiedWithBreakWater_ReturnsTrueAndLogsValidationMessages()
+        {
+            // Setup 
+            string name = "test";
+            bool isValid = false;
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            ForeshoreProfile foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                                     new[]
+                                                                     {
+                                                                         new Point2D(3.3, 4.4),
+                                                                         new Point2D(5.5, 6.6)
+                                                                     },
+                                                                     new BreakWater(BreakWaterType.Dam, 10.0),
+                                                                     new ForeshoreProfile.ConstructionProperties());
+
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 12.0
+                },
+                ForeshoreProfile = foreshoreProfile,
+                LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                StepSize = WaveConditionsInputStepSize.One,
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+            };
+
+            // Call
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+            });
+
+            Assert.IsTrue(isValid);
+        }
+
+        [Test]
+        public void Validate_AllInputConditionsSatisfiedWithoutBreakWater_ReturnsTrueAndLogsValidationMessages()
+        {
+            // Setup 
+            string name = "test";
+            bool isValid = false;
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            ForeshoreProfile foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                                     new[]
+                                                                     {
+                                                                         new Point2D(3.3, 4.4),
+                                                                         new Point2D(5.5, 6.6)
+                                                                     },
+                                                                     null,
+                                                                     new ForeshoreProfile.ConstructionProperties());
+
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 12.0
+                },
+                ForeshoreProfile = foreshoreProfile,
+                LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                UpperBoundaryRevetment = (RoundedDouble) 10.0,
+                StepSize = WaveConditionsInputStepSize.One,
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
 
             // Call

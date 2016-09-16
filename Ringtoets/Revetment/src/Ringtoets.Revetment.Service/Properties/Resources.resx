@@ -129,4 +129,7 @@
   <data name="WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels" xml:space="preserve">
     <value>Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen.</value>
   </data>
+  <data name="WaveConditionsCalculationService_ValidateInput_Invalid_BreakWaterHeight_value" xml:space="preserve">
+    <value>Er is geen geldige damhoogte ingevoerd.</value>
+  </data>
 </root>

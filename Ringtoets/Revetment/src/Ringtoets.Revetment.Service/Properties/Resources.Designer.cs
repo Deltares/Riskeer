@@ -82,6 +82,15 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geen geldige damhoogte ingevoerd..
+        /// </summary>
+        internal static string WaveConditionsCalculationService_ValidateInput_Invalid_BreakWaterHeight_value {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_Invalid_BreakWaterHeight_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen..
         /// </summary>
         internal static string WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels {

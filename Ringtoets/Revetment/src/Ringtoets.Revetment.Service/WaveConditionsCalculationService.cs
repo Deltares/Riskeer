@@ -192,6 +192,14 @@ namespace Ringtoets.Revetment.Service
                 return Resources.WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels;
             }
 
+            if (input.UseBreakWater)
+            {
+                if (double.IsInfinity(input.BreakWater.Height) || double.IsNaN(input.BreakWater.Height))
+                {
+                    return Resources.WaveConditionsCalculationService_ValidateInput_Invalid_BreakWaterHeight_value;
+                }
+            }
+
             return null;
         }
     }
