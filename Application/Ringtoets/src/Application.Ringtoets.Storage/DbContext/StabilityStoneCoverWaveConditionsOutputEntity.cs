@@ -35,19 +35,13 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class StabilityStoneCoverWaveConditionsOutputEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StabilityStoneCoverWaveConditionsOutputEntity()
-        {
-            this.StabilityStoneCoverWaveConditionsCalculationEntities = new HashSet<StabilityStoneCoverWaveConditionsCalculationEntity>();
-        }
-    
         public long StabilityStoneCoverWaveConditionsOutputEntityId { get; set; }
+        public long StabilityStoneCoverWaveConditionsCalculationEntityId { get; set; }
         public Nullable<double> WaterLevel { get; set; }
         public Nullable<double> WaveHeight { get; set; }
         public Nullable<double> WavePeakPeriod { get; set; }
         public Nullable<double> WaveAngle { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StabilityStoneCoverWaveConditionsCalculationEntity> StabilityStoneCoverWaveConditionsCalculationEntities { get; set; }
+        public virtual StabilityStoneCoverWaveConditionsCalculationEntity StabilityStoneCoverWaveConditionsCalculationEntity { get; set; }
     }
 }

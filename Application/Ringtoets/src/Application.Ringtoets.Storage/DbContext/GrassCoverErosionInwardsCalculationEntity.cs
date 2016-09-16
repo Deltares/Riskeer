@@ -38,6 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GrassCoverErosionInwardsCalculationEntity()
         {
+            this.GrassCoverErosionInwardsOutputEntities = new HashSet<GrassCoverErosionInwardsOutputEntity>();
             this.GrassCoverErosionInwardsSectionResultEntities = new HashSet<GrassCoverErosionInwardsSectionResultEntity>();
         }
     
@@ -45,7 +46,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public long CalculationGroupEntityId { get; set; }
         public Nullable<long> HydraulicLocationEntityId { get; set; }
         public Nullable<long> DikeProfileEntityId { get; set; }
-        public Nullable<long> GrassCoverErosionInwardsOutputEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
@@ -62,7 +62,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual DikeProfileEntity DikeProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-        public virtual GrassCoverErosionInwardsOutputEntity GrassCoverErosionInwardsOutputEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GrassCoverErosionInwardsOutputEntity> GrassCoverErosionInwardsOutputEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsSectionResultEntity> GrassCoverErosionInwardsSectionResultEntities { get; set; }
     }

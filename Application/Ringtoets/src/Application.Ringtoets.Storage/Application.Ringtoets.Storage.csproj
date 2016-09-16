@@ -147,9 +147,6 @@
     <Compile Include="DbContext\PipingStructureSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\ProbabilisticOutputEntity.cs">
-      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="DbContext\ProjectEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -241,7 +238,6 @@
     <Compile Include="Create\Piping\RingtoetsPipingSurfaceLineCreateExtensions.cs" />
     <Compile Include="Create\Piping\StochasticSoilModelCreateExtensions.cs" />
     <Compile Include="Create\Piping\StochasticSoilProfileCreateExtensions.cs" />
-    <Compile Include="Create\ProbabilityAssessmentOutputCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensions.cs" />
@@ -283,7 +279,6 @@
     <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensions.cs" />
-    <Compile Include="Read\ProbabilisticOutputEntityReadExtensions.cs" />
     <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\DuneErosionSectionResultEntityReadExtensions.cs" />

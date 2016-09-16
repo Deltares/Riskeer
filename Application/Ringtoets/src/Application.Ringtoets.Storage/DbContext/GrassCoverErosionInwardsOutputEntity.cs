@@ -35,21 +35,18 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class GrassCoverErosionInwardsOutputEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GrassCoverErosionInwardsOutputEntity()
-        {
-            this.GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
-        }
-    
         public long GrassCoverErosionInwardsOutputEntityId { get; set; }
-        public long ProbabilisticOutputEntityId { get; set; }
+        public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
         public byte IsOvertoppingDominant { get; set; }
         public Nullable<double> WaveHeight { get; set; }
         public Nullable<double> DikeHeight { get; set; }
         public byte IsDikeHeightCalculated { get; set; }
+        public Nullable<double> RequiredProbability { get; set; }
+        public Nullable<double> RequiredReliability { get; set; }
+        public Nullable<double> Probability { get; set; }
+        public Nullable<double> Reliability { get; set; }
+        public Nullable<double> FactorOfSafety { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
-        public virtual ProbabilisticOutputEntity ProbabilisticOutputEntity { get; set; }
+        public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }
     }
 }

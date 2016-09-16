@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         {
             if (output != null)
             {
-                entity.PipingCalculationOutputEntity = output.Create(registry);
+                entity.PipingCalculationOutputEntities.Add(output.Create(registry));
             }
         }
 
@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.Create.Piping
         {
             if (output != null)
             {
-                entity.PipingSemiProbabilisticOutputEntity = output.Create(registry);
+                entity.PipingSemiProbabilisticOutputEntities.Add(output.Create(registry));
             }
         }
     }

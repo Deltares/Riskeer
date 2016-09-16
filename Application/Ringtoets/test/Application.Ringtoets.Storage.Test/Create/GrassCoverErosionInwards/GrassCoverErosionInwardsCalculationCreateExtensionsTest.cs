@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
@@ -107,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(input.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
 
-            Assert.IsNull(entity.GrassCoverErosionInwardsOutputEntity);
+            Assert.IsFalse(entity.GrassCoverErosionInwardsOutputEntities.Any());
         }
 
         [Test]
@@ -235,7 +236,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity.GrassCoverErosionInwardsOutputEntity);
+            Assert.AreEqual(1, entity.GrassCoverErosionInwardsOutputEntities.Count);
         }
     }
 }

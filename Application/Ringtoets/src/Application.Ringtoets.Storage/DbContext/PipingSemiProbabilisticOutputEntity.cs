@@ -35,13 +35,8 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class PipingSemiProbabilisticOutputEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PipingSemiProbabilisticOutputEntity()
-        {
-            this.PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
-        }
-    
         public long PipingSemiProbabilisticOutputEntityId { get; set; }
+        public long PipingCalculationEntityId { get; set; }
         public Nullable<double> UpliftFactorOfSafety { get; set; }
         public Nullable<double> UpliftProbability { get; set; }
         public Nullable<double> HeaveFactorOfSafety { get; set; }
@@ -56,7 +51,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> PipingReliability { get; set; }
         public Nullable<double> PipingFactorOfSafety { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
+        public virtual PipingCalculationEntity PipingCalculationEntity { get; set; }
     }
 }

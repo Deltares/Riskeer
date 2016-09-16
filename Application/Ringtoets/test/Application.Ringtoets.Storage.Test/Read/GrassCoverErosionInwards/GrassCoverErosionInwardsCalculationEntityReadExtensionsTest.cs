@@ -59,7 +59,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             {
                 Name = "sodhfksn",
                 Comments = "s;ohfgwjo5p09u",
-                GrassCoverErosionInwardsOutputEntity = null,
                 HydraulicLocationEntity = null,
                 DikeProfileEntity = null,
                 Orientation = 5.6,
@@ -249,9 +248,9 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                GrassCoverErosionInwardsOutputEntity = new GrassCoverErosionInwardsOutputEntity
+                GrassCoverErosionInwardsOutputEntities =
                 {
-                    ProbabilisticOutputEntity = new ProbabilisticOutputEntity()
+                    new GrassCoverErosionInwardsOutputEntity()
                 }
             };
 
@@ -270,9 +269,9 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             // Setup
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                GrassCoverErosionInwardsOutputEntity = new GrassCoverErosionInwardsOutputEntity
+                GrassCoverErosionInwardsOutputEntities =
                 {
-                    ProbabilisticOutputEntity = new ProbabilisticOutputEntity()
+                    new GrassCoverErosionInwardsOutputEntity()
                 }
             };
 

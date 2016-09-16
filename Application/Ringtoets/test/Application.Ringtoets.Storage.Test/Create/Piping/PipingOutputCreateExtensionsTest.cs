@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.AreEqual(pipingOutput.UpliftZValue, entity.UpliftZValue);
 
             Assert.AreEqual(0, entity.PipingCalculationOutputEntityId);
-            CollectionAssert.IsEmpty(entity.PipingCalculationEntities);
+            Assert.AreEqual(0, entity.PipingCalculationEntityId);
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             Assert.IsNull(entity.UpliftZValue);
 
             Assert.AreEqual(0, entity.PipingCalculationOutputEntityId);
-            CollectionAssert.IsEmpty(entity.PipingCalculationEntities);
+            Assert.AreEqual(0, entity.PipingCalculationEntityId);
         }
     }
 }

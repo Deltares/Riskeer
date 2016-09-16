@@ -124,7 +124,6 @@
     <Compile Include="Create\Piping\RingtoetsPipingSurfaceLineCreateExtensionsTest.cs" />
     <Compile Include="Create\Piping\StochasticSoilModelCreateExtensionsTest.cs" />
     <Compile Include="Create\Piping\StochasticSoilProfileCreateExtensionsTest.cs" />
-    <Compile Include="Create\ProbabilisticAssessmentOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensionsTest.cs" />
@@ -165,7 +164,6 @@
     <Compile Include="Read\Piping\StochasticSoilModelEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\ProbabilisticOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\DuneErosionSectionResultEntityReadExtensionsTest.cs" />

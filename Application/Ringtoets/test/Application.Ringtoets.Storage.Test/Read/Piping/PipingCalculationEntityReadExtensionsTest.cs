@@ -312,7 +312,10 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                PipingCalculationOutputEntity = new PipingCalculationOutputEntity()
+                PipingCalculationOutputEntities =
+                {
+                    new PipingCalculationOutputEntity()
+                }
             };
 
             var collector = new ReadConversionCollector();
@@ -333,7 +336,13 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                PipingSemiProbabilisticOutputEntity = new PipingSemiProbabilisticOutputEntity()
+                PipingSemiProbabilisticOutputEntities = 
+                {
+                    new PipingSemiProbabilisticOutputEntity()
+                    {
+                        HeaveFactorOfSafety = 1.0
+                    }
+                }
             };
 
             var collector = new ReadConversionCollector();

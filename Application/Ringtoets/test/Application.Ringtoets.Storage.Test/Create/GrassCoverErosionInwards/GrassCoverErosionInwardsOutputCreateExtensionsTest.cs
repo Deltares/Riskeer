@@ -65,11 +65,11 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(output.WaveHeight.Value, entity.WaveHeight);
             Assert.AreEqual(Convert.ToByte(output.IsOvertoppingDominant), entity.IsOvertoppingDominant);
 
-            Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety.Value, entity.ProbabilisticOutputEntity.FactorOfSafety);
-            Assert.AreEqual(probabilityAssessmentOutput.Probability, entity.ProbabilisticOutputEntity.Probability);
-            Assert.AreEqual(probabilityAssessmentOutput.Reliability.Value, entity.ProbabilisticOutputEntity.Reliability);
-            Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.ProbabilisticOutputEntity.RequiredProbability);
-            Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, entity.ProbabilisticOutputEntity.RequiredReliability);
+            Assert.AreEqual(probabilityAssessmentOutput.FactorOfSafety.Value, entity.FactorOfSafety);
+            Assert.AreEqual(probabilityAssessmentOutput.Probability, entity.Probability);
+            Assert.AreEqual(probabilityAssessmentOutput.Reliability.Value, entity.Reliability);
+            Assert.AreEqual(probabilityAssessmentOutput.RequiredProbability, entity.RequiredProbability);
+            Assert.AreEqual(probabilityAssessmentOutput.RequiredReliability.Value, entity.RequiredReliability);
         }
 
         [Test]
@@ -89,11 +89,11 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.WaveHeight);
             Assert.AreEqual(Convert.ToByte(output.IsOvertoppingDominant), entity.IsOvertoppingDominant);
             Assert.AreEqual(Convert.ToByte(true), entity.IsDikeHeightCalculated);
-            Assert.IsNull(entity.ProbabilisticOutputEntity.FactorOfSafety);
-            Assert.IsNull(entity.ProbabilisticOutputEntity.Probability);
-            Assert.IsNull(entity.ProbabilisticOutputEntity.Reliability);
-            Assert.IsNull(entity.ProbabilisticOutputEntity.RequiredProbability);
-            Assert.IsNull(entity.ProbabilisticOutputEntity.RequiredReliability);
+            Assert.IsNull(entity.FactorOfSafety);
+            Assert.IsNull(entity.Probability);
+            Assert.IsNull(entity.Reliability);
+            Assert.IsNull(entity.RequiredProbability);
+            Assert.IsNull(entity.RequiredReliability);
         }
 
         [Test]

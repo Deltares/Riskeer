@@ -262,7 +262,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity.PipingCalculationOutputEntity);
+            Assert.AreEqual(1, entity.PipingCalculationOutputEntities.Count());
         }
 
         [Test]
@@ -285,7 +285,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.IsNotNull(entity.PipingSemiProbabilisticOutputEntity);
+            Assert.AreEqual(1, entity.PipingSemiProbabilisticOutputEntities.Count);
         }
 
         private double GetRandomDoubleFromRange(Random random, double lowerLimit, double upperLimit)

@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
 
             if (calculation.HasOutput)
             {
-                entity.GrassCoverErosionInwardsOutputEntity = calculation.Output.Create(registry);
+                entity.GrassCoverErosionInwardsOutputEntities.Add(calculation.Output.Create(registry));
             }
 
             registry.Register(entity, calculation);

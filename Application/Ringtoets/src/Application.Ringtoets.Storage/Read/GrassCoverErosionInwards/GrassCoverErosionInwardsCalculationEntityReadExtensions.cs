@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -79,9 +80,10 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
                 }
             };
 
-            if (entity.GrassCoverErosionInwardsOutputEntity != null)
+            GrassCoverErosionInwardsOutputEntity output = entity.GrassCoverErosionInwardsOutputEntities.FirstOrDefault();
+            if (output != null)
             {
-                calculation.Output = entity.GrassCoverErosionInwardsOutputEntity.Read();
+                calculation.Output = output.Read();
             }
 
             collector.Read(entity, calculation);

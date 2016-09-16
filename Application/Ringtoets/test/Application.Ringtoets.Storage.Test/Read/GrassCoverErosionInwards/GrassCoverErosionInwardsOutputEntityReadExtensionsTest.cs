@@ -34,21 +34,17 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_ValidEntity_ReturnGrassCoverErosionInwardsOutput()
         {
             // Setup
-            var probabilisticOutputEntity = new ProbabilisticOutputEntity
+            var entity = new GrassCoverErosionInwardsOutputEntity
             {
+                WaveHeight = 1.1,
+                IsOvertoppingDominant = Convert.ToByte(false),
+                DikeHeight = 3.3,
+                IsDikeHeightCalculated = Convert.ToByte(true),
                 Probability = 0.7,
                 RequiredProbability = 0.4,
                 RequiredReliability = 0.5,
                 Reliability = 0.2,
                 FactorOfSafety = 9.5
-            };
-            var entity = new GrassCoverErosionInwardsOutputEntity
-            {
-                WaveHeight = 1.1,
-                IsOvertoppingDominant = Convert.ToByte(false),
-                ProbabilisticOutputEntity = probabilisticOutputEntity,
-                DikeHeight = 3.3,
-                IsDikeHeightCalculated = Convert.ToByte(true)
             };
 
             // Call
@@ -59,33 +55,28 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsFalse(output.IsOvertoppingDominant);
             Assert.AreEqual(entity.DikeHeight, output.DikeHeight.Value);
             Assert.IsTrue(output.DikeHeightCalculated);
-
-            Assert.AreEqual(probabilisticOutputEntity.FactorOfSafety, output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
-            Assert.AreEqual(probabilisticOutputEntity.Probability, output.ProbabilityAssessmentOutput.Probability);
-            Assert.AreEqual(probabilisticOutputEntity.RequiredProbability, output.ProbabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(probabilisticOutputEntity.Reliability, output.ProbabilityAssessmentOutput.Reliability.Value);
-            Assert.AreEqual(probabilisticOutputEntity.RequiredReliability, output.ProbabilityAssessmentOutput.RequiredReliability.Value);
+            Assert.AreEqual(entity.FactorOfSafety, output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
+            Assert.AreEqual(entity.Probability, output.ProbabilityAssessmentOutput.Probability);
+            Assert.AreEqual(entity.RequiredProbability, output.ProbabilityAssessmentOutput.RequiredProbability);
+            Assert.AreEqual(entity.Reliability, output.ProbabilityAssessmentOutput.Reliability.Value);
+            Assert.AreEqual(entity.RequiredReliability, output.ProbabilityAssessmentOutput.RequiredReliability.Value);
         }
 
         [Test]
         public void Read_ValidEntityWithNullValues_ReturnGrassCoverErosionInwardsOutput()
         {
             // Setup
-            var probabilisticOutputEntity = new ProbabilisticOutputEntity
+            var entity = new GrassCoverErosionInwardsOutputEntity
             {
+                WaveHeight = null,
+                IsOvertoppingDominant = Convert.ToByte(true),
+                DikeHeight = null,
+                IsDikeHeightCalculated = Convert.ToByte(true),
                 Probability = null,
                 RequiredProbability = null,
                 RequiredReliability = null,
                 Reliability = null,
                 FactorOfSafety = null
-            };
-            var entity = new GrassCoverErosionInwardsOutputEntity
-            {
-                WaveHeight = null,
-                IsOvertoppingDominant = Convert.ToByte(true),
-                ProbabilisticOutputEntity = probabilisticOutputEntity,
-                DikeHeight = null,
-                IsDikeHeightCalculated = Convert.ToByte(true)
             };
 
             // Call
@@ -96,7 +87,6 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             Assert.IsTrue(output.IsOvertoppingDominant);
             Assert.IsNaN(output.DikeHeight);
             Assert.IsTrue(output.DikeHeightCalculated);
-
             Assert.IsNaN(output.ProbabilityAssessmentOutput.FactorOfSafety.Value);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.Probability);
             Assert.IsNaN(output.ProbabilityAssessmentOutput.RequiredProbability);
@@ -108,10 +98,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_DikeHeightNotCalculated_ReturnGrassCoverErosionInwardsOutputWithNotCalculatedDikeHeight()
         {
             // Setup
-            var probabilisticOutputEntity = new ProbabilisticOutputEntity();
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
-                ProbabilisticOutputEntity = probabilisticOutputEntity,
                 DikeHeight = null,
                 IsDikeHeightCalculated = Convert.ToByte(false)
             };

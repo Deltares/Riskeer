@@ -35,11 +35,16 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class StabilityStoneCoverWaveConditionsCalculationEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StabilityStoneCoverWaveConditionsCalculationEntity()
+        {
+            this.StabilityStoneCoverWaveConditionsOutputEntities = new HashSet<StabilityStoneCoverWaveConditionsOutputEntity>();
+        }
+    
         public long StabilityStoneCoverWaveConditionsCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public Nullable<long> ForeshoreProfileEntityId { get; set; }
         public Nullable<long> HydraulicLocationEntityId { get; set; }
-        public Nullable<long> StabilityStoneCoverWaveConditionsOutputEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
@@ -57,6 +62,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-        public virtual StabilityStoneCoverWaveConditionsOutputEntity StabilityStoneCoverWaveConditionsOutputEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StabilityStoneCoverWaveConditionsOutputEntity> StabilityStoneCoverWaveConditionsOutputEntities { get; set; }
     }
 }

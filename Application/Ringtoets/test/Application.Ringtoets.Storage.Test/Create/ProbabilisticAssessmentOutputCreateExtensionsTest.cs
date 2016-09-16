@@ -31,20 +31,6 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class ProbabilisticAssessmentOutputCreateExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var output = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
-
-            // Call
-            TestDelegate call = () => output.Create(null);
-
-            // AssertL
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
-        }
-
-        [Test]
         public void Create_ValidValues_ReturnProbabilisticOutputEntity()
         {
             // Setup
