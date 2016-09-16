@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
@@ -42,6 +43,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         {
             var entity = mechanism.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
 
             return entity;
         }
@@ -55,6 +57,20 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
                 var sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 var section = registry.Get(failureMechanismSectionResult.Section);
                 section.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
+            }
+        }
+
+        private static void AddEntitiesForForeshoreProfiles(
+            IEnumerable<ForeshoreProfile> foreshoreProfiles,
+            FailureMechanismEntity entity,
+            PersistenceRegistry registry)
+        {
+            int i = 0;
+
+            foreach (var foreshoreProfile in foreshoreProfiles)
+            {
+                var foreshoreProfileEntity = foreshoreProfile.Create(registry, i++);
+                entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
         }
     }

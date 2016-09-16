@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
@@ -42,14 +43,14 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         {
             var entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, registry, entity);
-
+            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity, registry);
+            AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
             return entity;
         }
 
-        private static void AddEntitiesForFailureMechanismMeta(GeneralGrassCoverErosionOutwardsInput generalInput, PersistenceRegistry registry, FailureMechanismEntity entity)
+        private static void AddEntitiesForFailureMechanismMeta(GeneralGrassCoverErosionOutwardsInput generalInput, FailureMechanismEntity entity, PersistenceRegistry registry)
         {
             entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Add(generalInput.Create(registry));
         }
@@ -63,6 +64,20 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
                 var sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 var section = registry.Get(failureMechanismSectionResult.Section);
                 section.GrassCoverErosionOutwardsSectionResultEntities.Add(sectionResultEntity);
+            }
+        }
+
+        private static void AddEntitiesForForeshoreProfiles(
+            IEnumerable<ForeshoreProfile> foreshoreProfiles,
+            FailureMechanismEntity entity,
+            PersistenceRegistry registry)
+        {
+            int i = 0;
+
+            foreach (var foreshoreProfile in foreshoreProfiles)
+            {
+                var foreshoreProfileEntity = foreshoreProfile.Create(registry, i++);
+                entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
         }
     }

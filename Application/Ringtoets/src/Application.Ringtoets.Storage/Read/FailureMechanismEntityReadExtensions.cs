@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.Piping;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -401,6 +402,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadWaveImpactAsphaltCoverMechanismSectionResults(failureMechanism, collector);
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
         }
 
         private static void ReadWaveImpactAsphaltCoverMechanismSectionResults(this FailureMechanismEntity entity, WaveImpactAsphaltCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -429,6 +431,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGeneralGrassCoverErosionOutwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadGrassCoverErosionOutwardsMechanismSectionResults(failureMechanism, collector);
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
 
             ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
         }
@@ -608,16 +611,16 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStabilityStoneCoverMechanismSectionResults(failureMechanism, collector);
-            entity.ReadStabilityStoneCoverForeshoreProfiles(failureMechanism, collector);
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
 
             ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
         }
 
-        private static void ReadStabilityStoneCoverForeshoreProfiles(this FailureMechanismEntity entity, StabilityStoneCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
+        private static void ReadForeshoreProfiles(this FailureMechanismEntity entity, ObservableList<ForeshoreProfile> foreshoreProfiles, ReadConversionCollector collector)
         {
             foreach (var foreshoreProfileEntity in entity.ForeshoreProfileEntities.OrderBy(fpe => fpe.Order))
             {
-                failureMechanism.ForeshoreProfiles.Add(foreshoreProfileEntity.Read(collector));
+                foreshoreProfiles.Add(foreshoreProfileEntity.Read(collector));
             }
         }
 

@@ -25,10 +25,12 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -418,7 +420,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.GrassRevetmentErosionOutwards,
+                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = comments,
@@ -443,6 +445,49 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithGrassCoverErosionOutwardsFailureMechanismWithForeshoreProfilesSet_ReturnsNewAssessmentSectionWithForeshoreProfilesInFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+
+            var profileAName = "profileA";
+            var profileBName = "profileB";
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int)FailureMechanismType.StabilityStoneRevetment,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ForeshoreProfileEntities =
+                {
+                    new ForeshoreProfileEntity
+                    {
+                        Order = 1,
+                        Name = profileAName,
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
+                    },
+                    new ForeshoreProfileEntity
+                    {
+                        Order = 0,
+                        Name = profileBName,
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
+                    }
+                },
+                IsRelevant = Convert.ToByte(isRelevant)
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            ObservableList<ForeshoreProfile> foreshoreProfiles = section.StabilityStoneCover.ForeshoreProfiles;
+            CollectionAssert.AreEqual(new[] { profileBName, profileAName }, foreshoreProfiles.Select(fp => fp.Name));
+        }
+
+        [Test]
         [TestCase(true, TestName = "StabilityStoneCoverGroupsSet_ReturnsNewAssessmentSectionWithCalculationGroupStabilityStoneCover(true)")]
         [TestCase(false, TestName = "StabilityStoneCoverGroupsSet_ReturnsNewAssessmentSectionWithCalculationGroupStabilityStoneCover(false)")]
         public void Read_WithStabilityStoneCoverFailureMechanismWithWaveConditionsCalculationGroupsSet_ReturnsNewAssessmentSectionWithCalculationGroupsInFailureMechanism(bool isRelevant)
@@ -452,7 +497,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.StabilityStoneRevetment,
+                FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
                     CalculationGroupEntity1 =
@@ -479,6 +524,92 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             IList<ICalculationBase> childCalculationGroups = section.StabilityStoneCover.WaveConditionsCalculationGroup.Children;
             Assert.AreEqual(2, childCalculationGroups.Count);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithStabilityStoneCoverFailureMechanismWithForeshoreProfilesSet_ReturnsNewAssessmentSectionWithForeshoreProfilesInFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+
+            var profileAName = "profileA";
+            var profileBName = "profileB";
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ForeshoreProfileEntities =
+                {
+                    new ForeshoreProfileEntity
+                    {
+                        Order = 1,
+                        Name = profileAName,
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
+                    },
+                    new ForeshoreProfileEntity
+                    {
+                        Order = 0,
+                        Name = profileBName,
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
+                    }
+                },
+                IsRelevant = Convert.ToByte(isRelevant)
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            ObservableList<ForeshoreProfile> foreshoreProfiles = section.StabilityStoneCover.ForeshoreProfiles;
+            CollectionAssert.AreEqual(new [] {profileBName, profileAName}, foreshoreProfiles.Select(fp => fp.Name));
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithWaveImpactAsphaltCoverFailureMechanismWithForeshoreProfilesSet_ReturnsNewAssessmentSectionWithForeshoreProfilesInFailureMechanism(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+
+            var profileAName = "profileA";
+            var profileBName = "profileB";
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int)FailureMechanismType.WaveImpactOnAsphaltRevetment,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ForeshoreProfileEntities =
+                {
+                    new ForeshoreProfileEntity
+                    {
+                        Order = 1,
+                        Name = profileAName,
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
+                    },
+                    new ForeshoreProfileEntity
+                    {
+                        Order = 0,
+                        Name = profileBName,
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
+                    }
+                },
+                IsRelevant = Convert.ToByte(isRelevant)
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            ObservableList<ForeshoreProfile> foreshoreProfiles = section.WaveImpactAsphaltCover.ForeshoreProfiles;
+            CollectionAssert.AreEqual(new[] { profileBName, profileAName }, foreshoreProfiles.Select(fp => fp.Name));
         }
 
         [Test]

@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Application.Ringtoets.Storage.Serializers;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -104,67 +106,53 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         }
 
         [Test]
-        public void Read_EntityWithSurfaceLineInCollector_CalculationHasAlreadyReadSurfaceLine()
+        public void Read_EntityWithForeshoreProfileInCollector_CalculationHasAlreadyReadForeshoreProfile()
         {
             // Setup
-            var surfaceLine = new RingtoetsPipingSurfaceLine();
-            surfaceLine.SetGeometry(new[]
+            var foreshoreProfile = new TestForeshoreProfile();
+            var foreshoreProfileEntity = new ForeshoreProfileEntity
             {
-                new Point3D(1, 2, 3),
-                new Point3D(4, 5, 6)
-            });
-            var surfaceLineEntity = new SurfaceLineEntity();
-            var entity = new PipingCalculationEntity
+                GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
+            };
+            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
-                SurfaceLineEntity = surfaceLineEntity,
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
+                ForeshoreProfileEntity = foreshoreProfileEntity,
             };
 
             var collector = new ReadConversionCollector();
-            collector.Read(surfaceLineEntity, surfaceLine);
+            collector.Read(foreshoreProfileEntity, foreshoreProfile);
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
 
             // Assert
-            Assert.AreSame(surfaceLine, calculation.InputParameters.SurfaceLine);
-            Assert.AreEqual(1, calculation.InputParameters.EntryPointL, 1e-6);
-            Assert.AreEqual(2, calculation.InputParameters.ExitPointL, 1e-6);
+            Assert.AreSame(foreshoreProfile, calculation.InputParameters.ForeshoreProfile);
         }
 
         [Test]
-        public void Read_EntityWithSurfaceLineNotYetInCollector_CalculationWithCreatedSurfaceLineAndRegisteredNewEntities()
+        public void Read_EntityWithForeshoreProfileNotYetInCollector_CalculationWithCreatedForeshoreProfileAndRegisteredNewEntities()
         {
             // Setup
-            var points = new[]
+            string name = "foreshore profile";
+            var foreshoreProfileEntity = new ForeshoreProfileEntity
             {
-                new Point3D(1, 3, 4),
-                new Point3D(7, 10, 11)
+                Name = name,
+                GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
             };
 
-            var surfaceLineEntity = new SurfaceLineEntity
+            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
-                PointsXml = new Point3DXmlSerializer().ToXml(points)
-            };
-
-            var entity = new PipingCalculationEntity
-            {
-                SurfaceLineEntity = surfaceLineEntity,
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
+                ForeshoreProfileEntity = foreshoreProfileEntity,
             };
 
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
 
             // Assert
-            Assert.IsTrue(collector.Contains(surfaceLineEntity));
-            CollectionAssert.AreEqual(points, calculation.InputParameters.SurfaceLine.Points);
+            Assert.IsTrue(collector.Contains(foreshoreProfileEntity));
+            CollectionAssert.AreEqual(name, calculation.InputParameters.ForeshoreProfile.Name);
         }
 
         [Test]
@@ -173,19 +161,16 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2);
             var hydraulicLocationEntity = new HydraulicLocationEntity();
-            var entity = new PipingCalculationEntity
+            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
             };
 
             var collector = new ReadConversionCollector();
             collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
@@ -200,156 +185,23 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
                 Name = "A"
             };
 
-            var entity = new PipingCalculationEntity
+            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
             };
 
             var collector = new ReadConversionCollector();
 
             // Call
-            entity.Read(collector, new GeneralPipingInput());
+            entity.Read(collector);
 
             // Assert
             Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
         }
 
-        [Test]
-        public void Read_EntityWithStochasticSoilModelEntityInCollector_CalculationHasAlreadyReadStochasticSoilModel()
-        {
-            // Setup
-            var stochasticSoilModel = new StochasticSoilModel(1, "A", "B");
-            var stochasticSoilModelEntity = new StochasticSoilModelEntity();
-
-            var stochasticSoilProfile = new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, 1);
-            var stochasticSoilProfileEntity = new StochasticSoilProfileEntity
-            {
-                StochasticSoilModelEntity = stochasticSoilModelEntity
-            };
-
-            var entity = new PipingCalculationEntity
-            {
-                StochasticSoilProfileEntity = stochasticSoilProfileEntity,
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
-            };
-
-            var collector = new ReadConversionCollector();
-            collector.Read(stochasticSoilProfileEntity, stochasticSoilProfile);
-            collector.Read(stochasticSoilModelEntity, stochasticSoilModel);
-
-            // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
-
-            // Assert
-            Assert.AreSame(stochasticSoilProfile, calculation.InputParameters.StochasticSoilProfile);
-            Assert.AreSame(stochasticSoilModel, calculation.InputParameters.StochasticSoilModel);
-        }
-
-        [Test]
-        public void Read_EntityWithStochasticSoilProfileEntityNotYetInCollector_CalculationWithCreatedStochasticSoilProfileAndRegisteredNewEntities()
-        {
-            // Setup
-            var stochasticSoilProfileEntity = new StochasticSoilProfileEntity
-            {
-                SoilProfileEntity = new SoilProfileEntity
-                {
-                    SoilLayerEntities =
-                    {
-                        new SoilLayerEntity()
-                    }
-                }
-            };
-
-            var stochasticSoilModelEntity = new StochasticSoilModelEntity
-            {
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
-                StochasticSoilProfileEntities =
-                {
-                    stochasticSoilProfileEntity
-                }
-            };
-            stochasticSoilProfileEntity.StochasticSoilModelEntity = stochasticSoilModelEntity;
-
-            var entity = new PipingCalculationEntity
-            {
-                StochasticSoilProfileEntity = stochasticSoilProfileEntity,
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            entity.Read(collector, new GeneralPipingInput());
-
-            // Assert
-            Assert.IsTrue(collector.Contains(stochasticSoilProfileEntity));
-            Assert.IsTrue(collector.Contains(stochasticSoilModelEntity));
-        }
-
-        [Test]
-        public void Read_EntityWithPipingCalculationOutputEntity_CalculationWithPipingOutput()
-        {
-            // Setup
-            var entity = new PipingCalculationEntity
-            {
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
-                PipingCalculationOutputEntity = new PipingCalculationOutputEntity()
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
-
-            // Assert
-            Assert.IsNotNull(calculation.Output);
-        }
-
-        [Test]
-        public void Read_EntityWithPipingSemiProbabilisticOutputEntity_CalculationWithPipingSemiProbabilisticOutput()
-        {
-            // Setup
-            var entity = new PipingCalculationEntity
-            {
-                EntryPointL = 1,
-                ExitPointL = 2,
-                DampingFactorExitMean = 1,
-                PipingSemiProbabilisticOutputEntity = new PipingSemiProbabilisticOutputEntity()
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
-
-            // Assert
-            Assert.IsNotNull(calculation.SemiProbabilisticOutput);
-        }
-
-        private void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
-        {
-            Assert.IsTrue(expectedValue.HasValue);
-            Assert.AreEqual(expectedValue.Value, actualValue, actualValue.GetAccuracy());
-        }
-
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
-        }
-
-        private static double? GetRandomNullableDoubleInRange(Random random, double lowerLimit, double upperLimit)
-        {
-            var difference = upperLimit - lowerLimit;
-            return lowerLimit + random.NextDouble()*difference;
         }
     }
 }

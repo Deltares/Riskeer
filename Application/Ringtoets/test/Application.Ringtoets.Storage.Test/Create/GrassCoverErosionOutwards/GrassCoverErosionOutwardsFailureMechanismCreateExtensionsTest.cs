@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 {
@@ -117,6 +118,33 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities).Count());
+        }
+
+        [Test]
+        public void Create_WithoutForeshoreProfiles_EmptyForeshoreProfilesEntities()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            var entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.IsEmpty(entity.ForeshoreProfileEntities);
+        }
+
+        [Test]
+        public void Create_WithForeshoreProfiles_ForeshoreProfilesEntitiesCreated()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+
+            // Call
+            var entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
         }
 
         [Test]

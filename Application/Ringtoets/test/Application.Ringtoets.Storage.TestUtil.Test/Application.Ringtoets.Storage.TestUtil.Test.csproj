@@ -89,6 +89,14 @@
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
+      <Project>{90de728e-48ef-4665-ab38-3d88e41d9f4d}</Project>
+      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Data\Ringtoets.GrassCoverErosionOutwards.Data.csproj">
+      <Project>{e7225477-577f-4a17-b7ec-6721158e1543}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
@@ -104,6 +112,14 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\Piping\src\Ringtoets.Piping.Primitives\Ringtoets.Piping.Primitives.csproj">
       <Project>{14c6f716-64e2-4bc4-a1ef-05865fcefa4c}</Project>
       <Name>Ringtoets.Piping.Primitives</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+      <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+      <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj">
       <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>

@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
@@ -116,6 +117,32 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities).Count());
+        }
+        [Test]
+        public void Create_WithoutForeshoreProfiles_EmptyForeshoreProfilesEntities()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            var entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.IsEmpty(entity.ForeshoreProfileEntities);
+        }
+
+        [Test]
+        public void Create_WithForeshoreProfiles_ForeshoreProfilesEntitiesCreated()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.ForeshoreProfiles.Add(new TestForeshoreProfile());
+
+            // Call
+            var entity = failureMechanism.Create(new PersistenceRegistry());
+
+            // Assert
+            Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
         }
     }
 }
