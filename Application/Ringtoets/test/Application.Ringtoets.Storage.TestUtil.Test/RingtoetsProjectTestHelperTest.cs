@@ -161,6 +161,11 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             Assert.AreEqual(2, waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles.Count);
+            Assert.NotNull(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
+            Assert.AreEqual(2, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Count);
+
+            Assert.AreEqual(0, ((CalculationGroup)waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
+            Assert.AreEqual(0, ((CalculationGroup)waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
         }
     }
 }

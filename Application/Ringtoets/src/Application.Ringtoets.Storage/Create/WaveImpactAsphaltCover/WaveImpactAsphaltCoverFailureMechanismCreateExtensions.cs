@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
             var entity = mechanism.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
+            entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
             return entity;
         }

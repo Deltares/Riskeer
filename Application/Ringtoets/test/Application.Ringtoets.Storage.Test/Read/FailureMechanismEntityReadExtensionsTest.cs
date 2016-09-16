@@ -33,6 +33,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -682,6 +683,93 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             entity.ReadAsStabilityStoneCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+
+            ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
+            Assert.AreEqual("Child2", child1.Name);
+
+            ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
+            Assert.AreEqual("Child1", child2.Name);
+        }
+
+        #endregion
+
+        #region Wave Impact Asphalt Cover
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithCalculationGroupSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    IsEditable = 0,
+                    Name = "Berekeningen",
+                    Order = 0,
+                    CalculationGroupEntity1 =
+                    {
+                        new CalculationGroupEntity
+                        {
+                            IsEditable = 1,
+                            Name = "Child1",
+                            Order = 1
+                        },
+                        new CalculationGroupEntity
+                        {
+                            IsEditable = 1,
+                            Name = "Child2",
+                            Order = 0
+                        },
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
+
+            ICalculationBase child1 = failureMechanism.WaveConditionsCalculationGroup.Children[0];
+            Assert.AreEqual("Child2", child1.Name);
+
+            ICalculationBase child2 = failureMechanism.WaveConditionsCalculationGroup.Children[1];
+            Assert.AreEqual("Child1", child2.Name);
+        }
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithForeshoreProfiles_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithForeshoreProfilesSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ForeshoreProfileEntities =
+                {
+                    new ForeshoreProfileEntity
+                    {
+                        Name = "Child1",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 1
+                    },
+                    new ForeshoreProfileEntity
+                    {
+                        Name = "Child2",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 0
+                    },
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);

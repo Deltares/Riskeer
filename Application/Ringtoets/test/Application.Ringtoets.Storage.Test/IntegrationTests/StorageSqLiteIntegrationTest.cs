@@ -1076,6 +1076,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                                            WaveImpactAsphaltCoverFailureMechanism actualFailureMechanism)
         {
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
         }
 
         private static void AssertDikeProfiles(IList<DikeProfile> expectedDikeProfiles, IList<DikeProfile> actualDikeProfiles)

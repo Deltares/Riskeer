@@ -461,7 +461,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
+        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
             var entity = new CalculationGroupEntity();
@@ -766,5 +766,112 @@ namespace Application.Ringtoets.Storage.Test.Read
             var rootChildGroup2 = (CalculationGroup)rootChildren[3];
             Assert.AreEqual("group2", rootChildGroup2.Name);
         }
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new CalculationGroupEntity();
+
+            // Call
+            TestDelegate call = () => entity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("collector", paramName);
+        }
+
+        [Test]
+        [TestCase("HAbba", 1)]
+        [TestCase("Dooeis", 0)]
+        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren(
+            string name, byte isEditable)
+        {
+            // Setup
+            var entity = new CalculationGroupEntity
+            {
+                Name = name,
+                IsEditable = isEditable
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            CalculationGroup group = entity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+
+            // Assert
+            Assert.AreEqual(name, group.Name);
+            Assert.AreEqual(Convert.ToBoolean(isEditable), group.IsNameEditable);
+            CollectionAssert.IsEmpty(group.Children);
+        }
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                CalculationGroupEntity1 =
+                {
+                    new CalculationGroupEntity
+                    {
+                        Name = "AA",
+                        IsEditable = 1,
+                        Order = 0
+                    },
+                    new CalculationGroupEntity
+                    {
+                        Name = "AB",
+                        IsEditable = 0,
+                        CalculationGroupEntity1 =
+                        {
+                            new CalculationGroupEntity
+                            {
+                                Name = "ABA",
+                                IsEditable = 0,
+                                Order = 0
+                            },
+                            new CalculationGroupEntity
+                            {
+                                Name = "ABB",
+                                IsEditable = 1,
+                                Order = 1
+                            }
+                        },
+                        Order = 1
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+
+            // Assert
+            Assert.AreEqual("A", rootGroup.Name);
+            Assert.IsFalse(rootGroup.IsNameEditable);
+
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            var rootChildGroup1 = (CalculationGroup)rootChildren[0];
+            Assert.AreEqual("AA", rootChildGroup1.Name);
+            Assert.IsTrue(rootChildGroup1.IsNameEditable);
+            CollectionAssert.IsEmpty(rootChildGroup1.Children);
+            var rootChildGroup2 = (CalculationGroup)rootChildren[1];
+            Assert.AreEqual("AB", rootChildGroup2.Name);
+            Assert.IsFalse(rootChildGroup2.IsNameEditable);
+
+            ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
+            var rootChildGroup1Child1 = (CalculationGroup)rootChildGroup2Children[0];
+            Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
+            Assert.IsFalse(rootChildGroup1Child1.IsNameEditable);
+            CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
+            var rootChildGroup1Child2 = (CalculationGroup)rootChildGroup2Children[1];
+            Assert.AreEqual("ABB", rootChildGroup1Child2.Name);
+            Assert.IsTrue(rootChildGroup1Child2.IsNameEditable);
+            CollectionAssert.IsEmpty(rootChildGroup1Child2.Children);
+        }
+
     }
 }

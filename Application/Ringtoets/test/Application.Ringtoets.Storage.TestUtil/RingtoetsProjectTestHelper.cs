@@ -88,6 +88,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             AddForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
+            ConfigureWaveImpactAsphaltCoverFailureMechanism(waveImpactAsphaltCoverFailureMechanism);
             AddSections(waveImpactAsphaltCoverFailureMechanism);
             SetSectionResults(waveImpactAsphaltCoverFailureMechanism.SectionResults);
 
@@ -367,6 +368,18 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             failureMechanism.GeneralInput.N = 15;
 
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GCEO A",
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GCEO A"
+            });
+        }
+
+        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        {
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Name = "GCEO A",
