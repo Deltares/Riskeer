@@ -37,7 +37,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public WaveImpactAsphaltCoverWaveConditionsCalculation()
         {
             Name = Resources.WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName;
-            InputParameters = new WaveConditionsInput();
+            InputParameters = new WaveConditionsInput(WaveConditionsRevetment.Asphalt);
         }
 
         /// <summary>

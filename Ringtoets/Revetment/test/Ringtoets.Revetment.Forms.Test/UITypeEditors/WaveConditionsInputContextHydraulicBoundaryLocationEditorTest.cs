@@ -53,7 +53,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
 
-            var grassCoverErosionInwardsInput = new WaveConditionsInput();
+            var grassCoverErosionInwardsInput = new WaveConditionsInput(WaveConditionsRevetment.Grass);
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
@@ -97,7 +97,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            var waveConditionsInput = new WaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.Grass)
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };

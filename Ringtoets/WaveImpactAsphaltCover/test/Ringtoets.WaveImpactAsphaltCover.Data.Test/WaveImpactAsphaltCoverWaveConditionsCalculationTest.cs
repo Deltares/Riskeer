@@ -47,6 +47,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+            Assert.AreEqual(WaveConditionsRevetment.Asphalt, calculation.InputParameters.RevetmentType);
         }
 
         [Test]

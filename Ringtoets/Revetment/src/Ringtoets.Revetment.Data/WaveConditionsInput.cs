@@ -49,8 +49,9 @@ namespace Ringtoets.Revetment.Data
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
         /// </summary>
-        public WaveConditionsInput()
+        public WaveConditionsInput(WaveConditionsRevetment revetmentType)
         {
+            RevetmentType = revetmentType;
             orientation = new RoundedDouble(2);
 
             upperBoundaryRevetment = new RoundedDouble(2, double.NaN);
@@ -61,6 +62,11 @@ namespace Ringtoets.Revetment.Data
 
             UpdateForeshoreProfileParameters();
         }
+
+        /// <summary>
+        /// Gets the type of the revetment.
+        /// </summary>
+        public WaveConditionsRevetment RevetmentType { get; private set; }
 
         /// <summary>
         /// Gets or sets the hydraulic boundary location from which to use the assessment level.
@@ -351,7 +357,7 @@ namespace Ringtoets.Revetment.Data
         {
             if (foreshoreProfile == null)
             {
-                Orientation = (RoundedDouble)0.0;
+                Orientation = (RoundedDouble) 0.0;
                 UseForeshore = false;
                 UseBreakWater = false;
                 BreakWater = GetDefaultBreakWater();

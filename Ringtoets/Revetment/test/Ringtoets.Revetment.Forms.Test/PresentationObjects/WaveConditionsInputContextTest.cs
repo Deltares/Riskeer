@@ -60,7 +60,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput();
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
 
             // Call
             TestDelegate call = () => new WaveConditionsInputContext(input, null, assessmentSection);
@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
 
             // Call
             TestDelegate call = () => new WaveConditionsInputContext(input, new ForeshoreProfile[0], null);
@@ -103,7 +103,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput();
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
 
             var foreshoreProfiles = new[]
             {

@@ -37,7 +37,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         public StabilityStoneCoverWaveConditionsCalculation()
         {
             Name = Resources.StabilityStoneCoverWaveConditionsCalculation_DefaultName;
-            InputParameters = new WaveConditionsInput();
+            InputParameters = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
         }
 
         /// <summary>

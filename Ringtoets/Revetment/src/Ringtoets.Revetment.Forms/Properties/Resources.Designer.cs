@@ -154,15 +154,6 @@ namespace Ringtoets.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Steen (blokken en zuilen).
-        /// </summary>
-        internal static string StabilityStoneCover_StoneRevetment_DisplayName {
-            get {
-                return ResourceManager.GetString("StabilityStoneCover_StoneRevetment_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ondergrens van de bekleding..
         /// </summary>
         internal static string WaveConditionsInput_LowerBoundaryRevetment_Description {

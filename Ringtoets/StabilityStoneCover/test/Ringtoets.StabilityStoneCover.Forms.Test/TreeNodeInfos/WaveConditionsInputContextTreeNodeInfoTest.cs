@@ -80,7 +80,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput();
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
             var context = new WaveConditionsInputContext(input,
                                                          new ForeshoreProfile[0],
                                                          assessmentSection);
@@ -104,7 +104,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput();
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
             var context = new WaveConditionsInputContext(input,
                                                          new ForeshoreProfile[0],
                                                          assessmentSection);
@@ -127,7 +127,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var input = new WaveConditionsInput();
+                var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
                 var context = new WaveConditionsInputContext(input,
                                                              new ForeshoreProfile[0],
                                                              assessmentSection);

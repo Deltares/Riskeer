@@ -85,8 +85,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
-            
-            var input = new WaveConditionsInput();
+
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
             var inputContext = new WaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSectionMock);
 
             // Call
@@ -116,7 +116,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(0, properties.Orientation.Value);
             Assert.AreSame(input, properties.BreakWater.Data);
             Assert.AreSame(input, properties.ForeshoreGeometry.Data);
-            Assert.AreEqual("Steen (blokken en zuilen)", properties.RevetmentType);
+            Assert.AreEqual(input.RevetmentType, properties.RevetmentType);
 
             mockRepository.VerifyAll();
         }
@@ -155,7 +155,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 DesignWaterLevel = assessmentLevel
             };
-            var input = new WaveConditionsInput
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
             {
                 ForeshoreProfile = foreshoreProfile,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -213,8 +213,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 DesignWaterLevel = assessmentLevel
             };
-            
-            var input = new WaveConditionsInput();
+
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
             input.Attach(observerMock);
             var inputContext = new WaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSectionMock);
 
@@ -267,8 +267,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
-            
-            var input = new WaveConditionsInput();
+
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
             var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(0,0), 
                 Enumerable.Empty<Point2D>(), 

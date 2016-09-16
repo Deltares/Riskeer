@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.StabilityStoneCover.Data.Test
 {

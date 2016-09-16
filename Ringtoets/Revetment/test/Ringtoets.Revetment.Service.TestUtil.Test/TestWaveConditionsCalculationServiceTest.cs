@@ -66,7 +66,7 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
                                                                 double.NaN,
                                                                 double.NaN,
                                                                 0,
-                                                                new WaveConditionsInput(),
+                                                                new WaveConditionsInput(WaveConditionsRevetment.StabilityStone),
                                                                 string.Empty,
                                                                 string.Empty,
                                                                 string.Empty);
@@ -87,7 +87,7 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
             const double b = 0.3;
             const double c = 0.8;
             const int norm = 5;
-            var input = new WaveConditionsInput();
+            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
             const string hlcdDirectory = "C:/temp";
             const string ringId = "11-1";
             const string name = "test";

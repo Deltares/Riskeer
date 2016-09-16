@@ -286,14 +286,15 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [PropertyOrder(revetmentTypePropertyIndex)]
+        [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_RevetmentType_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_RevetmentType_Description")]
-        public string RevetmentType
+        public WaveConditionsRevetment RevetmentType
         {
             get
             {
-                return Resources.StabilityStoneCover_StoneRevetment_DisplayName;
+                return data.WrappedData.RevetmentType;
             }
         }
 

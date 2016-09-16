@@ -42,7 +42,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollectionFourParameters_NameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new WaveConditionsInput(), waveConditionsOutputCollection, waveConditionsOutputCollection);
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new WaveConditionsInput(WaveConditionsRevetment.StabilityStone), waveConditionsOutputCollection, waveConditionsOutputCollection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -64,7 +64,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollectionFourParameters_ColumnsOutputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(), null, waveConditionsOutputCollection);
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(WaveConditionsRevetment.StabilityStone), null, waveConditionsOutputCollection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollectionFourParameters_BlocksOutputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(), waveConditionsOutputCollection, null);
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(WaveConditionsRevetment.StabilityStone), waveConditionsOutputCollection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -87,7 +87,7 @@ namespace Ringtoets.Revetment.IO.Test
         {
             // Call
             IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection =
-                ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(),
+                ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(WaveConditionsRevetment.StabilityStone),
                                                                                          Enumerable.Empty<WaveConditionsOutput>(),
                                                                                          Enumerable.Empty<WaveConditionsOutput>());
 
@@ -101,7 +101,7 @@ namespace Ringtoets.Revetment.IO.Test
             // Call
             ExportableWaveConditions[] exportableWaveConditionsCollection =
                 ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("ewcName",
-                                                                                         new WaveConditionsInput
+                                                                                         new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
                                                                                          {
                                                                                              HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                                                                                              ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()),
@@ -138,7 +138,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollectionThreeParameters_NameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new WaveConditionsInput(), waveConditionsOutputCollection);
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new WaveConditionsInput(WaveConditionsRevetment.StabilityStone), waveConditionsOutputCollection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -160,7 +160,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollectionThreeParameters_OutputNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(), null);
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(WaveConditionsRevetment.StabilityStone), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -172,7 +172,7 @@ namespace Ringtoets.Revetment.IO.Test
         {
             // Call
             IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection =
-                ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(), Enumerable.Empty<WaveConditionsOutput>());
+                ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(WaveConditionsRevetment.StabilityStone), Enumerable.Empty<WaveConditionsOutput>());
 
             // Assert
             Assert.IsEmpty(exportableWaveConditionsCollection);
@@ -182,7 +182,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollectionThreeParameters_ValidData_ReturnsValidCollection()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()),

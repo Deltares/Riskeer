@@ -50,6 +50,7 @@
     <Compile Include="WaveConditionsInputStepSize.cs" />
     <Compile Include="WaveConditionsInputStepSizeExtensions.cs" />
     <Compile Include="WaveConditionsOutput.cs" />
+    <Compile Include="WaveConditionsRevetment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

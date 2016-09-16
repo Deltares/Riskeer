@@ -141,9 +141,6 @@
   <data name="GeneralWaveConditionsInput_C_DisplayName" xml:space="preserve">
     <value>c</value>
   </data>
-  <data name="StabilityStoneCover_StoneRevetment_DisplayName" xml:space="preserve">
-    <value>Steen (blokken en zuilen)</value>
-  </data>
   <data name="WaveConditionsInput_LowerBoundaryRevetment_Description" xml:space="preserve">
     <value>Ondergrens van de bekleding.</value>
   </data>

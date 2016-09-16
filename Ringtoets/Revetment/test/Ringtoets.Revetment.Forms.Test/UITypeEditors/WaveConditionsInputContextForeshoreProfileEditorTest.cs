@@ -55,8 +55,8 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
                 new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
                                      null, new ForeshoreProfile.ConstructionProperties())
             };
-                
-            var grassCoverErosionInwardsInput = new WaveConditionsInput();
+
+            var grassCoverErosionInwardsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             var inputContext = new WaveConditionsInputContext(grassCoverErosionInwardsInput,
@@ -96,7 +96,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
             // Setup
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
                                                         null, new ForeshoreProfile.ConstructionProperties());
-            var waveConditionsInput = new WaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
             {
                 ForeshoreProfile = foreshoreProfile
             };
