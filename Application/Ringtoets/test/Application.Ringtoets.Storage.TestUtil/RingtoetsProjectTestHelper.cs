@@ -366,6 +366,26 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             failureMechanism.GeneralInput.N = 15;
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GCEO A",
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GCEO A"
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GCEO B",
+                Children =
+                {
+                    new CalculationGroup
+                    {
+                        Name = "GCEO B 1",
+                    }
+                }
+            });
         }
 
         private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
