@@ -29,8 +29,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.UITypeEditors;
 
@@ -53,18 +53,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
-                ForeshoreProfiles = 
+                ForeshoreProfiles =
                 {
                     new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                    null, new ForeshoreProfile.ConstructionProperties())
+                                         null, new ForeshoreProfile.ConstructionProperties())
                 }
             };
             var grassCoverErosionInwardsInput = new WaveConditionsInput();
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var inputContext = new StabilityStoneCoverWaveConditionsCalculationInputContext(grassCoverErosionInwardsInput,
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+            var inputContext = new WaveConditionsInputContext(grassCoverErosionInwardsInput,
+                                                              failureMechanism.ForeshoreProfiles,
+                                                              assessmentSectionMock);
 
             var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
             {
@@ -98,7 +98,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
         {
             // Setup
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                              null, new ForeshoreProfile.ConstructionProperties());
+                                                        null, new ForeshoreProfile.ConstructionProperties());
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
                 ForeshoreProfiles =
@@ -112,9 +112,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             };
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var inputContext = new StabilityStoneCoverWaveConditionsCalculationInputContext(waveConditionsInput,
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+            var inputContext = new WaveConditionsInputContext(waveConditionsInput,
+                                                              failureMechanism.ForeshoreProfiles,
+                                                              assessmentSectionMock);
 
             var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
             {

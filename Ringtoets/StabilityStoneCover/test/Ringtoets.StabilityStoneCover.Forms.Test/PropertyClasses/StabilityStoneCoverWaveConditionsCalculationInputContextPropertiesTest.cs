@@ -35,8 +35,8 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
@@ -76,7 +76,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverWaveConditionsCalculationInputContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext>>(properties);
             Assert.IsNull(properties.Data);
         }
         
@@ -90,7 +90,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var input = new WaveConditionsInput();
-            var inputContext = new StabilityStoneCoverWaveConditionsCalculationInputContext(input, failureMechanism, assessmentSectionMock);
+            var inputContext = new WaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSectionMock);
 
             // Call
             var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
@@ -170,7 +170,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
                 StepSize = stepSize
             };
-            var inputContext = new StabilityStoneCoverWaveConditionsCalculationInputContext(input, failureMechanism, assessmentSectionMock);
+            var inputContext = new WaveConditionsInputContext(input, new[]
+            {
+                foreshoreProfile
+            }, assessmentSectionMock);
 
             // Call
             var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
@@ -220,7 +223,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             
             var input = new WaveConditionsInput();
             input.Attach(observerMock);
-            var inputContext = new StabilityStoneCoverWaveConditionsCalculationInputContext(input, failureMechanism, assessmentSectionMock);
+            var inputContext = new WaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSectionMock);
 
             var newForeshoreProfile = new ForeshoreProfile(
                 new Point2D(
@@ -274,15 +277,20 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var input = new WaveConditionsInput();
+            var foreshoreProfile = new ForeshoreProfile(
+                new Point2D(0,0), 
+                Enumerable.Empty<Point2D>(), 
+                null, 
+                new ForeshoreProfile.ConstructionProperties());
+            
             if (withForeshoreProfile)
             {
-                input.ForeshoreProfile = new ForeshoreProfile(
-                    new Point2D(0,0), 
-                    Enumerable.Empty<Point2D>(), 
-                    null, 
-                    new ForeshoreProfile.ConstructionProperties());
+                input.ForeshoreProfile = foreshoreProfile;
             }
-            var inputContext = new StabilityStoneCoverWaveConditionsCalculationInputContext(input, failureMechanism, assessmentSectionMock);
+            var inputContext = new WaveConditionsInputContext(input, new[]
+            {
+                foreshoreProfile
+            }, assessmentSectionMock);
 
             // Call
             var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties

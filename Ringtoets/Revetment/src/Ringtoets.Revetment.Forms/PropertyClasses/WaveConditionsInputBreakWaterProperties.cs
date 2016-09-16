@@ -92,17 +92,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (data.ForeshoreProfile == null)
-            {
-                return true;
-            }
-
-            if (!propertyName.Equals(TypeUtils.GetMemberName<WaveConditionsInputBreakWaterProperties>(i => i.UseBreakWater)))
-            {
-                return !UseBreakWater;
-            }
-
-            return false;
+            return data.ForeshoreProfile == null
+                   || !propertyName.Equals(TypeUtils.GetMemberName<WaveConditionsInputBreakWaterProperties>(i => i.UseBreakWater))
+                   && !UseBreakWater;
         }
 
         public override string ToString()

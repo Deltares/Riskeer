@@ -38,6 +38,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
@@ -62,7 +63,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismContextProperties>();
-            yield return new PropertyInfo<StabilityStoneCoverWaveConditionsCalculationInputContext, StabilityStoneCoverWaveConditionsCalculationInputContextProperties>();
+            yield return new PropertyInfo<WaveConditionsInputContext, StabilityStoneCoverWaveConditionsCalculationInputContextProperties>();
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutput, StabilityStoneCoverWaveConditionsOutputProperties>();
         }
 
@@ -98,7 +99,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 WaveConditionsCalculationContextContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationInputContext>
+            yield return new TreeNodeInfo<WaveConditionsInputContext>
             {
                 Text = context => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -470,9 +471,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             var childNodes = new List<object>
             {
                 new CommentContext<ICommentable>(context.WrappedData),
-                new StabilityStoneCoverWaveConditionsCalculationInputContext(context.WrappedData.InputParameters,
-                                                                             context.FailureMechanism,
-                                                                             context.AssessmentSection)
+                new WaveConditionsInputContext(context.WrappedData.InputParameters,
+                                               context.FailureMechanism.ForeshoreProfiles,
+                                               context.AssessmentSection)
             };
 
             if (context.WrappedData.HasOutput)

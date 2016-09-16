@@ -26,10 +26,11 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.UITypeEditors;
 
@@ -53,16 +54,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var grassCoverErosionInwardsInput = new WaveConditionsInput();
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
-            var inputContext = new StabilityStoneCoverWaveConditionsCalculationInputContext(grassCoverErosionInwardsInput,
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+            var inputContext = new WaveConditionsInputContext(grassCoverErosionInwardsInput,
+                                                              new ForeshoreProfile[0],
+                                                              assessmentSectionMock);
 
             var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
             {
@@ -108,9 +108,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
-            var inputContext = new StabilityStoneCoverWaveConditionsCalculationInputContext(waveConditionsInput,
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+            var inputContext = new WaveConditionsInputContext(waveConditionsInput,
+                                                              new ForeshoreProfile[0],
+                                                              assessmentSectionMock);
 
             var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
             {

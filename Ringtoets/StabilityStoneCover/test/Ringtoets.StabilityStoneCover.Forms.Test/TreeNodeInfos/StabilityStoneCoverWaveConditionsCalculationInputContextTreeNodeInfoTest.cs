@@ -28,9 +28,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -81,10 +82,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var input = new WaveConditionsInput();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverWaveConditionsCalculationInputContext(input,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+            var context = new WaveConditionsInputContext(input,
+                                                         new ForeshoreProfile[0],
+                                                         assessmentSection);
 
             using (var plugin = new StabilityStoneCoverPlugin())
             {
@@ -106,10 +106,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var input = new WaveConditionsInput();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverWaveConditionsCalculationInputContext(input,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+            var context = new WaveConditionsInputContext(input,
+                                                         new ForeshoreProfile[0],
+                                                         assessmentSection);
             using (var plugin = new StabilityStoneCoverPlugin())
             {
                 var info = GetInfo(plugin);
@@ -130,10 +129,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
                 var input = new WaveConditionsInput();
-                var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var context = new StabilityStoneCoverWaveConditionsCalculationInputContext(input,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+                var context = new WaveConditionsInputContext(input,
+                                                             new ForeshoreProfile[0],
+                                                             assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
@@ -160,7 +158,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
         private TreeNodeInfo GetInfo(StabilityStoneCoverPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationInputContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveConditionsInputContext));
         }
     }
 }

@@ -33,6 +33,7 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.Properties;
@@ -42,9 +43,9 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsCalculationInputContext"/> for properties panel.
+    /// ViewModel of <see cref="WaveConditionsInputContext"/> for properties panel.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationInputContextProperties : ObjectProperties<StabilityStoneCoverWaveConditionsCalculationInputContext>
+    public class StabilityStoneCoverWaveConditionsCalculationInputContextProperties : ObjectProperties<WaveConditionsInputContext>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int assessmentLevelPropertyIndex = 1;

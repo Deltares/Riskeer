@@ -22,30 +22,45 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.StabilityStoneCover.Data;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
+namespace Ringtoets.Revetment.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for the input of <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
+    /// Presentation object for the <see cref="WaveConditionsInput"/>.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationInputContext : StabilityStoneCoverContext<WaveConditionsInput>
+    public class WaveConditionsInputContext : ObservableWrappedObjectContextBase<WaveConditionsInput>
     {
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="StabilityStoneCoverWaveConditionsCalculationInputContext"/> class.
+        /// Initializes a new instance of the <see cref="WaveConditionsInputContext"/> class.
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
-        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
+        /// <param name="foreshoreProfiles"></param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StabilityStoneCoverWaveConditionsCalculationInputContext(WaveConditionsInput wrappedData,
-                                                                        StabilityStoneCoverFailureMechanism failureMechanism,
-                                                                        IAssessmentSection assessmentSection) :
-                                                                            base(wrappedData, failureMechanism, assessmentSection) {}
+        public WaveConditionsInputContext(WaveConditionsInput wrappedData,
+                                          IEnumerable<ForeshoreProfile> foreshoreProfiles,
+                                          IAssessmentSection assessmentSection)
+            : base(wrappedData)
+        {
+            if (foreshoreProfiles == null)
+            {
+                throw new ArgumentNullException("foreshoreProfiles");
+            }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+
+            ForeshoreProfiles = foreshoreProfiles;
+            this.assessmentSection = assessmentSection;
+        }
 
         /// <summary>
         /// Gets the hydraulic boundary locations.
@@ -54,8 +69,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         {
             get
             {
-                return AssessmentSection.HydraulicBoundaryDatabase != null ?
-                           AssessmentSection.HydraulicBoundaryDatabase.Locations :
+                return assessmentSection.HydraulicBoundaryDatabase != null ?
+                           assessmentSection.HydraulicBoundaryDatabase.Locations :
                            Enumerable.Empty<HydraulicBoundaryLocation>();
             }
         }
@@ -63,12 +78,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// <summary>
         /// Gets the foreshore profiles.
         /// </summary>
-        public IEnumerable<ForeshoreProfile> ForeshoreProfiles
-        {
-            get
-            {
-                return FailureMechanism.ForeshoreProfiles;
-            }
-        }
+        public IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; private set; }
     }
 }

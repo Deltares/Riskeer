@@ -27,6 +27,7 @@ using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
@@ -54,7 +55,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                     StabilityStoneCoverFailureMechanismContext,
                     StabilityStoneCoverFailureMechanismContextProperties>(propertyInfos);
                 PluginTestHelper.AssertPropertyInfoDefined<
-                    StabilityStoneCoverWaveConditionsCalculationInputContext,
+                    WaveConditionsInputContext,
                     StabilityStoneCoverWaveConditionsCalculationInputContextProperties>(propertyInfos);
                 PluginTestHelper.AssertPropertyInfoDefined<
                     StabilityStoneCoverWaveConditionsOutput,
@@ -95,7 +96,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationInputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveConditionsInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyStabilityStoneCoverOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsOutput)));
