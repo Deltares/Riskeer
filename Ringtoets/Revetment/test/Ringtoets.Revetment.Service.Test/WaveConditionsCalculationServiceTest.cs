@@ -77,7 +77,7 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 FilePath = Path.Combine(testDataPath, "NonExisting.sqlite")
             };
-            
+
             // Call
             Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, database, name);
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Revetment.Service.Test
                 StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
             });
-            
+
             Assert.IsFalse(isValid);
         }
 
@@ -214,23 +214,15 @@ namespace Ringtoets.Revetment.Service.Test
                 FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
             };
 
-            ForeshoreProfile foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                     new[]
-                                                                     {
-                                                                         new Point2D(3.3, 4.4),
-                                                                         new Point2D(5.5, 6.6)
-                                                                     },
-                                                                     new BreakWater(BreakWaterType.Dam, breakWaterHeight),
-                                                                     new ForeshoreProfile.ConstructionProperties());
-
             var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
                     DesignWaterLevel = (RoundedDouble) 12.0
                 },
-                ForeshoreProfile = foreshoreProfile,
+                ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                 UseBreakWater = false,
+                UseForeshore = true,
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
                 StepSize = WaveConditionsInputStepSize.One,
@@ -267,22 +259,15 @@ namespace Ringtoets.Revetment.Service.Test
                 FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
             };
 
-            ForeshoreProfile foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                     new[]
-                                                                     {
-                                                                         new Point2D(3.3, 4.4),
-                                                                         new Point2D(5.5, 6.6)
-                                                                     },
-                                                                     new BreakWater(BreakWaterType.Dam, breakWaterHeight),
-                                                                     new ForeshoreProfile.ConstructionProperties());
-
             var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
                     DesignWaterLevel = (RoundedDouble) 12.0
                 },
-                ForeshoreProfile = foreshoreProfile,
+                ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
+                UseBreakWater = true,
+                UseForeshore = true,
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
                 StepSize = WaveConditionsInputStepSize.One,
@@ -358,22 +343,15 @@ namespace Ringtoets.Revetment.Service.Test
                 FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
             };
 
-            ForeshoreProfile foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                     new[]
-                                                                     {
-                                                                         new Point2D(3.3, 4.4),
-                                                                         new Point2D(5.5, 6.6)
-                                                                     },
-                                                                     new BreakWater(BreakWaterType.Dam, 10.0),
-                                                                     new ForeshoreProfile.ConstructionProperties());
-
             var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
                     DesignWaterLevel = (RoundedDouble) 12.0
                 },
-                ForeshoreProfile = foreshoreProfile,
+                ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, 10.0)),
+                UseBreakWater = true,
+                UseForeshore = true,
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
                 StepSize = WaveConditionsInputStepSize.One,
@@ -408,22 +386,15 @@ namespace Ringtoets.Revetment.Service.Test
                 FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
             };
 
-            ForeshoreProfile foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                     new[]
-                                                                     {
-                                                                         new Point2D(3.3, 4.4),
-                                                                         new Point2D(5.5, 6.6)
-                                                                     },
-                                                                     null,
-                                                                     new ForeshoreProfile.ConstructionProperties());
-
             var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
                     DesignWaterLevel = (RoundedDouble) 12.0
                 },
-                ForeshoreProfile = foreshoreProfile,
+                ForeshoreProfile = CreateForeshoreProfile(null),
+                UseBreakWater = false,
+                UseForeshore = true,
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
                 StepSize = WaveConditionsInputStepSize.One,
@@ -581,6 +552,18 @@ namespace Ringtoets.Revetment.Service.Test
             Assert.AreEqual(expectedInput.Section.CrossSectionNormal, actualInput.Section.CrossSectionNormal);
 
             HydraRingVariableAssert.AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
+        }
+
+        private static ForeshoreProfile CreateForeshoreProfile(BreakWater breakWater)
+        {
+            return new ForeshoreProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new Point2D(3.3, 4.4),
+                                            new Point2D(5.5, 6.6)
+                                        },
+                                        breakWater,
+                                        new ForeshoreProfile.ConstructionProperties());
         }
     }
 }
