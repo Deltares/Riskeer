@@ -165,4 +165,7 @@
   <data name="WaveHeightCalculationService_Name_Wave_height_for_location_0_" xml:space="preserve">
     <value>Golfhoogte voor locatie {0}</value>
   </data>
+  <data name="Validation_Invalid_BreakWaterHeight_value" xml:space="preserve">
+    <value>Er is geen geldige damhoogte ingevoerd.</value>
+  </data>
 </root>

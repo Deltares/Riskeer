@@ -175,6 +175,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen geldige damhoogte ingevoerd..
+        /// </summary>
+        public static string ValidationService_ValidateInput_invalid_BreakWaterHeight_value {
+            get {
+                return ResourceManager.GetString("Validation_Invalid_BreakWaterHeight_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; beëindigd om: {1}.
         /// </summary>
         public static string Validation_Subject_0_ended_Time_1_ {

@@ -152,6 +152,128 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        public void Validate_ValidInputAndUsesInvalidBreakWaterHeight_ReturnsFalse(double breakWaterHeight)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0),
+                                                  new RoughnessPoint[0],
+                                                  new Point2D[0],
+                                                  new BreakWater(BreakWaterType.Dam, breakWaterHeight),
+                                                  new DikeProfile.ConstructionProperties()),
+                    UseBreakWater = true,
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                Assert.AreEqual("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid); 
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        public void Validate_ValidInputAndDoesNotUseBreakWaterWithInvalidHeight_ReturnsTrue(double breakWaterHeight)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0),
+                                                  new RoughnessPoint[0],
+                                                  new Point2D[0],
+                                                  new BreakWater(BreakWaterType.Dam, breakWaterHeight),
+                                                  new DikeProfile.ConstructionProperties()),
+                    UseBreakWater = false,
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+            });
+            Assert.IsTrue(isValid);
+        }
+
+        [Test]
+        public void Validate_ValidInputWithValidBreakWaterHeight_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0),
+                                                  new RoughnessPoint[0],
+                                                  new Point2D[0],
+                                                  new BreakWater(BreakWaterType.Dam, 10.0),
+                                                  new DikeProfile.ConstructionProperties()),
+                    UseBreakWater = true,
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+            });
+            Assert.IsTrue(isValid);
+        }
+
+        [Test]
         public void Validate_ValidInput_ReturnsTrue()
         {
             // Setup

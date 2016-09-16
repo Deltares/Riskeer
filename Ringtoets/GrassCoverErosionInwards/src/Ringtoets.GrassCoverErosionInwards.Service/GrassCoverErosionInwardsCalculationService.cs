@@ -248,6 +248,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 validationResult.Add(validationProblem);
             }
 
+            if (inputParameters.UseBreakWater)
+            {
+                if (double.IsNaN(inputParameters.BreakWater.Height) || double.IsInfinity(inputParameters.BreakWater.Height))
+                {
+                    validationResult.Add(RingtoetsCommonServiceResources.ValidationService_ValidateInput_invalid_BreakWaterHeight_value);
+                }
+            }
+
             return validationResult.ToArray();
         }
     }
