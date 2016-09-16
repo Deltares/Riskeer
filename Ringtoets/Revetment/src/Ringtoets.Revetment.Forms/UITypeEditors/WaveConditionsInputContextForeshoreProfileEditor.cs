@@ -26,22 +26,22 @@ using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Forms.UITypeEditors
+namespace Ringtoets.Revetment.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
     /// <see cref="DikeProfile"/> from a collection.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditor :
-        SelectionEditor<StabilityStoneCoverWaveConditionsCalculationInputContextProperties, ForeshoreProfile>
+    public class WaveConditionsInputContextForeshoreProfileEditor :
+        SelectionEditor<WaveConditionsInputContextProperties, ForeshoreProfile>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditor"/>.
+        /// Creates a new instance of <see cref="WaveConditionsInputContextForeshoreProfileEditor"/>.
         /// </summary>
-        public StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditor()
+        public WaveConditionsInputContextForeshoreProfileEditor()
         {
             DisplayMember = TypeUtils.GetMemberName<ForeshoreProfile>(dp => dp.Name);
             NullItem = new ForeshoreProfile(new Point2D(0,0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties

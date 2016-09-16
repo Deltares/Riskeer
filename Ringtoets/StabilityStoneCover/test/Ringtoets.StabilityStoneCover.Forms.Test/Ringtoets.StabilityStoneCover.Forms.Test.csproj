@@ -76,7 +76,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="StabilityStoneCoverCalculationConfigurationHelperTest.cs" />
-    <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsCalculationInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyStabilityStoneCoverOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverFailureMechanismContextTreeNodeInfoTest.cs" />
@@ -85,8 +84,6 @@
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsCalculationInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityStoneCoverWaveConditionsOutputTreeNodeInfoTest.cs" />
-    <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditorTest.cs" />
-    <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="Views\StabilityStoneCoverResultViewTest.cs" />
     <Compile Include="Views\StabilityStoneCoverSectionResultRowTest.cs" />
   </ItemGroup>

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ForeshoreProfile_Description" xml:space="preserve">
+    <value>De schematisatie van het voorlandprofiel.</value>
+  </data>
+  <data name="ForeshoreProfile_DisplayName" xml:space="preserve">
+    <value>Voorlandprofiel</value>
+  </data>
   <data name="GeneralWaveConditionsInput_A_Description" xml:space="preserve">
     <value>De waarde van de parameter 'a' in de berekening voor golf condities.</value>
   </data>
@@ -134,6 +140,57 @@
   </data>
   <data name="GeneralWaveConditionsInput_C_DisplayName" xml:space="preserve">
     <value>c</value>
+  </data>
+  <data name="StabilityStoneCover_StoneRevetment_DisplayName" xml:space="preserve">
+    <value>Steen (blokken en zuilen)</value>
+  </data>
+  <data name="WaveConditionsInput_LowerBoundaryRevetment_Description" xml:space="preserve">
+    <value>Ondergrens van de bekleding.</value>
+  </data>
+  <data name="WaveConditionsInput_LowerBoundaryRevetment_DisplayName" xml:space="preserve">
+    <value>Ondergrens bekleding [m+NAP]</value>
+  </data>
+  <data name="WaveConditionsInput_LowerBoundaryWaterLevels_Description" xml:space="preserve">
+    <value>Een aangepaste ondergrens voor de waterstanden.</value>
+  </data>
+  <data name="WaveConditionsInput_LowerBoundaryWaterLevels_DisplayName" xml:space="preserve">
+    <value>Ondergrens waterstanden [m+NAP]</value>
+  </data>
+  <data name="WaveConditionsInput_RevetmentType_Description" xml:space="preserve">
+    <value>Het type van de bekleding waarvoor berekend wordt.</value>
+  </data>
+  <data name="WaveConditionsInput_RevetmentType_DisplayName" xml:space="preserve">
+    <value>Type bekleding</value>
+  </data>
+  <data name="WaveConditionsInput_StepSize_Description" xml:space="preserve">
+    <value>Grootte van de stappen waarmee de waterstanden in de berekening worden bepaald.</value>
+  </data>
+  <data name="WaveConditionsInput_StepSize_DisplayName" xml:space="preserve">
+    <value>Stapgrootte [m]</value>
+  </data>
+  <data name="WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description" xml:space="preserve">
+    <value>Bovengrens bepaald aan de hand van de waarde van het toetspeil op de geselecteerde hydraulische locatie.</value>
+  </data>
+  <data name="WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName" xml:space="preserve">
+    <value>Bovengrens op basis van toetspeil [m+NAP]</value>
+  </data>
+  <data name="WaveConditionsInput_UpperBoundaryRevetment_Description" xml:space="preserve">
+    <value>Bovengrens van de bekleding.</value>
+  </data>
+  <data name="WaveConditionsInput_UpperBoundaryRevetment_DisplayName" xml:space="preserve">
+    <value>Bovengrens bekleding [m+NAP]</value>
+  </data>
+  <data name="WaveConditionsInput_UpperBoundaryWaterLevels_Description" xml:space="preserve">
+    <value>Een aangepaste bovengrens voor de waterstanden.</value>
+  </data>
+  <data name="WaveConditionsInput_UpperBoundaryWaterLevels_DisplayName" xml:space="preserve">
+    <value>Bovengrens waterstanden [m+NAP]</value>
+  </data>
+  <data name="WaveConditionsInput_WaterLevels_Description" xml:space="preserve">
+    <value>De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte.</value>
+  </data>
+  <data name="WaveConditionsInput_WaterLevels_DisplayName" xml:space="preserve">
+    <value>Waterstanden in berekening [m+NAP]</value>
   </data>
   <data name="WaveConditionsOutput_WaterLevel_Description" xml:space="preserve">
     <value>De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend.</value>

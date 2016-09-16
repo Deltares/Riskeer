@@ -52,11 +52,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsCalculationInputContextProperties.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextProperties.cs" />
     <Compile Include="StabilityStoneCoverCalculationConfigurationHelper.cs" />
-    <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditor.cs" />
-    <Compile Include="UITypeEditors\StabilityStoneCoverWaveConditionsCalculationInputContextHydraulicBoundaryLocationEditor.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputProperties.cs" />
     <Compile Include="Views\StabilityStoneCoverResultView.cs">
       <SubType>UserControl</SubType>

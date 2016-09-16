@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
@@ -56,7 +57,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                     StabilityStoneCoverFailureMechanismContextProperties>(propertyInfos);
                 PluginTestHelper.AssertPropertyInfoDefined<
                     WaveConditionsInputContext,
-                    StabilityStoneCoverWaveConditionsCalculationInputContextProperties>(propertyInfos);
+                    WaveConditionsInputContextProperties>(propertyInfos);
                 PluginTestHelper.AssertPropertyInfoDefined<
                     StabilityStoneCoverWaveConditionsOutput,
                     StabilityStoneCoverWaveConditionsOutputProperties>(propertyInfos);

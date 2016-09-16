@@ -39,6 +39,7 @@ using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
@@ -63,7 +64,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismContextProperties>();
-            yield return new PropertyInfo<WaveConditionsInputContext, StabilityStoneCoverWaveConditionsCalculationInputContextProperties>();
+            yield return new PropertyInfo<WaveConditionsInputContext, WaveConditionsInputContextProperties>();
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutput, StabilityStoneCoverWaveConditionsOutputProperties>();
         }
 

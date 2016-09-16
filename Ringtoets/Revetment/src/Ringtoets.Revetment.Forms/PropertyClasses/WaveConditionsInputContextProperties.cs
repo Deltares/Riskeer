@@ -34,18 +34,16 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.Revetment.Forms.PropertyClasses;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Forms.Properties;
-using Ringtoets.StabilityStoneCover.Forms.UITypeEditors;
+using Ringtoets.Revetment.Forms.Properties;
+using Ringtoets.Revetment.Forms.UITypeEditors;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
+namespace Ringtoets.Revetment.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="WaveConditionsInputContext"/> for properties panel.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationInputContextProperties : ObjectProperties<WaveConditionsInputContext>
+    public class WaveConditionsInputContextProperties : ObjectProperties<WaveConditionsInputContext>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int assessmentLevelPropertyIndex = 1;
@@ -65,7 +63,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         private const int revetmentTypePropertyIndex = 14;
 
         [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
-        [Editor(typeof(StabilityStoneCoverWaveConditionsCalculationInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [Editor(typeof(WaveConditionsInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
@@ -96,8 +94,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         [PropertyOrder(upperBoundaryDesignWaterLevelPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_UpperBoundaryDesignWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_UpperBoundaryDesignWaterLevel_Description")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description")]
         public RoundedDouble UpperBoundaryDesignWaterLevel
         {
             get
@@ -108,8 +106,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         [PropertyOrder(upperBoundaryRevetmentPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_UpperBoundaryRevetment_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_UpperBoundaryRevetment_Description")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_UpperBoundaryRevetment_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsInput_UpperBoundaryRevetment_Description")]
         public RoundedDouble UpperBoundaryRevetment
         {
             get
@@ -125,8 +123,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         [PropertyOrder(lowerBoundaryRevetmentPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_LowerBoundaryRevetment_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_LowerBoundaryRevetment_Description")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_LowerBoundaryRevetment_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsInput_LowerBoundaryRevetment_Description")]
         public RoundedDouble LowerBoundaryRevetment
         {
             get
@@ -142,8 +140,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         [PropertyOrder(upperBoundaryWaterLevelsPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_UpperBoundaryWaterLevels_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_UpperBoundaryWaterLevels_Description")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_UpperBoundaryWaterLevels_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsInput_UpperBoundaryWaterLevels_Description")]
         public RoundedDouble UpperBoundaryWaterLevels
         {
             get
@@ -159,8 +157,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         [PropertyOrder(lowerBoundaryWaterLevelsPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_LowerBoundaryWaterLevels_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_LowerBoundaryWaterLevels_Description")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_LowerBoundaryWaterLevels_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsInput_LowerBoundaryWaterLevels_Description")]
         public RoundedDouble LowerBoundaryWaterLevels
         {
             get
@@ -177,8 +175,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         [PropertyOrder(stepSizePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_StepSize_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_StepSize_Description")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_StepSize_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsInput_StepSize_Description")]
         public WaveConditionsInputStepSize StepSize
         {
             get
@@ -195,8 +193,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         [PropertyOrder(waterLevelsPropertyIndex)]
         [TypeConverter(typeof(ExpandableReadOnlyArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_WaterLevels_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_WaterLevels_Description")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_WaterLevels_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsInput_WaterLevels_Description")]
         public RoundedDouble[] WaterLevels
         {
             get
@@ -206,7 +204,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         }
 
         [PropertyOrder(foreshoreProfilePropertyIndex)]
-        [Editor(typeof(StabilityStoneCoverWaveConditionsCalculationInputContextForeshoreProfileEditor), typeof(UITypeEditor))]
+        [Editor(typeof(WaveConditionsInputContextForeshoreProfileEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "ForeshoreProfile_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ForeshoreProfile_Description")]
@@ -289,8 +287,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         [PropertyOrder(revetmentTypePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_RevetmentType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsCalculationInput_RevetmentType_Description")]
+        [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_RevetmentType_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveConditionsInput_RevetmentType_Description")]
         public string RevetmentType
         {
             get

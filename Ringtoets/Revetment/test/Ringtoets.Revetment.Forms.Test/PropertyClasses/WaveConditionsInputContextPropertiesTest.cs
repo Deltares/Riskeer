@@ -36,13 +36,12 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
+namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationInputContextPropertiesTest
+    public class WaveConditionsInputContextPropertiesTest
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int assessmentLevelPropertyIndex = 1;
@@ -73,7 +72,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties();
+            var properties = new WaveConditionsInputContextProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext>>(properties);
@@ -86,14 +85,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
+            
             var input = new WaveConditionsInput();
             var inputContext = new WaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSectionMock);
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
+            var properties = new WaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -130,9 +127,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
+            
             var random = new Random(21);
             var assessmentLevel = (RoundedDouble)random.NextDouble();
             var lowerBoundaryRevetment = (RoundedDouble)random.NextDouble();
@@ -176,7 +171,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             }, assessmentSectionMock);
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
+            var properties = new WaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -204,9 +199,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
+            
             var random = new Random(21);
             var orientation = (RoundedDouble)random.NextDouble();
             var assessmentLevel = (RoundedDouble)random.NextDouble();
@@ -233,7 +226,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                 new BreakWater(BreakWaterType.Dam, (RoundedDouble)random.NextDouble()),
                 new ForeshoreProfile.ConstructionProperties());
 
-            var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
+            var properties = new WaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -274,8 +267,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            
             var input = new WaveConditionsInput();
             var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(0,0), 
@@ -293,7 +285,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             }, assessmentSectionMock);
 
             // Call
-            var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
+            var properties = new WaveConditionsInputContextProperties
             {
                 Data = inputContext
             };

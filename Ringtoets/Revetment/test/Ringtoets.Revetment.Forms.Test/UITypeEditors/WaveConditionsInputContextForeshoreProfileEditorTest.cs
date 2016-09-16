@@ -22,22 +22,21 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
-using Ringtoets.StabilityStoneCover.Forms.UITypeEditors;
+using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.Revetment.Forms.UITypeEditors;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
+namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsInputContextHydraulicBoundaryLocationEditorTest
+    public class WaveConditionsInputContextForeshoreProfileEditorTest
     {
         private MockRepository mockRepository;
 
@@ -51,24 +50,24 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
-
+            var foreshoreProfiles = new[]
+            {
+                new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
+                                     null, new ForeshoreProfile.ConstructionProperties())
+            };
+                
             var grassCoverErosionInwardsInput = new WaveConditionsInput();
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
-                                 .Return(hydraulicBoundaryDatabase)
-                                 .Repeat.AtLeastOnce();
             var inputContext = new WaveConditionsInputContext(grassCoverErosionInwardsInput,
-                                                              new ForeshoreProfile[0],
+                                                              foreshoreProfiles,
                                                               assessmentSectionMock);
 
-            var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
+            var properties = new WaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
-            var editor = new StabilityStoneCoverWaveConditionsCalculationInputContextHydraulicBoundaryLocationEditor();
+            var editor = new WaveConditionsInputContextForeshoreProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
             var serviceProviderMock = mockRepository.StrictMock<IServiceProvider>();
@@ -76,7 +75,8 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             var descriptorContextMock = mockRepository.StrictMock<ITypeDescriptorContext>();
             serviceProviderMock.Expect(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
             serviceMock.Expect(s => s.DropDownControl(null)).IgnoreArguments();
-            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
+            serviceMock.Expect(s => s.CloseDropDown());
+            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Times(3);
             mockRepository.ReplayAll();
 
             var someValue = new object();
@@ -85,7 +85,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
-            Assert.AreSame(someValue, result);
+            Assert.IsNull(result);
 
             mockRepository.VerifyAll();
         }
@@ -94,29 +94,23 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
+                                                        null, new ForeshoreProfile.ConstructionProperties());
             var waveConditionsInput = new WaveConditionsInput
             {
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                ForeshoreProfile = foreshoreProfile
             };
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
-                                 .Return(hydraulicBoundaryDatabase)
-                                 .Repeat.AtLeastOnce();
             var inputContext = new WaveConditionsInputContext(waveConditionsInput,
-                                                              new ForeshoreProfile[0],
+                                                              new[] { foreshoreProfile },
                                                               assessmentSectionMock);
 
-            var properties = new StabilityStoneCoverWaveConditionsCalculationInputContextProperties
+            var properties = new WaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
-            var editor = new StabilityStoneCoverWaveConditionsCalculationInputContextHydraulicBoundaryLocationEditor();
+            var editor = new WaveConditionsInputContextForeshoreProfileEditor();
             var propertyBag = new DynamicPropertyBag(properties);
 
             var serviceProviderMock = mockRepository.StrictMock<IServiceProvider>();
@@ -125,7 +119,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             serviceProviderMock.Expect(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
             serviceMock.Expect(s => s.DropDownControl(null)).IgnoreArguments();
             serviceMock.Expect(s => s.CloseDropDown()).IgnoreArguments();
-            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Twice();
+            descriptorContextMock.Expect(c => c.Instance).Return(propertyBag).Repeat.Times(3);
             mockRepository.ReplayAll();
 
             var someValue = new object();
@@ -134,14 +128,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.UITypeEditors
             var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation, result);
+            Assert.AreSame(foreshoreProfile, result);
 
             mockRepository.VerifyAll();
-        }
-
-        private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
-        {
-            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) {}
         }
     }
 }
