@@ -71,6 +71,8 @@ using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -279,6 +281,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
+            yield return new PropertyInfo<WaveConditionsInputContext, WaveConditionsInputContextProperties>();
         }
 
         /// <summary>

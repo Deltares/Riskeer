@@ -135,6 +135,10 @@
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
+      <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
+      <Name>Ringtoets.Revetment.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>

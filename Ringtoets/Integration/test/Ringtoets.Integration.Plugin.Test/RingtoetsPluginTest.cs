@@ -54,6 +54,8 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
+using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.Revetment.Forms.PropertyClasses;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -199,7 +201,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(12, propertyInfos.Length);
+                Assert.AreEqual(13, propertyInfos.Length);
 
                 PropertyInfo ringtoetsProjectProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <IProject, RingtoetsProjectProperties>(propertyInfos);
@@ -272,6 +274,13 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(foreshoreProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(foreshoreProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(foreshoreProfileProperties.AfterCreate);
+
+                PropertyInfo waveConditionsInputProperites = PluginTestHelper.AssertPropertyInfoDefined<
+                    WaveConditionsInputContext,
+                    WaveConditionsInputContextProperties>(propertyInfos);
+                Assert.IsNull(waveConditionsInputProperites.AdditionalDataCheck);
+                Assert.IsNull(waveConditionsInputProperites.GetObjectPropertiesData);
+                Assert.IsNull(waveConditionsInputProperites.AfterCreate);
             }
         }
 
