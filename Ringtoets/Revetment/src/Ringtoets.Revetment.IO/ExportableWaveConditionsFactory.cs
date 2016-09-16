@@ -85,8 +85,12 @@ namespace Ringtoets.Revetment.IO
         /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> used in the calculations.</param>
         /// <param name="output">The <see cref="WaveConditionsOutput"/> objects resulting from the calculations.</param>
         /// <returns>A container of <see cref="ExportableWaveConditions"/> objects.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c> or 
-        /// when <see cref="WaveConditionsOutput"/> is <c>null</c> for <paramref name="output"/>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when:
+        /// <list type="bullet">
+        /// <item>any parameter is <c>null</c></item>
+        /// <item>any item in <paramref name="output"/> is <c>null</c></item>
+        /// </list> 
+        /// </exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
         public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(string name, WaveConditionsInput waveConditionsInput, IEnumerable<WaveConditionsOutput> output)

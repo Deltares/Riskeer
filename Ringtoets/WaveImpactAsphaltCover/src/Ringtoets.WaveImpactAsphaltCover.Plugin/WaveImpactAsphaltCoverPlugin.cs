@@ -136,7 +136,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
             {
-                CreateFileExporter = (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(), filePath),
+                CreateFileExporter = (context, filePath) =>
+                {
+                    var calculations = context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+                    return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath);
+                },
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 FileFilter = RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter
             };

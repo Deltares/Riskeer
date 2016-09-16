@@ -19,13 +19,49 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Revetment.IO;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.IO.Test
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsExporterTest
     {
-         
+        private readonly string testFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.WaveImpactAsphaltCover.IO, "test.csv");
+
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Call
+            var waveConditionsExporter = new WaveImpactAsphaltCoverWaveConditionsExporter(new WaveImpactAsphaltCoverWaveConditionsCalculation[0], testFilePath);
+
+            // Assert
+            Assert.IsInstanceOf<WaveConditionsExporterBase>(waveConditionsExporter);
+        }
+
+        [Test]
+        public void Constructor_CalculationNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsExporter(null, testFilePath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FilePathNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsExporter(new WaveImpactAsphaltCoverWaveConditionsCalculation[0], null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("filePath", exception.ParamName);
+        }
     }
 }

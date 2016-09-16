@@ -108,5 +108,21 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsOutput)));
             }
         }
+
+        [Test]
+        public void GetExportInfos_ReturnsSupportedExportInfos()
+        {
+            // Setup
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            {
+                // Call
+                ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(2, exportInfos.Length);
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)));
+            }
+        }
     }
 }

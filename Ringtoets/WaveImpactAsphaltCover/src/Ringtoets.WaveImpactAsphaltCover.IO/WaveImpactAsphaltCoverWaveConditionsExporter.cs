@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.IO.Exceptions;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.IO;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -38,8 +39,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO
         /// </summary>
         /// <param name="calculations"></param>
         /// <param name="filePath">The file path to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or 
-        /// <paramref name="filePath"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the file could not be written.</exception>
         public WaveImpactAsphaltCoverWaveConditionsExporter(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, string filePath)

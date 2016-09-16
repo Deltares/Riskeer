@@ -102,6 +102,11 @@ namespace Core.Common.TestUtil
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Revetment", "test", "Ringtoets.Revetment.IO.Test");
             }
+
+            public static class WaveImpactAsphaltCover
+            {
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "WaveImpactAsphaltCover", "test", "Ringtoets.WaveImpactAsphaltCover.IO.Test");
+            }
         }
     }
 }
