@@ -49,7 +49,6 @@ using Ringtoets.WaveImpactAsphaltCover.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
-using WaveImpactAsphaltCoverFormsResources = Ringtoets.WaveImpactAsphaltCover.Forms.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 {
@@ -352,7 +351,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
                 return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
-        }
+            }
 
             string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
@@ -421,7 +420,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
                 WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters, database, calculation.Name);
-        }
+            }
         }
 
         private void CalculateAll(CalculationGroup group, WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
@@ -431,7 +430,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
         }
 
-        private void CalculateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations,
+        private void CalculateAll(WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations,
                                   WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                   IAssessmentSection assessmentSection)
         {

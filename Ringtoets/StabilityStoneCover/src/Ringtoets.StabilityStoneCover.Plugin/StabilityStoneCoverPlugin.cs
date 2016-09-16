@@ -289,7 +289,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip WaveConditionsCalculationGroupContextContextMenuStrip(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip WaveConditionsCalculationGroupContextContextMenuStrip(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData,
+                                                                                       object parentData,
+                                                                                       TreeViewControl treeViewControl)
         {
             var group = nodeData.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -339,15 +341,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, StabilityStoneCoverFailureMechanism failureMechanism)
+        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {

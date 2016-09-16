@@ -587,10 +587,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
@@ -653,8 +653,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 new CommentContext<ICommentable>(context.WrappedData),
                 new GrassCoverErosionOutwardsWaveConditionsCalculationInputContext(context.WrappedData.InputParameters,
-                                                                             context.FailureMechanism,
-                                                                             context.AssessmentSection)
+                                                                                   context.FailureMechanism,
+                                                                                   context.AssessmentSection)
             };
 
             if (context.WrappedData.HasOutput)
@@ -703,7 +703,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private void PerformCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
