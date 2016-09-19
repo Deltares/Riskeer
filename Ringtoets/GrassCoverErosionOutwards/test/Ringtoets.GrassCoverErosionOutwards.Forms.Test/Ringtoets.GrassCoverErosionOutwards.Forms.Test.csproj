@@ -91,7 +91,6 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsDesignWaterLevelLocationsContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\WaveConditionsInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />

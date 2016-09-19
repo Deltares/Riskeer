@@ -98,15 +98,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 WaveConditionsCalculationContextContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<WaveConditionsInputContext>
-            {
-                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<EmptyStabilityStoneCoverOutput>
             {
                 Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,

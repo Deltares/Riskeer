@@ -29,12 +29,12 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Integration.Plugin;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class WaveConditionsInputContextTreeNodeInfoTest
@@ -51,7 +51,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -80,12 +80,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
             var context = new WaveConditionsInputContext(input,
                                                          new ForeshoreProfile[0],
                                                          assessmentSection);
 
-            using (var plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -104,11 +104,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
             var context = new WaveConditionsInputContext(input,
                                                          new ForeshoreProfile[0],
                                                          assessmentSection);
-            using (var plugin = new StabilityStoneCoverPlugin())
+            using (var plugin = new RingtoetsPlugin())
             {
                 var info = GetInfo(plugin);
                 // Call
@@ -127,7 +127,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-                var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+                var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
                 var context = new WaveConditionsInputContext(input,
                                                              new ForeshoreProfile[0],
                                                              assessmentSection);
@@ -138,10 +138,12 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 var gui = mocks.StrictMock<IGui>();
                 gui.Expect(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
                 mocks.ReplayAll();
 
-                using (var plugin = new StabilityStoneCoverPlugin())
+                using (var plugin = new RingtoetsPlugin())
                 {
                     var info = GetInfo(plugin);
                     plugin.Gui = gui;
@@ -155,7 +157,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Assert expectancies are called in TearDown()
         }
 
-        private TreeNodeInfo GetInfo(StabilityStoneCoverPlugin plugin)
+        private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveConditionsInputContext));
         }

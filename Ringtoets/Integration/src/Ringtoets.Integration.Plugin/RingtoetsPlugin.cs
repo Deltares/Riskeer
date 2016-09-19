@@ -599,6 +599,15 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
+            yield return new TreeNodeInfo<WaveConditionsInputContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
