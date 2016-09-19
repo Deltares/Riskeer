@@ -32,7 +32,7 @@ using Ringtoets.Revetment.Forms.PropertyClasses;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsOutputPropertiesTest
+    public class GrassCoverErosionOutwardsWaveConditionsOutputPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties();
 
-            //Assert
+            // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsWaveConditionsOutput>>(properties);
             Assert.IsNull(properties.Data);
         }
@@ -62,13 +62,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
                 Data = grassCoverErosionOutwardsWaveConditionsOutput
             };
 
-            //Assert 
+            // Assert 
             CollectionAssert.AllItemsAreInstancesOfType(properties.Items, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(items.Length, properties.Items.Length);
-            Assert.AreEqual(items[0].WaterLevel, properties.Items[0].WaterLevel);
-            Assert.AreEqual(items[0].WaveHeight, properties.Items[0].WaveHeight);
-            Assert.AreEqual(items[0].WavePeakPeriod, properties.Items[0].WavePeakPeriod);
-            Assert.AreEqual(items[0].WaveAngle, properties.Items[0].WaveAngle);
+
+            var firstOutput = items[0];
+            var firstOutputProperties = properties.Items[0];
+            Assert.AreEqual(firstOutput.WaterLevel, firstOutputProperties.WaterLevel);
+            Assert.AreEqual(firstOutput.WaveHeight, firstOutputProperties.WaveHeight);
+            Assert.AreEqual(firstOutput.WavePeakPeriod, firstOutputProperties.WavePeakPeriod);
+            Assert.AreEqual(firstOutput.WaveAngle, firstOutputProperties.WaveAngle);
         }
 
         [Test]
@@ -79,10 +82,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             {
                 new WaveConditionsOutput(1, 0, 3, 5),
             };
-
-            const string expectedDisplayName = "Hydraulische randvoorwaarden";
-            const string expectedDescription = "Berekende resultaten voor de hydraulische randvoorwaarden.";
-            const string expectedCategory = "Resultaat";
 
             var grassCoverErosionOutwardsOutputProperties = new GrassCoverErosionOutwardsWaveConditionsOutput(items);
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties()
@@ -104,9 +103,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             Assert.IsNotNull(itemsProperty);
             Assert.IsTrue(itemsProperty.IsReadOnly);
             Assert.IsInstanceOf<ExpandableArrayConverter>(itemsProperty.Converter);
-            Assert.AreEqual(expectedCategory, itemsProperty.Category);
-            Assert.AreEqual(expectedDisplayName, itemsProperty.DisplayName);
-            Assert.AreEqual(expectedDescription, itemsProperty.Description);
+            Assert.AreEqual("Resultaat", itemsProperty.Category);
+            Assert.AreEqual("Hydraulische randvoorwaarden", itemsProperty.DisplayName);
+            Assert.AreEqual("Berekende resultaten voor de hydraulische randvoorwaarden.", itemsProperty.Description);
         }
     }
 }

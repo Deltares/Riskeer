@@ -43,7 +43,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Call
             var properties = new StabilityStoneCoverWaveConditionsOutputProperties();
 
-            //Assert
+            // Assert
             Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverWaveConditionsOutput>>(properties);
             Assert.IsNull(properties.Data);
         }
@@ -70,20 +70,26 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                 Data = stabilityStoneCoverWaveConditionsOutput
             };
 
-            //Assert 
+            // Assert 
             CollectionAssert.AllItemsAreInstancesOfType(properties.Blocks, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(blocksOutput.Length, properties.Blocks.Length);
-            Assert.AreEqual(blocksOutput[0].WaterLevel, properties.Blocks[0].WaterLevel);
-            Assert.AreEqual(blocksOutput[0].WaveHeight, properties.Blocks[0].WaveHeight);
-            Assert.AreEqual(blocksOutput[0].WavePeakPeriod, properties.Blocks[0].WavePeakPeriod);
-            Assert.AreEqual(blocksOutput[0].WaveAngle, properties.Blocks[0].WaveAngle);
+
+            var firstBlocksOutput = blocksOutput[0];
+            var firstBlocksProperties = properties.Blocks[0];
+            Assert.AreEqual(firstBlocksOutput.WaterLevel, firstBlocksProperties.WaterLevel);
+            Assert.AreEqual(firstBlocksOutput.WaveHeight, firstBlocksProperties.WaveHeight);
+            Assert.AreEqual(firstBlocksOutput.WavePeakPeriod, firstBlocksProperties.WavePeakPeriod);
+            Assert.AreEqual(firstBlocksOutput.WaveAngle, firstBlocksProperties.WaveAngle);
 
             CollectionAssert.AllItemsAreInstancesOfType(properties.Columns, typeof(WaveConditionsOutputProperties));
             Assert.AreEqual(columnsOutput.Length, properties.Columns.Length);
-            Assert.AreEqual(columnsOutput[0].WaterLevel, properties.Columns[0].WaterLevel);
-            Assert.AreEqual(columnsOutput[0].WaveHeight, properties.Columns[0].WaveHeight);
-            Assert.AreEqual(columnsOutput[0].WavePeakPeriod, properties.Columns[0].WavePeakPeriod);
-            Assert.AreEqual(columnsOutput[0].WaveAngle, properties.Columns[0].WaveAngle);
+
+            var firstColumnsOutput = columnsOutput[0];
+            var firstColumnsProperties = properties.Columns[0];
+            Assert.AreEqual(firstColumnsOutput.WaterLevel, firstColumnsProperties.WaterLevel);
+            Assert.AreEqual(firstColumnsOutput.WaveHeight, firstColumnsProperties.WaveHeight);
+            Assert.AreEqual(firstColumnsOutput.WavePeakPeriod, firstColumnsProperties.WavePeakPeriod);
+            Assert.AreEqual(firstColumnsOutput.WaveAngle, firstColumnsProperties.WaveAngle);
         }
 
         [Test]
@@ -99,12 +105,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             {
                 new WaveConditionsOutput(1, 0, 3, 5),
             };
-
-            const string expectedColumnDisplayName = "Zuilen";
-            const string expectedBlockDisplayName = "Blokken";
-            const string expectedColumnDescription = "Berekende resultaten voor zuilen.";
-            const string expectedBlockDescription = "Berekende resultaten voor blokken.";
-            const string expectedCategory = "Resultaat";
 
             var stabilityStoneCoverWaveConditionsOutput = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
             var properties = new StabilityStoneCoverWaveConditionsOutputProperties()
@@ -126,17 +126,17 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.IsNotNull(blocksProperty);
             Assert.IsTrue(blocksProperty.IsReadOnly);
             Assert.IsInstanceOf<ExpandableArrayConverter>(blocksProperty.Converter);
-            Assert.AreEqual(expectedCategory, blocksProperty.Category);
-            Assert.AreEqual(expectedBlockDisplayName, blocksProperty.DisplayName);
-            Assert.AreEqual(expectedBlockDescription, blocksProperty.Description);
+            Assert.AreEqual("Resultaat", blocksProperty.Category);
+            Assert.AreEqual("Blokken", blocksProperty.DisplayName);
+            Assert.AreEqual("Berekende resultaten voor blokken.", blocksProperty.Description);
 
             PropertyDescriptor columnsProperty = dynamicProperties[requiredColumnPropertyIndex];
             Assert.IsNotNull(columnsProperty);
             Assert.IsTrue(columnsProperty.IsReadOnly);
             Assert.IsInstanceOf<ExpandableArrayConverter>(columnsProperty.Converter);
-            Assert.AreEqual(expectedCategory, columnsProperty.Category);
-            Assert.AreEqual(expectedColumnDisplayName, columnsProperty.DisplayName);
-            Assert.AreEqual(expectedColumnDescription, columnsProperty.Description);
+            Assert.AreEqual("Resultaat", columnsProperty.Category);
+            Assert.AreEqual("Zuilen", columnsProperty.DisplayName);
+            Assert.AreEqual("Berekende resultaten voor zuilen.", columnsProperty.Description);
         }
     }
 }
