@@ -60,7 +60,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismContextProperties>();
+            yield return new PropertyInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismProperties>
+            {
+                GetObjectPropertiesData = context => context.WrappedData
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

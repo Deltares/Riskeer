@@ -23,61 +23,46 @@ using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverFailureMechanismContextPropertiesTest
+    public class WaveImpactAsphaltCoverFailureMechanismPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismContextProperties();
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<WaveImpactAsphaltCoverFailureMechanismContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>>(properties);
         }
 
         [Test]
         public void Data_SetNewWaveImpactAsphaltCoverFailureMechanismContext_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var properties = new WaveImpactAsphaltCoverFailureMechanismContextProperties();
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties();
 
             // Call
-            properties.Data = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            properties.Data = failureMechanism;
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void PropertyAttributes_ReturnExpectedValues()
         {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismContextProperties
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties
             {
-                Data = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection)
+                Data = new WaveImpactAsphaltCoverFailureMechanism()
             };
 
             // Assert

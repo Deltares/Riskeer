@@ -19,21 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
-using Ringtoets.Revetment.Forms.PropertyClasses;
-using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Forms.Properties;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsRevetmentFormsResources = Ringtoets.Revetment.Forms.Properties.Resources;
 
-namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
+namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StabilityStoneCoverFailureMechanismContext"/> for properties panel.
+    /// ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanismContextProperties : ObjectProperties<StabilityStoneCoverFailureMechanismContext>
+    public class WaveImpactAsphaltCoverFailureMechanismProperties : ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>
     {
         #region General
 
@@ -45,7 +44,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Name;
+                return data.Name;
             }
         }
 
@@ -57,7 +56,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Code;
+                return data.Code;
             }
         }
 
@@ -66,34 +65,38 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         #region Model settings
 
         [PropertyOrder(3)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditions_Blocks_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsFailureMechanism_Blocks_Description")]
-        public GeneralWaveConditionsInputProperties Blocks
+        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_A_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_A_Description")]
+        public RoundedDouble A
         {
             get
             {
-                return new GeneralWaveConditionsInputProperties
-                {
-                    Data = data.WrappedData.GeneralInput.GeneralBlocksWaveConditionsInput
-                };
+                return data.GeneralInput.A;
             }
         }
 
         [PropertyOrder(4)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityStoneCoverWaveConditions_Columns_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityStoneCoverWaveConditionsFailureMechanism_Columns_Description")]
-        public GeneralWaveConditionsInputProperties Columns
+        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_B_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_B_Description")]
+        public RoundedDouble B
         {
             get
             {
-                return new GeneralWaveConditionsInputProperties
-                {
-                    Data = data.WrappedData.GeneralInput.GeneralColumnsWaveConditionsInput
-                };
+                return data.GeneralInput.B;
+            }
+        }
+
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_C_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_C_Description")]
+        public RoundedDouble C
+        {
+            get
+            {
+                return data.GeneralInput.C;
             }
         }
 

@@ -52,7 +52,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\StabilityStoneCoverFailureMechanismProperties.cs" />
     <Compile Include="StabilityStoneCoverCalculationConfigurationHelper.cs" />
     <Compile Include="PropertyClasses\StabilityStoneCoverWaveConditionsOutputProperties.cs" />
     <Compile Include="Views\StabilityStoneCoverResultView.cs">

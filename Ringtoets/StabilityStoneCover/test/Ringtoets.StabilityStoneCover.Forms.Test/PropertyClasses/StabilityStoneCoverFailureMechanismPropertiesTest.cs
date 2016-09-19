@@ -32,54 +32,42 @@ using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StabilityStoneCoverFailureMechanismContextPropertiesTest
+    public class StabilityStoneCoverFailureMechanismPropertiesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new StabilityStoneCoverFailureMechanismContextProperties();
+            var properties = new StabilityStoneCoverFailureMechanismProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverFailureMechanismContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverFailureMechanism>>(properties);
         }
 
         [Test]
         public void Data_SetNewStabilityStoneCoverFailureMechanismContext_ReturnCorrectPropertyValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var properties = new StabilityStoneCoverFailureMechanismContextProperties();
+            var properties = new StabilityStoneCoverFailureMechanismProperties();
 
             // Call
-            properties.Data = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            properties.Data = failureMechanism;
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreSame(failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput, properties.Blocks.Data);
             Assert.AreSame(failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput, properties.Columns.Data);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void PropertyAttributes_ReturnExpectedValues()
         {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             // Call
-            var properties = new StabilityStoneCoverFailureMechanismContextProperties
+            var properties = new StabilityStoneCoverFailureMechanismProperties
             {
-                Data = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection)
+                Data = new StabilityStoneCoverFailureMechanism()
             };
 
             // Assert
@@ -115,7 +103,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual("Modelinstellingen", columnsProperty.Category);
             Assert.AreEqual("Zuilen", columnsProperty.DisplayName);
             Assert.AreEqual("De modelinstellingen voor het berekenen van golfcondities voor zuilen.", columnsProperty.Description);
-            mockRepository.VerifyAll();
         }
     }
 }
